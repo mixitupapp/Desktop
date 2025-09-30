@@ -234,6 +234,8 @@ namespace MixItUp.Base.ViewModel.Overlay
         private DelayedCountSemaphore delayedRefreshPreviewSemaphore = new DelayedCountSemaphore(100);
         private SemaphoreSlim refreshPreviewSemaphoreSlim = new SemaphoreSlim(1);
 
+        private bool isSaving = false;
+
         public OverlayWidgetV3ViewModel(OverlayItemV3Type type)
         {
             this.ID = Guid.NewGuid();
@@ -454,28 +456,36 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.SaveCommand = this.CreateCommand(async () =>
             {
-                Result result = this.Validate();
-                if (!result.Success)
+                this.isSaving = true;
+                try
                 {
-                    await DialogHelper.ShowFailedResults(new List<Result>() { result });
-                    return;
-                }
+                    Result result = this.Validate();
+                    if (!result.Success)
+                    {
+                        await DialogHelper.ShowFailedResults(new List<Result>() { result });
+                        return;
+                    }
 
-                if (this.testWidget != null)
+                    if (this.testWidget != null)
+                    {
+                        await this.testWidget.Disable();
+                        this.testWidget = null;
+                    }
+
+                    if (this.existingWidget != null)
+                    {
+                        await ServiceManager.Get<OverlayV3Service>().RemoveWidget(this.existingWidget);
+                    }
+
+                    this.newWidget = await this.GetWidget();
+                    await ServiceManager.Get<OverlayV3Service>().AddWidget(this.newWidget);
+
+                    this.OnCloseRequested(this, new EventArgs());
+                }
+                finally
                 {
-                    await this.testWidget.Disable();
-                    this.testWidget = null;
+                    this.isSaving = false;
                 }
-
-                if (this.existingWidget != null)
-                {
-                    await ServiceManager.Get<OverlayV3Service>().RemoveWidget(this.existingWidget);
-                }
-
-                this.newWidget = await this.GetWidget();
-                await ServiceManager.Get<OverlayV3Service>().AddWidget(this.newWidget);
-
-                this.OnCloseRequested(this, new EventArgs());
             });
 
             this.TestCommand = this.CreateCommand(async () =>
@@ -549,7 +559,7 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         private void RefreshWidgetPreview()
         {
-            if (this.loaded && this.Validate().Success)
+            if (this.loaded && this.Validate().Success && !this.isSaving)
             {
                 this.delayedRefreshPreviewSemaphore.Add();
             }
@@ -559,6 +569,7 @@ namespace MixItUp.Base.ViewModel.Overlay
         {
             Task.Run(async () =>
             {
+                if (this.isSaving) return; // Prevent preview refresh during save
                 await this.refreshPreviewSemaphoreSlim.WaitAsync();
 
                 await this.RemoveWidgetPreview();
