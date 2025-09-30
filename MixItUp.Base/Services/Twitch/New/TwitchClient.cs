@@ -112,6 +112,8 @@ namespace MixItUp.Base.Services.Twitch.New
 
         private int lastHypeTrainLevel = 1;
 
+        private bool isReconnecting = false;
+
         public TwitchClient()
         {
             this.webSocket = new AdvancedClientWebSocket();
@@ -1350,8 +1352,48 @@ namespace MixItUp.Base.Services.Twitch.New
         private void WebSocket_Disconnected(object sender, WebSocketCloseStatus closeStatus)
         {
             ChannelSession.DisconnectionOccurred(Resources.TwitchClient);
+            this.eventSubSubscriptionsConnected = false;
 
-            Task.Run(this.Reconnect);
+            if (!isReconnecting)
+            {
+                isReconnecting = true;
+                Task.Run(async () =>
+                {
+                    int delayInMs = 5000;
+                    try
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                var newWebSocket = new AdvancedClientWebSocket();
+                                newWebSocket.PacketSent += WebSocket_PacketSent;
+                                newWebSocket.PacketReceived += UserWebSocket_PacketReceived;
+                                newWebSocket.Disconnected += WebSocket_Disconnected;
+                                this.webSocket = newWebSocket;
+
+                                await this.Disconnect();
+                                var result = await this.Connect();
+                                if (result.Success && this.IsConnected)
+                                {
+                                    ChannelSession.ReconnectionOccurred(Resources.TwitchClient);
+                                    break;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(ex);
+                            }
+                            await Task.Delay(delayInMs);
+                            delayInMs = Math.Min(delayInMs * 2, 60000);
+                        }
+                    }
+                    finally
+                    {
+                        isReconnecting = false;
+                    }
+                });
+            }
         }
     }
 }
