@@ -69,9 +69,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.ad_break.begin", null },
 
-            { "channel.hype_train.begin", null },
-            { "channel.hype_train.progress", null },
-            { "channel.hype_train.end", null },
+            { "channel.hype_train.begin", "2" },
+            { "channel.hype_train.progress", "2" },
+            { "channel.hype_train.end", "2" },
 
             { "channel.charity_campaign.donate", null },
 
