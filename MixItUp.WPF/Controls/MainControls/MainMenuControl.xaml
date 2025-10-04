@@ -48,7 +48,7 @@
                         </MaterialDesign:DrawerHost.RightDrawerContent>
 
                         <DockPanel>
-                            <MaterialDesign:ColorZone Padding="16,8,16,8" MaterialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top">
+                            <MaterialDesign:ColorZone Padding="16,8,16,8" MaterialDesign:ElevationAssist.Elevation="Dp2" Mode="PrimaryMid" DockPanel.Dock="Top">
                                 <Grid>
                                     <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False" x:Name="MenuToggleButton" Checked="MenuToggleButton_Checked" Unchecked="MenuToggleButton_Unchecked" HorizontalAlignment="Left" />
 
@@ -80,7 +80,7 @@
             </Grid.RowDefinitions>
 
             <DockPanel Grid.Row="0">
-                <MaterialDesign:ColorZone Padding="16,8,16,8" MaterialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top">
+                <MaterialDesign:ColorZone Padding="16,8,16,8" MaterialDesign:ElevationAssist.Elevation="Dp2" Mode="PrimaryMid" DockPanel.Dock="Top">
                     <Grid>
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" FontSize="22">Settings</TextBlock>
 

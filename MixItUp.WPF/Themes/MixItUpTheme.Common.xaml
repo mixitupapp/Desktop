@@ -101,7 +101,7 @@
 
     <Style TargetType="{x:Type MaterialDesign:DialogHost}">
         <Setter Property="DialogMargin" Value="22" />
-        <Setter Property="MaterialDesign:ShadowAssist.ShadowDepth" Value="Depth5" />
+        <Setter Property="MaterialDesign:ElevationAssist.Elevation" Value="5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MaterialDesign:DialogHost">
@@ -228,7 +228,7 @@
                                           Placement="Center">
                             <MaterialDesign:Card x:Name="PART_PopupContentElement" 
                                         Margin="{TemplateBinding DialogMargin}"
-                                        MaterialDesign:ShadowAssist.ShadowDepth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(MaterialDesign:ShadowAssist.ShadowDepth)}"
+                                        MaterialDesign:ElevationAssist.Elevation="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(MaterialDesign:ElevationAssist.Elevation)}"
                                         UniformCornerRadius="4"
                                         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                                         TextElement.FontWeight="Regular"

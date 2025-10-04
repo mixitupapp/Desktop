@@ -43,7 +43,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <MaterialDesign:ColorZone Padding="16,8,16,8" MaterialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top" Height="60">
+            <MaterialDesign:ColorZone Padding="16,8,16,8" MaterialDesign:ElevationAssist.Elevation="Dp2" Mode="PrimaryMid" DockPanel.Dock="Top" Height="60">
                 <DockPanel>
                     <Grid HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
