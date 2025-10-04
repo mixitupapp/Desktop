@@ -44,7 +44,7 @@
 
             <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.OverlayEndpoints}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
-            <Border BorderBrush="{StaticResource PrimaryHueMidBrush}" Grid.Row="4" BorderThickness="1">
+            <Border BorderBrush="{StaticResource MaterialDesign.Brush.Primary}" Grid.Row="4" BorderThickness="1">
                 <ItemsControl ItemsSource="{Binding Endpoints}" HorizontalAlignment="Center">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

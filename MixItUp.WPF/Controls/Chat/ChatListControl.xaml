@@ -46,7 +46,7 @@
                     <Style TargetType="ListBoxItem">
                         <Style.Triggers>
                             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                <Setter Property="Background" Value="{StaticResource MaterialDesignTextFieldBoxHoverBackground}" />
+                                <Setter Property="Background" Value="{StaticResource MaterialDesign.Brush.TextBox.HoverBackground}" />
                             </Trigger>
                         </Style.Triggers>
 

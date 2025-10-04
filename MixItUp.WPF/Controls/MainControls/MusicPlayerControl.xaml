@@ -79,7 +79,7 @@
         </Grid>
 
         <Grid Grid.Row="4" Visibility="{Binding MusicLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border BorderBrush="{StaticResource PrimaryHueMidBrush}" Grid.Row="2" BorderThickness="1">
+            <Border BorderBrush="{StaticResource MaterialDesign.Brush.Primary}" Grid.Row="2" BorderThickness="1">
                 <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding Songs}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static resx:Resources.Title}" Binding="{Binding Title}" IsReadOnly="True" Width="*" />

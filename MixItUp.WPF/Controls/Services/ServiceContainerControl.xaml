@@ -32,8 +32,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" Text="{Binding Name}" />
-                <Rectangle Grid.Column="1" Fill="{StaticResource PrimaryHueMidBrush}" />
+                <TextBlock Grid.Column="0" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Name}" />
+                <Rectangle Grid.Column="1" Fill="{StaticResource MaterialDesign.Brush.Primary}" />
 
                 <MaterialDesign:PackIcon Grid.Column="2" Kind="CheckboxMarkedCircle" Foreground="White" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource ColoredBackgroundPackIcon}" />
 

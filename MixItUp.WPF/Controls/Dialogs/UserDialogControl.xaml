@@ -204,7 +204,7 @@
                     </Grid.ColumnDefinitions>
 
                     <MaterialDesign:PackIcon Grid.Column="0" Kind="Timer" Style="{StaticResource FlatPackIcon}" />
-                    <TextBlock Grid.Column="1" Foreground="{StaticResource MaterialDesignBody}" VerticalAlignment="Center">1</TextBlock>
+                    <TextBlock Grid.Column="1" Foreground="{StaticResource MaterialDesign.Brush.Foreground}" VerticalAlignment="Center">1</TextBlock>
                 </Grid>
             </Button>
 
@@ -219,7 +219,7 @@
                     </Grid.ColumnDefinitions>
 
                     <MaterialDesign:PackIcon Grid.Column="0" Kind="Timer" Style="{StaticResource FlatPackIcon}" />
-                    <TextBlock Grid.Column="1" Foreground="{StaticResource MaterialDesignBody}" VerticalAlignment="Center">5</TextBlock>
+                    <TextBlock Grid.Column="1" Foreground="{StaticResource MaterialDesign.Brush.Foreground}" VerticalAlignment="Center">5</TextBlock>
                 </Grid>
             </Button>
 

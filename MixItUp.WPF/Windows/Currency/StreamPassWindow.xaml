@@ -213,7 +213,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border Grid.Column="0" Style="{StaticResource DefaultBorder}" BorderBrush="{StaticResource MaterialDesignBody}" HorizontalAlignment="Center">
+                        <Border Grid.Column="0" Style="{StaticResource DefaultBorder}" BorderBrush="{StaticResource MaterialDesign.Brush.Foreground}" HorizontalAlignment="Center">
                             <ScrollViewer VerticalScrollBarVisibility="Visible" Height="200" Width="310">
                                 <DataGrid ItemsSource="{Binding CustomLevelUpCommands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Center">
                                     <DataGrid.Columns>

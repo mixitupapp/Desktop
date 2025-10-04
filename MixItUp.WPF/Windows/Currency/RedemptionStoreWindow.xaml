@@ -60,7 +60,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         
-                        <Border Grid.Row="0" Style="{StaticResource DefaultBorder}" BorderBrush="{StaticResource MaterialDesignBody}" HorizontalAlignment="Center">
+                        <Border Grid.Row="0" Style="{StaticResource DefaultBorder}" BorderBrush="{StaticResource MaterialDesign.Brush.Foreground}" HorizontalAlignment="Center">
                             <ScrollViewer VerticalScrollBarVisibility="Visible" Height="300" Width="700">
                                 <DataGrid ItemsSource="{Binding Products}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Center">
                                     <DataGrid.Columns>
