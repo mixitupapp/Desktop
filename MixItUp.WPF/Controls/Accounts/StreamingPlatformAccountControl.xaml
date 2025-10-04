@@ -86,7 +86,7 @@
                 <TextBlock Grid.Column="2" Text="{Binding BotAccountUsername}" VerticalAlignment="Center" />
             </Grid>
 
-            <Button Grid.Column="2" Grid.Row="2" Visibility="{Binding IsBotAccountLoginVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding BotAccountLogInCommand}" MinWidth="90" Width="210" Height="40" Background="{Binding ButtonColor}">
+            <Button Grid.Column="2" Grid.Row="2" Visibility="{Binding IsBotAccountLogInVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding BotAccountLogInCommand}" MinWidth="90" Width="210" Height="40" Background="{Binding ButtonColor}">
                 <Grid HorizontalAlignment="Center" Margin="-5,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
