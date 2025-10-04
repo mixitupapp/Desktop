@@ -1,6 +1,4 @@
-﻿using MixItUp.Base.Model.API;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -9,12 +7,18 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using MixItUp.Base.Model.API;
+using Newtonsoft.Json.Linq;
 
 namespace MixItUp.Installer
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public const string InstallerLogFileName = "MixItUp-Installer-Log.txt";
+        public static readonly string InstallerLogFilePath = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory ?? Environment.CurrentDirectory,
+            InstallerLogFileName
+        );
         public const string ShortcutFileName = "Mix It Up.lnk";
 
         public const string OldApplicationSettingsFileName = "ApplicationSettings.xml";
@@ -25,15 +29,36 @@ namespace MixItUp.Installer
 
         private static readonly Version minimumOSVersion = new Version(6, 2, 0, 0);
 
-        public static readonly string DefaultInstallDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MixItUp");
-        public static readonly string StartMenuDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Mix It Up");
+        public static readonly string DefaultInstallDirectory = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "MixItUp"
+        );
+        public static readonly string StartMenuDirectory = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.StartMenu),
+            "Mix It Up"
+        );
 
-        public static string InstallSettingsDirectory { get { return Path.Combine(MainWindowViewModel.InstallSettingsDirectory, "Settings"); } }
+        public static string InstallSettingsDirectory
+        {
+            get { return Path.Combine(MainWindowViewModel.InstallSettingsDirectory, "Settings"); }
+        }
 
         public static byte[] ZipArchiveData { get; set; }
 
-        public static string StartMenuShortCutFilePath { get { return Path.Combine(StartMenuDirectory, ShortcutFileName); } }
-        public static string DesktopShortCutFilePath { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), ShortcutFileName); } }
+        public static string StartMenuShortCutFilePath
+        {
+            get { return Path.Combine(StartMenuDirectory, ShortcutFileName); }
+        }
+        public static string DesktopShortCutFilePath
+        {
+            get
+            {
+                return Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                    ShortcutFileName
+                );
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -49,7 +74,10 @@ namespace MixItUp.Installer
         }
         private bool isUpdate;
 
-        public bool IsInstall { get { return !this.IsUpdate; } }
+        public bool IsInstall
+        {
+            get { return !this.IsUpdate; }
+        }
 
         public bool IsPreview
         {
@@ -162,7 +190,10 @@ namespace MixItUp.Installer
         }
         private string hyperlinkAddress;
 
-        public bool ShowHyperlinkAddress { get { return !string.IsNullOrEmpty(this.HyperlinkAddress); } }
+        public bool ShowHyperlinkAddress
+        {
+            get { return !string.IsNullOrEmpty(this.HyperlinkAddress); }
+        }
 
         private string installDirectory;
 
@@ -179,15 +210,25 @@ namespace MixItUp.Installer
             if (Directory.Exists(this.installDirectory))
             {
                 this.IsUpdate = true;
-                string applicationSettingsFilePath = Path.Combine(this.installDirectory, NewApplicationSettingsFileName);
+                string applicationSettingsFilePath = Path.Combine(
+                    this.installDirectory,
+                    NewApplicationSettingsFileName
+                );
                 if (!File.Exists(applicationSettingsFilePath))
                 {
-                    applicationSettingsFilePath = Path.Combine(this.installDirectory, OldApplicationSettingsFileName);
+                    applicationSettingsFilePath = Path.Combine(
+                        this.installDirectory,
+                        OldApplicationSettingsFileName
+                    );
                 }
 
                 if (File.Exists(applicationSettingsFilePath))
                 {
-                    using (StreamReader reader = new StreamReader(File.OpenRead(applicationSettingsFilePath)))
+                    using (
+                        StreamReader reader = new StreamReader(
+                            File.OpenRead(applicationSettingsFilePath)
+                        )
+                    )
                     {
                         JObject jobj = JObject.Parse(reader.ReadToEnd());
                         if (jobj != null)
@@ -215,7 +256,10 @@ namespace MixItUp.Installer
         {
             if (Environment.OSVersion.Version < minimumOSVersion)
             {
-                this.ShowError("Mix It Up only runs on Windows 8 & higher.", "If incorrect, please contact support@mixitupapp.com");
+                this.ShowError(
+                    "Mix It Up only runs on Windows 8 & higher.",
+                    "If incorrect, please contact support@mixitupapp.com"
+                );
                 return false;
             }
             return true;
@@ -224,14 +268,16 @@ namespace MixItUp.Installer
         public async Task<bool> Run()
         {
             bool result = false;
+            string failureMessage = null;
 
             await Task.Run(async () =>
             {
                 try
                 {
-                    File.Delete(InstallerLogFileName);
+                    this.ResetLogFile();
 
-                    if (!this.IsUpdate || await this.WaitForMixItUpToClose())
+                    bool canProceed = !this.IsUpdate || await this.WaitForMixItUpToClose();
+                    if (canProceed)
                     {
                         MixItUpUpdateModel update = await this.GetUpdateData();
 
@@ -264,24 +310,58 @@ namespace MixItUp.Installer
                             }
                         }
                     }
+                    else
+                    {
+                        failureMessage =
+                            "Please close Mix It Up (and MixItUp.AutoHoster) before running the installer.";
+                        this.WriteToLogFile(
+                            "Installation aborted because Mix It Up or MixItUp.AutoHoster was still running."
+                        );
+                    }
                 }
                 catch (Exception ex)
                 {
+                    if (failureMessage == null)
+                    {
+                        failureMessage =
+                            "An unexpected error occurred while running the installer.";
+                    }
                     this.WriteToLogFile(ex.ToString());
                 }
             });
 
+            if (
+                !string.IsNullOrEmpty(failureMessage)
+                && string.IsNullOrEmpty(this.SpecificErrorMessage)
+            )
+            {
+                this.SpecificErrorMessage = failureMessage;
+            }
+
             if (!result && !this.ErrorOccurred)
             {
+                if (!File.Exists(InstallerLogFilePath))
+                {
+                    this.WriteToLogFile("Installer exited without additional log details.");
+                }
+
+                Uri logUri = new Uri(InstallerLogFilePath);
+
                 if (!string.IsNullOrEmpty(this.SpecificErrorMessage))
                 {
-                    this.HyperlinkAddress = InstallerLogFileName;
-                    this.ShowError(string.Format("{0} file created:", InstallerLogFileName), this.SpecificErrorMessage);
+                    this.HyperlinkAddress = logUri.AbsoluteUri;
+                    this.ShowError(
+                        string.Format("{0} file created:", InstallerLogFileName),
+                        this.SpecificErrorMessage
+                    );
                 }
                 else
                 {
-                    this.HyperlinkAddress = InstallerLogFileName;
-                    this.ShowError(string.Format("{0} file created:", InstallerLogFileName), "Please visit our support Discord or send an email to support@mixitupapp.com with the contents of this file.");
+                    this.HyperlinkAddress = logUri.AbsoluteUri;
+                    this.ShowError(
+                        string.Format("{0} file created:", InstallerLogFileName),
+                        "Please visit our support Discord or send an email to support@mixitupapp.com with the contents of this file."
+                    );
                 }
             }
             return result;
@@ -295,7 +375,7 @@ namespace MixItUp.Installer
                 {
                     ProcessStartInfo processInfo = new ProcessStartInfo(StartMenuShortCutFilePath)
                     {
-                        UseShellExecute = true
+                        UseShellExecute = true,
                     };
                     Process.Start(processInfo);
                 }
@@ -303,7 +383,7 @@ namespace MixItUp.Installer
                 {
                     ProcessStartInfo processInfo = new ProcessStartInfo(DesktopShortCutFilePath)
                     {
-                        UseShellExecute = true
+                        UseShellExecute = true,
                     };
                     Process.Start(processInfo);
                 }
@@ -314,7 +394,7 @@ namespace MixItUp.Installer
             }
         }
 
-        protected void NotifyPropertyChanged([CallerMemberName]string name = "")
+        protected void NotifyPropertyChanged([CallerMemberName] string name = "")
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
@@ -330,7 +410,10 @@ namespace MixItUp.Installer
                 bool isRunning = false;
                 foreach (Process clsProcess in Process.GetProcesses())
                 {
-                    if (clsProcess.ProcessName.Equals(MixItUpProcessName) || clsProcess.ProcessName.Equals(AutoHosterProcessName))
+                    if (
+                        clsProcess.ProcessName.Equals(MixItUpProcessName)
+                        || clsProcess.ProcessName.Equals(AutoHosterProcessName)
+                    )
                     {
                         isRunning = true;
                         if (i == 5)
@@ -349,7 +432,10 @@ namespace MixItUp.Installer
             return false;
         }
 
-        private async Task<MixItUpUpdateModel> GetUpdateData(bool preview = false, bool test = false)
+        private async Task<MixItUpUpdateModel> GetUpdateData(
+            bool preview = false,
+            bool test = false
+        )
         {
             this.DisplayText1 = "Finding latest version...";
             this.IsOperationIndeterminate = true;
@@ -386,7 +472,9 @@ namespace MixItUp.Installer
                     }
                     else
                     {
-                        this.WriteToLogFile($"{url} - {response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
+                        this.WriteToLogFile(
+                            $"{url} - {response.StatusCode} - {await response.Content.ReadAsStringAsync()}"
+                        );
                     }
                 }
             }
@@ -398,7 +486,10 @@ namespace MixItUp.Installer
             return null;
         }
 
-        private async Task<MixItUpUpdateModel> GetUpdateDataV2(bool preview = false, bool test = false)
+        private async Task<MixItUpUpdateModel> GetUpdateDataV2(
+            bool preview = false,
+            bool test = false
+        )
         {
             this.DisplayText1 = "Finding latest version...";
             this.IsOperationIndeterminate = true;
@@ -414,7 +505,8 @@ namespace MixItUp.Installer
                 type = "test";
             }
 
-            string url = $"https://raw.githubusercontent.com/mixitupapp/mixitupdesktop-data/main/Updates/{type}.json";
+            string url =
+                $"https://raw.githubusercontent.com/mixitupapp/mixitupdesktop-data/main/Updates/{type}.json";
 
             for (int i = 0; i < 3; i++)
             {
@@ -437,7 +529,9 @@ namespace MixItUp.Installer
                         }
                         else
                         {
-                            this.WriteToLogFile($"{url} - {response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
+                            this.WriteToLogFile(
+                                $"{url} - {response.StatusCode} - {await response.Content.ReadAsStringAsync()}"
+                            );
                         }
                     }
                 }
@@ -538,17 +632,20 @@ namespace MixItUp.Installer
             }
             catch (UnauthorizedAccessException uaex)
             {
-                this.SpecificErrorMessage = "We were unable to update due to a file lock issue. Please try rebooting your PC and then running the update. You can also download and re-run our installer to update your installation.";
+                this.SpecificErrorMessage =
+                    "We were unable to update due to a file lock issue. Please try rebooting your PC and then running the update. You can also download and re-run our installer to update your installation.";
                 this.WriteToLogFile(uaex.ToString());
             }
             catch (IOException ioex)
             {
-                this.SpecificErrorMessage = "We were unable to update due to a file lock issue. Please try rebooting your PC and then running the update. You can also download and re-run our installer to update your installation.";
+                this.SpecificErrorMessage =
+                    "We were unable to update due to a file lock issue. Please try rebooting your PC and then running the update. You can also download and re-run our installer to update your installation.";
                 this.WriteToLogFile(ioex.ToString());
             }
             catch (WebException wex)
             {
-                this.SpecificErrorMessage = "We were unable to update due to a network issue, please try again later. If this issue persists, please try restarting your PC and/or router or flush the DNS cache on your computer.";
+                this.SpecificErrorMessage =
+                    "We were unable to update due to a network issue, please try again later. If this issue persists, please try restarting your PC and/or router or flush the DNS cache on your computer.";
                 this.WriteToLogFile(wex.ToString());
             }
             catch (Exception ex)
@@ -573,7 +670,10 @@ namespace MixItUp.Installer
 
                 if (Directory.Exists(StartMenuDirectory))
                 {
-                    string tempLinkFilePath = Path.Combine(DefaultInstallDirectory, "Mix It Up.link");
+                    string tempLinkFilePath = Path.Combine(
+                        DefaultInstallDirectory,
+                        "Mix It Up.link"
+                    );
                     if (File.Exists(tempLinkFilePath))
                     {
                         File.Copy(tempLinkFilePath, StartMenuShortCutFilePath, overwrite: true);
@@ -586,11 +686,17 @@ namespace MixItUp.Installer
                             File.Copy(tempLinkFilePath, DesktopShortCutFilePath, overwrite: true);
                             if (File.Exists(DesktopShortCutFilePath))
                             {
-                                this.ShowError("We were unable to create the Start Menu shortcut.", "You can instead use the Desktop shortcut to launch Mix It Up");
+                                this.ShowError(
+                                    "We were unable to create the Start Menu shortcut.",
+                                    "You can instead use the Desktop shortcut to launch Mix It Up"
+                                );
                             }
                             else
                             {
-                                this.ShowError("We were unable to create the Start Menu & Desktop shortcuts.", "Email support@mixitupapp.com to help diagnose this issue further.");
+                                this.ShowError(
+                                    "We were unable to create the Start Menu & Desktop shortcuts.",
+                                    "Email support@mixitupapp.com to help diagnose this issue further."
+                                );
                             }
                         }
                     }
@@ -611,9 +717,34 @@ namespace MixItUp.Installer
             this.DisplayText2 = message2;
         }
 
+        private void ResetLogFile()
+        {
+            try
+            {
+                if (File.Exists(InstallerLogFilePath))
+                {
+                    File.Delete(InstallerLogFilePath);
+                }
+            }
+            catch
+            {
+                // If we cannot delete the previous log, we'll append to it instead.
+            }
+        }
+
         private void WriteToLogFile(string text)
         {
-            File.AppendAllText(InstallerLogFileName, text + Environment.NewLine + Environment.NewLine);
+            try
+            {
+                File.AppendAllText(
+                    InstallerLogFilePath,
+                    string.Format("[{0:u}] {1}{2}{2}", DateTime.UtcNow, text, Environment.NewLine)
+                );
+            }
+            catch
+            {
+                // Swallow logging errors to avoid masking the original issue.
+            }
         }
     }
 }
