@@ -43,7 +43,7 @@ namespace MixItUp.Reporter
                 string logContents = null;
                 if (File.Exists(App.LogFilePath))
                 {
-                    logContents = File.ReadAllText(App.LogFilePath);
+                    logContents = await File.ReadAllTextAsync(App.LogFilePath);
                 }
 
                 await this.service.SendIssueReport(new IssueReportModel()
@@ -81,10 +81,10 @@ namespace MixItUp.Reporter
         private async Task ShowMessageDialog(string message)
         {
             object dialogObj = this.FindName("MDDialogHost");
-            if (dialogObj != null && dialogObj is DialogHost)
+            if (dialogObj is DialogHost dialogHost)
             {
                 this.IsEnabled = false;
-                await ((DialogHost)dialogObj).ShowDialog(new BasicDialogControl(message));
+                await dialogHost.ShowDialog(new BasicDialogControl(message));
                 this.IsEnabled = true;
             }
         }
