@@ -101,7 +101,7 @@
 
     <Style TargetType="{x:Type MaterialDesign:DialogHost}">
         <Setter Property="DialogMargin" Value="22" />
-        <Setter Property="MaterialDesign:ElevationAssist.Elevation" Value="5" />
+        <Setter Property="MaterialDesign:ElevationAssist.Elevation" Value="Dp6" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MaterialDesign:DialogHost">
