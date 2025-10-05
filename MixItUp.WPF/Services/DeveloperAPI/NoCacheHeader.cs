@@ -1,37 +1,49 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MixItUp.WPF.Services.DeveloperAPI
 {
-    public class NoCacheHeader : DelegatingHandler
+    public class NoCacheHeaderMiddleware
     {
         private const string MethodOverrideHeader = "X-HTTP-Method-Override";
+        private readonly RequestDelegate _next;
 
-        async protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        public NoCacheHeaderMiddleware(RequestDelegate next)
         {
-            if (request.Headers.Contains(MethodOverrideHeader))
+            _next = next;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            if (context.Request.Headers.ContainsKey(MethodOverrideHeader))
             {
-                request.Method = new HttpMethod(request.Headers.GetValues(MethodOverrideHeader).FirstOrDefault());
+                var methodOverride = context.Request.Headers[MethodOverrideHeader].FirstOrDefault();
+                if (!string.IsNullOrEmpty(methodOverride))
+                {
+                    context.Request.Method = methodOverride;
+                }
             }
 
-            HttpResponseMessage response = null;
-            if (!request.Method.Method.Equals("OPTIONS", StringComparison.InvariantCultureIgnoreCase))
+            if (context.Request.Method.Equals("OPTIONS", StringComparison.InvariantCultureIgnoreCase))
             {
-                response = await base.SendAsync(request, cancellationToken);
-            }
-            else
-            {
-                response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                context.Response.StatusCode = 200;
+
+                context.Response.Headers["Cache-Control"] = "no-cache";
+                context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                context.Response.Headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin";
+                context.Response.Headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS, PUT, PATCH, DELETE";
+
+                return;
             }
 
-            response.Headers.Add("Cache-Control", "no-cache");
-            response.Headers.Add("Access-Control-Allow-Origin", "*");
-            response.Headers.Add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin");
-            response.Headers.Add("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, PATCH, DELETE");
-            return response;
+            await _next(context);
+
+            context.Response.Headers["Cache-Control"] = "no-cache";
+            context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+            context.Response.Headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin";
+            context.Response.Headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS, PUT, PATCH, DELETE";
         }
     }
 }

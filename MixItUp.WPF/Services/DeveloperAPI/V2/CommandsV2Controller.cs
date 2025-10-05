@@ -7,16 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V2
 {
-    [RoutePrefix("api/v2/commands")]
-    public class CommandsV2Controller : ApiController
+    [Route("api/v2/commands")]
+    [ApiController]
+    public class CommandsV2Controller : ControllerBase
     {
         [Route("{commandId:guid}")]
         [HttpGet]
-        public IHttpActionResult GetCommandById(Guid commandId)
+        public IActionResult GetCommandById(Guid commandId)
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
@@ -26,9 +27,8 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
             return Ok(new GetSingleCommandResponse { Command = CommandMapper.ToCommand(command) });
         }
 
-        [Route]
         [HttpGet]
-        public IHttpActionResult GetAllCommands(int skip = 0, int pageSize = 25)
+        public IActionResult GetAllCommands(int skip = 0, int pageSize = 25)
         {
             var allCommands = GetAllCommands();
             var commands = allCommands
@@ -48,7 +48,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{commandId:guid}/state/{state:int}")]
         [HttpPatch]
-        public async Task<IHttpActionResult> UpdateCommandState(Guid commandId, CommandStateOptions state)
+        public async Task<IActionResult> UpdateCommandState(Guid commandId, CommandStateOptions state)
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
@@ -86,7 +86,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{commandId:guid}")]
         [HttpPost]
-        public async Task<IHttpActionResult> RunCommand(Guid commandId, [FromBody] RunCommandParameters parameters)
+        public async Task<IActionResult> RunCommand(Guid commandId, [FromBody] RunCommandParameters parameters)
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {

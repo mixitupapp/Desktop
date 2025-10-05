@@ -7,18 +7,15 @@ using MixItUp.Base.ViewModel.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
 {
-    [RoutePrefix("api/currency")]
-    public class CurrencyV1Controller : ApiController
+    [Route("api/currency")]
+    [ApiController]
+    public class CurrencyV1Controller : ControllerBase
     {
-        [Route]
         [HttpGet]
         public IEnumerable<Currency> Get()
         {
@@ -33,46 +30,30 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
 
         [Route("{currencyID:guid}")]
         [HttpGet]
-        public Currency Get(Guid currencyID)
+        public IActionResult Get(Guid currencyID)
         {
             if (!ChannelSession.Settings.Currency.ContainsKey(currencyID))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Currency ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." });
             }
 
-            return CurrencyFromUserCurrencyViewModel(ChannelSession.Settings.Currency[currencyID]);
+            return Ok(CurrencyFromUserCurrencyViewModel(ChannelSession.Settings.Currency[currencyID]));
         }
 
         [Route("{currencyID:guid}/top")]
         [HttpGet]
-        public async Task<IEnumerable<User>> Get(Guid currencyID, int count = 10)
+        public async Task<IActionResult> Get(Guid currencyID, int count = 10)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Currency.ContainsKey(currencyID))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Currency ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." });
             }
 
             if (count < 1)
             {
-                // TODO: Consider checking or a max # too? (100?)
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Count must be greater than 0." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Count too low"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = $"Count must be greater than 0." });
             }
 
             CurrencyModel currency = ChannelSession.Settings.Currency[currencyID];
@@ -87,33 +68,23 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
             {
                 currencyUserList.Add(UserV1Controller.UserFromUserDataViewModel(new UserV2ViewModel(currencyUser)));
             }
-            return currencyUserList;
+            return Ok(currencyUserList);
         }
 
         [Route("{currencyID:guid}/give")]
         [HttpPost]
-        public async Task<IEnumerable<User>> BulkGive(Guid currencyID, [FromBody] IEnumerable<GiveUserCurrency> giveDatas)
+        public async Task<IActionResult> BulkGive(Guid currencyID, [FromBody] IEnumerable<GiveUserCurrency> giveDatas)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Currency.ContainsKey(currencyID))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Currency ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." });
             }
 
             if (giveDatas == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to parse array of give data from POST body." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Invalid POST Body"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = $"Unable to parse array of give data from POST body." });
             }
 
             CurrencyModel currency = ChannelSession.Settings.Currency[currencyID];
@@ -129,7 +100,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 }
             }
 
-            return users;
+            return Ok(users);
         }
 
         public static CurrencyAmount CurrencyAmountFromUserCurrencyViewModel(CurrencyModel currency, int amount)

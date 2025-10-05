@@ -6,12 +6,13 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
 {
-    [RoutePrefix("api/chat")]
-    public class ChatV1Controller : ApiController
+    [Route("api/chat")]
+    [ApiController]
+    public class ChatV1Controller : ControllerBase
     {
         [Route("users")]
         [HttpGet]
@@ -30,43 +31,36 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
 
         [Route("message")]
         [HttpDelete]
-        public async Task ClearChat()
+        public async Task<IActionResult> ClearChat()
         {
             await ServiceManager.Get<ChatService>().ClearMessages(StreamingPlatformTypeEnum.All);
+            return Ok();
         }
 
         [Route("message")]
         [HttpPost]
-        public async Task SendChatMessage([FromBody]SendChatMessage chatMessage)
+        public async Task<IActionResult> SendChatMessage([FromBody] SendChatMessage chatMessage)
         {
             if (chatMessage == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = "Unable to parse chat message from POST body."}, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Invalid POST Body"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = "Unable to parse chat message from POST body." });
             }
 
             await ServiceManager.Get<ChatService>().SendMessage(chatMessage.Message, StreamingPlatformTypeEnum.All, chatMessage.SendAsStreamer);
+            return Ok();
         }
 
         [Route("whisper")]
         [HttpPost]
-        public async Task SendWhisper([FromBody]SendChatWhisper chatWhisper)
+        public async Task<IActionResult> SendWhisper([FromBody] SendChatWhisper chatWhisper)
         {
             if (chatWhisper == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new  ObjectContent<Error>(new Error { Message = "Unable to parse chat whisper from POST body." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Invalid POST Body"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = "Unable to parse chat whisper from POST body." });
             }
 
             await ServiceManager.Get<ChatService>().Whisper(chatWhisper.UserName, StreamingPlatformTypeEnum.All, chatWhisper.Message, chatWhisper.SendAsStreamer);
+            return Ok();
         }
     }
 }

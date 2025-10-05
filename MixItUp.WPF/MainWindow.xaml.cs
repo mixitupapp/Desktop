@@ -219,7 +219,7 @@ namespace MixItUp.WPF
             this.Close();
             if (this.restartApplication)
             {
-                ServiceManager.Get<IProcessService>().LaunchProgram(Application.ResourceAssembly.Location);
+                ServiceManager.Get<IProcessService>().LaunchProgram(Environment.ProcessPath);
             }
         }
 

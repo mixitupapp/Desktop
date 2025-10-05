@@ -4,16 +4,16 @@ using MixItUp.Base.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V2
 {
-    [RoutePrefix("api/v2/inventory")]
-    public class InventoryV2Controller : ApiController
+    [Route("api/v2/inventory")]
+    [ApiController]
+    public class InventoryV2Controller : ControllerBase
     {
-        [Route]
         [HttpGet]
-        public IHttpActionResult GetInventories()
+        public IActionResult GetInventories()
         {
             var inventories = new List<GetInventoryResponse>();
 
@@ -42,7 +42,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{inventoryId:guid}/{userId:guid}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetInventoryItemAmountsForUser(Guid inventoryId, Guid userId)
+        public async Task<IActionResult> GetInventoryItemAmountsForUser(Guid inventoryId, Guid userId)
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {
@@ -76,7 +76,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{inventoryId:guid}/{itemId:guid}/{userId:guid}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetInventoryItemAmountForUser(Guid inventoryId, Guid itemId, Guid userId)
+        public async Task<IActionResult> GetInventoryItemAmountForUser(Guid inventoryId, Guid itemId, Guid userId)
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {
@@ -101,7 +101,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{inventoryId:guid}/{itemId:guid}/{userId:guid}")]
         [HttpPatch]
-        public async Task<IHttpActionResult> UpdateInventoryItemAmountForUser(Guid inventoryId, Guid itemId, Guid userId, [FromBody] UpdateInventoryAmount updateAmount)
+        public async Task<IActionResult> UpdateInventoryItemAmountForUser(Guid inventoryId, Guid itemId, Guid userId, [FromBody] UpdateInventoryAmount updateAmount)
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {
@@ -135,7 +135,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{inventoryId:guid}/{itemId:guid}/{userId:guid}")]
         [HttpPut]
-        public async Task<IHttpActionResult> SetInventoryItemAmountForUser(Guid inventoryId, Guid itemId, Guid userId, [FromBody] UpdateInventoryAmount updateAmount)
+        public async Task<IActionResult> SetInventoryItemAmountForUser(Guid inventoryId, Guid itemId, Guid userId, [FromBody] UpdateInventoryAmount updateAmount)
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {

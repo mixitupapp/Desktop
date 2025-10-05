@@ -3,16 +3,17 @@ using MixItUp.Base.Model;
 using MixItUp.Base.Services;
 using System;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V2
 {
-    [RoutePrefix("api/v2/chat")]
-    public class ChatV2Controller : ApiController
+    [Route("api/v2/chat")]
+    [ApiController]
+    public class ChatV2Controller : ControllerBase
     {
         [Route("message")]
         [HttpPost]
-        public async Task<IHttpActionResult> SendChatMessage([FromBody] SendChatMessage chatMessage)
+        public async Task<IActionResult> SendChatMessage([FromBody] SendChatMessage chatMessage)
         {
             if (chatMessage == null)
             {
@@ -32,7 +33,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("clear")]
         [HttpPost]
-        public async Task<IHttpActionResult> ClearChat()
+        public async Task<IActionResult> ClearChat()
         {
             await ServiceManager.Get<ChatService>().ClearMessages(StreamingPlatformTypeEnum.All);
             return Ok();
