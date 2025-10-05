@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
         xmlns:util="clr-namespace:MixItUp.WPF.Util"
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:System="clr-namespace:System;assembly=System.Runtime"
         xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
         xmlns:CommandsControls="clr-namespace:MixItUp.WPF.Controls.Commands"
         xmlns:RequirementsControls="clr-namespace:MixItUp.WPF.Controls.Requirements"
