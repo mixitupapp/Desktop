@@ -41,10 +41,12 @@ namespace MixItUp.Installer
             AutoHosterProcessName,
         };
 
-        private const string LauncherProductSlug = "mixitup-desktop";
-        private const string LauncherPlatform = "windows-x64";
+    private const string LauncherProductSlug = "mixitup-desktop";
+    private const string LauncherPlatform = "windows-x64";
+    private const string AppProductSlug = "mixitup-desktop";
+    private const string AppPlatform = "windows-x64";
 
-        private sealed class LauncherManifestModel
+        private sealed class UpdateManifestModel
         {
             [JsonProperty("schemaVersion")]
             public string SchemaVersion { get; set; }
@@ -65,19 +67,19 @@ namespace MixItUp.Installer
             public string ReleaseType { get; set; }
 
             [JsonProperty("platforms")]
-            public List<LauncherPlatformModel> Platforms { get; set; }
+            public List<UpdatePlatformModel> Platforms { get; set; }
         }
 
-        private sealed class LauncherPlatformModel
+        private sealed class UpdatePlatformModel
         {
             [JsonProperty("platform")]
             public string Platform { get; set; }
 
             [JsonProperty("files")]
-            public List<LauncherFileModel> Files { get; set; }
+            public List<UpdateFileModel> Files { get; set; }
         }
 
-        private sealed class LauncherFileModel
+        private sealed class UpdateFileModel
         {
             [JsonProperty("name")]
             public string Name { get; set; }
@@ -98,13 +100,13 @@ namespace MixItUp.Installer
             public string Architecture { get; set; }
         }
 
-        private sealed class LauncherPackageInfo
+        private sealed class UpdatePackageInfo
         {
-            public LauncherPackageInfo(
+            public UpdatePackageInfo(
                 string version,
                 string channel,
                 string platform,
-                LauncherFileModel file,
+                UpdateFileModel file,
                 Uri downloadUri
             )
             {
@@ -121,7 +123,7 @@ namespace MixItUp.Installer
 
             public string Platform { get; }
 
-            public LauncherFileModel File { get; }
+            public UpdateFileModel File { get; }
 
             public Uri DownloadUri { get; }
         }
@@ -1828,7 +1830,7 @@ namespace MixItUp.Installer
             this.StepLauncherFetchPending = false;
             this.StepLauncherFetchInProgress = true;
 
-            LauncherPackageInfo launcherPackage = await this.ResolveLauncherPackageAsync();
+            UpdatePackageInfo launcherPackage = await this.ResolveLauncherPackageAsync();
             if (launcherPackage == null)
             {
                 this.StepLauncherFetchInProgress = false;
@@ -1879,10 +1881,61 @@ namespace MixItUp.Installer
             this.DownloadPercent = 0;
             this.IsOperationIndeterminate = true;
 
+            this.StepAppFetchPending = false;
+            this.StepAppFetchInProgress = true;
+
+            UpdatePackageInfo appPackage = await this.ResolveAppPackageAsync();
+            if (appPackage == null)
+            {
+                this.StepAppFetchInProgress = false;
+                return false;
+            }
+
+            IProgress<int> appProgress = new Progress<int>(percent =>
+            {
+                this.OperationProgress = percent;
+                this.DownloadPercent = percent;
+            });
+
+            byte[] appArchive = await this.DownloadAppArchiveAsync(appPackage, appProgress);
+
+            if (appArchive == null || appArchive.Length == 0)
+            {
+                this.StepAppFetchInProgress = false;
+                return false;
+            }
+
+            this.StepAppFetchInProgress = false;
+            this.StepAppFetchDone = true;
+
+            this.StepAppExtractPending = false;
+            this.StepAppExtractInProgress = true;
+
+            bool appInstalled = this.InstallAppArchive(appArchive, appPackage);
+
+            if (appArchive != null)
+            {
+                Array.Clear(appArchive, 0, appArchive.Length);
+            }
+            appArchive = null;
+
+            if (!appInstalled)
+            {
+                this.StepAppExtractInProgress = false;
+                return false;
+            }
+
+            this.StepAppExtractInProgress = false;
+            this.StepAppExtractDone = true;
+
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+            this.IsOperationIndeterminate = true;
+
             return await this.RunLegacyPipelineAsync();
         }
 
-        private string ResolveLauncherChannel()
+        private string ResolveUpdateChannel()
         {
             if (this.IsTest)
             {
@@ -1897,19 +1950,19 @@ namespace MixItUp.Installer
             return "production";
         }
 
-        private string BuildLauncherManifestUrl(string channel)
+        private string BuildManifestUrl(string product, string platform, string channel)
         {
             string trimmedBase = (this.UpdateServerBaseUrl ?? string.Empty).TrimEnd('/');
             return string.Format(
                 "{0}/updates/{1}/{2}/{3}/latest",
                 trimmedBase,
-                LauncherProductSlug,
-                LauncherPlatform,
+                product,
+                platform,
                 channel
             );
         }
 
-        private Uri BuildLauncherDownloadUri(string fileUrl)
+        private Uri BuildDownloadUri(string fileUrl)
         {
             if (string.IsNullOrWhiteSpace(fileUrl))
             {
@@ -1936,10 +1989,10 @@ namespace MixItUp.Installer
             return null;
         }
 
-        private async Task<LauncherPackageInfo> ResolveLauncherPackageAsync()
+    private async Task<UpdatePackageInfo> ResolveLauncherPackageAsync()
         {
-            string channel = this.ResolveLauncherChannel();
-            string manifestUrl = this.BuildLauncherManifestUrl(channel);
+            string channel = this.ResolveUpdateChannel();
+            string manifestUrl = this.BuildManifestUrl(LauncherProductSlug, LauncherPlatform, channel);
 
             this.DisplayText1 = "Checking for launcher updates...";
             this.DisplayText2 = string.Empty;
@@ -1968,8 +2021,8 @@ namespace MixItUp.Installer
                     }
 
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    LauncherManifestModel manifest =
-                        JsonConvert.DeserializeObject<LauncherManifestModel>(responseBody);
+                    UpdateManifestModel manifest =
+                        JsonConvert.DeserializeObject<UpdateManifestModel>(responseBody);
 
                     if (manifest == null)
                     {
@@ -1981,7 +2034,7 @@ namespace MixItUp.Installer
                         return null;
                     }
 
-                    LauncherPlatformModel platform = manifest.Platforms?.FirstOrDefault(p =>
+                    UpdatePlatformModel platform = manifest.Platforms?.FirstOrDefault(p =>
                         string.Equals(
                             p.Platform,
                             LauncherPlatform,
@@ -2001,7 +2054,7 @@ namespace MixItUp.Installer
                         return null;
                     }
 
-                    LauncherFileModel file =
+                    UpdateFileModel file =
                         platform.Files?.FirstOrDefault(f =>
                             string.Equals(
                                 f.ContentType,
@@ -2022,7 +2075,7 @@ namespace MixItUp.Installer
                         return null;
                     }
 
-                    Uri downloadUri = this.BuildLauncherDownloadUri(file.Url);
+                    Uri downloadUri = this.BuildDownloadUri(file.Url);
                     if (downloadUri == null)
                     {
                         this.WriteToLogFile(
@@ -2046,7 +2099,142 @@ namespace MixItUp.Installer
                         ? string.Empty
                         : $"Version {manifest.Version}";
 
-                    return new LauncherPackageInfo(
+                    return new UpdatePackageInfo(
+                        manifest.Version ?? string.Empty,
+                        manifest.Channel ?? channel,
+                        platform.Platform,
+                        file,
+                        downloadUri
+                    );
+                }
+            }
+            catch (Exception ex)
+                when (ex is HttpRequestException
+                    || ex is TaskCanceledException
+                    || ex is JsonException
+                )
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Download Failed",
+                    "Couldn't reach the update server. Check connection and try again."
+                );
+            }
+
+            return null;
+        }
+
+        private async Task<UpdatePackageInfo> ResolveAppPackageAsync()
+        {
+            string channel = this.ResolveUpdateChannel();
+            string manifestUrl = this.BuildManifestUrl(AppProductSlug, AppPlatform, channel);
+
+            this.DisplayText1 = "Checking for application updates...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+
+            this.LogActivity($"Requesting application manifest from {manifestUrl}");
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(15);
+
+                    HttpResponseMessage response = await client.GetAsync(manifestUrl);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        string errorBody = await response.Content.ReadAsStringAsync();
+                        this.WriteToLogFile($"{manifestUrl} - {response.StatusCode} - {errorBody}");
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    UpdateManifestModel manifest =
+                        JsonConvert.DeserializeObject<UpdateManifestModel>(responseBody);
+
+                    if (manifest == null)
+                    {
+                        this.WriteToLogFile("Application manifest response was empty or invalid.");
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    UpdatePlatformModel platform = manifest.Platforms?.FirstOrDefault(p =>
+                        string.Equals(
+                            p.Platform,
+                            AppPlatform,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    );
+
+                    if (platform == null)
+                    {
+                        this.WriteToLogFile(
+                            $"Application manifest missing expected platform '{AppPlatform}'."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    UpdateFileModel file =
+                        platform.Files?.FirstOrDefault(f =>
+                            string.Equals(
+                                f.ContentType,
+                                "application/zip",
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        ) ?? platform.Files?.FirstOrDefault(f => !string.IsNullOrWhiteSpace(f.Url));
+
+                    if (file == null || string.IsNullOrWhiteSpace(file.Url))
+                    {
+                        this.WriteToLogFile(
+                            "Application manifest did not include a valid download file."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    Uri downloadUri = this.BuildDownloadUri(file.Url);
+                    if (downloadUri == null)
+                    {
+                        this.WriteToLogFile(
+                            $"Unable to construct application download URL from '{file.Url}'."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    string sanitizedUrl = downloadUri.GetLeftPart(UriPartial.Path);
+                    this.LogActivity(
+                        $"Application manifest resolved version {manifest.Version} ({channel})."
+                    );
+                    this.LogActivity($"Application download endpoint: {sanitizedUrl}");
+
+                    this.LatestVersion = manifest.Version ?? string.Empty;
+                    this.DisplayText2 = string.IsNullOrEmpty(manifest.Version)
+                        ? string.Empty
+                        : $"Version {manifest.Version}";
+
+                    return new UpdatePackageInfo(
                         manifest.Version ?? string.Empty,
                         manifest.Channel ?? channel,
                         platform.Platform,
@@ -2072,7 +2260,7 @@ namespace MixItUp.Installer
         }
 
         private async Task<byte[]> DownloadLauncherArchiveAsync(
-            LauncherPackageInfo package,
+            UpdatePackageInfo package,
             IProgress<int> progress
         )
         {
@@ -2169,7 +2357,104 @@ namespace MixItUp.Installer
             return null;
         }
 
-        private bool InstallLauncherArchive(byte[] archiveBytes, LauncherPackageInfo package)
+        private async Task<byte[]> DownloadAppArchiveAsync(
+            UpdatePackageInfo package,
+            IProgress<int> progress
+        )
+        {
+            if (package == null)
+            {
+                return null;
+            }
+
+            this.DisplayText1 = "Downloading application payload...";
+            this.DisplayText2 = string.IsNullOrEmpty(package.Version)
+                ? string.Empty
+                : $"Version {package.Version}";
+            this.IsOperationIndeterminate = false;
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+
+            string sanitizedUrl = package.DownloadUri.GetLeftPart(UriPartial.Path);
+            this.LogActivity($"Starting application download from {sanitizedUrl}");
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromMinutes(10);
+
+                    using (
+                        HttpResponseMessage response = await client.GetAsync(
+                            package.DownloadUri,
+                            HttpCompletionOption.ResponseHeadersRead
+                        )
+                    )
+                    {
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            string errorBody = await response.Content.ReadAsStringAsync();
+                            this.WriteToLogFile(
+                                $"{package.DownloadUri} - {response.StatusCode} - {errorBody}"
+                            );
+                            this.ShowError(
+                                "Download Failed",
+                                "Couldn't reach the update server. Check connection and try again."
+                            );
+                            return null;
+                        }
+
+                        long? contentLength = response.Content.Headers.ContentLength;
+                        this.IsOperationIndeterminate = !contentLength.HasValue;
+                        progress?.Report(0);
+
+                        using (Stream contentStream = await response.Content.ReadAsStreamAsync())
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            byte[] buffer = new byte[81920];
+                            long totalRead = 0;
+                            int read;
+                            while (
+                                (read = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0
+                            )
+                            {
+                                memoryStream.Write(buffer, 0, read);
+                                totalRead += read;
+
+                                if (contentLength.HasValue && contentLength.Value > 0)
+                                {
+                                    int percent = (int)
+                                        Math.Min(100, (totalRead * 100) / contentLength.Value);
+                                    progress?.Report(percent);
+                                }
+                            }
+
+                            progress?.Report(100);
+
+                            double sizeInMb = memoryStream.Length / 1024d / 1024d;
+                            this.LogActivity(
+                                $"Application download complete ({sizeInMb:F2} MB received)."
+                            );
+
+                            return memoryStream.ToArray();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+                when (ex is HttpRequestException || ex is TaskCanceledException || ex is IOException)
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Download Failed",
+                    "Couldn't reach the update server. Check connection and try again."
+                );
+            }
+
+            return null;
+        }
+
+    private bool InstallLauncherArchive(byte[] archiveBytes, UpdatePackageInfo package)
         {
             this.DisplayText1 = "Installing launcher...";
             this.DisplayText2 = string.IsNullOrEmpty(package?.Version)
@@ -2307,6 +2592,336 @@ namespace MixItUp.Installer
             }
 
             return false;
+        }
+
+        private bool InstallAppArchive(byte[] archiveBytes, UpdatePackageInfo package)
+        {
+            this.DisplayText1 = "Extracting application payload...";
+            this.DisplayText2 = string.IsNullOrEmpty(package?.Version)
+                ? string.Empty
+                : $"Version {package.Version}";
+            this.IsOperationIndeterminate = false;
+            this.OperationProgress = 0;
+
+            if (archiveBytes == null || archiveBytes.Length == 0)
+            {
+                this.WriteToLogFile("Application archive data was empty.");
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded application payload is invalid. Please try again."
+                );
+                return false;
+            }
+
+            string version = package?.Version;
+            if (string.IsNullOrWhiteSpace(version))
+            {
+                version = this.LatestVersion;
+            }
+
+            if (string.IsNullOrWhiteSpace(version))
+            {
+                this.WriteToLogFile("Application manifest did not include a version identifier.");
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded application payload is invalid. Please try again."
+                );
+                return false;
+            }
+
+            string versionRoot = this.VersionedAppDirRoot;
+            if (string.IsNullOrWhiteSpace(versionRoot))
+            {
+                versionRoot = Path.Combine(this.AppRoot ?? DefaultInstallDirectory, "app");
+                this.VersionedAppDirRoot = versionRoot;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(versionRoot);
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "We couldn't prepare the application directory. Check permissions and try again."
+                );
+                return false;
+            }
+
+            string versionDirectory = Path.Combine(versionRoot, version);
+            string normalizedVersionDirectory;
+            try
+            {
+                Directory.CreateDirectory(versionDirectory);
+                normalizedVersionDirectory = Path.GetFullPath(versionDirectory);
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "We couldn't prepare the versioned application directory. Check permissions and try again."
+                );
+                return false;
+            }
+
+            try
+            {
+                using (MemoryStream zipStream = new MemoryStream(archiveBytes))
+                using (ZipArchive archive = new ZipArchive(zipStream))
+                {
+                    if (archive.Entries.Count == 0)
+                    {
+                        this.WriteToLogFile("Application archive contained no entries.");
+                        this.ShowError(
+                            "Package Corrupt",
+                            "The downloaded application payload is invalid. Please try again."
+                        );
+                        return false;
+                    }
+
+                    double processed = 0;
+                    double total = archive.Entries.Count;
+
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        string entryPath = entry.FullName ?? string.Empty;
+                        if (entryPath.StartsWith("Mix It Up/", StringComparison.OrdinalIgnoreCase))
+                        {
+                            entryPath = entryPath.Substring("Mix It Up/".Length);
+                        }
+
+                        entryPath = entryPath.Replace('/', Path.DirectorySeparatorChar);
+
+                        if (string.IsNullOrWhiteSpace(entryPath))
+                        {
+                            processed++;
+                            continue;
+                        }
+
+                        string destinationPath = Path.GetFullPath(
+                            Path.Combine(normalizedVersionDirectory, entryPath)
+                        );
+
+                        if (
+                            !destinationPath.StartsWith(
+                                normalizedVersionDirectory,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
+                        {
+                            this.WriteToLogFile(
+                                $"Skipping extraction of '{entry.FullName}' due to path traversal."
+                            );
+                            processed++;
+                            continue;
+                        }
+
+                        bool isDirectoryEntry = entry.FullName.EndsWith("/", StringComparison.Ordinal);
+                        if (
+                            isDirectoryEntry
+                            || destinationPath.EndsWith(
+                                Path.DirectorySeparatorChar.ToString(),
+                                StringComparison.Ordinal
+                            )
+                        )
+                        {
+                            Directory.CreateDirectory(destinationPath);
+                        }
+                        else
+                        {
+                            string parentDirectory = Path.GetDirectoryName(destinationPath);
+                            if (!string.IsNullOrEmpty(parentDirectory))
+                            {
+                                Directory.CreateDirectory(parentDirectory);
+                            }
+
+                            entry.ExtractToFile(destinationPath, overwrite: true);
+                        }
+
+                        processed++;
+                        this.OperationProgress = total > 0
+                            ? (int)Math.Min(100, Math.Round((processed / total) * 100))
+                            : 100;
+                    }
+                }
+
+                bool hasExecutable = false;
+                try
+                {
+                    hasExecutable = Directory
+                        .EnumerateFiles(versionDirectory, "*.exe", SearchOption.AllDirectories)
+                        .Any();
+                }
+                catch (Exception ex)
+                {
+                    this.WriteToLogFile(
+                        $"Failed to inspect application payload contents: {ex.GetType().Name} - {ex.Message}"
+                    );
+                }
+
+                if (!hasExecutable)
+                {
+                    this.WriteToLogFile(
+                        "Application extraction completed but no executable files were found."
+                    );
+                    this.ShowError(
+                        "Package Corrupt",
+                        "The downloaded application payload is invalid. Please try again."
+                    );
+                    return false;
+                }
+
+                if (!this.ReconcileMigrationDirectory(versionDirectory))
+                {
+                    return false;
+                }
+
+                this.PendingVersionDirectoryPath = versionDirectory;
+                this.LogActivity(
+                    $"Application payload extracted to '{NormalizePath(versionDirectory)}'."
+                );
+                return true;
+            }
+            catch (InvalidDataException idex)
+            {
+                this.WriteToLogFile(idex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded application payload is invalid. Please try again."
+                );
+            }
+            catch (UnauthorizedAccessException uaex)
+            {
+                this.WriteToLogFile(uaex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "We couldn't write files to the installation directory. Check permissions and try again."
+                );
+            }
+            catch (IOException ioex)
+            {
+                this.WriteToLogFile(ioex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "We couldn't write files to the installation directory. Check permissions and try again."
+                );
+            }
+
+            return false;
+        }
+
+        private bool ReconcileMigrationDirectory(string versionDirectory)
+        {
+            string pendingPath = this.PendingVersionDirectoryPath;
+            if (string.IsNullOrWhiteSpace(pendingPath))
+            {
+                return true;
+            }
+
+            if (!Directory.Exists(pendingPath))
+            {
+                this.LogActivity("Migration directory no longer exists; skipping merge.");
+                this.PendingVersionDirectoryPath = versionDirectory;
+                return true;
+            }
+
+            string normalizedPending = NormalizePath(pendingPath);
+            string normalizedTarget = NormalizePath(versionDirectory);
+
+            if (
+                string.Equals(normalizedPending, normalizedTarget, StringComparison.OrdinalIgnoreCase)
+            )
+            {
+                this.LogActivity("Migration directory already aligned with target version folder.");
+                return true;
+            }
+
+            this.LogActivity(
+                $"Merging migrated content from '{normalizedPending}' into '{normalizedTarget}'."
+            );
+
+            int filesMerged = 0;
+            int directoriesMerged = 0;
+
+            try
+            {
+                Directory.CreateDirectory(versionDirectory);
+
+                foreach (string entry in Directory.EnumerateFileSystemEntries(pendingPath))
+                {
+                    string name = Path.GetFileName(entry);
+                    if (string.IsNullOrEmpty(name))
+                    {
+                        continue;
+                    }
+
+                    string destinationPath = Path.Combine(versionDirectory, name);
+
+                    if (Directory.Exists(entry))
+                    {
+                        this.CopyDirectoryRecursive(
+                            entry,
+                            destinationPath,
+                            installerPath: string.Empty,
+                            ref filesMerged,
+                            ref directoriesMerged,
+                            skippedItems: null
+                        );
+                    }
+                    else if (File.Exists(entry))
+                    {
+                        string destinationParent = Path.GetDirectoryName(destinationPath);
+                        if (!string.IsNullOrEmpty(destinationParent))
+                        {
+                            Directory.CreateDirectory(destinationParent);
+                        }
+
+                        File.Copy(entry, destinationPath, overwrite: true);
+                        filesMerged++;
+                    }
+                }
+
+                this.TryDeleteDirectory(pendingPath);
+
+                if (!string.IsNullOrEmpty(this.LegacyDataPath))
+                {
+                    string normalizedLegacy = NormalizePath(this.LegacyDataPath);
+                    if (
+                        !string.IsNullOrEmpty(normalizedLegacy)
+                        && normalizedLegacy.StartsWith(
+                            normalizedPending,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    )
+                    {
+                        string remainder = normalizedLegacy
+                            .Substring(normalizedPending.Length)
+                            .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                        this.LegacyDataPath = string.IsNullOrEmpty(remainder)
+                            ? versionDirectory
+                            : Path.Combine(versionDirectory, remainder);
+                    }
+                }
+
+                this.PendingVersionDirectoryPath = versionDirectory;
+
+                this.LogActivity(
+                    $"Merged {directoriesMerged} directories and {filesMerged} files from migration staging."
+                );
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Migration Failed",
+                    "Unable to merge migrated files into the new version. Check permissions and retry."
+                );
+                return false;
+            }
         }
 
         private async Task<bool> RunLegacyPipelineAsync()
