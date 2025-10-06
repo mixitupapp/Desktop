@@ -6,15 +6,17 @@
         xmlns:local="clr-namespace:MixItUp.Installer"
         xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-                           
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
-
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Icon="./Logo.ico"
-        Title="Mix It Up - Installer" Height="200" Width="450">
+        Title="Mix It Up - Installer"
+        Height="520"
+        Width="900"
+        MinHeight="480"
+        MinWidth="780">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,30 +26,474 @@
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+            <Style x:Key="ChecklistIconStyle" TargetType="MaterialDesign:PackIcon">
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="ChecklistStepContainerStyle" TargetType="Border">
+                <Setter Property="Padding" Value="12" />
+                <Setter Property="Margin" Value="0,4" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+
+            <Style x:Key="ChecklistStepGridStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="0,0,0,8" />
+            </Style>
+
+            <Style x:Key="ChecklistProgressStyle" TargetType="ProgressBar">
+                <Setter Property="Height" Value="4" />
+                <Setter Property="IsIndeterminate" Value="True" />
+                <Setter Property="Margin" Value="0,4,0,0" />
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+    <MaterialDesign:DialogHost>
+        <Grid Margin="24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="25" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" HorizontalAlignment="Center">
+            <!-- Header -->
+            <Border Grid.Row="0" Padding="0,0,0,16" Background="Transparent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0"
+                           Source="./Logo.png"
+                           Width="48"
+                           Height="48"
+                           Stretch="Uniform"
+                           Margin="0,0,16,0" />
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="MixItUp Installer"
+                                   FontSize="24"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="Setting you up for fast, reliable updates."
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Main Content -->
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
-                <TextBlock Text="{Binding DisplayText1}" Grid.Column="0" TextWrapping="Wrap" />
-                <TextBlock Grid.Column="1" Margin="10,0,0,0" Visibility="{Binding ShowHyperlinkAddress, Converter={StaticResource BooleanToVisibilityConverter}}"><Hyperlink NavigateUri="{Binding HyperlinkAddress}" RequestNavigate="Hyperlink_RequestNavigate">Open File</Hyperlink></TextBlock>
-                
+
+                <!-- Status Panel -->
+                <Border Grid.Column="0"
+                        Margin="0,0,24,0"
+                        Padding="24"
+                        CornerRadius="6"
+                        Background="{DynamicResource MaterialDesignCardBackground}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding DisplayText1}"
+                                   FontSize="18"
+                                   FontWeight="Medium"
+                                   TextWrapping="Wrap" />
+
+                        <StackPanel Orientation="Horizontal"
+                                    Visibility="{Binding ShowHyperlinkAddress, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0,4,0,0">
+                            <TextBlock Text="Installer log:" />
+                            <TextBlock Margin="8,0,0,0">
+                                <Hyperlink NavigateUri="{Binding HyperlinkAddress}"
+                                           RequestNavigate="Hyperlink_RequestNavigate">
+                                    Open File
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding DisplayText2}"
+                                   Foreground="{DynamicResource MaterialDesignValidationErrorBrush}"
+                                   TextWrapping="Wrap"
+                                   Visibility="{Binding ErrorOccurred, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   Margin="0,8,0,0" />
+
+                        <Border Background="{DynamicResource MaterialDesignPaper}"
+                                Padding="12"
+                                CornerRadius="4"
+                                Margin="0,12,0,12">
+                            <ListBox x:Name="ActivityLogList"
+                                     ItemsSource="{Binding ActivityLog}"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     Foreground="{DynamicResource MaterialDesignBody}"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                     SelectionMode="Single">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="0,2" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+
+                        <ProgressBar Height="6"
+                                     Minimum="0"
+                                     Maximum="100"
+                                     Value="{Binding DownloadPercent}"
+                                     Margin="0,0,0,8">
+                            <ProgressBar.Style>
+                                <Style TargetType="ProgressBar">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding StepLauncherFetchInProgress}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding StepAppFetchInProgress}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding StepAppExtractInProgress}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ProgressBar.Style>
+                        </ProgressBar>
+
+                        <ProgressBar Height="4"
+                                     IsIndeterminate="{Binding IsOperationIndeterminate}"
+                                     Visibility="{Binding IsOperationBeingPerformed, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Checklist Panel -->
+                <Border Grid.Column="1"
+                        Padding="24"
+                        CornerRadius="6"
+                        Background="{DynamicResource MaterialDesignCardBackground}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <StackPanel>
+                            <TextBlock Text="Installation checklist"
+                                       FontSize="18"
+                                       FontWeight="Medium"
+                                       Margin="0,0,0,12" />
+
+                            <!-- Preflight -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepPreflightPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepPreflightDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Preflight checks" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepPreflightInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Discover -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepDiscoverPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepDiscoverDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Discover existing installs" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepDiscoverInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Close Processes -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepCloseProcessesPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepCloseProcessesDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Close running processes" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepCloseProcessesInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Migrate -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepMigratePending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepMigrateDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Migrate legacy data" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepMigrateInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Launcher Fetch -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepLauncherFetchPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepLauncherFetchDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Download launcher" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepLauncherFetchInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Launcher Install -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepLauncherInstallPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepLauncherInstallDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Install launcher" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepLauncherInstallInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- App Fetch -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepAppFetchPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepAppFetchDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Download app package" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepAppFetchInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- App Extract -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepAppExtractPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepAppExtractDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Extract app files" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepAppExtractInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Data Copy -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepDataCopyPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepDataCopyDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Copy user data" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepDataCopyInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Config Write -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepConfigWritePending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepConfigWriteDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Write configuration" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepConfigWriteInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Register -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepRegisterPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepRegisterDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Register with Windows" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepRegisterInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Shortcuts -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepShortcutsPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepShortcutsDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Create shortcuts" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepShortcutsInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- Complete -->
+                            <Border Style="{StaticResource ChecklistStepContainerStyle}">
+                                <Grid Style="{StaticResource ChecklistStepGridStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="24" Height="24" Margin="0,0,12,0">
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxBlankCircleOutline"
+                                                                 Visibility="{Binding StepCompletePending, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        <MaterialDesign:PackIcon Style="{StaticResource ChecklistIconStyle}" Kind="CheckboxMarkedCircle"
+                                                                 Visibility="{Binding StepCompleteDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Complete" FontWeight="SemiBold" />
+                                        <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
+                                                     Visibility="{Binding StepCompleteInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
             </Grid>
 
-            <ProgressBar Visibility="{Binding IsOperationBeingPerformed, Converter={StaticResource BooleanToVisibilityConverter}}" IsIndeterminate="{Binding IsOperationIndeterminate, FallbackValue=True}" Value="{Binding OperationProgress, Mode=OneWay, FallbackValue=0}" Grid.Row="2" HorizontalAlignment="Center" Height="20" Width="250" />
-            <TextBlock Text="{Binding DisplayText2}" Visibility="{Binding ErrorOccurred, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Center" Width="380" />
+            <!-- Footer -->
+            <DockPanel Grid.Row="2" Margin="0,24,0,0">
+                <TextBlock Text="{Binding AppRoot}"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource MaterialDesignBody}"
+                           DockPanel.Dock="Left" />
+                <Button Content="Launch Mix It Up"
+                        Command="{Binding LaunchCommand}"
+                        Margin="16,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Right"
+                        Visibility="{Binding StepCompleteDone, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Height="36"
+                        Padding="20,0">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignContainedButton}">
+                            <Setter Property="IsEnabled" Value="True" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasError}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </DockPanel>
         </Grid>
-    </Grid>
+    </MaterialDesign:DialogHost>
 </Window>
