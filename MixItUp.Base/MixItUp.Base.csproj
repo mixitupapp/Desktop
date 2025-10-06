@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net9.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
@@ -33,7 +33,7 @@
 		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
 		<PackageReference Include="Jace" Version="1.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.IO.Ports" Version="8.0.0" />
+		<PackageReference Include="System.IO.Ports" Version="9.0.9" />
 	</ItemGroup>
 
 	<ItemGroup>
