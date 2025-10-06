@@ -5,10 +5,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using MixItUp.Base.Model.API;
 using Newtonsoft.Json.Linq;
@@ -28,9 +30,15 @@ namespace MixItUp.Installer
         public const string NewApplicationSettingsFileName = "ApplicationSettings.json";
 
         public const string MixItUpProcessName = "MixItUp";
+        public const string MixItUpStreamBotProcessName = "MixItUp.StreamBot";
         public const string AutoHosterProcessName = "MixItUp.AutoHoster";
 
-        private static readonly Version minimumOSVersion = new Version(6, 2, 0, 0);
+        private static readonly IReadOnlyList<string> TargetProcessNames = new[]
+        {
+            MixItUpProcessName,
+            MixItUpStreamBotProcessName,
+            AutoHosterProcessName,
+        };
 
         public static readonly string DefaultInstallDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -808,7 +816,316 @@ namespace MixItUp.Installer
         {
             this.Is64BitOS = Environment.Is64BitOperatingSystem;
             this.OSVersionDisplay = Environment.OSVersion.VersionString;
-            this.IsSupportedOS = Environment.OSVersion.Version >= minimumOSVersion;
+            this.IsSupportedOS = this.IsSupportedWindowsVersion();
+        }
+
+        private bool Preflight()
+        {
+            this.DisplayText1 = "Validating system requirements...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+            this.LogActivity("Starting preflight checks...");
+
+            this.StepPreflightPending = false;
+            this.StepPreflightInProgress = true;
+            this.StepPreflightDone = false;
+
+            this.OSVersionDisplay = Environment.OSVersion.VersionString;
+            this.LogActivity($"Detected operating system: {this.OSVersionDisplay}");
+
+            this.IsSupportedOS = this.IsSupportedWindowsVersion();
+            if (!this.IsSupportedOS)
+            {
+                this.LogActivity("Unsupported Windows version detected.");
+                this.StepPreflightInProgress = false;
+                this.HasError = true;
+                this.ShowError(
+                    "Unsupported Windows Version",
+                    "MixItUp requires Windows 10 or 11 (64-bit)."
+                );
+                return false;
+            }
+            this.LogActivity("Windows version is supported.");
+
+            this.Is64BitOS = Environment.Is64BitOperatingSystem;
+            if (!this.Is64BitOS)
+            {
+                this.LogActivity("Unsupported architecture detected (not 64-bit).");
+                this.StepPreflightInProgress = false;
+                this.HasError = true;
+                this.ShowError(
+                    "Unsupported Architecture",
+                    "MixItUp requires Windows 10/11 (64-bit)."
+                );
+                return false;
+            }
+            this.LogActivity("64-bit operating system confirmed.");
+
+            if (!this.ValidateWritePermissions())
+            {
+                this.LogActivity("Write permission check failed.");
+                this.StepPreflightInProgress = false;
+                this.HasError = true;
+                this.ShowError(
+                    "Write Permission Denied",
+                    "Installer needs write access to %LOCALAPPDATA%/MixItUp, the Start Menu, or Desktop. Run with sufficient permissions."
+                );
+                return false;
+            }
+
+            this.LogActivity("Write permissions validated for required locations.");
+
+            this.StepPreflightInProgress = false;
+            this.StepPreflightDone = true;
+            this.DisplayText1 = "System requirements validated.";
+            this.LogActivity("Preflight checks completed successfully.");
+            return true;
+        }
+
+        private bool ValidateWritePermissions()
+        {
+            bool success = true;
+
+            success &= this.TryValidateWriteAccess(this.AppRoot, "AppRoot");
+            success &= this.TryValidateWriteAccess(StartMenuDirectory, "Start Menu");
+
+            string desktopPath = Environment.GetFolderPath(
+                Environment.SpecialFolder.DesktopDirectory
+            );
+            success &= this.TryValidateWriteAccess(desktopPath, "Desktop");
+
+            return success;
+        }
+
+        private Task<bool> DiscoverInstallContextAsync()
+        {
+            this.DisplayText1 = "Discovering install context...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+            this.StepDiscoverPending = false;
+            this.StepDiscoverInProgress = true;
+            this.LogActivity("Discovering install context (placeholder).");
+
+            // Placeholder for Task 004 implementation.
+            this.StepDiscoverInProgress = false;
+            this.StepDiscoverDone = true;
+
+            return Task.FromResult(true);
+        }
+
+        private bool TryValidateWriteAccess(string path, string displayName)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                this.LogActivity($"{displayName} path is not configured.");
+                return false;
+            }
+
+            string normalizedPath = NormalizePath(path);
+            this.LogActivity($"Validating write access to {displayName} ({normalizedPath})...");
+
+            string tempFilePath = null;
+
+            try
+            {
+                Directory.CreateDirectory(normalizedPath);
+
+                tempFilePath = Path.Combine(
+                    normalizedPath,
+                    $"mixitup_installer_perm_{Guid.NewGuid():N}.tmp"
+                );
+
+                using (FileStream stream = File.Create(tempFilePath))
+                {
+                    stream.WriteByte(0);
+                }
+
+                try
+                {
+                    File.Delete(tempFilePath);
+                }
+                catch
+                {
+                    // Swallow cleanup errors; we'll retry below if needed.
+                }
+
+                this.LogActivity($"Write access confirmed for {displayName}.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity($"Write access check failed for {displayName}: {ex.Message}");
+                this.WriteToLogFile(ex.ToString());
+                if (!string.IsNullOrEmpty(tempFilePath) && File.Exists(tempFilePath))
+                {
+                    try
+                    {
+                        File.Delete(tempFilePath);
+                    }
+                    catch
+                    {
+                        // Suppress cleanup errors
+                    }
+                }
+                return false;
+            }
+        }
+
+        private bool IsSupportedWindowsVersion()
+        {
+            OperatingSystem os = Environment.OSVersion;
+            if (os.Platform != PlatformID.Win32NT)
+            {
+                return false;
+            }
+
+            if (os.Version.Major >= 10)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private async Task<bool> WaitForProcessesToExitAsync()
+        {
+            this.DisplayText1 = "Closing Mix It Up and companion apps...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+
+            this.StepCloseProcessesPending = false;
+            this.StepCloseProcessesInProgress = true;
+            this.StepCloseProcessesDone = false;
+
+            this.LogActivity("Inspecting running Mix It Up processes...");
+
+            List<Process> initialProcesses = this.GetTargetProcesses();
+            if (initialProcesses.Count == 0)
+            {
+                this.LogActivity("No running Mix It Up processes detected.");
+                this.DisplayText1 = "No Mix It Up processes detected.";
+                this.StepCloseProcessesInProgress = false;
+                this.StepCloseProcessesDone = true;
+                return true;
+            }
+
+            string initialNames = string.Join(
+                ", ",
+                initialProcesses
+                    .Select(p => p.ProcessName)
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+            );
+            this.LogActivity($"Detected running processes: {initialNames}.");
+
+            foreach (Process process in initialProcesses)
+            {
+                process.Dispose();
+            }
+
+            const int timeoutSeconds = 10;
+
+            for (int elapsedSeconds = 0; elapsedSeconds < timeoutSeconds; elapsedSeconds++)
+            {
+                List<Process> processes = this.GetTargetProcesses();
+                if (processes.Count == 0)
+                {
+                    this.StepCloseProcessesInProgress = false;
+                    this.StepCloseProcessesDone = true;
+                    this.LogActivity("All Mix It Up processes have exited.");
+                    this.DisplayText1 = "Mix It Up processes closed.";
+                    return true;
+                }
+
+                int secondsRemaining = timeoutSeconds - elapsedSeconds;
+                string processNames = string.Join(
+                    ", ",
+                    processes.Select(p => p.ProcessName).Distinct(StringComparer.OrdinalIgnoreCase)
+                );
+                this.LogActivity(
+                    $"Waiting for {processNames} to close... {secondsRemaining}s remaining."
+                );
+
+                if (secondsRemaining == 5)
+                {
+                    foreach (Process process in processes)
+                    {
+                        try
+                        {
+                            if (!process.HasExited)
+                            {
+                                this.LogActivity($"Requesting {process.ProcessName} to close.");
+                                process.CloseMainWindow();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            this.WriteToLogFile(
+                                $"Failed to signal {process.ProcessName} to close: {ex}"
+                            );
+                        }
+                    }
+                }
+
+                foreach (Process process in processes)
+                {
+                    process.Dispose();
+                }
+
+                await Task.Delay(1000);
+            }
+
+            List<Process> remainingProcesses = this.GetTargetProcesses();
+            if (remainingProcesses.Count > 0)
+            {
+                string processNames = string.Join(
+                    ", ",
+                    remainingProcesses
+                        .Select(p => p.ProcessName)
+                        .Distinct(StringComparer.OrdinalIgnoreCase)
+                );
+                this.LogActivity($"Processes still running after timeout: {processNames}.");
+
+                foreach (Process process in remainingProcesses)
+                {
+                    process.Dispose();
+                }
+
+                this.StepCloseProcessesInProgress = false;
+                this.HasError = true;
+                this.ShowError(
+                    "Close MixItUp",
+                    "Please close MixItUp or AutoHoster before continuing."
+                );
+                return false;
+            }
+
+            this.StepCloseProcessesInProgress = false;
+            this.StepCloseProcessesDone = true;
+            this.LogActivity("All Mix It Up processes have exited.");
+            this.DisplayText1 = "Mix It Up processes closed.";
+            return true;
+        }
+
+        private List<Process> GetTargetProcesses()
+        {
+            List<Process> processes = new List<Process>();
+            foreach (string processName in TargetProcessNames)
+            {
+                try
+                {
+                    processes.AddRange(Process.GetProcessesByName(processName));
+                }
+                catch (Exception ex)
+                {
+                    this.WriteToLogFile(
+                        $"Unable to enumerate process '{processName}': {ex.Message}"
+                    );
+                }
+            }
+            return processes;
         }
 
         private void RefreshPathState()
@@ -876,22 +1193,44 @@ namespace MixItUp.Installer
             return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
 
-        public bool CheckCompatability()
+        public async Task<bool> RunAsync()
         {
-            this.UpdateEnvironmentState();
+            this.ResetLogFile();
+            this.ResetStepStates();
+            this.ActivityLog.Clear();
 
-            if (!this.IsSupportedOS)
+            this.ErrorMessage = string.Empty;
+            this.SpecificErrorMessage = string.Empty;
+            this.DisplayText2 = string.Empty;
+            this.ErrorOccurred = false;
+            this.HasError = false;
+            this.HyperlinkAddress = string.Empty;
+
+            this.IsOperationBeingPerformed = true;
+            this.IsOperationIndeterminate = true;
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+            this.LogActivity("Mix It Up installer initialized.");
+
+            if (!this.Preflight())
             {
-                this.ShowError(
-                    "Mix It Up only runs on Windows 8 & higher.",
-                    "If incorrect, please contact support@mixitupapp.com"
-                );
                 return false;
             }
-            return true;
+
+            if (!await this.DiscoverInstallContextAsync())
+            {
+                return false;
+            }
+
+            if (!await this.WaitForProcessesToExitAsync())
+            {
+                return false;
+            }
+
+            return await this.RunLegacyPipelineAsync();
         }
 
-        public async Task<bool> Run()
+        private async Task<bool> RunLegacyPipelineAsync()
         {
             bool result = false;
             string failureMessage = null;
@@ -900,49 +1239,35 @@ namespace MixItUp.Installer
             {
                 try
                 {
-                    this.ResetLogFile();
+                    MixItUpUpdateModel update = await this.GetUpdateData();
 
-                    bool canProceed = !this.IsUpdate || await this.WaitForMixItUpToClose();
-                    if (canProceed)
+                    if (this.IsPreview)
                     {
-                        MixItUpUpdateModel update = await this.GetUpdateData();
-
-                        if (this.IsPreview)
+                        MixItUpUpdateModel preview = await this.GetUpdateData(preview: true);
+                        if (preview != null && preview.SystemVersion > update.SystemVersion)
                         {
-                            MixItUpUpdateModel preview = await this.GetUpdateData(preview: true);
-                            if (preview != null && preview.SystemVersion > update.SystemVersion)
-                            {
-                                update = preview;
-                            }
-                        }
-
-                        if (this.IsTest)
-                        {
-                            MixItUpUpdateModel test = await this.GetUpdateData(test: true);
-                            if (test != null && test.SystemVersion > update.SystemVersion)
-                            {
-                                update = test;
-                            }
-                        }
-
-                        if (update != null)
-                        {
-                            if (await this.DownloadZipArchive(update))
-                            {
-                                if (this.InstallMixItUp() && this.CreateMixItUpShortcut())
-                                {
-                                    result = true;
-                                }
-                            }
+                            update = preview;
                         }
                     }
-                    else
+
+                    if (this.IsTest)
                     {
-                        failureMessage =
-                            "Please close Mix It Up (and MixItUp.AutoHoster) before running the installer.";
-                        this.WriteToLogFile(
-                            "Installation aborted because Mix It Up or MixItUp.AutoHoster was still running."
-                        );
+                        MixItUpUpdateModel test = await this.GetUpdateData(test: true);
+                        if (test != null && test.SystemVersion > update.SystemVersion)
+                        {
+                            update = test;
+                        }
+                    }
+
+                    if (update != null)
+                    {
+                        if (await this.DownloadZipArchive(update))
+                        {
+                            if (this.InstallMixItUp() && this.CreateMixItUpShortcut())
+                            {
+                                result = true;
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1039,39 +1364,6 @@ namespace MixItUp.Installer
         protected void NotifyPropertyChanged([CallerMemberName] string name = "")
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        private async Task<bool> WaitForMixItUpToClose()
-        {
-            this.DisplayText1 = "Waiting for Mix It Up to close...";
-            this.IsOperationIndeterminate = true;
-            this.OperationProgress = 0;
-
-            for (int i = 0; i < 10; i++)
-            {
-                bool isRunning = false;
-                foreach (Process clsProcess in Process.GetProcesses())
-                {
-                    if (
-                        clsProcess.ProcessName.Equals(MixItUpProcessName)
-                        || clsProcess.ProcessName.Equals(AutoHosterProcessName)
-                    )
-                    {
-                        isRunning = true;
-                        if (i == 5)
-                        {
-                            clsProcess.CloseMainWindow();
-                        }
-                    }
-                }
-
-                if (!isRunning)
-                {
-                    return true;
-                }
-                await Task.Delay(1000);
-            }
-            return false;
         }
 
         private async Task<MixItUpUpdateModel> GetUpdateData(
@@ -1372,6 +1664,44 @@ namespace MixItUp.Installer
 
             this.ErrorMessage = combinedMessage;
             this.HasError = true;
+        }
+
+        private void LogActivity(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
+            string timestampedMessage = string.Format(
+                "[{0:HH:mm:ss}] {1}",
+                DateTime.Now,
+                message.Trim()
+            );
+
+            this.WriteToLogFile(message.Trim());
+
+            try
+            {
+                if (Application.Current == null || Application.Current.Dispatcher == null)
+                {
+                    this.ActivityLog.Add(timestampedMessage);
+                }
+                else if (Application.Current.Dispatcher.CheckAccess())
+                {
+                    this.ActivityLog.Add(timestampedMessage);
+                }
+                else
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                        this.ActivityLog.Add(timestampedMessage)
+                    );
+                }
+            }
+            catch
+            {
+                // As a fallback, swallow logging issues to keep installer moving.
+            }
         }
 
         private void ResetLogFile()

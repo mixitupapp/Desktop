@@ -22,23 +22,17 @@ namespace MixItUp.Installer
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (this.viewModel.CheckCompatability())
+            if (await this.viewModel.RunAsync())
             {
-                if (await this.viewModel.Run())
-                {
-                    this.viewModel.Launch();
-                    this.Close();
-                }
+                this.viewModel.Launch();
+                this.Close();
             }
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             string path = (e.Uri.IsAbsoluteUri) ? e.Uri.AbsoluteUri : e.Uri.OriginalString;
-            ProcessStartInfo processInfo = new ProcessStartInfo(path)
-            {
-                UseShellExecute = true
-            };
+            ProcessStartInfo processInfo = new ProcessStartInfo(path) { UseShellExecute = true };
             Process.Start(processInfo);
             e.Handled = true;
         }
