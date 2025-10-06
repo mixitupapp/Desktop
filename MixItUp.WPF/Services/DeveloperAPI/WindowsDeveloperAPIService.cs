@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace MixItUp.WPF.Services.DeveloperAPI
 {
@@ -14,7 +13,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI
     {
         private WebApplication app;
 
-        public readonly string[] DeveloperAPIHttpListenerServerAddresses = new string[] { "http://localhost:8911", "http://127.0.0.1:8911" };
+        public readonly string[] DeveloperAPIHttpListenerServerAddresses = new string[] { "http://localhost:8911" };
         public readonly string[] AdvancedDeveloperAPIHttpListenerServerAddresses = new string[] { "http://*:8911" };
 
         public string Name { get { return "Developer API"; } }
@@ -25,7 +24,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI
         {
             await this.Disconnect();
 
-            var builder = WebApplication.CreateBuilder();
+            var builder = WebApplication.CreateBuilder(Array.Empty<string>());
 
             string[] urls;
             if (ChannelSession.IsElevated && ChannelSession.Settings.EnableDeveloperAPIAdvancedMode)

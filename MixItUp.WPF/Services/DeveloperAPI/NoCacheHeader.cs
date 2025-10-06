@@ -7,8 +7,8 @@ namespace MixItUp.WPF.Services.DeveloperAPI
 {
     public class NoCacheHeaderMiddleware
     {
-        private const string MethodOverrideHeader = "X-HTTP-Method-Override";
         private readonly RequestDelegate _next;
+        private const string MethodOverrideHeader = "X-HTTP-Method-Override";
 
         public NoCacheHeaderMiddleware(RequestDelegate next)
         {
@@ -17,6 +17,17 @@ namespace MixItUp.WPF.Services.DeveloperAPI
 
         public async Task InvokeAsync(HttpContext context)
         {
+            context.Response.Headers.Append("Cache-Control", "no-cache");
+            context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
+            context.Response.Headers.Append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin, X-HTTP-Method-Override");
+            context.Response.Headers.Append("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, PATCH, DELETE");
+
+            if (context.Request.Method.Equals("OPTIONS", StringComparison.InvariantCultureIgnoreCase))
+            {
+                context.Response.StatusCode = 200;
+                return; 
+            }
+
             if (context.Request.Headers.ContainsKey(MethodOverrideHeader))
             {
                 var methodOverride = context.Request.Headers[MethodOverrideHeader].FirstOrDefault();
@@ -26,24 +37,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI
                 }
             }
 
-            if (context.Request.Method.Equals("OPTIONS", StringComparison.InvariantCultureIgnoreCase))
-            {
-                context.Response.StatusCode = 200;
-
-                context.Response.Headers["Cache-Control"] = "no-cache";
-                context.Response.Headers["Access-Control-Allow-Origin"] = "*";
-                context.Response.Headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin";
-                context.Response.Headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS, PUT, PATCH, DELETE";
-
-                return;
-            }
-
             await _next(context);
-
-            context.Response.Headers["Cache-Control"] = "no-cache";
-            context.Response.Headers["Access-Control-Allow-Origin"] = "*";
-            context.Response.Headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin";
-            context.Response.Headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS, PUT, PATCH, DELETE";
         }
     }
 }
