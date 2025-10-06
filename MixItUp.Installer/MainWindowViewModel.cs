@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -7,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using MixItUp.Base.Model.API;
 using Newtonsoft.Json.Linq;
 
@@ -61,6 +64,464 @@ namespace MixItUp.Installer
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private bool isSupportedOS;
+        public bool IsSupportedOS
+        {
+            get { return this.isSupportedOS; }
+            set { this.SetProperty(ref this.isSupportedOS, value); }
+        }
+
+        private bool is64BitOS;
+        public bool Is64BitOS
+        {
+            get { return this.is64BitOS; }
+            set { this.SetProperty(ref this.is64BitOS, value); }
+        }
+
+        private string osVersionDisplay;
+        public string OSVersionDisplay
+        {
+            get { return this.osVersionDisplay; }
+            set { this.SetProperty(ref this.osVersionDisplay, value); }
+        }
+
+        private string appRoot;
+        public string AppRoot
+        {
+            get { return this.appRoot; }
+            set
+            {
+                if (this.SetProperty(ref this.appRoot, value))
+                {
+                    this.RefreshPathState();
+                }
+            }
+        }
+
+        private string runningDirectory;
+        public string RunningDirectory
+        {
+            get { return this.runningDirectory; }
+            set
+            {
+                if (this.SetProperty(ref this.runningDirectory, value))
+                {
+                    this.RefreshPathState();
+                }
+            }
+        }
+
+        private bool isRunningFromAppRoot;
+        public bool IsRunningFromAppRoot
+        {
+            get { return this.isRunningFromAppRoot; }
+            private set { this.SetProperty(ref this.isRunningFromAppRoot, value); }
+        }
+
+        private string bootloaderConfigPath;
+        public string BootloaderConfigPath
+        {
+            get { return this.bootloaderConfigPath; }
+            private set { this.SetProperty(ref this.bootloaderConfigPath, value); }
+        }
+
+        private string versionedAppDirRoot;
+        public string VersionedAppDirRoot
+        {
+            get { return this.versionedAppDirRoot; }
+            private set { this.SetProperty(ref this.versionedAppDirRoot, value); }
+        }
+
+        private string downloadTempPath;
+        public string DownloadTempPath
+        {
+            get { return this.downloadTempPath; }
+            private set { this.SetProperty(ref this.downloadTempPath, value); }
+        }
+
+        private bool targetDirExists;
+        public bool TargetDirExists
+        {
+            get { return this.targetDirExists; }
+            private set { this.SetProperty(ref this.targetDirExists, value); }
+        }
+
+        private bool targetExeExists;
+        public bool TargetExeExists
+        {
+            get { return this.targetExeExists; }
+            private set { this.SetProperty(ref this.targetExeExists, value); }
+        }
+
+        private bool portableCandidateFound;
+        public bool PortableCandidateFound
+        {
+            get { return this.portableCandidateFound; }
+            set { this.SetProperty(ref this.portableCandidateFound, value); }
+        }
+
+        private bool legacyDetected;
+        public bool LegacyDetected
+        {
+            get { return this.legacyDetected; }
+            set { this.SetProperty(ref this.legacyDetected, value); }
+        }
+
+        private bool migrationAlreadyDone;
+        public bool MigrationAlreadyDone
+        {
+            get { return this.migrationAlreadyDone; }
+            set { this.SetProperty(ref this.migrationAlreadyDone, value); }
+        }
+
+        private string updateServerBaseUrl;
+        public string UpdateServerBaseUrl
+        {
+            get { return this.updateServerBaseUrl; }
+            set { this.SetProperty(ref this.updateServerBaseUrl, value); }
+        }
+
+        private string latestVersion;
+        public string LatestVersion
+        {
+            get { return this.latestVersion; }
+            set { this.SetProperty(ref this.latestVersion, value); }
+        }
+
+        private string installedVersion;
+        public string InstalledVersion
+        {
+            get { return this.installedVersion; }
+            set { this.SetProperty(ref this.installedVersion, value); }
+        }
+
+        private ObservableCollection<string> activityLog;
+        public ObservableCollection<string> ActivityLog
+        {
+            get { return this.activityLog; }
+            private set { this.SetProperty(ref this.activityLog, value); }
+        }
+
+        private int downloadPercent;
+        public int DownloadPercent
+        {
+            get { return this.downloadPercent; }
+            set { this.SetProperty(ref this.downloadPercent, value); }
+        }
+
+        private string errorMessage;
+        public string ErrorMessage
+        {
+            get { return this.errorMessage; }
+            set
+            {
+                if (this.SetProperty(ref this.errorMessage, value))
+                {
+                    this.HasError = !string.IsNullOrEmpty(value);
+                }
+            }
+        }
+
+        private bool hasError;
+        public bool HasError
+        {
+            get { return this.hasError; }
+            private set { this.SetProperty(ref this.hasError, value); }
+        }
+
+        private string legacyDataPath;
+        public string LegacyDataPath
+        {
+            get { return this.legacyDataPath; }
+            set { this.SetProperty(ref this.legacyDataPath, value); }
+        }
+
+        private ObservableCollection<string> stepExecutionOrder;
+        public ObservableCollection<string> StepExecutionOrder
+        {
+            get { return this.stepExecutionOrder; }
+            private set { this.SetProperty(ref this.stepExecutionOrder, value); }
+        }
+
+        private bool stepPreflightPending;
+        public bool StepPreflightPending
+        {
+            get { return this.stepPreflightPending; }
+            set { this.SetProperty(ref this.stepPreflightPending, value); }
+        }
+
+        private bool stepPreflightInProgress;
+        public bool StepPreflightInProgress
+        {
+            get { return this.stepPreflightInProgress; }
+            set { this.SetProperty(ref this.stepPreflightInProgress, value); }
+        }
+
+        private bool stepPreflightDone;
+        public bool StepPreflightDone
+        {
+            get { return this.stepPreflightDone; }
+            set { this.SetProperty(ref this.stepPreflightDone, value); }
+        }
+
+        private bool stepDiscoverPending;
+        public bool StepDiscoverPending
+        {
+            get { return this.stepDiscoverPending; }
+            set { this.SetProperty(ref this.stepDiscoverPending, value); }
+        }
+
+        private bool stepDiscoverInProgress;
+        public bool StepDiscoverInProgress
+        {
+            get { return this.stepDiscoverInProgress; }
+            set { this.SetProperty(ref this.stepDiscoverInProgress, value); }
+        }
+
+        private bool stepDiscoverDone;
+        public bool StepDiscoverDone
+        {
+            get { return this.stepDiscoverDone; }
+            set { this.SetProperty(ref this.stepDiscoverDone, value); }
+        }
+
+        private bool stepCloseProcessesPending;
+        public bool StepCloseProcessesPending
+        {
+            get { return this.stepCloseProcessesPending; }
+            set { this.SetProperty(ref this.stepCloseProcessesPending, value); }
+        }
+
+        private bool stepCloseProcessesInProgress;
+        public bool StepCloseProcessesInProgress
+        {
+            get { return this.stepCloseProcessesInProgress; }
+            set { this.SetProperty(ref this.stepCloseProcessesInProgress, value); }
+        }
+
+        private bool stepCloseProcessesDone;
+        public bool StepCloseProcessesDone
+        {
+            get { return this.stepCloseProcessesDone; }
+            set { this.SetProperty(ref this.stepCloseProcessesDone, value); }
+        }
+
+        private bool stepMigratePending;
+        public bool StepMigratePending
+        {
+            get { return this.stepMigratePending; }
+            set { this.SetProperty(ref this.stepMigratePending, value); }
+        }
+
+        private bool stepMigrateInProgress;
+        public bool StepMigrateInProgress
+        {
+            get { return this.stepMigrateInProgress; }
+            set { this.SetProperty(ref this.stepMigrateInProgress, value); }
+        }
+
+        private bool stepMigrateDone;
+        public bool StepMigrateDone
+        {
+            get { return this.stepMigrateDone; }
+            set { this.SetProperty(ref this.stepMigrateDone, value); }
+        }
+
+        private bool stepLauncherFetchPending;
+        public bool StepLauncherFetchPending
+        {
+            get { return this.stepLauncherFetchPending; }
+            set { this.SetProperty(ref this.stepLauncherFetchPending, value); }
+        }
+
+        private bool stepLauncherFetchInProgress;
+        public bool StepLauncherFetchInProgress
+        {
+            get { return this.stepLauncherFetchInProgress; }
+            set { this.SetProperty(ref this.stepLauncherFetchInProgress, value); }
+        }
+
+        private bool stepLauncherFetchDone;
+        public bool StepLauncherFetchDone
+        {
+            get { return this.stepLauncherFetchDone; }
+            set { this.SetProperty(ref this.stepLauncherFetchDone, value); }
+        }
+
+        private bool stepLauncherInstallPending;
+        public bool StepLauncherInstallPending
+        {
+            get { return this.stepLauncherInstallPending; }
+            set { this.SetProperty(ref this.stepLauncherInstallPending, value); }
+        }
+
+        private bool stepLauncherInstallInProgress;
+        public bool StepLauncherInstallInProgress
+        {
+            get { return this.stepLauncherInstallInProgress; }
+            set { this.SetProperty(ref this.stepLauncherInstallInProgress, value); }
+        }
+
+        private bool stepLauncherInstallDone;
+        public bool StepLauncherInstallDone
+        {
+            get { return this.stepLauncherInstallDone; }
+            set { this.SetProperty(ref this.stepLauncherInstallDone, value); }
+        }
+
+        private bool stepAppFetchPending;
+        public bool StepAppFetchPending
+        {
+            get { return this.stepAppFetchPending; }
+            set { this.SetProperty(ref this.stepAppFetchPending, value); }
+        }
+
+        private bool stepAppFetchInProgress;
+        public bool StepAppFetchInProgress
+        {
+            get { return this.stepAppFetchInProgress; }
+            set { this.SetProperty(ref this.stepAppFetchInProgress, value); }
+        }
+
+        private bool stepAppFetchDone;
+        public bool StepAppFetchDone
+        {
+            get { return this.stepAppFetchDone; }
+            set { this.SetProperty(ref this.stepAppFetchDone, value); }
+        }
+
+        private bool stepAppExtractPending;
+        public bool StepAppExtractPending
+        {
+            get { return this.stepAppExtractPending; }
+            set { this.SetProperty(ref this.stepAppExtractPending, value); }
+        }
+
+        private bool stepAppExtractInProgress;
+        public bool StepAppExtractInProgress
+        {
+            get { return this.stepAppExtractInProgress; }
+            set { this.SetProperty(ref this.stepAppExtractInProgress, value); }
+        }
+
+        private bool stepAppExtractDone;
+        public bool StepAppExtractDone
+        {
+            get { return this.stepAppExtractDone; }
+            set { this.SetProperty(ref this.stepAppExtractDone, value); }
+        }
+
+        private bool stepDataCopyPending;
+        public bool StepDataCopyPending
+        {
+            get { return this.stepDataCopyPending; }
+            set { this.SetProperty(ref this.stepDataCopyPending, value); }
+        }
+
+        private bool stepDataCopyInProgress;
+        public bool StepDataCopyInProgress
+        {
+            get { return this.stepDataCopyInProgress; }
+            set { this.SetProperty(ref this.stepDataCopyInProgress, value); }
+        }
+
+        private bool stepDataCopyDone;
+        public bool StepDataCopyDone
+        {
+            get { return this.stepDataCopyDone; }
+            set { this.SetProperty(ref this.stepDataCopyDone, value); }
+        }
+
+        private bool stepConfigWritePending;
+        public bool StepConfigWritePending
+        {
+            get { return this.stepConfigWritePending; }
+            set { this.SetProperty(ref this.stepConfigWritePending, value); }
+        }
+
+        private bool stepConfigWriteInProgress;
+        public bool StepConfigWriteInProgress
+        {
+            get { return this.stepConfigWriteInProgress; }
+            set { this.SetProperty(ref this.stepConfigWriteInProgress, value); }
+        }
+
+        private bool stepConfigWriteDone;
+        public bool StepConfigWriteDone
+        {
+            get { return this.stepConfigWriteDone; }
+            set { this.SetProperty(ref this.stepConfigWriteDone, value); }
+        }
+
+        private bool stepRegisterPending;
+        public bool StepRegisterPending
+        {
+            get { return this.stepRegisterPending; }
+            set { this.SetProperty(ref this.stepRegisterPending, value); }
+        }
+
+        private bool stepRegisterInProgress;
+        public bool StepRegisterInProgress
+        {
+            get { return this.stepRegisterInProgress; }
+            set { this.SetProperty(ref this.stepRegisterInProgress, value); }
+        }
+
+        private bool stepRegisterDone;
+        public bool StepRegisterDone
+        {
+            get { return this.stepRegisterDone; }
+            set { this.SetProperty(ref this.stepRegisterDone, value); }
+        }
+
+        private bool stepShortcutsPending;
+        public bool StepShortcutsPending
+        {
+            get { return this.stepShortcutsPending; }
+            set { this.SetProperty(ref this.stepShortcutsPending, value); }
+        }
+
+        private bool stepShortcutsInProgress;
+        public bool StepShortcutsInProgress
+        {
+            get { return this.stepShortcutsInProgress; }
+            set { this.SetProperty(ref this.stepShortcutsInProgress, value); }
+        }
+
+        private bool stepShortcutsDone;
+        public bool StepShortcutsDone
+        {
+            get { return this.stepShortcutsDone; }
+            set { this.SetProperty(ref this.stepShortcutsDone, value); }
+        }
+
+        private bool stepCompletePending;
+        public bool StepCompletePending
+        {
+            get { return this.stepCompletePending; }
+            set { this.SetProperty(ref this.stepCompletePending, value); }
+        }
+
+        private bool stepCompleteInProgress;
+        public bool StepCompleteInProgress
+        {
+            get { return this.stepCompleteInProgress; }
+            set { this.SetProperty(ref this.stepCompleteInProgress, value); }
+        }
+
+        private bool stepCompleteDone;
+        public bool StepCompleteDone
+        {
+            get { return this.stepCompleteDone; }
+            set { this.SetProperty(ref this.stepCompleteDone, value); }
+        }
+
+        public ICommand CancelCommand { get; private set; }
+
+        public ICommand OpenLogCommand { get; private set; }
+
+        public ICommand LaunchCommand { get; private set; }
 
         public bool IsUpdate
         {
@@ -199,13 +660,49 @@ namespace MixItUp.Installer
 
         public MainWindowViewModel()
         {
+            this.ActivityLog = new ObservableCollection<string>();
+            this.StepExecutionOrder = new ObservableCollection<string>(
+                new[]
+                {
+                    "Preflight",
+                    "Discover",
+                    "CloseProcesses",
+                    "Migrate",
+                    "LauncherFetch",
+                    "LauncherInstall",
+                    "AppFetch",
+                    "AppExtract",
+                    "DataCopy",
+                    "ConfigWrite",
+                    "Register",
+                    "Shortcuts",
+                    "Complete",
+                }
+            );
+            this.ResetStepStates();
+
+            this.UpdateServerBaseUrl = "https://files.mixitupapp.com";
+            this.LegacyDataPath = string.Empty;
+            this.LatestVersion = string.Empty;
+            this.InstalledVersion = string.Empty;
+            this.DownloadPercent = 0;
+            this.ErrorMessage = string.Empty;
+
+            this.RunningDirectory = Path.GetFullPath(
+                AppDomain.CurrentDomain.BaseDirectory ?? Environment.CurrentDirectory
+            );
+
             this.installDirectory = DefaultInstallDirectory;
+            this.AppRoot = this.installDirectory;
 
             string[] args = Environment.GetCommandLineArgs();
-            if (args.Length == 2)
+            if (args.Length == 2 && !string.IsNullOrWhiteSpace(args[1]))
             {
                 this.installDirectory = args[1];
+                this.AppRoot = this.installDirectory;
             }
+
+            this.UpdateEnvironmentState();
 
             if (Directory.Exists(this.installDirectory))
             {
@@ -252,9 +749,138 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
         }
 
+        private void ResetStepStates()
+        {
+            this.StepPreflightPending = true;
+            this.StepPreflightInProgress = false;
+            this.StepPreflightDone = false;
+
+            this.StepDiscoverPending = true;
+            this.StepDiscoverInProgress = false;
+            this.StepDiscoverDone = false;
+
+            this.StepCloseProcessesPending = true;
+            this.StepCloseProcessesInProgress = false;
+            this.StepCloseProcessesDone = false;
+
+            this.StepMigratePending = true;
+            this.StepMigrateInProgress = false;
+            this.StepMigrateDone = false;
+
+            this.StepLauncherFetchPending = true;
+            this.StepLauncherFetchInProgress = false;
+            this.StepLauncherFetchDone = false;
+
+            this.StepLauncherInstallPending = true;
+            this.StepLauncherInstallInProgress = false;
+            this.StepLauncherInstallDone = false;
+
+            this.StepAppFetchPending = true;
+            this.StepAppFetchInProgress = false;
+            this.StepAppFetchDone = false;
+
+            this.StepAppExtractPending = true;
+            this.StepAppExtractInProgress = false;
+            this.StepAppExtractDone = false;
+
+            this.StepDataCopyPending = true;
+            this.StepDataCopyInProgress = false;
+            this.StepDataCopyDone = false;
+
+            this.StepConfigWritePending = true;
+            this.StepConfigWriteInProgress = false;
+            this.StepConfigWriteDone = false;
+
+            this.StepRegisterPending = true;
+            this.StepRegisterInProgress = false;
+            this.StepRegisterDone = false;
+
+            this.StepShortcutsPending = true;
+            this.StepShortcutsInProgress = false;
+            this.StepShortcutsDone = false;
+
+            this.StepCompletePending = true;
+            this.StepCompleteInProgress = false;
+            this.StepCompleteDone = false;
+        }
+
+        private void UpdateEnvironmentState()
+        {
+            this.Is64BitOS = Environment.Is64BitOperatingSystem;
+            this.OSVersionDisplay = Environment.OSVersion.VersionString;
+            this.IsSupportedOS = Environment.OSVersion.Version >= minimumOSVersion;
+        }
+
+        private void RefreshPathState()
+        {
+            string normalizedAppRoot = NormalizePath(this.appRoot);
+            string normalizedRunningDir = NormalizePath(this.runningDirectory);
+
+            if (!string.IsNullOrEmpty(this.appRoot))
+            {
+                this.BootloaderConfigPath = Path.Combine(this.appRoot, "bootloader.json");
+                this.VersionedAppDirRoot = Path.Combine(this.appRoot, "app");
+                this.DownloadTempPath = Path.Combine(this.appRoot, ".tmp");
+            }
+            else
+            {
+                this.BootloaderConfigPath = null;
+                this.VersionedAppDirRoot = null;
+                this.DownloadTempPath = null;
+            }
+
+            this.TargetDirExists =
+                !string.IsNullOrEmpty(this.appRoot) && Directory.Exists(this.appRoot);
+
+            string potentialExePath = null;
+            if (!string.IsNullOrEmpty(this.appRoot))
+            {
+                potentialExePath = Path.Combine(this.appRoot, "MixItUp.exe");
+                if (
+                    !File.Exists(potentialExePath)
+                    && !string.IsNullOrEmpty(this.versionedAppDirRoot)
+                )
+                {
+                    potentialExePath = Path.Combine(this.versionedAppDirRoot, "MixItUp.exe");
+                }
+            }
+
+            this.TargetExeExists =
+                !string.IsNullOrEmpty(potentialExePath) && File.Exists(potentialExePath);
+
+            this.IsRunningFromAppRoot =
+                !string.IsNullOrEmpty(normalizedAppRoot)
+                && string.Equals(
+                    normalizedAppRoot,
+                    normalizedRunningDir,
+                    StringComparison.OrdinalIgnoreCase
+                );
+        }
+
+        private static string NormalizePath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                path = Path.GetFullPath(path);
+            }
+            catch
+            {
+                return path;
+            }
+
+            return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        }
+
         public bool CheckCompatability()
         {
-            if (Environment.OSVersion.Version < minimumOSVersion)
+            this.UpdateEnvironmentState();
+
+            if (!this.IsSupportedOS)
             {
                 this.ShowError(
                     "Mix It Up only runs on Windows 8 & higher.",
@@ -392,6 +1018,22 @@ namespace MixItUp.Installer
             {
                 Process.Start(Path.Combine(this.installDirectory, "MixItUp.exe"));
             }
+        }
+
+        protected bool SetProperty<T>(
+            ref T storage,
+            T value,
+            [CallerMemberName] string propertyName = null
+        )
+        {
+            if (EqualityComparer<T>.Default.Equals(storage, value))
+            {
+                return false;
+            }
+
+            storage = value;
+            this.NotifyPropertyChanged(propertyName);
+            return true;
         }
 
         protected void NotifyPropertyChanged([CallerMemberName] string name = "")
@@ -549,6 +1191,7 @@ namespace MixItUp.Installer
             this.DisplayText1 = "Downloading files...";
             this.IsOperationIndeterminate = false;
             this.OperationProgress = 0;
+            this.DownloadPercent = 0;
 
             bool downloadComplete = false;
 
@@ -556,19 +1199,22 @@ namespace MixItUp.Installer
             client.DownloadProgressChanged += (s, e) =>
             {
                 this.OperationProgress = e.ProgressPercentage;
+                this.DownloadPercent = e.ProgressPercentage;
             };
 
             client.DownloadDataCompleted += (s, e) =>
             {
                 downloadComplete = true;
-                this.OperationProgress = 100;
                 if (e.Error == null && !e.Cancelled)
                 {
                     ZipArchiveData = e.Result;
+                    this.OperationProgress = 100;
+                    this.DownloadPercent = 100;
                 }
                 else if (e.Error != null)
                 {
                     this.WriteToLogFile(e.Error.ToString());
+                    this.DownloadPercent = 0;
                 }
             };
 
@@ -715,6 +1361,17 @@ namespace MixItUp.Installer
             this.ErrorOccurred = true;
             this.DisplayText1 = message1;
             this.DisplayText2 = message2;
+
+            string combinedMessage = message1 ?? string.Empty;
+            if (!string.IsNullOrEmpty(message2))
+            {
+                combinedMessage = string.IsNullOrEmpty(combinedMessage)
+                    ? message2
+                    : string.Format("{0} {1}", combinedMessage, message2);
+            }
+
+            this.ErrorMessage = combinedMessage;
+            this.HasError = true;
         }
 
         private void ResetLogFile()
