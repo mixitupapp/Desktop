@@ -46,6 +46,20 @@ namespace MixItUp.Installer
     private const string AppProductSlug = "mixitup-desktop";
     private const string AppPlatform = "windows-x64";
 
+    private static readonly IReadOnlyList<string> AllowListedDataDirectories = new[]
+    {
+        "Settings",
+        "Logs",
+        "ChatEventLogs",
+        "Counters",
+    };
+
+    private static readonly IReadOnlyList<string> AllowListedDataFiles = new[]
+    {
+        NewApplicationSettingsFileName,
+        OldApplicationSettingsFileName,
+    };
+
         private sealed class UpdateManifestModel
         {
             [JsonProperty("schemaVersion")]
@@ -126,6 +140,28 @@ namespace MixItUp.Installer
             public UpdateFileModel File { get; }
 
             public Uri DownloadUri { get; }
+        }
+
+        private sealed class BootloaderConfigModel
+        {
+            [JsonProperty("currentVersion")]
+            public string CurrentVersion { get; set; }
+
+            [JsonProperty("versionRoot")]
+            public string VersionRoot { get; set; }
+
+            [JsonProperty("versions")]
+            public List<string> Versions { get; set; } = new List<string>();
+
+            [JsonProperty("executables")]
+            public Dictionary<string, string> Executables { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            [JsonProperty("dataDirName")]
+            public string DataDirName { get; set; }
+
+            [JsonExtensionData]
+            public IDictionary<string, JToken> ExtensionData { get; set; }
+                = new Dictionary<string, JToken>(StringComparer.OrdinalIgnoreCase);
         }
 
         public static readonly string DefaultInstallDirectory = Path.Combine(
@@ -1788,6 +1824,664 @@ namespace MixItUp.Installer
             return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
 
+        private static string GetRelativeDisplayPath(string rootPath, string itemPath)
+        {
+            string normalizedRoot = NormalizePath(rootPath);
+            string normalizedItem = NormalizePath(itemPath);
+
+            if (
+                string.IsNullOrEmpty(normalizedRoot)
+                || string.IsNullOrEmpty(normalizedItem)
+                || normalizedItem.Length <= normalizedRoot.Length
+            )
+            {
+                return Path.GetFileName(normalizedItem);
+            }
+
+            string comparisonSeed = normalizedRoot.EndsWith(
+                Path.DirectorySeparatorChar.ToString(),
+                StringComparison.Ordinal
+            )
+                ? normalizedRoot
+                : normalizedRoot + Path.DirectorySeparatorChar;
+
+            if (
+                normalizedItem.StartsWith(
+                    comparisonSeed,
+                    StringComparison.OrdinalIgnoreCase
+                )
+            )
+            {
+                return normalizedItem.Substring(comparisonSeed.Length);
+            }
+
+            return Path.GetFileName(normalizedItem);
+        }
+
+        private static bool PathsEqual(string left, string right)
+        {
+            string normalizedLeft = NormalizePath(left);
+            string normalizedRight = NormalizePath(right);
+
+            if (string.IsNullOrEmpty(normalizedLeft) || string.IsNullOrEmpty(normalizedRight))
+            {
+                return false;
+            }
+
+            return string.Equals(normalizedLeft, normalizedRight, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private Task<bool> CopyUserDataAsync()
+        {
+            return Task.FromResult(this.CopyUserData());
+        }
+
+        private bool CopyUserData()
+        {
+            this.DisplayText1 = "Copying user data...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+
+            this.StepDataCopyPending = false;
+            this.StepDataCopyInProgress = true;
+            this.StepDataCopyDone = false;
+
+            string versionDirectory = this.PendingVersionDirectoryPath;
+            if (string.IsNullOrWhiteSpace(versionDirectory) || !Directory.Exists(versionDirectory))
+            {
+                if (!string.IsNullOrWhiteSpace(this.VersionedAppDirRoot) && !string.IsNullOrWhiteSpace(this.LatestVersion))
+                {
+                    string candidate = Path.Combine(this.VersionedAppDirRoot, this.LatestVersion);
+                    if (Directory.Exists(candidate))
+                    {
+                        versionDirectory = candidate;
+                        this.PendingVersionDirectoryPath = candidate;
+                    }
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(versionDirectory) || !Directory.Exists(versionDirectory))
+            {
+                this.LogActivity("Unable to locate extracted application directory for data copy.");
+                this.StepDataCopyInProgress = false;
+                this.StepDataCopyDone = false;
+                this.ShowError(
+                    "Data Copy Failed",
+                    "We couldn't locate the application data directory. Please check installation paths."
+                );
+                return false;
+            }
+
+            string targetDataDirectory = Path.Combine(versionDirectory, "data");
+            try
+            {
+                Directory.CreateDirectory(targetDataDirectory);
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity(
+                    $"Failed to ensure data directory exists: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+                this.StepDataCopyInProgress = false;
+                this.StepDataCopyDone = false;
+                this.ShowError(
+                    "Data Copy Failed",
+                    "Unable to prepare application data directory. Check permissions and try again."
+                );
+                return false;
+            }
+
+            List<string> skippedItems = new List<string>();
+            int totalFilesCopied = 0;
+
+            try
+            {
+                bool handledLegacy =
+                    !string.IsNullOrWhiteSpace(this.LegacyDataPath)
+                    && Directory.Exists(this.LegacyDataPath)
+                    && (this.LegacyDetected || this.PortableCandidateFound);
+
+                if (handledLegacy)
+                {
+                    string normalizedSource = NormalizePath(this.LegacyDataPath);
+                    string normalizedDestination = NormalizePath(targetDataDirectory);
+
+                    this.LogActivity(
+                        $"Copying legacy data from '{normalizedSource}' to '{normalizedDestination}'."
+                    );
+
+                    totalFilesCopied += this.CopyDataDirectoryWithoutOverwrite(
+                        this.LegacyDataPath,
+                        targetDataDirectory,
+                        skippedItems,
+                        targetDataDirectory
+                    );
+                }
+                else
+                {
+                    BootloaderConfigModel existingConfig = this.LoadBootloaderConfig();
+                    string previousVersionDirectory = this.ResolvePreviousVersionDirectory(
+                        existingConfig,
+                        versionDirectory
+                    );
+
+                    if (!string.IsNullOrEmpty(previousVersionDirectory))
+                    {
+                        string previousDataDirectory = Path.Combine(previousVersionDirectory, "data");
+                        if (Directory.Exists(previousDataDirectory))
+                        {
+                            string normalizedSource = NormalizePath(previousDataDirectory);
+                            string normalizedDestination = NormalizePath(targetDataDirectory);
+                            this.LogActivity(
+                                $"Copying allow-listed data from '{normalizedSource}' to '{normalizedDestination}'."
+                            );
+
+                            foreach (string directoryName in AllowListedDataDirectories)
+                            {
+                                string sourceSubDir = Path.Combine(previousDataDirectory, directoryName);
+                                if (!Directory.Exists(sourceSubDir))
+                                {
+                                    continue;
+                                }
+
+                                totalFilesCopied += this.CopyDataDirectoryWithoutOverwrite(
+                                    sourceSubDir,
+                                    Path.Combine(targetDataDirectory, directoryName),
+                                    skippedItems,
+                                    targetDataDirectory
+                                );
+                            }
+
+                            foreach (string fileName in AllowListedDataFiles)
+                            {
+                                string sourceFilePath = Path.Combine(previousDataDirectory, fileName);
+                                if (!File.Exists(sourceFilePath))
+                                {
+                                    continue;
+                                }
+
+                                string destinationFilePath = Path.Combine(
+                                    targetDataDirectory,
+                                    fileName
+                                );
+
+                                if (File.Exists(destinationFilePath))
+                                {
+                                    string skippedLabel = GetRelativeDisplayPath(
+                                        targetDataDirectory,
+                                        destinationFilePath
+                                    );
+                                    skippedItems.Add(skippedLabel);
+                                    this.LogActivity(
+                                        $"Skipped copy for '{NormalizePath(sourceFilePath)}' because destination exists."
+                                    );
+                                    continue;
+                                }
+
+                                string parentDirectory = Path.GetDirectoryName(destinationFilePath);
+                                if (!string.IsNullOrEmpty(parentDirectory))
+                                {
+                                    Directory.CreateDirectory(parentDirectory);
+                                }
+
+                                File.Copy(sourceFilePath, destinationFilePath, overwrite: false);
+                                totalFilesCopied++;
+                                this.LogActivity(
+                                    $"Copied '{NormalizePath(sourceFilePath)}' to '{NormalizePath(destinationFilePath)}'."
+                                );
+                            }
+                        }
+                        else
+                        {
+                            this.LogActivity(
+                                $"No data directory found in previous version path '{NormalizePath(previousVersionDirectory)}'."
+                            );
+                        }
+                    }
+                    else
+                    {
+                        this.LogActivity(
+                            "No previous version directory found for upgrade data copy."
+                        );
+                    }
+                }
+
+                this.StepDataCopyInProgress = false;
+                this.StepDataCopyDone = true;
+                this.DisplayText1 = "User data copied.";
+                this.DisplayText2 = string.Empty;
+
+                if (totalFilesCopied > 0)
+                {
+                    this.LogActivity(
+                        $"Copied {totalFilesCopied} data file(s) into '{NormalizePath(targetDataDirectory)}'."
+                    );
+                }
+                else
+                {
+                    this.LogActivity("No user data changes were needed.");
+                }
+
+                if (skippedItems.Count > 0)
+                {
+                    string preview = string.Join(", ", skippedItems.Take(5));
+                    if (skippedItems.Count > 5)
+                    {
+                        preview += ", ...";
+                    }
+
+                    this.LogActivity(
+                        $"Skipped {skippedItems.Count} item(s) that already existed: {preview}."
+                    );
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity(
+                    $"Data copy failed: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+                this.StepDataCopyInProgress = false;
+                this.StepDataCopyDone = false;
+                this.ShowError(
+                    "Data Copy Failed",
+                    "Unable to copy user data into the new version directory."
+                );
+                return false;
+            }
+        }
+
+        private int CopyDataDirectoryWithoutOverwrite(
+            string sourceDir,
+            string destinationDir,
+            List<string> skippedItems,
+            string destinationRoot
+        )
+        {
+            if (string.IsNullOrWhiteSpace(sourceDir) || !Directory.Exists(sourceDir))
+            {
+                return 0;
+            }
+
+            Directory.CreateDirectory(destinationDir);
+
+            int filesCopied = 0;
+
+            foreach (string filePath in Directory.GetFiles(sourceDir))
+            {
+                string destinationFilePath = Path.Combine(
+                    destinationDir,
+                    Path.GetFileName(filePath)
+                );
+
+                if (File.Exists(destinationFilePath))
+                {
+                    string skippedLabel = GetRelativeDisplayPath(destinationRoot, destinationFilePath);
+                    if (!string.IsNullOrEmpty(skippedLabel))
+                    {
+                        skippedItems.Add(skippedLabel);
+                    }
+
+                    this.LogActivity(
+                        $"Skipped copy for '{NormalizePath(filePath)}' because destination exists."
+                    );
+                    continue;
+                }
+
+                string parentDirectory = Path.GetDirectoryName(destinationFilePath);
+                if (!string.IsNullOrEmpty(parentDirectory))
+                {
+                    Directory.CreateDirectory(parentDirectory);
+                }
+
+                File.Copy(filePath, destinationFilePath, overwrite: false);
+                filesCopied++;
+                this.LogActivity(
+                    $"Copied '{NormalizePath(filePath)}' to '{NormalizePath(destinationFilePath)}'."
+                );
+            }
+
+            foreach (string dirPath in Directory.GetDirectories(sourceDir))
+            {
+                string destinationSubDirectory = Path.Combine(
+                    destinationDir,
+                    Path.GetFileName(dirPath)
+                );
+
+                filesCopied += this.CopyDataDirectoryWithoutOverwrite(
+                    dirPath,
+                    destinationSubDirectory,
+                    skippedItems,
+                    destinationRoot
+                );
+            }
+
+            return filesCopied;
+        }
+
+        private BootloaderConfigModel LoadBootloaderConfig()
+        {
+            string bootloaderPath = this.BootloaderConfigPath;
+            if (string.IsNullOrWhiteSpace(bootloaderPath) || !File.Exists(bootloaderPath))
+            {
+                return null;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(bootloaderPath);
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    return null;
+                }
+
+                return JsonConvert.DeserializeObject<BootloaderConfigModel>(json);
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity(
+                    $"Failed to read existing bootloader configuration: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+                return null;
+            }
+        }
+
+        private string ResolvePreviousVersionDirectory(
+            BootloaderConfigModel existingConfig,
+            string latestVersionDirectory
+        )
+        {
+            string versionRoot = this.VersionedAppDirRoot;
+            if (string.IsNullOrWhiteSpace(versionRoot) || !Directory.Exists(versionRoot))
+            {
+                return null;
+            }
+
+            string normalizedLatest = NormalizePath(latestVersionDirectory);
+
+            Func<string, string> resolveCandidate = versionName =>
+            {
+                if (string.IsNullOrWhiteSpace(versionName))
+                {
+                    return null;
+                }
+
+                string candidatePath = Path.Combine(versionRoot, versionName);
+                return Directory.Exists(candidatePath) ? NormalizePath(candidatePath) : null;
+            };
+
+            if (existingConfig != null)
+            {
+                string candidate = resolveCandidate(existingConfig.CurrentVersion);
+                if (!string.IsNullOrEmpty(candidate) && !PathsEqual(candidate, normalizedLatest))
+                {
+                    return candidate;
+                }
+
+                if (existingConfig.Versions != null)
+                {
+                    foreach (string versionName in existingConfig.Versions)
+                    {
+                        if (string.IsNullOrWhiteSpace(versionName))
+                        {
+                            continue;
+                        }
+
+                        if (
+                            !string.IsNullOrEmpty(this.LatestVersion)
+                            && string.Equals(
+                                versionName,
+                                this.LatestVersion,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
+                        {
+                            continue;
+                        }
+
+                        candidate = resolveCandidate(versionName);
+                        if (!string.IsNullOrEmpty(candidate) && !PathsEqual(candidate, normalizedLatest))
+                        {
+                            return candidate;
+                        }
+                    }
+                }
+            }
+
+            try
+            {
+                DirectoryInfo rootInfo = new DirectoryInfo(versionRoot);
+                if (!rootInfo.Exists)
+                {
+                    return null;
+                }
+
+                DirectoryInfo[] directories = rootInfo.GetDirectories();
+                Array.Sort(
+                    directories,
+                    (left, right) => DateTime.Compare(right.LastWriteTimeUtc, left.LastWriteTimeUtc)
+                );
+
+                foreach (DirectoryInfo directory in directories)
+                {
+                    string candidate = NormalizePath(directory.FullName);
+                    if (PathsEqual(candidate, normalizedLatest))
+                    {
+                        continue;
+                    }
+
+                    return candidate;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(
+                    $"Failed to enumerate version directories: {ex.GetType().Name} - {ex.Message}"
+                );
+            }
+
+            return null;
+        }
+
+        private Task<bool> WriteOrUpdateBootloaderConfigAsync()
+        {
+            return Task.FromResult(this.WriteOrUpdateBootloaderConfig());
+        }
+
+        private bool WriteOrUpdateBootloaderConfig()
+        {
+            this.DisplayText1 = "Writing bootloader configuration...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+
+            this.StepConfigWritePending = false;
+            this.StepConfigWriteInProgress = true;
+            this.StepConfigWriteDone = false;
+
+            string bootloaderPath = this.BootloaderConfigPath;
+            if (string.IsNullOrWhiteSpace(bootloaderPath))
+            {
+                this.LogActivity("Bootloader path not defined; cannot write configuration.");
+                this.StepConfigWriteInProgress = false;
+                this.StepConfigWriteDone = false;
+                this.ShowError(
+                    "Configuration Failed",
+                    "Installer could not determine the bootloader file path."
+                );
+                return false;
+            }
+
+            string latestVersion = this.LatestVersion;
+            if (string.IsNullOrWhiteSpace(latestVersion) && !string.IsNullOrWhiteSpace(this.PendingVersionDirectoryPath))
+            {
+                string candidate = Path.GetFileName(NormalizePath(this.PendingVersionDirectoryPath));
+                if (!string.IsNullOrEmpty(candidate))
+                {
+                    latestVersion = candidate;
+                    this.LatestVersion = candidate;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(latestVersion))
+            {
+                this.LogActivity("Latest version identifier not available; cannot update bootloader configuration.");
+                this.StepConfigWriteInProgress = false;
+                this.StepConfigWriteDone = false;
+                this.ShowError(
+                    "Configuration Failed",
+                    "Installer could not determine the version being installed."
+                );
+                return false;
+            }
+
+            string bootloaderDirectory = Path.GetDirectoryName(bootloaderPath);
+            try
+            {
+                if (!string.IsNullOrEmpty(bootloaderDirectory))
+                {
+                    Directory.CreateDirectory(bootloaderDirectory);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity(
+                    $"Failed to prepare bootloader directory: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+                this.StepConfigWriteInProgress = false;
+                this.StepConfigWriteDone = false;
+                this.ShowError(
+                    "Configuration Failed",
+                    "Installer was unable to prepare the bootloader directory."
+                );
+                return false;
+            }
+
+            try
+            {
+                bool existingFile = File.Exists(bootloaderPath);
+                BootloaderConfigModel config = this.LoadBootloaderConfig() ?? new BootloaderConfigModel();
+
+                if (config.Executables == null)
+                {
+                    config.Executables = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                }
+
+                if (config.Versions == null)
+                {
+                    config.Versions = new List<string>();
+                }
+
+                if (config.ExtensionData == null)
+                {
+                    config.ExtensionData = new Dictionary<string, JToken>(StringComparer.OrdinalIgnoreCase);
+                }
+
+                config.CurrentVersion = latestVersion;
+                config.VersionRoot = "app";
+                config.DataDirName = "data";
+                config.Executables["windows"] = "MixItUp.exe";
+
+                HashSet<string> seenVersions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                List<string> mergedVersions = new List<string>();
+
+                Action<string> addVersion = versionName =>
+                {
+                    if (string.IsNullOrWhiteSpace(versionName))
+                    {
+                        return;
+                    }
+
+                    if (seenVersions.Add(versionName))
+                    {
+                        mergedVersions.Add(versionName);
+                    }
+                };
+
+                foreach (string versionName in config.Versions)
+                {
+                    addVersion(versionName);
+                }
+
+                if (!string.IsNullOrWhiteSpace(this.InstalledVersion))
+                {
+                    addVersion(this.InstalledVersion);
+                }
+
+                string versionRoot = this.VersionedAppDirRoot;
+                if (!string.IsNullOrWhiteSpace(versionRoot) && Directory.Exists(versionRoot))
+                {
+                    DirectoryInfo[] directories = new DirectoryInfo(versionRoot).GetDirectories();
+                    Array.Sort(
+                        directories,
+                        (left, right) => string.Compare(
+                            left.Name,
+                            right.Name,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    );
+
+                    foreach (DirectoryInfo directory in directories)
+                    {
+                        addVersion(directory.Name);
+                    }
+                }
+
+                addVersion(latestVersion);
+
+                config.Versions = mergedVersions;
+
+                string serialized = JsonConvert.SerializeObject(
+                    config,
+                    Formatting.Indented,
+                    new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore,
+                    }
+                );
+
+                File.WriteAllText(bootloaderPath, serialized);
+
+                this.StepConfigWriteInProgress = false;
+                this.StepConfigWriteDone = true;
+                this.DisplayText1 = "Bootloader updated.";
+                this.DisplayText2 = string.Empty;
+
+                string normalizedBootloaderPath = NormalizePath(bootloaderPath);
+                string versionList = string.Join(", ", config.Versions);
+                this.LogActivity(
+                    existingFile
+                        ? $"bootloader.json updated at '{normalizedBootloaderPath}'. Versions: {versionList}."
+                        : $"bootloader.json created at '{normalizedBootloaderPath}'. Versions: {versionList}."
+                );
+                this.LogActivity($"Current version set to {latestVersion}.");
+
+                this.InstalledVersion = latestVersion;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity(
+                    $"Failed to write bootloader configuration: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+                this.StepConfigWriteInProgress = false;
+                this.StepConfigWriteDone = false;
+                this.ShowError(
+                    "Configuration Failed",
+                    "Installer was unable to update bootloader.json."
+                );
+                return false;
+            }
+        }
+
         public async Task<bool> RunAsync()
         {
             this.ResetLogFile();
@@ -1927,6 +2621,20 @@ namespace MixItUp.Installer
 
             this.StepAppExtractInProgress = false;
             this.StepAppExtractDone = true;
+
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+            this.IsOperationIndeterminate = true;
+
+            if (!await this.CopyUserDataAsync())
+            {
+                return false;
+            }
+
+            if (!await this.WriteOrUpdateBootloaderConfigAsync())
+            {
+                return false;
+            }
 
             this.OperationProgress = 0;
             this.DownloadPercent = 0;
