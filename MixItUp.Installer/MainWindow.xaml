@@ -21,11 +21,55 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+            <Style x:Key="HeaderTitleTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignTitleLargeTextBlock}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style x:Key="HeaderSubtitleTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignBodyMediumTextBlock}">
+                <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style x:Key="StatusHeadlineTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignHeadlineSmallTextBlock}">
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style x:Key="StatusBodyTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignBodyMediumTextBlock}">
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style x:Key="ChecklistSectionTitleTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignTitleMediumTextBlock}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Margin" Value="0,0,0,12" />
+            </Style>
+
+            <Style x:Key="ChecklistLabelTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignBodyLargeTextBlock}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
 
             <Style x:Key="ChecklistIconStyle" TargetType="MaterialDesign:PackIcon">
                 <Setter Property="Width" Value="20" />
@@ -36,20 +80,26 @@
             </Style>
 
             <Style x:Key="ChecklistStepContainerStyle" TargetType="Border">
-                <Setter Property="Padding" Value="12" />
-                <Setter Property="Margin" Value="0,4" />
-                <Setter Property="CornerRadius" Value="4" />
-                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="Margin" Value="0,8" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.SurfaceVariant}" />
             </Style>
 
             <Style x:Key="ChecklistStepGridStyle" TargetType="Grid">
-                <Setter Property="Margin" Value="0,0,0,8" />
+                <Setter Property="Margin" Value="0,0,0,4" />
             </Style>
 
             <Style x:Key="ChecklistProgressStyle" TargetType="ProgressBar">
                 <Setter Property="Height" Value="4" />
                 <Setter Property="IsIndeterminate" Value="True" />
-                <Setter Property="Margin" Value="0,4,0,0" />
+                <Setter Property="Margin" Value="0,8,0,0" />
+                <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
+            </Style>
+
+            <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0,2" />
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -63,27 +113,25 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" Padding="0,0,0,16" Background="Transparent">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0"
-                           Source="./Logo.png"
-                           Width="48"
-                           Height="48"
-                           Stretch="Uniform"
-                           Margin="0,0,16,0" />
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="MixItUp Installer"
-                                   FontSize="24"
-                                   FontWeight="SemiBold" />
-                        <TextBlock Text="Setting you up for fast, reliable updates."
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}" />
-                    </StackPanel>
-                </Grid>
-            </Border>
+            <Grid Grid.Row="0" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       Source="./Logo.png"
+                       Width="56"
+                       Height="56"
+                       Stretch="Uniform"
+                       Margin="0,0,24,0" />
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="MixItUp Installer"
+                               Style="{StaticResource HeaderTitleTextBlock}" />
+                    <TextBlock Text="Setting you up for fast, reliable updates."
+                               Style="{StaticResource HeaderSubtitleTextBlock}"
+                               Margin="0,8,0,0" />
+                </StackPanel>
+            </Grid>
 
             <!-- Main Content -->
             <Grid Grid.Row="1">
@@ -93,39 +141,43 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Status Panel -->
-                <Border Grid.Column="0"
-                        Margin="0,0,24,0"
-                        Padding="24"
-                        CornerRadius="6"
-                        Background="{DynamicResource MaterialDesignCardBackground}">
+                <MaterialDesign:Card Grid.Column="0"
+                                     Margin="0,0,24,0"
+                                     Padding="24"
+                                     Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                                     UniformCornerRadius="12"
+                                     MaterialDesign:ElevationAssist.Elevation="Dp4">
                     <StackPanel>
                         <TextBlock Text="{Binding DisplayText1}"
-                                   FontSize="18"
-                                   FontWeight="Medium"
-                                   TextWrapping="Wrap" />
+                                   Style="{StaticResource StatusHeadlineTextBlock}" />
 
                         <StackPanel Orientation="Horizontal"
-                                    Visibility="{Binding ShowHyperlinkAddress, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                    Margin="0,4,0,0">
-                            <TextBlock Text="Installer log:" />
-                            <TextBlock Margin="8,0,0,0">
+                                    Margin="0,12,0,0"
+                                    Visibility="{Binding ShowHyperlinkAddress, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TextBlock Text="Installer log:"
+                                       Style="{StaticResource StatusBodyTextBlock}"
+                                       VerticalAlignment="Center" />
+                            <TextBlock Margin="8,0,0,0"
+                                       VerticalAlignment="Center"
+                                       Style="{StaticResource StatusBodyTextBlock}">
                                 <Hyperlink NavigateUri="{Binding HyperlinkAddress}"
                                            RequestNavigate="Hyperlink_RequestNavigate">
-                                    Open File
+                                    Open file
                                 </Hyperlink>
                             </TextBlock>
                         </StackPanel>
 
                         <TextBlock Text="{Binding DisplayText2}"
+                                   Style="{StaticResource StatusBodyTextBlock}"
                                    Foreground="{DynamicResource MaterialDesignValidationErrorBrush}"
-                                   TextWrapping="Wrap"
                                    Visibility="{Binding ErrorOccurred, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                   Margin="0,8,0,0" />
+                                   Margin="0,12,0,0" />
 
-                        <Border Background="{DynamicResource MaterialDesignPaper}"
-                                Padding="12"
-                                CornerRadius="4"
-                                Margin="0,12,0,12">
+                        <Border Background="{DynamicResource MaterialDesign.Brush.SurfaceVariant}"
+                                Padding="16"
+                                CornerRadius="10"
+                                Margin="0,20,0,20"
+                                MaterialDesign:ElevationAssist.Elevation="Dp1">
                             <ListBox x:Name="ActivityLogList"
                                      ItemsSource="{Binding ActivityLog}"
                                      BorderThickness="0"
@@ -141,7 +193,7 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}"
-                                                   TextWrapping="Wrap"
+                                                   Style="{StaticResource StatusBodyTextBlock}"
                                                    Margin="0,2" />
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -152,10 +204,11 @@
                                      Minimum="0"
                                      Maximum="100"
                                      Value="{Binding DownloadPercent}"
-                                     Margin="0,0,0,8">
+                                     Margin="0,0,0,12">
                             <ProgressBar.Style>
                                 <Style TargetType="ProgressBar">
                                     <Setter Property="Visibility" Value="Collapsed" />
+                                    <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding StepLauncherFetchInProgress}" Value="True">
                                             <Setter Property="Visibility" Value="Visible" />
@@ -172,23 +225,24 @@
                         </ProgressBar>
 
                         <ProgressBar Height="4"
+                                     Margin="0,0,0,4"
+                                     Foreground="{DynamicResource MaterialDesign.Brush.Secondary}"
                                      IsIndeterminate="{Binding IsOperationIndeterminate}"
                                      Visibility="{Binding IsOperationBeingPerformed, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </StackPanel>
-                </Border>
+                </MaterialDesign:Card>
 
                 <!-- Checklist Panel -->
-                <Border Grid.Column="1"
-                        Padding="24"
-                        CornerRadius="6"
-                        Background="{DynamicResource MaterialDesignCardBackground}">
+                <MaterialDesign:Card Grid.Column="1"
+                                     Padding="24"
+                                     Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                                     UniformCornerRadius="12"
+                                     MaterialDesign:ElevationAssist.Elevation="Dp3">
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
                         <StackPanel>
                             <TextBlock Text="Installation checklist"
-                                       FontSize="18"
-                                       FontWeight="Medium"
-                                       Margin="0,0,0,12" />
+                                       Style="{StaticResource ChecklistSectionTitleTextBlock}" />
 
                             <!-- Preflight -->
                             <Border Style="{StaticResource ChecklistStepContainerStyle}">
@@ -204,7 +258,7 @@
                                                                  Visibility="{Binding StepPreflightDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Preflight checks" FontWeight="SemiBold" />
+                                        <TextBlock Text="Preflight checks" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepPreflightInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -225,7 +279,7 @@
                                                                  Visibility="{Binding StepDiscoverDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Discover existing installs" FontWeight="SemiBold" />
+                                        <TextBlock Text="Discover existing installs" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepDiscoverInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -246,7 +300,7 @@
                                                                  Visibility="{Binding StepCloseProcessesDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Close running processes" FontWeight="SemiBold" />
+                                        <TextBlock Text="Close running processes" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepCloseProcessesInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -267,7 +321,7 @@
                                                                  Visibility="{Binding StepMigrateDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Migrate legacy data" FontWeight="SemiBold" />
+                                        <TextBlock Text="Migrate legacy data" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepMigrateInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -288,7 +342,7 @@
                                                                  Visibility="{Binding StepLauncherFetchDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Download launcher" FontWeight="SemiBold" />
+                                        <TextBlock Text="Download launcher" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepLauncherFetchInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -309,7 +363,7 @@
                                                                  Visibility="{Binding StepLauncherInstallDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Install launcher" FontWeight="SemiBold" />
+                                        <TextBlock Text="Install launcher" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepLauncherInstallInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -330,7 +384,7 @@
                                                                  Visibility="{Binding StepAppFetchDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Download app package" FontWeight="SemiBold" />
+                                        <TextBlock Text="Download app package" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepAppFetchInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -351,7 +405,7 @@
                                                                  Visibility="{Binding StepAppExtractDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Extract app files" FontWeight="SemiBold" />
+                                        <TextBlock Text="Extract app files" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepAppExtractInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -372,7 +426,7 @@
                                                                  Visibility="{Binding StepDataCopyDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Copy user data" FontWeight="SemiBold" />
+                                        <TextBlock Text="Copy user data" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepDataCopyInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -393,7 +447,7 @@
                                                                  Visibility="{Binding StepConfigWriteDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Write configuration" FontWeight="SemiBold" />
+                                        <TextBlock Text="Write configuration" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepConfigWriteInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -414,7 +468,7 @@
                                                                  Visibility="{Binding StepRegisterDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Register with Windows" FontWeight="SemiBold" />
+                                        <TextBlock Text="Register with Windows" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepRegisterInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -435,7 +489,7 @@
                                                                  Visibility="{Binding StepShortcutsDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Create shortcuts" FontWeight="SemiBold" />
+                                        <TextBlock Text="Create shortcuts" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepShortcutsInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -456,7 +510,7 @@
                                                                  Visibility="{Binding StepCompleteDone, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Complete" FontWeight="SemiBold" />
+                                        <TextBlock Text="Complete" Style="{StaticResource ChecklistLabelTextBlock}" />
                                         <ProgressBar Style="{StaticResource ChecklistProgressStyle}"
                                                      Visibility="{Binding StepCompleteInProgress, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </StackPanel>
@@ -464,24 +518,29 @@
                             </Border>
                         </StackPanel>
                     </ScrollViewer>
-                </Border>
+                </MaterialDesign:Card>
             </Grid>
 
             <!-- Footer -->
-            <DockPanel Grid.Row="2" Margin="0,24,0,0">
-                <TextBlock Text="{Binding AppRoot}"
-                           VerticalAlignment="Center"
-                           Foreground="{DynamicResource MaterialDesignBody}"
-                           DockPanel.Dock="Left" />
-                <Button Content="Launch Mix It Up"
-                        Command="{Binding LaunchCommand}"
-                        Margin="16,0,0,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        DockPanel.Dock="Right"
-                        Visibility="{Binding StepCompleteDone, Converter={StaticResource BooleanToVisibilityConverter}}"
-                        Height="36"
-                        Padding="20,0">
+            <Grid Grid.Row="2" Margin="0,24,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding AppRoot}"
+                               Style="{StaticResource StatusBodyTextBlock}" />
+                </StackPanel>
+
+        <Button Grid.Column="1"
+            Content="Launch Mix It Up"
+            Command="{Binding LaunchCommand}"
+            Margin="24,0,0,0"
+            Padding="24,10"
+            Height="44"
+            Visibility="{Binding StepCompleteDone, Converter={StaticResource BooleanToVisibilityConverter}}"
+            MaterialDesign:ButtonAssist.CornerRadius="20">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignContainedButton}">
                             <Setter Property="IsEnabled" Value="True" />
@@ -493,7 +552,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-            </DockPanel>
+            </Grid>
         </Grid>
     </MaterialDesign:DialogHost>
 </Window>
