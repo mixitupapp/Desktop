@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -121,7 +122,7 @@ namespace MixItUp.Base.Services.External
 
         public event EventHandler OnStreamlootsConnectionChanged = delegate { };
 
-        private WebRequest webRequest;
+        private HttpClient httpClient = new HttpClient();
         private Stream responseStream;
 
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -139,11 +140,7 @@ namespace MixItUp.Base.Services.External
         {
             this.cancellationTokenSource.Cancel();
             this.token = null;
-            if (this.webRequest != null)
-            {
-                this.webRequest.Abort();
-                this.webRequest = null;
-            }
+
             if (this.responseStream != null)
             {
                 this.responseStream.Close();
@@ -173,16 +170,14 @@ namespace MixItUp.Base.Services.External
         protected override void DisposeInternal()
         {
             this.cancellationTokenSource.Dispose();
-            if (this.webRequest != null)
-            {
-                this.webRequest.Abort();
-                this.webRequest = null;
-            }
+
             if (this.responseStream != null)
             {
                 this.responseStream.Close();
                 this.responseStream = null;
             }
+
+            this.httpClient?.Dispose();
         }
 
         private async Task BackgroundCheck()
@@ -191,10 +186,12 @@ namespace MixItUp.Base.Services.External
             {
                 try
                 {
-                    this.webRequest = WebRequest.Create(string.Format("https://widgets.streamloots.com/alerts/{0}/media-stream", this.token.accessToken));
-                    ((HttpWebRequest)this.webRequest).AllowReadStreamBuffering = false;
-                    var response = this.webRequest.GetResponse();
-                    this.responseStream = response.GetResponseStream();
+                    var response = await httpClient.GetAsync(
+                        string.Format("https://widgets.streamloots.com/alerts/{0}/media-stream", this.token.accessToken),
+                        HttpCompletionOption.ResponseHeadersRead,
+                        this.cancellationTokenSource.Token);
+
+                    this.responseStream = await response.Content.ReadAsStreamAsync();
 
                     UTF8Encoding encoder = new UTF8Encoding();
                     string textBuffer = string.Empty;
@@ -254,11 +251,6 @@ namespace MixItUp.Base.Services.External
                 }
                 finally
                 {
-                    if (this.webRequest != null)
-                    {
-                        this.webRequest.Abort();
-                        this.webRequest = null;
-                    }
                     if (this.responseStream != null)
                     {
                         this.responseStream.Close();
