@@ -41,7 +41,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <PackageReference Include="AWSSDK.Polly" Version="3.7.107.6" />
     <PackageReference Include="CacheManager.Core" Version="2.0.0" />
     <PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
-    <PackageReference Include="EngineIoClientDotNet" Version="1.0.6" />
     <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
@@ -59,9 +58,9 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <PackageReference Include="H.Engine.IO" Version="1.1.7.1" />
     <PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
     <PackageReference Include="H.WebSockets" Version="1.1.7.1" />
-    <PackageReference Include="HarfBuzzSharp" Version="2.8.2.3" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="2.8.2.3" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" Version="2.8.2.3" />
+    <PackageReference Include="HarfBuzzSharp" Version="8.3.1.2" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="8.3.1.2" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" Version="8.3.1.2" />
     <PackageReference Include="ID3" Version="0.6.0" />
     <PackageReference Include="Jace" Version="1.0.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.3.0" />
@@ -71,10 +70,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="8.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="8.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="8.0.20" />
@@ -96,23 +91,18 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
-    <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="4.2.0" />
-    <PackageReference Include="Microsoft.Owin.Hosting" Version="4.2.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="obs-websocket-dotnet" Version="4.9.1" />
     <PackageReference Include="ovrstream-client-csharp" Version="0.0.2" />
-    <PackageReference Include="Owin" Version="1.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.0" />
-    <PackageReference Include="SkiaSharp" Version="2.88.3" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.3" />
-    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="2.88.3" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.3" />
-    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="2.88.3" />
-    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.3" />
-    <PackageReference Include="SocketIoClientDotNet" Version="1.0.6" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
+    <PackageReference Include="SkiaSharp" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="2.88.8" />
+    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.8" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.6" />
     <PackageReference Include="SQLitePCLRaw.core" Version="2.1.6" />
     <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.6" />
@@ -137,9 +127,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.6" />
     <PackageReference Include="System.Threading.Channels" Version="8.0.0" />
-    <PackageReference Include="WebSocket4Net" Version="0.15.2" />
-    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
-    <PackageReference Include="WebSocketSharp-netstandard" Version="1.0.1" />
     <PackageReference Include="WriteableBitmapEx" Version="1.6.8" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters.CoreServices" Version="2.0.0" />
