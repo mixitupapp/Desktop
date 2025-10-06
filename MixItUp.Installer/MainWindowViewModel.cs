@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using MixItUp.Base.Model.API;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MixItUp.Installer
@@ -39,6 +40,91 @@ namespace MixItUp.Installer
             MixItUpStreamBotProcessName,
             AutoHosterProcessName,
         };
+
+        private const string LauncherProductSlug = "mixitup-desktop";
+        private const string LauncherPlatform = "windows-x64";
+
+        private sealed class LauncherManifestModel
+        {
+            [JsonProperty("schemaVersion")]
+            public string SchemaVersion { get; set; }
+
+            [JsonProperty("product")]
+            public string Product { get; set; }
+
+            [JsonProperty("channel")]
+            public string Channel { get; set; }
+
+            [JsonProperty("version")]
+            public string Version { get; set; }
+
+            [JsonProperty("releasedAt")]
+            public DateTime? ReleasedAt { get; set; }
+
+            [JsonProperty("releaseType")]
+            public string ReleaseType { get; set; }
+
+            [JsonProperty("platforms")]
+            public List<LauncherPlatformModel> Platforms { get; set; }
+        }
+
+        private sealed class LauncherPlatformModel
+        {
+            [JsonProperty("platform")]
+            public string Platform { get; set; }
+
+            [JsonProperty("files")]
+            public List<LauncherFileModel> Files { get; set; }
+        }
+
+        private sealed class LauncherFileModel
+        {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("size")]
+            public long? Size { get; set; }
+
+            [JsonProperty("sha256")]
+            public string Sha256 { get; set; }
+
+            [JsonProperty("contentType")]
+            public string ContentType { get; set; }
+
+            [JsonProperty("arch")]
+            public string Architecture { get; set; }
+        }
+
+        private sealed class LauncherPackageInfo
+        {
+            public LauncherPackageInfo(
+                string version,
+                string channel,
+                string platform,
+                LauncherFileModel file,
+                Uri downloadUri
+            )
+            {
+                this.Version = version;
+                this.Channel = channel;
+                this.Platform = platform;
+                this.File = file;
+                this.DownloadUri = downloadUri;
+            }
+
+            public string Version { get; }
+
+            public string Channel { get; }
+
+            public string Platform { get; }
+
+            public LauncherFileModel File { get; }
+
+            public Uri DownloadUri { get; }
+        }
 
         public static readonly string DefaultInstallDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -1739,7 +1825,488 @@ namespace MixItUp.Installer
                 return false;
             }
 
+            this.StepLauncherFetchPending = false;
+            this.StepLauncherFetchInProgress = true;
+
+            LauncherPackageInfo launcherPackage = await this.ResolveLauncherPackageAsync();
+            if (launcherPackage == null)
+            {
+                this.StepLauncherFetchInProgress = false;
+                return false;
+            }
+
+            IProgress<int> launcherProgress = new Progress<int>(percent =>
+            {
+                this.OperationProgress = percent;
+                this.DownloadPercent = percent;
+            });
+
+            byte[] launcherArchive = await this.DownloadLauncherArchiveAsync(
+                launcherPackage,
+                launcherProgress
+            );
+
+            if (launcherArchive == null || launcherArchive.Length == 0)
+            {
+                this.StepLauncherFetchInProgress = false;
+                return false;
+            }
+
+            this.StepLauncherFetchInProgress = false;
+            this.StepLauncherFetchDone = true;
+
+            this.StepLauncherInstallPending = false;
+            this.StepLauncherInstallInProgress = true;
+
+            bool launcherInstalled = this.InstallLauncherArchive(launcherArchive, launcherPackage);
+
+            if (launcherArchive != null)
+            {
+                Array.Clear(launcherArchive, 0, launcherArchive.Length);
+            }
+            launcherArchive = null;
+
+            if (!launcherInstalled)
+            {
+                this.StepLauncherInstallInProgress = false;
+                return false;
+            }
+
+            this.StepLauncherInstallInProgress = false;
+            this.StepLauncherInstallDone = true;
+
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+            this.IsOperationIndeterminate = true;
+
             return await this.RunLegacyPipelineAsync();
+        }
+
+        private string ResolveLauncherChannel()
+        {
+            if (this.IsTest)
+            {
+                return "test";
+            }
+
+            if (this.IsPreview)
+            {
+                return "preview";
+            }
+
+            return "production";
+        }
+
+        private string BuildLauncherManifestUrl(string channel)
+        {
+            string trimmedBase = (this.UpdateServerBaseUrl ?? string.Empty).TrimEnd('/');
+            return string.Format(
+                "{0}/updates/{1}/{2}/{3}/latest",
+                trimmedBase,
+                LauncherProductSlug,
+                LauncherPlatform,
+                channel
+            );
+        }
+
+        private Uri BuildLauncherDownloadUri(string fileUrl)
+        {
+            if (string.IsNullOrWhiteSpace(fileUrl))
+            {
+                return null;
+            }
+
+            if (Uri.TryCreate(fileUrl, UriKind.Absolute, out Uri absoluteUri))
+            {
+                return absoluteUri;
+            }
+
+            string trimmedBase = (this.UpdateServerBaseUrl ?? string.Empty).TrimEnd('/');
+            if (!Uri.TryCreate(trimmedBase, UriKind.Absolute, out Uri baseUri))
+            {
+                return null;
+            }
+
+            string relativePath = fileUrl.StartsWith("/") ? fileUrl : "/" + fileUrl;
+            if (Uri.TryCreate(baseUri, relativePath, out Uri combinedUri))
+            {
+                return combinedUri;
+            }
+
+            return null;
+        }
+
+        private async Task<LauncherPackageInfo> ResolveLauncherPackageAsync()
+        {
+            string channel = this.ResolveLauncherChannel();
+            string manifestUrl = this.BuildLauncherManifestUrl(channel);
+
+            this.DisplayText1 = "Checking for launcher updates...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+
+            this.LogActivity($"Requesting launcher manifest from {manifestUrl}");
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(15);
+
+                    HttpResponseMessage response = await client.GetAsync(manifestUrl);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        string errorBody = await response.Content.ReadAsStringAsync();
+                        this.WriteToLogFile($"{manifestUrl} - {response.StatusCode} - {errorBody}");
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    LauncherManifestModel manifest =
+                        JsonConvert.DeserializeObject<LauncherManifestModel>(responseBody);
+
+                    if (manifest == null)
+                    {
+                        this.WriteToLogFile("Launcher manifest response was empty or invalid.");
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    LauncherPlatformModel platform = manifest.Platforms?.FirstOrDefault(p =>
+                        string.Equals(
+                            p.Platform,
+                            LauncherPlatform,
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    );
+
+                    if (platform == null)
+                    {
+                        this.WriteToLogFile(
+                            $"Launcher manifest missing expected platform '{LauncherPlatform}'."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    LauncherFileModel file =
+                        platform.Files?.FirstOrDefault(f =>
+                            string.Equals(
+                                f.ContentType,
+                                "application/zip",
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        ) ?? platform.Files?.FirstOrDefault(f => !string.IsNullOrWhiteSpace(f.Url));
+
+                    if (file == null || string.IsNullOrWhiteSpace(file.Url))
+                    {
+                        this.WriteToLogFile(
+                            "Launcher manifest did not include a valid download file."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    Uri downloadUri = this.BuildLauncherDownloadUri(file.Url);
+                    if (downloadUri == null)
+                    {
+                        this.WriteToLogFile(
+                            $"Unable to construct launcher download URL from '{file.Url}'."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Couldn't reach the update server. Check connection and try again."
+                        );
+                        return null;
+                    }
+
+                    string sanitizedUrl = downloadUri.GetLeftPart(UriPartial.Path);
+                    this.LogActivity(
+                        $"Launcher manifest resolved version {manifest.Version} ({channel})."
+                    );
+                    this.LogActivity($"Launcher download endpoint: {sanitizedUrl}");
+
+                    this.LatestVersion = manifest.Version ?? string.Empty;
+                    this.DisplayText2 = string.IsNullOrEmpty(manifest.Version)
+                        ? string.Empty
+                        : $"Version {manifest.Version}";
+
+                    return new LauncherPackageInfo(
+                        manifest.Version ?? string.Empty,
+                        manifest.Channel ?? channel,
+                        platform.Platform,
+                        file,
+                        downloadUri
+                    );
+                }
+            }
+            catch (Exception ex)
+                when (ex is HttpRequestException
+                    || ex is TaskCanceledException
+                    || ex is JsonException
+                )
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Download Failed",
+                    "Couldn't reach the update server. Check connection and try again."
+                );
+            }
+
+            return null;
+        }
+
+        private async Task<byte[]> DownloadLauncherArchiveAsync(
+            LauncherPackageInfo package,
+            IProgress<int> progress
+        )
+        {
+            if (package == null)
+            {
+                return null;
+            }
+
+            this.DisplayText1 = "Downloading launcher...";
+            this.DisplayText2 = string.IsNullOrEmpty(package.Version)
+                ? string.Empty
+                : $"Version {package.Version}";
+            this.IsOperationIndeterminate = false;
+            this.OperationProgress = 0;
+            this.DownloadPercent = 0;
+
+            string sanitizedUrl = package.DownloadUri.GetLeftPart(UriPartial.Path);
+            this.LogActivity($"Starting launcher download from {sanitizedUrl}");
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromMinutes(5);
+
+                    using (
+                        HttpResponseMessage response = await client.GetAsync(
+                            package.DownloadUri,
+                            HttpCompletionOption.ResponseHeadersRead
+                        )
+                    )
+                    {
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            string errorBody = await response.Content.ReadAsStringAsync();
+                            this.WriteToLogFile(
+                                $"{package.DownloadUri} - {response.StatusCode} - {errorBody}"
+                            );
+                            this.ShowError(
+                                "Download Failed",
+                                "Couldn't reach the update server. Check connection and try again."
+                            );
+                            return null;
+                        }
+
+                        long? contentLength = response.Content.Headers.ContentLength;
+                        this.IsOperationIndeterminate = !contentLength.HasValue;
+                        progress?.Report(0);
+
+                        using (Stream contentStream = await response.Content.ReadAsStreamAsync())
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            byte[] buffer = new byte[81920];
+                            long totalRead = 0;
+                            int read;
+                            while (
+                                (read = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0
+                            )
+                            {
+                                memoryStream.Write(buffer, 0, read);
+                                totalRead += read;
+
+                                if (contentLength.HasValue && contentLength.Value > 0)
+                                {
+                                    int percent = (int)
+                                        Math.Min(100, (totalRead * 100) / contentLength.Value);
+                                    progress?.Report(percent);
+                                }
+                            }
+
+                            progress?.Report(100);
+
+                            double sizeInMb = memoryStream.Length / 1024d / 1024d;
+                            this.LogActivity(
+                                $"Launcher download complete ({sizeInMb:F2} MB received)."
+                            );
+
+                            return memoryStream.ToArray();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+                when (ex is HttpRequestException || ex is TaskCanceledException || ex is IOException
+                )
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Download Failed",
+                    "Couldn't reach the update server. Check connection and try again."
+                );
+            }
+
+            return null;
+        }
+
+        private bool InstallLauncherArchive(byte[] archiveBytes, LauncherPackageInfo package)
+        {
+            this.DisplayText1 = "Installing launcher...";
+            this.DisplayText2 = string.IsNullOrEmpty(package?.Version)
+                ? string.Empty
+                : $"Version {package.Version}";
+            this.IsOperationIndeterminate = false;
+            this.OperationProgress = 0;
+
+            if (archiveBytes == null || archiveBytes.Length == 0)
+            {
+                this.WriteToLogFile("Launcher archive data was empty.");
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded launcher package is invalid. Please try again."
+                );
+                return false;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(this.AppRoot);
+                string normalizedAppRoot = Path.GetFullPath(this.AppRoot);
+
+                using (MemoryStream zipStream = new MemoryStream(archiveBytes))
+                using (ZipArchive archive = new ZipArchive(zipStream))
+                {
+                    if (archive.Entries.Count == 0)
+                    {
+                        this.WriteToLogFile("Launcher archive contained no entries.");
+                        this.ShowError(
+                            "Package Corrupt",
+                            "The downloaded launcher package is invalid. Please try again."
+                        );
+                        return false;
+                    }
+
+                    double processed = 0;
+                    double total = archive.Entries.Count;
+
+                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    {
+                        string entryPath = entry.FullName.Replace('/', Path.DirectorySeparatorChar);
+
+                        if (string.IsNullOrWhiteSpace(entryPath))
+                        {
+                            processed++;
+                            continue;
+                        }
+
+                        string destinationPath = Path.GetFullPath(
+                            Path.Combine(normalizedAppRoot, entryPath)
+                        );
+
+                        if (
+                            !destinationPath.StartsWith(
+                                normalizedAppRoot,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
+                        {
+                            this.WriteToLogFile(
+                                $"Skipping extraction of '{entry.FullName}' due to path traversal."
+                            );
+                            processed++;
+                            continue;
+                        }
+
+                        if (
+                            destinationPath.EndsWith(
+                                Path.DirectorySeparatorChar.ToString(),
+                                StringComparison.Ordinal
+                            )
+                        )
+                        {
+                            Directory.CreateDirectory(destinationPath);
+                        }
+                        else
+                        {
+                            string parentDirectory = Path.GetDirectoryName(destinationPath);
+                            if (!string.IsNullOrEmpty(parentDirectory))
+                            {
+                                Directory.CreateDirectory(parentDirectory);
+                            }
+
+                            entry.ExtractToFile(destinationPath, overwrite: true);
+                        }
+
+                        processed++;
+                        this.OperationProgress =
+                            total > 0
+                                ? (int)Math.Min(100, Math.Round((processed / total) * 100))
+                                : 100;
+                    }
+                }
+
+                string launcherPath = Path.Combine(this.AppRoot, "MixItUp.exe");
+                if (!File.Exists(launcherPath))
+                {
+                    this.WriteToLogFile(
+                        "Launcher extraction completed but MixItUp.exe was not found."
+                    );
+                    this.ShowError(
+                        "Package Corrupt",
+                        "The downloaded launcher package is invalid. Please try again."
+                    );
+                    return false;
+                }
+
+                this.LogActivity("Launcher files extracted successfully.");
+                return true;
+            }
+            catch (InvalidDataException idex)
+            {
+                this.WriteToLogFile(idex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded launcher package is invalid. Please try again."
+                );
+            }
+            catch (UnauthorizedAccessException uaex)
+            {
+                this.WriteToLogFile(uaex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "We couldn't write files to the installation directory. Check permissions and try again."
+                );
+            }
+            catch (IOException ioex)
+            {
+                this.WriteToLogFile(ioex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "We couldn't write files to the installation directory. Check permissions and try again."
+                );
+            }
+
+            return false;
         }
 
         private async Task<bool> RunLegacyPipelineAsync()

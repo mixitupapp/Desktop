@@ -5,7 +5,9 @@
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:local="clr-namespace:MixItUp.Installer"
  xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
- mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" TextElement.Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" TextElement.FontWeight="SemiBold" TextElement.FontSize="14" FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto" Icon="./Logo.ico" Title="Mix It Up - Installer" Height="520" Width="900" MinHeight="480" MinWidth="780">
+ mc:Ignorable="d" 
+          Style="{StaticResource MaterialDesignWindow}"
+        Icon="./Logo.ico" Title="Mix It Up - Installer" Height="520" Width="900" MinHeight="480" MinWidth="780">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
