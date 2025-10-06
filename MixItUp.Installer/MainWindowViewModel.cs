@@ -900,19 +900,150 @@ namespace MixItUp.Installer
 
         private Task<bool> DiscoverInstallContextAsync()
         {
+            return Task.FromResult(this.DiscoverInstallContext());
+        }
+
+        private bool DiscoverInstallContext()
+        {
             this.DisplayText1 = "Discovering install context...";
             this.DisplayText2 = string.Empty;
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
+
             this.StepDiscoverPending = false;
             this.StepDiscoverInProgress = true;
-            this.LogActivity("Discovering install context (placeholder).");
+            this.StepDiscoverDone = false;
 
-            // Placeholder for Task 004 implementation.
+            this.LogActivity("Starting install context discovery...");
+
+            string resolvedAppRoot = this.AppRoot;
+            if (string.IsNullOrWhiteSpace(resolvedAppRoot))
+            {
+                resolvedAppRoot = DefaultInstallDirectory;
+                this.LogActivity(
+                    $"AppRoot not provided; defaulting to {NormalizePath(resolvedAppRoot)}."
+                );
+                this.AppRoot = resolvedAppRoot;
+            }
+
+            string normalizedAppRoot = NormalizePath(resolvedAppRoot);
+            if (!string.Equals(resolvedAppRoot, normalizedAppRoot, StringComparison.Ordinal))
+            {
+                this.AppRoot = normalizedAppRoot;
+                resolvedAppRoot = normalizedAppRoot;
+            }
+
+            string resolvedRunningDirectory = Path.GetFullPath(
+                AppDomain.CurrentDomain.BaseDirectory ?? Environment.CurrentDirectory
+            );
+            this.RunningDirectory = resolvedRunningDirectory;
+
+            string normalizedRunningDirectory = NormalizePath(resolvedRunningDirectory);
+
+            this.LogActivity($"AppRoot resolved to: {normalizedAppRoot}");
+            this.LogActivity($"Installer running from: {normalizedRunningDirectory}");
+
+            try
+            {
+                if (!Directory.Exists(resolvedAppRoot))
+                {
+                    this.LogActivity("AppRoot directory not found. Creating...");
+                }
+
+                Directory.CreateDirectory(resolvedAppRoot);
+                this.LogActivity("AppRoot directory is available.");
+            }
+            catch (Exception ex)
+            {
+                this.StepDiscoverInProgress = false;
+                this.StepDiscoverDone = false;
+
+                this.LogActivity(
+                    $"Failed to ensure AppRoot directory exists: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+
+                this.ShowError(
+                    "Write Permission Denied",
+                    $"Installer needs write access to {normalizedAppRoot}. Run with sufficient permissions."
+                );
+
+                return false;
+            }
+
+            bool targetDirExists = Directory.Exists(resolvedAppRoot);
+            bool targetExeExists = File.Exists(Path.Combine(resolvedAppRoot, "MixItUp.exe"));
+            bool versionDirExists = Directory.Exists(Path.Combine(resolvedAppRoot, "app"));
+            string bootloaderPath = Path.Combine(resolvedAppRoot, "bootloader.json");
+            bool bootloaderExists = File.Exists(bootloaderPath);
+            bool migrationAlreadyDone = versionDirExists || bootloaderExists;
+
+            bool isRunningFromAppRoot =
+                !string.IsNullOrEmpty(normalizedAppRoot)
+                && string.Equals(
+                    normalizedAppRoot,
+                    normalizedRunningDirectory,
+                    StringComparison.OrdinalIgnoreCase
+                );
+
+            bool portableCandidateFound =
+                !isRunningFromAppRoot
+                && File.Exists(Path.Combine(resolvedRunningDirectory, "MixItUp.exe"));
+
+            bool legacyDetected = targetExeExists && !migrationAlreadyDone;
+            bool isUpdate = targetExeExists || bootloaderExists;
+
+            this.TargetDirExists = targetDirExists;
+            this.TargetExeExists = targetExeExists;
+            this.MigrationAlreadyDone = migrationAlreadyDone;
+            this.LegacyDetected = legacyDetected;
+            this.PortableCandidateFound = portableCandidateFound;
+            this.IsRunningFromAppRoot = isRunningFromAppRoot;
+            this.IsUpdate = isUpdate;
+
+            this.BootloaderConfigPath = bootloaderPath;
+            this.VersionedAppDirRoot = Path.Combine(resolvedAppRoot, "app");
+            this.DownloadTempPath = Path.Combine(resolvedAppRoot, ".tmp");
+
+            if (isRunningFromAppRoot)
+            {
+                this.LogActivity("Installer is running from the target AppRoot directory.");
+            }
+            else
+            {
+                this.LogActivity("Installer is running from a separate directory.");
+            }
+
+            if (portableCandidateFound)
+            {
+                this.LogActivity("Portable install identified in the running directory.");
+            }
+
+            if (legacyDetected)
+            {
+                this.LogActivity("Legacy layout detected at the AppRoot.");
+            }
+
+            if (migrationAlreadyDone)
+            {
+                this.LogActivity("Migration markers detected (app directory or bootloader).");
+            }
+
+            if (isUpdate)
+            {
+                this.LogActivity("Existing installation detected; update path selected.");
+            }
+            else
+            {
+                this.LogActivity("No existing installation detected; fresh install path selected.");
+            }
+
             this.StepDiscoverInProgress = false;
             this.StepDiscoverDone = true;
+            this.DisplayText1 = "Install context discovered.";
+            this.DisplayText2 = string.Empty;
 
-            return Task.FromResult(true);
+            return true;
         }
 
         private bool TryValidateWriteAccess(string path, string displayName)
