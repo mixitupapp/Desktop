@@ -9,12 +9,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
 using MixItUp.Base.Model.API;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Security.Principal;
 
 namespace MixItUp.Installer
 {
@@ -162,6 +165,43 @@ namespace MixItUp.Installer
             [JsonExtensionData]
             public IDictionary<string, JToken> ExtensionData { get; set; }
                 = new Dictionary<string, JToken>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        private enum ShortcutCreationResult
+        {
+            Success,
+            AlreadyExists,
+            AccessDenied,
+            Failed,
+        }
+
+        private sealed class RelayCommand : ICommand
+        {
+            private readonly Action<object> execute;
+            private readonly Func<object, bool> canExecute;
+
+            public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+            {
+                this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+                this.canExecute = canExecute;
+            }
+
+            public event EventHandler CanExecuteChanged;
+
+            public bool CanExecute(object parameter)
+            {
+                return this.canExecute == null || this.canExecute(parameter);
+            }
+
+            public void Execute(object parameter)
+            {
+                this.execute(parameter);
+            }
+
+            public void RaiseCanExecuteChanged()
+            {
+                this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public static readonly string DefaultInstallDirectory = Path.Combine(
@@ -660,6 +700,7 @@ namespace MixItUp.Installer
 
         public ICommand OpenLogCommand { get; private set; }
 
+    private RelayCommand launchCommand;
         public ICommand LaunchCommand { get; private set; }
 
         public bool IsUpdate
@@ -887,6 +928,12 @@ namespace MixItUp.Installer
             this.DisplayText1 = "Preparing installation...";
             this.isOperationBeingPerformed = true;
             this.IsOperationIndeterminate = true;
+
+            this.launchCommand = new RelayCommand(
+                _ => this.ExecuteLaunch(),
+                _ => this.StepCompleteDone && !this.HasError
+            );
+            this.LaunchCommand = this.launchCommand;
         }
 
         private void ResetStepStates()
@@ -1871,6 +1918,28 @@ namespace MixItUp.Installer
             return string.Equals(normalizedLeft, normalizedRight, StringComparison.OrdinalIgnoreCase);
         }
 
+        private static bool IsProcessElevated()
+        {
+            try
+            {
+                WindowsIdentity identity = WindowsIdentity.GetCurrent();
+                if (identity == null)
+                {
+                    return false;
+                }
+
+                using (identity)
+                {
+                    WindowsPrincipal principal = new WindowsPrincipal(identity);
+                    return principal.IsInRole(WindowsBuiltInRole.Administrator);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private Task<bool> CopyUserDataAsync()
         {
             return Task.FromResult(this.CopyUserData());
@@ -2482,6 +2551,467 @@ namespace MixItUp.Installer
             }
         }
 
+        private bool RegisterUninstallEntry()
+        {
+            this.DisplayText1 = "Registering Mix It Up...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+
+            this.StepRegisterPending = false;
+            this.StepRegisterInProgress = true;
+            this.StepRegisterDone = false;
+
+            string appRoot = this.AppRoot;
+            if (string.IsNullOrWhiteSpace(appRoot))
+            {
+                appRoot = DefaultInstallDirectory;
+            }
+
+            string normalizedAppRoot = NormalizePath(appRoot);
+            string launcherPath = Path.Combine(appRoot, "MixItUp.exe");
+            string normalizedLauncherPath = NormalizePath(launcherPath);
+            bool launcherExists = File.Exists(launcherPath);
+
+            string uninstallerPath = Path.Combine(appRoot, "MixItUp.Uninstaller.exe");
+            string normalizedUninstallerPath = NormalizePath(uninstallerPath);
+            bool uninstallerExists = File.Exists(uninstallerPath);
+
+            string uninstallCommand = uninstallerExists
+                ? $"\"{normalizedUninstallerPath}\""
+                : $"\"{normalizedLauncherPath}\" --uninstall";
+
+            string displayVersion = this.LatestVersion;
+            if (string.IsNullOrWhiteSpace(displayVersion))
+            {
+                string pendingPath = this.PendingVersionDirectoryPath;
+                if (!string.IsNullOrWhiteSpace(pendingPath))
+                {
+                    displayVersion = Path.GetFileName(NormalizePath(pendingPath));
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(displayVersion))
+            {
+                displayVersion = "0.0.0";
+            }
+
+            bool isElevated = IsProcessElevated();
+            RegistryView view = Environment.Is64BitOperatingSystem
+                ? RegistryView.Registry64
+                : RegistryView.Registry32;
+
+            string uninstallKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall\MixItUp";
+
+            RegistryHive? hiveUsed = null;
+            Exception lastError = null;
+
+            RegistryHive[] candidateHives = isElevated
+                ? new[] { RegistryHive.LocalMachine, RegistryHive.CurrentUser }
+                : new[] { RegistryHive.CurrentUser };
+
+            foreach (RegistryHive hive in candidateHives)
+            {
+                try
+                {
+                    using (RegistryKey baseKey = RegistryKey.OpenBaseKey(hive, view))
+                    using (RegistryKey uninstallKey = baseKey.CreateSubKey(uninstallKeyPath, writable: true))
+                    {
+                        uninstallKey.SetValue("DisplayName", "MixItUp StreamBot", RegistryValueKind.String);
+                        uninstallKey.SetValue("DisplayVersion", displayVersion, RegistryValueKind.String);
+                        uninstallKey.SetValue("InstallLocation", normalizedAppRoot, RegistryValueKind.String);
+                        uninstallKey.SetValue("Publisher", "Mix It Up", RegistryValueKind.String);
+                        uninstallKey.SetValue("UninstallString", uninstallCommand, RegistryValueKind.String);
+
+                        string iconPath = launcherExists
+                            ? normalizedLauncherPath
+                            : (uninstallerExists ? normalizedUninstallerPath : normalizedLauncherPath);
+                        uninstallKey.SetValue("DisplayIcon", iconPath, RegistryValueKind.String);
+
+                        uninstallKey.SetValue("NoModify", 1, RegistryValueKind.DWord);
+                        uninstallKey.SetValue("NoRepair", 1, RegistryValueKind.DWord);
+
+                        if (uninstallerExists)
+                        {
+                            uninstallKey.SetValue(
+                                "QuietUninstallString",
+                                $"\"{normalizedUninstallerPath}\"",
+                                RegistryValueKind.String
+                            );
+                        }
+
+                        hiveUsed = hive;
+                        break;
+                    }
+                }
+                catch (UnauthorizedAccessException uaex)
+                {
+                    lastError = uaex;
+                    this.WriteToLogFile(
+                        $"Unauthorized to write uninstall key under {hive}: {uaex.GetType().Name} - {uaex.Message}"
+                    );
+                    continue;
+                }
+                catch (Exception ex)
+                {
+                    lastError = ex;
+                    this.WriteToLogFile(
+                        $"Failed to write uninstall key under {hive}: {ex.GetType().Name} - {ex.Message}"
+                    );
+                }
+            }
+
+            if (!hiveUsed.HasValue)
+            {
+                this.StepRegisterInProgress = false;
+                this.StepRegisterDone = false;
+
+                this.LogActivity("Failed to register uninstall information with Windows.");
+                if (lastError != null)
+                {
+                    this.WriteToLogFile(lastError.ToString());
+                }
+
+                this.ShowError(
+                    "Registration Failed",
+                    "Couldn't register uninstall entry. You can still use the app; try reinstalling to fix."
+                );
+                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                return false;
+            }
+
+            string hiveDisplay = hiveUsed == RegistryHive.LocalMachine ? "HKLM" : "HKCU";
+            this.StepRegisterInProgress = false;
+            this.StepRegisterDone = true;
+            this.DisplayText1 = "Windows uninstall entry registered.";
+            this.DisplayText2 = string.Empty;
+
+            if (uninstallerExists)
+            {
+                this.LogActivity(
+                    $"Registered uninstall entry under {hiveDisplay} pointing to '{normalizedUninstallerPath}'."
+                );
+            }
+            else
+            {
+                this.LogActivity(
+                    $"Registered uninstall entry under {hiveDisplay} using launcher '--uninstall' handler."
+                );
+            }
+
+            return true;
+        }
+
+        private bool CreateShortcuts()
+        {
+            this.DisplayText1 = "Creating Start Menu shortcut...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+
+            this.StepShortcutsPending = false;
+            this.StepShortcutsInProgress = true;
+            this.StepShortcutsDone = false;
+
+            string appRoot = this.AppRoot;
+            if (string.IsNullOrWhiteSpace(appRoot))
+            {
+                appRoot = DefaultInstallDirectory;
+            }
+
+            string normalizedAppRoot = NormalizePath(appRoot);
+            string launcherPath = Path.Combine(appRoot, "MixItUp.exe");
+            string normalizedLauncherPath = NormalizePath(launcherPath);
+
+            ShortcutCreationResult startMenuResult = this.TryCreateShortcutAtLocation(
+                StartMenuShortCutFilePath,
+                normalizedLauncherPath,
+                normalizedAppRoot
+            );
+
+            bool startMenuSucceeded = startMenuResult == ShortcutCreationResult.Success
+                || startMenuResult == ShortcutCreationResult.AlreadyExists;
+
+            ShortcutCreationResult desktopResult = ShortcutCreationResult.Failed;
+            bool desktopAttempted = false;
+
+            if (!startMenuSucceeded)
+            {
+                this.DisplayText1 = "Creating Desktop shortcut...";
+                desktopAttempted = true;
+                desktopResult = this.TryCreateShortcutAtLocation(
+                    DesktopShortCutFilePath,
+                    normalizedLauncherPath,
+                    normalizedAppRoot
+                );
+            }
+
+            bool desktopSucceeded = desktopResult == ShortcutCreationResult.Success
+                || desktopResult == ShortcutCreationResult.AlreadyExists;
+
+            bool shortcutAvailable = startMenuSucceeded || desktopSucceeded;
+
+            if (!shortcutAvailable)
+            {
+                this.StepShortcutsInProgress = false;
+                this.StepShortcutsDone = false;
+
+                this.LogActivity("Unable to create Start Menu or Desktop shortcuts.");
+
+                this.ShowError(
+                    "Shortcut Locations Locked",
+                    "Unable to write to Start Menu or Desktop. Create shortcuts manually."
+                );
+                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                return false;
+            }
+
+            this.StepShortcutsInProgress = false;
+            this.StepShortcutsDone = true;
+            this.DisplayText1 = "Shortcuts created.";
+            this.DisplayText2 = string.Empty;
+
+            if (startMenuSucceeded)
+            {
+                this.LogActivity(
+                    $"Start Menu shortcut available at '{NormalizePath(StartMenuShortCutFilePath)}'."
+                );
+            }
+
+            if (desktopAttempted)
+            {
+                if (desktopSucceeded)
+                {
+                    this.LogActivity(
+                        $"Desktop shortcut available at '{NormalizePath(DesktopShortCutFilePath)}'."
+                    );
+                }
+                else if (desktopResult == ShortcutCreationResult.AccessDenied)
+                {
+                    this.LogActivity("Desktop shortcut creation skipped due to access restrictions.");
+                }
+            }
+
+            return true;
+        }
+
+        private ShortcutCreationResult TryCreateShortcutAtLocation(
+            string shortcutPath,
+            string launcherPath,
+            string workingDirectory
+        )
+        {
+            string directory = Path.GetDirectoryName(shortcutPath);
+            if (!string.IsNullOrEmpty(directory))
+            {
+                try
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                catch (UnauthorizedAccessException uaex)
+                {
+                    this.LogActivity(
+                        $"Access denied when creating shortcut directory '{NormalizePath(directory)}'."
+                    );
+                    this.WriteToLogFile(
+                        $"Unauthorized to create shortcut directory '{directory}': {uaex}"
+                    );
+                    return ShortcutCreationResult.AccessDenied;
+                }
+                catch (Exception ex)
+                {
+                    this.LogActivity(
+                        $"Failed to prepare shortcut directory '{NormalizePath(directory)}'."
+                    );
+                    this.WriteToLogFile(
+                        $"Failed to ensure shortcut directory '{directory}': {ex}"
+                    );
+                    return ShortcutCreationResult.Failed;
+                }
+            }
+
+            if (File.Exists(shortcutPath))
+            {
+                this.LogActivity(
+                    $"Shortcut already exists at '{NormalizePath(shortcutPath)}'; skipping creation."
+                );
+                return ShortcutCreationResult.AlreadyExists;
+            }
+
+            if (this.TryCopyTemplateShortcut(shortcutPath, launcherPath, workingDirectory))
+            {
+                return ShortcutCreationResult.Success;
+            }
+
+            if (this.TryCreateShortcutWithCom(shortcutPath, launcherPath, workingDirectory))
+            {
+                return ShortcutCreationResult.Success;
+            }
+
+            this.WriteToLogFile(
+                $"Failed to create shortcut at '{NormalizePath(shortcutPath)}' using template or COM."
+            );
+            return ShortcutCreationResult.Failed;
+        }
+
+        private bool TryCopyTemplateShortcut(
+            string shortcutPath,
+            string launcherPath,
+            string workingDirectory
+        )
+        {
+            string runningDirectory = this.RunningDirectory;
+            if (string.IsNullOrWhiteSpace(runningDirectory))
+            {
+                return false;
+            }
+
+            string templatePath = Path.Combine(runningDirectory, "Mix It Up.link");
+            if (!File.Exists(templatePath))
+            {
+                return false;
+            }
+
+            try
+            {
+                File.Copy(templatePath, shortcutPath, overwrite: false);
+
+                if (!this.TryConfigureShortcut(shortcutPath, launcherPath, workingDirectory, launcherPath))
+                {
+                    this.TryDeleteFile(shortcutPath);
+                    return false;
+                }
+
+                this.LogActivity(
+                    $"Shortcut created from template at '{NormalizePath(shortcutPath)}'."
+                );
+                return true;
+            }
+            catch (IOException ioex)
+            {
+                this.WriteToLogFile(ioex.ToString());
+            }
+            catch (UnauthorizedAccessException uaex)
+            {
+                this.WriteToLogFile(uaex.ToString());
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(ex.ToString());
+            }
+
+            return false;
+        }
+
+        private bool TryCreateShortcutWithCom(
+            string shortcutPath,
+            string launcherPath,
+            string workingDirectory
+        )
+        {
+            if (!this.TryConfigureShortcut(shortcutPath, launcherPath, workingDirectory, launcherPath))
+            {
+                return false;
+            }
+
+            this.LogActivity(
+                $"Shortcut created via COM automation at '{NormalizePath(shortcutPath)}'."
+            );
+            return true;
+        }
+
+        private bool TryConfigureShortcut(
+            string shortcutPath,
+            string launcherPath,
+            string workingDirectory,
+            string iconPath
+        )
+        {
+            Type shellType = Type.GetTypeFromProgID("WScript.Shell");
+            if (shellType == null)
+            {
+                this.LogActivity("WScript.Shell COM automation is unavailable on this system.");
+                this.WriteToLogFile("WScript.Shell COM automation is unavailable on this system.");
+                return false;
+            }
+
+            object shellObject = null;
+            object shortcutObject = null;
+
+            try
+            {
+                shellObject = Activator.CreateInstance(shellType);
+                dynamic shell = shellObject;
+                shortcutObject = shell.CreateShortcut(shortcutPath);
+                dynamic shortcut = shortcutObject;
+
+                shortcut.TargetPath = launcherPath;
+                shortcut.WorkingDirectory = workingDirectory;
+                shortcut.Arguments = string.Empty;
+                shortcut.IconLocation = iconPath;
+                shortcut.Description = "Launch Mix It Up StreamBot";
+                shortcut.Save();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(
+                    $"Failed to configure shortcut '{NormalizePath(shortcutPath)}': {ex}"
+                );
+                return false;
+            }
+            finally
+            {
+                if (shortcutObject != null)
+                {
+                    try
+                    {
+                        Marshal.FinalReleaseComObject(shortcutObject);
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                if (shellObject != null)
+                {
+                    try
+                    {
+                        Marshal.FinalReleaseComObject(shellObject);
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
+        private void MarkInstallationComplete()
+        {
+            this.StepCompletePending = false;
+            this.StepCompleteInProgress = true;
+
+            this.DisplayText1 = "Installation complete.";
+            this.DisplayText2 = "Mix It Up is ready.";
+
+            this.IsOperationIndeterminate = false;
+            this.IsOperationBeingPerformed = false;
+            this.OperationProgress = 100;
+            this.DownloadPercent = 0;
+
+            this.ErrorMessage = string.Empty;
+            this.SpecificErrorMessage = string.Empty;
+            this.HyperlinkAddress = string.Empty;
+
+            this.StepCompleteInProgress = false;
+            this.StepCompleteDone = true;
+
+            this.launchCommand?.RaiseCanExecuteChanged();
+
+            this.LogActivity($"Installer completed successfully at {DateTime.UtcNow:u}.");
+        }
+
         public async Task<bool> RunAsync()
         {
             this.ResetLogFile();
@@ -2636,11 +3166,18 @@ namespace MixItUp.Installer
                 return false;
             }
 
-            this.OperationProgress = 0;
-            this.DownloadPercent = 0;
-            this.IsOperationIndeterminate = true;
+            if (!this.RegisterUninstallEntry())
+            {
+                return false;
+            }
 
-            return await this.RunLegacyPipelineAsync();
+            if (!this.CreateShortcuts())
+            {
+                return false;
+            }
+
+            this.MarkInstallationComplete();
+            return true;
         }
 
         private string ResolveUpdateChannel()
@@ -3720,6 +4257,12 @@ namespace MixItUp.Installer
             return result;
         }
 
+        private void ExecuteLaunch()
+        {
+            this.LogActivity("Launch button clicked; attempting to start Mix It Up.");
+            this.Launch();
+        }
+
         public void Launch()
         {
             if (Path.Equals(this.installDirectory, DefaultInstallDirectory))
@@ -4066,6 +4609,7 @@ namespace MixItUp.Installer
 
             this.ErrorMessage = combinedMessage;
             this.HasError = true;
+            this.launchCommand?.RaiseCanExecuteChanged();
         }
 
         private void LogActivity(string message)

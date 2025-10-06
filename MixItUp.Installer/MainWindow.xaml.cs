@@ -22,11 +22,7 @@ namespace MixItUp.Installer
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (await this.viewModel.RunAsync())
-            {
-                this.viewModel.Launch();
-                this.Close();
-            }
+            await this.viewModel.RunAsync();
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
