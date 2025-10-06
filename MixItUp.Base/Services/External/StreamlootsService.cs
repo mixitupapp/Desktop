@@ -122,7 +122,11 @@ namespace MixItUp.Base.Services.External
 
         public event EventHandler OnStreamlootsConnectionChanged = delegate { };
 
-        private HttpClient httpClient = new HttpClient();
+        private HttpClient httpClient = new HttpClient()
+        {
+            Timeout = Timeout.InfiniteTimeSpan
+        };
+
         private Stream responseStream;
 
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
