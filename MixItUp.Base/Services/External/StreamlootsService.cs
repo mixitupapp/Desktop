@@ -190,12 +190,12 @@ namespace MixItUp.Base.Services.External
             {
                 try
                 {
-                    var response = await httpClient.GetAsync(
+                    using var response = await httpClient.GetAsync(
                         string.Format("https://widgets.streamloots.com/alerts/{0}/media-stream", this.token.accessToken),
                         HttpCompletionOption.ResponseHeadersRead,
                         this.cancellationTokenSource.Token);
 
-                    this.responseStream = await response.Content.ReadAsStreamAsync();
+                    this.responseStream = await response.Content.ReadAsStreamAsync(this.cancellationTokenSource.Token);
 
                     UTF8Encoding encoder = new UTF8Encoding();
                     string textBuffer = string.Empty;
@@ -204,7 +204,7 @@ namespace MixItUp.Base.Services.External
                     {
                         if (this.responseStream.CanRead)
                         {
-                            int len = this.responseStream.Read(buffer, 0, 100000);
+                            int len = await this.responseStream.ReadAsync(buffer, 0, 100000, this.cancellationTokenSource.Token);
                             if (len > 10)
                             {
                                 string text = encoder.GetString(buffer, 0, len);
