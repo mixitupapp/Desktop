@@ -123,7 +123,7 @@ namespace MixItUp.Base.Model.Commands.Games
                     {
                         await DelayNoThrow(this.TimeLimit * 1000, cancellationToken);
 
-                        if (this.gameActive && cancellationToken != null && !cancellationToken.IsCancellationRequested)
+                        if (this.gameActive && !cancellationToken.IsCancellationRequested)
                         {
                             this.gameActive = false;
                             await this.RunSubCommand(this.NotAcceptedCommand, parameters);
