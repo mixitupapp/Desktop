@@ -118,11 +118,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <PackageReference Include="System.IO.Ports" Version="9.0.9" />
     <PackageReference Include="System.Management" Version="9.0.9" />
     <PackageReference Include="System.Net.WebSockets.Client.Managed" Version="1.0.22" />
-    <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.Core" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.Interfaces" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
-    <PackageReference Include="System.Reactive.PlatformServices" Version="5.0.0" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageReference Include="System.Speech" Version="9.0.9" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.9" />
