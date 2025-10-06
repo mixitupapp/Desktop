@@ -72,7 +72,7 @@ namespace MixItUp.WPF.Util
                     {
                         BitmapImage bitmapImage = new BitmapImage();
                         bitmapImage.BeginInit();
-                        bitmapImage.DecodePixelWidth = (int)width;
+                        bitmapImage.DecodePixelWidth = (int)width;   // disabling this fixes the blurry image, but it could increase memory
                         bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                         bitmapImage.CreateOptions = BitmapCreateOptions.None;
                         bitmapImage.StreamSource = stream;
