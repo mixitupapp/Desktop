@@ -148,6 +148,13 @@ namespace MixItUp.Installer
             private set { this.SetProperty(ref this.downloadTempPath, value); }
         }
 
+        private string pendingVersionDirectoryPath;
+        public string PendingVersionDirectoryPath
+        {
+            get { return this.pendingVersionDirectoryPath; }
+            private set { this.SetProperty(ref this.pendingVersionDirectoryPath, value); }
+        }
+
         private bool targetDirExists;
         public bool TargetDirExists
         {
@@ -691,6 +698,7 @@ namespace MixItUp.Installer
 
             this.UpdateServerBaseUrl = "https://files.mixitupapp.com";
             this.LegacyDataPath = string.Empty;
+            this.PendingVersionDirectoryPath = string.Empty;
             this.LatestVersion = string.Empty;
             this.InstalledVersion = string.Empty;
             this.DownloadPercent = 0;
@@ -1046,6 +1054,281 @@ namespace MixItUp.Installer
             return true;
         }
 
+        private Task<bool> MigrateIfNeededAsync()
+        {
+            return Task.FromResult(this.MigrateIfNeeded());
+        }
+
+        private bool MigrateIfNeeded()
+        {
+            this.DisplayText1 = "Preparing existing files...";
+            this.DisplayText2 = string.Empty;
+            this.IsOperationIndeterminate = true;
+            this.IsOperationBeingPerformed = true;
+
+            this.StepMigratePending = false;
+            this.StepMigrateInProgress = true;
+            this.StepMigrateDone = false;
+
+            if (this.MigrationAlreadyDone)
+            {
+                this.LogActivity("Migration step skipped: already completed previously.");
+                this.PendingVersionDirectoryPath = string.Empty;
+                this.StepMigrateInProgress = false;
+                this.StepMigrateDone = true;
+                return true;
+            }
+
+            if (!this.LegacyDetected && !this.PortableCandidateFound)
+            {
+                this.LogActivity("Migration step skipped: no legacy or portable install detected.");
+                this.PendingVersionDirectoryPath = string.Empty;
+                this.StepMigrateInProgress = false;
+                this.StepMigrateDone = true;
+                return true;
+            }
+
+            string versionRoot = this.VersionedAppDirRoot;
+            if (string.IsNullOrWhiteSpace(versionRoot))
+            {
+                versionRoot = Path.Combine(this.AppRoot ?? DefaultInstallDirectory, "app");
+                this.VersionedAppDirRoot = versionRoot;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(versionRoot);
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity(
+                    $"Failed to ensure version root exists: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+                this.StepMigrateInProgress = false;
+                this.StepMigrateDone = false;
+                this.ShowError(
+                    "Migration Failed",
+                    "Unable to prepare version directory. Check permissions and retry."
+                );
+                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                return false;
+            }
+
+            bool isLegacySource = this.LegacyDetected;
+            string sourceDirectory = isLegacySource ? this.AppRoot : this.RunningDirectory;
+            if (string.IsNullOrWhiteSpace(sourceDirectory) || !Directory.Exists(sourceDirectory))
+            {
+                this.LogActivity("Migration aborted: source directory not found.");
+                this.StepMigrateInProgress = false;
+                this.StepMigrateDone = false;
+                this.ShowError("Migration Failed", "Unable to locate existing installation files.");
+                return false;
+            }
+
+            string migrationFolderName = "legacy-temp";
+            string migrationFolderPath = Path.Combine(versionRoot, migrationFolderName);
+            int folderSuffix = 1;
+            while (Directory.Exists(migrationFolderPath))
+            {
+                migrationFolderName = $"legacy-temp-{folderSuffix}";
+                migrationFolderPath = Path.Combine(versionRoot, migrationFolderName);
+                folderSuffix++;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(migrationFolderPath);
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity(
+                    $"Failed to create migration directory: {ex.GetType().Name} - {ex.Message}"
+                );
+                this.WriteToLogFile(ex.ToString());
+                this.StepMigrateInProgress = false;
+                this.StepMigrateDone = false;
+                this.ShowError(
+                    "Migration Failed",
+                    "Unable to create migration workspace under AppRoot."
+                );
+                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                return false;
+            }
+
+            this.PendingVersionDirectoryPath = migrationFolderPath;
+
+            string normalizedSourceDirectory = NormalizePath(sourceDirectory);
+            string sourceKind = isLegacySource ? "legacy layout" : "portable layout";
+            this.LogActivity($"Migrating {sourceKind} from '{normalizedSourceDirectory}'.");
+            string normalizedInstallerPath = string.Empty;
+            try
+            {
+                Process currentProcess = Process.GetCurrentProcess();
+                string modulePath = currentProcess?.MainModule?.FileName;
+                if (!string.IsNullOrWhiteSpace(modulePath))
+                {
+                    normalizedInstallerPath = NormalizePath(modulePath);
+                }
+            }
+            catch (Win32Exception)
+            {
+                // Access to process modules can fail under certain environments; ignore gracefully.
+            }
+            catch (InvalidOperationException)
+            {
+                // Process module information might be unavailable; ignore gracefully.
+            }
+
+            int filesMigrated = 0;
+            int directoriesMigrated = 0;
+            List<string> skippedItems = new List<string>();
+
+            try
+            {
+                foreach (string entry in Directory.EnumerateFileSystemEntries(sourceDirectory))
+                {
+                    string entryName = Path.GetFileName(entry);
+                    if (string.IsNullOrEmpty(entryName))
+                    {
+                        continue;
+                    }
+
+                    string normalizedEntry = NormalizePath(entry);
+
+                    if (
+                        string.Equals(
+                            normalizedEntry,
+                            NormalizePath(migrationFolderPath),
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    )
+                    {
+                        continue;
+                    }
+
+                    if (
+                        !string.IsNullOrEmpty(this.VersionedAppDirRoot)
+                        && string.Equals(
+                            normalizedEntry,
+                            NormalizePath(this.VersionedAppDirRoot),
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    )
+                    {
+                        continue;
+                    }
+
+                    if (
+                        !string.IsNullOrEmpty(this.DownloadTempPath)
+                        && string.Equals(
+                            normalizedEntry,
+                            NormalizePath(this.DownloadTempPath),
+                            StringComparison.OrdinalIgnoreCase
+                        )
+                    )
+                    {
+                        continue;
+                    }
+
+                    string destinationPath = Path.Combine(migrationFolderPath, entryName);
+
+                    if (Directory.Exists(entry))
+                    {
+                        this.CopyDirectoryRecursive(
+                            entry,
+                            destinationPath,
+                            normalizedInstallerPath,
+                            ref filesMigrated,
+                            ref directoriesMigrated,
+                            skippedItems
+                        );
+
+                        if (isLegacySource)
+                        {
+                            this.TryDeleteDirectory(entry);
+                        }
+                    }
+                    else if (File.Exists(entry))
+                    {
+                        if (
+                            !string.IsNullOrEmpty(normalizedInstallerPath)
+                            && string.Equals(
+                                normalizedEntry,
+                                normalizedInstallerPath,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
+                        {
+                            skippedItems.Add(entryName);
+                            continue;
+                        }
+
+                        Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+                        File.Copy(entry, destinationPath, overwrite: true);
+                        filesMigrated++;
+
+                        if (isLegacySource)
+                        {
+                            this.TryDeleteFile(entry);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.LogActivity($"Migration failed: {ex.GetType().Name} - {ex.Message}");
+                this.WriteToLogFile(ex.ToString());
+                this.StepMigrateInProgress = false;
+                this.StepMigrateDone = false;
+                this.ShowError(
+                    "Migration Failed",
+                    "Unable to migrate existing files. Check permissions and retry."
+                );
+                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                return false;
+            }
+
+            string migratedDataPath = Path.Combine(migrationFolderPath, "data");
+            if (Directory.Exists(migratedDataPath))
+            {
+                this.LegacyDataPath = migratedDataPath;
+            }
+            else
+            {
+                string originalDataPath = Path.Combine(sourceDirectory, "data");
+                this.LegacyDataPath = Directory.Exists(originalDataPath)
+                    ? originalDataPath
+                    : string.Empty;
+            }
+
+            string contextDescription = isLegacySource ? "legacy" : "portable";
+            this.LogActivity(
+                $"Migration prepared from {contextDescription} source '{normalizedSourceDirectory}'."
+            );
+            this.LogActivity(
+                $"Migrated {directoriesMigrated} directories and {filesMigrated} files into '{NormalizePath(migrationFolderPath)}'."
+            );
+
+            if (skippedItems.Count > 0)
+            {
+                string skippedPreview = string.Join(", ", skippedItems.Take(5));
+                if (skippedItems.Count > 5)
+                {
+                    skippedPreview += ", ...";
+                }
+                this.LogActivity(
+                    $"Skipped {skippedItems.Count} item(s) during migration: {skippedPreview}."
+                );
+            }
+
+            this.StepMigrateInProgress = false;
+            this.StepMigrateDone = true;
+            this.DisplayText1 = "Existing files prepared for update.";
+
+            return true;
+        }
+
         private bool TryValidateWriteAccess(string path, string displayName)
         {
             if (string.IsNullOrWhiteSpace(path))
@@ -1101,6 +1384,99 @@ namespace MixItUp.Installer
                     }
                 }
                 return false;
+            }
+        }
+
+        private void CopyDirectoryRecursive(
+            string sourceDir,
+            string destinationDir,
+            string installerPath,
+            ref int filesCopied,
+            ref int directoriesCopied,
+            List<string> skippedItems
+        )
+        {
+            Directory.CreateDirectory(destinationDir);
+            directoriesCopied++;
+
+            foreach (string filePath in Directory.GetFiles(sourceDir))
+            {
+                string normalizedFilePath = NormalizePath(filePath);
+                if (
+                    !string.IsNullOrEmpty(installerPath)
+                    && string.Equals(
+                        normalizedFilePath,
+                        installerPath,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
+                {
+                    if (skippedItems != null)
+                    {
+                        skippedItems.Add(Path.GetFileName(filePath));
+                    }
+                    continue;
+                }
+
+                string destinationFilePath = Path.Combine(
+                    destinationDir,
+                    Path.GetFileName(filePath)
+                );
+                File.Copy(filePath, destinationFilePath, overwrite: true);
+                filesCopied++;
+            }
+
+            foreach (string dirPath in Directory.GetDirectories(sourceDir))
+            {
+                string destinationSubDir = Path.Combine(destinationDir, Path.GetFileName(dirPath));
+                this.CopyDirectoryRecursive(
+                    dirPath,
+                    destinationSubDir,
+                    installerPath,
+                    ref filesCopied,
+                    ref directoriesCopied,
+                    skippedItems
+                );
+            }
+        }
+
+        private void TryDeleteFile(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                return;
+            }
+
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Failed to delete file '{filePath}': {ex}");
+            }
+        }
+
+        private void TryDeleteDirectory(string directoryPath)
+        {
+            if (string.IsNullOrWhiteSpace(directoryPath))
+            {
+                return;
+            }
+
+            try
+            {
+                if (Directory.Exists(directoryPath))
+                {
+                    Directory.Delete(directoryPath, recursive: true);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Failed to delete directory '{directoryPath}': {ex}");
             }
         }
 
@@ -1354,6 +1730,11 @@ namespace MixItUp.Installer
             }
 
             if (!await this.WaitForProcessesToExitAsync())
+            {
+                return false;
+            }
+
+            if (!await this.MigrateIfNeededAsync())
             {
                 return false;
             }
