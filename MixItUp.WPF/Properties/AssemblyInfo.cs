@@ -13,6 +13,7 @@ using System.Windows;
 [assembly: AssemblyCopyright("Copyright © 2023 Matthew Olivo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: System.Runtime.Versioning.SupportedOSPlatform("windows")]  // added this to temporarily hide CA1416
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
