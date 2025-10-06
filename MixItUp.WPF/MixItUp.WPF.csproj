@@ -23,7 +23,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <Configurations>Ad-Hoc;AppStore;Debug;Release</Configurations>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
@@ -44,14 +43,14 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <PackageReference Include="CacheManager.Core" Version="2.0.0" />
     <PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
     <PackageReference Include="EntityFramework" Version="6.5.1" />
-    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
-    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="ExcelDataReader" Version="3.8.0" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
     <PackageReference Include="gong-wpf-dragdrop" Version="2.3.2" />
-    <PackageReference Include="Google.Apis" Version="1.68.0" />
-    <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
-    <PackageReference Include="Google.Apis.Core" Version="1.68.0" />
-    <PackageReference Include="Google.Apis.YouTube.v3" Version="1.68.0.3582" />
-    <PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
+    <PackageReference Include="Google.Apis" Version="1.71.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.71.0" />
+    <PackageReference Include="Google.Apis.Core" Version="1.71.0" />
+	<PackageReference Include="Google.Apis.YouTube.v3" Version="1.70.0.3847" />
+	<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
     <PackageReference Include="GraphQL.Client" Version="4.0.2" />
     <PackageReference Include="GraphQL.Client.Abstractions" Version="4.0.2" />
     <PackageReference Include="GraphQL.Client.Abstractions.Websocket" Version="4.0.2" />
