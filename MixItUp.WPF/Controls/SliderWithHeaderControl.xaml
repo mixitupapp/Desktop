@@ -15,6 +15,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <TextBlock HorizontalAlignment="Center" Text="{Binding Text}" />
-        <Slider x:Name="Slider" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="{Binding Text}" />
+        <Slider x:Name="Slider" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" ToolTip="{Binding Text}" />
     </Grid>
 </local:NotifyPropertyChangedUserControl>

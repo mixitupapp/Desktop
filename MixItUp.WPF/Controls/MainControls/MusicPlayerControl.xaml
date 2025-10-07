@@ -67,7 +67,7 @@
             <Controls:IconButton Grid.Column="6" Icon="SkipNext" Command="{Binding NextCommand}" />
 
             <TextBlock Grid.Column="8" Text="{Binding Source={x:Static resx:Resources.Volume}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <Slider Grid.Column="10" Value="{Binding Volume}" VerticalAlignment="Center" Width="150" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesignDiscreteSlider}" />
+            <Slider Grid.Column="10" Value="{Binding Volume}" VerticalAlignment="Center" Width="150" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" />
 
             <ComboBox Grid.Column="12" ItemsSource="{Binding AudioDevices}" SelectedItem="{Binding SelectedAudioDevice}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioOutputDevice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200" />
             
