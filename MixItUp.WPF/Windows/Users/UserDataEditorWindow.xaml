@@ -14,12 +14,11 @@
     Title="{x:Static resx:Resources.UserEditor}"
     Width="600"
     Height="600"
-    Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
     Icon="./../../Logo.ico"
+    Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
