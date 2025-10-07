@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using MixItUp.Installer;
 using Newtonsoft.Json.Linq;
@@ -20,6 +19,80 @@ namespace MixItUp.Installer.Tests
                 "MixItUpInstallerTests_" + Guid.NewGuid().ToString("N")
             );
             Directory.CreateDirectory(this.tempRoot);
+        }
+
+        [Fact]
+        public async Task DiscoverInstallContextAsync_NormalizesPathsAndDetectsPortableAsync()
+        {
+            string installRoot = Path.Combine(this.tempRoot, "InstallRoot");
+            Directory.CreateDirectory(installRoot);
+
+            string messyAppRoot = Path.Combine(installRoot, ".", "..", "InstallRoot")
+                + Path.DirectorySeparatorChar;
+
+            MainWindowViewModel viewModel = new MainWindowViewModel();
+            viewModel.AppRoot = messyAppRoot;
+
+            string portableExecutablePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "MixItUp.exe"
+            );
+
+            bool createdStubExe = false;
+            if (!File.Exists(portableExecutablePath))
+            {
+                File.WriteAllText(portableExecutablePath, string.Empty);
+                createdStubExe = true;
+            }
+
+            try
+            {
+                bool result = await viewModel.DiscoverInstallContextAsync();
+
+                Assert.True(result);
+
+                string expectedAppRoot = Path.GetFullPath(installRoot)
+                    .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+                Assert.Equal(expectedAppRoot, viewModel.AppRoot);
+                Assert.Equal(
+                    Path.Combine(expectedAppRoot, ".tmp"),
+                    viewModel.DownloadTempPath
+                );
+                Assert.Equal(
+                    Path.Combine(expectedAppRoot, "app"),
+                    viewModel.VersionedAppDirRoot
+                );
+                Assert.True(viewModel.TargetDirExists);
+                Assert.True(viewModel.PortableCandidateFound);
+                Assert.False(viewModel.IsRunningFromAppRoot);
+            }
+            finally
+            {
+                if (createdStubExe)
+                {
+                    File.Delete(portableExecutablePath);
+                }
+            }
+        }
+
+        [Fact]
+        public async Task DiscoverInstallContextAsync_RunningFromAppRootDisablesPortableFlag()
+        {
+            string runningDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            MainWindowViewModel viewModel = new MainWindowViewModel();
+            viewModel.AppRoot = runningDirectory + Path.DirectorySeparatorChar;
+
+            bool result = await viewModel.DiscoverInstallContextAsync();
+
+            Assert.True(result);
+
+            string expectedAppRoot = Path.GetFullPath(runningDirectory)
+                .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            Assert.Equal(expectedAppRoot, viewModel.AppRoot);
+            Assert.True(viewModel.IsRunningFromAppRoot);
+            Assert.False(viewModel.PortableCandidateFound);
         }
 
         [Fact]
@@ -47,9 +120,7 @@ namespace MixItUp.Installer.Tests
             viewModel.LatestVersion = latestVersion;
             viewModel.LegacyDetected = true;
             viewModel.LegacyDataPath = legacyDataPath;
-            SetNonPublicProperty(viewModel, "PendingVersionDirectoryPath", versionDirectory);
-
-            bool result = await InvokePrivateBoolTask(viewModel, "CopyUserDataAsync");
+            bool result = await viewModel.CopyUserDataAsync();
 
             Assert.True(result);
 
@@ -58,6 +129,65 @@ namespace MixItUp.Installer.Tests
             Assert.Equal("legacy-note", File.ReadAllText(copiedFile));
 
             Assert.Equal("existing-json", File.ReadAllText(preExistingFile));
+        }
+
+        [Fact]
+        public async Task CopyUserDataAsync_AllowListCopiesExpectedContent()
+        {
+            MainWindowViewModel viewModel = new MainWindowViewModel();
+            viewModel.AppRoot = this.tempRoot;
+
+            string versionRoot = Path.Combine(this.tempRoot, "app");
+            Directory.CreateDirectory(versionRoot);
+
+            string latestVersion = "2.0.0";
+            string previousVersion = "1.0.0";
+
+            string latestVersionDirectory = Path.Combine(versionRoot, latestVersion);
+            string targetDataDirectory = Path.Combine(latestVersionDirectory, "data");
+            Directory.CreateDirectory(targetDataDirectory);
+
+            string previousVersionDirectory = Path.Combine(versionRoot, previousVersion);
+            string previousDataDirectory = Path.Combine(previousVersionDirectory, "data");
+            Directory.CreateDirectory(previousDataDirectory);
+
+            Directory.CreateDirectory(Path.Combine(previousDataDirectory, "Settings"));
+            File.WriteAllText(
+                Path.Combine(previousDataDirectory, "Settings", "config.json"),
+                "settings"
+            );
+
+            Directory.CreateDirectory(Path.Combine(previousDataDirectory, "Cache"));
+            File.WriteAllText(
+                Path.Combine(previousDataDirectory, "Cache", "cache.dat"),
+                "cache"
+            );
+
+            File.WriteAllText(
+                Path.Combine(previousDataDirectory, "ApplicationSettings.json"),
+                "appsettings"
+            );
+            File.WriteAllText(
+                Path.Combine(previousDataDirectory, "notes.txt"),
+                "note"
+            );
+
+            Directory.SetLastWriteTimeUtc(previousVersionDirectory, DateTime.UtcNow.AddMinutes(-5));
+            Directory.SetLastWriteTimeUtc(latestVersionDirectory, DateTime.UtcNow);
+
+            viewModel.LegacyDetected = false;
+            viewModel.PortableCandidateFound = false;
+            viewModel.LatestVersion = latestVersion;
+            bool result = await viewModel.CopyUserDataAsync();
+
+            Assert.True(result);
+
+            Assert.True(
+                File.Exists(Path.Combine(targetDataDirectory, "Settings", "config.json"))
+            );
+            Assert.False(Directory.Exists(Path.Combine(targetDataDirectory, "Cache")));
+            Assert.True(File.Exists(Path.Combine(targetDataDirectory, "ApplicationSettings.json")));
+            Assert.False(File.Exists(Path.Combine(targetDataDirectory, "notes.txt")));
         }
 
         [Fact]
@@ -88,14 +218,9 @@ namespace MixItUp.Installer.Tests
             );
 
             viewModel.InstalledVersion = previousVersion;
-            SetNonPublicProperty(
-                viewModel,
-                "PendingVersionDirectoryPath",
-                Path.Combine(versionRoot, latestVersion)
-            );
             viewModel.LatestVersion = latestVersion;
 
-            bool result = await InvokePrivateBoolTask(viewModel, "WriteOrUpdateBootloaderConfigAsync");
+                bool result = await viewModel.WriteOrUpdateBootloaderConfigAsync();
 
             Assert.True(result);
             Assert.True(File.Exists(bootloaderPath));
@@ -117,60 +242,15 @@ namespace MixItUp.Installer.Tests
             );
         }
 
-        private static async Task<bool> InvokePrivateBoolTask(
-            MainWindowViewModel target,
-            string methodName
-        )
-        {
-            Type targetType = typeof(MainWindowViewModel);
-            MethodInfo method = typeof(MainWindowViewModel).GetMethod(
-                methodName,
-                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
-            );
-            if (method == null)
-            {
-                throw new InvalidOperationException($"Method '{methodName}' was not found.");
-            }
+        #pragma warning disable IL2026
+        #pragma warning disable IL2070
+        #pragma warning disable IL2072
+        #pragma warning disable IL2075
 
-            if (method.Invoke(target, null) is Task<bool> task)
-            {
-                return await task.ConfigureAwait(false);
-            }
-
-            throw new InvalidOperationException(
-                $"Method '{methodName}' did not return a Task<bool>."
-            );
-        }
-
-        private static void SetNonPublicProperty(
-            MainWindowViewModel target,
-            string propertyName,
-            object value
-        )
-        {
-            Type targetType = typeof(MainWindowViewModel);
-            PropertyInfo property = typeof(MainWindowViewModel).GetProperty(
-                propertyName,
-                BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
-            );
-
-            if (property == null)
-            {
-                throw new InvalidOperationException(
-                    $"Property '{propertyName}' was not found on type '{target.GetType().FullName}'."
-                );
-            }
-
-            MethodInfo setter = property.GetSetMethod(nonPublic: true);
-            if (setter == null)
-            {
-                throw new InvalidOperationException(
-                    $"Property '{propertyName}' does not have a setter."
-                );
-            }
-
-            setter.Invoke(target, new[] { value });
-        }
+    #pragma warning restore IL2075
+    #pragma warning restore IL2072
+    #pragma warning restore IL2070
+    #pragma warning restore IL2026
 
         public void Dispose()
         {

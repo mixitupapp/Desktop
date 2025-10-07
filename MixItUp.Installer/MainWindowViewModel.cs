@@ -23,11 +23,7 @@ namespace MixItUp.Installer
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        public const string InstallerLogFileName = "MixItUp-Installer-Log.txt";
-        public static readonly string InstallerLogFilePath = Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory ?? Environment.CurrentDirectory,
-            InstallerLogFileName
-        );
+        public const string InstallerLogFileName = "installer.log";
         public const string ShortcutFileName = "Mix It Up.lnk";
 
         public const string OldApplicationSettingsFileName = "ApplicationSettings.xml";
@@ -204,6 +200,49 @@ namespace MixItUp.Installer
             }
         }
 
+        private enum InstallerStep
+        {
+            Preflight,
+            Discover,
+            CloseProcesses,
+            Migrate,
+            LauncherFetch,
+            LauncherInstall,
+            AppFetch,
+            AppExtract,
+            DataCopy,
+            ConfigWrite,
+            Register,
+            Shortcuts,
+            Complete,
+        }
+
+        private enum StepStatus
+        {
+            Pending,
+            InProgress,
+            Completed,
+            Failed,
+        }
+
+        private static readonly IReadOnlyDictionary<InstallerStep, string> StepDisplayNames =
+            new Dictionary<InstallerStep, string>
+            {
+                { InstallerStep.Preflight, "Preflight" },
+                { InstallerStep.Discover, "Discover" },
+                { InstallerStep.CloseProcesses, "CloseProcesses" },
+                { InstallerStep.Migrate, "Migrate" },
+                { InstallerStep.LauncherFetch, "LauncherFetch" },
+                { InstallerStep.LauncherInstall, "LauncherInstall" },
+                { InstallerStep.AppFetch, "AppFetch" },
+                { InstallerStep.AppExtract, "AppExtract" },
+                { InstallerStep.DataCopy, "DataCopy" },
+                { InstallerStep.ConfigWrite, "ConfigWrite" },
+                { InstallerStep.Register, "Register" },
+                { InstallerStep.Shortcuts, "Shortcuts" },
+                { InstallerStep.Complete, "Complete" },
+            };
+
         public static readonly string DefaultInstallDirectory = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "MixItUp"
@@ -310,6 +349,11 @@ namespace MixItUp.Installer
         {
             get { return this.downloadTempPath; }
             private set { this.SetProperty(ref this.downloadTempPath, value); }
+        }
+
+        private string InstallerLogFilePath
+        {
+            get { return this.GetInstallerLogFilePath(); }
         }
 
         private string pendingVersionDirectoryPath;
@@ -936,66 +980,139 @@ namespace MixItUp.Installer
             this.LaunchCommand = this.launchCommand;
         }
 
+        private void SetStepState(InstallerStep step, StepStatus status, bool logTransition = true)
+        {
+            bool pending = status == StepStatus.Pending;
+            bool inProgress = status == StepStatus.InProgress;
+            bool done = status == StepStatus.Completed;
+
+            switch (step)
+            {
+                case InstallerStep.Preflight:
+                    this.StepPreflightPending = pending;
+                    this.StepPreflightInProgress = inProgress;
+                    this.StepPreflightDone = done;
+                    break;
+                case InstallerStep.Discover:
+                    this.StepDiscoverPending = pending;
+                    this.StepDiscoverInProgress = inProgress;
+                    this.StepDiscoverDone = done;
+                    break;
+                case InstallerStep.CloseProcesses:
+                    this.StepCloseProcessesPending = pending;
+                    this.StepCloseProcessesInProgress = inProgress;
+                    this.StepCloseProcessesDone = done;
+                    break;
+                case InstallerStep.Migrate:
+                    this.StepMigratePending = pending;
+                    this.StepMigrateInProgress = inProgress;
+                    this.StepMigrateDone = done;
+                    break;
+                case InstallerStep.LauncherFetch:
+                    this.StepLauncherFetchPending = pending;
+                    this.StepLauncherFetchInProgress = inProgress;
+                    this.StepLauncherFetchDone = done;
+                    break;
+                case InstallerStep.LauncherInstall:
+                    this.StepLauncherInstallPending = pending;
+                    this.StepLauncherInstallInProgress = inProgress;
+                    this.StepLauncherInstallDone = done;
+                    break;
+                case InstallerStep.AppFetch:
+                    this.StepAppFetchPending = pending;
+                    this.StepAppFetchInProgress = inProgress;
+                    this.StepAppFetchDone = done;
+                    break;
+                case InstallerStep.AppExtract:
+                    this.StepAppExtractPending = pending;
+                    this.StepAppExtractInProgress = inProgress;
+                    this.StepAppExtractDone = done;
+                    break;
+                case InstallerStep.DataCopy:
+                    this.StepDataCopyPending = pending;
+                    this.StepDataCopyInProgress = inProgress;
+                    this.StepDataCopyDone = done;
+                    break;
+                case InstallerStep.ConfigWrite:
+                    this.StepConfigWritePending = pending;
+                    this.StepConfigWriteInProgress = inProgress;
+                    this.StepConfigWriteDone = done;
+                    break;
+                case InstallerStep.Register:
+                    this.StepRegisterPending = pending;
+                    this.StepRegisterInProgress = inProgress;
+                    this.StepRegisterDone = done;
+                    break;
+                case InstallerStep.Shortcuts:
+                    this.StepShortcutsPending = pending;
+                    this.StepShortcutsInProgress = inProgress;
+                    this.StepShortcutsDone = done;
+                    break;
+                case InstallerStep.Complete:
+                    this.StepCompletePending = pending;
+                    this.StepCompleteInProgress = inProgress;
+                    this.StepCompleteDone = done;
+                    break;
+            }
+
+            if (!logTransition)
+            {
+                return;
+            }
+
+            if (status == StepStatus.Pending)
+            {
+                return;
+            }
+
+            this.LogStepTransition(step, status);
+        }
+
+        private void LogStepTransition(InstallerStep step, StepStatus status)
+        {
+            string stepName = StepDisplayNames.TryGetValue(step, out string value)
+                ? value
+                : step.ToString();
+
+            string statusText;
+            switch (status)
+            {
+                case StepStatus.InProgress:
+                    statusText = "started";
+                    break;
+                case StepStatus.Completed:
+                    statusText = "completed";
+                    break;
+                case StepStatus.Failed:
+                    statusText = "failed";
+                    break;
+                default:
+                    statusText = "updated";
+                    break;
+            }
+
+            string message = string.Format("Step '{0}' {1}.", stepName, statusText);
+            string level = status == StepStatus.Failed ? "ERROR" : "INFO";
+            this.LogActivity(message, level);
+        }
+
         private void ResetStepStates()
         {
-            this.StepPreflightPending = true;
-            this.StepPreflightInProgress = false;
-            this.StepPreflightDone = false;
-
-            this.StepDiscoverPending = true;
-            this.StepDiscoverInProgress = false;
-            this.StepDiscoverDone = false;
-
-            this.StepCloseProcessesPending = true;
-            this.StepCloseProcessesInProgress = false;
-            this.StepCloseProcessesDone = false;
-
-            this.StepMigratePending = true;
-            this.StepMigrateInProgress = false;
-            this.StepMigrateDone = false;
-
-            this.StepLauncherFetchPending = true;
-            this.StepLauncherFetchInProgress = false;
-            this.StepLauncherFetchDone = false;
-
-            this.StepLauncherInstallPending = true;
-            this.StepLauncherInstallInProgress = false;
-            this.StepLauncherInstallDone = false;
-
-            this.StepAppFetchPending = true;
-            this.StepAppFetchInProgress = false;
-            this.StepAppFetchDone = false;
-
-            this.StepAppExtractPending = true;
-            this.StepAppExtractInProgress = false;
-            this.StepAppExtractDone = false;
-
-            this.StepDataCopyPending = true;
-            this.StepDataCopyInProgress = false;
-            this.StepDataCopyDone = false;
-
-            this.StepConfigWritePending = true;
-            this.StepConfigWriteInProgress = false;
-            this.StepConfigWriteDone = false;
-
-            this.StepRegisterPending = true;
-            this.StepRegisterInProgress = false;
-            this.StepRegisterDone = false;
-
-            this.StepShortcutsPending = true;
-            this.StepShortcutsInProgress = false;
-            this.StepShortcutsDone = false;
-
-            this.StepCompletePending = true;
-            this.StepCompleteInProgress = false;
-            this.StepCompleteDone = false;
+            foreach (InstallerStep step in Enum.GetValues(typeof(InstallerStep)))
+            {
+                this.SetStepState(step, StepStatus.Pending, logTransition: false);
+            }
         }
 
         private void UpdateEnvironmentState()
         {
-            this.Is64BitOS = Environment.Is64BitOperatingSystem;
-            this.OSVersionDisplay = Environment.OSVersion.VersionString;
-            this.IsSupportedOS = this.IsSupportedWindowsVersion();
+            OperatingSystem operatingSystem = Environment.OSVersion;
+            this.OSVersionDisplay = operatingSystem.VersionString;
+            this.IsSupportedOS = EnvironmentRequirements.IsWindows10Or11(operatingSystem);
+            this.Is64BitOS = EnvironmentRequirements.Is64BitOS(
+                Environment.Is64BitOperatingSystem,
+                Environment.Is64BitProcess
+            );
         }
 
         private bool Preflight()
@@ -1006,18 +1123,17 @@ namespace MixItUp.Installer
             this.IsOperationBeingPerformed = true;
             this.LogActivity("Starting preflight checks...");
 
-            this.StepPreflightPending = false;
-            this.StepPreflightInProgress = true;
-            this.StepPreflightDone = false;
+            this.SetStepState(InstallerStep.Preflight, StepStatus.InProgress);
 
-            this.OSVersionDisplay = Environment.OSVersion.VersionString;
+            OperatingSystem operatingSystem = Environment.OSVersion;
+            this.OSVersionDisplay = operatingSystem.VersionString;
             this.LogActivity($"Detected operating system: {this.OSVersionDisplay}");
 
-            this.IsSupportedOS = this.IsSupportedWindowsVersion();
+            this.IsSupportedOS = EnvironmentRequirements.IsWindows10Or11(operatingSystem);
             if (!this.IsSupportedOS)
             {
                 this.LogActivity("Unsupported Windows version detected.");
-                this.StepPreflightInProgress = false;
+                this.SetStepState(InstallerStep.Preflight, StepStatus.Failed);
                 this.HasError = true;
                 this.ShowError(
                     "Unsupported Windows Version",
@@ -1027,11 +1143,14 @@ namespace MixItUp.Installer
             }
             this.LogActivity("Windows version is supported.");
 
-            this.Is64BitOS = Environment.Is64BitOperatingSystem;
+            this.Is64BitOS = EnvironmentRequirements.Is64BitOS(
+                Environment.Is64BitOperatingSystem,
+                Environment.Is64BitProcess
+            );
             if (!this.Is64BitOS)
             {
                 this.LogActivity("Unsupported architecture detected (not 64-bit).");
-                this.StepPreflightInProgress = false;
+                this.SetStepState(InstallerStep.Preflight, StepStatus.Failed);
                 this.HasError = true;
                 this.ShowError(
                     "Unsupported Architecture",
@@ -1044,7 +1163,7 @@ namespace MixItUp.Installer
             if (!this.ValidateWritePermissions())
             {
                 this.LogActivity("Write permission check failed.");
-                this.StepPreflightInProgress = false;
+                this.SetStepState(InstallerStep.Preflight, StepStatus.Failed);
                 this.HasError = true;
                 this.ShowError(
                     "Write Permission Denied",
@@ -1055,8 +1174,7 @@ namespace MixItUp.Installer
 
             this.LogActivity("Write permissions validated for required locations.");
 
-            this.StepPreflightInProgress = false;
-            this.StepPreflightDone = true;
+            this.SetStepState(InstallerStep.Preflight, StepStatus.Completed);
             this.DisplayText1 = "System requirements validated.";
             this.LogActivity("Preflight checks completed successfully.");
             return true;
@@ -1077,7 +1195,7 @@ namespace MixItUp.Installer
             return success;
         }
 
-        private Task<bool> DiscoverInstallContextAsync()
+        internal Task<bool> DiscoverInstallContextAsync()
         {
             return Task.FromResult(this.DiscoverInstallContext());
         }
@@ -1089,9 +1207,7 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
-            this.StepDiscoverPending = false;
-            this.StepDiscoverInProgress = true;
-            this.StepDiscoverDone = false;
+            this.SetStepState(InstallerStep.Discover, StepStatus.InProgress);
 
             this.LogActivity("Starting install context discovery...");
 
@@ -1134,8 +1250,7 @@ namespace MixItUp.Installer
             }
             catch (Exception ex)
             {
-                this.StepDiscoverInProgress = false;
-                this.StepDiscoverDone = false;
+                this.SetStepState(InstallerStep.Discover, StepStatus.Failed);
 
                 this.LogActivity(
                     $"Failed to ensure AppRoot directory exists: {ex.GetType().Name} - {ex.Message}"
@@ -1217,8 +1332,7 @@ namespace MixItUp.Installer
                 this.LogActivity("No existing installation detected; fresh install path selected.");
             }
 
-            this.StepDiscoverInProgress = false;
-            this.StepDiscoverDone = true;
+            this.SetStepState(InstallerStep.Discover, StepStatus.Completed);
             this.DisplayText1 = "Install context discovered.";
             this.DisplayText2 = string.Empty;
 
@@ -1237,16 +1351,13 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
-            this.StepMigratePending = false;
-            this.StepMigrateInProgress = true;
-            this.StepMigrateDone = false;
+            this.SetStepState(InstallerStep.Migrate, StepStatus.InProgress);
 
             if (this.MigrationAlreadyDone)
             {
                 this.LogActivity("Migration step skipped: already completed previously.");
                 this.PendingVersionDirectoryPath = string.Empty;
-                this.StepMigrateInProgress = false;
-                this.StepMigrateDone = true;
+                this.SetStepState(InstallerStep.Migrate, StepStatus.Completed);
                 return true;
             }
 
@@ -1254,8 +1365,7 @@ namespace MixItUp.Installer
             {
                 this.LogActivity("Migration step skipped: no legacy or portable install detected.");
                 this.PendingVersionDirectoryPath = string.Empty;
-                this.StepMigrateInProgress = false;
-                this.StepMigrateDone = true;
+                this.SetStepState(InstallerStep.Migrate, StepStatus.Completed);
                 return true;
             }
 
@@ -1276,13 +1386,12 @@ namespace MixItUp.Installer
                     $"Failed to ensure version root exists: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
-                this.StepMigrateInProgress = false;
-                this.StepMigrateDone = false;
+                this.SetStepState(InstallerStep.Migrate, StepStatus.Failed);
                 this.ShowError(
                     "Migration Failed",
                     "Unable to prepare version directory. Check permissions and retry."
                 );
-                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                this.SetHyperlinkToLogFile();
                 return false;
             }
 
@@ -1291,8 +1400,7 @@ namespace MixItUp.Installer
             if (string.IsNullOrWhiteSpace(sourceDirectory) || !Directory.Exists(sourceDirectory))
             {
                 this.LogActivity("Migration aborted: source directory not found.");
-                this.StepMigrateInProgress = false;
-                this.StepMigrateDone = false;
+                this.SetStepState(InstallerStep.Migrate, StepStatus.Failed);
                 this.ShowError("Migration Failed", "Unable to locate existing installation files.");
                 return false;
             }
@@ -1317,13 +1425,12 @@ namespace MixItUp.Installer
                     $"Failed to create migration directory: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
-                this.StepMigrateInProgress = false;
-                this.StepMigrateDone = false;
+                this.SetStepState(InstallerStep.Migrate, StepStatus.Failed);
                 this.ShowError(
                     "Migration Failed",
                     "Unable to create migration workspace under AppRoot."
                 );
-                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                this.SetHyperlinkToLogFile();
                 return false;
             }
 
@@ -1450,13 +1557,12 @@ namespace MixItUp.Installer
             {
                 this.LogActivity($"Migration failed: {ex.GetType().Name} - {ex.Message}");
                 this.WriteToLogFile(ex.ToString());
-                this.StepMigrateInProgress = false;
-                this.StepMigrateDone = false;
+                this.SetStepState(InstallerStep.Migrate, StepStatus.Failed);
                 this.ShowError(
                     "Migration Failed",
                     "Unable to migrate existing files. Check permissions and retry."
                 );
-                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                this.SetHyperlinkToLogFile();
                 return false;
             }
 
@@ -1493,8 +1599,7 @@ namespace MixItUp.Installer
                 );
             }
 
-            this.StepMigrateInProgress = false;
-            this.StepMigrateDone = true;
+            this.SetStepState(InstallerStep.Migrate, StepStatus.Completed);
             this.DisplayText1 = "Existing files prepared for update.";
 
             return true;
@@ -1653,18 +1758,7 @@ namespace MixItUp.Installer
 
         private bool IsSupportedWindowsVersion()
         {
-            OperatingSystem os = Environment.OSVersion;
-            if (os.Platform != PlatformID.Win32NT)
-            {
-                return false;
-            }
-
-            if (os.Version.Major >= 10)
-            {
-                return true;
-            }
-
-            return false;
+            return EnvironmentRequirements.IsWindows10Or11(Environment.OSVersion);
         }
 
         private async Task<bool> WaitForProcessesToExitAsync()
@@ -1674,9 +1768,7 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
-            this.StepCloseProcessesPending = false;
-            this.StepCloseProcessesInProgress = true;
-            this.StepCloseProcessesDone = false;
+            this.SetStepState(InstallerStep.CloseProcesses, StepStatus.InProgress);
 
             this.LogActivity("Inspecting running Mix It Up processes...");
 
@@ -1685,8 +1777,7 @@ namespace MixItUp.Installer
             {
                 this.LogActivity("No running Mix It Up processes detected.");
                 this.DisplayText1 = "No Mix It Up processes detected.";
-                this.StepCloseProcessesInProgress = false;
-                this.StepCloseProcessesDone = true;
+                this.SetStepState(InstallerStep.CloseProcesses, StepStatus.Completed);
                 return true;
             }
 
@@ -1710,8 +1801,7 @@ namespace MixItUp.Installer
                 List<Process> processes = this.GetTargetProcesses();
                 if (processes.Count == 0)
                 {
-                    this.StepCloseProcessesInProgress = false;
-                    this.StepCloseProcessesDone = true;
+                    this.SetStepState(InstallerStep.CloseProcesses, StepStatus.Completed);
                     this.LogActivity("All Mix It Up processes have exited.");
                     this.DisplayText1 = "Mix It Up processes closed.";
                     return true;
@@ -1771,17 +1861,16 @@ namespace MixItUp.Installer
                     process.Dispose();
                 }
 
-                this.StepCloseProcessesInProgress = false;
                 this.HasError = true;
                 this.ShowError(
                     "Close MixItUp",
                     "Please close MixItUp or AutoHoster before continuing."
                 );
+                this.SetStepState(InstallerStep.CloseProcesses, StepStatus.Failed);
                 return false;
             }
 
-            this.StepCloseProcessesInProgress = false;
-            this.StepCloseProcessesDone = true;
+            this.SetStepState(InstallerStep.CloseProcesses, StepStatus.Completed);
             this.LogActivity("All Mix It Up processes have exited.");
             this.DisplayText1 = "Mix It Up processes closed.";
             return true;
@@ -1940,7 +2029,7 @@ namespace MixItUp.Installer
             }
         }
 
-        private Task<bool> CopyUserDataAsync()
+        internal Task<bool> CopyUserDataAsync()
         {
             return Task.FromResult(this.CopyUserData());
         }
@@ -1952,9 +2041,7 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
-            this.StepDataCopyPending = false;
-            this.StepDataCopyInProgress = true;
-            this.StepDataCopyDone = false;
+            this.SetStepState(InstallerStep.DataCopy, StepStatus.InProgress);
 
             string versionDirectory = this.PendingVersionDirectoryPath;
             if (string.IsNullOrWhiteSpace(versionDirectory) || !Directory.Exists(versionDirectory))
@@ -1973,8 +2060,7 @@ namespace MixItUp.Installer
             if (string.IsNullOrWhiteSpace(versionDirectory) || !Directory.Exists(versionDirectory))
             {
                 this.LogActivity("Unable to locate extracted application directory for data copy.");
-                this.StepDataCopyInProgress = false;
-                this.StepDataCopyDone = false;
+                this.SetStepState(InstallerStep.DataCopy, StepStatus.Failed);
                 this.ShowError(
                     "Data Copy Failed",
                     "We couldn't locate the application data directory. Please check installation paths."
@@ -1993,8 +2079,7 @@ namespace MixItUp.Installer
                     $"Failed to ensure data directory exists: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
-                this.StepDataCopyInProgress = false;
-                this.StepDataCopyDone = false;
+                this.SetStepState(InstallerStep.DataCopy, StepStatus.Failed);
                 this.ShowError(
                     "Data Copy Failed",
                     "Unable to prepare application data directory. Check permissions and try again."
@@ -2117,8 +2202,7 @@ namespace MixItUp.Installer
                     }
                 }
 
-                this.StepDataCopyInProgress = false;
-                this.StepDataCopyDone = true;
+                this.SetStepState(InstallerStep.DataCopy, StepStatus.Completed);
                 this.DisplayText1 = "User data copied.";
                 this.DisplayText2 = string.Empty;
 
@@ -2154,8 +2238,7 @@ namespace MixItUp.Installer
                     $"Data copy failed: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
-                this.StepDataCopyInProgress = false;
-                this.StepDataCopyDone = false;
+                this.SetStepState(InstallerStep.DataCopy, StepStatus.Failed);
                 this.ShowError(
                     "Data Copy Failed",
                     "Unable to copy user data into the new version directory."
@@ -2357,7 +2440,7 @@ namespace MixItUp.Installer
             return null;
         }
 
-        private Task<bool> WriteOrUpdateBootloaderConfigAsync()
+        internal Task<bool> WriteOrUpdateBootloaderConfigAsync()
         {
             return Task.FromResult(this.WriteOrUpdateBootloaderConfig());
         }
@@ -2369,16 +2452,13 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
-            this.StepConfigWritePending = false;
-            this.StepConfigWriteInProgress = true;
-            this.StepConfigWriteDone = false;
+            this.SetStepState(InstallerStep.ConfigWrite, StepStatus.InProgress);
 
             string bootloaderPath = this.BootloaderConfigPath;
             if (string.IsNullOrWhiteSpace(bootloaderPath))
             {
                 this.LogActivity("Bootloader path not defined; cannot write configuration.");
-                this.StepConfigWriteInProgress = false;
-                this.StepConfigWriteDone = false;
+                this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
                     "Installer could not determine the bootloader file path."
@@ -2400,8 +2480,7 @@ namespace MixItUp.Installer
             if (string.IsNullOrWhiteSpace(latestVersion))
             {
                 this.LogActivity("Latest version identifier not available; cannot update bootloader configuration.");
-                this.StepConfigWriteInProgress = false;
-                this.StepConfigWriteDone = false;
+                this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
                     "Installer could not determine the version being installed."
@@ -2423,8 +2502,7 @@ namespace MixItUp.Installer
                     $"Failed to prepare bootloader directory: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
-                this.StepConfigWriteInProgress = false;
-                this.StepConfigWriteDone = false;
+                this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
                     "Installer was unable to prepare the bootloader directory."
@@ -2517,8 +2595,7 @@ namespace MixItUp.Installer
 
                 File.WriteAllText(bootloaderPath, serialized);
 
-                this.StepConfigWriteInProgress = false;
-                this.StepConfigWriteDone = true;
+                this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Completed);
                 this.DisplayText1 = "Bootloader updated.";
                 this.DisplayText2 = string.Empty;
 
@@ -2541,8 +2618,7 @@ namespace MixItUp.Installer
                     $"Failed to write bootloader configuration: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
-                this.StepConfigWriteInProgress = false;
-                this.StepConfigWriteDone = false;
+                this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
                     "Installer was unable to update bootloader.json."
@@ -2558,9 +2634,7 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
-            this.StepRegisterPending = false;
-            this.StepRegisterInProgress = true;
-            this.StepRegisterDone = false;
+            this.SetStepState(InstallerStep.Register, StepStatus.InProgress);
 
             string appRoot = this.AppRoot;
             if (string.IsNullOrWhiteSpace(appRoot))
@@ -2663,8 +2737,7 @@ namespace MixItUp.Installer
 
             if (!hiveUsed.HasValue)
             {
-                this.StepRegisterInProgress = false;
-                this.StepRegisterDone = false;
+                this.SetStepState(InstallerStep.Register, StepStatus.Failed);
 
                 this.LogActivity("Failed to register uninstall information with Windows.");
                 if (lastError != null)
@@ -2676,13 +2749,12 @@ namespace MixItUp.Installer
                     "Registration Failed",
                     "Couldn't register uninstall entry. You can still use the app; try reinstalling to fix."
                 );
-                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                this.SetHyperlinkToLogFile();
                 return false;
             }
 
             string hiveDisplay = hiveUsed == RegistryHive.LocalMachine ? "HKLM" : "HKCU";
-            this.StepRegisterInProgress = false;
-            this.StepRegisterDone = true;
+            this.SetStepState(InstallerStep.Register, StepStatus.Completed);
             this.DisplayText1 = "Windows uninstall entry registered.";
             this.DisplayText2 = string.Empty;
 
@@ -2709,9 +2781,7 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
-            this.StepShortcutsPending = false;
-            this.StepShortcutsInProgress = true;
-            this.StepShortcutsDone = false;
+            this.SetStepState(InstallerStep.Shortcuts, StepStatus.InProgress);
 
             string appRoot = this.AppRoot;
             if (string.IsNullOrWhiteSpace(appRoot))
@@ -2753,8 +2823,7 @@ namespace MixItUp.Installer
 
             if (!shortcutAvailable)
             {
-                this.StepShortcutsInProgress = false;
-                this.StepShortcutsDone = false;
+                this.SetStepState(InstallerStep.Shortcuts, StepStatus.Failed);
 
                 this.LogActivity("Unable to create Start Menu or Desktop shortcuts.");
 
@@ -2762,12 +2831,11 @@ namespace MixItUp.Installer
                     "Shortcut Locations Locked",
                     "Unable to write to Start Menu or Desktop. Create shortcuts manually."
                 );
-                this.HyperlinkAddress = new Uri(InstallerLogFilePath).AbsoluteUri;
+                this.SetHyperlinkToLogFile();
                 return false;
             }
 
-            this.StepShortcutsInProgress = false;
-            this.StepShortcutsDone = true;
+            this.SetStepState(InstallerStep.Shortcuts, StepStatus.Completed);
             this.DisplayText1 = "Shortcuts created.";
             this.DisplayText2 = string.Empty;
 
@@ -2989,8 +3057,7 @@ namespace MixItUp.Installer
 
         private void MarkInstallationComplete()
         {
-            this.StepCompletePending = false;
-            this.StepCompleteInProgress = true;
+            this.SetStepState(InstallerStep.Complete, StepStatus.InProgress);
 
             this.DisplayText1 = "Installation complete.";
             this.DisplayText2 = "Mix It Up is ready.";
@@ -3004,8 +3071,7 @@ namespace MixItUp.Installer
             this.SpecificErrorMessage = string.Empty;
             this.HyperlinkAddress = string.Empty;
 
-            this.StepCompleteInProgress = false;
-            this.StepCompleteDone = true;
+            this.SetStepState(InstallerStep.Complete, StepStatus.Completed);
 
             this.launchCommand?.RaiseCanExecuteChanged();
 
@@ -3031,153 +3097,252 @@ namespace MixItUp.Installer
             this.DownloadPercent = 0;
             this.LogActivity("Mix It Up installer initialized.");
 
-            if (!this.Preflight())
+            bool downloadWorkspacePrepared = false;
+            InstallerStep? activeStep = null;
+
+            try
             {
+                activeStep = InstallerStep.Preflight;
+                if (!this.Preflight())
+                {
+                    activeStep = null;
+                    return false;
+                }
+
+                activeStep = InstallerStep.Discover;
+                if (!await this.DiscoverInstallContextAsync())
+                {
+                    activeStep = null;
+                    return false;
+                }
+
+                this.PrepareDownloadWorkspace();
+                downloadWorkspacePrepared = true;
+
+                activeStep = InstallerStep.CloseProcesses;
+                if (!await this.WaitForProcessesToExitAsync())
+                {
+                    activeStep = null;
+                    return false;
+                }
+
+                activeStep = InstallerStep.Migrate;
+                if (!await this.MigrateIfNeededAsync())
+                {
+                    activeStep = null;
+                    return false;
+                }
+
+                activeStep = InstallerStep.LauncherFetch;
+                this.SetStepState(InstallerStep.LauncherFetch, StepStatus.InProgress);
+
+                UpdatePackageInfo launcherPackage = await this.ResolveLauncherPackageAsync();
+                if (launcherPackage == null)
+                {
+                    this.SetStepState(InstallerStep.LauncherFetch, StepStatus.Failed);
+                    activeStep = null;
+                    return false;
+                }
+
+                IProgress<int> launcherProgress = new Progress<int>(percent =>
+                {
+                    this.OperationProgress = percent;
+                    this.DownloadPercent = percent;
+                });
+
+                byte[] launcherArchive = await this.DownloadLauncherArchiveAsync(
+                    launcherPackage,
+                    launcherProgress
+                );
+
+                if (launcherArchive == null || launcherArchive.Length == 0)
+                {
+                    this.SetStepState(InstallerStep.LauncherFetch, StepStatus.Failed);
+                    activeStep = null;
+                    return false;
+                }
+
+                this.SetStepState(InstallerStep.LauncherFetch, StepStatus.Completed);
+
+                activeStep = InstallerStep.LauncherInstall;
+                this.SetStepState(InstallerStep.LauncherInstall, StepStatus.InProgress);
+
+                long launcherSizeHint = launcherPackage?.File?.Size ?? (launcherArchive?.LongLength ?? 0L);
+                if (
+                    !this.EnsureDiskSpace(
+                        this.AppRoot,
+                        launcherSizeHint,
+                        InstallerStep.LauncherInstall,
+                        "Launcher installation"
+                    )
+                )
+                {
+                    activeStep = null;
+                    return false;
+                }
+
+                bool launcherInstalled = this.InstallLauncherArchive(
+                    launcherArchive,
+                    launcherPackage
+                );
+
+                if (launcherArchive != null)
+                {
+                    Array.Clear(launcherArchive, 0, launcherArchive.Length);
+                }
+                launcherArchive = null;
+
+                if (!launcherInstalled)
+                {
+                    this.SetStepState(InstallerStep.LauncherInstall, StepStatus.Failed);
+                    activeStep = null;
+                    return false;
+                }
+
+                this.SetStepState(InstallerStep.LauncherInstall, StepStatus.Completed);
+
+                this.OperationProgress = 0;
+                this.DownloadPercent = 0;
+                this.IsOperationIndeterminate = true;
+
+                activeStep = InstallerStep.AppFetch;
+                this.SetStepState(InstallerStep.AppFetch, StepStatus.InProgress);
+
+                UpdatePackageInfo appPackage = await this.ResolveAppPackageAsync();
+                if (appPackage == null)
+                {
+                    this.SetStepState(InstallerStep.AppFetch, StepStatus.Failed);
+                    activeStep = null;
+                    return false;
+                }
+
+                IProgress<int> appProgress = new Progress<int>(percent =>
+                {
+                    this.OperationProgress = percent;
+                    this.DownloadPercent = percent;
+                });
+
+                byte[] appArchive = await this.DownloadAppArchiveAsync(appPackage, appProgress);
+
+                if (appArchive == null || appArchive.Length == 0)
+                {
+                    this.SetStepState(InstallerStep.AppFetch, StepStatus.Failed);
+                    activeStep = null;
+                    return false;
+                }
+
+                this.SetStepState(InstallerStep.AppFetch, StepStatus.Completed);
+
+                activeStep = InstallerStep.AppExtract;
+                this.SetStepState(InstallerStep.AppExtract, StepStatus.InProgress);
+
+                long appSizeHint = appPackage?.File?.Size ?? (appArchive?.LongLength ?? 0L);
+                if (
+                    !this.EnsureDiskSpace(
+                        this.VersionedAppDirRoot,
+                        appSizeHint,
+                        InstallerStep.AppExtract,
+                        "Application extraction"
+                    )
+                )
+                {
+                    activeStep = null;
+                    return false;
+                }
+
+                bool appInstalled = this.InstallAppArchive(appArchive, appPackage);
+
+                if (appArchive != null)
+                {
+                    Array.Clear(appArchive, 0, appArchive.Length);
+                }
+                appArchive = null;
+
+                if (!appInstalled)
+                {
+                    this.SetStepState(InstallerStep.AppExtract, StepStatus.Failed);
+                    activeStep = null;
+                    return false;
+                }
+
+                this.SetStepState(InstallerStep.AppExtract, StepStatus.Completed);
+
+                this.OperationProgress = 0;
+                this.DownloadPercent = 0;
+                this.IsOperationIndeterminate = true;
+
+                activeStep = InstallerStep.DataCopy;
+                if (!await this.CopyUserDataAsync())
+                {
+                    activeStep = null;
+                    return false;
+                }
+                activeStep = null;
+
+                activeStep = InstallerStep.ConfigWrite;
+                if (!await this.WriteOrUpdateBootloaderConfigAsync())
+                {
+                    activeStep = null;
+                    return false;
+                }
+                activeStep = null;
+
+                activeStep = InstallerStep.Register;
+                if (!this.RegisterUninstallEntry())
+                {
+                    activeStep = null;
+                    return false;
+                }
+                activeStep = null;
+
+                activeStep = InstallerStep.Shortcuts;
+                if (!this.CreateShortcuts())
+                {
+                    activeStep = null;
+                    return false;
+                }
+
+                activeStep = InstallerStep.Complete;
+                this.MarkInstallationComplete();
+                activeStep = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                string stepContext = string.Empty;
+                if (activeStep.HasValue)
+                {
+                    stepContext = StepDisplayNames.TryGetValue(activeStep.Value, out string displayName)
+                        ? displayName
+                        : activeStep.Value.ToString();
+                }
+
+                string errorContext = string.IsNullOrEmpty(stepContext)
+                    ? "installer execution"
+                    : string.Format("step '{0}'", stepContext);
+
+                this.WriteToLogFile($"Unexpected error during {errorContext}: {ex}", "ERROR");
+                this.LogActivity($"Unexpected error during {errorContext}.", "ERROR");
+
+                if (activeStep.HasValue)
+                {
+                    this.SetStepState(activeStep.Value, StepStatus.Failed);
+                }
+
+                this.ShowError(
+                    "Unexpected Installer Error",
+                    "See the installer log for details, correct the issue, and try again."
+                );
+                this.SetHyperlinkToLogFile();
                 return false;
             }
-
-            if (!await this.DiscoverInstallContextAsync())
+            finally
             {
-                return false;
+                if (downloadWorkspacePrepared)
+                {
+                    this.CleanupDownloadWorkspace();
+                }
             }
-
-            if (!await this.WaitForProcessesToExitAsync())
-            {
-                return false;
-            }
-
-            if (!await this.MigrateIfNeededAsync())
-            {
-                return false;
-            }
-
-            this.StepLauncherFetchPending = false;
-            this.StepLauncherFetchInProgress = true;
-
-            UpdatePackageInfo launcherPackage = await this.ResolveLauncherPackageAsync();
-            if (launcherPackage == null)
-            {
-                this.StepLauncherFetchInProgress = false;
-                return false;
-            }
-
-            IProgress<int> launcherProgress = new Progress<int>(percent =>
-            {
-                this.OperationProgress = percent;
-                this.DownloadPercent = percent;
-            });
-
-            byte[] launcherArchive = await this.DownloadLauncherArchiveAsync(
-                launcherPackage,
-                launcherProgress
-            );
-
-            if (launcherArchive == null || launcherArchive.Length == 0)
-            {
-                this.StepLauncherFetchInProgress = false;
-                return false;
-            }
-
-            this.StepLauncherFetchInProgress = false;
-            this.StepLauncherFetchDone = true;
-
-            this.StepLauncherInstallPending = false;
-            this.StepLauncherInstallInProgress = true;
-
-            bool launcherInstalled = this.InstallLauncherArchive(launcherArchive, launcherPackage);
-
-            if (launcherArchive != null)
-            {
-                Array.Clear(launcherArchive, 0, launcherArchive.Length);
-            }
-            launcherArchive = null;
-
-            if (!launcherInstalled)
-            {
-                this.StepLauncherInstallInProgress = false;
-                return false;
-            }
-
-            this.StepLauncherInstallInProgress = false;
-            this.StepLauncherInstallDone = true;
-
-            this.OperationProgress = 0;
-            this.DownloadPercent = 0;
-            this.IsOperationIndeterminate = true;
-
-            this.StepAppFetchPending = false;
-            this.StepAppFetchInProgress = true;
-
-            UpdatePackageInfo appPackage = await this.ResolveAppPackageAsync();
-            if (appPackage == null)
-            {
-                this.StepAppFetchInProgress = false;
-                return false;
-            }
-
-            IProgress<int> appProgress = new Progress<int>(percent =>
-            {
-                this.OperationProgress = percent;
-                this.DownloadPercent = percent;
-            });
-
-            byte[] appArchive = await this.DownloadAppArchiveAsync(appPackage, appProgress);
-
-            if (appArchive == null || appArchive.Length == 0)
-            {
-                this.StepAppFetchInProgress = false;
-                return false;
-            }
-
-            this.StepAppFetchInProgress = false;
-            this.StepAppFetchDone = true;
-
-            this.StepAppExtractPending = false;
-            this.StepAppExtractInProgress = true;
-
-            bool appInstalled = this.InstallAppArchive(appArchive, appPackage);
-
-            if (appArchive != null)
-            {
-                Array.Clear(appArchive, 0, appArchive.Length);
-            }
-            appArchive = null;
-
-            if (!appInstalled)
-            {
-                this.StepAppExtractInProgress = false;
-                return false;
-            }
-
-            this.StepAppExtractInProgress = false;
-            this.StepAppExtractDone = true;
-
-            this.OperationProgress = 0;
-            this.DownloadPercent = 0;
-            this.IsOperationIndeterminate = true;
-
-            if (!await this.CopyUserDataAsync())
-            {
-                return false;
-            }
-
-            if (!await this.WriteOrUpdateBootloaderConfigAsync())
-            {
-                return false;
-            }
-
-            if (!this.RegisterUninstallEntry())
-            {
-                return false;
-            }
-
-            if (!this.CreateShortcuts())
-            {
-                return false;
-            }
-
-            this.MarkInstallationComplete();
-            return true;
         }
 
         private string ResolveUpdateChannel()
@@ -4230,16 +4395,16 @@ namespace MixItUp.Installer
 
             if (!result && !this.ErrorOccurred)
             {
-                if (!File.Exists(InstallerLogFilePath))
+                if (!File.Exists(this.InstallerLogFilePath))
                 {
                     this.WriteToLogFile("Installer exited without additional log details.");
                 }
 
-                Uri logUri = new Uri(InstallerLogFilePath);
+                Uri logUri = this.GetInstallerLogFileUri();
 
                 if (!string.IsNullOrEmpty(this.SpecificErrorMessage))
                 {
-                    this.HyperlinkAddress = logUri.AbsoluteUri;
+                    this.HyperlinkAddress = logUri?.AbsoluteUri ?? string.Empty;
                     this.ShowError(
                         string.Format("{0} file created:", InstallerLogFileName),
                         this.SpecificErrorMessage
@@ -4247,7 +4412,7 @@ namespace MixItUp.Installer
                 }
                 else
                 {
-                    this.HyperlinkAddress = logUri.AbsoluteUri;
+                    this.HyperlinkAddress = logUri?.AbsoluteUri ?? string.Empty;
                     this.ShowError(
                         string.Format("{0} file created:", InstallerLogFileName),
                         "Please visit our support Discord or send an email to support@mixitupapp.com with the contents of this file."
@@ -4609,23 +4774,34 @@ namespace MixItUp.Installer
 
             this.ErrorMessage = combinedMessage;
             this.HasError = true;
+            if (!string.IsNullOrWhiteSpace(combinedMessage))
+            {
+                this.LogActivity(combinedMessage, "ERROR");
+            }
+            else
+            {
+                this.LogActivity("An error occurred with no additional message.", "ERROR");
+            }
             this.launchCommand?.RaiseCanExecuteChanged();
         }
 
-        private void LogActivity(string message)
+        private void LogActivity(string message, string level = "INFO")
         {
             if (string.IsNullOrWhiteSpace(message))
             {
                 return;
             }
 
+            string trimmedMessage = message.Trim();
             string timestampedMessage = string.Format(
                 "[{0:HH:mm:ss}] {1}",
-                DateTime.Now,
-                message.Trim()
+                DateTime.UtcNow,
+                level.Equals("INFO", StringComparison.OrdinalIgnoreCase)
+                    ? trimmedMessage
+                    : string.Format("{0}: {1}", level.ToUpperInvariant(), trimmedMessage)
             );
 
-            this.WriteToLogFile(message.Trim());
+            this.WriteToLogFile(trimmedMessage, level);
 
             try
             {
@@ -4652,32 +4828,228 @@ namespace MixItUp.Installer
 
         private void ResetLogFile()
         {
+            string logPath = this.InstallerLogFilePath;
+
             try
             {
-                if (File.Exists(InstallerLogFilePath))
+                string directory = Path.GetDirectoryName(logPath);
+                if (!string.IsNullOrEmpty(directory))
                 {
-                    File.Delete(InstallerLogFilePath);
+                    Directory.CreateDirectory(directory);
                 }
+
+                File.WriteAllText(logPath, string.Empty);
             }
             catch
             {
-                // If we cannot delete the previous log, we'll append to it instead.
+                // If we cannot truncate the previous log, we'll append to it instead.
             }
         }
 
-        private void WriteToLogFile(string text)
+        private void WriteToLogFile(string text, string level = "INFO")
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return;
+            }
+
+            string logPath = this.InstallerLogFilePath;
+
             try
             {
-                File.AppendAllText(
-                    InstallerLogFilePath,
-                    string.Format("[{0:u}] {1}{2}{2}", DateTime.UtcNow, text, Environment.NewLine)
+                string directory = Path.GetDirectoryName(logPath);
+                if (!string.IsNullOrEmpty(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                string entry = string.Format(
+                    "[{0:u}] [{1}] {2}{3}",
+                    DateTime.UtcNow,
+                    level,
+                    text.Trim(),
+                    Environment.NewLine
                 );
+
+                File.AppendAllText(logPath, entry);
             }
             catch
             {
                 // Swallow logging errors to avoid masking the original issue.
             }
+        }
+
+        private string GetInstallerLogFilePath()
+        {
+            string root = this.AppRoot;
+            if (string.IsNullOrWhiteSpace(root))
+            {
+                root = DefaultInstallDirectory;
+            }
+
+            string normalizedRoot = NormalizePath(root);
+            if (string.IsNullOrWhiteSpace(normalizedRoot))
+            {
+                normalizedRoot = root;
+            }
+
+            return Path.Combine(normalizedRoot, InstallerLogFileName);
+        }
+
+        private Uri GetInstallerLogFileUri()
+        {
+            try
+            {
+                return new Uri(this.InstallerLogFilePath);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private void SetHyperlinkToLogFile()
+        {
+            Uri logUri = this.GetInstallerLogFileUri();
+            this.HyperlinkAddress = logUri?.AbsoluteUri ?? string.Empty;
+        }
+
+        private void PrepareDownloadWorkspace()
+        {
+            string tempPath = this.DownloadTempPath;
+            if (string.IsNullOrWhiteSpace(tempPath))
+            {
+                return;
+            }
+
+            try
+            {
+                if (Directory.Exists(tempPath))
+                {
+                    Directory.Delete(tempPath, recursive: true);
+                }
+
+                Directory.CreateDirectory(tempPath);
+                this.LogActivity($"Prepared temporary workspace at '{NormalizePath(tempPath)}'.");
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Failed to prepare temporary workspace '{tempPath}': {ex}");
+                this.LogActivity(
+                    $"Failed to prepare temporary workspace at '{NormalizePath(tempPath)}'.",
+                    "ERROR"
+                );
+            }
+        }
+
+        private void CleanupDownloadWorkspace()
+        {
+            string tempPath = this.DownloadTempPath;
+            if (string.IsNullOrWhiteSpace(tempPath))
+            {
+                return;
+            }
+
+            try
+            {
+                if (Directory.Exists(tempPath))
+                {
+                    Directory.Delete(tempPath, recursive: true);
+                    this.LogActivity($"Cleaned temporary workspace at '{NormalizePath(tempPath)}'.");
+                }
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Failed to clean temporary workspace '{tempPath}': {ex}");
+                this.LogActivity(
+                    $"Failed to clean temporary workspace at '{NormalizePath(tempPath)}'.",
+                    "WARN"
+                );
+            }
+        }
+
+        private bool EnsureDiskSpace(string targetPath, long? sizeHintBytes, InstallerStep step, string componentName)
+        {
+            try
+            {
+                string resolvedPath = string.IsNullOrWhiteSpace(targetPath)
+                    ? DefaultInstallDirectory
+                    : targetPath;
+
+                string normalized = NormalizePath(resolvedPath);
+                string root = Path.GetPathRoot(normalized);
+                if (string.IsNullOrEmpty(root))
+                {
+                    return true;
+                }
+
+                DriveInfo driveInfo = new DriveInfo(root);
+                long available = driveInfo.AvailableFreeSpace;
+
+                long required = sizeHintBytes.GetValueOrDefault();
+                if (required <= 0)
+                {
+                    required = 200L * 1024 * 1024; // default to 200 MB
+                }
+
+                required = (long)Math.Min(long.MaxValue, Math.Max(required, 50L * 1024 * 1024));
+                required = (long)Math.Ceiling(required * 1.3); // 30% buffer
+
+                if (available < required)
+                {
+                    this.LogActivity(
+                        $"{componentName} requires approximately {FormatBytes(required)} of free space, but only {FormatBytes(available)} is available on {driveInfo.Name}.",
+                        "ERROR"
+                    );
+                    this.SetStepState(step, StepStatus.Failed);
+                    this.ShowError(
+                        "Not Enough Disk Space",
+                        $"Free at least {FormatBytes(required)} on {driveInfo.Name} and try again."
+                    );
+                    this.SetHyperlinkToLogFile();
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Disk space validation failed for '{targetPath}': {ex}");
+            }
+
+            return true;
+        }
+
+        private static string FormatBytes(long bytes)
+        {
+            const long Kilo = 1024;
+            const long Mega = Kilo * 1024;
+            const long Giga = Mega * 1024;
+            const long Tera = Giga * 1024;
+
+            double value = bytes;
+            string unit = "B";
+
+            if (bytes >= Tera)
+            {
+                value = bytes / (double)Tera;
+                unit = "TB";
+            }
+            else if (bytes >= Giga)
+            {
+                value = bytes / (double)Giga;
+                unit = "GB";
+            }
+            else if (bytes >= Mega)
+            {
+                value = bytes / (double)Mega;
+                unit = "MB";
+            }
+            else if (bytes >= Kilo)
+            {
+                value = bytes / (double)Kilo;
+                unit = "KB";
+            }
+
+            return string.Format("{0:0.##} {1}", value, unit);
         }
     }
 }
