@@ -39,7 +39,7 @@
                 Padding="60,40"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                MaterialDesign:ElevationAssist.Elevation="Dp4"
+                MaterialDesign:ElevationAssist.Elevation="Dp16"
                 UniformCornerRadius="16">
                 <Grid>
                     <Grid.ColumnDefinitions>
