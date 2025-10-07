@@ -12,13 +12,9 @@
     Width="600"
     Height="720"
     MinWidth="600"
-    MinHeight="720"
-    Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-    Icon="./Logo.ico"
-    TextElement.FontSize="14"
-    TextElement.FontWeight="Medium"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    MinHeight="720" 
+            Style="{StaticResource MaterialDesignWindow}"
+     Icon="./Logo.ico" 
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
