@@ -9,47 +9,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     Title="{x:Static resx:Resources.MixItUpLogin}"
-    Width="600"
-    Height="720"
-    MinWidth="600"
-    MinHeight="720"
-    Background="{DynamicResource MaterialDesignPaper}"
-    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    Width="900"
+    Height="650"
+    MinWidth="900"
+    MinHeight="600"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
     Icon="./Logo.ico"
+    Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <Windows:LoadingWindowBase.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="LoginCard" TargetType="MaterialDesign:Card">
-                <Setter Property="UniformCornerRadius" Value="8" />
-                <Setter Property="Padding" Value="32" />
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect
-                            BlurRadius="10"
-                            Direction="270"
-                            Opacity="0.3"
-                            ShadowDepth="4"
-                            Color="Black" />
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </ResourceDictionary>
-    </Windows:LoadingWindowBase.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -57,73 +30,95 @@
 
         <MaterialDesign:DialogHost
             x:Name="MDDialogHost"
-            Grid.RowSpan="4"
+            Grid.RowSpan="3"
             Identifier="RootDialog" />
 
-        <Grid Grid.Row="1" Margin="50,40,50,40">
-            <MaterialDesign:Card Style="{StaticResource LoginCard}">
-                <StackPanel>
+        <Grid Grid.Row="0" Margin="40,30,40,30">
+            <MaterialDesign:Card
+                MaxWidth="800"
+                Padding="60,40"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                MaterialDesign:ElevationAssist.Elevation="Dp4"
+                UniformCornerRadius="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
 
                     <Image
-                        Width="120"
-                        Height="120"
-                        Margin="0,0,0,24"
-                        HorizontalAlignment="Center"
+                        Grid.Column="0"
+                        Width="140"
+                        Height="140"
+                        VerticalAlignment="Center"
                         Source="/Logo.png"
                         Stretch="Uniform" />
 
-                    <TextBlock
-                        Margin="0,0,0,16"
-                        FontSize="18"
-                        FontWeight="SemiBold"
-                        Text="{x:Static resx:Resources.ExistingProfile}" />
 
-                    <ComboBox
-                        x:Name="ExistingStreamerComboBox"
-                        Margin="0,0,0,12"
-                        Padding="12,8"
-                        MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Profile}"
-                        DisplayMemberPath="Name"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                        Visibility="Collapsed" />
+                    <StackPanel
+                        Grid.Column="2"
+                        MinWidth="400"
+                        VerticalAlignment="Center">
 
-                    <Button
-                        x:Name="StreamerLoginButton"
-                        Height="45"
-                        Margin="0,0,0,32"
-                        Click="StreamerLoginButton_Click"
-                        Content="{x:Static resx:Resources.Login}"
-                        IsEnabled="False" />
+                        <TextBlock
+                            Margin="0,0,0,16"
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Text="{x:Static resx:Resources.ExistingProfile}" />
+
+                        <ComboBox
+                            x:Name="ExistingStreamerComboBox"
+                            Margin="0,0,0,12"
+                            MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Profile}"
+                            DisplayMemberPath="Name"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            Visibility="Collapsed" />
+
+                        <Button
+                            x:Name="StreamerLoginButton"
+                            Height="44"
+                            Margin="0,0,0,32"
+                            Click="StreamerLoginButton_Click"
+                            Content="{x:Static resx:Resources.Login}"
+                            IsEnabled="False"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
 
 
-                    <Separator Margin="0,0,0,32" />
+                        <Separator Margin="0,0,0,32" />
 
-                    <TextBlock
-                        Margin="0,0,0,16"
-                        FontSize="18"
-                        FontWeight="SemiBold"
-                        Text="{x:Static resx:Resources.NewProfile}" />
 
-                    <Button
-                        x:Name="NewStreamerLoginButton"
-                        Height="45"
-                        Margin="0,0,0,12"
-                        Click="NewStreamerLoginButton_Click"
-                        Content="{x:Static resx:Resources.NewProfile}" />
+                        <TextBlock
+                            Margin="0,0,0,16"
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Text="{x:Static resx:Resources.NewProfile}" />
 
-                    <Button
-                        x:Name="RestoreBackupButton"
-                        Height="45"
-                        Click="RestoreBackupButton_Click"
-                        Content="{x:Static resx:Resources.RestoreSettings}" />
+                        <Button
+                            x:Name="NewStreamerLoginButton"
+                            Height="44"
+                            Margin="0,0,0,12"
+                            Click="NewStreamerLoginButton_Click"
+                            Content="{x:Static resx:Resources.NewProfile}"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
 
-                </StackPanel>
+                        <Button
+                            x:Name="RestoreBackupButton"
+                            Height="44"
+                            Click="RestoreBackupButton_Click"
+                            Content="{x:Static resx:Resources.RestoreSettings}"
+                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+                    </StackPanel>
+                </Grid>
             </MaterialDesign:Card>
         </Grid>
 
+
         <StackPanel
-            Grid.Row="2"
-            Margin="0,0,0,8"
+            Grid.Row="1"
+            Margin="0,0,0,12"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <TextBlock>
@@ -132,7 +127,7 @@
                 </Hyperlink>
             </TextBlock>
             <TextBlock
-                Margin="6,0"
+                Margin="8,0"
                 FontSize="11"
                 Opacity="0.6"
                 Text=" • " />
@@ -142,7 +137,7 @@
                 </Hyperlink>
             </TextBlock>
             <TextBlock
-                Margin="6,0"
+                Margin="8,0"
                 FontSize="11"
                 Opacity="0.6"
                 Text=" • " />
@@ -153,27 +148,21 @@
             </TextBlock>
         </StackPanel>
 
-        <Grid Grid.Row="3">
+
+        <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Margin="0,0,0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="11"
-                    Opacity="0.7"
-                    Text="© Blazing Cacti LLC 2025" />
-            </Grid>
+            <TextBlock
+                Grid.Row="0"
+                Margin="0,0,0,8"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="11"
+                Opacity="0.7"
+                Text="© Blazing Cacti LLC 2025" />
 
             <Controls:LoadingStatusBar x:Name="StatusBar" Grid.Row="1" />
         </Grid>
