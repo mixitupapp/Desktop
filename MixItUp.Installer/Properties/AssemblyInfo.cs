@@ -7,11 +7,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("MixItUp.Installer")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyDescription("Base Installer For Mix It Up Stream Bot")]
+[assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyCompany("Blazing Cacti LLC")]
 [assembly: AssemblyProduct("MixItUp.Installer")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
