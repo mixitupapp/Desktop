@@ -91,19 +91,14 @@
     <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="WPF-UI.Markdown" Version="4.0.2" />
   </ItemGroup>
   <Target Name="EmbedReferencedAssemblies" AfterTargets="ResolveReferences">
     <ItemGroup>
-      <EmbeddedResource
-        Include="@(ReferenceCopyLocalPaths)"
-        Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'"
-      >
+      <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
         <LogicalName>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
       </EmbeddedResource>
-      <ReferenceCopyLocalPaths
-        Remove="@(ReferenceCopyLocalPaths)"
-        Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'"
-      />
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'" />
     </ItemGroup>
   </Target>
   <Target Name="RemovePackagingArtifacts" AfterTargets="Build">
