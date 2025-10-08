@@ -11,16 +11,9 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Controls:LoadingControlBase.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Controls:LoadingControlBase.Resources>
-
     <GroupBox x:Name="GroupBox">
         <GroupBox.Header>
             <Grid MouseLeftButtonUp="GroupBoxHeader_MouseLeftButtonUp">
@@ -31,18 +24,12 @@
                     <ColumnDefinition Width="20" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-
                 <TextBlock Grid.Column="0" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Name}" />
                 <Rectangle Grid.Column="1" Fill="{StaticResource MaterialDesign.Brush.Primary}" />
-
                 <MaterialDesign:PackIcon Grid.Column="2" Kind="CheckboxMarkedCircle" Foreground="White" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource ColoredBackgroundPackIcon}" />
-
                 <Controls:IconButton Grid.Column="4" Margin="-10" Command="{Binding HelpCommand}" Icon="Help" ToolTip="{x:Static resx:Resources.Help}" />
-
             </Grid>
         </GroupBox.Header>
-
         <ContentControl x:Name="InnerContentControl" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
-
     </GroupBox>
 </Controls:LoadingControlBase>
