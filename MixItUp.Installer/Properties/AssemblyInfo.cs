@@ -6,12 +6,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MixItUp.Installer")]
+[assembly: AssemblyTitle("MixItUp-Setup")]
 [assembly: AssemblyDescription("Base Installer For Mix It Up Stream Bot")]
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Blazing Cacti LLC")]
-[assembly: AssemblyProduct("MixItUp.Installer")]
-[assembly: AssemblyCopyright("Copyright © 2025")]
+[assembly: AssemblyProduct("Mix It Up")]
+[assembly: AssemblyCopyright("Copyright © 2025 Blazing Cacti LLC | All Rights Reserved")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
