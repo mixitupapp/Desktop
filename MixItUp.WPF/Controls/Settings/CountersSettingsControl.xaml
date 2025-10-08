@@ -45,7 +45,7 @@
 
                                 <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" />
 
-                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
 
                                 <Grid Grid.Column="4" VerticalAlignment="Center">
                                     <Grid.RowDefinitions>
@@ -53,7 +53,7 @@
                                         <RowDefinition Height="5" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    
+
                                     <TextBlock Grid.Row="0" Text="{Binding Source={x:Static resx:Resources.SaveToFile}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" HorizontalAlignment="Center" />
                                     <ToggleButton Grid.Row="2" IsChecked="{Binding SaveToFile}" HorizontalAlignment="Center" />
                                 </Grid>
@@ -69,7 +69,7 @@
                                     <ToggleButton Grid.Row="2" IsChecked="{Binding ResetOnLoad}" HorizontalAlignment="Center" />
                                 </Grid>
 
-                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -83,9 +83,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding NewCounterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="350" />
+                <TextBox Grid.Column="0" Text="{Binding NewCounterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="380" VerticalAlignment="Center" />
 
-                <Button Grid.Column="2" Command="{Binding AddNewCounterCommand}" Content="{x:Static resx:Resources.Add}" />
+                <Button Grid.Column="2" Command="{Binding AddNewCounterCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" />
             </Grid>
         </Grid>
 

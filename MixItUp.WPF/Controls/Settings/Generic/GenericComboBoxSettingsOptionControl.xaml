@@ -21,7 +21,7 @@
 
         <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}">
+        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}" Style="{StaticResource MaterialDesignOutlinedComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>

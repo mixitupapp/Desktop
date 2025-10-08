@@ -15,10 +15,10 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" />
+        <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <ToggleButton Grid.Column="1" IsChecked="{Binding Enabled}" ToolTip="{Binding Tooltip}" Visibility="{Binding ShowEnabledOption, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Margin="0,0,20,0" />
-        
-        <TextBox Grid.Column="2" Text="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" Width="50" />
+        <ToggleButton Grid.Column="1" IsChecked="{Binding Enabled}" ToolTip="{Binding Tooltip}" Visibility="{Binding ShowEnabledOption, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Margin="0,0,20,0" VerticalAlignment="Center" />
+
+        <TextBox Grid.Column="2" Text="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" Width="50" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalAlignment="Center" />
     </Grid>
 </UserControl>

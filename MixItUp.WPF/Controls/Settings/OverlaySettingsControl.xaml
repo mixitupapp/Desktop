@@ -37,9 +37,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding PortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding PortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalAlignment="Center" />
 
-                <Button Grid.Column="2" Command="{Binding UpdatePortNumberCommand}" Content="{x:Static resx:Resources.Update}" />
+                <Button Grid.Column="2" Command="{Binding UpdatePortNumberCommand}" Content="{x:Static resx:Resources.Update}" Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center" />
             </Grid>
 
             <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.OverlayEndpoints}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
@@ -61,15 +61,15 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignOutlinedTextBox}"  VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="2" x:Name="LaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="Launch" ToolTip="{x:Static resx:Resources.Link}" />
+                                <Controls:IconButton Grid.Column="2" x:Name="LaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="Launch" ToolTip="{x:Static resx:Resources.Link}" VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="ContentCopy" ToolTip="{x:Static resx:Resources.Copy}" />
+                                <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="ContentCopy" ToolTip="{x:Static resx:Resources.Copy}" VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="6" x:Name="EditEndpointButton" Click="EditEndpointButton_Click" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.Edit}" />
+                                <Controls:IconButton Grid.Column="6" x:Name="EditEndpointButton" Click="EditEndpointButton_Click" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.Edit}" VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanDelete}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanDelete}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -83,9 +83,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding NewEndpointName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="300" />
-                
-                <Button Grid.Column="4" Command="{Binding AddCommand}" Content="{x:Static resx:Resources.Add}"/>
+                <TextBox Grid.Column="0" Text="{Binding NewEndpointName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="300" VerticalAlignment="Center" />
+
+                <Button Grid.Column="2" Command="{Binding AddCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" />
             </Grid>
         </Grid>
 

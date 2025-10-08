@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        
-        <TextBox Grid.Column="2" Text="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" MinWidth="150" />
+
+        <TextBox Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedTextBox }" Text="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" MinWidth="150" />
     </Grid>
 </UserControl>
