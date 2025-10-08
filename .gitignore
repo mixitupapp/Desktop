@@ -202,3 +202,4 @@ FakesAssemblies/
 
 # AVerMedia build outputs
 *.creatorCentral
+/MixItUp.WPF/MD3
