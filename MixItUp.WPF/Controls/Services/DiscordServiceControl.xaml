@@ -37,7 +37,7 @@
                 <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.DiscordInfo1}"/>
 
                 <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="{x:Static resx:Resources.DiscordInfo2}"/>
-                
+
                 <TextBlock Grid.Row="4" TextWrapping="Wrap">
                     <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/discord" RequestNavigate="Hyperlink_RequestNavigate">
                          <TextBlock TextWrapping="Wrap" Text="{x:Static resx:Resources.CreatingCustomDiscordApplication}"/>
@@ -66,9 +66,9 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.CustomApplication}"/>
+                        <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.CustomApplication}" VerticalAlignment="Center" />
 
-                        <ToggleButton Grid.Column="2" IsChecked="{Binding CustomApplication}" />
+                        <ToggleButton Grid.Column="2" IsChecked="{Binding CustomApplication}" VerticalAlignment="Center" />
                     </Grid>
                 </Grid>
             </Grid>
