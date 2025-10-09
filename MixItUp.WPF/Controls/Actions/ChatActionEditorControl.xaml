@@ -68,7 +68,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center">
                 <Hyperlink NavigateUri="https://wiki.mixitupapp.com/special-identifiers" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="{x:Static resx:Resources.SpecialIdentifiersReference}" />
+                    <TextBlock Text="{x:Static resx:Resources.SpecialIdentifiers}" />
                 </Hyperlink>
             </TextBlock>
         </Grid>
