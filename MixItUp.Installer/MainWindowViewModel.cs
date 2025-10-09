@@ -30,31 +30,29 @@ namespace MixItUp.Installer
         public const string NewApplicationSettingsFileName = "ApplicationSettings.json";
 
         public const string MixItUpProcessName = "MixItUp";
-        public const string MixItUpStreamBotProcessName = "MixItUp.StreamBot";
         public const string AutoHosterProcessName = "MixItUp.AutoHoster";
 
         private static readonly IReadOnlyList<string> TargetProcessNames = new[]
         {
             MixItUpProcessName,
-            MixItUpStreamBotProcessName,
             AutoHosterProcessName,
         };
 
-    private const string LauncherProductSlug = "mixitup-desktop";
-    private const string LauncherPlatform = "windows-x64";
-    private const string AppProductSlug = "mixitup-desktop";
-    private const string AppPlatform = "windows-x64";
+        private const string LauncherProductSlug = "mixitup-desktop";
+        private const string LauncherPlatform = "windows-x64";
+        private const string AppProductSlug = "mixitup-desktop";
+        private const string AppPlatform = "windows-x64";
 
-    private static readonly IReadOnlyList<string> AllowListedDataDirectories = new[]
-    {
+        private static readonly IReadOnlyList<string> AllowListedDataDirectories = new[]
+        {
         "Settings",
         "Logs",
         "ChatEventLogs",
         "Counters",
     };
 
-    private static readonly IReadOnlyList<string> AllowListedDataFiles = new[]
-    {
+        private static readonly IReadOnlyList<string> AllowListedDataFiles = new[]
+        {
         NewApplicationSettingsFileName,
         OldApplicationSettingsFileName,
     };
@@ -744,7 +742,7 @@ namespace MixItUp.Installer
 
         public ICommand OpenLogCommand { get; private set; }
 
-    private RelayCommand launchCommand;
+        private RelayCommand launchCommand;
         public ICommand LaunchCommand { get; private set; }
 
         public bool IsUpdate
@@ -2691,7 +2689,7 @@ namespace MixItUp.Installer
                     using (RegistryKey baseKey = RegistryKey.OpenBaseKey(hive, view))
                     using (RegistryKey uninstallKey = baseKey.CreateSubKey(uninstallKeyPath, writable: true))
                     {
-                        uninstallKey.SetValue("DisplayName", "MixItUp StreamBot", RegistryValueKind.String);
+                        uninstallKey.SetValue("DisplayName", "Mix It Up", RegistryValueKind.String);
                         uninstallKey.SetValue("DisplayVersion", displayVersion, RegistryValueKind.String);
                         uninstallKey.SetValue("InstallLocation", normalizedAppRoot, RegistryValueKind.String);
                         uninstallKey.SetValue("Publisher", "Mix It Up", RegistryValueKind.String);
@@ -3017,7 +3015,7 @@ namespace MixItUp.Installer
                 shortcut.WorkingDirectory = workingDirectory;
                 shortcut.Arguments = string.Empty;
                 shortcut.IconLocation = iconPath;
-                shortcut.Description = "Launch Mix It Up StreamBot";
+                shortcut.Description = "Launch Mix It Up";
                 shortcut.Save();
 
                 return true;
@@ -3399,7 +3397,7 @@ namespace MixItUp.Installer
             return null;
         }
 
-    private async Task<UpdatePackageInfo> ResolveLauncherPackageAsync()
+        private async Task<UpdatePackageInfo> ResolveLauncherPackageAsync()
         {
             string channel = this.ResolveUpdateChannel();
             string manifestUrl = this.BuildManifestUrl(LauncherProductSlug, LauncherPlatform, channel);
@@ -3864,7 +3862,7 @@ namespace MixItUp.Installer
             return null;
         }
 
-    private bool InstallLauncherArchive(byte[] archiveBytes, UpdatePackageInfo package)
+        private bool InstallLauncherArchive(byte[] archiveBytes, UpdatePackageInfo package)
         {
             this.DisplayText1 = "Installing launcher...";
             this.DisplayText2 = string.IsNullOrEmpty(package?.Version)
