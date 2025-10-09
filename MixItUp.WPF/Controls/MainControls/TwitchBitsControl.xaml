@@ -40,7 +40,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="2*" />
                     <DataGridTextColumn Header="{x:Static resx:Resources.Amount}" Binding="{Binding AmountDisplay}" IsReadOnly="True" Width="*" />
-                    <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="230" Width="230">
+                    <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="250" Width="250">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CommandsControls:CommandListingButtonsControl HorizontalAlignment="Center" EditClicked="CommandButtons_EditClicked" DeleteClicked="CommandButtons_DeleteClicked" />
