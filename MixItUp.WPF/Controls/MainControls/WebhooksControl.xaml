@@ -36,7 +36,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" Width="240">
+                    <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" Width="250">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Center">
