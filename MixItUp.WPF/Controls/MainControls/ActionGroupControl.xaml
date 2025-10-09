@@ -11,10 +11,9 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+            FontFamily="{MaterialDesign:MaterialDesignFont}"
+            TextElement.FontSize="14"
+            TextElement.FontWeight="Medium"
 
              d:DesignHeight="300" d:DesignWidth="300">
     <local:GroupedCommandsMainControlBase.Resources>
@@ -46,7 +45,7 @@
             <DataGrid ItemsSource="{Binding DefaultGroup}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
-                    <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="230" Width="230">
+                    <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="250" Width="250">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CommandsControls:CommandListingButtonsControl HorizontalAlignment="Center" EditClicked="CommandButtons_EditClicked" DeleteClicked="CommandButtons_DeleteClicked" />
@@ -74,7 +73,7 @@
                                 <DataGrid ItemsSource="{Binding Commands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" MinWidth="500" Width="*" />
-                                        <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="230" Width="230">
+                                        <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="250" Width="250">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <CommandsControls:CommandListingButtonsControl HorizontalAlignment="Center" EditClicked="CommandButtons_EditClicked" DeleteClicked="CommandButtons_DeleteClicked" />
