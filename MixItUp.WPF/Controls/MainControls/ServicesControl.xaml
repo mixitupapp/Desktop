@@ -8,22 +8,12 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"                       
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    Style="{StaticResource MaterialDesignWindow}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"                   
                           
              d:DesignHeight="500" d:DesignWidth="600">
-    <local:MainControlBase.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </local:MainControlBase.Resources>
-
     <Grid Margin="20">
         <ListView x:Name="ServicesListView" ItemContainerStyle="{StaticResource BorderedListViewItem}" HorizontalContentAlignment="Stretch" />
     </Grid>
