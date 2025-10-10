@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using MixItUp.Base.Model.API;
+using MixItUp.Distribution.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Security.Principal;
@@ -57,109 +58,6 @@ namespace MixItUp.Distribution.Installer
         OldApplicationSettingsFileName,
     };
 
-        private sealed class UpdateManifestModel
-        {
-            [JsonProperty("schemaVersion")]
-            public string SchemaVersion { get; set; }
-
-            [JsonProperty("product")]
-            public string Product { get; set; }
-
-            [JsonProperty("channel")]
-            public string Channel { get; set; }
-
-            [JsonProperty("version")]
-            public string Version { get; set; }
-
-            [JsonProperty("releasedAt")]
-            public DateTime? ReleasedAt { get; set; }
-
-            [JsonProperty("releaseType")]
-            public string ReleaseType { get; set; }
-
-            [JsonProperty("platforms")]
-            public List<UpdatePlatformModel> Platforms { get; set; }
-        }
-
-        private sealed class UpdatePlatformModel
-        {
-            [JsonProperty("platform")]
-            public string Platform { get; set; }
-
-            [JsonProperty("files")]
-            public List<UpdateFileModel> Files { get; set; }
-        }
-
-        private sealed class UpdateFileModel
-        {
-            [JsonProperty("name")]
-            public string Name { get; set; }
-
-            [JsonProperty("url")]
-            public string Url { get; set; }
-
-            [JsonProperty("size")]
-            public long? Size { get; set; }
-
-            [JsonProperty("sha256")]
-            public string Sha256 { get; set; }
-
-            [JsonProperty("contentType")]
-            public string ContentType { get; set; }
-
-            [JsonProperty("arch")]
-            public string Architecture { get; set; }
-        }
-
-        private sealed class UpdatePackageInfo
-        {
-            public UpdatePackageInfo(
-                string version,
-                string channel,
-                string platform,
-                UpdateFileModel file,
-                Uri downloadUri
-            )
-            {
-                this.Version = version;
-                this.Channel = channel;
-                this.Platform = platform;
-                this.File = file;
-                this.DownloadUri = downloadUri;
-            }
-
-            public string Version { get; }
-
-            public string Channel { get; }
-
-            public string Platform { get; }
-
-            public UpdateFileModel File { get; }
-
-            public Uri DownloadUri { get; }
-        }
-
-        private sealed class BootloaderConfigModel
-        {
-            [JsonProperty("currentVersion")]
-            public string CurrentVersion { get; set; }
-
-            [JsonProperty("versionRoot")]
-            public string VersionRoot { get; set; }
-
-            [JsonProperty("versions")]
-            public List<string> Versions { get; set; } = new List<string>();
-
-            [JsonProperty("executables")]
-            public Dictionary<string, string> Executables { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
-            [JsonProperty("dataDirName")]
-            public string DataDirName { get; set; }
-
-            [JsonExtensionData]
-            public IDictionary<string, JToken> ExtensionData { get; set; }
-                = new Dictionary<string, JToken>(StringComparer.OrdinalIgnoreCase);
-        }
 
         private enum ShortcutCreationResult
         {
@@ -2316,20 +2214,21 @@ namespace MixItUp.Distribution.Installer
         private BootloaderConfigModel LoadBootloaderConfig()
         {
             string bootloaderPath = this.BootloaderConfigPath;
-            if (string.IsNullOrWhiteSpace(bootloaderPath) || !File.Exists(bootloaderPath))
+            if (string.IsNullOrWhiteSpace(bootloaderPath))
             {
                 return null;
             }
 
             try
             {
-                string json = File.ReadAllText(bootloaderPath);
-                if (string.IsNullOrWhiteSpace(json))
-                {
-                    return null;
-                }
-
-                return JsonConvert.DeserializeObject<BootloaderConfigModel>(json);
+                return BootloaderConfigService.Load(bootloaderPath);
+            }
+            catch (DistributionException dex)
+            {
+                this.LogActivity(
+                    $"Failed to read existing bootloader configuration: {dex.Message}"
+                );
+                this.WriteToLogFile(dex.ToString());
             }
             catch (Exception ex)
             {
@@ -2337,8 +2236,9 @@ namespace MixItUp.Distribution.Installer
                     $"Failed to read existing bootloader configuration: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
-                return null;
             }
+
+            return null;
         }
 
         private string ResolvePreviousVersionDirectory(
@@ -2511,87 +2411,48 @@ namespace MixItUp.Distribution.Installer
             try
             {
                 bool existingFile = File.Exists(bootloaderPath);
-                BootloaderConfigModel config = this.LoadBootloaderConfig() ?? new BootloaderConfigModel();
+                BootloaderConfigModel existingConfig = this.LoadBootloaderConfig();
 
-                if (config.Executables == null)
-                {
-                    config.Executables = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                }
-
-                if (config.Versions == null)
-                {
-                    config.Versions = new List<string>();
-                }
-
-                if (config.ExtensionData == null)
-                {
-                    config.ExtensionData = new Dictionary<string, JToken>(StringComparer.OrdinalIgnoreCase);
-                }
-
-                config.CurrentVersion = latestVersion;
-                config.VersionRoot = "app";
-                config.DataDirName = "data";
-                config.Executables["windows"] = "MixItUp.exe";
-
-                HashSet<string> seenVersions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                List<string> mergedVersions = new List<string>();
-
-                Action<string> addVersion = versionName =>
-                {
-                    if (string.IsNullOrWhiteSpace(versionName))
-                    {
-                        return;
-                    }
-
-                    if (seenVersions.Add(versionName))
-                    {
-                        mergedVersions.Add(versionName);
-                    }
-                };
-
-                foreach (string versionName in config.Versions)
-                {
-                    addVersion(versionName);
-                }
-
-                if (!string.IsNullOrWhiteSpace(this.InstalledVersion))
-                {
-                    addVersion(this.InstalledVersion);
-                }
-
+                List<string> discoveredVersions = new List<string>();
                 string versionRoot = this.VersionedAppDirRoot;
                 if (!string.IsNullOrWhiteSpace(versionRoot) && Directory.Exists(versionRoot))
                 {
-                    DirectoryInfo[] directories = new DirectoryInfo(versionRoot).GetDirectories();
-                    Array.Sort(
-                        directories,
-                        (left, right) => string.Compare(
-                            left.Name,
-                            right.Name,
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                    );
-
-                    foreach (DirectoryInfo directory in directories)
+                    try
                     {
-                        addVersion(directory.Name);
+                        DirectoryInfo[] directories = new DirectoryInfo(versionRoot).GetDirectories();
+                        Array.Sort(
+                            directories,
+                            (left, right) => string.Compare(
+                                left.Name,
+                                right.Name,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        );
+
+                        foreach (DirectoryInfo directory in directories)
+                        {
+                            discoveredVersions.Add(directory.Name);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        this.WriteToLogFile(
+                            $"Failed to enumerate version directories: {ex.GetType().Name} - {ex.Message}"
+                        );
                     }
                 }
 
-                addVersion(latestVersion);
-
-                config.Versions = mergedVersions;
-
-                string serialized = JsonConvert.SerializeObject(
-                    config,
-                    Formatting.Indented,
-                    new JsonSerializerSettings
-                    {
-                        NullValueHandling = NullValueHandling.Ignore,
-                    }
+                BootloaderConfigModel config = BootloaderConfigBuilder.BuildOrUpdate(
+                    existingConfig,
+                    latestVersion,
+                    discoveredVersions,
+                    this.InstalledVersion,
+                    versionRoot: "app",
+                    dataDirName: "data",
+                    windowsExecutable: "MixItUp.exe"
                 );
 
-                File.WriteAllText(bootloaderPath, serialized);
+                BootloaderConfigService.Save(bootloaderPath, config);
 
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Completed);
                 this.DisplayText1 = "Bootloader updated.";
@@ -2609,6 +2470,19 @@ namespace MixItUp.Distribution.Installer
                 this.InstalledVersion = latestVersion;
 
                 return true;
+            }
+            catch (DistributionException dex)
+            {
+                this.LogActivity(
+                    $"Failed to write bootloader configuration: {dex.Message}"
+                );
+                this.WriteToLogFile(dex.ToString());
+                this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
+                this.ShowError(
+                    "Configuration Failed",
+                    "Installer was unable to update bootloader.json."
+                );
+                return false;
             }
             catch (Exception ex)
             {
@@ -2645,7 +2519,7 @@ namespace MixItUp.Distribution.Installer
             string normalizedLauncherPath = NormalizePath(launcherPath);
             bool launcherExists = File.Exists(launcherPath);
 
-            string uninstallerPath = Path.Combine(appRoot, "MixItUp.Uninstaller.exe");
+            string uninstallerPath = Path.Combine(appRoot, DistributionPaths.UninstallerExecutableName);
             string normalizedUninstallerPath = NormalizePath(uninstallerPath);
             bool uninstallerExists = File.Exists(uninstallerPath);
 
@@ -3358,49 +3232,27 @@ namespace MixItUp.Distribution.Installer
             return "production";
         }
 
-        private string BuildManifestUrl(string product, string platform, string channel)
-        {
-            string trimmedBase = (this.UpdateServerBaseUrl ?? string.Empty).TrimEnd('/');
-            return string.Format(
-                "{0}/updates/{1}/{2}/{3}/latest",
-                trimmedBase,
-                product,
-                platform,
-                channel
-            );
-        }
-
-        private Uri BuildDownloadUri(string fileUrl)
-        {
-            if (string.IsNullOrWhiteSpace(fileUrl))
-            {
-                return null;
-            }
-
-            if (Uri.TryCreate(fileUrl, UriKind.Absolute, out Uri absoluteUri))
-            {
-                return absoluteUri;
-            }
-
-            string trimmedBase = (this.UpdateServerBaseUrl ?? string.Empty).TrimEnd('/');
-            if (!Uri.TryCreate(trimmedBase, UriKind.Absolute, out Uri baseUri))
-            {
-                return null;
-            }
-
-            string relativePath = fileUrl.StartsWith("/") ? fileUrl : "/" + fileUrl;
-            if (Uri.TryCreate(baseUri, relativePath, out Uri combinedUri))
-            {
-                return combinedUri;
-            }
-
-            return null;
-        }
 
         private async Task<UpdatePackageInfo> ResolveLauncherPackageAsync()
         {
             string channel = this.ResolveUpdateChannel();
-            string manifestUrl = this.BuildManifestUrl(LauncherProductSlug, LauncherPlatform, channel);
+
+            DistributionClient client;
+            try
+            {
+                client = new DistributionClient(this.UpdateServerBaseUrl ?? string.Empty);
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Failed to initialize distribution client: {ex}");
+                this.ShowError(
+                    "Download Failed",
+                    "Installer could not determine the update server endpoint."
+                );
+                return null;
+            }
+
+            string manifestUrl = client.BuildManifestUrl(LauncherProductSlug, LauncherPlatform, channel);
 
             this.DisplayText1 = "Checking for launcher updates...";
             this.DisplayText2 = string.Empty;
@@ -3412,130 +3264,69 @@ namespace MixItUp.Distribution.Installer
 
             try
             {
-                using (HttpClient client = new HttpClient())
+                UpdatePackageInfo package = await client.GetLatestPackageAsync(
+                    LauncherProductSlug,
+                    LauncherPlatform,
+                    channel
+                );
+
+                this.LatestVersion = package.Version ?? string.Empty;
+                this.DisplayText2 = string.IsNullOrEmpty(package.Version)
+                    ? string.Empty
+                    : $"Version {package.Version}";
+
+                string sanitizedUrl = package.DownloadUri?.GetLeftPart(UriPartial.Path) ?? string.Empty;
+
+                this.LogActivity(
+                    $"Launcher manifest resolved version {this.LatestVersion} ({channel})."
+                );
+                if (!string.IsNullOrEmpty(sanitizedUrl))
                 {
-                    client.Timeout = TimeSpan.FromSeconds(15);
-
-                    HttpResponseMessage response = await client.GetAsync(manifestUrl);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        string errorBody = await response.Content.ReadAsStringAsync();
-                        this.WriteToLogFile($"{manifestUrl} - {response.StatusCode} - {errorBody}");
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    UpdateManifestModel manifest =
-                        JsonConvert.DeserializeObject<UpdateManifestModel>(responseBody);
-
-                    if (manifest == null)
-                    {
-                        this.WriteToLogFile("Launcher manifest response was empty or invalid.");
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    UpdatePlatformModel platform = manifest.Platforms?.FirstOrDefault(p =>
-                        string.Equals(
-                            p.Platform,
-                            LauncherPlatform,
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                    );
-
-                    if (platform == null)
-                    {
-                        this.WriteToLogFile(
-                            $"Launcher manifest missing expected platform '{LauncherPlatform}'."
-                        );
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    UpdateFileModel file =
-                        platform.Files?.FirstOrDefault(f =>
-                            string.Equals(
-                                f.ContentType,
-                                "application/zip",
-                                StringComparison.OrdinalIgnoreCase
-                            )
-                        ) ?? platform.Files?.FirstOrDefault(f => !string.IsNullOrWhiteSpace(f.Url));
-
-                    if (file == null || string.IsNullOrWhiteSpace(file.Url))
-                    {
-                        this.WriteToLogFile(
-                            "Launcher manifest did not include a valid download file."
-                        );
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    Uri downloadUri = this.BuildDownloadUri(file.Url);
-                    if (downloadUri == null)
-                    {
-                        this.WriteToLogFile(
-                            $"Unable to construct launcher download URL from '{file.Url}'."
-                        );
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    string sanitizedUrl = downloadUri.GetLeftPart(UriPartial.Path);
-                    this.LogActivity(
-                        $"Launcher manifest resolved version {manifest.Version} ({channel})."
-                    );
                     this.LogActivity($"Launcher download endpoint: {sanitizedUrl}");
-
-                    this.LatestVersion = manifest.Version ?? string.Empty;
-                    this.DisplayText2 = string.IsNullOrEmpty(manifest.Version)
-                        ? string.Empty
-                        : $"Version {manifest.Version}";
-
-                    return new UpdatePackageInfo(
-                        manifest.Version ?? string.Empty,
-                        manifest.Channel ?? channel,
-                        platform.Platform,
-                        file,
-                        downloadUri
-                    );
                 }
+
+                return package;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (DistributionException dex)
+            {
+                this.WriteToLogFile(dex.ToString());
             }
             catch (Exception ex)
-                when (ex is HttpRequestException
-                    || ex is TaskCanceledException
-                    || ex is JsonException
-                )
             {
                 this.WriteToLogFile(ex.ToString());
-                this.ShowError(
-                    "Download Failed",
-                    "Couldn't reach the update server. Check connection and try again."
-                );
             }
 
+            this.ShowError(
+                "Download Failed",
+                "Couldn't reach the update server. Check connection and try again."
+            );
             return null;
         }
 
         private async Task<UpdatePackageInfo> ResolveAppPackageAsync()
         {
             string channel = this.ResolveUpdateChannel();
-            string manifestUrl = this.BuildManifestUrl(AppProductSlug, AppPlatform, channel);
+
+            DistributionClient client;
+            try
+            {
+                client = new DistributionClient(this.UpdateServerBaseUrl ?? string.Empty);
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Failed to initialize distribution client: {ex}");
+                this.ShowError(
+                    "Download Failed",
+                    "Installer could not determine the update server endpoint."
+                );
+                return null;
+            }
+
+            string manifestUrl = client.BuildManifestUrl(AppProductSlug, AppPlatform, channel);
 
             this.DisplayText1 = "Checking for application updates...";
             this.DisplayText2 = string.Empty;
@@ -3547,123 +3338,46 @@ namespace MixItUp.Distribution.Installer
 
             try
             {
-                using (HttpClient client = new HttpClient())
+                UpdatePackageInfo package = await client.GetLatestPackageAsync(
+                    AppProductSlug,
+                    AppPlatform,
+                    channel
+                );
+
+                this.LatestVersion = package.Version ?? string.Empty;
+                this.DisplayText2 = string.IsNullOrEmpty(package.Version)
+                    ? string.Empty
+                    : $"Version {package.Version}";
+
+                string sanitizedUrl = package.DownloadUri?.GetLeftPart(UriPartial.Path) ?? string.Empty;
+
+                this.LogActivity(
+                    $"Application manifest resolved version {this.LatestVersion} ({channel})."
+                );
+                if (!string.IsNullOrEmpty(sanitizedUrl))
                 {
-                    client.Timeout = TimeSpan.FromSeconds(15);
-
-                    HttpResponseMessage response = await client.GetAsync(manifestUrl);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        string errorBody = await response.Content.ReadAsStringAsync();
-                        this.WriteToLogFile($"{manifestUrl} - {response.StatusCode} - {errorBody}");
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    UpdateManifestModel manifest =
-                        JsonConvert.DeserializeObject<UpdateManifestModel>(responseBody);
-
-                    if (manifest == null)
-                    {
-                        this.WriteToLogFile("Application manifest response was empty or invalid.");
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    UpdatePlatformModel platform = manifest.Platforms?.FirstOrDefault(p =>
-                        string.Equals(
-                            p.Platform,
-                            AppPlatform,
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                    );
-
-                    if (platform == null)
-                    {
-                        this.WriteToLogFile(
-                            $"Application manifest missing expected platform '{AppPlatform}'."
-                        );
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    UpdateFileModel file =
-                        platform.Files?.FirstOrDefault(f =>
-                            string.Equals(
-                                f.ContentType,
-                                "application/zip",
-                                StringComparison.OrdinalIgnoreCase
-                            )
-                        ) ?? platform.Files?.FirstOrDefault(f => !string.IsNullOrWhiteSpace(f.Url));
-
-                    if (file == null || string.IsNullOrWhiteSpace(file.Url))
-                    {
-                        this.WriteToLogFile(
-                            "Application manifest did not include a valid download file."
-                        );
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    Uri downloadUri = this.BuildDownloadUri(file.Url);
-                    if (downloadUri == null)
-                    {
-                        this.WriteToLogFile(
-                            $"Unable to construct application download URL from '{file.Url}'."
-                        );
-                        this.ShowError(
-                            "Download Failed",
-                            "Couldn't reach the update server. Check connection and try again."
-                        );
-                        return null;
-                    }
-
-                    string sanitizedUrl = downloadUri.GetLeftPart(UriPartial.Path);
-                    this.LogActivity(
-                        $"Application manifest resolved version {manifest.Version} ({channel})."
-                    );
                     this.LogActivity($"Application download endpoint: {sanitizedUrl}");
-
-                    this.LatestVersion = manifest.Version ?? string.Empty;
-                    this.DisplayText2 = string.IsNullOrEmpty(manifest.Version)
-                        ? string.Empty
-                        : $"Version {manifest.Version}";
-
-                    return new UpdatePackageInfo(
-                        manifest.Version ?? string.Empty,
-                        manifest.Channel ?? channel,
-                        platform.Platform,
-                        file,
-                        downloadUri
-                    );
                 }
+
+                return package;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (DistributionException dex)
+            {
+                this.WriteToLogFile(dex.ToString());
             }
             catch (Exception ex)
-                when (ex is HttpRequestException
-                    || ex is TaskCanceledException
-                    || ex is JsonException
-                )
             {
                 this.WriteToLogFile(ex.ToString());
-                this.ShowError(
-                    "Download Failed",
-                    "Couldn't reach the update server. Check connection and try again."
-                );
             }
 
+            this.ShowError(
+                "Download Failed",
+                "Couldn't reach the update server. Check connection and try again."
+            );
             return null;
         }
 
@@ -3681,87 +3395,54 @@ namespace MixItUp.Distribution.Installer
             this.DisplayText2 = string.IsNullOrEmpty(package.Version)
                 ? string.Empty
                 : $"Version {package.Version}";
-            this.IsOperationIndeterminate = false;
+            long? expectedSize = package.File?.Size;
+            this.IsOperationIndeterminate = !expectedSize.HasValue;
             this.OperationProgress = 0;
             this.DownloadPercent = 0;
 
-            string sanitizedUrl = package.DownloadUri.GetLeftPart(UriPartial.Path);
-            this.LogActivity($"Starting launcher download from {sanitizedUrl}");
+            string sanitizedUrl = package.DownloadUri?.GetLeftPart(UriPartial.Path) ?? string.Empty;
+            if (!string.IsNullOrEmpty(sanitizedUrl))
+            {
+                this.LogActivity($"Starting launcher download from {sanitizedUrl}");
+            }
 
             try
             {
-                using (HttpClient client = new HttpClient())
+                DistributionClient client = new DistributionClient(this.UpdateServerBaseUrl ?? string.Empty);
+                byte[] payload = await client.DownloadPackageAsync(
+                    package.DownloadUri,
+                    TimeSpan.FromMinutes(5),
+                    progress
+                );
+
+                if (payload == null || payload.Length == 0)
                 {
-                    client.Timeout = TimeSpan.FromMinutes(5);
-
-                    using (
-                        HttpResponseMessage response = await client.GetAsync(
-                            package.DownloadUri,
-                            HttpCompletionOption.ResponseHeadersRead
-                        )
-                    )
-                    {
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            string errorBody = await response.Content.ReadAsStringAsync();
-                            this.WriteToLogFile(
-                                $"{package.DownloadUri} - {response.StatusCode} - {errorBody}"
-                            );
-                            this.ShowError(
-                                "Download Failed",
-                                "Couldn't reach the update server. Check connection and try again."
-                            );
-                            return null;
-                        }
-
-                        long? contentLength = response.Content.Headers.ContentLength;
-                        this.IsOperationIndeterminate = !contentLength.HasValue;
-                        progress?.Report(0);
-
-                        using (Stream contentStream = await response.Content.ReadAsStreamAsync())
-                        using (MemoryStream memoryStream = new MemoryStream())
-                        {
-                            byte[] buffer = new byte[81920];
-                            long totalRead = 0;
-                            int read;
-                            while (
-                                (read = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0
-                            )
-                            {
-                                memoryStream.Write(buffer, 0, read);
-                                totalRead += read;
-
-                                if (contentLength.HasValue && contentLength.Value > 0)
-                                {
-                                    int percent = (int)
-                                        Math.Min(100, (totalRead * 100) / contentLength.Value);
-                                    progress?.Report(percent);
-                                }
-                            }
-
-                            progress?.Report(100);
-
-                            double sizeInMb = memoryStream.Length / 1024d / 1024d;
-                            this.LogActivity(
-                                $"Launcher download complete ({sizeInMb:F2} MB received)."
-                            );
-
-                            return memoryStream.ToArray();
-                        }
-                    }
+                    this.WriteToLogFile("Launcher download returned an empty payload.");
+                    return null;
                 }
+
+                double sizeInMb = payload.Length / 1024d / 1024d;
+                this.LogActivity($"Launcher download complete ({sizeInMb:F2} MB received).");
+
+                return payload;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (DistributionException dex)
+            {
+                this.WriteToLogFile(dex.ToString());
             }
             catch (Exception ex)
-                when (ex is HttpRequestException || ex is TaskCanceledException || ex is IOException
-                )
             {
                 this.WriteToLogFile(ex.ToString());
-                this.ShowError(
-                    "Download Failed",
-                    "Couldn't reach the update server. Check connection and try again."
-                );
             }
 
+            this.ShowError(
+                "Download Failed",
+                "Couldn't reach the update server. Check connection and try again."
+            );
             return null;
         }
 
@@ -3779,86 +3460,54 @@ namespace MixItUp.Distribution.Installer
             this.DisplayText2 = string.IsNullOrEmpty(package.Version)
                 ? string.Empty
                 : $"Version {package.Version}";
-            this.IsOperationIndeterminate = false;
+            long? expectedSize = package.File?.Size;
+            this.IsOperationIndeterminate = !expectedSize.HasValue;
             this.OperationProgress = 0;
             this.DownloadPercent = 0;
 
-            string sanitizedUrl = package.DownloadUri.GetLeftPart(UriPartial.Path);
-            this.LogActivity($"Starting application download from {sanitizedUrl}");
+            string sanitizedUrl = package.DownloadUri?.GetLeftPart(UriPartial.Path) ?? string.Empty;
+            if (!string.IsNullOrEmpty(sanitizedUrl))
+            {
+                this.LogActivity($"Starting application download from {sanitizedUrl}");
+            }
 
             try
             {
-                using (HttpClient client = new HttpClient())
+                DistributionClient client = new DistributionClient(this.UpdateServerBaseUrl ?? string.Empty);
+                byte[] payload = await client.DownloadPackageAsync(
+                    package.DownloadUri,
+                    TimeSpan.FromMinutes(10),
+                    progress
+                );
+
+                if (payload == null || payload.Length == 0)
                 {
-                    client.Timeout = TimeSpan.FromMinutes(10);
-
-                    using (
-                        HttpResponseMessage response = await client.GetAsync(
-                            package.DownloadUri,
-                            HttpCompletionOption.ResponseHeadersRead
-                        )
-                    )
-                    {
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            string errorBody = await response.Content.ReadAsStringAsync();
-                            this.WriteToLogFile(
-                                $"{package.DownloadUri} - {response.StatusCode} - {errorBody}"
-                            );
-                            this.ShowError(
-                                "Download Failed",
-                                "Couldn't reach the update server. Check connection and try again."
-                            );
-                            return null;
-                        }
-
-                        long? contentLength = response.Content.Headers.ContentLength;
-                        this.IsOperationIndeterminate = !contentLength.HasValue;
-                        progress?.Report(0);
-
-                        using (Stream contentStream = await response.Content.ReadAsStreamAsync())
-                        using (MemoryStream memoryStream = new MemoryStream())
-                        {
-                            byte[] buffer = new byte[81920];
-                            long totalRead = 0;
-                            int read;
-                            while (
-                                (read = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0
-                            )
-                            {
-                                memoryStream.Write(buffer, 0, read);
-                                totalRead += read;
-
-                                if (contentLength.HasValue && contentLength.Value > 0)
-                                {
-                                    int percent = (int)
-                                        Math.Min(100, (totalRead * 100) / contentLength.Value);
-                                    progress?.Report(percent);
-                                }
-                            }
-
-                            progress?.Report(100);
-
-                            double sizeInMb = memoryStream.Length / 1024d / 1024d;
-                            this.LogActivity(
-                                $"Application download complete ({sizeInMb:F2} MB received)."
-                            );
-
-                            return memoryStream.ToArray();
-                        }
-                    }
+                    this.WriteToLogFile("Application download returned an empty payload.");
+                    return null;
                 }
+
+                double sizeInMb = payload.Length / 1024d / 1024d;
+                this.LogActivity($"Application download complete ({sizeInMb:F2} MB received).");
+
+                return payload;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (DistributionException dex)
+            {
+                this.WriteToLogFile(dex.ToString());
             }
             catch (Exception ex)
-                when (ex is HttpRequestException || ex is TaskCanceledException || ex is IOException)
             {
                 this.WriteToLogFile(ex.ToString());
-                this.ShowError(
-                    "Download Failed",
-                    "Couldn't reach the update server. Check connection and try again."
-                );
             }
 
+            this.ShowError(
+                "Download Failed",
+                "Couldn't reach the update server. Check connection and try again."
+            );
             return null;
         }
 
@@ -3886,77 +3535,14 @@ namespace MixItUp.Distribution.Installer
                 Directory.CreateDirectory(this.AppRoot);
                 string normalizedAppRoot = Path.GetFullPath(this.AppRoot);
 
-                using (MemoryStream zipStream = new MemoryStream(archiveBytes))
-                using (ZipArchive archive = new ZipArchive(zipStream))
-                {
-                    if (archive.Entries.Count == 0)
-                    {
-                        this.WriteToLogFile("Launcher archive contained no entries.");
-                        this.ShowError(
-                            "Package Corrupt",
-                            "The downloaded launcher package is invalid. Please try again."
-                        );
-                        return false;
-                    }
+                SafeZipExtractor.Extract(
+                    archiveBytes,
+                    normalizedAppRoot,
+                    overwriteExisting: true,
+                    progress: new Progress<int>(percent => this.OperationProgress = percent)
+                );
 
-                    double processed = 0;
-                    double total = archive.Entries.Count;
-
-                    foreach (ZipArchiveEntry entry in archive.Entries)
-                    {
-                        string entryPath = entry.FullName.Replace('/', Path.DirectorySeparatorChar);
-
-                        if (string.IsNullOrWhiteSpace(entryPath))
-                        {
-                            processed++;
-                            continue;
-                        }
-
-                        string destinationPath = Path.GetFullPath(
-                            Path.Combine(normalizedAppRoot, entryPath)
-                        );
-
-                        if (
-                            !destinationPath.StartsWith(
-                                normalizedAppRoot,
-                                StringComparison.OrdinalIgnoreCase
-                            )
-                        )
-                        {
-                            this.WriteToLogFile(
-                                $"Skipping extraction of '{entry.FullName}' due to path traversal."
-                            );
-                            processed++;
-                            continue;
-                        }
-
-                        if (
-                            destinationPath.EndsWith(
-                                Path.DirectorySeparatorChar.ToString(),
-                                StringComparison.Ordinal
-                            )
-                        )
-                        {
-                            Directory.CreateDirectory(destinationPath);
-                        }
-                        else
-                        {
-                            string parentDirectory = Path.GetDirectoryName(destinationPath);
-                            if (!string.IsNullOrEmpty(parentDirectory))
-                            {
-                                Directory.CreateDirectory(parentDirectory);
-                            }
-
-                            entry.ExtractToFile(destinationPath, overwrite: true);
-                        }
-
-                        processed++;
-                        this.OperationProgress =
-                            total > 0
-                                ? (int)Math.Min(100, Math.Round((processed / total) * 100))
-                                : 100;
-                    }
-                }
+                this.OperationProgress = 100;
 
                 string launcherPath = Path.Combine(this.AppRoot, "MixItUp.exe");
                 if (!File.Exists(launcherPath))
@@ -3973,6 +3559,14 @@ namespace MixItUp.Distribution.Installer
 
                 this.LogActivity("Launcher files extracted successfully.");
                 return true;
+            }
+            catch (DistributionException dex)
+            {
+                this.WriteToLogFile(dex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded launcher package is invalid. Please try again."
+                );
             }
             catch (InvalidDataException idex)
             {
@@ -4077,84 +3671,23 @@ namespace MixItUp.Distribution.Installer
 
             try
             {
-                using (MemoryStream zipStream = new MemoryStream(archiveBytes))
-                using (ZipArchive archive = new ZipArchive(zipStream))
-                {
-                    if (archive.Entries.Count == 0)
-                    {
-                        this.WriteToLogFile("Application archive contained no entries.");
-                        this.ShowError(
-                            "Package Corrupt",
-                            "The downloaded application payload is invalid. Please try again."
-                        );
-                        return false;
-                    }
-
-                    double processed = 0;
-                    double total = archive.Entries.Count;
-
-                    foreach (ZipArchiveEntry entry in archive.Entries)
+                SafeZipExtractor.Extract(
+                    archiveBytes,
+                    normalizedVersionDirectory,
+                    overwriteExisting: true,
+                    progress: new Progress<int>(percent => this.OperationProgress = percent),
+                    entryPathSelector: entry =>
                     {
                         string entryPath = entry.FullName ?? string.Empty;
                         if (entryPath.StartsWith("Mix It Up/", StringComparison.OrdinalIgnoreCase))
                         {
                             entryPath = entryPath.Substring("Mix It Up/".Length);
                         }
-
-                        entryPath = entryPath.Replace('/', Path.DirectorySeparatorChar);
-
-                        if (string.IsNullOrWhiteSpace(entryPath))
-                        {
-                            processed++;
-                            continue;
-                        }
-
-                        string destinationPath = Path.GetFullPath(
-                            Path.Combine(normalizedVersionDirectory, entryPath)
-                        );
-
-                        if (
-                            !destinationPath.StartsWith(
-                                normalizedVersionDirectory,
-                                StringComparison.OrdinalIgnoreCase
-                            )
-                        )
-                        {
-                            this.WriteToLogFile(
-                                $"Skipping extraction of '{entry.FullName}' due to path traversal."
-                            );
-                            processed++;
-                            continue;
-                        }
-
-                        bool isDirectoryEntry = entry.FullName.EndsWith("/", StringComparison.Ordinal);
-                        if (
-                            isDirectoryEntry
-                            || destinationPath.EndsWith(
-                                Path.DirectorySeparatorChar.ToString(),
-                                StringComparison.Ordinal
-                            )
-                        )
-                        {
-                            Directory.CreateDirectory(destinationPath);
-                        }
-                        else
-                        {
-                            string parentDirectory = Path.GetDirectoryName(destinationPath);
-                            if (!string.IsNullOrEmpty(parentDirectory))
-                            {
-                                Directory.CreateDirectory(parentDirectory);
-                            }
-
-                            entry.ExtractToFile(destinationPath, overwrite: true);
-                        }
-
-                        processed++;
-                        this.OperationProgress = total > 0
-                            ? (int)Math.Min(100, Math.Round((processed / total) * 100))
-                            : 100;
+                        return entryPath;
                     }
-                }
+                );
+
+                this.OperationProgress = 100;
 
                 bool hasExecutable = false;
                 try
@@ -4192,6 +3725,14 @@ namespace MixItUp.Distribution.Installer
                     $"Application payload extracted to '{NormalizePath(versionDirectory)}'."
                 );
                 return true;
+            }
+            catch (DistributionException dex)
+            {
+                this.WriteToLogFile(dex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded application payload is invalid. Please try again."
+                );
             }
             catch (InvalidDataException idex)
             {

@@ -122,7 +122,7 @@ namespace MixItUp.WPF.Util
                     }
 
                     Version v = asm.GetName().Version;
-                    string uninstallerPath = Path.Combine(installDir, "MixItUp.Uninstaller.exe");
+                    string uninstallerPath = Path.Combine(installDir, "MixItUp.Distribution.Uninstaller.exe");
 
                     key.SetValue("DisplayName", "Mix It Up");
                     key.SetValue("ApplicationVersion", v.ToString());

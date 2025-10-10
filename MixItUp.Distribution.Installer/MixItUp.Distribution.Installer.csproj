@@ -84,6 +84,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="WPF-UI.Markdown" Version="4.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MixItUp.Distribution.Core\MixItUp.Distribution.Core.csproj" />
+  </ItemGroup>
   <Target Name="EmbedReferencedAssemblies" AfterTargets="ResolveReferences">
     <ItemGroup>
       <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">

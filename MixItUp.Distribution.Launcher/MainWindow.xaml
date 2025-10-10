@@ -1,0 +1,80 @@
+﻿<Window x:Class="MixItUp.Distribution.Launcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:MixItUp.Distribution.Launcher"
+        mc:Ignorable="d"
+        Title="Mix It Up Launcher"
+        Height="420"
+        Width="640"
+        MinHeight="360"
+        MinWidth="560"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesignPaper}">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <local:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+    </Window.Resources>
+    <Grid Margin="32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 16">
+            <materialDesign:PackIcon Kind="Cup" Width="36" Height="36" Foreground="{DynamicResource MaterialDesignBody}" Margin="0,0,12,0" />
+            <StackPanel>
+                <TextBlock Text="Mix It Up" FontSize="24" FontWeight="SemiBold" Foreground="{DynamicResource MaterialDesignBody}" />
+                <TextBlock Text="Launcher" FontSize="16" Foreground="{DynamicResource MaterialDesignBody}" />
+            </StackPanel>
+        </StackPanel>
+
+        <Border Grid.Row="1" Padding="16" Background="{DynamicResource MaterialDesignCardBackground}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Installed Version" Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
+                    <TextBlock Text="{Binding InstalledVersion, FallbackValue=Unknown}" FontSize="18" FontWeight="Medium" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Latest Version" Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
+                    <TextBlock Text="{Binding LatestVersion, FallbackValue=Checking…}" FontSize="18" FontWeight="Medium" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Margin="0 20 0 20">
+            <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap" Foreground="{DynamicResource MaterialDesignBody}" />
+            <ProgressBar Height="6"
+                         Margin="0 8 0 0"
+                         Value="{Binding ProgressValue}"
+                         Maximum="100"
+                         IsIndeterminate="{Binding IsIndeterminate}"
+                         Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Check for Updates"
+                    Command="{Binding CheckForUpdatesCommand}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverseConverter}}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Margin="0 0 12 0" />
+            <Button Content="Install Update"
+                    Command="{Binding InstallUpdateCommand}"
+                    IsEnabled="{Binding CanInstallUpdate}"
+                    Style="{StaticResource MaterialDesignContainedButton}"
+                    Margin="0 0 12 0" />
+            <Button Content="Launch Mix It Up"
+                    Command="{Binding LaunchCommand}"
+                    IsEnabled="{Binding CanLaunch}"
+                    Style="{StaticResource MaterialDesignContainedButton}" />
+        </StackPanel>
+    </Grid>
+</Window>
