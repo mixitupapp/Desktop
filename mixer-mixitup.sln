@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{3C89
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixItUp.Base", "MixItUp.Base\MixItUp.Base.csproj", "{0E494ACC-C46A-4DED-922B-FF378556BE8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixItUp.Installer", "MixItUp.Installer\MixItUp.Installer.csproj", "{F06E18C3-94D8-4388-8293-B7FD0F06038F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixItUp.Distribution.Installer", "MixItUp.Distribution.Installer\MixItUp.Distribution.Installer.csproj", "{F06E18C3-94D8-4388-8293-B7FD0F06038F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixItUp.Reporter", "MixItUp.Reporter\MixItUp.Reporter.csproj", "{CE3896DC-CC98-42BA-9BF7-4073DCC6A393}"
 EndProject

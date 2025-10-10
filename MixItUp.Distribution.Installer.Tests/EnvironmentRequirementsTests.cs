@@ -1,8 +1,8 @@
 using System;
-using MixItUp.Installer;
+using MixItUp.Distribution.Installer;
 using Xunit;
 
-namespace MixItUp.Installer.Tests
+namespace MixItUp.Distribution.Installer.Tests
 {
     public class EnvironmentRequirementsTests
     {

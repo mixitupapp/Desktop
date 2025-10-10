@@ -5,7 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Windows;
 
-namespace MixItUp.Installer
+namespace MixItUp.Distribution.Installer
 {
     /// <summary>
     /// Interaction logic for App.xaml

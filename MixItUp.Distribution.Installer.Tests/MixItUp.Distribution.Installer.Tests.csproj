@@ -17,6 +17,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MixItUp.Installer\MixItUp.Installer.csproj" />
+  <ProjectReference Include="..\MixItUp.Distribution.Installer\MixItUp.Distribution.Installer.csproj" />
   </ItemGroup>
 </Project>

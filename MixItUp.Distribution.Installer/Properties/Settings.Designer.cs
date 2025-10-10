@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MixItUp.Installer.Properties
+namespace MixItUp.Distribution.Installer.Properties
 {
 
 

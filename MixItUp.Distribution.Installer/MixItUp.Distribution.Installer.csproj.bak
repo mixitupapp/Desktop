@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F06E18C3-94D8-4388-8293-B7FD0F06038F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MixItUp.Installer</RootNamespace>
+  <RootNamespace>MixItUp.Distribution.Installer</RootNamespace>
     <AssemblyName>MixItUp-Setup</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

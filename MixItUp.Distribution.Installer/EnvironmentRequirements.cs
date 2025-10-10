@@ -1,6 +1,6 @@
 using System;
 
-namespace MixItUp.Installer
+namespace MixItUp.Distribution.Installer
 {
     internal static class EnvironmentRequirements
     {

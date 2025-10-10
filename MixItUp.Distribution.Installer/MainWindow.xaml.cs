@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Navigation;
 
-namespace MixItUp.Installer
+namespace MixItUp.Distribution.Installer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

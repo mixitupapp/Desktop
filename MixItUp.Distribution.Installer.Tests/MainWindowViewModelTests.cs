@@ -2,11 +2,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MixItUp.Installer;
+using MixItUp.Distribution.Installer;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace MixItUp.Installer.Tests
+namespace MixItUp.Distribution.Installer.Tests
 {
     public sealed class MainWindowViewModelTests : IDisposable
     {
@@ -220,7 +220,7 @@ namespace MixItUp.Installer.Tests
             viewModel.InstalledVersion = previousVersion;
             viewModel.LatestVersion = latestVersion;
 
-                bool result = await viewModel.WriteOrUpdateBootloaderConfigAsync();
+            bool result = await viewModel.WriteOrUpdateBootloaderConfigAsync();
 
             Assert.True(result);
             Assert.True(File.Exists(bootloaderPath));
@@ -242,15 +242,15 @@ namespace MixItUp.Installer.Tests
             );
         }
 
-        #pragma warning disable IL2026
-        #pragma warning disable IL2070
-        #pragma warning disable IL2072
-        #pragma warning disable IL2075
+#pragma warning disable IL2026
+#pragma warning disable IL2070
+#pragma warning disable IL2072
+#pragma warning disable IL2075
 
-    #pragma warning restore IL2075
-    #pragma warning restore IL2072
-    #pragma warning restore IL2070
-    #pragma warning restore IL2026
+#pragma warning restore IL2075
+#pragma warning restore IL2072
+#pragma warning restore IL2070
+#pragma warning restore IL2026
 
         public void Dispose()
         {

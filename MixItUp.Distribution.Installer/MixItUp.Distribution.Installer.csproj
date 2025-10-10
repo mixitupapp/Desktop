@@ -4,7 +4,7 @@
     <TargetFramework>net462</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <RootNamespace>MixItUp.Installer</RootNamespace>
+  <RootNamespace>MixItUp.Distribution.Installer</RootNamespace>
     <AssemblyName>MixItUp-Setup</AssemblyName>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>

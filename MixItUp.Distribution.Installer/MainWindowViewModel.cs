@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Security.Principal;
 
-namespace MixItUp.Installer
+namespace MixItUp.Distribution.Installer
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
