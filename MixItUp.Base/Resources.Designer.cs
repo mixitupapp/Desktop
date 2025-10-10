@@ -17658,6 +17658,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        public static string PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pro.
         /// </summary>
         public static string Pro {
@@ -23188,6 +23197,15 @@ namespace MixItUp.Base {
         public static string TeamName {
             get {
                 return ResourceManager.GetString("TeamName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms of Service.
+        /// </summary>
+        public static string TermsOfService {
+            get {
+                return ResourceManager.GetString("TermsOfService", resourceCulture);
             }
         }
         
