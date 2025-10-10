@@ -26,6 +26,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <MaterialDesign:DialogHost
@@ -122,7 +123,7 @@
             Orientation="Horizontal">
             <TextBlock>
                 <Hyperlink NavigateUri="https://mixitupapp.com/TermsOfService" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock FontSize="11" Text="Terms of Service" />
+                    <TextBlock FontSize="11" Text="{x:Static resx:Resources.TermsOfService}" />
                 </Hyperlink>
             </TextBlock>
             <TextBlock
@@ -132,7 +133,7 @@
                 Text=" • " />
             <TextBlock>
                 <Hyperlink NavigateUri="https://mixitupapp.com/Privacy" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock FontSize="11" Text="Privacy Policy" />
+                    <TextBlock FontSize="11" Text="{x:Static resx:Resources.PrivacyPolicy}" />
                 </Hyperlink>
             </TextBlock>
             <TextBlock
@@ -142,7 +143,7 @@
                 Text=" • " />
             <TextBlock>
                 <Hyperlink NavigateUri="https://mixitupapp.com/License" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock FontSize="11" Text="License" />
+                    <TextBlock FontSize="11" Text="{x:Static resx:Resources.License}" />
                 </Hyperlink>
             </TextBlock>
         </StackPanel>
@@ -164,6 +165,62 @@
                 Text="© Blazing Cacti LLC 2025" />
 
             <Controls:LoadingStatusBar x:Name="StatusBar" Grid.Row="1" />
+            <MaterialDesign:PopupBox
+                Grid.Row="0"
+                Width="32"
+                Height="32"
+                Margin="0,0,8,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                PlacementMode="BottomAndAlignCentres"
+                StaysOpen="False"
+                ToolTip="{x:Static resx:Resources.Help}">
+                <MaterialDesign:PopupBox.ToggleContent>
+                    <MaterialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                        Kind="HelpCircle" />
+                </MaterialDesign:PopupBox.ToggleContent>
+                <StackPanel>
+                    <Button
+                        HorizontalContentAlignment="Left"
+                        Click="OpenInstallFolder_Click"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon
+                                Width="18"
+                                Height="18"
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                Kind="Folder" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                Text="{x:Static resx:Resources.InstallationFolder}" />
+                        </StackPanel>
+                    </Button>
+                    <Separator Margin="0,2" />
+                    <Button
+                        HorizontalContentAlignment="Left"
+                        Click="OpenDiscord_Click"
+                        Style="{StaticResource MaterialDesignFlatButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="18"
+                                Height="18"
+                                Margin="0,0,8,0"
+                                VerticalAlignment="Center"
+                                Source="/Assets/Images/Discord-Symbol-Blurple.png" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                Text="{x:Static resx:Resources.Discord}" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </MaterialDesign:PopupBox>
         </Grid>
     </Grid>
 </Windows:LoadingWindowBase>
