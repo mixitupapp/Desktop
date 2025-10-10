@@ -10796,9 +10796,9 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
     <value>No mostrar el error "Sin datos"</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Condiciones de uso</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Política de privacidad</value>
   </data>
 </root>

@@ -10794,9 +10794,9 @@ print(run())</value>
     <value>Не показувати помилку "Немає даних".</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Умови надання послуг</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Політика конфіденційності</value>
   </data>
 </root>

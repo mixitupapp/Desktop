@@ -10795,9 +10795,9 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
     <value>Ne pas afficher l'erreur "Aucune donnée"</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Conditions d'utilisation</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Politique de confidentialité</value>
   </data>
 </root>

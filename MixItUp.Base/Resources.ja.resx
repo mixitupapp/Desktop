@@ -10794,9 +10794,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
     <value>「データなし」エラーを表示しない</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>利用規約</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>プライバシーポリシー</value>
   </data>
 </root>

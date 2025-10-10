@@ -10794,9 +10794,9 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
     <value>Nie pokazuj błędu „Brak danych”.</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Warunki świadczenia usług</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Polityka prywatności</value>
   </data>
 </root>

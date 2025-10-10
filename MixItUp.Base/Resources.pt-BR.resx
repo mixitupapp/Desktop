@@ -10795,9 +10795,9 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
     <value>Não mostrar erro "Sem dados"</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Termos do serviço</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Política de privacidade</value>
   </data>
 </root>

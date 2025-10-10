@@ -10800,9 +10800,9 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
     <value>Fehler „Keine Daten“ nicht anzeigen</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Bedingungen der Dienstleistung</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Datenschutzbestimmungen</value>
   </data>
 </root>

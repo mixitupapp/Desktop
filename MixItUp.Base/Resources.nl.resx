@@ -10795,9 +10795,9 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
     <value>Fout 'Geen gegevens' niet weergeven</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Servicevoorwaarden</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Privacybeleid</value>
   </data>
 </root>

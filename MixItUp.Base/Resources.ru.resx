@@ -10799,9 +10799,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
     <value>Не показывать ошибку «Нет данных»</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Условия предоставления услуг</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Политика конфиденциальности</value>
   </data>
 </root>

@@ -10841,4 +10841,10 @@
   <data name="DonorDriveIncludeTeamDonationsAndEvents" xml:space="preserve">
     <value>[Îñçļûðéẋẋẋ Ţéåɱẋẋ Ðöñåţîöñšẋẋẋ åñðẋ Éṽéñţšẋẋ]</value>
   </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Terms of Service</value>
+  </data>
 </root>

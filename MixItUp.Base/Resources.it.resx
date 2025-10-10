@@ -10794,9 +10794,9 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
     <value>Non mostrare l'errore "Nessun dato".</value>
   </data>
   <data name="TermsOfService" xml:space="preserve">
-    <value />
+    <value>Termini di servizio</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
-    <value />
+    <value>Informativa sulla privacy</value>
   </data>
 </root>
