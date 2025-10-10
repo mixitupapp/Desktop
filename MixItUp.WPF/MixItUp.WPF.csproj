@@ -167,6 +167,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Discord.png" />
+	<Resource Include="Assets\Images\Discord-Symbol-Blurple.png" />
     <Resource Include="Assets\Images\YouTube.png" />
     <Resource Include="Assets\Images\Wiki.png" />
     <Resource Include="Assets\Images\AppleAppStoreDownloadBadge.png" />
@@ -236,8 +237,5 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Content Include="Changelog.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\AWSSDK.Polly.3.7.107.6\analyzers\dotnet\cs\AWSSDK.Polly.CodeAnalysis.dll" />
   </ItemGroup>
 </Project>
