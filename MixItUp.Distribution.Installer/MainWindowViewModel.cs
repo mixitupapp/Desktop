@@ -148,7 +148,13 @@ namespace MixItUp.Distribution.Installer
 
         public static string InstallSettingsDirectory
         {
-            get { return Path.Combine(MainWindowViewModel.InstallSettingsDirectory, "Settings"); }
+            get
+            {
+                return Path.Combine(
+                    DistributionPaths.GetDefaultAppRoot(),
+                    "Settings"
+                );
+            }
         }
 
         public static byte[] ZipArchiveData { get; set; }
