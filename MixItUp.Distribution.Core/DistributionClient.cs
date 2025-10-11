@@ -265,13 +265,34 @@ namespace MixItUp.Distribution.Core
 
         public string BuildManifestUrl(string productSlug, string platform, string channel)
         {
-            return string.Format(
-                "{0}/updates/{1}/{2}/{3}/latest",
-                this.baseUrl,
-                productSlug,
-                platform,
-                channel
+            if (string.IsNullOrWhiteSpace(productSlug))
+            {
+                throw new ArgumentException("Product slug is required.", nameof(productSlug));
+            }
+
+            if (string.IsNullOrWhiteSpace(platform))
+            {
+                throw new ArgumentException("Platform is required.", nameof(platform));
+            }
+
+            if (string.IsNullOrWhiteSpace(channel))
+            {
+                throw new ArgumentException("Channel is required.", nameof(channel));
+            }
+
+            Uri manifestBaseUri = new Uri("https://files.mixitupapp.com", UriKind.Absolute);
+
+            string relativePath = string.Join(
+                "/",
+                "apps",
+                Uri.EscapeDataString(productSlug),
+                Uri.EscapeDataString(platform),
+                Uri.EscapeDataString(channel),
+                "latest"
             );
+
+            Uri manifestUri = new Uri(manifestBaseUri, relativePath);
+            return manifestUri.ToString();
         }
 
         public Uri BuildDownloadUri(string fileUrl)
