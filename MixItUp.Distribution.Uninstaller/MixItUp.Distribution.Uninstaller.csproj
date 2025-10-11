@@ -4,10 +4,23 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net462</TargetFramework>
     <RootNamespace>MixItUp.Distribution.Uninstaller</RootNamespace>
-    <AssemblyName>MixItUp.Distribution.Uninstaller</AssemblyName>
+    <AssemblyName>MixItUp-Uninstall</AssemblyName>
+    <LangVersion>7.3</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateComVisibleAttribute>false</GenerateComVisibleAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyTrademarkAttribute>false</GenerateAssemblyTrademarkAttribute>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,11 +31,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="WPF-UI.Markdown" Version="4.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\\MixItUp.Distribution.Core\\MixItUp.Distribution.Core.csproj" />
+    <ProjectReference Include="..\MixItUp.Distribution.Core\MixItUp.Distribution.Core.csproj" />
   </ItemGroup>
+
+  <Target Name="EmbedReferencedAssemblies" AfterTargets="ResolveReferences">
+    <ItemGroup>
+      <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
+        <LogicalName>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
+      </EmbeddedResource>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="RemovePackagingArtifacts" AfterTargets="Build">
+    <ItemGroup>
+      <_ArtifactsToRemove Include="$(OutDir)$(AssemblyName).exe.config" />
+      <_ArtifactsToRemove Include="$(OutDir)$(AssemblyName).pdb" />
+      <_ArtifactsToRemove Include="$(OutDir)*.pdb" />
+    </ItemGroup>
+    <Delete Files="@(_ArtifactsToRemove)" ContinueOnError="true" />
+  </Target>
 
 </Project>
