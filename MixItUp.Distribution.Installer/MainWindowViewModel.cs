@@ -2467,6 +2467,20 @@ namespace MixItUp.Distribution.Installer
                     }
                 }
 
+                IReadOnlyDictionary<string, PolicyAcceptanceModel> acceptedPolicyUpdates = null;
+                if (this.acceptedPolicies.Count > 0)
+                {
+                    acceptedPolicyUpdates = this.acceptedPolicies.ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => new PolicyAcceptanceModel
+                        {
+                            Version = kvp.Value.Version,
+                            AcceptedAtUtc = kvp.Value.AcceptedAtUtc,
+                        },
+                        StringComparer.OrdinalIgnoreCase
+                    );
+                }
+
                 LauncherConfigModel config = LauncherConfigBuilder.BuildOrUpdate(
                     existingConfig,
                     latestVersion,
@@ -2474,7 +2488,8 @@ namespace MixItUp.Distribution.Installer
                     this.InstalledVersion,
                     versionRoot: DistributionPaths.VersionDirectoryName,
                     dataDirName: DistributionPaths.DataDirectoryName,
-                    windowsExecutable: DistributionPaths.LauncherExecutableName
+                    windowsExecutable: DistributionPaths.LauncherExecutableName,
+                    acceptedPolicies: acceptedPolicyUpdates
                 );
 
                 LauncherConfigService.Save(launcherPath, config);

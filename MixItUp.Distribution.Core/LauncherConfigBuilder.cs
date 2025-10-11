@@ -13,7 +13,8 @@ namespace MixItUp.Distribution.Core
             string installedVersion = null,
             string versionRoot = "app",
             string dataDirName = "data",
-            string windowsExecutable = "MixItUp.exe"
+            string windowsExecutable = "MixItUp.exe",
+            IReadOnlyDictionary<string, PolicyAcceptanceModel> acceptedPolicies = null
         )
         {
             LauncherConfigModel config = existing ?? new LauncherConfigModel();
@@ -72,6 +73,44 @@ namespace MixItUp.Distribution.Core
             AddVersion(currentVersion);
 
             config.Versions = merged;
+
+            Dictionary<string, PolicyAcceptanceModel> acceptedPolicyStore =
+                new Dictionary<string, PolicyAcceptanceModel>(StringComparer.OrdinalIgnoreCase);
+            if (existing?.AcceptedPolicies != null)
+            {
+                foreach (KeyValuePair<string, PolicyAcceptanceModel> entry in existing.AcceptedPolicies)
+                {
+                    if (string.IsNullOrWhiteSpace(entry.Key) || entry.Value == null)
+                    {
+                        continue;
+                    }
+
+                    acceptedPolicyStore[entry.Key] = new PolicyAcceptanceModel
+                    {
+                        Version = entry.Value.Version,
+                        AcceptedAtUtc = entry.Value.AcceptedAtUtc,
+                    };
+                }
+            }
+
+            if (acceptedPolicies != null)
+            {
+                foreach (KeyValuePair<string, PolicyAcceptanceModel> entry in acceptedPolicies)
+                {
+                    if (string.IsNullOrWhiteSpace(entry.Key) || entry.Value == null)
+                    {
+                        continue;
+                    }
+
+                    acceptedPolicyStore[entry.Key] = new PolicyAcceptanceModel
+                    {
+                        Version = entry.Value.Version,
+                        AcceptedAtUtc = entry.Value.AcceptedAtUtc,
+                    };
+                }
+            }
+
+            config.AcceptedPolicies = acceptedPolicyStore;
 
             if (config.ExtensionData == null)
             {

@@ -214,10 +214,22 @@ namespace MixItUp.Distribution.Core
         [JsonProperty("dataDirName")]
         public string DataDirName { get; set; }
 
+        [JsonProperty("acceptedPolicies")]
+        public Dictionary<string, PolicyAcceptanceModel> AcceptedPolicies { get; set; } =
+            new Dictionary<string, PolicyAcceptanceModel>(StringComparer.OrdinalIgnoreCase);
+
         [JsonExtensionData]
         public IDictionary<string, JToken> ExtensionData { get; set; } =
             new Dictionary<string, JToken>(StringComparer.OrdinalIgnoreCase);
     }
-}
 
+    public sealed class PolicyAcceptanceModel
+    {
+        [JsonProperty("version")]
+        public string Version { get; set; }
+
+        [JsonProperty("acceptedAtUtc")]
+        public DateTime? AcceptedAtUtc { get; set; }
+    }
+}
 
