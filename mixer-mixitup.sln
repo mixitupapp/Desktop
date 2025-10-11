@@ -23,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixItUp.Distribution.Uninst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixItUp.API.NET8", "APIs\MixItUp.API.NET8\MixItUp.API.NET8.csproj", "{8098C042-9B22-4EE1-AFFC-731D48F08D8C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{60DA3F09-A4DB-4FE4-ABA0-59A79C9663E8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Distribution", "Distribution", "{24ACEBB5-8498-4D6F-B0C5-62992468E633}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixItUp.Distribution.Launcher", "MixItUp.Distribution.Launcher\MixItUp.Distribution.Launcher.csproj", "{39DB140A-A513-4A05-8E84-A5C634F73B03}"
