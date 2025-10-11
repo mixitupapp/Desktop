@@ -99,6 +99,7 @@
     <ItemGroup>
       <_ArtifactsToRemove Include="$(OutDir)$(AssemblyName).exe.config" />
       <_ArtifactsToRemove Include="$(OutDir)$(AssemblyName).pdb" />
+      <_ArtifactsToRemove Include="$(OutDir)*.pdb" />
     </ItemGroup>
     <Delete Files="@(_ArtifactsToRemove)" ContinueOnError="true" />
   </Target>
