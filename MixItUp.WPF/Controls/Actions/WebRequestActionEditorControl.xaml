@@ -21,12 +21,61 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Text="{Binding RequestURL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebRequestURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <ComboBox Grid.Row="2" ItemsSource="{Binding ResponseParseTypes}" SelectedItem="{Binding SelectedResponseParseType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ResponseProcessingType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding HttpMethods}" SelectedItem="{Binding SelectedHttpMethod}" MaterialDesign:HintAssist.Hint="Method" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+
+            <TextBox Grid.Column="2" Text="{Binding RequestURL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebRequestURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Command="{Binding AddCustomHeaderCommand}" Content="Add Custom Header" HorizontalAlignment="Center" MinWidth="150" />
+
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding CustomHeaders}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Grid.Column="0" Text="{Binding HeaderName}" MaterialDesign:HintAssist.Hint="Header Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                            <TextBox Grid.Column="2" Text="{Binding HeaderValue}" MaterialDesign:HintAssist.Hint="Header Value" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                            <Controls:IconButton Grid.Column="4" Command="{Binding DeleteHeaderCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+
+        <TextBox Grid.Row="4" Text="{Binding RequestBody}" MaterialDesign:HintAssist.Hint="Request Body (JSON)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" MinLines="3" MaxLines="8" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Visibility="{Binding ShowRequestBody, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <ComboBox Grid.Row="6" ItemsSource="{Binding ResponseParseTypes}" SelectedItem="{Binding SelectedResponseParseType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ResponseProcessingType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -34,7 +83,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Grid Grid.Row="3" Visibility="{Binding ShowPlainTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,10,0,0">
+        <Grid Grid.Row="7" Visibility="{Binding ShowPlainTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,10,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="5" />
@@ -45,7 +94,7 @@
             <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$webrequestresult" Style="{StaticResource TextBoxReadOnlySelectable}" />
         </Grid>
 
-        <Grid Grid.Row="3" Visibility="{Binding ShowJSONGrid, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,10,0,0">
+        <Grid Grid.Row="8" Visibility="{Binding ShowJSONGrid, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,10,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="15" />
