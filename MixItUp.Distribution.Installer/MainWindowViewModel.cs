@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -25,8 +25,6 @@ namespace MixItUp.Distribution.Installer
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public const string InstallerLogFileName = "installer.log";
-        public const string ShortcutFileName = "Mix It Up.lnk";
-
         public const string OldApplicationSettingsFileName = "ApplicationSettings.xml";
         public const string NewApplicationSettingsFileName = "ApplicationSettings.json";
 
@@ -157,7 +155,7 @@ namespace MixItUp.Distribution.Installer
 
         public static string StartMenuShortCutFilePath
         {
-            get { return Path.Combine(StartMenuDirectory, ShortcutFileName); }
+            get { return Path.Combine(StartMenuDirectory, DistributionPaths.ShortcutFileName); }
         }
         public static string DesktopShortCutFilePath
         {
@@ -165,7 +163,7 @@ namespace MixItUp.Distribution.Installer
             {
                 return Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                    ShortcutFileName
+                    DistributionPaths.ShortcutFileName
                 );
             }
         }
@@ -1162,9 +1160,13 @@ namespace MixItUp.Distribution.Installer
             }
 
             bool targetDirExists = Directory.Exists(resolvedAppRoot);
-            bool targetExeExists = File.Exists(Path.Combine(resolvedAppRoot, "MixItUp.exe"));
-            bool versionDirExists = Directory.Exists(Path.Combine(resolvedAppRoot, "app"));
-            string launcherPath = Path.Combine(resolvedAppRoot, "launcher.json");
+            bool targetExeExists = File.Exists(
+                Path.Combine(resolvedAppRoot, DistributionPaths.LauncherExecutableName)
+            );
+            bool versionDirExists = Directory.Exists(
+                Path.Combine(resolvedAppRoot, DistributionPaths.VersionDirectoryName)
+            );
+            string launcherPath = Path.Combine(resolvedAppRoot, DistributionPaths.LauncherFileName);
             bool launcherExists = File.Exists(launcherPath);
             bool migrationAlreadyDone = versionDirExists || launcherExists;
 
@@ -1178,7 +1180,9 @@ namespace MixItUp.Distribution.Installer
 
             bool portableCandidateFound =
                 !isRunningFromAppRoot
-                && File.Exists(Path.Combine(resolvedRunningDirectory, "MixItUp.exe"));
+                && File.Exists(
+                    Path.Combine(resolvedRunningDirectory, DistributionPaths.LauncherExecutableName)
+                );
 
             bool legacyDetected = targetExeExists && !migrationAlreadyDone;
             bool isUpdate = targetExeExists || launcherExists;
@@ -1192,7 +1196,7 @@ namespace MixItUp.Distribution.Installer
             this.IsUpdate = isUpdate;
 
             this.LauncherConfigPath = launcherPath;
-            this.VersionedAppDirRoot = Path.Combine(resolvedAppRoot, "app");
+            this.VersionedAppDirRoot = Path.Combine(resolvedAppRoot, DistributionPaths.VersionDirectoryName);
             this.DownloadTempPath = Path.Combine(resolvedAppRoot, ".tmp");
 
             if (isRunningFromAppRoot)
@@ -1268,7 +1272,7 @@ namespace MixItUp.Distribution.Installer
             string versionRoot = this.VersionedAppDirRoot;
             if (string.IsNullOrWhiteSpace(versionRoot))
             {
-                versionRoot = Path.Combine(this.AppRoot ?? DefaultInstallDirectory, "app");
+                versionRoot = Path.Combine(this.AppRoot ?? DefaultInstallDirectory, DistributionPaths.VersionDirectoryName);
                 this.VersionedAppDirRoot = versionRoot;
             }
 
@@ -1462,14 +1466,14 @@ namespace MixItUp.Distribution.Installer
                 return false;
             }
 
-            string migratedDataPath = Path.Combine(migrationFolderPath, "data");
+            string migratedDataPath = Path.Combine(migrationFolderPath, DistributionPaths.DataDirectoryName);
             if (Directory.Exists(migratedDataPath))
             {
                 this.LegacyDataPath = migratedDataPath;
             }
             else
             {
-                string originalDataPath = Path.Combine(sourceDirectory, "data");
+                string originalDataPath = Path.Combine(sourceDirectory, DistributionPaths.DataDirectoryName);
                 this.LegacyDataPath = Directory.Exists(originalDataPath)
                     ? originalDataPath
                     : string.Empty;
@@ -1798,8 +1802,8 @@ namespace MixItUp.Distribution.Installer
 
             if (!string.IsNullOrEmpty(this.appRoot))
             {
-                this.LauncherConfigPath = Path.Combine(this.appRoot, "launcher.json");
-                this.VersionedAppDirRoot = Path.Combine(this.appRoot, "app");
+                this.LauncherConfigPath = Path.Combine(this.appRoot, DistributionPaths.LauncherFileName);
+                this.VersionedAppDirRoot = Path.Combine(this.appRoot, DistributionPaths.VersionDirectoryName);
                 this.DownloadTempPath = Path.Combine(this.appRoot, ".tmp");
             }
             else
@@ -1815,13 +1819,19 @@ namespace MixItUp.Distribution.Installer
             string potentialExePath = null;
             if (!string.IsNullOrEmpty(this.appRoot))
             {
-                potentialExePath = Path.Combine(this.appRoot, "MixItUp.exe");
+                potentialExePath = Path.Combine(
+                    this.appRoot,
+                    DistributionPaths.LauncherExecutableName
+                );
                 if (
                     !File.Exists(potentialExePath)
                     && !string.IsNullOrEmpty(this.versionedAppDirRoot)
                 )
                 {
-                    potentialExePath = Path.Combine(this.versionedAppDirRoot, "MixItUp.exe");
+                    potentialExePath = Path.Combine(
+                        this.versionedAppDirRoot,
+                        DistributionPaths.LauncherExecutableName
+                    );
                 }
             }
 
@@ -1964,7 +1974,7 @@ namespace MixItUp.Distribution.Installer
                 return false;
             }
 
-            string targetDataDirectory = Path.Combine(versionDirectory, "data");
+            string targetDataDirectory = Path.Combine(versionDirectory, DistributionPaths.DataDirectoryName);
             try
             {
                 Directory.CreateDirectory(targetDataDirectory);
@@ -2019,7 +2029,7 @@ namespace MixItUp.Distribution.Installer
 
                     if (!string.IsNullOrEmpty(previousVersionDirectory))
                     {
-                        string previousDataDirectory = Path.Combine(previousVersionDirectory, "data");
+                        string previousDataDirectory = Path.Combine(previousVersionDirectory, DistributionPaths.DataDirectoryName);
                         if (Directory.Exists(previousDataDirectory))
                         {
                             string normalizedSource = NormalizePath(previousDataDirectory);
@@ -2447,9 +2457,9 @@ namespace MixItUp.Distribution.Installer
                     latestVersion,
                     discoveredVersions,
                     this.InstalledVersion,
-                    versionRoot: "app",
-                    dataDirName: "data",
-                    windowsExecutable: "MixItUp.exe"
+                    versionRoot: DistributionPaths.VersionDirectoryName,
+                    dataDirName: DistributionPaths.DataDirectoryName,
+                    windowsExecutable: DistributionPaths.LauncherExecutableName
                 );
 
                 LauncherConfigService.Save(launcherPath, config);
@@ -2462,8 +2472,8 @@ namespace MixItUp.Distribution.Installer
                 string versionList = string.Join(", ", config.Versions);
                 this.LogActivity(
                     existingFile
-                        ? $"launcher.json updated at '{normalizedLauncherPath}'. Versions: {versionList}."
-                        : $"launcher.json created at '{normalizedLauncherPath}'. Versions: {versionList}."
+                        ? $"{DistributionPaths.LauncherFileName} updated at '{normalizedLauncherPath}'. Versions: {versionList}."
+                        : $"{DistributionPaths.LauncherFileName} created at '{normalizedLauncherPath}'. Versions: {versionList}."
                 );
                 this.LogActivity($"Current version set to {latestVersion}.");
 
@@ -2480,7 +2490,7 @@ namespace MixItUp.Distribution.Installer
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
-                    "Installer was unable to update launcher.json."
+                    $"Installer was unable to update {DistributionPaths.LauncherFileName}."
                 );
                 return false;
             }
@@ -2493,7 +2503,7 @@ namespace MixItUp.Distribution.Installer
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
-                    "Installer was unable to update launcher.json."
+                    $"Installer was unable to update {DistributionPaths.LauncherFileName}."
                 );
                 return false;
             }
@@ -2515,7 +2525,10 @@ namespace MixItUp.Distribution.Installer
             }
 
             string normalizedAppRoot = NormalizePath(appRoot);
-            string launcherExecutablePath = Path.Combine(appRoot, "MixItUp.exe");
+            string launcherExecutablePath = Path.Combine(
+                appRoot,
+                DistributionPaths.LauncherExecutableName
+            );
             string normalizedLauncherPath = NormalizePath(launcherExecutablePath);
             bool launcherExists = File.Exists(launcherExecutablePath);
 
@@ -2662,7 +2675,10 @@ namespace MixItUp.Distribution.Installer
             }
 
             string normalizedAppRoot = NormalizePath(appRoot);
-            string launcherExecutablePath = Path.Combine(appRoot, "MixItUp.exe");
+            string launcherExecutablePath = Path.Combine(
+                appRoot,
+                DistributionPaths.LauncherExecutableName
+            );
             string normalizedLauncherPath = NormalizePath(launcherExecutablePath);
 
             ShortcutCreationResult startMenuResult = this.TryCreateShortcutAtLocation(
@@ -3544,11 +3560,14 @@ namespace MixItUp.Distribution.Installer
 
                 this.OperationProgress = 100;
 
-                string launcherExecutablePath = Path.Combine(this.AppRoot, "MixItUp.exe");
+                string launcherExecutablePath = Path.Combine(
+                    this.AppRoot,
+                    DistributionPaths.LauncherExecutableName
+                );
                 if (!File.Exists(launcherExecutablePath))
                 {
                     this.WriteToLogFile(
-                        "Launcher extraction completed but MixItUp.exe was not found."
+                        $"Launcher extraction completed but {DistributionPaths.LauncherExecutableName} was not found."
                     );
                     this.ShowError(
                         "Package Corrupt",
@@ -3634,7 +3653,7 @@ namespace MixItUp.Distribution.Installer
             string versionRoot = this.VersionedAppDirRoot;
             if (string.IsNullOrWhiteSpace(versionRoot))
             {
-                versionRoot = Path.Combine(this.AppRoot ?? DefaultInstallDirectory, "app");
+                versionRoot = Path.Combine(this.AppRoot ?? DefaultInstallDirectory, DistributionPaths.VersionDirectoryName);
                 this.VersionedAppDirRoot = versionRoot;
             }
 
@@ -3990,7 +4009,7 @@ namespace MixItUp.Distribution.Installer
             }
             else
             {
-                Process.Start(Path.Combine(this.installDirectory, "MixItUp.exe"));
+                Process.Start(Path.Combine(this.installDirectory, DistributionPaths.LauncherExecutableName));
             }
         }
 
