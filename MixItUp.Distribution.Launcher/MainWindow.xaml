@@ -1,80 +1,367 @@
-﻿<Window x:Class="MixItUp.Distribution.Launcher.MainWindow"
+<Window x:Class="MixItUp.Distribution.Launcher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:wpfui="clr-namespace:Wpf.Ui.Markdown.Controls;assembly=Wpf.Ui.Markdown"
         xmlns:local="clr-namespace:MixItUp.Distribution.Launcher"
         mc:Ignorable="d"
         Title="Mix It Up Launcher"
-        Height="420"
-        Width="640"
-        MinHeight="360"
-        MinWidth="560"
+        Height="540"
+        Width="960"
+        MinHeight="480"
+        MinWidth="780"
+        Style="{StaticResource MaterialDesignWindow}"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource MaterialDesignPaper}">
+        Background="{DynamicResource MaterialDesign.Brush.Surface}">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <local:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Window.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TabControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <local:BooleanInverseConverter x:Key="BooleanInverseConverter" />
+            <Style x:Key="SectionHeaderTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignTitleMediumTextBlock}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Margin" Value="0,0,0,12" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style x:Key="CaptionTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignBodySmallTextBlock}">
+                <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style x:Key="ValueTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignHeadlineSmallTextBlock}">
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style x:Key="PlaceholderTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MaterialDesignBodyMediumTextBlock}">
+                <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}" />
+                <Setter Property="FontStyle" Value="Italic" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="32">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 16">
-            <materialDesign:PackIcon Kind="Cup" Width="36" Height="36" Foreground="{DynamicResource MaterialDesignBody}" Margin="0,0,12,0" />
-            <StackPanel>
-                <TextBlock Text="Mix It Up" FontSize="24" FontWeight="SemiBold" Foreground="{DynamicResource MaterialDesignBody}" />
-                <TextBlock Text="Launcher" FontSize="16" Foreground="{DynamicResource MaterialDesignBody}" />
+    <materialDesign:DialogHost Background="{DynamicResource MaterialDesign.Brush.Surface}">
+        <Grid Margin="32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Margin="0,0,0,24"
+                        VerticalAlignment="Top">
+                <materialDesign:PackIcon Kind="Cup"
+                                         Width="40"
+                                         Height="40"
+                                         Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
+                <StackPanel Margin="12,0,0,0">
+                    <TextBlock Text="Mix It Up"
+                               Style="{StaticResource MaterialDesignTitleLargeTextBlock}"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="Launcher"
+                               Style="{StaticResource MaterialDesignBodyLargeTextBlock}"
+                               Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}" />
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
 
-        <Border Grid.Row="1" Padding="16" Background="{DynamicResource MaterialDesignCardBackground}">
-            <Grid>
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel>
-                    <TextBlock Text="Installed Version" Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
-                    <TextBlock Text="{Binding InstalledVersion, FallbackValue=Unknown}" FontSize="18" FontWeight="Medium" />
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Text="Latest Version" Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
-                    <TextBlock Text="{Binding LatestVersion, FallbackValue=Checking…}" FontSize="18" FontWeight="Medium" />
-                </StackPanel>
+
+                <materialDesign:Card Grid.Column="0"
+                                      Padding="24"
+                                      Margin="0,0,16,0"
+                                      Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                                      UniformCornerRadius="12"
+                                      materialDesign:ElevationAssist.Elevation="Level2">
+                    <StackPanel>
+                        <TextBlock Text="Update status"
+                                   Style="{StaticResource SectionHeaderTextBlock}" />
+
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Installed version"
+                                           Style="{StaticResource CaptionTextBlock}" />
+                                <TextBlock Text="{Binding InstalledVersion, FallbackValue=Unknown}"
+                                           Style="{StaticResource ValueTextBlock}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Latest version"
+                                           Style="{StaticResource CaptionTextBlock}" />
+                                <TextBlock Text="{Binding LatestVersion, FallbackValue=Checking...}"
+                                           Style="{StaticResource ValueTextBlock}" />
+                                <StackPanel Margin="0,4,0,0">
+                                <TextBlock Text="{Binding LatestChannel, StringFormat=Channel\: {0}}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock"
+                                               BasedOn="{StaticResource CaptionTextBlock}">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LatestChannel}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding LatestChannel}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                <TextBlock Text="{Binding LatestReleaseType, StringFormat=Release type\: {0}}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock"
+                                               BasedOn="{StaticResource CaptionTextBlock}">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LatestReleaseType}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding LatestReleaseType}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="{Binding StatusMessage}"
+                                   Style="{StaticResource MaterialDesignBodyMediumTextBlock}"
+                                   TextWrapping="Wrap" />
+                        <ProgressBar Height="4"
+                                     Margin="0,12,0,0"
+                                     Maximum="100"
+                                     Value="{Binding ProgressValue}"
+                                     IsIndeterminate="{Binding IsIndeterminate}"
+                                     Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                        <Separator Margin="0,24,0,24" />
+
+                        <TextBlock Text="Release notes"
+                                   Style="{StaticResource SectionHeaderTextBlock}" />
+
+                        <Border Background="{DynamicResource MaterialDesign.Brush.SurfaceVariant}"
+                                Padding="16"
+                                CornerRadius="8"
+                                BorderBrush="{DynamicResource MaterialDesign.Brush.OutlineVariant}"
+                                BorderThickness="1">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          MinHeight="160"
+                                          MaxHeight="320">
+                                <wpfui:MarkdownViewer Markdown="{Binding ReleaseNotesMarkdown}" />
+                            </ScrollViewer>
+                        </Border>
+
+                        <TextBlock Text="Release notes will appear once available."
+                                   Margin="0,12,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource PlaceholderTextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasReleaseNotes}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Column="1"
+                                      Padding="24"
+                                      Margin="16,0,0,0"
+                                      Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                                      UniformCornerRadius="12"
+                                      materialDesign:ElevationAssist.Elevation="Level2">
+                    <StackPanel>
+                        <TextBlock Text="Policies"
+                                   Style="{StaticResource SectionHeaderTextBlock}" />
+
+                        <TextBlock Text="Policies must be reviewed before launch."
+                                   Foreground="{DynamicResource MaterialDesign.Brush.Error}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource MaterialDesignBodyMediumTextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding HasPolicyDocuments}" Value="True" />
+                                                <Condition Binding="{Binding HasPendingPolicies}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <TextBlock Text="All policies are up to date."
+                                   Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource MaterialDesignBodyMediumTextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding HasPolicyDocuments}" Value="True" />
+                                                <Condition Binding="{Binding HasPendingPolicies}" Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <TextBlock Text="Policy metadata could not be loaded. Check your connection and try again.">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock"
+                                       BasedOn="{StaticResource PlaceholderTextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasPolicyDocuments}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                        <TabControl ItemsSource="{Binding PolicyDocuments}"
+                                    SelectedItem="{Binding SelectedPolicy}"
+                                    Margin="0,16,0,0"
+                                    Visibility="{Binding HasPolicyDocuments, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <TabControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}" />
+                                </DataTemplate>
+                            </TabControl.ItemTemplate>
+                            <TabControl.ContentTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Border Grid.Row="0"
+                                                Background="{DynamicResource MaterialDesign.Brush.SurfaceVariant}"
+                                                BorderBrush="{DynamicResource MaterialDesign.Brush.OutlineVariant}"
+                                                BorderThickness="1"
+                                                CornerRadius="8"
+                                                Padding="16">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                                          HorizontalScrollBarVisibility="Disabled"
+                                                          MinHeight="160"
+                                                          MaxHeight="320">
+                                                <wpfui:MarkdownViewer Markdown="{Binding Markdown}" />
+                                            </ScrollViewer>
+                                        </Border>
+                                        <StackPanel Grid.Row="1"
+                                                    Margin="0,16,0,0">
+                                            <CheckBox Content="{Binding Title, StringFormat=I have read and accept the {0}.}"
+                                                      IsChecked="{Binding IsAcknowledged, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsEnabled="{Binding IsAccepted, Converter={StaticResource BooleanInverseConverter}}"
+                                                      Style="{StaticResource MaterialDesignCheckBox}" />
+                                            <StackPanel Margin="0,12,0,0">
+                                                <TextBlock Text="{Binding Version, StringFormat=Version {0}}"
+                                                           Style="{StaticResource CaptionTextBlock}" />
+                                                <TextBlock Text="{Binding AcceptedAtUtc, StringFormat=Accepted {0:u}}">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock"
+                                                               BasedOn="{StaticResource CaptionTextBlock}">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding AcceptedAtUtc}" Value="{x:Null}">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                <TextBlock Text="{Binding LastAcceptedVersion, StringFormat=Previously accepted version\: {0}}">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock"
+                                                               BasedOn="{StaticResource CaptionTextBlock}">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LastAcceptedVersion}" Value="">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding LastAcceptedVersion}" Value="{x:Null}">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </TabControl.ContentTemplate>
+                        </TabControl>
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,24,0,0">
+                            <Button Content="Accept Policies"
+                                    Command="{Binding AcceptPoliciesCommand}"
+                                    Style="{StaticResource MaterialDesignContainedButton}" />
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
             </Grid>
-        </Border>
 
-        <StackPanel Grid.Row="2" Margin="0 20 0 20">
-            <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap" Foreground="{DynamicResource MaterialDesignBody}" />
-            <ProgressBar Height="6"
-                         Margin="0 8 0 0"
-                         Value="{Binding ProgressValue}"
-                         Maximum="100"
-                         IsIndeterminate="{Binding IsIndeterminate}"
-                         Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Check for Updates"
-                    Command="{Binding CheckForUpdatesCommand}"
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverseConverter}}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                    Margin="0 0 12 0" />
-            <Button Content="Install Update"
-                    Command="{Binding InstallUpdateCommand}"
-                    IsEnabled="{Binding CanInstallUpdate}"
-                    Style="{StaticResource MaterialDesignContainedButton}"
-                    Margin="0 0 12 0" />
-            <Button Content="Launch Mix It Up"
-                    Command="{Binding LaunchCommand}"
-                    IsEnabled="{Binding CanLaunch}"
-                    Style="{StaticResource MaterialDesignContainedButton}" />
-        </StackPanel>
-    </Grid>
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,24,0,0">
+                <Button Content="Check for updates"
+                        Command="{Binding CheckForUpdatesCommand}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource BooleanInverseConverter}}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Margin="0,0,12,0" />
+                <Button Content="Install update"
+                        Command="{Binding InstallUpdateCommand}"
+                        IsEnabled="{Binding CanInstallUpdate}"
+                        Style="{StaticResource MaterialDesignContainedButton}"
+                        Margin="0,0,12,0" />
+                <Button Content="Launch Mix It Up"
+                        Command="{Binding LaunchCommand}"
+                        IsEnabled="{Binding CanLaunch}"
+                        Style="{StaticResource MaterialDesignContainedButton}" />
+            </StackPanel>
+        </Grid>
+    </materialDesign:DialogHost>
 </Window>

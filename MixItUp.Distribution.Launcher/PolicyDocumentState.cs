@@ -13,6 +13,8 @@ namespace MixItUp.Distribution.Launcher
         private bool isAccepted;
         private DateTime? acceptedAtUtc;
         private string lastAcceptedVersion;
+        private bool isAcknowledged;
+        private string markdown;
 
         public PolicyDocumentState(string requestedPolicy, PolicyInfo info)
         {
@@ -75,6 +77,18 @@ namespace MixItUp.Distribution.Launcher
             private set { this.SetProperty(ref this.lastAcceptedVersion, value); }
         }
 
+        public bool IsAcknowledged
+        {
+            get { return this.isAcknowledged; }
+            set { this.SetProperty(ref this.isAcknowledged, value); }
+        }
+
+        public string Markdown
+        {
+            get { return this.markdown ?? string.Empty; }
+            private set { this.SetProperty(ref this.markdown, value); }
+        }
+
         public PolicyInfo Info => this.policyInfo;
 
         public void ApplyAcceptanceRecord(string version, DateTime? acceptedAtUtc, bool matchesCurrentVersion)
@@ -82,11 +96,18 @@ namespace MixItUp.Distribution.Launcher
             this.LastAcceptedVersion = version ?? string.Empty;
             this.AcceptedAtUtc = acceptedAtUtc;
             this.IsAccepted = matchesCurrentVersion;
+            this.IsAcknowledged = matchesCurrentVersion;
         }
 
         public void MarkPending()
         {
             this.IsAccepted = false;
+            this.IsAcknowledged = false;
+        }
+
+        public void SetMarkdown(string markdownContent)
+        {
+            this.Markdown = markdownContent ?? string.Empty;
         }
 
         private static string FormatPolicyTitle(string policy)
