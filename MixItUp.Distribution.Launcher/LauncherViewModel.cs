@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -17,9 +17,6 @@ namespace MixItUp.Distribution.Launcher
         private const string Platform = "windows-x64";
         private const string DefaultChannel = "production";
         private const string DefaultBaseUrl = "https://files.mixitupapp.com";
-        private const string VersionRootName = "app";
-        private const string DataDirectoryName = "data";
-        private const string WindowsExecutableName = "MixItUp.exe";
 
         private readonly string appRoot;
         private readonly string launcherConfigPath;
@@ -38,7 +35,7 @@ namespace MixItUp.Distribution.Launcher
         public LauncherViewModel()
         {
             this.appRoot = Path.GetFullPath(AppContext.BaseDirectory);
-            this.launcherConfigPath = Path.Combine(this.appRoot, "launcher.json");
+            this.launcherConfigPath = Path.Combine(this.appRoot, DistributionPaths.LauncherFileName);
 
             this.CheckForUpdatesCommand = new RelayCommand(
                 async _ => await this.CheckForUpdatesAsync(),
@@ -236,7 +233,7 @@ namespace MixItUp.Distribution.Launcher
                     return;
                 }
 
-                string versionRootPath = Path.Combine(this.appRoot, VersionRootName);
+                string versionRootPath = Path.Combine(this.appRoot, DistributionPaths.VersionDirectoryName);
                 string targetDirectory = Path.Combine(versionRootPath, targetVersion);
 
                 if (Directory.Exists(targetDirectory))
@@ -269,7 +266,7 @@ namespace MixItUp.Distribution.Launcher
                     }
                 );
 
-                string executablePath = Path.Combine(targetDirectory, WindowsExecutableName);
+                string executablePath = Path.Combine(targetDirectory, DistributionPaths.LauncherExecutableName);
                 if (!File.Exists(executablePath))
                 {
                     this.StatusMessage = "Installed payload did not contain MixItUp.exe.";
@@ -303,9 +300,9 @@ namespace MixItUp.Distribution.Launcher
                     targetVersion,
                     discoveredVersions,
                     installedVersion,
-                    VersionRootName,
-                    DataDirectoryName,
-                    WindowsExecutableName
+                    DistributionPaths.VersionDirectoryName,
+                    DistributionPaths.DataDirectoryName,
+                    DistributionPaths.LauncherExecutableName
                 );
 
                 LauncherConfigService.Save(this.launcherConfigPath, updatedConfig);
@@ -390,7 +387,7 @@ namespace MixItUp.Distribution.Launcher
             string executablePath = string.Empty;
             try
             {
-                string versionRoot = VersionRootName;
+                string versionRoot = DistributionPaths.VersionDirectoryName;
                 if (this.currentConfig != null && !string.IsNullOrEmpty(this.currentConfig.VersionRoot))
                 {
                     versionRoot = this.currentConfig.VersionRoot;
@@ -399,7 +396,7 @@ namespace MixItUp.Distribution.Launcher
                 string versionRootPath = Path.Combine(this.appRoot, versionRoot);
                 string currentVersion = this.currentConfig != null ? this.currentConfig.CurrentVersion : null;
 
-                string targetExecutable = WindowsExecutableName;
+                string targetExecutable = DistributionPaths.LauncherExecutableName;
                 if (this.currentConfig != null && this.currentConfig.Executables != null)
                 {
                     string configured;
@@ -456,6 +453,7 @@ namespace MixItUp.Distribution.Launcher
         }
     }
 }
+
 
 
 
