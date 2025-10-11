@@ -1,4 +1,4 @@
-﻿<Window x:Class="MixItUp.Distribution.Installer.MainWindow"
+<Window x:Class="MixItUp.Distribution.Installer.MainWindow"
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -75,8 +75,8 @@
       </Style>
     </ResourceDictionary>
   </Window.Resources>
-  <MaterialDesign:DialogHost>
-    <Grid Margin="24">
+  <MaterialDesign:DialogHost Background="{DynamicResource MaterialDesign.Brush.Surface}">
+    <Grid Margin="24" Background="{DynamicResource MaterialDesign.Brush.Surface}">
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
@@ -101,7 +101,7 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!-- Status Panel -->
-        <MaterialDesign:Card Grid.Column="0" Margin="0,0,24,0" Padding="24" Background="{DynamicResource MaterialDesign.Brush.Surface}" UniformCornerRadius="12" MaterialDesign:ElevationAssist.Elevation="Dp4">
+        <MaterialDesign:Card Grid.Column="0" Margin="0,0,24,0" Padding="24" Background="{DynamicResource MaterialDesign.Brush.Surface}" UniformCornerRadius="12" MaterialDesign:ElevationAssist.Elevation="Level3">
           <StackPanel>
             <TextBlock Text="{Binding DisplayText1}" Style="{StaticResource StatusHeadlineTextBlock}"/>
             <StackPanel Orientation="Horizontal" Margin="0,12,0,0" Visibility="{Binding ShowHyperlinkAddress, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -111,7 +111,7 @@
               </TextBlock>
             </StackPanel>
             <TextBlock Text="{Binding DisplayText2}" Style="{StaticResource StatusBodyTextBlock}" Visibility="{Binding ErrorOccurred, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,12,0,0"/>
-            <Border Background="{DynamicResource MaterialDesign.Brush.SurfaceVariant}" Padding="16" CornerRadius="10" Margin="0,20,0,20" MaterialDesign:ElevationAssist.Elevation="Dp1">
+            <Border Background="{DynamicResource MaterialDesign.Brush.SurfaceVariant}" Padding="16" CornerRadius="10" Margin="0,20,0,20" MaterialDesign:ElevationAssist.Elevation="Level1">
               <ListBox x:Name="ActivityLogList"
  ItemsSource="{Binding ActivityLog}" BorderThickness="0" Background="Transparent" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectionMode="Single">
                 <ListBox.ItemsPanel>
@@ -148,7 +148,7 @@
           </StackPanel>
         </MaterialDesign:Card>
         <!-- Checklist Panel -->
-        <MaterialDesign:Card Grid.Column="1" Padding="24" Background="{DynamicResource MaterialDesign.Brush.Surface}" UniformCornerRadius="12" MaterialDesign:ElevationAssist.Elevation="Dp3">
+        <MaterialDesign:Card Grid.Column="1" Padding="24" Background="{DynamicResource MaterialDesign.Brush.Surface}" UniformCornerRadius="12" MaterialDesign:ElevationAssist.Elevation="Level2">
           <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
               <TextBlock Text="Installation checklist" Style="{StaticResource ChecklistSectionTitleTextBlock}"/>
@@ -388,7 +388,7 @@
         </StackPanel>
         <Button Grid.Column="1" Content="Launch Mix It Up" Command="{Binding LaunchCommand}" Margin="24,0,0,0" Padding="24,10" Height="44" Visibility="{Binding StepCompleteDone, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:ButtonAssist.CornerRadius="20">
           <Button.Style>
-            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignContainedButton}">
               <Setter Property="IsEnabled" Value="True"/>
               <Style.Triggers>
                 <DataTrigger Binding="{Binding HasError}" Value="True">
@@ -402,3 +402,5 @@
     </Grid>
   </MaterialDesign:DialogHost>
 </Window>
+
+

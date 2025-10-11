@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800">
-  <Grid Width="700" MinHeight="480" MaxHeight="720">
+  <Grid Width="700" MinHeight="480" MaxHeight="720" Background="{DynamicResource MaterialDesign.Brush.Surface}">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
@@ -66,11 +66,13 @@
       <Button Content="Decline"
               Margin="0,0,8,0"
               Padding="20,10"
+              Style="{StaticResource MaterialDesignOutlinedButton}"
               Command="{x:Static MaterialDesign:DialogHost.CloseDialogCommand}"
               CommandParameter="False" />
       <Button Content="Accept"
               Padding="20,10"
               IsEnabled="{Binding CanAccept}"
+              Style="{StaticResource MaterialDesignContainedButton}"
               Command="{x:Static MaterialDesign:DialogHost.CloseDialogCommand}"
               CommandParameter="True" />
     </StackPanel>
