@@ -10799,4 +10799,19 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Informativa sulla privacy</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Metodo</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Aggiungere un'intestazione personalizzata</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Nome della testata</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Valore dell'intestazione</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Corpo della richiesta (JSON)</value>
+  </data>
 </root>

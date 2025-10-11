@@ -10800,4 +10800,19 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Política de privacidade</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Método</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Adicionar cabeçalho personalizado</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Nome do cabeçalho</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Valor do cabeçalho</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Corpo do pedido (JSON)</value>
+  </data>
 </root>

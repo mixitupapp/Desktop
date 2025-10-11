@@ -10799,4 +10799,19 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Polityka prywatności</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Metoda</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Dodaj niestandardowy nagłówek</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Nazwa nagłówka</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Wartość nagłówka</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Treść żądania (JSON)</value>
+  </data>
 </root>

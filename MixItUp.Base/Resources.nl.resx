@@ -10800,4 +10800,19 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacybeleid</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Methode</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Aangepaste koptekst toevoegen</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Naam koptekst</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Koptekst Waarde</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Inhoud verzoek (JSON)</value>
+  </data>
 </root>

@@ -10804,4 +10804,19 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Политика конфиденциальности</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Метод</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Добавить пользовательский заголовок</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Название заголовка</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Значение заголовка</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Тело запроса (JSON)</value>
+  </data>
 </root>

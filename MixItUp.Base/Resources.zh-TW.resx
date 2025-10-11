@@ -10799,4 +10799,19 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>隐私政策</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>方法</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>添加自定义标题</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>标题名称</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>标题值</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>请求正文（JSON）</value>
+  </data>
 </root>

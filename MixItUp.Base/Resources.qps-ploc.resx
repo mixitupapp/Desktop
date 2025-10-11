@@ -10847,4 +10847,19 @@
   <data name="TermsOfService" xml:space="preserve">
     <value>Terms of Service</value>
   </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Request Body (JSON)</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Method</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Header Name</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Header Value</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Add Custom Header</value>
+  </data>
 </root>

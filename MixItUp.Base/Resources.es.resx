@@ -10801,4 +10801,19 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Política de privacidad</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Método</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Añadir cabecera personalizada</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Nombre de la cabecera</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Valor de cabecera</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Cuerpo de la solicitud (JSON)</value>
+  </data>
 </root>

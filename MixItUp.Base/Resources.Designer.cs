@@ -430,6 +430,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Custom Header.
+        /// </summary>
+        public static string AddCustomHeader {
+            get {
+                return ResourceManager.GetString("AddCustomHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Custom Level Up.
         /// </summary>
         public static string AddCustomLevelUp {
@@ -10866,6 +10875,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Header Name.
+        /// </summary>
+        public static string HeaderName {
+            get {
+                return ResourceManager.GetString("HeaderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Header Value.
+        /// </summary>
+        public static string HeaderValue {
+            get {
+                return ResourceManager.GetString("HeaderValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Head Shake.
         /// </summary>
         public static string HeadShake {
@@ -13672,6 +13699,15 @@ namespace MixItUp.Base {
         public static string MessageRemoved {
             get {
                 return ResourceManager.GetString("MessageRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method.
+        /// </summary>
+        public static string Method {
+            get {
+                return ResourceManager.GetString("Method", resourceCulture);
             }
         }
         
@@ -18971,6 +19007,15 @@ namespace MixItUp.Base {
         public static string Report {
             get {
                 return ResourceManager.GetString("Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Body (JSON).
+        /// </summary>
+        public static string RequestBody {
+            get {
+                return ResourceManager.GetString("RequestBody", resourceCulture);
             }
         }
         

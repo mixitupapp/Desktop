@@ -10799,4 +10799,19 @@ print(run())</value>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Політика конфіденційності</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Метод</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Додати власний заголовок</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Назва заголовка</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Значення заголовка</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Тіло запиту (JSON)</value>
+  </data>
 </root>

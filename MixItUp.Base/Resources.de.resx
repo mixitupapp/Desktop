@@ -10805,4 +10805,19 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Datenschutzbestimmungen</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Methode</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Benutzerdefinierte Kopfzeile hinzufügen</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Kopfzeile Name</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Kopfzeile Wert</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Anfragekörper (JSON)</value>
+  </data>
 </root>

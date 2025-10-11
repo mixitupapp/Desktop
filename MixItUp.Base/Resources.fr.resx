@@ -10800,4 +10800,19 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Politique de confidentialité</value>
   </data>
+  <data name="Method" xml:space="preserve">
+    <value>Méthode</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Ajouter un en-tête personnalisé</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Nom de l'en-tête</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Valeur de l'en-tête</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Corps de la demande (JSON)</value>
+  </data>
 </root>
