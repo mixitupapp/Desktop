@@ -185,7 +185,7 @@ namespace MixItUp.WPF
 
             this.Close();
 
-            ServiceManager.Get<IProcessService>().LaunchProgram(Application.ResourceAssembly.Location);
+            ServiceManager.Get<IProcessService>().LaunchProgram(Environment.ProcessPath);
         }
 
         private Task<bool> ShowLicenseAgreement()
