@@ -25,6 +25,9 @@ namespace MixItUp.Distribution.Core
         [JsonProperty("releaseType")]
         public string ReleaseType { get; set; }
 
+        [JsonProperty("releaseNotes")]
+        public string ReleaseNotes { get; set; }
+
         [JsonProperty("platforms")]
         public List<UpdatePlatformModel> Platforms { get; set; }
     }
@@ -66,7 +69,10 @@ namespace MixItUp.Distribution.Core
             string channel,
             string platform,
             UpdateFileModel file,
-            Uri downloadUri
+            Uri downloadUri,
+            string schemaVersion = null,
+            string releaseType = null,
+            string releaseNotes = null
         )
         {
             Version = version;
@@ -74,6 +80,9 @@ namespace MixItUp.Distribution.Core
             Platform = platform;
             File = file;
             DownloadUri = downloadUri;
+            SchemaVersion = schemaVersion;
+            ReleaseType = releaseType;
+            ReleaseNotes = releaseNotes;
         }
 
         public string Version { get; }
@@ -85,6 +94,12 @@ namespace MixItUp.Distribution.Core
         public UpdateFileModel File { get; }
 
         public Uri DownloadUri { get; }
+
+        public string SchemaVersion { get; }
+
+        public string ReleaseType { get; }
+
+        public string ReleaseNotes { get; }
     }
 
     public sealed class LauncherConfigModel
