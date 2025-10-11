@@ -210,6 +210,15 @@ namespace MixItUp.Distribution.Launcher
                 return;
             }
 
+            string versionRootPath = Path.Combine(this.appRoot, DistributionPaths.VersionDirectoryName);
+            string targetDirectory = Path.Combine(versionRootPath, targetVersion);
+            string versionBackupDirectory = null;
+            bool versionBackupCreated = false;
+            bool installSucceeded = false;
+            bool configExistedBefore = File.Exists(this.launcherConfigPath);
+            string configBackupPath = null;
+            LauncherConfigModel previousConfig = this.currentConfig;
+
             try
             {
                 bool hasSize = package.File != null && package.File.Size.HasValue;
@@ -245,15 +254,24 @@ namespace MixItUp.Distribution.Launcher
                     }
                 }
 
-                string versionRootPath = Path.Combine(this.appRoot, DistributionPaths.VersionDirectoryName);
-                string targetDirectory = Path.Combine(versionRootPath, targetVersion);
+                Directory.CreateDirectory(versionRootPath);
 
                 if (Directory.Exists(targetDirectory))
                 {
-                    Directory.Delete(targetDirectory, true);
+                    versionBackupDirectory = targetDirectory + ".bak-" + Guid.NewGuid().ToString("N");
+                    try
+                    {
+                        Directory.Move(targetDirectory, versionBackupDirectory);
+                        versionBackupCreated = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        this.StatusMessage = "Failed to prepare existing version for update: " + ex.Message;
+                        return;
+                    }
                 }
 
-                Directory.CreateDirectory(versionRootPath);
+                Directory.CreateDirectory(targetDirectory);
 
                 Progress<int> extractionProgress = new Progress<int>(percent =>
                 {
@@ -317,6 +335,12 @@ namespace MixItUp.Distribution.Launcher
                     DistributionPaths.LauncherExecutableName
                 );
 
+                if (configExistedBefore)
+                {
+                    configBackupPath = this.launcherConfigPath + ".bak-" + Guid.NewGuid().ToString("N");
+                    File.Copy(this.launcherConfigPath, configBackupPath, true);
+                }
+
                 LauncherConfigService.Save(this.launcherConfigPath, updatedConfig);
                 this.currentConfig = updatedConfig;
                 this.UpdateInstalledVersion(targetVersion);
@@ -326,6 +350,7 @@ namespace MixItUp.Distribution.Launcher
                 this.StatusMessage = "Mix It Up " + targetVersion + " is ready.";
 
                 this.UpdateLaunchExecutablePath();
+                installSucceeded = true;
             }
             catch (DistributionException dex)
             {
@@ -337,6 +362,113 @@ namespace MixItUp.Distribution.Launcher
             }
             finally
             {
+                if (!installSucceeded)
+                {
+                    bool rollbackApplied = false;
+
+                    try
+                    {
+                        if (Directory.Exists(targetDirectory))
+                        {
+                            Directory.Delete(targetDirectory, true);
+                        }
+                    }
+                    catch
+                    {
+                    }
+
+                    if (versionBackupCreated && !string.IsNullOrEmpty(versionBackupDirectory))
+                    {
+                        try
+                        {
+                            if (Directory.Exists(versionBackupDirectory))
+                            {
+                                Directory.Move(versionBackupDirectory, targetDirectory);
+                                rollbackApplied = true;
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(configBackupPath) && File.Exists(configBackupPath))
+                    {
+                        bool restoredConfig = false;
+                        try
+                        {
+                            File.Copy(configBackupPath, this.launcherConfigPath, true);
+                            restoredConfig = true;
+                            rollbackApplied = true;
+                        }
+                        catch
+                        {
+                        }
+
+                        if (restoredConfig)
+                        {
+                            try
+                            {
+                                File.Delete(configBackupPath);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+                    else if (!configExistedBefore)
+                    {
+                        try
+                        {
+                            if (File.Exists(this.launcherConfigPath))
+                            {
+                                File.Delete(this.launcherConfigPath);
+                                rollbackApplied = true;
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    this.currentConfig = previousConfig;
+                    this.UpdateLaunchExecutablePath();
+                    this.UpdateInstalledVersion(previousConfig != null ? previousConfig.CurrentVersion : null);
+
+                    if (
+                        rollbackApplied
+                        && !string.IsNullOrEmpty(this.StatusMessage)
+                        && this.StatusMessage.IndexOf("Previous version restored", StringComparison.OrdinalIgnoreCase) < 0
+                    )
+                    {
+                        this.StatusMessage += " Previous version restored.";
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(versionBackupDirectory) && Directory.Exists(versionBackupDirectory))
+                    {
+                        try
+                        {
+                            Directory.Delete(versionBackupDirectory, true);
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(configBackupPath) && File.Exists(configBackupPath))
+                    {
+                        try
+                        {
+                            File.Delete(configBackupPath);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+
                 this.EndOperation();
                 this.RaisePropertyChanged("CanInstallUpdate");
                 this.InstallUpdateCommand.RaiseCanExecuteChanged();
