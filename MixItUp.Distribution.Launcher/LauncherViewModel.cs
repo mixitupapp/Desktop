@@ -444,8 +444,23 @@ namespace MixItUp.Distribution.Launcher
                 );
             }
 
+            List<(PolicyDocumentState Document, PolicyAcceptanceModel PreviousRecord, bool PreviousAcknowledged, bool PreviousAccepted)>
+                snapshots = new List<(PolicyDocumentState, PolicyAcceptanceModel, bool, bool)>();
+
             foreach (PolicyDocumentState document in targets)
             {
+                PolicyAcceptanceModel previousRecord = null;
+                if (this.currentConfig.AcceptedPolicies.TryGetValue(document.Policy, out PolicyAcceptanceModel existingRecord))
+                {
+                    previousRecord = new PolicyAcceptanceModel
+                    {
+                        Version = existingRecord.Version,
+                        AcceptedAtUtc = existingRecord.AcceptedAtUtc,
+                    };
+                }
+
+                snapshots.Add((document, previousRecord, document.IsAcknowledged, document.IsAccepted));
+
                 document.ApplyAcceptanceRecord(document.Version, acceptedAtUtc, matchesCurrentVersion: true);
                 this.currentConfig.AcceptedPolicies[document.Policy] = new PolicyAcceptanceModel
                 {
@@ -462,9 +477,63 @@ namespace MixItUp.Distribution.Launcher
             this.AcceptPoliciesCommand.RaiseCanExecuteChanged();
             this.LaunchCommand.RaiseCanExecuteChanged();
 
-            this.StatusMessage = this.policiesAccepted
-                ? "Policies accepted."
-                : "Additional policy reviews required.";
+            bool saved = false;
+            try
+            {
+                LauncherConfigService.Save(this.launcherConfigPath, this.currentConfig);
+                saved = true;
+            }
+            catch (Exception ex)
+            {
+                foreach (
+                    (
+                        PolicyDocumentState Document,
+                        PolicyAcceptanceModel PreviousRecord,
+                        bool PreviousAcknowledged,
+                        bool PreviousAccepted
+                    ) snapshot in snapshots
+                )
+                {
+                    PolicyDocumentState document = snapshot.Document;
+                    PolicyAcceptanceModel previous = snapshot.PreviousRecord;
+
+                    if (previous != null)
+                    {
+                        bool matchesCurrent =
+                            !string.IsNullOrWhiteSpace(previous.Version)
+                            && string.Equals(previous.Version, document.Version, StringComparison.OrdinalIgnoreCase);
+
+                        document.ApplyAcceptanceRecord(previous.Version, previous.AcceptedAtUtc, matchesCurrent);
+                        document.IsAcknowledged = snapshot.PreviousAcknowledged;
+                        this.currentConfig.AcceptedPolicies[document.Policy] = new PolicyAcceptanceModel
+                        {
+                            Version = previous.Version,
+                            AcceptedAtUtc = previous.AcceptedAtUtc,
+                        };
+                    }
+                    else
+                    {
+                        document.ApplyAcceptanceRecord(string.Empty, null, matchesCurrentVersion: false);
+                        document.MarkPending();
+                        this.currentConfig.AcceptedPolicies.Remove(document.Policy);
+                    }
+                }
+
+                this.policiesAccepted = this.policyDocuments.All(doc => doc.IsAccepted);
+                this.RaisePropertyChanged(nameof(this.HasPendingPolicies));
+                this.RaisePropertyChanged(nameof(this.CanLaunch));
+                this.LaunchCommand.RaiseCanExecuteChanged();
+                this.AcceptPoliciesCommand.RaiseCanExecuteChanged();
+
+                this.StatusMessage = "Failed to save policy acceptance: " + ex.Message;
+            }
+
+            if (saved)
+            {
+                this.StatusMessage = this.policiesAccepted
+                    ? "Policies accepted."
+                    : "Additional policy reviews required.";
+            }
         }
 
         private bool CanAcceptPolicies()
