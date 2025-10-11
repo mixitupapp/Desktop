@@ -19,6 +19,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Security.Principal;
+using System.Globalization;
+using System.Text;
 
 namespace MixItUp.Distribution.Installer
 {
@@ -36,6 +38,8 @@ namespace MixItUp.Distribution.Installer
             MixItUpProcessName,
             AutoHosterProcessName,
         };
+
+        private static readonly string[] RequiredPolicySlugs = new[] { "eula", "privacy" };
 
         private const string LauncherProductSlug = "mixitup-desktop";
         private const string LauncherPlatform = "windows-x64";
@@ -248,6 +252,13 @@ namespace MixItUp.Distribution.Installer
             get { return this.downloadTempPath; }
             private set { this.SetProperty(ref this.downloadTempPath, value); }
         }
+
+        private readonly Dictionary<string, PolicyAcceptanceRecord> acceptedPolicies =
+            new Dictionary<string, PolicyAcceptanceRecord>(StringComparer.OrdinalIgnoreCase);
+
+        internal Func<IReadOnlyList<PolicyDocumentViewModel>, Task<bool>> PolicyAcceptanceHandler { get; set; }
+
+        internal IReadOnlyDictionary<string, PolicyAcceptanceRecord> AcceptedPolicies => this.acceptedPolicies;
 
         private string InstallerLogFilePath
         {
@@ -2970,6 +2981,94 @@ namespace MixItUp.Distribution.Installer
             this.LogActivity($"Installer completed successfully at {DateTime.UtcNow:u}.");
         }
 
+        private async Task<bool> EnsurePoliciesAcceptedAsync()
+        {
+            if (this.PolicyAcceptanceHandler == null)
+            {
+                return true;
+            }
+
+            List<PolicyDocumentViewModel> documents = new List<PolicyDocumentViewModel>();
+            string baseUrl = this.UpdateServerBaseUrl ?? string.Empty;
+            DistributionClient client = new DistributionClient(baseUrl);
+
+            foreach (string policy in RequiredPolicySlugs)
+            {
+                try
+                {
+                    PolicyInfo policyInfo = await client.GetLatestPolicyAsync(policy).ConfigureAwait(false);
+                    byte[] markdownBytes = await client
+                        .DownloadPolicyContentAsync(policyInfo.Policy ?? policy, policyInfo.Version)
+                        .ConfigureAwait(false);
+
+                    string markdown = Encoding.UTF8.GetString(markdownBytes ?? Array.Empty<byte>());
+                    string title = !string.IsNullOrWhiteSpace(policyInfo.Title)
+                        ? policyInfo.Title
+                        : FormatPolicyTitle(policyInfo.Policy ?? policy);
+
+                    documents.Add(
+                        new PolicyDocumentViewModel(
+                            policyInfo.Policy ?? policy,
+                            title,
+                            policyInfo.Version ?? string.Empty,
+                            markdown
+                        )
+                    );
+                }
+                catch (Exception ex)
+                {
+                    this.WriteToLogFile($"Failed to retrieve policy '{policy}': {ex}");
+                    this.ShowError(
+                        "Policy Retrieval Failed",
+                        "We were unable to retrieve the latest policy documents. Please check your connection and try again."
+                    );
+                    return false;
+                }
+            }
+
+            bool accepted;
+            try
+            {
+                accepted = await this.PolicyAcceptanceHandler(documents).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile($"Policy acceptance dialog failed: {ex}");
+                this.ShowError(
+                    "Policy Acceptance Failed",
+                    "We were unable to display the policy documents. Please try again."
+                );
+                return false;
+            }
+
+            if (!accepted)
+            {
+                this.ShowError(
+                    "Policy Acceptance Required",
+                    "You must accept the latest policies to continue with the installation."
+                );
+                return false;
+            }
+
+            DateTime acceptedAt = DateTime.UtcNow;
+            foreach (PolicyDocumentViewModel document in documents)
+            {
+                this.acceptedPolicies[document.Policy] = new PolicyAcceptanceRecord(
+                    document.Policy,
+                    document.Version,
+                    acceptedAt
+                );
+            }
+
+            string acceptedList = string.Join(
+                ", ",
+                documents.Select(doc => $"{doc.Policy}@{doc.Version}")
+            );
+            this.LogActivity($"Policies accepted at {acceptedAt:u}: {acceptedList}");
+
+            return true;
+        }
+
         public async Task<bool> RunAsync()
         {
             this.ResetLogFile();
@@ -2988,6 +3087,11 @@ namespace MixItUp.Distribution.Installer
             this.OperationProgress = 0;
             this.DownloadPercent = 0;
             this.LogActivity("Mix It Up installer initialized.");
+
+            if (!await this.EnsurePoliciesAcceptedAsync().ConfigureAwait(false))
+            {
+                return false;
+            }
 
             bool downloadWorkspacePrepared = false;
             InstallerStep? activeStep = null;
@@ -4513,6 +4617,17 @@ namespace MixItUp.Distribution.Installer
             return path;
         }
 
+        private static string FormatPolicyTitle(string policy)
+        {
+            if (string.IsNullOrWhiteSpace(policy))
+            {
+                return "Policy";
+            }
+
+            string normalized = policy.Replace("-", " ");
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(normalized);
+        }
+
         private bool EnsureDiskSpace(string targetPath, long? sizeHintBytes, InstallerStep step, string componentName)
         {
             try
@@ -4598,6 +4713,10 @@ namespace MixItUp.Distribution.Installer
         }
     }
 }
+
+
+
+
 
 
 
