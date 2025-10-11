@@ -7,7 +7,7 @@ namespace MixItUp.Distribution.Core
     {
         public const string ShortcutFileName = "Mix It Up.lnk";
         public const string LauncherExecutableName = "MixItUp.exe";
-        public const string UninstallerExecutableName = "MixItUp.Distribution.Uninstaller.exe";
+        public const string UninstallerExecutableName = "MixItUp-Uninstall.exe";
         public const string BootloaderFileName = "bootloader.json";
         public const string VersionDirectoryName = "app";
         public const string DataDirectoryName = "data";
