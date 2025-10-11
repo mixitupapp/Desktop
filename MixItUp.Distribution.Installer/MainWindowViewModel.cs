@@ -17,6 +17,7 @@ using Microsoft.Win32;
 using MixItUp.Distribution.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Security.Cryptography;
 using System.Security.Principal;
 
 namespace MixItUp.Distribution.Installer
@@ -3440,6 +3441,27 @@ namespace MixItUp.Distribution.Installer
                     return null;
                 }
 
+                string expectedSha = package.File?.Sha256;
+                if (!string.IsNullOrWhiteSpace(expectedSha))
+                {
+                    string actualSha = ComputeSha256Hex(payload);
+                    if (!string.Equals(actualSha, expectedSha, StringComparison.OrdinalIgnoreCase))
+                    {
+                        this.WriteToLogFile(
+                            $"Launcher payload SHA256 mismatch. Expected {expectedSha}, received {actualSha}."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Launcher download failed integrity verification. Please try again."
+                        );
+                        return null;
+                    }
+                }
+                else
+                {
+                    this.LogActivity("Launcher manifest did not include a SHA256 checksum; skipping validation.");
+                }
+
                 double sizeInMb = payload.Length / 1024d / 1024d;
                 this.LogActivity($"Launcher download complete ({sizeInMb:F2} MB received).");
 
@@ -3503,6 +3525,27 @@ namespace MixItUp.Distribution.Installer
                 {
                     this.WriteToLogFile("Application download returned an empty payload.");
                     return null;
+                }
+
+                string expectedSha = package.File?.Sha256;
+                if (!string.IsNullOrWhiteSpace(expectedSha))
+                {
+                    string actualSha = ComputeSha256Hex(payload);
+                    if (!string.Equals(actualSha, expectedSha, StringComparison.OrdinalIgnoreCase))
+                    {
+                        this.WriteToLogFile(
+                            $"Application payload SHA256 mismatch. Expected {expectedSha}, received {actualSha}."
+                        );
+                        this.ShowError(
+                            "Download Failed",
+                            "Application download failed integrity verification. Please try again."
+                        );
+                        return null;
+                    }
+                }
+                else
+                {
+                    this.LogActivity("Application manifest did not include a SHA256 checksum; skipping validation.");
                 }
 
                 double sizeInMb = payload.Length / 1024d / 1024d;
@@ -4157,6 +4200,20 @@ namespace MixItUp.Distribution.Installer
                     $"Failed to clean temporary workspace at '{NormalizePath(tempPath)}'.",
                     "WARN"
                 );
+            }
+        }
+
+        private static string ComputeSha256Hex(byte[] payload)
+        {
+            if (payload == null)
+            {
+                return string.Empty;
+            }
+
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hash = sha256.ComputeHash(payload);
+                return BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
             }
         }
 
