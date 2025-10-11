@@ -145,7 +145,10 @@ namespace MixItUp.Distribution.Core
                         manifest.Channel ?? channel,
                         platformEntry.Platform,
                         fileEntry,
-                        downloadUri
+                        downloadUri,
+                        manifest.SchemaVersion,
+                        manifest.ReleaseType,
+                        manifest.ReleaseNotes
                     );
                 }
             }
