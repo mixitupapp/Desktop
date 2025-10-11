@@ -6,8 +6,8 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MixItUp-Uninstall")]
-[assembly: AssemblyDescription("Uninstaller for Mix It Up Stream Bot")]
+[assembly: AssemblyTitle("MixItUp")]
+[assembly: AssemblyDescription("Launcher for Mix It Up Stream Bot")]
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Blazing Cacti LLC")]
 [assembly: AssemblyProduct("Mix It Up")]
@@ -15,7 +15,7 @@ using System.Windows;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: InternalsVisibleTo("MixItUp.Distribution.Uninstaller.Tests")]
+[assembly: InternalsVisibleTo("MixItUp.Distribution.Launcher.Tests")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
