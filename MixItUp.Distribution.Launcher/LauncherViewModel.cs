@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using MixItUp.Distribution.Core;
+using System.Security.Cryptography;
 
 namespace MixItUp.Distribution.Launcher
 {
@@ -233,6 +234,17 @@ namespace MixItUp.Distribution.Launcher
                     return;
                 }
 
+                string expectedSha = package.File?.Sha256;
+                if (!string.IsNullOrWhiteSpace(expectedSha))
+                {
+                    string actualSha = ComputeSha256Hex(payload);
+                    if (!string.Equals(actualSha, expectedSha, StringComparison.OrdinalIgnoreCase))
+                    {
+                        this.StatusMessage = "Download verification failed. Please try again.";
+                        return;
+                    }
+                }
+
                 string versionRootPath = Path.Combine(this.appRoot, DistributionPaths.VersionDirectoryName);
                 string targetDirectory = Path.Combine(versionRootPath, targetVersion);
 
@@ -269,7 +281,7 @@ namespace MixItUp.Distribution.Launcher
                 string executablePath = Path.Combine(targetDirectory, DistributionPaths.LauncherExecutableName);
                 if (!File.Exists(executablePath))
                 {
-                    this.StatusMessage = "Installed payload did not contain MixItUp.exe.";
+                    this.StatusMessage = $"Installed payload did not contain {DistributionPaths.LauncherExecutableName}.";
                     return;
                 }
 
@@ -359,6 +371,15 @@ namespace MixItUp.Distribution.Launcher
             catch (Exception ex)
             {
                 this.StatusMessage = "Failed to launch Mix It Up: " + ex.Message;
+            }
+        }
+
+        private static string ComputeSha256Hex(byte[] payload)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hash = sha256.ComputeHash(payload);
+                return BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
             }
         }
 
