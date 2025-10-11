@@ -11,6 +11,7 @@ namespace MixItUp.Distribution.Core
     public sealed class DistributionClient
     {
         private readonly string baseUrl;
+        private static readonly Uri FilesBaseUri = new Uri("https://files.mixitupapp.com", UriKind.Absolute);
 
         public DistributionClient(string baseUrl)
         {
@@ -266,6 +267,159 @@ namespace MixItUp.Distribution.Core
             }
         }
 
+        public async Task<PolicyInfo> GetLatestPolicyAsync(
+            string policySlug,
+            CancellationToken cancellationToken = default
+        )
+        {
+            if (string.IsNullOrWhiteSpace(policySlug))
+            {
+                throw new ArgumentException("Policy identifier is required.", nameof(policySlug));
+            }
+
+            string normalizedPolicy = policySlug.Trim();
+            Uri manifestUri = BuildPolicyManifestUri(normalizedPolicy);
+            string manifestUrl = manifestUri.ToString();
+
+            try
+            {
+                using (HttpClient client = CreateHttpClient(TimeSpan.FromSeconds(15)))
+                using (
+                    HttpResponseMessage response = await client
+                        .GetAsync(manifestUri, cancellationToken)
+                        .ConfigureAwait(false)
+                )
+                {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        string errorBody = await response.Content
+                            .ReadAsStringAsync()
+                            .ConfigureAwait(false);
+
+                        throw new DistributionException(
+                            $"Policy manifest request to '{manifestUrl}' failed with {(int)response.StatusCode} {response.StatusCode}: {errorBody}"
+                        )
+                        {
+                            StatusCode = response.StatusCode,
+                            Endpoint = manifestUrl,
+                        };
+                    }
+
+                    string responseBody = await response.Content
+                        .ReadAsStringAsync()
+                        .ConfigureAwait(false);
+
+                    PolicyManifestModel manifest =
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<PolicyManifestModel>(responseBody);
+                    if (manifest == null || manifest.Content == null)
+                    {
+                        throw new DistributionException(
+                            $"Policy manifest response from '{manifestUrl}' was empty or invalid."
+                        )
+                        {
+                            Endpoint = manifestUrl,
+                        };
+                    }
+
+                    string policy = string.IsNullOrWhiteSpace(manifest.Policy)
+                        ? normalizedPolicy
+                        : manifest.Policy.Trim();
+                    string version = manifest.Version?.Trim();
+                    if (string.IsNullOrWhiteSpace(version))
+                    {
+                        throw new DistributionException(
+                            $"Policy manifest from '{manifestUrl}' is missing a version."
+                        )
+                        {
+                            Endpoint = manifestUrl,
+                        };
+                    }
+
+                    Uri contentUri = null;
+                    if (!string.IsNullOrWhiteSpace(manifest.Content.Url))
+                    {
+                        contentUri = BuildDownloadUri(manifest.Content.Url);
+                    }
+
+                    if (contentUri == null)
+                    {
+                        contentUri = BuildPolicyContentUri(policy, version);
+                    }
+
+                    if (contentUri == null)
+                    {
+                        throw new DistributionException(
+                            $"Policy manifest from '{manifestUrl}' did not specify a valid content URL."
+                        )
+                        {
+                            Endpoint = manifestUrl,
+                        };
+                    }
+
+                    string contentType = !string.IsNullOrWhiteSpace(manifest.Content.ContentType)
+                        ? manifest.Content.ContentType
+                        : "text/markdown";
+
+                    return new PolicyInfo(
+                        manifest.SchemaVersion,
+                        policy,
+                        version,
+                        manifest.Title ?? string.Empty,
+                        manifest.Description ?? string.Empty,
+                        manifest.PublishedAt,
+                        manifest.Content.Path,
+                        contentType,
+                        manifest.Content.Size,
+                        manifest.Content.Sha256,
+                        contentUri
+                    );
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (DistributionException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new DistributionException(
+                    $"Policy manifest request to '{manifestUrl}' failed: {ex.Message}",
+                    ex
+                )
+                {
+                    Endpoint = manifestUrl,
+                };
+            }
+        }
+
+        public Task<byte[]> DownloadPolicyContentAsync(
+            string policySlug,
+            string version,
+            CancellationToken cancellationToken = default
+        )
+        {
+            if (string.IsNullOrWhiteSpace(policySlug))
+            {
+                throw new ArgumentException("Policy identifier is required.", nameof(policySlug));
+            }
+
+            if (string.IsNullOrWhiteSpace(version))
+            {
+                throw new ArgumentException("Version is required.", nameof(version));
+            }
+
+            Uri contentUri = BuildPolicyContentUri(policySlug.Trim(), version.Trim());
+            return this.DownloadPackageAsync(
+                contentUri,
+                TimeSpan.FromSeconds(15),
+                null,
+                cancellationToken
+            );
+        }
+
         public string BuildManifestUrl(string productSlug, string platform, string channel)
         {
             if (string.IsNullOrWhiteSpace(productSlug))
@@ -283,8 +437,6 @@ namespace MixItUp.Distribution.Core
                 throw new ArgumentException("Channel is required.", nameof(channel));
             }
 
-            Uri manifestBaseUri = new Uri("https://files.mixitupapp.com", UriKind.Absolute);
-
             string relativePath = string.Join(
                 "/",
                 "apps",
@@ -294,7 +446,7 @@ namespace MixItUp.Distribution.Core
                 "latest"
             );
 
-            Uri manifestUri = new Uri(manifestBaseUri, relativePath);
+            Uri manifestUri = new Uri(FilesBaseUri, relativePath);
             return manifestUri.ToString();
         }
 
@@ -325,6 +477,32 @@ namespace MixItUp.Distribution.Core
             }
 
             return null;
+        }
+
+        private static Uri BuildPolicyManifestUri(string policySlug)
+        {
+            string relativePath = string.Join(
+                "/",
+                "policies",
+                Uri.EscapeDataString(policySlug),
+                "latest"
+            );
+
+            return new Uri(FilesBaseUri, relativePath);
+        }
+
+        private static Uri BuildPolicyContentUri(string policySlug, string version)
+        {
+            string relativePath = string.Join(
+                "/",
+                "policies",
+                Uri.EscapeDataString(policySlug),
+                "version",
+                Uri.EscapeDataString(version),
+                "content"
+            );
+
+            return new Uri(FilesBaseUri, relativePath);
         }
 
         private static HttpClient CreateHttpClient(TimeSpan timeout)
