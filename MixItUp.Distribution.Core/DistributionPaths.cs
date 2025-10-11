@@ -11,6 +11,8 @@ namespace MixItUp.Distribution.Core
         public const string LauncherFileName = "launcher.json";
         public const string VersionDirectoryName = "app";
         public const string DataDirectoryName = "data";
+        public const string TempDirectoryName = ".tmp";
+        public const string PolicyCacheDirectoryName = "policies";
 
         public static string GetDefaultAppRoot()
         {
@@ -38,6 +40,26 @@ namespace MixItUp.Distribution.Core
             }
 
             return Path.Combine(appRoot, VersionDirectoryName);
+        }
+
+        public static string GetTemporaryRoot(string appRoot = null)
+        {
+            if (string.IsNullOrWhiteSpace(appRoot))
+            {
+                appRoot = GetDefaultAppRoot();
+            }
+
+            return Path.Combine(appRoot, TempDirectoryName);
+        }
+
+        public static string GetPolicyCacheDirectory(string appRoot = null)
+        {
+            if (string.IsNullOrWhiteSpace(appRoot))
+            {
+                appRoot = GetDefaultAppRoot();
+            }
+
+            return Path.Combine(appRoot, DataDirectoryName, PolicyCacheDirectoryName);
         }
 
         public static string GetStartMenuDirectory()

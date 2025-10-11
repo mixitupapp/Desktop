@@ -240,15 +240,25 @@ namespace MixItUp.Distribution.Uninstaller
                 {
                     File.Delete(launcherConfigPath);
                 }
+
+                RemoveLauncherConfigBackups(installRoot);
             }
-            catch { }
+            catch
+            {
+                // Ignore launcher configuration cleanup failures.
+            }
 
             DeleteIfExists(Path.Combine(installRoot, DistributionPaths.LauncherExecutableName));
             DeleteIfExists(Path.Combine(installRoot, DistributionPaths.UninstallerExecutableName));
 
-            DeleteDirectorySafe(Path.Combine(installRoot, DistributionPaths.VersionDirectoryName));
+            DeleteVersionBackups(installRoot);
+            DeleteDirectorySafe(DistributionPaths.GetVersionRoot(installRoot));
+
+            DeleteDirectorySafe(DistributionPaths.GetTemporaryRoot(installRoot));
 
             string dataDirectory = Path.Combine(installRoot, DistributionPaths.DataDirectoryName);
+            DeleteDirectorySafe(DistributionPaths.GetPolicyCacheDirectory(installRoot));
+
             try
             {
                 if (Directory.Exists(dataDirectory))
@@ -320,6 +330,49 @@ namespace MixItUp.Distribution.Uninstaller
             catch
             {
                 // Ignore directory deletion errors.
+            }
+        }
+
+        private static void RemoveLauncherConfigBackups(string installRoot)
+        {
+            try
+            {
+                string configDirectory = Path.GetDirectoryName(DistributionPaths.GetLauncherPath(installRoot));
+                if (string.IsNullOrWhiteSpace(configDirectory) || !Directory.Exists(configDirectory))
+                {
+                    return;
+                }
+
+                string pattern = DistributionPaths.LauncherFileName + ".bak-*";
+                foreach (string backupPath in Directory.GetFiles(configDirectory, pattern, SearchOption.TopDirectoryOnly))
+                {
+                    DeleteIfExists(backupPath);
+                }
+            }
+            catch
+            {
+                // Ignore backup cleanup failures.
+            }
+        }
+
+        private static void DeleteVersionBackups(string installRoot)
+        {
+            try
+            {
+                string versionRoot = DistributionPaths.GetVersionRoot(installRoot);
+                if (!Directory.Exists(versionRoot))
+                {
+                    return;
+                }
+
+                foreach (string backupDirectory in Directory.EnumerateDirectories(versionRoot, "*.bak-*", SearchOption.TopDirectoryOnly))
+                {
+                    DeleteDirectorySafe(backupDirectory);
+                }
+            }
+            catch
+            {
+                // Ignore version backup cleanup failures.
             }
         }
 
