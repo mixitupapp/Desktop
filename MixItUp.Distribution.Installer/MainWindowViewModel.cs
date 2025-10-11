@@ -3592,29 +3592,66 @@ namespace MixItUp.Distribution.Installer
                 return false;
             }
 
+            string appRoot = this.AppRoot;
+            if (string.IsNullOrWhiteSpace(appRoot))
+            {
+                this.WriteToLogFile("Application root was not initialized before launcher extraction.");
+                this.ShowError(
+                    "Package Corrupt",
+                    "The downloaded Launcher package is invalid. Please try again."
+                );
+                return false;
+            }
+
+            string normalizedAppRoot;
             try
             {
-                Directory.CreateDirectory(this.AppRoot);
-                string normalizedAppRoot = Path.GetFullPath(this.AppRoot);
+                Directory.CreateDirectory(appRoot);
+                normalizedAppRoot = Path.GetFullPath(appRoot);
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(ex.ToString());
+                this.ShowError(
+                    "Package Corrupt",
+                    "We couldn't prepare the installation directory. Check permissions and try again."
+                );
+                return false;
+            }
 
+            string tempRoot = this.ResolveDownloadTempRoot();
+            string stagingRoot = Path.Combine(tempRoot, $"launcher-staging-{Guid.NewGuid():N}");
+            string backupRoot = Path.Combine(tempRoot, $"launcher-backup-{Guid.NewGuid():N}");
+
+            try
+            {
                 SafeZipExtractor.Extract(
                     archiveBytes,
-                    normalizedAppRoot,
+                    stagingRoot,
                     overwriteExisting: true,
                     progress: new Progress<int>(percent => this.OperationProgress = percent)
                 );
 
                 this.OperationProgress = 100;
 
-                string launcherExecutablePath = Path.Combine(
-                    this.AppRoot,
+                string stagedExecutable = Path.Combine(
+                    stagingRoot,
                     DistributionPaths.LauncherExecutableName
                 );
-                if (!File.Exists(launcherExecutablePath))
+                if (!File.Exists(stagedExecutable))
                 {
                     this.WriteToLogFile(
-                        $"Launcher extraction completed but {DistributionPaths.LauncherExecutableName} was not found."
+                        $"Launcher archive did not contain {DistributionPaths.LauncherExecutableName}."
                     );
+                    this.ShowError(
+                        "Package Corrupt",
+                        "The downloaded Launcher package is invalid. Please try again."
+                    );
+                    return false;
+                }
+
+                if (!this.ApplyLauncherStaging(stagingRoot, normalizedAppRoot, backupRoot))
+                {
                     this.ShowError(
                         "Package Corrupt",
                         "The downloaded Launcher package is invalid. Please try again."
@@ -3657,8 +3694,149 @@ namespace MixItUp.Distribution.Installer
                     "We couldn't write files to the installation directory. Check permissions and try again."
                 );
             }
+            finally
+            {
+                try
+                {
+                    if (Directory.Exists(stagingRoot))
+                    {
+                        Directory.Delete(stagingRoot, recursive: true);
+                    }
+                }
+                catch
+                {
+                }
+
+                try
+                {
+                    if (Directory.Exists(backupRoot))
+                    {
+                        Directory.Delete(backupRoot, recursive: true);
+                    }
+                }
+                catch
+                {
+                }
+            }
 
             return false;
+        }
+
+        private bool ApplyLauncherStaging(string stagingRoot, string destinationRoot, string backupRoot)
+        {
+            List<(string relativePath, bool hadBackup)> installedFiles = new List<(string, bool)>();
+            List<string> createdDirectories = new List<string>();
+
+            try
+            {
+                foreach (
+                    string directory in Directory
+                        .EnumerateDirectories(stagingRoot, "*", SearchOption.AllDirectories)
+                        .OrderBy(dir => dir.Length)
+                )
+                {
+                    string relativeDir = GetRelativePath(stagingRoot, directory);
+                    string destinationDir = Path.Combine(destinationRoot, relativeDir);
+                    if (!Directory.Exists(destinationDir))
+                    {
+                        Directory.CreateDirectory(destinationDir);
+                        createdDirectories.Add(destinationDir);
+                    }
+                }
+
+                foreach (string file in Directory.EnumerateFiles(stagingRoot, "*", SearchOption.AllDirectories))
+                {
+                    string relativePath = GetRelativePath(stagingRoot, file);
+                    string destinationPath = Path.Combine(destinationRoot, relativePath);
+                    string destinationDir = Path.GetDirectoryName(destinationPath);
+                    if (!string.IsNullOrEmpty(destinationDir))
+                    {
+                        Directory.CreateDirectory(destinationDir);
+                    }
+
+                    bool hadBackup = false;
+                    if (File.Exists(destinationPath))
+                    {
+                        string backupPath = Path.Combine(backupRoot, relativePath);
+                        string backupDir = Path.GetDirectoryName(backupPath);
+                        if (!string.IsNullOrEmpty(backupDir))
+                        {
+                            Directory.CreateDirectory(backupDir);
+                        }
+                        File.Copy(destinationPath, backupPath, overwrite: true);
+                        hadBackup = true;
+                    }
+
+                    File.Copy(file, destinationPath, overwrite: true);
+                    installedFiles.Add((relativePath, hadBackup));
+                }
+
+                if (Directory.Exists(backupRoot))
+                {
+                    Directory.Delete(backupRoot, recursive: true);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this.WriteToLogFile(ex.ToString());
+
+                foreach ((string relativePath, bool hadBackup) in installedFiles)
+                {
+                    string destinationPath = Path.Combine(destinationRoot, relativePath);
+                    if (hadBackup)
+                    {
+                        string backupPath = Path.Combine(backupRoot, relativePath);
+                        if (File.Exists(backupPath))
+                        {
+                            string destinationDir = Path.GetDirectoryName(destinationPath);
+                            if (!string.IsNullOrEmpty(destinationDir))
+                            {
+                                Directory.CreateDirectory(destinationDir);
+                            }
+                            File.Copy(backupPath, destinationPath, overwrite: true);
+                        }
+                    }
+                    else if (File.Exists(destinationPath))
+                    {
+                        File.Delete(destinationPath);
+                    }
+                }
+
+                for (int i = createdDirectories.Count - 1; i >= 0; i--)
+                {
+                    string directory = createdDirectories[i];
+                    try
+                    {
+                        if (
+                            Directory.Exists(directory)
+                            && !Directory.EnumerateFileSystemEntries(directory).Any()
+                        )
+                        {
+                            Directory.Delete(directory, recursive: false);
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                return false;
+            }
+            finally
+            {
+                try
+                {
+                    if (Directory.Exists(backupRoot))
+                    {
+                        Directory.Delete(backupRoot, recursive: true);
+                    }
+                }
+                catch
+                {
+                }
+            }
         }
 
         private bool InstallAppArchive(byte[] archiveBytes, UpdatePackageInfo package)
@@ -3721,7 +3899,6 @@ namespace MixItUp.Distribution.Installer
             string normalizedVersionDirectory;
             try
             {
-                Directory.CreateDirectory(versionDirectory);
                 normalizedVersionDirectory = Path.GetFullPath(versionDirectory);
             }
             catch (Exception ex)
@@ -3734,11 +3911,15 @@ namespace MixItUp.Distribution.Installer
                 return false;
             }
 
+            string tempRoot = this.ResolveDownloadTempRoot();
+            string stagingRoot = Path.Combine(tempRoot, $"app-staging-{Guid.NewGuid():N}");
+            string backupDirectory = null;
+
             try
             {
                 SafeZipExtractor.Extract(
                     archiveBytes,
-                    normalizedVersionDirectory,
+                    stagingRoot,
                     overwriteExisting: true,
                     progress: new Progress<int>(percent => this.OperationProgress = percent),
                     entryPathSelector: entry =>
@@ -3758,7 +3939,7 @@ namespace MixItUp.Distribution.Installer
                 try
                 {
                     hasExecutable = Directory
-                        .EnumerateFiles(versionDirectory, "*.exe", SearchOption.AllDirectories)
+                        .EnumerateFiles(stagingRoot, "*.exe", SearchOption.AllDirectories)
                         .Any();
                 }
                 catch (Exception ex)
@@ -3780,14 +3961,60 @@ namespace MixItUp.Distribution.Installer
                     return false;
                 }
 
-                if (!this.ReconcileMigrationDirectory(versionDirectory))
+                if (Directory.Exists(normalizedVersionDirectory))
+                {
+                    backupDirectory = Path.Combine(tempRoot, $"app-backup-{Guid.NewGuid():N}");
+                    Directory.Move(normalizedVersionDirectory, backupDirectory);
+                }
+
+                try
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(normalizedVersionDirectory) ?? versionRoot);
+                    Directory.Move(stagingRoot, normalizedVersionDirectory);
+                }
+                catch (Exception moveEx)
+                {
+                    this.WriteToLogFile(moveEx.ToString());
+
+                    if (!string.IsNullOrEmpty(backupDirectory) && Directory.Exists(backupDirectory))
+                    {
+                        try
+                        {
+                            if (Directory.Exists(normalizedVersionDirectory))
+                            {
+                                Directory.Delete(normalizedVersionDirectory, recursive: true);
+                            }
+
+                            Directory.Move(backupDirectory, normalizedVersionDirectory);
+                        }
+                        catch (Exception restoreEx)
+                        {
+                            this.WriteToLogFile(
+                                $"Failed to restore application backup: {restoreEx.GetType().Name} - {restoreEx.Message}"
+                            );
+                        }
+                    }
+
+                    this.ShowError(
+                        "Package Corrupt",
+                        "The downloaded application payload is invalid. Please try again."
+                    );
+                    return false;
+                }
+
+                if (!string.IsNullOrEmpty(backupDirectory) && Directory.Exists(backupDirectory))
+                {
+                    Directory.Delete(backupDirectory, recursive: true);
+                }
+
+                if (!this.ReconcileMigrationDirectory(normalizedVersionDirectory))
                 {
                     return false;
                 }
 
-                this.PendingVersionDirectoryPath = versionDirectory;
+                this.PendingVersionDirectoryPath = normalizedVersionDirectory;
                 this.LogActivity(
-                    $"Application payload extracted to '{NormalizePath(versionDirectory)}'."
+                    $"Application payload extracted to '{NormalizePath(normalizedVersionDirectory)}'."
                 );
                 return true;
             }
@@ -3823,10 +4050,33 @@ namespace MixItUp.Distribution.Installer
                     "We couldn't write files to the installation directory. Check permissions and try again."
                 );
             }
+            finally
+            {
+                try
+                {
+                    if (Directory.Exists(stagingRoot))
+                    {
+                        Directory.Delete(stagingRoot, recursive: true);
+                    }
+                }
+                catch
+                {
+                }
+
+                if (!string.IsNullOrEmpty(backupDirectory) && Directory.Exists(backupDirectory))
+                {
+                    try
+                    {
+                        Directory.Delete(backupDirectory, recursive: true);
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
 
             return false;
         }
-
         private bool ReconcileMigrationDirectory(string versionDirectory)
         {
             string pendingPath = this.PendingVersionDirectoryPath;
@@ -4149,6 +4399,20 @@ namespace MixItUp.Distribution.Installer
             this.HyperlinkAddress = logUri?.AbsoluteUri ?? string.Empty;
         }
 
+        private string ResolveDownloadTempRoot()
+        {
+            string tempPath = this.DownloadTempPath;
+            if (string.IsNullOrWhiteSpace(tempPath))
+            {
+                string basePath = this.AppRoot ?? DefaultInstallDirectory;
+                tempPath = Path.Combine(basePath, ".tmp");
+                this.DownloadTempPath = tempPath;
+            }
+
+            Directory.CreateDirectory(tempPath);
+            return tempPath;
+        }
+
         private void PrepareDownloadWorkspace()
         {
             string tempPath = this.DownloadTempPath;
@@ -4215,6 +4479,38 @@ namespace MixItUp.Distribution.Installer
                 byte[] hash = sha256.ComputeHash(payload);
                 return BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
             }
+        }
+
+        private static string GetRelativePath(string root, string fullPath)
+        {
+            if (string.IsNullOrWhiteSpace(root))
+            {
+                return fullPath;
+            }
+
+            string normalizedRoot = AppendDirectorySeparator(Path.GetFullPath(root));
+            string normalizedPath = Path.GetFullPath(fullPath);
+
+            Uri rootUri = new Uri(normalizedRoot);
+            Uri pathUri = new Uri(normalizedPath);
+
+            string relative = Uri.UnescapeDataString(rootUri.MakeRelativeUri(pathUri).ToString());
+            return relative.Replace('/', Path.DirectorySeparatorChar);
+        }
+
+        private static string AppendDirectorySeparator(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return Path.DirectorySeparatorChar.ToString();
+            }
+
+            if (!path.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+            {
+                return path + Path.DirectorySeparatorChar;
+            }
+
+            return path;
         }
 
         private bool EnsureDiskSpace(string targetPath, long? sizeHintBytes, InstallerStep step, string componentName)
@@ -4302,6 +4598,7 @@ namespace MixItUp.Distribution.Installer
         }
     }
 }
+
 
 
 
