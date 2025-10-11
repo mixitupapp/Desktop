@@ -18,10 +18,12 @@ namespace MixItUp.Distribution.Launcher
         private const string Platform = "windows-x64";
         private const string DefaultChannel = "production";
         private const string DefaultBaseUrl = "https://files.mixitupapp.com";
+        private static readonly string[] RequiredPolicySlugs = new[] { "eula", "privacy" };
         private const int DefaultRetentionCount = 3;
 
         private readonly string appRoot;
         private readonly string launcherConfigPath;
+        private readonly List<PolicyDocumentState> policyDocuments = new List<PolicyDocumentState>();
 
         private LauncherConfigModel currentConfig;
         private UpdatePackageInfo pendingPackage;
@@ -33,6 +35,7 @@ namespace MixItUp.Distribution.Launcher
         private string installedVersion;
         private string latestVersion;
         private string statusMessage = "Ready.";
+        private bool policiesAccepted;
 
         public LauncherViewModel()
         {
@@ -120,13 +123,25 @@ namespace MixItUp.Distribution.Launcher
             {
                 return !this.IsBusy
                     && !string.IsNullOrEmpty(this.launchExecutablePath)
-                    && File.Exists(this.launchExecutablePath);
+                    && File.Exists(this.launchExecutablePath)
+                    && this.policiesAccepted;
             }
+        }
+
+        public IReadOnlyList<PolicyDocumentState> PolicyDocuments
+        {
+            get { return this.policyDocuments; }
+        }
+
+        public bool HasPendingPolicies
+        {
+            get { return this.policyDocuments.Any(document => !document.IsAccepted); }
         }
 
         public async Task InitializeAsync()
         {
             await this.LoadInstalledInformationAsync();
+            await this.RefreshPolicyStateAsync();
             await this.CheckForUpdatesAsync();
         }
 
@@ -181,6 +196,11 @@ namespace MixItUp.Distribution.Launcher
                 this.StatusMessage = this.updateAvailable
                     ? "Version " + this.LatestVersion + " is available."
                     : "You're on the latest version.";
+
+                if (!this.policiesAccepted && this.policyDocuments.Count > 0)
+                {
+                    this.StatusMessage = "Policy updates require review.";
+                }
             }
             catch (DistributionException dex)
             {
@@ -193,6 +213,158 @@ namespace MixItUp.Distribution.Launcher
             finally
             {
                 this.EndOperation();
+            }
+        }
+
+        private async Task RefreshPolicyStateAsync(bool showProgress = true)
+        {
+            bool hadError = false;
+            string errorMessage = null;
+
+            if (showProgress)
+            {
+                this.BeginOperation("Checking policy updates...", true);
+            }
+
+            try
+            {
+                DistributionClient client = this.CreateDistributionClient();
+                List<PolicyDocumentState> documents = new List<PolicyDocumentState>();
+                bool allAccepted = true;
+
+                Dictionary<string, PolicyAcceptanceModel> acceptedPolicies = this.currentConfig?.AcceptedPolicies;
+
+                foreach (string policySlug in RequiredPolicySlugs)
+                {
+                    PolicyInfo info = await client.GetLatestPolicyAsync(policySlug).ConfigureAwait(false);
+                    PolicyDocumentState document = new PolicyDocumentState(policySlug, info);
+
+                    string key = string.IsNullOrWhiteSpace(document.Policy) ? policySlug : document.Policy;
+                    PolicyAcceptanceModel acceptedRecord = null;
+                    bool matchesCurrentVersion = false;
+
+                    if (
+                        acceptedPolicies != null
+                        && acceptedPolicies.TryGetValue(key, out acceptedRecord)
+                        && !string.IsNullOrWhiteSpace(acceptedRecord.Version)
+                    )
+                    {
+                        matchesCurrentVersion = string.Equals(
+                            acceptedRecord.Version,
+                            document.Version,
+                            StringComparison.OrdinalIgnoreCase
+                        );
+                        document.ApplyAcceptanceRecord(acceptedRecord.Version, acceptedRecord.AcceptedAtUtc, matchesCurrentVersion);
+                    }
+                    else
+                    {
+                        document.MarkPending();
+                    }
+
+                    if (!matchesCurrentVersion)
+                    {
+                        allAccepted = false;
+                    }
+
+                    documents.Add(document);
+                }
+
+                this.policyDocuments.Clear();
+                this.policyDocuments.AddRange(documents);
+                this.policiesAccepted = allAccepted;
+            }
+            catch (DistributionException dex)
+            {
+                hadError = true;
+                errorMessage = "Failed to retrieve policy updates: " + dex.Message;
+                this.policyDocuments.Clear();
+                this.policiesAccepted = false;
+            }
+            catch (Exception ex)
+            {
+                hadError = true;
+                errorMessage = "Unexpected policy check failure: " + ex.Message;
+                this.policyDocuments.Clear();
+                this.policiesAccepted = false;
+            }
+            finally
+            {
+                if (showProgress)
+                {
+                    this.EndOperation();
+                }
+
+                this.RaisePropertyChanged(nameof(this.PolicyDocuments));
+                this.RaisePropertyChanged(nameof(this.HasPendingPolicies));
+                this.RaisePropertyChanged(nameof(this.CanLaunch));
+                this.LaunchCommand.RaiseCanExecuteChanged();
+
+                if (hadError && !string.IsNullOrEmpty(errorMessage))
+                {
+                    this.StatusMessage = errorMessage;
+                }
+                else if (!this.policiesAccepted)
+                {
+                    this.StatusMessage = "Policy updates require review.";
+                }
+            }
+        }
+
+        public void MarkPoliciesAccepted(IEnumerable<PolicyDocumentState> documents)
+        {
+            if (documents == null)
+            {
+                return;
+            }
+
+            DateTime acceptedAtUtc = DateTime.UtcNow;
+            bool anyAccepted = false;
+
+            if (this.currentConfig == null)
+            {
+                this.currentConfig = new LauncherConfigModel();
+            }
+
+            if (this.currentConfig.AcceptedPolicies == null)
+            {
+                this.currentConfig.AcceptedPolicies = new Dictionary<string, PolicyAcceptanceModel>(
+                    StringComparer.OrdinalIgnoreCase
+                );
+            }
+
+            foreach (PolicyDocumentState document in documents)
+            {
+                if (document == null)
+                {
+                    continue;
+                }
+
+                string policy = document.Policy;
+                string version = document.Version;
+                if (string.IsNullOrWhiteSpace(policy) || string.IsNullOrWhiteSpace(version))
+                {
+                    continue;
+                }
+
+                document.ApplyAcceptanceRecord(version, acceptedAtUtc, matchesCurrentVersion: true);
+                this.currentConfig.AcceptedPolicies[policy] = new PolicyAcceptanceModel
+                {
+                    Version = version,
+                    AcceptedAtUtc = acceptedAtUtc,
+                };
+                anyAccepted = true;
+            }
+
+            if (anyAccepted)
+            {
+                this.policiesAccepted = this.policyDocuments.All(doc => doc.IsAccepted);
+                this.RaisePropertyChanged(nameof(this.HasPendingPolicies));
+                this.RaisePropertyChanged(nameof(this.CanLaunch));
+                this.LaunchCommand.RaiseCanExecuteChanged();
+
+                this.StatusMessage = this.policiesAccepted
+                    ? "Policies accepted."
+                    : "Additional policy reviews required.";
             }
         }
 
@@ -483,14 +655,16 @@ namespace MixItUp.Distribution.Launcher
                 this.LatestVersion = targetVersion;
                 this.pendingPackage = null;
                 this.updateAvailable = false;
-                if (retentionBackups.Count > 0)
+
+                string completionMessage = retentionBackups.Count > 0
+                    ? $"Mix It Up {targetVersion} is ready. Removed {retentionBackups.Count} older version(s)."
+                    : "Mix It Up " + targetVersion + " is ready.";
+
+                await this.RefreshPolicyStateAsync(showProgress: false).ConfigureAwait(false);
+
+                if (this.policiesAccepted)
                 {
-                    this.StatusMessage =
-                        $"Mix It Up {targetVersion} is ready. Removed {retentionBackups.Count} older version(s).";
-                }
-                else
-                {
-                    this.StatusMessage = "Mix It Up " + targetVersion + " is ready.";
+                    this.StatusMessage = completionMessage;
                 }
 
                 this.UpdateLaunchExecutablePath();
