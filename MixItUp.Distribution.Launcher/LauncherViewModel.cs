@@ -18,6 +18,7 @@ namespace MixItUp.Distribution.Launcher
         private const string Platform = "windows-x64";
         private const string DefaultChannel = "production";
         private const string DefaultBaseUrl = "https://files.mixitupapp.com";
+        private const int DefaultRetentionCount = 3;
 
         private readonly string appRoot;
         private readonly string launcherConfigPath;
@@ -218,6 +219,8 @@ namespace MixItUp.Distribution.Launcher
             bool configExistedBefore = File.Exists(this.launcherConfigPath);
             string configBackupPath = null;
             LauncherConfigModel previousConfig = this.currentConfig;
+            List<(string Version, string OriginalPath, string BackupPath)> retentionBackups =
+                new List<(string, string, string)>();
 
             try
             {
@@ -303,7 +306,8 @@ namespace MixItUp.Distribution.Launcher
                     return;
                 }
 
-                List<string> discoveredVersions = new List<string>();
+                List<(string Version, string Path, DateTime SortKey)> versionDirectories =
+                    new List<(string Version, string Path, DateTime SortKey)>();
                 try
                 {
                     if (Directory.Exists(versionRootPath))
@@ -311,10 +315,22 @@ namespace MixItUp.Distribution.Launcher
                         foreach (string path in Directory.GetDirectories(versionRootPath))
                         {
                             string name = Path.GetFileName(path);
-                            if (!string.IsNullOrEmpty(name))
+                            if (string.IsNullOrEmpty(name))
                             {
-                                discoveredVersions.Add(name);
+                                continue;
                             }
+
+                            DateTime lastWrite;
+                            try
+                            {
+                                lastWrite = Directory.GetLastWriteTimeUtc(path);
+                            }
+                            catch
+                            {
+                                lastWrite = DateTime.UtcNow;
+                            }
+
+                            versionDirectories.Add((name, path, lastWrite));
                         }
                     }
                 }
@@ -323,16 +339,136 @@ namespace MixItUp.Distribution.Launcher
                     this.StatusMessage = "Installed but failed to enumerate versions: " + ex.Message;
                 }
 
+                if (
+                    !versionDirectories.Any(
+                        entry => string.Equals(entry.Version, targetVersion, StringComparison.OrdinalIgnoreCase)
+                    )
+                )
+                {
+                    versionDirectories.Add((targetVersion, targetDirectory, DateTime.UtcNow));
+                }
+
+                int retentionCount = this.ResolveRetentionCount();
+                if (retentionCount < 1)
+                {
+                    retentionCount = DefaultRetentionCount;
+                }
+
+                List<(string Version, string Path, DateTime SortKey)> orderedVersions =
+                    versionDirectories
+                        .OrderByDescending(entry => entry.SortKey)
+                        .ToList();
+
+                HashSet<string> versionsToKeep = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                List<(string Version, string Path, DateTime SortKey)> prioritized = new List<(string, string, DateTime)>();
+
+                (string Version, string Path, DateTime SortKey) targetEntry =
+                    orderedVersions.FirstOrDefault(
+                        entry => string.Equals(entry.Version, targetVersion, StringComparison.OrdinalIgnoreCase)
+                    );
+                if (!string.IsNullOrEmpty(targetEntry.Version))
+                {
+                    prioritized.Add(targetEntry);
+                }
+
+                foreach (var entry in orderedVersions)
+                {
+                    if (
+                        !string.IsNullOrEmpty(targetEntry.Version)
+                        && string.Equals(entry.Version, targetEntry.Version, StringComparison.OrdinalIgnoreCase)
+                    )
+                    {
+                        continue;
+                    }
+
+                    prioritized.Add(entry);
+                }
+
+                int desiredRetention = Math.Max(retentionCount, 1);
+                List<(string Version, string Path, DateTime SortKey)> keptVersions =
+                    new List<(string Version, string Path, DateTime SortKey)>();
+                foreach (var entry in prioritized)
+                {
+                    if (versionsToKeep.Count >= desiredRetention)
+                    {
+                        break;
+                    }
+
+                    if (versionsToKeep.Add(entry.Version))
+                    {
+                        keptVersions.Add(entry);
+                    }
+                }
+
+                if (keptVersions.Count == 0 && prioritized.Count > 0)
+                {
+                    var entry = prioritized[0];
+                    versionsToKeep.Add(entry.Version);
+                    keptVersions.Add(entry);
+                }
+
+                List<(string Version, string Path, DateTime SortKey)> pruneTargets =
+                    versionDirectories.Where(entry => !versionsToKeep.Contains(entry.Version)).ToList();
+
+                if (pruneTargets.Count > 0)
+                {
+                    try
+                    {
+                        foreach (var prune in pruneTargets)
+                        {
+                            if (!Directory.Exists(prune.Path))
+                            {
+                                continue;
+                            }
+
+                            string backupPath = prune.Path + ".bak-" + Guid.NewGuid().ToString("N");
+                            Directory.Move(prune.Path, backupPath);
+                            retentionBackups.Add((prune.Version, prune.Path, backupPath));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        foreach (var backup in retentionBackups)
+                        {
+                            try
+                            {
+                                if (Directory.Exists(backup.BackupPath))
+                                {
+                                    if (Directory.Exists(backup.OriginalPath))
+                                    {
+                                        Directory.Delete(backup.OriginalPath, true);
+                                    }
+
+                                    Directory.Move(backup.BackupPath, backup.OriginalPath);
+                                }
+                            }
+                            catch
+                            {
+                            }
+                        }
+
+                        retentionBackups.Clear();
+                        throw new IOException("Failed to prune older versions: " + ex.Message, ex);
+                    }
+                }
+
+                List<string> keptVersionNames = keptVersions
+                    .Select(entry => entry.Version)
+                    .Where(version => !string.IsNullOrWhiteSpace(version))
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .ToList();
+
                 string installedVersion = this.currentConfig != null ? this.currentConfig.CurrentVersion : null;
 
                 LauncherConfigModel updatedConfig = LauncherConfigBuilder.BuildOrUpdate(
                     this.currentConfig,
                     targetVersion,
-                    discoveredVersions,
+                    keptVersionNames,
                     installedVersion,
                     DistributionPaths.VersionDirectoryName,
                     DistributionPaths.DataDirectoryName,
-                    DistributionPaths.LauncherExecutableName
+                    DistributionPaths.LauncherExecutableName,
+                    retentionCount: retentionCount
                 );
 
                 if (configExistedBefore)
@@ -347,7 +483,15 @@ namespace MixItUp.Distribution.Launcher
                 this.LatestVersion = targetVersion;
                 this.pendingPackage = null;
                 this.updateAvailable = false;
-                this.StatusMessage = "Mix It Up " + targetVersion + " is ready.";
+                if (retentionBackups.Count > 0)
+                {
+                    this.StatusMessage =
+                        $"Mix It Up {targetVersion} is ready. Removed {retentionBackups.Count} older version(s).";
+                }
+                else
+                {
+                    this.StatusMessage = "Mix It Up " + targetVersion + " is ready.";
+                }
 
                 this.UpdateLaunchExecutablePath();
                 installSucceeded = true;
@@ -431,6 +575,28 @@ namespace MixItUp.Distribution.Launcher
                         }
                     }
 
+                    foreach (var backup in retentionBackups)
+                    {
+                        try
+                        {
+                            if (Directory.Exists(backup.BackupPath))
+                            {
+                                if (Directory.Exists(backup.OriginalPath))
+                                {
+                                    Directory.Delete(backup.OriginalPath, true);
+                                }
+
+                                Directory.Move(backup.BackupPath, backup.OriginalPath);
+                                rollbackApplied = true;
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    retentionBackups.Clear();
+
                     this.currentConfig = previousConfig;
                     this.UpdateLaunchExecutablePath();
                     this.UpdateInstalledVersion(previousConfig != null ? previousConfig.CurrentVersion : null);
@@ -467,6 +633,22 @@ namespace MixItUp.Distribution.Launcher
                         {
                         }
                     }
+
+                    foreach (var backup in retentionBackups)
+                    {
+                        try
+                        {
+                            if (Directory.Exists(backup.BackupPath))
+                            {
+                                Directory.Delete(backup.BackupPath, true);
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    retentionBackups.Clear();
                 }
 
                 this.EndOperation();
@@ -504,6 +686,17 @@ namespace MixItUp.Distribution.Launcher
             {
                 this.StatusMessage = "Failed to launch Mix It Up: " + ex.Message;
             }
+        }
+
+        private int ResolveRetentionCount()
+        {
+            int? configured = this.currentConfig != null ? this.currentConfig.RetentionCount : null;
+            if (configured.HasValue && configured.Value > 0)
+            {
+                return configured.Value;
+            }
+
+            return DefaultRetentionCount;
         }
 
         private static string ComputeSha256Hex(byte[] payload)

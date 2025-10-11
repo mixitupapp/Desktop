@@ -207,6 +207,9 @@ namespace MixItUp.Distribution.Core
         [JsonProperty("versions")]
         public List<string> Versions { get; set; } = new List<string>();
 
+        [JsonProperty("retentionCount")]
+        public int? RetentionCount { get; set; }
+
         [JsonProperty("executables")]
         public Dictionary<string, string> Executables { get; set; } =
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -232,4 +235,3 @@ namespace MixItUp.Distribution.Core
         public DateTime? AcceptedAtUtc { get; set; }
     }
 }
-

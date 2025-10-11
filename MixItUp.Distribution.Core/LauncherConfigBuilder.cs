@@ -14,10 +14,29 @@ namespace MixItUp.Distribution.Core
             string versionRoot = "app",
             string dataDirName = "data",
             string windowsExecutable = "MixItUp.exe",
-            IReadOnlyDictionary<string, PolicyAcceptanceModel> acceptedPolicies = null
+            IReadOnlyDictionary<string, PolicyAcceptanceModel> acceptedPolicies = null,
+            int? retentionCount = null
         )
         {
             LauncherConfigModel config = existing ?? new LauncherConfigModel();
+
+            HashSet<string> availableSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            List<string> availableList = new List<string>();
+            if (availableVersions != null)
+            {
+                foreach (string version in availableVersions)
+                {
+                    if (string.IsNullOrWhiteSpace(version))
+                    {
+                        continue;
+                    }
+
+                    if (availableSet.Add(version))
+                    {
+                        availableList.Add(version);
+                    }
+                }
+            }
 
             config.VersionRoot = string.IsNullOrWhiteSpace(versionRoot) ? "app" : versionRoot;
             config.DataDirName = string.IsNullOrWhiteSpace(dataDirName) ? "data" : dataDirName;
@@ -31,6 +50,14 @@ namespace MixItUp.Distribution.Core
             config.Executables["windows"] = string.IsNullOrWhiteSpace(windowsExecutable)
                 ? "MixItUp.exe"
                 : windowsExecutable;
+
+            int resolvedRetentionCount = retentionCount ?? existing?.RetentionCount ?? 0;
+            if (resolvedRetentionCount <= 0)
+            {
+                resolvedRetentionCount = 3;
+            }
+
+            config.RetentionCount = resolvedRetentionCount;
 
             HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             List<string> merged = new List<string>();
@@ -56,15 +83,9 @@ namespace MixItUp.Distribution.Core
                 }
             }
 
-            AddVersion(installedVersion);
-
-            if (availableVersions != null)
+            if (availableList.Count > 0)
             {
-                foreach (
-                    string version in availableVersions
-                        .Where(v => !string.IsNullOrWhiteSpace(v))
-                        .OrderBy(v => v, StringComparer.OrdinalIgnoreCase)
-                )
+                foreach (string version in availableList)
                 {
                     AddVersion(version);
                 }
@@ -117,6 +138,21 @@ namespace MixItUp.Distribution.Core
                 config.ExtensionData = new Dictionary<string, Newtonsoft.Json.Linq.JToken>(
                     StringComparer.OrdinalIgnoreCase
                 );
+            }
+
+            if (merged.Count > 0 && (availableSet.Count > 0 || !string.IsNullOrWhiteSpace(currentVersion)))
+            {
+                HashSet<string> allowed = new HashSet<string>(availableSet, StringComparer.OrdinalIgnoreCase);
+                if (!string.IsNullOrWhiteSpace(currentVersion))
+                {
+                    allowed.Add(currentVersion);
+                }
+
+                config.Versions = merged.Where(version => allowed.Contains(version)).ToList();
+            }
+            else
+            {
+                config.Versions = merged.Where(version => !string.IsNullOrWhiteSpace(version)).ToList();
             }
 
             return config;
