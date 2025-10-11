@@ -24,15 +24,15 @@ namespace MixItUp.Distribution.Launcher
         private readonly string appRoot;
         private readonly string bootloaderPath;
 
-        private BootloaderConfigModel? currentConfig;
-        private UpdatePackageInfo? pendingPackage;
-        private string? launchExecutablePath;
+        private BootloaderConfigModel currentConfig;
+        private UpdatePackageInfo pendingPackage;
+        private string launchExecutablePath;
         private bool updateAvailable;
         private bool isBusy;
         private bool isIndeterminate = true;
         private double progressValue;
-        private string? installedVersion;
-        private string? latestVersion;
+        private string installedVersion;
+        private string latestVersion;
         private string statusMessage = "Ready.";
 
         public LauncherViewModel()
@@ -41,12 +41,12 @@ namespace MixItUp.Distribution.Launcher
             this.bootloaderPath = Path.Combine(this.appRoot, "bootloader.json");
 
             this.CheckForUpdatesCommand = new RelayCommand(
-                _ => _ = this.CheckForUpdatesAsync(),
+                async _ => await this.CheckForUpdatesAsync(),
                 _ => !this.IsBusy
             );
 
             this.InstallUpdateCommand = new RelayCommand(
-                _ => _ = this.InstallUpdateAsync(),
+                async _ => await this.InstallUpdateAsync(),
                 _ => this.CanInstallUpdate
             );
 
@@ -56,7 +56,7 @@ namespace MixItUp.Distribution.Launcher
             );
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public RelayCommand CheckForUpdatesCommand { get; }
 
@@ -64,29 +64,33 @@ namespace MixItUp.Distribution.Launcher
 
         public RelayCommand LaunchCommand { get; }
 
-        public string InstalledVersion => this.installedVersion ?? "Not installed";
+        public string InstalledVersion
+        {
+            get { return this.installedVersion ?? "Not installed"; }
+            private set { this.UpdateInstalledVersion(value); }
+        }
 
         public string LatestVersion
         {
-            get => this.latestVersion ?? string.Empty;
-            private set => this.SetProperty(ref this.latestVersion, value);
+            get { return this.latestVersion ?? string.Empty; }
+            private set { this.SetProperty(ref this.latestVersion, value, "LatestVersion"); }
         }
 
         public string StatusMessage
         {
-            get => this.statusMessage;
-            private set => this.SetProperty(ref this.statusMessage, value);
+            get { return this.statusMessage; }
+            private set { this.SetProperty(ref this.statusMessage, value, "StatusMessage"); }
         }
 
         public bool IsBusy
         {
-            get => this.isBusy;
+            get { return this.isBusy; }
             private set
             {
-                if (this.SetProperty(ref this.isBusy, value))
+                if (this.SetProperty(ref this.isBusy, value, "IsBusy"))
                 {
-                    this.RaisePropertyChanged(nameof(this.CanInstallUpdate));
-                    this.RaisePropertyChanged(nameof(this.CanLaunch));
+                    this.RaisePropertyChanged("CanInstallUpdate");
+                    this.RaisePropertyChanged("CanLaunch");
                     this.CheckForUpdatesCommand.RaiseCanExecuteChanged();
                     this.InstallUpdateCommand.RaiseCanExecuteChanged();
                     this.LaunchCommand.RaiseCanExecuteChanged();
@@ -96,27 +100,35 @@ namespace MixItUp.Distribution.Launcher
 
         public bool IsIndeterminate
         {
-            get => this.isIndeterminate;
-            private set => this.SetProperty(ref this.isIndeterminate, value);
+            get { return this.isIndeterminate; }
+            private set { this.SetProperty(ref this.isIndeterminate, value, "IsIndeterminate"); }
         }
 
         public double ProgressValue
         {
-            get => this.progressValue;
-            private set => this.SetProperty(ref this.progressValue, value);
+            get { return this.progressValue; }
+            private set { this.SetProperty(ref this.progressValue, value, "ProgressValue"); }
         }
 
-        public bool CanInstallUpdate => !this.IsBusy && this.updateAvailable && this.pendingPackage != null;
+        public bool CanInstallUpdate
+        {
+            get { return !this.IsBusy && this.updateAvailable && this.pendingPackage != null; }
+        }
 
-        public bool CanLaunch =>
-            !this.IsBusy
-            && !string.IsNullOrWhiteSpace(this.launchExecutablePath)
-            && File.Exists(this.launchExecutablePath);
+        public bool CanLaunch
+        {
+            get
+            {
+                return !this.IsBusy
+                    && !string.IsNullOrEmpty(this.launchExecutablePath)
+                    && File.Exists(this.launchExecutablePath);
+            }
+        }
 
         public async Task InitializeAsync()
         {
-            await this.LoadInstalledInformationAsync().ConfigureAwait(true);
-            await this.CheckForUpdatesAsync().ConfigureAwait(true);
+            await this.LoadInstalledInformationAsync();
+            await this.CheckForUpdatesAsync();
         }
 
         private Task LoadInstalledInformationAsync()
@@ -127,25 +139,15 @@ namespace MixItUp.Distribution.Launcher
             }
             catch (DistributionException dex)
             {
-                this.StatusMessage = $"Unable to read bootloader configuration: {dex.Message}";
+                this.StatusMessage = "Unable to read bootloader configuration: " + dex.Message;
                 this.currentConfig = null;
             }
 
-            string? currentVersion = this.currentConfig?.CurrentVersion;
+            string currentVersion = this.currentConfig != null ? this.currentConfig.CurrentVersion : null;
             this.UpdateInstalledVersion(currentVersion);
             this.UpdateLaunchExecutablePath();
 
             return Task.CompletedTask;
-        }
-
-        private void UpdateInstalledVersion(string? version)
-        {
-            string? normalized = string.IsNullOrWhiteSpace(version) ? null : version;
-            if (this.SetProperty(ref this.installedVersion, normalized, nameof(this.InstalledVersion)))
-            {
-                this.RaisePropertyChanged(nameof(this.CanInstallUpdate));
-                this.InstallUpdateCommand.RaiseCanExecuteChanged();
-            }
         }
 
         private async Task CheckForUpdatesAsync()
@@ -157,39 +159,37 @@ namespace MixItUp.Distribution.Launcher
 
             try
             {
-                this.BeginOperation("Checking for updates...", indeterminate: true);
+                this.BeginOperation("Checking for updates...", true);
 
                 DistributionClient client = this.CreateDistributionClient();
-                UpdatePackageInfo package = await client
-                    .GetLatestPackageAsync(ProductSlug, Platform, DefaultChannel)
-                    .ConfigureAwait(true);
+                UpdatePackageInfo package = await client.GetLatestPackageAsync(ProductSlug, Platform, DefaultChannel);
 
                 this.pendingPackage = package;
                 this.LatestVersion = package.Version ?? string.Empty;
 
-                string? installedVersion = this.installedVersion;
+                string installed = this.installedVersion;
                 string latest = package.Version ?? string.Empty;
 
                 bool versionsMatch =
-                    !string.IsNullOrWhiteSpace(installedVersion)
-                    && !string.IsNullOrWhiteSpace(latest)
-                    && string.Equals(installedVersion, latest, StringComparison.OrdinalIgnoreCase);
+                    !string.IsNullOrEmpty(installed)
+                    && !string.IsNullOrEmpty(latest)
+                    && string.Equals(installed, latest, StringComparison.OrdinalIgnoreCase);
 
                 this.updateAvailable = !versionsMatch;
-                this.RaisePropertyChanged(nameof(this.CanInstallUpdate));
+                this.RaisePropertyChanged("CanInstallUpdate");
                 this.InstallUpdateCommand.RaiseCanExecuteChanged();
 
                 this.StatusMessage = this.updateAvailable
-                    ? $"Version {package.Version} is available."
+                    ? "Version " + this.LatestVersion + " is available."
                     : "You're on the latest version.";
             }
             catch (DistributionException dex)
             {
-                this.StatusMessage = $"Failed to reach update server: {dex.Message}";
+                this.StatusMessage = "Failed to reach update server: " + dex.Message;
             }
             catch (Exception ex)
             {
-                this.StatusMessage = $"Unexpected error while checking for updates: {ex.Message}";
+                this.StatusMessage = "Unexpected error while checking for updates: " + ex.Message;
             }
             finally
             {
@@ -205,8 +205,8 @@ namespace MixItUp.Distribution.Launcher
             }
 
             UpdatePackageInfo package = this.pendingPackage;
-            string targetVersion = package.Version ?? this.LatestVersion;
-            if (string.IsNullOrWhiteSpace(targetVersion))
+            string targetVersion = !string.IsNullOrEmpty(package.Version) ? package.Version : this.LatestVersion;
+            if (string.IsNullOrEmpty(targetVersion))
             {
                 this.StatusMessage = "Cannot determine version to install.";
                 return;
@@ -214,8 +214,8 @@ namespace MixItUp.Distribution.Launcher
 
             try
             {
-                bool hasSize = package.File?.Size.HasValue ?? false;
-                this.BeginOperation($"Downloading Mix It Up {targetVersion}...", indeterminate: !hasSize);
+                bool hasSize = package.File != null && package.File.Size.HasValue;
+                this.BeginOperation("Downloading Mix It Up " + targetVersion + "...", !hasSize);
 
                 DistributionClient client = this.CreateDistributionClient();
                 Progress<int> downloadProgress = new Progress<int>(percent =>
@@ -224,13 +224,11 @@ namespace MixItUp.Distribution.Launcher
                     this.ProgressValue = percent;
                 });
 
-                byte[] payload = await client
-                    .DownloadPackageAsync(
-                        package.DownloadUri,
-                        TimeSpan.FromMinutes(10),
-                        downloadProgress
-                    )
-                    .ConfigureAwait(true);
+                byte[] payload = await client.DownloadPackageAsync(
+                    package.DownloadUri,
+                    TimeSpan.FromMinutes(10),
+                    downloadProgress
+                );
 
                 if (payload == null || payload.Length == 0)
                 {
@@ -243,7 +241,7 @@ namespace MixItUp.Distribution.Launcher
 
                 if (Directory.Exists(targetDirectory))
                 {
-                    Directory.Delete(targetDirectory, recursive: true);
+                    Directory.Delete(targetDirectory, true);
                 }
 
                 Directory.CreateDirectory(versionRootPath);
@@ -257,9 +255,9 @@ namespace MixItUp.Distribution.Launcher
                 SafeZipExtractor.Extract(
                     payload,
                     targetDirectory,
-                    overwriteExisting: true,
-                    progress: extractionProgress,
-                    entryPathSelector: entry =>
+                    true,
+                    extractionProgress,
+                    entry =>
                     {
                         string entryPath = entry.FullName ?? string.Empty;
                         if (entryPath.StartsWith("Mix It Up/", StringComparison.OrdinalIgnoreCase))
@@ -278,28 +276,36 @@ namespace MixItUp.Distribution.Launcher
                     return;
                 }
 
-                IEnumerable<string> discoveredVersions = Enumerable.Empty<string>();
+                List<string> discoveredVersions = new List<string>();
                 try
                 {
-                discoveredVersions = Directory.Exists(versionRootPath)
-                    ? Directory
-                        .GetDirectories(versionRootPath)
-                        .Select(path => Path.GetFileName(path) ?? string.Empty)
-                    : Enumerable.Empty<string>();
+                    if (Directory.Exists(versionRootPath))
+                    {
+                        foreach (string path in Directory.GetDirectories(versionRootPath))
+                        {
+                            string name = Path.GetFileName(path);
+                            if (!string.IsNullOrEmpty(name))
+                            {
+                                discoveredVersions.Add(name);
+                            }
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    this.StatusMessage = $"Installed but failed to enumerate versions: {ex.Message}";
+                    this.StatusMessage = "Installed but failed to enumerate versions: " + ex.Message;
                 }
+
+                string installedVersion = this.currentConfig != null ? this.currentConfig.CurrentVersion : null;
 
                 BootloaderConfigModel updatedConfig = BootloaderConfigBuilder.BuildOrUpdate(
                     this.currentConfig,
                     targetVersion,
                     discoveredVersions,
-                    this.currentConfig?.CurrentVersion,
-                    versionRoot: VersionRootName,
-                    dataDirName: DataDirectoryName,
-                    windowsExecutable: WindowsExecutableName
+                    installedVersion,
+                    VersionRootName,
+                    DataDirectoryName,
+                    WindowsExecutableName
                 );
 
                 BootloaderConfigService.Save(this.bootloaderPath, updatedConfig);
@@ -308,22 +314,22 @@ namespace MixItUp.Distribution.Launcher
                 this.LatestVersion = targetVersion;
                 this.pendingPackage = null;
                 this.updateAvailable = false;
-                this.StatusMessage = $"Mix It Up {targetVersion} is ready.";
+                this.StatusMessage = "Mix It Up " + targetVersion + " is ready.";
 
                 this.UpdateLaunchExecutablePath();
             }
             catch (DistributionException dex)
             {
-                this.StatusMessage = $"Update failed: {dex.Message}";
+                this.StatusMessage = "Update failed: " + dex.Message;
             }
             catch (Exception ex)
             {
-                this.StatusMessage = $"Unexpected error during update: {ex.Message}";
+                this.StatusMessage = "Unexpected error during update: " + ex.Message;
             }
             finally
             {
                 this.EndOperation();
-                this.RaisePropertyChanged(nameof(this.CanInstallUpdate));
+                this.RaisePropertyChanged("CanInstallUpdate");
                 this.InstallUpdateCommand.RaiseCanExecuteChanged();
                 this.LaunchCommand.RaiseCanExecuteChanged();
             }
@@ -337,20 +343,25 @@ namespace MixItUp.Distribution.Launcher
                 return;
             }
 
+            string executablePath = this.launchExecutablePath;
+            if (string.IsNullOrEmpty(executablePath) || !File.Exists(executablePath))
+            {
+                this.StatusMessage = "Unable to locate Mix It Up executable.";
+                return;
+            }
+
             try
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(this.launchExecutablePath!)
-                {
-                    WorkingDirectory = Path.GetDirectoryName(this.launchExecutablePath!) ?? this.appRoot,
-                    UseShellExecute = true,
-                };
+                ProcessStartInfo startInfo = new ProcessStartInfo(executablePath);
+                startInfo.WorkingDirectory = Path.GetDirectoryName(executablePath) ?? this.appRoot;
+                startInfo.UseShellExecute = true;
 
                 Process.Start(startInfo);
-                Application.Current?.Shutdown();
+                Application.Current.Shutdown();
             }
             catch (Exception ex)
             {
-                this.StatusMessage = $"Failed to launch Mix It Up: {ex.Message}";
+                this.StatusMessage = "Failed to launch Mix It Up: " + ex.Message;
             }
         }
 
@@ -379,17 +390,28 @@ namespace MixItUp.Distribution.Launcher
             string executablePath = string.Empty;
             try
             {
-                string versionRoot = Path.Combine(this.appRoot, this.currentConfig?.VersionRoot ?? VersionRootName);
-                string currentVersion = this.currentConfig?.CurrentVersion ?? string.Empty;
-                string targetExecutable = this.currentConfig?.Executables != null
-                    && this.currentConfig.Executables.TryGetValue("windows", out string? configuredExecutable)
-                    && !string.IsNullOrWhiteSpace(configuredExecutable)
-                        ? configuredExecutable
-                        : WindowsExecutableName;
-
-                if (!string.IsNullOrWhiteSpace(currentVersion))
+                string versionRoot = VersionRootName;
+                if (this.currentConfig != null && !string.IsNullOrEmpty(this.currentConfig.VersionRoot))
                 {
-                    executablePath = Path.Combine(versionRoot, currentVersion, targetExecutable);
+                    versionRoot = this.currentConfig.VersionRoot;
+                }
+
+                string versionRootPath = Path.Combine(this.appRoot, versionRoot);
+                string currentVersion = this.currentConfig != null ? this.currentConfig.CurrentVersion : null;
+
+                string targetExecutable = WindowsExecutableName;
+                if (this.currentConfig != null && this.currentConfig.Executables != null)
+                {
+                    string configured;
+                    if (this.currentConfig.Executables.TryGetValue("windows", out configured) && !string.IsNullOrEmpty(configured))
+                    {
+                        targetExecutable = configured;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(currentVersion))
+                {
+                    executablePath = Path.Combine(versionRootPath, currentVersion, targetExecutable);
                 }
             }
             catch
@@ -398,11 +420,21 @@ namespace MixItUp.Distribution.Launcher
             }
 
             this.launchExecutablePath = executablePath;
-            this.RaisePropertyChanged(nameof(this.CanLaunch));
+            this.RaisePropertyChanged("CanLaunch");
             this.LaunchCommand.RaiseCanExecuteChanged();
         }
 
-        private bool SetProperty<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        private void UpdateInstalledVersion(string version)
+        {
+            string normalized = string.IsNullOrEmpty(version) ? null : version;
+            if (this.SetProperty(ref this.installedVersion, normalized, "InstalledVersion"))
+            {
+                this.RaisePropertyChanged("CanInstallUpdate");
+                this.InstallUpdateCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))
             {
@@ -414,9 +446,13 @@ namespace MixItUp.Distribution.Launcher
             return true;
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
+        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }
