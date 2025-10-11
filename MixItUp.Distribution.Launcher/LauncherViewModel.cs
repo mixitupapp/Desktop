@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -22,9 +22,9 @@ namespace MixItUp.Distribution.Launcher
         private const string WindowsExecutableName = "MixItUp.exe";
 
         private readonly string appRoot;
-        private readonly string bootloaderPath;
+        private readonly string launcherConfigPath;
 
-        private BootloaderConfigModel currentConfig;
+        private LauncherConfigModel currentConfig;
         private UpdatePackageInfo pendingPackage;
         private string launchExecutablePath;
         private bool updateAvailable;
@@ -38,7 +38,7 @@ namespace MixItUp.Distribution.Launcher
         public LauncherViewModel()
         {
             this.appRoot = Path.GetFullPath(AppContext.BaseDirectory);
-            this.bootloaderPath = Path.Combine(this.appRoot, "bootloader.json");
+            this.launcherConfigPath = Path.Combine(this.appRoot, "launcher.json");
 
             this.CheckForUpdatesCommand = new RelayCommand(
                 async _ => await this.CheckForUpdatesAsync(),
@@ -135,11 +135,11 @@ namespace MixItUp.Distribution.Launcher
         {
             try
             {
-                this.currentConfig = BootloaderConfigService.Load(this.bootloaderPath);
+                this.currentConfig = LauncherConfigService.Load(this.launcherConfigPath);
             }
             catch (DistributionException dex)
             {
-                this.StatusMessage = "Unable to read bootloader configuration: " + dex.Message;
+                this.StatusMessage = "Unable to read Launcher configuration: " + dex.Message;
                 this.currentConfig = null;
             }
 
@@ -298,7 +298,7 @@ namespace MixItUp.Distribution.Launcher
 
                 string installedVersion = this.currentConfig != null ? this.currentConfig.CurrentVersion : null;
 
-                BootloaderConfigModel updatedConfig = BootloaderConfigBuilder.BuildOrUpdate(
+                LauncherConfigModel updatedConfig = LauncherConfigBuilder.BuildOrUpdate(
                     this.currentConfig,
                     targetVersion,
                     discoveredVersions,
@@ -308,7 +308,7 @@ namespace MixItUp.Distribution.Launcher
                     WindowsExecutableName
                 );
 
-                BootloaderConfigService.Save(this.bootloaderPath, updatedConfig);
+                LauncherConfigService.Save(this.launcherConfigPath, updatedConfig);
                 this.currentConfig = updatedConfig;
                 this.UpdateInstalledVersion(targetVersion);
                 this.LatestVersion = targetVersion;
@@ -456,3 +456,6 @@ namespace MixItUp.Distribution.Launcher
         }
     }
 }
+
+
+

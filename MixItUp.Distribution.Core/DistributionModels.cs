@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -87,7 +87,7 @@ namespace MixItUp.Distribution.Core
         public Uri DownloadUri { get; }
     }
 
-    public sealed class BootloaderConfigModel
+    public sealed class LauncherConfigModel
     {
         [JsonProperty("currentVersion")]
         public string CurrentVersion { get; set; }
@@ -110,3 +110,5 @@ namespace MixItUp.Distribution.Core
             new Dictionary<string, JToken>(StringComparer.OrdinalIgnoreCase);
     }
 }
+
+

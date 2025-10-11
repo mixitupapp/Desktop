@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 using System.IO;
 using Newtonsoft.Json;
 
 namespace MixItUp.Distribution.Core
 {
-    public static class BootloaderConfigService
+    public static class LauncherConfigService
     {
-        public static BootloaderConfigModel Load(string path)
+        public static LauncherConfigModel Load(string path)
         {
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
             {
@@ -21,29 +21,29 @@ namespace MixItUp.Distribution.Core
                     return null;
                 }
 
-                return JsonConvert.DeserializeObject<BootloaderConfigModel>(json);
+                return JsonConvert.DeserializeObject<LauncherConfigModel>(json);
             }
             catch (IOException ex)
             {
-                throw new DistributionException($"Failed to read bootloader configuration at '{path}': {ex.Message}", ex)
+                throw new DistributionException($"Failed to read Launcher configuration at '{path}': {ex.Message}", ex)
                 {
                     Endpoint = path,
                 };
             }
             catch (JsonException ex)
             {
-                throw new DistributionException($"Bootloader configuration at '{path}' was malformed: {ex.Message}", ex)
+                throw new DistributionException($"Launcher configuration at '{path}' was malformed: {ex.Message}", ex)
                 {
                     Endpoint = path,
                 };
             }
         }
 
-        public static void Save(string path, BootloaderConfigModel config)
+        public static void Save(string path, LauncherConfigModel config)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentException("Bootloader configuration path is required.", nameof(path));
+                throw new ArgumentException("Launcher configuration path is required.", nameof(path));
             }
 
             if (config == null)
@@ -72,7 +72,7 @@ namespace MixItUp.Distribution.Core
             }
             catch (IOException ex)
             {
-                throw new DistributionException($"Failed to write bootloader configuration to '{path}': {ex.Message}", ex)
+                throw new DistributionException($"Failed to write Launcher configuration to '{path}': {ex.Message}", ex)
                 {
                     Endpoint = path,
                 };
@@ -80,3 +80,5 @@ namespace MixItUp.Distribution.Core
         }
     }
 }
+
+

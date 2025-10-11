@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -235,10 +235,10 @@ namespace MixItUp.Distribution.Uninstaller
         {
             try
             {
-                string bootloaderPath = DistributionPaths.GetBootloaderPath(installRoot);
-                if (File.Exists(bootloaderPath))
+                string launcherConfigPath = DistributionPaths.GetLauncherPath(installRoot);
+                if (File.Exists(launcherConfigPath))
                 {
-                    File.Delete(bootloaderPath);
+                    File.Delete(launcherConfigPath);
                 }
             }
             catch { }
@@ -336,3 +336,6 @@ namespace MixItUp.Distribution.Uninstaller
         }
     }
 }
+
+
+

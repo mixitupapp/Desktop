@@ -226,11 +226,11 @@ namespace MixItUp.Distribution.Installer
             private set { this.SetProperty(ref this.isRunningFromAppRoot, value); }
         }
 
-        private string bootloaderConfigPath;
-        public string BootloaderConfigPath
+        private string launcherConfigPath;
+        public string LauncherConfigPath
         {
-            get { return this.bootloaderConfigPath; }
-            private set { this.SetProperty(ref this.bootloaderConfigPath, value); }
+            get { return this.launcherConfigPath; }
+            private set { this.SetProperty(ref this.launcherConfigPath, value); }
         }
 
         private string versionedAppDirRoot;
@@ -1164,9 +1164,9 @@ namespace MixItUp.Distribution.Installer
             bool targetDirExists = Directory.Exists(resolvedAppRoot);
             bool targetExeExists = File.Exists(Path.Combine(resolvedAppRoot, "MixItUp.exe"));
             bool versionDirExists = Directory.Exists(Path.Combine(resolvedAppRoot, "app"));
-            string bootloaderPath = Path.Combine(resolvedAppRoot, "bootloader.json");
-            bool bootloaderExists = File.Exists(bootloaderPath);
-            bool migrationAlreadyDone = versionDirExists || bootloaderExists;
+            string launcherPath = Path.Combine(resolvedAppRoot, "launcher.json");
+            bool launcherExists = File.Exists(launcherPath);
+            bool migrationAlreadyDone = versionDirExists || launcherExists;
 
             bool isRunningFromAppRoot =
                 !string.IsNullOrEmpty(normalizedAppRoot)
@@ -1181,7 +1181,7 @@ namespace MixItUp.Distribution.Installer
                 && File.Exists(Path.Combine(resolvedRunningDirectory, "MixItUp.exe"));
 
             bool legacyDetected = targetExeExists && !migrationAlreadyDone;
-            bool isUpdate = targetExeExists || bootloaderExists;
+            bool isUpdate = targetExeExists || launcherExists;
 
             this.TargetDirExists = targetDirExists;
             this.TargetExeExists = targetExeExists;
@@ -1191,7 +1191,7 @@ namespace MixItUp.Distribution.Installer
             this.IsRunningFromAppRoot = isRunningFromAppRoot;
             this.IsUpdate = isUpdate;
 
-            this.BootloaderConfigPath = bootloaderPath;
+            this.LauncherConfigPath = launcherPath;
             this.VersionedAppDirRoot = Path.Combine(resolvedAppRoot, "app");
             this.DownloadTempPath = Path.Combine(resolvedAppRoot, ".tmp");
 
@@ -1216,7 +1216,7 @@ namespace MixItUp.Distribution.Installer
 
             if (migrationAlreadyDone)
             {
-                this.LogActivity("Migration markers detected (app directory or bootloader).");
+                this.LogActivity("Migration markers detected (app directory or Launcher).");
             }
 
             if (isUpdate)
@@ -1798,13 +1798,13 @@ namespace MixItUp.Distribution.Installer
 
             if (!string.IsNullOrEmpty(this.appRoot))
             {
-                this.BootloaderConfigPath = Path.Combine(this.appRoot, "bootloader.json");
+                this.LauncherConfigPath = Path.Combine(this.appRoot, "launcher.json");
                 this.VersionedAppDirRoot = Path.Combine(this.appRoot, "app");
                 this.DownloadTempPath = Path.Combine(this.appRoot, ".tmp");
             }
             else
             {
-                this.BootloaderConfigPath = null;
+                this.LauncherConfigPath = null;
                 this.VersionedAppDirRoot = null;
                 this.DownloadTempPath = null;
             }
@@ -2011,7 +2011,7 @@ namespace MixItUp.Distribution.Installer
                 }
                 else
                 {
-                    BootloaderConfigModel existingConfig = this.LoadBootloaderConfig();
+                    LauncherConfigModel existingConfig = this.LoadLauncherConfig();
                     string previousVersionDirectory = this.ResolvePreviousVersionDirectory(
                         existingConfig,
                         versionDirectory
@@ -2211,29 +2211,29 @@ namespace MixItUp.Distribution.Installer
             return filesCopied;
         }
 
-        private BootloaderConfigModel LoadBootloaderConfig()
+        private LauncherConfigModel LoadLauncherConfig()
         {
-            string bootloaderPath = this.BootloaderConfigPath;
-            if (string.IsNullOrWhiteSpace(bootloaderPath))
+            string launcherPath = this.LauncherConfigPath;
+            if (string.IsNullOrWhiteSpace(launcherPath))
             {
                 return null;
             }
 
             try
             {
-                return BootloaderConfigService.Load(bootloaderPath);
+                return LauncherConfigService.Load(launcherPath);
             }
             catch (DistributionException dex)
             {
                 this.LogActivity(
-                    $"Failed to read existing bootloader configuration: {dex.Message}"
+                    $"Failed to read existing Launcher configuration: {dex.Message}"
                 );
                 this.WriteToLogFile(dex.ToString());
             }
             catch (Exception ex)
             {
                 this.LogActivity(
-                    $"Failed to read existing bootloader configuration: {ex.GetType().Name} - {ex.Message}"
+                    $"Failed to read existing Launcher configuration: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
             }
@@ -2242,7 +2242,7 @@ namespace MixItUp.Distribution.Installer
         }
 
         private string ResolvePreviousVersionDirectory(
-            BootloaderConfigModel existingConfig,
+            LauncherConfigModel existingConfig,
             string latestVersionDirectory
         )
         {
@@ -2338,28 +2338,28 @@ namespace MixItUp.Distribution.Installer
             return null;
         }
 
-        internal Task<bool> WriteOrUpdateBootloaderConfigAsync()
+        internal Task<bool> WriteOrUpdateLauncherConfigAsync()
         {
-            return Task.FromResult(this.WriteOrUpdateBootloaderConfig());
+            return Task.FromResult(this.WriteOrUpdateLauncherConfig());
         }
 
-        private bool WriteOrUpdateBootloaderConfig()
+        private bool WriteOrUpdateLauncherConfig()
         {
-            this.DisplayText1 = "Writing bootloader configuration...";
+            this.DisplayText1 = "Writing Launcher configuration...";
             this.DisplayText2 = string.Empty;
             this.IsOperationIndeterminate = true;
             this.IsOperationBeingPerformed = true;
 
             this.SetStepState(InstallerStep.ConfigWrite, StepStatus.InProgress);
 
-            string bootloaderPath = this.BootloaderConfigPath;
-            if (string.IsNullOrWhiteSpace(bootloaderPath))
+            string launcherPath = this.LauncherConfigPath;
+            if (string.IsNullOrWhiteSpace(launcherPath))
             {
-                this.LogActivity("Bootloader path not defined; cannot write configuration.");
+                this.LogActivity("Launcher path not defined; cannot write configuration.");
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
-                    "Installer could not determine the bootloader file path."
+                    "Installer could not determine the Launcher file path."
                 );
                 return false;
             }
@@ -2377,7 +2377,7 @@ namespace MixItUp.Distribution.Installer
 
             if (string.IsNullOrWhiteSpace(latestVersion))
             {
-                this.LogActivity("Latest version identifier not available; cannot update bootloader configuration.");
+                this.LogActivity("Latest version identifier not available; cannot update Launcher configuration.");
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
@@ -2386,32 +2386,32 @@ namespace MixItUp.Distribution.Installer
                 return false;
             }
 
-            string bootloaderDirectory = Path.GetDirectoryName(bootloaderPath);
+            string launcherDirectory = Path.GetDirectoryName(launcherPath);
             try
             {
-                if (!string.IsNullOrEmpty(bootloaderDirectory))
+                if (!string.IsNullOrEmpty(launcherDirectory))
                 {
-                    Directory.CreateDirectory(bootloaderDirectory);
+                    Directory.CreateDirectory(launcherDirectory);
                 }
             }
             catch (Exception ex)
             {
                 this.LogActivity(
-                    $"Failed to prepare bootloader directory: {ex.GetType().Name} - {ex.Message}"
+                    $"Failed to prepare Launcher directory: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
-                    "Installer was unable to prepare the bootloader directory."
+                    "Installer was unable to prepare the Launcher directory."
                 );
                 return false;
             }
 
             try
             {
-                bool existingFile = File.Exists(bootloaderPath);
-                BootloaderConfigModel existingConfig = this.LoadBootloaderConfig();
+                bool existingFile = File.Exists(launcherPath);
+                LauncherConfigModel existingConfig = this.LoadLauncherConfig();
 
                 List<string> discoveredVersions = new List<string>();
                 string versionRoot = this.VersionedAppDirRoot;
@@ -2442,7 +2442,7 @@ namespace MixItUp.Distribution.Installer
                     }
                 }
 
-                BootloaderConfigModel config = BootloaderConfigBuilder.BuildOrUpdate(
+                LauncherConfigModel config = LauncherConfigBuilder.BuildOrUpdate(
                     existingConfig,
                     latestVersion,
                     discoveredVersions,
@@ -2452,18 +2452,18 @@ namespace MixItUp.Distribution.Installer
                     windowsExecutable: "MixItUp.exe"
                 );
 
-                BootloaderConfigService.Save(bootloaderPath, config);
+                LauncherConfigService.Save(launcherPath, config);
 
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Completed);
-                this.DisplayText1 = "Bootloader updated.";
+                this.DisplayText1 = "Launcher updated.";
                 this.DisplayText2 = string.Empty;
 
-                string normalizedBootloaderPath = NormalizePath(bootloaderPath);
+                string normalizedLauncherPath = NormalizePath(launcherPath);
                 string versionList = string.Join(", ", config.Versions);
                 this.LogActivity(
                     existingFile
-                        ? $"bootloader.json updated at '{normalizedBootloaderPath}'. Versions: {versionList}."
-                        : $"bootloader.json created at '{normalizedBootloaderPath}'. Versions: {versionList}."
+                        ? $"launcher.json updated at '{normalizedLauncherPath}'. Versions: {versionList}."
+                        : $"launcher.json created at '{normalizedLauncherPath}'. Versions: {versionList}."
                 );
                 this.LogActivity($"Current version set to {latestVersion}.");
 
@@ -2474,26 +2474,26 @@ namespace MixItUp.Distribution.Installer
             catch (DistributionException dex)
             {
                 this.LogActivity(
-                    $"Failed to write bootloader configuration: {dex.Message}"
+                    $"Failed to write Launcher configuration: {dex.Message}"
                 );
                 this.WriteToLogFile(dex.ToString());
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
-                    "Installer was unable to update bootloader.json."
+                    "Installer was unable to update launcher.json."
                 );
                 return false;
             }
             catch (Exception ex)
             {
                 this.LogActivity(
-                    $"Failed to write bootloader configuration: {ex.GetType().Name} - {ex.Message}"
+                    $"Failed to write Launcher configuration: {ex.GetType().Name} - {ex.Message}"
                 );
                 this.WriteToLogFile(ex.ToString());
                 this.SetStepState(InstallerStep.ConfigWrite, StepStatus.Failed);
                 this.ShowError(
                     "Configuration Failed",
-                    "Installer was unable to update bootloader.json."
+                    "Installer was unable to update launcher.json."
                 );
                 return false;
             }
@@ -2515,9 +2515,9 @@ namespace MixItUp.Distribution.Installer
             }
 
             string normalizedAppRoot = NormalizePath(appRoot);
-            string launcherPath = Path.Combine(appRoot, "MixItUp.exe");
-            string normalizedLauncherPath = NormalizePath(launcherPath);
-            bool launcherExists = File.Exists(launcherPath);
+            string launcherExecutablePath = Path.Combine(appRoot, "MixItUp.exe");
+            string normalizedLauncherPath = NormalizePath(launcherExecutablePath);
+            bool launcherExists = File.Exists(launcherExecutablePath);
 
             string uninstallerPath = Path.Combine(appRoot, DistributionPaths.UninstallerExecutableName);
             string normalizedUninstallerPath = NormalizePath(uninstallerPath);
@@ -2569,7 +2569,7 @@ namespace MixItUp.Distribution.Installer
                         uninstallKey.SetValue("Publisher", "Mix It Up", RegistryValueKind.String);
                         uninstallKey.SetValue("UninstallString", uninstallCommand, RegistryValueKind.String);
 
-                        string iconPath = launcherExists
+                string iconPath = launcherExists
                             ? normalizedLauncherPath
                             : (uninstallerExists ? normalizedUninstallerPath : normalizedLauncherPath);
                         uninstallKey.SetValue("DisplayIcon", iconPath, RegistryValueKind.String);
@@ -2639,7 +2639,7 @@ namespace MixItUp.Distribution.Installer
             else
             {
                 this.LogActivity(
-                    $"Registered uninstall entry under {hiveDisplay} using launcher '--uninstall' handler."
+                    $"Registered uninstall entry under {hiveDisplay} using Launcher '--uninstall' handler."
                 );
             }
 
@@ -2662,8 +2662,8 @@ namespace MixItUp.Distribution.Installer
             }
 
             string normalizedAppRoot = NormalizePath(appRoot);
-            string launcherPath = Path.Combine(appRoot, "MixItUp.exe");
-            string normalizedLauncherPath = NormalizePath(launcherPath);
+            string launcherExecutablePath = Path.Combine(appRoot, "MixItUp.exe");
+            string normalizedLauncherPath = NormalizePath(launcherExecutablePath);
 
             ShortcutCreationResult startMenuResult = this.TryCreateShortcutAtLocation(
                 StartMenuShortCutFilePath,
@@ -3008,26 +3008,26 @@ namespace MixItUp.Distribution.Installer
                 activeStep = InstallerStep.LauncherFetch;
                 this.SetStepState(InstallerStep.LauncherFetch, StepStatus.InProgress);
 
-                UpdatePackageInfo launcherPackage = await this.ResolveLauncherPackageAsync();
-                if (launcherPackage == null)
+                UpdatePackageInfo LauncherPackage = await this.ResolveLauncherPackageAsync();
+                if (LauncherPackage == null)
                 {
                     this.SetStepState(InstallerStep.LauncherFetch, StepStatus.Failed);
                     activeStep = null;
                     return false;
                 }
 
-                IProgress<int> launcherProgress = new Progress<int>(percent =>
+                IProgress<int> LauncherProgress = new Progress<int>(percent =>
                 {
                     this.OperationProgress = percent;
                     this.DownloadPercent = percent;
                 });
 
-                byte[] launcherArchive = await this.DownloadLauncherArchiveAsync(
-                    launcherPackage,
-                    launcherProgress
+                byte[] LauncherArchive = await this.DownloadLauncherArchiveAsync(
+                    LauncherPackage,
+                    LauncherProgress
                 );
 
-                if (launcherArchive == null || launcherArchive.Length == 0)
+                if (LauncherArchive == null || LauncherArchive.Length == 0)
                 {
                     this.SetStepState(InstallerStep.LauncherFetch, StepStatus.Failed);
                     activeStep = null;
@@ -3039,11 +3039,11 @@ namespace MixItUp.Distribution.Installer
                 activeStep = InstallerStep.LauncherInstall;
                 this.SetStepState(InstallerStep.LauncherInstall, StepStatus.InProgress);
 
-                long launcherSizeHint = launcherPackage?.File?.Size ?? (launcherArchive?.LongLength ?? 0L);
+                long LauncherSizeHint = LauncherPackage?.File?.Size ?? (LauncherArchive?.LongLength ?? 0L);
                 if (
                     !this.EnsureDiskSpace(
                         this.AppRoot,
-                        launcherSizeHint,
+                        LauncherSizeHint,
                         InstallerStep.LauncherInstall,
                         "Launcher installation"
                     )
@@ -3053,18 +3053,18 @@ namespace MixItUp.Distribution.Installer
                     return false;
                 }
 
-                bool launcherInstalled = this.InstallLauncherArchive(
-                    launcherArchive,
-                    launcherPackage
+                bool LauncherInstalled = this.InstallLauncherArchive(
+                    LauncherArchive,
+                    LauncherPackage
                 );
 
-                if (launcherArchive != null)
+                if (LauncherArchive != null)
                 {
-                    Array.Clear(launcherArchive, 0, launcherArchive.Length);
+                    Array.Clear(LauncherArchive, 0, LauncherArchive.Length);
                 }
-                launcherArchive = null;
+                LauncherArchive = null;
 
-                if (!launcherInstalled)
+                if (!LauncherInstalled)
                 {
                     this.SetStepState(InstallerStep.LauncherInstall, StepStatus.Failed);
                     activeStep = null;
@@ -3152,7 +3152,7 @@ namespace MixItUp.Distribution.Installer
                 activeStep = null;
 
                 activeStep = InstallerStep.ConfigWrite;
-                if (!await this.WriteOrUpdateBootloaderConfigAsync())
+                if (!await this.WriteOrUpdateLauncherConfigAsync())
                 {
                     activeStep = null;
                     return false;
@@ -3254,13 +3254,13 @@ namespace MixItUp.Distribution.Installer
 
             string manifestUrl = client.BuildManifestUrl(LauncherProductSlug, LauncherPlatform, channel);
 
-            this.DisplayText1 = "Checking for launcher updates...";
+            this.DisplayText1 = "Checking for Launcher updates...";
             this.DisplayText2 = string.Empty;
             this.IsOperationIndeterminate = true;
             this.OperationProgress = 0;
             this.DownloadPercent = 0;
 
-            this.LogActivity($"Requesting launcher manifest from {manifestUrl}");
+            this.LogActivity($"Requesting Launcher manifest from {manifestUrl}");
 
             try
             {
@@ -3391,7 +3391,7 @@ namespace MixItUp.Distribution.Installer
                 return null;
             }
 
-            this.DisplayText1 = "Downloading launcher...";
+            this.DisplayText1 = "Downloading Launcher...";
             this.DisplayText2 = string.IsNullOrEmpty(package.Version)
                 ? string.Empty
                 : $"Version {package.Version}";
@@ -3403,7 +3403,7 @@ namespace MixItUp.Distribution.Installer
             string sanitizedUrl = package.DownloadUri?.GetLeftPart(UriPartial.Path) ?? string.Empty;
             if (!string.IsNullOrEmpty(sanitizedUrl))
             {
-                this.LogActivity($"Starting launcher download from {sanitizedUrl}");
+                this.LogActivity($"Starting Launcher download from {sanitizedUrl}");
             }
 
             try
@@ -3513,7 +3513,7 @@ namespace MixItUp.Distribution.Installer
 
         private bool InstallLauncherArchive(byte[] archiveBytes, UpdatePackageInfo package)
         {
-            this.DisplayText1 = "Installing launcher...";
+            this.DisplayText1 = "Installing Launcher...";
             this.DisplayText2 = string.IsNullOrEmpty(package?.Version)
                 ? string.Empty
                 : $"Version {package.Version}";
@@ -3525,7 +3525,7 @@ namespace MixItUp.Distribution.Installer
                 this.WriteToLogFile("Launcher archive data was empty.");
                 this.ShowError(
                     "Package Corrupt",
-                    "The downloaded launcher package is invalid. Please try again."
+                    "The downloaded Launcher package is invalid. Please try again."
                 );
                 return false;
             }
@@ -3544,15 +3544,15 @@ namespace MixItUp.Distribution.Installer
 
                 this.OperationProgress = 100;
 
-                string launcherPath = Path.Combine(this.AppRoot, "MixItUp.exe");
-                if (!File.Exists(launcherPath))
+                string launcherExecutablePath = Path.Combine(this.AppRoot, "MixItUp.exe");
+                if (!File.Exists(launcherExecutablePath))
                 {
                     this.WriteToLogFile(
                         "Launcher extraction completed but MixItUp.exe was not found."
                     );
                     this.ShowError(
                         "Package Corrupt",
-                        "The downloaded launcher package is invalid. Please try again."
+                        "The downloaded Launcher package is invalid. Please try again."
                     );
                     return false;
                 }
@@ -3565,7 +3565,7 @@ namespace MixItUp.Distribution.Installer
                 this.WriteToLogFile(dex.ToString());
                 this.ShowError(
                     "Package Corrupt",
-                    "The downloaded launcher package is invalid. Please try again."
+                    "The downloaded Launcher package is invalid. Please try again."
                 );
             }
             catch (InvalidDataException idex)
@@ -3573,7 +3573,7 @@ namespace MixItUp.Distribution.Installer
                 this.WriteToLogFile(idex.ToString());
                 this.ShowError(
                     "Package Corrupt",
-                    "The downloaded launcher package is invalid. Please try again."
+                    "The downloaded Launcher package is invalid. Please try again."
                 );
             }
             catch (UnauthorizedAccessException uaex)
@@ -4592,3 +4592,6 @@ namespace MixItUp.Distribution.Installer
         }
     }
 }
+
+
+

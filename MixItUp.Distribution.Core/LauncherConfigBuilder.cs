@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MixItUp.Distribution.Core
 {
-    public static class BootloaderConfigBuilder
+    public static class LauncherConfigBuilder
     {
-        public static BootloaderConfigModel BuildOrUpdate(
-            BootloaderConfigModel existing,
+        public static LauncherConfigModel BuildOrUpdate(
+            LauncherConfigModel existing,
             string currentVersion,
             IEnumerable<string> availableVersions,
             string installedVersion = null,
@@ -16,7 +16,7 @@ namespace MixItUp.Distribution.Core
             string windowsExecutable = "MixItUp.exe"
         )
         {
-            BootloaderConfigModel config = existing ?? new BootloaderConfigModel();
+            LauncherConfigModel config = existing ?? new LauncherConfigModel();
 
             config.VersionRoot = string.IsNullOrWhiteSpace(versionRoot) ? "app" : versionRoot;
             config.DataDirName = string.IsNullOrWhiteSpace(dataDirName) ? "data" : dataDirName;
@@ -84,3 +84,5 @@ namespace MixItUp.Distribution.Core
         }
     }
 }
+
+

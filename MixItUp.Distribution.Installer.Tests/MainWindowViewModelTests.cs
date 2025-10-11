@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -191,7 +191,7 @@ namespace MixItUp.Distribution.Installer.Tests
         }
 
         [Fact]
-        public async Task WriteOrUpdateBootloaderConfigAsync_MergesExistingVersionsAndAppendsLatest()
+        public async Task WriteOrUpdateLauncherConfigAsync_MergesExistingVersionsAndAppendsLatest()
         {
             MainWindowViewModel viewModel = new MainWindowViewModel();
             viewModel.AppRoot = this.tempRoot;
@@ -205,9 +205,9 @@ namespace MixItUp.Distribution.Installer.Tests
             Directory.CreateDirectory(Path.Combine(versionRoot, previousVersion));
             Directory.CreateDirectory(Path.Combine(versionRoot, latestVersion));
 
-            string bootloaderPath = viewModel.BootloaderConfigPath;
+            string launcherConfigPath = viewModel.LauncherConfigPath;
             File.WriteAllText(
-                bootloaderPath,
+                launcherConfigPath,
                 "{\n" +
                 "  \"currentVersion\": \"1.2.3\",\n" +
                 "  \"versionRoot\": \"app\",\n" +
@@ -220,12 +220,12 @@ namespace MixItUp.Distribution.Installer.Tests
             viewModel.InstalledVersion = previousVersion;
             viewModel.LatestVersion = latestVersion;
 
-            bool result = await viewModel.WriteOrUpdateBootloaderConfigAsync();
+            bool result = await viewModel.WriteOrUpdateLauncherConfigAsync();
 
             Assert.True(result);
-            Assert.True(File.Exists(bootloaderPath));
+            Assert.True(File.Exists(launcherConfigPath));
 
-            JObject config = JObject.Parse(File.ReadAllText(bootloaderPath));
+            JObject config = JObject.Parse(File.ReadAllText(launcherConfigPath));
             Assert.Equal(latestVersion, (string)config["currentVersion"]);
             Assert.Equal("app", (string)config["versionRoot"]);
             Assert.Equal("data", (string)config["dataDirName"]);
@@ -268,3 +268,6 @@ namespace MixItUp.Distribution.Installer.Tests
         }
     }
 }
+
+
+

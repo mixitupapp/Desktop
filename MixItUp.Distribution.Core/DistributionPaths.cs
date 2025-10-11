@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace MixItUp.Distribution.Core
@@ -8,7 +8,7 @@ namespace MixItUp.Distribution.Core
         public const string ShortcutFileName = "Mix It Up.lnk";
         public const string LauncherExecutableName = "MixItUp.exe";
         public const string UninstallerExecutableName = "MixItUp-Uninstall.exe";
-        public const string BootloaderFileName = "bootloader.json";
+        public const string LauncherFileName = "launcher.json";
         public const string VersionDirectoryName = "app";
         public const string DataDirectoryName = "data";
 
@@ -20,14 +20,14 @@ namespace MixItUp.Distribution.Core
             );
         }
 
-        public static string GetBootloaderPath(string appRoot = null)
+        public static string GetLauncherPath(string appRoot = null)
         {
             if (string.IsNullOrWhiteSpace(appRoot))
             {
                 appRoot = GetDefaultAppRoot();
             }
 
-            return Path.Combine(appRoot, BootloaderFileName);
+            return Path.Combine(appRoot, LauncherFileName);
         }
 
         public static string GetVersionRoot(string appRoot = null)
@@ -62,3 +62,5 @@ namespace MixItUp.Distribution.Core
         }
     }
 }
+
+
