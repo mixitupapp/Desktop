@@ -21,7 +21,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Command with ID '{commandId}' not found"
+                });
             }
 
             return Ok(new GetSingleCommandResponse { Command = CommandMapper.ToCommand(command) });
@@ -52,7 +57,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Command with ID '{commandId}' not found"
+                });
             }
 
             if (state == CommandStateOptions.Disable)
@@ -69,7 +79,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
             }
             else
             {
-                return BadRequest();
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = "Invalid command state option"
+                });
             }
 
             if (command is ChatCommandModel)
@@ -90,7 +105,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Command with ID '{commandId}' not found"
+                });
             }
 
             if (parameters == null)
@@ -101,7 +121,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
             StreamingPlatformTypeEnum platform = StreamingPlatformTypeEnum.All;
             if (!string.IsNullOrEmpty(parameters.Platform) && !Enum.TryParse<StreamingPlatformTypeEnum>(parameters.Platform, ignoreCase: true, out platform))
             {
-                return BadRequest($"Unknown platform: {parameters.Platform}");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = $"Unknown platform: {parameters.Platform}"
+                });
             }
 
             await ServiceManager.Get<CommandService>().Queue(commandId, new CommandParametersModel(platform: platform, arguments: CommandParametersModel.GenerateArguments(parameters.Arguments), specialIdentifiers: parameters.SpecialIdentifiers));

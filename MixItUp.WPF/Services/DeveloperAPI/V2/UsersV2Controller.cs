@@ -25,7 +25,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             return Ok(new GetSingleUserResponse { User = UserMapper.ToUser(user) });
@@ -39,18 +44,33 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!Enum.TryParse<StreamingPlatformTypeEnum>(platform, ignoreCase: true, out var platformEnum))
             {
-                return BadRequest($"Unknown platform: {platform}");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = $"Unknown platform: {platform}"
+                });
             }
 
             var usermodel = await ServiceManager.Get<UserService>().GetUserByPlatform(platformEnum, platformID: usernameOrID, platformUsername: usernameOrID, performPlatformSearch: true);
             if (usermodel == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User '{usernameOrID}' not found on platform '{platform}'"
+                });
             }
 
             if (!ChannelSession.Settings.Users.TryGetValue(usermodel.ID, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User '{usernameOrID}' not found on platform '{platform}'"
+                });
             }
 
             return Ok(new GetSingleUserResponse { User = UserMapper.ToUser(user) });
@@ -103,13 +123,23 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!Enum.TryParse<StreamingPlatformTypeEnum>(newUser.Platform, ignoreCase: true, out var platformEnum))
             {
-                return BadRequest($"Unknown platform: {newUser.Platform}");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = $"Unknown platform: {newUser.Platform}"
+                });
             }
 
             UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(platformEnum, platformUsername: newUser.Username, performPlatformSearch: true);
             if (user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User '{newUser.Username}' not found on platform '{newUser.Platform}'"
+                });
             }
 
             return Ok(new GetSingleUserResponse { User = UserMapper.ToUser(user.Model) });
@@ -123,7 +153,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             ServiceManager.Get<UserService>().DeleteUserData(user.ID);

@@ -46,14 +46,24 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Inventory with ID '{inventoryId}' not found"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             var itemAmounts = new List<GetInventoryItemAmountResponse>();
@@ -80,20 +90,35 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Inventory with ID '{inventoryId}' not found"
+                });
             }
 
             var item = inventory.GetItem(itemId);
             if (item == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Item with ID '{itemId}' not found in inventory"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             return Ok(inventory.GetAmount(user, item));
@@ -105,20 +130,35 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Inventory with ID '{inventoryId}' not found"
+                });
             }
 
             var item = inventory.GetItem(itemId);
             if (item == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Item with ID '{itemId}' not found in inventory"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             if (updateAmount.Amount > 0)
@@ -139,20 +179,35 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Inventory.TryGetValue(inventoryId, out var inventory) || inventory == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Inventory with ID '{inventoryId}' not found"
+                });
             }
 
             var item = inventory.GetItem(itemId);
             if (item == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Item with ID '{itemId}' not found in inventory"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             inventory.SetAmount(user, item, updateAmount.Amount);

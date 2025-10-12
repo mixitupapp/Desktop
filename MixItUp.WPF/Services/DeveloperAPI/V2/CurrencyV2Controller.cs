@@ -35,14 +35,24 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Currency.TryGetValue(currencyId, out var currency) || currency == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Currency with ID '{currencyId}' not found"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             return Ok(currency.GetAmount(user));
@@ -54,14 +64,24 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Currency.TryGetValue(currencyId, out var currency) || currency == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Currency with ID '{currencyId}' not found"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             if (updateAmount.Amount > 0)
@@ -82,14 +102,24 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (!ChannelSession.Settings.Currency.TryGetValue(currencyId, out var currency) || currency == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Currency with ID '{currencyId}' not found"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             currency.SetAmount(user, updateAmount.Amount);

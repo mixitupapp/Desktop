@@ -33,7 +33,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!ChannelSession.Settings.Counters.TryGetValue(name, out var counter) || counter == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Counter '{counterName}' not found"
+                });
             }
 
             return Ok(new GetSingleCounterResponse { Counter = CounterMapper.ToCounter(counter) });
@@ -44,14 +49,24 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
         {
             if (string.IsNullOrWhiteSpace(request.Name))
             {
-                return BadRequest("Counter name is required");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = "Counter name is required"
+                });
             }
 
             string counterName = request.Name.ToLower();
 
             if (ChannelSession.Settings.Counters.ContainsKey(counterName))
             {
-                return BadRequest($"Counter '{request.Name}' already exists");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = $"Counter '{request.Name}' already exists"
+                });
             }
 
             CounterModel.CreateCounter(request.Name, false, false);
@@ -69,12 +84,22 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!ChannelSession.Settings.Counters.TryGetValue(name, out var counter) || counter == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Counter '{counterName}' not found"
+                });
             }
 
             if (!request.Amount.HasValue)
             {
-                return BadRequest("Amount is required");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = "Amount is required"
+                });
             }
 
             await counter.SetAmount(request.Amount.Value);
@@ -90,7 +115,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!ChannelSession.Settings.Counters.TryGetValue(name, out var counter) || counter == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Counter '{counterName}' not found"
+                });
             }
 
             double amount = request.Amount ?? 1;
@@ -107,7 +137,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!ChannelSession.Settings.Counters.TryGetValue(name, out var counter) || counter == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Counter '{counterName}' not found"
+                });
             }
 
             await counter.ResetAmount();
@@ -123,7 +158,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             if (!ChannelSession.Settings.Counters.TryGetValue(name, out var counter) || counter == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Counter '{counterName}' not found"
+                });
             }
 
             ChannelSession.Settings.Counters.Remove(name);
