@@ -17,6 +17,13 @@ using System.Windows.Input;
 
 namespace MixItUp.Base.ViewModel.Chat
 {
+    public class PlatformOption
+    {
+        public StreamingPlatformTypeEnum Platform { get; set; }
+        public string Name { get; set; }
+        public string LogoPath { get; set; }
+    }
+
     public class ChatListControlViewModel : WindowControlViewModelBase
     {
         public static readonly Regex UserNameTagRegex = new Regex(@"@\w+");
@@ -93,9 +100,9 @@ namespace MixItUp.Base.ViewModel.Chat
 
         public ICommand ScrollingLockCommand { get; private set; }
 
-        public ObservableCollection<string> PlatformOptions { get; set; } = new ObservableCollection<string>();
-        private string selectedPlatform = "All";
-        public string SelectedPlatform
+        public ObservableCollection<PlatformOption> PlatformOptions { get; set; } = new ObservableCollection<PlatformOption>();
+        private PlatformOption selectedPlatform;
+        public PlatformOption SelectedPlatform
         {
             get => selectedPlatform;
             set
@@ -114,12 +121,8 @@ namespace MixItUp.Base.ViewModel.Chat
             {
                 if (!string.IsNullOrEmpty(this.SendMessageText))
                 {
-                    StreamingPlatformTypeEnum platformType = StreamingPlatformTypeEnum.All;
-                    if (!string.IsNullOrEmpty(this.SelectedPlatform) && this.SelectedPlatform != "All")
-                    {
-                        if (Enum.TryParse(this.SelectedPlatform, out StreamingPlatformTypeEnum parsed))
-                            platformType = parsed;
-                    }
+                    StreamingPlatformTypeEnum platformType = SelectedPlatform?.Platform ?? StreamingPlatformTypeEnum.All;
+
                     if (ChatListControlViewModel.WhisperRegex.IsMatch(this.SendMessageText))
                     {
                         Match whisperRegexMatch = ChatListControlViewModel.WhisperRegex.Match(this.SendMessageText);
@@ -242,15 +245,41 @@ namespace MixItUp.Base.ViewModel.Chat
         public void UpdatePlatformOptions()
         {
             PlatformOptions.Clear();
-            PlatformOptions.Add("All");
+
+            PlatformOptions.Add(new PlatformOption
+            {
+                Platform = StreamingPlatformTypeEnum.All,
+                Name = "All",
+                LogoPath = null
+            });
+
             if (ServiceManager.Get<TwitchSession>().IsConnected)
-                PlatformOptions.Add("Twitch");
+                PlatformOptions.Add(new PlatformOption
+                {
+                    Platform = StreamingPlatformTypeEnum.Twitch,
+                    Name = "Twitch",
+                    LogoPath = StreamingPlatforms.TwitchSmallLogoImageAssetFilePath
+                });
+
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
-                PlatformOptions.Add("YouTube");
+                PlatformOptions.Add(new PlatformOption
+                {
+                    Platform = StreamingPlatformTypeEnum.YouTube,
+                    Name = "YouTube",
+                    LogoPath = StreamingPlatforms.YouTubeSmallLogoImageAssetFilePath
+                });
+
             if (ServiceManager.Get<TrovoSession>().IsConnected)
-                PlatformOptions.Add("Trovo");
-            if (!PlatformOptions.Contains(SelectedPlatform))
-                SelectedPlatform = "All";
+                PlatformOptions.Add(new PlatformOption
+                {
+                    Platform = StreamingPlatformTypeEnum.Trovo,
+                    Name = "Trovo",
+                    LogoPath = StreamingPlatforms.TrovoSmallLogoImageAssetFilePath
+                });
+
+            if (SelectedPlatform == null || !PlatformOptions.Contains(SelectedPlatform))
+                SelectedPlatform = PlatformOptions.FirstOrDefault();
+
             this.NotifyPropertyChanged(nameof(PlatformOptions));
             this.NotifyPropertyChanged(nameof(SelectedPlatform));
         }
