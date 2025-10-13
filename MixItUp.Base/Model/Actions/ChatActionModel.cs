@@ -17,16 +17,21 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public bool IsWhisper { get; set; }
+
         [DataMember]
         public string WhisperUserName { get; set; }
 
-        public ChatActionModel(string chatText, bool sendAsStreamer = false, bool isWhisper = false, string whisperUserName = null)
+        [DataMember]
+        public StreamingPlatformTypeEnum Platform { get; set; }
+
+        public ChatActionModel(string chatText, bool sendAsStreamer = false, bool isWhisper = false, string whisperUserName = null, StreamingPlatformTypeEnum platform = StreamingPlatformTypeEnum.All)
             : base(ActionTypeEnum.Chat)
         {
             this.ChatText = chatText;
             this.SendAsStreamer = sendAsStreamer;
             this.IsWhisper = isWhisper;
             this.WhisperUserName = whisperUserName;
+            this.Platform = platform;
         }
 
         [Obsolete]
@@ -35,6 +40,8 @@ namespace MixItUp.Base.Model.Actions
         protected override async Task PerformInternal(CommandParametersModel parameters)
         {
             string message = await ReplaceStringWithSpecialModifiers(this.ChatText, parameters);
+            StreamingPlatformTypeEnum platformType = this.Platform;
+
             if (this.IsWhisper)
             {
                 string whisperUserName = parameters.User.Username;
@@ -42,11 +49,11 @@ namespace MixItUp.Base.Model.Actions
                 {
                     whisperUserName = await ReplaceStringWithSpecialModifiers(this.WhisperUserName, parameters);
                 }
-                await ServiceManager.Get<ChatService>().Whisper(whisperUserName, parameters.Platform, message, this.SendAsStreamer);
+                await ServiceManager.Get<ChatService>().Whisper(whisperUserName, platformType, message, this.SendAsStreamer);
             }
             else
             {
-                await ServiceManager.Get<ChatService>().SendMessage(message, parameters, this.SendAsStreamer);
+                await ServiceManager.Get<ChatService>().SendMessage(message, platformType, sendAsStreamer: this.SendAsStreamer);
             }
         }
     }
