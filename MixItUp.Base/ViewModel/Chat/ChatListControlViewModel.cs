@@ -253,29 +253,18 @@ namespace MixItUp.Base.ViewModel.Chat
                 LogoPath = null
             });
 
-            if (ServiceManager.Get<TwitchSession>().IsConnected)
-                PlatformOptions.Add(new PlatformOption
+            foreach (StreamingPlatformTypeEnum platform in StreamingPlatforms.SupportedPlatforms)
+            {
+                if (StreamingPlatforms.IsPlatformConnected(platform))
                 {
-                    Platform = StreamingPlatformTypeEnum.Twitch,
-                    Name = "Twitch",
-                    LogoPath = StreamingPlatforms.TwitchSmallLogoImageAssetFilePath
-                });
-
-            if (ServiceManager.Get<YouTubeSession>().IsConnected)
-                PlatformOptions.Add(new PlatformOption
-                {
-                    Platform = StreamingPlatformTypeEnum.YouTube,
-                    Name = "YouTube",
-                    LogoPath = StreamingPlatforms.YouTubeSmallLogoImageAssetFilePath
-                });
-
-            if (ServiceManager.Get<TrovoSession>().IsConnected)
-                PlatformOptions.Add(new PlatformOption
-                {
-                    Platform = StreamingPlatformTypeEnum.Trovo,
-                    Name = "Trovo",
-                    LogoPath = StreamingPlatforms.TrovoSmallLogoImageAssetFilePath
-                });
+                    PlatformOptions.Add(new PlatformOption
+                    {
+                        Platform = platform,
+                        Name = platform.ToString(),
+                        LogoPath = StreamingPlatforms.GetPlatformSmallImage(platform)
+                    });
+                }
+            }
 
             if (SelectedPlatform == null || !PlatformOptions.Contains(SelectedPlatform))
                 SelectedPlatform = PlatformOptions.FirstOrDefault();
