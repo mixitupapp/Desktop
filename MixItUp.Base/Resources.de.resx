@@ -10820,4 +10820,13 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="RequestBody" xml:space="preserve">
     <value>Anfragekörper (JSON)</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value />
+  </data>
 </root>

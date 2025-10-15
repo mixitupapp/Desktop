@@ -10816,4 +10816,13 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="RequestBody" xml:space="preserve">
     <value>Corpo do pedido (JSON)</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value />
+  </data>
 </root>

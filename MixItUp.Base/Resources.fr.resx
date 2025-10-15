@@ -10815,4 +10815,13 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="RequestBody" xml:space="preserve">
     <value>Corps de la demande (JSON)</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value />
+  </data>
 </root>

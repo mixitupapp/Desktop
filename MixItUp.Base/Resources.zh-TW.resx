@@ -10814,4 +10814,13 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="RequestBody" xml:space="preserve">
     <value>请求正文（JSON）</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value />
+  </data>
 </root>

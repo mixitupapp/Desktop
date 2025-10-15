@@ -10814,4 +10814,13 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
   <data name="RequestBody" xml:space="preserve">
     <value>Treść żądania (JSON)</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value />
+  </data>
 </root>

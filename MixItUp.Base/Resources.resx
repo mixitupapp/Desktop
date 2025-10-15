@@ -11028,4 +11028,13 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="RequestBody" xml:space="preserve">
     <value>Request Body (JSON)</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Invalid Date</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>Date has not occured yet</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>Date has passed</value>
+  </data>
 </root>

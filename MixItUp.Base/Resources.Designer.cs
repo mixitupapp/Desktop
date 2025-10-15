@@ -4865,6 +4865,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date has passed.
+        /// </summary>
+        public static string DateHasPassed {
+            get {
+                return ResourceManager.GetString("DateHasPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date has not occured yet.
+        /// </summary>
+        public static string DateNotOccurred {
+            get {
+                return ResourceManager.GetString("DateNotOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date Range.
         /// </summary>
         public static string DateRange {
@@ -11753,6 +11771,15 @@ namespace MixItUp.Base {
         public static string InvalidDataFile {
             get {
                 return ResourceManager.GetString("InvalidDataFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Date.
+        /// </summary>
+        public static string InvalidDate {
+            get {
+                return ResourceManager.GetString("InvalidDate", resourceCulture);
             }
         }
         

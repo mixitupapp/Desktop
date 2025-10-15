@@ -10816,4 +10816,13 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="RequestBody" xml:space="preserve">
     <value>Cuerpo de la solicitud (JSON)</value>
   </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value />
+  </data>
 </root>
