@@ -10,7 +10,6 @@ namespace MixItUp.Base.ViewModel.Settings
     public class ThemeViewModel : UIViewModelBase
     {
         public string Key { get; set; }
-
         public string Name { get; set; }
 
         public ThemeViewModel(string key, string name)
@@ -26,17 +25,54 @@ namespace MixItUp.Base.ViewModel.Settings
     {
         public List<string> AvailableBackgroundColors { get; set; } = new List<string>() { "Light", "Dark" };
 
-        public Dictionary<string, string> FullThemes { get; set; } = new Dictionary<string, string>() { { string.Empty, MixItUp.Base.Resources.None },
-            { "1YearAnniversary", "1 Year Anniversary" }, { "Mixer", "Mixer" }, { "Twitch", "Twitch" },
-            { "Atl3msPlexify", "Atl3m's Plexify" }, { "AwkwardTysonAmericana", "AwkwardTyson - Americana" }, { "AzhtralsCosmicFire", "Azhtral's Cosmic Fire" },
-            { "BlueLeprechaunTV", "BlueLeprechaunTV" }, { "DrewsTheme", "Drew's Theme" }, { "DustysPurplePotion", "Dusty's Purple Potion" }, { "Elmza", "Elmza" },
-            { "InsertCoinTheater", "Insert Coin Theater" }, { "KaciesGalaxy", "Kacie's Galaxy" }, { "KarebearXp", "KarebearXp" }, { "NibblesCarrotPatch", "Nibbles' Carrot Patch" },
-            { "StarkContrast", "Stark Contrast" }, { "TacosAfterDark", "Tacos After Dark" }, { "TeamBoom", "Team Boom" }, { "WildWestDan", "WildWestDan's Carnival Theme" } };
+        public Dictionary<string, string> FullThemes { get; set; } = new Dictionary<string, string>()
+        {
+            { string.Empty, MixItUp.Base.Resources.None },
+            { "1YearAnniversary", "1 Year Anniversary" },
+            { "Mixer", "Mixer" },
+            { "Twitch", "Twitch" },
+            { "Atl3msPlexify", "Atl3m's Plexify" },
+            { "AwkwardTysonAmericana", "AwkwardTyson - Americana" },
+            { "AzhtralsCosmicFire", "Azhtral's Cosmic Fire" },
+            { "BlueLeprechaunTV", "BlueLeprechaunTV" },
+            { "DrewsTheme", "Drew's Theme" },
+            { "DustysPurplePotion", "Dusty's Purple Potion" },
+            { "Elmza", "Elmza" },
+            { "InsertCoinTheater", "Insert Coin Theater" },
+            { "KaciesGalaxy", "Kacie's Galaxy" },
+            { "KarebearXp", "KarebearXp" },
+            { "NibblesCarrotPatch", "Nibbles' Carrot Patch" },
+            { "StarkContrast", "Stark Contrast" },
+            { "TacosAfterDark", "Tacos After Dark" },
+            { "TeamBoom", "Team Boom" },
+            { "WildWestDan", "WildWestDan's Carnival Theme" }
+        };
 
         public GenericColorComboBoxSettingsOptionControlViewModel ColorScheme { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<string> BackgroundColor { get; set; }
-
         public GenericComboBoxSettingsOptionControlViewModel<ThemeViewModel> FullTheme { get; set; }
+
+        private bool isColorSchemeEnabled = true;
+        public bool IsColorSchemeEnabled
+        {
+            get { return this.isColorSchemeEnabled; }
+            set
+            {
+                this.isColorSchemeEnabled = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        private bool isBackgroundColorEnabled = true;
+        public bool IsBackgroundColorEnabled
+        {
+            get { return this.isBackgroundColorEnabled; }
+            set
+            {
+                this.isBackgroundColorEnabled = value;
+                this.NotifyPropertyChanged();
+            }
+        }
 
         public ThemeSettingsControlViewModel()
         {
@@ -48,14 +84,7 @@ namespace MixItUp.Base.ViewModel.Settings
                     if (value != null && !string.Equals(ChannelSession.AppSettings.ColorScheme, value))
                     {
                         ChannelSession.AppSettings.ColorScheme = value;
-                        DispatcherHelper.Dispatcher.Invoke(() =>
-                        {
-                            ServiceManager.Get<IThemeService>().ApplyTheme(
-                                ChannelSession.AppSettings.ColorScheme ?? "Indigo",
-                                ChannelSession.AppSettings.BackgroundColor ?? "Light",
-                                ChannelSession.AppSettings.FullThemeName
-                            );
-                        });
+                        ApplyCurrentTheme();
                     }
                 });
             this.ColorScheme.RemoveNonThemes();
@@ -69,14 +98,7 @@ namespace MixItUp.Base.ViewModel.Settings
                     if (!string.Equals(ChannelSession.AppSettings.BackgroundColor, value))
                     {
                         ChannelSession.AppSettings.BackgroundColor = value;
-                        DispatcherHelper.Dispatcher.Invoke(() =>
-                        {
-                            ServiceManager.Get<IThemeService>().ApplyTheme(
-                                ChannelSession.AppSettings.ColorScheme ?? "Indigo",
-                                ChannelSession.AppSettings.BackgroundColor ?? "Light",
-                                ChannelSession.AppSettings.FullThemeName
-                            );
-                        });
+                        ApplyCurrentTheme();
                     }
                 });
 
@@ -95,16 +117,30 @@ namespace MixItUp.Base.ViewModel.Settings
                     if (value != null && !string.Equals(ChannelSession.AppSettings.FullThemeName, value?.Key))
                     {
                         ChannelSession.AppSettings.FullThemeName = value?.Key;
-                        DispatcherHelper.Dispatcher.Invoke(() =>
-                        {
-                            ServiceManager.Get<IThemeService>().ApplyTheme(
-                                ChannelSession.AppSettings.ColorScheme ?? "Indigo",
-                                ChannelSession.AppSettings.BackgroundColor ?? "Light",
-                                ChannelSession.AppSettings.FullThemeName
-                            );
-                        });
+
+                        bool hasFullTheme = !string.IsNullOrEmpty(value?.Key);
+                        this.IsColorSchemeEnabled = !hasFullTheme;
+                        this.IsBackgroundColorEnabled = !hasFullTheme;
+
+                        ApplyCurrentTheme();
                     }
                 });
+
+            bool hasFullTheme = !string.IsNullOrEmpty(ChannelSession.AppSettings.FullThemeName);
+            this.IsColorSchemeEnabled = !hasFullTheme;
+            this.IsBackgroundColorEnabled = !hasFullTheme;
+        }
+
+        private void ApplyCurrentTheme()
+        {
+            DispatcherHelper.Dispatcher.Invoke(() =>
+            {
+                ServiceManager.Get<IThemeService>().ApplyTheme(
+                    ChannelSession.AppSettings.ColorScheme ?? "Indigo",
+                    ChannelSession.AppSettings.BackgroundColor ?? "Light",
+                    ChannelSession.AppSettings.FullThemeName
+                );
+            });
         }
     }
 }

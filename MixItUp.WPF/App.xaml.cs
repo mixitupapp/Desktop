@@ -72,110 +72,6 @@ namespace MixItUp.WPF
             catch { }
         }
 
-        public void SwitchTheme(string colorScheme, string backgroundColorName, string fullThemeName)
-        {
-            try
-            {
-                var paletteHelper = new PaletteHelper();
-                Theme theme = paletteHelper.GetTheme();
-
-                // Handle custom full themes
-                if (!string.IsNullOrEmpty(fullThemeName))
-                {
-                    var customThemeDict = new ResourceDictionary();
-                    customThemeDict.Source = new Uri($"Themes/MixItUpTheme.{fullThemeName}.xaml", UriKind.Relative);
-
-                    if (customThemeDict.Contains("MainApplicationBackground"))
-                    {
-                        SolidColorBrush mainApplicationBackground = (SolidColorBrush)customThemeDict["MainApplicationBackground"];
-                        backgroundColorName = (mainApplicationBackground.ToString().Equals("#FFFFFFFF")) ? "Light" : "Dark";
-                    }
-
-                    if (customThemeDict.Contains("BaseTheme"))
-                    {
-                        string customBaseTheme = (string)customThemeDict["BaseTheme"];
-                        var baseThemeDict = new ResourceDictionary()
-                        {
-                            Source = new Uri($"Themes/MixItUpBaseTheme.{customBaseTheme}.xaml", UriKind.Relative)
-                        };
-
-                        var existingBaseTheme = Application.Current.Resources.MergedDictionaries
-                            .FirstOrDefault(rd => rd.Source != null && rd.Source.OriginalString.Contains("MixItUpBaseTheme"));
-                        if (existingBaseTheme != null)
-                        {
-                            Application.Current.Resources.MergedDictionaries.Remove(existingBaseTheme);
-                        }
-                        Application.Current.Resources.MergedDictionaries.Add(baseThemeDict);
-                    }
-
-                    var existingCustomTheme = Application.Current.Resources.MergedDictionaries
-                        .FirstOrDefault(rd => rd.Source != null && rd.Source.OriginalString.Contains("MixItUpTheme."));
-                    if (existingCustomTheme != null)
-                    {
-                        Application.Current.Resources.MergedDictionaries.Remove(existingCustomTheme);
-                    }
-                    Application.Current.Resources.MergedDictionaries.Add(customThemeDict);
-                }
-                else
-                {
-                    var existingCustomTheme = Application.Current.Resources.MergedDictionaries
-                        .FirstOrDefault(rd => rd.Source != null && rd.Source.OriginalString.Contains("MixItUpTheme."));
-                    if (existingCustomTheme != null)
-                    {
-                        Application.Current.Resources.MergedDictionaries.Remove(existingCustomTheme);
-                    }
-                }
-
-                BaseTheme baseThemeEnum = backgroundColorName == "Light" ? BaseTheme.Light : BaseTheme.Dark;
-                theme.SetBaseTheme(baseThemeEnum);
-
-                if (!string.IsNullOrEmpty(colorScheme))
-                {
-                    colorScheme = colorScheme.Replace(" ", "");
-
-                    if (Enum.TryParse<MaterialDesignColor>(colorScheme, out var materialColor))
-                    {
-                        Color primaryColor = SwatchHelper.Lookup[materialColor];
-                        theme.SetPrimaryColor(primaryColor);
-                        theme.SetSecondaryColor(primaryColor);
-                    }
-                }
-
-                paletteHelper.SetTheme(theme);
-
-                // Change Mix It Up Light/Dark Theme
-                var existingMIUResourceDictionary = Application.Current.Resources.MergedDictionaries
-                    .FirstOrDefault(rd => rd.Source != null && Regex.Match(rd.Source.OriginalString, @"(MixItUpBackgroundColor\.)").Success);
-                if (existingMIUResourceDictionary != null)
-                {
-                    Application.Current.Resources.MergedDictionaries.Remove(existingMIUResourceDictionary);
-                }
-
-                var newMIUResourceDictionary = new ResourceDictionary()
-                {
-                    Source = new Uri($"Themes/MixItUpBackgroundColor.{backgroundColorName}.xaml", UriKind.Relative)
-                };
-                Application.Current.Resources.MergedDictionaries.Add(newMIUResourceDictionary);
-
-                LiveCharts.Configure(config =>
-                {
-                    config.AddSkiaSharp().AddDefaultMappers();
-                    if (backgroundColorName == "Light")
-                    {
-                        config.AddLightTheme();
-                    }
-                    else
-                    {
-                        config.AddDarkTheme();
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-                Logger.Log($"Failed to switch theme. ColorScheme: {colorScheme}, Background: {backgroundColorName}, FullTheme: {fullThemeName}");
-            }
-        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -218,7 +114,7 @@ namespace MixItUp.WPF
 
             try
             {
-                this.SwitchTheme(
+                ServiceManager.Get<IThemeService>().ApplyTheme(
                     ChannelSession.AppSettings.ColorScheme ?? "Indigo",
                     ChannelSession.AppSettings.BackgroundColor ?? "Light",
                     ChannelSession.AppSettings.FullThemeName
@@ -227,7 +123,7 @@ namespace MixItUp.WPF
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                this.SwitchTheme("Indigo", "Light", null);
+                ServiceManager.Get<IThemeService>().ApplyTheme("Indigo", "Light", null);
             }
 
             base.OnStartup(e);
