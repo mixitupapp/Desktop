@@ -93,17 +93,17 @@
             <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding CommandGroups}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="{StaticResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
                             <Expander
                                 HorizontalContentAlignment="Stretch"
                                 VerticalContentAlignment="Top"
-                                Background="{StaticResource MaterialDesign.Brush.Primary}"
+                                Background="{DynamicResource MaterialDesign.Brush.Primary}"
                                 Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <Expander.Header>
                                     <Grid Background="Transparent">
                                         <TextBlock
                                             HorizontalAlignment="Left"
-                                            Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}"
+                                            Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
                                             Text="{Binding DisplayName}" />
 
                                         <ToggleButton

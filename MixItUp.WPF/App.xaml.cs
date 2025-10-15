@@ -63,6 +63,7 @@ namespace MixItUp.WPF
                 ServiceManager.Add<IOBSStudioService>(new WindowsOBSService());
                 ServiceManager.Add(new WindowsSpeechService());
                 ServiceManager.Add(new WindowsAmazonPollyService());
+                ServiceManager.Add<IThemeService>(new WindowsThemeService());
 
                 ChannelSession.Initialize().Wait();
 
@@ -114,6 +115,15 @@ namespace MixItUp.WPF
                         Application.Current.Resources.MergedDictionaries.Remove(existingCustomTheme);
                     }
                     Application.Current.Resources.MergedDictionaries.Add(customThemeDict);
+                }
+                else
+                {
+                    var existingCustomTheme = Application.Current.Resources.MergedDictionaries
+                        .FirstOrDefault(rd => rd.Source != null && rd.Source.OriginalString.Contains("MixItUpTheme."));
+                    if (existingCustomTheme != null)
+                    {
+                        Application.Current.Resources.MergedDictionaries.Remove(existingCustomTheme);
+                    }
                 }
 
                 BaseTheme baseThemeEnum = backgroundColorName == "Light" ? BaseTheme.Light : BaseTheme.Dark;

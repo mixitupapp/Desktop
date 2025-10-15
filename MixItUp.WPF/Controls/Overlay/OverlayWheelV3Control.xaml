@@ -144,7 +144,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Rectangle Grid.Row="4" Fill="{StaticResource MaterialDesign.Brush.Primary}" Margin="0,-2" />
+                <Rectangle Grid.Row="4" Fill="{DynamicResource MaterialDesign.Brush.Primary}" Margin="0,-2" />
 
                 <Grid Grid.Row="6" Margin="10">
                     <Grid.ColumnDefinitions>

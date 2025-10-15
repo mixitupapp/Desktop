@@ -1,5 +1,7 @@
 ﻿using MixItUp.Base.ViewModel.Settings.Generic;
 using MixItUp.Base.ViewModels;
+using MixItUp.Base.Services;
+using MixItUp.Base.Util;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,28 +40,44 @@ namespace MixItUp.Base.ViewModel.Settings
 
         public ThemeSettingsControlViewModel()
         {
-            this.ColorScheme = new GenericColorComboBoxSettingsOptionControlViewModel(MixItUp.Base.Resources.ColorScheme, ChannelSession.AppSettings.ColorScheme,
+            this.ColorScheme = new GenericColorComboBoxSettingsOptionControlViewModel(
+                MixItUp.Base.Resources.ColorScheme,
+                ChannelSession.AppSettings.ColorScheme,
                 (value) =>
                 {
-                    if (value != null)
+                    if (value != null && !string.Equals(ChannelSession.AppSettings.ColorScheme, value))
                     {
-                        if (!string.Equals(ChannelSession.AppSettings.ColorScheme, value))
-                        {
-                            ChannelSession.AppSettings.SettingsChangeRestartRequired = true;
-                        }
                         ChannelSession.AppSettings.ColorScheme = value;
+                        DispatcherHelper.Dispatcher.Invoke(() =>
+                        {
+                            ServiceManager.Get<IThemeService>().ApplyTheme(
+                                ChannelSession.AppSettings.ColorScheme ?? "Indigo",
+                                ChannelSession.AppSettings.BackgroundColor ?? "Light",
+                                ChannelSession.AppSettings.FullThemeName
+                            );
+                        });
                     }
                 });
             this.ColorScheme.RemoveNonThemes();
 
-            this.BackgroundColor = new GenericComboBoxSettingsOptionControlViewModel<string>(MixItUp.Base.Resources.BackgroundColor, AvailableBackgroundColors, ChannelSession.AppSettings.BackgroundColor,
+            this.BackgroundColor = new GenericComboBoxSettingsOptionControlViewModel<string>(
+                MixItUp.Base.Resources.BackgroundColor,
+                AvailableBackgroundColors,
+                ChannelSession.AppSettings.BackgroundColor,
                 (value) =>
                 {
                     if (!string.Equals(ChannelSession.AppSettings.BackgroundColor, value))
                     {
-                        ChannelSession.AppSettings.SettingsChangeRestartRequired = true;
+                        ChannelSession.AppSettings.BackgroundColor = value;
+                        DispatcherHelper.Dispatcher.Invoke(() =>
+                        {
+                            ServiceManager.Get<IThemeService>().ApplyTheme(
+                                ChannelSession.AppSettings.ColorScheme ?? "Indigo",
+                                ChannelSession.AppSettings.BackgroundColor ?? "Light",
+                                ChannelSession.AppSettings.FullThemeName
+                            );
+                        });
                     }
-                    ChannelSession.AppSettings.BackgroundColor = value;
                 });
 
             List<ThemeViewModel> themes = new List<ThemeViewModel>();
@@ -67,16 +85,24 @@ namespace MixItUp.Base.ViewModel.Settings
             {
                 themes.Add(new ThemeViewModel(kvp.Key, kvp.Value));
             }
-            this.FullTheme = new GenericComboBoxSettingsOptionControlViewModel<ThemeViewModel>(MixItUp.Base.Resources.FullTheme, themes, themes.FirstOrDefault(t => t.Key.Equals(ChannelSession.AppSettings.FullThemeName)),
+
+            this.FullTheme = new GenericComboBoxSettingsOptionControlViewModel<ThemeViewModel>(
+                MixItUp.Base.Resources.FullTheme,
+                themes,
+                themes.FirstOrDefault(t => t.Key.Equals(ChannelSession.AppSettings.FullThemeName)),
                 (value) =>
                 {
-                    if (value != null)
+                    if (value != null && !string.Equals(ChannelSession.AppSettings.FullThemeName, value?.Key))
                     {
-                        if (!string.Equals(ChannelSession.AppSettings.FullThemeName, value?.Key))
-                        {
-                            ChannelSession.AppSettings.SettingsChangeRestartRequired = true;
-                        }
                         ChannelSession.AppSettings.FullThemeName = value?.Key;
+                        DispatcherHelper.Dispatcher.Invoke(() =>
+                        {
+                            ServiceManager.Get<IThemeService>().ApplyTheme(
+                                ChannelSession.AppSettings.ColorScheme ?? "Indigo",
+                                ChannelSession.AppSettings.BackgroundColor ?? "Light",
+                                ChannelSession.AppSettings.FullThemeName
+                            );
+                        });
                     }
                 });
         }

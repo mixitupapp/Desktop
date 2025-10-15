@@ -60,11 +60,11 @@
             <ItemsControl ItemsSource="{Binding CommandGroups}" HorizontalContentAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="{StaticResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{StaticResource MaterialDesign.Brush.Primary}">
+                        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{DynamicResource MaterialDesign.Brush.Primary}">
                                 <Expander.Header>
                                     <Grid Background="Transparent">
-                                        <TextBlock HorizontalAlignment="Left" Text="{Binding DisplayName}" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" />
+                                        <TextBlock HorizontalAlignment="Left" Text="{Binding DisplayName}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 
                                         <ToggleButton Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" HorizontalAlignment="Right" IsChecked="{Binding Path=IsEnabled}" />
                                     </Grid>

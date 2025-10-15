@@ -17,11 +17,11 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
         <Style x:Key="LabelHeaderTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-            <Setter Property="Background" Value="{StaticResource MaterialDesign.Brush.Primary.Dark}" />
+            <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary.Dark}" />
         </Style>
     </Controls:LoadingControlBase.Resources>
 
-    <Border Style="{StaticResource DefaultBorder}" BorderBrush="{StaticResource MaterialDesign.Brush.Foreground}">
+    <Border Style="{StaticResource DefaultBorder}" BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}">
         <Controls:AccordianGroupBoxControl x:Name="ActionContainer" Maximized="ActionContainer_Maximized" Minimized="ActionContainer_Minimized">
             <Controls:AccordianGroupBoxControl.Header>
                 <Grid Background="Transparent">
@@ -43,10 +43,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBlock, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Width="Auto"  />
-                    <TextBox Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBox, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Width="250" Style="{StaticResource LabelHeaderTextBox}" />
+                    <TextBlock Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBlock, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Width="Auto"  />
+                    <TextBox Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBox, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Width="250" Style="{StaticResource LabelHeaderTextBox}" />
 
-                    <Rectangle Grid.Column="1" Fill="{StaticResource MaterialDesign.Brush.Primary}" Margin="0,-9" />
+                    <Rectangle Grid.Column="1" Fill="{DynamicResource MaterialDesign.Brush.Primary}" Margin="0,-9" />
 
                     <Controls:IconButton Grid.Column="2" Margin="-10" Command="{Binding PlayCommand}" Icon="Play" ToolTip="{x:Static resx:Resources.TestCommand}" />
 

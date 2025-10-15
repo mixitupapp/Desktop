@@ -322,7 +322,7 @@
                         <Border
                             Grid.Column="0"
                             HorizontalAlignment="Center"
-                            BorderBrush="{StaticResource MaterialDesign.Brush.Foreground}"
+                            BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}"
                             Style="{StaticResource DefaultBorder}">
                             <ScrollViewer
                                 Width="340"

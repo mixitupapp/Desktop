@@ -131,7 +131,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Column="0" Text="{Binding TypeString}" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Width="Auto"  />
+                                    <TextBlock Grid.Column="0" Text="{Binding TypeString}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Width="Auto"  />
 
                                     <ToggleButton Grid.Column="2" IsChecked="{Binding IsEnabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" />
                                 </Grid>

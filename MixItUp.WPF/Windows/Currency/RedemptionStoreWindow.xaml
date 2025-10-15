@@ -55,7 +55,7 @@
                         <Border
                             Grid.Row="0"
                             HorizontalAlignment="Center"
-                            BorderBrush="{StaticResource MaterialDesign.Brush.Foreground}"
+                            BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}"
                             Style="{StaticResource DefaultBorder}">
                             <ScrollViewer
                                 Width="700"

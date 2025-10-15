@@ -19,8 +19,8 @@
             <ItemsControl ItemsSource="{Binding EventCommandGroups}" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="{StaticResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{StaticResource MaterialDesign.Brush.Primary}">
+                        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}">
                                 <Expander.Header>
                                     <Grid Background="Transparent">
                                         <Grid.ColumnDefinitions>
@@ -31,7 +31,7 @@
                                         <Image Grid.Column="0" Source="{Binding Image, TargetNullValue={x:Null}}" Visibility="{Binding ShowImage, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" />
                                         <MaterialDesign:PackIcon Grid.Column="0" Kind="{Binding PackIconName, TargetNullValue=Delete}" Visibility="{Binding ShowPackIcon, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" Style="{StaticResource ColoredBackgroundPackIcon}" />
 
-                                        <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" />
+                                        <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                     </Grid>
                                 </Expander.Header>
 

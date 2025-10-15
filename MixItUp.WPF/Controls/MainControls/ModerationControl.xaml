@@ -44,9 +44,9 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.FilteredBannedWords}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.FilteredBannedWords}" VerticalAlignment="Center" />
 
-                            <TextBlock Grid.Column="2" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
                             <ToggleButton x:Name="FilteredWordsApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" />
 
                         </Grid>
@@ -118,9 +118,9 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.ChatTextModeration}" VerticalAlignment="Center" />
+                            <TextBlock Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.ChatTextModeration}" VerticalAlignment="Center" />
 
-                            <TextBlock Grid.Column="2" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
                             <ToggleButton x:Name="ChatTextApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" />
                         </Grid>
                     </GroupBox.Header>
@@ -221,9 +221,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.LinkBlocking}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.LinkBlocking}" VerticalAlignment="Center" />
 
-                                <TextBlock Grid.Column="2" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
                                 <ToggleButton x:Name="BlockLinksApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" />
                             </Grid>
                         </GroupBox.Header>
@@ -258,7 +258,7 @@
 
                     <GroupBox Grid.Column="2">
                         <GroupBox.Header>
-                            <TextBlock Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.ChatParticipation}"/>
+                            <TextBlock Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.ChatParticipation}"/>
                         </GroupBox.Header>
 
                         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
@@ -288,7 +288,7 @@
 
                     <GroupBox Grid.Column="4">
                         <GroupBox.Header>
-                            <TextBlock Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.FollowEventModeration}"/>
+                            <TextBlock Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.FollowEventModeration}"/>
                         </GroupBox.Header>
 
                         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
@@ -316,7 +316,7 @@
 
                 <GroupBox Grid.Row="6">
                     <GroupBox.Header>
-                        <TextBlock Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.StrikeCommands}"/>
+                        <TextBlock Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.StrikeCommands}"/>
                     </GroupBox.Header>
 
                     <Grid HorizontalAlignment="Center" Margin="5">

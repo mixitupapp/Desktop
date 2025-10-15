@@ -61,8 +61,8 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding ViewersCount}" />
-                        <TextBlock Grid.Column="2" Foreground="{StaticResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.WatchingNow}" />
+                        <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding ViewersCount}" />
+                        <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.WatchingNow}" />
                         
                     </Grid>
                 </Grid>
