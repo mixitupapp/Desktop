@@ -12,11 +12,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="20">
         <StackPanel>
-            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding ColorScheme}" IsEnabled="{Binding IsColorSchemeEnabled}" />
-            <GenericSettingsControls:GenericComboBoxSettingsOptionControl DataContext="{Binding BackgroundColor}" IsEnabled="{Binding IsBackgroundColorEnabled}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl 
+                DataContext="{Binding ColorScheme}" 
+                IsEnabled="{Binding DataContext.IsColorSchemeEnabled, RelativeSource={RelativeSource AncestorType=local:SettingsControlBase}}" />
+
+            <GenericSettingsControls:GenericComboBoxSettingsOptionControl 
+                DataContext="{Binding BackgroundColor}" 
+                IsEnabled="{Binding DataContext.IsBackgroundColorEnabled, RelativeSource={RelativeSource AncestorType=local:SettingsControlBase}}" />
 
             <Separator Margin="10" />
-
             <GenericSettingsControls:GenericComboBoxSettingsOptionControl DataContext="{Binding FullTheme}" />
         </StackPanel>
     </Grid>

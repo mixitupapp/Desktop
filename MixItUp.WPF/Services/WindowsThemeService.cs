@@ -70,6 +70,10 @@ namespace MixItUp.WPF.Services
 
                 paletteHelper.SetTheme(theme);
 
+                Application.Current.Resources.Remove("MaterialDesign.Brush.Primary.Foreground");
+                Application.Current.Resources.Remove("MaterialDesign.Brush.Primary.Light.Foreground");
+                Application.Current.Resources.Remove("MaterialDesign.Brush.Primary.Dark.Foreground");
+
                 // Mix It Up background color theme
                 var backgroundDict = new ResourceDictionary
                 {
