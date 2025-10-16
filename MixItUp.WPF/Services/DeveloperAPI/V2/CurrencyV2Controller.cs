@@ -55,7 +55,13 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
                 });
             }
 
-            return Ok(currency.GetAmount(user));
+            return Ok(new GetCurrencyAmountResponse
+            {
+                CurrencyID = currencyId,
+                CurrencyName = currency.Name,
+                UserID = userId,
+                Amount = currency.GetAmount(user)
+            });
         }
 
         [Route("{currencyId:guid}/{userId:guid}")]
@@ -93,7 +99,13 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
                 currency.SubtractAmount(user, -1 * updateAmount.Amount);
             }
 
-            return Ok(currency.GetAmount(user));
+            return Ok(new GetCurrencyAmountResponse
+            {
+                CurrencyID = currencyId,
+                CurrencyName = currency.Name,
+                UserID = userId,
+                Amount = currency.GetAmount(user)
+            });
         }
 
         [Route("{currencyId:guid}/{userId:guid}")]
@@ -124,7 +136,13 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             currency.SetAmount(user, updateAmount.Amount);
 
-            return Ok(currency.GetAmount(user));
+            return Ok(new GetCurrencyAmountResponse
+            {
+                CurrencyID = currencyId,
+                CurrencyName = currency.Name,
+                UserID = userId,
+                Amount = currency.GetAmount(user)
+            });
         }
     }
 }
