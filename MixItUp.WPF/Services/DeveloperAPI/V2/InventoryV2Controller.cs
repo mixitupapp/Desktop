@@ -121,7 +121,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
                 });
             }
 
-            return Ok(inventory.GetAmount(user, item));
+            return Ok(new GetInventoryItemAmountResponse
+            {
+                ID = itemId,
+                Name = item.Name,
+                Amount = inventory.GetAmount(user, item)
+            });
         }
 
         [Route("{inventoryId:guid}/{itemId:guid}/{userId:guid}")]
@@ -170,7 +175,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
                 inventory.SubtractAmount(user, item, -1 * updateAmount.Amount);
             }
 
-            return Ok(inventory.GetAmount(user, item));
+            return Ok(new GetInventoryItemAmountResponse
+            {
+                ID = itemId,
+                Name = item.Name,
+                Amount = inventory.GetAmount(user, item)
+            });
         }
 
         [Route("{inventoryId:guid}/{itemId:guid}/{userId:guid}")]
@@ -212,7 +222,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
             inventory.SetAmount(user, item, updateAmount.Amount);
 
-            return Ok(inventory.GetAmount(user, item));
+            return Ok(new GetInventoryItemAmountResponse
+            {
+                ID = itemId,
+                Name = item.Name,
+                Amount = inventory.GetAmount(user, item)
+            });
         }
     }
 }
