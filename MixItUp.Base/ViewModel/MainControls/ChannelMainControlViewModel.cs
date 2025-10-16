@@ -567,11 +567,14 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         protected void UpdateRecentData()
         {
+            ChannelSession.Settings.RecentStreamTitles.Remove(this.Title);
             ChannelSession.Settings.RecentStreamTitles.Insert(0, this.Title);
             while (ChannelSession.Settings.RecentStreamTitles.Count > 10)
             {
                 ChannelSession.Settings.RecentStreamTitles.RemoveAt(ChannelSession.Settings.RecentStreamTitles.Count - 1);
             }
+
+            ChannelSession.Settings.RecentStreamCategories.Remove(this.Category);
             ChannelSession.Settings.RecentStreamCategories.Insert(0, this.Category);
             while (ChannelSession.Settings.RecentStreamCategories.Count > 10)
             {
