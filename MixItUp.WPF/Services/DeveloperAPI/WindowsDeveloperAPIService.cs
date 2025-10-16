@@ -13,8 +13,8 @@ namespace MixItUp.WPF.Services.DeveloperAPI
     {
         private WebApplication app;
 
-        public readonly string[] DeveloperAPIHttpListenerServerAddresses = new string[] { "http://localhost:8911" };
-        public readonly string[] AdvancedDeveloperAPIHttpListenerServerAddresses = new string[] { "http://*:8911" };
+        public readonly string[] DeveloperAPIServerAddresses = new string[] { "http://localhost:8911" };
+        public readonly string[] AdvancedDeveloperAPIServerAddresses = new string[] { "http://*:8911" };
 
         public string Name { get { return "Developer API"; } }
 
@@ -29,11 +29,11 @@ namespace MixItUp.WPF.Services.DeveloperAPI
             string[] urls;
             if (ChannelSession.IsElevated && ChannelSession.Settings.EnableDeveloperAPIAdvancedMode)
             {
-                urls = AdvancedDeveloperAPIHttpListenerServerAddresses;
+                urls = AdvancedDeveloperAPIServerAddresses;
             }
             else
             {
-                urls = DeveloperAPIHttpListenerServerAddresses;
+                urls = DeveloperAPIServerAddresses;
             }
 
             builder.WebHost.UseUrls(urls);
