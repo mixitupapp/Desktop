@@ -37,97 +37,44 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="3.7.107.4" />
-    <PackageReference Include="AWSSDK.Polly" Version="3.7.107.6" />
-    <PackageReference Include="CacheManager.Core" Version="2.0.0" />
-    <PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
-    <PackageReference Include="EntityFramework" Version="6.5.1" />
-    <PackageReference Include="ExcelDataReader" Version="3.8.0" />
-    <PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
-    <PackageReference Include="gong-wpf-dragdrop" Version="2.3.2" />
-    <PackageReference Include="Google.Apis" Version="1.71.0" />
-    <PackageReference Include="Google.Apis.Auth" Version="1.71.0" />
-    <PackageReference Include="Google.Apis.Core" Version="1.71.0" />
-	<PackageReference Include="Google.Apis.YouTube.v3" Version="1.70.0.3847" />
-	<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
-    <PackageReference Include="GraphQL.Client" Version="4.0.2" />
-    <PackageReference Include="GraphQL.Client.Abstractions" Version="4.0.2" />
-    <PackageReference Include="GraphQL.Client.Abstractions.Websocket" Version="4.0.2" />
-    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="4.0.2" />
-    <PackageReference Include="GraphQL.Primitives" Version="4.0.2" />
-    <PackageReference Include="H.Engine.IO" Version="1.1.7.1" />
-    <PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
-    <PackageReference Include="H.WebSockets" Version="1.1.7.1" />
-    <PackageReference Include="HarfBuzzSharp" Version="8.3.1.2" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" Version="8.3.1.2" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" Version="8.3.1.2" />
-    <PackageReference Include="ID3" Version="0.6.0" />
-    <PackageReference Include="Jace" Version="1.0.0" />
-    <PackageReference Include="LiveChartsCore" Version="2.0.0-beta.802" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-beta.802" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.802" />
-    <PackageReference Include="MaterialDesignColors" Version="5.2.1" />
-    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
-    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.23.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Connections.Abstractions" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Common" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.Json" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.9" />
-    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.46.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Features" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.9" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="NAudio" Version="2.2.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="obs-websocket-dotnet" Version="4.9.1" />
-    <PackageReference Include="ovrstream-client-csharp" Version="0.0.2" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
-    <PackageReference Include="SkiaSharp" Version="2.88.8" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.8" />
-    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="2.88.8" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="2.88.8" />
-    <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="2.88.8" />
-    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.8" />
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
-    <PackageReference Include="SQLitePCLRaw.core" Version="3.0.2" />
-    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.11" />
-    <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="3.0.2" />
-    <PackageReference Include="SuperSocket.ClientEngine.Core" Version="0.10.0" />
-    <PackageReference Include="System.CodeDom" Version="9.0.9" />
-    <PackageReference Include="System.Collections.Immutable" Version="9.0.9" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.9" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.9" />
-    <PackageReference Include="System.IO.Pipelines" Version="9.0.9" />
-    <PackageReference Include="System.IO.Ports" Version="9.0.9" />
-    <PackageReference Include="System.Management" Version="9.0.9" />
-    <PackageReference Include="System.Net.WebSockets.Client.Managed" Version="1.0.22" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
-    <PackageReference Include="System.Speech" Version="9.0.9" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.9" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="9.0.9" />
-    <PackageReference Include="System.Text.Json" Version="9.0.9" />
-    <PackageReference Include="System.Threading.Channels" Version="9.0.9" />
-    <PackageReference Include="WriteableBitmapEx" Version="1.6.8" />
-    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters.CoreServices" Version="2.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.9" />
-  </ItemGroup>
-  <ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.Polly" Version="3.7.107.6" />
+		<PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
+		<PackageReference Include="EntityFramework" Version="6.5.1" />
+		<PackageReference Include="ExcelDataReader" Version="3.8.0" />
+		<PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
+		<PackageReference Include="gong-wpf-dragdrop" Version="2.3.2" />
+		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.70.0.3847" />
+		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
+		<PackageReference Include="GraphQL.Client" Version="4.0.2" />
+		<PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="4.0.2" />
+		<PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
+		<PackageReference Include="ID3" Version="0.6.0" />
+		<PackageReference Include="Jace" Version="1.0.0" />
+		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.802" />
+		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.23.0" />
+		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.46.0" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.9" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+		<PackageReference Include="NAudio" Version="2.2.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="obs-websocket-dotnet" Version="4.9.1" />
+		<PackageReference Include="ovrstream-client-csharp" Version="0.0.2" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
+		<PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.8" />
+		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
+		<PackageReference Include="System.CodeDom" Version="9.0.9" />
+		<PackageReference Include="System.IO.Ports" Version="9.0.9" />
+		<PackageReference Include="System.Management" Version="9.0.9" />
+		<PackageReference Include="System.Speech" Version="9.0.9" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.9" />
+		<PackageReference Include="WriteableBitmapEx" Version="1.6.8" />
+	</ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
     <None Update="Installer.nsi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
