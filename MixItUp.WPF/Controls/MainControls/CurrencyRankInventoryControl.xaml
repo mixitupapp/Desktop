@@ -1,0 +1,81 @@
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.CurrencyRankInventoryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+                          
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+                          
+             d:DesignHeight="700" d:DesignWidth="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Border BorderBrush="{StaticResource PrimaryHueMidBrush}" Grid.Row="2" BorderThickness="1">
+                <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding Items}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
+                        <DataGridTextColumn Header="{x:Static resx:Resources.Type}" Binding="{Binding Type}" IsReadOnly="True" Width="125" />
+                        <DataGridTemplateColumn Header="{x:Static resx:Resources.SpecialIdentifiers}" IsReadOnly="True" Width="2*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="{Binding AmountSpecialIdentifiers}" TextWrapping="Wrap" />
+
+                                        <TextBlock Grid.Column="1" Text="{Binding RankSpecialIdentifiers}" TextWrapping="Wrap" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" Width="140">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Controls:IconButton x:Name="EditButton" Grid.Column="0" Click="EditButton_Click" HorizontalAlignment="Center" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.Edit}" />
+
+                                        <Controls:IconButton x:Name="DeleteButton" Grid.Column="2" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="AddNewCurrencyRankButton" Grid.Column="0" Click="AddNewCurrencyRankButton_Click" ToolTip="{x:Static resx:Resources.AddCurrencyRank}" Content="{x:Static resx:Resources.AddCurrencyRank}" />
+
+            <Button x:Name="AddNewInventoryButton" Grid.Column="2" Click="AddNewInventoryButton_Click" ToolTip="{x:Static resx:Resources.AddInventory}" Content="{x:Static resx:Resources.AddInventory}" />
+        </Grid>
+    </Grid>
+</local:MainControlBase>

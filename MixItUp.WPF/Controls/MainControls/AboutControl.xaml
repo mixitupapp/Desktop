@@ -1,0 +1,187 @@
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.AboutControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+                          
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+                          
+             d:DesignHeight="700" d:DesignWidth="600">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <GroupBox Grid.Row="0" Header="{x:Static resx:Resources.ApplicationInfo}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Version}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                        <TextBlock Grid.Column="2" x:Name="VersionTextBlock" />
+                    </Grid>
+
+                    <TextBlock Grid.Row="2" HorizontalAlignment="Center">
+                            <Hyperlink NavigateUri="https://github.com/SaviorXTanren/mixer-mixitup/releases" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock Text="{x:Static resx:Resources.LatestRelease}"/>
+                            </Hyperlink>
+                        </TextBlock>
+
+                    <TextBlock Grid.Row="4" HorizontalAlignment="Center">
+                        <Hyperlink x:Name="IssueReportHyperlink" Click="IssueReportHyperlink_Click">
+                            <TextBlock Text="{x:Static resx:Resources.SubmitABug}"/>
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="6" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static resx:Resources.TranslationBy}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="2" Header="{x:Static resx:Resources.ContactAndResources}">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Column="0" Grid.Row="0" x:Name="TwitterButton" Height="50" Click="TwitterButton_Click" Background="Transparent">
+                        <Image Source="/Assets/Images/Twitter.png" Width="40" Height="40" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
+
+                    <Button Grid.Column="2" Grid.Row="0" x:Name="DiscordButton" Height="50" Click="DiscordButton_Click" Background="Transparent">
+                        <Image Source="/Assets/Images/Discord.png" Width="40" Height="40" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
+
+                    <Button Grid.Column="0" Grid.Row="2" x:Name="YouTubeButton" Height="50" Click="YouTubeButton_Click" Background="Transparent">
+                        <Image Source="/Assets/Images/YouTube.png" Width="40" Height="40" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
+
+                    <Button Grid.Column="2" Grid.Row="2" x:Name="Patreon" Height="50" Click="Patreon_Click" Background="Transparent">
+                        <Image Source="/Assets/Images/Patreon.png" Width="40" Height="40" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
+
+                    <Button Grid.Column="0" Grid.Row="4" x:Name="WikiButton" Height="50" Click="WikiButton_Click" Background="Transparent">
+                        <Image Source="/Assets/Images/Wiki.png" Width="40" Height="40" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
+
+                    <Button Grid.Column="2" Grid.Row="4" x:Name="GithubButton" Height="50" Click="GithubButton_Click" Background="Transparent">
+                        <Image Source="/Assets/Images/Github.png" Width="40" Height="40" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Button>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="{x:Static resx:Resources.License}" Grid.Row="0">
+                <ScrollViewer>
+                    <Controls:LicenseControl />
+                </ScrollViewer>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.MeetTheTeam}" Grid.Row="2">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" x:Name="SaviorXTanrenButton" Style="{StaticResource MaterialDesignFlatButton}" Click="SaviorXTanrenButton_Click" Height="105">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="100" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="https://static-cdn.jtvnw.net/jtv_user_pictures/45182012-95d6-4704-9863-82ff3fbaf48e-profile_image-70x70.png" Grid.Row="0" Width="64" Height="64" HorizontalAlignment="Center" />
+
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlock}">SaviorXTanren</TextBlock>
+
+                        </Grid>
+                    </Button>
+
+                    <Button Grid.Column="2" x:Name="VerbatimTButton" Style="{StaticResource MaterialDesignFlatButton}" Click="VerbatimTButton_Click" Height="105">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="https://static-cdn.jtvnw.net/jtv_user_pictures/e510a4d3-9fe0-41ff-afd5-2fc8120e8e45-profile_image-70x70.png" Grid.Row="0" Width="64" Height="64" HorizontalAlignment="Center" />
+
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlock}">Verbatim_T</TextBlock>
+
+                        </Grid>
+                    </Button>
+
+                    <Button Grid.Column="4" x:Name="TyrenDesButton" Style="{StaticResource MaterialDesignFlatButton}" Click="TyrenDesButton_Click" Height="105">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="https://static-cdn.jtvnw.net/jtv_user_pictures/tyrendes-profile_image-eb5907e56a532f5c-70x70.png" Grid.Row="0" Width="64" Height="64" HorizontalAlignment="Center" />
+
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Style="{StaticResource HeaderTextBlock}">TyrenDes</TextBlock>
+
+                        </Grid>
+                    </Button>
+
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+    </Grid>
+</local:MainControlBase>

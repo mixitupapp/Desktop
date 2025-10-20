@@ -1,0 +1,297 @@
+﻿<Windows:LoadingWindowBase x:Class="MixItUp.WPF.Windows.Wizard.NewUserWizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MixItUp.WPF.Windows.Wizard"
+        xmlns:AccountControls="clr-namespace:MixItUp.WPF.Controls.Accounts"
+        xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+        xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+        xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
+        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+                           
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+                     
+        Icon="./../../Logo.ico"                        
+        Title="{x:Static resx:Resources.MixItUpNewUserWizard}" Height="600" Width="800">
+    <Windows:LoadingWindowBase.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Windows:LoadingWindowBase.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+
+        <Grid x:Name="MainGrid" Grid.Row="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid Visibility="{Binding IntroPageVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Image Source="/Assets/Images/MixItUp-Logo-Name.png" Width="500" Grid.Row="0" HorizontalAlignment="Center" Margin="-15,0,0,0" />
+
+                    <TextBlock Grid.Row="2" TextWrapping="Wrap" Width="700" Text="{x:Static resx:Resources.WizardIntro1}" />
+
+                    <TextBlock Grid.Row="4" TextWrapping="Wrap" Width="700" Text="{x:Static resx:Resources.WizardIntro2}" />
+
+                    <Grid Grid.Row="6" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Command="{Binding DiscordCommand}" Height="60" Width="60" Background="Transparent">
+                            <Image Source="/Assets/Images/Discord.png" Width="50" Height="50" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Button>
+
+                        <TextBlock Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{x:Static resx:Resources.WizardIntro3}" />
+
+                        <Button Grid.Column="4" Command="{Binding TwitterCommand}" Height="60" Width="60" Background="Transparent">
+                            <Image Source="/Assets/Images/Twitter.png" Width="45" Height="45" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Button>
+
+                        <TextBlock Grid.Column="6" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Width="230" Text="{x:Static resx:Resources.WizardIntro4}" />
+                    </Grid>
+
+                    <Grid Grid.Row="8" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="250" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Command="{Binding YouTubeCommand}" Height="60" Width="60" Background="Transparent">
+                            <Image Source="/Assets/Images/YouTube.png" Width="45" Height="45" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Button>
+
+                        <TextBlock Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="220" HorizontalAlignment="Left" Text="{x:Static resx:Resources.WizardIntro5}" />
+
+                        <Button Grid.Column="4" Command="{Binding WikiCommand}" Height="60" Width="60" Background="Transparent">
+                            <Image Source="/Assets/Images/Wiki.png" Width="50" Height="50" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Button>
+
+                        <TextBlock Grid.Column="6" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Width="240" Text="{x:Static resx:Resources.WizardIntro6}" />
+                    </Grid>
+                </Grid>
+
+                <Grid Visibility="{Binding StreamerAccountsPageVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" TextWrapping="Wrap" Width="700" Text="{x:Static resx:Resources.AccountsWizardInstructions}"/>
+
+                    <TextBlock Grid.Row="2" TextWrapping="Wrap" Width="700" Text="{x:Static resx:Resources.AccountsDetails}"/>
+
+                    <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Visible">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <AccountControls:StreamingPlatformAccountControl Grid.Row="0" DataContext="{Binding Twitch}" />
+
+                            <AccountControls:StreamingPlatformAccountControl Grid.Row="2" DataContext="{Binding YouTube}" />
+
+                            <AccountControls:StreamingPlatformAccountControl Grid.Row="4" DataContext="{Binding Trovo}" />
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+
+                <Grid Visibility="{Binding CommandActionsPageVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" VerticalAlignment="Center" Width="350">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.WizardCommands1}" />
+
+                            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="{x:Static resx:Resources.WizardCommands2}" />
+                        </Grid>
+
+                        <Image Grid.Row="2" Source="/Assets/Images/CommandExample.png" Width="200" VerticalAlignment="Bottom" />
+                    </Grid>
+
+                    <Grid Grid.Column="2" VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Row="0" Source="/Assets/Images/ExampleRecipe.png" Width="200" VerticalAlignment="Top" />
+
+                        <Grid Grid.Row="2" VerticalAlignment="Center" Width="350">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.WizardCommands3}" />
+
+                            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="{x:Static resx:Resources.WizardCommands4}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Grid Visibility="{Binding FinalPageVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Visible}">
+                    <Grid Grid.Row="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" TextWrapping="Wrap" Width="450" Text="{x:Static resx:Resources.WizardFinal1}" />
+
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Button x:Name="SettingsBackupLocationButton" Grid.Row="0" Content="Set Location" Command="{Binding SetBackupLocationCommand}" />
+
+                                <ComboBox x:Name="SettingsBackupRateComboBox" Grid.Row="2" Width="110" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BackupRate}" ItemsSource="{Binding SettingsBackupOptions}" SelectedItem="{Binding SelectedSettingsBackupOption}" IsEnabled="{Binding IsBackupLocationSet, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="2" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" TextWrapping="Wrap" Width="450" Text="{x:Static resx:Resources.WizardFinal2}" />
+
+                            <Controls:IconButton Grid.Column="2" HorizontalAlignment="Center" Icon="Help" ToolTip="{x:Static resx:Resources.Help}" />
+                        </Grid>
+
+                        <TextBlock Grid.Row="4" TextWrapping="Wrap" Width="500" Text="{x:Static resx:Resources.WizardFinal3}" />
+
+                        <Grid Grid.Row="6" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" Command="{Binding DiscordCommand}" Height="60" Width="60" Background="Transparent">
+                                <Image Source="/Assets/Images/Discord.png" Width="50" Height="50" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Button>
+
+                            <Button Grid.Column="2" Command="{Binding TwitterCommand}" Height="60" Width="60" Background="Transparent">
+                                <Image Source="/Assets/Images/Twitter.png" Width="45" Height="45" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Button>
+
+                            <Button Grid.Column="4" Command="{Binding YouTubeCommand}" Height="60" Width="60" Background="Transparent">
+                                <Image Source="/Assets/Images/YouTube.png" Width="45" Height="45" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Button>
+
+                            <Button Grid.Column="6" Command="{Binding WikiCommand}" Height="60" Width="60" Background="Transparent">
+                                <Image Source="/Assets/Images/Wiki.png" Width="50" Height="50" Margin="-10,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Button>
+                        </Grid>
+
+                        <TextBlock TextWrapping="Wrap" Grid.Row="8" HorizontalAlignment="Center" Text="{x:Static resx:Resources.WizardFinal4}" />
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" x:Name="WizardButtonsGrid" Margin="20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding StatusMessage}" VerticalAlignment="Center" Width="550" TextWrapping="Wrap" />
+
+                <Button Grid.Column="2" Command="{Binding BackCommand}" IsEnabled="{Binding CanBack}" Content="{x:Static resx:Resources.WizardBack}" />
+
+                <Button Grid.Column="4" Command="{Binding NextCommand}" IsEnabled="{Binding CanNext}" Content="{x:Static resx:Resources.WizardNext}" />
+            </Grid>
+        </Grid>
+
+        <Controls:LoadingStatusBar x:Name="StatusBar" Grid.Row="2" />
+    </Grid>
+</Windows:LoadingWindowBase>

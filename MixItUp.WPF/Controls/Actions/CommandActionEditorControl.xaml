@@ -1,0 +1,128 @@
+﻿<local:ActionEditorControlBase x:Class="MixItUp.WPF.Controls.Actions.CommandActionEditorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.Actions"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+             xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <local:ActionEditorControlBase.Resources>
+        <Util:LocalizationConverter x:Key="LocalizationConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <CollectionViewSource x:Key="GroupedCommands" Source="{Binding Commands}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="GroupDisplayName"/>
+            </CollectionViewSource.GroupDescriptions>
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="GroupDisplayName" />
+                <scm:SortDescription PropertyName="Name" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </local:ActionEditorControlBase.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Grid Grid.Row="2" Visibility="{Binding ShowCommandsSection, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Controls:IconButton Grid.Column="0" x:Name="AddCommandButton" ToolTip="{x:Static resx:Resources.CreateNewCommand}" Icon="AddBox" Click="AddCommandButton_Click" />
+
+                <ComboBox Grid.Column="2" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <ComboBox Grid.Column="4" ItemsSource="{Binding Source={StaticResource GroupedCommands}}" SelectedItem="{Binding SelectedCommand}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Light" FontSize="12" Padding="4,8,0,0"/>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ComboBox.GroupStyle>
+                </ComboBox>
+
+                <Controls:IconButton Grid.Column="6" x:Name="EditCommandButton" Icon="Edit" ToolTip="{x:Static resx:Resources.EditCommand}" Click="EditCommandButton_Click" />
+            </Grid>
+
+            <Grid Grid.Row="1" Visibility="{Binding ShowCommandRunSection, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,20,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0" Text="{Binding CommandArguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OptionalCommandArguments}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.WaitUntilComplete}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{x:Static resx:Resources.CommandActionWaitUntilCompleteHintText}" VerticalAlignment="Center" />
+                    <ToggleButton Grid.Column="2" IsChecked="{Binding WaitForCommandToFinish}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandActionWaitUntilCompleteHintText}" VerticalAlignment="Center" />
+
+                    <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.IgnoreUsageRequirements}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{x:Static resx:Resources.IgnoreUsageRequirements}" VerticalAlignment="Center" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding IgnoreUsageRequirements}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IgnoreUsageRequirements}" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" Visibility="{Binding ShowCommandCooldownSection, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Text="{Binding CommandArguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" Visibility="{Binding ShowCommandGroupsSection, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ComboBox ItemsSource="{Binding CommandGroups}" SelectedItem="{Binding SelectedCommandGroup}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+        </Grid>
+    </Grid>
+</local:ActionEditorControlBase>

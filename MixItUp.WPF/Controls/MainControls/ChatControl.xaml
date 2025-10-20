@@ -1,0 +1,103 @@
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.ChatControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
+             xmlns:ChatControls="clr-namespace:MixItUp.WPF.Controls.Chat"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+                          
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+                          
+             d:DesignHeight="600" d:DesignWidth="800">
+    <local:MainControlBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <Util:ColorBrushConverter x:Key="ColorBrushConverter" />
+
+            <ContextMenu x:Key="UserListContextMenu">
+                <MenuItem x:Name="UserInformationMenuItem" Header="User Info" Click="UserInformationMenuItem_Click" />
+            </ContextMenu>
+
+        </ResourceDictionary>
+    </local:MainControlBase.Resources>
+
+    <Grid>
+        <GroupBox Grid.Row="0">
+            <GroupBox.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Height="20" Grid.Column="0" HorizontalAlignment="Center" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="DashboardButton" Grid.Column="0" MinWidth="100" Margin="-6" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="DashboardButton_Click" Content="{x:Static resx:Resources.Dashboard}" />
+
+                        <Button Command="{Binding ClearChatCommand}" Grid.Column="2" MinWidth="100" Margin="-6" Style="{StaticResource MaterialDesignRaisedLightButton}" Content="{x:Static resx:Resources.ClearChat}" />
+
+                        <Button Command="{Binding EnableDisableChatCommand}" Content="{Binding EnableDisableChatButtonText}" Grid.Column="4" MinWidth="115" Margin="-6" Style="{StaticResource MaterialDesignRaisedLightButton}" />
+
+                        <Button Command="{Binding PauseUnpauseCommandsCommand}" Content="{Binding PauseUnpauseCommandsButtonText}" Grid.Column="6" MinWidth="165" Margin="-6" Style="{StaticResource MaterialDesignRaisedLightButton}" />
+
+                    </Grid>
+
+                    <Grid Grid.Column="2" Visibility="{Binding ShowViewerAndChatterNumbers, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" Height="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" Text="{Binding ViewersCount}" />
+                        <TextBlock Grid.Column="2" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" Text="{x:Static resx:Resources.WatchingNow}" />
+                        
+                    </Grid>
+                </Grid>
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ChatControls:ChatListControl x:Name="ChatList" Grid.Column="0" />
+
+                <GridSplitter x:Name="ChatSplitter" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5" />
+
+                <ListView x:Name="UserList" ItemsSource="{Binding DisplayUsers}" ContextMenu="{StaticResource UserListContextMenu}" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="2" VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" MinWidth="200">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ChatControls:ChatUserControl DataContext="{Binding}" Grid.Column="0" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </GroupBox>
+    </Grid>
+</local:MainControlBase>

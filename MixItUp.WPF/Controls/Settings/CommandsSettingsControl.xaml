@@ -1,0 +1,51 @@
+﻿<local:SettingsControlBase x:Class="MixItUp.WPF.Controls.Settings.CommandsSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.Settings"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:GenericSettingsControls="clr-namespace:MixItUp.WPF.Controls.Settings.Generic"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <StackPanel>
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding AllowCommandWhispering}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding IgnoreBotAccount}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding DeleteChatCommandsWhenRun}" />
+            <GenericSettingsControls:GenericNumberSettingsOptionControl DataContext="{Binding MassGiftedSubsFilterAmount}" />
+            <GenericSettingsControls:GenericComboBoxSettingsOptionControl DataContext="{Binding CommandLockSystem}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding AlwaysUseCommandLocksWhenTestingCommands}" />
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericComboBoxSettingsOptionControl DataContext="{Binding RequirementErrorsCooldownType}" />
+            <GenericSettingsControls:GenericNumberSettingsOptionControl DataContext="{Binding RequirementErrorsCooldownAmount}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding IncludeUsernameWithRequirementErrors}" />
+            <GenericSettingsControls:GenericTextSettingsOptionControl DataContext="{Binding DelimitedArgumentSeparator}" />
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding TwitchReplyToCommandChatMessages}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding TwitchSlashMeForAllChatMessages}" />
+            <GenericSettingsControls:GenericNumberSettingsOptionControl DataContext="{Binding TwitchUpcomingAdCommandTriggerAmount}" />
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericTextSettingsOptionControl DataContext="{Binding PythonExecutablePath}" />
+
+            <Separator Margin="10" />
+
+            <TextBlock Margin="20,10" Text="{Binding Source={x:Static resx:Resources.HideActionsFromCommandEditor}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+            <ItemsControl Margin="60,0,60,0" ItemsSource="{Binding HideActionsList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <GenericSettingsControls:GenericToggleSettingsOptionControl />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</local:SettingsControlBase>

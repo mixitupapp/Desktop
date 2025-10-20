@@ -1,0 +1,92 @@
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.GameQueueControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+             xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+             xmlns:CommandsControls="clr-namespace:MixItUp.WPF.Controls.Commands"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+                          
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+
+             d:DesignHeight="400" d:DesignWidth="500">
+    <local:MainControlBase.Resources>
+        <Util:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </local:MainControlBase.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="{Binding EnableDisableButtonText}" Command="{Binding EnableDisableCommand}" Width="150" />
+
+            <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Static resx:Resources.SubPriorityHeader}"/>
+            <ToggleButton Grid.Column="4" IsChecked="{Binding SubPriority}" IsEnabled="{Binding IsEnabled, Converter={StaticResource InverseBooleanConverter}}" ToolTip="{x:Static resx:Resources.SubscribersReceivePriority}" />
+
+            <Button Grid.Column="6" Command="{Binding ClearQueueCommand}" IsEnabled="{Binding IsEnabled}" MinWidth="110" Content="{x:Static resx:Resources.ClearQueue}"/>
+
+            <GroupBox Grid.Column="8" Header="{x:Static resx:Resources.UserJoined}">
+                <CommandsControls:CommandListingButtonsControl x:Name="UserJoinedCommand" DataContext="{Binding GameQueueUserJoinedCommand}" HorizontalAlignment="Center" EditClicked="UserJoinedCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
+            </GroupBox>
+
+            <GroupBox Grid.Column="10" Header="{x:Static resx:Resources.UserSelection}">
+                <CommandsControls:CommandListingButtonsControl x:Name="UserSelectedCommand" DataContext="{Binding GameQueueUserSelectedCommand}" HorizontalAlignment="Center" EditClicked="UserSelectedCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
+            </GroupBox>
+        </Grid>
+
+        <DataGrid ItemsSource="{Binding QueueUsers}" Grid.Row="4" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static resx:Resources.PoundSign}" Binding="{Binding QueuePosition}" IsReadOnly="True" Width="70" />
+                <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Username}" IsReadOnly="True" Width="3*" />
+                <DataGridTextColumn Header="{x:Static resx:Resources.Platform}" Binding="{Binding Platform}" IsReadOnly="True" Width="2*" />
+                <DataGridTextColumn Header="{x:Static resx:Resources.Role}" Binding="{Binding PrimaryRole}" IsReadOnly="True" Width="2*" />
+                <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" Width="170">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Controls:IconButton x:Name="MoveUpButton" Grid.Column="0" Click="MoveUpButton_Click" Icon="ArrowUp" HorizontalAlignment="Center" />
+
+                                <Controls:IconButton x:Name="MoveDownButton" Grid.Column="2" Click="MoveDownButton_Click" Icon="ArrowDown" HorizontalAlignment="Center" />
+
+                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4"  Click="DeleteButton_Click" Icon="Delete" HorizontalAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</local:MainControlBase>

@@ -1,0 +1,60 @@
+﻿<local:SettingsControlBase x:Class="MixItUp.WPF.Controls.Settings.ChatSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.Settings"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:GenericSettingsControls="clr-namespace:MixItUp.WPF.Controls.Settings.Generic"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <StackPanel>
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding SaveChatEventLogs}" />
+            <GenericSettingsControls:GenericSliderSettingsOptionControl DataContext="{Binding FontSize}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding AddSeparatorsBetweenMessages}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding UseAlternatingBackgroundColors}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding DisableAnimatedEmotes}" Visibility="Collapsed" />
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding ShowLatestChatMessagesAtTop}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding ShowMessageTimestamp}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding TrackWhisperNumbers}" />
+
+            <Separator Margin="10" />
+            
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideViewerChatterCount}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideChatUserList}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideDeletedMessages}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideBotMessages}" />
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding ShowAlejoPronouns}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding ShowBetterTTVEmotes}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding ShowFrankerFaceZEmotes}" />
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideUserAvatar}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideUserRoleBadge}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideUserSubscriberBadge}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideUserSpecialtyBadge}" />
+            <GenericSettingsControls:GenericMultilineTextSettingsOptionControl DataContext="{Binding HideSpecificUserMessages}" />
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding UseCustomUsernameColors}" />
+            <ItemsControl Margin="60,0,60,0" ItemsSource="{Binding CustomUsernameColorsList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</local:SettingsControlBase>

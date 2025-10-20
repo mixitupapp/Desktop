@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="MixItUp.WPF.Controls.Chat.ChatUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.Chat"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+             xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Util:ColorBrushConverter x:Key="ColorBrushConverter" />
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Controls:AdvancedImage x:Name="AvatarImage" UseChatFontSize="True" Path="{Binding AvatarLink, TargetNullValue={x:Null}}" Visibility="{Binding ShowUserAvatar, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" Grid.Column="0" VerticalAlignment="Center" />
+
+        <Controls:AdvancedImage x:Name="PlatformImage" UseChatFontSize="True" Path="{Binding PlatformImageURL, TargetNullValue={x:Null}}" Visibility="{Binding ShowPlatformImage, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Margin="3,0,0,0" Grid.Column="1" VerticalAlignment="Center" />
+
+        <Controls:AdvancedImage x:Name="RoleImage" UseChatFontSize="True" Path="{Binding PlatformRoleBadgeLink, TargetNullValue={x:Null}}" Visibility="{Binding ShowPlatformRoleBadge, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" Margin="3,0,0,0" Grid.Column="2" VerticalAlignment="Center" />
+
+        <Controls:AdvancedImage x:Name="SubscriberImage" UseChatFontSize="True" Path="{Binding PlatformSubscriberBadgeLink, TargetNullValue={x:Null}}" Visibility="{Binding ShowPlatformSubscriberBadge, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" Margin="3,0,0,0" Grid.Column="3" VerticalAlignment="Center" />
+
+        <Controls:AdvancedImage x:Name="SpecialtyBadgeImage" UseChatFontSize="True" Path="{Binding PlatformSpecialtyBadgeLink, TargetNullValue={x:Null}}" Visibility="{Binding ShowPlatformSpecialtyBadge, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" Margin="3,0,0,0" Grid.Column="4" VerticalAlignment="Center" />
+
+        <TextBlock x:Name="UsernameTextBlock" Grid.Column="6" Text="{Binding FullDisplayName}" Foreground="{Binding ColorInApp, Converter={StaticResource ColorBrushConverter}}" VerticalAlignment="Center" />
+
+    </Grid>
+</UserControl>

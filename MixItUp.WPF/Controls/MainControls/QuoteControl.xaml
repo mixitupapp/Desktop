@@ -1,0 +1,106 @@
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.QuoteControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+
+            <ToggleButton Grid.Column="2" IsChecked="{Binding QuotesEnabled}" />
+
+            <TextBox Grid.Column="4" Width="350" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quote}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding AddQuoteText}" />
+
+            <Button Grid.Column="6" Content="{x:Static resx:Resources.AddQuote}" Command="{Binding AddQuoteCommand}" />
+
+            <Button Grid.Column="8" x:Name="ImportQuotesButton" Content="{x:Static resx:Resources.ImportQuotes}" Click="ImportQuotesButton_Click" />
+
+            <Button Grid.Column="10" Content="{x:Static resx:Resources.ExportQuotes}" Command="{Binding ExportQuotesCommand}" />
+        </Grid>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Quotes}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="#" IsReadOnly="True" Width="75">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding ID}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static resx:Resources.Quote}" Width="2*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox VerticalAlignment="Center" Text="{Binding Quote, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static resx:Resources.GameName}" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox VerticalAlignment="Center" Text="{Binding GameName, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" IsReadOnly="True" Width="180">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Controls:IconButton x:Name="DateButton" Grid.Column="0" Click="DateButton_Click" HorizontalAlignment="Center" Icon="Calendar" ToolTip="{x:Static resx:Resources.Date}" />
+
+                                <Controls:IconButton x:Name="TimeButton" Grid.Column="2" Click="TimeButton_Click" HorizontalAlignment="Center" Icon="Clock" ToolTip="{x:Static resx:Resources.Time}" />
+
+                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.QuoteFormatting}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding QuotesFormatText}" />
+        </Grid>
+
+    </Grid>
+</local:MainControlBase>
