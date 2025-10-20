@@ -6,10 +6,10 @@ License URL: <https://mixitupapp.com/legal/licenses/mixitup-bsl-1.0.0>
 
 Copyright (c) Blazing Cacti LLC
 
-> **Version:** 1.0.0  
+> **Version:** 1.0.1
 > **Effective Date:** 2025-10-22  
 > **Last Reviewed:** 2025-10-19  
-> **Supersedes:** N/A (Initial Release)
+> **Supersedes:** 1.0.0 (2025-10-19)
 
 ## Preamble
 
@@ -108,10 +108,12 @@ You agree that actual or threatened breaches of Sections 3 (Restrictions; Scope 
 
 If any provision is unenforceable, the remainder remains in effect. Failure to enforce any provision is not a waiver of future enforcement.
 
-## 17. U.S. Government End Users (Optional)
+## 17. U.S. Government End Users
 
 The Covered Software is “commercial computer software.” Use by U.S. Government end users is governed by this license.
 
 ## 18. Changelog
 
-* **v1.0.0 (2025-10-19):** Initial published version.
+- **v1.0.1 (2025-10-19):** Removed proofreading note from Section 17.
+
+- **v1.0.0 (2025-10-19):** Initial published version.
