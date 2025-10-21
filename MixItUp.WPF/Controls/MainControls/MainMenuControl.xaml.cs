@@ -16,6 +16,7 @@ namespace MixItUp.WPF.Controls.MainControls
 {
     public class MainMenuItem : NotifyPropertyChangedBase
     {
+        public string Id { get; private set; }
         public string Name { get; private set; }
         public MainControlBase Control { get; private set; }
         public string HelpLink { get; private set; }
@@ -33,8 +34,9 @@ namespace MixItUp.WPF.Controls.MainControls
 
         public Visibility HelpLinkVisibility { get { return (!string.IsNullOrEmpty(this.HelpLink)) ? Visibility.Visible : Visibility.Collapsed; } }
 
-        public MainMenuItem(string name, MainControlBase control, string helpLink = null)
+        public MainMenuItem(string id, string name, MainControlBase control, string helpLink = null)
         {
+            this.Id = id;
             this.Name = name;
             this.Control = control;
             this.HelpLink = helpLink;
@@ -44,7 +46,7 @@ namespace MixItUp.WPF.Controls.MainControls
     /// <summary>
     /// Interaction logic for MainMenuControl.xaml
     /// </summary>
-    public partial class MainMenuControl : MainControlBase
+    public partial class MainMenuControl : MainControlBase, GongSolutions.Wpf.DragDrop.IDropTarget
     {
         public static event EventHandler<bool> OnMainMenuStateChanged = delegate { };
 
@@ -56,7 +58,9 @@ namespace MixItUp.WPF.Controls.MainControls
         private HashSet<string> serviceDisconnections = new HashSet<string>();
 
         private ObservableCollection<MainMenuItem> menuItems = new ObservableCollection<MainMenuItem>();
-        private List<MainMenuItem> allMenuItems = new List<MainMenuItem>();
+        private Dictionary<string, MainMenuItem> allMenuItemsById = new Dictionary<string, MainMenuItem>();
+
+        private bool isEditMode = false;
 
         public MainMenuControl()
         {
@@ -68,10 +72,14 @@ namespace MixItUp.WPF.Controls.MainControls
 
         public async Task<MainMenuItem> AddMenuItem(string name, MainControlBase control, string helpLink = null)
         {
+            // Use the control type name as the ID (e.g., "ChatControl", "ChannelControl")
+            string id = control.GetType().Name;
+
             await control.Initialize(this.Window);
-            MainMenuItem item = new MainMenuItem(name, control, helpLink);
-            this.menuItems.Add(item);
-            this.allMenuItems.Add(item);
+            MainMenuItem item = new MainMenuItem(id, name, control, helpLink);
+
+            this.allMenuItemsById[id] = item;
+
             return item;
         }
 
@@ -79,14 +87,7 @@ namespace MixItUp.WPF.Controls.MainControls
         {
             if (!this.menuItems.Contains(item))
             {
-                for (int i = this.allMenuItems.IndexOf(item) - 1; i >= 0; i--)
-                {
-                    if (this.menuItems.Contains(this.allMenuItems[i]))
-                    {
-                        this.menuItems.Insert(this.menuItems.IndexOf(this.allMenuItems[i]) + 1, item);
-                        return;
-                    }
-                }
+                this.menuItems.Add(item);
             }
         }
 
@@ -123,9 +124,51 @@ namespace MixItUp.WPF.Controls.MainControls
             await base.InitializeInternal();
         }
 
+        public void LoadMenuOrder()
+        {
+            List<string> savedOrder = ChannelSession.AppSettings.MainMenuOrder;
+
+            if (savedOrder != null && savedOrder.Count > 0)
+            {
+                // Add items in saved order
+                foreach (string id in savedOrder)
+                {
+                    if (this.allMenuItemsById.TryGetValue(id, out MainMenuItem item))
+                    {
+                        if (!this.menuItems.Contains(item))
+                        {
+                            this.menuItems.Add(item);
+                        }
+                    }
+                }
+
+                // Add any new items that weren't in saved order (new menu items added in updates)
+                foreach (var kvp in this.allMenuItemsById)
+                {
+                    if (!this.menuItems.Contains(kvp.Value))
+                    {
+                        this.menuItems.Add(kvp.Value);
+                    }
+                }
+            }
+            else
+            {
+                // No saved order - add all items in the order they were registered
+                foreach (var item in this.allMenuItemsById.Values)
+                {
+                    this.menuItems.Add(item);
+                }
+            }
+        }
+
+        public async Task SaveMenuOrder()
+        {
+            ChannelSession.AppSettings.MainMenuOrder = this.menuItems.Select(i => i.Id).ToList();
+            await ChannelSession.AppSettings.Save();
+        }
+
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            //until we had a StaysOpen glag to Drawer, this will help with scroll bars
             var dependencyObject = Mouse.Captured as DependencyObject;
             while (dependencyObject != null)
             {
@@ -136,12 +179,15 @@ namespace MixItUp.WPF.Controls.MainControls
                 dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
             }
 
-            this.MenuToggleButton.IsChecked = false;
+            if (!this.isEditMode)
+            {
+                this.MenuToggleButton.IsChecked = false;
+            }
         }
 
         private void MenuItemsListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (this.MenuItemsListBox.SelectedIndex >= 0)
+            if (this.MenuItemsListBox.SelectedIndex >= 0 && !this.isEditMode)
             {
                 MainMenuItem item = (MainMenuItem)this.MenuItemsListBox.SelectedItem;
                 this.MenuItemSelected(item);
@@ -233,5 +279,50 @@ namespace MixItUp.WPF.Controls.MainControls
         private void MenuToggleButton_Checked(object sender, RoutedEventArgs e) { OnMainMenuStateChanged(null, true); }
 
         private void MenuToggleButton_Unchecked(object sender, RoutedEventArgs e) { OnMainMenuStateChanged(null, false); }
+
+        private void EditMenuButton_Checked(object sender, RoutedEventArgs e)
+        {
+            this.isEditMode = true;
+            GongSolutions.Wpf.DragDrop.DragDrop.SetIsDragSource(this.MenuItemsListBox, true);
+            GongSolutions.Wpf.DragDrop.DragDrop.SetIsDropTarget(this.MenuItemsListBox, true);
+        }
+        private async void EditMenuButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.isEditMode = false;
+            GongSolutions.Wpf.DragDrop.DragDrop.SetIsDragSource(this.MenuItemsListBox, false);
+            GongSolutions.Wpf.DragDrop.DragDrop.SetIsDropTarget(this.MenuItemsListBox, false);
+
+            await this.SaveMenuOrder();
+        }
+        void GongSolutions.Wpf.DragDrop.IDropTarget.DragOver(GongSolutions.Wpf.DragDrop.IDropInfo dropInfo)
+        {
+            if (dropInfo.Data is MainMenuItem && dropInfo.TargetCollection != null)
+            {
+                dropInfo.DropTargetAdorner = GongSolutions.Wpf.DragDrop.DropTargetAdorners.Insert;
+                dropInfo.Effects = DragDropEffects.Move;
+            }
+        }
+        void GongSolutions.Wpf.DragDrop.IDropTarget.Drop(GongSolutions.Wpf.DragDrop.IDropInfo dropInfo)
+        {
+            if (dropInfo.Data is MainMenuItem sourceItem && dropInfo.TargetCollection != null)
+            {
+                var items = dropInfo.TargetCollection as ObservableCollection<MainMenuItem>;
+                if (items != null)
+                {
+                    int oldIndex = items.IndexOf(sourceItem);
+                    int newIndex = dropInfo.InsertIndex;
+
+                    if (oldIndex != -1)
+                    {
+                        if (newIndex > oldIndex)
+                        {
+                            newIndex--;
+                        }
+
+                        items.Move(oldIndex, newIndex);
+                    }
+                }
+            }
+        }
     }
 }

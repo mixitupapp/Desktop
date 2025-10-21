@@ -2,6 +2,7 @@
 using MixItUp.Base.Util;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -113,6 +114,9 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public Guid SettingsToDelete { get; set; }
+
+        [DataMember]
+        public List<string> MainMenuOrder { get; set; } = new List<string>();
 
         [JsonIgnore]
         public bool IsDarkBackground { get { return this.BackgroundColor.Equals("Dark"); } }

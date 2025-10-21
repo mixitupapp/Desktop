@@ -161,6 +161,8 @@ namespace MixItUp.WPF
                 await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Debug, new DebugControl(), "https://wiki.mixitupapp.com/");
             }
 
+            this.MainMenu.LoadMenuOrder();
+
             this.MainMenu.MenuItemSelected(MixItUp.Base.Resources.Chat);
 
             ActivationProtocolHandler.OnCommunityCommandActivation += ActivationProtocolHandler_OnCommunityCommandActivation;
