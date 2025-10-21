@@ -219,7 +219,7 @@ namespace MixItUp.WPF
             this.Close();
             if (this.restartApplication)
             {
-                ServiceManager.Get<IProcessService>().LaunchProgram(Application.ResourceAssembly.Location);
+                ServiceManager.Get<IProcessService>().LaunchProgram(Environment.ProcessPath);
             }
         }
 
@@ -229,12 +229,30 @@ namespace MixItUp.WPF
             if (!this.shutdownStarted)
             {
                 e.Cancel = true;
-                if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.ExitConfirmation))
+
+                int timeout = 10000;
+                var confirmationTask = DialogHelper.ShowConfirmation(MixItUp.Base.Resources.ExitConfirmation);
+                var delayTask = Task.Delay(timeout);
+
+                var completedTask = await Task.WhenAny(confirmationTask, delayTask);
+
+                bool confirmed = false;
+                if (completedTask == confirmationTask)
+                {
+                    confirmed = await confirmationTask;
+                }
+                else
+                {
+                    DialogHelper.CloseCurrent();
+                    confirmed = true;
+                }
+
+                if (confirmed)
                 {
                     this.shutdownStarted = true;
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning disable CS4014
                     this.StartShutdownProcess();
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning restore CS4014
                 }
             }
             else if (!this.shutdownComplete)

@@ -8,6 +8,8 @@ namespace MixItUp.Base.Services.External
     {
         public string voiceID { get; set; }
         public string friendlyName { get; set; }
+        public bool IsFavorite { get; set; }
+        public bool IsCustom { get; set; }
     }
 
     public class VoicemodMemeModel

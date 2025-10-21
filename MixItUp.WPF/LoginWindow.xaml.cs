@@ -6,6 +6,7 @@ using MixItUp.Base.Util;
 using MixItUp.WPF.Windows;
 using MixItUp.WPF.Windows.Wizard;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -184,7 +185,7 @@ namespace MixItUp.WPF
 
             this.Close();
 
-            ServiceManager.Get<IProcessService>().LaunchProgram(Application.ResourceAssembly.Location);
+            ServiceManager.Get<IProcessService>().LaunchProgram(Environment.ProcessPath);
         }
 
         private Task<bool> ShowLicenseAgreement()
@@ -202,6 +203,16 @@ namespace MixItUp.WPF
         {
             ServiceManager.Get<IProcessService>().LaunchLink(e.Uri.AbsoluteUri);
             e.Handled = true;
+        }
+
+        private void OpenInstallFolder_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchFolder(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
+        }
+
+        private void OpenDiscord_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord");
         }
     }
 }

@@ -4,16 +4,16 @@ using MixItUp.Base.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V2
 {
-    [RoutePrefix("api/v2/currency")]
-    public class CurrencyV2Controller : ApiController
+    [Route("api/v2/currency")]
+    [ApiController]
+    public class CurrencyV2Controller : ControllerBase
     {
-        [Route]
         [HttpGet]
-        public IHttpActionResult GetCurrencies()
+        public IActionResult GetCurrencies()
         {
             var currencies = new List<GetCurrencyResponse>();
 
@@ -31,37 +31,63 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{currencyId:guid}/{userId:guid}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetCurrencyAmountForUser(Guid currencyId, Guid userId)
+        public async Task<IActionResult> GetCurrencyAmountForUser(Guid currencyId, Guid userId)
         {
             if (!ChannelSession.Settings.Currency.TryGetValue(currencyId, out var currency) || currency == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Currency with ID '{currencyId}' not found"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
-            return Ok(currency.GetAmount(user));
+            return Ok(new GetCurrencyAmountResponse
+            {
+                CurrencyID = currencyId,
+                CurrencyName = currency.Name,
+                UserID = userId,
+                Amount = currency.GetAmount(user)
+            });
         }
 
         [Route("{currencyId:guid}/{userId:guid}")]
         [HttpPatch]
-        public async Task<IHttpActionResult> UpdateCurrencyAmountForUser(Guid currencyId, Guid userId, [FromBody] UpdateCurrencyAmount updateAmount)
+        public async Task<IActionResult> UpdateCurrencyAmountForUser(Guid currencyId, Guid userId, [FromBody] UpdateCurrencyAmount updateAmount)
         {
             if (!ChannelSession.Settings.Currency.TryGetValue(currencyId, out var currency) || currency == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Currency with ID '{currencyId}' not found"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             if (updateAmount.Amount > 0)
@@ -73,28 +99,50 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
                 currency.SubtractAmount(user, -1 * updateAmount.Amount);
             }
 
-            return Ok(currency.GetAmount(user));
+            return Ok(new GetCurrencyAmountResponse
+            {
+                CurrencyID = currencyId,
+                CurrencyName = currency.Name,
+                UserID = userId,
+                Amount = currency.GetAmount(user)
+            });
         }
 
         [Route("{currencyId:guid}/{userId:guid}")]
         [HttpPut]
-        public async Task<IHttpActionResult> SetCurrencyAmountForUser(Guid currencyId, Guid userId, [FromBody] UpdateCurrencyAmount updateAmount)
+        public async Task<IActionResult> SetCurrencyAmountForUser(Guid currencyId, Guid userId, [FromBody] UpdateCurrencyAmount updateAmount)
         {
             if (!ChannelSession.Settings.Currency.TryGetValue(currencyId, out var currency) || currency == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Currency with ID '{currencyId}' not found"
+                });
             }
 
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             currency.SetAmount(user, updateAmount.Amount);
 
-            return Ok(currency.GetAmount(user));
+            return Ok(new GetCurrencyAmountResponse
+            {
+                CurrencyID = currencyId,
+                CurrencyName = currency.Name,
+                UserID = userId,
+                Amount = currency.GetAmount(user)
+            });
         }
     }
 }

@@ -7,18 +7,15 @@ using MixItUp.Base.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
 {
-    [RoutePrefix("api/commands")]
-    public class CommandV1Controller : ApiController
+    [Route("api/commands")]
+    [ApiController]
+    public class CommandV1Controller : ControllerBase
     {
-        [Route]
         [HttpGet]
         public IEnumerable<Command> Get()
         {
@@ -27,35 +24,25 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
 
         [Route("{commandID:guid}")]
         [HttpGet]
-        public Command Get(Guid commandID)
+        public IActionResult Get(Guid commandID)
         {
             CommandModelBase selectedCommand = FindCommand(commandID);
             if (selectedCommand == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find command: {commandID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Command ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find command: {commandID.ToString()}." });
             }
 
-            return CommandFromCommandBase(selectedCommand);
+            return Ok(CommandFromCommandBase(selectedCommand));
         }
 
         [Route("{commandID:guid}")]
         [HttpPost]
-        public Command Run(Guid commandID, [FromBody] IEnumerable<string> arguments)
+        public IActionResult Run(Guid commandID, [FromBody] IEnumerable<string> arguments)
         {
             CommandModelBase selectedCommand = FindCommand(commandID);
             if (selectedCommand == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find command: {commandID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Command ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find command: {commandID.ToString()}." });
             }
 
             AsyncRunner.RunAsyncBackground((cancellationToken) => ServiceManager.Get<CommandService>().Queue(
@@ -66,26 +53,21 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                     }),
                 new CancellationToken());
 
-            return CommandFromCommandBase(selectedCommand);
+            return Ok(CommandFromCommandBase(selectedCommand));
         }
 
         [Route("{commandID:guid}")]
         [HttpPut, HttpPatch]
-        public Command Update(Guid commandID, [FromBody] Command commandData)
+        public IActionResult Update(Guid commandID, [FromBody] Command commandData)
         {
             CommandModelBase selectedCommand = FindCommand(commandID);
             if (selectedCommand == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find command: {commandID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Command ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find command: {commandID.ToString()}." });
             }
 
             selectedCommand.IsEnabled = commandData.IsEnabled;
-            return CommandFromCommandBase(selectedCommand);
+            return Ok(CommandFromCommandBase(selectedCommand));
         }
 
         private CommandModelBase FindCommand(Guid commandId)

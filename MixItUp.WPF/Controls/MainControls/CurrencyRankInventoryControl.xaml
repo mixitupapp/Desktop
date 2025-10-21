@@ -9,10 +9,9 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
                           
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
                           
              d:DesignHeight="700" d:DesignWidth="600">
     <Grid Margin="10">
@@ -23,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Border BorderBrush="{StaticResource PrimaryHueMidBrush}" Grid.Row="2" BorderThickness="1">
+            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="2" BorderThickness="1">
                 <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding Items}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />

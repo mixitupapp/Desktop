@@ -243,7 +243,27 @@ namespace MixItUp.Base.Services.YouTube.New
             return await AsyncRunner.RunAsync(async () =>
             {
                 ChannelsResource.ListRequest request = this.GoogleYouTubeService.Channels.List("snippet,statistics");
-                request.ForUsername = username;
+                request.ForUsername = username.TrimStart('@');
+                request.MaxResults = 1;
+                LogRequest(request);
+
+                ChannelListResponse response = await request.ExecuteAsync();
+                LogResponse(request, response);
+
+                if (response.Items != null)
+                {
+                    return response.Items.FirstOrDefault();
+                }
+                return null;
+            });
+        }
+
+        public async Task<Channel> GetChannelByHandle(string handle)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                ChannelsResource.ListRequest request = this.GoogleYouTubeService.Channels.List("snippet,statistics");
+                request.ForHandle = handle;
                 request.MaxResults = 1;
                 LogRequest(request);
 

@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace MixItUp.WPF.Services
         private static readonly List<string> webPathPrefixes = new List<string>() { "http://", "https://", "www." };
 
         private static SemaphoreSlim fileLock = new SemaphoreSlim(1);
+        private static readonly HttpClient httpClient = new HttpClient();
 
         public string TextFileFilter() { return MixItUp.Base.Resources.TextFileFormatFilter; }
         public string ImageFileFilter() { return MixItUp.Base.Resources.ImageFileFormatFilter; }
@@ -146,10 +148,7 @@ namespace MixItUp.WPF.Services
                     }
                     else if (webPathPrefixes.Any(p => filePath.StartsWith(p, StringComparison.InvariantCultureIgnoreCase)))
                     {
-                        using (WebClient client = new WebClient())
-                        {
-                            return await Task.Run(async () => { return await client.DownloadStringTaskAsync(filePath); });
-                        }
+                        return await httpClient.GetStringAsync(filePath);
                     }
                 }
                 catch (Exception ex) { Logger.Log(ex); }
@@ -185,10 +184,7 @@ namespace MixItUp.WPF.Services
                     }
                     else if (webPathPrefixes.Any(p => filePath.StartsWith(p, StringComparison.InvariantCultureIgnoreCase)))
                     {
-                        using (WebClient client = new WebClient())
-                        {
-                            return await Task.Run(async () => { return await client.DownloadDataTaskAsync(filePath); });
-                        }
+                        return await httpClient.GetByteArrayAsync(filePath);
                     }
                 }
                 catch (Exception ex) { Logger.Log(ex); }

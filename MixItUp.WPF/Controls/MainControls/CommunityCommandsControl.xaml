@@ -10,10 +10,9 @@
              xmlns:CCControls="clr-namespace:MixItUp.WPF.Controls.CommunityCommands"
              mc:Ignorable="d"
                           
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"  
 
              d:DesignHeight="300" d:DesignWidth="300">
     <local:MainControlBase.Resources>

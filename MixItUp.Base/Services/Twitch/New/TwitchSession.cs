@@ -231,6 +231,9 @@ namespace MixItUp.Base.Services.Twitch.New
             Task<IEnumerable<ChannelEditorUserModel>> channelEditorsTask = this.StreamerService.GetChannelEditors(this.StreamerModel);
             initializationTasks.Add(channelEditorsTask);
 
+            Task<IEnumerable<ChannelContentClassificationLabelModel>> contentLabelsTask = this.StreamerService.GetContentClassificationLabels();
+            initializationTasks.Add(contentLabelsTask);
+
             await Task.WhenAll(initializationTasks);
 
             foreach (Task<IEnumerable<ChatEmoteModel>> emoteTask in twitchEmoteTasks)
@@ -283,6 +286,12 @@ namespace MixItUp.Base.Services.Twitch.New
                 {
                     this.ChannelEditors.Add(channelEditor.user_id);
                 }
+            }
+
+            if (contentLabelsTask.IsCompleted && contentLabelsTask.Result != null)
+            {
+                this.ContentClassificationLabels.Clear();
+                this.ContentClassificationLabels.AddRange(contentLabelsTask.Result.Where(l => !string.Equals(l.id, "MatureGame", StringComparison.Ordinal)));
             }
 
             this.cancellationTokenSource = new CancellationTokenSource();

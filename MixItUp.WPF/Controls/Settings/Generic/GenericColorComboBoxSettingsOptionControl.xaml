@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Settings.Generic"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              mc:Ignorable="d" 
@@ -26,7 +26,7 @@
 
         <ToggleButton Grid.Column="1" IsChecked="{Binding Enabled}" ToolTip="{Binding Tooltip}" Visibility="{Binding ShowEnabledOption, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Margin="0,0,20,0" />
 
-        <ComboBox Grid.Column="2" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="150" ToolTip="{Binding Tooltip}">
+        <ComboBox Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedComboBox}" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="150" ToolTip="{Binding Tooltip}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5,0,0,0">

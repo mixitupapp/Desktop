@@ -62,7 +62,7 @@
             <TextBox Text="{Binding StartTime}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StartTime}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
             <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{x:Static resx:Resources.VolumeHeader}"/>
-            <Slider Value="{Binding Volume}" VerticalAlignment="Center" Grid.Column="8" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" />
+            <Slider Value="{Binding Volume}" VerticalAlignment="Center" Grid.Column="8" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

@@ -215,7 +215,7 @@ namespace MixItUp.WPF.Services
 
         public bool RegisterHotKey(HotKeyModifiersEnum modifiers, VirtualKeyEnum key)
         {
-            if (this.windowHandle != null)
+            if (this.windowHandle != IntPtr.Zero)
             {
                 int hotKeyID = this.GetHotKeyID(modifiers, key);
                 if (!this.registeredHotKeys.Contains(hotKeyID))
@@ -229,7 +229,7 @@ namespace MixItUp.WPF.Services
 
         public bool UnregisterHotKey(HotKeyModifiersEnum modifiers, VirtualKeyEnum key)
         {
-            if (this.windowHandle != null)
+            if (this.windowHandle != IntPtr.Zero)
             {
                 int hotKeyID = this.GetHotKeyID(modifiers, key);
                 if (this.registeredHotKeys.Contains(hotKeyID))
@@ -241,7 +241,6 @@ namespace MixItUp.WPF.Services
             return false;
         }
 
-        [PermissionSetAttribute(SecurityAction.LinkDemand, Name = "FullTrust")]
         public bool PreFilterMessage(ref Message message)
         {
             if (message.Msg == WINDOWS_MESSAGE_HOTKEY && message.HWnd == this.windowHandle)
@@ -301,7 +300,7 @@ namespace MixItUp.WPF.Services
                         this.windowSource.RemoveHook(HwndHook);
                     }
 
-                    if (this.windowHandle != null)
+                    if (this.windowHandle != IntPtr.Zero)
                     {
                         foreach (int hotKeyID in this.registeredHotKeys)
                         {

@@ -8,16 +8,14 @@ using MixItUp.Base.ViewModel.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
 {
-    [RoutePrefix("api/users")]
-    public class UserV1Controller : ApiController
+    [Route("api/users")]
+    [ApiController]
+    public class UserV1Controller : ControllerBase
     {
         public static async Task<UserV2ViewModel> GetUserData(StreamingPlatformTypeEnum platform, string usernameOrID)
         {
@@ -38,7 +36,6 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
             return user;
         }
 
-        [Route]
         [HttpPost]
         public async Task<IEnumerable<User>> BulkGet([FromBody] IEnumerable<string> usernamesOrIDs)
         {
@@ -57,116 +54,86 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
 
         [Route("{usernameOrID}")]
         [HttpGet]
-        public async Task<User> Get(string usernameOrID)
+        public async Task<IActionResult> Get(string usernameOrID)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(ChannelSession.Settings.DefaultStreamingPlatform, usernameOrID);
             if (user == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find user: {usernameOrID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "User not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
             }
 
-            return UserFromUserDataViewModel(user);
+            return Ok(UserFromUserDataViewModel(user));
         }
 
         [Route("twitch/{usernameOrID}")]
         [HttpGet]
-        public async Task<User> GetTwitch(string usernameOrID)
+        public async Task<IActionResult> GetTwitch(string usernameOrID)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(StreamingPlatformTypeEnum.Twitch, usernameOrID);
             if (user == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find user: {usernameOrID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "User not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
             }
 
-            return UserFromUserDataViewModel(user);
+            return Ok(UserFromUserDataViewModel(user));
         }
 
         [Route("youtube/{usernameOrID}")]
         [HttpGet]
-        public async Task<User> GetYouTube(string usernameOrID)
+        public async Task<IActionResult> GetYouTube(string usernameOrID)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(StreamingPlatformTypeEnum.YouTube, usernameOrID);
             if (user == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find user: {usernameOrID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "User not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
             }
 
-            return UserFromUserDataViewModel(user);
+            return Ok(UserFromUserDataViewModel(user));
         }
 
         [Route("trovo/{usernameOrID}")]
         [HttpGet]
-        public async Task<User> GetTrovo(string usernameOrID)
+        public async Task<IActionResult> GetTrovo(string usernameOrID)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(StreamingPlatformTypeEnum.Trovo, usernameOrID);
             if (user == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find user: {usernameOrID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "User not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
             }
 
-            return UserFromUserDataViewModel(user);
+            return Ok(UserFromUserDataViewModel(user));
         }
 
         [Route("{usernameOrID}")]
         [HttpPut, HttpPatch]
-        public async Task<User> Update(string usernameOrID, [FromBody] User updatedUserData)
+        public async Task<IActionResult> Update(string usernameOrID, [FromBody] User updatedUserData)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(ChannelSession.Settings.DefaultStreamingPlatform, usernameOrID);
             if (user == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find user: {usernameOrID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "User not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
             }
 
             return await UpdateUser(user, updatedUserData);
         }
 
-        private async Task<User> UpdateUser(UserV2ViewModel user, User updatedUserData)
+        private async Task<IActionResult> UpdateUser(UserV2ViewModel user, User updatedUserData)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (updatedUserData == null || !updatedUserData.ID.Equals(user.ID))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = "Unable to parse update data from POST body." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Invalid POST Body"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = "Unable to parse update data from POST body." });
             }
 
             if (updatedUserData.ViewingMinutes.HasValue)
@@ -182,24 +149,19 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 }
             }
 
-            return UserFromUserDataViewModel(user);
+            return Ok(UserFromUserDataViewModel(user));
         }
 
         [Route("{usernameOrID}/currency/{currencyID:guid}/adjust")]
         [HttpPut, HttpPatch]
-        public async Task<User> AdjustUserCurrency(string usernameOrID, Guid currencyID, [FromBody] AdjustCurrency currencyUpdate)
+        public async Task<IActionResult> AdjustUserCurrency(string usernameOrID, Guid currencyID, [FromBody] AdjustCurrency currencyUpdate)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(ChannelSession.Settings.DefaultStreamingPlatform, usernameOrID);
             if (user == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find user: {usernameOrID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "User not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
             }
 
             return AdjustCurrency(user, currencyID, currencyUpdate);
@@ -207,38 +169,27 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
 
         [Route("{usernameOrID}/inventory/{inventoryID:guid}/adjust")]
         [HttpPut, HttpPatch]
-        public async Task<User> AdjustUserInventory(string usernameOrID, Guid inventoryID, [FromBody]AdjustInventory inventoryUpdate)
+        public async Task<IActionResult> AdjustUserInventory(string usernameOrID, Guid inventoryID, [FromBody] AdjustInventory inventoryUpdate)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(ChannelSession.Settings.DefaultStreamingPlatform, usernameOrID);
             if (user == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find user: {usernameOrID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "User not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
             }
             return AdjustInventory(user, inventoryID, inventoryUpdate);
         }
 
         [Route("top")]
         [HttpGet]
-        public async Task<IEnumerable<User>> Get(int count = 10)
+        public async Task<IActionResult> Get(int count = 10)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (count < 1)
             {
-                // TODO: Consider checking or a max # too? (100?)
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Count must be greater than 0." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Count too low"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = $"Count must be greater than 0." });
             }
 
             Dictionary<Guid, UserV2Model> allUsersDictionary = ChannelSession.Settings.Users.ToDictionary();
@@ -251,7 +202,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
             {
                 userList.Add(UserFromUserDataViewModel(new UserV2ViewModel(user)));
             }
-            return userList;
+            return Ok(userList);
         }
 
         public static User UserFromUserDataViewModel(UserV2ViewModel userData)
@@ -279,26 +230,16 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
             return user;
         }
 
-        private User AdjustCurrency(UserV2ViewModel user, Guid currencyID, [FromBody] AdjustCurrency currencyUpdate)
+        private IActionResult AdjustCurrency(UserV2ViewModel user, Guid currencyID, [FromBody] AdjustCurrency currencyUpdate)
         {
             if (!ChannelSession.Settings.Currency.ContainsKey(currencyID))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Currency ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find currency: {currencyID.ToString()}." });
             }
 
             if (currencyUpdate == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = "Unable to parse currency adjustment from POST body." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Invalid POST Body"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = "Unable to parse currency adjustment from POST body." });
             }
 
             CurrencyModel currency = ChannelSession.Settings.Currency[currencyID];
@@ -308,12 +249,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 int quantityToRemove = currencyUpdate.Amount * -1;
                 if (!currency.HasAmount(user, quantityToRemove))
                 {
-                    var resp = new HttpResponseMessage(HttpStatusCode.Forbidden)
-                    {
-                        Content = new ObjectContent<Error>(new Error { Message = "User does not have enough currency to remove" }, new JsonMediaTypeFormatter(), "application/json"),
-                        ReasonPhrase = "Not Enough Currency"
-                    };
-                    throw new HttpResponseException(resp);
+                    return StatusCode(403, new Error { Message = "User does not have enough currency to remove" });
                 }
 
                 currency.SubtractAmount(user, quantityToRemove);
@@ -323,41 +259,26 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 currency.AddAmount(user, currencyUpdate.Amount);
             }
 
-            return UserFromUserDataViewModel(user);
+            return Ok(UserFromUserDataViewModel(user));
         }
 
-        private User AdjustInventory(UserV2ViewModel user, Guid inventoryID, [FromBody]AdjustInventory inventoryUpdate)
+        private IActionResult AdjustInventory(UserV2ViewModel user, Guid inventoryID, [FromBody] AdjustInventory inventoryUpdate)
         {
             if (!ChannelSession.Settings.Inventory.ContainsKey(inventoryID))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find inventory: {inventoryID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Inventory ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find inventory: {inventoryID.ToString()}." });
             }
 
             if (inventoryUpdate == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = "Unable to parse inventory adjustment from POST body." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Invalid POST Body"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = "Unable to parse inventory adjustment from POST body." });
             }
 
             InventoryModel inventory = ChannelSession.Settings.Inventory[inventoryID];
 
             if (string.IsNullOrEmpty(inventoryUpdate.Name) || !inventory.ItemExists(inventoryUpdate.Name))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = "Unable to find requested inventory item." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Invalid Inventory Item"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = "Unable to find requested inventory item." });
             }
 
             InventoryItemModel item = inventory.GetItem(inventoryUpdate.Name);
@@ -366,13 +287,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 int quantityToRemove = inventoryUpdate.Amount * -1;
                 if (!inventory.HasAmount(user, item.ID, quantityToRemove))
                 {
-                    // If the request is to remove inventory, but user doesn't have enough, fail
-                    var resp = new HttpResponseMessage(HttpStatusCode.Forbidden)
-                    {
-                        Content = new ObjectContent<Error>(new Error { Message = "User does not have enough inventory to remove" }, new JsonMediaTypeFormatter(), "application/json"),
-                        ReasonPhrase = "Not Enough Inventory"
-                    };
-                    throw new HttpResponseException(resp);
+                    return StatusCode(403, new Error { Message = "User does not have enough inventory to remove" });
                 }
 
                 inventory.SubtractAmount(user, item.ID, quantityToRemove);
@@ -382,7 +297,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 inventory.AddAmount(user, item.ID, inventoryUpdate.Amount);
             }
 
-            return UserFromUserDataViewModel(user);
+            return Ok(UserFromUserDataViewModel(user));
         }
     }
 }

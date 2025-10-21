@@ -973,7 +973,7 @@ namespace MixItUp.WPF.Services
                 string passwordAndSalt = this.password + message.Data.Authentication.Salt;
 
                 // Generate an SHA256 binary hash of the result and base64 encode it, known as a base64 secret.
-                using (SHA256Managed sha256Hash = new SHA256Managed())
+                using (SHA256 sha256Hash = SHA256.Create())
                 {
                     byte[] bytes = sha256Hash.ComputeHash(Encoding.ASCII.GetBytes(passwordAndSalt));
                     string base64Secret = Convert.ToBase64String(bytes);

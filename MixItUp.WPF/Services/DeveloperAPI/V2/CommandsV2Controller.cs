@@ -7,28 +7,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V2
 {
-    [RoutePrefix("api/v2/commands")]
-    public class CommandsV2Controller : ApiController
+    [Route("api/v2/commands")]
+    [ApiController]
+    public class CommandsV2Controller : ControllerBase
     {
         [Route("{commandId:guid}")]
         [HttpGet]
-        public IHttpActionResult GetCommandById(Guid commandId)
+        public IActionResult GetCommandById(Guid commandId)
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Command with ID '{commandId}' not found"
+                });
             }
 
             return Ok(new GetSingleCommandResponse { Command = CommandMapper.ToCommand(command) });
         }
 
-        [Route]
         [HttpGet]
-        public IHttpActionResult GetAllCommands(int skip = 0, int pageSize = 25)
+        public IActionResult GetAllCommands(int skip = 0, int pageSize = 25)
         {
             var allCommands = GetAllCommands();
             var commands = allCommands
@@ -48,11 +53,16 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{commandId:guid}/state/{state:int}")]
         [HttpPatch]
-        public async Task<IHttpActionResult> UpdateCommandState(Guid commandId, CommandStateOptions state)
+        public async Task<IActionResult> UpdateCommandState(Guid commandId, CommandStateOptions state)
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Command with ID '{commandId}' not found"
+                });
             }
 
             if (state == CommandStateOptions.Disable)
@@ -69,7 +79,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
             }
             else
             {
-                return BadRequest();
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = "Invalid command state option"
+                });
             }
 
             if (command is ChatCommandModel)
@@ -86,11 +101,16 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{commandId:guid}")]
         [HttpPost]
-        public async Task<IHttpActionResult> RunCommand(Guid commandId, [FromBody] RunCommandParameters parameters)
+        public async Task<IActionResult> RunCommand(Guid commandId, [FromBody] RunCommandParameters parameters)
         {
             if (!ChannelSession.Settings.Commands.TryGetValue(commandId, out var command) || command == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Command with ID '{commandId}' not found"
+                });
             }
 
             if (parameters == null)
@@ -101,7 +121,12 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
             StreamingPlatformTypeEnum platform = StreamingPlatformTypeEnum.All;
             if (!string.IsNullOrEmpty(parameters.Platform) && !Enum.TryParse<StreamingPlatformTypeEnum>(parameters.Platform, ignoreCase: true, out platform))
             {
-                return BadRequest($"Unknown platform: {parameters.Platform}");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = $"Unknown platform: {parameters.Platform}"
+                });
             }
 
             await ServiceManager.Get<CommandService>().Queue(commandId, new CommandParametersModel(platform: platform, arguments: CommandParametersModel.GenerateArguments(parameters.Arguments), specialIdentifiers: parameters.SpecialIdentifiers));

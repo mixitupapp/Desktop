@@ -58,7 +58,7 @@
             <TextBox Text="{Binding Height}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
             <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{x:Static resx:Resources.VolumeHeader}"/>
-            <Slider Value="{Binding Volume}" VerticalAlignment="Center" Grid.Column="6" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" />
+            <Slider Value="{Binding Volume}" VerticalAlignment="Center" Grid.Column="6" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

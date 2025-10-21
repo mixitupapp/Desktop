@@ -10,7 +10,7 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class ServiceContainerControl : LoadingControlBase
     {
-        private const int MinimizedGroupBoxHeight = 34;
+        private const int MinimizedGroupBoxHeight = 35;
 
         public LoadingWindowBase window { get; private set; }
         private ServiceControlBase serviceControl;

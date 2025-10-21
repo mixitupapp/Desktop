@@ -20,8 +20,8 @@
 
             <!-- Twitch -->
             
-            <Border Visibility="{Binding IsTwitchConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1">
-                <Expander DataContext="{Binding Twitch}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{StaticResource PrimaryHueMidBrush}" IsExpanded="True">
+            <Border Visibility="{Binding IsTwitchConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                <Expander DataContext="{Binding Twitch}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
                     <Expander.Header>
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -31,11 +31,11 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="/Assets/Images/Twitch.png" Height="24" Width="24" VerticalAlignment="Center" />
 
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Twitch}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" />
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Twitch}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                         </Grid>
                     </Expander.Header>
 
-                    <Grid Background="{StaticResource MaterialDesignBackground}">
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -131,8 +131,8 @@
             </Border>
 
             <!-- YouTube -->
-            <Border Visibility="{Binding IsYouTubeConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1">
-                <Expander DataContext="{Binding YouTube}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{StaticResource PrimaryHueMidBrush}" IsExpanded="True">
+            <Border Visibility="{Binding IsYouTubeConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                <Expander DataContext="{Binding YouTube}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
                     <Expander.Header>
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -142,11 +142,11 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="/Assets/Images/YouTube.png" Height="24" Width="24" VerticalAlignment="Center" />
 
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.YouTube}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" />
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.YouTube}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                         </Grid>
                     </Expander.Header>
 
-                    <Grid Background="{StaticResource MaterialDesignBackground}">
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -215,8 +215,8 @@
 
             <!-- Trovo -->
             
-            <Border Visibility="{Binding IsTrovoConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1">
-                <Expander DataContext="{Binding Trovo}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{StaticResource PrimaryHueMidBrush}" IsExpanded="True">
+            <Border Visibility="{Binding IsTrovoConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                <Expander DataContext="{Binding Trovo}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
                     <Expander.Header>
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -226,11 +226,11 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="/Assets/Images/Trovo.png" Height="24" Width="24" VerticalAlignment="Center" />
 
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Trovo}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" />
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Trovo}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                         </Grid>
                     </Expander.Header>
 
-                    <Grid Background="{StaticResource MaterialDesignBackground}">
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />

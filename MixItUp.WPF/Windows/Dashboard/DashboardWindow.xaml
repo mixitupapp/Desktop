@@ -1,36 +1,28 @@
-﻿<Windows:LoadingWindowBase x:Class="MixItUp.WPF.Windows.Dashboard.DashboardWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MixItUp.WPF.Windows.PopOut"
-        xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
-        xmlns:util="clr-namespace:MixItUp.WPF.Util"
-        xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
-        xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
-        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-                                        
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        TextElement.FontWeight="Medium"
-        TextElement.FontSize="14"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
-                           
-        Icon="./../../Logo.ico"
-        Title="{x:Static resx:Resources.MixItUpDashboard}" Height="600" Width="800">
+﻿<Windows:LoadingWindowBase
+    x:Class="MixItUp.WPF.Windows.Dashboard.DashboardWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MixItUp.WPF.Windows.PopOut"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+    xmlns:util="clr-namespace:MixItUp.WPF.Util"
+    Title="{x:Static resx:Resources.MixItUpDashboard}"
+    Width="800"
+    Height="600"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    Icon="./../../Logo.ico"
+    Style="{StaticResource MaterialDesignWindow}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
-        <util:LocalizationConverter x:Key="LocalizationConverter"/>
-        <ResourceDictionary x:Key="Themes">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        </ResourceDictionary>
+        <util:LocalizationConverter x:Key="LocalizationConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Windows:LoadingWindowBase.Resources>
 
     <Grid>
@@ -43,66 +35,118 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <MaterialDesign:ColorZone Padding="16,8,16,8" MaterialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" DockPanel.Dock="Top" Height="60">
+            <MaterialDesign:ColorZone
+                Height="60"
+                Padding="16,8,16,8"
+                MaterialDesign:ElevationAssist.Elevation="Dp2"
+                DockPanel.Dock="Top"
+                Mode="PrimaryMid">
                 <DockPanel>
                     <Grid HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="8" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <ComboBox Grid.Column="0" ItemsSource="{Binding LayoutTypes}" SelectedItem="{Binding LayoutType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Layout}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MinWidth="100">
+                        <ComboBox
+                            Grid.Column="0"
+                            MinWidth="100"
+                            MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Layout}"
+                            Background="Transparent"
+                            ItemsSource="{Binding LayoutTypes}"
+                            SelectedItem="{Binding LayoutType}"
+                            Style="{StaticResource MaterialDesignFilledComboBox}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <ComboBox Grid.Column="2" ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding ItemTypeOne}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item1}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MinWidth="130">
+                        <ComboBox
+                            Grid.Column="2"
+                            MinWidth="130"
+                            MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item1}"
+                            Background="Transparent"
+                            ItemsSource="{Binding ItemTypes}"
+                            SelectedItem="{Binding ItemTypeOne}"
+                            Style="{StaticResource MaterialDesignFilledComboBox}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <ComboBox Grid.Column="4" ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding ItemTypeTwo}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item2}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MinWidth="130">
+                        <ComboBox
+                            Grid.Column="4"
+                            MinWidth="130"
+                            MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item2}"
+                            Background="Transparent"
+                            ItemsSource="{Binding ItemTypes}"
+                            SelectedItem="{Binding ItemTypeTwo}"
+                            Style="{StaticResource MaterialDesignFilledComboBox}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <ComboBox Grid.Column="6" ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding ItemTypeThree}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item3}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MinWidth="130">
+                        <ComboBox
+                            Grid.Column="6"
+                            MinWidth="130"
+                            MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item3}"
+                            Background="Transparent"
+                            ItemsSource="{Binding ItemTypes}"
+                            SelectedItem="{Binding ItemTypeThree}"
+                            Style="{StaticResource MaterialDesignFilledComboBox}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <ComboBox Grid.Column="8" ItemsSource="{Binding ItemTypes}" SelectedItem="{Binding ItemTypeFour}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item4}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MinWidth="130">
+                        <ComboBox
+                            Grid.Column="8"
+                            MinWidth="130"
+                            MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item4}"
+                            Background="Transparent"
+                            ItemsSource="{Binding ItemTypes}"
+                            SelectedItem="{Binding ItemTypeFour}"
+                            Style="{StaticResource MaterialDesignFilledComboBox}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <Controls:IconButton x:Name="UnpinButton" Click="TogglePin_Click" Visibility="{Binding IsPinned, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="10" Icon="Pin" ToolTip="{x:Static resx:Resources.Unpin}" />
+                        <Controls:IconButton
+                            x:Name="UnpinButton"
+                            Grid.Column="10"
+                            Click="TogglePin_Click"
+                            Icon="Pin"
+                            ToolTip="{x:Static resx:Resources.Unpin}"
+                            Visibility="{Binding IsPinned, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <Controls:IconButton x:Name="PinButton" Click="TogglePin_Click" Visibility="{Binding IsNotPinned, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="10" Icon="PinOff" ToolTip="{x:Static resx:Resources.Pin}" />
+                        <Controls:IconButton
+                            x:Name="PinButton"
+                            Grid.Column="10"
+                            Click="TogglePin_Click"
+                            Icon="PinOff"
+                            ToolTip="{x:Static resx:Resources.Pin}"
+                            Visibility="{Binding IsNotPinned, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Grid>
                 </DockPanel>
             </MaterialDesign:ColorZone>
@@ -121,9 +165,26 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <ContentControl Grid.Column="0" Content="{Binding ItemOne}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-                    <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="5" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" />
-                    <ContentControl Grid.Column="2" Content="{Binding ItemTwo}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                    <ContentControl
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Content="{Binding ItemOne}" />
+                    <GridSplitter
+                        Grid.Column="1"
+                        Width="5"
+                        VerticalAlignment="Stretch"
+                        ResizeBehavior="PreviousAndNext"
+                        ResizeDirection="Columns" />
+                    <ContentControl
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Content="{Binding ItemTwo}" />
                 </Grid>
             </Grid>
 
@@ -135,8 +196,19 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <ContentControl Grid.Column="0" Content="{Binding ItemOne}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-                    <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="5" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" />
+                    <ContentControl
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Content="{Binding ItemOne}" />
+                    <GridSplitter
+                        Grid.Column="1"
+                        Width="5"
+                        VerticalAlignment="Stretch"
+                        ResizeBehavior="PreviousAndNext"
+                        ResizeDirection="Columns" />
 
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -145,9 +217,24 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <ContentControl Grid.Row="0" Content="{Binding ItemTwo}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" />
-                        <ContentControl Grid.Row="2" Content="{Binding ItemThree}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                        <ContentControl
+                            Grid.Row="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemTwo}" />
+                        <GridSplitter
+                            Grid.Row="1"
+                            Height="5"
+                            HorizontalAlignment="Stretch" />
+                        <ContentControl
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemThree}" />
                     </Grid>
                 </Grid>
             </Grid>
@@ -167,13 +254,41 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <ContentControl Grid.Row="0" Content="{Binding ItemTwo}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" />
-                        <ContentControl Grid.Row="2" Content="{Binding ItemThree}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                        <ContentControl
+                            Grid.Row="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemTwo}" />
+                        <GridSplitter
+                            Grid.Row="1"
+                            Height="5"
+                            HorizontalAlignment="Stretch"
+                            ResizeBehavior="PreviousAndNext"
+                            ResizeDirection="Rows" />
+                        <ContentControl
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemThree}" />
                     </Grid>
 
-                    <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="5" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" />
-                    <ContentControl Grid.Column="2" Content="{Binding ItemOne}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                    <GridSplitter
+                        Grid.Column="1"
+                        Width="5"
+                        VerticalAlignment="Stretch"
+                        ResizeBehavior="PreviousAndNext"
+                        ResizeDirection="Columns" />
+                    <ContentControl
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Content="{Binding ItemOne}" />
                 </Grid>
             </Grid>
 
@@ -192,12 +307,34 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <ContentControl Grid.Row="0" Content="{Binding ItemOne}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" />
-                        <ContentControl Grid.Row="2" Content="{Binding ItemThree}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                        <ContentControl
+                            Grid.Row="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemOne}" />
+                        <GridSplitter
+                            Grid.Row="1"
+                            Height="5"
+                            HorizontalAlignment="Stretch"
+                            ResizeBehavior="PreviousAndNext"
+                            ResizeDirection="Rows" />
+                        <ContentControl
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemThree}" />
                     </Grid>
 
-                    <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="5" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" />
+                    <GridSplitter
+                        Grid.Column="1"
+                        Width="5"
+                        VerticalAlignment="Stretch"
+                        ResizeBehavior="PreviousAndNext"
+                        ResizeDirection="Columns" />
 
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -206,9 +343,26 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <ContentControl Grid.Row="0" Content="{Binding ItemTwo}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-                        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" />
-                        <ContentControl Grid.Row="2" Content="{Binding ItemFour}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                        <ContentControl
+                            Grid.Row="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemTwo}" />
+                        <GridSplitter
+                            Grid.Row="1"
+                            Height="5"
+                            HorizontalAlignment="Stretch"
+                            ResizeBehavior="PreviousAndNext"
+                            ResizeDirection="Rows" />
+                        <ContentControl
+                            Grid.Row="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Content="{Binding ItemFour}" />
                     </Grid>
                 </Grid>
             </Grid>

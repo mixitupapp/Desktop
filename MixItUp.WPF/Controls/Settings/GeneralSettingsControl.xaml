@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Settings"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              xmlns:util="clr-namespace:MixItUp.WPF.Util"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:GenericSettingsControls="clr-namespace:MixItUp.WPF.Controls.Settings.Generic"
              xmlns:MainControls="clr-namespace:MixItUp.WPF.Controls.MainControls"
              mc:Ignorable="d" 
