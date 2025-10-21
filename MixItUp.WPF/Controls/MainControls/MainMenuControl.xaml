@@ -133,9 +133,15 @@
                                             x:Name="DragHandle"
                                             Width="16"
                                             Height="16"
-                                            Margin="0,0,8,0"
+                                            Margin="0,0,2,0"
                                             VerticalAlignment="Center"
                                             Kind="DragVertical"
+                                            Opacity="0" />
+                                        <CheckBox
+                                            x:Name="VisibilityCheckBox"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            IsChecked="{Binding Visible, Mode=TwoWay}"
                                             Opacity="0" />
                                         <TextBlock
                                             VerticalAlignment="Center"
@@ -152,6 +158,11 @@
                                                             Storyboard.TargetProperty="Opacity"
                                                             To="0.7"
                                                             Duration="0:0:0.2" />
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetName="VisibilityCheckBox"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="1"
+                                                            Duration="0:0:0.2" />
                                                     </Storyboard>
                                                 </BeginStoryboard>
                                             </DataTrigger.EnterActions>
@@ -160,6 +171,11 @@
                                                     <Storyboard>
                                                         <DoubleAnimation
                                                             Storyboard.TargetName="DragHandle"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            To="0"
+                                                            Duration="0:0:0.2" />
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetName="VisibilityCheckBox"
                                                             Storyboard.TargetProperty="Opacity"
                                                             To="0"
                                                             Duration="0:0:0.2" />

@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 namespace MixItUp.Base.Model.Settings
 {
     [DataContract]
+    public class MainMenuControlSettings
+    {
+        [DataMember]
+        public string Id { get; set; }
+
+        [DataMember]
+        public bool Hidden { get; set; }
+    }
+
+    [DataContract]
     public class ApplicationSettingsV2Model
     {
         private const string ApplicationSettingsFileName = "ApplicationSettings.json";
@@ -27,18 +37,15 @@ namespace MixItUp.Base.Model.Settings
                     Logger.Log(ex);
                 }
             }
-
             if (settings == null)
             {
                 settings = new ApplicationSettingsV2Model();
             }
-
             if (settings.ForceResetPreviewProgram)
             {
                 settings.ForceResetPreviewProgram = false;
                 settings.PreviewProgram = false;
             }
-
             return settings;
         }
 
@@ -50,6 +57,7 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public bool PreviewProgram { get; set; } = false;
+
         [DataMember]
         public bool ForceResetPreviewProgram { get; set; } = true;
 
@@ -109,6 +117,7 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public string SettingsRestoreFilePath { get; set; }
+
         [DataMember]
         public Guid SettingsToReplaceDuringRestore { get; set; }
 
@@ -116,7 +125,7 @@ namespace MixItUp.Base.Model.Settings
         public Guid SettingsToDelete { get; set; }
 
         [DataMember]
-        public List<string> MainMenuOrder { get; set; } = new List<string>();
+        public List<MainMenuControlSettings> MainMenuControls { get; set; } = new List<MainMenuControlSettings>();
 
         [JsonIgnore]
         public bool IsDarkBackground { get { return this.BackgroundColor.Equals("Dark"); } }
