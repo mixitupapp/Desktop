@@ -128,60 +128,42 @@
                             </ListBox.Resources>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Margin="0,0,10,0" Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
                                         <MaterialDesign:PackIcon
                                             x:Name="DragHandle"
+                                            Grid.Column="0"
                                             Width="16"
                                             Height="16"
                                             Margin="0,0,2,0"
                                             VerticalAlignment="Center"
                                             Kind="DragVertical"
-                                            Opacity="0" />
+                                            Visibility="Collapsed" />
+
                                         <CheckBox
                                             x:Name="VisibilityCheckBox"
+                                            Grid.Column="1"
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Center"
                                             IsChecked="{Binding Visible, Mode=TwoWay}"
-                                            Opacity="0" />
+                                            Visibility="Collapsed" />
+
                                         <TextBlock
+                                            Grid.Column="2"
+                                            Margin="8,0,0,0"
                                             VerticalAlignment="Center"
                                             Text="{Binding Name}"
                                             ToolTip="{Binding Name}" />
-                                    </StackPanel>
+                                    </Grid>
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding ElementName=EditMenuButton, Path=IsChecked}" Value="True">
-                                            <DataTrigger.EnterActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                                            Storyboard.TargetName="DragHandle"
-                                                            Storyboard.TargetProperty="Opacity"
-                                                            To="0.7"
-                                                            Duration="0:0:0.2" />
-                                                        <DoubleAnimation
-                                                            Storyboard.TargetName="VisibilityCheckBox"
-                                                            Storyboard.TargetProperty="Opacity"
-                                                            To="1"
-                                                            Duration="0:0:0.2" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.EnterActions>
-                                            <DataTrigger.ExitActions>
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimation
-                                                            Storyboard.TargetName="DragHandle"
-                                                            Storyboard.TargetProperty="Opacity"
-                                                            To="0"
-                                                            Duration="0:0:0.2" />
-                                                        <DoubleAnimation
-                                                            Storyboard.TargetName="VisibilityCheckBox"
-                                                            Storyboard.TargetProperty="Opacity"
-                                                            To="0"
-                                                            Duration="0:0:0.2" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </DataTrigger.ExitActions>
+                                            <Setter TargetName="DragHandle" Property="Visibility" Value="Visible" />
+                                            <Setter TargetName="VisibilityCheckBox" Property="Visibility" Value="Visible" />
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
