@@ -10824,4 +10824,7 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="DateHasPassed" xml:space="preserve">
     <value />
   </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
 </root>

@@ -10824,4 +10824,7 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="DateHasPassed" xml:space="preserve">
     <value />
   </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
 </root>

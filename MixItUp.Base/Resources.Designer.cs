@@ -6252,6 +6252,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edge TTS.
+        /// </summary>
+        public static string EdgeTTS {
+            get {
+                return ResourceManager.GetString("EdgeTTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {

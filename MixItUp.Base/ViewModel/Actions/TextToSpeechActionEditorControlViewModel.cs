@@ -44,7 +44,8 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.SelectedProviderType == TextToSpeechProviderType.AmazonPolly ||
                     this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech ||
                     this.SelectedProviderType == TextToSpeechProviderType.TTSMonster ||
-                    this.SelectedProviderType == TextToSpeechProviderType.TikTokTTS;
+                    this.SelectedProviderType == TextToSpeechProviderType.TikTokTTS ||
+                    this.SelectedProviderType == TextToSpeechProviderType.EdgeTTS;
             }
         }
         public bool AudioDeviceServiceConnected

@@ -10823,4 +10823,7 @@ print(run())</value>
   <data name="DateHasPassed" xml:space="preserve">
     <value />
   </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
 </root>

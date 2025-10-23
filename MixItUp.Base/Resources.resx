@@ -11037,4 +11037,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="DateHasPassed" xml:space="preserve">
     <value>Date has passed</value>
   </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
 </root>

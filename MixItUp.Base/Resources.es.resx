@@ -10825,4 +10825,7 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="DateHasPassed" xml:space="preserve">
     <value />
   </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
 </root>
