@@ -4,6 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <AssemblyTitle>MixItUp.API.NET8</AssemblyTitle>
+	  <AssemblyVersion>1.4.0.0</AssemblyVersion>
+	  <FileVersion>1.4.0.0</FileVersion>
+	  <Company>Blazing Cacti LLC</Company>
+	  <Copyright>Copyright © 2025 Blazing Cacti LLC, All Rights Reserved. </Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
