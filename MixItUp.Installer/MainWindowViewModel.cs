@@ -48,6 +48,8 @@ namespace MixItUp.Installer
         private string expectedSha256;
         private string downloadedPackagePath;
         private string tempDirectoryPath;
+        private readonly string installDirectoryArgument;
+        private string installDirectoryResolutionNote;
 
         public Func<string, string, Task<bool>> ShowEulaDialogAsync { private get; set; }
 
@@ -188,14 +190,40 @@ namespace MixItUp.Installer
         public MainWindowViewModel()
         {
             this.installDirectory = DefaultInstallDirectory;
+            this.installDirectoryArgument = null;
+            this.installDirectoryResolutionNote = null;
 
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length >= 2)
             {
-                string sanitizedArgument = SanitizeInstallDirectoryArgument(args[1]);
+                string rawArgument = args[1];
+                string sanitizedArgument = SanitizeInstallDirectoryArgument(rawArgument);
                 if (!string.IsNullOrEmpty(sanitizedArgument))
                 {
-                    this.installDirectory = sanitizedArgument;
+                    this.installDirectoryArgument = sanitizedArgument;
+
+                    if (Directory.Exists(sanitizedArgument))
+                    {
+                        if (DoesDirectoryContainExistingInstall(sanitizedArgument))
+                        {
+                            this.installDirectory = sanitizedArgument;
+                        }
+                        else
+                        {
+                            this.installDirectory = DefaultInstallDirectory;
+                            this.installDirectoryResolutionNote = string.Format("Install directory argument '{0}' does not contain an existing Mix It Up installation; defaulting to '{1}'.", sanitizedArgument, DefaultInstallDirectory);
+                        }
+                    }
+                    else
+                    {
+                        this.installDirectory = DefaultInstallDirectory;
+                        this.installDirectoryResolutionNote = string.Format("Install directory argument '{0}' does not exist; defaulting to '{1}'.", sanitizedArgument, DefaultInstallDirectory);
+                    }
+                }
+                else
+                {
+                    this.installDirectory = DefaultInstallDirectory;
+                    this.installDirectoryResolutionNote = string.Format("Install directory argument '{0}' could not be parsed; defaulting to '{1}'.", rawArgument, DefaultInstallDirectory);
                 }
             }
 
@@ -258,6 +286,16 @@ namespace MixItUp.Installer
                 try
                 {
                     File.Delete(InstallerLogFileName);
+
+                    if (!string.IsNullOrEmpty(this.installDirectoryArgument))
+                    {
+                        this.WriteToLogFile("Install directory argument received: " + this.installDirectoryArgument);
+                    }
+                    if (!string.IsNullOrEmpty(this.installDirectoryResolutionNote))
+                    {
+                        this.WriteToLogFile(this.installDirectoryResolutionNote);
+                    }
+                    this.WriteToLogFile("Resolved install directory: " + this.installDirectory);
 
                     if (!this.IsUpdate || await this.WaitForMixItUpToClose())
                     {
@@ -840,6 +878,38 @@ namespace MixItUp.Installer
             {
                 return null;
             }
+        }
+
+        private static bool DoesDirectoryContainExistingInstall(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return false;
+            }
+
+            try
+            {
+                if (!Directory.Exists(path))
+                {
+                    return false;
+                }
+
+                if (File.Exists(Path.Combine(path, "MixItUp.exe")))
+                {
+                    return true;
+                }
+
+                if (File.Exists(Path.Combine(path, "MixItUp.Base.dll")))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            return false;
         }
 
         private void CleanupTemporaryDownload()
