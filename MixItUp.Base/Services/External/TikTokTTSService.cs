@@ -107,7 +107,7 @@ namespace MixItUp.Base.Services.External
                 body["text"] = text;
                 body["voice"] = voice;
 
-                HttpResponseMessage response = await client.PostAsync("https://tiktok-tts.weilbyte.dev/api/generate", AdvancedHttpClient.CreateContentFromObject(body));
+                HttpResponseMessage response = await client.PostAsync("https://util.mixitupapp.com/api/services/external/tiktoktts/tts/generate", AdvancedHttpClient.CreateContentFromObject(body));
                 if (response.IsSuccessStatusCode)
                 {
                     MemoryStream stream = new MemoryStream();
