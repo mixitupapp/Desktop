@@ -4874,11 +4874,11 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date has not occured yet.
+        ///   Looks up a localized string similar to Date has not occurred.
         /// </summary>
-        public static string DateNotOccured {
+        public static string DateNotOccurred {
             get {
-                return ResourceManager.GetString("DateNotOccured", resourceCulture);
+                return ResourceManager.GetString("DateNotOccurred", resourceCulture);
             }
         }
         
