@@ -11,57 +11,51 @@ namespace MixItUp.Base.Services.External
 {
     public class VoicemodWebSocketRequestPacket
     {
-        public string actionID { get; set; } = Guid.NewGuid().ToString();
-        public string appVersion { get; set; }
-        public string pluginVersion { get; set; } = "2.0.0";
-
-        public string actionType { get; set; }
-        public JObject actionObject { get; set; } = new JObject();
-        public string context { get; set; } = string.Empty;
+        public string action { get; set; }
+        public string id { get; set; } = Guid.NewGuid().ToString();
+        public JObject payload { get; set; } = new JObject();
 
         private VoicemodWebSocketRequestPacket() { }
 
-        public VoicemodWebSocketRequestPacket(string actionType)
+        public VoicemodWebSocketRequestPacket(string action)
         {
-            this.actionType = actionType;
+            this.action = action;
         }
 
-        public VoicemodWebSocketRequestPacket(string actionType, JObject actionObject)
-            : this(actionType)
+        public VoicemodWebSocketRequestPacket(string action, JObject payload)
+            : this(action)
         {
-            this.actionObject = actionObject;
+            this.payload = payload;
         }
     }
 
     public class VoicemodWebSocket : ClientWebSocketBase
     {
-        private Dictionary<string, VoicemodWebSocketRequestPacket> responses = new Dictionary<string, VoicemodWebSocketRequestPacket>();
+        private Dictionary<string, JObject> responses = new Dictionary<string, JObject>();
 
         public override Task<bool> Connect(string endpoint)
         {
             this.responses.Clear();
-
             return base.Connect(endpoint);
         }
 
-        public async Task<VoicemodWebSocketRequestPacket> SendAndReceive(VoicemodWebSocketRequestPacket packet, int delaySeconds = 5)
+        public async Task<JObject> SendAndReceive(VoicemodWebSocketRequestPacket packet, int delaySeconds = 5)
         {
             Logger.Log(LogLevel.Debug, "Voicemod Packet Sent - " + JSONSerializerHelper.SerializeToString(packet));
 
-            this.responses[packet.actionID] = null;
+            this.responses[packet.id] = null;
 
             await this.Send(JSONSerializerHelper.SerializeToString(packet));
 
             int cycles = delaySeconds * 10;
-            VoicemodWebSocketRequestPacket response = null;
+            JObject response = null;
             for (int i = 0; i < cycles && response == null; i++)
             {
-                this.responses.TryGetValue(packet.actionID, out response);
+                this.responses.TryGetValue(packet.id, out response);
                 await Task.Delay(100);
             }
 
-            this.responses.Remove(packet.actionID);
-
+            this.responses.Remove(packet.id);
             return response;
         }
 
@@ -71,12 +65,13 @@ namespace MixItUp.Base.Services.External
             {
                 Logger.Log(LogLevel.Debug, "Voicemod Packet Received - " + packet);
 
-                VoicemodWebSocketRequestPacket response = JSONSerializerHelper.DeserializeFromString<VoicemodWebSocketRequestPacket>(packet);
+                JObject response = JObject.Parse(packet);
                 if (response != null)
                 {
-                    if (!string.IsNullOrEmpty(response.actionID) && this.responses.ContainsKey(response.actionID))
+                    string responseId = response["id"]?.ToString();
+                    if (!string.IsNullOrEmpty(responseId) && this.responses.ContainsKey(responseId))
                     {
-                        this.responses[response.actionID] = response;
+                        this.responses[responseId] = response;
                     }
                     else if (this.responses.Keys.Count > 0)
                     {
@@ -92,19 +87,12 @@ namespace MixItUp.Base.Services.External
         }
     }
 
-    /// <summary>
-    /// Discord: https://discord.com/invite/vm-dev-community
-    /// 
-    /// v3 Documentation: https://control-api.voicemod.net
-    /// </summary>
     public class VoicemodService : IVoicemodService
     {
         private static readonly List<int> AvailablePorts = new List<int>() { 59129, 20000, 39273, 42152, 43782, 46667, 35679, 37170, 38501, 33952, 30546 };
 
         public string Name { get { return MixItUp.Base.Resources.Voicemod; } }
-
         public bool IsConnected { get { return this.WebSocketConnected; } }
-
         public bool WebSocketConnected { get; private set; }
 
         private VoicemodWebSocket websocket = new VoicemodWebSocket();
@@ -113,9 +101,6 @@ namespace MixItUp.Base.Services.External
 
         public async Task<Result> Connect()
         {
-            // Force use with V3 control API
-            string clientKey = ServiceManager.Get<SecretsService>().GetSecret("VoicemodV3ClientKey");
-
             try
             {
                 return await this.ConnectWebSocket();
@@ -130,40 +115,34 @@ namespace MixItUp.Base.Services.External
         public async Task Disconnect()
         {
             this.WebSocketConnected = false;
-
             this.websocket.OnDisconnectOccurred -= Websocket_OnDisconnectOccurred;
             await this.websocket.Disconnect();
         }
 
         public async Task<IEnumerable<VoicemodVoiceModel>> GetVoices()
         {
-            Dictionary<string, VoicemodVoiceModel> results = new Dictionary<string, VoicemodVoiceModel>();
+            var results = new Dictionary<string, VoicemodVoiceModel>();
 
-            VoicemodWebSocketRequestPacket response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getVoices"));
-            if (response != null && response.actionObject != null)
+            JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getVoices"));
+            if (response != null)
             {
-                JToken voiceGroup;
-                if (response.actionObject.TryGetValue("allVoices", out voiceGroup))
+                JToken actionObj = response["actionObject"];
+                if (actionObj != null && actionObj["voices"] is JArray voices)
                 {
-                    foreach (VoicemodVoiceModel voice in ((JArray)voiceGroup).ToTypedArray<VoicemodVoiceModel>())
+                    foreach (JToken v in voices)
                     {
-                        results[voice.voiceID] = voice;
-                    }
-                }
+                        var voice = new VoicemodVoiceModel
+                        {
+                            voiceID = v["id"]?.ToString(),
+                            friendlyName = v["friendlyName"]?.ToString(),
+                            IsFavorite = v["favorited"]?.ToObject<bool>() ?? false,
+                            IsCustom = v["isCustom"]?.ToObject<bool>() ?? false
+                        };
 
-                if (response.actionObject.TryGetValue("favoriteVoices", out voiceGroup))
-                {
-                    foreach (VoicemodVoiceModel voice in ((JArray)voiceGroup).ToTypedArray<VoicemodVoiceModel>())
-                    {
-                        results[voice.voiceID] = voice;
-                    }
-                }
-
-                if (response.actionObject.TryGetValue("customVoices", out voiceGroup))
-                {
-                    foreach (VoicemodVoiceModel voice in ((JArray)voiceGroup).ToTypedArray<VoicemodVoiceModel>())
-                    {
-                        results[voice.voiceID] = voice;
+                        if (!string.IsNullOrEmpty(voice.voiceID))
+                        {
+                            results[voice.voiceID] = voice;
+                        }
                     }
                 }
             }
@@ -173,20 +152,24 @@ namespace MixItUp.Base.Services.External
 
         public async Task VoiceChangerOnOff(bool state)
         {
-            VoicemodWebSocketRequestPacket response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getVoiceChangerStatus"));
-            if (response != null && response.actionObject != null && response.actionObject.TryGetValue("value", out JToken value))
+            JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getVoiceChangerStatus"));
+            if (response != null)
             {
-                bool current = value.ToObject<bool>();
-                if (current != state)
+                JToken actionObj = response["actionObject"];
+                if (actionObj != null && actionObj["value"] != null)
                 {
-                    response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("voiceChanger_OnOff"));
+                    bool current = actionObj["value"].ToObject<bool>();
+                    if (current != state)
+                    {
+                        await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("toggleVoiceChanger"));
+                    }
                 }
             }
         }
 
         public async Task SelectVoice(string voiceID)
         {
-            await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("selectVoice", new JObject()
+            await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("loadVoice", new JObject()
             {
                 { "voiceID", voiceID }
             }));
@@ -202,7 +185,7 @@ namespace MixItUp.Base.Services.External
 
         public async Task BeepSoundOnOff(bool state)
         {
-            await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("beepSound_OnOff", new JObject()
+            await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("setBeepSound", new JObject()
             {
                 { "badLanguage", state ? 1 : 0 }
             }));
@@ -210,26 +193,34 @@ namespace MixItUp.Base.Services.External
 
         public async Task HearMyselfOnOff(bool state)
         {
-            VoicemodWebSocketRequestPacket response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getHearMyselfStatus"));
-            if (response != null && response.actionObject != null && response.actionObject.TryGetValue("value", out JToken value))
+            JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getHearMyselfStatus"));
+            if (response != null)
             {
-                bool current = value.ToObject<bool>();
-                if (current != state)
+                JToken actionObj = response["actionObject"];
+                if (actionObj != null && actionObj["value"] != null)
                 {
-                    response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("hearMyVoice_OnOff"));
+                    bool current = actionObj["value"].ToObject<bool>();
+                    if (current != state)
+                    {
+                        await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("toggleHearMyVoice"));
+                    }
                 }
             }
         }
 
         public async Task MuteOnOff(bool state)
         {
-            VoicemodWebSocketRequestPacket response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getMuteMicStatus"));
-            if (response != null && response.actionObject != null && response.actionObject.TryGetValue("value", out JToken value))
+            JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getMuteMicStatus"));
+            if (response != null)
             {
-                bool current = value.ToObject<bool>();
-                if (current != state)
+                JToken actionObj = response["actionObject"];
+                if (actionObj != null && actionObj["value"] != null)
                 {
-                    await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("mute_OnOff", new JObject()));
+                    bool current = actionObj["value"].ToObject<bool>();
+                    if (current != state)
+                    {
+                        await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("toggleMuteMic"));
+                    }
                 }
             }
         }
@@ -238,13 +229,16 @@ namespace MixItUp.Base.Services.External
         {
             List<VoicemodMemeModel> results = new List<VoicemodMemeModel>();
 
-            VoicemodWebSocketRequestPacket response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getMemes"));
-            if (response != null && response.actionObject != null && response.actionObject.TryGetValue("listOfMemes", out JToken memeSounds) && memeSounds is JArray)
+            JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getMemes"));
+            if (response != null)
             {
-                JArray memeSoundsArray = (JArray)memeSounds;
-                foreach (VoicemodMemeModel memeSound in memeSoundsArray.ToTypedArray<VoicemodMemeModel>())
+                JToken actionObj = response["actionObject"];
+                if (actionObj != null && actionObj["listOfMemes"] is JArray memeSounds)
                 {
-                    results.Add(memeSound);
+                    foreach (VoicemodMemeModel memeSound in memeSounds.ToTypedArray<VoicemodMemeModel>())
+                    {
+                        results.Add(memeSound);
+                    }
                 }
             }
 
@@ -269,27 +263,31 @@ namespace MixItUp.Base.Services.External
         {
             this.websocket.OnDisconnectOccurred -= Websocket_OnDisconnectOccurred;
 
+            string clientKey = ServiceManager.Get<SecretsService>().GetSecret("VoicemodV3ClientKey");
+
             foreach (int port in VoicemodService.AvailablePorts)
             {
                 try
                 {
-                    if (await this.websocket.Connect(string.Format("ws://localhost:{0}/vmsd/", port)))
+                    if (await this.websocket.Connect(string.Format("ws://localhost:{0}/v1/", port)))
                     {
-                        VoicemodWebSocketRequestPacket response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("registerPlugin"));
-                        if (response != null && response.actionObject != null && response.actionObject.TryGetValue("result", out JToken result) && result != null)
+                        JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("registerClient", new JObject()
                         {
-                            // Websocket currently always returns false, so ignore result for now.
-                            //if (bool.Equals(true, result))
-                            //{
-                            //    return new Result();
-                            //}
+                            { "clientKey", clientKey }
+                        }));
 
-                            this.WebSocketConnected = true;
-                            this.websocket.OnDisconnectOccurred += Websocket_OnDisconnectOccurred;
+                        if (response != null && response["payload"] != null)
+                        {
+                            var payload = response["payload"] as JObject;
+                            var status = payload["status"] as JObject;
 
-                            ServiceManager.Get<ITelemetryService>().TrackService("Voicemod");
-
-                            return new Result();
+                            if (status != null && status["code"]?.ToObject<int>() == 200)
+                            {
+                                this.WebSocketConnected = true;
+                                this.websocket.OnDisconnectOccurred += Websocket_OnDisconnectOccurred;
+                                ServiceManager.Get<ITelemetryService>().TrackService("Voicemod");
+                                return new Result();
+                            }
                         }
                     }
                     await this.websocket.Disconnect(WebSocketCloseStatus.NormalClosure);
@@ -311,9 +309,7 @@ namespace MixItUp.Base.Services.External
             do
             {
                 await this.Disconnect();
-
                 await Task.Delay(5000);
-
                 result = await this.ConnectWebSocket();
             }
             while (!result.Success);

@@ -12,7 +12,7 @@ namespace MixItUp.Base.ViewModel.Services
 {
     public class DonorDriveServiceControlViewModel : ServiceControlViewModelBase
     {
-        private const string ParticipantURLFragment = "/participant/";
+        private const string ParticipantURLFragment = "/participants/";
 
         public ObservableCollection<DonorDriveCharity> Charities { get; private set; } = new ObservableCollection<DonorDriveCharity>();
 
@@ -91,7 +91,7 @@ namespace MixItUp.Base.ViewModel.Services
                 {
                     await DialogHelper.ShowMessage(Resources.DonorDriveMissingCharity);
                 }
-                ChannelSession.Settings.DonorDriveCharityURL = this.SelectedCharity.programURL;
+                ChannelSession.Settings.DonorDriveCharityURL = this.SelectedCharity.links?.home;
 
                 if (!string.IsNullOrWhiteSpace(this.ParticipantID))
                 {
