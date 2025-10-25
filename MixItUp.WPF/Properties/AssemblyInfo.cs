@@ -6,13 +6,15 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Mix It Up")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Matthew Olivo")]
+[assembly: AssemblyDescription("Mix It Up Desktop")]
+[assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyCompany("Blazing Cacti LLC")]
 [assembly: AssemblyProduct("Mix It Up")]
-[assembly: AssemblyCopyright("Copyright © 2023 Matthew Olivo")]
+[assembly: AssemblyCopyright("Copyright © 2025 Blazing Cacti LLC, All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -48,4 +50,5 @@ using System.Windows;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.3.0.5")]
+[assembly: AssemblyVersion("1.4.0.0")]
+[assembly: AssemblyFileVersion("1.4.0.0")]
