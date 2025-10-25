@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+    xmlns:DragDrop="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:SettingsControls="clr-namespace:MixItUp.WPF.Controls.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,6 +15,29 @@
     mc:Ignorable="d">
     <local:MainControlBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <DataTemplate x:Key="DragAdornerTemplate">
+            <Border
+                Padding="12,8"
+                Background="{DynamicResource MaterialDesignPaper}"
+                BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+                BorderThickness="2"
+                CornerRadius="4"
+                Opacity="0.85">
+                <Border.Effect>
+                    <DropShadowEffect
+                        BlurRadius="8"
+                        Opacity="0.5"
+                        ShadowDepth="4" />
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="Medium"
+                        Text="{Binding Name}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
     </local:MainControlBase.Resources>
 
     <Grid>
@@ -31,9 +55,71 @@
                             IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
                             Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
+                        <Grid Margin="16,0,16,16" DockPanel.Dock="Bottom">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ToggleButton
+                                x:Name="EditMenuButton"
+                                Grid.Column="0"
+                                Margin="0,0,8,0"
+                                Checked="EditMenuButton_Checked"
+                                Unchecked="EditMenuButton_Unchecked">
+                                <ToggleButton.Content>
+                                    <MaterialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="Pencil" />
+                                </ToggleButton.Content>
+                                <MaterialDesign:ToggleButtonAssist.OnContent>
+                                    <MaterialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Kind="ContentSave" />
+                                </MaterialDesign:ToggleButtonAssist.OnContent>
+                                <ToggleButton.Style>
+                                    <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton">
+                                        <Setter Property="ToolTip" Value="{x:Static resx:Resources.Edit}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter Property="ToolTip" Value="Save" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                            </ToggleButton>
+
+                            <!--  placeholder popup menu for future use to display anything else to remove bloated menu list (eg. changelog, about)  -->
+                            <!--<MaterialDesign:PopupBox
+                                x:Name="MenuOptionsPopup"
+                                Grid.Column="1"
+                                PlacementMode="TopAndAlignLeftEdges"
+                                StaysOpen="False"
+                                ToolTip="{x:Static resx:Resources.Options}">
+                                <MaterialDesign:PopupBox.ToggleContent>
+                                    <MaterialDesign:PackIcon
+                                        Width="24"
+                                        Height="24"
+                                        Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                        Kind="DotsVertical" />
+                                </MaterialDesign:PopupBox.ToggleContent>
+                                <StackPanel MinWidth="150">
+                                </StackPanel>
+                            </MaterialDesign:PopupBox>-->
+                        </Grid>
+
                         <ListBox
                             x:Name="MenuItemsListBox"
                             Margin="0,16,0,16"
+                            DragDrop:DragDrop.DragAdornerTemplate="{StaticResource DragAdornerTemplate}"
+                            DragDrop:DragDrop.DropHandler="{Binding}"
+                            DragDrop:DragDrop.DropTargetAdornerBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+                            DragDrop:DragDrop.IsDragSource="False"
+                            DragDrop:DragDrop.IsDropTarget="False"
+                            DragDrop:DragDrop.UseDefaultDragAdorner="False"
+                            DragDrop:DragDrop.UseDefaultEffectDataTemplate="False"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
                             SelectionChanged="MenuItemsListBox_SelectionChanged"
                             Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
@@ -42,12 +128,44 @@
                             </ListBox.Resources>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Margin="20,0,15,0" Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <MaterialDesign:PackIcon
+                                            x:Name="DragHandle"
+                                            Grid.Column="0"
+                                            Width="16"
+                                            Height="16"
+                                            Margin="0,0,2,0"
+                                            VerticalAlignment="Center"
+                                            Kind="DragVertical"
+                                            Visibility="Collapsed" />
+
+                                        <CheckBox
+                                            x:Name="VisibilityCheckBox"
+                                            Grid.Column="1"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            IsChecked="{Binding Visible, Mode=TwoWay}"
+                                            Visibility="Collapsed" />
+
                                         <TextBlock
+                                            Grid.Column="2"
+                                            Margin="8,0,0,0"
                                             VerticalAlignment="Center"
                                             Text="{Binding Name}"
                                             ToolTip="{Binding Name}" />
-                                    </StackPanel>
+                                    </Grid>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=EditMenuButton, Path=IsChecked}" Value="True">
+                                            <Setter TargetName="DragHandle" Property="Visibility" Value="Visible" />
+                                            <Setter TargetName="VisibilityCheckBox" Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

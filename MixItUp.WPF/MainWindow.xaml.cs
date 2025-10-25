@@ -124,7 +124,7 @@ namespace MixItUp.WPF
 
             await this.MainMenu.Initialize(this);
 
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitupapp.com/alpha");
+            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitupapp.com/alpha");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Channel, new ChannelControl(), "https://wiki.mixitupapp.com/channel");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Chat, new ChatControl(), "https://wiki.mixitupapp.com/chat");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Commands, new ChatCommandsControl(), "https://wiki.mixitupapp.com/commands/chat-commands");
@@ -160,6 +160,8 @@ namespace MixItUp.WPF
             {
                 await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Debug, new DebugControl(), "https://wiki.mixitupapp.com/");
             }
+
+            this.MainMenu.LoadMenuOrder();
 
             this.MainMenu.MenuItemSelected(MixItUp.Base.Resources.Chat);
 
