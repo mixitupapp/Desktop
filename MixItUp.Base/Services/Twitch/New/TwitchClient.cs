@@ -69,9 +69,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.ad_break.begin", null },
 
-            { "channel.hype_train.begin", null },
-            { "channel.hype_train.progress", null },
-            { "channel.hype_train.end", null },
+            { "channel.hype_train.begin", "2" },
+            { "channel.hype_train.progress", "2" },
+            { "channel.hype_train.end", "2" },
 
             { "channel.charity_campaign.donate", null },
 
@@ -111,6 +111,8 @@ namespace MixItUp.Base.Services.Twitch.New
         private HashSet<string> channelPointRewardRedeemsCache = new HashSet<string>();
 
         private int lastHypeTrainLevel = 1;
+
+        private bool isReconnecting = false;
 
         public TwitchClient()
         {
@@ -1350,8 +1352,48 @@ namespace MixItUp.Base.Services.Twitch.New
         private void WebSocket_Disconnected(object sender, WebSocketCloseStatus closeStatus)
         {
             ChannelSession.DisconnectionOccurred(Resources.TwitchClient);
+            this.eventSubSubscriptionsConnected = false;
 
-            Task.Run(this.Reconnect);
+            if (!isReconnecting)
+            {
+                isReconnecting = true;
+                Task.Run(async () =>
+                {
+                    int delayInMs = 5000;
+                    try
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                var newWebSocket = new AdvancedClientWebSocket();
+                                newWebSocket.PacketSent += WebSocket_PacketSent;
+                                newWebSocket.PacketReceived += UserWebSocket_PacketReceived;
+                                newWebSocket.Disconnected += WebSocket_Disconnected;
+                                this.webSocket = newWebSocket;
+
+                                await this.Disconnect();
+                                var result = await this.Connect();
+                                if (result.Success && this.IsConnected)
+                                {
+                                    ChannelSession.ReconnectionOccurred(Resources.TwitchClient);
+                                    break;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(ex);
+                            }
+                            await Task.Delay(delayInMs);
+                            delayInMs = Math.Min(delayInMs * 2, 60000);
+                        }
+                    }
+                    finally
+                    {
+                        isReconnecting = false;
+                    }
+                });
+            }
         }
     }
 }
