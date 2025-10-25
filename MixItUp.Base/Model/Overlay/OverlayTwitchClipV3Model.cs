@@ -5,9 +5,12 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
+using MixItUp.Base.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
@@ -173,16 +176,25 @@ namespace MixItUp.Base.Model.Overlay
                 this.ClipID = clip.id;
                 this.ClipDuration = clip.duration;
 
-                int index = clip.thumbnail_url.IndexOf(ClipThumbnailURLPreviewSegment);
-                if (index >= 0)
+                using (AdvancedHttpClient client = new AdvancedHttpClient())
                 {
-                    this.ClipDirectLink = clip.thumbnail_url.Substring(0, index) + ".mp4";
-                    return true;
-                }
-                else
-                {
-                    await ServiceManager.Get<ChatService>().SendMessage(Resources.TwitchClipNewerClipFormatUnsupported, StreamingPlatformTypeEnum.Twitch);
-                    Logger.Log(LogLevel.Error, "Failed to process clip due to new formatting: " + JSONSerializerHelper.SerializeToString(clip));
+                    client.Timeout = new TimeSpan(0, 0, 10);
+                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+
+                    HttpResponseMessage response = await client.GetAsync($"https://util.mixitupapp.com/api/services/external/twitch/clips?id={clip.id}");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        this.ClipDirectLink = await response.Content.ReadAsStringAsync();
+                        this.ClipDirectLink = this.ClipDirectLink.Trim();
+                        return true;
+                    }
+                    else
+                    {
+                        string content = await response.Content.ReadAsStringAsync();
+                        Logger.Log(LogLevel.Error, "Twitch Clip URL Error: " + content);
+                        await ServiceManager.Get<ChatService>().SendMessage(Resources.OverlayTwitchClipErrorUnableToFindValidClip, StreamingPlatformTypeEnum.Twitch);
+                        return false;
+                    }
                 }
             }
 
