@@ -10829,4 +10829,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="RequestBody" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="EdgeTTS" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

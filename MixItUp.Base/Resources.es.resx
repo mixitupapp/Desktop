@@ -10826,4 +10826,7 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="RequestBody" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="EdgeTTS" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

@@ -4876,9 +4876,9 @@ namespace MixItUp.Base {
         /// <summary>
         ///   Looks up a localized string similar to Date has not occured yet.
         /// </summary>
-        public static string DateNotOccurred {
+        public static string DateNotOccured {
             get {
-                return ResourceManager.GetString("DateNotOccurred", resourceCulture);
+                return ResourceManager.GetString("DateNotOccured", resourceCulture);
             }
         }
         
@@ -6248,6 +6248,15 @@ namespace MixItUp.Base {
         public static string Dutch {
             get {
                 return ResourceManager.GetString("Dutch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edge TTS.
+        /// </summary>
+        public static string EdgeTTS {
+            get {
+                return ResourceManager.GetString("EdgeTTS", resourceCulture);
             }
         }
         

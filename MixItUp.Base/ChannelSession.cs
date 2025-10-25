@@ -137,6 +137,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new MtionStudioService());
             ServiceManager.Add(new TikTokTTSService());
             ServiceManager.Add(new MeldStudioService());
+            ServiceManager.Add(new EdgeTTSService());
 
             try
             {

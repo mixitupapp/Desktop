@@ -13,6 +13,7 @@ namespace MixItUp.Base.Services.External
         AmazonPolly,
         MicrosoftAzureSpeech,
         TikTokTTS,
+        EdgeTTS,
         [Obsolete]
         Uberduck,
         [Obsolete]

@@ -10825,4 +10825,7 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="RequestBody" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="EdgeTTS" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

@@ -11037,4 +11037,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="RequestBody" xml:space="preserve">
     <value>Request Body (JSON)</value>
   </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
 </root>
