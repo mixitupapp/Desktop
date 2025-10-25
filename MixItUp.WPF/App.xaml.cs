@@ -1,5 +1,7 @@
 ﻿using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using MaterialDesignThemes.Wpf;
+using MaterialDesignColors;
 using MixItUp.Base;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
@@ -33,7 +35,8 @@ namespace MixItUp.WPF
 
         public App()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            // Disabled for now. Not needed anymore?
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
             ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(Int32.MaxValue));
 
@@ -60,6 +63,7 @@ namespace MixItUp.WPF
                 ServiceManager.Add<IOBSStudioService>(new WindowsOBSService());
                 ServiceManager.Add(new WindowsSpeechService());
                 ServiceManager.Add(new WindowsAmazonPollyService());
+                ServiceManager.Add<IThemeService>(new WindowsThemeService());
 
                 ChannelSession.Initialize().Wait();
 
@@ -68,79 +72,6 @@ namespace MixItUp.WPF
             catch { }
         }
 
-        public void SwitchTheme(string colorScheme, string backgroundColorName, string fullThemeName)
-        {
-            string baseTheme = null;
-            colorScheme = colorScheme.Replace(" ", "");
-
-            // Change Material Design Color Scheme
-            var existingMDCResourceDictionary = Application.Current.Resources.MergedDictionaries.Where(rd => rd.Source != null)
-                .SingleOrDefault(rd => Regex.Match(rd.Source.OriginalString, @"(\/MaterialDesignColors;component\/Themes\/Recommended\/Primary\/MaterialDesignColor\.)").Success);
-            if (existingMDCResourceDictionary == null)
-            {
-                throw new ApplicationException("Unable to find Color scheme in Application resources.");
-            }
-            Application.Current.Resources.MergedDictionaries.Remove(existingMDCResourceDictionary);
-
-            var newMDCResourceDictionary = new ResourceDictionary();
-            if (!string.IsNullOrEmpty(fullThemeName))
-            {
-                newMDCResourceDictionary.Source = new Uri($"Themes/MixItUpTheme.{fullThemeName}.xaml", UriKind.Relative);
-                SolidColorBrush mainApplicationBackground = (SolidColorBrush)newMDCResourceDictionary["MainApplicationBackground"];
-                backgroundColorName = (mainApplicationBackground.ToString().Equals("#FFFFFFFF")) ? "Light" : "Dark";
-
-                bool containsBaseTheme = false;
-                foreach (string key in newMDCResourceDictionary.Keys)
-                {
-                    if (key.Equals("BaseTheme"))
-                    {
-                        containsBaseTheme = true;
-                    }
-                }
-
-                if (containsBaseTheme)
-                {
-                    baseTheme = (string)newMDCResourceDictionary["BaseTheme"];
-                }
-            }
-            else
-            {
-                newMDCResourceDictionary.Source = new Uri($"pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.{colorScheme}.xaml");
-            }
-            Application.Current.Resources.MergedDictionaries.Add(newMDCResourceDictionary);
-
-            // Change Material Design Light/Dark Theme
-            var existingMDTResourceDictionary = Application.Current.Resources.MergedDictionaries.Where(rd => rd.Source != null)
-                .SingleOrDefault(rd => Regex.Match(rd.Source.OriginalString, @"(\/MaterialDesignThemes.Wpf;component\/Themes\/MaterialDesignTheme\.)((Light)|(Dark))").Success);
-            if (existingMDTResourceDictionary == null)
-            {
-                throw new ApplicationException("Unable to find Light/Dark base theme in Application resources.");
-            }
-            Application.Current.Resources.MergedDictionaries.Remove(existingMDTResourceDictionary);
-
-            var themeSource = new Uri($"pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.{backgroundColorName}.xaml");
-            if (!string.IsNullOrEmpty(baseTheme))
-            {
-                themeSource = new Uri($"Themes/MixItUpBaseTheme.{baseTheme}.xaml", UriKind.Relative);
-            }
-            var newMDTResourceDictionary = new ResourceDictionary() { Source = themeSource };
-
-            Application.Current.Resources.MergedDictionaries.Add(newMDTResourceDictionary);
-
-            // Change Mix It Up Light/Dark Theme
-            var existingMIUResourceDictionary = Application.Current.Resources.MergedDictionaries.Where(rd => rd.Source != null)
-                .SingleOrDefault(rd => Regex.Match(rd.Source.OriginalString, @"(MixItUpBackgroundColor\.)").Success);
-            Application.Current.Resources.MergedDictionaries.Remove(existingMIUResourceDictionary);
-
-            var newMIUResourceDictionary = new ResourceDictionary() { Source = new Uri($"Themes/MixItUpBackgroundColor.{backgroundColorName}.xaml", UriKind.Relative) };
-            Application.Current.Resources.MergedDictionaries.Add(newMIUResourceDictionary);
-
-            LiveCharts.Configure(config =>
-            {
-                config.AddSkiaSharp().AddDefaultMappers();
-                config.AddLightTheme();
-            });
-        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -181,7 +112,19 @@ namespace MixItUp.WPF
                 Logger.SetLogLevel(LogLevel.Error);
             }
 
-            this.SwitchTheme(ChannelSession.AppSettings.ColorScheme, ChannelSession.AppSettings.BackgroundColor, ChannelSession.AppSettings.FullThemeName);
+            try
+            {
+                ServiceManager.Get<IThemeService>().ApplyTheme(
+                    ChannelSession.AppSettings.ColorScheme ?? "Indigo",
+                    ChannelSession.AppSettings.BackgroundColor ?? "Light",
+                    ChannelSession.AppSettings.FullThemeName
+                );
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                ServiceManager.Get<IThemeService>().ApplyTheme("Indigo", "Light", null);
+            }
 
             base.OnStartup(e);
         }
@@ -201,9 +144,9 @@ namespace MixItUp.WPF
         {
             if (!this.crashObtained)
             {
-                #if DEBUG
-                    Debugger.Break();
-                #endif
+#if DEBUG
+                Debugger.Break();
+#endif
 
                 this.crashObtained = true;
 

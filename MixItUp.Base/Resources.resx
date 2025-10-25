@@ -11007,4 +11007,34 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="RecordClip" xml:space="preserve">
     <value>Record Clip</value>
   </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>Date has passed</value>
+  </data>
+  <data name="DateNotOccured" xml:space="preserve">
+    <value>Date has not occured yet</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Invalid date</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Terms of Service</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Method</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Add Custom Header</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Header Name</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Header Value</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Request Body (JSON)</value>
+  </data>
 </root>

@@ -83,8 +83,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.AssignToSpecialIdentifiers}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton  Grid.Column="2" IsChecked="{Binding AssignToSpecialIdentifiers}" />
+            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.AssignToSpecialIdentifiers}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+            <ToggleButton  Grid.Column="2" IsChecked="{Binding AssignToSpecialIdentifiers}" VerticalAlignment="Center" />
         </Grid>
     </Grid>
 </UserControl>

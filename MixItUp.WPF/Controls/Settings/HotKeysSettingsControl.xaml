@@ -30,14 +30,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox x:Name="CommandTypeComboBox" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="100" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="CommandTypeComboBox_SelectionChanged">
+            <ComboBox x:Name="CommandTypeComboBox" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="100" Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="CommandTypeComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox x:Name="CommandNameComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Width="200" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" />
+            <ComboBox x:Name="CommandNameComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Width="200" Style="{StaticResource MaterialDesignOutlinedComboBox}" DisplayMemberPath="Name" />
 
         </Grid>
 
@@ -72,9 +72,9 @@
                 <CheckBox x:Name="ControlCheckBox" Margin="0,5,0,0" Grid.Column="6" />
 
                 <TextBlock Grid.Column="8" Margin="0,5,0,0" VerticalAlignment="Center">Alt:</TextBlock>
-                <CheckBox x:Name="AltCheckBox" Margin="0,5,0,0" Grid.Column="10" />
+                <CheckBox x:Name="AltCheckBox" Margin="0,5,0,0" Grid.Column="10"  />
 
-                <ComboBox x:Name="KeyComboBox" Grid.Column="12" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.KeyboardKey}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150">
+                <ComboBox x:Name="KeyComboBox" Grid.Column="12" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.KeyboardKey}" Style="{StaticResource MaterialDesignOutlinedComboBox}" Width="150">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -83,10 +83,10 @@
                 </ComboBox>
             </Grid>
 
-            <Button x:Name="AddHotKeyButton" Grid.Column="2" MinWidth="60" Click="AddHotKeyButton_Click" Content="{x:Static resx:Resources.Add}"/>
+            <Button x:Name="AddHotKeyButton" Grid.Column="2" MinWidth="60" Click="AddHotKeyButton_Click" Content="{x:Static resx:Resources.Add}" Style="{StaticResource MaterialDesignRaisedButton}"/>
         </Grid>
 
-        <Border BorderBrush="{StaticResource PrimaryHueMidBrush}" Grid.Row="4" BorderThickness="1" Margin="20">
+        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="4" BorderThickness="1" Margin="20">
             <DataGrid x:Name="HotKeysDataGrid" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:Resources.HotKey}" Binding="{Binding HotKey}" IsReadOnly="True" Width="200" />

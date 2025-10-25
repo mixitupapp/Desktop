@@ -19,8 +19,8 @@
             <ItemsControl ItemsSource="{Binding EventCommandGroups}" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1">
-                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{StaticResource PrimaryHueMidBrush}">
+                        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}">
                                 <Expander.Header>
                                     <Grid Background="Transparent">
                                         <Grid.ColumnDefinitions>
@@ -31,7 +31,7 @@
                                         <Image Grid.Column="0" Source="{Binding Image, TargetNullValue={x:Null}}" Visibility="{Binding ShowImage, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" />
                                         <MaterialDesign:PackIcon Grid.Column="0" Kind="{Binding PackIconName, TargetNullValue=Delete}" Visibility="{Binding ShowPackIcon, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" Style="{StaticResource ColoredBackgroundPackIcon}" />
 
-                                        <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" />
+                                        <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                     </Grid>
                                 </Expander.Header>
 
@@ -39,7 +39,7 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="{x:Static resx:Resources.Service}" Binding="{Binding Service}" IsReadOnly="True" Width="200" />
                                         <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
-                                        <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="230" Width="230">
+                                        <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="250" Width="250">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Grid HorizontalAlignment="Center">

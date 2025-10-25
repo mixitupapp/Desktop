@@ -343,7 +343,7 @@ namespace MixItUp.Base.Web
         /// <param name="requestUri">The request URI to use</param>
         /// <param name="content">The content to send</param>
         /// <returns>A response message of the request</returns>
-        public async Task<HttpResponseMessage> PatchAsync(string requestUri, HttpContent content)
+        public new async Task<HttpResponseMessage> PatchAsync(string requestUri, HttpContent content)
         {
             HttpMethod method = new HttpMethod("PATCH");
             HttpRequestMessage request = new HttpRequestMessage(method, requestUri) { Content = content };

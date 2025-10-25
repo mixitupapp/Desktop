@@ -190,7 +190,13 @@ namespace MixItUp.Base.Services
                     }
                     else if (platform == StreamingPlatformTypeEnum.YouTube && ServiceManager.Get<YouTubeSession>().IsConnected)
                     {
-                        var youtubeUser = await ServiceManager.Get<YouTubeSession>().StreamerService.GetChannelByUsername(platformUsername);
+                        var youtubeUser = await ServiceManager.Get<YouTubeSession>().StreamerService.GetChannelByHandle(platformUsername);
+
+                        if (youtubeUser == null)
+                        {
+                            youtubeUser = await ServiceManager.Get<YouTubeSession>().StreamerService.GetChannelByUsername(platformUsername);
+                        }
+
                         if (youtubeUser != null)
                         {
                             platformModel = new YouTubeUserPlatformV2Model(youtubeUser);

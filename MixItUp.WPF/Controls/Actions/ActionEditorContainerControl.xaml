@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Actions"
              xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
@@ -17,11 +17,11 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
         <Style x:Key="LabelHeaderTextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-            <Setter Property="Background" Value="{StaticResource PrimaryHueDarkBrush}" />
+            <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary.Dark}" />
         </Style>
     </Controls:LoadingControlBase.Resources>
 
-    <Border Style="{StaticResource DefaultBorder}" BorderBrush="{StaticResource MaterialDesignBody}">
+    <Border Style="{StaticResource DefaultBorder}" BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}">
         <Controls:AccordianGroupBoxControl x:Name="ActionContainer" Maximized="ActionContainer_Maximized" Minimized="ActionContainer_Minimized">
             <Controls:AccordianGroupBoxControl.Header>
                 <Grid Background="Transparent">
@@ -43,10 +43,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBlock, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" Width="Auto"  />
-                    <TextBox Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBox, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" Width="250" Style="{StaticResource LabelHeaderTextBox}" />
+                    <TextBlock Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBlock, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Width="Auto"  />
+                    <TextBox Grid.Column="0" Text="{Binding Name}" TextDecorations="{Binding Disabled, Converter={StaticResource StrikethroughConverter}}" Visibility="{Binding ShowNameTextBox, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Width="250" Style="{StaticResource LabelHeaderTextBox}" />
 
-                    <Rectangle Grid.Column="1" Fill="{StaticResource PrimaryHueMidBrush}" Margin="0,-9" />
+                    <Rectangle Grid.Column="1" Fill="{DynamicResource MaterialDesign.Brush.Primary}" Margin="0,-9" />
 
                     <Controls:IconButton Grid.Column="2" Margin="-10" Command="{Binding PlayCommand}" Icon="Play" ToolTip="{x:Static resx:Resources.TestCommand}" />
 
@@ -59,7 +59,7 @@
 
                     <Controls:IconButton Grid.Column="12" Margin="-10" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
 
-                    <ToggleButton Grid.Column="14" IsChecked="{Binding Enabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" />
+                    <ToggleButton Grid.Column="14" Margin="-10" IsChecked="{Binding Enabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" />
                 </Grid>
             </Controls:AccordianGroupBoxControl.Header>
 

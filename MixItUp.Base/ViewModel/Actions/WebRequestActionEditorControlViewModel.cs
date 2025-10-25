@@ -35,6 +35,32 @@ namespace MixItUp.Base.ViewModel.Actions
         }
     }
 
+    public class WebRequestActionCustomHeaderViewModel : UIViewModelBase
+    {
+        public string HeaderName { get; set; }
+        public string HeaderValue { get; set; }
+
+        public ICommand DeleteHeaderCommand { get; private set; }
+
+        private WebRequestActionEditorControlViewModel viewModel;
+
+        public WebRequestActionCustomHeaderViewModel(string headerName, string headerValue, WebRequestActionEditorControlViewModel viewModel)
+            : this(viewModel)
+        {
+            this.HeaderName = headerName;
+            this.HeaderValue = headerValue;
+        }
+
+        public WebRequestActionCustomHeaderViewModel(WebRequestActionEditorControlViewModel viewModel)
+        {
+            this.viewModel = viewModel;
+            this.DeleteHeaderCommand = this.CreateCommand(() =>
+            {
+                this.viewModel.CustomHeaders.Remove(this);
+            });
+        }
+    }
+
     public class WebRequestActionEditorControlViewModel : ActionEditorControlViewModelBase
     {
         public override ActionTypeEnum Type { get { return ActionTypeEnum.WebRequest; } }
@@ -49,6 +75,39 @@ namespace MixItUp.Base.ViewModel.Actions
             }
         }
         private string requestURL;
+
+        public IEnumerable<HttpMethodEnum> HttpMethods { get { return EnumHelper.GetEnumList<HttpMethodEnum>(); } }
+
+        public HttpMethodEnum SelectedHttpMethod
+        {
+            get { return this.selectedHttpMethod; }
+            set
+            {
+                this.selectedHttpMethod = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged("ShowRequestBody");
+            }
+        }
+        private HttpMethodEnum selectedHttpMethod = HttpMethodEnum.GET;
+
+        public bool ShowRequestBody
+        {
+            get
+            {
+                return this.SelectedHttpMethod == HttpMethodEnum.POST || this.SelectedHttpMethod == HttpMethodEnum.PUT;
+            }
+        }
+
+        public string RequestBody
+        {
+            get { return this.requestBody; }
+            set
+            {
+                this.requestBody = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string requestBody;
 
         public IEnumerable<WebRequestResponseParseTypeEnum> ResponseParseTypes { get { return EnumHelper.GetEnumList<WebRequestResponseParseTypeEnum>(); } }
 
@@ -70,27 +129,39 @@ namespace MixItUp.Base.ViewModel.Actions
         public bool ShowJSONGrid { get { return this.SelectedResponseParseType == WebRequestResponseParseTypeEnum.JSONToSpecialIdentifiers; } }
 
         public ICommand AddJSONParameterCommand { get; private set; }
+        public ICommand AddCustomHeaderCommand { get; private set; }
 
         public ObservableCollection<WebRequestActionJSONToSpecialIdentifierViewModel> JSONParameters { get; set; } = new ObservableCollection<WebRequestActionJSONToSpecialIdentifierViewModel>();
+        public ObservableCollection<WebRequestActionCustomHeaderViewModel> CustomHeaders { get; set; } = new ObservableCollection<WebRequestActionCustomHeaderViewModel>();
 
         public WebRequestActionEditorControlViewModel(WebRequestActionModel action)
             : base(action)
         {
             this.RequestURL = action.Url;
+            this.SelectedHttpMethod = action.HttpMethod;
+            this.RequestBody = action.RequestBody;
             this.SelectedResponseParseType = action.ResponseType;
             if (this.ShowJSONGrid)
             {
                 this.JSONParameters.AddRange(action.JSONToSpecialIdentifiers.Select(kvp => new WebRequestActionJSONToSpecialIdentifierViewModel(kvp.Key, kvp.Value, this)));
             }
+            if (action.CustomHeaders != null)
+            {
+                this.CustomHeaders.AddRange(action.CustomHeaders.Select(kvp => new WebRequestActionCustomHeaderViewModel(kvp.Key, kvp.Value, this)));
+            }
         }
 
-        public WebRequestActionEditorControlViewModel() : base() {  }
+        public WebRequestActionEditorControlViewModel() : base() { }
 
         protected override async Task OnOpenInternal()
         {
             this.AddJSONParameterCommand = this.CreateCommand(() =>
             {
                 this.JSONParameters.Add(new WebRequestActionJSONToSpecialIdentifierViewModel(this));
+            });
+            this.AddCustomHeaderCommand = this.CreateCommand(() =>
+            {
+                this.CustomHeaders.Add(new WebRequestActionCustomHeaderViewModel(this));
             });
             await base.OnOpenInternal();
         }
@@ -126,11 +197,35 @@ namespace MixItUp.Base.ViewModel.Actions
                 }
             }
 
+            HashSet<string> headerNames = new HashSet<string>();
+            foreach (WebRequestActionCustomHeaderViewModel header in this.CustomHeaders)
+            {
+                if (string.IsNullOrEmpty(header.HeaderName))
+                {
+                    return Task.FromResult(new Result("Custom header name cannot be empty"));
+                }
+
+                if (headerNames.Contains(header.HeaderName))
+                {
+                    return Task.FromResult(new Result($"Duplicate custom header name: {header.HeaderName}"));
+                }
+                headerNames.Add(header.HeaderName);
+            }
+
             return Task.FromResult(new Result());
         }
 
         protected override Task<ActionModelBase> GetActionInternal()
         {
+            Dictionary<string, string> customHeaders = new Dictionary<string, string>();
+            foreach (WebRequestActionCustomHeaderViewModel header in this.CustomHeaders)
+            {
+                if (!string.IsNullOrEmpty(header.HeaderName))
+                {
+                    customHeaders[header.HeaderName] = header.HeaderValue ?? string.Empty;
+                }
+            }
+
             if (this.ShowJSONGrid)
             {
                 Dictionary<string, string> jsonParameters = new Dictionary<string, string>();
@@ -138,11 +233,11 @@ namespace MixItUp.Base.ViewModel.Actions
                 {
                     jsonParameters[jsonParameter.JSONParameterName] = jsonParameter.SpecialIdentifierName;
                 }
-                return Task.FromResult<ActionModelBase>(new WebRequestActionModel(this.RequestURL, jsonParameters));
+                return Task.FromResult<ActionModelBase>(new WebRequestActionModel(this.RequestURL, jsonParameters, this.SelectedHttpMethod, customHeaders, this.RequestBody));
             }
             else
             {
-                return Task.FromResult<ActionModelBase>(new WebRequestActionModel(this.RequestURL, this.SelectedResponseParseType));
+                return Task.FromResult<ActionModelBase>(new WebRequestActionModel(this.RequestURL, this.SelectedResponseParseType, this.SelectedHttpMethod, customHeaders, this.RequestBody));
             }
         }
     }

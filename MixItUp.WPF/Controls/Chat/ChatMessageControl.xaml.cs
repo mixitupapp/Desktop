@@ -149,8 +149,8 @@ namespace MixItUp.WPF.Controls.Chat
 
                 if (isHighlighted)
                 {
-                    textBlock.Background = (Brush)FindResource("PrimaryHueLightBrush");
-                    textBlock.Foreground = (Brush)FindResource("PrimaryHueLightForegroundBrush");
+                    textBlock.Background = (Brush)FindResource("MaterialDesign.Brush.Primary.Light");
+                    textBlock.Foreground = (Brush)FindResource("MaterialDesign.Brush.Primary.Light.Foreground");
                 }
 
                 if (isItalicized)

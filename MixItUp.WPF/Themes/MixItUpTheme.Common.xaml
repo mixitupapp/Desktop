@@ -9,15 +9,15 @@
         <Setter Property="Margin" Value="-7, -10" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="{StaticResource PrimaryHueMidForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
     </Style>
 
     <Style x:Key="ColoredBackgroundPackIcon" TargetType="MaterialDesign:PackIcon">
-        <Setter Property="Foreground" Value="{StaticResource PrimaryHueMidForegroundBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
     </Style>
 
     <Style x:Key="DarkLightBackgroundPackIcon" TargetType="MaterialDesign:PackIcon">
-        <Setter Property="Foreground" Value="{StaticResource MaterialDesignBody}" />
+        <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Foreground}" />
     </Style>
 
     <Style x:Key="TextBlockSortingHeader" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MaterialDesignTextBlock}">
@@ -64,7 +64,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
-                    <Border BorderBrush="{StaticResource MaterialDesignBody}" BorderThickness="1">
+                    <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}" BorderThickness="1">
                         <ContentPresenter />
                     </Border>
                 </ControlTemplate>
@@ -75,7 +75,7 @@
     <Style x:Key="BorderedListBoxItem" TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{StaticResource PrimaryHueLightBrush}" />
+                <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -95,13 +95,13 @@
     </Style>
 
     <Style x:Key="DefaultBorder" TargetType="Border">
-        <Setter Property="BorderBrush" Value="{StaticResource PrimaryHueMidBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
         <Setter Property="BorderThickness" Value="1" />
     </Style>
 
     <Style TargetType="{x:Type MaterialDesign:DialogHost}">
         <Setter Property="DialogMargin" Value="22" />
-        <Setter Property="MaterialDesign:ShadowAssist.ShadowDepth" Value="Depth5" />
+        <Setter Property="MaterialDesign:ElevationAssist.Elevation" Value="Dp6" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MaterialDesign:DialogHost">
@@ -228,7 +228,7 @@
                                           Placement="Center">
                             <MaterialDesign:Card x:Name="PART_PopupContentElement" 
                                         Margin="{TemplateBinding DialogMargin}"
-                                        MaterialDesign:ShadowAssist.ShadowDepth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(MaterialDesign:ShadowAssist.ShadowDepth)}"
+                                        MaterialDesign:ElevationAssist.Elevation="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(MaterialDesign:ElevationAssist.Elevation)}"
                                         UniformCornerRadius="4"
                                         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                                         TextElement.FontWeight="Regular"

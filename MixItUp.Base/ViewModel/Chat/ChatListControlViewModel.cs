@@ -1,13 +1,15 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
-using MixItUp.Base.Services.Twitch;
+using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
 using MixItUp.Base.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,6 +17,13 @@ using System.Windows.Input;
 
 namespace MixItUp.Base.ViewModel.Chat
 {
+    public class PlatformOption
+    {
+        public StreamingPlatformTypeEnum Platform { get; set; }
+        public string Name { get; set; }
+        public string LogoPath { get; set; }
+    }
+
     public class ChatListControlViewModel : WindowControlViewModelBase
     {
         public static readonly Regex UserNameTagRegex = new Regex(@"@\w+");
@@ -91,13 +100,29 @@ namespace MixItUp.Base.ViewModel.Chat
 
         public ICommand ScrollingLockCommand { get; private set; }
 
+        public ObservableCollection<PlatformOption> PlatformOptions { get; set; } = new ObservableCollection<PlatformOption>();
+        private PlatformOption selectedPlatform;
+        public PlatformOption SelectedPlatform
+        {
+            get => selectedPlatform;
+            set
+            {
+                selectedPlatform = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
         public ChatListControlViewModel(UIViewModelBase windowViewModel)
             : base(windowViewModel)
         {
+            this.UpdatePlatformOptions();
+
             this.SendMessageCommand = this.CreateCommand(async () =>
             {
                 if (!string.IsNullOrEmpty(this.SendMessageText))
                 {
+                    StreamingPlatformTypeEnum platformType = SelectedPlatform?.Platform ?? StreamingPlatformTypeEnum.All;
+
                     if (ChatListControlViewModel.WhisperRegex.IsMatch(this.SendMessageText))
                     {
                         Match whisperRegexMatch = ChatListControlViewModel.WhisperRegex.Match(this.SendMessageText);
@@ -107,11 +132,11 @@ namespace MixItUp.Base.ViewModel.Chat
                         Match userNameMatch = ChatListControlViewModel.UserNameTagRegex.Match(whisperRegexMatch.Value);
                         string username = UserService.SanitizeUsername(userNameMatch.Value);
 
-                        await ServiceManager.Get<ChatService>().Whisper(username, StreamingPlatformTypeEnum.All, message, this.SendAsStreamer);
+                        await ServiceManager.Get<ChatService>().Whisper(username, platformType, message, this.SendAsStreamer);
                     }
                     else if (ChatListControlViewModel.ClearRegex.IsMatch(this.SendMessageText))
                     {
-                        await ServiceManager.Get<ChatService>().ClearMessages(StreamingPlatformTypeEnum.Twitch);
+                        await ServiceManager.Get<ChatService>().ClearMessages(platformType);
                     }
                     else if (ChatListControlViewModel.TimeoutRegex.IsMatch(this.SendMessageText))
                     {
@@ -119,7 +144,7 @@ namespace MixItUp.Base.ViewModel.Chat
                         if (splits.Length == 3)
                         {
                             string username = UserService.SanitizeUsername(splits[1]);
-                            UserV2ViewModel user = ServiceManager.Get<UserService>().GetActiveUserByPlatform(StreamingPlatformTypeEnum.All, platformUsername: username);
+                            UserV2ViewModel user = ServiceManager.Get<UserService>().GetActiveUserByPlatform(platformType, platformUsername: username);
                             if (user != null)
                             {
                                 if (int.TryParse(splits[2], out int amount) && amount > 0)
@@ -143,7 +168,7 @@ namespace MixItUp.Base.ViewModel.Chat
                         if (splits.Length == 2)
                         {
                             string username = UserService.SanitizeUsername(splits[1]);
-                            UserV2ViewModel user = ServiceManager.Get<UserService>().GetActiveUserByPlatform(StreamingPlatformTypeEnum.All, platformUsername: username);
+                            UserV2ViewModel user = ServiceManager.Get<UserService>().GetActiveUserByPlatform(platformType, platformUsername: username);
                             if (user != null)
                             {
                                 await ServiceManager.Get<ChatService>().BanUser(user);
@@ -156,7 +181,7 @@ namespace MixItUp.Base.ViewModel.Chat
                     }
                     else
                     {
-                        await ServiceManager.Get<ChatService>().SendMessage(this.SendMessageText, StreamingPlatformTypeEnum.All, sendAsStreamer: this.SendAsStreamer);
+                        await ServiceManager.Get<ChatService>().SendMessage(this.SendMessageText, platformType, sendAsStreamer: this.SendAsStreamer);
                     }
 
                     this.SentMessageHistory.Remove(this.SendMessageText);
@@ -215,6 +240,37 @@ namespace MixItUp.Base.ViewModel.Chat
             await base.OnVisibleInternal();
 
             this.NotifyPropertyChanged("SendAsOptions");
+        }
+
+        public void UpdatePlatformOptions()
+        {
+            PlatformOptions.Clear();
+
+            PlatformOptions.Add(new PlatformOption
+            {
+                Platform = StreamingPlatformTypeEnum.All,
+                Name = "All",
+                LogoPath = null
+            });
+
+            foreach (StreamingPlatformTypeEnum platform in StreamingPlatforms.SupportedPlatforms)
+            {
+                if (StreamingPlatforms.IsPlatformConnected(platform))
+                {
+                    PlatformOptions.Add(new PlatformOption
+                    {
+                        Platform = platform,
+                        Name = platform.ToString(),
+                        LogoPath = StreamingPlatforms.GetPlatformSmallImage(platform)
+                    });
+                }
+            }
+
+            if (SelectedPlatform == null || !PlatformOptions.Contains(SelectedPlatform))
+                SelectedPlatform = PlatformOptions.FirstOrDefault();
+
+            this.NotifyPropertyChanged(nameof(PlatformOptions));
+            this.NotifyPropertyChanged(nameof(SelectedPlatform));
         }
 
         private void ChatService_OnChatVisualSettingsChanged(object sender, EventArgs e)

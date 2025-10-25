@@ -10,28 +10,18 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"  
                           
              d:DesignHeight="600" d:DesignWidth="800">
     <local:MainControlBase.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <Util:ColorBrushConverter x:Key="ColorBrushConverter" />
 
-            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-            <Util:ColorBrushConverter x:Key="ColorBrushConverter" />
-
-            <ContextMenu x:Key="UserListContextMenu">
-                <MenuItem x:Name="UserInformationMenuItem" Header="User Info" Click="UserInformationMenuItem_Click" />
-            </ContextMenu>
-
-        </ResourceDictionary>
+        <ContextMenu x:Key="UserListContextMenu">
+            <MenuItem x:Name="UserInformationMenuItem" Header="User Info" Click="UserInformationMenuItem_Click" />
+        </ContextMenu>
     </local:MainControlBase.Resources>
 
     <Grid>
@@ -71,8 +61,8 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" Text="{Binding ViewersCount}" />
-                        <TextBlock Grid.Column="2" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" Text="{x:Static resx:Resources.WatchingNow}" />
+                        <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding ViewersCount}" />
+                        <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.WatchingNow}" />
                         
                     </Grid>
                 </Grid>

@@ -7,19 +7,16 @@ using MixItUp.Base.ViewModel.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading.Tasks;
-using System.Web.Http;
 using WebSocketSharp;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
 {
-    [RoutePrefix("api/quotes")]
-    public class QuotesV1Controller : ApiController
+    [Route("api/quotes")]
+    [ApiController]
+    public class QuotesV1Controller : ControllerBase
     {
-        [Route]
         [HttpGet]
         public IEnumerable<Quote> Get()
         {
@@ -28,44 +25,30 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
 
         [Route("{quoteID:int}")]
         [HttpGet]
-        public Quote Get(int quoteID)
+        public IActionResult Get(int quoteID)
         {
             var quote = ChannelSession.Settings.Quotes.FirstOrDefault(q => q.ID == quoteID);
             if (quote == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find quote: {quoteID}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Quote ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find quote: {quoteID}." });
             }
-
-            return QuoteFromUserQuoteViewModel(quote);
+            return Ok(QuoteFromUserQuoteViewModel(quote));
         }
 
-        [Route]
         [HttpPut]
-        public async Task<Quote> Add([FromBody]AddQuote quote)
+        public async Task<IActionResult> Add([FromBody] AddQuote quote)
         {
             if (quote == null || quote.QuoteText.IsNullOrEmpty())
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.BadRequest)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to create quote, no QuoteText was supplied." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "QuoteText not specified"
-                };
-                throw new HttpResponseException(resp);
+                return BadRequest(new Error { Message = $"Unable to create quote, no QuoteText was supplied." });
             }
 
             var quoteText = quote.QuoteText.Trim(new char[] { ' ', '\'', '\"' });
             UserQuoteModel newQuote = new UserQuoteModel(UserQuoteViewModel.GetNextQuoteNumber(), quoteText, DateTimeOffset.Now, await GamePreMadeChatCommandModel.GetCurrentGameName(ChannelSession.Settings.DefaultStreamingPlatform));
             ChannelSession.Settings.Quotes.Add(newQuote);
             await ChannelSession.SaveSettings();
-
             UserQuoteModel.QuoteAdded(newQuote);
-
-            return QuoteFromUserQuoteViewModel(newQuote);
+            return Ok(QuoteFromUserQuoteViewModel(newQuote));
         }
 
         public static Quote QuoteFromUserQuoteViewModel(UserQuoteModel quoteData)

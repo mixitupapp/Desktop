@@ -2653,6 +2653,10 @@
     <value>Usuáriode chat eliminado</value>
     <comment>Manual</comment>
   </data>
+  <data name="DonorDriveDonation" xml:space="preserve">
+    <value>Doação DonorDrive</value>
+    <comment>Manual</comment>
+  </data>
   <data name="JustGivingDonation" xml:space="preserve">
     <value>Just Giving Donation</value>
     <comment>Manual</comment>
@@ -5465,6 +5469,12 @@ habilitado. Pode pensar nisto como algo semelhante a alternar a opção “Desbl
   </data>
   <data name="DiscordInvalidSecret" xml:space="preserve">
     <value>Introduza um segredo de cliente personalizado válido.</value>
+  </data>
+  <data name="DonorDriveInfo1" xml:space="preserve">
+    <value>A conectividade do serviço DonorDrive permite-lhe desencadear eventos a partir do momento em que você ou a sua equipe recebem um donativo através de uma instituição de solidariedade DonorDrive elegível.</value>
+  </data>
+  <data name="DonorDriveInfo2" xml:space="preserve">
+    <value>Para ligar o DonorDrive no Mix It Up, visite o site da sua instituição de solidariedade e procure o link da sua página/participante. Em seguida, selecione a sua instituição de solidariedade no menu suspenso ou selecione Personalizado se não estiver na lista, copie o link da sua página/participante na caixa de texto e selecione Iniciar sessão.</value>
   </data>
   <data name="OverlayConnectionFailed1" xml:space="preserve">
     <value>O teste de ligação de sobreposição falhou. Certifique-se de que tem a página Mix It Up Overlay visível e em execução no seu software de streaming.</value>
@@ -8855,6 +8865,53 @@ via Twitch, é uma situação “a sua milhagem pode variar”.</value>
   <data name="TrovoChannelSpellCast" xml:space="preserve">
     <value>Elenco de feitiço do canal Trovo</value>
   </data>
+  <data name="SetTitleDescription" xml:space="preserve">
+    <value>Definir título/descrição</value>
+  </data>
+  <data name="YouTubeActionMissingAmount" xml:space="preserve">
+    <value>Ação do YouTube: deve ser especificado um valor válido</value>
+  </data>
+  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
+    <value>Ação do YouTube: deve ser especificado um título ou descrição válido</value>
+  </data>
+  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
+    <value>Membros em massa do canal YouTube doados</value>
+  </data>
+  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
+    <value>Marco do membro do canal YouTube</value>
+  </data>
+  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
+    <value>Membros do canal do YouTube concedidos</value>
+  </data>
+  <data name="YouTubeChannelNewMember" xml:space="preserve">
+    <value>Novo membro do canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelStreamStart" xml:space="preserve">
+    <value>Início da transmissão do canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelStreamStop" xml:space="preserve">
+    <value>Paragem de transmissão do canal YouTube</value>
+  </data>
+  <data name="YouTubeChannelSuperChat" xml:space="preserve">
+    <value>Superchat do canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
+    <value>Super autocolante do canal de YouTube</value>
+  </data>
+  <data name="AlertYouTubeSuperChat" xml:space="preserve">
+    <value>{0} mandou um Super-chat - {1}</value>
+    <comment>{0} is the name of the user
+{1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
+    <value>{0} Superadesivo - {1} - {2}</value>
+    <comment>{0} is the name of the user
+{1} is the name of the super sticker
+{2} is the amount of the super chat</comment>
+  </data>
+  <data name="ShowYouTubeSuperChat" xml:space="preserve">
+    <value>Mostrar Super Chat do YouTube</value>
+  </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Conexão simulada</value>
   </data>
@@ -9209,6 +9266,9 @@ print(run())</value>
   <data name="ShellExecute" xml:space="preserve">
     <value>Executar shell</value>
   </data>
+  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
+    <value>Remover linha com texto específico do ficheiro</value>
+  </data>
   <data name="TextToRemove" xml:space="preserve">
     <value>Texto para remover</value>
   </data>
@@ -9245,6 +9305,9 @@ print(run())</value>
   </data>
   <data name="OverlayLabelCounterNotSelected" xml:space="preserve">
     <value>Um contador válido deve ser selecionado</value>
+  </data>
+  <data name="LatestFollower" xml:space="preserve">
+    <value>Último seguidor</value>
   </data>
   <data name="LatestDonation" xml:space="preserve">
     <value>Última doação</value>
@@ -9287,66 +9350,6 @@ print(run())</value>
   </data>
   <data name="DeStream" xml:space="preserve">
     <value>DeStream</value>
-  </data>
-  <data name="DonorDriveDonation" xml:space="preserve">
-    <value>Doação DonorDrive</value>
-    <comment>Manual</comment>
-  </data>
-  <data name="DonorDriveInfo1" xml:space="preserve">
-    <value>A conectividade do serviço DonorDrive permite-lhe desencadear eventos a partir do momento em que você ou a sua equipe recebem um donativo através de uma instituição de solidariedade DonorDrive elegível.</value>
-  </data>
-  <data name="DonorDriveInfo2" xml:space="preserve">
-    <value>Para ligar o DonorDrive no Mix It Up, visite o site da sua instituição de solidariedade e procure o link da sua página/participante. Em seguida, selecione a sua instituição de solidariedade no menu suspenso ou selecione Personalizado se não estiver na lista, copie o link da sua página/participante na caixa de texto e selecione Iniciar sessão.</value>
-  </data>
-  <data name="SetTitleDescription" xml:space="preserve">
-    <value>Definir título/descrição</value>
-  </data>
-  <data name="YouTubeActionMissingAmount" xml:space="preserve">
-    <value>Ação do YouTube: deve ser especificado um valor válido</value>
-  </data>
-  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
-    <value>Ação do YouTube: deve ser especificado um título ou descrição válido</value>
-  </data>
-  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
-    <value>Membros em massa do canal YouTube doados</value>
-  </data>
-  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
-    <value>Marco do membro do canal YouTube</value>
-  </data>
-  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
-    <value>Membros do canal do YouTube concedidos</value>
-  </data>
-  <data name="YouTubeChannelNewMember" xml:space="preserve">
-    <value>Novo membro do canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelStreamStart" xml:space="preserve">
-    <value>Início da transmissão do canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelStreamStop" xml:space="preserve">
-    <value>Paragem de transmissão do canal YouTube</value>
-  </data>
-  <data name="YouTubeChannelSuperChat" xml:space="preserve">
-    <value>Superchat do canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
-    <value>Super autocolante do canal de YouTube</value>
-  </data>
-  <data name="AlertYouTubeSuperChat" xml:space="preserve">
-    <value>{0} mandou um Super-chat - {1}</value>
-    <comment>{0} is the name of the user
-{1} is the amount of the super chat</comment>
-  </data>
-  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
-    <value>{0} Superadesivo - {1} - {2}</value>
-    <comment>{0} is the name of the user
-{1} is the name of the super sticker
-{2} is the amount of the super chat</comment>
-  </data>
-  <data name="ShowYouTubeSuperChat" xml:space="preserve">
-    <value>Mostrar Super Chat do YouTube</value>
-  </data>
-  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
-    <value>Remover linha com texto específico do ficheiro</value>
   </data>
   <data name="ExistingProfile" xml:space="preserve">
     <value>Perfil Existente</value>
@@ -9661,12 +9664,6 @@ print(run())</value>
   <data name="MusicPlayerSelectFolderOrPlayMusicToLoadInSongs" xml:space="preserve">
     <value>Selecione uma nova pasta para carregar música de uma pasta ou prima o botão Play para carregar música da última pasta utilizada.</value>
   </data>
-  <data name="NoDuplicates" xml:space="preserve">
-    <value>Sem duplicatas</value>
-  </data>
-  <data name="LatestFollower" xml:space="preserve">
-    <value>Último seguidor</value>
-  </data>
   <data name="ResponsiveVoice" xml:space="preserve">
     <value>Voz Responsiva</value>
   </data>
@@ -9726,6 +9723,9 @@ print(run())</value>
   </data>
   <data name="SpecificClip" xml:space="preserve">
     <value>Clipe específico</value>
+  </data>
+  <data name="NoDuplicates" xml:space="preserve">
+    <value>Sem duplicatas</value>
   </data>
   <data name="CountLinesInFile" xml:space="preserve">
     <value>Contar linhas no ficheiro</value>
@@ -10793,5 +10793,36 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   </data>
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Não mostrar erro "Sem dados"</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DateHasPassed" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="DateNotOccured" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="InvalidDate" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TermsOfService" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="PrivacyPolicy" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Method" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="AddCustomHeader" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="HeaderName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="HeaderValue" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="RequestBody" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

@@ -9,22 +9,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V2
 {
-    [RoutePrefix("api/v2/users")]
-    public class UsersV2Controller : ApiController
+    [Route("api/v2/users")]
+    [ApiController]
+    public class UsersV2Controller : ControllerBase
     {
         [Route("{userId:guid}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetUserById(Guid userId)
+        public async Task<IActionResult> GetUserById(Guid userId)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             return Ok(new GetSingleUserResponse { User = UserMapper.ToUser(user) });
@@ -32,32 +38,46 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{platform}/{usernameOrID}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetUserByPlatformUsername(string platform, string usernameOrID)
+        public async Task<IActionResult> GetUserByPlatformUsername(string platform, string usernameOrID)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!Enum.TryParse<StreamingPlatformTypeEnum>(platform, ignoreCase: true, out var platformEnum))
             {
-                return BadRequest($"Unknown platform: {platform}");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = $"Unknown platform: {platform}"
+                });
             }
 
             var usermodel = await ServiceManager.Get<UserService>().GetUserByPlatform(platformEnum, platformID: usernameOrID, platformUsername: usernameOrID, performPlatformSearch: true);
             if (usermodel == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User '{usernameOrID}' not found on platform '{platform}'"
+                });
             }
 
             if (!ChannelSession.Settings.Users.TryGetValue(usermodel.ID, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User '{usernameOrID}' not found on platform '{platform}'"
+                });
             }
 
             return Ok(new GetSingleUserResponse { User = UserMapper.ToUser(user) });
         }
 
-        [Route]
         [HttpGet]
-        public async Task<IHttpActionResult> GetAllUsers(int skip = 0, int pageSize = 25)
+        public async Task<IActionResult> GetAllUsers(int skip = 0, int pageSize = 25)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
@@ -78,7 +98,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("active")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetAllActiveUsers(int skip = 0, int pageSize = 25)
+        public async Task<IActionResult> GetAllActiveUsers(int skip = 0, int pageSize = 25)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
@@ -99,17 +119,27 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("add")]
         [HttpPost]
-        public async Task<IHttpActionResult> AddUser(NewUser newUser)
+        public async Task<IActionResult> AddUser(NewUser newUser)
         {
             if (!Enum.TryParse<StreamingPlatformTypeEnum>(newUser.Platform, ignoreCase: true, out var platformEnum))
             {
-                return BadRequest($"Unknown platform: {newUser.Platform}");
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = "Bad Request",
+                    Detail = $"Unknown platform: {newUser.Platform}"
+                });
             }
 
             UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(platformEnum, platformUsername: newUser.Username, performPlatformSearch: true);
             if (user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User '{newUser.Username}' not found on platform '{newUser.Platform}'"
+                });
             }
 
             return Ok(new GetSingleUserResponse { User = UserMapper.ToUser(user.Model) });
@@ -117,13 +147,18 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
 
         [Route("{userId:guid}")]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteUserById(Guid userId)
+        public async Task<IActionResult> DeleteUserById(Guid userId)
         {
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             if (!ChannelSession.Settings.Users.TryGetValue(userId, out var user) || user == null)
             {
-                return NotFound();
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"User with ID '{userId}' not found"
+                });
             }
 
             ServiceManager.Get<UserService>().DeleteUserData(user.ID);
