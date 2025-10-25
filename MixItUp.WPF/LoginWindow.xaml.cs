@@ -35,7 +35,8 @@ namespace MixItUp.WPF
         {
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
-            this.Title += " - v" + Assembly.GetEntryAssembly().GetName().Version.ToString();
+            Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
+            this.Title += " - v" + VersionHelper.NormalizeSemVerString(entryVersion);
 
             if (ServiceManager.Get<IProcessService>().GetProcessesByName("MixItUp").Count() > 1)
             {
@@ -137,11 +138,30 @@ namespace MixItUp.WPF
         private async Task CheckForUpdates()
         {
             this.currentUpdate = await ServiceManager.Get<MixItUpService>().GetLatestUpdate();
-            if (this.currentUpdate != null && this.currentUpdate.SystemVersion > Assembly.GetEntryAssembly().GetName().Version)
+            if (this.currentUpdate != null)
             {
-                updateFound = true;
-                UpdateWindow window = new UpdateWindow(this.currentUpdate);
-                window.Show();
+                Version currentVersion = Assembly.GetEntryAssembly()?.GetName().Version ?? new Version(0, 0, 0, 0);
+                Version updateVersion = this.currentUpdate.GetNormalizedVersion();
+
+                bool hasNewerVersion = updateVersion > currentVersion;
+                bool semverMatches = VersionHelper.SemVerEquals(currentVersion, this.currentUpdate.Version);
+
+                if (hasNewerVersion || (this.currentUpdate.Mandatory && !semverMatches))
+                {
+                    updateFound = true;
+
+                    if (this.currentUpdate.Mandatory)
+                    {
+                        bool launched = await UpdateWindow.DownloadAndInstallUpdate(this.currentUpdate);
+                        if (launched)
+                        {
+                            return;
+                        }
+                    }
+
+                    UpdateWindow window = new UpdateWindow(this.currentUpdate);
+                    window.Show();
+                }
             }
         }
 
@@ -161,16 +181,13 @@ namespace MixItUp.WPF
         }
 
 
-        private async void NewStreamerLoginButton_Click(object sender, RoutedEventArgs e)
+        private void NewStreamerLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (await this.ShowLicenseAgreement())
-            {
-                ChannelSession.OnRestartRequested -= ChannelSession_OnRestartRequested;
+            ChannelSession.OnRestartRequested -= ChannelSession_OnRestartRequested;
 
-                ShowMainWindow(new NewUserWizardWindow());
-                this.Hide();
-                this.Close();
-            }
+            ShowMainWindow(new NewUserWizardWindow());
+            this.Hide();
+            this.Close();
         }
 
         private async void RestoreBackupButton_Click(object sender, RoutedEventArgs e)
@@ -185,17 +202,6 @@ namespace MixItUp.WPF
             this.Close();
 
             ServiceManager.Get<IProcessService>().LaunchProgram(Application.ResourceAssembly.Location);
-        }
-
-        private Task<bool> ShowLicenseAgreement()
-        {
-            LicenseAgreementWindow window = new LicenseAgreementWindow();
-            TaskCompletionSource<bool> task = new TaskCompletionSource<bool>();
-            window.Owner = Application.Current.MainWindow;
-            window.Closed += (s, a) => task.SetResult(window.Accepted);
-            window.Show();
-            window.Focus();
-            return task.Task;
         }
 
         public void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

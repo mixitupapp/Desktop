@@ -126,6 +126,14 @@ namespace MixItUp.Base.Services
         public const string DevMixItUpAPIEndpoint = "https://localhost:44309/api/";                // Dev Endpoint
         public const string DevMixItUpSignalRHubEndpoint = "https://localhost:44309/webhookhub";   // Dev Endpoint
 
+        private const string FileServiceBaseUrl = "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private static readonly TimeSpan[] FileServiceRetryDelays = new[]
+        {
+            TimeSpan.FromSeconds(2),
+            TimeSpan.FromSeconds(4),
+            TimeSpan.FromSeconds(8),
+        };
+
         private string accessToken = null;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
@@ -134,30 +142,24 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                MixItUpUpdateModel update = await ServiceManager.Get<MixItUpService>().GetLatestPublicUpdate();
-                if (update != null)
+                MixItUpUpdateModel update = await this.GetLatestPublicUpdate();
+                bool requestPreview = ChannelSession.AppSettings.PreviewProgram || ChannelSession.AppSettings.TestBuild;
+                ChannelSession.AppSettings.TestBuild = false;
+
+                if (requestPreview)
                 {
-                    if (ChannelSession.AppSettings.PreviewProgram)
+                    MixItUpUpdateModel previewUpdate = await this.GetLatestPreviewUpdate();
+                    if (previewUpdate != null)
                     {
-                        MixItUpUpdateModel previewUpdate = await ServiceManager.Get<MixItUpService>().GetLatestPreviewUpdate();
-                        if (previewUpdate != null && previewUpdate.SystemVersion >= update.SystemVersion)
+                        Version updateVersion = update?.GetNormalizedVersion();
+                        Version previewVersion = previewUpdate.GetNormalizedVersion();
+                        if (update == null || previewVersion >= updateVersion)
                         {
                             update = previewUpdate;
                         }
                     }
-
-                    // Remove this when we wish to re-enable Test Builds
-                    ChannelSession.AppSettings.TestBuild = false;
-
-                    if (ChannelSession.AppSettings.TestBuild)
-                    {
-                        MixItUpUpdateModel testUpdate = await ServiceManager.Get<MixItUpService>().GetLatestTestUpdate();
-                        if (testUpdate != null && testUpdate.SystemVersion >= update.SystemVersion)
-                        {
-                            update = testUpdate;
-                        }
-                    }
                 }
+
                 return update;
             }
             catch (Exception ex)
@@ -169,53 +171,68 @@ namespace MixItUp.Base.Services
 
         public async Task<MixItUpUpdateModel> GetLatestPublicUpdate()
         {
-            MixItUpUpdateModel update = await this.GetLatestPublicUpdateV2();
-            if (update == null)
-            {
-                update = await this.GetAsync<MixItUpUpdateModel>("updates");
-            }
-            return update;
+            return await this.FetchLatestUpdateFromFileService("public", CancellationToken.None);
         }
         public async Task<MixItUpUpdateModel> GetLatestPreviewUpdate()
         {
-            MixItUpUpdateModel update = await this.GetLatestPreviewUpdateV2();
-            if (update == null)
-            {
-                update = await this.GetAsync<MixItUpUpdateModel>("updates/preview");
-            }
-            return update;
-        }
-        public async Task<MixItUpUpdateModel> GetLatestTestUpdate()
-        {
-            MixItUpUpdateModel update = await this.GetLatestTestUpdateV2();
-            if (update == null)
-            {
-                update = await this.GetAsync<MixItUpUpdateModel>("updates/test");
-            }
-            return update;
+            return await this.FetchLatestUpdateFromFileService("preview", CancellationToken.None);
         }
 
-        public async Task<MixItUpUpdateModel> GetLatestPublicUpdateV2() { return await this.GetUpdateV2("public"); }
-        public async Task<MixItUpUpdateModel> GetLatestPreviewUpdateV2() { return await this.GetUpdateV2("preview"); }
-        public async Task<MixItUpUpdateModel> GetLatestTestUpdateV2() { return await this.GetUpdateV2("test"); }
-
-        private async Task<MixItUpUpdateModel> GetUpdateV2(string type)
+        private async Task<MixItUpUpdateModel> FetchLatestUpdateFromFileService(string channel, CancellationToken cancellationToken)
         {
-            try
+            string url = $"{FileServiceBaseUrl}/{channel}/latest";
+            Exception lastError = null;
+
+            for (int attempt = 0; attempt <= FileServiceRetryDelays.Length; attempt++)
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient())
+                try
                 {
-                    MixItUpUpdateV2Model update = await client.GetAsync<MixItUpUpdateV2Model>($"https://raw.githubusercontent.com/mixitupapp/mixitupdesktop-data/main/Updates/{type}.json");
-                    if (update != null)
+                    using (AdvancedHttpClient client = new AdvancedHttpClient())
                     {
-                        return new MixItUpUpdateModel(update);
+                        client.Timeout = TimeSpan.FromSeconds(10 + (attempt * 5));
+                        MixItUpUpdateModel update = await client.GetAsync<MixItUpUpdateModel>(url);
+                        if (update != null)
+                        {
+                            if (!update.Active)
+                            {
+                                Logger.Log(LogLevel.Warning, $"File Service returned inactive manifest for channel {channel}: {url}");
+                                return null;
+                            }
+
+                            if (string.IsNullOrEmpty(update.Channel))
+                            {
+                                update.Channel = channel;
+                            }
+
+                            return update;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lastError = ex;
+                    Logger.Log(LogLevel.Warning, $"Attempt {attempt + 1} to fetch update manifest from {url} failed: {ex.Message}");
+                }
+
+                if (attempt < FileServiceRetryDelays.Length)
+                {
+                    try
+                    {
+                        await Task.Delay(FileServiceRetryDelays[attempt], cancellationToken).ConfigureAwait(false);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        break;
                     }
                 }
             }
-            catch (Exception ex)
+
+            if (lastError != null)
             {
-                Logger.Log(ex);
+                Logger.Log(lastError);
             }
+
+            Logger.Log(LogLevel.Warning, $"Unable to retrieve update manifest from {url} after retries.");
             return null;
         }
 
@@ -458,7 +475,7 @@ namespace MixItUp.Base.Services
         public async Task<Webhook> CreateWebhook()
         {
             await EnsureLogin();
-            return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new {}));
+            return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new { }));
         }
 
         public async Task DeleteWebhook(Guid id)

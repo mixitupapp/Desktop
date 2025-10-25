@@ -8,6 +8,7 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:markdown="clr-namespace:MdXaml;assembly=MdXaml"
              mc:Ignorable="d"
                           
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -17,6 +18,6 @@
                           
              d:DesignHeight="700" d:DesignWidth="600">
     <Grid Margin="10">
-        <WebBrowser x:Name="ChangelogWebBrowser" />
+    <markdown:MarkdownScrollViewer x:Name="ChangelogViewer" />
     </Grid>
 </local:MainControlBase>
