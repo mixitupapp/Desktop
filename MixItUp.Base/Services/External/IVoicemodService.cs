@@ -10,6 +10,7 @@ namespace MixItUp.Base.Services.External
         public string friendlyName { get; set; }
         public bool IsFavorite { get; set; }
         public bool IsCustom { get; set; }
+        public bool Enabled { get; set; }
     }
 
     public class VoicemodMemeModel
@@ -24,6 +25,7 @@ namespace MixItUp.Base.Services.External
     {
         AllVoices,
         FavoriteVoices,
+        FreeVoices,
         CustomVoices,
     }
 

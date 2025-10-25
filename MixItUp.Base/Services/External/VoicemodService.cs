@@ -135,11 +135,12 @@ namespace MixItUp.Base.Services.External
                         {
                             voiceID = v["id"]?.ToString(),
                             friendlyName = v["friendlyName"]?.ToString(),
+                            Enabled = v["enabled"]?.ToObject<bool>() ?? false,
                             IsFavorite = v["favorited"]?.ToObject<bool>() ?? false,
                             IsCustom = v["isCustom"]?.ToObject<bool>() ?? false
                         };
 
-                        if (!string.IsNullOrEmpty(voice.voiceID))
+                        if (!string.IsNullOrEmpty(voice.voiceID) && voice.Enabled)
                         {
                             results[voice.voiceID] = voice;
                         }

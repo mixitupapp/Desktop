@@ -8153,6 +8153,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Free Voices.
+        /// </summary>
+        public static string FreeVoices {
+            get {
+                return ResourceManager.GetString("FreeVoices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to French.
         /// </summary>
         public static string French {

@@ -11040,4 +11040,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="DateNotOccurred" xml:space="preserve">
     <value>Date has not occurred</value>
   </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>Free Voices</value>
+  </data>
 </root>
