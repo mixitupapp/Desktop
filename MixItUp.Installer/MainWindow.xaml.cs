@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 
@@ -16,6 +18,7 @@ namespace MixItUp.Installer
             InitializeComponent();
 
             this.DataContext = this.viewModel = new MainWindowViewModel();
+            this.viewModel.ShowEulaDialogAsync = this.ShowEulaDialogAsync;
 
             this.Loaded += MainWindow_Loaded;
         }
@@ -41,6 +44,31 @@ namespace MixItUp.Installer
             };
             Process.Start(processInfo);
             e.Handled = true;
+        }
+
+        private Task<bool> ShowEulaDialogAsync(string markdownContent, string eulaUrl)
+        {
+            TaskCompletionSource<bool> completionSource = new TaskCompletionSource<bool>();
+
+            this.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    EulaDialog dialog = new EulaDialog(markdownContent, eulaUrl)
+                    {
+                        Owner = this
+                    };
+
+                    bool? result = dialog.ShowDialog();
+                    completionSource.TrySetResult(result.GetValueOrDefault(false));
+                }
+                catch (Exception ex)
+                {
+                    completionSource.TrySetException(ex);
+                }
+            });
+
+            return completionSource.Task;
         }
     }
 }

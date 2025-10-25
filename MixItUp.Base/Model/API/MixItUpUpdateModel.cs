@@ -5,61 +5,136 @@ using System.Runtime.Serialization;
 namespace MixItUp.Base.Model.API
 {
     [DataContract]
-    public class MixItUpUpdateV2Model
-    {
-        [DataMember]
-        public string InstallerLink { get; set; }
-
-        [DataMember]
-        private string Version { get; set; }
-        [DataMember]
-        private string Iteration { get; set; }
-        [DataMember]
-        private string Path { get; set; }
-
-        [JsonIgnore]
-        public bool IsPreview { get { return this.SystemVersion.Revision > 1000; } }
-
-        [JsonIgnore]
-        public string FullVersion { get { return $"{this.Version}.{this.Iteration}"; } }
-
-        [JsonIgnore]
-        public Version SystemVersion { get { return new Version(this.FullVersion); } }
-
-        [JsonIgnore]
-        public string ChangelogLink { get { return $"https://github.com/SaviorXTanren/mixer-mixitup/releases/download/{this.Version}{this.Path}/Changelog.html"; } }
-
-        [JsonIgnore]
-        public string ZipArchiveLink { get { return $"https://github.com/SaviorXTanren/mixer-mixitup/releases/download/{this.Version}{this.Path}/MixItUp.zip"; } }
-    }
-
-    [DataContract]
     public class MixItUpUpdateModel
     {
-        [JsonProperty]
-        public string Version { get; set; }
-        [JsonProperty]
-        public string ChangelogLink { get; set; }
-        [JsonProperty]
-        public string ZipArchiveLink { get; set; }
-
-        [JsonProperty]
-        public string InstallerLink { get; set; }
+        private string version;
 
         [JsonIgnore]
-        public Version SystemVersion { get { return new Version(this.Version); } }
+        private Version normalizedVersionCache;
 
-        [JsonIgnore]
-        public bool IsPreview { get { return this.SystemVersion.Revision > 1000; } }
+        [DataMember]
+        [JsonProperty("schemaVersion")]
+        public string SchemaVersion { get; set; }
 
-        public MixItUpUpdateModel() { }
+        [DataMember]
+        [JsonProperty("product")]
+        public string Product { get; set; }
 
-        public MixItUpUpdateModel(MixItUpUpdateV2Model update)
+        [DataMember]
+        [JsonProperty("version")]
+        public string Version
         {
-            this.Version = update.FullVersion;
-            this.ChangelogLink = update.ChangelogLink;
-            this.ZipArchiveLink = update.ZipArchiveLink;
-            this.InstallerLink = update.InstallerLink;
+            get { return this.version; }
+            set
+            {
+                this.version = value;
+                this.normalizedVersionCache = null;
+            }
+        }
+
+        [DataMember]
+        [JsonProperty("channel")]
+        public string Channel { get; set; }
+
+        [DataMember]
+        [JsonProperty("os")]
+        public string OperatingSystem { get; set; }
+
+        [DataMember]
+        [JsonProperty("arch")]
+        public string Architecture { get; set; }
+
+        [DataMember]
+        [JsonProperty("releasedAt")]
+        public DateTimeOffset ReleasedAt { get; set; }
+
+        [DataMember]
+        [JsonProperty("active")]
+        public bool Active { get; set; }
+
+        [DataMember]
+        [JsonProperty("mandatory")]
+        public bool Mandatory { get; set; }
+
+        [DataMember]
+        [JsonProperty("eula")]
+        public string Eula { get; set; }
+
+        [DataMember]
+        [JsonProperty("eulaVersion")]
+        public string EulaVersion { get; set; }
+
+        [DataMember]
+        [JsonProperty("changelog")]
+        public string Changelog { get; set; }
+
+        [DataMember]
+        [JsonProperty("package")]
+        public string Package { get; set; }
+
+        [DataMember]
+        [JsonProperty("installer")]
+        public string Installer { get; set; }
+
+        [DataMember]
+        [JsonProperty("sha256")]
+        public string Sha256 { get; set; }
+
+        [JsonIgnore]
+        public string ChangelogLink { get { return this.Changelog; } }
+
+        [JsonIgnore]
+        public string ZipArchiveLink { get { return this.Package; } }
+
+        [JsonIgnore]
+        public string InstallerLink { get { return this.Installer; } }
+
+        [JsonIgnore]
+        public Version SystemVersion { get { return this.GetNormalizedVersion(); } }
+
+        [JsonIgnore]
+        public bool IsPreview
+        {
+            get
+            {
+                return string.Equals(this.Channel, "preview", StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+        public Version GetNormalizedVersion()
+        {
+            if (this.normalizedVersionCache != null)
+            {
+                return this.normalizedVersionCache;
+            }
+
+            string versionValue = this.Version ?? "0.0.0";
+            int prereleaseSeparator = versionValue.IndexOf('-');
+            int buildSeparator = versionValue.IndexOf('+');
+            int cutIndex = -1;
+
+            if (prereleaseSeparator >= 0)
+            {
+                cutIndex = prereleaseSeparator;
+            }
+
+            if (buildSeparator >= 0 && (cutIndex < 0 || buildSeparator < cutIndex))
+            {
+                cutIndex = buildSeparator;
+            }
+
+            if (cutIndex >= 0)
+            {
+                versionValue = versionValue.Substring(0, cutIndex);
+            }
+
+            string[] parts = versionValue.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            int major = parts.Length > 0 && int.TryParse(parts[0], out int majorValue) ? majorValue : 0;
+            int minor = parts.Length > 1 && int.TryParse(parts[1], out int minorValue) ? minorValue : 0;
+            int patch = parts.Length > 2 && int.TryParse(parts[2], out int patchValue) ? patchValue : 0;
+
+            this.normalizedVersionCache = new Version(major, minor, patch, 0);
+            return this.normalizedVersionCache;
         }
     }
 }
