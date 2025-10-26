@@ -180,6 +180,8 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     client.Timeout = new TimeSpan(0, 0, 10);
                     client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
+
 
                     HttpResponseMessage response = await client.GetAsync($"https://util.mixitupapp.com/api/services/external/twitch/clips?id={clip.id}");
                     if (response.IsSuccessStatusCode)

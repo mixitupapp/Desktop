@@ -438,6 +438,7 @@ namespace MixItUp.Base.Services.External
             {
                 client.Timeout = new TimeSpan(0, 0, 10);
                 client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
 
                 JObject body = new JObject();
                 body["text"] = text;
