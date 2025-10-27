@@ -10797,9 +10797,6 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
   <data name="DateHasPassed" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="DateNotOccured" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="InvalidDate" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
@@ -10825,6 +10822,12 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
     <value />
   </data>
   <data name="EdgeTTS" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="DateNotOccured" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ViewRateLimits" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

@@ -27145,6 +27145,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rate limits apply. Click to see the rate limits for this TTS provider.
+        /// </summary>
+        public static string ViewRateLimits {
+            get {
+                return ResourceManager.GetString("ViewRateLimits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VIP.
         /// </summary>
         public static string VIP {

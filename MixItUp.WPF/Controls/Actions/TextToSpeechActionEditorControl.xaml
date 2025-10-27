@@ -1,111 +1,119 @@
 ﻿<local:ActionEditorControlBase x:Class="MixItUp.WPF.Controls.Actions.TextToSpeechActionEditorControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Actions"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <local:ActionEditorControlBase.Resources>
-        <Util:LocalizationConverter x:Key="LocalizationConverter"/>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </local:ActionEditorControlBase.Resources>
+	<local:ActionEditorControlBase.Resources>
+		<Util:LocalizationConverter x:Key="LocalizationConverter"/>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+	</local:ActionEditorControlBase.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="20" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="20" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="20" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="300" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding ProviderTypes}" SelectedItem="{Binding SelectedProviderType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+			<ComboBox Grid.Column="0" ItemsSource="{Binding ProviderTypes}" SelectedItem="{Binding SelectedProviderType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
 
-            <Grid Grid.Column="1" Visibility="{Binding UsesOverlay, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
-                <TextBlock Visibility="{Binding OverlayNotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10" Foreground="Red" Text="{x:Static resx:Resources.EnableOverlay}"/>
+			<Grid Grid.Column="1" Visibility="{Binding UsesOverlay, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
+				<TextBlock Visibility="{Binding OverlayNotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10" Foreground="Red" Text="{x:Static resx:Resources.EnableOverlay}"/>
 
-                <ComboBox Visibility="{Binding OverlayEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEndpoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" />
-            </Grid>
+				<ComboBox Visibility="{Binding OverlayEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEndpoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" />
+			</Grid>
 
-            <Grid Grid.Column="1" Visibility="{Binding UsesAudioDevices, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
-                <TextBlock Visibility="{Binding TTSMonsterNotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10" Foreground="Red" Text="{x:Static resx:Resources.EnableTTSMonster}"/>
+			<Grid Grid.Column="1" Visibility="{Binding UsesAudioDevices, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
+				<TextBlock Visibility="{Binding TTSMonsterNotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10" Foreground="Red" Text="{x:Static resx:Resources.EnableTTSMonster}"/>
 
-                <ComboBox Visibility="{Binding AudioDeviceServiceConnected, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding AudioDevices}" SelectedItem="{Binding SelectedAudioDevice}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioOutputDevice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" />
-            </Grid>
-        </Grid>
+				<ComboBox Visibility="{Binding AudioDeviceServiceConnected, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding AudioDevices}" SelectedItem="{Binding SelectedAudioDevice}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioOutputDevice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" />
+			</Grid>
+		</Grid>
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="14" />
-                <ColumnDefinition Width="130" />
-                <ColumnDefinition Width="14" />
-                <ColumnDefinition Width="115" />
-                <ColumnDefinition Width="14" />
-                <ColumnDefinition Width="115" />
-            </Grid.ColumnDefinitions>
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="14" />
+				<ColumnDefinition Width="130" />
+				<ColumnDefinition Width="14" />
+				<ColumnDefinition Width="115" />
+				<ColumnDefinition Width="14" />
+				<ColumnDefinition Width="115" />
+			</Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Voice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
-            </ComboBox>
+			<ComboBox Grid.Column="0" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Voice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+				<ComboBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<VirtualizingStackPanel />
+					</ItemsPanelTemplate>
+				</ComboBox.ItemsPanel>
+			</ComboBox>
 
-            <TextBox Grid.Column="2" Text="{Binding Volume}" IsEnabled="{Binding VolumeChangable}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Volume0to100}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+			<TextBox Grid.Column="2" Text="{Binding Volume}" IsEnabled="{Binding VolumeChangable}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Volume0to100}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-            <TextBox Grid.Column="4" Text="{Binding Pitch}" IsEnabled="{Binding PitchChangable}" MaterialDesign:HintAssist.Hint="{Binding PitchHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+			<TextBox Grid.Column="4" Text="{Binding Pitch}" IsEnabled="{Binding PitchChangable}" MaterialDesign:HintAssist.Hint="{Binding PitchHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-            <TextBox Grid.Column="6" Text="{Binding Rate}" IsEnabled="{Binding RateChangable}" MaterialDesign:HintAssist.Hint="{Binding RateHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        </Grid>
+			<TextBox Grid.Column="6" Text="{Binding Rate}" IsEnabled="{Binding RateChangable}" MaterialDesign:HintAssist.Hint="{Binding RateHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+		</Grid>
 
-        <TextBox Grid.Row="4" Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpeechMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+		<TextBox Grid.Row="4" Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpeechMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-        <Grid Grid.Row="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="20" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+		<Grid Grid.Row="6">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="20" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="10" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.SSML}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="2" IsChecked="{Binding SSML}" IsEnabled="{Binding SupportsSSML}" VerticalAlignment="Center" />
+			<TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.SSML}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+			<ToggleButton Grid.Column="2" IsChecked="{Binding SSML}" IsEnabled="{Binding SupportsSSML}" VerticalAlignment="Center" />
 
-            <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.WaitForFinish}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="6" IsChecked="{Binding WaitForFinish}" VerticalAlignment="Center" />
-        </Grid>
+			<TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.WaitForFinish}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+			<ToggleButton Grid.Column="6" IsChecked="{Binding WaitForFinish}" VerticalAlignment="Center" />
+		</Grid>
 
-        <Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding NoCustomAmazonPollyAccount, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
-            <TextBlock TextWrapping="Wrap" Foreground="Red" Text="{x:Static resx:Resources.NoCustomAmazonPollyAccount}"/>
-        </Grid>
+		<Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding NoCustomAmazonPollyAccount, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
+			<TextBlock TextWrapping="Wrap" Foreground="Red" Text="{x:Static resx:Resources.NoCustomAmazonPollyAccount}"/>
+		</Grid>
 
-        <Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding NoCustomMicrosoftAzureSpeechAccount, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
-            <TextBlock TextWrapping="Wrap" Foreground="Red" Text="{x:Static resx:Resources.NoCustomMicrosoftAzureSpeechAccount}"/>
-        </Grid>
-    </Grid>
+		<Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding NoCustomMicrosoftAzureSpeechAccount, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
+			<TextBlock TextWrapping="Wrap" Foreground="Red" Text="{x:Static resx:Resources.NoCustomMicrosoftAzureSpeechAccount}"/>
+		</Grid>
+
+		<Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding ShowRateLimitLink, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
+			<TextBlock TextWrapping="Wrap">
+				<Hyperlink Command="{Binding OpenRateLimitLinkCommand}">
+					<Run Text="{x:Static resx:Resources.ViewRateLimits}" />
+				</Hyperlink>
+			</TextBlock>
+		</Grid>
+	</Grid>
 </local:ActionEditorControlBase>
