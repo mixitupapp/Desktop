@@ -162,9 +162,10 @@ namespace MixItUp.Base.Model.Overlay
 
                 if (!forceDamage && this.CurrentBoss == user.ID && this.SelfHealingMultiplier > 0)
                 {
-                    this.CurrentHealth = Math.Min(damage + this.CurrentHealth, this.CurrentMaxHealth);
+                    int healAmount = (int)Math.Round(damage * this.SelfHealingMultiplier);
+                    this.CurrentHealth = Math.Min(healAmount + this.CurrentHealth, this.CurrentMaxHealth);
                     await this.Heal();
-                    parameters.SpecialIdentifiers[StreamBossHealingSpecialIdentifier] = damage.ToString();
+                    parameters.SpecialIdentifiers[StreamBossHealingSpecialIdentifier] = healAmount.ToString();
                     await ServiceManager.Get<CommandService>().Queue(this.HealingOccurredCommandID, parameters);
                 }
                 else
