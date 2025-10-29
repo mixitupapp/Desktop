@@ -202,7 +202,7 @@ namespace MixItUp.Base.ViewModel.User
                 return null;
             }
         }
-        public string PlatformBadgeFullLink { get { return $"https://github.com/SaviorXTanren/mixer-mixitup/raw/master/MixItUp.WPF{this.PlatformBadgeLink}"; } }
+        public string PlatformBadgeFullLink { get { return $"https://github.com/mixitupapp/Desktop/raw/main/MixItUp.WPF{this.PlatformBadgeLink}"; } }
         public bool ShowPlatformBadge { get { return true; } }
 
         public DateTimeOffset? AccountDate { get { return this.PlatformModel.AccountDate; } set { this.PlatformModel.AccountDate = value; } }

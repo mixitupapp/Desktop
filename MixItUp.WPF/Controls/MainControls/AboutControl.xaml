@@ -53,7 +53,7 @@
                     </Grid>
 
                     <TextBlock Grid.Row="2" HorizontalAlignment="Center">
-                            <Hyperlink NavigateUri="https://github.com/SaviorXTanren/mixer-mixitup/releases" RequestNavigate="Hyperlink_RequestNavigate">
+                            <Hyperlink NavigateUri="https://github.com/MixItUpApp/desktop" RequestNavigate="Hyperlink_RequestNavigate">
                                 <TextBlock Text="{x:Static resx:Resources.LatestRelease}"/>
                             </Hyperlink>
                         </TextBlock>
