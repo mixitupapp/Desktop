@@ -161,6 +161,7 @@ namespace MixItUp.Base.ViewModel.Settings
 
             foreach (GenericColorComboBoxSettingsOptionControlViewModel colorOption in this.CustomUsernameColorsList)
             {
+                colorOption.RemoveTransparent();
                 colorOption.AddNoneOption();
             }
 

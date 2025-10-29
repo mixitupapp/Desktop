@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{Binding}" />
+		<TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{Binding}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

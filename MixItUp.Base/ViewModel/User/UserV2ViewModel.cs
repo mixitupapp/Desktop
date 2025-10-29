@@ -17,7 +17,7 @@ namespace MixItUp.Base.ViewModel.User
 {
     public class UserV2ViewModel : UIViewModelBase, IEquatable<UserV2ViewModel>, IComparable<UserV2ViewModel>
     {
-        public const string UserDefaultColor = "MaterialDesignBody";
+        public const string UserDefaultColor = "MaterialDesign.Brush.Foreground";
 
         public static UserV2ViewModel CreateUnassociated(string username = null) { return new UserV2ViewModel(StreamingPlatformTypeEnum.None, UserV2Model.CreateUnassociated(username)); }
 

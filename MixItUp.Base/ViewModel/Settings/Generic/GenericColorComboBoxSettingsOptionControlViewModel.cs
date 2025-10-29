@@ -55,6 +55,11 @@ namespace MixItUp.Base.ViewModel.Settings.Generic
             this.Values.Remove(new ColorOptionViewModel("Transparent"));
         }
 
+        public void RemoveTransparent()
+        {
+            this.Values.Remove(new ColorOptionViewModel("Transparent"));
+        }
+
         public void AddNoneOption()
         {
             this.Values.Insert(0, new ColorOptionViewModel(NoneOption));
