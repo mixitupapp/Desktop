@@ -658,6 +658,8 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public Dictionary<string, DateTimeOffset> TwitchVIPAutomaticRemovals { get; set; } = new Dictionary<string, DateTimeOffset>();
+        [DataMember]
+        public bool TwitchAllowSharedChatEvents { get; set; } = false;
 
         #endregion Twitch
 

@@ -11046,4 +11046,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="ViewRateLimits" xml:space="preserve">
     <value>Rate limits apply. Click to see the rate limits for this TTS provider</value>
   </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitch Allow Shared Chat Events</value>
+  </data>
 </root>

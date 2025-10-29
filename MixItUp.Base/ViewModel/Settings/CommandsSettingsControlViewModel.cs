@@ -28,6 +28,8 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericToggleSettingsOptionControlViewModel TwitchReplyToCommandChatMessages { get; set; }
         public GenericToggleSettingsOptionControlViewModel TwitchSlashMeForAllChatMessages { get; set; }
         public GenericNumberSettingsOptionControlViewModel TwitchUpcomingAdCommandTriggerAmount { get; set; }
+        public GenericToggleSettingsOptionControlViewModel TwitchAllowSharedChatEvents { get; set; }
+
 
         public GenericTextSettingsOptionControlViewModel PythonExecutablePath { get; set; }
 
@@ -65,6 +67,8 @@ namespace MixItUp.Base.ViewModel.Settings
                 (value) => { ChannelSession.Settings.TwitchSlashMeForAllChatMessages = value; });
             this.TwitchUpcomingAdCommandTriggerAmount = new GenericNumberSettingsOptionControlViewModel(MixItUp.Base.Resources.TwitchUpcomingAdCommandTriggerAmount, ChannelSession.Settings.TwitchUpcomingAdCommandTriggerAmount,
                 (value) => { ChannelSession.Settings.TwitchUpcomingAdCommandTriggerAmount = value; });
+            this.TwitchAllowSharedChatEvents = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.TwitchAllowSharedChatEvents, ChannelSession.Settings.TwitchAllowSharedChatEvents,
+                (value) => { ChannelSession.Settings.TwitchAllowSharedChatEvents = value; });
 
             this.PythonExecutablePath = new GenericTextSettingsOptionControlViewModel(MixItUp.Base.Resources.PythonExecutablePath, ChannelSession.Settings.PythonExecutablePath,
                 (value) => { ChannelSession.Settings.PythonExecutablePath = value; });

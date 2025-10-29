@@ -10826,10 +10826,13 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="EdgeTTS" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="ViewRateLimits" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="DateNotOccured" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="ViewRateLimits" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="TwitchAllowSharedChatEvents" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

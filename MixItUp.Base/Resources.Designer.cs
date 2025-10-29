@@ -25128,6 +25128,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Twitch Allow Shared Chat Events.
+        /// </summary>
+        public static string TwitchAllowSharedChatEvents {
+            get {
+                return ResourceManager.GetString("TwitchAllowSharedChatEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitch Bits.
         /// </summary>
         public static string TwitchBits {
