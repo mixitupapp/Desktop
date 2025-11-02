@@ -35,7 +35,7 @@
                         </Grid>
                     </Expander.Header>
 
-                    <Grid Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -146,7 +146,7 @@
                         </Grid>
                     </Expander.Header>
 
-                    <Grid Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -230,7 +230,7 @@
                         </Grid>
                     </Expander.Header>
 
-                    <Grid Background="{DynamicResource MaterialDesign.Brush.Card.Background}">
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
