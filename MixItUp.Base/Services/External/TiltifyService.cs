@@ -258,11 +258,11 @@ namespace MixItUp.Base.Services.External
                 TiltifyCampaign campaign;
                 if (this.campaign.IsPartOfTeam)
                 {
-                    campaign = await this.GetUserCampaign(this.campaign.id);
+                    campaign = await this.GetTeamCampaign(this.campaign.id);  
                 }
                 else
                 {
-                    campaign = await this.GetTeamCampaign(this.campaign.id);
+                    campaign = await this.GetUserCampaign(this.campaign.id);
                 }
 
                 if (campaign != null)
