@@ -75,7 +75,7 @@
 
         <TextBox
             Grid.Row="2"
-            Height="70"
+            Height="120"
             MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Text="{Binding ChatText}"
