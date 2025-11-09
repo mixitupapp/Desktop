@@ -21,7 +21,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <Configurations>Ad-Hoc;AppStore;Debug;Release</Configurations>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
