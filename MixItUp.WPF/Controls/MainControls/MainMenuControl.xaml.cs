@@ -2,6 +2,7 @@
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using MixItUp.WPF.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,7 +48,7 @@ namespace MixItUp.WPF.Controls.MainControls
     /// <summary>
     /// Interaction logic for MainMenuControl.xaml
     /// </summary>
-    public partial class MainMenuControl : MainControlBase, GongSolutions.Wpf.DragDrop.IDropTarget
+    public partial class MainMenuControl : MainControlBase
     {
         public static event EventHandler<bool> OnMainMenuStateChanged = delegate { };
 
@@ -317,6 +318,7 @@ namespace MixItUp.WPF.Controls.MainControls
             this.MenuItemsListBox.ItemsSource = this.orderedMenuItems;
             GongSolutions.Wpf.DragDrop.DragDrop.SetIsDragSource(this.MenuItemsListBox, true);
             GongSolutions.Wpf.DragDrop.DragDrop.SetIsDropTarget(this.MenuItemsListBox, true);
+            GongSolutions.Wpf.DragDrop.DragDrop.SetDropHandler(this.MenuItemsListBox, MainMenuDragDropHandler.Instance);
         }
 
         private async void EditMenuButton_Unchecked(object sender, RoutedEventArgs e)
@@ -324,6 +326,7 @@ namespace MixItUp.WPF.Controls.MainControls
             this.isEditMode = false;
             GongSolutions.Wpf.DragDrop.DragDrop.SetIsDragSource(this.MenuItemsListBox, false);
             GongSolutions.Wpf.DragDrop.DragDrop.SetIsDropTarget(this.MenuItemsListBox, false);
+            GongSolutions.Wpf.DragDrop.DragDrop.SetDropHandler(this.MenuItemsListBox, null);
 
             this.visibleMenuItems.Clear();
             foreach (var item in this.orderedMenuItems.Where(i => i.Visible))
@@ -334,38 +337,6 @@ namespace MixItUp.WPF.Controls.MainControls
             this.MenuItemsListBox.ItemsSource = this.visibleMenuItems;
 
             await this.SaveMenuOrder();
-        }
-
-        void GongSolutions.Wpf.DragDrop.IDropTarget.DragOver(GongSolutions.Wpf.DragDrop.IDropInfo dropInfo)
-        {
-            if (dropInfo.Data is MainMenuItem && dropInfo.TargetCollection != null)
-            {
-                dropInfo.DropTargetAdorner = GongSolutions.Wpf.DragDrop.DropTargetAdorners.Insert;
-                dropInfo.Effects = DragDropEffects.Move;
-            }
-        }
-
-        void GongSolutions.Wpf.DragDrop.IDropTarget.Drop(GongSolutions.Wpf.DragDrop.IDropInfo dropInfo)
-        {
-            if (dropInfo.Data is MainMenuItem sourceItem && dropInfo.TargetCollection != null)
-            {
-                var items = dropInfo.TargetCollection as ObservableCollection<MainMenuItem>;
-                if (items != null)
-                {
-                    int oldIndex = items.IndexOf(sourceItem);
-                    int newIndex = dropInfo.InsertIndex;
-
-                    if (oldIndex != -1)
-                    {
-                        if (newIndex > oldIndex)
-                        {
-                            newIndex--;
-                        }
-
-                        items.Move(oldIndex, newIndex);
-                    }
-                }
-            }
         }
     }
 }
