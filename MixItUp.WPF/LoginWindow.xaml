@@ -9,218 +9,265 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     Title="{x:Static resx:Resources.MixItUpLogin}"
-    Width="900"
-    Height="650"
-    MinWidth="900"
-    MinHeight="600"
+    Width="700"
+    Height="500"
+    AllowsTransparency="True"
+    Background="Transparent"
     FontFamily="{MaterialDesign:MaterialDesignFont}"
     Icon="./Logo.ico"
-    Style="{StaticResource MaterialDesignWindow}"
+    ResizeMode="NoResize"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <MaterialDesign:DialogHost
-            x:Name="MDDialogHost"
-            Grid.RowSpan="3"
-            Identifier="RootDialog" />
-
-        <Grid Grid.Row="0" Margin="40,30,40,30">
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog">
             <MaterialDesign:Card
-                MaxWidth="800"
-                Padding="60,40"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
+                Padding="40,40,40,0"
                 MaterialDesign:ElevationAssist.Elevation="Dp16"
+                Background="{DynamicResource MaterialDesign.Brush.Background}"
+                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                 UniformCornerRadius="16">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="60" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
+                    <Button
+                        Grid.Row="0"
+                        Width="32"
+                        Height="32"
+                        Margin="0,-10,-10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Click="CloseButton_Click"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="Close">
+                        <MaterialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="Close" />
+                    </Button>
 
-                    <Image
-                        Grid.Column="0"
-                        Width="140"
-                        Height="140"
-                        VerticalAlignment="Center"
-                        Source="/Logo.png"
-                        Stretch="Uniform" />
+                    <Grid Grid.Row="1" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
+                        <Image
+                            Grid.Column="0"
+                            Width="120"
+                            Height="120"
+                            VerticalAlignment="Center"
+                            Source="/Logo.png"
+                            Stretch="Uniform" />
+
+                        <StackPanel
+                            Grid.Column="2"
+                            MinWidth="400"
+                            VerticalAlignment="Center">
+
+                            <TextBlock
+                                Margin="0,0,0,12"
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                Text="{x:Static resx:Resources.ExistingProfile}" />
+
+                            <ComboBox
+                                x:Name="ExistingStreamerComboBox"
+                                Margin="0,0,0,12"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Profile}"
+                                DisplayMemberPath="Name"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                Visibility="Collapsed" />
+
+                            <Button
+                                x:Name="StreamerLoginButton"
+                                Height="44"
+                                Margin="0,0,0,24"
+                                Click="StreamerLoginButton_Click"
+                                Content="{x:Static resx:Resources.Login}"
+                                IsEnabled="False"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+
+                            <Separator Margin="0,0,0,24" />
+
+                            <TextBlock
+                                Margin="0,0,0,12"
+                                FontSize="20"
+                                FontWeight="SemiBold"
+                                Text="{x:Static resx:Resources.NewProfile}" />
+
+                            <Grid Margin="0,0,0,12">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button
+                                    x:Name="NewStreamerLoginButton"
+                                    Grid.Column="0"
+                                    Height="44"
+                                    Margin="0,0,4,0"
+                                    Click="NewStreamerLoginButton_Click"
+                                    Content="{x:Static resx:Resources.NewProfile}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+
+                                <MaterialDesign:PopupBox
+                                    Grid.Column="1"
+                                    Width="44"
+                                    Height="44"
+                                    PlacementMode="BottomAndAlignRightEdges"
+                                    StaysOpen="False">
+                                    <MaterialDesign:PopupBox.ToggleContent>
+                                        <Border
+                                            Width="44"
+                                            Height="44"
+                                            Background="{DynamicResource MaterialDesign.Brush.Background}"
+                                            BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+                                            BorderThickness="1"
+                                            CornerRadius="4">
+                                            <MaterialDesign:PackIcon
+                                                Width="24"
+                                                Height="24"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                                Kind="ChevronDown" />
+                                        </Border>
+                                    </MaterialDesign:PopupBox.ToggleContent>
+                                    <StackPanel>
+                                        <Button Click="RestoreBackupButton_Click" Style="{StaticResource MaterialDesignFlatButton}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <MaterialDesign:PackIcon
+                                                    Width="18"
+                                                    Height="18"
+                                                    Margin="0,0,8,0"
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                                    Kind="Restore" />
+                                                <TextBlock
+                                                    VerticalAlignment="Center"
+                                                    Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                                    Text="{x:Static resx:Resources.RestoreSettings}" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </MaterialDesign:PopupBox>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
 
                     <StackPanel
-                        Grid.Column="2"
-                        MinWidth="400"
-                        VerticalAlignment="Center">
-
+                        Grid.Row="2"
+                        Margin="0,20,0,12"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <TextBlock>
+                            <Hyperlink NavigateUri="https://mixitupapp.com/TermsOfService" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock FontSize="11" Text="{x:Static resx:Resources.TermsOfService}" />
+                            </Hyperlink>
+                        </TextBlock>
                         <TextBlock
-                            Margin="0,0,0,16"
-                            FontSize="20"
-                            FontWeight="SemiBold"
-                            Text="{x:Static resx:Resources.ExistingProfile}" />
-
-                        <ComboBox
-                            x:Name="ExistingStreamerComboBox"
-                            Margin="0,0,0,12"
-                            DisplayMemberPath="Name"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                            Visibility="Collapsed" />
-
-                        <Button
-                            x:Name="StreamerLoginButton"
-                            Height="44"
-                            Margin="0,0,0,32"
-                            Click="StreamerLoginButton_Click"
-                            Content="{x:Static resx:Resources.Login}"
-                            IsEnabled="False"
-                            Style="{StaticResource MaterialDesignRaisedButton}" />
-
-
-                        <Separator Margin="0,0,0,32" />
-
-
+                            Margin="8,0"
+                            FontSize="11"
+                            Opacity="0.6"
+                            Text=" • " />
+                        <TextBlock>
+                            <Hyperlink NavigateUri="https://mixitupapp.com/Privacy" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock FontSize="11" Text="{x:Static resx:Resources.PrivacyPolicy}" />
+                            </Hyperlink>
+                        </TextBlock>
                         <TextBlock
-                            Margin="0,0,0,16"
-                            FontSize="20"
-                            FontWeight="SemiBold"
-                            Text="{x:Static resx:Resources.NewProfile}" />
-
-                        <Button
-                            x:Name="NewStreamerLoginButton"
-                            Height="44"
-                            Margin="0,0,0,12"
-                            Click="NewStreamerLoginButton_Click"
-                            Content="{x:Static resx:Resources.NewProfile}"
-                            Style="{StaticResource MaterialDesignRaisedButton}" />
-
-                        <Button
-                            x:Name="RestoreBackupButton"
-                            Height="44"
-                            Click="RestoreBackupButton_Click"
-                            Content="{x:Static resx:Resources.RestoreSettings}"
-                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+                            Margin="8,0"
+                            FontSize="11"
+                            Opacity="0.6"
+                            Text=" • " />
+                        <TextBlock>
+                            <Hyperlink NavigateUri="https://mixitupapp.com/License" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock FontSize="11" Text="{x:Static resx:Resources.License}" />
+                            </Hyperlink>
+                        </TextBlock>
                     </StackPanel>
+
+                    <Grid Grid.Row="3" Margin="0,0,0,8">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="11"
+                            Opacity="0.7"
+                            Text="© Blazing Cacti LLC 2025" />
+
+                        <MaterialDesign:PopupBox
+                            Width="32"
+                            Height="32"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            PlacementMode="BottomAndAlignCentres"
+                            StaysOpen="False"
+                            ToolTip="{x:Static resx:Resources.Help}">
+                            <MaterialDesign:PopupBox.ToggleContent>
+                                <MaterialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                    Kind="HelpCircle" />
+                            </MaterialDesign:PopupBox.ToggleContent>
+                            <StackPanel>
+                                <Button
+                                    HorizontalContentAlignment="Left"
+                                    Click="OpenInstallFolder_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <MaterialDesign:PackIcon
+                                            Width="18"
+                                            Height="18"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                            Kind="Folder" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                            Text="{x:Static resx:Resources.InstallationFolder}" />
+                                    </StackPanel>
+                                </Button>
+                                <Separator Margin="0,2" />
+                                <Button
+                                    HorizontalContentAlignment="Left"
+                                    Click="OpenDiscord_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image
+                                            Width="18"
+                                            Height="18"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            Source="/Assets/Images/Discord-Symbol-Blurple.png" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                            Text="{x:Static resx:Resources.Discord}" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </MaterialDesign:PopupBox>
+                    </Grid>
+
+                    <Controls:LoadingStatusBar
+                        x:Name="StatusBar"
+                        Grid.Row="4"
+                        Margin="-40,0,-40,0" />
                 </Grid>
             </MaterialDesign:Card>
-        </Grid>
-
-
-        <StackPanel
-            Grid.Row="1"
-            Margin="0,0,0,12"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <TextBlock>
-                <Hyperlink NavigateUri="https://mixitupapp.com/TermsOfService" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock FontSize="11" Text="{x:Static resx:Resources.TermsOfService}" />
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock
-                Margin="8,0"
-                FontSize="11"
-                Opacity="0.6"
-                Text=" • " />
-            <TextBlock>
-                <Hyperlink NavigateUri="https://mixitupapp.com/Privacy" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock FontSize="11" Text="{x:Static resx:Resources.PrivacyPolicy}" />
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock
-                Margin="8,0"
-                FontSize="11"
-                Opacity="0.6"
-                Text=" • " />
-            <TextBlock>
-                <Hyperlink NavigateUri="https://mixitupapp.com/License" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock FontSize="11" Text="{x:Static resx:Resources.License}" />
-                </Hyperlink>
-            </TextBlock>
-        </StackPanel>
-
-
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock
-                Grid.Row="0"
-                Margin="0,0,0,8"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                FontSize="11"
-                Opacity="0.7"
-                Text="© Blazing Cacti LLC 2025" />
-
-            <Controls:LoadingStatusBar x:Name="StatusBar" Grid.Row="1" />
-            <MaterialDesign:PopupBox
-                Grid.Row="0"
-                Width="32"
-                Height="32"
-                Margin="0,0,8,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                PlacementMode="BottomAndAlignCentres"
-                StaysOpen="False"
-                ToolTip="{x:Static resx:Resources.Help}">
-                <MaterialDesign:PopupBox.ToggleContent>
-                    <MaterialDesign:PackIcon
-                        Width="20"
-                        Height="20"
-                        Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                        Kind="HelpCircle" />
-                </MaterialDesign:PopupBox.ToggleContent>
-                <StackPanel>
-                    <Button
-                        HorizontalContentAlignment="Left"
-                        Click="OpenInstallFolder_Click"
-                        Style="{StaticResource MaterialDesignFlatButton}">
-                        <StackPanel Orientation="Horizontal">
-                            <MaterialDesign:PackIcon
-                                Width="18"
-                                Height="18"
-                                Margin="0,0,8,0"
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                Kind="Folder" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
-                                Text="{x:Static resx:Resources.InstallationFolder}" />
-                        </StackPanel>
-                    </Button>
-                    <Separator Margin="0,2" />
-                    <Button
-                        HorizontalContentAlignment="Left"
-                        Click="OpenDiscord_Click"
-                        Style="{StaticResource MaterialDesignFlatButton}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image
-                                Width="18"
-                                Height="18"
-                                Margin="0,0,8,0"
-                                VerticalAlignment="Center"
-                                Source="/Assets/Images/Discord-Symbol-Blurple.png" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
-                                Text="{x:Static resx:Resources.Discord}" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </MaterialDesign:PopupBox>
-        </Grid>
+        </MaterialDesign:DialogHost>
     </Grid>
 </Windows:LoadingWindowBase>
