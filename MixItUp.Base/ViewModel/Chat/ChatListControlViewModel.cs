@@ -41,7 +41,9 @@ namespace MixItUp.Base.ViewModel.Chat
             get
             {
                 List<string> results = new List<string>() { MixItUp.Base.Resources.Streamer };
-                if (ServiceManager.Get<TwitchSession>().IsBotConnected)
+                if (ServiceManager.Get<TwitchSession>().IsBotConnected ||
+                    ServiceManager.Get<TrovoSession>().IsBotConnected ||
+                    ServiceManager.Get<YouTubeSession>().IsBotConnected)
                 {
                     results.Add(MixItUp.Base.Resources.Bot);
                 }
