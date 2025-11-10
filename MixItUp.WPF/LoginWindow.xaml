@@ -92,13 +92,13 @@
                             <Button
                                 x:Name="StreamerLoginButton"
                                 Height="44"
-                                Margin="0,0,0,24"
+                                Margin="0,0,0,16"
                                 Click="StreamerLoginButton_Click"
                                 Content="{x:Static resx:Resources.Login}"
                                 IsEnabled="False"
                                 Style="{StaticResource MaterialDesignRaisedButton}" />
 
-                            <Separator Margin="0,0,0,24" />
+                            <Separator Margin="0,0,0,16" />
 
                             <TextBlock
                                 Margin="0,0,0,12"
@@ -106,63 +106,21 @@
                                 FontWeight="SemiBold"
                                 Text="{x:Static resx:Resources.NewProfile}" />
 
-                            <Grid Margin="0,0,0,12">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            <Button
+                                x:Name="NewStreamerLoginButton"
+                                Height="44"
+                                Margin="0,0,0,8"
+                                Click="NewStreamerLoginButton_Click"
+                                Content="{x:Static resx:Resources.NewProfile}"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
 
-                                <Button
-                                    x:Name="NewStreamerLoginButton"
-                                    Grid.Column="0"
-                                    Height="44"
-                                    Margin="0,0,4,0"
-                                    Click="NewStreamerLoginButton_Click"
-                                    Content="{x:Static resx:Resources.NewProfile}"
-                                    Style="{StaticResource MaterialDesignRaisedButton}" />
-
-                                <MaterialDesign:PopupBox
-                                    Grid.Column="1"
-                                    Width="44"
-                                    Height="44"
-                                    PlacementMode="BottomAndAlignRightEdges"
-                                    StaysOpen="False">
-                                    <MaterialDesign:PopupBox.ToggleContent>
-                                        <Border
-                                            Width="44"
-                                            Height="44"
-                                            Background="{DynamicResource MaterialDesign.Brush.Background}"
-                                            BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
-                                            BorderThickness="1"
-                                            CornerRadius="4">
-                                            <MaterialDesign:PackIcon
-                                                Width="24"
-                                                Height="24"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                Kind="ChevronDown" />
-                                        </Border>
-                                    </MaterialDesign:PopupBox.ToggleContent>
-                                    <StackPanel>
-                                        <Button Click="RestoreBackupButton_Click" Style="{StaticResource MaterialDesignFlatButton}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <MaterialDesign:PackIcon
-                                                    Width="18"
-                                                    Height="18"
-                                                    Margin="0,0,8,0"
-                                                    VerticalAlignment="Center"
-                                                    Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                    Kind="Restore" />
-                                                <TextBlock
-                                                    VerticalAlignment="Center"
-                                                    Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
-                                                    Text="{x:Static resx:Resources.RestoreSettings}" />
-                                            </StackPanel>
-                                        </Button>
-                                    </StackPanel>
-                                </MaterialDesign:PopupBox>
-                            </Grid>
+                            <Button
+                                x:Name="RestoreBackupButton"
+                                Height="44"
+                                Margin="0,0,0,12"
+                                Click="RestoreBackupButton_Click"
+                                Content="{x:Static resx:Resources.RestoreSettings}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}" />
                         </StackPanel>
                     </Grid>
 
@@ -199,11 +157,18 @@
                     </StackPanel>
 
                     <Grid Grid.Row="3" Margin="0,0,0,8">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            FontSize="11"
-                            Opacity="0.7"
-                            Text="© Blazing Cacti LLC 2025" />
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                FontSize="11"
+                                Opacity="0.8"
+                                Text="© Blazing Cacti LLC 2025" />
+                            <TextBlock
+                                x:Name="VersionTextBlock"
+                                HorizontalAlignment="Center"
+                                FontSize="10"
+                                Opacity="0.6" />
+                        </StackPanel>
 
                         <MaterialDesign:PopupBox
                             Width="32"

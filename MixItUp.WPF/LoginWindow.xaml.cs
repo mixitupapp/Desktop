@@ -38,7 +38,10 @@ namespace MixItUp.WPF
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-            this.Title += " - v" + VersionHelper.NormalizeSemVerString(entryVersion);
+            string versionString = "v" + VersionHelper.NormalizeSemVerString(entryVersion);
+            this.Title += " - " + versionString;
+
+            this.VersionTextBlock.Text = versionString;
 
             if (ServiceManager.Get<IProcessService>().GetProcessesByName("MixItUp").Count() > 1)
             {
