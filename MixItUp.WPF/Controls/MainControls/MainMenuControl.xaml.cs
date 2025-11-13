@@ -33,15 +33,22 @@ namespace MixItUp.WPF.Controls.MainControls
             }
         }
         private bool visible = true;
+        public bool CanHide { get; private set; }
 
         public Visibility HelpLinkVisibility { get { return (!string.IsNullOrEmpty(this.HelpLink)) ? Visibility.Visible : Visibility.Collapsed; } }
 
-        public MainMenuItem(string id, string name, MainControlBase control, string helpLink = null)
+        public MainMenuItem(string id, string name, MainControlBase control, string helpLink = null, bool canHide = true)
         {
             this.Id = id;
             this.Name = name;
             this.Control = control;
             this.HelpLink = helpLink;
+            this.CanHide = canHide;
+
+            if (!canHide)
+            {
+                this.visible = true;
+            }
         }
     }
 
@@ -70,13 +77,13 @@ namespace MixItUp.WPF.Controls.MainControls
             ServiceManager.OnServiceReconnect += ServiceManager_OnServiceReconnect;
         }
 
-        public async Task<MainMenuItem> AddMenuItem(string name, MainControlBase control, string helpLink = null)
+        public async Task<MainMenuItem> AddMenuItem(string name, MainControlBase control, string helpLink = null, bool canHide = true)
         {
             // Use the control type name as the ID (e.g., "ChatControl", "ChannelControl")
             string id = control.GetType().Name;
 
             await control.Initialize(this.Window);
-            MainMenuItem item = new MainMenuItem(id, name, control, helpLink);
+            MainMenuItem item = new MainMenuItem(id, name, control, helpLink, canHide);
 
             this.menuItemLookup[id] = item;
             this.orderedMenuItems.Add(item);
