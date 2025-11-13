@@ -59,7 +59,7 @@
 
                     <Controls:IconButton Grid.Column="12" Margin="-10" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
 
-                    <ToggleButton Grid.Column="14" Margin="-10" IsChecked="{Binding Enabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" />
+                    <ToggleButton Grid.Column="14" Margin="-10" IsChecked="{Binding Enabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
                 </Grid>
             </Controls:AccordianGroupBoxControl.Header>
 
