@@ -67,11 +67,9 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
 		<PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.8" />
 		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
-		<PackageReference Include="System.CodeDom" Version="10.0.0" />
 		<PackageReference Include="System.IO.Ports" Version="10.0.0" />
 		<PackageReference Include="System.Management" Version="10.0.0" />
 		<PackageReference Include="System.Speech" Version="10.0.0" />
-		<PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" />
 		<PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
 	</ItemGroup>
 	<ItemGroup>
