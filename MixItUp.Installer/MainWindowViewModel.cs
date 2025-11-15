@@ -30,8 +30,9 @@ namespace MixItUp.Installer
         private static readonly Version minimumOSVersion = new Version(6, 2, 0, 0);
 
         // .NET 10 Runtime constants
-        private const string DotNetRuntimeVersion = "10.0.0";
         private const int RequiredDotNetMajorVersion = 10;
+        private const int RequiredDotNetMinorVersion = 0;
+        private const int RequiredDotNetPatchVersion = 0;
         private const string DotNetDesktopRuntimeDownloadUrl = "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.0/windowsdesktop-runtime-10.0.0-win-x64.exe";
         private const string DotNetManualInstallUrl = "https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-10.0.0-windows-x64-installer";
         private const string RuntimeInstallerFileName = "windowsdesktop-runtime-10.0.0-win-x64.exe";
@@ -526,11 +527,16 @@ namespace MixItUp.Installer
                         string versionName = Path.GetFileName(versionDir);
                         string[] versionParts = versionName.Split(new[] { '.', '-' });
 
-                        if (versionParts.Length > 0 && int.TryParse(versionParts[0], out int majorVersion))
+                        if (versionParts.Length >= 3 &&
+                            int.TryParse(versionParts[0], out int major) &&
+                            int.TryParse(versionParts[1], out int minor) &&
+                            int.TryParse(versionParts[2], out int patch))
                         {
-                            if (majorVersion >= RequiredDotNetMajorVersion)
+                            if (major > RequiredDotNetMajorVersion ||
+                                (major == RequiredDotNetMajorVersion && minor > RequiredDotNetMinorVersion) ||
+                                (major == RequiredDotNetMajorVersion && minor == RequiredDotNetMinorVersion && patch >= RequiredDotNetPatchVersion))
                             {
-                                this.WriteToLogFile($".NET {RequiredDotNetMajorVersion} Desktop Runtime detected: " + versionName);
+                                this.WriteToLogFile($".NET {RequiredDotNetMajorVersion}.{RequiredDotNetMinorVersion}.{RequiredDotNetPatchVersion}+ Desktop Runtime detected: " + versionName);
                                 return true;
                             }
                         }
@@ -542,7 +548,7 @@ namespace MixItUp.Installer
                 this.WriteToLogFile("Error checking .NET runtime: " + ex.ToString());
             }
 
-            this.WriteToLogFile($".NET {RequiredDotNetMajorVersion} Desktop Runtime not detected.");
+            this.WriteToLogFile($".NET {RequiredDotNetMajorVersion}.{RequiredDotNetMinorVersion}.{RequiredDotNetPatchVersion}+ Desktop Runtime not detected.");
             return false;
         }
 
