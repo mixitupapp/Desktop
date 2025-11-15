@@ -38,21 +38,21 @@ namespace MixItUp.Base.Util
             }
         }
 
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
-        {
-            Random random = new Random();
-            var l = new SortedList<int, T>();
-            foreach (var i in list.ToArray())
-            {
-                var key = random.Next();
-                while (l.ContainsKey(key))
-                {
-                    key = random.Next();
-                }
-                l.Add(key, i);
-            }
-            return l.Values;
-        }
+        //public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
+        //{
+        //    Random random = new Random();
+        //    var l = new SortedList<int, T>();
+        //    foreach (var i in list.ToArray())
+        //    {
+        //        var key = random.Next();
+        //        while (l.ContainsKey(key))
+        //        {
+        //            key = random.Next();
+        //        }
+        //        l.Add(key, i);
+        //    }
+        //    return l.Values;
+        //}
 
         public static T RemoveFirst<T>(this IList<T> list)
         {
