@@ -134,17 +134,11 @@ namespace MixItUp.WPF.Services
                     string safeFilePath = filePath.ToFilePathString();
                     if (File.Exists(filePath))
                     {
-                        using (StreamReader reader = new StreamReader(File.OpenRead(filePath)))
-                        {
-                            return await reader.ReadToEndAsync();
-                        }
+                        return await File.ReadAllTextAsync(filePath);
                     }
                     else if (File.Exists(safeFilePath))
                     {
-                        using (StreamReader reader = new StreamReader(File.OpenRead(safeFilePath)))
-                        {
-                            return await reader.ReadToEndAsync();
-                        }
+                        return await File.ReadAllTextAsync(safeFilePath);
                     }
                     else if (webPathPrefixes.Any(p => filePath.StartsWith(p, StringComparison.InvariantCultureIgnoreCase)))
                     {
@@ -166,21 +160,11 @@ namespace MixItUp.WPF.Services
                     string safeFilePath = filePath.ToFilePathString();
                     if (File.Exists(filePath))
                     {
-                        using (FileStream reader = File.OpenRead(filePath))
-                        {
-                            byte[] data = new byte[reader.Length];
-                            await reader.ReadAsync(data, 0, data.Length);
-                            return data;
-                        }
+                        return await File.ReadAllBytesAsync(filePath);
                     }
                     else if (File.Exists(safeFilePath))
                     {
-                        using (FileStream reader = File.OpenRead(safeFilePath))
-                        {
-                            byte[] data = new byte[reader.Length];
-                            await reader.ReadAsync(data, 0, data.Length);
-                            return data;
-                        }
+                        return await File.ReadAllBytesAsync(safeFilePath);
                     }
                     else if (webPathPrefixes.Any(p => filePath.StartsWith(p, StringComparison.InvariantCultureIgnoreCase)))
                     {
@@ -201,14 +185,7 @@ namespace MixItUp.WPF.Services
                 {
                     await WindowsFileService.fileLock.WaitAsync();
 
-                    using (StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Create)))
-                    {
-                        if (!string.IsNullOrEmpty(data))
-                        {
-                            await writer.WriteAsync(data);
-                        }
-                        await writer.FlushAsync();
-                    }
+                    await File.WriteAllTextAsync(filePath, data ?? string.Empty);
                 }
                 catch (Exception ex)
                 {
@@ -228,10 +205,7 @@ namespace MixItUp.WPF.Services
             {
                 try
                 {
-                    using (FileStream reader = File.OpenWrite(filePath))
-                    {
-                        await reader.WriteAsync(data, 0, data.Length);
-                    }
+                    await File.WriteAllBytesAsync(filePath, data);
                 }
                 catch (Exception ex) { Logger.Log(ex); }
             }
@@ -247,9 +221,9 @@ namespace MixItUp.WPF.Services
                     await WindowsFileService.fileLock.WaitAsync();
 
                     data.Seek(0, SeekOrigin.Begin);
-                    using (FileStream reader = File.OpenWrite(filePath))
+                    using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                     {
-                        data.CopyTo(reader);
+                        await data.CopyToAsync(fileStream);
                     }
                 }
                 catch (Exception ex)
