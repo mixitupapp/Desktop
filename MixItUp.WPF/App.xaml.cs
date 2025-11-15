@@ -1,8 +1,4 @@
-﻿using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using MaterialDesignThemes.Wpf;
-using MaterialDesignColors;
-using MixItUp.Base;
+﻿using MixItUp.Base;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;

@@ -52,7 +52,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
 		<PackageReference Include="ID3" Version="0.6.0" />
 		<PackageReference Include="Jace" Version="1.0.0" />
-		<PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-beta.802" />
 		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
 		<PackageReference Include="MdXaml" Version="1.27.0" />
 		<PackageReference Include="MdXaml.Plugins" Version="1.27.0" />

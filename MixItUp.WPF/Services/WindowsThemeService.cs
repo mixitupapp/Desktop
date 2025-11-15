@@ -1,6 +1,4 @@
-﻿using LiveChartsCore;
-using LiveChartsCore.SkiaSharpView;
-using MaterialDesignThemes.Wpf;
+﻿using MaterialDesignThemes.Wpf;
 using MaterialDesignColors;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -80,20 +78,6 @@ namespace MixItUp.WPF.Services
                     Source = new Uri($"Themes/MixItUpBackgroundColor.{backgroundColor}.xaml", UriKind.Relative)
                 };
                 ReplaceResourceDictionary("MixItUpBackgroundColor.", backgroundDict);
-
-                // LiveCharts theme
-                LiveCharts.Configure(config =>
-                {
-                    config.AddSkiaSharp().AddDefaultMappers();
-                    if (backgroundColor == "Light")
-                    {
-                        config.AddLightTheme();
-                    }
-                    else
-                    {
-                        config.AddDarkTheme();
-                    }
-                });
             }
             catch (Exception ex)
             {
