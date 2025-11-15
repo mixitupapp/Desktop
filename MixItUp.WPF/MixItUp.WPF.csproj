@@ -32,6 +32,7 @@ rmdir /Q /S $(TargetDir)Logs\
 rmdir /Q /S $(TargetDir)ChatEventLogs\
 rmdir /Q /S $(TargetDir)Counters\
 del $(TargetDir)MixItUp.zip</PostBuildEvent>
+  <NoWarn>CA1416</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <UseVSHostingProcess>false</UseVSHostingProcess>
