@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	<SelfContained>true</SelfContained>
     <OutputType>WinExe</OutputType>
@@ -58,7 +58,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.23.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
 		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.46.0" />
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
@@ -67,11 +67,11 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
 		<PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.8" />
 		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
-		<PackageReference Include="System.CodeDom" Version="9.0.10" />
-		<PackageReference Include="System.IO.Ports" Version="9.0.10" />
-		<PackageReference Include="System.Management" Version="9.0.10" />
-		<PackageReference Include="System.Speech" Version="9.0.10" />
-		<PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.10" />
+		<PackageReference Include="System.CodeDom" Version="10.0.0" />
+		<PackageReference Include="System.IO.Ports" Version="10.0.0" />
+		<PackageReference Include="System.Management" Version="10.0.0" />
+		<PackageReference Include="System.Speech" Version="10.0.0" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" />
 		<PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
 	</ItemGroup>
 	<ItemGroup>
