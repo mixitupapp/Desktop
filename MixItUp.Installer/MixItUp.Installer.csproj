@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+		<PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="MdXaml" Version="1.27.0" />
 		<PackageReference Include="MdXaml.Plugins" Version="1.27.0" />
