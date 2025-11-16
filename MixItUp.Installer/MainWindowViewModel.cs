@@ -27,7 +27,7 @@ namespace MixItUp.Installer
         public const string MixItUpProcessName = "MixItUp";
         public const string AutoHosterProcessName = "MixItUp.AutoHoster";
 
-        private static readonly Version minimumOSVersion = new Version(6, 2, 0, 0);
+        private static readonly Version minimumOSVersion = new Version(10, 0, 0, 0);
 
         // .NET 10 Runtime constants
         private const int RequiredDotNetMajorVersion = 10;
@@ -283,7 +283,7 @@ namespace MixItUp.Installer
         {
             if (Environment.OSVersion.Version < minimumOSVersion)
             {
-                this.ShowError("Mix It Up only runs on Windows 8 & higher.", "If incorrect, please contact support@mixitupapp.com");
+                this.ShowError("Mix It Up only runs on Windows 10 & higher.", "If incorrect, please contact support@mixitupapp.com");
                 return false;
             }
             return true;
@@ -299,6 +299,7 @@ namespace MixItUp.Installer
                 {
                     File.Delete(InstallerLogFileName);
                     this.WriteToLogFile("Installation started: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    this.WriteToLogFile("OS Version: " + Environment.OSVersion.Version.ToString());
 
                     if (!string.IsNullOrEmpty(this.installDirectoryArgument))
                     {
