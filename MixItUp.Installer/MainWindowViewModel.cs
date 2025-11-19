@@ -313,11 +313,6 @@ namespace MixItUp.Installer
                     }
                     this.WriteToLogFile("Resolved install directory: " + this.installDirectory);
 
-                    if (!await this.EnsureDotNetRuntimeInstalledAsync())
-                    {
-                        return;
-                    }
-
                     if (!this.IsUpdate || await this.WaitForMixItUpToClose())
                     {
                         MixItUpUpdateModel update = await this.FetchManifestAsync();
@@ -357,6 +352,11 @@ namespace MixItUp.Installer
                         }
 
                         if (!await this.EnsureEulaAcceptedAsync(update))
+                        {
+                            return;
+                        }
+
+                        if (!await this.EnsureDotNetRuntimeInstalledAsync())
                         {
                             return;
                         }
