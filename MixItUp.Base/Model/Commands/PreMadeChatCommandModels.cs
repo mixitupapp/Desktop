@@ -588,73 +588,59 @@ namespace MixItUp.Base.Model.Commands
 
     public class SteamGamePreMadeChatCommandModel : PreMadeChatCommandModelBase
     {
-        private static Dictionary<string, int> steamGameList = new Dictionary<string, int>();
-
         public static async Task<GameInformation> GetSteamGameInfo(string gameName)
         {
-            gameName = gameName.ToLower();
+            if (string.IsNullOrWhiteSpace(gameName))
+                return null;
 
-            if (steamGameList.Count == 0)
+            string encodedGameName = Uri.EscapeDataString(gameName.Trim());
+
+            using (AdvancedHttpClient client = new AdvancedHttpClient("https://steamcommunity.com/"))
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient("http://api.steampowered.com/"))
+                HttpResponseMessage response = await client.GetAsync($"actions/SearchApps/{encodedGameName}");
+
+                if (response.StatusCode != HttpStatusCode.OK)
+                    return null;
+
+                string json = await response.Content.ReadAsStringAsync();
+                JArray searchResults = JArray.Parse(json);
+
+                if (searchResults.Count == 0)
+                    return null;
+
+                JObject bestMatch = (JObject)searchResults[0];
+                int appId = int.Parse(bestMatch["appid"].ToString());
+                string matchedName = bestMatch["name"].ToString();
+
+                using (AdvancedHttpClient storeClient = new AdvancedHttpClient("https://store.steampowered.com/"))
                 {
-                    HttpResponseMessage response = await client.GetAsync("ISteamApps/GetAppList/v0002");
-                    if (response.StatusCode == HttpStatusCode.OK)
+                    HttpResponseMessage detailsResponse =
+                        await storeClient.GetAsync($"api/appdetails?appids={appId}&cc=US&l=en");
+
+                    if (detailsResponse.StatusCode != HttpStatusCode.OK)
+                        return null;
+
+                    string detailsJson = await detailsResponse.Content.ReadAsStringAsync();
+                    JObject detailObj = JObject.Parse(detailsJson);
+
+                    JObject gameData = (JObject)detailObj[appId.ToString()]["data"];
+                    if (gameData == null)
+                        return null;
+
+                    double price = 0.0;
+                    if (gameData["price_overview"]?["final"] != null)
+                        price = gameData["price_overview"]["final"].Value<double>() / 100.0;
+
+                    string url = $"https://store.steampowered.com/app/{appId}";
+
+                    return new GameInformation
                     {
-                        string result = await response.Content.ReadAsStringAsync();
-                        JObject jobj = JObject.Parse(result);
-                        JToken list = jobj["applist"]["apps"];
-                        JArray games = (JArray)list;
-                        foreach (JToken game in games)
-                        {
-                            SteamGamePreMadeChatCommandModel.steamGameList[game["name"].ToString().ToLower()] = (int)game["appid"];
-                        }
-                    }
+                        Name = matchedName,
+                        Price = price,
+                        Uri = url
+                    };
                 }
             }
-
-            int gameID = -1;
-            if (SteamGamePreMadeChatCommandModel.steamGameList.ContainsKey(gameName))
-            {
-                gameID = SteamGamePreMadeChatCommandModel.steamGameList[gameName];
-            }
-            else
-            {
-                string foundGame = SteamGamePreMadeChatCommandModel.steamGameList.Keys.FirstOrDefault(g => g.Contains(gameName));
-                if (foundGame != null)
-                {
-                    gameID = SteamGamePreMadeChatCommandModel.steamGameList[foundGame];
-                }
-            }
-
-            if (gameID > 0)
-            {
-                using (AdvancedHttpClient client = new AdvancedHttpClient("http://store.steampowered.com/"))
-                {
-                    HttpResponseMessage response = await client.GetAsync("api/appdetails?appids=" + gameID);
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        string result = await response.Content.ReadAsStringAsync();
-                        JObject jobj = JObject.Parse(result);
-                        if (jobj[gameID.ToString()] != null && jobj[gameID.ToString()]["data"] != null)
-                        {
-                            jobj = (JObject)jobj[gameID.ToString()]["data"];
-
-                            double price = 0.0;
-                            if (jobj["price_overview"] != null && jobj["price_overview"]["final"] != null)
-                            {
-                                price = (int)jobj["price_overview"]["final"];
-                                price = price / 100.0;
-                            }
-
-                            string url = string.Format("http://store.steampowered.com/app/{0}", gameID);
-
-                            return new GameInformation { Name = jobj["name"].Value<string>(), Price = price, Uri = url };
-                        }
-                    }
-                }
-            }
-            return null;
         }
 
         public SteamGamePreMadeChatCommandModel() : base(MixItUp.Base.Resources.SteamGame, "steamgame", 5, UserRoleEnum.User) { }
