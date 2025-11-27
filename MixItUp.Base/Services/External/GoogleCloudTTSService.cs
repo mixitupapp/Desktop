@@ -37,11 +37,8 @@ namespace MixItUp.Base.Services.External
         public int PitchDefault { get { return 0; } }
 
         public int RateMinimum { get { return 25; } }
-        public int RateMaximum { get { return 400; } }
+        public int RateMaximum { get { return 200; } }
         public int RateDefault { get { return 100; } }
-
-        // to do: check rate max and mins from google cloud docs
-        // to do: add missing localization for googlecloudtts
 
         public string Name { get { return Resources.GoogleCloudTTS; } }
 
