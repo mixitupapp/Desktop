@@ -10832,7 +10832,4 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="TwitchAllowSharedChatEvents" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="DateNotOccured" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
 </root>
