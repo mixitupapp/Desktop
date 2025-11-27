@@ -19,7 +19,7 @@ namespace MixItUp.Base {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -10794,6 +10794,51 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Google Cloud TTS.
+        /// </summary>
+        public static string GoogleCloudTTS {
+            get {
+                return ResourceManager.GetString("GoogleCloudTTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Google Cloud TTS service connectivity allows you to connect your own Google Cloud API key to use the Google Cloud TTS option in the text to speech action..
+        /// </summary>
+        public static string GoogleCloudTTSInfo1 {
+            get {
+                return ResourceManager.GetString("GoogleCloudTTSInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must provide your own API key to use this service. Refer to the Wiki page for instructions on how to get your API Key from the Google Cloud Console page.
+        /// </summary>
+        public static string GoogleCloudTTSInfo2 {
+            get {
+                return ResourceManager.GetString("GoogleCloudTTSInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No API key provided.
+        /// </summary>
+        public static string GoogleCloudTTSNoAPIKey {
+            get {
+                return ResourceManager.GetString("GoogleCloudTTSNoAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No voices returned.
+        /// </summary>
+        public static string GoogleCloudTTSNoVoicesReturned {
+            get {
+                return ResourceManager.GetString("GoogleCloudTTSNoVoicesReturned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go to Link.
         /// </summary>
         public static string GoToLink {
@@ -14959,6 +15004,15 @@ namespace MixItUp.Base {
         public static string NoCustomAmazonPollyAccount {
             get {
                 return ResourceManager.GetString("NoCustomAmazonPollyAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No custom Google Cloud TTS API key has been added. please visit the Google Cloud TTS section on the Services page to connect your own API key..
+        /// </summary>
+        public static string NoCustomGoogleCloudTTSAccount {
+            get {
+                return ResourceManager.GetString("NoCustomGoogleCloudTTSAccount", resourceCulture);
             }
         }
         

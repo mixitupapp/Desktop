@@ -11049,4 +11049,22 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
     <value>Twitch Allow Shared Chat Events</value>
   </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>The Google Cloud TTS service connectivity allows you to connect your own Google Cloud API key to use the Google Cloud TTS option in the text to speech action.</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>You must provide your own API key to use this service. Refer to the Wiki page for instructions on how to get your API Key from the Google Cloud Console page</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>No API key provided</value>
+  </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>No voices returned</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>No custom Google Cloud TTS API key has been added. please visit the Google Cloud TTS section on the Services page to connect your own API key.</value>
+  </data>
 </root>
