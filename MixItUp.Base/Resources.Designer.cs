@@ -10803,6 +10803,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Google Cloud API Key.
+        /// </summary>
+        public static string GoogleCloudTTSAPIKey {
+            get {
+                return ResourceManager.GetString("GoogleCloudTTSAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Google Cloud TTS service connectivity allows you to connect your own Google Cloud API key to use the Google Cloud TTS option in the text to speech action..
         /// </summary>
         public static string GoogleCloudTTSInfo1 {

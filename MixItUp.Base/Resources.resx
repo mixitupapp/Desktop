@@ -11067,4 +11067,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>No custom Google Cloud TTS API key has been added. please visit the Google Cloud TTS section on the Services page to connect your own API key.</value>
   </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Google Cloud API Key</value>
+  </data>
 </root>
