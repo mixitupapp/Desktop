@@ -10828,9 +10828,6 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="ViewRateLimits" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="DateNotOccured" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="TwitchAllowSharedChatEvents" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>

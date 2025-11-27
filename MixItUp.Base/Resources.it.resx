@@ -10827,9 +10827,6 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
   <data name="ViewRateLimits" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="DateNotOccured" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="TwitchAllowSharedChatEvents" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>

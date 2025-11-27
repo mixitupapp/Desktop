@@ -28,6 +28,7 @@ namespace MixItUp.Base.ViewModel.Actions
 
                 this.NotifyPropertyChanged(nameof(this.NoCustomAmazonPollyAccount));
                 this.NotifyPropertyChanged(nameof(this.NoCustomMicrosoftAzureSpeechAccount));
+                this.NotifyPropertyChanged(nameof(this.NoCustomGoogleCloudTTSAccount));
                 this.NotifyPropertyChanged(nameof(this.ShowRateLimitLink));
 
                 this.NotifyPropertyChanged(nameof(this.PitchHintText));
@@ -47,7 +48,8 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech ||
                     this.SelectedProviderType == TextToSpeechProviderType.TTSMonster ||
                     this.SelectedProviderType == TextToSpeechProviderType.TikTokTTS ||
-                    this.SelectedProviderType == TextToSpeechProviderType.EdgeTTS;
+                    this.SelectedProviderType == TextToSpeechProviderType.EdgeTTS ||
+                    this.SelectedProviderType == TextToSpeechProviderType.GoogleCloudTTS;
             }
         }
         public bool AudioDeviceServiceConnected
@@ -189,7 +191,7 @@ namespace MixItUp.Base.ViewModel.Actions
             get
             {
                 return this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech || this.SelectedProviderType == TextToSpeechProviderType.AmazonPolly ||
-                    this.SelectedProviderType == TextToSpeechProviderType.WindowsTextToSpeech;
+                    this.SelectedProviderType == TextToSpeechProviderType.WindowsTextToSpeech || this.SelectedProviderType == TextToSpeechProviderType.GoogleCloudTTS;
             }
         }
 
@@ -223,6 +225,11 @@ namespace MixItUp.Base.ViewModel.Actions
         public bool NoCustomMicrosoftAzureSpeechAccount
         {
             get { return this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech && string.IsNullOrEmpty(ChannelSession.Settings.MicrosoftAzureSpeechCustomSubscriptionKey); }
+        }
+
+        public bool NoCustomGoogleCloudTTSAccount
+        {
+            get { return this.SelectedProviderType == TextToSpeechProviderType.GoogleCloudTTS && string.IsNullOrEmpty(ChannelSession.Settings.GoogleCloudTTSCustomKey); }
         }
 
         public bool ShowRateLimitLink

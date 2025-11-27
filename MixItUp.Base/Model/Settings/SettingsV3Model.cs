@@ -593,6 +593,9 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string MeldStudioWebSocketAddress { get; set; }
 
+        [DataMember]
+        public string GoogleCloudTTSCustomKey { get; set; }
+
         #endregion Services
 
         #region Dashboard
