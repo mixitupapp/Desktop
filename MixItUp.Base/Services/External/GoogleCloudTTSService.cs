@@ -14,7 +14,6 @@ namespace MixItUp.Base.Services.External
     {
         public static readonly IEnumerable<TextToSpeechVoice> AvailableVoices = new List<TextToSpeechVoice>()
         {
-            new TextToSpeechVoice("en-US-Casual-K", "Casual-K (Male) - English (US)"),
             new TextToSpeechVoice("ar-XA-Chirp3-HD-Achernar", "Chirp3-HD-Achernar (Female) - Arabic"),
             new TextToSpeechVoice("bn-IN-Chirp3-HD-Achernar", "Chirp3-HD-Achernar (Female) - Bengali"),
             new TextToSpeechVoice("bg-BG-Chirp3-HD-Achernar", "Chirp3-HD-Achernar (Female) - Bulgarian"),
