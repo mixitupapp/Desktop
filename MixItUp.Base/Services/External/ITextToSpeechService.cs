@@ -14,6 +14,7 @@ namespace MixItUp.Base.Services.External
         MicrosoftAzureSpeech,
         TikTokTTS,
         EdgeTTS,
+        GoogleCloudTTS,
         [Obsolete]
         Uberduck,
         [Obsolete]

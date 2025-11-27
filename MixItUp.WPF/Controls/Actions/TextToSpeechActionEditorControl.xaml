@@ -108,7 +108,11 @@
 			<TextBlock TextWrapping="Wrap" Foreground="Red" Text="{x:Static resx:Resources.NoCustomMicrosoftAzureSpeechAccount}"/>
 		</Grid>
 
-		<Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding ShowRateLimitLink, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
+        <Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding NoCustomGoogleCloudTTSAccount, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
+            <TextBlock TextWrapping="Wrap" Foreground="Red" Text="{x:Static resx:Resources.NoCustomGoogleCloudTTSAccount}"/>
+        </Grid>
+
+        <Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding ShowRateLimitLink, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
 			<TextBlock TextWrapping="Wrap">
 				<Hyperlink Command="{Binding OpenRateLimitLinkCommand}">
 					<Run Text="{x:Static resx:Resources.ViewRateLimits}" />
