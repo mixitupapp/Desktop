@@ -19339,11 +19339,47 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ResponsiveVoice.
+        ///   Looks up a localized string similar to Responsive Voice.
         /// </summary>
         public static string ResponsiveVoice {
             get {
                 return ResourceManager.GetString("ResponsiveVoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API Key.
+        /// </summary>
+        public static string ResponsiveVoiceAPIKey {
+            get {
+                return ResourceManager.GetString("ResponsiveVoiceAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Responsive Voice provides free text-to-speech services through your overlay. You can optionally provide your own API key..
+        /// </summary>
+        public static string ResponsiveVoiceInfo1 {
+            get {
+                return ResourceManager.GetString("ResponsiveVoiceInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you don&apos;t provide an API key, the default Mix It Up key will be used with shared rate limits. Visit the Wiki for more information..
+        /// </summary>
+        public static string ResponsiveVoiceInfo2 {
+            get {
+                return ResourceManager.GetString("ResponsiveVoiceInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Responsive Voice API Key.
+        /// </summary>
+        public static string ResponsiveVoiceInvalidAPIKey {
+            get {
+                return ResourceManager.GetString("ResponsiveVoiceInvalidAPIKey", resourceCulture);
             }
         }
         

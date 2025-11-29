@@ -9669,7 +9669,7 @@ print(run())</value>
     <value>Wählen Sie einen neuen Ordner aus, um Musik aus einem Ordner zu laden, oder klicken Sie auf die Wiedergabetaste, um Musik aus dem zuletzt verwendeten Ordner zu laden.</value>
   </data>
   <data name="ResponsiveVoice" xml:space="preserve">
-    <value>ResponsiveVoice</value>
+    <value>Responsive Voice</value>
   </data>
   <data name="WindowsTextToSpeech" xml:space="preserve">
     <value>Windows-Text in Sprache</value>

@@ -9664,7 +9664,7 @@ print(run())</value>
     <value>Select a new folder to load in music from a folder or hit the Play button to load in music from the last used folder.</value>
   </data>
   <data name="ResponsiveVoice" xml:space="preserve">
-    <value>ResponsiveVoice</value>
+    <value>Responsive Voice</value>
   </data>
   <data name="WindowsTextToSpeech" xml:space="preserve">
     <value>Windows Text To Speech</value>
@@ -11069,5 +11069,17 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   </data>
   <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
     <value>Google Cloud API Key</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>Responsive Voice provides free text-to-speech services through your overlay. You can optionally provide your own API key.</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>If you don't provide an API key, the default Mix It Up key will be used with shared rate limits. Visit the Wiki for more information.</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>Invalid Responsive Voice API Key</value>
   </data>
 </root>

@@ -596,6 +596,9 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string GoogleCloudTTSCustomKey { get; set; }
 
+        [DataMember]
+        public string ResponsiveVoiceCustomAPIKey { get; set; }
+
         #endregion Services
 
         #region Dashboard
