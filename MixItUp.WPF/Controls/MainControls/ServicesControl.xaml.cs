@@ -56,6 +56,7 @@ namespace MixItUp.WPF.Controls.MainControls
             ttsCategory.AddService(new AmazonPollyServiceControl());
             ttsCategory.AddService(new GoogleCloudTTSServiceControl());
             ttsCategory.AddService(new MicrosoftAzureSpeechServiceControl());
+            ttsCategory.AddService(new ResponsiveVoiceServiceControl());
             ttsCategory.AddService(new TTSMonsterServiceControl());
             services.Add(ttsCategory);
 

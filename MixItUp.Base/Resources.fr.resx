@@ -9665,7 +9665,7 @@ imprimer (exécuter ())</value>
     <value>Sélectionnez un nouveau dossier pour charger la musique à partir d'un dossier ou appuyez sur le bouton Lecture pour charger la musique à partir du dernier dossier utilisé.</value>
   </data>
   <data name="ResponsiveVoice" xml:space="preserve">
-    <value>ResponsiveVoix</value>
+    <value>Responsive Voix</value>
   </data>
   <data name="WindowsTextToSpeech" xml:space="preserve">
     <value>Synthèse vocale Windows</value>
