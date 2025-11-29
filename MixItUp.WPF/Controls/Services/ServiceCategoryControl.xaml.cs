@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace MixItUp.WPF.Controls.Services
 {
@@ -30,9 +31,14 @@ namespace MixItUp.WPF.Controls.Services
         public void AddService(ServiceControlBase serviceControl)
         {
             ServiceContainerControl container = new ServiceContainerControl(this.window, serviceControl);
-            container.Margin = new Thickness(0, 0.5, 0, 0.5);
             this.services.Add(container);
-            this.ServicesPanel.Children.Add(container);
+
+            Border border = new Border();
+            border.BorderBrush = (System.Windows.Media.Brush)this.FindResource("MaterialDesign.Brush.Foreground");
+            border.BorderThickness = new Thickness(1);
+            border.Child = container;
+
+            this.ServicesPanel.Children.Add(border);
         }
 
         public void Minimize()
