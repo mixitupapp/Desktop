@@ -33,6 +33,8 @@ namespace MixItUp.Base.Services.External
     {
         private Dictionary<string, JObject> responses = new Dictionary<string, JObject>();
 
+        public event EventHandler<JObject> OnVoiceChangedEvent;
+
         public override Task<bool> Connect(string endpoint)
         {
             this.responses.Clear();
@@ -68,6 +70,12 @@ namespace MixItUp.Base.Services.External
                 JObject response = JObject.Parse(packet);
                 if (response != null)
                 {
+                    string actionType = response["actionType"]?.ToString();
+                    if (actionType == "voiceChangedEvent")
+                    {
+                        this.OnVoiceChangedEvent?.Invoke(this, response);
+                    }
+
                     string responseId = response["id"]?.ToString();
                     if (!string.IsNullOrEmpty(responseId) && this.responses.ContainsKey(responseId))
                     {
@@ -96,6 +104,8 @@ namespace MixItUp.Base.Services.External
         public bool WebSocketConnected { get; private set; }
 
         private VoicemodWebSocket websocket = new VoicemodWebSocket();
+        private string currentVoiceID = null;
+        private string previousVoiceID = null;
 
         public VoicemodService() { }
 
@@ -116,6 +126,7 @@ namespace MixItUp.Base.Services.External
         {
             this.WebSocketConnected = false;
             this.websocket.OnDisconnectOccurred -= Websocket_OnDisconnectOccurred;
+            this.websocket.OnVoiceChangedEvent -= Websocket_OnVoiceChangedEvent;
             await this.websocket.Disconnect();
         }
 
@@ -174,6 +185,14 @@ namespace MixItUp.Base.Services.External
             {
                 { "voiceID", voiceID }
             }));
+        }
+
+        public async Task SelectPreviousVoice()
+        {
+            if (!string.IsNullOrEmpty(this.previousVoiceID))
+            {
+                await this.SelectVoice(this.previousVoiceID);
+            }
         }
 
         public async Task RandomVoice(VoicemodRandomVoiceType voiceType)
@@ -263,6 +282,7 @@ namespace MixItUp.Base.Services.External
         private async Task<Result> ConnectWebSocket()
         {
             this.websocket.OnDisconnectOccurred -= Websocket_OnDisconnectOccurred;
+            this.websocket.OnVoiceChangedEvent -= Websocket_OnVoiceChangedEvent;
 
             string clientKey = ServiceManager.Get<SecretsService>().GetSecret("VoicemodV3ClientKey");
 
@@ -286,6 +306,10 @@ namespace MixItUp.Base.Services.External
                             {
                                 this.WebSocketConnected = true;
                                 this.websocket.OnDisconnectOccurred += Websocket_OnDisconnectOccurred;
+                                this.websocket.OnVoiceChangedEvent += Websocket_OnVoiceChangedEvent;
+
+                                await this.GetCurrentVoice();
+
                                 ServiceManager.Get<ITelemetryService>().TrackService("Voicemod");
                                 return new Result();
                             }
@@ -300,6 +324,42 @@ namespace MixItUp.Base.Services.External
             }
 
             return new Result(MixItUp.Base.Resources.VoicemodConnectionFailed);
+        }
+
+        private async Task GetCurrentVoice()
+        {
+            JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getCurrentVoice"));
+            if (response != null)
+            {
+                JToken actionObj = response["actionObject"];
+                if (actionObj != null && actionObj["voiceID"] != null)
+                {
+                    this.currentVoiceID = actionObj["voiceID"].ToString();
+                }
+            }
+        }
+
+        private void Websocket_OnVoiceChangedEvent(object sender, JObject eventData)
+        {
+            try
+            {
+                JToken actionObj = eventData["actionObject"];
+                if (actionObj != null && actionObj["voiceID"] != null)
+                {
+                    string newVoiceID = actionObj["voiceID"].ToString();
+
+                    if (newVoiceID != this.currentVoiceID)
+                    {
+                        this.previousVoiceID = this.currentVoiceID;
+                        this.currentVoiceID = newVoiceID;
+                        Logger.Log(LogLevel.Debug, $"Voicemod - Voice changed from {this.previousVoiceID} to {this.currentVoiceID}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         private async void Websocket_OnDisconnectOccurred(object sender, System.Net.WebSockets.WebSocketCloseStatus e)
