@@ -44,13 +44,13 @@ namespace MixItUp.WPF.Controls.Services
         public void Minimize()
         {
             this.CategoryGroupBox.Height = MinimizedGroupBoxHeight;
-            this.ExpandIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ChevronDown;
+            this.ExpandIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ChevronRight;
         }
 
         public void Expand()
         {
             this.CategoryGroupBox.Height = Double.NaN;
-            this.ExpandIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ChevronRight;
+            this.ExpandIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ChevronDown;
         }
 
         public void CategoryGroupBoxHeader_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

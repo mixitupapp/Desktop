@@ -17,7 +17,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding CategoryName}" />
                 <Rectangle Grid.Column="1" Fill="{DynamicResource MaterialDesign.Brush.Primary}" />
-                <MaterialDesign:PackIcon Grid.Column="2" Kind="ChevronDown" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" x:Name="ExpandIcon" />
+                <MaterialDesign:PackIcon Grid.Column="2" Kind="ChevronDown" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" x:Name="ExpandIcon" Height="20" Width="20" />
             </Grid>
         </GroupBox.Header>
         <StackPanel x:Name="ServicesPanel" />
