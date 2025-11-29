@@ -11082,4 +11082,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
     <value>Invalid Responsive Voice API Key</value>
   </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>Select Previous Voice</value>
+  </data>
 </root>

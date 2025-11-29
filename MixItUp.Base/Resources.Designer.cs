@@ -20532,6 +20532,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Previous Voice.
+        /// </summary>
+        public static string SelectPreviousVoice {
+            get {
+                return ResourceManager.GetString("SelectPreviousVoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Random User in Queue.
         /// </summary>
         public static string SelectRandom {
