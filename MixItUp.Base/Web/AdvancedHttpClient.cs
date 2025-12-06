@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -133,6 +134,11 @@ namespace MixItUp.Base.Web
         public event EventHandler<HttpRequestRateLimits> RateLimitUpdateOccurred = delegate { };
 
         /// <summary>
+        /// Invoked when a 401 Unauthorized response is received. Should return true if the token was refreshed.
+        /// </summary>
+        public Func<Task<bool>> OnUnauthorizedResponse { get; set; }
+
+        /// <summary>
         /// Creates a new instance of the JSONHttpClient.
         /// </summary>
         public AdvancedHttpClient()
@@ -187,6 +193,7 @@ namespace MixItUp.Base.Web
             DateTimeOffset callStart = DateTimeOffset.Now;
             HttpResponseMessage response = await base.SendAsync(new HttpRequestMessage(HttpMethod.Head, requestUri));
             response.AddCallTimeHeaders(callStart, DateTimeOffset.Now);
+            response = await this.CheckForUnauthorized(response, async () => await base.SendAsync(new HttpRequestMessage(HttpMethod.Head, requestUri)));
             this.CheckForRateLimiting(response);
             return response;
         }
@@ -202,6 +209,7 @@ namespace MixItUp.Base.Web
             DateTimeOffset callStart = DateTimeOffset.Now;
             HttpResponseMessage response = await base.GetAsync(requestUri);
             response.AddCallTimeHeaders(callStart, DateTimeOffset.Now);
+            response = await this.CheckForUnauthorized(response, async () => await base.GetAsync(requestUri));
             this.CheckForRateLimiting(response);
             return response;
         }
@@ -265,10 +273,11 @@ namespace MixItUp.Base.Web
         /// <returns>A response message of the request</returns>
         public new async Task<HttpResponseMessage> PostAsync(string requestUri, HttpContent content)
         {
-            this.LogRequest("PUT", requestUri, content);
+            this.LogRequest("POST", requestUri, content);
             DateTimeOffset callStart = DateTimeOffset.Now;
             HttpResponseMessage response = await base.PostAsync(requestUri, content);
             response.AddCallTimeHeaders(callStart, DateTimeOffset.Now);
+            response = await this.CheckForUnauthorized(response, async () => await base.PostAsync(requestUri, content));
             this.CheckForRateLimiting(response);
             return response;
         }
@@ -322,6 +331,7 @@ namespace MixItUp.Base.Web
             DateTimeOffset callStart = DateTimeOffset.Now;
             HttpResponseMessage response = await base.PutAsync(requestUri, content);
             response.AddCallTimeHeaders(callStart, DateTimeOffset.Now);
+            response = await this.CheckForUnauthorized(response, async () => await base.PutAsync(requestUri, content));
             this.CheckForRateLimiting(response);
             return response;
         }
@@ -351,6 +361,11 @@ namespace MixItUp.Base.Web
             DateTimeOffset callStart = DateTimeOffset.Now;
             HttpResponseMessage response = await base.SendAsync(request);
             response.AddCallTimeHeaders(callStart, DateTimeOffset.Now);
+            response = await this.CheckForUnauthorized(response, async () =>
+            {
+                HttpRequestMessage retryRequest = new HttpRequestMessage(method, requestUri) { Content = content };
+                return await base.SendAsync(retryRequest);
+            });
             this.CheckForRateLimiting(response);
             return response;
         }
@@ -399,24 +414,30 @@ namespace MixItUp.Base.Web
         public async Task<HttpResponseMessage> DeleteAsyncWithResponse(string requestUri, HttpContent content = null)
         {
             this.LogRequest("DELETE", requestUri, content);
+            DateTimeOffset callStart = DateTimeOffset.Now;
+            HttpResponseMessage response;
+
             if (content != null)
             {
                 HttpMethod method = new HttpMethod("DELETE");
                 HttpRequestMessage request = new HttpRequestMessage(method, requestUri) { Content = content };
-                DateTimeOffset callStart = DateTimeOffset.Now;
-                HttpResponseMessage response = await base.SendAsync(request);
+                response = await base.SendAsync(request);
                 response.AddCallTimeHeaders(callStart, DateTimeOffset.Now);
-                this.CheckForRateLimiting(response);
-                return response;
+                response = await this.CheckForUnauthorized(response, async () =>
+                {
+                    HttpRequestMessage retryRequest = new HttpRequestMessage(method, requestUri) { Content = content };
+                    return await base.SendAsync(retryRequest);
+                });
             }
             else
             {
-                DateTimeOffset callStart = DateTimeOffset.Now;
-                HttpResponseMessage response = await base.DeleteAsync(requestUri);
+                response = await base.DeleteAsync(requestUri);
                 response.AddCallTimeHeaders(callStart, DateTimeOffset.Now);
-                this.CheckForRateLimiting(response);
-                return response;
+                response = await this.CheckForUnauthorized(response, async () => await base.DeleteAsync(requestUri));
             }
+
+            this.CheckForRateLimiting(response);
+            return response;
         }
 
         public void SetBasicAuthorization(string value)
@@ -460,6 +481,33 @@ namespace MixItUp.Base.Web
             {
                 Logger.Log(LogLevel.Debug, $"Rest API Request Sent: {method} - {requestUri}");
             }
+        }
+
+        private async Task<HttpResponseMessage> CheckForUnauthorized(HttpResponseMessage response, Func<Task<HttpResponseMessage>> retryFunc)
+        {
+            if (response.StatusCode == HttpStatusCode.Unauthorized && this.OnUnauthorizedResponse != null)
+            {
+                try
+                {
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    Logger.Log(LogLevel.Error, $"{response.RequestMessage.RequestUri} - {response.StatusCode} - {response.ReasonPhrase} - {responseContent}");
+                }
+                catch { }
+
+                Logger.Log(LogLevel.Warning, $"Received 401 Unauthorized, attempting to refresh OAuth token");
+
+                try
+                {
+                    await this.OnUnauthorizedResponse();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(LogLevel.Error, $"Error during OAuth token refresh: {ex.Message}");
+                    Logger.Log(ex);
+                }
+            }
+
+            return response;
         }
 
         private void CheckForRateLimiting(HttpResponseMessage response)

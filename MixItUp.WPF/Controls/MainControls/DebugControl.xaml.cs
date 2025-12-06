@@ -6,6 +6,7 @@ using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
 using Newtonsoft.Json.Linq;
 using System;
@@ -528,6 +529,28 @@ namespace MixItUp.WPF.Controls.MainControls
                     })
                 }
             });
+        }
+        private async void CorruptTwitchToken(object sender, System.Windows.RoutedEventArgs e)
+        {
+            try
+            {
+                var twitchSession = ServiceManager.Get<TwitchSession>();
+                if (twitchSession != null && twitchSession.IsConnected)
+                {
+                    twitchSession.StreamerService.TestCorruptToken();
+
+                    await DialogHelper.ShowMessage("Twitch Token corrupted! The next Twitch API call should refresh the invalid token");
+                }
+                else
+                {
+                    await DialogHelper.ShowMessage("Twitch is not connected.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                await DialogHelper.ShowMessage($"Error: {ex.Message}");
+            }
         }
     }
 }
