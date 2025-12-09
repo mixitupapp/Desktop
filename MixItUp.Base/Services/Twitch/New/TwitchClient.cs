@@ -1322,6 +1322,17 @@ namespace MixItUp.Base.Services.Twitch.New
                     await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(subscription.User, string.Format(MixItUp.Base.Resources.AlertSubscribedTier, subscription.User.FullDisplayName, subscription.PlanName), ChannelSession.Settings.AlertSubColor));
                 }
             }
+            if (subscription.Gifter != null && !subscription.IsAnonymous)
+            {
+                if (subscription.CumulativeGifts.HasValue)
+                {
+                    subscription.Gifter.TotalSubsGifted = (uint)subscription.CumulativeGifts.Value;
+                }
+                else
+                {
+                    subscription.Gifter.TotalSubsGifted++;
+                }
+            }
         }
 
         private async void UserWebSocket_PacketReceived(object sender, string packet)
