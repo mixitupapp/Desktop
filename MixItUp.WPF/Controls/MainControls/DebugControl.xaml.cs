@@ -532,6 +532,7 @@ namespace MixItUp.WPF.Controls.MainControls
         }
         private async void CorruptTwitchToken(object sender, System.Windows.RoutedEventArgs e)
         {
+#if DEBUG
             try
             {
                 var twitchSession = ServiceManager.Get<TwitchSession>();
@@ -551,6 +552,7 @@ namespace MixItUp.WPF.Controls.MainControls
                 Logger.Log(ex);
                 await DialogHelper.ShowMessage($"Error: {ex.Message}");
             }
+#endif
         }
     }
 }
