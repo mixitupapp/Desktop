@@ -14,9 +14,11 @@ using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using MixItUp.SignalR.Client;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -38,6 +40,13 @@ namespace MixItUp.Base.Services
         Task<GetWebhooksResponseModel> GetWebhooks();
         Task<Webhook> CreateWebhook();
         Task DeleteWebhook(Guid id);
+
+        event EventHandler<bool> NotificationStatusChanged;
+        Task StartNotificationPolling();
+        void StopNotificationPolling();
+        Task<List<NotificationModel>> GetNotifications();
+        bool HasUnreadNotifications { get; }
+        void MarkNotificationsAsRead();
     }
 
     public interface IWebhookService
@@ -126,6 +135,8 @@ namespace MixItUp.Base.Services
         public const string DevMixItUpAPIEndpoint = "https://localhost:44309/api/";                // Dev Endpoint
         public const string DevMixItUpSignalRHubEndpoint = "https://localhost:44309/webhookhub";   // Dev Endpoint
 
+        private const string UtilApiEndpoint = "https://util.mixitupapp.com/";
+
         private const string FileServiceBaseUrl = "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
         private static readonly TimeSpan[] FileServiceRetryDelays = new[]
         {
@@ -136,6 +147,15 @@ namespace MixItUp.Base.Services
 
         private string accessToken = null;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+        private CancellationTokenSource notificationCancellationTokenSource;
+        private int? cachedLatestNotificationId = null;
+        private List<NotificationModel> cachedNotifications = null;
+        private DateTime? lastNotificationFetch = null;
+        private readonly TimeSpan notificationCacheExpiry = TimeSpan.FromMinutes(5);
+
+        public event EventHandler<bool> NotificationStatusChanged;
+        public bool HasUnreadNotifications { get; private set; }
 
         // IMixItUpService
         public async Task<MixItUpUpdateModel> GetLatestUpdate()
@@ -554,6 +574,137 @@ namespace MixItUp.Base.Services
             return login;
         }
 
+        // Notifications UtilService
+        public async Task StartNotificationPolling()
+        {
+            if (notificationCancellationTokenSource != null)
+            {
+                return;
+            }
+
+            notificationCancellationTokenSource = new CancellationTokenSource();
+
+            await CheckForNewNotifications();
+
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationCancellationTokenSource.Token, 30 * 60000);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+        }
+
+        public void StopNotificationPolling()
+        {
+            notificationCancellationTokenSource?.Cancel();
+            notificationCancellationTokenSource?.Dispose();
+            notificationCancellationTokenSource = null;
+        }
+
+        private async Task NotificationPollingBackground(CancellationToken cancellationToken)
+        {
+            await CheckForNewNotifications();
+        }
+
+        private async Task CheckForNewNotifications()
+        {
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    HttpResponseMessage response = await client.GetAsync("api/notifications/id");
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        JObject data = JObject.Parse(json);
+                        int latestId = data["latestId"]?.Value<int>() ?? 0;
+
+                        int lastReadId = ChannelSession.AppSettings.LastReadNotificationId;
+                        bool hasUnread = latestId > lastReadId;
+
+                        if (cachedLatestNotificationId.HasValue && latestId > cachedLatestNotificationId.Value)
+                        {
+                            Logger.Log(LogLevel.Debug, $"New notification detected (ID: {latestId})");
+                            cachedNotifications = null;
+                            lastNotificationFetch = null;
+                        }
+
+                        cachedLatestNotificationId = latestId;
+
+                        if (HasUnreadNotifications != hasUnread)
+                        {
+                            HasUnreadNotifications = hasUnread;
+                            NotificationStatusChanged?.Invoke(this, hasUnread);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Warning, $"Failed to check for new notifications: {ex.Message}");
+            }
+        }
+
+        public async Task<List<NotificationModel>> GetNotifications()
+        {
+            if (cachedNotifications != null &&
+                lastNotificationFetch.HasValue &&
+                DateTime.UtcNow - lastNotificationFetch.Value < notificationCacheExpiry)
+            {
+                return cachedNotifications;
+            }
+
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    HttpResponseMessage response = await client.GetAsync("/api/notifications");
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        JObject data = JObject.Parse(json);
+                        JArray notificationsArray = (JArray)data["notifications"];
+
+                        var notifications = new List<NotificationModel>();
+                        foreach (JObject notif in notificationsArray)
+                        {
+                            notifications.Add(new NotificationModel
+                            {
+                                Id = notif["id"]?.Value<int>() ?? 0,
+                                Title = notif["title"]?.ToString(),
+                                Message = notif["message"]?.ToString(),
+                                Timestamp = DateTime.Parse(notif["timestamp"].ToString()),
+                                Icon = notif["icon"]?.ToString() ?? "Bell",
+                                IconColor = notif["iconColor"]?.ToString() ?? "#808080",
+                                Url = notif["url"]?.ToString(),
+                                IsPinned = notif["isPinned"]?.Value<bool>() ?? false
+                            });
+                        }
+
+                        cachedNotifications = notifications;
+                        lastNotificationFetch = DateTime.UtcNow;
+
+                        return notifications;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Warning, $"Failed to fetch notifications: {ex.Message}");
+            }
+
+            return null;
+        }
+
+        public void MarkNotificationsAsRead()
+        {
+            if (cachedLatestNotificationId.HasValue)
+            {
+                ChannelSession.AppSettings.LastReadNotificationId = cachedLatestNotificationId.Value;
+                _ = ChannelSession.AppSettings.Save();
+
+                HasUnreadNotifications = false;
+                NotificationStatusChanged?.Invoke(this, false);
+            }
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -565,6 +716,7 @@ namespace MixItUp.Base.Services
                 {
                     // Dispose managed state (managed objects).
                     this.cancellationTokenSource.Dispose();
+                    this.StopNotificationPolling();
                 }
 
                 // Free unmanaged resources (unmanaged objects) and override a finalizer below.

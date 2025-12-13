@@ -1,4 +1,5 @@
-﻿using MixItUp.Base;
+﻿using MaterialDesignThemes.Wpf;
+using MixItUp.Base;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -13,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace MixItUp.WPF.Controls.MainControls
 {
@@ -128,6 +130,9 @@ namespace MixItUp.WPF.Controls.MainControls
             this.MenuItemsListBox.ItemsSource = this.visibleMenuItems;
 
             await this.MainSettings.Initialize(this.Window);
+
+            this.NotificationCenter.Initialize();
+            this.NotificationCenter.UnreadStatusChanged += NotificationCenter_UnreadStatusChanged;
 
             await base.InitializeInternal();
         }
@@ -344,6 +349,33 @@ namespace MixItUp.WPF.Controls.MainControls
             this.MenuItemsListBox.ItemsSource = this.visibleMenuItems;
 
             await this.SaveMenuOrder();
+        }
+
+        private async void NotificationButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!NotificationPopup.IsOpen)
+            {
+                await NotificationCenter.LoadNotifications();
+                NotificationPopup.IsOpen = true;
+            }
+            else
+            {
+                NotificationPopup.IsOpen = false;
+            }
+        }
+
+        private void NotificationCenter_UnreadStatusChanged(object sender, bool hasUnread)
+        {
+            if (hasUnread)
+            {
+                NotificationButton.Icon = PackIconKind.BellBadge;
+                ((Storyboard)this.Resources["BellBlinkAnimation"]).Begin(NotificationButton);
+            }
+            else
+            {
+                NotificationButton.Icon = PackIconKind.Bell;
+                NotificationButton.Opacity = 1.0;
+            }
         }
     }
 }

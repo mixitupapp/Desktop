@@ -16,6 +16,16 @@
     <local:MainControlBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
+        <Storyboard x:Key="BellBlinkAnimation">
+            <DoubleAnimation
+                AutoReverse="True"
+                RepeatBehavior="10x"
+                Storyboard.TargetProperty="Opacity"
+                From="1.0"
+                To="0.3"
+                Duration="0:0:0.5" />
+        </Storyboard>
+
         <DataTemplate x:Key="DragAdornerTemplate">
             <Border
                 Padding="12,8"
@@ -208,6 +218,23 @@
                                             Icon="LanDisconnect"
                                             Visibility="Collapsed" />
 
+                                        <Controls:IconButton
+                                            x:Name="NotificationButton"
+                                            Margin="5,0,0,0"
+                                            HorizontalAlignment="Center"
+                                            Click="NotificationButton_Click"
+                                            Icon="Bell"
+                                            Style="{StaticResource MaterialDesignRaisedButton}"
+                                            ToolTip="{x:Static resx:Resources.Notifications}" />
+
+                                        <Popup
+                                            x:Name="NotificationPopup"
+                                            AllowsTransparency="True"
+                                            Placement="Bottom"
+                                            PlacementTarget="{Binding ElementName=NotificationButton}"
+                                            StaysOpen="False">
+                                            <Controls:NotificationCenterControl x:Name="NotificationCenter" />
+                                        </Popup>
                                         <Controls:IconButton
                                             x:Name="SectionHelpButton"
                                             Margin="5,0,0,0"

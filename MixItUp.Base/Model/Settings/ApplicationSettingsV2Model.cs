@@ -124,11 +124,14 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public Guid SettingsToDelete { get; set; }
 
+        [JsonIgnore]
+        public bool IsDarkBackground { get { return this.BackgroundColor.Equals("Dark"); } }
+
         [DataMember]
         public List<MainMenuControlSettings> MainMenuControls { get; set; } = new List<MainMenuControlSettings>();
 
-        [JsonIgnore]
-        public bool IsDarkBackground { get { return this.BackgroundColor.Equals("Dark"); } }
+        [DataMember]
+        public int LastReadNotificationId { get; set; } = 0;
 
         public ApplicationSettingsV2Model() { }
 
