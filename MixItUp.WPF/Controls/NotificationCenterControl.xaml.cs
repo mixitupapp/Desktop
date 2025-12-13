@@ -49,6 +49,21 @@ namespace MixItUp.WPF.Controls
             try
             {
                 var notifications = await ServiceManager.Get<MixItUpService>().GetNotifications();
+
+                if (notifications == null)
+                {
+                    Notifications.Add(new NotificationItem
+                    {
+                        Title = "Unable to load notifications",
+                        Message = "Please try again later.",
+                        Icon = "AlertCircle",
+                        IconColor = new SolidColorBrush(Colors.Gray),
+                        TimeAgo = "",
+                        IsPinned = false
+                    });
+                    return;
+                }
+
                 int lastReadId = ChannelSession.AppSettings.LastReadNotificationId;
 
                 foreach (var notif in notifications)

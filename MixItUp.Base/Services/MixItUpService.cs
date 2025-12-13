@@ -690,7 +690,7 @@ namespace MixItUp.Base.Services
                 Logger.Log(LogLevel.Warning, $"Failed to fetch notifications: {ex.Message}");
             }
 
-            return new List<NotificationModel>();
+            return null;
         }
 
         public void MarkNotificationsAsRead()
