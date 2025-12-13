@@ -165,6 +165,9 @@ namespace MixItUp.WPF
 
             this.MainMenu.MenuItemSelected(MixItUp.Base.Resources.Chat);
 
+
+            await ServiceManager.Get<MixItUpService>().StartNotificationPolling();
+
             ActivationProtocolHandler.OnCommunityCommandActivation += ActivationProtocolHandler_OnCommunityCommandActivation;
             ActivationProtocolHandler.OnCommandFileActivation += ActivationProtocolHandler_OnCommandFileActivation;
 
@@ -179,6 +182,8 @@ namespace MixItUp.WPF
             try
             {
                 Logger.Log(LogLevel.Debug, "Starting shutdown process");
+
+                ServiceManager.Get<MixItUpService>()?.StopNotificationPolling();
 
                 if (WindowState == WindowState.Maximized)
                 {
@@ -252,9 +257,9 @@ namespace MixItUp.WPF
                 if (confirmed)
                 {
                     this.shutdownStarted = true;
-#pragma warning disable CS4014
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     this.StartShutdownProcess();
-#pragma warning restore CS4014
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 }
             }
             else if (!this.shutdownComplete)
