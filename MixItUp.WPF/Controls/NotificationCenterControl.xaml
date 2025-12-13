@@ -75,11 +75,22 @@
                                         Kind="{Binding Icon}" />
 
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                            Text="{Binding Title}"
-                                            TextWrapping="Wrap" />
+                                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                            <MaterialDesign:PackIcon
+                                                Width="14"
+                                                Height="14"
+                                                Margin="0,1,1,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="#DAA520"
+                                                Kind="Pin"
+                                                Visibility="{Binding PinVisibility}" />
+
+                                            <TextBlock
+                                                FontWeight="SemiBold"
+                                                Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                                Text="{Binding Title}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
                                         <TextBlock
                                             Margin="0,4,0,0"
                                             Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"

@@ -673,7 +673,8 @@ namespace MixItUp.Base.Services
                                 Timestamp = DateTime.Parse(notif["timestamp"].ToString()),
                                 Icon = notif["icon"]?.ToString() ?? "Bell",
                                 IconColor = notif["iconColor"]?.ToString() ?? "#808080",
-                                Url = notif["url"]?.ToString()
+                                Url = notif["url"]?.ToString(),
+                                IsPinned = notif["isPinned"]?.Value<bool>() ?? false
                             });
                         }
 

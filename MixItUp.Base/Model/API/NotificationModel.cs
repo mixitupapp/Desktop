@@ -11,5 +11,6 @@ namespace MixItUp.Base.Model.API
         public string Icon { get; set; }
         public string IconColor { get; set; }
         public string Url { get; set; }
+        public bool IsPinned { get; set; }
     }
 }

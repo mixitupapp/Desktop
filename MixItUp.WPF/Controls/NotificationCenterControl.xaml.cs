@@ -64,7 +64,8 @@ namespace MixItUp.WPF.Controls
                         Icon = notif.Icon,
                         IconColor = new SolidColorBrush(color),
                         TimeAgo = notifTime,
-                        Url = notif.Url
+                        Url = notif.Url,
+                        IsPinned = notif.IsPinned
                     });
                 }
 
@@ -126,7 +127,7 @@ namespace MixItUp.WPF.Controls
         public string Icon { get; set; }
         public Brush IconColor { get; set; }
         public Brush Background { get; set; } = Brushes.Transparent;
-
+        public bool IsPinned { get; set; }
         public string Url
         {
             get => _url;
@@ -139,6 +140,7 @@ namespace MixItUp.WPF.Controls
         }
 
         public Visibility LinkVisibility => !string.IsNullOrEmpty(Url) ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility PinVisibility => IsPinned ? Visibility.Visible : Visibility.Collapsed;
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
