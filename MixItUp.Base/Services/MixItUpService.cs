@@ -609,7 +609,7 @@ namespace MixItUp.Base.Services
             {
                 using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
                 {
-                    HttpResponseMessage response = await client.GetAsync("api/notifications/id");
+                    HttpResponseMessage response = await client.GetAsync("api/services/notifications/id");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -655,7 +655,7 @@ namespace MixItUp.Base.Services
             {
                 using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
                 {
-                    HttpResponseMessage response = await client.GetAsync("/api/notifications");
+                    HttpResponseMessage response = await client.GetAsync("/api/services/notifications");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
