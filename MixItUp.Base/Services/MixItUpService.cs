@@ -47,6 +47,7 @@ namespace MixItUp.Base.Services
         Task<List<NotificationModel>> GetNotifications();
         bool HasUnreadNotifications { get; }
         void MarkNotificationsAsRead();
+        Task<OutageModel> CheckOutageStatus();
     }
 
     public interface IWebhookService
@@ -703,6 +704,35 @@ namespace MixItUp.Base.Services
                 HasUnreadNotifications = false;
                 NotificationStatusChanged?.Invoke(this, false);
             }
+        }
+
+        public async Task<OutageModel> CheckOutageStatus()
+        {
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    HttpResponseMessage response = await client.GetAsync("api/services/notifications/outage");
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        JObject data = JObject.Parse(json);
+
+                        return new OutageModel
+                        {
+                            Enabled = data["enabled"]?.Value<bool>() ?? false,
+                            Message = data["message"]?.ToString() ?? "",
+                            Severity = data["severity"]?.ToString() ?? "warning"
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Warning, $"Failed to check outage status: {ex.Message}");
+            }
+
+            return new OutageModel { Enabled = false, Message = "", Severity = "warning" };
         }
 
         #region IDisposable Support

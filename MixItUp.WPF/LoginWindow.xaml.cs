@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Windows.Media;
 
 namespace MixItUp.WPF
 {
@@ -23,6 +24,7 @@ namespace MixItUp.WPF
     {
         private MixItUpUpdateModel currentUpdate;
         private bool updateFound = false;
+        private OutageModel currentOutage;
 
         private ThreadSafeObservableCollection<SettingsV3Model> streamerSettings = new ThreadSafeObservableCollection<SettingsV3Model>();
 
@@ -52,6 +54,8 @@ namespace MixItUp.WPF
             }
 
             this.ExistingStreamerComboBox.ItemsSource = streamerSettings;
+
+            await CheckForOutages();
 
             await this.CheckForUpdates();
 
@@ -170,6 +174,42 @@ namespace MixItUp.WPF
             }
         }
 
+        private async Task CheckForOutages()
+        {
+            try
+            {
+                currentOutage = await ServiceManager.Get<MixItUpService>().CheckOutageStatus();
+
+                if (currentOutage != null && currentOutage.Enabled && !string.IsNullOrEmpty(currentOutage.Message))
+                {
+                    OutageBanner.Visibility = Visibility.Visible;
+                    OutageMessage.Text = currentOutage.Message;
+
+                    switch (currentOutage.Severity?.ToLower())
+                    {
+                        case "info":
+                            OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1976D2"));
+                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Information;
+                            break;
+
+                        case "warning":
+                            OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00"));
+                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Warning;
+                            break;
+
+                        case "critical":
+                            OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F"));
+                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.AlertCircle;
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Warning, $"Failed to check for outages: {ex.Message}");
+            }
+        }
+
         private async Task<bool> ExistingSettingLogin(SettingsV3Model setting)
         {
             Result result = await ChannelSession.Connect(setting);
@@ -232,6 +272,10 @@ namespace MixItUp.WPF
         {
             base.OnMouseLeftButtonDown(e);
             this.DragMove();
+        }
+        private void CloseOutageBannerButton_Click(object sender, RoutedEventArgs e)
+        {
+            OutageBanner.Visibility = Visibility.Collapsed;
         }
 
     }
