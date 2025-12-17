@@ -16,16 +16,6 @@
     <local:MainControlBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
-        <Storyboard x:Key="BellBlinkAnimation">
-            <DoubleAnimation
-                AutoReverse="True"
-                RepeatBehavior="10x"
-                Storyboard.TargetProperty="Opacity"
-                From="1.0"
-                To="0.3"
-                Duration="0:0:0.5" />
-        </Storyboard>
-
         <DataTemplate x:Key="DragAdornerTemplate">
             <Border
                 Padding="12,8"
@@ -218,14 +208,27 @@
                                             Icon="LanDisconnect"
                                             Visibility="Collapsed" />
 
-                                        <Controls:IconButton
-                                            x:Name="NotificationButton"
-                                            Margin="5,0,0,0"
-                                            HorizontalAlignment="Center"
-                                            Click="NotificationButton_Click"
-                                            Icon="Bell"
-                                            Style="{StaticResource MaterialDesignRaisedButton}"
-                                            ToolTip="{x:Static resx:Resources.Notifications}" />
+                                        <Grid Margin="5,0,0,0">
+                                            <Controls:IconButton
+                                                x:Name="NotificationButton"
+                                                HorizontalAlignment="Center"
+                                                Click="NotificationButton_Click"
+                                                Icon="Bell"
+                                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                                ToolTip="{x:Static resx:Resources.Notifications}" />
+
+                                            <Ellipse
+                                                x:Name="NotificationDot"
+                                                Width="10"
+                                                Height="10"
+                                                Margin="0,6,6,0"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Fill="#F44336"
+                                                Stroke="White"
+                                                StrokeThickness="2"
+                                                Visibility="Collapsed" />
+                                        </Grid>
 
                                         <Popup
                                             x:Name="NotificationPopup"

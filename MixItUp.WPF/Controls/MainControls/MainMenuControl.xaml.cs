@@ -366,16 +366,7 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private void NotificationCenter_UnreadStatusChanged(object sender, bool hasUnread)
         {
-            if (hasUnread)
-            {
-                NotificationButton.Icon = PackIconKind.BellBadge;
-                ((Storyboard)this.Resources["BellBlinkAnimation"]).Begin(NotificationButton);
-            }
-            else
-            {
-                NotificationButton.Icon = PackIconKind.Bell;
-                NotificationButton.Opacity = 1.0;
-            }
+            NotificationDot.Visibility = hasUnread ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
