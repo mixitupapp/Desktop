@@ -23,7 +23,7 @@ namespace MixItUp.Base.Model.User.Platform
 
         private static readonly HashSet<string> NonApplicableSpecialtyBadges = new HashSet<string>
         {
-            "admin", "artist-badge", "broadcaster", "extension", "founder", "global_mod", "moderator", "staff", "subscriber", "twitchbot", "vip"
+            "admin", "artist-badge", "broadcaster", "extension", "founder", "global_mod", "moderator", "lead_moderator", "staff", "subscriber", "twitchbot", "vip"
         };
 
         [DataMember]
@@ -324,7 +324,7 @@ namespace MixItUp.Base.Model.User.Platform
 
             if (this.HasNewTwitchBadge("admin") || this.HasNewTwitchBadge("staff")) { this.Roles.Add(UserRoleEnum.TwitchStaff); } else { this.Roles.Remove(UserRoleEnum.TwitchStaff); }
             if (this.HasNewTwitchBadge("global_mod")) { this.Roles.Add(UserRoleEnum.TwitchGlobalMod); } else { this.Roles.Remove(UserRoleEnum.TwitchGlobalMod); }
-            if (this.HasNewTwitchBadge("moderator")) { this.Roles.Add(UserRoleEnum.Moderator); } else { this.Roles.Remove(UserRoleEnum.Moderator); }
+            if (this.HasNewTwitchBadge("moderator") || this.HasNewTwitchBadge("lead_moderator")) { this.Roles.Add(UserRoleEnum.Moderator); } else { this.Roles.Remove(UserRoleEnum.Moderator); }
             if (this.IsTwitchSubscriber)
             {
                 this.Roles.Add(UserRoleEnum.Subscriber);
@@ -340,7 +340,11 @@ namespace MixItUp.Base.Model.User.Platform
             else if (this.HasNewTwitchBadge("admin")) { this.NewRoleBadge = this.GetNewTwitchBadgeURL("admin"); }
             else if (this.HasNewTwitchBadge("extension")) { this.NewRoleBadge = this.GetNewTwitchBadgeURL("extension"); }
             else if (this.HasNewTwitchBadge("twitchbot")) { this.NewRoleBadge = this.GetNewTwitchBadgeURL("twitchbot"); }
-            else if (this.Roles.Contains(UserRoleEnum.Moderator)) { this.NewRoleBadge = this.GetNewTwitchBadgeURL("moderator"); }
+            else if (this.Roles.Contains(UserRoleEnum.Moderator))
+            {
+                if (this.HasNewTwitchBadge("lead_moderator")) { this.NewRoleBadge = this.GetNewTwitchBadgeURL("lead_moderator"); }
+                else { this.NewRoleBadge = this.GetNewTwitchBadgeURL("moderator"); }
+            }
             else if (this.Roles.Contains(UserRoleEnum.TwitchVIP)) { this.NewRoleBadge = this.GetNewTwitchBadgeURL("vip"); }
             else if (this.HasNewTwitchBadge("artist-badge")) { this.NewRoleBadge = this.GetNewTwitchBadgeURL("artist-badge"); }
             else { this.NewRoleBadge = null; }
