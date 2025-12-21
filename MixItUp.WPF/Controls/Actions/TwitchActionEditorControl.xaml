@@ -50,28 +50,40 @@
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowClipsGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.IncludeDelay}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-            <ToggleButton Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding ClipIncludeDelay}" />
+            <Grid Grid.Row="0" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowInfoInChat}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-            <ToggleButton Grid.Column="6" VerticalAlignment="Center" IsChecked="{Binding ShowInfoInChat}" />
+                <TextBox Grid.Column="0" Text="{Binding ClipTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding ClipDuration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </Grid>
 
-            <TextBlock Grid.Column="8" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <TextBox Grid.Column="10" VerticalAlignment="Center" Text="$clipurl" Style="{StaticResource TextBoxReadOnlySelectable}" />
+            <Grid Grid.Row="2" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowInfoInChat}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
+                <ToggleButton Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding ShowInfoInChat}" />
+
+                <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <TextBox Grid.Column="6" VerticalAlignment="Center" Text="$clipurl" Style="{StaticResource TextBoxReadOnlySelectable}" />
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowStreamMarkerGrid, Converter={StaticResource BooleanToVisibilityConverter}}">

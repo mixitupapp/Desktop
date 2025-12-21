@@ -11085,4 +11085,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="SelectPreviousVoice" xml:space="preserve">
     <value>Select Previous Voice</value>
   </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>Clip duration must be between 5 and 60 seconds.</value>
+  </data>
 </root>
