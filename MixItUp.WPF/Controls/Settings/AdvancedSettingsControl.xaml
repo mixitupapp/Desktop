@@ -27,6 +27,17 @@
                 <TextBlock Grid.Column="2" Text="{Binding AutomaticBackupLocationFolderPath}" HorizontalAlignment="Right" />
             </Grid>
 
+            <Grid Margin="20, 10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="275" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Check missing file paths in commands:" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" />
+                <Button Grid.Column="2" Content="Check Paths" Click="MissingFilesButton_Click" Width="175" Height="40" />
+            </Grid>
+
             <Separator Margin="10" />
 
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding PreviewProgram}" />
@@ -35,16 +46,6 @@
 
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding InstallationFolder}" />
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding DiagnosticLogging}" />
-
-            <Grid Margin="0,5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" Text="Missing Files Check" />
-                <Button Grid.Column="1" Content="Check" Click="ValidateFilePathsButton_Click" Width="125" />
-            </Grid>
-
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding RunNewUserWizard}" />
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding DeleteSettings}" />
         </StackPanel>

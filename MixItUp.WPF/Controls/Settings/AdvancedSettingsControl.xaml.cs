@@ -31,7 +31,7 @@ namespace MixItUp.WPF.Controls.Settings
             await this.InitializeInternal();
         }
 
-        private void ValidateFilePathsButton_Click(object sender, RoutedEventArgs e)
+        private void MissingFilesButton_Click(object sender, RoutedEventArgs e)
         {
             MissingFilesCheckWindow window = new MissingFilesCheckWindow();
             window.Show();
