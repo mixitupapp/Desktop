@@ -6,6 +6,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using System.IO;
+using MixItUp.Base.Util;
+using System.Threading.Tasks;
+using MixItUp.Base.Model.Commands;
 
 namespace MixItUp.Base.ViewModel.MissingFilesCheck
 {
@@ -27,6 +30,7 @@ namespace MixItUp.Base.ViewModel.MissingFilesCheck
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Status));
                 NotifyPropertyChanged(nameof(IsValid));
+                _ = AsyncRunner.RunAsync(() => new MissingFilesCheckService().SaveCommand(Reference.Command));
             }
         }
 

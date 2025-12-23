@@ -214,8 +214,7 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn
                             Width="*"
-                            MinWidth="300"
-                            Binding="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Binding="{Binding FilePath, Mode=TwoWay}"
                             Header="File Path">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
@@ -257,8 +256,7 @@
                     MaterialDesign:HintAssist.Hint="Select a path"
                     FontSize="12"
                     IsEnabled="{Binding HasSelectedItem}"
-                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding SelectedItem.FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding SelectedItem.FilePath, Mode=TwoWay}" />
                 <Button
                     Grid.Column="4"
                     Height="36"
