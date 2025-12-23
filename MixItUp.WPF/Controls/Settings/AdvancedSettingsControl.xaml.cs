@@ -1,5 +1,8 @@
 ﻿using MixItUp.Base.ViewModel.Settings;
+using MixItUp.WPF.Windows.MissingFilesCheck;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace MixItUp.WPF.Controls.Settings
 {
@@ -26,6 +29,12 @@ namespace MixItUp.WPF.Controls.Settings
         protected override async Task OnVisibilityChanged()
         {
             await this.InitializeInternal();
+        }
+
+        private void ValidateFilePathsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MissingFilesCheckWindow window = new MissingFilesCheckWindow();
+            window.Show();
         }
     }
 }

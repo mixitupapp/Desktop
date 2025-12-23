@@ -35,6 +35,16 @@
 
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding InstallationFolder}" />
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding DiagnosticLogging}" />
+
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" Text="Missing Files Check" />
+                <Button Grid.Column="1" Content="Check" Click="ValidateFilePathsButton_Click" Width="125" />
+            </Grid>
+
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding RunNewUserWizard}" />
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding DeleteSettings}" />
         </StackPanel>
