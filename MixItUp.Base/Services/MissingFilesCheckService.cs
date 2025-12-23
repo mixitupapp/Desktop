@@ -3,11 +3,9 @@ using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Overlay;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using MixItUp.Base.Util;
-using MixItUp.Base;
 
 namespace MixItUp.Base.Services
 {
@@ -226,15 +224,6 @@ namespace MixItUp.Base.Services
                 references.Add(reference);
             }
         }
-
-        public async Task SaveCommand(CommandModelBase command)
-        {
-            if (command == null) return;
-            ChannelSession.Settings.Commands.ManualValueChanged(command.ID);
-            await ServiceManager.Get<IDatabaseService>().BulkWrite(
-                ChannelSession.Settings.DatabaseFilePath,
-                "REPLACE INTO Commands(ID, TypeID, Data) VALUES($ID, $TypeID, $Data)",
-                new List<Dictionary<string, object>>() { new Dictionary<string, object>() { { "$ID", command.ID.ToString() }, { "$TypeID", (int)command.Type }, { "$Data", JSONSerializerHelper.SerializeToString(command) } } });
-        }
+ 
     }
 }

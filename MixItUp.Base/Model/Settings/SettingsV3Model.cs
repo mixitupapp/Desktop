@@ -1046,6 +1046,16 @@ namespace MixItUp.Base.Model.Settings
             await ServiceManager.Get<IDatabaseService>().CompressDb(this.DatabaseFilePath);
         }
 
+        public async Task SaveMissingFilesCheckCommand(CommandModelBase command)
+        {
+            if (command == null) return;
+            this.Commands.ManualValueChanged(command.ID);
+            await ServiceManager.Get<IDatabaseService>().BulkWrite(
+                this.DatabaseFilePath,
+                "REPLACE INTO Commands(ID, TypeID, Data) VALUES($ID, $TypeID, $Data)",
+                new List<Dictionary<string, object>>() { new Dictionary<string, object>() { { "$ID", command.ID.ToString() }, { "$TypeID", (int)command.Type }, { "$Data", JSONSerializerHelper.SerializeToString(command) } } });
+        }
+
         public async Task<IEnumerable<UserV2Model>> LoadUserV2Data(string query, Dictionary<string, object> parameters)
         {
             List<UserV2Model> results = new List<UserV2Model>();
