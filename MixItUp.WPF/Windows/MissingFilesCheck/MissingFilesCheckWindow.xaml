@@ -287,7 +287,6 @@
                     Height="36"
                     Padding="12,0"
                     Command="{Binding LocateMissingFilesCommand}"
-                    IsEnabled="True"
                     Style="{StaticResource MaterialDesignOutlinedButton}">
                     <StackPanel Orientation="Horizontal">
                         <MaterialDesign:PackIcon

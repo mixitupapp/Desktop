@@ -19,9 +19,7 @@ namespace MixItUp.Base.Services
     public class MissingFilesCheckReference
     {
         public CommandModelBase Command { get; set; }
-        public ActionModelBase Action { get; set; }
         public string ActionTypeName { get; set; }
-        public string PropertyName { get; set; }
         public string FilePath { get; set; }
         public MissingFilesCheckStatus Status { get; set; }
         public Action<string> UpdatePath { get; set; }
@@ -101,7 +99,7 @@ namespace MixItUp.Base.Services
         {
             List<MissingFilesCheckReference> references = new List<MissingFilesCheckReference>();
 
-            foreach (CommandModelBase command in ServiceManager.Get<CommandService>().AllCommands)
+            foreach (CommandModelBase command in ChannelSession.Settings.Commands.Values)
             {
                 ScanActions(command, command.Actions, references);
             }
@@ -141,82 +139,81 @@ namespace MixItUp.Base.Services
                 switch (action)
                 {
                     case SoundActionModel soundAction:
-                        AddReference(references, command, action, "Sound", "FilePath", soundAction.FilePath, p => soundAction.FilePath = p);
+                        AddReference(references, command, "Sound", soundAction.FilePath, p => soundAction.FilePath = p);
                         break;
 
                     case FileActionModel fileAction:
-                        AddReference(references, command, action, "File", "FilePath", fileAction.FilePath, p => fileAction.FilePath = p);
+                        AddReference(references, command, "File", fileAction.FilePath, p => fileAction.FilePath = p);
                         break;
 
                     case ExternalProgramActionModel externalAction:
-                        AddReference(references, command, action, "External Program", "FilePath", externalAction.FilePath, p => externalAction.FilePath = p);
+                        AddReference(references, command, "External Program", externalAction.FilePath, p => externalAction.FilePath = p);
                         break;
 
                     case StreamingSoftwareActionModel streamingAction:
-                        AddReference(references, command, action, "Streaming Software", "SourceURL", streamingAction.SourceURL, p => streamingAction.SourceURL = p);
-                        AddReference(references, command, action, "Streaming Software", "SourceTextFilePath", streamingAction.SourceTextFilePath, p => streamingAction.SourceTextFilePath = p);
+                        AddReference(references, command, "Streaming Software", streamingAction.SourceURL, p => streamingAction.SourceURL = p);
+                        AddReference(references, command, "Streaming Software", streamingAction.SourceTextFilePath, p => streamingAction.SourceTextFilePath = p);
                         break;
 
                     case MusicPlayerActionModel musicAction:
-                        AddReference(references, command, action, "Music Player", "FolderPath", musicAction.FolderPath, p => musicAction.FolderPath = p);
+                        AddReference(references, command, "Music Player", musicAction.FolderPath, p => musicAction.FolderPath = p);
                         break;
 
                     case DiscordActionModel discordAction:
                         if (discordAction.ActionType == DiscordActionTypeEnum.SendMessage)
                         {
-                            AddReference(references, command, action, "Discord", "FilePath", discordAction.FilePath, p => discordAction.FilePath = p);
+                            AddReference(references, command, "Discord", discordAction.FilePath, p => discordAction.FilePath = p);
                         }
                         break;
 
                     case VTSPogActionModel vtsPogAction:
                         if (vtsPogAction.ActionType == VTSPogActionTypeEnum.PlayAudioFile)
                         {
-                            AddReference(references, command, action, "VTS Pog", "AudioFilePath", vtsPogAction.AudioFilePath, p => vtsPogAction.AudioFilePath = p);
+                            AddReference(references, command, "VTS Pog", vtsPogAction.AudioFilePath, p => vtsPogAction.AudioFilePath = p);
                         }
                         break;
 
                     case OverlayActionModel overlayAction:
                         if (overlayAction.OverlayItemV3 != null)
                         {
-                            ScanOverlayItem(command, action, overlayAction.OverlayItemV3, references);
+                            ScanOverlayItem(command, overlayAction.OverlayItemV3, references);
                         }
                         break;
 
                     case GroupActionModel groupAction:
+                        // This handles Group, Conditional, Random, and Repeat actions (they all inherit from GroupActionModel)
                         ScanActions(command, groupAction.Actions, references);
                         break;
                 }
             }
         }
 
-        private void ScanOverlayItem(CommandModelBase command, ActionModelBase action, OverlayItemV3ModelBase overlayItem, List<MissingFilesCheckReference> references)
+        private void ScanOverlayItem(CommandModelBase command, OverlayItemV3ModelBase overlayItem, List<MissingFilesCheckReference> references)
         {
             switch (overlayItem)
             {
                 case OverlayVideoV3Model videoItem:
-                    AddReference(references, command, action, "Overlay Video", "FilePath", videoItem.FilePath, p => videoItem.FilePath = p);
+                    AddReference(references, command, "Overlay Video", videoItem.FilePath, p => videoItem.FilePath = p);
                     break;
 
                 case OverlaySoundV3Model soundItem:
-                    AddReference(references, command, action, "Overlay Sound", "FilePath", soundItem.FilePath, p => soundItem.FilePath = p);
+                    AddReference(references, command, "Overlay Sound", soundItem.FilePath, p => soundItem.FilePath = p);
                     break;
 
                 case OverlayImageV3Model imageItem:
-                    AddReference(references, command, action, "Overlay Image", "FilePath", imageItem.FilePath, p => imageItem.FilePath = p);
+                    AddReference(references, command, "Overlay Image", imageItem.FilePath, p => imageItem.FilePath = p);
                     break;
             }
         }
 
-        private void AddReference(List<MissingFilesCheckReference> references, CommandModelBase command, ActionModelBase action, string actionTypeName, string propertyName, string filePath, Action<string> updateAction)
+        private void AddReference(List<MissingFilesCheckReference> references, CommandModelBase command, string actionTypeName, string filePath, Action<string> updateAction)
         {
             if (!string.IsNullOrEmpty(filePath))
             {
                 var reference = new MissingFilesCheckReference
                 {
                     Command = command,
-                    Action = action,
                     ActionTypeName = actionTypeName,
-                    PropertyName = propertyName,
                     FilePath = filePath,
                     UpdatePath = updateAction
                 };
