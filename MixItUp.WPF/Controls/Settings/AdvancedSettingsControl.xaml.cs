@@ -33,10 +33,11 @@ namespace MixItUp.WPF.Controls.Settings
 
         private async void MissingFilesButton_Click(object sender, RoutedEventArgs e)
         {
-            if (await DialogHelper.ShowConfirmation("Before you continue, we recommend creating a backup of your profile using the Backup Settings button above. Continue?"))
+            if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.MissingFilesCheckDialog))
             {
                 MissingFilesCheckWindow window = new MissingFilesCheckWindow();
                 window.Show();
+                window.Activate();
             }
         }
     }

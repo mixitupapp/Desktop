@@ -11088,4 +11088,52 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="TwitchClipDurationLimits" xml:space="preserve">
     <value>Clip duration must be between 5 and 60 seconds.</value>
   </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>Before you continue, we recommend creating a backup of your profile using the Backup Settings button above. Continue?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>Check missing file paths in commands:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>Check Paths</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>Missing Files Check</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>Show all paths</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>Show valid paths</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>Show warning paths</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>Show missing paths</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>Rescan</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Action Type</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>Selected Path:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>Select a path</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>Search Folder</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Replace All</value>
+  </data>
 </root>

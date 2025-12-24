@@ -24,7 +24,7 @@ namespace MixItUp.Base.Services
         public MissingFilesCheckStatus Status { get; set; }
         public Action<string> UpdatePath { get; set; }
 
-        public string CommandName => Command?.Name ?? "Unknown";
+        public string CommandName => Command?.Name ?? MixItUp.Base.Resources.Unknown;
 
         public void Validate()
         {
@@ -139,37 +139,37 @@ namespace MixItUp.Base.Services
                 switch (action)
                 {
                     case SoundActionModel soundAction:
-                        AddReference(references, command, "Sound", soundAction.FilePath, p => soundAction.FilePath = p);
+                        AddReference(references, command, MixItUp.Base.Resources.Sound, soundAction.FilePath, p => soundAction.FilePath = p);
                         break;
 
                     case FileActionModel fileAction:
-                        AddReference(references, command, "File", fileAction.FilePath, p => fileAction.FilePath = p);
+                        AddReference(references, command, MixItUp.Base.Resources.FileReadAndWrite, fileAction.FilePath, p => fileAction.FilePath = p);
                         break;
 
                     case ExternalProgramActionModel externalAction:
-                        AddReference(references, command, "External Program", externalAction.FilePath, p => externalAction.FilePath = p);
+                        AddReference(references, command, MixItUp.Base.Resources.ExternalProgram, externalAction.FilePath, p => externalAction.FilePath = p);
                         break;
 
                     case StreamingSoftwareActionModel streamingAction:
-                        AddReference(references, command, "Streaming Software", streamingAction.SourceURL, p => streamingAction.SourceURL = p);
-                        AddReference(references, command, "Streaming Software", streamingAction.SourceTextFilePath, p => streamingAction.SourceTextFilePath = p);
+                        AddReference(references, command, MixItUp.Base.Resources.StreamingSoftware, streamingAction.SourceURL, p => streamingAction.SourceURL = p);
+                        AddReference(references, command, MixItUp.Base.Resources.StreamingSoftware, streamingAction.SourceTextFilePath, p => streamingAction.SourceTextFilePath = p);
                         break;
 
                     case MusicPlayerActionModel musicAction:
-                        AddReference(references, command, "Music Player", musicAction.FolderPath, p => musicAction.FolderPath = p);
+                        AddReference(references, command, MixItUp.Base.Resources.MusicPlayer, musicAction.FolderPath, p => musicAction.FolderPath = p);
                         break;
 
                     case DiscordActionModel discordAction:
                         if (discordAction.ActionType == DiscordActionTypeEnum.SendMessage)
                         {
-                            AddReference(references, command, "Discord", discordAction.FilePath, p => discordAction.FilePath = p);
+                            AddReference(references, command, MixItUp.Base.Resources.Discord, discordAction.FilePath, p => discordAction.FilePath = p);
                         }
                         break;
 
                     case VTSPogActionModel vtsPogAction:
                         if (vtsPogAction.ActionType == VTSPogActionTypeEnum.PlayAudioFile)
                         {
-                            AddReference(references, command, "VTS Pog", vtsPogAction.AudioFilePath, p => vtsPogAction.AudioFilePath = p);
+                            AddReference(references, command, MixItUp.Base.Resources.VTSPog, vtsPogAction.AudioFilePath, p => vtsPogAction.AudioFilePath = p);
                         }
                         break;
 
@@ -181,9 +181,11 @@ namespace MixItUp.Base.Services
                         break;
 
                     case GroupActionModel groupAction:
-                        // This handles Group, Conditional, Random, and Repeat actions (they all inherit from GroupActionModel)
+                        // Group, Conditional, Random, and Repeat actions (they all inherit from GroupActionModel)
                         ScanActions(command, groupAction.Actions, references);
                         break;
+
+                    // to do: find a better way instead of hardcoding each action model. 
                 }
             }
         }
@@ -193,15 +195,15 @@ namespace MixItUp.Base.Services
             switch (overlayItem)
             {
                 case OverlayVideoV3Model videoItem:
-                    AddReference(references, command, "Overlay Video", videoItem.FilePath, p => videoItem.FilePath = p);
+                    AddReference(references, command, MixItUp.Base.Resources.Overlay, videoItem.FilePath, p => videoItem.FilePath = p);
                     break;
 
                 case OverlaySoundV3Model soundItem:
-                    AddReference(references, command, "Overlay Sound", soundItem.FilePath, p => soundItem.FilePath = p);
+                    AddReference(references, command, MixItUp.Base.Resources.Overlay, soundItem.FilePath, p => soundItem.FilePath = p);
                     break;
 
                 case OverlayImageV3Model imageItem:
-                    AddReference(references, command, "Overlay Image", imageItem.FilePath, p => imageItem.FilePath = p);
+                    AddReference(references, command, MixItUp.Base.Resources.Overlay, imageItem.FilePath, p => imageItem.FilePath = p);
                     break;
             }
         }

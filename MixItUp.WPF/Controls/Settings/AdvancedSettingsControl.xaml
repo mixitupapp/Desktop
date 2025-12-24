@@ -41,8 +41,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="Check missing file paths in commands:" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" />
-                <Button Grid.Column="2" Content="Check Paths" Click="MissingFilesButton_Click" Width="175" Height="40" />
+                <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.MissingFilesCheckDescription}" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" />
+                <Button Grid.Column="2" Content="{x:Static resx:Resources.MissingFilesCheckPaths}" Click="MissingFilesButton_Click" Width="175" Height="40" />
             </Grid>
 
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding InstallationFolder}" />

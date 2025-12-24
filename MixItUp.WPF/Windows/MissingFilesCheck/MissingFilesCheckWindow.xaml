@@ -8,7 +8,8 @@
     xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Missing Files Check"
+    xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+    Title="{x:Static resx:Resources.MissingFilesCheck}"
     Width="1100"
     Height="700"
     MinWidth="900"
@@ -49,7 +50,7 @@
                     SelectedIndex="{Binding SelectedFilterIndex}"
                     Style="{StaticResource MaterialDesignChoiceChipSecondaryOutlineListBox}">
 
-                    <ListBoxItem ToolTip="Show all paths">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowAllPaths}">
                         <StackPanel Orientation="Horizontal">
                             <MaterialDesign:PackIcon
                                 Width="16"
@@ -66,7 +67,7 @@
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem ToolTip="Show valid paths">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowValidPaths}">
                         <StackPanel Orientation="Horizontal">
                             <MaterialDesign:PackIcon
                                 Width="16"
@@ -83,7 +84,7 @@
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem ToolTip="Show warning paths">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowWarningPaths}">
                         <StackPanel Orientation="Horizontal">
                             <MaterialDesign:PackIcon
                                 Width="16"
@@ -100,7 +101,7 @@
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem ToolTip="Show missing paths">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowMissingPaths}">
                         <StackPanel Orientation="Horizontal">
                             <MaterialDesign:PackIcon
                                 Width="16"
@@ -129,7 +130,7 @@
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
                             Kind="Refresh" />
-                        <TextBlock VerticalAlignment="Center" Text="Rescan" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.Rescan}" />
                     </StackPanel>
                 </Button>
             </Grid>
@@ -158,7 +159,7 @@
                     <DataGrid.Columns>
                         <DataGridTemplateColumn
                             Width="80"
-                            Header="Status"
+                            Header="{x:Static resx:Resources.Status}"
                             IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -192,7 +193,7 @@
                         <DataGridTextColumn
                             Width="180"
                             Binding="{Binding CommandName}"
-                            Header="Command"
+                            Header="{x:Static resx:Resources.Command}"
                             IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
@@ -204,7 +205,7 @@
                         <DataGridTextColumn
                             Width="140"
                             Binding="{Binding ActionType}"
-                            Header="Action Type"
+                            Header="{x:Static resx:Resources.ActionType}"
                             IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
@@ -215,7 +216,7 @@
                         <DataGridTextColumn
                             Width="*"
                             Binding="{Binding FilePath, Mode=TwoWay}"
-                            Header="File Path">
+                            Header="{x:Static resx:Resources.FilePath}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="VerticalAlignment" Value="Center" />
@@ -248,12 +249,12 @@
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     FontWeight="Medium"
-                    Text="Selected Path:" />
+                    Text="{x:Static resx:Resources.SelectedPath}" />
                 <TextBox
                     Grid.Column="2"
                     Padding="8,6"
                     VerticalAlignment="Center"
-                    MaterialDesign:HintAssist.Hint="Select a path"
+                    MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SelectAPath}"
                     FontSize="12"
                     IsEnabled="{Binding HasSelectedItem}"
                     Text="{Binding SelectedItem.FilePath, Mode=TwoWay}" />
@@ -271,7 +272,7 @@
                             Margin="0,0,6,0"
                             VerticalAlignment="Center"
                             Kind="FolderOpen" />
-                        <TextBlock VerticalAlignment="Center" Text="Browse" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.Browse}" />
                     </StackPanel>
                 </Button>
 
@@ -295,7 +296,7 @@
                             Margin="0,0,6,0"
                             VerticalAlignment="Center"
                             Kind="FolderSearch" />
-                        <TextBlock VerticalAlignment="Center" Text="Search Folder" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.SearchFolder}" />
                     </StackPanel>
                 </Button>
             </Grid>
@@ -317,7 +318,7 @@
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     FontWeight="Medium"
-                    Text="Search:" />
+                    Text="{x:Static resx:Resources.Search}" />
                 <TextBox
                     Grid.Column="2"
                     Padding="8,6"
@@ -331,7 +332,7 @@
                     Grid.Column="4"
                     VerticalAlignment="Center"
                     FontWeight="Medium"
-                    Text="Replace:" />
+                    Text="{x:Static resx:Resources.Replace}" />
                 <TextBox
                     Grid.Column="6"
                     Padding="8,6"
@@ -354,7 +355,7 @@
                             Margin="0,0,6,0"
                             VerticalAlignment="Center"
                             Kind="FindReplace" />
-                        <TextBlock VerticalAlignment="Center" Text="Replace All" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.ReplaceAll}" />
                     </StackPanel>
                 </Button>
             </Grid>
