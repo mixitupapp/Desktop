@@ -1,4 +1,5 @@
-﻿using MixItUp.Base;
+﻿using MaterialDesignThemes.Wpf;
+using MixItUp.Base;
 using MixItUp.Base.Model.API;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -76,7 +77,7 @@ namespace MixItUp.WPF.Controls
                         Id = notif.Id.ToString(),
                         Title = notif.Title,
                         Message = notif.Message,
-                        Icon = notif.Icon,
+                        Icon = ValidateIconName(notif.Icon),
                         IconColor = new SolidColorBrush(color),
                         TimeAgo = notifTime,
                         Url = notif.Url,
@@ -101,6 +102,28 @@ namespace MixItUp.WPF.Controls
             DateTime utcTimestamp = DateTime.SpecifyKind(timestamp, DateTimeKind.Utc);
             DateTime localTime = utcTimestamp.ToLocalTime();
             return localTime.ToString("g", CultureInfo.CurrentCulture);
+        }
+
+        private string ValidateIconName(string iconName)
+        {
+            if (string.IsNullOrEmpty(iconName))
+            {
+                return "Bell";
+            }
+
+            try
+            {
+                if (Enum.TryParse<PackIconKind>(iconName, out _))
+                {
+                    return iconName;
+                }
+            }
+            catch
+            {
+                // If parsing fails, return default Bell icon
+            }
+
+            return "Bell";
         }
 
         private void NotificationItem_MouseEnter(object sender, MouseEventArgs e)
