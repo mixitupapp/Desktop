@@ -59,6 +59,12 @@ namespace MixItUp.WPF
 
             await this.CheckForUpdates();
 
+            if (await Util.BuildExpirationHelper.CheckBuildExpiration())
+            {
+                this.Close();
+                return;
+            }
+
             foreach (SettingsV3Model setting in (await ServiceManager.Get<SettingsService>().GetAllSettings()).OrderBy(s => s.Name))
             {
                 this.streamerSettings.Add(setting);
