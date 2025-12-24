@@ -37,7 +37,6 @@ namespace MixItUp.WPF.Controls.Settings
             {
                 MissingFilesCheckWindow window = new MissingFilesCheckWindow();
                 window.Show();
-                window.Activate();
             }
         }
     }
