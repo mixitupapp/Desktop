@@ -1,8 +1,8 @@
 ﻿using MixItUp.Base.ViewModel.Settings;
+using MixItUp.Base.Util;
 using MixItUp.WPF.Windows.MissingFilesCheck;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace MixItUp.WPF.Controls.Settings
 {
@@ -31,10 +31,13 @@ namespace MixItUp.WPF.Controls.Settings
             await this.InitializeInternal();
         }
 
-        private void MissingFilesButton_Click(object sender, RoutedEventArgs e)
+        private async void MissingFilesButton_Click(object sender, RoutedEventArgs e)
         {
-            MissingFilesCheckWindow window = new MissingFilesCheckWindow();
-            window.Show();
+            if (await DialogHelper.ShowConfirmation("Before you continue, we recommend creating a backup of your profile using the Backup Settings button above. Continue?"))
+            {
+                MissingFilesCheckWindow window = new MissingFilesCheckWindow();
+                window.Show();
+            }
         }
     }
 }

@@ -27,6 +27,13 @@
                 <TextBlock Grid.Column="2" Text="{Binding AutomaticBackupLocationFolderPath}" HorizontalAlignment="Right" />
             </Grid>
 
+
+            <Separator Margin="10" />
+
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding PreviewProgram}" />
+
+            <Separator Margin="10" />
+
             <Grid Margin="20, 10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="275" />
@@ -37,12 +44,6 @@
                 <TextBlock Grid.Column="0" Text="Check missing file paths in commands:" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" />
                 <Button Grid.Column="2" Content="Check Paths" Click="MissingFilesButton_Click" Width="175" Height="40" />
             </Grid>
-
-            <Separator Margin="10" />
-
-            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding PreviewProgram}" />
-
-            <Separator Margin="10" />
 
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding InstallationFolder}" />
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding DiagnosticLogging}" />
