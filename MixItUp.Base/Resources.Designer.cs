@@ -331,6 +331,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Type.
+        /// </summary>
+        public static string ActionType {
+            get {
+                return ResourceManager.GetString("ActionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activate Trigger.
         /// </summary>
         public static string ActivateTrigger {
@@ -14009,6 +14018,42 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing Files Check.
+        /// </summary>
+        public static string MissingFilesCheck {
+            get {
+                return ResourceManager.GetString("MissingFilesCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check missing file paths in commands:.
+        /// </summary>
+        public static string MissingFilesCheckDescription {
+            get {
+                return ResourceManager.GetString("MissingFilesCheckDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Before you continue, we recommend creating a backup of your profile using the Backup Settings button above. Continue?.
+        /// </summary>
+        public static string MissingFilesCheckDialog {
+            get {
+                return ResourceManager.GetString("MissingFilesCheckDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check Paths.
+        /// </summary>
+        public static string MissingFilesCheckPaths {
+            get {
+                return ResourceManager.GetString("MissingFilesCheckPaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing Text.
         /// </summary>
         public static string MissingTextHintWarning {
@@ -19056,6 +19101,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace.
+        /// </summary>
+        public static string Replace {
+            get {
+                return ResourceManager.GetString("Replace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace All.
+        /// </summary>
+        public static string ReplaceAll {
+            get {
+                return ResourceManager.GetString("ReplaceAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replaced.
         /// </summary>
         public static string Replaced {
@@ -19209,6 +19272,15 @@ namespace MixItUp.Base {
         public static string ReRunNewUserWizard {
             get {
                 return ResourceManager.GetString("ReRunNewUserWizard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rescan.
+        /// </summary>
+        public static string Rescan {
+            get {
+                return ResourceManager.GetString("Rescan", resourceCulture);
             }
         }
         
@@ -20343,6 +20415,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Folder.
+        /// </summary>
+        public static string SearchFolder {
+            get {
+                return ResourceManager.GetString("SearchFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search Text.
         /// </summary>
         public static string SearchText {
@@ -20496,6 +20577,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a path.
+        /// </summary>
+        public static string SelectAPath {
+            get {
+                return ResourceManager.GetString("SelectAPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected Campaign.
         /// </summary>
         public static string SelectedCampaign {
@@ -20510,6 +20600,15 @@ namespace MixItUp.Base {
         public static string SelectedFundraiser {
             get {
                 return ResourceManager.GetString("SelectedFundraiser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Path:.
+        /// </summary>
+        public static string SelectedPath {
+            get {
+                return ResourceManager.GetString("SelectedPath", resourceCulture);
             }
         }
         
@@ -21119,6 +21218,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show all paths.
+        /// </summary>
+        public static string ShowAllPaths {
+            get {
+                return ResourceManager.GetString("ShowAllPaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show BetterTTV Emotes (Requires Restart).
         /// </summary>
         public static string ShowBetterTTVEmotes {
@@ -21277,6 +21385,15 @@ namespace MixItUp.Base {
         public static string ShowMessageTimestamp {
             get {
                 return ResourceManager.GetString("ShowMessageTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show missing paths.
+        /// </summary>
+        public static string ShowMissingPaths {
+            get {
+                return ResourceManager.GetString("ShowMissingPaths", resourceCulture);
             }
         }
         
@@ -21457,6 +21574,24 @@ namespace MixItUp.Base {
         public static string ShowUserJoinLeave {
             get {
                 return ResourceManager.GetString("ShowUserJoinLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show valid paths.
+        /// </summary>
+        public static string ShowValidPaths {
+            get {
+                return ResourceManager.GetString("ShowValidPaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show warning paths.
+        /// </summary>
+        public static string ShowWarningPaths {
+            get {
+                return ResourceManager.GetString("ShowWarningPaths", resourceCulture);
             }
         }
         
@@ -22090,6 +22225,15 @@ namespace MixItUp.Base {
         public static string Statistics {
             get {
                 return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         

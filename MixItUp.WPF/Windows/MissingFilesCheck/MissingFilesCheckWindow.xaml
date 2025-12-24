@@ -1,0 +1,364 @@
+<Window
+    x:Class="MixItUp.WPF.Windows.MissingFilesCheck.MissingFilesCheckWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:Services="clr-namespace:MixItUp.Base.Services;assembly=MixItUp.Base"
+    xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+    Title="{x:Static resx:Resources.MissingFilesCheck}"
+    Width="1100"
+    Height="700"
+    MinWidth="900"
+    MinHeight="600"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    Icon="./../../Logo.ico"
+    Style="{StaticResource MaterialDesignWindow}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    mc:Ignorable="d">
+
+    <Grid>
+
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <ListBox
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    SelectedIndex="{Binding SelectedFilterIndex}"
+                    Style="{StaticResource MaterialDesignChoiceChipSecondaryOutlineListBox}">
+
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowAllPaths}">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon
+                                Width="16"
+                                Height="16"
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                Kind="FileMultiple"
+                                Opacity="0.7" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Opacity="0.7"
+                                Text="{Binding TotalCount}" />
+                        </StackPanel>
+                    </ListBoxItem>
+
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowValidPaths}">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon
+                                Width="16"
+                                Height="16"
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                Foreground="#4CAF50"
+                                Kind="CheckCircleOutline" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Foreground="#4CAF50"
+                                Text="{Binding ValidCount}" />
+                        </StackPanel>
+                    </ListBoxItem>
+
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowWarningPaths}">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon
+                                Width="16"
+                                Height="16"
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                Foreground="#FFA500"
+                                Kind="AlertCircleOutline" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Foreground="#FFA500"
+                                Text="{Binding WarningCount}" />
+                        </StackPanel>
+                    </ListBoxItem>
+
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowMissingPaths}">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon
+                                Width="16"
+                                Height="16"
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                Foreground="#F44336"
+                                Kind="CloseCircleOutline" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Foreground="#F44336"
+                                Text="{Binding InvalidCount}" />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+
+                <Button
+                    Grid.Column="2"
+                    Height="36"
+                    Padding="16,0"
+                    Command="{Binding ScanCommand}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            Kind="Refresh" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.Rescan}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <Border
+                Grid.Row="2"
+                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                BorderThickness="1"
+                CornerRadius="4">
+                <DataGrid
+                    AutoGenerateColumns="False"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    CanUserAddRows="False"
+                    CanUserDeleteRows="False"
+                    ColumnHeaderHeight="36"
+                    GridLinesVisibility="Horizontal"
+                    HeadersVisibility="Column"
+                    HorizontalScrollBarVisibility="Auto"
+                    IsReadOnly="False"
+                    ItemsSource="{Binding FilteredItems}"
+                    RowHeight="34"
+                    SelectedItem="{Binding SelectedItem}"
+                    SelectionMode="Single"
+                    VerticalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn
+                            Width="80"
+                            Header="{x:Static resx:Resources.Status}"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <MaterialDesign:PackIcon
+                                        Width="20"
+                                        Height="20"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                        <MaterialDesign:PackIcon.Style>
+                                            <Style TargetType="MaterialDesign:PackIcon">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static Services:MissingFilesCheckStatus.Valid}">
+                                                        <Setter Property="Kind" Value="CheckCircle" />
+                                                        <Setter Property="Foreground" Value="#4CAF50" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static Services:MissingFilesCheckStatus.Warning}">
+                                                        <Setter Property="Kind" Value="AlertCircle" />
+                                                        <Setter Property="Foreground" Value="#FFA500" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="{x:Static Services:MissingFilesCheckStatus.Invalid}">
+                                                        <Setter Property="Kind" Value="CloseCircle" />
+                                                        <Setter Property="Foreground" Value="#F44336" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MaterialDesign:PackIcon.Style>
+                                    </MaterialDesign:PackIcon>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn
+                            Width="180"
+                            Binding="{Binding CommandName}"
+                            Header="{x:Static resx:Resources.Command}"
+                            IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Width="140"
+                            Binding="{Binding ActionType}"
+                            Header="{x:Static resx:Resources.ActionType}"
+                            IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding FilePath, Mode=TwoWay}"
+                            Header="{x:Static resx:Resources.FilePath}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                    <Setter Property="ToolTip" Value="{Binding FilePath}" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.EditingElementStyle>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.EditingElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <Grid Grid.Row="4" Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="32" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    Text="{x:Static resx:Resources.SelectedPath}" />
+                <TextBox
+                    Grid.Column="2"
+                    Padding="8,6"
+                    VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SelectAPath}"
+                    FontSize="12"
+                    IsEnabled="{Binding HasSelectedItem}"
+                    Text="{Binding SelectedItem.FilePath, Mode=TwoWay}" />
+                <Button
+                    Grid.Column="4"
+                    Height="36"
+                    Padding="12,0"
+                    Command="{Binding BrowseCommand}"
+                    IsEnabled="{Binding HasSelectedItem}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon
+                            Width="18"
+                            Height="18"
+                            Margin="0,0,6,0"
+                            VerticalAlignment="Center"
+                            Kind="FolderOpen" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.Browse}" />
+                    </StackPanel>
+                </Button>
+
+                <Border
+                    Grid.Column="5"
+                    Width="1"
+                    Margin="0,4"
+                    VerticalAlignment="Stretch"
+                    Background="{DynamicResource MaterialDesignDivider}" />
+
+                <Button
+                    Grid.Column="6"
+                    Height="36"
+                    Padding="12,0"
+                    Command="{Binding LocateMissingFilesCommand}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon
+                            Width="18"
+                            Height="18"
+                            Margin="0,0,6,0"
+                            VerticalAlignment="Center"
+                            Kind="FolderSearch" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.SearchFolder}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="6" Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    Text="{x:Static resx:Resources.Search}" />
+                <TextBox
+                    Grid.Column="2"
+                    Padding="8,6"
+                    VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="C:\Users\OldName\Sounds"
+                    FontSize="12"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                    Grid.Column="4"
+                    VerticalAlignment="Center"
+                    FontWeight="Medium"
+                    Text="{x:Static resx:Resources.Replace}" />
+                <TextBox
+                    Grid.Column="6"
+                    Padding="8,6"
+                    VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="C:\Users\NewName\Sounds"
+                    FontSize="12"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    Text="{Binding ReplaceText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Button
+                    Grid.Column="8"
+                    Height="36"
+                    Padding="16,0"
+                    Command="{Binding ReplaceAllCommand}"
+                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <MaterialDesign:PackIcon
+                            Width="18"
+                            Height="18"
+                            Margin="0,0,6,0"
+                            VerticalAlignment="Center"
+                            Kind="FindReplace" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.ReplaceAll}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+
