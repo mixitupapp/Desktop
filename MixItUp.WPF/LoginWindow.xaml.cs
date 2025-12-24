@@ -41,6 +41,12 @@ namespace MixItUp.WPF
 
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
             string versionString = "v" + VersionHelper.NormalizeSemVerString(entryVersion);
+            
+            if (Util.BuildExpirationHelper.IsEnabled())
+            {
+                versionString += " -- TEST BUILD --";
+            }
+            
             this.Title += " - " + versionString;
 
             this.VersionTextBlock.Text = versionString;
