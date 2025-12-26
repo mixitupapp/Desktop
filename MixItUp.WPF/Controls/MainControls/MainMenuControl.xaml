@@ -122,7 +122,7 @@
                             DragDrop:DragDrop.UseDefaultEffectDataTemplate="False"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
                             SelectionChanged="MenuItemsListBox_SelectionChanged"
-                            Style="{StaticResource MaterialDesignNavigationPrimaryListBox}">
+                            Style="{StaticResource MaterialDesignNavigationListBox}">
                             <ListBox.Resources>
                                 <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
                             </ListBox.Resources>
