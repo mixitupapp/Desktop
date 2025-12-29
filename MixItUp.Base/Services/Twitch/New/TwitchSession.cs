@@ -772,6 +772,11 @@ namespace MixItUp.Base.Services.Twitch.New
                 parameters.Arguments.Add(sub.User.Username);
             }
 
+            if (!massGiftedSubEvent.IsAnonymous)
+            {
+                massGiftedSubEvent.Gifter.TotalSubsGifted = (uint)massGiftedSubEvent.LifetimeGifted;
+            }
+
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelMassSubscriptionsGifted, parameters);
 
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(massGiftedSubEvent.Gifter, string.Format(MixItUp.Base.Resources.AlertMassSubscriptionsGiftedTier, massGiftedSubEvent.Gifter.FullDisplayName, massGiftedSubEvent.TotalGifted, massGiftedSubEvent.TierName), ChannelSession.Settings.AlertMassGiftedSubColor));
