@@ -181,6 +181,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool HideBotMessages { get; set; }
         [DataMember]
+        public bool HideWhisperMessages { get; set; }
+        [DataMember]
         public HashSet<string> HideSpecificUserMessages { get; set; } = new HashSet<string>();
 
         [DataMember]

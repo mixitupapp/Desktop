@@ -11199,6 +11199,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide Whisper Messages.
+        /// </summary>
+        public static string HideWhisperMessages {
+            get {
+                return ResourceManager.GetString("HideWhisperMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hinge.
         /// </summary>
         public static string Hinge {

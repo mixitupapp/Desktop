@@ -24,6 +24,7 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericToggleSettingsOptionControlViewModel HideChatUserList { get; set; }
         public GenericToggleSettingsOptionControlViewModel HideDeletedMessages { get; set; }
         public GenericToggleSettingsOptionControlViewModel HideBotMessages { get; set; }
+        public GenericToggleSettingsOptionControlViewModel HideWhisperMessages { get; set; }
 
         public GenericToggleSettingsOptionControlViewModel ShowAlejoPronouns { get; set; }
         public GenericToggleSettingsOptionControlViewModel ShowBetterTTVEmotes { get; set; }
@@ -82,6 +83,8 @@ namespace MixItUp.Base.ViewModel.Settings
                 (value) => { ChannelSession.Settings.HideDeletedMessages = value; });
             this.HideBotMessages = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.HideBotMessages, ChannelSession.Settings.HideBotMessages,
                 (value) => { ChannelSession.Settings.HideBotMessages = value; });
+            this.HideWhisperMessages = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.HideWhisperMessages, ChannelSession.Settings.HideWhisperMessages,
+                (value) => { ChannelSession.Settings.HideWhisperMessages = value; });
 
             this.ShowAlejoPronouns = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.ShowAlejoPronouns, ChannelSession.Settings.ShowAlejoPronouns,
                 (value) => { ChannelSession.Settings.ShowAlejoPronouns = value; });

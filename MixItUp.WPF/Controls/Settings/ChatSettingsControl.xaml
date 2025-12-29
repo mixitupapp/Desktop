@@ -30,6 +30,7 @@
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideChatUserList}" />
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideDeletedMessages}" />
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideBotMessages}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideWhisperMessages}" />
 
             <Separator Margin="10" />
 
