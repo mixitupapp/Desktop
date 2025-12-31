@@ -38,7 +38,10 @@ namespace MixItUp.WPF.Services.DeveloperAPI
 
             builder.WebHost.UseUrls(urls);
 
-            builder.Services.AddControllers()
+            builder.Services.AddControllers(options =>
+                {
+                    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+                })
                 .AddApplicationPart(typeof(WindowsDeveloperAPIService).Assembly)
                 .AddJsonOptions(options =>
                 {
