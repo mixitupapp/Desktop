@@ -40,6 +40,11 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
         public async Task<IEnumerable<User>> BulkGet([FromBody] IEnumerable<string> usernamesOrIDs)
         {
             List<User> users = new List<User>();
+            if (usernamesOrIDs == null)
+            {
+                return users;
+            }
+
             foreach (var usernameOrID in usernamesOrIDs)
             {
                 UserV2ViewModel user = await UserV1Controller.GetUserData(ChannelSession.Settings.DefaultStreamingPlatform, usernameOrID);

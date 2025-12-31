@@ -66,6 +66,11 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 return NotFound(new Error { Message = $"Unable to find command: {commandID.ToString()}." });
             }
 
+            if (commandData == null)
+            {
+                return BadRequest(new Error { Message = "Command data is required." });
+            }
+
             selectedCommand.IsEnabled = commandData.IsEnabled;
             return Ok(CommandFromCommandBase(selectedCommand));
         }
