@@ -41,6 +41,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI
             builder.Services.AddControllers(options =>
                 {
                     options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+                    options.AllowEmptyInputInBodyModelBinding = true;
                 })
                 .AddApplicationPart(typeof(WindowsDeveloperAPIService).Assembly)
                 .AddJsonOptions(options =>
