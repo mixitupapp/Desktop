@@ -14,5 +14,8 @@ namespace MixItUp.API.V2.Models
 
         [DataMember]
         public Dictionary<string, string> SpecialIdentifiers { get; set; } = null;
+
+        [DataMember]
+        public bool IgnoreRequirements { get; set; } = false;
     }
 }
