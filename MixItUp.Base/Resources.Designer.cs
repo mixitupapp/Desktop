@@ -18324,6 +18324,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quote Added.
+        /// </summary>
+        public static string QuoteAdded {
+            get {
+                return ResourceManager.GetString("QuoteAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quote Added: .
         /// </summary>
         public static string QuoteAddedHeader {

@@ -418,6 +418,15 @@ namespace MixItUp.Base.Model.Commands
 
                     UserQuoteModel.QuoteAdded(quote);
 
+                    Dictionary<string, string> specialIdentifiers = new Dictionary<string, string>()
+                    {
+                        { UserQuoteModel.QuoteNumberSpecialIdentifier, quote.ID.ToString() },
+                        { UserQuoteModel.QuoteTextSpecialIdentifier, quote.Quote },
+                        { UserQuoteModel.QuoteGameSpecialIdentifier, quote.GameName ?? string.Empty },
+                        { UserQuoteModel.QuoteDateTimeSpecialIdentifier, quote.DateTime.ToString("d") }
+                    };
+                    await ServiceManager.Get<CommandService>().Queue(ChannelSession.Settings.QuoteAddedCommandID, new CommandParametersModel(parameters.User, parameters.Platform, specialIdentifiers));
+
                     await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.QuoteAddedHeader + quote.ToString(), parameters);
                 }
                 else

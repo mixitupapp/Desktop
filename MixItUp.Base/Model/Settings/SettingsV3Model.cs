@@ -372,6 +372,8 @@ namespace MixItUp.Base.Model.Settings
         public bool QuotesEnabled { get; set; }
         [DataMember]
         public string QuotesFormat { get; set; }
+        [DataMember]
+        public Guid QuoteAddedCommandID { get; set; }
 
         #endregion Quotes
 
@@ -1303,6 +1305,11 @@ namespace MixItUp.Base.Model.Settings
             if (this.GetCommand(this.MusicPlayerOnSongChangedCommandID) == null)
             {
                 this.MusicPlayerOnSongChangedCommandID = this.CreateBasicCommand(MixItUp.Base.Resources.MusicPlayerOnSongChanged);
+            }
+
+            if (this.GetCommand(this.QuoteAddedCommandID) == null)
+            {
+                this.QuoteAddedCommandID = this.CreateBasicCommand(MixItUp.Base.Resources.QuoteAdded);
             }
         }
 

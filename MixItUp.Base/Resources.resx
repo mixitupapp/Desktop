@@ -11140,4 +11140,7 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="ReplaceAll" xml:space="preserve">
     <value>Replace All</value>
   </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>Quote Added</value>
+  </data>
 </root>
