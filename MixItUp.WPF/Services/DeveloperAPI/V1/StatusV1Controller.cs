@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
 {
-    [RoutePrefix("api/status")]
-    public class StatusV1Controller : ApiController
+    [Route("api/status")]
+    [ApiController]
+    public class StatusV1Controller : ControllerBase
     {
         [Route("version")]
         [HttpGet]
-        public IHttpActionResult GetVersion()
+        public IActionResult GetVersion()
         {
             return Ok(Assembly.GetEntryAssembly().GetName().Version.ToString());
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33815.320
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11205.157 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixItUp.WPF", "MixItUp.WPF\MixItUp.WPF.csproj", "{90395135-528E-4F2D-93D1-D822B32B5F80}"
 EndProject
@@ -20,8 +20,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixItUp.SignalR.Client", "MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj", "{D2A5558C-73E9-4266-9959-1B0B61B4D3CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MixItUp.Uninstaller", "MixItUp.Uninstaller\MixItUp.Uninstaller.csproj", "{36C2DC8E-A581-4299-BDAB-C6824A8F09AC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MixItUp.API.NET8", "APIs\MixItUp.API.NET8\MixItUp.API.NET8.csproj", "{8098C042-9B22-4EE1-AFFC-731D48F08D8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -205,30 +203,6 @@ Global
 		{36C2DC8E-A581-4299-BDAB-C6824A8F09AC}.Release|iPhone.Build.0 = Release|Any CPU
 		{36C2DC8E-A581-4299-BDAB-C6824A8F09AC}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{36C2DC8E-A581-4299-BDAB-C6824A8F09AC}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.AppStore|Any CPU.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.AppStore|iPhone.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Release|iPhone.Build.0 = Release|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -239,7 +213,6 @@ Global
 		{CE3896DC-CC98-42BA-9BF7-4073DCC6A393} = {3C89ACB2-D917-48C0-84FD-974FC6E17A89}
 		{6EAD4AD5-3606-42B0-A2DA-13848A0D4076} = {51CC9FC3-AA4D-4CA5-86AC-BDEBC49B7AC7}
 		{36C2DC8E-A581-4299-BDAB-C6824A8F09AC} = {3C89ACB2-D917-48C0-84FD-974FC6E17A89}
-		{8098C042-9B22-4EE1-AFFC-731D48F08D8C} = {51CC9FC3-AA4D-4CA5-86AC-BDEBC49B7AC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {56FA5777-5A3B-4E2B-B0A5-8EA45A5251F6}

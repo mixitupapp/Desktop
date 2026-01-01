@@ -70,7 +70,7 @@
             <Button Grid.Column="2" Command="{Binding BrowseFilePathCommand}" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Center"/>
 
             <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{x:Static resx:Resources.VolumeHeader}"/>
-            <Slider Value="{Binding WheelClickVolume}" VerticalAlignment="Center" Grid.Column="6" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" />
+            <Slider Value="{Binding WheelClickVolume}" VerticalAlignment="Center" Grid.Column="6" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" />
 
             <CommandControls:CustomCommandListingControl Grid.Column="8" DataContext="{Binding DefaultOutcomeCommand}" Header="{x:Static resx:Resources.DefaultOutcome}" />
         </Grid>
@@ -144,7 +144,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Rectangle Grid.Row="4" Fill="{StaticResource PrimaryHueMidBrush}" Margin="0,-2" />
+                <Rectangle Grid.Row="4" Fill="{DynamicResource MaterialDesign.Brush.Primary}" Margin="0,-2" />
 
                 <Grid Grid.Row="6" Margin="10">
                     <Grid.ColumnDefinitions>

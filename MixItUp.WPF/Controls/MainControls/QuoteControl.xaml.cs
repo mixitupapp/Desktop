@@ -1,9 +1,12 @@
-﻿using MixItUp.Base.Model.User;
+﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel;
 using MixItUp.Base.ViewModel.MainControls;
 using MixItUp.Base.ViewModel.User;
 using MixItUp.WPF.Controls.Dialogs;
+using MixItUp.WPF.Util;
+using MixItUp.WPF.Windows.Commands;
 using MixItUp.WPF.Windows.Quotes;
 using System;
 using System.Threading.Tasks;
@@ -86,6 +89,13 @@ namespace MixItUp.WPF.Controls.MainControls
                     }
                 }
             });
+        }
+
+        private void QuoteAddedCommand_EditClicked(object sender, RoutedEventArgs e)
+        {
+            CommandEditorWindow window = CommandEditorWindow.GetCommandEditorWindow(FrameworkElementHelpers.GetDataContext<CustomCommandModel>(sender));
+            window.CommandSaved += (object s, CommandModelBase command) => { this.viewModel.QuoteAddedCommand = command; };
+            window.ForceShow();
         }
 
         private void GlobalEvents_OnQuoteAdded(object sender, UserQuoteModel quote)

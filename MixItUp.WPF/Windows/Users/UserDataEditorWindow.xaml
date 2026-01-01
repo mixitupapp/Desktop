@@ -1,25 +1,25 @@
-﻿<Windows:LoadingWindowBase x:Class="MixItUp.WPF.Windows.Users.UserDataEditorWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MixItUp.WPF.Windows.Currency"
-        xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-        xmlns:System="clr-namespace:System;assembly=mscorlib"
-        xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
-        xmlns:CommandsControls="clr-namespace:MixItUp.WPF.Controls.Commands"
-        xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
-        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        TextElement.FontWeight="Medium"
-        TextElement.FontSize="14"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
-
-        Icon="./../../Logo.ico"
-        Title="{x:Static resx:Resources.UserEditor}" Height="600" Width="600">
+﻿<Windows:LoadingWindowBase
+    x:Class="MixItUp.WPF.Windows.Users.UserDataEditorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:CommandsControls="clr-namespace:MixItUp.WPF.Controls.Commands"
+    xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:System="clr-namespace:System;assembly=System.Runtime"
+    xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MixItUp.WPF.Windows.Currency"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+    Title="{x:Static resx:Resources.UserEditor}"
+    Width="600"
+    Height="600"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    Icon="./../../Logo.ico"
+    Style="{StaticResource MaterialDesignWindow}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Windows:LoadingWindowBase.Resources>
@@ -48,7 +48,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <GroupBox Header="{x:Static resx:Resources.UserData}" Grid.Row="0">
+                <GroupBox Grid.Row="0" Header="{x:Static resx:Resources.UserData}">
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -74,7 +74,10 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Text="{Binding User.FullDisplayName}" VerticalAlignment="Center" />
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding User.FullDisplayName}" />
                             </Grid>
 
                             <Grid Grid.Row="2">
@@ -86,12 +89,32 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,5" Text="{Binding Source={x:Static resx:Resources.WatchTime}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                                <TextBox Grid.Column="2" Width="50" Text="{Binding ViewingHours}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Hours}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                                <TextBox Grid.Column="4" Width="50" Text="{Binding ViewingMinutes}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Minutes}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Margin="0,0,0,5"
+                                    VerticalAlignment="Bottom"
+                                    Text="{Binding Source={x:Static resx:Resources.WatchTime}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                                <TextBox
+                                    Grid.Column="2"
+                                    Width="50"
+                                    MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Hours}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding ViewingHours}" />
+                                <TextBox
+                                    Grid.Column="4"
+                                    Width="50"
+                                    MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Minutes}"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Text="{Binding ViewingMinutes}" />
                             </Grid>
 
-                            <TextBox Grid.Row="4" Width="200" HorizontalAlignment="Left" Text="{Binding User.CustomTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CustomTitle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                            <TextBox
+                                Grid.Row="4"
+                                Width="200"
+                                HorizontalAlignment="Left"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CustomTitle}"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                Text="{Binding User.CustomTitle}" />
                         </Grid>
 
                         <Grid Grid.Column="2">
@@ -116,7 +139,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Platforms}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
+                                <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Platforms}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
                                 <ItemsControl Grid.Column="2" ItemsSource="{Binding PlatformImages}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -125,7 +148,10 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Image Source="{Binding}" Width="18" Height="18" />
+                                            <Image
+                                                Width="18"
+                                                Height="18"
+                                                Source="{Binding}" />
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
@@ -138,7 +164,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Roles}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
+                                <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Roles}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
                                 <TextBlock Grid.Column="2" Text="{Binding User.DisplayRolesString}" />
                             </Grid>
 
@@ -149,8 +175,14 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AccountAge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                                <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding User.AccountAgeString}" />
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Source={x:Static resx:Resources.AccountAge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding User.AccountAgeString}" />
                             </Grid>
 
                             <Grid Grid.Row="6">
@@ -160,8 +192,14 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.FollowAge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                                <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding User.FollowAgeString}" />
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Source={x:Static resx:Resources.FollowAge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding User.FollowAgeString}" />
                             </Grid>
 
                             <Grid Grid.Row="8">
@@ -171,8 +209,14 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.SubAge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                                <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding User.SubscribeAgeString}" />
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Source={x:Static resx:Resources.SubAge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding User.SubscribeAgeString}" />
                             </Grid>
 
                             <Grid Grid.Row="10">
@@ -182,8 +226,14 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.LastSeen}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                                <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding User.LastSeenString}" />
+                                <TextBlock
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Source={x:Static resx:Resources.LastSeen}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding User.LastSeenString}" />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -196,7 +246,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Header="{x:Static resx:Resources.CurrencyRank}" Grid.Column="0" MaxHeight="200" MinWidth="200">
+                    <GroupBox
+                        Grid.Column="0"
+                        MinWidth="200"
+                        MaxHeight="200"
+                        Header="{x:Static resx:Resources.CurrencyRank}">
                         <Grid Margin="10,0,10,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -204,7 +258,15 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <ComboBox ItemsSource="{Binding Consumables}" SelectedItem="{Binding SelectedConsumable}" IsEditable="False" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Consumables}" DisplayMemberPath="Name" Grid.Row="0">
+                            <ComboBox
+                                Grid.Row="0"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Consumables}"
+                                Background="Transparent"
+                                DisplayMemberPath="Name"
+                                IsEditable="False"
+                                ItemsSource="{Binding Consumables}"
+                                SelectedItem="{Binding SelectedConsumable}"
+                                Style="{StaticResource MaterialDesignFilledComboBox}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -212,11 +274,21 @@
                                 </ComboBox.ItemsPanel>
                             </ComboBox>
 
-                            <TextBox IsEnabled="{Binding HasConsumableSelected}" Text="{Binding SelectedConsumable.Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quantity}" Grid.Row="4" />
+                            <TextBox
+                                Grid.Row="4"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quantity}"
+                                Background="Transparent"
+                                IsEnabled="{Binding HasConsumableSelected}"
+                                Style="{StaticResource MaterialDesignFilledTextBox}"
+                                Text="{Binding SelectedConsumable.Amount}" />
                         </Grid>
                     </GroupBox>
 
-                    <GroupBox Header="{x:Static resx:Resources.Inventory}" Grid.Column="2" MaxHeight="200" MinWidth="200">
+                    <GroupBox
+                        Grid.Column="2"
+                        MinWidth="200"
+                        MaxHeight="200"
+                        Header="{x:Static resx:Resources.Inventory}">
                         <Grid Margin="10,0,10,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -226,7 +298,14 @@
                             </Grid.RowDefinitions>
 
                             <ComboBox
-                                ItemsSource="{Binding Inventories}" SelectedItem="{Binding SelectedInventory}" IsEditable="False" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Inventory}" DisplayMemberPath="Name" Grid.Row="0">
+                                Grid.Row="0"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Inventory}"
+                                Background="Transparent"
+                                DisplayMemberPath="Name"
+                                IsEditable="False"
+                                ItemsSource="{Binding Inventories}"
+                                SelectedItem="{Binding SelectedInventory}"
+                                Style="{StaticResource MaterialDesignFilledComboBox}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -235,7 +314,15 @@
                             </ComboBox>
 
                             <ComboBox
-                                ItemsSource="{Binding SelectedInventoryItems}" SelectedItem="{Binding SelectedItem}" IsEnabled="{Binding HasInventorySelected}" IsEditable="False" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item}" DisplayMemberPath="Name" Grid.Row="1">
+                                Grid.Row="1"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Item}"
+                                Background="Transparent"
+                                DisplayMemberPath="Name"
+                                IsEditable="False"
+                                IsEnabled="{Binding HasInventorySelected}"
+                                ItemsSource="{Binding SelectedInventoryItems}"
+                                SelectedItem="{Binding SelectedItem}"
+                                Style="{StaticResource MaterialDesignFilledComboBox}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -243,37 +330,69 @@
                                 </ComboBox.ItemsPanel>
                             </ComboBox>
 
-                            <TextBox IsEnabled="{Binding HasItemSelected}" Text="{Binding SelectedItem.Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quantity}" Grid.Row="3" />
+                            <TextBox
+                                Grid.Row="3"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quantity}"
+                                Background="Transparent"
+                                IsEnabled="{Binding HasItemSelected}"
+                                Style="{StaticResource MaterialDesignFilledTextBox}"
+                                Text="{Binding SelectedItem.Amount}" />
                         </Grid>
                     </GroupBox>
                 </Grid>
 
-                <GroupBox Header="{x:Static resx:Resources.UserOnlyChatCommands}" Grid.Row="4">
+                <GroupBox Grid.Row="4" Header="{x:Static resx:Resources.UserOnlyChatCommands}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <DataGrid Grid.Row="0" ItemsSource="{Binding UserOnlyChatCommands}" Visibility="{Binding HasUserOnlyChatCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" Margin="0,0,0,10">
+                        <DataGrid
+                            Grid.Row="0"
+                            Margin="0,0,0,10"
+                            HorizontalContentAlignment="Stretch"
+                            CellStyle="{StaticResource StandardDataGridCell}"
+                            ItemsSource="{Binding UserOnlyChatCommands}"
+                            Style="{StaticResource StandardDataGrid}"
+                            Visibility="{Binding HasUserOnlyChatCommands, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="2*" />
-                                <DataGridTextColumn Header="{x:Static resx:Resources.Commands}" Binding="{Binding TriggersString}" IsReadOnly="True" Width="125" />
-                                <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" Width="240">
+                                <DataGridTextColumn
+                                    Width="2*"
+                                    Binding="{Binding Name}"
+                                    Header="{x:Static resx:Resources.Name}"
+                                    IsReadOnly="True" />
+                                <DataGridTextColumn
+                                    Width="125"
+                                    Binding="{Binding TriggersString}"
+                                    Header="{x:Static resx:Resources.Commands}"
+                                    IsReadOnly="True" />
+                                <DataGridTemplateColumn Width="250" Header="{x:Static resx:Resources.Actions}">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <CommandsControls:CommandListingButtonsControl x:Name="UserOnlyChatCommandButtons" HorizontalAlignment="Center" EditClicked="UserOnlyChatCommandButtons_EditClicked" DeleteClicked="UserOnlyChatCommandButtons_DeleteClicked" EnableDisableToggled="UserOnlyChatCommandButtons_EnableDisableToggled" />
+                                            <CommandsControls:CommandListingButtonsControl
+                                                x:Name="UserOnlyChatCommandButtons"
+                                                HorizontalAlignment="Center"
+                                                DeleteClicked="UserOnlyChatCommandButtons_DeleteClicked"
+                                                EditClicked="UserOnlyChatCommandButtons_EditClicked"
+                                                EnableDisableToggled="UserOnlyChatCommandButtons_EnableDisableToggled" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button x:Name="AddUserOnlyCommandButton" Grid.Row="1" HorizontalAlignment="Center" Click="AddUserOnlyCommandButton_Click" Content="{x:Static resx:Resources.AddCommand}"/>
+                        <Button
+                            x:Name="AddUserOnlyCommandButton"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Click="AddUserOnlyCommandButton_Click"
+                            Content="{x:Static resx:Resources.AddCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="{x:Static resx:Resources.Options}" Grid.Row="6">
+                <GroupBox Grid.Row="6" Header="{x:Static resx:Resources.Options}">
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -290,11 +409,25 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.CustomEntranceCommand}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Text="{Binding Source={x:Static resx:Resources.CustomEntranceCommand}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
-                            <Button x:Name="NewEntranceCommandButton" Grid.Column="2" Visibility="{Binding DoesNotHaveEntranceCommand, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" Click="NewEntranceCommandButton_Click" Content="{x:Static resx:Resources.AddCommand}" />
-                            <Grid Grid.Column="2"  Visibility="{Binding HasEntranceCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <CommandsControls:CommandListingButtonsControl x:Name="ExistingEntranceCommandButtons" DataContext="{Binding EntranceCommand}" HorizontalAlignment="Center" EditClicked="ExistingEntranceCommandButtons_EditClicked" DeleteClicked="ExistingEntranceCommandButtons_DeleteClicked" />
+                            <Button
+                                x:Name="NewEntranceCommandButton"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Click="NewEntranceCommandButton_Click"
+                                Content="{x:Static resx:Resources.AddCommand}"
+                                Visibility="{Binding DoesNotHaveEntranceCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <Grid Grid.Column="2" Visibility="{Binding HasEntranceCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <CommandsControls:CommandListingButtonsControl
+                                    x:Name="ExistingEntranceCommandButtons"
+                                    HorizontalAlignment="Center"
+                                    DataContext="{Binding EntranceCommand}"
+                                    DeleteClicked="ExistingEntranceCommandButtons_DeleteClicked"
+                                    EditClicked="ExistingEntranceCommandButtons_EditClicked" />
                             </Grid>
                         </Grid>
 
@@ -305,17 +438,34 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.SpecialtyExcluded}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{x:Static resx:Resources.SpecialtyExcludedTooltip}" />
-                            <ToggleButton Grid.Column="2" IsChecked="{Binding User.IsSpecialtyExcluded}" ToolTip="{x:Static resx:Resources.SpecialtyExcludedTooltip}" />
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Text="{Binding Source={x:Static resx:Resources.SpecialtyExcluded}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"
+                                ToolTip="{x:Static resx:Resources.SpecialtyExcludedTooltip}" />
+                            <ToggleButton
+                                Grid.Column="2"
+                                IsChecked="{Binding User.IsSpecialtyExcluded}"
+                                ToolTip="{x:Static resx:Resources.SpecialtyExcludedTooltip}" />
 
                         </Grid>
 
-                        <ComboBox Grid.Row="4" ItemsSource="{Binding PatreonUsers}" SelectedItem="{Binding PatreonUser}" IsEnabled="{Binding IsPatreonConnected}" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PatreonUser}" DisplayMemberPath="User.PlatformUsername" Width="200" />
+                        <ComboBox
+                            Grid.Row="4"
+                            Width="200"
+                            HorizontalAlignment="Left"
+                            MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PatreonUser}"
+                            DisplayMemberPath="User.PlatformUsername"
+                            IsEditable="True"
+                            IsEnabled="{Binding IsPatreonConnected}"
+                            ItemsSource="{Binding PatreonUsers}"
+                            SelectedItem="{Binding PatreonUser}"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="{x:Static resx:Resources.UserMetrics}" Grid.Row="8">
+                <GroupBox Grid.Row="8" Header="{x:Static resx:Resources.UserMetrics}">
                     <Grid Margin="10,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -323,7 +473,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <ItemsControl ItemsSource="{Binding Metrics1}" Grid.Column="0">
+                        <ItemsControl Grid.Column="0" ItemsSource="{Binding Metrics1}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="5">
@@ -341,7 +491,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <ItemsControl ItemsSource="{Binding Metrics2}" Grid.Column="2">
+                        <ItemsControl Grid.Column="2" ItemsSource="{Binding Metrics2}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="5">
@@ -361,10 +511,17 @@
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="{x:Static resx:Resources.Notes}" Grid.Row="10">
-                    <TextBox Text="{Binding Notes}" Height="200" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" />
+                <GroupBox Grid.Row="10" Header="{x:Static resx:Resources.Notes}">
+                    <TextBox
+                        Height="200"
+                        AcceptsReturn="True"
+                        AcceptsTab="True"
+                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                        Text="{Binding Notes}"
+                        TextWrapping="Wrap"
+                        VerticalScrollBarVisibility="Auto" />
                 </GroupBox>
-                
+
             </Grid>
         </ScrollViewer>
 

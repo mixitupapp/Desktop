@@ -1,8 +1,12 @@
 ﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Emit;
 using System;
-using System.CodeDom.Compiler;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,18 +17,20 @@ namespace MixItUp.WPF.Services
     {
         public async Task<string> RunCSharpCode(CommandParametersModel parameters, string code)
         {
-            CompilerResults compileResults = await this.CompileDotNetCode(CodeDomProvider.CreateProvider("CSharp"), parameters, code);
+            Assembly assembly = await this.CompileCSharpCode(parameters, code);
+            if (assembly == null)
+            {
+                return null;
+            }
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
             return await AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
             {
                 try
                 {
-                    object o = compileResults.CompiledAssembly.CreateInstance("CustomNamespace.CustomClass");
+                    object o = assembly.CreateInstance("CustomNamespace.CustomClass");
                     MethodInfo mi = o.GetType().GetMethod("Run");
                     object result = mi.Invoke(o, null);
-
                     if (result != null)
                     {
                         return result.ToString();
@@ -41,33 +47,51 @@ namespace MixItUp.WPF.Services
 
         public async Task<string> RunVisualBasicCode(CommandParametersModel parameters, string code)
         {
-            await this.CompileDotNetCode(CodeDomProvider.CreateProvider("VisualBasic"), parameters, code);
+            await Task.CompletedTask;
             return null;
         }
 
-        private async Task<CompilerResults> CompileDotNetCode(CodeDomProvider provider, CommandParametersModel parameters, string code)
+        private async Task<Assembly> CompileCSharpCode(CommandParametersModel parameters, string code)
         {
             try
             {
-                CompilerParameters compilerParams = new CompilerParameters
+                var references = new MetadataReference[]
                 {
-                    GenerateInMemory = true,
-                    GenerateExecutable = false,
-                    TreatWarningsAsErrors = false
+                    MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
+                    MetadataReference.CreateFromFile(typeof(Console).Assembly.Location),
+                    MetadataReference.CreateFromFile(Assembly.Load("System.Runtime").Location),
+                    MetadataReference.CreateFromFile(Assembly.Load("System.Collections").Location)
                 };
 
-                CompilerResults compileResults = provider.CompileAssemblyFromSource(compilerParams, code);
+                var compilation = CSharpCompilation.Create(
+                    assemblyName: Path.GetRandomFileName(),
+                    syntaxTrees: new[] { CSharpSyntaxTree.ParseText(code) },
+                    references: references,
+                    options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
-                if (compileResults.Errors.Count > 0)
+                using (var memoryStream = new MemoryStream())
                 {
-                    await ServiceManager.Get<ChatService>().SendMessage(
-                        string.Format(MixItUp.Base.Resources.ScriptActionFailedCompile, string.Join(", ", compileResults.Errors)),
-                        parameters.Platform);
+                    EmitResult result = compilation.Emit(memoryStream);
 
-                    return null;
+                    if (!result.Success)
+                    {
+                        var errors = result.Diagnostics
+                            .Where(d => d.Severity == DiagnosticSeverity.Error)
+                            .Select(d => $"Line {d.Location.GetLineSpan().StartLinePosition.Line + 1}: {d.GetMessage()}");
+
+                        string fullError = string.Join(Environment.NewLine, errors);
+                        Logger.Log(LogLevel.Error, $"Script compilation failed: {fullError}");
+
+                        await ServiceManager.Get<ChatService>().SendMessage(
+                            string.Format(MixItUp.Base.Resources.ScriptActionFailedCompile, errors.First()),
+                            parameters.Platform);
+                        return null;
+                    }
+
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+                    return Assembly.Load(memoryStream.ToArray());
                 }
-
-                return compileResults;
             }
             catch (Exception ex)
             {

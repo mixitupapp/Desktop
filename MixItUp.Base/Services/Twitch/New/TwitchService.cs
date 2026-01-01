@@ -433,11 +433,21 @@ namespace MixItUp.Base.Services.Twitch.New
             });
         }
 
-        public async Task<ClipCreationModel> CreateClip(UserModel channel, bool delay)
+        public async Task<ClipCreationModel> CreateClip(UserModel channel, string title = null, float? duration = null)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
-                IEnumerable<ClipCreationModel> clip = await this.PostDataResultAsync<ClipCreationModel>("clips?broadcaster_id=" + channel.id + "&has_delay=" + delay);
+                string queryParameters = "?broadcaster_id=" + channel.id;
+                if (!string.IsNullOrEmpty(title))
+                {
+                    queryParameters += "&title=" + AdvancedHttpClient.URLEncodeString(title);
+                }
+                if (duration != null)
+                {
+                    queryParameters += "&duration=" + duration.GetValueOrDefault().ToString(System.Globalization.CultureInfo.InvariantCulture);
+                }
+
+                IEnumerable<ClipCreationModel> clip = await this.PostDataResultAsync<ClipCreationModel>("clips" + queryParameters);
                 return clip?.FirstOrDefault();
             });
         }

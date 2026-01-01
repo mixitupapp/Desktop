@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using MixItUp.Base.Services.Trovo.New;
@@ -24,6 +25,14 @@ namespace MixItUp.Base.Model.Actions
     {
         PlainText,
         JSONToSpecialIdentifiers
+    }
+
+    public enum HttpMethodEnum
+    {
+        GET,
+        POST,
+        PUT,
+        DELETE
     }
 
     [DataContract]
@@ -40,15 +49,27 @@ namespace MixItUp.Base.Model.Actions
         [DataMember]
         public Dictionary<string, string> JSONToSpecialIdentifiers { get; set; }
 
-        public WebRequestActionModel(string url, WebRequestResponseParseTypeEnum responseType)
+        [DataMember]
+        public HttpMethodEnum HttpMethod { get; set; } = HttpMethodEnum.GET;
+
+        [DataMember]
+        public Dictionary<string, string> CustomHeaders { get; set; }
+
+        [DataMember]
+        public string RequestBody { get; set; }
+
+        public WebRequestActionModel(string url, WebRequestResponseParseTypeEnum responseType, HttpMethodEnum httpMethod = HttpMethodEnum.GET, Dictionary<string, string> customHeaders = null, string requestBody = null)
             : base(ActionTypeEnum.WebRequest)
         {
             this.Url = url;
             this.ResponseType = responseType;
+            this.HttpMethod = httpMethod;
+            this.CustomHeaders = customHeaders ?? new Dictionary<string, string>();
+            this.RequestBody = requestBody;
         }
 
-        public WebRequestActionModel(string url, Dictionary<string, string> jsonToSpecialIdentifiers)
-            : this(url, WebRequestResponseParseTypeEnum.JSONToSpecialIdentifiers)
+        public WebRequestActionModel(string url, Dictionary<string, string> jsonToSpecialIdentifiers, HttpMethodEnum httpMethod = HttpMethodEnum.GET, Dictionary<string, string> customHeaders = null, string requestBody = null)
+            : this(url, WebRequestResponseParseTypeEnum.JSONToSpecialIdentifiers, httpMethod, customHeaders, requestBody)
         {
             this.JSONToSpecialIdentifiers = jsonToSpecialIdentifiers;
         }
@@ -75,13 +96,53 @@ namespace MixItUp.Base.Model.Actions
                     httpClient.DefaultRequestHeaders.Add("Trovo-UserID", ServiceManager.Get<TrovoSession>()?.StreamerID ?? string.Empty);
                     httpClient.DefaultRequestHeaders.Add("Trovo-UserLogin", ServiceManager.Get<TrovoSession>().StreamerUsername ?? string.Empty);
 
+                    if (this.CustomHeaders != null)
+                    {
+                        foreach (var header in this.CustomHeaders)
+                        {
+                            string headerValue = await ReplaceStringWithSpecialModifiers(header.Value, parameters);
+                            try
+                            {
+                                httpClient.DefaultRequestHeaders.Add(header.Key, headerValue);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(LogLevel.Error, $"Failed to add custom header '{header.Key}': {ex.Message}");
+                            }
+                        }
+                    }
+
                     string targetUrl = await ReplaceStringWithSpecialModifiers(this.Url, parameters, encode: true);
                     if (!Uri.IsWellFormedUriString(targetUrl, UriKind.RelativeOrAbsolute))
                     {
                         targetUrl = await ReplaceStringWithSpecialModifiers(this.Url, parameters);
                     }
 
-                    using (HttpResponseMessage response = await httpClient.GetAsync(targetUrl))
+                    HttpContent content = null;
+                    if (!string.IsNullOrEmpty(this.RequestBody) && (this.HttpMethod == HttpMethodEnum.POST || this.HttpMethod == HttpMethodEnum.PUT))
+                    {
+                        string processedBody = await ReplaceStringWithSpecialModifiers(this.RequestBody, parameters);
+                        content = new StringContent(processedBody, Encoding.UTF8, "application/json");
+                    }
+
+                    HttpResponseMessage response = null;
+                    switch (this.HttpMethod)
+                    {
+                        case HttpMethodEnum.GET:
+                            response = await httpClient.GetAsync(targetUrl);
+                            break;
+                        case HttpMethodEnum.POST:
+                            response = await httpClient.PostAsync(targetUrl, content);
+                            break;
+                        case HttpMethodEnum.PUT:
+                            response = await httpClient.PutAsync(targetUrl, content);
+                            break;
+                        case HttpMethodEnum.DELETE:
+                            response = await httpClient.DeleteAsyncWithResponse(targetUrl, content);
+                            break;
+                    }
+
+                    using (response)
                     {
                         if (string.Equals(response?.Content?.Headers?.ContentType?.CharSet, "utf8"))
                         {

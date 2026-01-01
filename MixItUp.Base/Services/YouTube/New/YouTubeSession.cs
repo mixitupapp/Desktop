@@ -140,11 +140,11 @@ namespace MixItUp.Base.Services.YouTube.New
             }
 
             this.StreamerID = this.StreamerModel?.Id;
-            this.StreamerUsername = this.StreamerModel?.Snippet?.Title;
+            this.StreamerUsername = this.StreamerModel?.Snippet?.CustomUrl?.TrimStart('@');
             this.StreamerAvatarURL = this.StreamerModel?.Snippet?.Thumbnails?.Medium?.Url;
 
             this.ChannelID = this.StreamerModel?.Id;
-            this.ChannelLink = this.StreamerModel?.Snippet?.CustomUrl;
+            this.ChannelLink = "https://www.youtube.com/" + this.StreamerModel?.Snippet?.CustomUrl;
 
             this.Streamer = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.YouTube, platformID: this.StreamerID);
             if (this.Streamer == null)
@@ -199,7 +199,7 @@ namespace MixItUp.Base.Services.YouTube.New
             }
 
             this.BotID = this.BotModel?.Id;
-            this.BotUsername = this.BotModel?.Snippet?.Title;
+            this.BotUsername = this.BotModel?.Snippet?.CustomUrl?.TrimStart('@');
             this.BotAvatarURL = this.BotModel?.Snippet?.Thumbnails?.Medium?.Url;
 
             this.Bot = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.YouTube, platformID: this.BotID);

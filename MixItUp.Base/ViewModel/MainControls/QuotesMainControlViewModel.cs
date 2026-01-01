@@ -46,6 +46,17 @@ namespace MixItUp.Base.ViewModel.MainControls
             }
         }
 
+        public CommandModelBase QuoteAddedCommand
+        {
+            get { return this.quoteAddedCommand; }
+            set
+            {
+                this.quoteAddedCommand = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private CommandModelBase quoteAddedCommand;
+
         public ICommand AddQuoteCommand { get; set; }
 
         public ICommand ExportQuotesCommand { get; set; }
@@ -53,11 +64,24 @@ namespace MixItUp.Base.ViewModel.MainControls
         public QuotesMainControlViewModel(MainWindowViewModel windowViewModel)
             : base(windowViewModel)
         {
+            this.QuoteAddedCommand = ChannelSession.Settings.GetCommand(ChannelSession.Settings.QuoteAddedCommandID);
+
             this.AddQuoteCommand = this.CreateCommand(async () =>
             {
                 if (!string.IsNullOrEmpty(this.AddQuoteText))
                 {
-                    ChannelSession.Settings.Quotes.Add(new UserQuoteModel(UserQuoteViewModel.GetNextQuoteNumber(), this.AddQuoteText, DateTimeOffset.Now, await GamePreMadeChatCommandModel.GetCurrentGameName(ChannelSession.Settings.DefaultStreamingPlatform)));
+                    UserQuoteModel quote = new UserQuoteModel(UserQuoteViewModel.GetNextQuoteNumber(), this.AddQuoteText, DateTimeOffset.Now, await GamePreMadeChatCommandModel.GetCurrentGameName(ChannelSession.Settings.DefaultStreamingPlatform));
+                    ChannelSession.Settings.Quotes.Add(quote);
+
+                    Dictionary<string, string> specialIdentifiers = new Dictionary<string, string>()
+                    {
+                        { UserQuoteModel.QuoteNumberSpecialIdentifier, quote.ID.ToString() },
+                        { UserQuoteModel.QuoteTextSpecialIdentifier, quote.Quote },
+                        { UserQuoteModel.QuoteGameSpecialIdentifier, quote.GameName ?? string.Empty },
+                        { UserQuoteModel.QuoteDateTimeSpecialIdentifier, quote.DateTime.ToString("d") }
+                    };
+                    await ServiceManager.Get<CommandService>().Queue(ChannelSession.Settings.QuoteAddedCommandID, new CommandParametersModel(ChannelSession.Settings.DefaultStreamingPlatform, specialIdentifiers));
+
                     this.Refresh();
 
                     this.AddQuoteText = string.Empty;

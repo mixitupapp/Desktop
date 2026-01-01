@@ -181,6 +181,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool HideBotMessages { get; set; }
         [DataMember]
+        public bool HideWhisperMessages { get; set; }
+        [DataMember]
         public HashSet<string> HideSpecificUserMessages { get; set; } = new HashSet<string>();
 
         [DataMember]
@@ -370,6 +372,8 @@ namespace MixItUp.Base.Model.Settings
         public bool QuotesEnabled { get; set; }
         [DataMember]
         public string QuotesFormat { get; set; }
+        [DataMember]
+        public Guid QuoteAddedCommandID { get; set; }
 
         #endregion Quotes
 
@@ -593,6 +597,12 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string MeldStudioWebSocketAddress { get; set; }
 
+        [DataMember]
+        public string GoogleCloudTTSCustomKey { get; set; }
+
+        [DataMember]
+        public string ResponsiveVoiceCustomAPIKey { get; set; }
+
         #endregion Services
 
         #region Dashboard
@@ -658,6 +668,8 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public Dictionary<string, DateTimeOffset> TwitchVIPAutomaticRemovals { get; set; } = new Dictionary<string, DateTimeOffset>();
+        [DataMember]
+        public bool TwitchAllowSharedChatEvents { get; set; } = false;
 
         #endregion Twitch
 
@@ -1038,6 +1050,16 @@ namespace MixItUp.Base.Model.Settings
             await ServiceManager.Get<IDatabaseService>().CompressDb(this.DatabaseFilePath);
         }
 
+        public async Task SaveMissingFilesCheckCommand(CommandModelBase command)
+        {
+            if (command == null) return;
+            this.Commands.ManualValueChanged(command.ID);
+            await ServiceManager.Get<IDatabaseService>().BulkWrite(
+                this.DatabaseFilePath,
+                "REPLACE INTO Commands(ID, TypeID, Data) VALUES($ID, $TypeID, $Data)",
+                new List<Dictionary<string, object>>() { new Dictionary<string, object>() { { "$ID", command.ID.ToString() }, { "$TypeID", (int)command.Type }, { "$Data", JSONSerializerHelper.SerializeToString(command) } } });
+        }
+
         public async Task<IEnumerable<UserV2Model>> LoadUserV2Data(string query, Dictionary<string, object> parameters)
         {
             List<UserV2Model> results = new List<UserV2Model>();
@@ -1283,6 +1305,11 @@ namespace MixItUp.Base.Model.Settings
             if (this.GetCommand(this.MusicPlayerOnSongChangedCommandID) == null)
             {
                 this.MusicPlayerOnSongChangedCommandID = this.CreateBasicCommand(MixItUp.Base.Resources.MusicPlayerOnSongChanged);
+            }
+
+            if (this.GetCommand(this.QuoteAddedCommandID) == null)
+            {
+                this.QuoteAddedCommandID = this.CreateBasicCommand(MixItUp.Base.Resources.QuoteAdded);
             }
         }
 

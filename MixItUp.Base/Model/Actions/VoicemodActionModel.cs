@@ -12,6 +12,7 @@ namespace MixItUp.Base.Model.Actions
     {
         VoiceChangerOnOff,
         SelectVoice,
+        SelectPreviousVoice,
         RandomVoice,
         BeepSoundOnOff,
         PlaySound,
@@ -26,6 +27,8 @@ namespace MixItUp.Base.Model.Actions
         public static VoicemodActionModel CreateForVoiceChangerOnOff(bool state) { return new VoicemodActionModel(VoicemodActionTypeEnum.VoiceChangerOnOff) { State = state }; }
 
         public static VoicemodActionModel CreateForSelectVoice(string voiceID) { return new VoicemodActionModel(VoicemodActionTypeEnum.SelectVoice) { VoiceID = voiceID }; }
+
+        public static VoicemodActionModel CreateForSelectPreviousVoice() { return new VoicemodActionModel(VoicemodActionTypeEnum.SelectPreviousVoice); }
 
         public static VoicemodActionModel CreateForRandomVoice(VoicemodRandomVoiceType randomVoiceType) { return new VoicemodActionModel(VoicemodActionTypeEnum.RandomVoice) { RandomVoiceType = randomVoiceType }; }
 
@@ -47,7 +50,7 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public string VoiceID { get; set; }
-        
+
         [DataMember]
         public VoicemodRandomVoiceType RandomVoiceType { get; set; }
 
@@ -79,6 +82,10 @@ namespace MixItUp.Base.Model.Actions
                 else if (this.ActionType == VoicemodActionTypeEnum.SelectVoice)
                 {
                     await ServiceManager.Get<IVoicemodService>().SelectVoice(this.VoiceID);
+                }
+                else if (this.ActionType == VoicemodActionTypeEnum.SelectPreviousVoice)
+                {
+                    await ServiceManager.Get<IVoicemodService>().SelectPreviousVoice();
                 }
                 else if (this.ActionType == VoicemodActionTypeEnum.RandomVoice)
                 {

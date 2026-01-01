@@ -88,8 +88,8 @@ namespace MixItUp.Base.Model.User.Platform
         public void SetMessageProperties(LiveChatMessage message)
         {
             this.ID = message.AuthorDetails.ChannelId;
-            this.Username = message.AuthorDetails.DisplayName;
-            this.DisplayName = message.AuthorDetails.DisplayName;
+            this.Username = message.AuthorDetails.DisplayName?.TrimStart('@');
+            this.DisplayName = message.AuthorDetails.DisplayName?.TrimStart('@');
             this.AvatarLink = message.AuthorDetails.ProfileImageUrl;
             this.YouTubeURL = message.AuthorDetails.ChannelUrl;
 
@@ -133,10 +133,10 @@ namespace MixItUp.Base.Model.User.Platform
         private void SetChannelProperties(Channel channel)
         {
             this.ID = channel.Id;
-            this.Username = channel.Snippet.Title;
-            this.DisplayName = channel.Snippet.Title;
+            this.Username = channel.Snippet.CustomUrl?.TrimStart('@');
+            this.DisplayName = channel.Snippet.CustomUrl?.TrimStart('@');
             this.AvatarLink = channel.Snippet.Thumbnails.Default__.Url;
-            this.YouTubeURL = "https://www.youtube.com/channel/" + channel.Id;
+            this.YouTubeURL = "https://www.youtube.com/" + (channel.Snippet.CustomUrl ?? ("channel/" + channel.Id));
             this.AccountDate = YouTubeSession.GetYouTubeDateTime(channel.Snippet.PublishedAtRaw);
         }
     }

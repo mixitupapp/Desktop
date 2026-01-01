@@ -256,10 +256,33 @@ namespace MixItUp.Base.Services.Twitch.New
             }
         }
 
+        private bool IsSharedChatEvent(JObject payload)
+        {
+            string streamerID = ServiceManager.Get<TwitchSession>().StreamerID;
+            string sourceBroadcasterID = payload.GetValueOrDefault<string>("source_broadcaster_user_id", null);
+
+            // If there's a source broadcaster ID and it's not ours, this is a shared chat event from another channel
+            if (!string.IsNullOrEmpty(sourceBroadcasterID) &&
+                !string.Equals(sourceBroadcasterID, streamerID, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            string broadcasterID = payload.GetValueOrDefault<string>("broadcaster_user_id", null);
+            return !string.IsNullOrEmpty(broadcasterID) &&
+                   !string.Equals(broadcasterID, streamerID, StringComparison.OrdinalIgnoreCase);
+        }
+
         private async Task ProcessNotification(NotificationMessage message)
         {
             try
             {
+                // Shared chat event check
+                if (!ChannelSession.Settings.TwitchAllowSharedChatEvents && IsSharedChatEvent(message.Payload.Event))
+                {
+                    Logger.Log(LogLevel.Debug, $"Ignoring shared chat event from other channel: {message.Metadata.SubscriptionType}");
+                    return;
+                }
                 switch (message.Metadata.SubscriptionType)
                 {
                     case "stream.online":
@@ -1297,6 +1320,17 @@ namespace MixItUp.Base.Services.Twitch.New
                 else
                 {
                     await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(subscription.User, string.Format(MixItUp.Base.Resources.AlertSubscribedTier, subscription.User.FullDisplayName, subscription.PlanName), ChannelSession.Settings.AlertSubColor));
+                }
+            }
+            if (subscription.Gifter != null && !subscription.IsAnonymous)
+            {
+                if (subscription.CumulativeGifts.HasValue)
+                {
+                    subscription.Gifter.TotalSubsGifted = (uint)subscription.CumulativeGifts.Value;
+                }
+                else
+                {
+                    subscription.Gifter.TotalSubsGifted++;
                 }
             }
         }

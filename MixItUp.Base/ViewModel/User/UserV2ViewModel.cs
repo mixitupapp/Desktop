@@ -17,7 +17,7 @@ namespace MixItUp.Base.ViewModel.User
 {
     public class UserV2ViewModel : UIViewModelBase, IEquatable<UserV2ViewModel>, IComparable<UserV2ViewModel>
     {
-        public const string UserDefaultColor = "MaterialDesignBody";
+        public const string UserDefaultColor = "MaterialDesign.Brush.Foreground";
 
         public static UserV2ViewModel CreateUnassociated(string username = null) { return new UserV2ViewModel(StreamingPlatformTypeEnum.None, UserV2Model.CreateUnassociated(username)); }
 
@@ -202,7 +202,7 @@ namespace MixItUp.Base.ViewModel.User
                 return null;
             }
         }
-        public string PlatformBadgeFullLink { get { return $"https://github.com/SaviorXTanren/mixer-mixitup/raw/master/MixItUp.WPF{this.PlatformBadgeLink}"; } }
+        public string PlatformBadgeFullLink { get { return $"https://github.com/mixitupapp/Desktop/raw/main/MixItUp.WPF{this.PlatformBadgeLink}"; } }
         public bool ShowPlatformBadge { get { return true; } }
 
         public DateTimeOffset? AccountDate { get { return this.PlatformModel.AccountDate; } set { this.PlatformModel.AccountDate = value; } }

@@ -87,7 +87,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Slider Value="{Binding XPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesignDiscreteSlider}" VerticalAlignment="Center" />
+                <Slider Value="{Binding XPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" VerticalAlignment="Center" />
                 <TextBox Text="{Binding XPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="75" />
             </Grid>
 
@@ -100,7 +100,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Slider Value="{Binding YPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesignDiscreteSlider}" VerticalAlignment="Center" />
+                <Slider Value="{Binding YPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" VerticalAlignment="Center" />
                 <TextBox Text="{Binding YPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="75" />
             </Grid>
         </Grid>

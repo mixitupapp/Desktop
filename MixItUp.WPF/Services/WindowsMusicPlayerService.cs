@@ -261,6 +261,20 @@ namespace MixItUp.WPF.Services
                 foreach (string file in files)
                 {
                     MusicPlayerSong song = null;
+                    int songLength = 0;
+
+                    try
+                    {
+                        using (var audioFile = new AudioFileReader(file))
+                        {
+                            songLength = (int)audioFile.TotalTime.TotalSeconds;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex);
+                    }
+
                     try
                     {
                         using (var mp3 = new Mp3(file))
@@ -272,7 +286,7 @@ namespace MixItUp.WPF.Services
                                 {
                                     FilePath = file,
                                     Title = v2Tags.Title.Value,
-                                    Length = v2Tags.Length.IsAssigned ? (int)v2Tags.Length.Value.TotalSeconds : 0
+                                    Length = songLength
                                 };
 
                                 if (v2Tags.Artists.IsAssigned && v2Tags.Artists.Value.Count > 0)
@@ -297,7 +311,7 @@ namespace MixItUp.WPF.Services
                                     {
                                         FilePath = file,
                                         Title = v1Tags.Title.Value,
-                                        Length = v1Tags.Length.IsAssigned ? (int)v1Tags.Length.Value.TotalSeconds : 0
+                                        Length = songLength
                                     };
 
                                     if (v1Tags.Artists.IsAssigned && v1Tags.Artists.Value.Count > 0)
@@ -323,7 +337,7 @@ namespace MixItUp.WPF.Services
 
                     if (song == null)
                     {
-                        song = new MusicPlayerSong() { FilePath = file, Title = Path.GetFileNameWithoutExtension(file) };
+                        song = new MusicPlayerSong() { FilePath = file, Title = Path.GetFileNameWithoutExtension(file), Length = songLength };
                     }
                     tempSongs.Add(song);
                 }

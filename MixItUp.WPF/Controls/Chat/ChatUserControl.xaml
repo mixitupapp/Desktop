@@ -34,7 +34,20 @@
 
         <Controls:AdvancedImage x:Name="SpecialtyBadgeImage" UseChatFontSize="True" Path="{Binding PlatformSpecialtyBadgeLink, TargetNullValue={x:Null}}" Visibility="{Binding ShowPlatformSpecialtyBadge, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}" Margin="3,0,0,0" Grid.Column="4" VerticalAlignment="Center" />
 
-        <TextBlock x:Name="UsernameTextBlock" Grid.Column="6" Text="{Binding FullDisplayName}" Foreground="{Binding ColorInApp, Converter={StaticResource ColorBrushConverter}}" VerticalAlignment="Center" />
-
+        <TextBlock x:Name="UsernameTextBlock" 
+           Grid.Column="6" 
+           Text="{Binding FullDisplayName}" 
+           VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="{Binding ColorInApp, Converter={StaticResource ColorBrushConverter}}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ColorInApp}" Value="MaterialDesign.Brush.Foreground">
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
     </Grid>
 </UserControl>

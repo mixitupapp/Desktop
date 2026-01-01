@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Commands"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -24,14 +24,18 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Column="0" Text="{Binding Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" />
 
-        <ComboBox Grid.Column="2" ItemsSource="{Binding CommandGroups}" Text="{Binding SelectedCommandGroup}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Width="150" />
+        <ComboBox Grid.Column="2" ItemsSource="{Binding Platforms}" SelectedItem="{Binding SelectedPlatform}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Platform}" Width="100" />
 
-        <TextBox x:Name="GroupTimerTextBox" IsEnabled="{Binding IsCommandGroupTimerIntervalEnabled}" Text="{Binding CommandGroupTimerInterval}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GroupIntervalMin}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <ComboBox Grid.Column="4" ItemsSource="{Binding CommandGroups}" Text="{Binding SelectedCommandGroup}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Width="150" />
 
-        <local:UnlockCommandControl Grid.Column="6" />
+        <TextBox x:Name="GroupTimerTextBox" IsEnabled="{Binding IsCommandGroupTimerIntervalEnabled}" Text="{Binding CommandGroupTimerInterval}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GroupIntervalMin}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+        <local:UnlockCommandControl Grid.Column="8" />
     </Grid>
 </local:CommandEditorDetailsControlBase>

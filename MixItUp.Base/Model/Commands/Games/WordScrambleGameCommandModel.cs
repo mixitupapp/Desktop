@@ -108,7 +108,7 @@ namespace MixItUp.Base.Model.Commands.Games
                 AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
                 {
                     await DelayNoThrow(this.TimeLimit * 1000, cancellationToken);
-                    if (cancellationToken != null && cancellationToken.IsCancellationRequested)
+                    if (cancellationToken.IsCancellationRequested)
                     {
                         return;
                     }
@@ -131,7 +131,7 @@ namespace MixItUp.Base.Model.Commands.Games
                     await this.RunSubCommand(this.WordScramblePrepareCommand, this.runParameters);
 
                     await DelayNoThrow(5000, cancellationToken);
-                    if (cancellationToken != null && cancellationToken.IsCancellationRequested)
+                    if (cancellationToken.IsCancellationRequested)
                     {
                         return;
                     }
@@ -141,7 +141,7 @@ namespace MixItUp.Base.Model.Commands.Games
                     await this.RunSubCommand(this.WordScrambleBeginCommand, this.runParameters);
 
                     await DelayNoThrow(this.WordScrambleTimeLimit * 1000, cancellationToken);
-                    if (cancellationToken != null && cancellationToken.IsCancellationRequested)
+                    if (cancellationToken.IsCancellationRequested)
                     {
                         return;
                     }
