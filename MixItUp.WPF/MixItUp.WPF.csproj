@@ -5,6 +5,12 @@
 	<SelfContained>true</SelfContained>
     <OutputType>WinExe</OutputType>
     <AssemblyName>MixItUp</AssemblyName>
+    <AssemblyTitle>MixItUp.Client</AssemblyTitle>
+    <Company>Blazing Cacti LLC</Company>
+		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
+		<AssemblyVersion>1.6.0.0</AssemblyVersion>
+		<FileVersion>1.6.0.0</FileVersion>
+		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -179,7 +185,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Content Include="Assets\Sounds\Watch Alarm.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Changelog.html">
+    <Content Include="..\CHANGELOG.md">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

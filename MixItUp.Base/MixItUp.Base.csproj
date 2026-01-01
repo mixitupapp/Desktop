@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFramework>net10.0</TargetFramework>
-	  <AssemblyTitle>MixItUp.Base</AssemblyTitle>
-	  <AssemblyVersion>1.5.0.0</AssemblyVersion>
-	  <FileVersion>1.5.0.0</FileVersion>
-	  <Company>Blazing Cacti LLC</Company>
-	  <Copyright>Copyright © 2025 Blazing Cacti LLC, All Rights Reserved. </Copyright>
-  </PropertyGroup>
+  	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<AssemblyTitle>MixItUp.Base</AssemblyTitle>
+		<AssemblyVersion>1.6.0.0</AssemblyVersion>
+		<FileVersion>1.6.0.0</FileVersion>
+		<Company>Blazing Cacti LLC</Company>
+		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
+	</PropertyGroup>
 
   <ItemGroup>
     <None Remove="XSplit\Mix It Up.html" />
