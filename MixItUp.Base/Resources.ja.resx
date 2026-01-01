@@ -10830,4 +10830,352 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="TwitchAllowSharedChatEvents" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>声は返ってこない</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>ささやきメッセージを隠す</value>
+  </data>
+  <data name="BlazingStar" xml:space="preserve">
+    <value>ブレイジング・スター</value>
+  </data>
+  <data name="DealWithIt" xml:space="preserve">
+    <value>受け入れろ</value>
+  </data>
+  <data name="FedoraTip" xml:space="preserve">
+    <value>フェドラチップ</value>
+  </data>
+  <data name="FlyIn" xml:space="preserve">
+    <value>フライイン</value>
+  </data>
+  <data name="FlyOut" xml:space="preserve">
+    <value>フライアウト</value>
+  </data>
+  <data name="LeaveInStyle" xml:space="preserve">
+    <value>リーブ・イン・スタイル</value>
+  </data>
+  <data name="RotateComplex" xml:space="preserve">
+    <value>回転複合体</value>
+  </data>
+  <data name="RotateComplexOut" xml:space="preserve">
+    <value>複雑化を終了</value>
+  </data>
+  <data name="ScaleOut" xml:space="preserve">
+    <value>スケールアウト</value>
+  </data>
+  <data name="SimpleEntrance" xml:space="preserve">
+    <value>シンプルな入口</value>
+  </data>
+  <data name="Spin3D" xml:space="preserve">
+    <value>スピン3D</value>
+  </data>
+  <data name="WoahCSS" xml:space="preserve">
+    <value>Woah.css</value>
+  </data>
+  <data name="Wowzors" xml:space="preserve">
+    <value>ワウゾーズ</value>
+  </data>
+  <data name="DonorDriveDonationTeamIncentive" xml:space="preserve">
+    <value>ドナードライブ 寄付チームのインセンティブ</value>
+  </data>
+  <data name="DonorDriveDonationTeamMilestone" xml:space="preserve">
+    <value>ドナードライブ寄付チームのマイルストーン</value>
+  </data>
+  <data name="DonorDriveIncludeTeamDonationsAndEvents" xml:space="preserve">
+    <value>チームの寄付やイベントを含める</value>
+  </data>
+  <data name="Boolean" xml:space="preserve">
+    <value>ブール</value>
+  </data>
+  <data name="DropDown" xml:space="preserve">
+    <value>ドロップダウン</value>
+  </data>
+  <data name="Checkbox" xml:space="preserve">
+    <value>チェックボックス</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>洗礼盤</value>
+  </data>
+  <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
+    <value>エラー:AWSアカウント接続なしでプレミアムボイスを選択しているため、Amazon Polly TTSが実行できません</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>何もない</value>
+  </data>
+  <data name="AnAnonymousGifter" xml:space="preserve">
+    <value>匿名の贈り物者</value>
+  </data>
+  <data name="FailedToRestoreSettings" xml:space="preserve">
+    <value>エラー:エラーのため設定ファイルの復元に失敗しました。すべてのファイルがロック保護されていないことを確認するためにPCを再起動し、再度試してください。</value>
+  </data>
+  <data name="FailedToDeleteSettings" xml:space="preserve">
+    <value>エラー:エラーのため設定ファイルの削除に失敗しました。すべてのファイルがロック保護されていないことを確認するためにPCを再起動し、再度試してください。</value>
+  </data>
+  <data name="TrovoFailedToGetSubscriberData" xml:space="preserve">
+    <value>加入者データの取得に失敗しました</value>
+  </data>
+  <data name="TrovoFailedToGetEmoteData" xml:space="preserve">
+    <value>エモートデータの取得に失敗しました</value>
+  </data>
+  <data name="YouTubeFailedToUpdateVideoID" xml:space="preserve">
+    <value>ビデオIDの更新に失敗:{0}</value>
+  </data>
+  <data name="TwitchFailedToGetChannelData" xml:space="preserve">
+    <value>Twitchチャンネルデータの取得に失敗しました</value>
+  </data>
+  <data name="ActiveBroadcasts" xml:space="preserve">
+    <value>現役放送</value>
+  </data>
+  <data name="Broadcasts" xml:space="preserve">
+    <value>放送</value>
+  </data>
+  <data name="UserChatCleared" xml:space="preserve">
+    <value>ユーザーチャットクリア完了</value>
+  </data>
+  <data name="TwitchChannelHighlightedMessage" xml:space="preserve">
+    <value>Twitchチャンネルのハイライトメッセージ</value>
+  </data>
+  <data name="TwitchChannelPowerUpCelebration" xml:space="preserve">
+    <value>Twitchチャンネルパワーアップセレブレーション</value>
+  </data>
+  <data name="TwitchChannelPowerUpGigantifiedEmote" xml:space="preserve">
+    <value>Twitchチャンネルパワーアップ巨大化エモート</value>
+  </data>
+  <data name="TwitchChannelPowerUpMessageEffect" xml:space="preserve">
+    <value>Twitchチャンネルのパワーアップメッセージ効果</value>
+  </data>
+  <data name="TwitchChannelUserIntro" xml:space="preserve">
+    <value>Twitchチャンネルユーザー紹介</value>
+  </data>
+  <data name="Mock" xml:space="preserve">
+    <value>模擬</value>
+  </data>
+  <data name="TheFollowingStreamingServicesMustBeManuallyReconnected" xml:space="preserve">
+    <value>以下のストリーミングサービスは再接続できず、Mix It Upのアカウントページから手動で接続する必要があります:</value>
+  </data>
+  <data name="MeldStudioInvalidWebSocketAddress" xml:space="preserve">
+    <value>Meld Studioには有効なウェブケットアドレスを指定する必要があります</value>
+  </data>
+  <data name="MeldStudioUnableToConnect" xml:space="preserve">
+    <value>Meld Studioに接続できない場合は、アプリケーションが稼働しているか確認してください</value>
+  </data>
+  <data name="MeldStudio" xml:space="preserve">
+    <value>メルド・スタジオ</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>接続されていません</value>
+  </data>
+  <data name="WebSocketAddress" xml:space="preserve">
+    <value>WebSocketアドレス</value>
+  </data>
+  <data name="MeldStudioInfo" xml:space="preserve">
+    <value>Meld Studioの接続機能により、現在表示されているシーンの変更や表示・隠しレイヤーの表示など、Meld Studioソフトウェア内の機能を制御できます。Meld Studioに接続するには、接続を試みる前にソフトウェアが稼働していることを必ず確認してください。</value>
+  </data>
+  <data name="MonitorUnmonitorAudioTrack" xml:space="preserve">
+    <value>オーディオトラックのモニター/アンモニター</value>
+  </data>
+  <data name="MuteUnmuteAudioTrack" xml:space="preserve">
+    <value>ミュート/ミュート解除のオーディオトラック</value>
+  </data>
+  <data name="SetAudioTrackGain" xml:space="preserve">
+    <value>オーディオトラックゲインの設定</value>
+  </data>
+  <data name="ShowHideEffect" xml:space="preserve">
+    <value>見せて隠す効果</value>
+  </data>
+  <data name="ShowHideLayer" xml:space="preserve">
+    <value>表示/非表示レイヤー</value>
+  </data>
+  <data name="ShowScene" xml:space="preserve">
+    <value>ショーシーン</value>
+  </data>
+  <data name="TakeScreenshot" xml:space="preserve">
+    <value>スクリーンショットを撮ってください</value>
+  </data>
+  <data name="MeldStudioActionMissingAudioTrackName" xml:space="preserve">
+    <value>Meld Studio Action:音声トラック名の欠落</value>
+  </data>
+  <data name="MeldStudioActionMissingEffectName" xml:space="preserve">
+    <value>メルドスタジオアクション:欠けている効果名</value>
+  </data>
+  <data name="MeldStudioActionMissingLayerName" xml:space="preserve">
+    <value>Meld Studioアクション:レイヤー名の欠如</value>
+  </data>
+  <data name="MeldStudioActionMissingSceneName" xml:space="preserve">
+    <value>メルドスタジオアクション:シーン名が欠けている</value>
+  </data>
+  <data name="AudioTrackName" xml:space="preserve">
+    <value>オーディオトラック名</value>
+  </data>
+  <data name="LayerName" xml:space="preserve">
+    <value>レイヤー名</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>モニター</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>記録</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>ストリーム</value>
+  </data>
+  <data name="UnableToStartAuthenticationSession" xml:space="preserve">
+    <value>サービス認証を開始しられない場合、他のサービスで既に有効な認証プロセスが進行中でないかご確認ください。</value>
+  </data>
+  <data name="Gain" xml:space="preserve">
+    <value>ゲイン</value>
+  </data>
+  <data name="YouTubeAccountNotEnabledForLiveStreaming" xml:space="preserve">
+    <value>YouTubeアカウントはライブストリーミングアクセスが有効になっていません。</value>
+  </data>
+  <data name="YouTubeFailedToGetChannelData" xml:space="preserve">
+    <value>YouTubeチャンネルのデータ取得に失敗しました。サインインしているアカウントにYouTubeチャンネルが登録されているか必ず確認してください。</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>消えろ</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>オン</value>
+  </data>
+  <data name="Toggle" xml:space="preserve">
+    <value>トグル</value>
+  </data>
+  <data name="NewAuthorizationScopesRequired" xml:space="preserve">
+    <value>新たな認可範囲が必要であり、サービスは手動で再接続する必要があります</value>
+  </data>
+  <data name="TwitchClient" xml:space="preserve">
+    <value>Twitchクライアント</value>
+  </data>
+  <data name="RecordClip" xml:space="preserve">
+    <value>レコードクリップ</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>日付が過ぎました</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>無効な日付</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>利用規約</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>プライバシーポリシー</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>方法</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>カスタムヘッダーの追加</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>ヘッダー名</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>ヘッダー値</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>リクエストボディ(JSON)</value>
+  </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>エッジTTS</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>日付はまだ発表されていません</value>
+  </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>フリー・ボイス</value>
+  </data>
+  <data name="ViewRateLimits" xml:space="preserve">
+    <value>料金制限があります。このTTSプロバイダーの料金制限を見るにはクリックしてください</value>
+  </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitchは共有チャットイベントを許可しています</value>
+  </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>Google Cloud TTSサービスの接続機能により、自分のGoogle Cloud APIキーを接続して、テキスト読み上げアクションのGoogle Cloud TTSオプションを利用できます。</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>このサービスを利用するには、ご自身のAPIキーを提供する必要があります。Google Cloud ConsoleのページからAPIキーを取得する方法については、Wikiページを参照してください</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>APIキーは提供されていません</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>カスタムのGoogle Cloud TTS APIキーは追加されていません。ご自身のAPIキーを接続するには、サービスページのGoogle Cloud TTSセクションをご覧ください。</value>
+  </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Google Cloud API キー</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>APIキー</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>レスポンシブボイスは、オーバーレイを通じて無料のテキスト読み上げサービスを提供します。オプションで独自のAPIキーを提供することもできます。</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>APIキーを提供していない場合、デフォルトのMix It Upキーが共有レート制限で使用されます。詳細はウィキをご覧ください。</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>無効なレスポンシブ音声APIキー</value>
+  </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>過去の声を選択する</value>
+  </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>クリップの長さは5秒から60秒の間でなければなりません。</value>
+  </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>続ける前に、上記のバックアップ設定ボタンを使ってプロフィールのバックアップを作成することをお勧めします。続けますか?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>コマンドで欠落しているファイルパスを確認してください:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>経路をチェックしてください</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>ファイルの欠失確認</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>すべての道を示しよ</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>有効な経路を示す</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>警告経路を表示する</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>抜けた経路を表示</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>再スキャン</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>作動タイプ</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>選択された道:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>パスを選択してください</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>検索フォルダ</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>置き換え</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>全てを置き換える</value>
+  </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>引用を追加</value>
+  </data>
 </root>

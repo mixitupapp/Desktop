@@ -10831,4 +10831,352 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="TwitchAllowSharedChatEvents" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Nenhuma voz retornou</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estatuto</value>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Esconder Mensagens Sussurrar</value>
+  </data>
+  <data name="BlazingStar" xml:space="preserve">
+    <value>Estrela Flamejante</value>
+  </data>
+  <data name="DealWithIt" xml:space="preserve">
+    <value>Lide com isso</value>
+  </data>
+  <data name="FedoraTip" xml:space="preserve">
+    <value>Dica Fedora</value>
+  </data>
+  <data name="FlyIn" xml:space="preserve">
+    <value>Voe para dentro</value>
+  </data>
+  <data name="FlyOut" xml:space="preserve">
+    <value>Voe para fora</value>
+  </data>
+  <data name="LeaveInStyle" xml:space="preserve">
+    <value>Estilo Leave In</value>
+  </data>
+  <data name="RotateComplex" xml:space="preserve">
+    <value>Complexo de Rotação</value>
+  </data>
+  <data name="RotateComplexOut" xml:space="preserve">
+    <value>Rote o Complexo para Fora</value>
+  </data>
+  <data name="ScaleOut" xml:space="preserve">
+    <value>Escala</value>
+  </data>
+  <data name="SimpleEntrance" xml:space="preserve">
+    <value>Entrada Simples</value>
+  </data>
+  <data name="Spin3D" xml:space="preserve">
+    <value>Spin 3D</value>
+  </data>
+  <data name="WoahCSS" xml:space="preserve">
+    <value>Woah.css</value>
+  </data>
+  <data name="Wowzors" xml:space="preserve">
+    <value>Wowzors</value>
+  </data>
+  <data name="DonorDriveDonationTeamIncentive" xml:space="preserve">
+    <value>Incentivo para a Equipe de Doação de Doação de Doadores</value>
+  </data>
+  <data name="DonorDriveDonationTeamMilestone" xml:space="preserve">
+    <value>Marco da Equipe de Doação de Doadores</value>
+  </data>
+  <data name="DonorDriveIncludeTeamDonationsAndEvents" xml:space="preserve">
+    <value>Incluir Doações e Eventos da Equipe</value>
+  </data>
+  <data name="Boolean" xml:space="preserve">
+    <value>Booleano</value>
+  </data>
+  <data name="DropDown" xml:space="preserve">
+    <value>Descer</value>
+  </data>
+  <data name="Checkbox" xml:space="preserve">
+    <value>Caixa de seleção</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Fonte</value>
+  </data>
+  <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
+    <value>ERRO: Não foi possível executar o TTS da Amazon Polly devido a uma voz premium selecionada sem uma conta AWS conectada</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Nada</value>
+  </data>
+  <data name="AnAnonymousGifter" xml:space="preserve">
+    <value>Um Doador Anônimo</value>
+  </data>
+  <data name="FailedToRestoreSettings" xml:space="preserve">
+    <value>ERRO: Falhou ao restaurar o arquivo de configurações devido a um erro. Por favor, tente reiniciar seu PC para garantir que todos os arquivos não estejam protegidos por travamento e tente novamente.</value>
+  </data>
+  <data name="FailedToDeleteSettings" xml:space="preserve">
+    <value>ERRO: Falhou em deletar o arquivo de configurações devido a um erro. Por favor, tente reiniciar seu PC para garantir que todos os arquivos não estejam protegidos por travamento e tente novamente.</value>
+  </data>
+  <data name="TrovoFailedToGetSubscriberData" xml:space="preserve">
+    <value>Não consegui obter dados dos assinantes</value>
+  </data>
+  <data name="TrovoFailedToGetEmoteData" xml:space="preserve">
+    <value>Falhou em obter dados de emotes</value>
+  </data>
+  <data name="YouTubeFailedToUpdateVideoID" xml:space="preserve">
+    <value>Falhou em atualizar o ID do vídeo: {0}</value>
+  </data>
+  <data name="TwitchFailedToGetChannelData" xml:space="preserve">
+    <value>Não consegui obter dados do canal da Twitch</value>
+  </data>
+  <data name="ActiveBroadcasts" xml:space="preserve">
+    <value>Transmissões Ativas</value>
+  </data>
+  <data name="Broadcasts" xml:space="preserve">
+    <value>Transmissões</value>
+  </data>
+  <data name="UserChatCleared" xml:space="preserve">
+    <value>Chat de Usuário Liberado</value>
+  </data>
+  <data name="TwitchChannelHighlightedMessage" xml:space="preserve">
+    <value>Mensagem destacada do canal Twitch</value>
+  </data>
+  <data name="TwitchChannelPowerUpCelebration" xml:space="preserve">
+    <value>Celebração do Power-Up do Canal Twitch</value>
+  </data>
+  <data name="TwitchChannelPowerUpGigantifiedEmote" xml:space="preserve">
+    <value>Emote Gigantificado do Power-Up do Canal Twitch</value>
+  </data>
+  <data name="TwitchChannelPowerUpMessageEffect" xml:space="preserve">
+    <value>Efeito da Mensagem de Ativação do Canal Twitch</value>
+  </data>
+  <data name="TwitchChannelUserIntro" xml:space="preserve">
+    <value>Introdução do Usuário do Canal Twitch</value>
+  </data>
+  <data name="Mock" xml:space="preserve">
+    <value>Mock</value>
+  </data>
+  <data name="TheFollowingStreamingServicesMustBeManuallyReconnected" xml:space="preserve">
+    <value>Os seguintes serviços de streaming não puderam ser reconectados e precisam ser feitos manualmente pela página de Contas no Mix It Up:</value>
+  </data>
+  <data name="MeldStudioInvalidWebSocketAddress" xml:space="preserve">
+    <value>Um endereço válido de websocket deve ser especificado para o Meld Studio</value>
+  </data>
+  <data name="MeldStudioUnableToConnect" xml:space="preserve">
+    <value>Não é possível conectar ao Meld Studio, por favor, certifique-se de que o aplicativo está rodando</value>
+  </data>
+  <data name="MeldStudio" xml:space="preserve">
+    <value>Meld Studio</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Não Conectado</value>
+  </data>
+  <data name="WebSocketAddress" xml:space="preserve">
+    <value>Endereço WebSocket</value>
+  </data>
+  <data name="MeldStudioInfo" xml:space="preserve">
+    <value>A conectividade do Meld Studio permite controlar funcionalidades no software Meld Studio, como alterar a cena exibida atualmente e mostrar/esconder camadas. Para conectar ao Meld Studio, por favor, certifique-se de que o software está rodando antes de tentar conectar.</value>
+  </data>
+  <data name="MonitorUnmonitorAudioTrack" xml:space="preserve">
+    <value>Monitorar/Desmonitorar a Faixa de Áudio</value>
+  </data>
+  <data name="MuteUnmuteAudioTrack" xml:space="preserve">
+    <value>Trilha de Áudio Mute/Desativar o Mudo</value>
+  </data>
+  <data name="SetAudioTrackGain" xml:space="preserve">
+    <value>Definir o ganho da faixa de áudio</value>
+  </data>
+  <data name="ShowHideEffect" xml:space="preserve">
+    <value>Efeito Mostrar/Esconder</value>
+  </data>
+  <data name="ShowHideLayer" xml:space="preserve">
+    <value>Camada de Exibir/Ocultar</value>
+  </data>
+  <data name="ShowScene" xml:space="preserve">
+    <value>Cena do Espetáculo</value>
+  </data>
+  <data name="TakeScreenshot" xml:space="preserve">
+    <value>Tirar captura de tela</value>
+  </data>
+  <data name="MeldStudioActionMissingAudioTrackName" xml:space="preserve">
+    <value>Meld Studio Action: Nome da Faixa de Áudio Faltando</value>
+  </data>
+  <data name="MeldStudioActionMissingEffectName" xml:space="preserve">
+    <value>Ação de Estúdio Meld: Nome do Efeito Ausente</value>
+  </data>
+  <data name="MeldStudioActionMissingLayerName" xml:space="preserve">
+    <value>Ação do Meld Studio: Nome da Camada Faltando</value>
+  </data>
+  <data name="MeldStudioActionMissingSceneName" xml:space="preserve">
+    <value>Ação do Estúdio Meld: Nome da Cena Perdida</value>
+  </data>
+  <data name="AudioTrackName" xml:space="preserve">
+    <value>Nome da Faixa de Áudio</value>
+  </data>
+  <data name="LayerName" xml:space="preserve">
+    <value>Nome da Camada</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Histórico</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Stream</value>
+  </data>
+  <data name="UnableToStartAuthenticationSession" xml:space="preserve">
+    <value>Impossível iniciar a autenticação do serviço, por favor, certifique-se de que você não tem um processo ativo de autenticação em andamento com outro serviço.</value>
+  </data>
+  <data name="Gain" xml:space="preserve">
+    <value>Ganho</value>
+  </data>
+  <data name="YouTubeAccountNotEnabledForLiveStreaming" xml:space="preserve">
+    <value>A conta do YouTube não está ativada para acesso ao streaming ao vivo.</value>
+  </data>
+  <data name="YouTubeFailedToGetChannelData" xml:space="preserve">
+    <value>Não consegui obter dados do canal do YouTube. Por favor, certifique-se de que a conta com a qual você está entrando tenha um canal no YouTube criado para ela.</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Desliga</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>Em</value>
+  </data>
+  <data name="Toggle" xml:space="preserve">
+    <value>Alternar</value>
+  </data>
+  <data name="NewAuthorizationScopesRequired" xml:space="preserve">
+    <value>Novos escopos de autorização são necessários e o serviço deve ser reconectado manualmente</value>
+  </data>
+  <data name="TwitchClient" xml:space="preserve">
+    <value>Cliente Twitch</value>
+  </data>
+  <data name="RecordClip" xml:space="preserve">
+    <value>Clipe do Registro</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>A data já passou</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Data inválida</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Termos de Serviço</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Política de Privacidade</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Método</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Adicionar cabeçalho personalizado</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Nome do Cabeçalho</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Valor do Cabeçalho</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Corpo do Pedido (JSON)</value>
+  </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>A data não ocorreu</value>
+  </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>Vozes Livres</value>
+  </data>
+  <data name="ViewRateLimits" xml:space="preserve">
+    <value>Limites de taxa se aplicam. Clique para ver os limites de tarifa deste provedor de TTS</value>
+  </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitch permite eventos compartilhados de chat</value>
+  </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>A conectividade do serviço TTS do Google Cloud permite conectar sua própria chave API do Google Cloud para usar a opção TTS do Google Cloud na ação de texto para fala.</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>Você deve fornecer sua própria chave de API para usar esse serviço. Consulte a página da Wiki para instruções sobre como obter sua API Key na página do Google Cloud Console</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>Nenhuma chave de API fornecida</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>Nenhuma chave personalizada de API do TTS do Google Cloud foi adicionada. por favor, visite a seção do Google Cloud TTS na página de Serviços para conectar sua própria chave de API.</value>
+  </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Chave API do Google Cloud</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>Chave API</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>A Responsive Voice oferece serviços gratuitos de texto para fala por meio do seu overlay. Você pode, opcionalmente, fornecer sua própria chave API.</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>Se você não fornecer uma chave API, a chave padrão Mix It Up será usada com limites de taxa compartilhados. Visite a Wiki para mais informações.</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>Chave de API de Voz Responsiva Inválida</value>
+  </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>Selecionar Voz Anterior</value>
+  </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>A duração do clipe deve ser entre 5 e 60 segundos.</value>
+  </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>Antes de continuar, recomendamos criar um backup do seu perfil usando o botão Configurações de Backup acima. Continuar?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>Verifique caminhos de arquivo faltantes nos comandos:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>Verifique os Caminhos</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>Verificação de Arquivos Perdidos</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>Mostrar todos os caminhos</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>Mostrar caminhos válidos</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>Caminhos de aviso para mostrar</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>Mostrar caminhos ausentes</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>Reescanear</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Tipo de ação</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>Caminho Selecionado:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>Selecione um caminho</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>Pasta de Busca</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Substituir</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Substituir Todos</value>
+  </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>Citação Adicionada</value>
+  </data>
 </root>

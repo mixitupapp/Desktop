@@ -10835,4 +10835,352 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="TwitchAllowSharedChatEvents" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Голоса не вернулись</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Скрывать сообщения шепотом</value>
+  </data>
+  <data name="BlazingStar" xml:space="preserve">
+    <value>Пылающая звезда</value>
+  </data>
+  <data name="DealWithIt" xml:space="preserve">
+    <value>Смиритесь с этим</value>
+  </data>
+  <data name="FedoraTip" xml:space="preserve">
+    <value>Совет Fedora</value>
+  </data>
+  <data name="FlyIn" xml:space="preserve">
+    <value>Прилетайте</value>
+  </data>
+  <data name="FlyOut" xml:space="preserve">
+    <value>Вылет</value>
+  </data>
+  <data name="LeaveInStyle" xml:space="preserve">
+    <value>Уехать в стиле</value>
+  </data>
+  <data name="RotateComplex" xml:space="preserve">
+    <value>Поворотный комплекс</value>
+  </data>
+  <data name="RotateComplexOut" xml:space="preserve">
+    <value>Поворот комплекса наружу</value>
+  </data>
+  <data name="ScaleOut" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="SimpleEntrance" xml:space="preserve">
+    <value>Простой вход</value>
+  </data>
+  <data name="Spin3D" xml:space="preserve">
+    <value>Спин 3D</value>
+  </data>
+  <data name="WoahCSS" xml:space="preserve">
+    <value>Woah.css</value>
+  </data>
+  <data name="Wowzors" xml:space="preserve">
+    <value>Wowzors</value>
+  </data>
+  <data name="DonorDriveDonationTeamIncentive" xml:space="preserve">
+    <value>Поощрение команды доноров</value>
+  </data>
+  <data name="DonorDriveDonationTeamMilestone" xml:space="preserve">
+    <value>Донорская акция Команда по сбору пожертвований</value>
+  </data>
+  <data name="DonorDriveIncludeTeamDonationsAndEvents" xml:space="preserve">
+    <value>Включите пожертвования для команды и мероприятия</value>
+  </data>
+  <data name="Boolean" xml:space="preserve">
+    <value>Булево</value>
+  </data>
+  <data name="DropDown" xml:space="preserve">
+    <value>Падение вниз</value>
+  </data>
+  <data name="Checkbox" xml:space="preserve">
+    <value>Флажок</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Шрифт</value>
+  </data>
+  <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
+    <value>ERROR: Невозможно выполнить Amazon Polly TTS из-за того, что выбран премиум-голос без подключенной учетной записи AWS.</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Ничего</value>
+  </data>
+  <data name="AnAnonymousGifter" xml:space="preserve">
+    <value>Анонимный даритель</value>
+  </data>
+  <data name="FailedToRestoreSettings" xml:space="preserve">
+    <value>ОШИБКА: Не удалось восстановить файл настроек из-за ошибки. Пожалуйста, попробуйте перезагрузить компьютер, чтобы убедиться, что все файлы не защищены от блокировки, и повторите попытку.</value>
+  </data>
+  <data name="FailedToDeleteSettings" xml:space="preserve">
+    <value>ОШИБКА: Не удалось удалить файл настроек из-за ошибки. Пожалуйста, попробуйте перезагрузить компьютер, чтобы убедиться, что все файлы не защищены от блокировки, и повторите попытку.</value>
+  </data>
+  <data name="TrovoFailedToGetSubscriberData" xml:space="preserve">
+    <value>Не удалось получить данные об абоненте</value>
+  </data>
+  <data name="TrovoFailedToGetEmoteData" xml:space="preserve">
+    <value>Не удалось получить данные об эмоциях</value>
+  </data>
+  <data name="YouTubeFailedToUpdateVideoID" xml:space="preserve">
+    <value>Не удалось обновить идентификатор видео: {0}</value>
+  </data>
+  <data name="TwitchFailedToGetChannelData" xml:space="preserve">
+    <value>Не удалось получить данные о канале Twitch</value>
+  </data>
+  <data name="ActiveBroadcasts" xml:space="preserve">
+    <value>Активные трансляции</value>
+  </data>
+  <data name="Broadcasts" xml:space="preserve">
+    <value>Трансляции</value>
+  </data>
+  <data name="UserChatCleared" xml:space="preserve">
+    <value>Пользовательский чат очищен</value>
+  </data>
+  <data name="TwitchChannelHighlightedMessage" xml:space="preserve">
+    <value>Выделенное сообщение на канале Twitch</value>
+  </data>
+  <data name="TwitchChannelPowerUpCelebration" xml:space="preserve">
+    <value>Празднование увеличения мощности канала Twitch</value>
+  </data>
+  <data name="TwitchChannelPowerUpGigantifiedEmote" xml:space="preserve">
+    <value>Twitch Channel Power-Up Gigantified Emote</value>
+  </data>
+  <data name="TwitchChannelPowerUpMessageEffect" xml:space="preserve">
+    <value>Twitch Channel Power-Up Message Effect</value>
+  </data>
+  <data name="TwitchChannelUserIntro" xml:space="preserve">
+    <value>Представление пользователя канала Twitch</value>
+  </data>
+  <data name="Mock" xml:space="preserve">
+    <value>Макет</value>
+  </data>
+  <data name="TheFollowingStreamingServicesMustBeManuallyReconnected" xml:space="preserve">
+    <value>Следующие потоковые сервисы не удалось переподключить, и это необходимо сделать вручную на странице "Аккаунты" в Mix It Up:</value>
+  </data>
+  <data name="MeldStudioInvalidWebSocketAddress" xml:space="preserve">
+    <value>Для Meld Studio должен быть указан действительный адрес веб-сокета.</value>
+  </data>
+  <data name="MeldStudioUnableToConnect" xml:space="preserve">
+    <value>Невозможно подключиться к Meld Studio, пожалуйста, убедитесь, что приложение запущено</value>
+  </data>
+  <data name="MeldStudio" xml:space="preserve">
+    <value>Meld Studio</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Не подключено</value>
+  </data>
+  <data name="WebSocketAddress" xml:space="preserve">
+    <value>Адрес WebSocket</value>
+  </data>
+  <data name="MeldStudioInfo" xml:space="preserve">
+    <value>Подключение к Meld Studio позволяет управлять функциями программы Meld Studio, например, изменять текущую отображаемую сцену и показывать/скрывать слои. Чтобы подключиться к Meld Studio, убедитесь, что программное обеспечение запущено, прежде чем пытаться подключиться.</value>
+  </data>
+  <data name="MonitorUnmonitorAudioTrack" xml:space="preserve">
+    <value>Мониторинг/немониторинг звуковой дорожки</value>
+  </data>
+  <data name="MuteUnmuteAudioTrack" xml:space="preserve">
+    <value>Включение/выключение звуковой дорожки</value>
+  </data>
+  <data name="SetAudioTrackGain" xml:space="preserve">
+    <value>Настройка усиления звуковой дорожки</value>
+  </data>
+  <data name="ShowHideEffect" xml:space="preserve">
+    <value>Показать/скрыть эффект</value>
+  </data>
+  <data name="ShowHideLayer" xml:space="preserve">
+    <value>Показать/скрыть слой</value>
+  </data>
+  <data name="ShowScene" xml:space="preserve">
+    <value>Показать сцену</value>
+  </data>
+  <data name="TakeScreenshot" xml:space="preserve">
+    <value>Сделать скриншот</value>
+  </data>
+  <data name="MeldStudioActionMissingAudioTrackName" xml:space="preserve">
+    <value>Meld Studio Action: Отсутствие названия звуковой дорожки</value>
+  </data>
+  <data name="MeldStudioActionMissingEffectName" xml:space="preserve">
+    <value>Meld Studio Action: Отсутствующее имя эффекта</value>
+  </data>
+  <data name="MeldStudioActionMissingLayerName" xml:space="preserve">
+    <value>Meld Studio Action: Отсутствует имя слоя</value>
+  </data>
+  <data name="MeldStudioActionMissingSceneName" xml:space="preserve">
+    <value>Meld Studio Action: Пропавшее название сцены</value>
+  </data>
+  <data name="AudioTrackName" xml:space="preserve">
+    <value>Название звуковой дорожки</value>
+  </data>
+  <data name="LayerName" xml:space="preserve">
+    <value>Название слоя</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Монитор</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Поток</value>
+  </data>
+  <data name="UnableToStartAuthenticationSession" xml:space="preserve">
+    <value>Невозможно начать аутентификацию в службе, пожалуйста, убедитесь, что у вас еще нет активного процесса аутентификации в другой службе.</value>
+  </data>
+  <data name="Gain" xml:space="preserve">
+    <value>Усиление</value>
+  </data>
+  <data name="YouTubeAccountNotEnabledForLiveStreaming" xml:space="preserve">
+    <value>Учетная запись YouTube не включена для просмотра прямых трансляций.</value>
+  </data>
+  <data name="YouTubeFailedToGetChannelData" xml:space="preserve">
+    <value>Не удалось получить данные о канале YouTube. Убедитесь, что для учетной записи, с которой вы входите в систему, создан канал YouTube.</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>С сайта</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>На сайте</value>
+  </data>
+  <data name="Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
+  <data name="NewAuthorizationScopesRequired" xml:space="preserve">
+    <value>Требуются новые диапазоны авторизации, и службу необходимо подключить заново вручную</value>
+  </data>
+  <data name="TwitchClient" xml:space="preserve">
+    <value>Клиент Twitch</value>
+  </data>
+  <data name="RecordClip" xml:space="preserve">
+    <value>Запись клипа</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>Дата прошла</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Неверная дата</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Условия предоставления услуг</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Метод</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Добавить пользовательский заголовок</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Название заголовка</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Значение заголовка</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Тело запроса (JSON)</value>
+  </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>Дата не наступила</value>
+  </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>Свободные голоса</value>
+  </data>
+  <data name="ViewRateLimits" xml:space="preserve">
+    <value>Действуют тарифные ограничения. Щелкните, чтобы увидеть тарифные ограничения для этого поставщика услуг TTS</value>
+  </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitch разрешает совместные события в чате</value>
+  </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>Подключение сервиса Google Cloud TTS позволяет подключить собственный ключ Google Cloud API для использования опции Google Cloud TTS в действии преобразования текста в речь.</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>Для использования этой службы необходимо предоставить собственный ключ API. Инструкции по получению ключа API со страницы Google Cloud Console см. на странице Wiki</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>Ключ API не предоставляется</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>Пользовательский ключ API Google Cloud TTS не был добавлен. Посетите раздел Google Cloud TTS на странице "Сервисы", чтобы подключить собственный ключ API.</value>
+  </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Ключ API Google Cloud</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>Ключ API</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>Responsive Voice предоставляет бесплатные услуги преобразования текста в речь через ваш оверлей. При желании вы можете предоставить свой собственный ключ API.</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>Если вы не предоставите ключ API, будет использоваться ключ Mix It Up по умолчанию с общими лимитами тарифов. Посетите Вики для получения дополнительной информации.</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>Неверный ключ API Responsive Voice</value>
+  </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>Выберите предыдущий голос</value>
+  </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>Продолжительность ролика должна составлять от 5 до 60 секунд.</value>
+  </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>Прежде чем продолжить, мы рекомендуем создать резервную копию вашего профиля с помощью кнопки Backup Settings выше. Продолжить?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>Проверка отсутствия путей к файлам в командах:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>Проверьте пути</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>Проверка отсутствующих файлов</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>Показать все пути</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>Показать действительные пути</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>Показать пути предупреждения</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>Показать отсутствующие пути</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>Повторное сканирование</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Тип действия</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>Избранный путь:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>Выберите путь</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>Папка для поиска</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Заменить</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Заменить все</value>
+  </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>Цитата Добавлено</value>
+  </data>
 </root>
