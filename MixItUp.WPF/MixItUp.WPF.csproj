@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	<SelfContained>true</SelfContained>
     <OutputType>WinExe</OutputType>
@@ -32,7 +33,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <StartupObject>MixItUp.WPF.Program</StartupObject>
-    <PostBuildEvent>del $(TargetDir)ApplicationSettings.json
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">del $(TargetDir)ApplicationSettings.json
 rmdir /Q /S $(TargetDir)Settings\
 rmdir /Q /S $(TargetDir)Logs\
 rmdir /Q /S $(TargetDir)ChatEventLogs\
@@ -93,11 +94,11 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Resource Include="Assets\Images\Twitter.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\YoutubeMonochrome.png" />
+    <Resource Include="Assets\Images\YouTubeMonochrome.png" />
     <Resource Include="Assets\Images\TwitchMonochrome.png" />
     <Resource Include="Assets\Images\TrovoMonochrome.png" />
-    <Resource Include="Assets\Images\YoutubeDark.png" />
-    <Resource Include="Assets\Images\Youtube-XS.png" />
+    <Resource Include="Assets\Images\YouTubeDark.png" />
+    <Resource Include="Assets\Images\YouTube-XS.png" />
     <Resource Include="Assets\Images\Twitch-XS.png" />
     <Resource Include="Assets\Images\Trovo-XS.png" />
     <Resource Include="Assets\Images\Patreon.png" />
