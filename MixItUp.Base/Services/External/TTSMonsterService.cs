@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -201,10 +202,11 @@ namespace MixItUp.Base.Services.External
                     {
                         string filename = response.URL.Split(new char[] { '?' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
                         filename = filename.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-                        using (WebClient webClient = new WebClient())
+                        using (HttpClient httpClient = new HttpClient())
                         {
                             string filePath = Path.Combine(ServiceManager.Get<IFileService>().GetTempFolder(), filename);
-                            await webClient.DownloadFileTaskAsync(new Uri(response.URL), filePath);
+                            byte[] fileBytes = await httpClient.GetByteArrayAsync(response.URL);
+                            await File.WriteAllBytesAsync(filePath, fileBytes);
                             await ServiceManager.Get<IAudioService>().Play(filePath, volume, outputDevice, waitForFinish: waitForFinish);
                         }
                     }

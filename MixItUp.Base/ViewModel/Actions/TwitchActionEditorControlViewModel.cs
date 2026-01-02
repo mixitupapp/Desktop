@@ -114,16 +114,36 @@ namespace MixItUp.Base.ViewModel.Actions
 
         public bool ShowClipsGrid { get { return this.SelectedActionType == TwitchActionType.Clip; } }
 
-        public bool ClipIncludeDelay
+
+
+        public string ClipTitle
         {
-            get { return this.clipIncludeDelay; }
+            get { return this.clipTitle; }
             set
             {
-                this.clipIncludeDelay = value;
+                this.clipTitle = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private bool clipIncludeDelay;
+        private string clipTitle;
+
+        public string ClipDuration
+        {
+            get { return (this.clipDuration.HasValue) ? this.clipDuration.ToString() : string.Empty; }
+            set
+            {
+                if (float.TryParse(value, out float duration))
+                {
+                    this.clipDuration = duration;
+                }
+                else
+                {
+                    this.clipDuration = null;
+                }
+                this.NotifyPropertyChanged();
+            }
+        }
+        private float? clipDuration;
 
         public bool ShowStreamMarkerGrid { get { return this.SelectedActionType == TwitchActionType.StreamMarker; } }
 
@@ -654,8 +674,9 @@ namespace MixItUp.Base.ViewModel.Actions
             }
             else if (this.ShowClipsGrid)
             {
-                this.ClipIncludeDelay = action.ClipIncludeDelay;
                 this.ShowInfoInChat = action.ShowInfoInChat;
+                this.ClipTitle = action.ClipTitle;
+                this.ClipDuration = (action.ClipDuration.HasValue) ? action.ClipDuration.ToString() : string.Empty;
             }
             else if (this.ShowStreamMarkerGrid)
             {
@@ -786,6 +807,16 @@ namespace MixItUp.Base.ViewModel.Actions
                 if (!string.IsNullOrEmpty(this.StreamMarkerDescription) && this.StreamMarkerDescription.Length > TwitchActionModel.StreamMarkerMaxDescriptionLength)
                 {
                     return new Result(MixItUp.Base.Resources.TwitchActionStreamMarkerDescriptionMustBe140CharactersOrLess);
+                }
+            }
+            else if (this.ShowClipsGrid)
+            {
+                if (float.TryParse(this.ClipDuration, out float duration))
+                {
+                    if (duration < 5 || duration > 60)
+                    {
+                        return new Result(MixItUp.Base.Resources.TwitchClipDurationLimits);
+                    }
                 }
             }
             else if (this.ShowUpdateChannelPointRewardGrid)
@@ -953,7 +984,7 @@ namespace MixItUp.Base.ViewModel.Actions
             }
             else if (this.ShowClipsGrid)
             {
-                return TwitchActionModel.CreateClipAction(this.ClipIncludeDelay, this.ShowInfoInChat);
+                return TwitchActionModel.CreateClipAction(this.ShowInfoInChat, this.ClipTitle, this.clipDuration);
             }
             else if (this.ShowStreamMarkerGrid)
             {

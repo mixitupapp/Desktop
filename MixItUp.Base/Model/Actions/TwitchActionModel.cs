@@ -122,11 +122,12 @@ namespace MixItUp.Base.Model.Actions
             return action;
         }
 
-        public static TwitchActionModel CreateClipAction(bool includeDelay, bool showInfoInChat)
+        public static TwitchActionModel CreateClipAction(bool showInfoInChat, string title = null, float? duration = null)
         {
             TwitchActionModel action = new TwitchActionModel(TwitchActionType.Clip);
-            action.ClipIncludeDelay = includeDelay;
             action.ShowInfoInChat = showInfoInChat;
+            action.ClipTitle = title;
+            action.ClipDuration = duration;
             return action;
         }
 
@@ -242,7 +243,9 @@ namespace MixItUp.Base.Model.Actions
         public int AdLength { get; set; } = 60;
 
         [DataMember]
-        public bool ClipIncludeDelay { get; set; }
+        public string ClipTitle { get; set; }
+        [DataMember]
+        public float? ClipDuration { get; set; }
 
         [DataMember]
         public string StreamMarkerDescription { get; set; }
@@ -449,7 +452,8 @@ namespace MixItUp.Base.Model.Actions
                 }
                 else if (this.ActionType == TwitchActionType.Clip)
                 {
-                    ClipCreationModel clipCreation = await ServiceManager.Get<TwitchSession>().StreamerService.CreateClip(ServiceManager.Get<TwitchSession>().StreamerModel, this.ClipIncludeDelay);
+                    string title = (!string.IsNullOrEmpty(this.ClipTitle)) ? await ReplaceStringWithSpecialModifiers(this.ClipTitle, parameters) : null;
+                    ClipCreationModel clipCreation = await ServiceManager.Get<TwitchSession>().StreamerService.CreateClip(ServiceManager.Get<TwitchSession>().StreamerModel, title, this.ClipDuration);
                     if (clipCreation != null)
                     {
                         for (int i = 0; i < 12; i++)

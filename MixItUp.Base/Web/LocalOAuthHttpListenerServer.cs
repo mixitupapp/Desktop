@@ -22,7 +22,7 @@ namespace MixItUp.Base.Web
                 <meta charset=""utf-8"">
                 <meta name=""viewport"" content=""width=device-width,initial-scale=1"">
                 <title>Mix It Up - Logged In</title>
-                <link rel=""shortcut icon"" href=""https://static.mixitupapp.com/desktop/Mix-It-Up_Logo_Auth-Callback.png"">
+                <link rel=""shortcut icon"" href=""https://files.mixitupapp.com/static/desktop/Mix-It-Up_Logo_Auth-Callback.png"">
                 <style>
                 *{margin:0;padding:0;box-sizing:border-box}
                 body{font-family:system-ui,sans-serif;background:radial-gradient(circle at 125% 125%,#9b305e 0%,#12053a 85%);background-attachment:fixed;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative}
@@ -41,7 +41,7 @@ namespace MixItUp.Base.Web
                 <div id=""particles-js""></div>
                 <div class=""content"">
                 <div class=""card"">
-                <img src=""https://static.mixitupapp.com/desktop/Mix-It-Up_Logo_Auth-Callback.png"" alt=""Mix It Up Logo"" class=""logo"">
+                <img src=""https://files.mixitupapp.com/static/desktop/Mix-It-Up_Logo_Auth-Callback.png"" alt=""Mix It Up Logo"" class=""logo"">
                 <h1 class=""title"">Mix It Up</h1>
                 <h2 class=""subtitle"">Logged In Successfully</h2>
                 <p class=""message"">You have been logged in successfully. You may now close this webpage.</p>
@@ -49,7 +49,7 @@ namespace MixItUp.Base.Web
                 </div>
                 <script src=""https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js""></script>
                 <script>
-                particlesJS('particles-js',{particles:{number:{value:40,density:{enable:true,value_area:2000}},color:{value:'#dcb8f5'},shape:{type:'image',stroke:{width:0,color:'#000000'},polygon:{nb_sides:3},image:{src:'https://static.mixitupapp.com/desktop/Mix-It-Up_Logo_Auth-Callback.png',width:100,height:100}},opacity:{value:0.5,random:false,anim:{enable:false,speed:1,opacity_min:0.1,sync:false}},size:{value:10,random:true,anim:{enable:true,speed:5,size_min:5,sync:false}},line_linked:{enable:true,distance:155,color:'#b926cd',opacity:0.5,width:3},move:{enable:true,speed:2,direction:'top-left',random:false,straight:false,out_mode:'out',bounce:false,attract:{enable:true,rotateX:600,rotateY:1200}}},interactivity:{detect_on:'canvas',events:{onhover:{enable:true,mode:'repulse'},onclick:{enable:false,mode:'push'},resize:true},modes:{grab:{distance:400,line_linked:{opacity:1}},bubble:{distance:400,size:40,duration:2,opacity:8,speed:3},repulse:{distance:200,duration:0.4},push:{particles_nb:4},remove:{particles_nb:2}}},retina_detect:true});
+                particlesJS('particles-js',{particles:{number:{value:40,density:{enable:true,value_area:2000}},color:{value:'#dcb8f5'},shape:{type:'image',stroke:{width:0,color:'#000000'},polygon:{nb_sides:3},image:{src:'https://files.mixitupapp.com/static/desktop/Mix-It-Up_Logo_Auth-Callback.png',width:100,height:100}},opacity:{value:0.5,random:false,anim:{enable:false,speed:1,opacity_min:0.1,sync:false}},size:{value:10,random:true,anim:{enable:true,speed:5,size_min:5,sync:false}},line_linked:{enable:true,distance:155,color:'#b926cd',opacity:0.5,width:3},move:{enable:true,speed:2,direction:'top-left',random:false,straight:false,out_mode:'out',bounce:false,attract:{enable:true,rotateX:600,rotateY:1200}}},interactivity:{detect_on:'canvas',events:{onhover:{enable:true,mode:'repulse'},onclick:{enable:false,mode:'push'},resize:true},modes:{grab:{distance:400,line_linked:{opacity:1}},bubble:{distance:400,size:40,duration:2,opacity:8,speed:3},repulse:{distance:200,duration:0.4},push:{particles_nb:4},remove:{particles_nb:2}}},retina_detect:true});
                 </script>
                 </body>
                 </html>";

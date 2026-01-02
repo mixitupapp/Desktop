@@ -51,7 +51,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="90" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" />
 
                     <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" />
                 </Grid>
@@ -97,7 +97,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Outcomes}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" />
+                    <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Outcomes}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" />
 
                     <Button Grid.Column="2" Content="{x:Static resx:Resources.AddOutcome}" Command="{Binding AddOutcomeCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" />
                 </Grid>

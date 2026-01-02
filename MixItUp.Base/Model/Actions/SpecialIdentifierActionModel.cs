@@ -75,6 +75,88 @@ namespace MixItUp.Base.Model.Actions
                     }
                     return Task.FromResult<string>(null);
                 });
+                replacementText = await this.ProcessStringFunction(parameters, replacementText, "datefrom", 1, (arguments) =>
+                {
+                    if (arguments.Count() == 1)
+                    {
+                        try
+                        {
+                            DateTime targetDate;
+                            if (!DateTime.TryParse(arguments.First(), out targetDate))
+                            {
+                                return Task.FromResult(MixItUp.Base.Resources.InvalidDate);
+                            }
+
+                            DateTime now = DateTime.Now;
+                            TimeSpan difference = now - targetDate;
+
+                            if (difference.TotalSeconds < 0)
+                            {
+                                return Task.FromResult(MixItUp.Base.Resources.DateNotOccurred);
+                            }
+
+                            int days = (int)difference.TotalDays;
+                            int hours = difference.Hours;
+                            int minutes = difference.Minutes;
+                            int seconds = difference.Seconds;
+
+                            List<string> parts = new List<string>();
+                            if (days > 0) parts.Add(days + " " + MixItUp.Base.Resources.TimeDays);
+                            if (hours > 0) parts.Add(hours + " " + MixItUp.Base.Resources.TimeHours);
+                            if (minutes > 0) parts.Add(minutes + " " + MixItUp.Base.Resources.TimeMinutes);
+                            if (seconds > 0 || parts.Count == 0) parts.Add(seconds + " " + MixItUp.Base.Resources.Seconds);
+
+                            return Task.FromResult(string.Join(", ", parts));
+                        }
+                        catch
+                        {
+                            return Task.FromResult(MixItUp.Base.Resources.InvalidDate);
+                        }
+                    }
+                    return Task.FromResult<string>(null);
+                });
+
+                replacementText = await this.ProcessStringFunction(parameters, replacementText, "dateto", 1, (arguments) =>
+                {
+                    if (arguments.Count() == 1)
+                    {
+                        try
+                        {
+                            DateTime targetDate;
+                            if (!DateTime.TryParse(arguments.First(), out targetDate))
+                            {
+                                return Task.FromResult(MixItUp.Base.Resources.InvalidDate);
+                            }
+
+                            DateTime now = DateTime.Now;
+                            TimeSpan difference = targetDate - now;
+
+                            if (difference.TotalSeconds < 0)
+                            {
+                                return Task.FromResult(MixItUp.Base.Resources.DateHasPassed);
+                            }
+
+                            int days = (int)difference.TotalDays;
+                            int hours = difference.Hours;
+                            int minutes = difference.Minutes;
+                            int seconds = difference.Seconds;
+
+                            List<string> parts = new List<string>();
+                            if (days > 0) parts.Add(days + " " + MixItUp.Base.Resources.TimeDays);
+                            if (hours > 0) parts.Add(hours + " " + MixItUp.Base.Resources.TimeHours);
+                            if (minutes > 0) parts.Add(minutes + " " + MixItUp.Base.Resources.TimeMinutes);
+                            if (seconds > 0 || parts.Count == 0) parts.Add(seconds + " " + MixItUp.Base.Resources.Seconds);
+
+                            return Task.FromResult(string.Join(", ", parts));
+                        }
+                        catch
+                        {
+                            return Task.FromResult(MixItUp.Base.Resources.InvalidDate);
+                        }
+                    }
+                    return Task.FromResult<string>(null);
+                });
+
             }
 
             if (this.ShouldProcessMath)
@@ -191,5 +273,7 @@ namespace MixItUp.Base.Model.Actions
             }
             return text;
         }
+
+
     }
 }

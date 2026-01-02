@@ -23,6 +23,7 @@ namespace MixItUp.Base.Model.Twitch.Subscriptions
         public int Duration { get; set; }
         public int Streak { get; set; }
         public int Cumulative { get; set; }
+        public int? CumulativeGifts { get; set; }
 
         public int SubPoints { get; set; }
 
@@ -65,6 +66,7 @@ namespace MixItUp.Base.Model.Twitch.Subscriptions
                 this.SubPoints = notification.sub_gift.SubPoints;
                 this.CommunityGiftID = notification.sub_gift.community_gift_id;
                 this.IsAnonymous = notification.chatter_is_anonymous;
+                this.CumulativeGifts = notification.sub_gift.cumulative_total;
             }
             else if (notification.NoticeType == ChatNotificationType.gift_paid_upgrade)
             {

@@ -3254,6 +3254,10 @@
     <value>Hide Bot Messages</value>
     <comment>Manual</comment>
   </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Hide Whisper Messages</value>
+    <comment>Manual</comment>
+  </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Patreon Benefit</value>
     <comment>Manual</comment>
@@ -9664,7 +9668,7 @@ print(run())</value>
     <value>Select a new folder to load in music from a folder or hit the Play button to load in music from the last used folder.</value>
   </data>
   <data name="ResponsiveVoice" xml:space="preserve">
-    <value>ResponsiveVoice</value>
+    <value>Responsive Voice</value>
   </data>
   <data name="WindowsTextToSpeech" xml:space="preserve">
     <value>Windows Text To Speech</value>
@@ -11006,5 +11010,137 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   </data>
   <data name="RecordClip" xml:space="preserve">
     <value>Record Clip</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>Date has passed</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Invalid date</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Terms of Service</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Method</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Add Custom Header</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Header Name</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Header Value</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Request Body (JSON)</value>
+  </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>Date has not occurred</value>
+  </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>Free Voices</value>
+  </data>
+  <data name="ViewRateLimits" xml:space="preserve">
+    <value>Rate limits apply. Click to see the rate limits for this TTS provider</value>
+  </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitch Allow Shared Chat Events</value>
+  </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>The Google Cloud TTS service connectivity allows you to connect your own Google Cloud API key to use the Google Cloud TTS option in the text to speech action.</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>You must provide your own API key to use this service. Refer to the Wiki page for instructions on how to get your API Key from the Google Cloud Console page</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>No API key provided</value>
+  </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>No voices returned</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>No custom Google Cloud TTS API key has been added. please visit the Google Cloud TTS section on the Services page to connect your own API key.</value>
+  </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Google Cloud API Key</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>Responsive Voice provides free text-to-speech services through your overlay. You can optionally provide your own API key.</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>If you don't provide an API key, the default Mix It Up key will be used with shared rate limits. Visit the Wiki for more information.</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>Invalid Responsive Voice API Key</value>
+  </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>Select Previous Voice</value>
+  </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>Clip duration must be between 5 and 60 seconds.</value>
+  </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>Before you continue, we recommend creating a backup of your profile using the Backup Settings button above. Continue?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>Check missing file paths in commands:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>Check Paths</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>Missing Files Check</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>Show all paths</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>Show valid paths</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>Show warning paths</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>Show missing paths</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>Rescan</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Action Type</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>Selected Path:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>Select a path</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>Search Folder</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Replace All</value>
+  </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>Quote Added</value>
   </data>
 </root>

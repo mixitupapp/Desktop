@@ -9,14 +9,13 @@
              xmlns:CommandsControls="clr-namespace:MixItUp.WPF.Controls.Commands"
              xmlns:ChatControls="clr-namespace:MixItUp.WPF.Controls.Chat"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:util="clr-namespace:MixItUp.WPF.Util"
              mc:Ignorable="d"
                           
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
 
              d:DesignHeight="600" d:DesignWidth="800">
     <local:GroupedCommandsMainControlBase.Resources>
@@ -138,7 +137,7 @@
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
-                        <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="230" Width="230">
+                        <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="250" Width="250">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <CommandsControls:CommandListingButtonsControl HorizontalAlignment="Center" EditClicked="CommandButtons_EditClicked" DeleteClicked="CommandButtons_DeleteClicked" EnableDisableToggled="CommandButtonsControl_EnableDisableToggled" />
@@ -153,11 +152,11 @@
                 <ItemsControl ItemsSource="{Binding CommandGroups}" HorizontalAlignment="Stretch">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1">
-                                <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{StaticResource PrimaryHueMidBrush}">
+                            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                                <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{DynamicResource MaterialDesign.Brush.Primary}">
                                     <Expander.Header>
                                         <Grid Background="Transparent">
-                                            <TextBlock HorizontalAlignment="Left" Text="{Binding DisplayName}" Foreground="{StaticResource PrimaryHueMidForegroundBrush}" />
+                                            <TextBlock HorizontalAlignment="Left" Text="{Binding DisplayName}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 
                                             <ToggleButton Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" HorizontalAlignment="Right" IsChecked="{Binding Path=IsEnabled}" />
                                         </Grid>
@@ -175,7 +174,7 @@
                                                     </Grid>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>
-                                            <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="230" Width="230">
+                                            <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" MinWidth="250" Width="250">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <CommandsControls:CommandListingButtonsControl HorizontalAlignment="Center" EditClicked="CommandButtons_EditClicked" DeleteClicked="CommandButtons_DeleteClicked" EnableDisableToggled="CommandButtonsControl_EnableDisableToggled" />

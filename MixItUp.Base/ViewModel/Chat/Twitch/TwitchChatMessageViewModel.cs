@@ -239,6 +239,7 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
                     foreach (string text in fragment.text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
                     {
                         this.AddStringMessagePart(text);
+                        messageNoCheermotes.Add(text);
                         if (ChannelSession.Settings.ShowBetterTTVEmotes && ServiceManager.Get<BetterTTVService>().BetterTTVEmotes.ContainsKey(text))
                         {
                             this.MessageParts[this.MessageParts.Count - 1] = ServiceManager.Get<BetterTTVService>().BetterTTVEmotes[text];
@@ -252,6 +253,7 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
                 else if (fragment.Type == ChatNotificationMessageFragmentType.emote)
                 {
                     this.AddStringMessagePart(fragment.text);
+                    messageNoCheermotes.Add(fragment.text);
                     if (!ServiceManager.Get<TwitchSession>().Emotes.ContainsKey(fragment.text))
                     {
                         ServiceManager.Get<TwitchSession>().Emotes[fragment.text] = new TwitchChatEmoteViewModel(fragment.text, fragment.emote);
@@ -273,6 +275,7 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
                 else if (fragment.Type == ChatNotificationMessageFragmentType.mention)
                 {
                     this.AddStringMessagePart(fragment.text);
+                    messageNoCheermotes.Add(fragment.text);
                 }
             }
 

@@ -35,7 +35,7 @@
 
                     <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandInitialAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InitialAmount}" Width="80" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxCombinationLength}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CombinationLength}" Width="80" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxCombinationLength}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CombinationLength}" Width="100" />
                 </Grid>
             </GroupBox>
 

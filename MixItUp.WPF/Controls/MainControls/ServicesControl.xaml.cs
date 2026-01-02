@@ -23,9 +23,8 @@ namespace MixItUp.WPF.Controls.MainControls
 
         protected override async Task InitializeInternal()
         {
-            List<ServiceContainerControl> services = new List<ServiceContainerControl>();
+            List<UserControl> services = new List<UserControl>();
 
-            services.Add(new ServiceContainerControl(this.Window, new AmazonPollyServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new CrowdControlServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new DeveloperAPIServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new DiscordServiceControl()));
@@ -36,7 +35,6 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new LoupeDeckServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LumiaStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MeldStudioServiceControl()));
-            services.Add(new ServiceContainerControl(this.Window, new MicrosoftAzureSpeechServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MtionStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OBSStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OverlayServiceControl()));
@@ -53,11 +51,19 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new StreamlabsServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new StreamlabsDesktopServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new StreamlootsServiceControl()));
+
+            ServiceCategoryControl ttsCategory = new ServiceCategoryControl(this.Window, MixItUp.Base.Resources.TextToSpeech);
+            ttsCategory.AddService(new AmazonPollyServiceControl());
+            ttsCategory.AddService(new GoogleCloudTTSServiceControl());
+            ttsCategory.AddService(new MicrosoftAzureSpeechServiceControl());
+            ttsCategory.AddService(new ResponsiveVoiceServiceControl());
+            ttsCategory.AddService(new TTSMonsterServiceControl());
+            services.Add(ttsCategory);
+
             services.Add(new ServiceContainerControl(this.Window, new TiltifyServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TipeeeStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TITSServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TreatStreamServiceControl()));
-            services.Add(new ServiceContainerControl(this.Window, new TTSMonsterServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VoicemodServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VTSPogServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VTubeStudioServiceControl()));

@@ -23,10 +23,13 @@ namespace MixItUp.Base.Services.External
         {
             try
             {
-                System.Net.ServicePointManager.Expect100Continue = false;
-
                 using (var client = new AdvancedHttpClient())
                 {
+                    // Configure the client to not send Expect: 100-Continue header
+                    // https://sammi.solutions/docs/api/reference //
+
+                    client.DefaultRequestHeaders.ExpectContinue = false;
+
                     JObject result = await client.GetJObjectAsync($"{this.BaseAddressURL}?request=getVariable&name=Architecture");
                     if (result != null && result.ContainsKey("data"))
                     {
@@ -55,6 +58,8 @@ namespace MixItUp.Base.Services.External
             {
                 using (var client = new AdvancedHttpClient())
                 {
+                    client.DefaultRequestHeaders.ExpectContinue = false;
+
                     JObject jobj = new JObject();
                     jobj["request"] = "triggerButton";
                     jobj["buttonID"] = buttonID;
@@ -78,6 +83,8 @@ namespace MixItUp.Base.Services.External
             {
                 using (var client = new AdvancedHttpClient())
                 {
+                    client.DefaultRequestHeaders.ExpectContinue = false;
+
                     JObject jobj = new JObject();
                     jobj["request"] = "releaseButton";
                     jobj["buttonID"] = buttonID;
@@ -101,6 +108,8 @@ namespace MixItUp.Base.Services.External
             {
                 using (var client = new AdvancedHttpClient())
                 {
+                    client.DefaultRequestHeaders.ExpectContinue = false;
+
                     JObject jobj = new JObject();
                     jobj["request"] = "setVariable";
                     jobj["name"] = name;

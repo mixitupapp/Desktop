@@ -6,11 +6,14 @@ using MixItUp.Base.Util;
 using MixItUp.WPF.Windows;
 using MixItUp.WPF.Windows.Wizard;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Windows.Media;
 
 namespace MixItUp.WPF
 {
@@ -21,6 +24,7 @@ namespace MixItUp.WPF
     {
         private MixItUpUpdateModel currentUpdate;
         private bool updateFound = false;
+        private OutageModel currentOutage;
 
         private ThreadSafeObservableCollection<SettingsV3Model> streamerSettings = new ThreadSafeObservableCollection<SettingsV3Model>();
 
@@ -36,7 +40,16 @@ namespace MixItUp.WPF
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-            this.Title += " - v" + VersionHelper.NormalizeSemVerString(entryVersion);
+            string versionString = "v" + VersionHelper.NormalizeSemVerString(entryVersion);
+            
+            if (Util.BuildExpirationHelper.IsEnabled())
+            {
+                versionString += " -- TEST BUILD --";
+            }
+            
+            this.Title += " - " + versionString;
+
+            this.VersionTextBlock.Text = versionString;
 
             if (ServiceManager.Get<IProcessService>().GetProcessesByName("MixItUp").Count() > 1)
             {
@@ -48,7 +61,15 @@ namespace MixItUp.WPF
 
             this.ExistingStreamerComboBox.ItemsSource = streamerSettings;
 
+            await CheckForOutages();
+
             await this.CheckForUpdates();
+
+            if (await Util.BuildExpirationHelper.CheckBuildExpiration())
+            {
+                this.Close();
+                return;
+            }
 
             foreach (SettingsV3Model setting in (await ServiceManager.Get<SettingsService>().GetAllSettings()).OrderBy(s => s.Name))
             {
@@ -165,6 +186,42 @@ namespace MixItUp.WPF
             }
         }
 
+        private async Task CheckForOutages()
+        {
+            try
+            {
+                currentOutage = await ServiceManager.Get<MixItUpService>().CheckOutageStatus();
+
+                if (currentOutage != null && currentOutage.Enabled && !string.IsNullOrEmpty(currentOutage.Message))
+                {
+                    OutageBanner.Visibility = Visibility.Visible;
+                    OutageMessage.Text = currentOutage.Message;
+
+                    switch (currentOutage.Severity?.ToLower())
+                    {
+                        case "info":
+                            OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1976D2"));
+                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Information;
+                            break;
+
+                        case "warning":
+                            OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00"));
+                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Warning;
+                            break;
+
+                        case "critical":
+                            OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F"));
+                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.AlertCircle;
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Warning, $"Failed to check for outages: {ex.Message}");
+            }
+        }
+
         private async Task<bool> ExistingSettingLogin(SettingsV3Model setting)
         {
             Result result = await ChannelSession.Connect(setting);
@@ -201,7 +258,7 @@ namespace MixItUp.WPF
 
             this.Close();
 
-            ServiceManager.Get<IProcessService>().LaunchProgram(Application.ResourceAssembly.Location);
+            ServiceManager.Get<IProcessService>().LaunchProgram(Environment.ProcessPath);
         }
 
         public void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -209,5 +266,29 @@ namespace MixItUp.WPF
             ServiceManager.Get<IProcessService>().LaunchLink(e.Uri.AbsoluteUri);
             e.Handled = true;
         }
+
+        private void OpenInstallFolder_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchFolder(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
+        }
+
+        private void OpenDiscord_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord");
+        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
+        }
+        private void CloseOutageBannerButton_Click(object sender, RoutedEventArgs e)
+        {
+            OutageBanner.Visibility = Visibility.Collapsed;
+        }
+
     }
 }

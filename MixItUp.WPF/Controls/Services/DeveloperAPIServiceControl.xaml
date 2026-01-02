@@ -10,36 +10,29 @@
     <local:ServiceControlBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </local:ServiceControlBase.Resources>
-
     <Grid Margin="10" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="450" />
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
-
         <StackPanel Orientation="Vertical" Grid.Column="0">
             <TextBlock TextWrapping="Wrap" Text="{x:Static resx:Resources.DeveloperAPIInfo}"/>
-
             <TextBlock TextWrapping="Wrap" Margin="0,10,0,0">
                 <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/developer-api" RequestNavigate="Hyperlink_RequestNavigate">
                     <TextBlock Text="{x:Static resx:Resources.DeveloperAPI}"/>
                 </Hyperlink>
             </TextBlock>
-
             <StackPanel Orientation="Horizontal">
-                <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" Text="{x:Static resx:Resources.DeveloperAPIAdvanced}"/>
-                <ToggleButton Margin="10,10,0,0" IsEnabled="{Binding IsNotConnected}" IsChecked="{Binding EnableDeveloperAPIAdvancedMode}" HorizontalAlignment="Center"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" Text="{x:Static resx:Resources.DeveloperAPIAdvanced}" VerticalAlignment="Center" />
+                <ToggleButton Margin="10,10,0,0" IsEnabled="{Binding IsNotConnected}" IsChecked="{Binding EnableDeveloperAPIAdvancedMode}" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
-
             <TextBlock TextWrapping="Wrap" Text="{x:Static resx:Resources.DeveloperAPIWarning}"/>
         </StackPanel>
-
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Disconnect}"/>
             </Grid>
-
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Connect}"/>
             </Grid>

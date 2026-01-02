@@ -1,28 +1,37 @@
-﻿<Controls:LoadingWindowControlBase x:Class="MixItUp.WPF.Controls.Chat.ChatListControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
-             xmlns:ChatControls="clr-namespace:MixItUp.WPF.Controls.Chat"
-             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<Controls:LoadingWindowControlBase
+    x:Class="MixItUp.WPF.Controls.Chat.ChatListControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ChatControls="clr-namespace:MixItUp.WPF.Controls.Chat"
+    xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <Controls:LoadingWindowControlBase.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
             <ContextMenu x:Key="ChatListContextMenu">
-                <MenuItem x:Name="MessageCopyMenuItem" Header="{x:Static resx:Resources.CopyMessage}" Click="MessageCopyMenuItem_Click" />
-                <MenuItem x:Name="MessageDeleteMenuItem" Header="{x:Static resx:Resources.DeleteMessage}" Click="MessageDeleteMenuItem_Click" />
-                <MenuItem x:Name="GoToLinkMenuItem" Visibility="Collapsed" Header="{x:Static resx:Resources.GoToLink}" Click="GoToLinkMenuItem_Click" />
+                <MenuItem
+                    x:Name="MessageCopyMenuItem"
+                    Click="MessageCopyMenuItem_Click"
+                    Header="{x:Static resx:Resources.CopyMessage}" />
+                <MenuItem
+                    x:Name="MessageDeleteMenuItem"
+                    Click="MessageDeleteMenuItem_Click"
+                    Header="{x:Static resx:Resources.DeleteMessage}" />
+                <MenuItem
+                    x:Name="GoToLinkMenuItem"
+                    Click="GoToLinkMenuItem_Click"
+                    Header="{x:Static resx:Resources.GoToLink}"
+                    Visibility="Collapsed" />
                 <Separator />
-                <MenuItem x:Name="UserInformationMenuItem" Header="{x:Static resx:Resources.UserInfo}" Click="UserInformationMenuItem_Click" />
+                <MenuItem
+                    x:Name="UserInformationMenuItem"
+                    Click="UserInformationMenuItem_Click"
+                    Header="{x:Static resx:Resources.UserInfo}" />
             </ContextMenu>
 
         </ResourceDictionary>
@@ -35,7 +44,17 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ListView x:Name="ChatList" ItemsSource="{Binding Messages}" Grid.Row="0" ContextMenu="{StaticResource ChatListContextMenu}" SelectionChanged="ChatList_SelectionChanged" AlternationCount="{Binding AlternationCount}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" ScrollViewer.ScrollChanged="ChatList_ScrollChanged">
+            <ListView
+                x:Name="ChatList"
+                Grid.Row="0"
+                HorizontalContentAlignment="Stretch"
+                AlternationCount="{Binding AlternationCount}"
+                ContextMenu="{StaticResource ChatListContextMenu}"
+                ItemsSource="{Binding Messages}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.ScrollChanged="ChatList_ScrollChanged"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                SelectionChanged="ChatList_SelectionChanged">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollContentPresenter}, Path=ActualWidth}" />
@@ -46,11 +65,11 @@
                     <Style TargetType="ListBoxItem">
                         <Style.Triggers>
                             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                <Setter Property="Background" Value="{StaticResource MaterialDesignTextFieldBoxHoverBackground}" />
+                                <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}" />
                             </Trigger>
                         </Style.Triggers>
 
-                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Padding" Value="0" />
                     </Style>
                 </ListView.ItemContainerStyle>
 
@@ -61,12 +80,29 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button x:Name="ChatLockButton" ToolTip="{x:Static resx:Resources.LockChatScrolling}" Margin="0,0,20,0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Bottom" Opacity="0.3" Command="{Binding ScrollingLockCommand}" MouseEnter="ChatLockButton_MouseEnter" MouseLeave="ChatLockButton_MouseLeave">
-                <MaterialDesign:PackIcon x:Name="ChatLockButtonIcon" Style="{StaticResource ButtonIcon}" Kind="LockOutline" Foreground="{Binding LockIconColor}" />
+            <Button
+                x:Name="ChatLockButton"
+                Grid.Row="0"
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding ScrollingLockCommand}"
+                MouseEnter="ChatLockButton_MouseEnter"
+                MouseLeave="ChatLockButton_MouseLeave"
+                Opacity="0.3"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                ToolTip="{x:Static resx:Resources.LockChatScrolling}">
+                <MaterialDesign:PackIcon
+                    x:Name="ChatLockButtonIcon"
+                    Foreground="{Binding LockIconColor}"
+                    Kind="LockOutline"
+                    Style="{StaticResource ButtonIcon}" />
             </Button>
 
             <Grid Grid.Row="1" Margin="5">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="10" />
@@ -75,18 +111,96 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="1" ItemsSource="{Binding SendAsOptions, Mode=OneWay}" SelectedIndex="{Binding SendAsIndex}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SendAs}" MinWidth="80" Margin="0,10,0,0" />
+                <ComboBox
+                    Grid.Column="1"
+                    Width="40"
+                    Margin="0,10,0,0"
+                    VerticalAlignment="Center"
+                    MaterialDesign:HintAssist.Hint="Platform"
+                    ItemsSource="{Binding PlatformOptions}"
+                    SelectedItem="{Binding SelectedPlatform, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image
+                                    Width="20"
+                                    Height="20"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Source="{Binding LogoPath, TargetNullValue={x:Null}}">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LogoPath}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding Name}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding LogoPath}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                    <ComboBox.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource {x:Type ComboBoxItem}}" TargetType="ComboBoxItem">
+                            <Setter Property="ToolTip" Value="{Binding Name}" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
 
-                <TextBox x:Name="ChatMessageTextBox" Grid.Column="3" Text="{Binding SendMessageText}" TextChanged="ChatMessageTextBox_TextChanged" PreviewKeyDown="ChatMessageTextBox_PreviewKeyDown" KeyDown="ChatMessageTextBox_KeyDown" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <ComboBox
+                    Grid.Column="3"
+                    MinWidth="80"
+                    Margin="0,10,0,0"
+                    MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SendAs}"
+                    ItemsSource="{Binding SendAsOptions, Mode=OneWay}"
+                    SelectedIndex="{Binding SendAsIndex}" />
 
-                <Button Grid.Column="5" Command="{Binding SendMessageCommand}" MinWidth="70" Content="{x:Static resx:Resources.Send}"/>
+                <TextBox
+                    x:Name="ChatMessageTextBox"
+                    Grid.Column="5"
+                    MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}"
+                    KeyDown="ChatMessageTextBox_KeyDown"
+                    PreviewKeyDown="ChatMessageTextBox_PreviewKeyDown"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    Text="{Binding SendMessageText}"
+                    TextChanged="ChatMessageTextBox_TextChanged" />
+
+                <Button
+                    Grid.Column="7"
+                    MinWidth="70"
+                    Command="{Binding SendMessageCommand}"
+                    Content="{x:Static resx:Resources.Send}" />
             </Grid>
         </Grid>
 
         <Canvas>
-            <MaterialDesign:PopupBox ToggleContent="" x:Name="UsernameIntellisense" StaysOpen="False">
-                <Grid Margin="2,0,2,0" x:Name="UsernameIntellisenseContent">
-                    <ListBox x:Name="UsernameIntellisenseListBox" ItemContainerStyle="{StaticResource BorderedListBoxItem}" SelectionMode="Single" PreviewMouseUp="UsernameIntellisenseListBox_PreviewMouseUp">
+            <MaterialDesign:PopupBox
+                x:Name="UsernameIntellisense"
+                StaysOpen="False"
+                ToggleContent="">
+                <Grid x:Name="UsernameIntellisenseContent" Margin="2,0,2,0">
+                    <ListBox
+                        x:Name="UsernameIntellisenseListBox"
+                        ItemContainerStyle="{StaticResource BorderedListBoxItem}"
+                        PreviewMouseUp="UsernameIntellisenseListBox_PreviewMouseUp"
+                        SelectionMode="Single">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ChatControls:ChatUserControl />
@@ -96,14 +210,27 @@
                 </Grid>
             </MaterialDesign:PopupBox>
 
-            <MaterialDesign:PopupBox ToggleContent="" x:Name="EmoticonIntellisense" StaysOpen="False">
-                <Grid Margin="2,0,2,0" x:Name="EmoticonIntellisenseContent">
-                    <ListBox x:Name="EmoticonIntellisenseListBox" ItemContainerStyle="{StaticResource BorderedListBoxItem}" SelectionMode="Single" PreviewMouseUp="EmoticonIntellisenseListBox_PreviewMouseUp">
+            <MaterialDesign:PopupBox
+                x:Name="EmoticonIntellisense"
+                StaysOpen="False"
+                ToggleContent="">
+                <Grid x:Name="EmoticonIntellisenseContent" Margin="2,0,2,0">
+                    <ListBox
+                        x:Name="EmoticonIntellisenseListBox"
+                        ItemContainerStyle="{StaticResource BorderedListBoxItem}"
+                        PreviewMouseUp="EmoticonIntellisenseListBox_PreviewMouseUp"
+                        SelectionMode="Single">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Controls:AdvancedImage DataContext="{Binding}" UseChatFontSize="True" ChatFontSizeScale="2" />
-                                    <TextBlock Text="{Binding Name}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                    <Controls:AdvancedImage
+                                        ChatFontSizeScale="2"
+                                        DataContext="{Binding}"
+                                        UseChatFontSize="True" />
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Name}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

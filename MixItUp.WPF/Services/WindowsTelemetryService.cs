@@ -1,4 +1,5 @@
 ﻿using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 using MixItUp.Base;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Actions;
@@ -17,11 +18,13 @@ namespace MixItUp.WPF.Services
     {
         private const int MaxTelemetryEventsPerSession = 2000;
 
-        private TelemetryClient telemetryClient = new TelemetryClient();
+        private TelemetryConfiguration telemetryConfiguration = new TelemetryConfiguration();
+        private TelemetryClient telemetryClient;
         private int totalEventsSent = 0;
 
         public WindowsTelemetryService()
         {
+            this.telemetryClient = new TelemetryClient(this.telemetryConfiguration);
             this.telemetryClient.Context.Cloud.RoleInstance = "MixItUpApp";
             this.telemetryClient.Context.Cloud.RoleName = "MixItUpApp";
             this.telemetryClient.Context.Session.Id = Guid.NewGuid().ToString();
@@ -38,7 +41,7 @@ namespace MixItUp.WPF.Services
             string key = ServiceManager.Get<SecretsService>().GetSecret("ApplicationInsightsKey");
             if (!string.IsNullOrEmpty(key))
             {
-                this.telemetryClient.InstrumentationKey = key;
+                this.telemetryConfiguration.ConnectionString = $"InstrumentationKey={key}";
             }
 
             this.IsConnected = true;

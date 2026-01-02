@@ -1,4 +1,5 @@
 ﻿using MixItUp.Base.Model.API;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -26,12 +27,12 @@ namespace MixItUp.Installer
         public const string MixItUpProcessName = "MixItUp";
         public const string AutoHosterProcessName = "MixItUp.AutoHoster";
 
-        private static readonly Version minimumOSVersion = new Version(6, 2, 0, 0);
+        private static readonly Version minimumOSVersion = new Version(10, 0, 0, 0);
 
         public static readonly string DefaultInstallDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MixItUp");
         public static readonly string StartMenuDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "Mix It Up");
 
-        public static string InstallSettingsDirectory { get { return Path.Combine(MainWindowViewModel.InstallSettingsDirectory, "Settings"); } }
+        public static string InstallSettingsDirectory { get { return Path.Combine(MainWindowViewModel.DefaultInstallDirectory, "Settings"); } }
 
         private const string FileServiceBaseUrl = "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
         private const string TempDirectoryName = ".tmp";
@@ -271,7 +272,9 @@ namespace MixItUp.Installer
         {
             if (Environment.OSVersion.Version < minimumOSVersion)
             {
-                this.ShowError("Mix It Up only runs on Windows 8 & higher.", "If incorrect, please contact support@mixitupapp.com");
+                this.ShowError(
+                    $"Mix It Up only runs on Windows 10 & higher.\nDetected Version: {Environment.OSVersion.Version}",
+                    $"If incorrect, please contact support@mixitupapp.com\nDiscord: https://mixitupapp.com/discord");
                 return false;
             }
             return true;
@@ -286,6 +289,8 @@ namespace MixItUp.Installer
                 try
                 {
                     File.Delete(InstallerLogFileName);
+                    this.WriteToLogFile("Installation started: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    this.WriteToLogFile("OS Version: " + Environment.OSVersion.Version.ToString());
 
                     if (!string.IsNullOrEmpty(this.installDirectoryArgument))
                     {

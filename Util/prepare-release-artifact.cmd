@@ -8,6 +8,12 @@ pushd "%SCRIPT_DIR%" >nul
 for /f "usebackq delims=" %%i in (`powershell -NoLogo -NoProfile -Command "(Resolve-Path '%SCRIPT_DIR%..').ProviderPath"`) do set "DESKTOP_DIR=%%i"
 for /f "usebackq delims=" %%i in (`powershell -NoLogo -NoProfile -Command "(Resolve-Path '%DESKTOP_DIR%\..').ProviderPath"`) do set "REPO_ROOT=%%i"
 
+set "PUBLISHING_DIR=!REPO_ROOT!\Publishing"
+if not exist "!PUBLISHING_DIR!" (
+    REM Fallback: Try to find Publishing dir relative to where we are if REPO_ROOT is wrong
+    for /f "usebackq delims=" %%i in (`powershell -NoLogo -NoProfile -Command "(Resolve-Path '%SCRIPT_DIR%..\..\..\Publishing').ProviderPath"`) do set "PUBLISHING_DIR=%%i"
+)
+
 set "EULA_SOURCE=!REPO_ROOT!\Docs\Legal\Desktop\Embedded\End-User-License-Agreement.md"
 if not exist "!EULA_SOURCE!" (
     echo EULA file not found at "!EULA_SOURCE!".
@@ -81,33 +87,34 @@ if exist "!ARTIFACT_DIR!" (
 mkdir "!ARTIFACT_DIR!"
 if errorlevel 1 goto :fail
 
-echo Building !PRODUCT_NAME! (Release)...
-msbuild "!PROJECT_PATH!" /t:Rebuild /p:Configuration=Release
-if errorlevel 1 goto :fail
+set "PUBLISHING_DIR=!REPO_ROOT!\Publishing"
+if not exist "!PUBLISHING_DIR!" (
+    REM Fallback: Try to find Publishing dir relative to where we are if REPO_ROOT is wrong
+    for /f "usebackq delims=" %%i in (`powershell -NoLogo -NoProfile -Command "(Resolve-Path '%SCRIPT_DIR%..\..\..\Publishing').ProviderPath"`) do set "PUBLISHING_DIR=%%i"
+)
 
-call :SignReleaseBinaries
-if errorlevel 1 goto :fail
+if not exist "!PUBLISHING_DIR!" (
+    echo Publishing directory not found at "!PUBLISHING_DIR!".
+    echo Please run BuildAndSignRelease.ps1 first.
+    goto :fail
+)
 
 echo Packaging build output...
 if "!PRODUCT_KEY!"=="desktop" (
     set "PACKAGE_FILENAME=MixItUp-Desktop_!RELEASE_VERSION!.zip"
-    set "PACKAGE_SOURCE_DIR=!DESKTOP_DIR!\MixItUp.WPF\bin\Release"
-    if not exist "!PACKAGE_SOURCE_DIR!" (
-        echo Build output not found at "!PACKAGE_SOURCE_DIR!".
+    set "PACKAGE_SOURCE_FILE=!PUBLISHING_DIR!\MixItUp.zip"
+    if not exist "!PACKAGE_SOURCE_FILE!" (
+        echo Pre-built package not found at "!PACKAGE_SOURCE_FILE!".
         goto :fail
     )
-    set "PACKAGE_PATH=!ARTIFACT_DIR!\!PACKAGE_FILENAME!"
-    set "PS_PACKAGE_SOURCE=!PACKAGE_SOURCE_DIR!"
-    set "PS_PACKAGE_DEST=!PACKAGE_PATH!"
-    powershell -NoLogo -NoProfile -Command "Compress-Archive -Path (Join-Path $env:PS_PACKAGE_SOURCE '*') -DestinationPath $env:PS_PACKAGE_DEST -Force"
+    copy /Y "!PACKAGE_SOURCE_FILE!" "!ARTIFACT_DIR!\!PACKAGE_FILENAME!" >nul
     if errorlevel 1 goto :fail
-    set "PS_PACKAGE_SOURCE="
-    set "PS_PACKAGE_DEST="
+    set "PACKAGE_PATH=!ARTIFACT_DIR!\!PACKAGE_FILENAME!"
 ) else (
     set "PACKAGE_FILENAME=MixItUp-Setup.exe"
-    set "PACKAGE_SOURCE_FILE=!OUTPUT_DIR!\MixItUp-Setup.exe"
+    set "PACKAGE_SOURCE_FILE=!PUBLISHING_DIR!\MixItUp-Setup.exe"
     if not exist "!PACKAGE_SOURCE_FILE!" (
-        echo Installer binary not found at "!PACKAGE_SOURCE_FILE!".
+        echo Pre-built installer not found at "!PACKAGE_SOURCE_FILE!".
         goto :fail
     )
     copy /Y "!PACKAGE_SOURCE_FILE!" "!ARTIFACT_DIR!\!PACKAGE_FILENAME!" >nul
@@ -184,60 +191,6 @@ set "PS_INPUT=!INSTALLER_VERSION!"
 for /f "usebackq delims=" %%i in (`powershell -NoLogo -NoProfile -Command "if ($env:PS_INPUT) { $env:PS_INPUT.Trim() } else { '' }"`) do set "INSTALLER_VERSION=%%i"
 set "PS_INPUT="
 set "INSTALLER_URL=https://files.mixitupapp.com/apps/mixitup-desktop-installer/windows-x64/public/!INSTALLER_VERSION!/MixItUp-Setup.exe"
-exit /b 0
-
-:SignReleaseBinaries
-if not defined SIGNTHUMB set "SIGNTHUMB=A838AD3D9C00B4806F2FC4270269EA6060D021DC"
-
-if not defined SIGNTOOL (
-    set "SIGNTOOL=C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\microsoft.windows.sdk.buildtools\10.0.26100.1742\bin\10.0.26100.0\x64\signtool.exe"
-    if not exist "%SIGNTOOL%" set "SIGNTOOL=C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-)
-
-if not exist "!SIGNTOOL!" (
-    echo signtool.exe not found. Set SIGNTOOL to the full path.
-    exit /b 1
-)
-
-set "SIGN_TARGETS="
-
-if "!PRODUCT_KEY!"=="desktop" (
-    set "WPF_RELEASE_DIR=!DESKTOP_DIR!\MixItUp.WPF\bin\Release"
-    for %%f in (MixItUp.exe MixItUp.Reporter.exe MixItUp.API.dll MixItUp.Base.dll MixItUp.SignalR.Client.dll) do (
-        if not exist "!WPF_RELEASE_DIR!\%%f" (
-            echo Required binary not found for signing: "!WPF_RELEASE_DIR!\%%f".
-            exit /b 1
-        )
-        set "SIGN_TARGETS=!SIGN_TARGETS! ""!WPF_RELEASE_DIR!\%%f"""
-    )
-) else (
-    set "INSTALLER_RELEASE=!DESKTOP_DIR!\MixItUp.Installer\bin\Release\MixItUp-Setup.exe"
-    if not exist "!INSTALLER_RELEASE!" (
-        echo Required installer binary not found for signing: "!INSTALLER_RELEASE!".
-        exit /b 1
-    )
-    set "SIGN_TARGETS=""!INSTALLER_RELEASE!"""
-)
-
-if "!SIGN_TARGETS!"=="" (
-    echo No binaries collected for signing.
-    exit /b 1
-)
-
-echo Signing release binaries...
-"%SIGNTOOL%" sign /fd sha256 /sha1 %SIGNTHUMB% /tr http://ts.ssl.com /td sha256 /v !SIGN_TARGETS!
-if errorlevel 1 (
-    echo Failed to sign release binaries.
-    exit /b 1
-)
-
-echo Verifying signatures...
-"%SIGNTOOL%" verify /pa !SIGN_TARGETS!
-if errorlevel 1 (
-    echo Failed to verify signatures.
-    exit /b 1
-)
-
 exit /b 0
 
 :fail

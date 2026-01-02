@@ -41,8 +41,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.DonorDriveIncludeTeamDonationsAndEvents}"/>
-                <ToggleButton Grid.Column="2" IsChecked="{Binding IncludeTeamDonations}" />
+                <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.DonorDriveIncludeTeamDonationsAndEvents}" VerticalAlignment="Center" />
+                <ToggleButton Grid.Column="2" IsChecked="{Binding IncludeTeamDonations}" VerticalAlignment="Center" />
 
             </Grid>
         </Grid>
@@ -83,4 +83,3 @@
         </Grid>
     </Grid>
 </local:ServiceControlBase>
-

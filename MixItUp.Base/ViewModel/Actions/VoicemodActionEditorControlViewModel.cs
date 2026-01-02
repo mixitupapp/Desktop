@@ -160,6 +160,10 @@ namespace MixItUp.Base.ViewModel.Actions
             {
                 return Task.FromResult<ActionModelBase>(VoicemodActionModel.CreateForSelectVoice(this.SelectedVoice != null ? this.SelectedVoice.voiceID : this.voiceID));
             }
+            else if (this.SelectedActionType == VoicemodActionTypeEnum.SelectPreviousVoice)
+            {
+                return Task.FromResult<ActionModelBase>(VoicemodActionModel.CreateForSelectPreviousVoice());
+            }
             else if (this.SelectedActionType == VoicemodActionTypeEnum.RandomVoice)
             {
                 return Task.FromResult<ActionModelBase>(VoicemodActionModel.CreateForRandomVoice(this.SelectedRandomVoiceType));
