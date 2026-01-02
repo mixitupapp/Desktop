@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Actions"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -124,7 +124,7 @@
             <TextBox Grid.Column="0" Text="{Binding AudioTrackName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioTrackName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Gain}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <Slider Grid.Column="4" Value="{Binding AudioTrackGain}" VerticalAlignment="Center" Width="150" Minimum="-60" Maximum="0" Style="{StaticResource MaterialDesignDiscreteSlider}" />
+            <Slider Grid.Column="4" Value="{Binding AudioTrackGain}" VerticalAlignment="Center" Width="150" Minimum="-60" Maximum="0" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding StartStopStream, Converter={StaticResource BooleanToVisibilityConverter}}">

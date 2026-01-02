@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2652,6 +2652,10 @@ Fuzzy</comment>
   </data>
   <data name="ChatUserPurge" xml:space="preserve">
     <value>Chat Gebruiker Verwijderd</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="DonorDriveDonation" xml:space="preserve">
+    <value>DonorDrive-donatie</value>
     <comment>Manual</comment>
   </data>
   <data name="JustGivingDonation" xml:space="preserve">
@@ -5466,6 +5470,12 @@ ingeschakeld. Je kunt het zien als vergelijkbaar met het omschakelen van de opti
   </data>
   <data name="DiscordInvalidSecret" xml:space="preserve">
     <value>Voer een geldig aangepast klantgeheim in.</value>
+  </data>
+  <data name="DonorDriveInfo1" xml:space="preserve">
+    <value>Met de DonorDrive-serviceconnectiviteit kunt u gebeurtenissen activeren vanaf het moment dat u of uw team een ​​donatie ontvangt via een in aanmerking komende DonorDrive-liefdadigheidsinstelling.</value>
+  </data>
+  <data name="DonorDriveInfo2" xml:space="preserve">
+    <value>Om DonorDrive in Mix It Up te koppelen, gaat u naar de website van uw goede doel en zoekt u naar uw pagina/deelnemerlink. Selecteer vervolgens uw goede doel in de vervolgkeuzelijst of selecteer Aangepast als dit niet in de lijst staat, kopieer de link van uw pagina/deelnemer naar het tekstvak en selecteer Inloggen.</value>
   </data>
   <data name="OverlayConnectionFailed1" xml:space="preserve">
     <value>Overlay-verbindingstest mislukt. Zorg ervoor dat de Mix It Up Overlay-pagina zichtbaar en actief is in uw streamingsoftware.</value>
@@ -8855,6 +8865,53 @@ via Twitch is het een situatie van ‘uw kilometerstand kan variëren’.</value
   <data name="TrovoChannelSpellCast" xml:space="preserve">
     <value>Trovo Channel Spell-cast</value>
   </data>
+  <data name="SetTitleDescription" xml:space="preserve">
+    <value>Titel/beschrijving instellen</value>
+  </data>
+  <data name="YouTubeActionMissingAmount" xml:space="preserve">
+    <value>YouTube-actie: Er moet een geldig bedrag worden opgegeven</value>
+  </data>
+  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
+    <value>YouTube-actie: er moet een geldige titel of beschrijving worden opgegeven</value>
+  </data>
+  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
+    <value>Massalidmaatschap van YouTube-kanaal cadeau gegeven</value>
+  </data>
+  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
+    <value>Mijlpaal voor YouTube-kanaallid</value>
+  </data>
+  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
+    <value>YouTube-kanaallidmaatschap cadeau gedaan</value>
+  </data>
+  <data name="YouTubeChannelNewMember" xml:space="preserve">
+    <value>YouTube-kanaal Nieuw lid</value>
+  </data>
+  <data name="YouTubeChannelStreamStart" xml:space="preserve">
+    <value>YouTube-kanaalstream starten</value>
+  </data>
+  <data name="YouTubeChannelStreamStop" xml:space="preserve">
+    <value>YouTube-kanaalstream stop</value>
+  </data>
+  <data name="YouTubeChannelSuperChat" xml:space="preserve">
+    <value>YouTube-kanaal Super Chat</value>
+  </data>
+  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
+    <value>Supersticker voor YouTube-kanaal</value>
+  </data>
+  <data name="AlertYouTubeSuperChat" xml:space="preserve">
+    <value>{0} SuperChat - {1}</value>
+    <comment>{0} is the name of the user
+{1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
+    <value>{0} Supersticker - {1} - {2}</value>
+    <comment>{0} is the name of the user
+{1} is the name of the super sticker
+{2} is the amount of the super chat</comment>
+  </data>
+  <data name="ShowYouTubeSuperChat" xml:space="preserve">
+    <value>YouTube SuperChat weergeven</value>
+  </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Mock-verbinding</value>
   </data>
@@ -9209,6 +9266,9 @@ afdrukken(uitvoeren())</value>
   <data name="ShellExecute" xml:space="preserve">
     <value>Shell uitvoeren</value>
   </data>
+  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
+    <value>Regel met specifieke tekst uit bestand verwijderen</value>
+  </data>
   <data name="TextToRemove" xml:space="preserve">
     <value>Tekst om te verwijderen</value>
   </data>
@@ -9245,6 +9305,9 @@ afdrukken(uitvoeren())</value>
   </data>
   <data name="OverlayLabelCounterNotSelected" xml:space="preserve">
     <value>Er moet een geldige teller worden geselecteerd</value>
+  </data>
+  <data name="LatestFollower" xml:space="preserve">
+    <value>Laatste volger</value>
   </data>
   <data name="LatestDonation" xml:space="preserve">
     <value>Laatste donatie</value>
@@ -9287,66 +9350,6 @@ afdrukken(uitvoeren())</value>
   </data>
   <data name="DeStream" xml:space="preserve">
     <value>DeStream</value>
-  </data>
-  <data name="DonorDriveDonation" xml:space="preserve">
-    <value>DonorDrive-donatie</value>
-    <comment>Manual</comment>
-  </data>
-  <data name="DonorDriveInfo1" xml:space="preserve">
-    <value>Met de DonorDrive-serviceconnectiviteit kunt u gebeurtenissen activeren vanaf het moment dat u of uw team een ​​donatie ontvangt via een in aanmerking komende DonorDrive-liefdadigheidsinstelling.</value>
-  </data>
-  <data name="DonorDriveInfo2" xml:space="preserve">
-    <value>Om DonorDrive in Mix It Up te koppelen, gaat u naar de website van uw goede doel en zoekt u naar uw pagina/deelnemerlink. Selecteer vervolgens uw goede doel in de vervolgkeuzelijst of selecteer Aangepast als dit niet in de lijst staat, kopieer de link van uw pagina/deelnemer naar het tekstvak en selecteer Inloggen.</value>
-  </data>
-  <data name="SetTitleDescription" xml:space="preserve">
-    <value>Titel/beschrijving instellen</value>
-  </data>
-  <data name="YouTubeActionMissingAmount" xml:space="preserve">
-    <value>YouTube-actie: Er moet een geldig bedrag worden opgegeven</value>
-  </data>
-  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
-    <value>YouTube-actie: er moet een geldige titel of beschrijving worden opgegeven</value>
-  </data>
-  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
-    <value>Massalidmaatschap van YouTube-kanaal cadeau gegeven</value>
-  </data>
-  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
-    <value>Mijlpaal voor YouTube-kanaallid</value>
-  </data>
-  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
-    <value>YouTube-kanaallidmaatschap cadeau gedaan</value>
-  </data>
-  <data name="YouTubeChannelNewMember" xml:space="preserve">
-    <value>YouTube-kanaal Nieuw lid</value>
-  </data>
-  <data name="YouTubeChannelStreamStart" xml:space="preserve">
-    <value>YouTube-kanaalstream starten</value>
-  </data>
-  <data name="YouTubeChannelStreamStop" xml:space="preserve">
-    <value>YouTube-kanaalstream stop</value>
-  </data>
-  <data name="YouTubeChannelSuperChat" xml:space="preserve">
-    <value>YouTube-kanaal Super Chat</value>
-  </data>
-  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
-    <value>Supersticker voor YouTube-kanaal</value>
-  </data>
-  <data name="AlertYouTubeSuperChat" xml:space="preserve">
-    <value>{0} SuperChat - {1}</value>
-    <comment>{0} is the name of the user
-{1} is the amount of the super chat</comment>
-  </data>
-  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
-    <value>{0} Supersticker - {1} - {2}</value>
-    <comment>{0} is the name of the user
-{1} is the name of the super sticker
-{2} is the amount of the super chat</comment>
-  </data>
-  <data name="ShowYouTubeSuperChat" xml:space="preserve">
-    <value>YouTube SuperChat weergeven</value>
-  </data>
-  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
-    <value>Regel met specifieke tekst uit bestand verwijderen</value>
   </data>
   <data name="ExistingProfile" xml:space="preserve">
     <value>Bestaand profiel</value>
@@ -9661,12 +9664,6 @@ afdrukken(uitvoeren())</value>
   <data name="MusicPlayerSelectFolderOrPlayMusicToLoadInSongs" xml:space="preserve">
     <value>Selecteer een nieuwe map om muziek uit een map te laden of druk op de knop Afspelen om muziek uit de laatst gebruikte map te laden.</value>
   </data>
-  <data name="NoDuplicates" xml:space="preserve">
-    <value>Geen duplicaten</value>
-  </data>
-  <data name="LatestFollower" xml:space="preserve">
-    <value>Laatste volger</value>
-  </data>
   <data name="ResponsiveVoice" xml:space="preserve">
     <value>Responsieve stem</value>
   </data>
@@ -9726,6 +9723,9 @@ afdrukken(uitvoeren())</value>
   </data>
   <data name="SpecificClip" xml:space="preserve">
     <value>Specifieke clip</value>
+  </data>
+  <data name="NoDuplicates" xml:space="preserve">
+    <value>Geen duplicaten</value>
   </data>
   <data name="CountLinesInFile" xml:space="preserve">
     <value>Tel regels in bestand</value>
@@ -10793,5 +10793,354 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   </data>
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Fout 'Geen gegevens' niet weergeven</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Er kwamen geen stemmen terug</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Verberg fluisterberichten</value>
+  </data>
+  <data name="BlazingStar" xml:space="preserve">
+    <value>Blazing Star</value>
+  </data>
+  <data name="DealWithIt" xml:space="preserve">
+    <value>Deal ermee om</value>
+  </data>
+  <data name="FedoraTip" xml:space="preserve">
+    <value>Fedora-tip</value>
+  </data>
+  <data name="FlyIn" xml:space="preserve">
+    <value>Fly-In</value>
+  </data>
+  <data name="FlyOut" xml:space="preserve">
+    <value>Vlieg uit</value>
+  </data>
+  <data name="LeaveInStyle" xml:space="preserve">
+    <value>Leave In Style</value>
+  </data>
+  <data name="RotateComplex" xml:space="preserve">
+    <value>Rotate Complex</value>
+  </data>
+  <data name="RotateComplexOut" xml:space="preserve">
+    <value>Roteer complex uit</value>
+  </data>
+  <data name="ScaleOut" xml:space="preserve">
+    <value>Schaal Uit</value>
+  </data>
+  <data name="SimpleEntrance" xml:space="preserve">
+    <value>Eenvoudige Ingang</value>
+  </data>
+  <data name="Spin3D" xml:space="preserve">
+    <value>Spin 3D</value>
+  </data>
+  <data name="WoahCSS" xml:space="preserve">
+    <value>Woah.css</value>
+  </data>
+  <data name="Wowzors" xml:space="preserve">
+    <value>Wowzors</value>
+  </data>
+  <data name="DonorDriveDonationTeamIncentive" xml:space="preserve">
+    <value>Donor Drive Donatieteam Incentive</value>
+  </data>
+  <data name="DonorDriveDonationTeamMilestone" xml:space="preserve">
+    <value>Donor Drive Donatieteam Mijlpaal</value>
+  </data>
+  <data name="DonorDriveIncludeTeamDonationsAndEvents" xml:space="preserve">
+    <value>Inclusief teamdonaties en evenementen</value>
+  </data>
+  <data name="Boolean" xml:space="preserve">
+    <value>Booleans</value>
+  </data>
+  <data name="DropDown" xml:space="preserve">
+    <value>Drop Down</value>
+  </data>
+  <data name="Checkbox" xml:space="preserve">
+    <value>Selectievakje</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Doopvont</value>
+  </data>
+  <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
+    <value>FOUT: Amazon Polly TTS kan niet uitvoeren vanwege een premium stem geselecteerd zonder een AWS-account verbonden</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Niets</value>
+  </data>
+  <data name="AnAnonymousGifter" xml:space="preserve">
+    <value>Een Anonieme Schenker</value>
+  </data>
+  <data name="FailedToRestoreSettings" xml:space="preserve">
+    <value>FOUT: Instellingen niet kunnen herstellen vanwege een fout. Probeer alsjeblieft je pc opnieuw op te starten om zeker te zijn dat alle bestanden niet vergrendeld zijn en probeer het opnieuw.</value>
+  </data>
+  <data name="FailedToDeleteSettings" xml:space="preserve">
+    <value>FOUT: Instellingen niet verwijderd door een fout. Probeer alsjeblieft je pc opnieuw op te starten om zeker te zijn dat alle bestanden niet vergrendeld zijn en probeer het opnieuw.</value>
+  </data>
+  <data name="TrovoFailedToGetSubscriberData" xml:space="preserve">
+    <value>Niet in staat abonneegegevens te krijgen</value>
+  </data>
+  <data name="TrovoFailedToGetEmoteData" xml:space="preserve">
+    <value>Niet in geslaagd emote-data te krijgen</value>
+  </data>
+  <data name="YouTubeFailedToUpdateVideoID" xml:space="preserve">
+    <value>Video-ID niet bijgewerkt: {0}</value>
+  </data>
+  <data name="TwitchFailedToGetChannelData" xml:space="preserve">
+    <value>Niet in geslaagd Twitch-kanaalgegevens te krijgen</value>
+  </data>
+  <data name="ActiveBroadcasts" xml:space="preserve">
+    <value>Actieve uitzendingen</value>
+  </data>
+  <data name="Broadcasts" xml:space="preserve">
+    <value>Uitzendingen</value>
+  </data>
+  <data name="UserChatCleared" xml:space="preserve">
+    <value>Gebruikerschat verwijderd</value>
+  </data>
+  <data name="TwitchChannelHighlightedMessage" xml:space="preserve">
+    <value>Twitch-kanaal uitgelicht bericht</value>
+  </data>
+  <data name="TwitchChannelPowerUpCelebration" xml:space="preserve">
+    <value>Twitch Channel Power-Up Viering</value>
+  </data>
+  <data name="TwitchChannelPowerUpGigantifiedEmote" xml:space="preserve">
+    <value>Twitch Channel Power-Up Gigantified Emote</value>
+  </data>
+  <data name="TwitchChannelPowerUpMessageEffect" xml:space="preserve">
+    <value>Twitch Channel Power-Up Bericht Effect</value>
+  </data>
+  <data name="TwitchChannelUserIntro" xml:space="preserve">
+    <value>Twitch Channel Gebruikersintroductie</value>
+  </data>
+  <data name="Mock" xml:space="preserve">
+    <value>Mock</value>
+  </data>
+  <data name="TheFollowingStreamingServicesMustBeManuallyReconnected" xml:space="preserve">
+    <value>De volgende streamingdiensten konden niet opnieuw worden aangesloten en moeten handmatig worden gedaan vanaf de Accounts-pagina in Mix It Up:</value>
+  </data>
+  <data name="MeldStudioInvalidWebSocketAddress" xml:space="preserve">
+    <value>Een geldig websocket-adres moet worden opgegeven voor Meld Studio</value>
+  </data>
+  <data name="MeldStudioUnableToConnect" xml:space="preserve">
+    <value>Kan geen verbinding maken met Meld Studio, zorg er dan voor dat de applicatie draait.</value>
+  </data>
+  <data name="MeldStudio" xml:space="preserve">
+    <value>Meld Studio</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Niet verbonden</value>
+  </data>
+  <data name="WebSocketAddress" xml:space="preserve">
+    <value>WebSocket-adres</value>
+  </data>
+  <data name="MeldStudioInfo" xml:space="preserve">
+    <value>Meld Studio-connectiviteit stelt je in staat functionaliteiten in de Meld Studio-software te bedienen, zoals het wijzigen van de momenteel getoonde scène en het tonen/verbergen van lagen. Om verbinding te maken met Meld Studio, controleer je alstublieft of de software draait voordat u probeert verbinding te maken.</value>
+  </data>
+  <data name="MonitorUnmonitorAudioTrack" xml:space="preserve">
+    <value>Audiotrack monitoren/ontmonitoren</value>
+  </data>
+  <data name="MuteUnmuteAudioTrack" xml:space="preserve">
+    <value>Demp/Dempen Audiotrack</value>
+  </data>
+  <data name="SetAudioTrackGain" xml:space="preserve">
+    <value>Stel audio track gain in</value>
+  </data>
+  <data name="ShowHideEffect" xml:space="preserve">
+    <value>Show/Verberg-effect</value>
+  </data>
+  <data name="ShowHideLayer" xml:space="preserve">
+    <value>Show/Hide Laag</value>
+  </data>
+  <data name="ShowScene" xml:space="preserve">
+    <value>Showscène</value>
+  </data>
+  <data name="TakeScreenshot" xml:space="preserve">
+    <value>Maak een screenshot</value>
+  </data>
+  <data name="MeldStudioActionMissingAudioTrackName" xml:space="preserve">
+    <value>Meld Studio Actie: Naam van de audiotrack ontbreekt</value>
+  </data>
+  <data name="MeldStudioActionMissingEffectName" xml:space="preserve">
+    <value>Meld Studio Actie: Naam van het ontbrekende effect</value>
+  </data>
+  <data name="MeldStudioActionMissingLayerName" xml:space="preserve">
+    <value>Meld Studio Actie: Naam van de ontbrekende laag</value>
+  </data>
+  <data name="MeldStudioActionMissingSceneName" xml:space="preserve">
+    <value>Meld Studio Actie: Naam van de ontbrekende scène</value>
+  </data>
+  <data name="AudioTrackName" xml:space="preserve">
+    <value>Naam van audiotrack</value>
+  </data>
+  <data name="LayerName" xml:space="preserve">
+    <value>Laagnaam</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Beek</value>
+  </data>
+  <data name="UnableToStartAuthenticationSession" xml:space="preserve">
+    <value>Als authenticatie niet voor service kan worden gestart, zorg er dan voor dat er niet al een actief authenticatieproces loopt bij een andere dienst.</value>
+  </data>
+  <data name="Gain" xml:space="preserve">
+    <value>Gain</value>
+  </data>
+  <data name="YouTubeAccountNotEnabledForLiveStreaming" xml:space="preserve">
+    <value>YouTube-account is niet ingeschakeld voor live streaming.</value>
+  </data>
+  <data name="YouTubeFailedToGetChannelData" xml:space="preserve">
+    <value>Heb geen YouTube-kanaalgegevens kunnen ophalen. Zorg ervoor dat het account waarmee je inlogt een YouTube-kanaal daarvoor heeft aangemaakt.</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>Op</value>
+  </data>
+  <data name="Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
+  <data name="NewAuthorizationScopesRequired" xml:space="preserve">
+    <value>Nieuwe autorisatiescopes zijn vereist en de dienst moet handmatig opnieuw worden aangesloten</value>
+  </data>
+  <data name="TwitchClient" xml:space="preserve">
+    <value>Twitch-client</value>
+  </data>
+  <data name="RecordClip" xml:space="preserve">
+    <value>Record Clip</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>De datum is voorbij</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Ongeldige datum</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Gebruiksvoorwaarden</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacybeleid</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Methode</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Voeg aangepaste header toe</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Headernaam</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Headerwaarde</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Verzoekorgaan (JSON)</value>
+  </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>Datum is niet voorgekomen</value>
+  </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>Vrije Stemmen</value>
+  </data>
+  <data name="ViewRateLimits" xml:space="preserve">
+    <value>Er gelden tarieflimieten. Klik om de tarieflimieten voor deze TTS-aanbieder te zien</value>
+  </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitch staat gedeelde chat-evenementen toe</value>
+  </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>De connectiviteit van de Google Cloud TTS-service stelt je in staat om je eigen Google Cloud API-sleutel te koppelen om de Google Cloud TTS-optie te gebruiken in de tekst-naar-spraak actie.</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>Je moet je eigen API-sleutel aanleveren om deze dienst te kunnen gebruiken. Raadpleeg de Wiki-pagina voor instructies over hoe je je API-sleutel kunt krijgen via de Google Cloud Console-pagina</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>Geen API-sleutel verstrekt</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>Er is geen aangepaste Google Cloud TTS API-sleutel toegevoegd. bezoek de Google Cloud TTS-sectie op de Services-pagina om uw eigen API-sleutel te verbinden.</value>
+  </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Google Cloud API-sleutel</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>API-sleutel</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>Responsive Voice biedt gratis tekst-naar-spraak diensten via uw overlay. Je kunt optioneel je eigen API-sleutel opgeven.</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>Als je geen API-sleutel verstrekt, wordt de standaard Mix It Up-sleutel gebruikt met gedeelde snelheidslimieten. Bezoek de Wiki voor meer informatie.</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>Ongeldige responsieve spraak-API-sleutel</value>
+  </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>Selecteer vorige stem</value>
+  </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>De clipduur moet tussen de 5 en 60 seconden liggen.</value>
+  </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>Voordat je verder gaat, raden we aan om een back-up van je profiel te maken met de knop Backup-instellingen hierboven. Doorgaan?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>Controleer ontbrekende bestandspaden in commando's:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>Controleer paden</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>Controle van ontbrekende bestanden</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>Laat alle paden zien</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>Toon geldige paden</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>Toon waarschuwingspaden</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>Toon ontbrekende paden</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>Rescan</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Actietype</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>Geselecteerd pad:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>Kies een pad</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>Zoekmap</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Vervang</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Vervang alles</value>
+  </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>Citaat toegevoegd</value>
   </data>
 </root>

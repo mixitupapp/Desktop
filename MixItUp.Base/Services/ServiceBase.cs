@@ -79,7 +79,40 @@ namespace MixItUp.Base.Services
         public OAuthServiceBase(string baseAddress)
         {
             this.HttpClient = new AdvancedHttpClient(baseAddress);
+            this.HttpClient.OnUnauthorizedResponse = async () =>
+            {
+                if (!this.IsConnected || this.OAuthToken == null)
+                {
+                    return false;
+                }
+
+                try
+                {
+                    Logger.Log(LogLevel.Debug, $"Attempting to refresh OAuth token for {this.Name} due to 401 error");
+                    await this.RefreshOAuthToken();
+                    Logger.Log(LogLevel.Debug, $"Successfully refreshed OAuth token for {this.Name}");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(LogLevel.Error, $"Failed to refresh OAuth token for {this.Name}: {ex.Message}");
+                    Logger.Log(ex);
+                    return false;
+                }
+            };
         }
+
+#if DEBUG
+        public void TestCorruptToken()
+        {
+            if (this.OAuthToken != null)
+            {
+                this.OAuthToken.accessToken = "invalid_token_12345";
+                this.HttpClient.SetBearerAuthorization(this.OAuthToken);
+                Logger.Log(LogLevel.Debug, "Token corrupted for testing");
+            }
+        }
+#endif
 
         public override Task Disconnect()
         {

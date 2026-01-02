@@ -484,6 +484,10 @@ namespace MixItUp.Base.Services
                     {
                         showMessage = false;
                     }
+                    else if (ChannelSession.Settings.HideWhisperMessages && message.IsWhisper)
+                    {
+                        showMessage = false;
+                    }
                     else if (ChannelSession.Settings.HideSpecificUserMessages.Contains(message.User?.Username.ToLower()))
                     {
                         showMessage = false;

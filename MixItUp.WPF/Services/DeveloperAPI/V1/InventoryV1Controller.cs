@@ -4,17 +4,14 @@ using MixItUp.Base.Model.Currency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
 {
-    [RoutePrefix("api/inventory")]
-    public class InventoryV1Controller : ApiController
+    [Route("api/inventory")]
+    [ApiController]
+    public class InventoryV1Controller : ControllerBase
     {
-        [Route]
         [HttpGet]
         public IEnumerable<Inventory> Get()
         {
@@ -28,19 +25,13 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
 
         [Route("{inventoryID:guid}")]
         [HttpGet]
-        public Inventory Get(Guid inventoryID)
+        public IActionResult Get(Guid inventoryID)
         {
             if (!ChannelSession.Settings.Inventory.ContainsKey(inventoryID))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new ObjectContent<Error>(new Error { Message = $"Unable to find inventory: {inventoryID.ToString()}." }, new JsonMediaTypeFormatter(), "application/json"),
-                    ReasonPhrase = "Inventory ID not found"
-                };
-                throw new HttpResponseException(resp);
+                return NotFound(new Error { Message = $"Unable to find inventory: {inventoryID.ToString()}." });
             }
-
-            return InventoryFromUserInventoryViewModel(ChannelSession.Settings.Inventory[inventoryID]);
+            return Ok(InventoryFromUserInventoryViewModel(ChannelSession.Settings.Inventory[inventoryID]));
         }
 
         public static InventoryAmount InventoryAmountFromUserInventoryViewModel(InventoryModel inventory, Dictionary<Guid, int> amounts)

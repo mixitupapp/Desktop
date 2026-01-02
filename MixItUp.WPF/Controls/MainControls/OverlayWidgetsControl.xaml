@@ -1,27 +1,32 @@
-﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.OverlayWidgetsControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
-             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
-             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"
-                          
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
-
-             d:DesignHeight="300" d:DesignWidth="300">
+﻿<local:MainControlBase
+    x:Class="MixItUp.WPF.Controls.MainControls.OverlayWidgetsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    mc:Ignorable="d">
     <local:MainControlBase.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </local:MainControlBase.Resources>
 
     <Grid>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding OverlayNotEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
-            <TextBlock Style="{StaticResource HeaderTextBlock}" TextWrapping="Wrap" Text="{x:Static resx:Resources.OverlayWidgetsRequireOverlay}"/>
+        <Grid
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Visibility="{Binding OverlayNotEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock
+                Style="{StaticResource HeaderTextBlock}"
+                Text="{x:Static resx:Resources.OverlayWidgetsRequireOverlay}"
+                TextWrapping="Wrap" />
         </Grid>
 
         <Grid Visibility="{Binding OverlayEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -32,23 +37,70 @@
                 <RowDefinition Height="10" />
             </Grid.RowDefinitions>
 
-            <DataGrid ItemsSource="{Binding OverlayWidgets}" Grid.Row="0" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+            <DataGrid
+                Grid.Row="0"
+                HorizontalContentAlignment="Stretch"
+                CellStyle="{StaticResource StandardDataGridCell}"
+                ItemsSource="{Binding OverlayWidgets}"
+                Style="{StaticResource StandardDataGrid}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
-                    <DataGridTemplateColumn Header="{x:Static resx:Resources.Actions}" Width="290">
+                    <DataGridTextColumn
+                        Width="*"
+                        Binding="{Binding Name}"
+                        Header="{x:Static resx:Resources.Name}"
+                        IsReadOnly="True" />
+                    <DataGridTemplateColumn Width="290" Header="{x:Static resx:Resources.Actions}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,0">
+                                <StackPanel
+                                    Margin="0,0,15,0"
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal">
 
-                                    <Controls:IconButton x:Name="LinkButton" Margin="10,0,0,0" Click="LinkButton_Click" HorizontalAlignment="Center" Visibility="{Binding IsSingleWidgetURL, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" Icon="Link" ToolTip="{x:Static resx:Resources.Link}" />
-                                    
-                                    <Controls:IconButton x:Name="ResetButton" Margin="10,0,0,0" Click="ResetButton_Click" HorizontalAlignment="Center" Visibility="{Binding IsResettable, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" Icon="Sync" ToolTip="{x:Static resx:Resources.Reset}" />
+                                    <Controls:IconButton
+                                        x:Name="LinkButton"
+                                        Margin="10,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        Click="LinkButton_Click"
+                                        Icon="Link"
+                                        ToolTip="{x:Static resx:Resources.Link}"
+                                        Visibility="{Binding IsSingleWidgetURL, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" />
 
-                                    <Controls:IconButton x:Name="EditButton" Margin="10,0,0,0" Click="EditButton_Click" HorizontalAlignment="Center" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.EditCommand}" />
+                                    <Controls:IconButton
+                                        x:Name="ResetButton"
+                                        Margin="10,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        Click="ResetButton_Click"
+                                        Icon="Sync"
+                                        ToolTip="{x:Static resx:Resources.Reset}"
+                                        Visibility="{Binding IsResettable, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" />
 
-                                    <Controls:IconButton x:Name="DeleteButton" Margin="10,0,0,0" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                                    <Controls:IconButton
+                                        x:Name="EditButton"
+                                        Margin="10,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        Click="EditButton_Click"
+                                        Icon="TooltipEdit"
+                                        ToolTip="{x:Static resx:Resources.EditCommand}" />
 
-                                    <ToggleButton x:Name="EnableDisableToggleSwitch" Margin="10,0,0,0" IsChecked="{Binding IsEnabled}" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.EnableDisableCommand}" Checked="EnableDisableToggleSwitch_Checked" Unchecked="EnableDisableToggleSwitch_Unchecked" />
+                                    <Controls:IconButton
+                                        x:Name="DeleteButton"
+                                        Margin="10,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        Click="DeleteButton_Click"
+                                        Icon="Delete"
+                                        ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+
+                                    <ToggleButton
+                                        x:Name="EnableDisableToggleSwitch"
+                                        Margin="10,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Checked="EnableDisableToggleSwitch_Checked"
+                                        IsChecked="{Binding IsEnabled}"
+                                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                        ToolTip="{x:Static resx:Resources.EnableDisableCommand}"
+                                        Unchecked="EnableDisableToggleSwitch_Unchecked" />
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -63,9 +115,21 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="AddOverlayWidgetButton" Grid.Column="0" HorizontalAlignment="Center" MinWidth="180" Click="AddOverlayWidgetButton_Click" Content="{x:Static resx:Resources.AddOverlayWidget}"/>
+                <Button
+                    x:Name="AddOverlayWidgetButton"
+                    Grid.Column="0"
+                    MinWidth="180"
+                    HorizontalAlignment="Center"
+                    Click="AddOverlayWidgetButton_Click"
+                    Content="{x:Static resx:Resources.AddOverlayWidget}" />
 
-                <Button x:Name="ImportOverlayWidgetButton" Grid.Column="2" HorizontalAlignment="Center" MinWidth="200" Click="ImportOverlayWidgetButton_Click" Content="{x:Static resx:Resources.ImportOverlayWidget}"/>
+                <Button
+                    x:Name="ImportOverlayWidgetButton"
+                    Grid.Column="2"
+                    MinWidth="200"
+                    HorizontalAlignment="Center"
+                    Click="ImportOverlayWidgetButton_Click"
+                    Content="{x:Static resx:Resources.ImportOverlayWidget}" />
             </Grid>
 
         </Grid>

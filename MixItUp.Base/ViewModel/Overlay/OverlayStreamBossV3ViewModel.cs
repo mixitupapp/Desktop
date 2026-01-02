@@ -117,7 +117,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             get { return this.selfHealingMultiplier; }
             set
             {
-                this.selfHealingMultiplier = Math.Max(value, 0);
+                this.selfHealingMultiplier = value;
                 this.NotifyPropertyChanged();
             }
         }

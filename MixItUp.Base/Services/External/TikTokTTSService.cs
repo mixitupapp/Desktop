@@ -102,12 +102,13 @@ namespace MixItUp.Base.Services.External
             {
                 client.Timeout = new TimeSpan(0, 0, 10);
                 client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
 
                 JObject body = new JObject();
                 body["text"] = text;
                 body["voice"] = voice;
 
-                HttpResponseMessage response = await client.PostAsync("https://tiktok-tts.weilbyte.dev/api/generate", AdvancedHttpClient.CreateContentFromObject(body));
+                HttpResponseMessage response = await client.PostAsync("https://util.mixitupapp.com/api/services/external/tiktoktts/tts/generate", AdvancedHttpClient.CreateContentFromObject(body));
                 if (response.IsSuccessStatusCode)
                 {
                     MemoryStream stream = new MemoryStream();

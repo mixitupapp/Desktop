@@ -24,4 +24,3 @@ msbuild /t:Clean,Build /property:Configuration=Release ..\mixer-mixitup.sln
 endlocal
 
 powershell -NoLogo -NoProfile -Command Compress-Archive -Path "..\MixItUp.WPF\bin\Release\*" -DestinationPath "..\..\MixItUp.zip"
-copy ..\MixItUp.WPF\Changelog.html ..\..

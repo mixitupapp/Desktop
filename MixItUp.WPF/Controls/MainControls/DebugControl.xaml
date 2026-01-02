@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
@@ -29,6 +29,8 @@
         <Button x:Name="TwitchAnon5GiftedTier1Sub" Click="TwitchAnon5GiftedTier1Sub_Click">Twitch Anon 5 Gifted Tier 1 Sub</Button>
 
         <Button x:Name="Twitch100BitsCheer" Click="Twitch100BitsCheer_Click">Twitch 100 Bits Cheer</Button>
+
+        <Button x:Name="CorruptTokenOnly" Click="CorruptTwitchToken" >Corrupt Twitch Token</Button>
 
     </StackPanel>
 </local:MainControlBase>

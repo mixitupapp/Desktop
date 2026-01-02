@@ -163,32 +163,29 @@ namespace MixItUp.Base.Model.Overlay
             {
                 EventService.OnFollowOccurred += EventService_OnFollowOccurred;
 
-                if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestFollower) && this.Displays[OverlayLabelDisplayV3TypeEnum.LatestFollower].UserID == Guid.Empty)
+                if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestFollower))
                 {
                     UserV2ViewModel user = null;
-                    if (ChannelSession.Settings.LastFollowerUserID != Guid.Empty)
+                     if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Twitch && ServiceManager.Get<TwitchSession>().IsConnected)
                     {
-                        user = await ServiceManager.Get<UserService>().GetUserByID(ChannelSession.Settings.DefaultStreamingPlatform, ChannelSession.Settings.LastFollowerUserID);
+                        var followers = await ServiceManager.Get<TwitchSession>().StreamerService.GetNewAPIFollowers(ServiceManager.Get<TwitchSession>().StreamerModel, maxResults: 1);
+                        if (followers != null && followers.Count() > 0)
+                        {
+                            user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: followers.First().user_id, performPlatformSearch: true);
+                        }
+                    }
+                    else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+                    {
+                        var followers = await ServiceManager.Get<TrovoSession>().StreamerService.GetFollowers(ServiceManager.Get<TrovoSession>().ChannelID, maxResults: 1);
+                        if (followers != null && followers.Count() > 0)
+                        {
+                            user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Trovo, platformID: followers.First().user_id, platformUsername: followers.First().nickname, performPlatformSearch: true);
+                        }
                     }
 
-                    if (user == null)
+                    if (user == null && ChannelSession.Settings.LastFollowerUserID != Guid.Empty)
                     {
-                        if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Twitch && ServiceManager.Get<TwitchSession>().IsConnected)
-                        {
-                            var followers = await ServiceManager.Get<TwitchSession>().StreamerService.GetNewAPIFollowers(ServiceManager.Get<TwitchSession>().StreamerModel, maxResults: 1);
-                            if (followers != null && followers.Count() > 0)
-                            {
-                                user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: followers.First().user_id, performPlatformSearch: true);
-                            }
-                        }
-                        else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                        {
-                            var followers = await ServiceManager.Get<TrovoSession>().StreamerService.GetFollowers(ServiceManager.Get<TrovoSession>().ChannelID, maxResults: 1);
-                            if (followers != null && followers.Count() > 0)
-                            {
-                                user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Trovo, platformID: followers.First().user_id, platformUsername: followers.First().nickname, performPlatformSearch: true);
-                            }
-                        }
+                        user = await ServiceManager.Get<UserService>().GetUserByID(ChannelSession.Settings.DefaultStreamingPlatform, ChannelSession.Settings.LastFollowerUserID);
                     }
 
                     if (user != null)

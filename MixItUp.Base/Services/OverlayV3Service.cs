@@ -503,6 +503,13 @@ namespace MixItUp.Base.Services
             this.mainHTML = OverlayResources.OverlayMainHTML;
             this.mainHTML = OverlayV3Service.ReplaceProperty(this.mainHTML, nameof(WebSocketConnectionURL), WebSocketConnectionURL);
 
+            ResponsiveVoiceService responsiveVoiceService = ServiceManager.Get<ResponsiveVoiceService>();
+            if (responsiveVoiceService != null)
+            {
+                string apiKey = responsiveVoiceService.GetApiKey();
+                this.mainHTML = OverlayV3Service.ReplaceProperty(this.mainHTML, "ResponsiveVoiceAPIKey", apiKey);
+            }
+
             this.RefreshItemIFrameHTMLCache();
         }
 

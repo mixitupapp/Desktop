@@ -124,9 +124,9 @@ namespace MixItUp.WPF
 
             await this.MainMenu.Initialize(this);
 
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitupapp.com/alpha");
+            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitupapp.com/alpha");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Channel, new ChannelControl(), "https://wiki.mixitupapp.com/channel");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Chat, new ChatControl(), "https://wiki.mixitupapp.com/chat");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Chat, new ChatControl(), "https://wiki.mixitupapp.com/chat", canHide: false);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Commands, new ChatCommandsControl(), "https://wiki.mixitupapp.com/commands/chat-commands");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Events, new EventsControl(), "https://wiki.mixitupapp.com/commands/event-commands");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Timers, new TimerControl(), "https://wiki.mixitupapp.com/commands/timer-commands");
@@ -150,18 +150,23 @@ namespace MixItUp.WPF
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Quotes, new QuoteControl(), "https://wiki.mixitupapp.com/quotes");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Moderation, new ModerationControl(), "https://wiki.mixitupapp.com/moderation");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CommandHistory, new CommandHistoryControl(), "https://wiki.mixitupapp.com/commands/command-history");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Services, new ServicesControl(), "https://wiki.mixitupapp.com/services");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Services, new ServicesControl(), "https://wiki.mixitupapp.com/services", canHide: false);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Webhooks, new WebhooksControl(), "https://wiki.mixitupapp.com/commands/webhook-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Accounts, new AccountsControl(), "https://wiki.mixitupapp.com/accounts");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Accounts, new AccountsControl(), "https://wiki.mixitupapp.com/accounts", canHide: false);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Changelog, new ChangelogControl(), "https://wiki.mixitupapp.com/");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.About, new AboutControl(), "https://wiki.mixitupapp.com/");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.About, new AboutControl(), "https://wiki.mixitupapp.com/", canHide: false);
 
             if (ChannelSession.IsDebug())
             {
                 await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Debug, new DebugControl(), "https://wiki.mixitupapp.com/");
             }
 
+            this.MainMenu.LoadMenuOrder();
+
             this.MainMenu.MenuItemSelected(MixItUp.Base.Resources.Chat);
+
+
+            await ServiceManager.Get<MixItUpService>().StartNotificationPolling();
 
             ActivationProtocolHandler.OnCommunityCommandActivation += ActivationProtocolHandler_OnCommunityCommandActivation;
             ActivationProtocolHandler.OnCommandFileActivation += ActivationProtocolHandler_OnCommandFileActivation;
@@ -177,6 +182,8 @@ namespace MixItUp.WPF
             try
             {
                 Logger.Log(LogLevel.Debug, "Starting shutdown process");
+
+                ServiceManager.Get<MixItUpService>()?.StopNotificationPolling();
 
                 if (WindowState == WindowState.Maximized)
                 {
@@ -219,7 +226,7 @@ namespace MixItUp.WPF
             this.Close();
             if (this.restartApplication)
             {
-                ServiceManager.Get<IProcessService>().LaunchProgram(Application.ResourceAssembly.Location);
+                ServiceManager.Get<IProcessService>().LaunchProgram(Environment.ProcessPath);
             }
         }
 
@@ -250,9 +257,9 @@ namespace MixItUp.WPF
                 if (confirmed)
                 {
                     this.shutdownStarted = true;
-#pragma warning disable CS4014
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     this.StartShutdownProcess();
-#pragma warning restore CS4014
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                 }
             }
             else if (!this.shutdownComplete)

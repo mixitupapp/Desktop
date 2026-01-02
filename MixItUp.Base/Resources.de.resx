@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2651,6 +2651,10 @@
   </data>
   <data name="ChatUserPurge" xml:space="preserve">
     <value>Chat-Benutzer gelöscht</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="DonorDriveDonation" xml:space="preserve">
+    <value>DonorDrive-Spende</value>
     <comment>Manual</comment>
   </data>
   <data name="JustGivingDonation" xml:space="preserve">
@@ -5465,6 +5469,12 @@ ermöglicht. Sie können es sich so vorstellen, als würden Sie die Option „Be
   </data>
   <data name="DiscordInvalidSecret" xml:space="preserve">
     <value>Bitte geben Sie ein gültiges benutzerdefiniertes Client-Geheimnis ein.</value>
+  </data>
+  <data name="DonorDriveInfo1" xml:space="preserve">
+    <value>Mit der DonorDrive-Dienstkonnektivität können Sie Ereignisse auslösen, sobald Sie oder Ihr Team eine Spende über eine berechtigte DonorDrive-Wohltätigkeitsorganisation erhalten.</value>
+  </data>
+  <data name="DonorDriveInfo2" xml:space="preserve">
+    <value>Um DonorDrive mit Mix It Up zu verbinden, besuchen Sie die Website Ihrer Wohltätigkeitsorganisation und suchen Sie nach dem Link zu Ihrer Seite/Teilnehmer. Wählen Sie dann Ihre Wohltätigkeitsorganisation aus der Dropdown-Liste aus oder wählen Sie „Benutzerdefiniert“, wenn sie nicht in der Liste enthalten ist. Kopieren Sie Ihren Seiten-/Teilnehmerlink in das Textfeld und wählen Sie „Anmelden“.</value>
   </data>
   <data name="OverlayConnectionFailed1" xml:space="preserve">
     <value>Der Overlay-Verbindungstest ist fehlgeschlagen. Bitte stellen Sie sicher, dass die Mix It Up Overlay-Seite in Ihrer Streaming-Software sichtbar ist und ausgeführt wird.</value>
@@ -8858,6 +8868,53 @@ vorbeugende Maßnahmen, wenn der Benutzer nicht auf Ihrer Freundesliste auf Twit
   <data name="TrovoChannelSpellCast" xml:space="preserve">
     <value>Trovo-Kanal-Zauberwirkung</value>
   </data>
+  <data name="SetTitleDescription" xml:space="preserve">
+    <value>Titel/Beschreibung festlegen</value>
+  </data>
+  <data name="YouTubeActionMissingAmount" xml:space="preserve">
+    <value>YouTube-Aktion: Es muss ein gültiger Betrag angegeben werden</value>
+  </data>
+  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
+    <value>YouTube-Aktion: Es muss ein gültiger Titel oder eine gültige Beschreibung angegeben werden</value>
+  </data>
+  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
+    <value>Massenmitgliedschaft für den YouTube-Kanal geschenkt</value>
+  </data>
+  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
+    <value>Meilenstein für YouTube-Kanalmitglied</value>
+  </data>
+  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
+    <value>YouTube-Kanalmitgliedschaft geschenkt</value>
+  </data>
+  <data name="YouTubeChannelNewMember" xml:space="preserve">
+    <value>YouTube-Kanal Neues Mitglied</value>
+  </data>
+  <data name="YouTubeChannelStreamStart" xml:space="preserve">
+    <value>Start des YouTube-Kanal-Streams</value>
+  </data>
+  <data name="YouTubeChannelStreamStop" xml:space="preserve">
+    <value>YouTube-Kanal-Stream-Stopp</value>
+  </data>
+  <data name="YouTubeChannelSuperChat" xml:space="preserve">
+    <value>YouTube-Kanal Super Chat</value>
+  </data>
+  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
+    <value>Super-Aufkleber für den YouTube-Kanal</value>
+  </data>
+  <data name="AlertYouTubeSuperChat" xml:space="preserve">
+    <value>{0} Super Chat – {1}</value>
+    <comment>{0} is the name of the user
+{1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
+    <value>{0} Superaufkleber - {1} - {2}</value>
+    <comment>{0} is the name of the user
+{1} is the name of the super sticker
+{2} is the amount of the super chat</comment>
+  </data>
+  <data name="ShowYouTubeSuperChat" xml:space="preserve">
+    <value>YouTube Super Chat anzeigen</value>
+  </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Scheinverbindung</value>
   </data>
@@ -9213,6 +9270,9 @@ print(run())</value>
   <data name="ShellExecute" xml:space="preserve">
     <value>Shell-Ausführung</value>
   </data>
+  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
+    <value>Zeile mit bestimmtem Text aus der Datei entfernen</value>
+  </data>
   <data name="TextToRemove" xml:space="preserve">
     <value>Zu entfernender Text</value>
   </data>
@@ -9249,6 +9309,9 @@ print(run())</value>
   </data>
   <data name="OverlayLabelCounterNotSelected" xml:space="preserve">
     <value>Es muss ein gültiger Zähler ausgewählt werden</value>
+  </data>
+  <data name="LatestFollower" xml:space="preserve">
+    <value>Neuester Follower</value>
   </data>
   <data name="LatestDonation" xml:space="preserve">
     <value>Letzte Spende</value>
@@ -9291,66 +9354,6 @@ print(run())</value>
   </data>
   <data name="DeStream" xml:space="preserve">
     <value>DeStream</value>
-  </data>
-  <data name="DonorDriveDonation" xml:space="preserve">
-    <value>DonorDrive-Spende</value>
-    <comment>Manual</comment>
-  </data>
-  <data name="DonorDriveInfo1" xml:space="preserve">
-    <value>Mit der DonorDrive-Dienstkonnektivität können Sie Ereignisse auslösen, sobald Sie oder Ihr Team eine Spende über eine berechtigte DonorDrive-Wohltätigkeitsorganisation erhalten.</value>
-  </data>
-  <data name="DonorDriveInfo2" xml:space="preserve">
-    <value>Um DonorDrive mit Mix It Up zu verbinden, besuchen Sie die Website Ihrer Wohltätigkeitsorganisation und suchen Sie nach dem Link zu Ihrer Seite/Teilnehmer. Wählen Sie dann Ihre Wohltätigkeitsorganisation aus der Dropdown-Liste aus oder wählen Sie „Benutzerdefiniert“, wenn sie nicht in der Liste enthalten ist. Kopieren Sie Ihren Seiten-/Teilnehmerlink in das Textfeld und wählen Sie „Anmelden“.</value>
-  </data>
-  <data name="SetTitleDescription" xml:space="preserve">
-    <value>Titel/Beschreibung festlegen</value>
-  </data>
-  <data name="YouTubeActionMissingAmount" xml:space="preserve">
-    <value>YouTube-Aktion: Es muss ein gültiger Betrag angegeben werden</value>
-  </data>
-  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
-    <value>YouTube-Aktion: Es muss ein gültiger Titel oder eine gültige Beschreibung angegeben werden</value>
-  </data>
-  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
-    <value>Massenmitgliedschaft für den YouTube-Kanal geschenkt</value>
-  </data>
-  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
-    <value>Meilenstein für YouTube-Kanalmitglied</value>
-  </data>
-  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
-    <value>YouTube-Kanalmitgliedschaft geschenkt</value>
-  </data>
-  <data name="YouTubeChannelNewMember" xml:space="preserve">
-    <value>YouTube-Kanal Neues Mitglied</value>
-  </data>
-  <data name="YouTubeChannelStreamStart" xml:space="preserve">
-    <value>Start des YouTube-Kanal-Streams</value>
-  </data>
-  <data name="YouTubeChannelStreamStop" xml:space="preserve">
-    <value>YouTube-Kanal-Stream-Stopp</value>
-  </data>
-  <data name="YouTubeChannelSuperChat" xml:space="preserve">
-    <value>YouTube-Kanal Super Chat</value>
-  </data>
-  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
-    <value>Super-Aufkleber für den YouTube-Kanal</value>
-  </data>
-  <data name="AlertYouTubeSuperChat" xml:space="preserve">
-    <value>{0} Super Chat – {1}</value>
-    <comment>{0} is the name of the user
-{1} is the amount of the super chat</comment>
-  </data>
-  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
-    <value>{0} Superaufkleber - {1} - {2}</value>
-    <comment>{0} is the name of the user
-{1} is the name of the super sticker
-{2} is the amount of the super chat</comment>
-  </data>
-  <data name="ShowYouTubeSuperChat" xml:space="preserve">
-    <value>YouTube Super Chat anzeigen</value>
-  </data>
-  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
-    <value>Zeile mit bestimmtem Text aus der Datei entfernen</value>
   </data>
   <data name="ExistingProfile" xml:space="preserve">
     <value>Vorhandenes Profil</value>
@@ -9665,14 +9668,8 @@ print(run())</value>
   <data name="MusicPlayerSelectFolderOrPlayMusicToLoadInSongs" xml:space="preserve">
     <value>Wählen Sie einen neuen Ordner aus, um Musik aus einem Ordner zu laden, oder klicken Sie auf die Wiedergabetaste, um Musik aus dem zuletzt verwendeten Ordner zu laden.</value>
   </data>
-  <data name="NoDuplicates" xml:space="preserve">
-    <value>Keine Duplikate</value>
-  </data>
-  <data name="LatestFollower" xml:space="preserve">
-    <value>Neuester Follower</value>
-  </data>
   <data name="ResponsiveVoice" xml:space="preserve">
-    <value>ResponsiveVoice</value>
+    <value>Responsive Voice</value>
   </data>
   <data name="WindowsTextToSpeech" xml:space="preserve">
     <value>Windows-Text in Sprache</value>
@@ -9730,6 +9727,9 @@ print(run())</value>
   </data>
   <data name="SpecificClip" xml:space="preserve">
     <value>Spezifischer Clip</value>
+  </data>
+  <data name="NoDuplicates" xml:space="preserve">
+    <value>Keine Duplikate</value>
   </data>
   <data name="CountLinesInFile" xml:space="preserve">
     <value>Zeilen in der Datei zählen</value>
@@ -10798,5 +10798,354 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   </data>
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Fehler „Keine Daten“ nicht anzeigen</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Es kamen keine Stimmen zurück</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Flüster-Nachrichten verstecken</value>
+  </data>
+  <data name="BlazingStar" xml:space="preserve">
+    <value>Flammender Stern</value>
+  </data>
+  <data name="DealWithIt" xml:space="preserve">
+    <value>Komm damit klar.</value>
+  </data>
+  <data name="FedoraTip" xml:space="preserve">
+    <value>Fedora-Spitze</value>
+  </data>
+  <data name="FlyIn" xml:space="preserve">
+    <value>Fly-In</value>
+  </data>
+  <data name="FlyOut" xml:space="preserve">
+    <value>Fly Out</value>
+  </data>
+  <data name="LeaveInStyle" xml:space="preserve">
+    <value>Leave In Style</value>
+  </data>
+  <data name="RotateComplex" xml:space="preserve">
+    <value>Rotate-Komplex</value>
+  </data>
+  <data name="RotateComplexOut" xml:space="preserve">
+    <value>Rotieren des Komplexes heraus</value>
+  </data>
+  <data name="ScaleOut" xml:space="preserve">
+    <value>Scale Out</value>
+  </data>
+  <data name="SimpleEntrance" xml:space="preserve">
+    <value>Einfacher Eintritt</value>
+  </data>
+  <data name="Spin3D" xml:space="preserve">
+    <value>Spin 3D</value>
+  </data>
+  <data name="WoahCSS" xml:space="preserve">
+    <value>Woah.css</value>
+  </data>
+  <data name="Wowzors" xml:space="preserve">
+    <value>Wowzors</value>
+  </data>
+  <data name="DonorDriveDonationTeamIncentive" xml:space="preserve">
+    <value>Anreiz für das Spendenaktionsteam der Spendenaktion</value>
+  </data>
+  <data name="DonorDriveDonationTeamMilestone" xml:space="preserve">
+    <value>Meilenstein des Donor Drive Donation Teams</value>
+  </data>
+  <data name="DonorDriveIncludeTeamDonationsAndEvents" xml:space="preserve">
+    <value>Beziehen Sie Teamspenden und Veranstaltungen ein</value>
+  </data>
+  <data name="Boolean" xml:space="preserve">
+    <value>Boolesch</value>
+  </data>
+  <data name="DropDown" xml:space="preserve">
+    <value>Drop Down</value>
+  </data>
+  <data name="Checkbox" xml:space="preserve">
+    <value>Checkkästchen</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Taufbecken</value>
+  </data>
+  <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
+    <value>FEHLER: Amazon Polly TTS kann nicht durchgeführt werden, da eine Premium-Stimme ohne verbundenes AWS-Konto ausgewählt ist</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Nichts</value>
+  </data>
+  <data name="AnAnonymousGifter" xml:space="preserve">
+    <value>Ein anonymer Schenker</value>
+  </data>
+  <data name="FailedToRestoreSettings" xml:space="preserve">
+    <value>FEHLER: Einstellungsdatei konnte aufgrund eines Fehlers nicht wiederhergestellt werden. Bitte versuchen Sie, Ihren PC neu zu starten, um sicherzugehen, dass alle Dateien nicht gesperrt sind, und versuchen Sie es erneut.</value>
+  </data>
+  <data name="FailedToDeleteSettings" xml:space="preserve">
+    <value>FEHLER: Einstellungsdatei wurde wegen eines Fehlers nicht gelöscht. Bitte versuchen Sie, Ihren PC neu zu starten, um sicherzugehen, dass alle Dateien nicht gesperrt sind, und versuchen Sie es erneut.</value>
+  </data>
+  <data name="TrovoFailedToGetSubscriberData" xml:space="preserve">
+    <value>Keine Abonnentendaten erhalten</value>
+  </data>
+  <data name="TrovoFailedToGetEmoteData" xml:space="preserve">
+    <value>Habe keine Emote-Daten bekommen</value>
+  </data>
+  <data name="YouTubeFailedToUpdateVideoID" xml:space="preserve">
+    <value>Video-ID nicht aktualisiert: {0}</value>
+  </data>
+  <data name="TwitchFailedToGetChannelData" xml:space="preserve">
+    <value>Keine Twitch-Kanaldaten erhalten konnte</value>
+  </data>
+  <data name="ActiveBroadcasts" xml:space="preserve">
+    <value>Aktive Sendungen</value>
+  </data>
+  <data name="Broadcasts" xml:space="preserve">
+    <value>Sendungen</value>
+  </data>
+  <data name="UserChatCleared" xml:space="preserve">
+    <value>Benutzerchat gelöscht</value>
+  </data>
+  <data name="TwitchChannelHighlightedMessage" xml:space="preserve">
+    <value>Hervorgehobene Nachricht des Twitch-Kanals</value>
+  </data>
+  <data name="TwitchChannelPowerUpCelebration" xml:space="preserve">
+    <value>Twitch Channel Power-Up-Feier</value>
+  </data>
+  <data name="TwitchChannelPowerUpGigantifiedEmote" xml:space="preserve">
+    <value>Twitch Channel Power-Up-Gigantifizierte Emote</value>
+  </data>
+  <data name="TwitchChannelPowerUpMessageEffect" xml:space="preserve">
+    <value>Twitch-Kanal-Power-up-Nachrichteneffekt</value>
+  </data>
+  <data name="TwitchChannelUserIntro" xml:space="preserve">
+    <value>Twitch Channel Benutzer-Intro</value>
+  </data>
+  <data name="Mock" xml:space="preserve">
+    <value>Verspotten</value>
+  </data>
+  <data name="TheFollowingStreamingServicesMustBeManuallyReconnected" xml:space="preserve">
+    <value>Die folgenden Streaming-Dienste konnten nicht wieder verbunden werden und müssen manuell über die Accounts-Seite in Mix It Up erfolgen:</value>
+  </data>
+  <data name="MeldStudioInvalidWebSocketAddress" xml:space="preserve">
+    <value>Für Meld Studio muss eine gültige Websocket-Adresse angegeben werden</value>
+  </data>
+  <data name="MeldStudioUnableToConnect" xml:space="preserve">
+    <value>Wenn keine Verbindung zu Meld Studio möglich ist, stellen Sie bitte sicher, dass die Anwendung läuft</value>
+  </data>
+  <data name="MeldStudio" xml:space="preserve">
+    <value>Meld Studio</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Nicht verbunden</value>
+  </data>
+  <data name="WebSocketAddress" xml:space="preserve">
+    <value>WebSocket-Adresse</value>
+  </data>
+  <data name="MeldStudioInfo" xml:space="preserve">
+    <value>Die Verbindung von Meld Studio ermöglicht es Ihnen, Funktionen in der Meld Studio-Software zu steuern, wie zum Beispiel das Ändern der aktuell gezeigten Szene und das Zeigen/Ausstecken von Ebenen. Um sich mit Meld Studio zu verbinden, stellen Sie bitte sicher, dass die Software läuft, bevor Sie versuchen, sich zu verbinden.</value>
+  </data>
+  <data name="MonitorUnmonitorAudioTrack" xml:space="preserve">
+    <value>Audiospur überwachen/entmonitoren</value>
+  </data>
+  <data name="MuteUnmuteAudioTrack" xml:space="preserve">
+    <value>Stumm-/Entmute-Audiospur</value>
+  </data>
+  <data name="SetAudioTrackGain" xml:space="preserve">
+    <value>Audiospurverstärkung einstellen</value>
+  </data>
+  <data name="ShowHideEffect" xml:space="preserve">
+    <value>Show/Versteck-Effekt</value>
+  </data>
+  <data name="ShowHideLayer" xml:space="preserve">
+    <value>Anzeigen/Verbergen-Ebene</value>
+  </data>
+  <data name="ShowScene" xml:space="preserve">
+    <value>Show-Szene</value>
+  </data>
+  <data name="TakeScreenshot" xml:space="preserve">
+    <value>Screenshot machen</value>
+  </data>
+  <data name="MeldStudioActionMissingAudioTrackName" xml:space="preserve">
+    <value>Meld Studio Aktion: Name fehlender Audiospur</value>
+  </data>
+  <data name="MeldStudioActionMissingEffectName" xml:space="preserve">
+    <value>Meld Studio Aktion: Name fehlender Effekt</value>
+  </data>
+  <data name="MeldStudioActionMissingLayerName" xml:space="preserve">
+    <value>Meld Studio Aktion: Name fehlender Schicht</value>
+  </data>
+  <data name="MeldStudioActionMissingSceneName" xml:space="preserve">
+    <value>Meld Studio Action: Name fehlender Szene</value>
+  </data>
+  <data name="AudioTrackName" xml:space="preserve">
+    <value>Name der Audiospur</value>
+  </data>
+  <data name="LayerName" xml:space="preserve">
+    <value>Schichtname</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Aufzeichnung</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Bach</value>
+  </data>
+  <data name="UnableToStartAuthenticationSession" xml:space="preserve">
+    <value>Wenn die Authentifizierung für den Dienst nicht gestartet werden kann, stellen Sie bitte sicher, dass bei einem anderen Dienst kein aktiver Authentifizierungsprozess läuft.</value>
+  </data>
+  <data name="Gain" xml:space="preserve">
+    <value>Gewinn</value>
+  </data>
+  <data name="YouTubeAccountNotEnabledForLiveStreaming" xml:space="preserve">
+    <value>Das YouTube-Konto ist nicht für den Zugriff auf Live-Streaming aktiviert.</value>
+  </data>
+  <data name="YouTubeFailedToGetChannelData" xml:space="preserve">
+    <value>Ich konnte keine YouTube-Kanaldaten erhalten. Bitte stellen Sie sicher, dass das Konto, mit dem Sie sich anmelden, einen YouTube-Kanal dafür erstellt hat.</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
+  <data name="NewAuthorizationScopesRequired" xml:space="preserve">
+    <value>Neue Autorisierungsbereiche sind erforderlich und der Dienst muss manuell wieder angeschlossen werden</value>
+  </data>
+  <data name="TwitchClient" xml:space="preserve">
+    <value>Twitch-Client</value>
+  </data>
+  <data name="RecordClip" xml:space="preserve">
+    <value>Record Clip</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>Das Datum ist vorbei</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Ungültiges Datum</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Nutzungsbedingungen</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Datenschutzerklärung</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Methode</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Benutzerdefinierten Header hinzufügen</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Header-Name</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Kopfwert</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Anfrage-Body (JSON)</value>
+  </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>Das Datum ist nicht eingetreten</value>
+  </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>Freie Stimmen</value>
+  </data>
+  <data name="ViewRateLimits" xml:space="preserve">
+    <value>Es gelten Tarifbegrenzungen. Klicken Sie hier, um die Tariflimits für diesen TTS-Anbieter zu sehen</value>
+  </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitch erlaubt gemeinsame Chat-Events</value>
+  </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>Die Google Cloud TTS-Service-Konnektivität ermöglicht es Ihnen, Ihren eigenen Google Cloud API-Schlüssel zu verbinden, um die Google Cloud TTS-Option in der Text-zu-Sprache-Aktion zu verwenden.</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>Sie müssen Ihren eigenen API-Schlüssel angeben, um diesen Dienst nutzen zu können. Siehe die Wiki-Seite für Anleitungen, wie du deinen API-Schlüssel von der Google Cloud Console-Seite bekommst.</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>Kein API-Schlüssel bereitgestellt</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>Es wurde kein benutzerdefinierter Google Cloud TTS API-Schlüssel hinzugefügt. bitte besuchen Sie den Bereich Google Cloud TTS auf der Services-Seite, um Ihren eigenen API-Schlüssel zu verbinden.</value>
+  </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Google Cloud API Key</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>API-Schlüssel</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>Responsive Voice bietet kostenlose Text-zu-Sprache-Dienste über Ihr Overlay an. Du kannst optional deinen eigenen API-Schlüssel angeben.</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>Wenn du keinen API-Schlüssel bereitstellst, wird der Standard-Mix It Up-Schlüssel mit gemeinsamen Rate-Limits verwendet. Besuchen Sie das Wiki für weitere Informationen.</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>Ungültiger responsiver Sprach-API-Schlüssel</value>
+  </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>Vorherige Stimme auswählen</value>
+  </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>Die Clip-Dauer muss zwischen 5 und 60 Sekunden liegen.</value>
+  </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>Bevor Sie weitermachen, empfehlen wir, ein Backup Ihres Profils mit der Schaltfläche "Backup-Einstellungen" oben zu erstellen. Weitermachen?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>Überprüfen Sie fehlende Dateipfade in Befehlen:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>Pfade überprüfen</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>Prüfung fehlender Dateien</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>Alle Wege zeigen</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>Gültige Wege zeigen</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>Warnpfade anzeigen</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>Zeigen fehlende Wege</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>Rescan</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Aktionstyp</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>Ausgewählter Weg:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>Wählen Sie einen Pfad</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>Suchordner</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Ersetzen</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Alle ersetzen</value>
+  </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>Zitat hinzugefügt</value>
   </data>
 </root>

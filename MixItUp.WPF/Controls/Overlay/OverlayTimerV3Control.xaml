@@ -55,7 +55,7 @@
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="10" />

@@ -22,8 +22,8 @@ namespace MixItUp.Base.Services
         {
             get
             {
-                int minutes = this.Length % 60;
-                int seconds = this.Length / 60;
+                int minutes = this.Length / 60;
+                int seconds = this.Length % 60;
                 string secondsText = seconds < 10 ? "0" + seconds : seconds.ToString();
                 return $"{minutes}:{secondsText}";
             }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace MixItUp.SignalR.Client
@@ -9,10 +8,8 @@ namespace MixItUp.SignalR.Client
     public class SignalRConnection
     {
         public string Address { get; private set; }
-
         public event EventHandler Connected;
         public event EventHandler<Exception> Disconnected;
-
         private HubConnection connection;
 
         public SignalRConnection(string address)
@@ -27,8 +24,6 @@ namespace MixItUp.SignalR.Client
                 }).Build();
         }
 
-        public void IncreaseDefaultConnectionLimit() { ServicePointManager.DefaultConnectionLimit = 10; }
-
         public void Listen(string methodName, Action handler) { this.connection.On(methodName, handler); }
         public void Listen<T1>(string methodName, Action<T1> handler) { this.connection.On<T1>(methodName, handler); }
         public void Listen<T1, T2>(string methodName, Action<T1, T2> handler) { this.connection.On<T1, T2>(methodName, handler); }
@@ -41,7 +36,6 @@ namespace MixItUp.SignalR.Client
             {
                 this.connection.Closed -= Connection_Closed;
                 this.connection.Closed += Connection_Closed;
-
                 await this.connection.StartAsync();
                 this.Connected?.Invoke(this, new EventArgs());
                 return true;

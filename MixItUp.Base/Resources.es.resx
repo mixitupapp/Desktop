@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -2652,6 +2652,10 @@
   </data>
   <data name="ChatUserPurge" xml:space="preserve">
     <value>Usuario de chat purgado</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="DonorDriveDonation" xml:space="preserve">
+    <value>Donación DonorDrive</value>
     <comment>Manual</comment>
   </data>
   <data name="JustGivingDonation" xml:space="preserve">
@@ -5466,6 +5470,12 @@ activado. Puede considerarlo similar a alternar la opción "Desbloquear comando"
   </data>
   <data name="DiscordInvalidSecret" xml:space="preserve">
     <value>Introduzca un secreto de cliente personalizado válido.</value>
+  </data>
+  <data name="DonorDriveInfo1" xml:space="preserve">
+    <value>La conectividad del servicio DonorDrive le permite activar eventos cuando usted o su equipo reciben una donación a través de una organización benéfica DonorDrive elegible.</value>
+  </data>
+  <data name="DonorDriveInfo2" xml:space="preserve">
+    <value>Para conectar DonorDrive en Mix It Up, visite el sitio web de su organización benéfica y busque su página/enlace de participante. Luego seleccione su organización benéfica en el menú desplegable o seleccione Personalizado si no está en la lista, copie su página/enlace de participante en el cuadro de texto y seleccione Iniciar sesión.</value>
   </data>
   <data name="OverlayConnectionFailed1" xml:space="preserve">
     <value>La prueba de conexión de superposición falló. Asegúrese de tener la página Mix It Up Overlay visible y ejecutándose en su software de transmisión.</value>
@@ -8855,6 +8865,53 @@ a través de Twitch, es una situación en la que "su kilometraje puede variar".<
   <data name="TrovoChannelSpellCast" xml:space="preserve">
     <value>Lanzamiento de hechizos del canal Trovo</value>
   </data>
+  <data name="SetTitleDescription" xml:space="preserve">
+    <value>Establecer título/descripción</value>
+  </data>
+  <data name="YouTubeActionMissingAmount" xml:space="preserve">
+    <value>Acción de YouTube: se debe especificar una cantidad válida</value>
+  </data>
+  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
+    <value>Acción de YouTube: se debe especificar un título o descripción válidos</value>
+  </data>
+  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
+    <value>Membresía masiva del canal de YouTube para obsequios</value>
+  </data>
+  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
+    <value>Hito de miembro del canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
+    <value>Membresía del canal de YouTube regalada</value>
+  </data>
+  <data name="YouTubeChannelNewMember" xml:space="preserve">
+    <value>Nuevo miembro del canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelStreamStart" xml:space="preserve">
+    <value>Inicio de la transmisión del canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelStreamStop" xml:space="preserve">
+    <value>Detener la transmisión del canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelSuperChat" xml:space="preserve">
+    <value>Súper chat del canal de YouTube</value>
+  </data>
+  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
+    <value>Súper pegatina del canal de YouTube</value>
+  </data>
+  <data name="AlertYouTubeSuperChat" xml:space="preserve">
+    <value>{0} Súper chat: {1}</value>
+    <comment>{0} is the name of the user
+{1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
+    <value>{0} Súper pegatina - {1} - {2}</value>
+    <comment>{0} is the name of the user
+{1} is the name of the super sticker
+{2} is the amount of the super chat</comment>
+  </data>
+  <data name="ShowYouTubeSuperChat" xml:space="preserve">
+    <value>Mostrar el súper chat de YouTube</value>
+  </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Conexión simulada</value>
   </data>
@@ -9209,6 +9266,9 @@ imprimir(ejecutar())</value>
   <data name="ShellExecute" xml:space="preserve">
     <value>Ejecutar shell</value>
   </data>
+  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
+    <value>Eliminar línea con texto específico del archivo</value>
+  </data>
   <data name="TextToRemove" xml:space="preserve">
     <value>Texto para eliminar</value>
   </data>
@@ -9245,6 +9305,9 @@ imprimir(ejecutar())</value>
   </data>
   <data name="OverlayLabelCounterNotSelected" xml:space="preserve">
     <value>Se debe seleccionar un contador válido</value>
+  </data>
+  <data name="LatestFollower" xml:space="preserve">
+    <value>Último seguidor</value>
   </data>
   <data name="LatestDonation" xml:space="preserve">
     <value>Última donación</value>
@@ -9287,66 +9350,6 @@ imprimir(ejecutar())</value>
   </data>
   <data name="DeStream" xml:space="preserve">
     <value>DeStream</value>
-  </data>
-  <data name="DonorDriveDonation" xml:space="preserve">
-    <value>Donación DonorDrive</value>
-    <comment>Manual</comment>
-  </data>
-  <data name="DonorDriveInfo1" xml:space="preserve">
-    <value>La conectividad del servicio DonorDrive le permite activar eventos cuando usted o su equipo reciben una donación a través de una organización benéfica DonorDrive elegible.</value>
-  </data>
-  <data name="DonorDriveInfo2" xml:space="preserve">
-    <value>Para conectar DonorDrive en Mix It Up, visite el sitio web de su organización benéfica y busque su página/enlace de participante. Luego seleccione su organización benéfica en el menú desplegable o seleccione Personalizado si no está en la lista, copie su página/enlace de participante en el cuadro de texto y seleccione Iniciar sesión.</value>
-  </data>
-  <data name="SetTitleDescription" xml:space="preserve">
-    <value>Establecer título/descripción</value>
-  </data>
-  <data name="YouTubeActionMissingAmount" xml:space="preserve">
-    <value>Acción de YouTube: se debe especificar una cantidad válida</value>
-  </data>
-  <data name="YouTubeActionMissingTitleDescription" xml:space="preserve">
-    <value>Acción de YouTube: se debe especificar un título o descripción válidos</value>
-  </data>
-  <data name="YouTubeChannelMassMembershipGifted" xml:space="preserve">
-    <value>Membresía masiva del canal de YouTube para obsequios</value>
-  </data>
-  <data name="YouTubeChannelMemberMilestone" xml:space="preserve">
-    <value>Hito de miembro del canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelMembershipGifted" xml:space="preserve">
-    <value>Membresía del canal de YouTube regalada</value>
-  </data>
-  <data name="YouTubeChannelNewMember" xml:space="preserve">
-    <value>Nuevo miembro del canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelStreamStart" xml:space="preserve">
-    <value>Inicio de la transmisión del canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelStreamStop" xml:space="preserve">
-    <value>Detener la transmisión del canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelSuperChat" xml:space="preserve">
-    <value>Súper chat del canal de YouTube</value>
-  </data>
-  <data name="YouTubeChannelSuperSticker" xml:space="preserve">
-    <value>Súper pegatina del canal de YouTube</value>
-  </data>
-  <data name="AlertYouTubeSuperChat" xml:space="preserve">
-    <value>{0} Súper chat: {1}</value>
-    <comment>{0} is the name of the user
-{1} is the amount of the super chat</comment>
-  </data>
-  <data name="AlertYouTubeSuperSticker" xml:space="preserve">
-    <value>{0} Súper pegatina - {1} - {2}</value>
-    <comment>{0} is the name of the user
-{1} is the name of the super sticker
-{2} is the amount of the super chat</comment>
-  </data>
-  <data name="ShowYouTubeSuperChat" xml:space="preserve">
-    <value>Mostrar el súper chat de YouTube</value>
-  </data>
-  <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
-    <value>Eliminar línea con texto específico del archivo</value>
   </data>
   <data name="ExistingProfile" xml:space="preserve">
     <value>Perfil existente</value>
@@ -9662,12 +9665,6 @@ imprimir(ejecutar())</value>
   <data name="MusicPlayerSelectFolderOrPlayMusicToLoadInSongs" xml:space="preserve">
     <value>Seleccione una nueva carpeta para cargar música desde una carpeta o presione el botón Reproducir para cargar música desde la última carpeta utilizada.</value>
   </data>
-  <data name="NoDuplicates" xml:space="preserve">
-    <value>Sin duplicados</value>
-  </data>
-  <data name="LatestFollower" xml:space="preserve">
-    <value>Último seguidor</value>
-  </data>
   <data name="ResponsiveVoice" xml:space="preserve">
     <value>Voz Responsiva</value>
   </data>
@@ -9727,6 +9724,9 @@ imprimir(ejecutar())</value>
   </data>
   <data name="SpecificClip" xml:space="preserve">
     <value>Clip específico</value>
+  </data>
+  <data name="NoDuplicates" xml:space="preserve">
+    <value>Sin duplicados</value>
   </data>
   <data name="CountLinesInFile" xml:space="preserve">
     <value>Contar líneas en el archivo</value>
@@ -10794,5 +10794,354 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   </data>
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>No mostrar el error "Sin datos"</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Ninguna voz regresó</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Ocultar mensajes de susurros</value>
+  </data>
+  <data name="BlazingStar" xml:space="preserve">
+    <value>Estrella Ardiente</value>
+  </data>
+  <data name="DealWithIt" xml:space="preserve">
+    <value>Acéptalo</value>
+  </data>
+  <data name="FedoraTip" xml:space="preserve">
+    <value>Fedora Tip</value>
+  </data>
+  <data name="FlyIn" xml:space="preserve">
+    <value>Vuela</value>
+  </data>
+  <data name="FlyOut" xml:space="preserve">
+    <value>Fly Out</value>
+  </data>
+  <data name="LeaveInStyle" xml:space="preserve">
+    <value>Estilo Leave In</value>
+  </data>
+  <data name="RotateComplex" xml:space="preserve">
+    <value>Complejo de rotación</value>
+  </data>
+  <data name="RotateComplexOut" xml:space="preserve">
+    <value>Rotar el complejo hacia afuera</value>
+  </data>
+  <data name="ScaleOut" xml:space="preserve">
+    <value>Escala</value>
+  </data>
+  <data name="SimpleEntrance" xml:space="preserve">
+    <value>Entrada sencilla</value>
+  </data>
+  <data name="Spin3D" xml:space="preserve">
+    <value>Spin 3D</value>
+  </data>
+  <data name="WoahCSS" xml:space="preserve">
+    <value>Woah.css</value>
+  </data>
+  <data name="Wowzors" xml:space="preserve">
+    <value>Wowzors</value>
+  </data>
+  <data name="DonorDriveDonationTeamIncentive" xml:space="preserve">
+    <value>Incentivo para el equipo de donación de donantes</value>
+  </data>
+  <data name="DonorDriveDonationTeamMilestone" xml:space="preserve">
+    <value>Hito del equipo de donación de donantes</value>
+  </data>
+  <data name="DonorDriveIncludeTeamDonationsAndEvents" xml:space="preserve">
+    <value>Incluye donaciones y eventos del equipo</value>
+  </data>
+  <data name="Boolean" xml:space="preserve">
+    <value>Booleano</value>
+  </data>
+  <data name="DropDown" xml:space="preserve">
+    <value>Drop Down</value>
+  </data>
+  <data name="Checkbox" xml:space="preserve">
+    <value>Casilla para marcar</value>
+  </data>
+  <data name="Font" xml:space="preserve">
+    <value>Fuente</value>
+  </data>
+  <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
+    <value>ERROR: No se puede realizar Amazon Polly TTS debido a una voz premium seleccionada sin una cuenta AWS conectada</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Nada</value>
+  </data>
+  <data name="AnAnonymousGifter" xml:space="preserve">
+    <value>Un donador anónimo</value>
+  </data>
+  <data name="FailedToRestoreSettings" xml:space="preserve">
+    <value>ERROR: No se pudo restaurar el archivo de configuración debido a un error. Por favor, prueba a reiniciar tu PC para asegurarte de que no todos los archivos están protegidos por bloqueo y vuelve a intentarlo.</value>
+  </data>
+  <data name="FailedToDeleteSettings" xml:space="preserve">
+    <value>ERROR: No se pudo eliminar el archivo de configuración debido a un error. Por favor, prueba a reiniciar tu PC para asegurarte de que no todos los archivos están protegidos por bloqueo y vuelve a intentarlo.</value>
+  </data>
+  <data name="TrovoFailedToGetSubscriberData" xml:space="preserve">
+    <value>No se han conseguido los datos de los suscriptores</value>
+  </data>
+  <data name="TrovoFailedToGetEmoteData" xml:space="preserve">
+    <value>No se han conseguido datos de emoticonos</value>
+  </data>
+  <data name="YouTubeFailedToUpdateVideoID" xml:space="preserve">
+    <value>No se ha actualizado el ID del vídeo: {0}</value>
+  </data>
+  <data name="TwitchFailedToGetChannelData" xml:space="preserve">
+    <value>No se han conseguido los datos del canal de Twitch</value>
+  </data>
+  <data name="ActiveBroadcasts" xml:space="preserve">
+    <value>Emisiones activas</value>
+  </data>
+  <data name="Broadcasts" xml:space="preserve">
+    <value>Emisiones</value>
+  </data>
+  <data name="UserChatCleared" xml:space="preserve">
+    <value>Chat de usuario eliminado</value>
+  </data>
+  <data name="TwitchChannelHighlightedMessage" xml:space="preserve">
+    <value>Mensaje destacado del canal de Twitch</value>
+  </data>
+  <data name="TwitchChannelPowerUpCelebration" xml:space="preserve">
+    <value>Celebración de potenciación del canal Twitch</value>
+  </data>
+  <data name="TwitchChannelPowerUpGigantifiedEmote" xml:space="preserve">
+    <value>Emote gigantificado de potenciadores de Twitch Channel</value>
+  </data>
+  <data name="TwitchChannelPowerUpMessageEffect" xml:space="preserve">
+    <value>Efecto del mensaje de encendido del canal Twitch</value>
+  </data>
+  <data name="TwitchChannelUserIntro" xml:space="preserve">
+    <value>Introducción al usuario del canal de Twitch</value>
+  </data>
+  <data name="Mock" xml:space="preserve">
+    <value>Mock</value>
+  </data>
+  <data name="TheFollowingStreamingServicesMustBeManuallyReconnected" xml:space="preserve">
+    <value>Los siguientes servicios de streaming no pudieron reconectarse y deben hacerse manualmente desde la página de Cuentas en Mix It Up:</value>
+  </data>
+  <data name="MeldStudioInvalidWebSocketAddress" xml:space="preserve">
+    <value>Para Meld Studio debe especificarse una dirección válida de websocket</value>
+  </data>
+  <data name="MeldStudioUnableToConnect" xml:space="preserve">
+    <value>No se puede conectar a Meld Studio, por favor asegúrese de que la aplicación esté funcionando</value>
+  </data>
+  <data name="MeldStudio" xml:space="preserve">
+    <value>Meld Studio</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>No conectado</value>
+  </data>
+  <data name="WebSocketAddress" xml:space="preserve">
+    <value>Dirección WebSocket</value>
+  </data>
+  <data name="MeldStudioInfo" xml:space="preserve">
+    <value>La conectividad de Meld Studio permite controlar funcionalidades en el software de Meld Studio, como cambiar la escena que se muestra actualmente y mostrar/ocultar capas. Para conectarte a Meld Studio, por favor asegúrate de que el software esté funcionando antes de intentar conectarte.</value>
+  </data>
+  <data name="MonitorUnmonitorAudioTrack" xml:space="preserve">
+    <value>Monitorizar/Desmonitorear la pista de audio</value>
+  </data>
+  <data name="MuteUnmuteAudioTrack" xml:space="preserve">
+    <value>Pista de audio silenciar/desactivar</value>
+  </data>
+  <data name="SetAudioTrackGain" xml:space="preserve">
+    <value>Establecer la ganancia de la pista de audio</value>
+  </data>
+  <data name="ShowHideEffect" xml:space="preserve">
+    <value>Efecto Mostrar/Ocultar</value>
+  </data>
+  <data name="ShowHideLayer" xml:space="preserve">
+    <value>Capa de mostrar/ocultar</value>
+  </data>
+  <data name="ShowScene" xml:space="preserve">
+    <value>Escena del programa</value>
+  </data>
+  <data name="TakeScreenshot" xml:space="preserve">
+    <value>Hacer captura de pantalla</value>
+  </data>
+  <data name="MeldStudioActionMissingAudioTrackName" xml:space="preserve">
+    <value>Acción de Meld Studio: Nombre de pista de audio faltante</value>
+  </data>
+  <data name="MeldStudioActionMissingEffectName" xml:space="preserve">
+    <value>Acción de Mezclar Estudio: Nombre de Efecto Ausente</value>
+  </data>
+  <data name="MeldStudioActionMissingLayerName" xml:space="preserve">
+    <value>Meld Studio Action: Nombre de capa faltante</value>
+  </data>
+  <data name="MeldStudioActionMissingSceneName" xml:space="preserve">
+    <value>Acción de Meld Studio: Nombre de escena perdida</value>
+  </data>
+  <data name="AudioTrackName" xml:space="preserve">
+    <value>Nombre de la pista de audio</value>
+  </data>
+  <data name="LayerName" xml:space="preserve">
+    <value>Nombre de la capa</value>
+  </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Grabar</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Arroyo</value>
+  </data>
+  <data name="UnableToStartAuthenticationSession" xml:space="preserve">
+    <value>Si no se puede iniciar la autenticación del servicio, asegúrese de no tener ya un proceso de autenticación activo en marcha con otro servicio.</value>
+  </data>
+  <data name="Gain" xml:space="preserve">
+    <value>Ganancia</value>
+  </data>
+  <data name="YouTubeAccountNotEnabledForLiveStreaming" xml:space="preserve">
+    <value>La cuenta de YouTube no está habilitada para el acceso a streaming en directo.</value>
+  </data>
+  <data name="YouTubeFailedToGetChannelData" xml:space="preserve">
+    <value>No se han conseguido datos de los canales de YouTube. Por favor, asegúrate de que la cuenta con la que inicias sesión tenga un canal de YouTube creado para ella.</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Fuera</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
+  <data name="NewAuthorizationScopesRequired" xml:space="preserve">
+    <value>Se requieren nuevos ámbitos de autorización y el servicio debe reconectarse manualmente</value>
+  </data>
+  <data name="TwitchClient" xml:space="preserve">
+    <value>Cliente de Twitch</value>
+  </data>
+  <data name="RecordClip" xml:space="preserve">
+    <value>Clip de grabación</value>
+  </data>
+  <data name="DateHasPassed" xml:space="preserve">
+    <value>La fecha ha pasado</value>
+  </data>
+  <data name="InvalidDate" xml:space="preserve">
+    <value>Fecha inválida</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Términos de servicio</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Política de privacidad</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Método</value>
+  </data>
+  <data name="AddCustomHeader" xml:space="preserve">
+    <value>Añadir encabezado personalizado</value>
+  </data>
+  <data name="HeaderName" xml:space="preserve">
+    <value>Nombre del encabezado</value>
+  </data>
+  <data name="HeaderValue" xml:space="preserve">
+    <value>Valor de cabecera</value>
+  </data>
+  <data name="RequestBody" xml:space="preserve">
+    <value>Cuerpo de la Solicitud (JSON)</value>
+  </data>
+  <data name="EdgeTTS" xml:space="preserve">
+    <value>Edge TTS</value>
+  </data>
+  <data name="DateNotOccurred" xml:space="preserve">
+    <value>No se ha dado fecha</value>
+  </data>
+  <data name="FreeVoices" xml:space="preserve">
+    <value>Voces Libres</value>
+  </data>
+  <data name="ViewRateLimits" xml:space="preserve">
+    <value>Se aplican límites de tarifa. Haz clic para ver los límites de tarifas de este proveedor TTS</value>
+  </data>
+  <data name="TwitchAllowSharedChatEvents" xml:space="preserve">
+    <value>Twitch permite eventos de chat compartidos</value>
+  </data>
+  <data name="GoogleCloudTTS" xml:space="preserve">
+    <value>Google Cloud TTS</value>
+  </data>
+  <data name="GoogleCloudTTSInfo1" xml:space="preserve">
+    <value>La conectividad del servicio TTS de Google Cloud te permite conectar tu propia clave API de Google Cloud para usar la opción TTS de Google Cloud en la acción de texto a voz.</value>
+  </data>
+  <data name="GoogleCloudTTSInfo2" xml:space="preserve">
+    <value>Debes proporcionar tu propia clave API para usar este servicio. Consulta la página Wiki para instrucciones sobre cómo obtener tu clave API desde la página de Google Cloud Console</value>
+  </data>
+  <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
+    <value>No se proporciona ninguna clave API</value>
+  </data>
+  <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
+    <value>No se ha añadido ninguna clave API personalizada de TTS en Google Cloud. por favor, visita la sección de TTS de Google Cloud en la página de Servicios para conectar tu propia clave API.</value>
+  </data>
+  <data name="GoogleCloudTTSAPIKey" xml:space="preserve">
+    <value>Clave API de Google Cloud</value>
+  </data>
+  <data name="ResponsiveVoiceAPIKey" xml:space="preserve">
+    <value>Clave API</value>
+  </data>
+  <data name="ResponsiveVoiceInfo1" xml:space="preserve">
+    <value>Responsive Voice ofrece servicios gratuitos de texto a voz a través de tu superposición. Opcionalmente puedes proporcionar tu propia clave API.</value>
+  </data>
+  <data name="ResponsiveVoiceInfo2" xml:space="preserve">
+    <value>Si no proporcionas una clave API, la clave predeterminada Mix It Up se usará con límites de tasa compartidos. Visita la Wiki para más información.</value>
+  </data>
+  <data name="ResponsiveVoiceInvalidAPIKey" xml:space="preserve">
+    <value>Clave de API de voz responsiva inválida</value>
+  </data>
+  <data name="SelectPreviousVoice" xml:space="preserve">
+    <value>Seleccionar voz anterior</value>
+  </data>
+  <data name="TwitchClipDurationLimits" xml:space="preserve">
+    <value>La duración del clip debe estar entre 5 y 60 segundos.</value>
+  </data>
+  <data name="MissingFilesCheckDialog" xml:space="preserve">
+    <value>Antes de continuar, te recomendamos crear una copia de seguridad de tu perfil usando el botón de Configuración de Copia de Seguridad de arriba. ¿Continuar?</value>
+  </data>
+  <data name="MissingFilesCheckDescription" xml:space="preserve">
+    <value>Revisa rutas de archivo que faltan en los comandos:</value>
+  </data>
+  <data name="MissingFilesCheckPaths" xml:space="preserve">
+    <value>Revisar rutas</value>
+  </data>
+  <data name="MissingFilesCheck" xml:space="preserve">
+    <value>Comprobación de archivos faltantes</value>
+  </data>
+  <data name="ShowAllPaths" xml:space="preserve">
+    <value>Mostrar todos los caminos</value>
+  </data>
+  <data name="ShowValidPaths" xml:space="preserve">
+    <value>Mostrar rutas válidas</value>
+  </data>
+  <data name="ShowWarningPaths" xml:space="preserve">
+    <value>Mostrar rutas de advertencia</value>
+  </data>
+  <data name="ShowMissingPaths" xml:space="preserve">
+    <value>Mostrar caminos perdidos</value>
+  </data>
+  <data name="Rescan" xml:space="preserve">
+    <value>Escaneo de nuevo</value>
+  </data>
+  <data name="ActionType" xml:space="preserve">
+    <value>Tipo de acción</value>
+  </data>
+  <data name="SelectedPath" xml:space="preserve">
+    <value>Camino seleccionado:</value>
+  </data>
+  <data name="SelectAPath" xml:space="preserve">
+    <value>Seleccionar un camino</value>
+  </data>
+  <data name="SearchFolder" xml:space="preserve">
+    <value>Carpeta de búsqueda</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Reemplazar</value>
+  </data>
+  <data name="ReplaceAll" xml:space="preserve">
+    <value>Reemplazar todo</value>
+  </data>
+  <data name="QuoteAdded" xml:space="preserve">
+    <value>Cita añadida</value>
   </data>
 </root>

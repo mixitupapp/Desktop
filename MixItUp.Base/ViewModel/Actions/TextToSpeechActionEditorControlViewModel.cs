@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MixItUp.Base.ViewModel.Actions
 {
@@ -27,6 +28,8 @@ namespace MixItUp.Base.ViewModel.Actions
 
                 this.NotifyPropertyChanged(nameof(this.NoCustomAmazonPollyAccount));
                 this.NotifyPropertyChanged(nameof(this.NoCustomMicrosoftAzureSpeechAccount));
+                this.NotifyPropertyChanged(nameof(this.NoCustomGoogleCloudTTSAccount));
+                this.NotifyPropertyChanged(nameof(this.ShowRateLimitLink));
 
                 this.NotifyPropertyChanged(nameof(this.PitchHintText));
                 this.NotifyPropertyChanged(nameof(this.RateHintText));
@@ -44,7 +47,9 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.SelectedProviderType == TextToSpeechProviderType.AmazonPolly ||
                     this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech ||
                     this.SelectedProviderType == TextToSpeechProviderType.TTSMonster ||
-                    this.SelectedProviderType == TextToSpeechProviderType.TikTokTTS;
+                    this.SelectedProviderType == TextToSpeechProviderType.TikTokTTS ||
+                    this.SelectedProviderType == TextToSpeechProviderType.EdgeTTS ||
+                    this.SelectedProviderType == TextToSpeechProviderType.GoogleCloudTTS;
             }
         }
         public bool AudioDeviceServiceConnected
@@ -186,7 +191,7 @@ namespace MixItUp.Base.ViewModel.Actions
             get
             {
                 return this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech || this.SelectedProviderType == TextToSpeechProviderType.AmazonPolly ||
-                    this.SelectedProviderType == TextToSpeechProviderType.WindowsTextToSpeech;
+                    this.SelectedProviderType == TextToSpeechProviderType.WindowsTextToSpeech || this.SelectedProviderType == TextToSpeechProviderType.GoogleCloudTTS;
             }
         }
 
@@ -222,6 +227,18 @@ namespace MixItUp.Base.ViewModel.Actions
             get { return this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech && string.IsNullOrEmpty(ChannelSession.Settings.MicrosoftAzureSpeechCustomSubscriptionKey); }
         }
 
+        public bool NoCustomGoogleCloudTTSAccount
+        {
+            get { return this.SelectedProviderType == TextToSpeechProviderType.GoogleCloudTTS && string.IsNullOrEmpty(ChannelSession.Settings.GoogleCloudTTSCustomKey); }
+        }
+
+        public bool ShowRateLimitLink
+        {
+            get { return this.SelectedProviderType == TextToSpeechProviderType.EdgeTTS || this.SelectedProviderType == TextToSpeechProviderType.TikTokTTS; }
+        }
+
+        public ICommand OpenRateLimitLinkCommand { get; private set; }
+
         public TextToSpeechActionEditorControlViewModel(TextToSpeechActionModel action)
             : base(action)
         {
@@ -244,6 +261,11 @@ namespace MixItUp.Base.ViewModel.Actions
             this.Rate = action.Rate;
             this.SSML = action.SSML;
             this.WaitForFinish = action.WaitForFinish;
+
+            this.OpenRateLimitLinkCommand = this.CreateCommand(() =>
+            {
+                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/actions/text-to-speech-action");
+            });
         }
 
         public TextToSpeechActionEditorControlViewModel()
@@ -257,6 +279,11 @@ namespace MixItUp.Base.ViewModel.Actions
             this.SelectedProviderType = TextToSpeechProviderType.WindowsTextToSpeech;
 
             this.UpdateTextToSpeechProvider();
+
+            this.OpenRateLimitLinkCommand = this.CreateCommand(() =>
+            {
+                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/actions/text-to-speech-action");
+            });
         }
 
         public override Task<Result> Validate()

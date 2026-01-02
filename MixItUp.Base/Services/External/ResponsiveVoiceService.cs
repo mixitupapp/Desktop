@@ -1,13 +1,18 @@
 ﻿using MixItUp.Base.Model.Overlay;
+using MixItUp.Base.Util;
+using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.External
 {
-    public class ResponsiveVoiceService : ITextToSpeechService
+    public class ResponsiveVoiceService : ITextToSpeechConnectableService
     {
+        private const string DEFAULT_API_KEY = "qGGJ9iAQ";
+
         public static readonly IEnumerable<TextToSpeechVoice> AvailableVoices = new List<TextToSpeechVoice>()
         {
             new TextToSpeechVoice("Afrikaans Male"),
@@ -116,6 +121,44 @@ namespace MixItUp.Base.Services.External
         public IEnumerable<TextToSpeechVoice> GetVoices() { return ResponsiveVoiceService.AvailableVoices; }
 
         private HashSet<string> completedRequests = new HashSet<string>();
+
+        public string GetApiKey()
+        {
+            if (!string.IsNullOrEmpty(ChannelSession.Settings.ResponsiveVoiceCustomAPIKey))
+            {
+                return ChannelSession.Settings.ResponsiveVoiceCustomAPIKey;
+            }
+            return DEFAULT_API_KEY;
+        }
+
+        public async Task<Result> TestAccess()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(ChannelSession.Settings.ResponsiveVoiceCustomAPIKey))
+                {
+                    return new Result();
+                }
+
+                using (AdvancedHttpClient client = new AdvancedHttpClient())
+                {
+                    string testUrl = $"https://code.responsivevoice.org/responsivevoice.js?key={ChannelSession.Settings.ResponsiveVoiceCustomAPIKey}";
+                    HttpResponseMessage response = await client.GetAsync(testUrl);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return new Result(MixItUp.Base.Resources.ResponsiveVoiceInvalidAPIKey);
+                    }
+
+                    return new Result();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return new Result(ex);
+            }
+        }
 
         public async Task Speak(string outputDevice, Guid overlayEndpointID, string text, string voice, int volume, int pitch, int rate, bool ssml, bool waitForFinish)
         {

@@ -503,6 +503,8 @@ namespace MixItUp.Base.Util
                     this.ReplaceSpecialIdentifier(MusicPlayerSpecialIdentifierHeader + "title", song.Title);
                     this.ReplaceSpecialIdentifier(MusicPlayerSpecialIdentifierHeader + "artist", song.Artist);
                     this.ReplaceSpecialIdentifier(MusicPlayerSpecialIdentifierHeader + "display", song.ToString());
+                    this.ReplaceSpecialIdentifier(MusicPlayerSpecialIdentifierHeader + "length", song.Length.ToString());
+                    this.ReplaceSpecialIdentifier(MusicPlayerSpecialIdentifierHeader + "duration", song.LengthString);
                 }
             }
 

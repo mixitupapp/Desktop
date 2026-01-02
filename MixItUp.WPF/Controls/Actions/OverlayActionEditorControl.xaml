@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Actions"
              xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
@@ -57,7 +57,10 @@
 
         <Grid Grid.Row="3" Visibility="{Binding ShowItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border Style="{StaticResource DefaultBorder}">
-                <TabControl SnapsToDevicePixels="True" Style="{StaticResource MaterialDesignTabControl}" TabStripPlacement="Top" MaterialDesign:NavigationRailAssist.ShowSelectionBackground="True">
+                <TabControl SnapsToDevicePixels="True"
+            Style="{StaticResource MaterialDesignFilledTabControl}"
+            TabStripPlacement="Top">
+
                     <TabItem Header="{x:Static resx:Resources.Details}" HorizontalAlignment="Stretch">
                         <ContentControl x:Name="InnerContent" Margin="10" />
                     </TabItem>
@@ -79,10 +82,10 @@
                                 <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning1}"/>
                                 <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning2}"/>
                                 <TextBlock HorizontalAlignment="Center">
-                                    <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
                                         <TextBlock Text="{x:Static resx:Resources.OverlayWarning3}"/>
-                                    </Hyperlink>
-                                </TextBlock>
+                    </Hyperlink>
+                </TextBlock>
                             </StackPanel>
 
                             <Button Grid.Row="1" Content="{x:Static resx:Resources.AddAnimation}" Command="{Binding AddCustomAnimationCommand}" HorizontalAlignment="Center" />
@@ -102,7 +105,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-
                             <Border Style="{StaticResource DefaultBorder}">
                                 <TextBox Text="{Binding HTML}" Style="{StaticResource OverlayEditorMultiLineTextBox}" Height="250" />
                             </Border>
@@ -114,7 +116,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-
                             <Border Style="{StaticResource DefaultBorder}">
                                 <TextBox Text="{Binding CSS}" Style="{StaticResource OverlayEditorMultiLineTextBox}" Height="250" />
                             </Border>
@@ -126,7 +127,6 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-
                             <Border Style="{StaticResource DefaultBorder}">
                                 <TextBox Text="{Binding Javascript}" Style="{StaticResource OverlayEditorMultiLineTextBox}" Height="250" />
                             </Border>
