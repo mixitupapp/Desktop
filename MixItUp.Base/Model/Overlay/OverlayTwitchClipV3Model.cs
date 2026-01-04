@@ -30,7 +30,6 @@ namespace MixItUp.Base.Model.Overlay
     [DataContract]
     public class OverlayTwitchClipV3Model : OverlayItemV3ModelBase
     {
-        private const string ClipThumbnailURLPreviewSegment = "-preview-";
 
         public static readonly string DefaultHTML = OverlayResources.OverlayTwitchClipVideoDefaultHTML;
         public static readonly string DefaultCSS = OverlayResources.OverlayTwitchClipVideoDefaultCSS;
@@ -115,7 +114,7 @@ namespace MixItUp.Base.Model.Overlay
                     IEnumerable<ClipModel> clips = await ServiceManager.Get<TwitchSession>().StreamerService.GetClips(twitchUser, featured: featured, maxResults: 500);
                     if (clips != null && clips.Count() > 0)
                     {
-                        clip = clips.Where(c => c.thumbnail_url.Contains(ClipThumbnailURLPreviewSegment)).Random();
+                        clip = clips.Random();
                     }
 
                     if (clip == null && this.ClipType == OverlayTwitchClipV3ClipType.RandomFeaturedClip)
@@ -123,7 +122,7 @@ namespace MixItUp.Base.Model.Overlay
                         clips = await ServiceManager.Get<TwitchSession>().StreamerService.GetClips(twitchUser, featured: false, maxResults: 500);
                         if (clips != null && clips.Count() > 0)
                         {
-                            clip = clips.Where(c => c.thumbnail_url.Contains(ClipThumbnailURLPreviewSegment)).Random();
+                            clip = clips.Random();
                         }
                     }
                 }
@@ -134,7 +133,7 @@ namespace MixItUp.Base.Model.Overlay
                     IEnumerable<ClipModel> clips = await ServiceManager.Get<TwitchSession>().StreamerService.GetClips(twitchUser, startDate: startDate, endDate: DateTimeOffset.Now, featured: featured, maxResults: 500);
                     if (clips != null && clips.Count() > 0)
                     {
-                        clip = clips.Where(c => c.thumbnail_url.Contains(ClipThumbnailURLPreviewSegment)).OrderByDescending(c => c.created_at).FirstOrDefault();
+                        clip = clips.OrderByDescending(c => c.created_at).FirstOrDefault();
                     }
 
                     if (clip == null && this.ClipType == OverlayTwitchClipV3ClipType.LatestFeaturedClip)
@@ -142,7 +141,7 @@ namespace MixItUp.Base.Model.Overlay
                         clips = await ServiceManager.Get<TwitchSession>().StreamerService.GetClips(twitchUser, startDate: startDate, endDate: DateTimeOffset.Now, featured: false, maxResults: 500);
                         if (clips != null && clips.Count() > 0)
                         {
-                            clip = clips.Where(c => c.thumbnail_url.Contains(ClipThumbnailURLPreviewSegment)).OrderByDescending(c => c.created_at).FirstOrDefault();
+                            clip = clips.OrderByDescending(c => c.created_at).FirstOrDefault();
                         }
                     }
                 }
