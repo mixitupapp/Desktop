@@ -660,6 +660,9 @@ namespace MixItUp.Base.Services
             {
                 using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
                 {
+                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
+
                     HttpResponseMessage response = await client.GetAsync("/api/services/notifications");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
@@ -716,6 +719,9 @@ namespace MixItUp.Base.Services
             {
                 using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
                 {
+                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
+
                     HttpResponseMessage response = await client.GetAsync("api/services/notifications/outage");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
