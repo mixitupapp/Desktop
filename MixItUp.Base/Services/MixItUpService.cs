@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -610,6 +611,9 @@ namespace MixItUp.Base.Services
             {
                 using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
                 {
+                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
+
                     HttpResponseMessage response = await client.GetAsync("api/services/notifications/id");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
