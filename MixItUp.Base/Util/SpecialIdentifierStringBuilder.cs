@@ -831,6 +831,11 @@ namespace MixItUp.Base.Util
                 {
                     this.ReplaceSpecialIdentifier(inventory.UniqueItemsTotalSpecialIdentifier, inventory.Items.Count().ToString());
                 }
+
+                if (this.ContainsSpecialIdentifier(inventory.AllItemsSpecialIdentifier))
+                {
+                    this.ReplaceSpecialIdentifier(inventory.AllItemsSpecialIdentifier, string.Join(", ", inventory.Items.Values.Select(i => i.Name)));
+                }
             }
 
             if (this.ContainsSpecialIdentifier(UnicodeRegexSpecialIdentifier))
