@@ -68,7 +68,7 @@ namespace MixItUp.WPF.Services
                 }
 
                 var uri = new Uri(endpoint);
-                var appVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "1.0.0";
+                var appVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "0.0.0.0";
 
                 var resourceBuilder = ResourceBuilder.CreateDefault()
                     .AddService(
@@ -77,10 +77,9 @@ namespace MixItUp.WPF.Services
                         serviceInstanceId: this.sessionId)
                     .AddAttributes(new Dictionary<string, object>
                     {
-                        ["deployment.environment"] = "production",
-                        ["os.type"] = "windows",
-                        ["os.version"] = Environment.OSVersion.ToString(),
-                        ["host.name"] = Environment.MachineName
+                        ["deployment.environment"] = ChannelSession.IsDebug() ? "development" : "production",
+                        ["os.version"] = Environment.OSVersion.Version.ToString(),
+                        ["os.description"] = Environment.OSVersion.ToString(),
                     });
 
                 this.tracerProvider = Sdk.CreateTracerProviderBuilder()
