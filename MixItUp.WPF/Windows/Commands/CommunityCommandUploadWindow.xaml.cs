@@ -4,6 +4,7 @@ using MixItUp.Base.Model.Store;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.CommunityCommands;
+using MixItUp.Base.ViewModel.MainControls;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using System;
@@ -49,6 +50,14 @@ namespace MixItUp.WPF.Windows.Commands
         protected override async Task OnLoaded()
         {
             await base.OnLoaded();
+
+            // Community Commands is in maintenance mode
+            if (CommunityCommandsMainControlViewModel.IsMaintenanceMode)
+            {
+                await DialogHelper.ShowMessage("Community Commands is temporarily unavailable while we work on switching and improving our backend infrastructure. This feature will return in a future update.");
+                this.Close();
+                return;
+            }
 
             try
             {
@@ -158,6 +167,13 @@ namespace MixItUp.WPF.Windows.Commands
             {
                 try
                 {
+                    // Community Commands is in maintenance mode
+                    if (CommunityCommandsMainControlViewModel.IsMaintenanceMode)
+                    {
+                        await DialogHelper.ShowMessage("Community Commands is temporarily unavailable while we work on switching and improving our backend infrastructure. This feature will return in a future update.");
+                        return;
+                    }
+
                     if (this.commandContainsScript)
                     {
                         await DialogHelper.ShowMessage(MixItUp.Base.Resources.CommunityCommandsScriptActionsNotSupported);

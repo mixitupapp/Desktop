@@ -19,6 +19,7 @@ namespace MixItUp.WPF.Controls.MainControls
 {
     /// <summary>
     /// Interaction logic for CommunityCommandsControl.xaml
+    /// Community Commands is temporarily disabled while backend infrastructure is being migrated.
     /// </summary>
     public partial class CommunityCommandsControl : MainControlBase
     {
@@ -26,6 +27,13 @@ namespace MixItUp.WPF.Controls.MainControls
 
         public static async Task ProcessDownloadedCommunityCommand(CommunityCommandDetailsViewModel command)
         {
+            // Community Commands is in maintenance mode
+            if (CommunityCommandsMainControlViewModel.IsMaintenanceMode)
+            {
+                await DialogHelper.ShowMessage("Community Commands is temporarily unavailable while we work on switching and improving our backend infrastructure. This feature will return in a future update.");
+                return;
+            }
+
             try
             {
                 if (bool.Equals(await DialogHelper.ShowCustom(new CommandImporterDialogControl(command.PrimaryCommand)), true))
@@ -59,13 +67,23 @@ namespace MixItUp.WPF.Controls.MainControls
         protected override async Task InitializeInternal()
         {
             this.DataContext = this.viewModel = new CommunityCommandsMainControlViewModel((MainWindowViewModel)this.Window.ViewModel);
-            await this.viewModel.OnOpen();
+
+            // Skip loading data during maintenance mode
+            if (!CommunityCommandsMainControlViewModel.IsMaintenanceMode)
+            {
+                await this.viewModel.OnOpen();
+            }
+
             await base.InitializeInternal();
         }
 
         protected override async Task OnVisibilityChanged()
         {
-            await this.viewModel.OnVisible();
+            // Skip refreshing data during maintenance mode
+            if (!CommunityCommandsMainControlViewModel.IsMaintenanceMode)
+            {
+                await this.viewModel.OnVisible();
+            }
         }
 
         private void CommandsList_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
