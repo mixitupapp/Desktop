@@ -1,13 +1,19 @@
-﻿using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
-using MixItUp.Base;
+﻿using MixItUp.Base;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using OpenTelemetry;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -17,19 +23,34 @@ namespace MixItUp.WPF.Services
     public class WindowsTelemetryService : ITelemetryService
     {
         private const int MaxTelemetryEventsPerSession = 2000;
+        private const string ServiceName = "MixItUpApp";
 
-        private TelemetryConfiguration telemetryConfiguration = new TelemetryConfiguration();
-        private TelemetryClient telemetryClient;
+        private static readonly ActivitySource ActivitySource = new ActivitySource(ServiceName);
+
+        private static readonly Meter Meter = new Meter(ServiceName);
+
+        private readonly Counter<long> loginCounter;
+        private readonly Counter<long> commandCounter;
+        private readonly Counter<long> actionCounter;
+        private readonly Counter<long> serviceCounter;
+        private readonly Counter<long> exceptionCounter;
+
+        private TracerProvider tracerProvider;
+        private MeterProvider meterProvider;
+
+        private string userId;
+        private string sessionId;
         private int totalEventsSent = 0;
 
         public WindowsTelemetryService()
         {
-            this.telemetryClient = new TelemetryClient(this.telemetryConfiguration);
-            this.telemetryClient.Context.Cloud.RoleInstance = "MixItUpApp";
-            this.telemetryClient.Context.Cloud.RoleName = "MixItUpApp";
-            this.telemetryClient.Context.Session.Id = Guid.NewGuid().ToString();
-            this.telemetryClient.Context.Device.OperatingSystem = Environment.OSVersion.ToString();
-            this.telemetryClient.Context.Component.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
+            this.sessionId = Guid.NewGuid().ToString();
+
+            this.loginCounter = Meter.CreateCounter<long>("mixitup.logins", "count", "Number of user logins");
+            this.commandCounter = Meter.CreateCounter<long>("mixitup.commands", "count", "Number of commands executed");
+            this.actionCounter = Meter.CreateCounter<long>("mixitup.actions", "count", "Number of actions executed");
+            this.serviceCounter = Meter.CreateCounter<long>("mixitup.services", "count", "Number of service connections");
+            this.exceptionCounter = Meter.CreateCounter<long>("mixitup.exceptions", "count", "Number of exceptions");
         }
 
         public string Name { get { return "Telemetry"; } }
@@ -38,58 +59,190 @@ namespace MixItUp.WPF.Services
 
         public Task<Result> Connect()
         {
-            string key = ServiceManager.Get<SecretsService>().GetSecret("ApplicationInsightsKey");
-            if (!string.IsNullOrEmpty(key))
+            try
             {
-                this.telemetryConfiguration.ConnectionString = $"InstrumentationKey={key}";
-            }
+                string endpoint = ServiceManager.Get<SecretsService>().GetSecret("OtelEndpoint");
+                if (string.IsNullOrEmpty(endpoint))  // we can remove this once we add otelendpoint or secretkey to the secrets file. 
+                { 
+                    endpoint = "http://localhost:4317";
+                }
 
-            this.IsConnected = true;
-            return Task.FromResult(new Result());
+                var uri = new Uri(endpoint);
+                var appVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "1.0.0";
+
+                var resourceBuilder = ResourceBuilder.CreateDefault()
+                    .AddService(
+                        serviceName: ServiceName,
+                        serviceVersion: appVersion,
+                        serviceInstanceId: this.sessionId)
+                    .AddAttributes(new Dictionary<string, object>
+                    {
+                        ["deployment.environment"] = "production",
+                        ["os.type"] = "windows",
+                        ["os.version"] = Environment.OSVersion.ToString(),
+                        ["host.name"] = Environment.MachineName
+                    });
+
+                this.tracerProvider = Sdk.CreateTracerProviderBuilder()
+                    .SetResourceBuilder(resourceBuilder)
+                    .AddSource(ServiceName)
+                    .AddOtlpExporter(options =>
+                    {
+                        options.Endpoint = uri;
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                    })
+                    .Build();
+
+                this.meterProvider = Sdk.CreateMeterProviderBuilder()
+                    .SetResourceBuilder(resourceBuilder)
+                    .AddMeter(ServiceName)
+                    .AddOtlpExporter(options =>
+                    {
+                        options.Endpoint = uri;
+                        options.Protocol = OtlpExportProtocol.Grpc;
+                    })
+                    .Build();
+
+                this.IsConnected = true;
+                return Task.FromResult(new Result());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                this.IsConnected = false;
+                return Task.FromResult(new Result());
+            }
         }
 
         public async Task Disconnect()
         {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            Task.Run(() => { this.telemetryClient.Flush(); });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            await Task.Delay(2000); // Allow time to flush
+            try
+            {
+                this.tracerProvider?.ForceFlush();
+                this.meterProvider?.ForceFlush();
+
+                await Task.Delay(1000);
+
+                this.tracerProvider?.Dispose();
+                this.meterProvider?.Dispose();
+
+                this.tracerProvider = null;
+                this.meterProvider = null;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
 
             this.IsConnected = false;
         }
 
         public void TrackException(Exception ex)
         {
-            this.TrySendEvent(() => this.telemetryClient.TrackException(ex));
+            this.TrySendEvent(() =>
+            {
+                using var activity = ActivitySource.StartActivity("Exception", ActivityKind.Internal);
+                if (activity != null)
+                {
+                    activity.SetStatus(ActivityStatusCode.Error, ex.Message);
+                    activity.SetTag("exception.type", ex.GetType().FullName);
+                    activity.SetTag("exception.message", ex.Message);
+                    activity.SetTag("exception.stacktrace", ex.StackTrace);
+                    activity.SetTag("user.id", this.userId);
+                    activity.SetTag("session.id", this.sessionId);
+
+                    activity.AddEvent(new ActivityEvent("exception", tags: new ActivityTagsCollection
+                    {
+                        { "exception.type", ex.GetType().FullName },
+                        { "exception.message", ex.Message }
+                    }));
+                }
+
+                this.exceptionCounter.Add(1, new KeyValuePair<string, object>("exception.type", ex.GetType().Name));
+            });
         }
 
         public void TrackLogin(string userID, IEnumerable<StreamingPlatformTypeEnum> platforms)
         {
-            this.TrySendEvent(() => this.telemetryClient.TrackEvent("Login", new Dictionary<string, string> { { "Platforms", string.Join(", ", platforms.Select(p => p.ToString())) } }));
+            this.TrySendEvent(() =>
+            {
+                var platformsString = string.Join(", ", platforms.Select(p => p.ToString()));
+
+                using var activity = ActivitySource.StartActivity("Login", ActivityKind.Internal);
+                if (activity != null)
+                {
+                    activity.SetTag("user.id", userID);
+                    activity.SetTag("platforms", platformsString);
+                    activity.SetTag("session.id", this.sessionId);
+                }
+
+                this.loginCounter.Add(1,
+                    new KeyValuePair<string, object>("platforms", platformsString),
+                    new KeyValuePair<string, object>("user.id", userID));
+            });
         }
 
         public void TrackCommand(CommandTypeEnum type, string details = null)
         {
-            if (string.IsNullOrEmpty(details))
+            this.TrySendEvent(() =>
             {
-                details = "None";
-            }
-            this.TrySendEvent(() => this.telemetryClient.TrackEvent("Command", new Dictionary<string, string> { { "Type", EnumHelper.GetEnumName(type) }, { "Details", details } }));
+                var typeName = EnumHelper.GetEnumName(type);
+                details ??= "None";
+
+                using var activity = ActivitySource.StartActivity("Command", ActivityKind.Internal);
+                if (activity != null)
+                {
+                    activity.SetTag("command.type", typeName);
+                    activity.SetTag("command.details", details);
+                    activity.SetTag("user.id", this.userId);
+                    activity.SetTag("session.id", this.sessionId);
+                }
+
+                this.commandCounter.Add(1,
+                    new KeyValuePair<string, object>("command.type", typeName),
+                    new KeyValuePair<string, object>("command.details", details));
+            });
         }
 
         public void TrackAction(ActionTypeEnum type)
         {
-            this.TrySendEvent(() => this.telemetryClient.TrackEvent("Action", new Dictionary<string, string> { { "Type", EnumHelper.GetEnumName(type) } }));
+            this.TrySendEvent(() =>
+            {
+                var typeName = EnumHelper.GetEnumName(type);
+
+                using var activity = ActivitySource.StartActivity("Action", ActivityKind.Internal);
+                if (activity != null)
+                {
+                    activity.SetTag("action.type", typeName);
+                    activity.SetTag("user.id", this.userId);
+                    activity.SetTag("session.id", this.sessionId);
+                }
+
+                this.actionCounter.Add(1,
+                    new KeyValuePair<string, object>("action.type", typeName));
+            });
         }
 
         public void TrackService(string type)
         {
-            this.TrySendEvent(() => this.telemetryClient.TrackEvent("Service", new Dictionary<string, string> { { "Type", type } }));
+            this.TrySendEvent(() =>
+            {
+                using var activity = ActivitySource.StartActivity("ServiceConnection", ActivityKind.Internal);
+                if (activity != null)
+                {
+                    activity.SetTag("service.type", type);
+                    activity.SetTag("user.id", this.userId);
+                    activity.SetTag("session.id", this.sessionId);
+                }
+
+                this.serviceCounter.Add(1,
+                    new KeyValuePair<string, object>("service.type", type));
+            });
         }
 
         public void SetUserID(string id)
         {
-            this.telemetryClient.Context.User.Id = id.ToString();
+            this.userId = id;
         }
 
         private void TrySendEvent(Action eventAction)
@@ -99,10 +252,22 @@ namespace MixItUp.WPF.Services
                 return;
             }
 
-            if (this.totalEventsSent < WindowsTelemetryService.MaxTelemetryEventsPerSession)
+            if (!this.IsConnected)
             {
-                eventAction();
-                this.totalEventsSent++;
+                return;
+            }
+
+            if (this.totalEventsSent < MaxTelemetryEventsPerSession)
+            {
+                try
+                {
+                    eventAction();
+                    this.totalEventsSent++;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
             }
         }
     }
