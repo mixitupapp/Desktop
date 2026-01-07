@@ -2,6 +2,7 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using OpenTelemetry;
@@ -14,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -82,6 +84,8 @@ namespace MixItUp.WPF.Services
                         ["deployment.environment"] = ChannelSession.IsDebug() ? "development" : "production",
                         ["os.version"] = Environment.OSVersion.Version.ToString(),
                         ["os.description"] = Environment.OSVersion.ToString(),
+                        ["os.locale"] = CultureInfo.CurrentUICulture.Name,
+                        ["app.language"] = Languages.GetLangauge().ToString()
                     });
 
                 this.tracerProvider = Sdk.CreateTracerProviderBuilder()
