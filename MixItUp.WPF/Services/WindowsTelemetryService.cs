@@ -34,6 +34,7 @@ namespace MixItUp.WPF.Services
         private readonly Counter<long> actionCounter;
         private readonly Counter<long> serviceCounter;
         private readonly Counter<long> exceptionCounter;
+        private readonly Counter<long> featureUsageCounter;
 
         private TracerProvider tracerProvider;
         private MeterProvider meterProvider;
@@ -51,6 +52,7 @@ namespace MixItUp.WPF.Services
             this.actionCounter = Meter.CreateCounter<long>("mixitup.actions", "count", "Number of actions executed");
             this.serviceCounter = Meter.CreateCounter<long>("mixitup.services", "count", "Number of service connections");
             this.exceptionCounter = Meter.CreateCounter<long>("mixitup.exceptions", "count", "Number of exceptions");
+            this.featureUsageCounter = Meter.CreateCounter<long>("mixitup.feature_usage", "count", "Feature usage");
         }
 
         public string Name { get { return "Telemetry"; } }
@@ -244,6 +246,31 @@ namespace MixItUp.WPF.Services
         public void SetUserID(string id)
         {
             this.userId = id;
+        }
+
+        public void TrackFeature(string featureName, Dictionary<string, object> properties = null)
+        {
+            this.TrySendEvent(() =>
+            {
+                using var activity = ActivitySource.StartActivity("FeatureUsage", ActivityKind.Internal);
+                if (activity != null)
+                {
+                    activity.SetTag("feature.name", featureName);
+                    activity.SetTag("user.id", this.userId);
+                    activity.SetTag("session.id", this.sessionId);
+
+                    if (properties != null)
+                    {
+                        foreach (var kvp in properties)
+                        {
+                            activity.SetTag(kvp.Key, kvp.Value);
+                        }
+                    }
+                }
+
+                this.featureUsageCounter.Add(1,
+                    new KeyValuePair<string, object>("feature.name", featureName));
+            });
         }
 
         private void TrySendEvent(Action eventAction)

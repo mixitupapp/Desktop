@@ -14,6 +14,7 @@ namespace MixItUp.Base.Services
         void TrackCommand(CommandTypeEnum type, string details = null);
         void TrackAction(ActionTypeEnum type);
         void TrackService(string type);
+        void TrackFeature(string featureName, Dictionary<string, object> properties = null);
 
         void SetUserID(string userID);
     }
