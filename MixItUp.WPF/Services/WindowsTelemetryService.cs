@@ -23,7 +23,7 @@ namespace MixItUp.WPF.Services
     public class WindowsTelemetryService : ITelemetryService
     {
         private const int MaxTelemetryEventsPerSession = 2000;
-        private const string ServiceName = "MixItUpApp";
+        private const string ServiceName = "mixitup-desktop-test";
 
         private static readonly ActivitySource ActivitySource = new ActivitySource(ServiceName);
 
@@ -64,7 +64,7 @@ namespace MixItUp.WPF.Services
                 string endpoint = ServiceManager.Get<SecretsService>().GetSecret("OtelEndpoint");
                 if (string.IsNullOrEmpty(endpoint))  // we can remove this once we add otelendpoint or secretkey to the secrets file. 
                 { 
-                    endpoint = "http://localhost:4317";
+                    endpoint = "https://telemetry.mixitupapp.com/";
                 }
 
                 var uri = new Uri(endpoint);
@@ -88,7 +88,7 @@ namespace MixItUp.WPF.Services
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = uri;
-                        options.Protocol = OtlpExportProtocol.Grpc;
+                        options.Protocol = OtlpExportProtocol.HttpProtobuf;
                     })
                     .Build();
 
@@ -98,7 +98,7 @@ namespace MixItUp.WPF.Services
                     .AddOtlpExporter(options =>
                     {
                         options.Endpoint = uri;
-                        options.Protocol = OtlpExportProtocol.Grpc;
+                        options.Protocol = OtlpExportProtocol.HttpProtobuf;
                     })
                     .Build();
 
