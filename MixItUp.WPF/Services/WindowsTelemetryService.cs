@@ -63,7 +63,7 @@ namespace MixItUp.WPF.Services
             {
                 string endpoint = ServiceManager.Get<SecretsService>().GetSecret("OtelEndpoint");
                 if (string.IsNullOrEmpty(endpoint))  // we can remove this once we add otelendpoint or secretkey to the secrets file. 
-                { 
+                {
                     endpoint = "https://telemetry.mixitupapp.com/";
                 }
 
@@ -85,21 +85,23 @@ namespace MixItUp.WPF.Services
                 this.tracerProvider = Sdk.CreateTracerProviderBuilder()
                     .SetResourceBuilder(resourceBuilder)
                     .AddSource(ServiceName)
-                    .AddOtlpExporter(options =>
+                    .AddOtlpExporter(o =>
                     {
-                        options.Endpoint = uri;
-                        options.Protocol = OtlpExportProtocol.HttpProtobuf;
+                        o.Endpoint = new Uri("https://telemetry.mixitupapp.com/v1/traces");
+                        o.Protocol = OtlpExportProtocol.HttpProtobuf;
                     })
+                    //.AddConsoleExporter()
                     .Build();
 
                 this.meterProvider = Sdk.CreateMeterProviderBuilder()
                     .SetResourceBuilder(resourceBuilder)
                     .AddMeter(ServiceName)
-                    .AddOtlpExporter(options =>
+                    .AddOtlpExporter(o =>
                     {
-                        options.Endpoint = uri;
-                        options.Protocol = OtlpExportProtocol.HttpProtobuf;
+                        o.Endpoint = new Uri("https://telemetry.mixitupapp.com/v1/metrics");
+                        o.Protocol = OtlpExportProtocol.HttpProtobuf;
                     })
+                    //.AddConsoleExporter()
                     .Build();
 
                 this.IsConnected = true;
