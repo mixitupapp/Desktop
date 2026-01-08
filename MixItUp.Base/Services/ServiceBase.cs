@@ -121,18 +121,6 @@ namespace MixItUp.Base.Services
             };
         }
 
-#if DEBUG
-        public void TestCorruptToken()
-        {
-            if (this.OAuthToken != null)
-            {
-                this.OAuthToken.accessToken = "invalid_token_12345";
-                this.HttpClient.SetBearerAuthorization(this.OAuthToken);
-                Logger.Log(LogLevel.Debug, "Token corrupted for testing");
-            }
-        }
-#endif
-
         public override Task Disconnect()
         {
             this.IsConnected = false;
