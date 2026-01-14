@@ -526,6 +526,25 @@ namespace MixItUp.Base.Util
                     this.ReplaceSpecialIdentifier(currency.AllTotalAmountDisplaySpecialIdentifier, total.ToNumberDisplayString());
                     this.ReplaceSpecialIdentifier(currency.AllTotalAmountSpecialIdentifier, total.ToString());
                 }
+
+                if (currency.IsRank && this.ContainsSpecialIdentifier(currency.RankCountSpecialIdentifierHeader))
+                {
+                    await ServiceManager.Get<UserService>().LoadAllUserData();
+
+                    IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+
+                    foreach (RankModel rank in currency.Ranks.OrderByDescending(r => r.Name.Length))
+                    {
+                        string rankSpecialIdentifier = SpecialIdentifierStringBuilder.ConvertToSpecialIdentifier(rank.Name);
+                        string fullIdentifier = currency.RankCountSpecialIdentifierHeader + rankSpecialIdentifier;
+
+                        if (this.ContainsSpecialIdentifier(fullIdentifier))
+                        {
+                            int count = applicableUsers.Count(u => currency.GetRank(u).Name.Equals(rank.Name, StringComparison.OrdinalIgnoreCase));
+                            this.ReplaceSpecialIdentifier(fullIdentifier, count.ToString());
+                        }
+                    }
+                }
             }
 
             if (ChannelSession.Settings.QuotesEnabled && ChannelSession.Settings.Quotes.Count > 0)
