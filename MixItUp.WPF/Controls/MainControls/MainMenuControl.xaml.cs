@@ -349,6 +349,12 @@ namespace MixItUp.WPF.Controls.MainControls
             this.MenuItemsListBox.ItemsSource = this.visibleMenuItems;
 
             await this.SaveMenuOrder();
+
+            var hiddenItems = this.orderedMenuItems.Where(i => !i.Visible).Select(i => i.Id);
+            ServiceManager.Get<ITelemetryService>().TrackFeature("MainMenuEdit", new Dictionary<string, object>
+            {
+                { "hidden_items", string.Join(",", hiddenItems) }
+            });
         }
 
         private async void NotificationButton_Click(object sender, RoutedEventArgs e)
