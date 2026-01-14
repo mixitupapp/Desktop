@@ -53,10 +53,14 @@ namespace MixItUp.Base.Services
     {
         public const string HTTPS_OAUTH_REDIRECT_URL = "https://mixitupapp.com/oauthredirect/";
 
+        private const int MaxRefreshAttempts = 10;
+
         public abstract string ClientID { get; }
         public abstract string ClientSecret { get; }
 
         protected AdvancedHttpClient HttpClient { get; }
+
+        private int failedRefreshAttempts = 0;
 
         protected virtual OAuthTokenModel OAuthToken
         {
@@ -67,6 +71,7 @@ namespace MixItUp.Base.Services
                 if (value != null)
                 {
                     this.HttpClient.SetBearerAuthorization(this.token);
+                    this.failedRefreshAttempts = 0;
                 }
                 else
                 {
@@ -86,33 +91,35 @@ namespace MixItUp.Base.Services
                     return false;
                 }
 
+                if (this.failedRefreshAttempts >= MaxRefreshAttempts)
+                {
+                    Logger.Log(LogLevel.Warning, $"OAuth token refresh for {this.Name} has been disabled after {MaxRefreshAttempts} consecutive failures. User must restart app and reconnect the service.");
+                    return false;
+                }
+
                 try
                 {
-                    Logger.Log(LogLevel.Debug, $"Attempting to refresh OAuth token for {this.Name} due to 401 error");
+                    Logger.Log(LogLevel.Debug, $"Attempting to refresh OAuth token for {this.Name} due to 401 error (attempt {this.failedRefreshAttempts + 1}/{MaxRefreshAttempts})");
                     await this.RefreshOAuthToken();
                     Logger.Log(LogLevel.Debug, $"Successfully refreshed OAuth token for {this.Name}");
+                    this.failedRefreshAttempts = 0;
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(LogLevel.Error, $"Failed to refresh OAuth token for {this.Name}: {ex.Message}");
+                    this.failedRefreshAttempts++;
+                    Logger.Log(LogLevel.Error, $"Failed to refresh OAuth token for {this.Name} (attempt {this.failedRefreshAttempts}/{MaxRefreshAttempts}): {ex.Message}");
                     Logger.Log(ex);
+
+                    if (this.failedRefreshAttempts >= MaxRefreshAttempts)
+                    {
+                        Logger.Log(LogLevel.Error, $"OAuth token refresh for {this.Name} has been disabled. User must restart app and reconnect the service to restore functionality.");
+                    }
+
                     return false;
                 }
             };
         }
-
-#if DEBUG
-        public void TestCorruptToken()
-        {
-            if (this.OAuthToken != null)
-            {
-                this.OAuthToken.accessToken = "invalid_token_12345";
-                this.HttpClient.SetBearerAuthorization(this.OAuthToken);
-                Logger.Log(LogLevel.Debug, "Token corrupted for testing");
-            }
-        }
-#endif
 
         public override Task Disconnect()
         {

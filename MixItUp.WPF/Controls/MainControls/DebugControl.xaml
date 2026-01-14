@@ -30,7 +30,5 @@
 
         <Button x:Name="Twitch100BitsCheer" Click="Twitch100BitsCheer_Click">Twitch 100 Bits Cheer</Button>
 
-        <Button x:Name="CorruptTokenOnly" Click="CorruptTwitchToken" >Corrupt Twitch Token</Button>
-
     </StackPanel>
 </local:MainControlBase>
