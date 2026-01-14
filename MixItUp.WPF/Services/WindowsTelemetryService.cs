@@ -24,8 +24,8 @@ namespace MixItUp.WPF.Services
 {
     public class WindowsTelemetryService : ITelemetryService
     {
-        private const int MaxTelemetryEventsPerSession = 2000;
-        private const string ServiceName = "mixitup-desktop-test";
+        private const int MaxTelemetryEventsPerSession = 1000;
+        private const string ServiceName = "mixitup-desktop";
 
         private static readonly ActivitySource ActivitySource = new ActivitySource(ServiceName);
 
@@ -66,9 +66,8 @@ namespace MixItUp.WPF.Services
             try
             {
                 string endpoint = ServiceManager.Get<SecretsService>().GetSecret("OtelEndpoint");
-
-
                 string secret = ServiceManager.Get<SecretsService>().GetSecret("OtelSecret");
+
                 string headers = null;
                 if (!string.IsNullOrEmpty(secret))
                 {
@@ -85,10 +84,10 @@ namespace MixItUp.WPF.Services
                     .AddAttributes(new Dictionary<string, object>
                     {
                         ["deployment.environment"] = ChannelSession.IsDebug() ? "development" : "production",
+                        ["app.release_channel"] = ChannelSession.AppSettings.PreviewProgram ? "preview" : "public",
+                        ["app.language"] = Languages.GetLangauge().ToString(),
                         ["os.version"] = Environment.OSVersion.Version.ToString(),
-                        ["os.description"] = Environment.OSVersion.ToString(),
-                        ["os.locale"] = CultureInfo.CurrentUICulture.Name,
-                        ["app.language"] = Languages.GetLangauge().ToString()
+                        ["os.locale"] = CultureInfo.CurrentUICulture.Name
                     });
 
                 this.tracerProvider = Sdk.CreateTracerProviderBuilder()
@@ -185,6 +184,10 @@ namespace MixItUp.WPF.Services
             this.TrySendEvent(() =>
             {
                 var platformsString = string.Join(", ", platforms.Select(p => p.ToString()));
+                var appVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "0.0.0.0";
+                var appLanguage = Languages.GetLangauge().ToString();
+                var osVersion = Environment.OSVersion.Version.ToString();
+                var releaseChannel = ChannelSession.AppSettings.PreviewProgram ? "preview" : "public";
 
                 using var activity = ActivitySource.StartActivity("Login", ActivityKind.Internal);
                 if (activity != null)
@@ -196,7 +199,11 @@ namespace MixItUp.WPF.Services
 
                 this.loginCounter.Add(1,
                     new KeyValuePair<string, object>("platforms", platformsString),
-                    new KeyValuePair<string, object>("user.id", userID));
+                    new KeyValuePair<string, object>("user.id", userID),
+                    new KeyValuePair<string, object>("app.version", appVersion),
+                    new KeyValuePair<string, object>("app.language", appLanguage),
+                    new KeyValuePair<string, object>("os.version", osVersion),
+                    new KeyValuePair<string, object>("app.release.channel", releaseChannel));
             });
         }
 
