@@ -66,12 +66,15 @@ namespace MixItUp.WPF.Services
             try
             {
                 string endpoint = ServiceManager.Get<SecretsService>().GetSecret("OtelEndpoint");
-                if (string.IsNullOrEmpty(endpoint))  // we can remove this once we add otelendpoint or secretkey to the secrets file. 
+
+
+                string secret = ServiceManager.Get<SecretsService>().GetSecret("OtelSecret");
+                string headers = null;
+                if (!string.IsNullOrEmpty(secret))
                 {
-                    endpoint = "https://telemetry.mixitupapp.com/";
+                    headers = $"Authorization=Bearer {secret}";
                 }
 
-                var uri = new Uri(endpoint);
                 var appVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "0.0.0.0";
 
                 var resourceBuilder = ResourceBuilder.CreateDefault()
@@ -93,8 +96,12 @@ namespace MixItUp.WPF.Services
                     .AddSource(ServiceName)
                     .AddOtlpExporter(o =>
                     {
-                        o.Endpoint = new Uri("https://telemetry.mixitupapp.com/v1/traces");
+                        o.Endpoint = new Uri(endpoint + "v1/traces");
                         o.Protocol = OtlpExportProtocol.HttpProtobuf;
+                        if (!string.IsNullOrEmpty(headers))
+                        {
+                            o.Headers = headers;
+                        }
                     })
                     //.AddConsoleExporter()
                     .Build();
@@ -104,8 +111,12 @@ namespace MixItUp.WPF.Services
                     .AddMeter(ServiceName)
                     .AddOtlpExporter(o =>
                     {
-                        o.Endpoint = new Uri("https://telemetry.mixitupapp.com/v1/metrics");
+                        o.Endpoint = new Uri(endpoint + "v1/metrics");
                         o.Protocol = OtlpExportProtocol.HttpProtobuf;
+                        if (!string.IsNullOrEmpty(headers))
+                        {
+                            o.Headers = headers;
+                        }
                     })
                     //.AddConsoleExporter()
                     .Build();
