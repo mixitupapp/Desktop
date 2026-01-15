@@ -13,7 +13,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Blazing Cacti LLC")]
 [assembly: AssemblyProduct("MixItUp.Reporter")]
-[assembly: AssemblyCopyright("Copyright © 2025 Blazing Cacti LLC, All Rights Reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
