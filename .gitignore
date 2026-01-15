@@ -202,3 +202,8 @@ FakesAssemblies/
 
 # AVerMedia build outputs
 *.creatorCentral
+
+# Mix It Up Output Files
+MixItUp.WPF/ApplicationSettings.json
+MixItUp.WPF/Logs/*.txt
+MixItUp.WPF/Settings/*.miu3*

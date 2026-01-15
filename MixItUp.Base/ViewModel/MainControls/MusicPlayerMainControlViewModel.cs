@@ -41,7 +41,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             get { return ServiceManager.Get<IMusicPlayerService>().Volume; }
             set
             {
-                ServiceManager.Get<IMusicPlayerService>().ChangeVolume(value).Wait();
+                _ = ServiceManager.Get<IMusicPlayerService>().ChangeVolume(value);
                 this.NotifyPropertyChanged();
             }
         }

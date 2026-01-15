@@ -47,6 +47,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    options.JsonSerializerOptions.AllowTrailingCommas = true;
                 });
 
             this.app = builder.Build();

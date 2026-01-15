@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MixItUp.Base.ViewModel.Actions
 {
@@ -92,6 +93,8 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private bool deafenSelf;
 
+        public ICommand RefreshChannelsCommand { get; set; }
+
         private string existingSelectedChannel;
 
         public DiscordActionEditorControlViewModel(DiscordActionModel action)
@@ -112,9 +115,35 @@ namespace MixItUp.Base.ViewModel.Actions
             {
                 this.DeafenSelf = action.ShouldMuteDeafen;
             }
+
+            this.InitializeRefreshCommand();
         }
 
-        public DiscordActionEditorControlViewModel() : base() { }
+        public DiscordActionEditorControlViewModel() : base()
+        {
+            this.InitializeRefreshCommand();
+        }
+
+        private void InitializeRefreshCommand()
+        {
+            this.RefreshChannelsCommand = this.CreateCommand(async () =>
+            {
+                if (ServiceManager.Get<DiscordService>().IsConnected)
+                {
+                    var currentSelectedChannelID = this.SelectedChannel?.ID ?? this.existingSelectedChannel;
+
+                    var channels = await ServiceManager.Get<DiscordService>().RefreshCachedServerChannels(ServiceManager.Get<DiscordService>().Server);
+
+                    this.Channels.Clear();
+                    this.Channels.AddRange(channels.Where(c => c.Type == DiscordChannel.DiscordChannelTypeEnum.Announcements || c.Type == DiscordChannel.DiscordChannelTypeEnum.Text));
+
+                    if (!string.IsNullOrEmpty(currentSelectedChannelID))
+                    {
+                        this.SelectedChannel = this.Channels.FirstOrDefault(c => c.ID.Equals(currentSelectedChannelID));
+                    }
+                }
+            });
+        }
 
         public override Task<Result> Validate()
         {
@@ -155,12 +184,22 @@ namespace MixItUp.Base.ViewModel.Actions
         {
             if (ServiceManager.Get<DiscordService>().IsConnected)
             {
-                List<DiscordChannel> channels = new List<DiscordChannel>(await ServiceManager.Get<DiscordService>().GetServerChannels(ServiceManager.Get<DiscordService>().Server));
+                List<DiscordChannel> channels = new List<DiscordChannel>(await ServiceManager.Get<DiscordService>().GetCachedServerChannels(ServiceManager.Get<DiscordService>().Server));
                 this.Channels.AddRange(channels.Where(c => c.Type == DiscordChannel.DiscordChannelTypeEnum.Announcements || c.Type == DiscordChannel.DiscordChannelTypeEnum.Text));
 
                 if (!string.IsNullOrEmpty(this.existingSelectedChannel))
                 {
                     this.SelectedChannel = this.Channels.FirstOrDefault(c => c.ID.Equals(this.existingSelectedChannel));
+
+                    // Fallback: if we couldn't find the channel in the list but have a saved ID, create a placeholder
+                    // This prevents losing the saved channel if the API fails
+                    // DISABLED FOR NOW, ENABLE LATER IF NEEDED OR IF USERS STILL HAVING ISSUES EVEN AFTER ADDING CACHING
+                    //if (this.SelectedChannel == null)
+                    //{
+                    //    var placeholderChannel = new DiscordChannel { ID = this.existingSelectedChannel, Name = this.existingSelectedChannel };
+                    //    this.Channels.Add(placeholderChannel);
+                    //    this.SelectedChannel = placeholderChannel;
+                    //}
                 }
             }
             await base.OnOpenInternal();
