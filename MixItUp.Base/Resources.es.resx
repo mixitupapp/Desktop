@@ -11144,4 +11144,11 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="QuoteAdded" xml:space="preserve">
     <value>Cita añadida</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>Actualmente no hay ninguna cuenta de streamer conectada.
+
+Para utilizar Mix It Up, debes conectar al menos una cuenta de plataforma de streaming.
+
+Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming y, a continuación, reinicia Mix It Up.</value>
+  </data>
 </root>

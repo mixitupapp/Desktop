@@ -11142,4 +11142,11 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
   <data name="QuoteAdded" xml:space="preserve">
     <value>Cytat dodany</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>Żadne konta streamerów nie są obecnie połączone.
+
+Aby korzystać z Mix It Up, musisz podłączyć co najmniej jedno konto platformy streamingowej.
+
+Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streamingowe, a następnie uruchom ponownie Mix It Up.</value>
+  </data>
 </root>

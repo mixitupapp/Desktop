@@ -11142,4 +11142,11 @@ print(run())</value>
   <data name="QuoteAdded" xml:space="preserve">
     <value>Додано цитату</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>Наразі не підключено жодного акаунта стрімера.
+
+Щоб використовувати Mix It Up, вам потрібно підключити принаймні один обліковий запис стрімінгової платформи.
+
+Будь ласка, перейдіть на сторінку Акаунти в головному меню, щоб підключити свій потоковий акаунт, а потім перезапустіть Mix It Up.</value>
+  </data>
 </root>

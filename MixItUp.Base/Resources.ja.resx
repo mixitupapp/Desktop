@@ -11142,4 +11142,11 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="QuoteAdded" xml:space="preserve">
     <value>引用を追加</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>現在、接続中のストリーマーアカウントはありません。
+
+Mix It Upを使用するには、少なくとも1つのストリーミング・プラットフォームのアカウントを接続する必要があります。
+
+メインメニューのアカウントページでストリーミングアカウントを接続し、ミックスイットアップを再起動してください。</value>
+  </data>
 </root>

@@ -11142,4 +11142,11 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citazione aggiunta</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>Al momento non sono collegati account di streamer.
+
+Per utilizzare Mix It Up, è necessario collegare almeno un account della piattaforma di streaming.
+
+Andare alla pagina Account nel menu principale per collegare l'account di streaming, quindi riavviare Mix It Up.</value>
+  </data>
 </root>

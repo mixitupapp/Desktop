@@ -11142,4 +11142,11 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="QuoteAdded" xml:space="preserve">
     <value>添加引语</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>目前未连接流媒体账户。
+
+要使用 Mix It Up，您需要连接至少一个流媒体平台账户。
+
+请前往主菜单的 "账户 "页面连接流媒体账户，然后重新启动 Mix It Up。</value>
+  </data>
 </root>
