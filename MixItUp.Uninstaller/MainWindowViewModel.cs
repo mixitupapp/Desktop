@@ -153,7 +153,7 @@ namespace MixItUp.Uninstaller
 
             try
             {
-                this.logFilePath = Path.Combine(Path.GetTempPath(), "MixItUp-Uninstaller-Log.txt");
+                this.logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MixItUp-Uninstaller-Log.txt");
                 WriteLog("Uninstallation started: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 WriteLog("Install directory: " + this.installDirectory);
                 WriteLog("Keep settings: " + this.KeepSettings);
@@ -367,6 +367,11 @@ namespace MixItUp.Uninstaller
                 foreach (string dirPath in Directory.GetDirectories(this.installDirectory))
                 {
                     string dirName = new DirectoryInfo(dirPath).Name;
+
+                    if (dirName.Equals("Uninstaller", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
 
                     if (dirName.StartsWith("Settings", StringComparison.OrdinalIgnoreCase))
                     {
