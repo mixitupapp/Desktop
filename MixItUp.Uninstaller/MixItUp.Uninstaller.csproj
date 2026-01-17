@@ -27,4 +27,20 @@
 		<Resource Include="Logo.ico" />
 		<Resource Include="Logo.png" />
 	</ItemGroup>
+
+	<Target Name="EmbedReferencedAssemblies" AfterTargets="ResolveReferences">
+		<ItemGroup>
+			<EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
+				<LogicalName>%(ReferenceCopyLocalPaths.FileName)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
+			</EmbeddedResource>
+		</ItemGroup>
+	</Target>
+
+	<Target Name="CleanupOutputDlls" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+		<ItemGroup>
+			<DllFiles Include="$(OutputPath)*.dll" />
+		</ItemGroup>
+		<Delete Files="@(DllFiles)" />
+		<Message Text="Removed DLL files from output" Importance="High" />
+	</Target>
 </Project>
