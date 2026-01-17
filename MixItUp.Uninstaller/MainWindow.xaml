@@ -36,6 +36,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Button
@@ -55,7 +56,10 @@
                     Kind="Close" />
             </Button>
 
-            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+            <StackPanel
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
                 <Image
                     Width="40"
                     Height="40"
@@ -103,7 +107,7 @@
                                 FontSize="13"
                                 Opacity="0.7"
                                 TextWrapping="Wrap">
-                                We don't have cloud backups, so your settings are only saved on this computer. 
+                                We don't have cloud backups, so your settings are only saved on this computer.
                                 Keep them if you might reinstall later.
                             </TextBlock>
 
@@ -117,9 +121,7 @@
                     </MaterialDesign:Card>
                 </StackPanel>
 
-                <StackPanel
-                    VerticalAlignment="Center"
-                    Visibility="{Binding ShowProgress, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel VerticalAlignment="Center" Visibility="{Binding ShowProgress, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <MaterialDesign:PackIcon
                         Width="48"
                         Height="48"
@@ -159,9 +161,7 @@
                         Text="{Binding DetailText, Mode=OneWay}" />
                 </StackPanel>
 
-                <StackPanel
-                    VerticalAlignment="Center"
-                    Visibility="{Binding ShowCompletion, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel VerticalAlignment="Center" Visibility="{Binding ShowCompletion, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <MaterialDesign:PackIcon
                         Width="64"
                         Height="64"
@@ -184,9 +184,7 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
 
-                <StackPanel
-                    VerticalAlignment="Center"
-                    Visibility="{Binding ShowError, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel VerticalAlignment="Center" Visibility="{Binding ShowError, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <MaterialDesign:PackIcon
                         Width="64"
                         Height="64"
@@ -245,6 +243,15 @@
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Visibility="{Binding ShowCloseButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
+            <TextBlock
+                Grid.Row="3"
+                Margin="0,12,0,0"
+                HorizontalAlignment="Center"
+                FontSize="11"
+                Opacity="0.5"
+                TextAlignment="Center">
+                <Run Text="For support: mixitupapp.com/discord | support@mixitupapp.com" />
+            </TextBlock>
         </Grid>
     </MaterialDesign:Card>
 </Window>
