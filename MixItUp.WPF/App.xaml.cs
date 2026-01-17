@@ -75,8 +75,7 @@ namespace MixItUp.WPF
 
             RegistryHelpers.RegisterFileAssociation();
             RegistryHelpers.RegisterURIActivationProtocol();
-            // Disabled for now until we can figure out why anti-virus hates it
-            // RegistryHelpers.RegisterUninstaller();
+            RegistryHelpers.RegisterUninstaller();
 
             FileLoggerHandler.Initialize();
 

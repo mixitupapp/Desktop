@@ -89,6 +89,9 @@ namespace MixItUp.WPF.Util
             catch (Exception ex) { Logger.Log(ex); }
         }
 
+        /// <summary>
+        /// Registers the app in Add/Remove Programs if running from the default install location.
+        /// </summary>
         public static void RegisterUninstaller()
         {
             RegistryKey key = null;
@@ -126,13 +129,23 @@ namespace MixItUp.WPF.Util
 
                     key.SetValue("DisplayName", "Mix It Up");
                     key.SetValue("ApplicationVersion", v.ToString());
-                    key.SetValue("Publisher", "Mix It Up");
+                    key.SetValue("Publisher", "Blazing Cacti LLC");
                     key.SetValue("DisplayIcon", exe);
                     key.SetValue("DisplayVersion", v.ToString(4));
                     key.SetValue("URLInfoAbout", "https://mixitupapp.com");
                     key.SetValue("Contact", "support@mixitupapp.com");
                     key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
                     key.SetValue("UninstallString", uninstallerPath);
+                    key.SetValue("InstallLocation", installDir);
+                    key.SetValue("NoModify", 1, RegistryValueKind.DWord);
+                    key.SetValue("NoRepair", 1, RegistryValueKind.DWord);
+
+                    try
+                    {
+                        long totalSize = GetDirectorySize(installDir);
+                        key.SetValue("EstimatedSize", (int)(totalSize / 1024), RegistryValueKind.DWord);
+                    }
+                    catch { }
                 }
             }
             catch (Exception ex)
@@ -149,6 +162,33 @@ namespace MixItUp.WPF.Util
             }
         }
 
-        public static bool KeyExists(string path) { return Registry.CurrentUser.OpenSubKey(path) != null; }
+        private static long GetDirectorySize(string path)
+        {
+            long size = 0;
+            try
+            {
+                foreach (string file in Directory.GetFiles(path))
+                {
+                    size += new FileInfo(file).Length;
+                }
+                foreach (string dir in Directory.GetDirectories(path))
+                {
+                    if (!new DirectoryInfo(dir).Name.StartsWith("Settings", StringComparison.OrdinalIgnoreCase))
+                    {
+                        size += GetDirectorySize(dir);
+                    }
+                }
+            }
+            catch { }
+            return size;
+        }
+
+        public static bool KeyExists(string path)
+        {
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(path))
+            {
+                return key != null;
+            }
+        }
     }
 }

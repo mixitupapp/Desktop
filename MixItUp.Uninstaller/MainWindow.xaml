@@ -1,0 +1,250 @@
+<Window
+    x:Class="MixItUp.Uninstaller.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MixItUp.Uninstaller"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Mix It Up - Uninstaller"
+    Width="480"
+    Height="380"
+    AllowsTransparency="True"
+    Background="Transparent"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    Icon="./Logo.ico"
+    ResizeMode="NoResize"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <MaterialDesign:Card
+        Padding="32"
+        MaterialDesign:ElevationAssist.Elevation="Dp16"
+        Background="{DynamicResource MaterialDesign.Brush.Background}"
+        Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+        UniformCornerRadius="16">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button
+                Grid.Row="0"
+                Width="32"
+                Height="32"
+                Margin="0,-8,-8,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Click="CancelButton_Click"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="Close"
+                Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <MaterialDesign:PackIcon
+                    Width="20"
+                    Height="20"
+                    Kind="Close" />
+            </Button>
+
+            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <Image
+                    Width="40"
+                    Height="40"
+                    Margin="0,0,12,0"
+                    Source="./Logo.png" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    FontWeight="SemiBold"
+                    Text="Uninstall Mix It Up" />
+            </StackPanel>
+
+            <Grid Grid.Row="1" Margin="0,24,0,0">
+                <StackPanel Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock
+                        Margin="0,0,0,20"
+                        FontSize="14"
+                        Opacity="0.8"
+                        TextWrapping="Wrap">
+                        This will remove Mix It Up from your computer.
+                    </TextBlock>
+
+                    <MaterialDesign:Card
+                        Padding="16"
+                        Background="{DynamicResource MaterialDesign.Brush.Card.Background}"
+                        UniformCornerRadius="12">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <MaterialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Margin="0,0,10,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                    Kind="Cog" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    FontWeight="SemiBold"
+                                    Text="Your Settings" />
+                            </StackPanel>
+
+                            <TextBlock
+                                Margin="30,8,0,12"
+                                FontSize="13"
+                                Opacity="0.7"
+                                TextWrapping="Wrap">
+                                We don't have cloud backups, so your settings are only saved on this computer. 
+                                Keep them if you might reinstall later.
+                            </TextBlock>
+
+                            <CheckBox
+                                x:Name="KeepSettingsCheckBox"
+                                Margin="30,0,0,0"
+                                Content="Keep my settings"
+                                FontWeight="Medium"
+                                IsChecked="{Binding KeepSettings, Mode=TwoWay}" />
+                        </StackPanel>
+                    </MaterialDesign:Card>
+                </StackPanel>
+
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Visibility="{Binding ShowProgress, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <MaterialDesign:PackIcon
+                        Width="48"
+                        Height="48"
+                        Margin="0,0,0,16"
+                        HorizontalAlignment="Center"
+                        Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                        Kind="Loading"
+                        RenderTransformOrigin="0.5,0.5">
+                        <MaterialDesign:PackIcon.RenderTransform>
+                            <RotateTransform x:Name="LoadingRotation" />
+                        </MaterialDesign:PackIcon.RenderTransform>
+                        <MaterialDesign:PackIcon.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="LoadingRotation"
+                                            Storyboard.TargetProperty="Angle"
+                                            From="0"
+                                            To="360"
+                                            Duration="0:0:1" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </MaterialDesign:PackIcon.Triggers>
+                    </MaterialDesign:PackIcon>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Medium"
+                        Text="{Binding StatusText, Mode=OneWay}" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="12"
+                        Opacity="0.6"
+                        Text="{Binding DetailText, Mode=OneWay}" />
+                </StackPanel>
+
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Visibility="{Binding ShowCompletion, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <MaterialDesign:PackIcon
+                        Width="64"
+                        Height="64"
+                        HorizontalAlignment="Center"
+                        Foreground="#4CAF50"
+                        Kind="CheckCircle" />
+                    <TextBlock
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Text="{Binding CompletionTitle, Mode=OneWay}" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="14"
+                        Opacity="0.7"
+                        Text="{Binding CompletionMessage, Mode=OneWay}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Visibility="{Binding ShowError, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <MaterialDesign:PackIcon
+                        Width="64"
+                        Height="64"
+                        HorizontalAlignment="Center"
+                        Foreground="#F44336"
+                        Kind="AlertCircle" />
+                    <TextBlock
+                        Margin="0,16,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Foreground="#F44336"
+                        Text="Something went wrong" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        HorizontalAlignment="Center"
+                        FontSize="14"
+                        Opacity="0.7"
+                        Text="{Binding ErrorMessage, Mode=OneWay}"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+
+            <StackPanel
+                Grid.Row="2"
+                Margin="0,24,0,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+
+                <Button
+                    x:Name="CancelButton"
+                    Width="100"
+                    Height="40"
+                    Margin="0,0,12,0"
+                    Click="CancelButton_Click"
+                    Content="Cancel"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <Button
+                    x:Name="UninstallButton"
+                    Width="120"
+                    Height="40"
+                    Click="UninstallButton_Click"
+                    Content="Uninstall"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <Button
+                    x:Name="CloseButton"
+                    Width="100"
+                    Height="40"
+                    Click="CloseButton_Click"
+                    Content="Close"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Visibility="{Binding ShowCloseButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </StackPanel>
+        </Grid>
+    </MaterialDesign:Card>
+</Window>
