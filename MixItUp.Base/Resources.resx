@@ -3042,6 +3042,14 @@
     <value>Export Quotes</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Renumber Quotes</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>This will renumber all quotes sequentially based on their current order. Quote numbers will change. Are you sure you want to continue?</value>
+    <comment>Manual</comment>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Regular Bonus</value>
     <comment>Manual</comment>
