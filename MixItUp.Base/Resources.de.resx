@@ -11148,4 +11148,10 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="QuoteAdded" xml:space="preserve">
     <value>Zitat hinzugefügt</value>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Zitate neu nummerieren</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Dadurch werden alle Angebote entsprechend ihrer aktuellen Reihenfolge neu nummeriert. Die Angebotsnummern werden sich ändern. Sind Sie sicher, dass Sie fortfahren möchten?</value>
+  </data>
 </root>

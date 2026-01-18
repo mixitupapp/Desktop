@@ -11147,4 +11147,10 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="QuoteAdded" xml:space="preserve">
     <value>Цитата Добавлено</value>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Котировки перенумеровать</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Это изменит последовательную нумерацию всех котировок в соответствии с их текущим порядком. Номера котировок изменятся. Вы уверены, что хотите продолжить?</value>
+  </data>
 </root>
