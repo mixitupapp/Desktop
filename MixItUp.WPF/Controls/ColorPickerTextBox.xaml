@@ -1,0 +1,103 @@
+<UserControl x:Class="MixItUp.WPF.Controls.ColorPickerTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MixItUp.WPF.Controls"
+             xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button x:Name="ColorPickerButton" 
+                Grid.Column="0" 
+                Width="28" 
+                Height="28" 
+                Margin="0,8,5,0"
+                Padding="0"
+                VerticalAlignment="Center"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Click="ColorPickerButton_Click">
+            <Border x:Name="ColorPreviewBorder" 
+                    Width="20" 
+                    Height="20" 
+                    CornerRadius="2" 
+                    BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}" 
+                    BorderThickness="1"
+                    Background="Transparent" />
+        </Button>
+
+        <TextBox x:Name="ColorTextBox" 
+                 Grid.Column="1" 
+                 Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ColorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaterialDesign:HintAssist.Hint="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=HintText}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+        <Popup x:Name="ColorPickerPopup" 
+               PlacementTarget="{Binding ElementName=ColorPickerButton}" 
+               Placement="Bottom"
+               StaysOpen="False"
+               AllowsTransparency="True"
+               PopupAnimation="Fade">
+            <Border Background="{DynamicResource MaterialDesign.Brush.Background}" 
+                    BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" 
+                    BorderThickness="1" 
+                    CornerRadius="4"
+                    Padding="10"
+                    Margin="5">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.3" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <colorpicker:SquarePicker x:Name="SquarePicker" 
+                                              Grid.Row="0"
+                                              Width="220" 
+                                              Height="220"
+                                              ColorChanged="SquarePicker_ColorChanged" />
+                    
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Border x:Name="CurrentColorPreview" 
+                                Grid.Column="0"
+                                Width="40" 
+                                Height="40" 
+                                CornerRadius="4" 
+                                BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}" 
+                                BorderThickness="1" />
+                        
+                        <TextBox x:Name="HexTextBox" 
+                                 Grid.Column="2"
+                                 VerticalAlignment="Center"
+                                 MaterialDesign:HintAssist.Hint="Hex Color"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 TextChanged="HexTextBox_TextChanged" />
+                    </Grid>
+                    
+                    <Button Content="OK" 
+                            Grid.Row="4"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Click="OkButton_Click" />
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>
