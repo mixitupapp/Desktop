@@ -8108,6 +8108,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Foreground Color.
+        /// </summary>
+        public static string ForegroundColor {
+            get {
+                return ResourceManager.GetString("ForegroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Format.
         /// </summary>
         public static string Format {

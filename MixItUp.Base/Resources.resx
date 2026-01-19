@@ -940,6 +940,10 @@
     <value>Font Size</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Foreground Color</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Four</value>
   </data>
