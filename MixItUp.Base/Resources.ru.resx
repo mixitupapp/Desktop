@@ -11147,4 +11147,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="QuoteAdded" xml:space="preserve">
     <value>Цитата Добавлено</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Цвет переднего плана</value>
+  </data>
 </root>

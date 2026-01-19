@@ -11148,4 +11148,7 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="QuoteAdded" xml:space="preserve">
     <value>Zitat hinzugefügt</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Farbe des Vordergrunds</value>
+  </data>
 </root>

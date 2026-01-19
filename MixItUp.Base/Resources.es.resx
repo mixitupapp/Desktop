@@ -11144,4 +11144,7 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="QuoteAdded" xml:space="preserve">
     <value>Cita añadida</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Color de primer plano</value>
+  </data>
 </root>

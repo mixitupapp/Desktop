@@ -11144,4 +11144,7 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citação Adicionada</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Cor do primeiro plano</value>
+  </data>
 </root>
