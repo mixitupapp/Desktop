@@ -58,11 +58,13 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private async void ResetButton_Click(object sender, RoutedEventArgs e)
         {
+            OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
+            if (widget == null) return;
+
             await this.Window.RunAsyncOperation(async () =>
             {
                 if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.OverlayWidgetResetConfirmation))
                 {
-                    OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
                     await widget.Reset();
                 }
             });
@@ -81,11 +83,13 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
+            if (widget == null) return;
+
             await this.Window.RunAsyncOperation(async () =>
             {
                 if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.DeleteWidgetPrompt))
                 {
-                    OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
                     await this.viewModel.DeleteWidget(widget);
                     await this.viewModel.OnVisible();
                 }
