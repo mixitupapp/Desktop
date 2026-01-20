@@ -608,6 +608,11 @@ namespace MixItUp.Base.Services
         {
             try
             {
+                if (ChannelSession.AppSettings == null)
+                {
+                    return;
+                }
+
                 using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
                 {
                     HttpResponseMessage response = await client.GetAsync("api/services/notifications/id");
