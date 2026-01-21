@@ -73,6 +73,11 @@ namespace MixItUp.Base.Util
         {
             this.UpgradeToNewerFormat();
 
+            if (this.Amount <= 0 || this.Type == ResetTypeEnum.None)
+            {
+                return;
+            }
+
             if (this.MustBeReset())
             {
                 if (this.Type == ResetTypeEnum.Days && this.Amount == 1)
