@@ -30,14 +30,6 @@ namespace MixItUp.Base.ViewModel.MainControls
             get { return this.Widget.IsEnabled; }
             set
             {
-                if (this.Widget.IsEnabled)
-                {
-                    this.Widget.Disable().Wait();
-                }
-                else
-                {
-                    this.Widget.Enable().Wait();
-                }
                 this.NotifyPropertyChanged();
             }
         }
@@ -48,6 +40,11 @@ namespace MixItUp.Base.ViewModel.MainControls
         }
 
         public async Task Reset() { await this.Widget.Reset(); }
+
+        public void Refresh()
+        {
+            this.NotifyPropertyChanged(nameof(this.IsEnabled));
+        }
     }
 
     public class OverlayWidgetsMainControlViewModel : WindowControlViewModelBase
@@ -81,7 +78,18 @@ namespace MixItUp.Base.ViewModel.MainControls
         {
             if (widget != null && !widget.IsEnabled)
             {
-                await widget.Widget.Enable();
+                try
+                {
+                    await widget.Widget.Enable();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+                finally
+                {
+                    widget.Refresh();
+                }
             }
         }
 
@@ -89,7 +97,18 @@ namespace MixItUp.Base.ViewModel.MainControls
         {
             if (widget != null && widget.IsEnabled)
             {
-                await widget.Widget.Disable();
+                try
+                {
+                    await widget.Widget.Disable();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+                finally
+                {
+                    widget.Refresh();
+                }
             }
         }
 
