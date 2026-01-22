@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 	  <AssemblyTitle>MixItUp.SignalR.Client</AssemblyTitle>
-	  <AssemblyVersion>1.6.0.0</AssemblyVersion>
-	  <FileVersion>1.6.0.0</FileVersion>
+    <AssemblyVersion>1.6.10.0</AssemblyVersion>
+    <FileVersion>1.6.10.0</FileVersion>
 	  <Company>Blazing Cacti LLC</Company>
 	  <Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.1" />
+	  <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.2" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 

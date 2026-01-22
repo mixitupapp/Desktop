@@ -924,6 +924,10 @@ namespace MixItUp.Base.Services.External
 
         public string BotPermissions { get; private set; }
 
+        private List<DiscordChannel> cachedServerChannels = new List<DiscordChannel>();
+        private DateTimeOffset cachedChannelsTimestamp = DateTimeOffset.MinValue;
+        private static readonly TimeSpan ChannelCacheExpiration = TimeSpan.FromMinutes(5);
+
         private DateTimeOffset lastCommand = DateTimeOffset.MinValue;
 
         public DiscordService() : base(DiscordService.BaseAddress) { }
@@ -1036,6 +1040,35 @@ namespace MixItUp.Base.Services.External
         public async Task<DiscordServerUser> GetServerMember(DiscordServer server, string userID) { return await this.botService.GetServerMember(server, userID); }
 
         public async Task<IEnumerable<DiscordChannel>> GetServerChannels(DiscordServer server) { return await this.botService.GetServerChannels(server); }
+
+        public async Task<IEnumerable<DiscordChannel>> GetCachedServerChannels(DiscordServer server)
+        {
+            if (this.cachedServerChannels.Count > 0 && (DateTimeOffset.Now - this.cachedChannelsTimestamp) < ChannelCacheExpiration)
+            {
+                return this.cachedServerChannels;
+            }
+
+            return await this.RefreshCachedServerChannels(server);
+        }
+
+        public async Task<IEnumerable<DiscordChannel>> RefreshCachedServerChannels(DiscordServer server)
+        {
+            try
+            {
+                var channels = await this.botService.GetServerChannels(server);
+                if (channels != null && channels.Any())
+                {
+                    this.cachedServerChannels = new List<DiscordChannel>(channels);
+                    this.cachedChannelsTimestamp = DateTimeOffset.Now;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                // keep existing cached channels if any
+            }
+            return this.cachedServerChannels;
+        }
 
         public async Task<DiscordChannel> GetChannel(string channelID) { return await this.botService.GetChannel(channelID); }
 

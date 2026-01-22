@@ -90,9 +90,9 @@ namespace MixItUp.Base.Web
     public class AdvancedHttpClient : HttpClient
     {
         /// <summary>
-        /// The default request timeout amount of 5 seconds.
+        /// The default request timeout amount of 10 seconds.
         /// </summary>
-        public static readonly TimeSpan DefaultRequestTimeout = new TimeSpan(0, 0, 5);
+        public static readonly TimeSpan DefaultRequestTimeout = new TimeSpan(0, 0, 10);
 
         /// <summary>
         /// Creates an HttpContent object from the specified object.

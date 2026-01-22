@@ -97,7 +97,7 @@ namespace MixItUp.WPF.Services
                         this.sempahore.Release();
                     }
 
-                    this.SongChanged.Invoke(this, new EventArgs());
+                    DispatcherHelper.Dispatcher.Invoke(() => this.SongChanged.Invoke(this, new EventArgs()));
 
                     await ServiceManager.Get<CommandService>().Queue(ChannelSession.Settings.MusicPlayerOnSongChangedCommandID, new CommandParametersModel(ChannelSession.User, platform: StreamingPlatformTypeEnum.All));
                 }

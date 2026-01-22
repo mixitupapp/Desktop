@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	<SelfContained>true</SelfContained>
     <OutputType>WinExe</OutputType>
@@ -8,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-		<AssemblyVersion>1.6.0.0</AssemblyVersion>
-		<FileVersion>1.6.0.0</FileVersion>
+    <AssemblyVersion>1.6.10.0</AssemblyVersion>
+    <FileVersion>1.6.10.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -32,7 +33,7 @@
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <StartupObject>MixItUp.WPF.Program</StartupObject>
-    <PostBuildEvent>del $(TargetDir)ApplicationSettings.json
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">del $(TargetDir)ApplicationSettings.json
 rmdir /Q /S $(TargetDir)Settings\
 rmdir /Q /S $(TargetDir)Logs\
 rmdir /Q /S $(TargetDir)ChatEventLogs\
@@ -51,7 +52,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="ExcelDataReader" Version="3.8.0" />
 		<PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
 		<PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
-		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.3981" />
+		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.4022" />
 		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
 		<PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
 		<PackageReference Include="ID3" Version="0.6.0" />
@@ -59,10 +60,11 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
 		<PackageReference Include="MdXaml" Version="1.27.0" />
 		<PackageReference Include="MdXaml.Plugins" Version="1.27.0" />
-		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.23.0" />
+		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.14.0" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.14.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
 		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.47.0" />
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.1" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.2" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
@@ -70,9 +72,9 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="ovrstream-client-csharp" Version="0.0.2" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
 		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
-		<PackageReference Include="System.IO.Ports" Version="10.0.1" />
-		<PackageReference Include="System.Management" Version="10.0.1" />
-		<PackageReference Include="System.Speech" Version="10.0.1" />
+		<PackageReference Include="System.IO.Ports" Version="10.0.2" />
+		<PackageReference Include="System.Management" Version="10.0.2" />
+		<PackageReference Include="System.Speech" Version="10.0.2" />
 		<PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
 	</ItemGroup>
 	<ItemGroup>
@@ -92,11 +94,11 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Resource Include="Assets\Images\Twitter.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\YoutubeMonochrome.png" />
+    <Resource Include="Assets\Images\YouTubeMonochrome.png" />
     <Resource Include="Assets\Images\TwitchMonochrome.png" />
     <Resource Include="Assets\Images\TrovoMonochrome.png" />
-    <Resource Include="Assets\Images\YoutubeDark.png" />
-    <Resource Include="Assets\Images\Youtube-XS.png" />
+    <Resource Include="Assets\Images\YouTubeDark.png" />
+    <Resource Include="Assets\Images\YouTube-XS.png" />
     <Resource Include="Assets\Images\Twitch-XS.png" />
     <Resource Include="Assets\Images\Trovo-XS.png" />
     <Resource Include="Assets\Images\Patreon.png" />

@@ -105,8 +105,16 @@ namespace MixItUp.Base.Model.Commands.Games
 
                             List<CommandParametersModel> winners = new List<CommandParametersModel>(this.runUserSelections.Where(kvp => kvp.Value == answer).Select(kvp => this.runUsers[kvp.Key]));
 
+                            int totalPayout = 0;
+                            foreach (CommandParametersModel winner in winners)
+                            {
+                                winner.SpecialIdentifiers[BetGameCommandModel.GameBetWinningOptionSpecialIdentifier] = winningOutcome.Name;
+                                totalPayout += await this.RunOutcome(winner, winningOutcome);
+                            }
+
                             this.SetGameWinners(this.runParameters, winners);
                             this.runParameters.SpecialIdentifiers[BetGameCommandModel.GameBetWinningOptionSpecialIdentifier] = winningOutcome.Name;
+                            this.runParameters.SpecialIdentifiers[GameCommandModelBase.GameAllPayoutSpecialIdentifier] = totalPayout.ToString();
                             await this.RunSubCommand(this.GameCompleteCommand, this.runParameters);
 
                             IEnumerable<OverlayPollV3Model> widgets = OverlayPollV3Model.GetPollOverlayWidgets(forBet: true);
@@ -116,12 +124,6 @@ namespace MixItUp.Base.Model.Commands.Games
                                 {
                                     await widget.End(answer.ToString());
                                 }
-                            }
-
-                            foreach (CommandParametersModel winner in winners)
-                            {
-                                winner.SpecialIdentifiers[BetGameCommandModel.GameBetWinningOptionSpecialIdentifier] = winningOutcome.Name;
-                                await this.RunOutcome(winner, winningOutcome);
                             }
 
                             await this.PerformCooldown(this.runParameters);

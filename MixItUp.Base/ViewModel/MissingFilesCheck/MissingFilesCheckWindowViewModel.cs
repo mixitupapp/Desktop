@@ -242,6 +242,11 @@ namespace MixItUp.Base.ViewModel.MissingFilesCheck
             NotifyPropertyChanged(nameof(InvalidCount));
             NotifyPropertyChanged(nameof(WarningCount));
             NotifyPropertyChanged(nameof(ValidCount));
+
+            ServiceManager.Get<ITelemetryService>().TrackFeature("MissingFilesCheck", new Dictionary<string, object>
+            {
+                { "invalid_count", InvalidCount }
+            });
         }
 
         private void ApplyFilter()
