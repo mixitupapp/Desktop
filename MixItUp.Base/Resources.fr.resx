@@ -11149,11 +11149,13 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
 Pour utiliser Mix It Up, vous devez connecter au moins un compte de plateforme de streaming.
 
 Allez à la page Comptes dans le menu principal pour connecter votre compte de streaming, puis redémarrez Mix It Up.</value>
+  </data>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>Citations de renumérotation</value>
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>Cette opération permet de renuméroter tous les devis de manière séquentielle en fonction de leur ordre actuel. Les numéros de devis seront modifiés. Etes-vous sûr de vouloir continuer ?</value>
+  </data>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Couleur d'avant-plan</value>
   </data>

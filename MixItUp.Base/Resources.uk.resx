@@ -11148,11 +11148,13 @@ print(run())</value>
 Щоб використовувати Mix It Up, вам потрібно підключити принаймні один обліковий запис стрімінгової платформи.
 
 Будь ласка, перейдіть на сторінку Акаунти в головному меню, щоб підключити свій потоковий акаунт, а потім перезапустіть Mix It Up.</value>
+  </data>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>Перенумерувати цитати</value>
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>Це призведе до послідовної перенумерації всіх лапок на основі їх поточного порядку. Номери котирувань зміняться. Ви впевнені, що хочете продовжити?</value>
+  </data>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Колір переднього плану</value>
   </data>

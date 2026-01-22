@@ -9866,11 +9866,13 @@ Wir haben festgestellt, dass mehr als ein Overlay-Endpunkt erstellt wurde, was b
 Um Mix It Up zu nutzen, müssen Sie mindestens ein Streaming-Plattform-Konto verbinden.
 
 Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu verbinden, und starten Sie dann Mix It Up neu.</value>
+  </data>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>Zitate neu nummerieren</value>
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>Dadurch werden alle Angebote entsprechend ihrer aktuellen Reihenfolge neu nummeriert. Die Angebotsnummern werden sich ändern. Sind Sie sicher, dass Sie fortfahren möchten?</value>
+  </data>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Farbe des Vordergrunds</value>
   </data>

@@ -11148,11 +11148,13 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
 要使用 Mix It Up，您需要连接至少一个流媒体平台账户。
 
 请前往主菜单的 "账户 "页面连接流媒体账户，然后重新启动 Mix It Up。</value>
+  </data>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>重新编号报价</value>
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>这将根据当前顺序对所有报价按顺序重新编号。报价编号将发生变化。您确定要继续吗？</value>
+  </data>
   <data name="ForegroundColor" xml:space="preserve">
     <value>前景色</value>
   </data>

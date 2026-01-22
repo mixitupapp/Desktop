@@ -11148,11 +11148,13 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
 Aby korzystać z Mix It Up, musisz podłączyć co najmniej jedno konto platformy streamingowej.
 
 Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streamingowe, a następnie uruchom ponownie Mix It Up.</value>
+  </data>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>Cytaty Renumber</value>
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>Spowoduje to zmianę numeracji wszystkich ofert w oparciu o ich bieżącą kolejność. Numery ofert ulegną zmianie. Czy na pewno chcesz kontynuować?</value>
+  </data>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Kolor pierwszego planu</value>
   </data>
