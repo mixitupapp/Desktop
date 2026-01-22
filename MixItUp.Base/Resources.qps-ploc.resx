@@ -11141,4 +11141,7 @@
   <data name="QuoteAdded" xml:space="preserve">
     <value>Quote Added</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Foreground Color</value>
+  </data>
 </root>

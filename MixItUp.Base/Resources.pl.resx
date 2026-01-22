@@ -11142,4 +11142,7 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
   <data name="QuoteAdded" xml:space="preserve">
     <value>Cytat dodany</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Kolor pierwszego planu</value>
+  </data>
 </root>

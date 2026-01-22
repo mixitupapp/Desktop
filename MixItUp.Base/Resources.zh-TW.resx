@@ -11142,4 +11142,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="QuoteAdded" xml:space="preserve">
     <value>添加引语</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>前景色</value>
+  </data>
 </root>

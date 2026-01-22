@@ -77,6 +77,9 @@ namespace MixItUp.Base.Model.Settings
         public string FullThemeName { get; set; } = string.Empty;
 
         [DataMember]
+        public string ForegroundColor { get; set; } = "Default";
+
+        [DataMember]
         public bool DontSaveLastWindowPosition { get; set; }
 
         [DataMember]

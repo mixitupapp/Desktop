@@ -11143,4 +11143,7 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citaat toegevoegd</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Voorgrondkleur</value>
+  </data>
 </root>

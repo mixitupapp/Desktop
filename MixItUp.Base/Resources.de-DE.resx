@@ -9860,4 +9860,7 @@ Wir haben festgestellt, dass mehr als ein Overlay-Endpunkt erstellt wurde, was b
   <data name="QuoteAdded" xml:space="preserve">
     <value>Zitat hinzugefügt</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Farbe des Vordergrunds</value>
+  </data>
 </root>

@@ -11143,4 +11143,7 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citation ajoutée</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Couleur d'avant-plan</value>
+  </data>
 </root>

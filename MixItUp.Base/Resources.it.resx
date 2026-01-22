@@ -11142,4 +11142,7 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citazione aggiunta</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Colore di primo piano</value>
+  </data>
 </root>
