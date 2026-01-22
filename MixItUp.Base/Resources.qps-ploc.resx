@@ -11141,6 +11141,12 @@
   <data name="QuoteAdded" xml:space="preserve">
     <value>Quote Added</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>No streamer accounts are currently connected.
+
+To use Mix It Up, you need to connect at least one streaming platform account.
+
+Please go to the Accounts page in the main menu to connect your streaming account, then restart Mix It Up.</value>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>Renumber Quotes</value>
   </data>

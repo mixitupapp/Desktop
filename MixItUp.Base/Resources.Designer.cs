@@ -15179,6 +15179,19 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No streamer accounts are currently connected.
+        ///
+        ///To use Mix It Up, you need to connect at least one streaming platform account.
+        ///
+        ///Please go to the Accounts page in the main menu to connect your streaming account, then restart Mix It Up..
+        /// </summary>
+        public static string NoStreamerAccountsConnected {
+            get {
+                return ResourceManager.GetString("NoStreamerAccountsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Connected.
         /// </summary>
         public static string NotConnected {

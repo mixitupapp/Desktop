@@ -11143,6 +11143,12 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citaat toegevoegd</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>Er zijn momenteel geen streameraccounts verbonden.
+
+Om Mix It Up te gebruiken, moet je ten minste één streamingplatformaccount verbinden.
+
+Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluiten en start Mix It Up vervolgens opnieuw.</value>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>Citaten hernummeren</value>
   </data>

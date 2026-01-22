@@ -11143,6 +11143,12 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citação Adicionada</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>Nenhuma conta de streamer está atualmente ligada.
+
+Para utilizar o Mix It Up, é necessário ligar pelo menos uma conta de plataforma de transmissão.
+
+Aceda à página Contas no menu principal para ligar a sua conta de transmissão e, em seguida, reinicie o Mix It Up.</value>
   <data name="RenumberQuotes" xml:space="preserve">
     <value>Renumerar citações</value>
   </data>
