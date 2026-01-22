@@ -11153,5 +11153,12 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
 Чтобы использовать Mix It Up, необходимо подключить хотя бы одну учетную запись стриминговой платформы.
 
 Пожалуйста, перейдите на страницу "Аккаунты" в главном меню, чтобы подключить аккаунт стриминговой платформы, а затем перезапустите Mix It Up.</value>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Котировки перенумеровать</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Это изменит последовательную нумерацию всех котировок в соответствии с их текущим порядком. Номера котировок изменятся. Вы уверены, что хотите продолжить?</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Цвет переднего плана</value>
   </data>
 </root>

@@ -11150,5 +11150,12 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
 Para utilizar Mix It Up, debes conectar al menos una cuenta de plataforma de streaming.
 
 Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming y, a continuación, reinicia Mix It Up.</value>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Renumerar citas</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Esto renumerará todas las cotizaciones secuencialmente basándose en su orden actual. Los números de los presupuestos cambiarán. ¿Está seguro de que desea continuar?</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Color de primer plano</value>
   </data>
 </root>

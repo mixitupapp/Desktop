@@ -2,6 +2,6 @@
 {
     public interface IThemeService
     {
-        void ApplyTheme(string colorScheme, string backgroundColor, string fullThemeName);
+        void ApplyTheme(string colorScheme, string backgroundColor, string foregroundColor, string fullThemeName);
     }
 }

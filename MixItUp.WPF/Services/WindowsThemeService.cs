@@ -11,7 +11,7 @@ namespace MixItUp.WPF.Services
 {
     public class WindowsThemeService : IThemeService
     {
-        public void ApplyTheme(string colorScheme, string backgroundColor, string fullThemeName)
+        public void ApplyTheme(string colorScheme, string backgroundColor, string foregroundColor, string fullThemeName)
         {
             try
             {
@@ -71,6 +71,15 @@ namespace MixItUp.WPF.Services
                 Application.Current.Resources.Remove("MaterialDesign.Brush.Primary.Foreground");
                 Application.Current.Resources.Remove("MaterialDesign.Brush.Primary.Light.Foreground");
                 Application.Current.Resources.Remove("MaterialDesign.Brush.Primary.Dark.Foreground");
+
+                // Foreground color override
+                if (!hasFullTheme && !string.IsNullOrEmpty(foregroundColor) && foregroundColor != "Default")
+                {
+                    Color fgColor = foregroundColor == "Black" ? Colors.Black : Colors.White;
+                    var fgBrush = new SolidColorBrush(fgColor);
+                    fgBrush.Freeze();
+                    Application.Current.Resources["MaterialDesign.Brush.Primary.Foreground"] = fgBrush;
+                }
 
                 // Mix It Up background color theme
                 var backgroundDict = new ResourceDictionary

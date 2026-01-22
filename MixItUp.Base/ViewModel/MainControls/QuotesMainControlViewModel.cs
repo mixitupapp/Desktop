@@ -61,6 +61,8 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public ICommand ExportQuotesCommand { get; set; }
 
+        public ICommand RenumberQuotesCommand { get; set; }
+
         public QuotesMainControlViewModel(MainWindowViewModel windowViewModel)
             : base(windowViewModel)
         {
@@ -108,6 +110,25 @@ namespace MixItUp.Base.ViewModel.MainControls
                     }
 
                     await SpreadsheetFileHelper.ExportToCSV(filePath, contents);
+                }
+            });
+
+            this.RenumberQuotesCommand = this.CreateCommand(async () =>
+            {
+                if (ChannelSession.Settings.Quotes.Count == 0)
+                {
+                    return;
+                }
+
+                if (await DialogHelper.ShowConfirmation(Resources.RenumberQuotesPrompt))
+                {
+                    var sortedQuotes = ChannelSession.Settings.Quotes.OrderBy(q => q.ID).ToList();
+                    for (int i = 0; i < sortedQuotes.Count; i++)
+                    {
+                        sortedQuotes[i].ID = i + 1;
+                    }
+
+                    this.Refresh();
                 }
             });
         }

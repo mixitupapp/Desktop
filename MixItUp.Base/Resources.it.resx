@@ -11148,5 +11148,12 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
 Per utilizzare Mix It Up, è necessario collegare almeno un account della piattaforma di streaming.
 
 Andare alla pagina Account nel menu principale per collegare l'account di streaming, quindi riavviare Mix It Up.</value>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Citazioni di rinumerazione</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>In questo modo tutti i preventivi verranno rinumerati in sequenza in base all'ordine attuale. I numeri dei preventivi cambieranno. Siete sicuri di voler continuare?</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Colore di primo piano</value>
   </data>
 </root>

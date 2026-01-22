@@ -49,10 +49,13 @@ namespace MixItUp.WPF.Controls.MainControls
         private void LinkButton_Click(object sender, RoutedEventArgs e)
         {
             OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
-            string url = widget.SingleWidgetURL;
-            if (url != null)
+            if (widget != null)
             {
-                ServiceManager.Get<IProcessService>().LaunchLink(url);
+                string url = widget.SingleWidgetURL;
+                if (url != null)
+                {
+                    ServiceManager.Get<IProcessService>().LaunchLink(url);
+                }
             }
         }
 
@@ -60,10 +63,13 @@ namespace MixItUp.WPF.Controls.MainControls
         {
             await this.Window.RunAsyncOperation(async () =>
             {
-                if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.OverlayWidgetResetConfirmation))
+                OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
+                if (widget != null)
                 {
-                    OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
-                    await widget.Reset();
+                    if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.OverlayWidgetResetConfirmation))
+                    {
+                        await widget.Reset();
+                    }
                 }
             });
         }
@@ -83,11 +89,14 @@ namespace MixItUp.WPF.Controls.MainControls
         {
             await this.Window.RunAsyncOperation(async () =>
             {
-                if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.DeleteWidgetPrompt))
+                OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
+                if (widget != null)
                 {
-                    OverlayWidgetViewModel widget = FrameworkElementHelpers.GetDataContext<OverlayWidgetViewModel>(sender);
-                    await this.viewModel.DeleteWidget(widget);
-                    await this.viewModel.OnVisible();
+                    if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.DeleteWidgetPrompt))
+                    {
+                        await this.viewModel.DeleteWidget(widget);
+                        await this.viewModel.OnVisible();
+                    }
                 }
             });
         }

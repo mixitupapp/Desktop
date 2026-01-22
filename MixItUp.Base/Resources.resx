@@ -940,6 +940,10 @@
     <value>Font Size</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Foreground Color</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Four</value>
   </data>
@@ -3040,6 +3044,14 @@
   </data>
   <data name="ExportQuotes" xml:space="preserve">
     <value>Export Quotes</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Renumber Quotes</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>This will renumber all quotes sequentially based on their current order. Quote numbers will change. Are you sure you want to continue?</value>
     <comment>Manual</comment>
   </data>
   <data name="RegularBonus" xml:space="preserve">
