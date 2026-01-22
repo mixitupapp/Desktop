@@ -9860,6 +9860,11 @@ Wir haben festgestellt, dass mehr als ein Overlay-Endpunkt erstellt wurde, was b
   <data name="QuoteAdded" xml:space="preserve">
     <value>Zitat hinzugefügt</value>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Zitate neu nummerieren</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Dadurch werden alle Angebote entsprechend ihrer aktuellen Reihenfolge neu nummeriert. Die Angebotsnummern werden sich ändern. Sind Sie sicher, dass Sie fortfahren möchten?</value>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Farbe des Vordergrunds</value>
   </data>

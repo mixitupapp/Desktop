@@ -11143,6 +11143,11 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citaat toegevoegd</value>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Citaten hernummeren</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Hierdoor worden alle offertes opeenvolgend hernummerd op basis van hun huidige volgorde. Quotenummers zullen veranderen. Weet u zeker dat u wilt doorgaan?</value>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Voorgrondkleur</value>
   </data>

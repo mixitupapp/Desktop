@@ -19119,6 +19119,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Renumber Quotes.
+        /// </summary>
+        public static string RenumberQuotes {
+            get {
+                return ResourceManager.GetString("RenumberQuotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will renumber all quotes sequentially based on their current order. Quote numbers will change. Are you sure you want to continue?.
+        /// </summary>
+        public static string RenumberQuotesPrompt {
+            get {
+                return ResourceManager.GetString("RenumberQuotesPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Repeat While True.
         /// </summary>
         public static string RepeatWhileTrue {

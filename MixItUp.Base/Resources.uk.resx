@@ -11142,6 +11142,11 @@ print(run())</value>
   <data name="QuoteAdded" xml:space="preserve">
     <value>Додано цитату</value>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Перенумерувати цитати</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Це призведе до послідовної перенумерації всіх лапок на основі їх поточного порядку. Номери котирувань зміняться. Ви впевнені, що хочете продовжити?</value>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Колір переднього плану</value>
   </data>
