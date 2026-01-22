@@ -11147,5 +11147,7 @@ print(run())</value>
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>Це призведе до послідовної перенумерації всіх лапок на основі їх поточного порядку. Номери котирувань зміняться. Ви впевнені, що хочете продовжити?</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Колір переднього плану</value>
   </data>
 </root>

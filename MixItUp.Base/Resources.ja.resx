@@ -11147,5 +11147,7 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>これにより、すべての見積もりは、現在の順序に基づいて連番が変更されます。見積書番号は変更されます。本当に続けますか？</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>前景色</value>
   </data>
 </root>

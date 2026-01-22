@@ -11146,5 +11146,7 @@
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>This will renumber all quotes sequentially based on their current order. Quote numbers will change. Are you sure you want to continue?</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Foreground Color</value>
   </data>
 </root>

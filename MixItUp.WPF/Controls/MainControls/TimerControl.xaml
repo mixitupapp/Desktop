@@ -110,6 +110,7 @@
                                             HorizontalAlignment="Right"
                                             IsChecked="{Binding Path=IsEnabled}"
                                             Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
+                                            BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}"
                                             Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                 </Expander.Header>
@@ -127,8 +128,8 @@
                                             Header="{x:Static resx:Resources.Name}"
                                             IsReadOnly="True" />
                                         <DataGridTemplateColumn
-                                            Width="230"
-                                            MinWidth="230"
+                                            Width="250"
+                                            MinWidth="250"
                                             Header="{x:Static resx:Resources.Actions}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>

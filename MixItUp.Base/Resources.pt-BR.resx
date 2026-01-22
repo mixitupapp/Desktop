@@ -11148,5 +11148,7 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>Isto irá renumerar todas as cotações sequencialmente com base na sua ordem atual. Os números das cotações serão alterados. Tem a certeza de que pretende continuar?</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Cor do primeiro plano</value>
   </data>
 </root>

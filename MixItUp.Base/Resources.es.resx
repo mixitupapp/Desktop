@@ -11149,5 +11149,7 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>Esto renumerará todas las cotizaciones secuencialmente basándose en su orden actual. Los números de los presupuestos cambiarán. ¿Está seguro de que desea continuar?</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Color de primer plano</value>
   </data>
 </root>

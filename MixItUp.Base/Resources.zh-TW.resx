@@ -11147,5 +11147,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="RenumberQuotesPrompt" xml:space="preserve">
     <value>这将根据当前顺序对所有报价按顺序重新编号。报价编号将发生变化。您确定要继续吗？</value>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>前景色</value>
   </data>
 </root>
