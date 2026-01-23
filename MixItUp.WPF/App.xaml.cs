@@ -113,13 +113,14 @@ namespace MixItUp.WPF
                 ServiceManager.Get<IThemeService>().ApplyTheme(
                     ChannelSession.AppSettings.ColorScheme ?? "Indigo",
                     ChannelSession.AppSettings.BackgroundColor ?? "Light",
+                    ChannelSession.AppSettings.ForegroundColor ?? "Default",
                     ChannelSession.AppSettings.FullThemeName
                 );
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
-                ServiceManager.Get<IThemeService>().ApplyTheme("Indigo", "Light", null);
+                ServiceManager.Get<IThemeService>().ApplyTheme("Indigo", "Light", "Default", null);
             }
 
             base.OnStartup(e);

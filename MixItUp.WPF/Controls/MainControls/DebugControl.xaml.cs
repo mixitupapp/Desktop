@@ -530,29 +530,5 @@ namespace MixItUp.WPF.Controls.MainControls
                 }
             });
         }
-        private async void CorruptTwitchToken(object sender, System.Windows.RoutedEventArgs e)
-        {
-#if DEBUG
-            try
-            {
-                var twitchSession = ServiceManager.Get<TwitchSession>();
-                if (twitchSession != null && twitchSession.IsConnected)
-                {
-                    twitchSession.StreamerService.TestCorruptToken();
-
-                    await DialogHelper.ShowMessage("Twitch Token corrupted! The next Twitch API call should refresh the invalid token");
-                }
-                else
-                {
-                    await DialogHelper.ShowMessage("Twitch is not connected.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-                await DialogHelper.ShowMessage($"Error: {ex.Message}");
-            }
-#endif
-        }
     }
 }

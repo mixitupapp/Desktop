@@ -55,6 +55,10 @@ namespace MixItUp.Base.Util
         public const string RandomFollowerSpecialIdentifierHeader = RandomSpecialIdentifierHeader + "follower";
         public const string RandomSubscriberSpecialIdentifierHeader = RandomSpecialIdentifierHeader + "subscriber";
         public const string RandomRegularSpecialIdentifierHeader = RandomSpecialIdentifierHeader + "regular";
+        public const string RandomAnySpecialIdentifierHeader = RandomSpecialIdentifierHeader + "any";
+        public const string RandomAnyFollowerSpecialIdentifierHeader = RandomAnySpecialIdentifierHeader + "follower";
+        public const string RandomAnySubscriberSpecialIdentifierHeader = RandomAnySpecialIdentifierHeader + "subscriber";
+        public const string RandomAnyRegularSpecialIdentifierHeader = RandomAnySpecialIdentifierHeader + "regular";
 
         public const string StreamSpecialIdentifierHeader = "stream";
         public const string StreamUptimeSpecialIdentifierHeader = StreamSpecialIdentifierHeader + "uptime";
@@ -389,6 +393,129 @@ namespace MixItUp.Base.Util
                         await this.HandleUserSpecialIdentifiers(topUser, currency.TopSpecialIdentifier);
                     }
                 }
+
+                foreach (InventoryModel inventory in ChannelSession.Settings.Inventory.Values)
+                {
+                    if (this.ContainsRegexSpecialIdentifier(inventory.TopTotalRegexSpecialIdentifier))
+                    {
+                        await this.ReplaceNumberBasedRegexSpecialIdentifier(inventory.TopTotalRegexSpecialIdentifier, async (total) =>
+                        {
+                            IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                            List<string> inventoryUserList = new List<string>();
+                            int userPosition = 1;
+                            foreach (UserV2Model userData in applicableUsers.OrderByDescending(u => inventory.GetTotalAmount(u)).Take(total))
+                            {
+                                UserV2ViewModel userViewModel = new UserV2ViewModel(userData);
+                                inventoryUserList.Add($"#{userPosition}) {userViewModel.Username} - {inventory.GetTotalAmount(userData).ToNumberDisplayString()}");
+                                userPosition++;
+                            }
+
+                            string result = MixItUp.Base.Resources.NoUsersFound;
+                            if (inventoryUserList.Count > 0)
+                            {
+                                result = string.Join(", ", inventoryUserList);
+                            }
+                            return result;
+                        });
+                    }
+
+                    if (this.ContainsSpecialIdentifier(inventory.TopTotalUserSpecialIdentifier))
+                    {
+                        IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                        UserV2Model topUserData = applicableUsers.Top(u => inventory.GetTotalAmount(u));
+                        if (topUserData != null)
+                        {
+                            UserV2ViewModel topUser = ServiceManager.Get<UserService>().GetActiveUserByID(parameters.Platform, topUserData.ID);
+                            if (topUser == null)
+                            {
+                                topUser = new UserV2ViewModel(topUserData);
+                            }
+                            await this.HandleUserSpecialIdentifiers(topUser, inventory.TopTotalSpecialIdentifier);
+                        }
+                    }
+
+                    if (this.ContainsRegexSpecialIdentifier(inventory.TopUniqueRegexSpecialIdentifier))
+                    {
+                        await this.ReplaceNumberBasedRegexSpecialIdentifier(inventory.TopUniqueRegexSpecialIdentifier, async (total) =>
+                        {
+                            IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                            List<string> inventoryUserList = new List<string>();
+                            int userPosition = 1;
+                            foreach (UserV2Model userData in applicableUsers.OrderByDescending(u => inventory.GetUniqueItemCount(u)).Take(total))
+                            {
+                                UserV2ViewModel userViewModel = new UserV2ViewModel(userData);
+                                inventoryUserList.Add($"#{userPosition}) {userViewModel.Username} - {inventory.GetUniqueItemCount(userData).ToNumberDisplayString()}");
+                                userPosition++;
+                            }
+
+                            string result = MixItUp.Base.Resources.NoUsersFound;
+                            if (inventoryUserList.Count > 0)
+                            {
+                                result = string.Join(", ", inventoryUserList);
+                            }
+                            return result;
+                        });
+                    }
+
+                    if (this.ContainsSpecialIdentifier(inventory.TopUniqueUserSpecialIdentifier))
+                    {
+                        IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                        UserV2Model topUserData = applicableUsers.Top(u => inventory.GetUniqueItemCount(u));
+                        if (topUserData != null)
+                        {
+                            UserV2ViewModel topUser = ServiceManager.Get<UserService>().GetActiveUserByID(parameters.Platform, topUserData.ID);
+                            if (topUser == null)
+                            {
+                                topUser = new UserV2ViewModel(topUserData);
+                            }
+                            await this.HandleUserSpecialIdentifiers(topUser, inventory.TopUniqueSpecialIdentifier);
+                        }
+                    }
+
+                    foreach (InventoryItemModel item in inventory.Items.Values)
+                    {
+                        string itemTopRegex = string.Format("{0}\\d+{1}{2}", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, inventory.SpecialIdentifier, item.SpecialIdentifier);
+                        if (this.ContainsRegexSpecialIdentifier(itemTopRegex))
+                        {
+                            await this.ReplaceNumberBasedRegexSpecialIdentifier(itemTopRegex, async (total) =>
+                            {
+                                IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                                List<string> itemUserList = new List<string>();
+                                int userPosition = 1;
+                                foreach (UserV2Model userData in applicableUsers.OrderByDescending(u => inventory.GetAmount(u, item)).Take(total))
+                                {
+                                    UserV2ViewModel userViewModel = new UserV2ViewModel(userData);
+                                    itemUserList.Add($"#{userPosition}) {userViewModel.Username} - {inventory.GetAmount(userData, item).ToNumberDisplayString()}");
+                                    userPosition++;
+                                }
+
+                                string result = MixItUp.Base.Resources.NoUsersFound;
+                                if (itemUserList.Count > 0)
+                                {
+                                    result = string.Join(", ", itemUserList);
+                                }
+                                return result;
+                            });
+                        }
+
+                        string itemTopUser = string.Format("{0}{1}{2}{3}", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, inventory.SpecialIdentifier, item.SpecialIdentifier, SpecialIdentifierStringBuilder.UserSpecialIdentifierHeader);
+                        if (this.ContainsSpecialIdentifier(itemTopUser))
+                        {
+                            IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                            UserV2Model topUserData = applicableUsers.Top(u => inventory.GetAmount(u, item));
+                            if (topUserData != null)
+                            {
+                                UserV2ViewModel topUser = ServiceManager.Get<UserService>().GetActiveUserByID(parameters.Platform, topUserData.ID);
+                                if (topUser == null)
+                                {
+                                    topUser = new UserV2ViewModel(topUserData);
+                                }
+                                string itemTopPrefix = string.Format("{0}{1}{2}", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, inventory.SpecialIdentifier, item.SpecialIdentifier);
+                                await this.HandleUserSpecialIdentifiers(topUser, itemTopPrefix);
+                            }
+                        }
+                    }
+                }
             }
 
             foreach (CurrencyModel currency in ChannelSession.Settings.Currency.Values)
@@ -402,6 +529,25 @@ namespace MixItUp.Base.Util
 
                     this.ReplaceSpecialIdentifier(currency.AllTotalAmountDisplaySpecialIdentifier, total.ToNumberDisplayString());
                     this.ReplaceSpecialIdentifier(currency.AllTotalAmountSpecialIdentifier, total.ToString());
+                }
+
+                if (currency.IsRank && this.ContainsSpecialIdentifier(currency.RankCountSpecialIdentifierHeader))
+                {
+                    await ServiceManager.Get<UserService>().LoadAllUserData();
+
+                    IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+
+                    foreach (RankModel rank in currency.Ranks.OrderByDescending(r => r.Name.Length))
+                    {
+                        string rankSpecialIdentifier = SpecialIdentifierStringBuilder.ConvertToSpecialIdentifier(rank.Name);
+                        string fullIdentifier = currency.RankCountSpecialIdentifierHeader + rankSpecialIdentifier;
+
+                        if (this.ContainsSpecialIdentifier(fullIdentifier))
+                        {
+                            int count = applicableUsers.Count(u => currency.GetRank(u).Name.Equals(rank.Name, StringComparison.OrdinalIgnoreCase));
+                            this.ReplaceSpecialIdentifier(fullIdentifier, count.ToString());
+                        }
+                    }
                 }
             }
 
@@ -749,6 +895,52 @@ namespace MixItUp.Base.Util
                         await this.HandleUserSpecialIdentifiers(users.Random(), RandomRegularSpecialIdentifierHeader);
                     }
                 }
+
+                if (this.ContainsSpecialIdentifier(RandomAnySpecialIdentifierHeader))
+                {
+                    await ServiceManager.Get<UserService>().LoadAllUserData();
+                    IEnumerable<UserV2Model> allUsers = ChannelSession.Settings.Users.Values.Where(u => !u.IsSpecialtyExcluded && u.ID != ChannelSession.User.Model.ID);
+
+                    if (this.ContainsSpecialIdentifier(RandomAnySpecialIdentifierHeader + "user"))
+                    {
+                        if (allUsers.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(allUsers.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnySpecialIdentifierHeader);
+                        }
+                    }
+
+                    if (this.ContainsSpecialIdentifier(RandomAnyFollowerSpecialIdentifierHeader))
+                    {
+                        IEnumerable<UserV2Model> followers = allUsers.Where(u => u.PlatformData.Values.Any(p => p.FollowDate != null));
+                        if (followers.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(followers.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnyFollowerSpecialIdentifierHeader);
+                        }
+                    }
+
+                    if (this.ContainsSpecialIdentifier(RandomAnySubscriberSpecialIdentifierHeader))
+                    {
+                        IEnumerable<UserV2Model> subscribers = allUsers.Where(u => u.PlatformData.Values.Any(p => p.SubscribeDate != null));
+                        if (subscribers.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(subscribers.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnySubscriberSpecialIdentifierHeader);
+                        }
+                    }
+
+                    if (this.ContainsSpecialIdentifier(RandomAnyRegularSpecialIdentifierHeader))
+                    {
+                        int regularMinutes = ChannelSession.Settings.RegularUserMinimumHours * 60;
+                        IEnumerable<UserV2Model> regulars = allUsers.Where(u => u.OnlineViewingMinutes >= regularMinutes);
+                        if (regulars.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(regulars.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnyRegularSpecialIdentifierHeader);
+                        }
+                    }
+                }
             }
 
             if (ServiceManager.Get<TwitchSession>().IsConnected && this.ContainsSpecialIdentifier(SpecialIdentifierStringBuilder.TwitchSpecialIdentifierHeader))
@@ -830,6 +1022,11 @@ namespace MixItUp.Base.Util
                 if (this.ContainsSpecialIdentifier(inventory.UniqueItemsTotalSpecialIdentifier))
                 {
                     this.ReplaceSpecialIdentifier(inventory.UniqueItemsTotalSpecialIdentifier, inventory.Items.Count().ToString());
+                }
+
+                if (this.ContainsSpecialIdentifier(inventory.AllItemsSpecialIdentifier))
+                {
+                    this.ReplaceSpecialIdentifier(inventory.AllItemsSpecialIdentifier, string.Join(", ", inventory.Items.Values.Select(i => i.Name)));
                 }
             }
 

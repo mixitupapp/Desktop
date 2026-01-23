@@ -20,6 +20,10 @@
                 DataContext="{Binding BackgroundColor}" 
                 IsEnabled="{Binding DataContext.IsBackgroundColorEnabled, RelativeSource={RelativeSource AncestorType=local:SettingsControlBase}}" />
 
+            <GenericSettingsControls:GenericComboBoxSettingsOptionControl 
+                DataContext="{Binding ForegroundColor}" 
+                IsEnabled="{Binding DataContext.IsForegroundColorEnabled, RelativeSource={RelativeSource AncestorType=local:SettingsControlBase}}" />
+
             <Separator Margin="10" />
             <GenericSettingsControls:GenericComboBoxSettingsOptionControl DataContext="{Binding FullTheme}" />
         </StackPanel>

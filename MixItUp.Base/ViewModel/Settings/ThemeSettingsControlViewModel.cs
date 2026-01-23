@@ -24,6 +24,7 @@ namespace MixItUp.Base.ViewModel.Settings
     public class ThemeSettingsControlViewModel : UIViewModelBase
     {
         public List<string> AvailableBackgroundColors { get; set; } = new List<string>() { "Light", "Dark" };
+        public List<string> AvailableForegroundColors { get; set; } = new List<string>() { "Default", "White", "Black" };
 
         public Dictionary<string, string> FullThemes { get; set; } = new Dictionary<string, string>()
         {
@@ -50,6 +51,7 @@ namespace MixItUp.Base.ViewModel.Settings
 
         public GenericColorComboBoxSettingsOptionControlViewModel ColorScheme { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<string> BackgroundColor { get; set; }
+        public GenericComboBoxSettingsOptionControlViewModel<string> ForegroundColor { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<ThemeViewModel> FullTheme { get; set; }
 
         private bool isColorSchemeEnabled = true;
@@ -70,6 +72,17 @@ namespace MixItUp.Base.ViewModel.Settings
             set
             {
                 this.isBackgroundColorEnabled = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+
+        private bool isForegroundColorEnabled = true;
+        public bool IsForegroundColorEnabled
+        {
+            get { return this.isForegroundColorEnabled; }
+            set
+            {
+                this.isForegroundColorEnabled = value;
                 this.NotifyPropertyChanged();
             }
         }
@@ -102,6 +115,19 @@ namespace MixItUp.Base.ViewModel.Settings
                     }
                 });
 
+            this.ForegroundColor = new GenericComboBoxSettingsOptionControlViewModel<string>(
+                MixItUp.Base.Resources.ForegroundColor,
+                AvailableForegroundColors,
+                ChannelSession.AppSettings.ForegroundColor,
+                (value) =>
+                {
+                    if (!string.Equals(ChannelSession.AppSettings.ForegroundColor, value))
+                    {
+                        ChannelSession.AppSettings.ForegroundColor = value;
+                        ApplyCurrentTheme();
+                    }
+                });
+
             List<ThemeViewModel> themes = new List<ThemeViewModel>();
             foreach (var kvp in this.FullThemes)
             {
@@ -121,6 +147,7 @@ namespace MixItUp.Base.ViewModel.Settings
                         bool hasFullTheme = !string.IsNullOrEmpty(value?.Key);
                         this.IsColorSchemeEnabled = !hasFullTheme;
                         this.IsBackgroundColorEnabled = !hasFullTheme;
+                        this.IsForegroundColorEnabled = !hasFullTheme;
 
                         ApplyCurrentTheme();
                     }
@@ -129,6 +156,7 @@ namespace MixItUp.Base.ViewModel.Settings
             bool hasFullTheme = !string.IsNullOrEmpty(ChannelSession.AppSettings.FullThemeName);
             this.IsColorSchemeEnabled = !hasFullTheme;
             this.IsBackgroundColorEnabled = !hasFullTheme;
+            this.IsForegroundColorEnabled = !hasFullTheme;
         }
 
         private void ApplyCurrentTheme()
@@ -138,6 +166,7 @@ namespace MixItUp.Base.ViewModel.Settings
                 ServiceManager.Get<IThemeService>().ApplyTheme(
                     ChannelSession.AppSettings.ColorScheme ?? "Indigo",
                     ChannelSession.AppSettings.BackgroundColor ?? "Light",
+                    ChannelSession.AppSettings.ForegroundColor ?? "Default",
                     ChannelSession.AppSettings.FullThemeName
                 );
             });

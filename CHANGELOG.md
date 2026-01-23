@@ -1,5 +1,28 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.20
+
+- [MAINT] Downgrade to .NET8 framework due to compatibility issues
+- [FEAT] Add customizable foreground/text color in settings -> Themes to improve visual accessibility
+- [FEAT] Add new TikTok TTS voices
+- [FEAT] Add additional random user special identifiers to include users who are not in chat
+- [FEAT] Renumber quotes button in quotes page
+- [FEAT] Show message to user if logging in with no streaming account connected
+- [FIX] Minor UI improvements in various pages
+- [FIX] Make bold, italic, and underline buttons toggleable
+- [FIX] Fix Overlay Widgets deadlock and UI crashes
+
+## 1.6.10
+
+- [MAINT] Disable Community Commands temporarily as we switch our backend infrastructure
+- [MAINT] Switch telemetry service to new host
+- [FIX] Improve Twitch Clips search and filtering featured clips
+- [FIX] Tiltify service trigger old alerts on startup
+- [FIX] Add Discord channels caching to reduce hitting Discord rate limits when loading channels in Discord action
+- [FEAT] Bet Game: Add $gameallpayout special identifier to game complete subcommand
+- [FEAT] Added new inventory special identifiers for leaderboards, top user, and all items list
+- [FEAT] Add new rank special identifier to return the number of users who have the specific rank
+
 ## 1.6.0
 
 - [Ops] Migration From .NET Framework To .NET 10, Windows 10/11, x64

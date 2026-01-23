@@ -8108,6 +8108,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Foreground Color.
+        /// </summary>
+        public static string ForegroundColor {
+            get {
+                return ResourceManager.GetString("ForegroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Format.
         /// </summary>
         public static string Format {
@@ -15170,6 +15179,19 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No streamer accounts are currently connected.
+        ///
+        ///To use Mix It Up, you need to connect at least one streaming platform account.
+        ///
+        ///Please go to the Accounts page in the main menu to connect your streaming account, then restart Mix It Up..
+        /// </summary>
+        public static string NoStreamerAccountsConnected {
+            get {
+                return ResourceManager.GetString("NoStreamerAccountsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Connected.
         /// </summary>
         public static string NotConnected {
@@ -19106,6 +19128,24 @@ namespace MixItUp.Base {
         public static string RenewedMembership {
             get {
                 return ResourceManager.GetString("RenewedMembership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renumber Quotes.
+        /// </summary>
+        public static string RenumberQuotes {
+            get {
+                return ResourceManager.GetString("RenumberQuotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will renumber all quotes sequentially based on their current order. Quote numbers will change. Are you sure you want to continue?.
+        /// </summary>
+        public static string RenumberQuotesPrompt {
+            get {
+                return ResourceManager.GetString("RenumberQuotesPrompt", resourceCulture);
             }
         }
         

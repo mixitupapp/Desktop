@@ -190,6 +190,9 @@ namespace MixItUp.Base.Model.Currency
         public string UniqueItemsTotalSpecialIdentifier { get { return string.Format("{0}uniqueitemstotal", this.SpecialIdentifier); } }
 
         [JsonIgnore]
+        public string AllItemsSpecialIdentifier { get { return string.Format("{0}allitems", this.SpecialIdentifier); } }
+
+        [JsonIgnore]
         public string RandomItemSpecialIdentifier { get { return string.Format("{0}randomitem", this.SpecialIdentifier); } }
 
         [JsonIgnore]
@@ -206,6 +209,30 @@ namespace MixItUp.Base.Model.Currency
 
         [JsonIgnore]
         public string UserUniqueItemsTotalSpecialIdentifier { get { return string.Format("{0}uniqueitemstotal", this.UserAmountSpecialIdentifierHeader); } }
+
+        [JsonIgnore]
+        public string TopItemRegexSpecialIdentifierHeader { get { return string.Format("{0}\\d+{1}", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, this.SpecialIdentifier); } }
+
+        [JsonIgnore]
+        public string TopItemSpecialIdentifierHeader { get { return string.Format("{0}{1}", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, this.SpecialIdentifier); } }
+
+        [JsonIgnore]
+        public string TopTotalRegexSpecialIdentifier { get { return string.Format("{0}\\d+{1}total", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, this.SpecialIdentifier); } }
+
+        [JsonIgnore]
+        public string TopTotalSpecialIdentifier { get { return string.Format("{0}{1}total", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, this.SpecialIdentifier); } }
+
+        [JsonIgnore]
+        public string TopTotalUserSpecialIdentifier { get { return string.Format("{0}{1}", this.TopTotalSpecialIdentifier, SpecialIdentifierStringBuilder.UserSpecialIdentifierHeader); } }
+
+        [JsonIgnore]
+        public string TopUniqueRegexSpecialIdentifier { get { return string.Format("{0}\\d+{1}unique", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, this.SpecialIdentifier); } }
+
+        [JsonIgnore]
+        public string TopUniqueSpecialIdentifier { get { return string.Format("{0}{1}unique", SpecialIdentifierStringBuilder.TopSpecialIdentifierHeader, this.SpecialIdentifier); } }
+
+        [JsonIgnore]
+        public string TopUniqueUserSpecialIdentifier { get { return string.Format("{0}{1}", this.TopUniqueSpecialIdentifier, SpecialIdentifierStringBuilder.UserSpecialIdentifierHeader); } }
 
         [JsonIgnore]
         public CommandModelBase ItemsBoughtCommand
@@ -333,6 +360,29 @@ namespace MixItUp.Base.Model.Currency
                 amounts[item.ID] = this.GetAmount(user, item);
             }
             return amounts;
+        }
+
+        public int GetTotalAmount(UserV2Model user)
+        {
+            int total = 0;
+            foreach (InventoryItemModel item in this.Items.Values)
+            {
+                total += this.GetAmount(user, item);
+            }
+            return total;
+        }
+
+        public int GetUniqueItemCount(UserV2Model user)
+        {
+            int count = 0;
+            foreach (InventoryItemModel item in this.Items.Values)
+            {
+                if (this.GetAmount(user, item) > 0)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         public bool HasAmount(UserV2ViewModel user, Guid itemID, int amount)

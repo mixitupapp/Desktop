@@ -103,6 +103,7 @@
                                             HorizontalAlignment="Right"
                                             IsChecked="{Binding Path=IsEnabled}"
                                             Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
+                                            BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}"
                                             Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                     </Grid>
                                 </Expander.Header>

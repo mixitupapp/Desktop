@@ -188,8 +188,6 @@ namespace MixItUp.Base.Services.External
                     {
                         token.expiresIn = int.MaxValue;
 
-                        this.startTime = DateTimeOffset.Now;
-
                         return await this.InitializeInternal();
                     }
                 }
@@ -295,6 +293,7 @@ namespace MixItUp.Base.Services.External
         protected override async Task<Result> InitializeInternal()
         {
             this.cancellationTokenSource = new CancellationTokenSource();
+            this.startTime = DateTimeOffset.Now;
 
             this.user = await this.GetUser();
             if (this.user != null)
