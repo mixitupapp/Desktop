@@ -167,7 +167,7 @@ if (-not (Test-Path -LiteralPath $eulaSource)) {
     Fail
 }
 
-$artifactRoot = Join-Path $repoRoot "mixitupservices\src\FileService\artifacts"
+$artifactRoot = Join-Path $repoRoot "FileService\artifacts"
 if (-not (Test-Path -LiteralPath $artifactRoot)) {
     Write-Host "Artifact root not found at \"$artifactRoot\"."
     Fail
