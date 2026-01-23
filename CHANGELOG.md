@@ -1,7 +1,16 @@
 # Mix It Up Desktop Changelog
 
-## 1.6.10
+## 1.6.20
 
+- [MAINT] Downgrade to .NET8 framework due to compatibility issues
+- [FEAT] Add customizable foreground/text color in settings -> Themes to improve visual accessibility
+- [FEAT] Add new TikTok TTS voices
+- [FEAT] Add additional random user special identifiers to include users who are not in chat
+- [FEAT] Renumber quotes button in quotes page
+- [FEAT] Show message to user if logging in with no streaming account connected
+- [FIX] Minor UI improvements in various pages
+- [FIX] Make bold, italic, and underline buttons toggleable
+- [FIX] Fix Overlay Widgets deadlock and UI crashes
 - [MAINT] Disable Community Commands temporarily as we switch our backend infrastructure
 - [MAINT] Switch telemetry service to new host
 - [FIX] Improve Twitch Clips search and filtering featured clips
