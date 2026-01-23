@@ -11,6 +11,9 @@
 - [FIX] Minor UI improvements in various pages
 - [FIX] Make bold, italic, and underline buttons toggleable
 - [FIX] Fix Overlay Widgets deadlock and UI crashes
+
+## 1.6.10
+
 - [MAINT] Disable Community Commands temporarily as we switch our backend infrastructure
 - [MAINT] Switch telemetry service to new host
 - [FIX] Improve Twitch Clips search and filtering featured clips
