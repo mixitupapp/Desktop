@@ -55,6 +55,10 @@ namespace MixItUp.Base.Util
         public const string RandomFollowerSpecialIdentifierHeader = RandomSpecialIdentifierHeader + "follower";
         public const string RandomSubscriberSpecialIdentifierHeader = RandomSpecialIdentifierHeader + "subscriber";
         public const string RandomRegularSpecialIdentifierHeader = RandomSpecialIdentifierHeader + "regular";
+        public const string RandomAnySpecialIdentifierHeader = RandomSpecialIdentifierHeader + "any";
+        public const string RandomAnyFollowerSpecialIdentifierHeader = RandomAnySpecialIdentifierHeader + "follower";
+        public const string RandomAnySubscriberSpecialIdentifierHeader = RandomAnySpecialIdentifierHeader + "subscriber";
+        public const string RandomAnyRegularSpecialIdentifierHeader = RandomAnySpecialIdentifierHeader + "regular";
 
         public const string StreamSpecialIdentifierHeader = "stream";
         public const string StreamUptimeSpecialIdentifierHeader = StreamSpecialIdentifierHeader + "uptime";
@@ -889,6 +893,52 @@ namespace MixItUp.Base.Util
                     if (users != null && users.Count() > 0)
                     {
                         await this.HandleUserSpecialIdentifiers(users.Random(), RandomRegularSpecialIdentifierHeader);
+                    }
+                }
+
+                if (this.ContainsSpecialIdentifier(RandomAnySpecialIdentifierHeader))
+                {
+                    await ServiceManager.Get<UserService>().LoadAllUserData();
+                    IEnumerable<UserV2Model> allUsers = ChannelSession.Settings.Users.Values.Where(u => !u.IsSpecialtyExcluded && u.ID != ChannelSession.User.Model.ID);
+
+                    if (this.ContainsSpecialIdentifier(RandomAnySpecialIdentifierHeader + "user"))
+                    {
+                        if (allUsers.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(allUsers.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnySpecialIdentifierHeader);
+                        }
+                    }
+
+                    if (this.ContainsSpecialIdentifier(RandomAnyFollowerSpecialIdentifierHeader))
+                    {
+                        IEnumerable<UserV2Model> followers = allUsers.Where(u => u.PlatformData.Values.Any(p => p.FollowDate != null));
+                        if (followers.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(followers.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnyFollowerSpecialIdentifierHeader);
+                        }
+                    }
+
+                    if (this.ContainsSpecialIdentifier(RandomAnySubscriberSpecialIdentifierHeader))
+                    {
+                        IEnumerable<UserV2Model> subscribers = allUsers.Where(u => u.PlatformData.Values.Any(p => p.SubscribeDate != null));
+                        if (subscribers.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(subscribers.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnySubscriberSpecialIdentifierHeader);
+                        }
+                    }
+
+                    if (this.ContainsSpecialIdentifier(RandomAnyRegularSpecialIdentifierHeader))
+                    {
+                        int regularMinutes = ChannelSession.Settings.RegularUserMinimumHours * 60;
+                        IEnumerable<UserV2Model> regulars = allUsers.Where(u => u.OnlineViewingMinutes >= regularMinutes);
+                        if (regulars.Any())
+                        {
+                            UserV2ViewModel randomUser = new UserV2ViewModel(regulars.Random());
+                            await this.HandleUserSpecialIdentifiers(randomUser, RandomAnyRegularSpecialIdentifierHeader);
+                        }
                     }
                 }
             }

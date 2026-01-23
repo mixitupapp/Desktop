@@ -11142,4 +11142,20 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
   <data name="QuoteAdded" xml:space="preserve">
     <value>Citazione aggiunta</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>Al momento non sono collegati account di streamer.
+
+Per utilizzare Mix It Up, è necessario collegare almeno un account della piattaforma di streaming.
+
+Andare alla pagina Account nel menu principale per collegare l'account di streaming, quindi riavviare Mix It Up.</value>
+  </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Citazioni di rinumerazione</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>In questo modo tutti i preventivi verranno rinumerati in sequenza in base all'ordine attuale. I numeri dei preventivi cambieranno. Siete sicuri di voler continuare?</value>
+  </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Colore di primo piano</value>
+  </data>
 </root>

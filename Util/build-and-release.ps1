@@ -167,7 +167,7 @@ if (-not (Test-Path -LiteralPath $eulaSource)) {
     Fail
 }
 
-$artifactRoot = Join-Path $repoRoot "mixitupservices\src\FileService\artifacts"
+$artifactRoot = Join-Path $repoRoot "FileService\artifacts"
 if (-not (Test-Path -LiteralPath $artifactRoot)) {
     Write-Host "Artifact root not found at \"$artifactRoot\"."
     Fail
@@ -293,13 +293,10 @@ Write-Host "Step 1: Building and Signing Release"
 Write-Host "==============================================================================="
 
 $signThumb = "A838AD3D9C00B4806F2FC4270269EA6060D021DC"
-$signTool = "C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\microsoft.windows.sdk.buildtools\10.0.26100.1742\bin\10.0.26100.0\x64\signtool.exe"
+$signTool = Join-Path $scriptDir "SignTool\signtool.exe"
 if ($doSign) {
     if (-not (Test-Path -LiteralPath $signTool)) {
-        $signTool = "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe"
-    }
-    if (-not (Test-Path -LiteralPath $signTool)) {
-        Write-Host "signtool.exe not found."
+        Write-Host "signtool.exe not found at: $signTool"
         Fail
     }
 }

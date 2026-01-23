@@ -451,6 +451,11 @@ namespace MixItUp.Base
                     }
                 }
 
+                if (!StreamingPlatforms.GetConnectedPlatformSessions().Any())
+                {
+                    await DialogHelper.ShowMessage(MixItUp.Base.Resources.NoStreamerAccountsConnected);
+                }
+
                 try
                 {
                     ServiceManager.Get<MixItUpService>().BackgroundConnect();

@@ -49,7 +49,7 @@
                         Binding="{Binding Name}"
                         Header="{x:Static resx:Resources.Name}"
                         IsReadOnly="True" />
-                    <DataGridTemplateColumn Width="290" Header="{x:Static resx:Resources.Actions}">
+                    <DataGridTemplateColumn Width="320" Header="{x:Static resx:Resources.Actions}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel

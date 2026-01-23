@@ -11141,4 +11141,20 @@
   <data name="QuoteAdded" xml:space="preserve">
     <value>Quote Added</value>
   </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>No streamer accounts are currently connected.
+
+To use Mix It Up, you need to connect at least one streaming platform account.
+
+Please go to the Accounts page in the main menu to connect your streaming account, then restart Mix It Up.</value>
+  </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Renumber Quotes</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>This will renumber all quotes sequentially based on their current order. Quote numbers will change. Are you sure you want to continue?</value>
+  </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Foreground Color</value>
+  </data>
 </root>

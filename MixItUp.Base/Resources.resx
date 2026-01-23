@@ -940,6 +940,10 @@
     <value>Font Size</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Foreground Color</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Four</value>
   </data>
@@ -3040,6 +3044,14 @@
   </data>
   <data name="ExportQuotes" xml:space="preserve">
     <value>Export Quotes</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Renumber Quotes</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>This will renumber all quotes sequentially based on their current order. Quote numbers will change. Are you sure you want to continue?</value>
     <comment>Manual</comment>
   </data>
   <data name="RegularBonus" xml:space="preserve">
@@ -11142,5 +11154,12 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   </data>
   <data name="QuoteAdded" xml:space="preserve">
     <value>Quote Added</value>
+  </data>
+  <data name="NoStreamerAccountsConnected" xml:space="preserve">
+    <value>No streamer accounts are currently connected.
+
+To use Mix It Up, you need to connect at least one streaming platform account.
+
+Please go to the Accounts page in the main menu to connect your streaming account, then restart Mix It Up.</value>
   </data>
 </root>
