@@ -98,33 +98,19 @@ namespace MixItUp.Base.Web
         /// <returns>The parameter value of the request</returns>
         protected string GetRequestParameter(HttpListenerContext listenerContext, string parameter)
         {
-            if (listenerContext.Request.RawUrl.Contains(parameter))
+            var queryString = HttpUtility.ParseQueryString(listenerContext.Request.Url.Query);
+            string value = queryString[parameter];
+
+            if (value != null)
+                return value;
+
+            string fragment = listenerContext.Request.Url.Fragment;
+            if (!string.IsNullOrEmpty(fragment) && fragment.StartsWith("#"))
             {
-                string searchString = "?" + parameter + "=";
-                int startIndex = listenerContext.Request.RawUrl.IndexOf(searchString);
-                if (startIndex < 0)
-                {
-                    searchString = "&" + parameter + "=";
-                    startIndex = listenerContext.Request.RawUrl.IndexOf(searchString);
-                    if (startIndex < 0)
-                    {
-                        searchString = "#" + parameter + "=";
-                        startIndex = listenerContext.Request.RawUrl.IndexOf(searchString);
-                    }
-                }
-
-                if (startIndex >= 0)
-                {
-                    string token = listenerContext.Request.RawUrl.Substring(startIndex + searchString.Length);
-
-                    int endIndex = token.IndexOf("&");
-                    if (endIndex > 0)
-                    {
-                        token = token.Substring(0, endIndex);
-                    }
-                    return token;
-                }
+                var fragmentParams = HttpUtility.ParseQueryString(fragment.Substring(1));
+                return fragmentParams[parameter];
             }
+
             return null;
         }
 
