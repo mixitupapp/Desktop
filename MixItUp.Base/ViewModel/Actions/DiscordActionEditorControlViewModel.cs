@@ -26,11 +26,14 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged("ShowSendMessageGrid");
                 this.NotifyPropertyChanged("ShowMuteGrid");
                 this.NotifyPropertyChanged("ShowDeafenGrid");
+                this.NotifyPropertyChanged("ShowSendEmbedGrid");
             }
         }
         private DiscordActionTypeEnum selectedActionType;
 
         public bool ShowSendMessageGrid { get { return this.SelectedActionType == DiscordActionTypeEnum.SendMessage; } }
+
+        public bool ShowSendEmbedGrid { get { return this.SelectedActionType == DiscordActionTypeEnum.SendEmbed; } }
 
         public ObservableCollection<DiscordChannel> Channels { get; set; } = new ObservableCollection<DiscordChannel>();
 
@@ -93,6 +96,127 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private bool deafenSelf;
 
+        public string EmbedTitle
+        {
+            get { return this.embedTitle; }
+            set
+            {
+                this.embedTitle = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedTitle;
+
+        public string EmbedDescription
+        {
+            get { return this.embedDescription; }
+            set
+            {
+                this.embedDescription = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedDescription;
+
+        public string EmbedColor
+        {
+            get { return this.embedColor; }
+            set
+            {
+                this.embedColor = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedColor = "#5865F2";
+
+        public string EmbedURL
+        {
+            get { return this.embedURL; }
+            set
+            {
+                this.embedURL = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedURL;
+
+        public string EmbedThumbnailURL
+        {
+            get { return this.embedThumbnailURL; }
+            set
+            {
+                this.embedThumbnailURL = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedThumbnailURL;
+
+        public string EmbedImageURL
+        {
+            get { return this.embedImageURL; }
+            set
+            {
+                this.embedImageURL = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedImageURL;
+
+        public string EmbedAuthorName
+        {
+            get { return this.embedAuthorName; }
+            set
+            {
+                this.embedAuthorName = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedAuthorName;
+
+        public string EmbedAuthorIconURL
+        {
+            get { return this.embedAuthorIconURL; }
+            set
+            {
+                this.embedAuthorIconURL = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedAuthorIconURL;
+
+        public string EmbedFooterText
+        {
+            get { return this.embedFooterText; }
+            set
+            {
+                this.embedFooterText = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedFooterText;
+
+        public string EmbedFooterIconURL
+        {
+            get { return this.embedFooterIconURL; }
+            set
+            {
+                this.embedFooterIconURL = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedFooterIconURL;
+
+        public bool EmbedIncludeTimestamp
+        {
+            get { return this.embedIncludeTimestamp; }
+            set
+            {
+                this.embedIncludeTimestamp = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool embedIncludeTimestamp;
+
         public ICommand RefreshChannelsCommand { get; set; }
 
         private string existingSelectedChannel;
@@ -114,6 +238,23 @@ namespace MixItUp.Base.ViewModel.Actions
             else if (this.SelectedActionType == DiscordActionTypeEnum.DeafenSelf)
             {
                 this.DeafenSelf = action.ShouldMuteDeafen;
+            }
+            else if (this.SelectedActionType == DiscordActionTypeEnum.SendEmbed)
+            {
+                this.existingSelectedChannel = action.ChannelID;
+                this.ChatMessage = action.MessageText;
+                this.UploadFilePath = action.FilePath;
+                this.EmbedTitle = action.EmbedTitle;
+                this.EmbedDescription = action.EmbedDescription;
+                this.EmbedColor = action.EmbedColor ?? "#5865F2";
+                this.EmbedURL = action.EmbedURL;
+                this.EmbedThumbnailURL = action.EmbedThumbnailURL;
+                this.EmbedImageURL = action.EmbedImageURL;
+                this.EmbedAuthorName = action.EmbedAuthorName;
+                this.EmbedAuthorIconURL = action.EmbedAuthorIconURL;
+                this.EmbedFooterText = action.EmbedFooterText;
+                this.EmbedFooterIconURL = action.EmbedFooterIconURL;
+                this.EmbedIncludeTimestamp = action.EmbedIncludeTimestamp;
             }
 
             this.InitializeRefreshCommand();
@@ -159,6 +300,21 @@ namespace MixItUp.Base.ViewModel.Actions
                     return Task.FromResult<Result>(new Result(MixItUp.Base.Resources.DiscordActionMissingChatMessage));
                 }
             }
+            else if (this.ShowSendEmbedGrid)
+            {
+                if (this.SelectedChannel == null)
+                {
+                    return Task.FromResult<Result>(new Result(MixItUp.Base.Resources.DiscordActionMissingChannel));
+                }
+
+                if (string.IsNullOrEmpty(this.EmbedTitle) &&
+                    string.IsNullOrEmpty(this.EmbedDescription) &&
+                    string.IsNullOrEmpty(this.EmbedImageURL) &&
+                    string.IsNullOrEmpty(this.EmbedThumbnailURL))
+                {
+                    return Task.FromResult<Result>(new Result(MixItUp.Base.Resources.DiscordActionMissingEmbedContent));
+                }
+            }
 
             return Task.FromResult<Result>(new Result());
         }
@@ -176,6 +332,24 @@ namespace MixItUp.Base.ViewModel.Actions
             else if (this.ShowDeafenGrid)
             {
                 return Task.FromResult<ActionModelBase>(DiscordActionModel.CreateForDeafenSelf(this.DeafenSelf));
+            }
+            else if (this.ShowSendEmbedGrid)
+            {
+                return Task.FromResult<ActionModelBase>(DiscordActionModel.CreateForEmbed(
+                    this.SelectedChannel,
+                    this.ChatMessage,
+                    this.UploadFilePath,
+                    this.EmbedTitle,
+                    this.EmbedDescription,
+                    this.EmbedColor,
+                    this.EmbedURL,
+                    this.EmbedThumbnailURL,
+                    this.EmbedImageURL,
+                    this.EmbedAuthorName,
+                    this.EmbedAuthorIconURL,
+                    this.EmbedFooterText,
+                    this.EmbedFooterIconURL,
+                    this.EmbedIncludeTimestamp));
             }
             return Task.FromResult<ActionModelBase>(null);
         }
