@@ -3417,6 +3417,12 @@ For example, if this option is enabled and amount is set to 5, then any time 5 O
   <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
     <value>Include Timestamp</value>
   </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Author (Optional)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Footer (Optional)</value>
+  </data>
   <data name="DiscordEmbedAuthorName" xml:space="preserve">
     <value>Author Name (Optional)</value>
   </data>

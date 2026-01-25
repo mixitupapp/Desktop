@@ -5829,6 +5829,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author (Optional).
+        /// </summary>
+        public static string DiscordEmbedAuthorSection {
+            get {
+                return ResourceManager.GetString("DiscordEmbedAuthorSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color.
         /// </summary>
         public static string DiscordEmbedColor {
@@ -5852,6 +5861,15 @@ namespace MixItUp.Base {
         public static string DiscordEmbedFooterIconURL {
             get {
                 return ResourceManager.GetString("DiscordEmbedFooterIconURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Footer (Optional).
+        /// </summary>
+        public static string DiscordEmbedFooterSection {
+            get {
+                return ResourceManager.GetString("DiscordEmbedFooterSection", resourceCulture);
             }
         }
         

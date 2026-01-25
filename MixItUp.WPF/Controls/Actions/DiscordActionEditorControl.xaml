@@ -150,7 +150,7 @@
                 <TextBox Grid.Column="2" Text="{Binding EmbedImageURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedImageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
 
-            <Expander Grid.Row="10" Header="{x:Static resx:Resources.Author}" Padding="0" MaterialDesign:ExpanderAssist.HorizontalHeaderPadding="0">
+            <Expander Grid.Row="10" Header="{x:Static resx:Resources.DiscordEmbedAuthorSection}" Padding="0" MaterialDesign:ExpanderAssist.HorizontalHeaderPadding="0">
                 <Grid Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -164,7 +164,7 @@
                 </Grid>
             </Expander>
 
-            <Expander Grid.Row="12" Header="{x:Static resx:Resources.Footer}" Padding="0" MaterialDesign:ExpanderAssist.HorizontalHeaderPadding="0">
+            <Expander Grid.Row="12" Header="{x:Static resx:Resources.DiscordEmbedFooterSection}" Padding="0" MaterialDesign:ExpanderAssist.HorizontalHeaderPadding="0">
                 <Grid Margin="0,10,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
