@@ -29,9 +29,9 @@
                 <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="180" />
                 <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="180" />
             </Grid.ColumnDefinitions>
 
             <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -44,9 +44,9 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
 
-            <TextBox Text="{Binding FontColor}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
 
-            <TextBox Text="{Binding ShadowColor}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ShadowColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
         </Grid>
 
         <Grid Grid.Row="2">

@@ -70,6 +70,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="obs-websocket-dotnet" Version="4.9.1" />
 		<PackageReference Include="ovrstream-client-csharp" Version="0.0.2" />
+		<PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2.2" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
 		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
 		<PackageReference Include="System.IO.Ports" Version="10.0.2" />

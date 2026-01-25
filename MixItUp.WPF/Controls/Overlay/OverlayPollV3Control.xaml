@@ -36,9 +36,9 @@
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="125" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="125" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -53,9 +53,9 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
 
-                <TextBox Text="{Binding FontColor}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
 
-                <TextBox Text="{Binding ShadowColor}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ShadowColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
 
                 <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                     <ListBoxItem IsSelected="{Binding Bold}">
@@ -78,9 +78,9 @@
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="125" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="125" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
@@ -95,9 +95,9 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
 
-                <TextBox Text="{Binding FontColor}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
 
-                <TextBox Text="{Binding ShadowColor}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ShadowColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
 
                 <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                     <ListBoxItem IsSelected="{Binding Bold}">
@@ -169,9 +169,9 @@
 
             <TextBox Text="{Binding Width}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-            <TextBox Text="{Binding BackgroundColor}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BackgroundColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding BackgroundColor}" Grid.Column="2" HintText="{x:Static resx:Resources.BackgroundColor}" />
 
-            <TextBox Text="{Binding BorderColor}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BorderColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding BorderColor}" Grid.Column="4" HintText="{x:Static resx:Resources.BorderColor}" />
 
             <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowTwitchPredictionChannelPoints}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
             <CheckBox Grid.Column="7" IsChecked="{Binding ShowTwitchPredictionChannelPoints}" VerticalAlignment="Center" Margin="5,0,0,0" />
@@ -195,7 +195,7 @@
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseRandomColors}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
             <CheckBox Grid.Column="3" IsChecked="{Binding UseRandomColors}" VerticalAlignment="Center" Margin="5,0,0,0" />
 
-            <TextBox Text="{Binding BarColor}" Grid.Column="5" IsEnabled="{Binding CanSpecifyColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BarColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding BarColor}" Grid.Column="5" IsEnabled="{Binding CanSpecifyColor}" HintText="{x:Static resx:Resources.BarColor}" />
 
             <TextBlock Grid.Column="7" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseTwitchPredictionColors}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
             <CheckBox Grid.Column="8" IsChecked="{Binding UseTwitchPredictionColors}" VerticalAlignment="Center" Margin="5,0,0,0" />

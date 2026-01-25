@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker">
+
+    <Style x:Key="MixItUpColorPickerStyle" TargetType="{x:Type colorpicker:StandardColorPicker}">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Background}" />
+        <Setter Property="SecondaryColor" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
+    </Style>
+
+    <Style x:Key="MixItUpPortableColorPickerStyle" TargetType="{x:Type colorpicker:PortableColorPicker}">
+        <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Background}" />
+        <Setter Property="SecondaryColor" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
+    </Style>
+
+</ResourceDictionary>
