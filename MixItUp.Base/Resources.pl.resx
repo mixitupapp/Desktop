@@ -11158,4 +11158,52 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="ForegroundColor" xml:space="preserve">
     <value>Kolor pierwszego planu</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord Action: Osadzenie musi mieć co najmniej tytuł, opis, miniaturę lub obraz.</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Wiadomość (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Embed Title</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Tytuł URL (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Opis osadzenia</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Kolor</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Dołącz znacznik czasu</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Autor (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Stopka (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Imię i nazwisko autora (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>Adres URL ikony autora (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>Adres URL miniatury (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>Adres URL obrazu (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Tekst stopki (opcjonalnie)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>Adres URL ikony stopki (opcjonalnie)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Wyślij Embed</value>
+  </data>
 </root>

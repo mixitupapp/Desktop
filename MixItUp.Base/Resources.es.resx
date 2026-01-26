@@ -11160,4 +11160,52 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="ForegroundColor" xml:space="preserve">
     <value>Color de primer plano</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Acción Discordia: Una incrustación debe tener al menos un título, una descripción, una miniatura o una imagen</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Mensaje (opcional)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Incrustar título</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Título URL (opcional)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Descripción de la incrustación</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Incluir marca de tiempo</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Autor (opcional)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Pie de página (opcional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Nombre del autor (opcional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL del icono del autor (opcional)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL de la miniatura (opcional)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL de la imagen (opcional)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Texto a pie de página (opcional)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL del icono de pie de página (opcional)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Enviar incrustación</value>
+  </data>
 </root>

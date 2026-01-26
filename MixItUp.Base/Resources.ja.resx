@@ -11158,4 +11158,52 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ForegroundColor" xml:space="preserve">
     <value>前景色</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discordアクション：埋め込みには、少なくともタイトル、説明、サムネイル、画像が必要です。</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>メッセージ（オプション）</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>埋め込みタイトル</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>タイトルURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>埋め込み説明</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>タイムスタンプを含む</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>著者（オプション）</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>フッター（オプション）</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>著者名（オプション）</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>著者アイコンURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>サムネイルURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>画像のURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>フッターテキスト（オプション）</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>フッターアイコンURL（オプション）</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>埋め込み送信</value>
+  </data>
 </root>
