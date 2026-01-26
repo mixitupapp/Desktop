@@ -44,11 +44,26 @@ namespace MixItUp.Base.Web
                             try
                             {
                                 HttpListenerContext context = this.httpListener.GetContext();
-                                Task.Factory.StartNew(async (ctx) =>
+                                _ = Task.Run(async () =>
                                 {
-                                    await this.ProcessConnection((HttpListenerContext)ctx);
-                                    ((HttpListenerContext)ctx).Response.Close();
-                                }, context, TaskCreationOptions.LongRunning);
+                                    try
+                                    {
+                                        await this.ProcessConnection(context);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.Log(ex);
+                                    }
+                                    finally
+                                    {
+                                        try
+                                        {
+                                            context.Response.OutputStream.Close();
+                                            context.Response.Close();
+                                        }
+                                        catch { }
+                                    }
+                                });
                             }
                             catch (HttpListenerException) { }
                             catch (Exception ex) { Logger.Log(ex); }
@@ -139,7 +154,9 @@ namespace MixItUp.Base.Web
             listenerContext.Response.StatusDescription = statusCode.ToString();
 
             byte[] buffer = Encoding.UTF8.GetBytes(content);
+            listenerContext.Response.ContentLength64 = buffer.Length;
             await listenerContext.Response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
+            await listenerContext.Response.OutputStream.FlushAsync();
         }
     }
 }
