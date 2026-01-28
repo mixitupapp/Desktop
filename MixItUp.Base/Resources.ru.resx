@@ -11163,4 +11163,52 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ForegroundColor" xml:space="preserve">
     <value>Цвет переднего плана</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord Action: Встраивание должно иметь как минимум заголовок, описание, миниатюру или изображение</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Сообщение (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Встроить название</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>URL-адрес заголовка (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Описание встраивания</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Включить временную метку</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Автор (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Нижний колонтитул (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Имя автора (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL-адрес значка автора (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL-адрес миниатюры (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL-адрес изображения (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Текст нижнего колонтитула (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL-адрес значка нижнего колонтитула (необязательно)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Отправить Embed</value>
+  </data>
 </root>

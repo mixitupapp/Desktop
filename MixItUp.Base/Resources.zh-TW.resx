@@ -11158,4 +11158,52 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ForegroundColor" xml:space="preserve">
     <value>前景色</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord 行动：嵌入必须至少有标题、描述、缩略图或图片</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>信息（可选）</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>嵌入标题</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>标题 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>嵌入说明</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>顏色</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>包含时间戳</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>作者（可选）</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>页脚（可选）</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>作者姓名（可选）</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>作者图标 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>缩略图 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>图片 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>页脚文本（可选）</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>页脚图标 URL（可选）</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>发送嵌入</value>
+  </data>
 </root>

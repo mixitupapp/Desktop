@@ -11158,4 +11158,52 @@ print(run())</value>
   <data name="ForegroundColor" xml:space="preserve">
     <value>Колір переднього плану</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Дія розбрату: Вбудовування повинно мати принаймні заголовок, опис, мініатюру або зображення</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Повідомлення (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Вставити заголовок</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>URL-адреса заголовка (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Опис вбудовування</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>колір</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Включити мітку часу</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Автор (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Нижній колонтитул (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Ім'я автора (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL-адреса іконки автора (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL-адреса мініатюри (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL-адреса зображення (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Текст нижнього колонтитула (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL іконки нижнього колонтитула (необов'язково)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Надіслати Вставити</value>
+  </data>
 </root>

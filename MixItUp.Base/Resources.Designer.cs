@@ -5784,6 +5784,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discord Action: An embed must have at least a title, description, thumbnail, or image.
+        /// </summary>
+        public static string DiscordActionMissingEmbedContent {
+            get {
+                return ResourceManager.GetString("DiscordActionMissingEmbedContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discord Bot.
         /// </summary>
         public static string DiscordBot {
@@ -5798,6 +5807,132 @@ namespace MixItUp.Base {
         public static string DiscordBotWebSocketFailed {
             get {
                 return ResourceManager.GetString("DiscordBotWebSocketFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author Icon URL (Optional).
+        /// </summary>
+        public static string DiscordEmbedAuthorIconURL {
+            get {
+                return ResourceManager.GetString("DiscordEmbedAuthorIconURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author Name (Optional).
+        /// </summary>
+        public static string DiscordEmbedAuthorName {
+            get {
+                return ResourceManager.GetString("DiscordEmbedAuthorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author (Optional).
+        /// </summary>
+        public static string DiscordEmbedAuthorSection {
+            get {
+                return ResourceManager.GetString("DiscordEmbedAuthorSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string DiscordEmbedColor {
+            get {
+                return ResourceManager.GetString("DiscordEmbedColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Embed Description.
+        /// </summary>
+        public static string DiscordEmbedDescription {
+            get {
+                return ResourceManager.GetString("DiscordEmbedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Footer Icon URL (Optional).
+        /// </summary>
+        public static string DiscordEmbedFooterIconURL {
+            get {
+                return ResourceManager.GetString("DiscordEmbedFooterIconURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Footer (Optional).
+        /// </summary>
+        public static string DiscordEmbedFooterSection {
+            get {
+                return ResourceManager.GetString("DiscordEmbedFooterSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Footer Text (Optional).
+        /// </summary>
+        public static string DiscordEmbedFooterText {
+            get {
+                return ResourceManager.GetString("DiscordEmbedFooterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image URL (Optional).
+        /// </summary>
+        public static string DiscordEmbedImageURL {
+            get {
+                return ResourceManager.GetString("DiscordEmbedImageURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Timestamp.
+        /// </summary>
+        public static string DiscordEmbedIncludeTimestamp {
+            get {
+                return ResourceManager.GetString("DiscordEmbedIncludeTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message (Optional).
+        /// </summary>
+        public static string DiscordEmbedOptionalMessage {
+            get {
+                return ResourceManager.GetString("DiscordEmbedOptionalMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thumbnail URL (Optional).
+        /// </summary>
+        public static string DiscordEmbedThumbnailURL {
+            get {
+                return ResourceManager.GetString("DiscordEmbedThumbnailURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Embed Title.
+        /// </summary>
+        public static string DiscordEmbedTitle {
+            get {
+                return ResourceManager.GetString("DiscordEmbedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title URL (Optional).
+        /// </summary>
+        public static string DiscordEmbedTitleURL {
+            get {
+                return ResourceManager.GetString("DiscordEmbedTitleURL", resourceCulture);
             }
         }
         
@@ -20784,6 +20919,15 @@ namespace MixItUp.Base {
         public static string SendChatAnnouncement {
             get {
                 return ResourceManager.GetString("SendChatAnnouncement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Embed.
+        /// </summary>
+        public static string SendEmbed {
+            get {
+                return ResourceManager.GetString("SendEmbed", resourceCulture);
             }
         }
         

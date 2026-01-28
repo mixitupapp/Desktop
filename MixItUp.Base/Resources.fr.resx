@@ -11159,4 +11159,52 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="ForegroundColor" xml:space="preserve">
     <value>Couleur d'avant-plan</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Action Discord : Un embed doit comporter au moins un titre, une description, une vignette ou une image.</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Message (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Intégrer le titre</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Titre URL (Facultatif)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Embed Description</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Inclure l'horodatage</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Auteur (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Pied de page (optionnel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Nom de l'auteur (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL de l'icône de l'auteur (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL de la vignette (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL de l'image (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Texte du pied de page (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL de l'icône de bas de page (facultatif)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Envoyer l'intégration</value>
+  </data>
 </root>

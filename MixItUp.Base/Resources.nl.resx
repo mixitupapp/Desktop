@@ -11159,4 +11159,52 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="ForegroundColor" xml:space="preserve">
     <value>Voorgrondkleur</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord actie: Een embed moet ten minste een titel, beschrijving, miniatuur of afbeelding hebben.</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Bericht (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Titel insluiten</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Titel URL (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Beschrijving insluiten</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Tijdstempel opnemen</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Auteur (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Voettekst (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Naam auteur (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL auteurspictogram (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL thumbnail (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL afbeelding (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Tekst voettekst (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL voettekstpictogram (optioneel)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Embed verzenden</value>
+  </data>
 </root>

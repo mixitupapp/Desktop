@@ -44,11 +44,26 @@ namespace MixItUp.Base.Web
                             try
                             {
                                 HttpListenerContext context = this.httpListener.GetContext();
-                                Task.Factory.StartNew(async (ctx) =>
+                                _ = Task.Run(async () =>
                                 {
-                                    await this.ProcessConnection((HttpListenerContext)ctx);
-                                    ((HttpListenerContext)ctx).Response.Close();
-                                }, context, TaskCreationOptions.LongRunning);
+                                    try
+                                    {
+                                        await this.ProcessConnection(context);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.Log(ex);
+                                    }
+                                    finally
+                                    {
+                                        try
+                                        {
+                                            context.Response.OutputStream.Close();
+                                            context.Response.Close();
+                                        }
+                                        catch { }
+                                    }
+                                });
                             }
                             catch (HttpListenerException) { }
                             catch (Exception ex) { Logger.Log(ex); }
@@ -98,33 +113,19 @@ namespace MixItUp.Base.Web
         /// <returns>The parameter value of the request</returns>
         protected string GetRequestParameter(HttpListenerContext listenerContext, string parameter)
         {
-            if (listenerContext.Request.RawUrl.Contains(parameter))
+            var queryString = HttpUtility.ParseQueryString(listenerContext.Request.Url.Query);
+            string value = queryString[parameter];
+
+            if (value != null)
+                return value;
+
+            string fragment = listenerContext.Request.Url.Fragment;
+            if (!string.IsNullOrEmpty(fragment) && fragment.StartsWith("#"))
             {
-                string searchString = "?" + parameter + "=";
-                int startIndex = listenerContext.Request.RawUrl.IndexOf(searchString);
-                if (startIndex < 0)
-                {
-                    searchString = "&" + parameter + "=";
-                    startIndex = listenerContext.Request.RawUrl.IndexOf(searchString);
-                    if (startIndex < 0)
-                    {
-                        searchString = "#" + parameter + "=";
-                        startIndex = listenerContext.Request.RawUrl.IndexOf(searchString);
-                    }
-                }
-
-                if (startIndex >= 0)
-                {
-                    string token = listenerContext.Request.RawUrl.Substring(startIndex + searchString.Length);
-
-                    int endIndex = token.IndexOf("&");
-                    if (endIndex > 0)
-                    {
-                        token = token.Substring(0, endIndex);
-                    }
-                    return token;
-                }
+                var fragmentParams = HttpUtility.ParseQueryString(fragment.Substring(1));
+                return fragmentParams[parameter];
             }
+
             return null;
         }
 
@@ -153,7 +154,9 @@ namespace MixItUp.Base.Web
             listenerContext.Response.StatusDescription = statusCode.ToString();
 
             byte[] buffer = Encoding.UTF8.GetBytes(content);
+            listenerContext.Response.ContentLength64 = buffer.Length;
             await listenerContext.Response.OutputStream.WriteAsync(buffer, 0, buffer.Length);
+            await listenerContext.Response.OutputStream.FlushAsync();
         }
     }
 }
