@@ -1056,6 +1056,8 @@ namespace MixItUp.Base.Model.Settings
         {
             try
             {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "CREATE TABLE IF NOT EXISTS \"SettingsBackupHistory\" (\"ID\" INTEGER PRIMARY KEY, \"BackupDateTime\" datetime not null default CURRENT_TIMESTAMP, \"SettingsJSON\" text not null)");
+
                 string settingsJSON = JSONSerializerHelper.SerializeToString(this);
 
                 if (string.IsNullOrEmpty(settingsJSON) || settingsJSON.Contains("\0"))
@@ -1163,20 +1165,6 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
-        public async Task CreateSettingsBackupTable()
-        {
-            bool tableExists = false;
-            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "SELECT name FROM sqlite_master WHERE type='table' AND name='SettingsBackupHistory'", (row) =>
-            {
-                tableExists = true;
-            });
-
-            if (!tableExists)
-            {
-                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "CREATE TABLE \"SettingsBackupHistory\" (\"ID\" INTEGER PRIMARY KEY, \"BackupDateTime\" datetime not null default CURRENT_TIMESTAMP, \"SettingsJSON\" text not null)");
-            }
-        }
-
         public async Task<IEnumerable<StatisticModel>> LoadSpecificStatisticType(StatisticItemTypeEnum type)
         {
             List<StatisticModel> statistics = new List<StatisticModel>();
@@ -1270,7 +1258,6 @@ namespace MixItUp.Base.Model.Settings
         {
             await this.CreateUserImportTable();
             //await this.CreateStatisticsTable();
-            await this.CreateSettingsBackupTable();
 
             StreamingPlatforms.ForEachPlatform(p =>
             {
