@@ -11158,4 +11158,7 @@ Pour utiliser Mix It Up, vous devez connecter au moins un compte de plateforme d
 
 Allez à la page Comptes dans le menu principal pour connecter votre compte de streaming, puis redémarrez Mix It Up.</value>
   </data>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Nous avons détecté que vous n'avez pas activé les sauvegardes automatiques. Pour protéger vos paramètres contre la corruption ou la perte de données, nous vous recommandons d'activer les sauvegardes automatisées. Allez dans Paramètres → Avancés pour activer les sauvegardes automatisées.</value>
+  </data>
 </root>

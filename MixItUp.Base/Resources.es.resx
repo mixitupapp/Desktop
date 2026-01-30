@@ -11159,4 +11159,7 @@ Para utilizar Mix It Up, debes conectar al menos una cuenta de plataforma de str
 
 Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming y, a continuación, reinicia Mix It Up.</value>
   </data>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Hemos detectado que no tienes activadas las copias de seguridad automáticas. Para proteger su configuración frente a la corrupción o la pérdida de datos, le recomendamos que active las copias de seguridad automáticas. Vaya a Configuración → Avanzado para activar las copias de seguridad automáticas.</value>
+  </data>
 </root>

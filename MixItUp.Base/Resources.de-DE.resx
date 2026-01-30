@@ -9876,4 +9876,7 @@ Um Mix It Up zu nutzen, müssen Sie mindestens ein Streaming-Plattform-Konto ver
 
 Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu verbinden, und starten Sie dann Mix It Up neu.</value>
   </data>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Wir haben festgestellt, dass Sie keine automatischen Sicherungen aktiviert haben. Um Ihre Einstellungen vor Beschädigung oder Datenverlust zu schützen, empfehlen wir, automatische Sicherungen zu aktivieren. Gehen Sie zu Einstellungen → Erweitert, um automatische Sicherungen zu aktivieren.</value>
+  </data>
 </root>

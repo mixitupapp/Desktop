@@ -11158,4 +11158,7 @@ Om Mix It Up te gebruiken, moet je ten minste één streamingplatformaccount ver
 
 Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluiten en start Mix It Up vervolgens opnieuw.</value>
   </data>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>We hebben gedetecteerd dat je geen automatische back-ups hebt ingeschakeld. Om je instellingen te beschermen tegen corruptie of gegevensverlies, raden we je aan om automatische back-ups in te schakelen. Ga naar Instellingen → Geavanceerd om automatische back-ups in te schakelen.</value>
+  </data>
 </root>

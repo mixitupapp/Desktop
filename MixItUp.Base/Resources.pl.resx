@@ -11157,4 +11157,7 @@ Aby korzystać z Mix It Up, musisz podłączyć co najmniej jedno konto platform
 
 Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streamingowe, a następnie uruchom ponownie Mix It Up.</value>
   </data>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Wykryliśmy, że nie masz włączonych automatycznych kopii zapasowych. Aby chronić ustawienia przed uszkodzeniem lub utratą danych, zalecamy włączenie automatycznych kopii zapasowych. Przejdź do Ustawienia → Zaawansowane, aby włączyć automatyczne tworzenie kopii zapasowych.</value>
+  </data>
 </root>

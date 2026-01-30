@@ -11158,4 +11158,7 @@ Para utilizar o Mix It Up, é necessário ligar pelo menos uma conta de platafor
 
 Aceda à página Contas no menu principal para ligar a sua conta de transmissão e, em seguida, reinicie o Mix It Up.</value>
   </data>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Detectámos que não tem as cópias de segurança automáticas activadas. Para proteger as suas definições contra corrupção ou perda de dados, recomendamos que active as cópias de segurança automáticas. Aceda a Definições → Avançadas para ativar as cópias de segurança automáticas.</value>
+  </data>
 </root>
