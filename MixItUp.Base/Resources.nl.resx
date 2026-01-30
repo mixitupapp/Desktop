@@ -940,6 +940,9 @@
     <value>Lettergrootte</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Voorgrondkleur</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Vier</value>
   </data>
@@ -3043,6 +3046,12 @@ Fuzzy</comment>
     <value>Offertes exporteren</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Citaten hernummeren</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Hierdoor worden alle offertes opeenvolgend hernummerd op basis van hun huidige volgorde. Quotenummers zullen veranderen. Weet u zeker dat u wilt doorgaan?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Reguliere bonus</value>
     <comment>Manual</comment>
@@ -3254,6 +3263,9 @@ Fuzzy</comment>
   <data name="HideBotMessages" xml:space="preserve">
     <value>Bot-berichten verbergen</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Verberg fluisterberichten</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Patreon-voordeel</value>
@@ -10794,16 +10806,6 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Fout 'Geen gegevens' niet weergeven</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Er kwamen geen stemmen terug</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Verberg fluisterberichten</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Blazing Star</value>
   </data>
@@ -11071,6 +11073,9 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Geen API-sleutel verstrekt</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Er kwamen geen stemmen terug</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Er is geen aangepaste Google Cloud TTS API-sleutel toegevoegd. bezoek de Google Cloud TTS-sectie op de Services-pagina om uw eigen API-sleutel te verbinden.</value>
   </data>
@@ -11122,6 +11127,9 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="Rescan" xml:space="preserve">
     <value>Rescan</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Actietype</value>
   </data>
@@ -11149,14 +11157,5 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
 Om Mix It Up te gebruiken, moet je ten minste één streamingplatformaccount verbinden.
 
 Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluiten en start Mix It Up vervolgens opnieuw.</value>
-  </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Citaten hernummeren</value>
-  </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Hierdoor worden alle offertes opeenvolgend hernummerd op basis van hun huidige volgorde. Quotenummers zullen veranderen. Weet u zeker dat u wilt doorgaan?</value>
-  </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Voorgrondkleur</value>
   </data>
 </root>

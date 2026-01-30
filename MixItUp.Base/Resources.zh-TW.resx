@@ -940,6 +940,9 @@
     <value>字體大小</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>前景色</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>四</value>
   </data>
@@ -3042,6 +3045,12 @@
     <value>出口行情</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>重新编号报价</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>这将根据当前顺序对所有报价按顺序重新编号。报价编号将发生变化。您确定要继续吗？</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>定期獎金</value>
     <comment>Manual</comment>
@@ -3253,6 +3262,9 @@
   <data name="HideBotMessages" xml:space="preserve">
     <value>隱藏機器人訊息</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>隐藏耳语信息</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Patreon 福利</value>
@@ -10793,16 +10805,6 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>不顯示“無數據”錯誤</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>沒有聲音返回</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>地位</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>隐藏耳语信息</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>炽热之星</value>
   </data>
@@ -11070,6 +11072,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>未提供应用程序接口密钥</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>沒有聲音返回</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>未添加自定义 Google Cloud TTS API 密钥。请访问服务页面上的 Google Cloud TTS 部分，连接您自己的 API 密钥。</value>
   </data>
@@ -11121,6 +11126,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="Rescan" xml:space="preserve">
     <value>重新扫描</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>地位</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>行动类型</value>
   </data>
@@ -11148,14 +11156,5 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
 要使用 Mix It Up，您需要连接至少一个流媒体平台账户。
 
 请前往主菜单的 "账户 "页面连接流媒体账户，然后重新启动 Mix It Up。</value>
-  </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>重新编号报价</value>
-  </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>这将根据当前顺序对所有报价按顺序重新编号。报价编号将发生变化。您确定要继续吗？</value>
-  </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>前景色</value>
   </data>
 </root>

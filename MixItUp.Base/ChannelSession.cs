@@ -500,6 +500,21 @@ namespace MixItUp.Base
                     }
                 }
 
+                if (ChannelSession.Settings.SettingsBackupRate == SettingsBackupRateEnum.None)
+                {
+                    ChannelSession.Settings.BackupWarningLaunchCount++;
+
+                    if (ChannelSession.Settings.BackupWarningLaunchCount >= 5)
+                    {
+                        await DialogHelper.ShowMessage(Resources.AutomatedBackupsDisabledWarning);
+                        ChannelSession.Settings.BackupWarningLaunchCount = 0;
+                    }
+                }
+                else
+                {
+                    ChannelSession.Settings.BackupWarningLaunchCount = 0;
+                }
+
                 await ChannelSession.SaveSettings();
                 await ServiceManager.Get<SettingsService>().SaveLocalBackup(ChannelSession.Settings);
                 await ServiceManager.Get<SettingsService>().PerformAutomaticBackupIfApplicable(ChannelSession.Settings);

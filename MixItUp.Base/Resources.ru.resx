@@ -941,6 +941,9 @@ Fuzzy</comment>
     <value>Размер шрифта</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Цвет переднего плана</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Четыре</value>
   </data>
@@ -3045,6 +3048,12 @@ Fuzzy</comment>
     <value>Экспортные котировки</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Котировки перенумеровать</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Это изменит последовательную нумерацию всех котировок в соответствии с их текущим порядком. Номера котировок изменятся. Вы уверены, что хотите продолжить?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Регулярный бонус</value>
     <comment>Manual</comment>
@@ -3256,6 +3265,9 @@ Fuzzy</comment>
   <data name="HideBotMessages" xml:space="preserve">
     <value>Скрыть сообщения бота</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Скрывать сообщения шепотом</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Выгода Патреона</value>
@@ -10798,16 +10810,6 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Не показывать ошибку «Нет данных»</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Голоса не вернулись</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Статус</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Скрывать сообщения шепотом</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Пылающая звезда</value>
   </data>
@@ -11075,6 +11077,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Ключ API не предоставляется</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Голоса не вернулись</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Пользовательский ключ API Google Cloud TTS не был добавлен. Посетите раздел Google Cloud TTS на странице "Сервисы", чтобы подключить собственный ключ API.</value>
   </data>
@@ -11126,6 +11131,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="Rescan" xml:space="preserve">
     <value>Повторное сканирование</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Тип действия</value>
   </data>
@@ -11153,14 +11161,5 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
 Чтобы использовать Mix It Up, необходимо подключить хотя бы одну учетную запись стриминговой платформы.
 
 Пожалуйста, перейдите на страницу "Аккаунты" в главном меню, чтобы подключить аккаунт стриминговой платформы, а затем перезапустите Mix It Up.</value>
-  </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Котировки перенумеровать</value>
-  </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Это изменит последовательную нумерацию всех котировок в соответствии с их текущим порядком. Номера котировок изменятся. Вы уверены, что хотите продолжить?</value>
-  </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Цвет переднего плана</value>
   </data>
 </root>

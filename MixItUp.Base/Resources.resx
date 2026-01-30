@@ -11162,4 +11162,7 @@ To use Mix It Up, you need to connect at least one streaming platform account.
 
 Please go to the Accounts page in the main menu to connect your streaming account, then restart Mix It Up.</value>
   </data>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>We detected you don't have automated backups enabled. To protect your settings from corruption or data loss, we recommend enabling automated backups. Go to Settings → Advanced to enable automated backups.</value>
+  </data>
 </root>

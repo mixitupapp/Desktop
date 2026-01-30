@@ -78,6 +78,8 @@ namespace MixItUp.Base.Model.Settings
         public SettingsBackupRateEnum SettingsBackupRate { get; set; }
         [DataMember]
         public DateTimeOffset SettingsLastBackup { get; set; }
+        [DataMember]
+        public int BackupWarningLaunchCount { get; set; } = 0;
 
         #region Authentication
 
@@ -1171,7 +1173,7 @@ namespace MixItUp.Base.Model.Settings
 
             if (!tableExists)
             {
-                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "CREATE TABLE \"SettingsBackupHistory\" (\"ID\" INTEGER PRIMARY KEY AUTOINCREMENT, \"BackupDateTime\" datetime not null default CURRENT_TIMESTAMP, \"SettingsJSON\" text not null)");
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "CREATE TABLE \"SettingsBackupHistory\" (\"ID\" INTEGER PRIMARY KEY, \"BackupDateTime\" datetime not null default CURRENT_TIMESTAMP, \"SettingsJSON\" text not null)");
             }
         }
 
