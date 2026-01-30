@@ -176,6 +176,7 @@ namespace MixItUp.Base.Services
         public async Task Initialize(SettingsV3Model settings)
         {
             await settings.Initialize();
+            await settings.BackupSettingsToDatabase();
         }
 
         public async Task Save(SettingsV3Model settings)
