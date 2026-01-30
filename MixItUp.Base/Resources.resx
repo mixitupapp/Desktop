@@ -11165,4 +11165,10 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>We detected you don't have automated backups enabled. To protect your settings from corruption or data loss, we recommend enabling automated backups. Go to Settings → Advanced to enable automated backups.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Reset Window Position</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Window positions have been reset</value>
+  </data>
 </root>

@@ -9879,4 +9879,10 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>Wir haben festgestellt, dass Sie keine automatischen Sicherungen aktiviert haben. Um Ihre Einstellungen vor Beschädigung oder Datenverlust zu schützen, empfehlen wir, automatische Sicherungen zu aktivieren. Gehen Sie zu Einstellungen → Erweitert, um automatische Sicherungen zu aktivieren.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Fensterposition zurücksetzen</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Die Fensterpositionen wurden zurückgesetzt</value>
+  </data>
 </root>

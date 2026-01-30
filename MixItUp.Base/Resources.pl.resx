@@ -11160,4 +11160,10 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>Wykryliśmy, że nie masz włączonych automatycznych kopii zapasowych. Aby chronić ustawienia przed uszkodzeniem lub utratą danych, zalecamy włączenie automatycznych kopii zapasowych. Przejdź do Ustawienia → Zaawansowane, aby włączyć automatyczne tworzenie kopii zapasowych.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Resetowanie pozycji okna</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Pozycje okien zostały zresetowane</value>
+  </data>
 </root>

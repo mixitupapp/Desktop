@@ -11160,4 +11160,10 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>Abbiamo rilevato che non sono stati attivati i backup automatici. Per proteggere le impostazioni dalla corruzione o dalla perdita di dati, si consiglia di attivare i backup automatici. Andare su Impostazioni → Avanzate per abilitare i backup automatici.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Azzeramento della posizione della finestra</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Le posizioni delle finestre sono state ripristinate</value>
+  </data>
 </root>

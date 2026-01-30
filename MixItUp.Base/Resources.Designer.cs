@@ -19469,6 +19469,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset Window Position.
+        /// </summary>
+        public static string ResetWindowPosition {
+            get {
+                return ResourceManager.GetString("ResetWindowPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window positions have been reset.
+        /// </summary>
+        public static string ResetWindowPositionDialog {
+            get {
+                return ResourceManager.GetString("ResetWindowPositionDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Response Processing Type.
         /// </summary>
         public static string ResponseProcessingType {

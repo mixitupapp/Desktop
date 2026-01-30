@@ -11160,4 +11160,10 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>我们检测到您没有启用自动备份。为防止设置损坏或数据丢失，我们建议您启用自动备份。转到设置 → 高级启用自动备份。</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>重置窗口位置</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>窗口位置已重置</value>
+  </data>
 </root>

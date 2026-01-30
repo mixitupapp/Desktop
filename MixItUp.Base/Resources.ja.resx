@@ -11160,4 +11160,10 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>自動バックアップが有効になっていないことがわかりました。設定を破損やデータ損失から保護するために、自動バックアップを有効にすることをお勧めします。設定] → [詳細設定] で自動バックアップを有効にします。</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>ウィンドウ位置をリセット</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>窓の位置がリセットされた</value>
+  </data>
 </root>

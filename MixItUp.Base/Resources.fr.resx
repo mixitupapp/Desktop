@@ -11161,4 +11161,10 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>Nous avons détecté que vous n'avez pas activé les sauvegardes automatiques. Pour protéger vos paramètres contre la corruption ou la perte de données, nous vous recommandons d'activer les sauvegardes automatisées. Allez dans Paramètres → Avancés pour activer les sauvegardes automatisées.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Réinitialiser la position de la fenêtre</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Les positions des fenêtres ont été réinitialisées</value>
+  </data>
 </root>

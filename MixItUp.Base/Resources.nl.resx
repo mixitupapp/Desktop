@@ -11161,4 +11161,10 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>We hebben gedetecteerd dat je geen automatische back-ups hebt ingeschakeld. Om je instellingen te beschermen tegen corruptie of gegevensverlies, raden we je aan om automatische back-ups in te schakelen. Ga naar Instellingen → Geavanceerd om automatische back-ups in te schakelen.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Vensterpositie resetten</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Vensterposities zijn opnieuw ingesteld</value>
+  </data>
 </root>

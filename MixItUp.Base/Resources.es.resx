@@ -11162,4 +11162,10 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>Hemos detectado que no tienes activadas las copias de seguridad automáticas. Para proteger su configuración frente a la corrupción o la pérdida de datos, le recomendamos que active las copias de seguridad automáticas. Vaya a Configuración → Avanzado para activar las copias de seguridad automáticas.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Restablecer la posición de la ventana</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Se han restablecido las posiciones de las ventanas</value>
+  </data>
 </root>

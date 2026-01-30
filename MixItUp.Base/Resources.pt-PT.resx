@@ -11162,4 +11162,10 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>Detectámos que não tem as cópias de segurança automáticas activadas. Para proteger as suas definições contra corrupção ou perda de dados, recomendamos que active as cópias de segurança automáticas. Aceda a Definições → Avançadas para ativar as cópias de segurança automáticas.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Repor a posição da janela</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>As posições das janelas foram repostas</value>
+  </data>
 </root>

@@ -11165,4 +11165,10 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
     <value>Мы обнаружили, что у вас не включено автоматическое резервное копирование. Чтобы защитить ваши настройки от повреждения или потери данных, мы рекомендуем включить автоматическое резервное копирование. Перейдите в Настройки → Дополнительно, чтобы включить автоматическое резервное копирование.</value>
   </data>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Сброс положения окна</value>
+  </data>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Положение окон было изменено</value>
+  </data>
 </root>
