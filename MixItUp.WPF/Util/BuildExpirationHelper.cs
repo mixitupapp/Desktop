@@ -15,6 +15,11 @@ namespace MixItUp.WPF.Util
             return ENABLED;
         }
 
+        public static DateTime GetExpirationDate()
+        {
+            return EXPIRATION_DATE;
+        }
+
         public static async Task<bool> CheckBuildExpiration()
         {
             if (!ENABLED)
@@ -25,11 +30,6 @@ namespace MixItUp.WPF.Util
             if (DateTime.Now > EXPIRATION_DATE)
             {
                 Logger.ForceLog(LogLevel.Warning, $"Build expired on {EXPIRATION_DATE.ToShortDateString()}");
-
-                await DialogHelper.ShowMessage(
-                    $"This build expired on {EXPIRATION_DATE.ToShortDateString()}.\n\n" +
-                    "Please download the latest version to continue using Mix It Up.");
-
                 return true;
             }
 
