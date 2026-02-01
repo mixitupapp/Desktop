@@ -504,7 +504,7 @@ namespace MixItUp.Base
                 {
                     ChannelSession.Settings.BackupWarningLaunchCount++;
 
-                    if (ChannelSession.Settings.BackupWarningLaunchCount >= 5)
+                    if (ChannelSession.Settings.BackupWarningLaunchCount >= 10)
                     {
                         await DialogHelper.ShowMessage(Resources.AutomatedBackupsDisabledWarning);
                         ChannelSession.Settings.BackupWarningLaunchCount = 0;
