@@ -27,6 +27,7 @@ namespace MixItUp.WPF
         private OutageModel currentOutage;
 
         private ThreadSafeObservableCollection<SettingsV3Model> streamerSettings = new ThreadSafeObservableCollection<SettingsV3Model>();
+        private bool isBackupOnlyMode = false;
 
         public LoginWindow()
         {
@@ -65,10 +66,13 @@ namespace MixItUp.WPF
 
             await this.CheckForUpdates();
 
-            if (await Util.BuildExpirationHelper.CheckBuildExpiration())
+            bool isBuildExpired = await Util.BuildExpirationHelper.CheckBuildExpiration();
+            if (isBuildExpired)
             {
-                this.Close();
-                return;
+                isBackupOnlyMode = true;
+                await DialogHelper.ShowMessage(
+                    $"This build expired on {Util.BuildExpirationHelper.GetExpirationDate().ToShortDateString()}.\n\n" +
+                    "You can use the Backup Settings button to backup your profile.");
             }
 
             foreach (SettingsV3Model setting in (await ServiceManager.Get<SettingsService>().GetAllSettings()).OrderBy(s => s.Name))
@@ -84,6 +88,14 @@ namespace MixItUp.WPF
                 {
                     this.ExistingStreamerComboBox.SelectedIndex = 0;
                 }
+            }
+
+            if (isBackupOnlyMode)
+            {
+                this.StreamerLoginButton.Content = MixItUp.Base.Resources.BackupSettings;
+                this.NewStreamerLoginButton.IsEnabled = false;
+                this.NewStreamerLoginButton.Visibility = Visibility.Collapsed;
+                this.RestoreBackupButton.IsEnabled = false;
             }
 
             if (ChannelSession.AppSettings.AutoLogInID != Guid.Empty)
@@ -128,24 +140,31 @@ namespace MixItUp.WPF
                     SettingsV3Model setting = (SettingsV3Model)this.ExistingStreamerComboBox.SelectedItem;
                     if (setting.ID != Guid.Empty)
                     {
-                        if (await this.ExistingSettingLogin(setting))
+                        if (isBackupOnlyMode)
                         {
-                            LoadingWindowBase newWindow = null;
-                            if (ChannelSession.Settings.ReRunWizard)
+                            await this.BackupProfileSettings(setting);
+                        }
+                        else
+                        {
+                            if (await this.ExistingSettingLogin(setting))
                             {
-                                newWindow = new NewUserWizardWindow();
-                            }
-                            else
-                            {
-                                newWindow = new MainWindow();
-                            }
+                                LoadingWindowBase newWindow = null;
+                                if (ChannelSession.Settings.ReRunWizard)
+                                {
+                                    newWindow = new NewUserWizardWindow();
+                                }
+                                else
+                                {
+                                    newWindow = new MainWindow();
+                                }
 
-                            ChannelSession.OnRestartRequested -= ChannelSession_OnRestartRequested;
+                                ChannelSession.OnRestartRequested -= ChannelSession_OnRestartRequested;
 
-                            ShowMainWindow(newWindow);
-                            this.Hide();
-                            this.Close();
-                            return;
+                                ShowMainWindow(newWindow);
+                                this.Hide();
+                                this.Close();
+                                return;
+                            }
                         }
                     }
                 }
@@ -235,6 +254,20 @@ namespace MixItUp.WPF
             }
             await DialogHelper.ShowMessage(result.Message);
             return false;
+        }
+
+        private async Task BackupProfileSettings(SettingsV3Model setting)
+        {
+            string filePath = ServiceManager.Get<IFileService>().ShowSaveFileDialog(
+                setting.Name + "." + SettingsV3Model.SettingsBackupFileExtension, 
+                MixItUp.Base.Resources.MixItUpBackupFileFormatFilter);
+            
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                await ServiceManager.Get<SettingsService>().SavePackagedBackup(setting, filePath);
+                await DialogHelper.ShowMessage(
+                    $"Backup saved to:\n{filePath}\n\nYou may now close the program.");
+            }
         }
 
 
