@@ -183,55 +183,37 @@ namespace MixItUp.Base.Services
         {
             if (settings != null)
             {
+                Logger.Log(LogLevel.Debug, "Settings save operation started");
+
                 try
                 {
                     await semaphore.WaitAsync();
 
                     settings.CopyLatestValues();
-                    await FileSerializerHelper.SerializeToFile(settings.SettingsFilePath, settings);
+                    await FileSerializerHelper.SerializeSettingsToFile(settings.SettingsFilePath, settings);
+
+                    if (File.Exists(settings.SettingsFilePath))
+                    {
+                        File.Copy(settings.SettingsFilePath, settings.SettingsLocalBackupFilePath, overwrite: true);
+                        Logger.Log(LogLevel.Debug, "Local backup file updated");
+                    }
+
                     await settings.SaveDatabaseData();
                 }
                 catch (Exception ex)
                 {
+                    Logger.Log(LogLevel.Error, "Settings save operation failed");
                     Logger.Log(ex);
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
-            }
-        }
-
-        public async Task SaveLocalBackup(SettingsV3Model settings)
-        {
-            if (settings != null)
-            {
-                Logger.Log(LogLevel.Debug, "Settings local backup save operation started");
-
-                if (ServiceManager.Get<IFileService>().GetFileSize(settings.SettingsFilePath) == 0)
-                {
-                    Logger.Log(LogLevel.Debug, "Main settings file is empty, aborting local backup settings save operation");
-                    return;
-                }
-
-                try
-                {
-                    await semaphore.WaitAsync();
-
-                    await FileSerializerHelper.SerializeToFile(settings.SettingsLocalBackupFilePath, settings);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex);
+                    await DialogHelper.ShowMessage("WARNING: Failed to save user settings. Please visit the Mix it Up Discord for assistance.");
                 }
                 finally
                 {
                     semaphore.Release();
                 }
 
-                Logger.Log(LogLevel.Debug, "Settings local backup save operation finished");
+                Logger.Log(LogLevel.Debug, "Settings save operation finished");
             }
-        }
+        }    
 
         public async Task SavePackagedBackup(SettingsV3Model settings, string filePath)
         {
