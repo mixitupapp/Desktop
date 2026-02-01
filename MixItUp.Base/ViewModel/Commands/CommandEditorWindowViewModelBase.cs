@@ -111,6 +111,17 @@ namespace MixItUp.Base.ViewModel.Commands
         }
         private CommandTypeEnum type;
 
+        public string WindowTitle
+        {
+            get { return this.windowTitle; }
+            set
+            {
+                this.windowTitle = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string windowTitle;
+
         public string Name
         {
             get { return this.name; }
@@ -118,6 +129,11 @@ namespace MixItUp.Base.ViewModel.Commands
             {
                 this.name = value;
                 this.NotifyPropertyChanged();
+
+                if (this.IsExistingCommand && !string.IsNullOrEmpty(value))
+                {
+                    this.WindowTitle = value;
+                }
             }
         }
         private string name;
@@ -169,6 +185,7 @@ namespace MixItUp.Base.ViewModel.Commands
             this.existingCommand = existingCommand;
 
             this.Name = this.existingCommand.Name;
+            this.WindowTitle = this.existingCommand.Name;
             this.SelectedCommandGroup = this.existingCommand.GroupName;
             this.Unlocked = this.existingCommand.Unlocked;
             this.Requirements = new RequirementsSetViewModel(this.existingCommand.Requirements);
@@ -177,6 +194,7 @@ namespace MixItUp.Base.ViewModel.Commands
         public CommandEditorWindowViewModelBase(CommandTypeEnum type)
         {
             this.Type = type;
+            this.WindowTitle = MixItUp.Base.Resources.CommandEditor;
 
             this.SaveCommand = this.CreateCommand(async () =>
             {
