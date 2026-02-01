@@ -29,6 +29,7 @@ namespace MixItUp.Base.Services
         Task SaveFile(string filePath, byte[] data);
         Task SaveFile(string filePath, Stream data);
         Task AppendFile(string filePath, string data);
+        Task SaveSettingsFile(string filePath, string data);
 
         string ShowOpenFolderDialog();
 

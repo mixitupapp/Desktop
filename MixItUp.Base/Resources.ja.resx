@@ -940,6 +940,9 @@
     <value>フォント サイズ</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>前景色</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>4</value>
   </data>
@@ -3042,6 +3045,12 @@
     <value>見積書のエクスポート</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>リナンバークォーツ</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>これにより、すべての見積もりは、現在の順序に基づいて連番が変更されます。見積書番号は変更されます。本当に続けますか？</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>レギュラーボーナス</value>
     <comment>Manual</comment>
@@ -3253,6 +3262,9 @@
   <data name="HideBotMessages" xml:space="preserve">
     <value>ボットメッセージを非表示にする</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>ささやきメッセージを隠す</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>パトレオンの特典</value>
@@ -10793,16 +10805,6 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>「データなし」エラーを表示しない</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>声は返ってこない</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>状態</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>ささやきメッセージを隠す</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>ブレイジング・スター</value>
   </data>
@@ -11070,6 +11072,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>APIキーは提供されていません</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>声は返ってこない</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>カスタムのGoogle Cloud TTS APIキーは追加されていません。ご自身のAPIキーを接続するには、サービスページのGoogle Cloud TTSセクションをご覧ください。</value>
   </data>
@@ -11121,6 +11126,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="Rescan" xml:space="preserve">
     <value>再スキャン</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>作動タイプ</value>
   </data>
@@ -11149,13 +11157,13 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
 
 メインメニューのアカウントページでストリーミングアカウントを接続し、ミックスイットアップを再起動してください。</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>リナンバークォーツ</value>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>自動バックアップが有効になっていないことがわかりました。設定を破損やデータ損失から保護するために、自動バックアップを有効にすることをお勧めします。設定] → [詳細設定] で自動バックアップを有効にします。</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>これにより、すべての見積もりは、現在の順序に基づいて連番が変更されます。見積書番号は変更されます。本当に続けますか？</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>ウィンドウ位置をリセット</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>前景色</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>窓の位置がリセットされた</value>
   </data>
 </root>

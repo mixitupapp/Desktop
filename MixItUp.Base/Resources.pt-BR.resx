@@ -940,6 +940,9 @@
     <value>Tamanho da fonte</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Cor do primeiro plano</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Quatro</value>
   </data>
@@ -3042,6 +3045,12 @@
     <value>Exportar citações</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Renumerar citações</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Isto irá renumerar todas as cotações sequencialmente com base na sua ordem atual. Os números das cotações serão alterados. Tem a certeza de que pretende continuar?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Bónus Regular</value>
     <comment>Manual</comment>
@@ -3253,6 +3262,9 @@
   <data name="HideBotMessages" xml:space="preserve">
     <value>Ocultar mensagens do bot</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Esconder Mensagens Sussurrar</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Benefício do Patreon</value>
@@ -10794,16 +10806,6 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Não mostrar erro "Sem dados"</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Nenhuma voz retornou</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Estatuto</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Esconder Mensagens Sussurrar</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Estrela Flamejante</value>
   </data>
@@ -11071,6 +11073,9 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Nenhuma chave de API fornecida</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Nenhuma voz retornou</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Nenhuma chave personalizada de API do TTS do Google Cloud foi adicionada. por favor, visite a seção do Google Cloud TTS na página de Serviços para conectar sua própria chave de API.</value>
   </data>
@@ -11122,6 +11127,9 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="Rescan" xml:space="preserve">
     <value>Reescanear</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estatuto</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Tipo de ação</value>
   </data>
@@ -11150,13 +11158,13 @@ Para utilizar o Mix It Up, é necessário ligar pelo menos uma conta de platafor
 
 Aceda à página Contas no menu principal para ligar a sua conta de transmissão e, em seguida, reinicie o Mix It Up.</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Renumerar citações</value>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Detectámos que não tem as cópias de segurança automáticas activadas. Para proteger as suas definições contra corrupção ou perda de dados, recomendamos que active as cópias de segurança automáticas. Aceda a Definições → Avançadas para ativar as cópias de segurança automáticas.</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Isto irá renumerar todas as cotações sequencialmente com base na sua ordem atual. Os números das cotações serão alterados. Tem a certeza de que pretende continuar?</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Repor a posição da janela</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Cor do primeiro plano</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>As posições das janelas foram repostas</value>
   </data>
 </root>

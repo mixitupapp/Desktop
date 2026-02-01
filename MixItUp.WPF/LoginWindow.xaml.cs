@@ -276,6 +276,25 @@ namespace MixItUp.WPF
         {
             ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord");
         }
+
+        private async void ResetWindowPosition_Click(object sender, RoutedEventArgs e)
+        {
+            ChannelSession.AppSettings.Top = 0;
+            ChannelSession.AppSettings.Left = 0;
+            ChannelSession.AppSettings.Width = 0;
+            ChannelSession.AppSettings.Height = 0;
+            ChannelSession.AppSettings.IsMaximized = false;
+            ChannelSession.AppSettings.DashboardTop = 0;
+            ChannelSession.AppSettings.DashboardLeft = 0;
+            ChannelSession.AppSettings.DashboardWidth = 0;
+            ChannelSession.AppSettings.DashboardHeight = 0;
+            ChannelSession.AppSettings.IsDashboardMaximized = false;
+            
+            await ChannelSession.AppSettings.Save();
+            
+            await DialogHelper.ShowMessage(MixItUp.Base.Resources.ResetWindowPositionDialog);
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
