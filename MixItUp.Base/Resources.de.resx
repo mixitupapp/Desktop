@@ -11172,4 +11172,13 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="ResetWindowPositionDialog" xml:space="preserve">
     <value>Die Fensterpositionen wurden zurückgesetzt</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Hardware-Beschleunigung deaktivieren</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>Die Anwendung muss neu gestartet werden, damit diese Änderung wirksam wird.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Deaktiviert die GPU-Hardwarebeschleunigung und verwendet stattdessen Software-Rendering. Aktivieren Sie dies, wenn es zu grafikbedingten Abstürzen kommt (UCEERRRENDERTHREADFAILURE). Erfordert einen Neustart.</value>
+  </data>
 </root>

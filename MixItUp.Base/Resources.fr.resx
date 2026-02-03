@@ -11167,4 +11167,13 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="ResetWindowPositionDialog" xml:space="preserve">
     <value>Les positions des fenêtres ont été réinitialisées</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Désactiver l'accélération matérielle</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>L'application doit être redémarrée pour que cette modification prenne effet.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Désactive l'accélération matérielle du GPU et utilise le rendu logiciel à la place. Activez cette option si vous rencontrez des pannes liées aux graphiques (UCEERRRENDERTHREADFAILURE). Nécessite un redémarrage.</value>
+  </data>
 </root>

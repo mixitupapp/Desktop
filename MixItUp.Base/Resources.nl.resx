@@ -11167,4 +11167,13 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="ResetWindowPositionDialog" xml:space="preserve">
     <value>Vensterposities zijn opnieuw ingesteld</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Hardwareversnelling uitschakelen</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>De applicatie moet opnieuw worden opgestart om deze wijziging door te voeren.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Schakelt GPU hardwareversnelling uit en gebruikt in plaats daarvan software rendering. Schakel dit in als je last hebt van grafische-gerelateerde crashes (UCEERRRENDERTHREADFAILURE). Vereist opnieuw opstarten.</value>
+  </data>
 </root>

@@ -11166,4 +11166,13 @@ print(run())</value>
   <data name="ResetWindowPositionDialog" xml:space="preserve">
     <value>Позиції вікон було скинуто</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Вимкнути апаратне прискорення</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>Щоб ця зміна набула чинності, потрібно перезапустити програму</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Вимикає апаратне прискорення графічного процесора і використовує програмний рендеринг. Увімкніть цей параметр, якщо у вас виникають збої, пов'язані з графікою (UCEERRRENDERTHREADFAILURE). Потребує перезапуску.</value>
+  </data>
 </root>

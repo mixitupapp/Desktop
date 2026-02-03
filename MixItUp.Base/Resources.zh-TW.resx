@@ -11166,4 +11166,13 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ResetWindowPositionDialog" xml:space="preserve">
     <value>窗口位置已重置</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>禁用硬件加速</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>必须重新启动应用程序才能使更改生效</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>禁用 GPU 硬件加速，改用软件渲染。如果遇到与图形相关的崩溃（UCEERRRENDERTHREADFAILURE），请启用此功能。需要重新启动。</value>
+  </data>
 </root>

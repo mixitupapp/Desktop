@@ -11166,4 +11166,13 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ResetWindowPositionDialog" xml:space="preserve">
     <value>窓の位置がリセットされた</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>ハードウェアアクセラレーションを無効にする</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>この変更を有効にするには、アプリケーションを再起動する必要があります。</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>GPUハードウェアアクセラレーションを無効にし、代わりにソフトウェアレンダリングを使用します。グラフィックス関連のクラッシュ (UCEERRRENDERTHREADFAILURE) が発生する場合は、これを有効にしてください。再起動が必要です。</value>
+  </data>
 </root>

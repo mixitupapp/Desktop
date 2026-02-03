@@ -64,6 +64,12 @@ namespace MixItUp.WPF
                 ChannelSession.Initialize().Wait();
 
                 System.Threading.Thread.CurrentThread.CurrentUICulture = Languages.GetLanguageLocaleCultureInfo();
+
+                // Apply software rendering mode if hardware acceleration setting is disabled
+                if (ChannelSession.AppSettings != null && ChannelSession.AppSettings.DisableHardwareAcceleration)
+                {
+                    System.Windows.Media.RenderOptions.ProcessRenderMode = System.Windows.Interop.RenderMode.SoftwareOnly;
+                }
             }
             catch { }
         }
