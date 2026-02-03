@@ -11,7 +11,7 @@
     xmlns:local="clr-namespace:MixItUp.WPF.Windows.Commands"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
-    Title="{x:Static resx:Resources.CommandEditor}"
+    Title="{Binding WindowTitle}"
     Width="800"
     Height="600"
     AllowDrop="True"

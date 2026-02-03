@@ -1600,6 +1600,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We detected you don&apos;t have automated backups enabled. To protect your settings from corruption or data loss, we recommend enabling automated backups. Go to Settings → Advanced to enable automated backups..
+        /// </summary>
+        public static string AutomatedBackupsDisabledWarning {
+            get {
+                return ResourceManager.GetString("AutomatedBackupsDisabledWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automated Settings Backup Location.
         /// </summary>
         public static string AutomatedSettingsBackupLocation {
@@ -19483,6 +19492,24 @@ namespace MixItUp.Base {
         public static string ResetStrikesOnLaunch {
             get {
                 return ResourceManager.GetString("ResetStrikesOnLaunch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Window Position.
+        /// </summary>
+        public static string ResetWindowPosition {
+            get {
+                return ResourceManager.GetString("ResetWindowPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window positions have been reset.
+        /// </summary>
+        public static string ResetWindowPositionDialog {
+            get {
+                return ResourceManager.GetString("ResetWindowPositionDialog", resourceCulture);
             }
         }
         

@@ -940,6 +940,9 @@
     <value>Taille de police</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Couleur d'avant-plan</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Quatre</value>
   </data>
@@ -3042,6 +3045,12 @@
     <value>Exporter des devis</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Citations de renumérotation</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Cette opération permet de renuméroter tous les devis de manière séquentielle en fonction de leur ordre actuel. Les numéros de devis seront modifiés. Etes-vous sûr de vouloir continuer ?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Bonus régulier</value>
     <comment>Manual</comment>
@@ -3253,6 +3262,9 @@
   <data name="HideBotMessages" xml:space="preserve">
     <value>Masquer les messages du robot</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Masquer les messages à chuchoter</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Avantage Patreon</value>
@@ -10794,16 +10806,6 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Ne pas afficher l'erreur "Aucune donnée"</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Aucune voix n'est revenue</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Statut</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Masquer les messages à chuchoter</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Étoile flamboyante</value>
   </data>
@@ -11071,6 +11073,9 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Aucune clé API fournie</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Aucune voix n'est revenue</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Aucune clé API TTS personnalisée de Google Cloud n’a été ajoutée. veuillez consulter la section Google Cloud TTS sur la page Services pour connecter votre propre clé API.</value>
   </data>
@@ -11122,6 +11127,9 @@ Nous avons détecté que vous avez créé plus d'un point de terminaison de supe
   <data name="Rescan" xml:space="preserve">
     <value>Rescanner</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Type d’action</value>
   </data>
@@ -11150,14 +11158,14 @@ Pour utiliser Mix It Up, vous devez connecter au moins un compte de plateforme d
 
 Allez à la page Comptes dans le menu principal pour connecter votre compte de streaming, puis redémarrez Mix It Up.</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Citations de renumérotation</value>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Nous avons détecté que vous n'avez pas activé les sauvegardes automatiques. Pour protéger vos paramètres contre la corruption ou la perte de données, nous vous recommandons d'activer les sauvegardes automatisées. Allez dans Paramètres → Avancés pour activer les sauvegardes automatisées.</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Cette opération permet de renuméroter tous les devis de manière séquentielle en fonction de leur ordre actuel. Les numéros de devis seront modifiés. Etes-vous sûr de vouloir continuer ?</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Réinitialiser la position de la fenêtre</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Couleur d'avant-plan</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Les positions des fenêtres ont été réinitialisées</value>
   </data>
   <data name="DisableHardwareAcceleration" xml:space="preserve">
     <value>Désactiver l'accélération matérielle</value>

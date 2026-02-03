@@ -239,6 +239,9 @@ namespace MixItUp.Base.ViewModel.Overlay
         public OverlayAnimationV3ViewModel ProgressOccurredAnimation;
         public OverlayAnimationV3ViewModel SegmentCompletedAnimation;
 
+        private double existingTotalAmount;
+        private double existingCustomTotalAmount;
+
         public OverlayGoalV3ViewModel()
             : base(OverlayItemV3Type.Goal)
         {
@@ -288,6 +291,9 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.StartingAmountCustom = item.StartingAmountCustom;
             this.SelectedSegmentType = item.SegmentType;
+
+            this.existingTotalAmount = item.TotalAmount;
+            this.existingCustomTotalAmount = item.CustomTotalAmount;
 
             this.ResetTracker = new ResetTrackerViewModel(item.ResetTracker);
 
@@ -398,6 +404,11 @@ namespace MixItUp.Base.ViewModel.Overlay
                 result.StreamingPlatform = this.SelectedStreamingPlatform;
 
                 result.ClearAllAmountsToZero();
+            }
+            else if (this.SelectedGoalType == OverlayGoalV3Type.Custom)
+            {
+                result.TotalAmount = this.existingTotalAmount;
+                result.CustomTotalAmount = this.existingCustomTotalAmount;
             }
 
             return result;

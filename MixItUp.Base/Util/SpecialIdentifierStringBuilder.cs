@@ -1159,7 +1159,10 @@ namespace MixItUp.Base.Util
 
                         if (userItems.Count > 0)
                         {
+                            int totalQuantity = userItems.Values.Sum();
+
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserUniqueItemsTotalSpecialIdentifier, userItems.Count.ToString());
+                            this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserItemsTotalSpecialIdentifier, totalQuantity.ToString());
 
                             List<string> userAllItems = new List<string>();
                             foreach (var kvp in userItems.OrderBy(i => i.Key))
@@ -1175,6 +1178,7 @@ namespace MixItUp.Base.Util
                         else
                         {
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserUniqueItemsTotalSpecialIdentifier, userItems.Count.ToString());
+                            this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserItemsTotalSpecialIdentifier, userItems.Values.Sum().ToString());
 
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserAllAmountSpecialIdentifier, Resources.Nothing);
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserRandomItemSpecialIdentifier, Resources.Nothing);
