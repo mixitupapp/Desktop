@@ -5667,6 +5667,33 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Hardware Acceleration.
+        /// </summary>
+        public static string DisableHardwareAcceleration {
+            get {
+                return ResourceManager.GetString("DisableHardwareAcceleration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application must be restarted for this change to take effect.
+        /// </summary>
+        public static string DisableHardwareAccelerationRestartMessage {
+            get {
+                return ResourceManager.GetString("DisableHardwareAccelerationRestartMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables GPU hardware acceleration and uses software rendering instead. Enable this if you experience graphics-related crashes (UCEERR_RENDERTHREADFAILURE). Requires restart..
+        /// </summary>
+        public static string DisableHardwareAccelerationTooltip {
+            get {
+                return ResourceManager.GetString("DisableHardwareAccelerationTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable On Completion.
         /// </summary>
         public static string DisableOnCompletion {

@@ -11160,4 +11160,13 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="ForegroundColor" xml:space="preserve">
     <value>Cor do primeiro plano</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Desativar a aceleração de hardware</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>A aplicação tem de ser reiniciada para que esta alteração tenha efeito</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Desactiva a aceleração de hardware da GPU e utiliza a renderização de software. Active esta opção se tiver falhas relacionadas com gráficos (UCEERRRENDERTHREADFAILURE). Requer reinicialização.</value>
+  </data>
 </root>

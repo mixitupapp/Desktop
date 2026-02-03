@@ -11158,4 +11158,13 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="ForegroundColor" xml:space="preserve">
     <value>Colore di primo piano</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Disattivare l'accelerazione hardware</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>L'applicazione deve essere riavviata affinché la modifica abbia effetto.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Disattiva l'accelerazione hardware della GPU e utilizza invece il rendering software. Attivare questa opzione se si verificano arresti anomali della grafica (UCEERRRENDERTHREADFAILURE). Richiede il riavvio.</value>
+  </data>
 </root>

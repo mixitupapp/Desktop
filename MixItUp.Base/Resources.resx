@@ -11162,4 +11162,13 @@ To use Mix It Up, you need to connect at least one streaming platform account.
 
 Please go to the Accounts page in the main menu to connect your streaming account, then restart Mix It Up.</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Disable Hardware Acceleration</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>The application must be restarted for this change to take effect</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Disables GPU hardware acceleration and uses software rendering instead. Enable this if you experience graphics-related crashes (UCEERR_RENDERTHREADFAILURE). Requires restart.</value>
+  </data>
 </root>

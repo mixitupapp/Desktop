@@ -11163,4 +11163,13 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ForegroundColor" xml:space="preserve">
     <value>Цвет переднего плана</value>
   </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Отключить аппаратное ускорение</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>Чтобы это изменение вступило в силу, необходимо перезапустить приложение.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Отключите аппаратное ускорение GPU и используйте вместо него программный рендеринг. Включите эту функцию, если у вас возникают сбои, связанные с графикой (UCEERRRENDERTHREADFAILURE). Требуется перезагрузка.</value>
+  </data>
 </root>
