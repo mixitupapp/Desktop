@@ -11176,4 +11176,52 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>Desactiva a aceleração de hardware da GPU e utiliza a renderização de software. Active esta opção se tiver falhas relacionadas com gráficos (UCEERRRENDERTHREADFAILURE). Requer reinicialização.</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Ação Discord: Uma incorporação deve ter pelo menos um título, uma descrição, uma miniatura ou uma imagem</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Mensagem (facultativo)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Título da incorporação</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Título URL (opcional)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Descrição da incorporação</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Cor</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Incluir carimbo de data/hora</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Autor (facultativo)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Rodapé (opcional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Nome do autor (facultativo)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL do ícone do autor (opcional)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL da miniatura (opcional)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL da imagem (opcional)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Texto do rodapé (opcional)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL do ícone de rodapé (opcional)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Enviar incorporação</value>
+  </data>
 </root>

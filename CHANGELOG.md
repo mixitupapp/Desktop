@@ -1,5 +1,15 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.21
+
+- [FEAT] Add color picker control for easier color selection in commands and widgets
+- [FEAT] Add Embed messages to Discord action
+- [MAINT] Replace manual url parsing to properly handle URL-encoded parameters and edge cases.
+- [MAINT] Improve Streamloots Service and connection handling
+- [FIX] Improve Overlay Service and fix broken images
+- [FIX] Developer API server startup order to fix method override (Fixes Stream Avatars service)
+- [FIX] Filter randomanyuser special identifiers by platform
+
 ## 1.6.20
 
 - [MAINT] Downgrade to .NET8 framework due to compatibility issues

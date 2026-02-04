@@ -162,7 +162,7 @@
                                 HorizontalAlignment="Center"
                                 FontSize="11"
                                 Opacity="0.8"
-                                Text="© Blazing Cacti LLC 2025" />
+                                Text="© Blazing Cacti LLC 2026" />
                             <TextBlock
                                 x:Name="VersionTextBlock"
                                 HorizontalAlignment="Center"

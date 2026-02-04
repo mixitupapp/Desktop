@@ -90,7 +90,7 @@
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="10" />
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="180" />
                     </Grid.ColumnDefinitions>
 
                     <ComboBox Grid.Column="0" ItemsSource="{Binding NameDisplays}" SelectedItem="{Binding SelectedNameDisplay}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayFormat}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
@@ -111,19 +111,19 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <TextBox Text="{Binding FontColor}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="6" HintText="{x:Static resx:Resources.FontColor}" />
                 </Grid>
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="180" />
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="10" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Text="{Binding ShadowColor}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ShadowColor}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="0" HintText="{x:Static resx:Resources.ShadowColor}" />
 
                     <ListBox Grid.Column="2" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                         <ListBoxItem IsSelected="{Binding Bold}">

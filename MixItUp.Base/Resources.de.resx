@@ -11181,4 +11181,52 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>Deaktiviert die GPU-Hardwarebeschleunigung und verwendet stattdessen Software-Rendering. Aktivieren Sie dies, wenn es zu grafikbedingten Abstürzen kommt (UCEERRRENDERTHREADFAILURE). Erfordert einen Neustart.</value>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Diskurs-Aktion: Eine Einbettung muss mindestens einen Titel, eine Beschreibung, ein Vorschaubild oder ein Bild enthalten</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Nachricht (fakultativ)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Titel einbetten</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Titel-URL (optional)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Beschreibung einbetten</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Farbe</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Zeitstempel einbeziehen</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Autor (fakultativ)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Fußzeile (optional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Name des Autors (optional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>Autorensymbol-URL (optional)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>Thumbnail-URL (optional)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>Bild-URL (optional)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Fußzeilentext (optional)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL des Fußzeilensymbols (optional)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Einbetten senden</value>
+  </data>
 </root>

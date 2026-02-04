@@ -88,5 +88,113 @@
             <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.DeafenSelf}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
             <ToggleButton Grid.Column="2" IsChecked="{Binding DeafenSelf}" />
         </Grid>
+
+        <Grid Grid.Row="2" Visibility="{Binding ShowSendEmbedGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Controls:IconButton Grid.Column="0" Command="{Binding RefreshChannelsCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" VerticalAlignment="Bottom" />
+
+                <ComboBox Grid.Column="2" ItemsSource="{Binding Channels}" SelectedItem="{Binding SelectedChannel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Channel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" Width="200" />
+
+                <TextBox Grid.Column="4" Text="{Binding ChatMessage}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedOptionalMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Controls:ColorPickerTextBox Grid.Column="0" ColorText="{Binding EmbedColor, Mode=TwoWay}" HintText="{x:Static resx:Resources.DiscordEmbedColor}" Width="180" HorizontalAlignment="Left" />
+
+                <TextBox Grid.Column="3" Text="{Binding UploadFilePath}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UploadFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <Button x:Name="EmbedFilePathBrowseButton" Grid.Column="5" Click="FilePathBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Bottom" />
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Text="{Binding EmbedTitle}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedTitle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox Grid.Column="2" Text="{Binding EmbedURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedTitleURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </Grid>
+
+            <TextBox Grid.Row="6" Text="{Binding EmbedDescription}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedDescription}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" />
+
+            <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Text="{Binding EmbedAuthorName}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox Grid.Column="2" Text="{Binding EmbedAuthorIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </Grid>
+
+            <Grid Grid.Row="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Text="{Binding EmbedThumbnailURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedThumbnailURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox Grid.Column="2" Text="{Binding EmbedImageURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedImageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </Grid>
+
+            <Grid Grid.Row="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="0" Text="{Binding EmbedFooterText}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedFooterText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox Grid.Column="2" Text="{Binding EmbedFooterIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedFooterIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.DiscordEmbedIncludeTimestamp}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+                <ToggleButton Grid.Column="6" IsChecked="{Binding EmbedIncludeTimestamp}" />
+            </Grid>
+        </Grid>
     </Grid>
 </local:ActionEditorControlBase>

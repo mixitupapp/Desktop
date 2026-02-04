@@ -3395,6 +3395,55 @@ For example, if this option is enabled and amount is set to 5, then any time 5 O
     <value>Discord Action: Missing chat message</value>
     <comment>Manual</comment>
   </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord Action: An embed must have at least a title, description, thumbnail, or image</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Message (Optional)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Embed Title</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Title URL (Optional)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Embed Description</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Include Timestamp</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Author (Optional)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Footer (Optional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Author Name (Optional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>Author Icon URL (Optional)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>Thumbnail URL (Optional)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>Image URL (Optional)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Footer Text (Optional)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>Footer Icon URL (Optional)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Send Embed</value>
+  </data>
   <data name="ExternalProgramActionMissingFilePath" xml:space="preserve">
     <value>External Program Action: Missing file path</value>
     <comment>Manual</comment>

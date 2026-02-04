@@ -240,6 +240,99 @@ namespace MixItUp.Base.Services.External
         public DiscordGateway() { }
     }
 
+    public class DiscordEmbed
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Color { get; set; }
+        public string URL { get; set; }
+        public string ThumbnailURL { get; set; }
+        public string ImageURL { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorIconURL { get; set; }
+        public string FooterText { get; set; }
+        public string FooterIconURL { get; set; }
+        public bool IncludeTimestamp { get; set; }
+
+        public DiscordEmbed() { }
+
+        public bool HasContent()
+        {
+            return !string.IsNullOrEmpty(this.Title) ||
+                   !string.IsNullOrEmpty(this.Description) ||
+                   !string.IsNullOrEmpty(this.ThumbnailURL) ||
+                   !string.IsNullOrEmpty(this.ImageURL) ||
+                   !string.IsNullOrEmpty(this.AuthorName) ||
+                   !string.IsNullOrEmpty(this.FooterText);
+        }
+
+        public JObject ToJObject()
+        {
+            JObject embed = new JObject();
+
+            if (!string.IsNullOrEmpty(this.Title))
+            {
+                embed["title"] = this.Title;
+            }
+
+            if (!string.IsNullOrEmpty(this.Description))
+            {
+                embed["description"] = this.Description;
+            }
+
+            if (!string.IsNullOrEmpty(this.Color))
+            {
+                string colorHex = this.Color.TrimStart('#');
+                if (int.TryParse(colorHex, System.Globalization.NumberStyles.HexNumber, null, out int colorInt))
+                {
+                    embed["color"] = colorInt;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(this.URL))
+            {
+                embed["url"] = this.URL;
+            }
+
+            if (!string.IsNullOrEmpty(this.ThumbnailURL))
+            {
+                embed["thumbnail"] = new JObject { { "url", this.ThumbnailURL } };
+            }
+
+            if (!string.IsNullOrEmpty(this.ImageURL))
+            {
+                embed["image"] = new JObject { { "url", this.ImageURL } };
+            }
+
+            if (!string.IsNullOrEmpty(this.AuthorName))
+            {
+                JObject author = new JObject { { "name", this.AuthorName } };
+                if (!string.IsNullOrEmpty(this.AuthorIconURL))
+                {
+                    author["icon_url"] = this.AuthorIconURL;
+                }
+                embed["author"] = author;
+            }
+
+            if (!string.IsNullOrEmpty(this.FooterText))
+            {
+                JObject footer = new JObject { { "text", this.FooterText } };
+                if (!string.IsNullOrEmpty(this.FooterIconURL))
+                {
+                    footer["icon_url"] = this.FooterIconURL;
+                }
+                embed["footer"] = footer;
+            }
+
+            if (this.IncludeTimestamp)
+            {
+                embed["timestamp"] = DateTimeOffset.UtcNow.ToString("o");
+            }
+
+            return embed;
+        }
+    }
+
     public class DiscordVoiceConnection
     {
         public string ServerID { get; set; }
@@ -854,6 +947,46 @@ namespace MixItUp.Base.Services.External
             return null;
         }
 
+        public async Task<DiscordMessage> CreateMessageWithEmbed(DiscordChannel channel, string message, DiscordEmbed embed, string filePath)
+        {
+            try
+            {
+                JObject messageObj = new JObject();
+
+                if (!string.IsNullOrEmpty(message))
+                {
+                    messageObj["content"] = message;
+                }
+
+                if (embed != null && embed.HasContent())
+                {
+                    JArray embeds = new JArray();
+                    embeds.Add(embed.ToJObject());
+                    messageObj["embeds"] = embeds;
+                }
+
+                var messageContent = new StringContent(messageObj.ToString(), System.Text.Encoding.UTF8, "application/json");
+
+                var multiPart = new MultipartFormDataContent();
+                multiPart.Add(messageContent, "\"payload_json\"");
+
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    byte[] bytes = await ServiceManager.Get<IFileService>().ReadFileAsBytes(filePath);
+                    if (bytes != null && bytes.Length > 0)
+                    {
+                        var fileContent = new ByteArrayContent(bytes);
+                        string fileName = System.IO.Path.GetFileName(filePath);
+                        multiPart.Add(fileContent, "\"file\"", $"\"{fileName}\"");
+                    }
+                }
+
+                return await this.PostAsync<DiscordMessage>("channels/" + channel.ID + "/messages", multiPart);
+            }
+            catch (Exception ex) { Logger.Log(ex); }
+            return null;
+        }
+
         public async Task<DiscordChannelInvite> CreateChannelInvite(DiscordChannel channel, bool isTemporary = false)
         {
             try
@@ -1099,6 +1232,35 @@ namespace MixItUp.Base.Services.External
                     }
                 }
                 return await this.botService.CreateMessage(channel, message, filePath);
+            }
+            return null;
+        }
+
+        public async Task<DiscordMessage> CreateMessageWithEmbed(DiscordChannel channel, string message, DiscordEmbed embed, string filePath)
+        {
+            if (await this.IsWithinRateLimiting())
+            {
+                if (this.Emojis != null && !string.IsNullOrEmpty(message))
+                {
+                    foreach (DiscordEmoji emoji in this.Emojis)
+                    {
+                        string findString = emoji.Name;
+                        if (emoji.RequireColons.GetValueOrDefault())
+                        {
+                            findString = ":" + findString + ":";
+                        }
+
+                        string replacementString = ":" + emoji.Name + ":";
+                        if (emoji.Animated.GetValueOrDefault())
+                        {
+                            replacementString = "a" + replacementString;
+                        }
+                        replacementString = "<" + replacementString + emoji.ID + ">";
+
+                        message = message.Replace(findString, replacementString);
+                    }
+                }
+                return await this.botService.CreateMessageWithEmbed(channel, message, embed, filePath);
             }
             return null;
         }
