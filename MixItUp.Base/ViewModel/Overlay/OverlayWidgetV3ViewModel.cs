@@ -385,7 +385,10 @@ namespace MixItUp.Base.ViewModel.Overlay
             item.DisplayOption = this.SelectedDisplayOption;
             this.Position.SetPosition(item);
 
-            await item.Reset();
+            if (this.existingWidget == null)
+            {
+                await item.Reset();
+            }
 
             OverlayWidgetV3Model widget = new OverlayWidgetV3Model(item);
             widget.Name = this.Name;

@@ -589,7 +589,11 @@ namespace MixItUp.Base.Services
             await CheckForNewNotifications();
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationCancellationTokenSource.Token, 30 * 60000);
+            var notificationPollingTokenSource = notificationCancellationTokenSource;
+            if (notificationPollingTokenSource != null)
+            {
+                AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationPollingTokenSource.Token, 30 * 60000);
+            }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
 

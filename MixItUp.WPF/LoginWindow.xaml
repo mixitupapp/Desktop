@@ -208,6 +208,25 @@
                                 <Separator Margin="0,2" />
                                 <Button
                                     HorizontalContentAlignment="Left"
+                                    Click="ResetWindowPosition_Click"
+                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <MaterialDesign:PackIcon
+                                            Width="18"
+                                            Height="18"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                            Kind="WindowRestore" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                            Text="{x:Static resx:Resources.ResetWindowPosition}" />
+                                    </StackPanel>
+                                </Button>
+                                <Separator Margin="0,2" />
+                                <Button
+                                    HorizontalContentAlignment="Left"
                                     Click="OpenDiscord_Click"
                                     Style="{StaticResource MaterialDesignFlatButton}">
                                     <StackPanel Orientation="Horizontal">
