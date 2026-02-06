@@ -13,13 +13,6 @@ namespace MixItUp.Base.ViewModel.MainControls
     {
         private const int SearchResultsPageSize = 25;
 
-        /// <summary>
-        /// Set to true to disable all backend calls during infrastructure migration.
-        /// Set to false when the new backend is ready.
-        /// In the future, this will be an API call in MixItUpService.cs to enable/disable community commands from the dashboard
-        /// </summary>
-        public const bool IsMaintenanceMode = true;
-
         public ICommand BackCommand { get; set; }
 
         public bool ShowHome
@@ -390,13 +383,6 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         protected override async Task OnVisibleInternal()
         {
-            // Skip all backend calls during maintenance mode
-            if (IsMaintenanceMode)
-            {
-                await base.OnVisibleInternal();
-                return;
-            }
-
             if (this.firstLoadCompleted)
             {
                 if (this.ShowHome)
@@ -410,12 +396,6 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         private async Task NavigateToCategories()
         {
-            // Skip all backend calls during maintenance mode
-            if (IsMaintenanceMode)
-            {
-                return;
-            }
-
             if (this.lastCategoryRefresh.TotalMinutesFromNow() > 1)
             {
                 try
