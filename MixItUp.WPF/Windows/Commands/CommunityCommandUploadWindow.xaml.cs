@@ -117,6 +117,11 @@ namespace MixItUp.WPF.Windows.Commands
                     this.commandReferencesOtherCommand = true;
                 }
             }
+            catch (CommunityCommandsUnavailableException ex)
+            {
+                await DialogHelper.ShowMessage(ex.Message);
+                this.Close();
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex);
@@ -281,6 +286,10 @@ namespace MixItUp.WPF.Windows.Commands
                     await ServiceManager.Get<MixItUpService>().AddOrUpdateCommand(this.uploadCommand);
 
                     this.Close();
+                }
+                catch (CommunityCommandsUnavailableException ex)
+                {
+                    await DialogHelper.ShowMessage(ex.Message);
                 }
                 catch (Exception ex)
                 {

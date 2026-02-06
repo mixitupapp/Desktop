@@ -221,7 +221,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
@@ -235,7 +235,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
@@ -254,7 +254,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
@@ -272,7 +272,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
@@ -285,7 +285,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
@@ -304,7 +304,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
@@ -321,64 +321,92 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
             this.PreviousResultsCommand = this.CreateCommand(async () =>
             {
-                this.CurrentResultsPage--;
-                if (this.ShowMyCommands)
+                try
                 {
-                    await this.PerformMyCommands();
+                    this.CurrentResultsPage--;
+                    if (this.ShowMyCommands)
+                    {
+                        await this.PerformMyCommands();
+                    }
+                    else if (this.ShowUserCommands)
+                    {
+                        await this.PerformUserCommands();
+                    }
+                    else if (this.ShowSearch)
+                    {
+                        await this.PerformSearch();
+                    }
                 }
-                else if (this.ShowUserCommands)
+                catch (Exception ex)
                 {
-                    await this.PerformUserCommands();
-                }
-                else if (this.ShowSearch)
-                {
-                    await this.PerformSearch();
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
 
             this.NextResultsCommand = this.CreateCommand(async () =>
             {
-                this.CurrentResultsPage++;
-                if (this.ShowMyCommands)
+                try
                 {
-                    await this.PerformMyCommands();
+                    this.CurrentResultsPage++;
+                    if (this.ShowMyCommands)
+                    {
+                        await this.PerformMyCommands();
+                    }
+                    else if (this.ShowUserCommands)
+                    {
+                        await this.PerformUserCommands();
+                    }
+                    else if (this.ShowSearch)
+                    {
+                        await this.PerformSearch();
+                    }
                 }
-                else if (this.ShowUserCommands)
+                catch (Exception ex)
                 {
-                    await this.PerformUserCommands();
-                }
-                else if (this.ShowSearch)
-                {
-                    await this.PerformSearch();
+                    await this.HandleCommunityCommandsException(ex);
                 }
             });
         }
 
         public async Task ReviewCommand(int rating, string review)
         {
-            await ServiceManager.Get<MixItUpService>().AddReview(new CommunityCommandReviewModel()
+            try
             {
-                CommandID = this.CommandDetails.ID,
-                Rating = rating,
-                Review = review,
-            });
+                await ServiceManager.Get<MixItUpService>().AddReview(new CommunityCommandReviewModel()
+                {
+                    CommandID = this.CommandDetails.ID,
+                    Rating = rating,
+                    Review = review,
+                });
 
-            this.GetCommandDetailsCommand.Execute(this.CommandDetails.ID);
+                this.GetCommandDetailsCommand.Execute(this.CommandDetails.ID);
+            }
+            catch (Exception ex)
+            {
+                await this.HandleCommunityCommandsException(ex);
+            }
         }
 
         public async Task ReportCommand(string report)
         {
-            await ServiceManager.Get<MixItUpService>().ReportCommand(new CommunityCommandReportModel()
+            try
             {
-                CommandID = this.CommandDetails.ID,
-                Report = report
-            });
+                await ServiceManager.Get<MixItUpService>().ReportCommand(new CommunityCommandReportModel()
+                {
+                    CommandID = this.CommandDetails.ID,
+                    Report = report
+                });
+            }
+            catch (Exception ex)
+            {
+                await this.HandleCommunityCommandsException(ex);
+            }
         }
 
         protected override async Task OnVisibleInternal()
@@ -411,7 +439,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 catch (Exception ex)
                 {
-                    Logger.Log(ex);
+                    await this.HandleCommunityCommandsException(ex);
                 }
 
                 this.lastCategoryRefresh = DateTimeOffset.Now;
@@ -489,6 +517,18 @@ namespace MixItUp.Base.ViewModel.MainControls
             this.ShowCommandDetails = false;
             this.ShowUserCommands = false;
             this.ShowMyCommands = false;
+        }
+
+        private async Task HandleCommunityCommandsException(Exception ex)
+        {
+            if (ex is CommunityCommandsUnavailableException)
+            {
+                await DialogHelper.ShowMessage(ex.Message);
+            }
+            else
+            {
+                Logger.Log(ex);
+            }
         }
     }
 }
