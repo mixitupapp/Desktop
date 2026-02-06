@@ -273,13 +273,13 @@ namespace MixItUp.Base.Services
         public async Task<IEnumerable<CommunityCommandCategoryModel>> GetHomeCategories()
         {
             await EnsureLogin();
-            return await GetAsync<IEnumerable<CommunityCommandCategoryModel>>("community/commands/categories");
+            return await GetAsync<IEnumerable<CommunityCommandCategoryModel>>("v2/community/commands/categories");
         }
 
         public async Task<CommunityCommandsSearchResult> SearchCommands(string query, int skip, int top)
         {
             await EnsureLogin();
-            return await CommunityCommandsSearchResult.Create(await this.GetAsync($"community/commands/command/search?query={HttpUtility.UrlEncode(query)}&skip={skip}&top={top}"));
+            return await CommunityCommandsSearchResult.Create(await this.GetAsync($"v2/community/commands/command/search?query={HttpUtility.UrlEncode(query)}&skip={skip}&top={top}"));
         }
 
         public async Task<CommunityCommandDetailsModel> GetCommandDetails(Guid id)
@@ -287,7 +287,7 @@ namespace MixItUp.Base.Services
             try
             {
                 await EnsureLogin();
-                return await GetAsync<CommunityCommandDetailsModel>($"community/commands/command/{id}");
+                return await GetAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}");
             }
             catch (HttpRestRequestException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
@@ -298,37 +298,37 @@ namespace MixItUp.Base.Services
         public async Task<CommunityCommandDetailsModel> AddOrUpdateCommand(CommunityCommandUploadModel command)
         {
             await EnsureLogin();
-            return await PostAsync<CommunityCommandDetailsModel>("community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
+            return await PostAsync<CommunityCommandDetailsModel>("v2/community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
         }
 
         public async Task DeleteCommand(Guid id)
         {
             await EnsureLogin();
-            await DeleteAsync<CommunityCommandDetailsModel>($"community/commands/command/{id}/delete");
+            await DeleteAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}/delete");
         }
 
         public async Task ReportCommand(CommunityCommandReportModel report)
         {
             await EnsureLogin();
-            await PostAsync($"community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
+            await PostAsync($"v2/community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
         }
 
         public async Task<CommunityCommandsSearchResult> GetCommandsByUser(Guid userID, int skip, int top)
         {
             await EnsureLogin();
-            return await CommunityCommandsSearchResult.Create(await GetAsync($"community/commands/command/user/{userID}?skip={skip}&top={top}"));
+            return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/user/{userID}?skip={skip}&top={top}"));
         }
 
         public async Task<CommunityCommandsSearchResult> GetMyCommands(int skip, int top)
         {
             await EnsureLogin();
-            return await CommunityCommandsSearchResult.Create(await GetAsync($"community/commands/command/mine?skip={skip}&top={top}"));
+            return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/mine?skip={skip}&top={top}"));
         }
 
         public async Task<CommunityCommandReviewModel> AddReview(CommunityCommandReviewModel review)
         {
             await EnsureLogin();
-            return await PostAsync<CommunityCommandReviewModel>($"community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
+            return await PostAsync<CommunityCommandReviewModel>($"v2/community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
         }
 
         public async Task DownloadCommand(Guid id)
@@ -336,7 +336,7 @@ namespace MixItUp.Base.Services
             try
             {
                 await EnsureLogin();
-                await GetAsync<IEnumerable<CommunityCommandDetailsModel>>($"community/commands/command/{id}/download");
+                await GetAsync<IEnumerable<CommunityCommandDetailsModel>>($"v2/community/commands/command/{id}/download");
             }
             catch { }
         }
