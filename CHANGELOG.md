@@ -1,5 +1,20 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.25
+
+- [MAINT] Enable community commands page
+- [MAINT] Adjust settings saves by adding validation and safer file writing to prevent settings corruption
+- [MAINT] Warn users every 10 logins if they do not have automated backups enabled; enabling auto backups disables warning popup
+- [MAINT] Add warning dialog message when saving settings fail
+- [FEAT] Add $user_____itemstotal inventory special identifier to show total number of items a user has
+- [FEAT] Add reset window position option to login screen help menu to fix off-screen window issues for some users
+- [FEAT] Add support for StreamElements test events and replayed events from their Dashboard
+- [FEAT] Display command name in editor window title
+- [FEAT] Additional logging if file action picks an empty line
+- [FEAT] Add disable hardware acceleration advanced setting for some users who are experiencing UCEERR_RENDERTHREADFAILURE crashes
+- [FIX] Preserve goal progress after editing and saving custom goal overlay widget settings
+- [FIX] Quotes importing from Excel files
+
 ## 1.6.21
 
 - [FEAT] Add color picker control for easier color selection in commands and widgets
