@@ -51,14 +51,6 @@ namespace MixItUp.WPF.Windows.Commands
         {
             await base.OnLoaded();
 
-            // Community Commands is in maintenance mode
-            if (CommunityCommandsMainControlViewModel.IsMaintenanceMode)
-            {
-                await DialogHelper.ShowMessage("Community Commands is temporarily unavailable while we work on switching and improving our backend infrastructure. This feature will return in a future update.");
-                this.Close();
-                return;
-            }
-
             try
             {
                 if (this.command != null)
@@ -125,6 +117,11 @@ namespace MixItUp.WPF.Windows.Commands
                     this.commandReferencesOtherCommand = true;
                 }
             }
+            catch (CommunityCommandsUnavailableException ex)
+            {
+                await DialogHelper.ShowMessage(ex.Message);
+                this.Close();
+            }
             catch (Exception ex)
             {
                 Logger.Log(ex);
@@ -167,13 +164,6 @@ namespace MixItUp.WPF.Windows.Commands
             {
                 try
                 {
-                    // Community Commands is in maintenance mode
-                    if (CommunityCommandsMainControlViewModel.IsMaintenanceMode)
-                    {
-                        await DialogHelper.ShowMessage("Community Commands is temporarily unavailable while we work on switching and improving our backend infrastructure. This feature will return in a future update.");
-                        return;
-                    }
-
                     if (this.commandContainsScript)
                     {
                         await DialogHelper.ShowMessage(MixItUp.Base.Resources.CommunityCommandsScriptActionsNotSupported);
@@ -296,6 +286,10 @@ namespace MixItUp.WPF.Windows.Commands
                     await ServiceManager.Get<MixItUpService>().AddOrUpdateCommand(this.uploadCommand);
 
                     this.Close();
+                }
+                catch (CommunityCommandsUnavailableException ex)
+                {
+                    await DialogHelper.ShowMessage(ex.Message);
                 }
                 catch (Exception ex)
                 {

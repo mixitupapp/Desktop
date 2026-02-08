@@ -136,6 +136,9 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public int LastReadNotificationId { get; set; } = 0;
 
+        [DataMember]
+        public bool DisableHardwareAcceleration { get; set; } = false;
+
         public ApplicationSettingsV2Model() { }
 
         public async Task Save()

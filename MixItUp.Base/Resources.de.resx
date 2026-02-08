@@ -940,6 +940,9 @@
     <value>Schriftgröße</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Farbe des Vordergrunds</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Vier</value>
   </data>
@@ -3042,6 +3045,12 @@
     <value>Angebote exportieren</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Zitate neu nummerieren</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Dadurch werden alle Angebote entsprechend ihrer aktuellen Reihenfolge neu nummeriert. Die Angebotsnummern werden sich ändern. Sind Sie sicher, dass Sie fortfahren möchten?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Regelmäßiger Bonus</value>
     <comment>Manual</comment>
@@ -3253,6 +3262,9 @@
   <data name="HideBotMessages" xml:space="preserve">
     <value>Bot-Nachrichten ausblenden</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Flüster-Nachrichten verstecken</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Patreon-Vorteil</value>
@@ -10799,16 +10811,6 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Fehler „Keine Daten“ nicht anzeigen</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Es kamen keine Stimmen zurück</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Flüster-Nachrichten verstecken</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Flammender Stern</value>
   </data>
@@ -11076,6 +11078,9 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Kein API-Schlüssel bereitgestellt</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Es kamen keine Stimmen zurück</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Es wurde kein benutzerdefinierter Google Cloud TTS API-Schlüssel hinzugefügt. bitte besuchen Sie den Bereich Google Cloud TTS auf der Services-Seite, um Ihren eigenen API-Schlüssel zu verbinden.</value>
   </data>
@@ -11127,6 +11132,9 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="Rescan" xml:space="preserve">
     <value>Rescan</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Aktionstyp</value>
   </data>
@@ -11155,14 +11163,23 @@ Um Mix It Up zu nutzen, müssen Sie mindestens ein Streaming-Plattform-Konto ver
 
 Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu verbinden, und starten Sie dann Mix It Up neu.</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Zitate neu nummerieren</value>
+  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
+    <value>Wir haben festgestellt, dass Sie keine automatischen Sicherungen aktiviert haben. Um Ihre Einstellungen vor Beschädigung oder Datenverlust zu schützen, empfehlen wir, automatische Sicherungen zu aktivieren. Gehen Sie zu Einstellungen → Erweitert, um automatische Sicherungen zu aktivieren.</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Dadurch werden alle Angebote entsprechend ihrer aktuellen Reihenfolge neu nummeriert. Die Angebotsnummern werden sich ändern. Sind Sie sicher, dass Sie fortfahren möchten?</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Fensterposition zurücksetzen</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Farbe des Vordergrunds</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Die Fensterpositionen wurden zurückgesetzt</value>
+  </data>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Hardware-Beschleunigung deaktivieren</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>Die Anwendung muss neu gestartet werden, damit diese Änderung wirksam wird.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Deaktiviert die GPU-Hardwarebeschleunigung und verwendet stattdessen Software-Rendering. Aktivieren Sie dies, wenn es zu grafikbedingten Abstürzen kommt (UCEERRRENDERTHREADFAILURE). Erfordert einen Neustart.</value>
   </data>
   <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
     <value>Diskurs-Aktion: Eine Einbettung muss mindestens einen Titel, eine Beschreibung, ein Vorschaubild oder ein Bild enthalten</value>

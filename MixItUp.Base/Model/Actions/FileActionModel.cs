@@ -184,6 +184,11 @@ namespace MixItUp.Base.Model.Actions
                                     this.ActionType == FileActionTypeEnum.RemoveRandomLineFromFile || this.ActionType == FileActionTypeEnum.RemoveSpecificLineFromFile)
                                 {
                                     textToRead = lines[lineIndex];
+
+                                    if (string.IsNullOrWhiteSpace(textToRead))
+                                    {
+                                        Logger.Log(LogLevel.Error, $"Command: {parameters.InitialCommandID} - File Action - Picked empty line at line number {lineIndex + 1} (index {lineIndex}) from file: {filePath}");
+                                    }
                                 }
 
                                 if (this.ActionType == FileActionTypeEnum.RemoveRandomLineFromFile || this.ActionType == FileActionTypeEnum.RemoveSpecificLineFromFile ||

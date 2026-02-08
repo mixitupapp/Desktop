@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Input;
 
 namespace MixItUp.Base.ViewModel.Quotes
@@ -79,6 +80,8 @@ namespace MixItUp.Base.ViewModel.Quotes
 
         public QuotesDataImportWindowViewModel()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             this.Columns.Add(new QuotesDataImportColumnViewModel(MixItUp.Base.Resources.QuoteID));
             this.Columns.Add(new QuotesDataImportColumnViewModel(MixItUp.Base.Resources.Quote));
             this.Columns.Add(new QuotesDataImportColumnViewModel(MixItUp.Base.Resources.DateTime));
