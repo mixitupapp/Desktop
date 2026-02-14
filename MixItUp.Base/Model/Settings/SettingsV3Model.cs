@@ -557,6 +557,9 @@ namespace MixItUp.Base.Model.Settings
         public int VTubeStudioPortNumber { get; set; } = VTubeStudioService.DefaultPortNumber;
 
         [DataMember]
+        public string VTubeStudioIPAddress { get; set; } = VTubeStudioService.DefaultIPAddress;
+
+        [DataMember]
         public int TITSPortNumber { get; set; } = TITSService.DefaultPortNumber;
 
         [DataMember]
