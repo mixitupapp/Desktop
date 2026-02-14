@@ -588,9 +588,9 @@ namespace MixItUp.Base.Services.Trovo.New
             Dictionary<string, string> parameters = new Dictionary<string, string>()
             {
                 { "client_id", ClientID },
-                { "response_type", LocalOAuthHttpListenerServer.AUTHORIZATION_CODE_URL_PARAMETER },
+                { "response_type", LocalOAuthKestrelServer.AUTHORIZATION_CODE_URL_PARAMETER },
                 { "scope", ConvertClientScopesToString(scopes) },
-                { "redirect_uri", LocalOAuthHttpListenerServer.REDIRECT_URL },
+                { "redirect_uri", LocalOAuthKestrelServer.REDIRECT_URL },
                 { "state", state },
             };
 
@@ -611,7 +611,7 @@ namespace MixItUp.Base.Services.Trovo.New
                 { "client_secret", ClientSecret },
                 { "code", authorizationCode },
                 { "grant_type", "authorization_code" },
-                { "redirect_uri", LocalOAuthHttpListenerServer.REDIRECT_URL },
+                { "redirect_uri", LocalOAuthKestrelServer.REDIRECT_URL },
             };
 
             OAuthTokenModel token = await HttpClient.PostAsync<OAuthTokenModel>("exchangetoken", AdvancedHttpClient.CreateContentFromObject(content));

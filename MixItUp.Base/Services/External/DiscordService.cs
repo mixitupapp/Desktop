@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -423,7 +424,7 @@ namespace MixItUp.Base.Services.External
         public DiscordVoiceWebSocketPacketTypeEnum OPCodeType { get { return (DiscordVoiceWebSocketPacketTypeEnum)this.OPCode; } set { this.OPCode = (int)value; } }
     }
 
-    public class DiscordOAuthServer : LocalOAuthHttpListenerServer
+    public class DiscordOAuthServer : LocalOAuthKestrelServer
     {
         private const string ServerIDIdentifier = "guild_id";
         private const string BotPermissionsIdentifier = "permissions";
@@ -433,18 +434,16 @@ namespace MixItUp.Base.Services.External
 
         public DiscordOAuthServer() { }
 
-        protected override async Task ProcessConnection(HttpListenerContext listenerContext)
+        protected override void ProcessRequestParameters(HttpContext context)
         {
             if (this.ServerID == null)
             {
-                this.ServerID = this.GetRequestParameter(listenerContext, ServerIDIdentifier);
+                this.ServerID = this.GetRequestParameter(context, ServerIDIdentifier);
             }
             if (this.BotPermissions == null)
             {
-                this.BotPermissions = this.GetRequestParameter(listenerContext, BotPermissionsIdentifier);
+                this.BotPermissions = this.GetRequestParameter(context, BotPermissionsIdentifier);
             }
-
-            await base.ProcessConnection(listenerContext);
         }
     }
 

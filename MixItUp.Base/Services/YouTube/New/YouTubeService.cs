@@ -719,9 +719,9 @@ namespace MixItUp.Base.Services.YouTube.New
             Dictionary<string, string> parameters = new Dictionary<string, string>()
             {
                 { "client_id", ClientID },
-                { "response_type", LocalOAuthHttpListenerServer.AUTHORIZATION_CODE_URL_PARAMETER },
+                { "response_type", LocalOAuthKestrelServer.AUTHORIZATION_CODE_URL_PARAMETER },
                 { "scope", ConvertClientScopesToString(scopes) },
-                { "redirect_uri", LocalOAuthHttpListenerServer.REDIRECT_URL },
+                { "redirect_uri", LocalOAuthKestrelServer.REDIRECT_URL },
             };
 
             if (forceApprovalPrompt)
@@ -741,7 +741,7 @@ namespace MixItUp.Base.Services.YouTube.New
                 { "client_secret", this.ClientSecret },
                 { "code", authorizationCode },
                 { "grant_type", "authorization_code" },
-                { "redirect_uri", LocalOAuthHttpListenerServer.REDIRECT_URL },
+                { "redirect_uri", LocalOAuthKestrelServer.REDIRECT_URL },
             };
             FormUrlEncodedContent content = new FormUrlEncodedContent(parameters.AsEnumerable());
 

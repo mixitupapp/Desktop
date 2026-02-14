@@ -359,7 +359,7 @@ namespace MixItUp.Base.Services.Twitch.API
                 { "client_id", clientID },
                 { "scope", TwitchConnection.ConvertClientScopesToString(scopes) },
                 { "response_type", "code" },
-                { "redirect_uri", LocalOAuthHttpListenerServer.REDIRECT_URL },
+                { "redirect_uri", LocalOAuthKestrelServer.REDIRECT_URL },
             };
 
             if (forceApprovalPrompt)
@@ -387,7 +387,7 @@ namespace MixItUp.Base.Services.Twitch.API
             Validator.ValidateString(clientID, "clientID");
             Validator.ValidateList(scopes, "scopes");
 
-            LocalOAuthHttpListenerServer oauthServer = new LocalOAuthHttpListenerServer();
+            LocalOAuthKestrelServer oauthServer = new LocalOAuthKestrelServer();
             string authorizationCode = await oauthServer.GetAuthorizationCode(await TwitchConnection.GetAuthorizationCodeURLForOAuthBrowser(clientID, scopes, forceApprovalPrompt), 30);
 
             if (authorizationCode != null)
