@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Settings;
@@ -502,17 +502,15 @@ namespace MixItUp.Base
 
                 if (ChannelSession.Settings.SettingsBackupRate == SettingsBackupRateEnum.None)
                 {
-                    ChannelSession.Settings.BackupWarningLaunchCount++;
-
-                    if (ChannelSession.Settings.BackupWarningLaunchCount >= 10)
+                    if (ChannelSession.Settings.BackupWarningLastShown == DateTimeOffset.MinValue || DateTimeOffset.Now >= ChannelSession.Settings.BackupWarningLastShown.AddMonths(1))
                     {
-                        await DialogHelper.ShowMessage(Resources.AutomatedBackupsDisabledWarning);
-                        ChannelSession.Settings.BackupWarningLaunchCount = 0;
+                        await DialogHelper.ShowMessage(Resources.BackupsReminder);
+                        ChannelSession.Settings.BackupWarningLastShown = DateTimeOffset.Now;
                     }
                 }
                 else
                 {
-                    ChannelSession.Settings.BackupWarningLaunchCount = 0;
+                    ChannelSession.Settings.BackupWarningLastShown = DateTimeOffset.MinValue;
                 }
 
                 await ChannelSession.SaveSettings();

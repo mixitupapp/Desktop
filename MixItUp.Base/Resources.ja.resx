@@ -11157,9 +11157,6 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
 
 メインメニューのアカウントページでストリーミングアカウントを接続し、ミックスイットアップを再起動してください。</value>
   </data>
-  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
-    <value>自動バックアップが有効になっていないことがわかりました。設定を破損やデータ損失から保護するために、自動バックアップを有効にすることをお勧めします。設定] → [詳細設定] で自動バックアップを有効にします。</value>
-  </data>
   <data name="ResetWindowPosition" xml:space="preserve">
     <value>ウィンドウ位置をリセット</value>
   </data>
@@ -11222,5 +11219,8 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="SendEmbed" xml:space="preserve">
     <value>埋め込み送信</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>リマインダー自動バックアップは無効になっています。予期せぬデータ損失から設定を保護するために、設定 → 詳細設定から有効にしてください。</value>
   </data>
 </root>

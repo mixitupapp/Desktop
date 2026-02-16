@@ -11157,9 +11157,6 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
 
 请前往主菜单的 "账户 "页面连接流媒体账户，然后重新启动 Mix It Up。</value>
   </data>
-  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
-    <value>我们检测到您没有启用自动备份。为防止设置损坏或数据丢失，我们建议您启用自动备份。转到设置 → 高级启用自动备份。</value>
-  </data>
   <data name="ResetWindowPosition" xml:space="preserve">
     <value>重置窗口位置</value>
   </data>
@@ -11222,5 +11219,8 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="SendEmbed" xml:space="preserve">
     <value>发送嵌入</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>提醒：自动备份已禁用。请在 "设置" → "高级 "中启用自动备份，以保护您的设置，防止意外数据丢失。</value>
   </data>
 </root>

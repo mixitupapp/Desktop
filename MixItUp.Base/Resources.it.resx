@@ -11157,9 +11157,6 @@ Per utilizzare Mix It Up, è necessario collegare almeno un account della piatta
 
 Andare alla pagina Account nel menu principale per collegare l'account di streaming, quindi riavviare Mix It Up.</value>
   </data>
-  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
-    <value>Abbiamo rilevato che non sono stati attivati i backup automatici. Per proteggere le impostazioni dalla corruzione o dalla perdita di dati, si consiglia di attivare i backup automatici. Andare su Impostazioni → Avanzate per abilitare i backup automatici.</value>
-  </data>
   <data name="ResetWindowPosition" xml:space="preserve">
     <value>Azzeramento della posizione della finestra</value>
   </data>
@@ -11222,5 +11219,8 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   </data>
   <data name="SendEmbed" xml:space="preserve">
     <value>Inviare l'integrazione</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>Promemoria: I backup automatici sono disattivati. Abilitateli in Impostazioni → Avanzate per proteggere le vostre impostazioni da perdite di dati impreviste.</value>
   </data>
 </root>
