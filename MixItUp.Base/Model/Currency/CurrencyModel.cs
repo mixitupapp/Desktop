@@ -457,7 +457,8 @@ namespace MixItUp.Base.Model.Currency
             {
                 if (this.LastReset == DateTimeOffset.MinValue)
                 {
-                    return true;
+                    this.LastReset = new DateTimeOffset(DateTimeOffset.Now.Date);
+                    return false;
                 }
 
                 DateTimeOffset newResetDate = DateTimeOffset.MinValue;
