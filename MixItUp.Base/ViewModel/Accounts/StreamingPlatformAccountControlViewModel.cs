@@ -32,8 +32,8 @@ namespace MixItUp.Base.ViewModel.Accounts
             get
             {
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "#9146FF"; }
-                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FFFFFF"; }
-                if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "#19D66B"; }
+                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FF0033"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "#21B36C"; }
                 return "#3f51b5";
             }
         }
@@ -41,9 +41,9 @@ namespace MixItUp.Base.ViewModel.Accounts
         {
             get
             {
-                if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "/Assets/Images/TwitchMonochrome.png"; }
-                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/YouTube.png"; }
-                if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "/Assets/Images/TrovoMonochrome.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "/Assets/Images/twitch-dark_lg.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/youtube-dark_lg.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "/Assets/Images/trovo-dark_lg.png"; }
                 return StreamingPlatforms.GetPlatformImage(this.Platform);
             }
         }
@@ -52,7 +52,7 @@ namespace MixItUp.Base.ViewModel.Accounts
             get
             {
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "#FFFFFF"; }
-                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#000000"; }
+                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FFFFFF"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "#FFFFFF"; }
                 return "#000000";
             }

@@ -9,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-    <AssemblyVersion>1.6.25.0</AssemblyVersion>
-    <FileVersion>1.6.25.0</FileVersion>
+    <AssemblyVersion>1.6.30.0</AssemblyVersion>
+    <FileVersion>1.6.30.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -44,7 +44,16 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
-	<ItemGroup>
+  <ItemGroup Label="Framework References">
+    		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup Label="Project References">
+  <ProjectReference Include="..\APIs\MixItUp.API\MixItUp.API.csproj" />
+    <ProjectReference Include="..\MixItUp.Base\MixItUp.Base.csproj" />
+    <ProjectReference Include="..\MixItUp.Reporter\MixItUp.Reporter.csproj" />
+    <ProjectReference Include="..\MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj" />
+  </ItemGroup>
+	<ItemGroup Label="Package References">
 		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
 		<PackageReference Include="AWSSDK.Polly" Version="3.7.107.6" />
 		<PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
@@ -57,7 +66,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
 		<PackageReference Include="ID3" Version="0.6.0" />
 		<PackageReference Include="Jace" Version="1.0.0" />
-		<PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
 		<PackageReference Include="MdXaml" Version="1.27.0" />
 		<PackageReference Include="MdXaml.Plugins" Version="1.27.0" />
 		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.15.0" />
@@ -79,61 +88,48 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
 	</ItemGroup>
 	<ItemGroup>
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-	</ItemGroup>
-	<ItemGroup>
+    <AppDesigner Include="Properties\" />
     <None Update="Installer.nsi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Mix It Up.link">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <AppDesigner Include="Properties\" />
+	</ItemGroup>
+  <ItemGroup Label="Resources">
+    <Resource Include="Logo.png" />
+    <Resource Include="Assets\Images\mixitup_logo-full_color-light_xl.png" />
+    <Resource Include="Assets\Images\CommandExample.png" />
+    <Resource Include="Assets\Images\ExampleRecipe.png" />   
+    <Resource Include="Assets\Images\discord-color_sm.png" />
+    <Resource Include="Assets\Images\github-color_sm.png" />
+    <Resource Include="Assets\Images\patreon-color_sm.png" />
+    <Resource Include="Assets\Images\trovo-color_lg.png" />
+    <Resource Include="Assets\Images\trovo-color_sm.png" />
+    <Resource Include="Assets\Images\trovo-dark_lg.png" />
+    <Resource Include="Assets\Images\twitch-color_lg.png" />
+    <Resource Include="Assets\Images\twitch-color_sm.png" />
+    <Resource Include="Assets\Images\twitch-dark_lg.png" />
+    <Resource Include="Assets\Images\twitter-color_sm.png" /> 
+    <Resource Include="Assets\Images\wiki-color_sm.png" />  
+    <Resource Include="Assets\Images\youtube-color_lg.png" />
+    <Resource Include="Assets\Images\youtube-color_sm.png" />
+    <Resource Include="Assets\Images\youtube-dark_lg.png" />
+    <Resource Include="Assets\Images\youtube-light_sm.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Github.png" />
-    <Resource Include="Assets\Images\Twitter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\YouTubeMonochrome.png" />
-    <Resource Include="Assets\Images\TwitchMonochrome.png" />
-    <Resource Include="Assets\Images\TrovoMonochrome.png" />
-    <Resource Include="Assets\Images\YouTubeDark.png" />
-    <Resource Include="Assets\Images\YouTube-XS.png" />
-    <Resource Include="Assets\Images\Twitch-XS.png" />
-    <Resource Include="Assets\Images\Trovo-XS.png" />
-    <Resource Include="Assets\Images\Patreon.png" />
-    <Content Include="Assets\Sounds\WheelClick.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+  <ItemGroup Label="Content">
     <Content Include="Logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\APIs\MixItUp.API\MixItUp.API.csproj" />
-    <ProjectReference Include="..\MixItUp.Base\MixItUp.Base.csproj" />
-    <ProjectReference Include="..\MixItUp.Reporter\MixItUp.Reporter.csproj" />
-    <ProjectReference Include="..\MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Discord.png" />
-	<Resource Include="Assets\Images\Discord-Symbol-Blurple.png" />
-    <Resource Include="Assets\Images\YouTube.png" />
-    <Resource Include="Assets\Images\Wiki.png" />
-    <Resource Include="Assets\Images\AppleAppStoreDownloadBadge.png" />
+    <Content Include="..\CHANGELOG.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\CommunityBannedWords.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Assets\Images\MixItUp-Logo-Name.png" />
-    <Resource Include="Assets\Images\CommandExample.png" />
-    <Resource Include="Assets\Images\ExampleRecipe.png" />
-    <Resource Include="Assets\Images\Twitch.png" />
-    <Resource Include="Assets\Images\Twitch-Small.png" />
-    <Resource Include="Assets\Images\Trovo.png" />
+    <Content Include="Assets\Sounds\WheelClick.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Sounds\Ariel.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -188,8 +184,5 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Content Include="Assets\Sounds\Watch Alarm.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\CHANGELOG.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+  </ItemGroup> 
 </Project>

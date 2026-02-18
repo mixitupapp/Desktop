@@ -11162,9 +11162,6 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
 
 Пожалуйста, перейдите на страницу "Аккаунты" в главном меню, чтобы подключить аккаунт стриминговой платформы, а затем перезапустите Mix It Up.</value>
   </data>
-  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
-    <value>Мы обнаружили, что у вас не включено автоматическое резервное копирование. Чтобы защитить ваши настройки от повреждения или потери данных, мы рекомендуем включить автоматическое резервное копирование. Перейдите в Настройки → Дополнительно, чтобы включить автоматическое резервное копирование.</value>
-  </data>
   <data name="ResetWindowPosition" xml:space="preserve">
     <value>Сброс положения окна</value>
   </data>
@@ -11227,5 +11224,8 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="SendEmbed" xml:space="preserve">
     <value>Отправить Embed</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>Напоминание: Автоматическое резервное копирование отключено. Включите их в разделе Настройки → Дополнительно, чтобы защитить свои настройки от непредвиденной потери данных.</value>
   </data>
 </root>

@@ -39,7 +39,7 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private void WikiButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/"); }
 
-        private void GithubButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://github.com/MixItUpApp/desktop"); }
+        private void GithubButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://github.com/mixitupapp/Desktop"); }
 
         private void SaviorXTanrenButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://twitch.tv/SaviorXTanren"); }
 

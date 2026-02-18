@@ -11159,9 +11159,6 @@ Para utilizar o Mix It Up, é necessário ligar pelo menos uma conta de platafor
 
 Aceda à página Contas no menu principal para ligar a sua conta de transmissão e, em seguida, reinicie o Mix It Up.</value>
   </data>
-  <data name="AutomatedBackupsDisabledWarning" xml:space="preserve">
-    <value>Detectámos que não tem as cópias de segurança automáticas activadas. Para proteger as suas definições contra corrupção ou perda de dados, recomendamos que active as cópias de segurança automáticas. Aceda a Definições → Avançadas para ativar as cópias de segurança automáticas.</value>
-  </data>
   <data name="ResetWindowPosition" xml:space="preserve">
     <value>Repor a posição da janela</value>
   </data>
@@ -11224,5 +11221,8 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   </data>
   <data name="SendEmbed" xml:space="preserve">
     <value>Enviar incorporação</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>Lembrete: As cópias de segurança automáticas estão desactivadas. Active-as em Definições → Avançadas para proteger as suas definições contra a perda inesperada de dados.</value>
   </data>
 </root>

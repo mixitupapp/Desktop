@@ -1600,15 +1600,6 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We detected you don&apos;t have automated backups enabled. To protect your settings from corruption or data loss, we recommend enabling automated backups. Go to Settings → Advanced to enable automated backups..
-        /// </summary>
-        public static string AutomatedBackupsDisabledWarning {
-            get {
-                return ResourceManager.GetString("AutomatedBackupsDisabledWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Automated Settings Backup Location.
         /// </summary>
         public static string AutomatedSettingsBackupLocation {
@@ -1867,6 +1858,15 @@ namespace MixItUp.Base {
         public static string BackupSettingsLoadedError {
             get {
                 return ResourceManager.GetString("BackupSettingsLoadedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reminder: Automated backups are disabled. Enable them in Settings → Advanced to protect your settings from unexpected data loss..
+        /// </summary>
+        public static string BackupsReminder {
+            get {
+                return ResourceManager.GetString("BackupsReminder", resourceCulture);
             }
         }
         

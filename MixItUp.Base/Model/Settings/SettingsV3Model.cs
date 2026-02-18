@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Commands.Games;
 using MixItUp.Base.Model.Currency;
@@ -79,7 +79,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public DateTimeOffset SettingsLastBackup { get; set; }
         [DataMember]
-        public int BackupWarningLaunchCount { get; set; } = 0;
+        public DateTimeOffset BackupWarningLastShown { get; set; } = DateTimeOffset.MinValue;
 
         #region Authentication
 
@@ -555,6 +555,9 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public int VTubeStudioPortNumber { get; set; } = VTubeStudioService.DefaultPortNumber;
+
+        [DataMember]
+        public string VTubeStudioIPAddress { get; set; } = VTubeStudioService.DefaultIPAddress;
 
         [DataMember]
         public int TITSPortNumber { get; set; } = TITSService.DefaultPortNumber;

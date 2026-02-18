@@ -18,6 +18,17 @@ namespace MixItUp.Base.ViewModel.Services
         }
         private int portNumber;
 
+        public string IPAddress
+        {
+            get { return this.ipAddress; }
+            set
+            {
+                this.ipAddress = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string ipAddress;
+
         public ICommand ConnectCommand { get; set; }
         public ICommand DisconnectCommand { get; set; }
 
@@ -27,10 +38,13 @@ namespace MixItUp.Base.ViewModel.Services
             : base(Resources.VTubeStudio)
         {
             this.PortNumber = ChannelSession.Settings.VTubeStudioPortNumber;
+            this.IPAddress = ChannelSession.Settings.VTubeStudioIPAddress;
+
 
             this.ConnectCommand = this.CreateCommand(async () =>
             {
                 ChannelSession.Settings.VTubeStudioPortNumber = this.PortNumber;
+                ChannelSession.Settings.VTubeStudioIPAddress = this.IPAddress;
 
                 Result result = await ServiceManager.Get<VTubeStudioService>().Connect();
                 if (result.Success)

@@ -485,14 +485,23 @@ namespace MixItUp.Base.Web
 
         private async Task<HttpResponseMessage> CheckForUnauthorized(HttpResponseMessage response, Func<Task<HttpResponseMessage>> retryFunc)
         {
-            if (response.StatusCode == HttpStatusCode.Unauthorized && this.OnUnauthorizedResponse != null)
+            if (response != null && response.StatusCode == HttpStatusCode.Unauthorized && this.OnUnauthorizedResponse != null)
             {
                 try
                 {
-                    string responseContent = await response.Content.ReadAsStringAsync();
-                    Logger.Log(LogLevel.Error, $"{response.RequestMessage.RequestUri} - {response.StatusCode} - {response.ReasonPhrase} - {responseContent}");
+                    if (response.Content != null)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        if (response.RequestMessage?.RequestUri != null)
+                        {
+                            Logger.Log(LogLevel.Error, $"{response.RequestMessage.RequestUri} - {response.StatusCode} - {response.ReasonPhrase} - {responseContent}");
+                        }
+                    }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    Logger.Log(LogLevel.Debug, $"Error reading unauthorized response content: {ex.Message}");
+                }
 
                 Logger.Log(LogLevel.Warning, $"Received 401 Unauthorized, attempting to refresh OAuth token");
 

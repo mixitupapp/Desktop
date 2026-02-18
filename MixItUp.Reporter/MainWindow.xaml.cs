@@ -73,6 +73,22 @@ namespace MixItUp.Reporter
             Process.Start(processInfo);
         }
 
+        private void JoinDiscordButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ProcessStartInfo processInfo = new ProcessStartInfo("https://mixitupapp.com/discord")
+                {
+                    UseShellExecute = true
+                };
+                Process.Start(processInfo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
