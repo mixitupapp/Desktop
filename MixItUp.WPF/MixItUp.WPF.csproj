@@ -97,28 +97,25 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     </None>
 	</ItemGroup>
   <ItemGroup Label="Resources">
-    <Resource Include="Assets\Images\MixItUp-Logo-Name.png" />
-    <Resource Include="Assets\Images\CommandExample.png" />
-    <Resource Include="Assets\Images\ExampleRecipe.png" />
-    <Resource Include="Assets\Images\Twitch.png" />
-    <Resource Include="Assets\Images\Twitch-Small.png" />
-    <Resource Include="Assets\Images\Trovo.png" />
-    <Resource Include="Assets\Images\Discord.png" />
-	  <Resource Include="Assets\Images\Discord-Symbol-Blurple.png" />
-    <Resource Include="Assets\Images\YouTube.png" />
-    <Resource Include="Assets\Images\Wiki.png" />
-    <Resource Include="Assets\Images\AppleAppStoreDownloadBadge.png" />
     <Resource Include="Logo.png" />
-    <Resource Include="Assets\Images\Github.png" />
-    <Resource Include="Assets\Images\Twitter.png" />
-    <Resource Include="Assets\Images\YouTubeMonochrome.png" />
-    <Resource Include="Assets\Images\TwitchMonochrome.png" />
-    <Resource Include="Assets\Images\TrovoMonochrome.png" />
-    <Resource Include="Assets\Images\YouTubeDark.png" />
-    <Resource Include="Assets\Images\YouTube-XS.png" />
-    <Resource Include="Assets\Images\Twitch-XS.png" />
-    <Resource Include="Assets\Images\Trovo-XS.png" />
-    <Resource Include="Assets\Images\Patreon.png" />
+    <Resource Include="Assets\Images\mixitup_logo-full_color-light_xl.png" />
+    <Resource Include="Assets\Images\CommandExample.png" />
+    <Resource Include="Assets\Images\ExampleRecipe.png" />   
+    <Resource Include="Assets\Images\discord-color_sm.png" />
+    <Resource Include="Assets\Images\github-color_sm.png" />
+    <Resource Include="Assets\Images\patreon-color_sm.png" />
+    <Resource Include="Assets\Images\trovo-color_lg.png" />
+    <Resource Include="Assets\Images\trovo-color_sm.png" />
+    <Resource Include="Assets\Images\trovo-dark_lg.png" />
+    <Resource Include="Assets\Images\twitch-color_lg.png" />
+    <Resource Include="Assets\Images\twitch-color_sm.png" />
+    <Resource Include="Assets\Images\twitch-dark_lg.png" />
+    <Resource Include="Assets\Images\twitter-color_sm.png" /> 
+    <Resource Include="Assets\Images\wiki-color_sm.png" />  
+    <Resource Include="Assets\Images\youtube-color_lg.png" />
+    <Resource Include="Assets\Images\youtube-color_sm.png" />
+    <Resource Include="Assets\Images\youtube-dark_lg.png" />
+    <Resource Include="Assets\Images\youtube-light_sm.png" />
   </ItemGroup>
   <ItemGroup Label="Content">
     <Content Include="Logo.ico">

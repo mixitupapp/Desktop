@@ -235,7 +235,7 @@
                                             Height="18"
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Center"
-                                            Source="/Assets/Images/Discord-Symbol-Blurple.png" />
+                                            Source="/Assets/Images/discord-color_sm.png" />
                                         <TextBlock
                                             VerticalAlignment="Center"
                                             Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"

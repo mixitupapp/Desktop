@@ -29,7 +29,7 @@
                                 <ColumnDefinition Width="20" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="/Assets/Images/Twitch.png" Height="24" Width="24" VerticalAlignment="Center" />
+                            <Image Grid.Column="0" Source="/Assets/Images/twitch-color_sm.png" Height="24" Width="24" VerticalAlignment="Center" />
 
                             <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Twitch}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                         </Grid>
@@ -140,7 +140,7 @@
                                 <ColumnDefinition Width="20" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="/Assets/Images/YouTube.png" Height="24" Width="24" VerticalAlignment="Center" />
+                            <Image Grid.Column="0" Source="/Assets/Images/youtube-color_sm.png" Height="24" Width="24" VerticalAlignment="Center" />
 
                             <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.YouTube}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                         </Grid>
@@ -224,7 +224,7 @@
                                 <ColumnDefinition Width="20" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="/Assets/Images/Trovo.png" Height="24" Width="24" VerticalAlignment="Center" />
+                            <Image Grid.Column="0" Source="/Assets/Images/trovo-color_sm.png" Height="24" Width="24" VerticalAlignment="Center" />
 
                             <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Trovo}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                         </Grid>

@@ -64,7 +64,7 @@
                         Width="500"
                         Margin="-15,0,0,0"
                         HorizontalAlignment="Center"
-                        Source="/Assets/Images/MixItUp-Logo-Name.png" />
+                        Source="/Assets/Images/mixitup_logo-full_color-light_xl.png" />
 
                     <TextBlock
                         Grid.Row="2"
@@ -101,7 +101,7 @@
                                 Margin="-10,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Source="/Assets/Images/Discord.png" />
+                                Source="/Assets/Images/discord-color_sm.png" />
                         </Button>
 
                         <TextBlock
@@ -122,7 +122,7 @@
                                 Margin="-10,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Source="/Assets/Images/Twitter.png" />
+                                Source="/Assets/Images/twitter-color_sm.png" />
                         </Button>
 
                         <TextBlock
@@ -157,7 +157,7 @@
                                 Margin="-10,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Source="/Assets/Images/YouTube.png" />
+                                Source="/Assets/Images/youtube-color_sm.png" />
                         </Button>
 
                         <TextBlock
@@ -180,7 +180,7 @@
                                 Margin="-10,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Source="/Assets/Images/Wiki.png" />
+                                Source="/Assets/Images/wiki-color_sm.png" />
                         </Button>
 
                         <TextBlock
@@ -414,7 +414,7 @@
                                     Margin="-10,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Source="/Assets/Images/Discord.png" />
+                                    Source="/Assets/Images/discord-color_sm.png" />
                             </Button>
 
                             <Button
@@ -429,7 +429,7 @@
                                     Margin="-10,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Source="/Assets/Images/Twitter.png" />
+                                    Source="/Assets/Images/twitter-color_sm.png" />
                             </Button>
 
                             <Button
@@ -444,7 +444,7 @@
                                     Margin="-10,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Source="/Assets/Images/YouTube.png" />
+                                    Source="/Assets/Images/youtube-color_sm.png" />
                             </Button>
 
                             <Button
@@ -459,7 +459,7 @@
                                     Margin="-10,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Source="/Assets/Images/Wiki.png" />
+                                    Source="/Assets/Images/wiki-color_sm.png" />
                             </Button>
                         </Grid>
 

@@ -33,7 +33,7 @@ namespace MixItUp.Base.Services.Mock
                 {
                     ID = this.UserID,
                     Username = this.Username,
-                    AvatarURL = "https://github.com/mixitupapp/Desktop/raw/main/MixItUp.WPF/Logo.png"
+                    AvatarURL = "https://files.mixitupapp.com/static/branding/mixitup_logo-spiral_color_lg.png"
                 };
             }
         }
@@ -45,7 +45,7 @@ namespace MixItUp.Base.Services.Mock
                 {
                     ID = this.BotID,
                     Username = this.Botname,
-                    AvatarURL = "https://github.com/mixitupapp/Desktop/raw/main/MixItUp.WPF/Logo.png"
+                    AvatarURL = "https://files.mixitupapp.com/static/branding/mixitup_logo-spiral_color_lg.png"
                 };
             }
         }

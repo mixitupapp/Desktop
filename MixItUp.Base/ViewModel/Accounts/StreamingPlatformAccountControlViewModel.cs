@@ -41,9 +41,9 @@ namespace MixItUp.Base.ViewModel.Accounts
         {
             get
             {
-                if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "/Assets/Images/TwitchMonochrome.png"; }
-                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/YouTube.png"; }
-                if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "/Assets/Images/TrovoMonochrome.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "/Assets/Images/twitch-dark_lg.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/youtube-dark_lg.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "/Assets/Images/trovo-dark_lg.png"; }
                 return StreamingPlatforms.GetPlatformImage(this.Platform);
             }
         }

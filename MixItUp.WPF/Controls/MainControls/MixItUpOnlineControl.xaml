@@ -24,8 +24,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Image x:Name="LightMode" Grid.Row="0" Width="549" Height="149" HorizontalAlignment="Center" Source="https://github.com/mixitupapp/Desktop/raw/main/MixItUp.WPF/Logo.png" />
-        <Image x:Name="DarkMode" Grid.Row="0" Width="549" Height="149" HorizontalAlignment="Center" Source="https://github.com/mixitupapp/Desktop/raw/main/MixItUp.WPF/Logo.png" />
+        <Image x:Name="LightMode" Grid.Row="0" Width="549" Height="149" HorizontalAlignment="Center" Source="https://files.mixitupapp.com/static/branding/mixitup_logo-spiral_color_lg.png" />
+        <Image x:Name="DarkMode" Grid.Row="0" Width="549" Height="149" HorizontalAlignment="Center" Source="https://files.mixitupapp.com/static/branding/mixitup_logo-spiral_color_lg.png" />
 
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" TextWrapping="Wrap" Width="500" Text="{x:Static resx:Resources.MixItUpOnlineAlphaRegistrationInfo}" />
 
