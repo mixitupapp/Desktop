@@ -266,6 +266,38 @@ namespace MixItUp.WPF.Services
             }
         }
 
+        public async Task SaveSettingsFile(string filePath, string data)
+        {
+            filePath = this.ExpandEnvironmentVariablesInFilePath(filePath);
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                try
+                {
+                    await WindowsFileService.fileLock.WaitAsync();
+
+                    string tempPath = filePath + ".tmp";
+                    await File.WriteAllTextAsync(tempPath, data ?? string.Empty, System.Text.Encoding.UTF8);
+
+                    if (new FileInfo(tempPath).Length == 0)
+                    {
+                        File.Delete(tempPath);
+                        throw new IOException("Empty file");
+                    }
+
+                    File.Move(tempPath, filePath, overwrite: true);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                    throw;
+                }
+                finally
+                {
+                    WindowsFileService.fileLock.Release();
+                }
+            }
+        }
+
         public string ShowOpenFolderDialog()
         { 
             using (var folderDialog = new System.Windows.Forms.FolderBrowserDialog())

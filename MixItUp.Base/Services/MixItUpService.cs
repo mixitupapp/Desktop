@@ -90,26 +90,23 @@ namespace MixItUp.Base.Services
         public static async Task<CommunityCommandsSearchResult> Create(HttpResponseMessage response)
         {
             CommunityCommandsSearchResult result = new CommunityCommandsSearchResult();
-            if (response.IsSuccessStatusCode)
-            {
-                result.Results.AddRange(await response.ProcessResponse<IEnumerable<CommunityCommandModel>>());
+            result.Results.AddRange(await response.ProcessResponse<IEnumerable<CommunityCommandModel>>());
 
-                if (int.TryParse(response.GetHeaderValue(PageNumberHeader), out int pageNumber))
-                {
-                    result.PageNumber = pageNumber;
-                }
-                if (int.TryParse(response.GetHeaderValue(PageSizeHeader), out int pageSize))
-                {
-                    result.PageSize = pageSize;
-                }
-                if (int.TryParse(response.GetHeaderValue(TotalElementsHeader), out int totalElements))
-                {
-                    result.TotalElements = totalElements;
-                }
-                if (int.TryParse(response.GetHeaderValue(TotalPagesHeader), out int totalPages))
-                {
-                    result.TotalPages = totalPages;
-                }
+            if (int.TryParse(response.GetHeaderValue(PageNumberHeader), out int pageNumber))
+            {
+                result.PageNumber = pageNumber;
+            }
+            if (int.TryParse(response.GetHeaderValue(PageSizeHeader), out int pageSize))
+            {
+                result.PageSize = pageSize;
+            }
+            if (int.TryParse(response.GetHeaderValue(TotalElementsHeader), out int totalElements))
+            {
+                result.TotalElements = totalElements;
+            }
+            if (int.TryParse(response.GetHeaderValue(TotalPagesHeader), out int totalPages))
+            {
+                result.TotalPages = totalPages;
             }
             return result;
         }
@@ -127,6 +124,14 @@ namespace MixItUp.Base.Services
         public bool HasPreviousResults { get { return this.PageNumber > 1; } }
 
         public bool HasNextResults { get { return this.PageNumber < this.TotalPages; } }
+    }
+
+    public class CommunityCommandsUnavailableException : Exception
+    {
+        public CommunityCommandsUnavailableException(string message)
+            : base(message)
+        {
+        }
     }
 
     public class MixItUpService : OAuthRestServiceBase, ICommunityCommandsService, IMixItUpService, IWebhookService, IDisposable
@@ -272,73 +277,140 @@ namespace MixItUp.Base.Services
         // ICommunityCommandsService
         public async Task<IEnumerable<CommunityCommandCategoryModel>> GetHomeCategories()
         {
-            await EnsureLogin();
-            return await GetAsync<IEnumerable<CommunityCommandCategoryModel>>("community/commands/categories");
+            return await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                return await GetAsync<IEnumerable<CommunityCommandCategoryModel>>("v2/community/commands/categories");
+            });
         }
 
         public async Task<CommunityCommandsSearchResult> SearchCommands(string query, int skip, int top)
         {
-            await EnsureLogin();
-            return await CommunityCommandsSearchResult.Create(await this.GetAsync($"community/commands/command/search?query={HttpUtility.UrlEncode(query)}&skip={skip}&top={top}"));
+            return await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                return await CommunityCommandsSearchResult.Create(await this.GetAsync($"v2/community/commands/command/search?query={HttpUtility.UrlEncode(query)}&skip={skip}&top={top}"));
+            });
         }
 
         public async Task<CommunityCommandDetailsModel> GetCommandDetails(Guid id)
         {
-            try
+            return await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                return await GetAsync<CommunityCommandDetailsModel>($"community/commands/command/{id}");
-            }
-            catch (HttpRestRequestException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                return null;
-            }
+                try
+                {
+                    await EnsureLogin();
+                    return await GetAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}");
+                }
+                catch (HttpRestRequestException ex) when (ex.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+            });
         }
 
         public async Task<CommunityCommandDetailsModel> AddOrUpdateCommand(CommunityCommandUploadModel command)
         {
-            await EnsureLogin();
-            return await PostAsync<CommunityCommandDetailsModel>("community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
+            return await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                return await PostAsync<CommunityCommandDetailsModel>("v2/community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
+            });
         }
 
         public async Task DeleteCommand(Guid id)
         {
-            await EnsureLogin();
-            await DeleteAsync<CommunityCommandDetailsModel>($"community/commands/command/{id}/delete");
+            await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                await DeleteAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}/delete");
+            });
         }
 
         public async Task ReportCommand(CommunityCommandReportModel report)
         {
-            await EnsureLogin();
-            await PostAsync($"community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
+            await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                await PostAsync($"v2/community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
+            });
         }
 
         public async Task<CommunityCommandsSearchResult> GetCommandsByUser(Guid userID, int skip, int top)
         {
-            await EnsureLogin();
-            return await CommunityCommandsSearchResult.Create(await GetAsync($"community/commands/command/user/{userID}?skip={skip}&top={top}"));
+            return await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/user/{userID}?skip={skip}&top={top}"));
+            });
         }
 
         public async Task<CommunityCommandsSearchResult> GetMyCommands(int skip, int top)
         {
-            await EnsureLogin();
-            return await CommunityCommandsSearchResult.Create(await GetAsync($"community/commands/command/mine?skip={skip}&top={top}"));
+            return await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/mine?skip={skip}&top={top}"));
+            });
         }
 
         public async Task<CommunityCommandReviewModel> AddReview(CommunityCommandReviewModel review)
         {
-            await EnsureLogin();
-            return await PostAsync<CommunityCommandReviewModel>($"community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
+            return await this.CommunityCommandsRequest(async () =>
+            {
+                await EnsureLogin();
+                return await PostAsync<CommunityCommandReviewModel>($"v2/community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
+            });
         }
 
         public async Task DownloadCommand(Guid id)
         {
             try
             {
-                await EnsureLogin();
-                await GetAsync<IEnumerable<CommunityCommandDetailsModel>>($"community/commands/command/{id}/download");
+                await this.CommunityCommandsRequest(async () =>
+                {
+                    await EnsureLogin();
+                    await GetAsync<IEnumerable<CommunityCommandDetailsModel>>($"v2/community/commands/command/{id}/download");
+                });
             }
+            catch (CommunityCommandsUnavailableException) { throw; }
             catch { }
+        }
+
+        private async Task<T> CommunityCommandsRequest<T>(Func<Task<T>> action)
+        {
+            try
+            {
+                return await action();
+            }
+            catch (HttpRestRequestException ex) when (ex.Response?.StatusCode == HttpStatusCode.ServiceUnavailable)
+            {
+                throw new CommunityCommandsUnavailableException(await this.GetCommunityCommandsUnavailableMessage(ex));
+            }
+        }
+
+        private async Task CommunityCommandsRequest(Func<Task> action)
+        {
+            await this.CommunityCommandsRequest(async () =>
+            {
+                await action();
+                return true;
+            });
+        }
+
+        private async Task<string> GetCommunityCommandsUnavailableMessage(HttpRestRequestException ex)
+        {
+            const string fallback = "Community Commands is temporarily unavailable.";
+            try
+            {
+                string content = await ex.Response.Content.ReadAsStringAsync();
+                string message = JObject.Parse(content)?["message"]?.ToString();
+                return string.IsNullOrWhiteSpace(message) ? fallback : message;
+            }
+            catch
+            {
+                return fallback;
+            }
         }
 
         protected override Task<OAuthTokenModel> GetOAuthToken(bool autoRefreshToken = true)
@@ -589,7 +661,11 @@ namespace MixItUp.Base.Services
             await CheckForNewNotifications();
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationCancellationTokenSource.Token, 30 * 60000);
+            var notificationPollingTokenSource = notificationCancellationTokenSource;
+            if (notificationPollingTokenSource != null)
+            {
+                AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationPollingTokenSource.Token, 30 * 60000);
+            }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
 

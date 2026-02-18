@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Settings;
@@ -500,8 +500,20 @@ namespace MixItUp.Base
                     }
                 }
 
+                if (ChannelSession.Settings.SettingsBackupRate == SettingsBackupRateEnum.None)
+                {
+                    if (ChannelSession.Settings.BackupWarningLastShown == DateTimeOffset.MinValue || DateTimeOffset.Now >= ChannelSession.Settings.BackupWarningLastShown.AddMonths(1))
+                    {
+                        await DialogHelper.ShowMessage(Resources.BackupsReminder);
+                        ChannelSession.Settings.BackupWarningLastShown = DateTimeOffset.Now;
+                    }
+                }
+                else
+                {
+                    ChannelSession.Settings.BackupWarningLastShown = DateTimeOffset.MinValue;
+                }
+
                 await ChannelSession.SaveSettings();
-                await ServiceManager.Get<SettingsService>().SaveLocalBackup(ChannelSession.Settings);
                 await ServiceManager.Get<SettingsService>().PerformAutomaticBackupIfApplicable(ChannelSession.Settings);
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed

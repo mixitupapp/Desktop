@@ -901,31 +901,36 @@ namespace MixItUp.Base.Util
                     await ServiceManager.Get<UserService>().LoadAllUserData();
                     IEnumerable<UserV2Model> allUsers = ChannelSession.Settings.Users.Values.Where(u => !u.IsSpecialtyExcluded && u.ID != ChannelSession.User.Model.ID);
 
+                    if (platform != StreamingPlatformTypeEnum.All && platform != StreamingPlatformTypeEnum.None)
+                    {
+                        allUsers = allUsers.Where(u => u.HasPlatformData(platform));
+                    }
+
                     if (this.ContainsSpecialIdentifier(RandomAnySpecialIdentifierHeader + "user"))
                     {
                         if (allUsers.Any())
                         {
-                            UserV2ViewModel randomUser = new UserV2ViewModel(allUsers.Random());
+                            UserV2ViewModel randomUser = new UserV2ViewModel(platform, allUsers.Random());
                             await this.HandleUserSpecialIdentifiers(randomUser, RandomAnySpecialIdentifierHeader);
                         }
                     }
 
                     if (this.ContainsSpecialIdentifier(RandomAnyFollowerSpecialIdentifierHeader))
                     {
-                        IEnumerable<UserV2Model> followers = allUsers.Where(u => u.PlatformData.Values.Any(p => p.FollowDate != null));
+                        IEnumerable<UserV2Model> followers = allUsers.Where(u => u.PlatformData.ContainsKey(platform) && u.PlatformData[platform].FollowDate != null);
                         if (followers.Any())
                         {
-                            UserV2ViewModel randomUser = new UserV2ViewModel(followers.Random());
+                            UserV2ViewModel randomUser = new UserV2ViewModel(platform, followers.Random());
                             await this.HandleUserSpecialIdentifiers(randomUser, RandomAnyFollowerSpecialIdentifierHeader);
                         }
                     }
 
                     if (this.ContainsSpecialIdentifier(RandomAnySubscriberSpecialIdentifierHeader))
                     {
-                        IEnumerable<UserV2Model> subscribers = allUsers.Where(u => u.PlatformData.Values.Any(p => p.SubscribeDate != null));
+                        IEnumerable<UserV2Model> subscribers = allUsers.Where(u => u.PlatformData.ContainsKey(platform) && u.PlatformData[platform].SubscribeDate != null);
                         if (subscribers.Any())
                         {
-                            UserV2ViewModel randomUser = new UserV2ViewModel(subscribers.Random());
+                            UserV2ViewModel randomUser = new UserV2ViewModel(platform, subscribers.Random());
                             await this.HandleUserSpecialIdentifiers(randomUser, RandomAnySubscriberSpecialIdentifierHeader);
                         }
                     }
@@ -936,7 +941,7 @@ namespace MixItUp.Base.Util
                         IEnumerable<UserV2Model> regulars = allUsers.Where(u => u.OnlineViewingMinutes >= regularMinutes);
                         if (regulars.Any())
                         {
-                            UserV2ViewModel randomUser = new UserV2ViewModel(regulars.Random());
+                            UserV2ViewModel randomUser = new UserV2ViewModel(platform, regulars.Random());
                             await this.HandleUserSpecialIdentifiers(randomUser, RandomAnyRegularSpecialIdentifierHeader);
                         }
                     }
@@ -1159,7 +1164,10 @@ namespace MixItUp.Base.Util
 
                         if (userItems.Count > 0)
                         {
+                            int totalQuantity = userItems.Values.Sum();
+
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserUniqueItemsTotalSpecialIdentifier, userItems.Count.ToString());
+                            this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserItemsTotalSpecialIdentifier, totalQuantity.ToString());
 
                             List<string> userAllItems = new List<string>();
                             foreach (var kvp in userItems.OrderBy(i => i.Key))
@@ -1175,6 +1183,7 @@ namespace MixItUp.Base.Util
                         else
                         {
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserUniqueItemsTotalSpecialIdentifier, userItems.Count.ToString());
+                            this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserItemsTotalSpecialIdentifier, userItems.Values.Sum().ToString());
 
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserAllAmountSpecialIdentifier, Resources.Nothing);
                             this.ReplaceSpecialIdentifier(identifierHeader + inventory.UserRandomItemSpecialIdentifier, Resources.Nothing);

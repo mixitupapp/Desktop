@@ -47,6 +47,7 @@
 
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding InstallationFolder}" />
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding DiagnosticLogging}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding DisableHardwareAcceleration}" />
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding RunNewUserWizard}" />
             <GenericSettingsControls:GenericButtonSettingsOptionControl DataContext="{Binding DeleteSettings}" />
         </StackPanel>

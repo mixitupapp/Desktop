@@ -31,13 +31,13 @@ namespace MixItUp.Base.Model
 
     public static class StreamingPlatforms
     {
-        public const string TwitchLogoImageAssetFilePath = "/Assets/Images/Twitch.png";
-        public const string YouTubeLogoImageAssetFilePath = "/Assets/Images/YouTube.png";
-        public const string TrovoLogoImageAssetFilePath = "/Assets/Images/Trovo.png";
+        public const string TwitchLogoImageAssetFilePath = "/Assets/Images/twitch-color_lg.png";
+        public const string YouTubeLogoImageAssetFilePath = "/Assets/Images/youtube-color_lg.png";
+        public const string TrovoLogoImageAssetFilePath = "/Assets/Images/trovo-color_lg.png";
 
-        public const string TwitchSmallLogoImageAssetFilePath = "/Assets/Images/Twitch-XS.png";
-        public const string YouTubeSmallLogoImageAssetFilePath = "/Assets/Images/YouTube-XS.png";
-        public const string TrovoSmallLogoImageAssetFilePath = "/Assets/Images/Trovo-XS.png";
+        public const string TwitchSmallLogoImageAssetFilePath = "/Assets/Images/twitch-color_sm.png";
+        public const string YouTubeSmallLogoImageAssetFilePath = "/Assets/Images/youtube-color_sm.png";
+        public const string TrovoSmallLogoImageAssetFilePath = "/Assets/Images/trovo-color_sm.png";
 
         public static ISet<StreamingPlatformTypeEnum> SupportedPlatforms { get; private set; } = new HashSet<StreamingPlatformTypeEnum>()
         {

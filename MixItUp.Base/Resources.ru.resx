@@ -941,6 +941,9 @@ Fuzzy</comment>
     <value>Размер шрифта</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Цвет переднего плана</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Четыре</value>
   </data>
@@ -3045,6 +3048,12 @@ Fuzzy</comment>
     <value>Экспортные котировки</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Котировки перенумеровать</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Это изменит последовательную нумерацию всех котировок в соответствии с их текущим порядком. Номера котировок изменятся. Вы уверены, что хотите продолжить?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Регулярный бонус</value>
     <comment>Manual</comment>
@@ -3256,6 +3265,9 @@ Fuzzy</comment>
   <data name="HideBotMessages" xml:space="preserve">
     <value>Скрыть сообщения бота</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Скрывать сообщения шепотом</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Выгода Патреона</value>
@@ -10798,16 +10810,6 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Не показывать ошибку «Нет данных»</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Голоса не вернулись</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Статус</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Скрывать сообщения шепотом</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Пылающая звезда</value>
   </data>
@@ -11075,6 +11077,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Ключ API не предоставляется</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Голоса не вернулись</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Пользовательский ключ API Google Cloud TTS не был добавлен. Посетите раздел Google Cloud TTS на странице "Сервисы", чтобы подключить собственный ключ API.</value>
   </data>
@@ -11126,6 +11131,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="Rescan" xml:space="preserve">
     <value>Повторное сканирование</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Тип действия</value>
   </data>
@@ -11154,13 +11162,70 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
 
 Пожалуйста, перейдите на страницу "Аккаунты" в главном меню, чтобы подключить аккаунт стриминговой платформы, а затем перезапустите Mix It Up.</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Котировки перенумеровать</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Сброс положения окна</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Это изменит последовательную нумерацию всех котировок в соответствии с их текущим порядком. Номера котировок изменятся. Вы уверены, что хотите продолжить?</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Положение окон было изменено</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Цвет переднего плана</value>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Отключить аппаратное ускорение</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>Чтобы это изменение вступило в силу, необходимо перезапустить приложение.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Отключите аппаратное ускорение GPU и используйте вместо него программный рендеринг. Включите эту функцию, если у вас возникают сбои, связанные с графикой (UCEERRRENDERTHREADFAILURE). Требуется перезагрузка.</value>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord Action: Встраивание должно иметь как минимум заголовок, описание, миниатюру или изображение</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Сообщение (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Встроить название</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>URL-адрес заголовка (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Описание встраивания</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Включить временную метку</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Автор (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Нижний колонтитул (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Имя автора (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL-адрес значка автора (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL-адрес миниатюры (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL-адрес изображения (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Текст нижнего колонтитула (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL-адрес значка нижнего колонтитула (необязательно)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Отправить Embed</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>Напоминание: Автоматическое резервное копирование отключено. Включите их в разделе Настройки → Дополнительно, чтобы защитить свои настройки от непредвиденной потери данных.</value>
   </data>
 </root>

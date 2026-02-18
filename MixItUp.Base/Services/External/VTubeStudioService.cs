@@ -132,9 +132,10 @@ namespace MixItUp.Base.Services.External
     public class VTubeStudioService : OAuthExternalServiceBase
     {
         public const int DefaultPortNumber = 8001;
+        public const string DefaultIPAddress = "127.0.0.1";
         public const int MaxCacheDuration = 30;
 
-        private const string websocketAddress = "ws://localhost:";
+        private const string websocketAddress = "ws://{0}:";
 
         private const string websocketPluginName = "Mix It Up";
         private const string websocketPluginDeveloper = "https://mixitupapp.com/";
@@ -443,7 +444,8 @@ namespace MixItUp.Base.Services.External
         private async Task<bool> ConnectWebSocket()
         {
             this.websocket.OnDisconnectOccurred -= Websocket_OnDisconnectOccurred;
-            return await this.websocket.Connect(websocketAddress + ChannelSession.Settings.VTubeStudioPortNumber);
+            string ipAddress = !string.IsNullOrEmpty(ChannelSession.Settings.VTubeStudioIPAddress) ? ChannelSession.Settings.VTubeStudioIPAddress : DefaultIPAddress;
+            return await this.websocket.Connect(string.Format(websocketAddress, ipAddress) + ChannelSession.Settings.VTubeStudioPortNumber);
         }
 
         private async void Websocket_OnDisconnectOccurred(object sender, System.Net.WebSockets.WebSocketCloseStatus e)

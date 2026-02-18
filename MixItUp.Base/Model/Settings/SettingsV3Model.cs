@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Commands.Games;
 using MixItUp.Base.Model.Currency;
@@ -78,6 +78,8 @@ namespace MixItUp.Base.Model.Settings
         public SettingsBackupRateEnum SettingsBackupRate { get; set; }
         [DataMember]
         public DateTimeOffset SettingsLastBackup { get; set; }
+        [DataMember]
+        public DateTimeOffset BackupWarningLastShown { get; set; } = DateTimeOffset.MinValue;
 
         #region Authentication
 
@@ -553,6 +555,9 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public int VTubeStudioPortNumber { get; set; } = VTubeStudioService.DefaultPortNumber;
+
+        [DataMember]
+        public string VTubeStudioIPAddress { get; set; } = VTubeStudioService.DefaultIPAddress;
 
         [DataMember]
         public int TITSPortNumber { get; set; } = TITSService.DefaultPortNumber;
@@ -1048,6 +1053,43 @@ namespace MixItUp.Base.Model.Settings
             //}
 
             await ServiceManager.Get<IDatabaseService>().CompressDb(this.DatabaseFilePath);
+        }
+
+        public async Task BackupSettingsToDatabase()
+        {
+            try
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "CREATE TABLE IF NOT EXISTS \"SettingsBackupHistory\" (\"ID\" INTEGER PRIMARY KEY, \"BackupDateTime\" datetime not null default CURRENT_TIMESTAMP, \"SettingsJSON\" text not null)");
+
+                string settingsJSON = JSONSerializerHelper.SerializeToString(this);
+
+                if (string.IsNullOrEmpty(settingsJSON) || settingsJSON.Contains("\0"))
+                {
+                    Logger.Log(LogLevel.Error, "Invalid settings data detected, skipping database backup");
+                    return;
+                }
+
+                await ServiceManager.Get<IDatabaseService>().BulkWrite(
+                    this.DatabaseFilePath,
+                    "INSERT INTO SettingsBackupHistory (SettingsJSON) VALUES ($JSON)",
+                    new List<Dictionary<string, object>> { new Dictionary<string, object> { { "$JSON", settingsJSON } } });
+
+                await ServiceManager.Get<IDatabaseService>().Write(
+                    this.DatabaseFilePath,
+                    @"DELETE FROM SettingsBackupHistory 
+              WHERE ID NOT IN (
+                  SELECT ID FROM SettingsBackupHistory 
+                  ORDER BY BackupDateTime DESC 
+                  LIMIT 10
+              )");
+
+                Logger.Log(LogLevel.Debug, "Settings backed up to database");
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Error, "Failed to backup settings to database");
+                Logger.Log(ex);
+            }
         }
 
         public async Task SaveMissingFilesCheckCommand(CommandModelBase command)

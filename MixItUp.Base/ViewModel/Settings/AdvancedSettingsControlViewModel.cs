@@ -20,6 +20,7 @@ namespace MixItUp.Base.ViewModel.Settings
 
         public GenericButtonSettingsOptionControlViewModel InstallationFolder { get; set; }
         public GenericToggleSettingsOptionControlViewModel DiagnosticLogging { get; set; }
+        public GenericToggleSettingsOptionControlViewModel DisableHardwareAcceleration { get; set; }
         public GenericButtonSettingsOptionControlViewModel RunNewUserWizard { get; set; }
         public GenericButtonSettingsOptionControlViewModel DeleteSettings { get; set; }
 
@@ -69,6 +70,12 @@ namespace MixItUp.Base.ViewModel.Settings
 
             this.DiagnosticLogging = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.DiagnosticLogging, ChannelSession.AppSettings.DiagnosticLogging,
                 (value) => { ChannelSession.AppSettings.DiagnosticLogging = value; }, MixItUp.Base.Resources.DiagnosticLoggingToolip);
+
+            this.DisableHardwareAcceleration = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.DisableHardwareAcceleration, ChannelSession.AppSettings.DisableHardwareAcceleration,
+                async (value) =>
+                {
+                    ChannelSession.AppSettings.DisableHardwareAcceleration = value; ChannelSession.AppSettings.SettingsChangeRestartRequired = true;
+                    await DialogHelper.ShowMessage(MixItUp.Base.Resources.DisableHardwareAccelerationRestartMessage); }, MixItUp.Base.Resources.DisableHardwareAccelerationTooltip);
 
             this.RunNewUserWizard = new GenericButtonSettingsOptionControlViewModel(MixItUp.Base.Resources.ReRunNewUserWizard, MixItUp.Base.Resources.NewUserWizard, this.CreateCommand(async () =>
             {

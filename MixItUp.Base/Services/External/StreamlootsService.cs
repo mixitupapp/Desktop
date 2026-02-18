@@ -6,10 +6,10 @@ using MixItUp.Base.ViewModel.User;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
+using System.Net.Http.Headers;
+using System.Net.ServerSentEvents;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -121,12 +121,8 @@ namespace MixItUp.Base.Services.External
 
         public event EventHandler OnStreamlootsConnectionChanged = delegate { };
 
-        private readonly HttpClient httpClient = new HttpClient()
-        {
-            Timeout = Timeout.InfiniteTimeSpan
-        };
-
-        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private HttpClient httpClient;
+        private CancellationTokenSource cancellationTokenSource;
 
         public StreamlootsService() : base("") { }
 
@@ -137,20 +133,34 @@ namespace MixItUp.Base.Services.External
             return Task.FromResult(new Result(false));
         }
 
-        public override Task Disconnect()
+        public override async Task Disconnect()
         {
-            this.cancellationTokenSource.Cancel();
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel();
+            }
+
             this.token = null;
 
-            this.OnStreamlootsConnectionChanged(this, new EventArgs());
+            if (httpClient != null)
+            {
+                httpClient.Dispose();
+                httpClient = null;
+            }
 
-            return Task.CompletedTask;
+            this.OnStreamlootsConnectionChanged(this, new EventArgs());
         }
 
         protected override Task<Result> InitializeInternal()
         {
+            cancellationTokenSource = new CancellationTokenSource();
+            httpClient = new HttpClient
+            {
+                Timeout = Timeout.InfiniteTimeSpan
+            };
+
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            Task.Run(this.BackgroundCheck, this.cancellationTokenSource.Token);
+            Task.Run(() => BackgroundCheck(cancellationTokenSource.Token), cancellationTokenSource.Token);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
             this.TrackServiceTelemetry("Streamloots");
@@ -164,74 +174,72 @@ namespace MixItUp.Base.Services.External
 
         protected override void DisposeInternal()
         {
-            this.cancellationTokenSource.Dispose();
-            this.httpClient?.Dispose();
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource?.Dispose();
+            httpClient?.Dispose();
         }
 
-        private async Task BackgroundCheck()
+        private async Task BackgroundCheck(CancellationToken cancellationToken)
         {
-            while (!this.cancellationTokenSource.Token.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
-                Stream responseStream = null;
                 try
                 {
-                    var response = await httpClient.GetAsync(
-                        string.Format("https://widgets.streamloots.com/alerts/{0}/media-stream", this.token.accessToken),
-                        HttpCompletionOption.ResponseHeadersRead,
-                        this.cancellationTokenSource.Token);
+                    string url = string.Format("https://widgets.streamloots.com/alerts/{0}/media-stream", this.token.accessToken);
 
-                    responseStream = await response.Content.ReadAsStreamAsync(this.cancellationTokenSource.Token);
-
-                    UTF8Encoding encoder = new UTF8Encoding();
-                    string textBuffer = string.Empty;
-                    var buffer = new byte[100000];
-
-                    while (!this.cancellationTokenSource.Token.IsCancellationRequested)
+                    using (var request = new HttpRequestMessage(HttpMethod.Get, url))
                     {
-                        if (responseStream.CanRead)
-                        {
-                            int len = await responseStream.ReadAsync(buffer, 0, 100000, this.cancellationTokenSource.Token);
-                            if (len > 10)
-                            {
-                                string text = encoder.GetString(buffer, 0, len);
-                                if (!string.IsNullOrEmpty(text))
-                                {
-                                    Logger.Log(LogLevel.Debug, "Streamloots Packet Received: " + text);
+                        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
 
-                                    textBuffer += text;
-                                    try
+                        using (HttpResponseMessage response = await httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken))
+                        {
+                            response.EnsureSuccessStatusCode();
+
+                            await using (var stream = await response.Content.ReadAsStreamAsync(cancellationToken))
+                            {
+                                await foreach (SseItem<string> sseItem in SseParser.Create(stream).EnumerateAsync(cancellationToken))
+                                {
+                                    if (cancellationToken.IsCancellationRequested)
+                                        break;
+
+                                    if (sseItem.EventType == "message" && !string.IsNullOrEmpty(sseItem.Data))
                                     {
-                                        JObject jobj = JObject.Parse("{ " + textBuffer + " }");
-                                        if (jobj != null && jobj.ContainsKey("data"))
+                                        try
                                         {
-                                            Logger.Log(LogLevel.Debug, "Streamloots Full Packet Received: " + textBuffer);
-                                            textBuffer = string.Empty;
-                                            if (jobj.Value<JObject>("data").ContainsKey("data") && jobj.Value<JObject>("data").Value<JObject>("data").ContainsKey("type"))
+                                            Logger.Log(LogLevel.Debug, "Streamloots Packet Received: " + sseItem.Data);
+
+                                            JObject jobj = JObject.Parse(sseItem.Data);
+                                            if (jobj != null && jobj.ContainsKey("data"))
                                             {
-                                                var type = jobj.Value<JObject>("data").Value<JObject>("data").Value<string>("type");
-                                                switch (type.ToLower())
+                                                Logger.Log(LogLevel.Debug, "Streamloots Full Packet Received: " + sseItem.Data);
+
+                                                JObject dataObj = jobj.Value<JObject>("data");
+                                                if (dataObj != null && dataObj.ContainsKey("type"))
                                                 {
-                                                    case "purchase":
-                                                        await ProcessPurchase(jobj);
-                                                        break;
-                                                    case "redemption":
-                                                        await ProcessCardRedemption(jobj);
-                                                        break;
-                                                    default:
-                                                        Logger.Log(LogLevel.Debug, $"Unknown Streamloots packet type: {type}");
-                                                        break;
+                                                    var type = dataObj.Value<string>("type");
+                                                    switch (type?.ToLower())
+                                                    {
+                                                        case "purchase":
+                                                            await ProcessPurchase(jobj);
+                                                            break;
+                                                        case "redemption":
+                                                            await ProcessCardRedemption(jobj);
+                                                            break;
+                                                        default:
+                                                            Logger.Log(LogLevel.Debug, $"Unknown Streamloots packet type: {type}");
+                                                            break;
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Logger.Log(ex);
+                                        catch (Exception ex)
+                                        {
+                                            Logger.Log(ex);
+                                        }
                                     }
                                 }
                             }
                         }
-                        await Task.Delay(1000);
                     }
                 }
                 catch (OperationCanceledException)
@@ -241,25 +249,25 @@ namespace MixItUp.Base.Services.External
                 catch (Exception ex)
                 {
                     Logger.Log(ex);
-                    await Task.Delay(5000);
-                }
-                finally
-                {
-                    responseStream?.Dispose();
+
+                    if (!cancellationToken.IsCancellationRequested)
+                    {
+                        await Task.Delay(10000, cancellationToken);
+                    }
                 }
             }
         }
 
         private async Task ProcessPurchase(JObject jobj)
         {
-            var purchase = jobj["data"].ToObject<StreamlootsPurchaseModel>();
+            var purchase = jobj["data"].ToObject<StreamlootsPurchaseDataModel>();
             if (purchase != null)
             {
-                UserV2ViewModel user = this.GetUser(purchase.data.Username);
-                UserV2ViewModel giftee = (string.IsNullOrEmpty(purchase.data.Giftee)) ? null : this.GetUser(purchase.data.Giftee);
+                UserV2ViewModel user = this.GetUser(purchase.Username);
+                UserV2ViewModel giftee = (string.IsNullOrEmpty(purchase.Giftee)) ? null : this.GetUser(purchase.Giftee);
 
                 CommandParametersModel parameters = new CommandParametersModel(user);
-                parameters.SpecialIdentifiers["streamlootspurchasequantity"] = purchase.data.Quantity.ToString();
+                parameters.SpecialIdentifiers["streamlootspurchasequantity"] = purchase.Quantity.ToString();
                 if (giftee != null)
                 {
                     parameters.Arguments.Add(giftee.Username);
@@ -270,23 +278,22 @@ namespace MixItUp.Base.Services.External
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.StreamlootsPackPurchased, parameters);
                 }
 
-                StreamlootsService.StreamlootsPurchaseOccurred(user, purchase.data.Quantity);
+                StreamlootsService.StreamlootsPurchaseOccurred(user, purchase.Quantity);
 
                 if (giftee != null)
                 {
-                    await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.StreamlootsGiftedPacksAlert, user.FullDisplayName, purchase.data.Quantity, giftee.Username), ChannelSession.Settings.AlertStreamlootsColor));
+                    await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.StreamlootsGiftedPacksAlert, user.FullDisplayName, purchase.Quantity, giftee.Username), ChannelSession.Settings.AlertStreamlootsColor));
                 }
                 else
                 {
-                    await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.StreamlootsPurchasedPacksAlert, user.FullDisplayName, purchase.data.Quantity), ChannelSession.Settings.AlertStreamlootsColor));
+                    await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.StreamlootsPurchasedPacksAlert, user.FullDisplayName, purchase.Quantity), ChannelSession.Settings.AlertStreamlootsColor));
                 }
             }
         }
 
         private async Task ProcessCardRedemption(JObject jobj)
         {
-            string cardData = string.Empty;
-            StreamlootsCardModel card = jobj["data"].ToObject<StreamlootsCardModel>();
+            StreamlootsCardModel card = jobj.ToObject<StreamlootsCardModel>();
             if (card != null && !string.IsNullOrEmpty(card.data?.cardName))
             {
                 UserV2ViewModel user = this.GetUser(card.data.Username);

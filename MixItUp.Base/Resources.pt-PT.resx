@@ -941,6 +941,9 @@ Fuzzy</comment>
     <value>Tamanho da fonte</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Cor do primeiro plano</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Quatro</value>
   </data>
@@ -3043,6 +3046,12 @@ Fuzzy</comment>
     <value>Exportar citações</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Renumerar citações</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Isto irá renumerar todas as cotações sequencialmente com base na sua ordem atual. Os números das cotações serão alterados. Tem a certeza de que pretende continuar?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Bónus Regular</value>
     <comment>Manual</comment>
@@ -3254,6 +3263,9 @@ Fuzzy</comment>
   <data name="HideBotMessages" xml:space="preserve">
     <value>Ocultar mensagens do bot</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Esconder Mensagens do Sussurro</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Benefício do Patreon</value>
@@ -10795,16 +10807,6 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Não apresentar erro "Sem dados"</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Nenhuma voz retornou</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Estatuto</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Esconder Mensagens do Sussurro</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Estrela Flamejante</value>
   </data>
@@ -11072,6 +11074,9 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Sem chave API fornecida</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Nenhuma voz retornou</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Não foi adicionada nenhuma chave API personalizada do Google Cloud TTS. por favor, visite a secção Google Cloud TTS na página de Serviços para ligar a sua própria chave API.</value>
   </data>
@@ -11123,6 +11128,9 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="Rescan" xml:space="preserve">
     <value>Reescanear</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estatuto</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Tipo de Ação</value>
   </data>
@@ -11151,13 +11159,70 @@ Para utilizar o Mix It Up, é necessário ligar pelo menos uma conta de platafor
 
 Aceda à página Contas no menu principal para ligar a sua conta de transmissão e, em seguida, reinicie o Mix It Up.</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Renumerar citações</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Repor a posição da janela</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Isto irá renumerar todas as cotações sequencialmente com base na sua ordem atual. Os números das cotações serão alterados. Tem a certeza de que pretende continuar?</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>As posições das janelas foram repostas</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Cor do primeiro plano</value>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Desativar a aceleração de hardware</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>A aplicação tem de ser reiniciada para que esta alteração tenha efeito</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Desactiva a aceleração de hardware da GPU e utiliza a renderização de software. Active esta opção se tiver falhas relacionadas com gráficos (UCEERRRENDERTHREADFAILURE). Requer reinicialização.</value>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Ação Discord: Uma incorporação deve ter pelo menos um título, uma descrição, uma miniatura ou uma imagem</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Mensagem (facultativo)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Título da incorporação</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Título URL (opcional)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Descrição da incorporação</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Cor</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Incluir carimbo de data/hora</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Autor (facultativo)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Rodapé (opcional)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Nome do autor (facultativo)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL do ícone do autor (opcional)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL da miniatura (opcional)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL da imagem (opcional)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Texto do rodapé (opcional)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL do ícone de rodapé (opcional)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Enviar incorporação</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>Lembrete: As cópias de segurança automáticas estão desactivadas. Active-as em Definições → Avançadas para proteger as suas definições contra a perda inesperada de dados.</value>
   </data>
 </root>

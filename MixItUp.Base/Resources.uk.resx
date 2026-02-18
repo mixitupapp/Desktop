@@ -940,6 +940,9 @@
     <value>Розмір шрифту</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Колір переднього плану</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Чотири</value>
   </data>
@@ -3042,6 +3045,12 @@
     <value>Експорт котирувань</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Перенумерувати цитати</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Це призведе до послідовної перенумерації всіх лапок на основі їх поточного порядку. Номери котирувань зміняться. Ви впевнені, що хочете продовжити?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Регулярний бонус</value>
     <comment>Manual</comment>
@@ -3253,6 +3262,9 @@
   <data name="HideBotMessages" xml:space="preserve">
     <value>Приховати повідомлення бота</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Приховати повідомлення пошепки</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Перевага Patreon</value>
@@ -10793,16 +10805,6 @@ print(run())</value>
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Не показувати помилку "Немає даних".</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Жоден голос не повернувся</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Статус</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Приховати повідомлення пошепки</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Палахкотлива зірка</value>
   </data>
@@ -11070,6 +11072,9 @@ print(run())</value>
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Ключ API не надається</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Жоден голос не повернувся</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Користувацький ключ API Google Cloud TTS не додано. Будь ласка, відвідайте розділ Google Cloud TTS на сторінці Сервіси, щоб підключити власний ключ API.</value>
   </data>
@@ -11121,6 +11126,9 @@ print(run())</value>
   <data name="Rescan" xml:space="preserve">
     <value>Повторне сканування</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Тип дії</value>
   </data>
@@ -11149,13 +11157,70 @@ print(run())</value>
 
 Будь ласка, перейдіть на сторінку Акаунти в головному меню, щоб підключити свій потоковий акаунт, а потім перезапустіть Mix It Up.</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Перенумерувати цитати</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Скинути положення вікна</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Це призведе до послідовної перенумерації всіх лапок на основі їх поточного порядку. Номери котирувань зміняться. Ви впевнені, що хочете продовжити?</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Позиції вікон було скинуто</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Колір переднього плану</value>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Вимкнути апаратне прискорення</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>Щоб ця зміна набула чинності, потрібно перезапустити програму</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Вимикає апаратне прискорення графічного процесора і використовує програмний рендеринг. Увімкніть цей параметр, якщо у вас виникають збої, пов'язані з графікою (UCEERRRENDERTHREADFAILURE). Потребує перезапуску.</value>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Дія розбрату: Вбудовування повинно мати принаймні заголовок, опис, мініатюру або зображення</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Повідомлення (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Вставити заголовок</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>URL-адреса заголовка (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Опис вбудовування</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>колір</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Включити мітку часу</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Автор (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Нижній колонтитул (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Ім'я автора (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL-адреса іконки автора (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL-адреса мініатюри (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL-адреса зображення (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Текст нижнього колонтитула (необов'язково)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL іконки нижнього колонтитула (необов'язково)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Надіслати Вставити</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>Нагадування: Автоматичне резервне копіювання вимкнено. Увімкніть їх у Налаштування → Додатково, щоб захистити свої налаштування від несподіваної втрати даних.</value>
   </data>
 </root>

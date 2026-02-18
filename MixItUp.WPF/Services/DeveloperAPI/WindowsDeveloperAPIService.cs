@@ -52,8 +52,8 @@ namespace MixItUp.WPF.Services.DeveloperAPI
 
             this.app = builder.Build();
 
-            app.UseRouting();
             app.UseMiddleware<NoCacheHeaderMiddleware>();
+            app.UseRouting();
             app.MapControllers();
 
             _ = this.app.RunAsync();

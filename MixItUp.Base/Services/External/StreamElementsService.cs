@@ -137,6 +137,9 @@ namespace MixItUp.Base.Services.External
         public string updatedAt { get; set; }
 
         [DataMember]
+        public bool isMock { get; set; }
+
+        [DataMember]
         public JToken data { get; set; }
     }
 
@@ -318,10 +321,17 @@ namespace MixItUp.Base.Services.External
                                 if (string.Equals(e.type, StreamElementsWebSocketEventModel.TipEvent, StringComparison.OrdinalIgnoreCase))
                                 {
                                     StreamElementsTipEventModel tipEvent = e.data.ToObject<StreamElementsTipEventModel>();
-
-                                    if (!this.donationsProcessed.Contains(tipEvent.tipId))
+                                    if (string.IsNullOrEmpty(tipEvent.tipId))
                                     {
-                                        this.donationsProcessed.Add(tipEvent.tipId);
+                                        tipEvent.tipId = e._id;
+                                    }
+
+                                    if (e.isMock || !this.donationsProcessed.Contains(tipEvent.tipId))
+                                    {
+                                        if (!e.isMock)
+                                        {
+                                            this.donationsProcessed.Add(tipEvent.tipId);
+                                        }
                                         if (tipEvent.amount.GetValueOrDefault() > 0)
                                         {
                                             await EventService.ProcessDonationEvent(EventTypeEnum.StreamElementsDonation, tipEvent.ToGenericDonation());
@@ -331,9 +341,16 @@ namespace MixItUp.Base.Services.External
                                 else if (string.Equals(e.type, StreamElementsWebSocketEventModel.MerchEvent, StringComparison.OrdinalIgnoreCase))
                                 {
                                     StreamElementsTipEventModel tipEvent = e.data.ToObject<StreamElementsTipEventModel>();
-                                    if (!this.donationsProcessed.Contains(tipEvent.tipId) && tipEvent.items.Count > 0)
+                                    if (string.IsNullOrEmpty(tipEvent.tipId))
                                     {
-                                        this.donationsProcessed.Add(tipEvent.tipId);
+                                        tipEvent.tipId = e._id;
+                                    }
+                                    if ((e.isMock || !this.donationsProcessed.Contains(tipEvent.tipId)) && tipEvent.items.Count > 0)
+                                    {
+                                        if (!e.isMock)
+                                        {
+                                            this.donationsProcessed.Add(tipEvent.tipId);
+                                        }
 
                                         List<string> arguments = new List<string>(tipEvent.items.Select(i => $"{i.name} x{i.quantity.GetValueOrDefault()}"));
                                         Dictionary<string, string> specialIdentifiers = new Dictionary<string, string>();

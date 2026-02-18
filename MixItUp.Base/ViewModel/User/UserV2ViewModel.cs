@@ -196,13 +196,13 @@ namespace MixItUp.Base.ViewModel.User
         {
             get
             {
-                if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "/Assets/Images/Twitch-Small.png"; }
-                else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/YouTube.png"; }
-                else if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "/Assets/Images/Trovo.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "twitch-color_sm.png"; }
+                else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "youtube-color_sm.png"; }
+                else if (this.Platform == StreamingPlatformTypeEnum.Trovo) { return "trovo-color_sm.png"; }
                 return null;
             }
         }
-        public string PlatformBadgeFullLink { get { return $"https://github.com/mixitupapp/Desktop/raw/main/MixItUp.WPF{this.PlatformBadgeLink}"; } }
+        public string PlatformBadgeFullLink { get { return $"https://files.mixitupapp.com/static/logos/{this.PlatformBadgeLink}"; } }
         public bool ShowPlatformBadge { get { return true; } }
 
         public DateTimeOffset? AccountDate { get { return this.PlatformModel.AccountDate; } set { this.PlatformModel.AccountDate = value; } }

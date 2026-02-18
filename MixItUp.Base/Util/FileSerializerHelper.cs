@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -32,6 +33,18 @@ namespace MixItUp.Base.Util
                 return JSONSerializerHelper.DeserializeAbstractFromString<T>(await ServiceManager.Get<IFileService>().ReadFile(filePath), ignoreErrors);
             }
             return default(T);
+        }
+
+        public static async Task SerializeSettingsToFile<T>(string filePath, T data)
+        {
+            string dataString = JSONSerializerHelper.SerializeToString(data);
+
+            if (string.IsNullOrEmpty(dataString) || !dataString.TrimStart().StartsWith("{"))
+            {
+                throw new InvalidOperationException("Serialization failed");
+            }
+
+            await ServiceManager.Get<IFileService>().SaveSettingsFile(filePath, dataString);
         }
     }
 }

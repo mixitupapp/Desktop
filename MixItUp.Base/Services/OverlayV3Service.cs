@@ -879,18 +879,18 @@ namespace MixItUp.Base.Services
 
                     if (!string.IsNullOrEmpty(data))
                     {
+                        await this.CloseConnection(listenerContext, HttpStatusCode.OK, data);
+
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                         Task.Run(async () =>
                         {
-                            await Task.Delay(1000);
+                            await Task.Delay(3000);
                             lock (this.htmlData)
                             {
                                 this.htmlData.Remove(id);
                             }
                         });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-
-                        await this.CloseConnection(listenerContext, HttpStatusCode.OK, data);
                     }
                 }
                 else if (url.StartsWith(OverlayScriptsPrefix))
@@ -927,16 +927,23 @@ namespace MixItUp.Base.Services
                     {
                         string fileType = splits[0];
                         fileID = splits[1];
-                        if (this.localFiles.ContainsKey(fileID) && File.Exists(this.localFiles[fileID]))
+                        if (this.localFiles.ContainsKey(fileID))
                         {
+                            string filePath = this.localFiles[fileID];
+                            filePath = ServiceManager.Get<IFileService>().ExpandEnvironmentVariablesInFilePath(filePath);
+
+                            if (!File.Exists(filePath))
+                            {
+                                Logger.Log(LogLevel.Error, $"Overlay file not found: {filePath}");
+                                return;
+                            }
+
                             listenerContext.Response.Headers["Access-Control-Allow-Origin"] = "*";
                             listenerContext.Response.StatusCode = (int)HttpStatusCode.OK;
                             listenerContext.Response.StatusDescription = HttpStatusCode.OK.ToString();
-                            listenerContext.Response.ContentType = fileType + "/" + Path.GetExtension(this.localFiles[fileID]).Replace(".", "");
+                            listenerContext.Response.ContentType = fileType + "/" + Path.GetExtension(filePath).Replace(".", "");
                             listenerContext.Response.Headers["Accept-Ranges"] = "bytes";
 
-                            string filePath = this.localFiles[fileID];
-                            filePath = ServiceManager.Get<IFileService>().ExpandEnvironmentVariablesInFilePath(filePath);
                             FileInfo fileInfo = new FileInfo(filePath);
 
                             // If they overlay requests a range, let's chunk this file

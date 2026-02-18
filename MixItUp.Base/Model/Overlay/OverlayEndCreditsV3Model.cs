@@ -120,15 +120,8 @@ namespace MixItUp.Base.Model.Overlay
 
         public void Track(UserV2ViewModel user, string text)
         {
-            if (this.ShouldTrack(user))
-            {
-                this.customTracking.Add(new Tuple<UserV2ViewModel, string>(user, text));
-                Logger.Log(LogLevel.Debug, $"Tracking added for {user} to {text} for {this.Name} End Credits section");
-            }
-            else
-            {
-                Logger.Log(LogLevel.Debug, $"No tracking {user} for {this.Name} End Credits section");
-            }
+            this.customTracking.Add(new Tuple<UserV2ViewModel, string>(user, text));
+            Logger.Log(LogLevel.Debug, $"Tracking added for {user} to {text} for {this.Name} End Credits section");
         }
 
         public void Untrack(UserV2ViewModel user)

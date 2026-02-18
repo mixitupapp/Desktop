@@ -1,5 +1,31 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.30
+
+- [MAINT] Update branding and logos across the application
+- [MAINT] Enable Community Commands page
+- [MAINT] Rollback UI library version due to memory leaks, UI glitches, and random crashes
+- [MAINT] Adjust settings saves by adding validation and safer file writing to prevent settings corruption
+- [MAINT] Remind users once a month about enabling automatic backups
+- [MAINT] Add warning dialog message when saving settings fail
+- [MAINT] Replace manual URL parsing to properly handle URL-encoded parameters and edge cases.
+- [MAINT] Improve Streamloots Service and connection handling
+- [MAINT] Update MIU Reporter window
+- [FEAT] Add color picker control for easier color selection in actions and widgets
+- [FEAT] Add Embed messages to Discord action
+- [FEAT] Add $user_____itemstotal inventory special identifier to show total number of items a user has
+- [FEAT] Add reset window position option to login screen help menu to fix off-screen window issues for some users
+- [FEAT] Add support for StreamElements test events and replayed events from their Dashboard
+- [FEAT] Display command name in editor window title
+- [FEAT] Additional logging if file action picks an empty line
+- [FEAT] Add disable hardware acceleration advanced setting for some users who are experiencing UCEERR_RENDERTHREADFAILURE crashes
+- [FEAT] Custom IP Address textbox for VTube Studio Service
+- [FIX] Preserve goal progress after editing and saving custom goal overlay widget settings
+- [FIX] Quotes importing from Excel files
+- [FIX] Improve Overlay Service and fix broken images
+- [FIX] Developer API server startup order to fix method override (Fixes Stream Avatars service)
+- [FIX] Filter randomanyuser special identifiers by platform
+
 ## 1.6.20
 
 - [MAINT] Downgrade to .NET8 framework due to compatibility issues

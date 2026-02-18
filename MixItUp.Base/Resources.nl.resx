@@ -940,6 +940,9 @@
     <value>Lettergrootte</value>
     <comment>Manual</comment>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Voorgrondkleur</value>
+  </data>
   <data name="Four" xml:space="preserve">
     <value>Vier</value>
   </data>
@@ -3043,6 +3046,12 @@ Fuzzy</comment>
     <value>Offertes exporteren</value>
     <comment>Manual</comment>
   </data>
+  <data name="RenumberQuotes" xml:space="preserve">
+    <value>Citaten hernummeren</value>
+  </data>
+  <data name="RenumberQuotesPrompt" xml:space="preserve">
+    <value>Hierdoor worden alle offertes opeenvolgend hernummerd op basis van hun huidige volgorde. Quotenummers zullen veranderen. Weet u zeker dat u wilt doorgaan?</value>
+  </data>
   <data name="RegularBonus" xml:space="preserve">
     <value>Reguliere bonus</value>
     <comment>Manual</comment>
@@ -3254,6 +3263,9 @@ Fuzzy</comment>
   <data name="HideBotMessages" xml:space="preserve">
     <value>Bot-berichten verbergen</value>
     <comment>Manual</comment>
+  </data>
+  <data name="HideWhisperMessages" xml:space="preserve">
+    <value>Verberg fluisterberichten</value>
   </data>
   <data name="PatreonBenefit" xml:space="preserve">
     <value>Patreon-voordeel</value>
@@ -10794,16 +10806,6 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="DontShowNoDataError" xml:space="preserve">
     <value>Fout 'Geen gegevens' niet weergeven</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
-    <value>Er kwamen geen stemmen terug</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="HideWhisperMessages" xml:space="preserve">
-    <value>Verberg fluisterberichten</value>
-  </data>
   <data name="BlazingStar" xml:space="preserve">
     <value>Blazing Star</value>
   </data>
@@ -11071,6 +11073,9 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="GoogleCloudTTSNoAPIKey" xml:space="preserve">
     <value>Geen API-sleutel verstrekt</value>
   </data>
+  <data name="GoogleCloudTTSNoVoicesReturned" xml:space="preserve">
+    <value>Er kwamen geen stemmen terug</value>
+  </data>
   <data name="NoCustomGoogleCloudTTSAccount" xml:space="preserve">
     <value>Er is geen aangepaste Google Cloud TTS API-sleutel toegevoegd. bezoek de Google Cloud TTS-sectie op de Services-pagina om uw eigen API-sleutel te verbinden.</value>
   </data>
@@ -11122,6 +11127,9 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="Rescan" xml:space="preserve">
     <value>Rescan</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="ActionType" xml:space="preserve">
     <value>Actietype</value>
   </data>
@@ -11150,13 +11158,70 @@ Om Mix It Up te gebruiken, moet je ten minste één streamingplatformaccount ver
 
 Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluiten en start Mix It Up vervolgens opnieuw.</value>
   </data>
-  <data name="RenumberQuotes" xml:space="preserve">
-    <value>Citaten hernummeren</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Vensterpositie resetten</value>
   </data>
-  <data name="RenumberQuotesPrompt" xml:space="preserve">
-    <value>Hierdoor worden alle offertes opeenvolgend hernummerd op basis van hun huidige volgorde. Quotenummers zullen veranderen. Weet u zeker dat u wilt doorgaan?</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Vensterposities zijn opnieuw ingesteld</value>
   </data>
-  <data name="ForegroundColor" xml:space="preserve">
-    <value>Voorgrondkleur</value>
+  <data name="DisableHardwareAcceleration" xml:space="preserve">
+    <value>Hardwareversnelling uitschakelen</value>
+  </data>
+  <data name="DisableHardwareAccelerationRestartMessage" xml:space="preserve">
+    <value>De applicatie moet opnieuw worden opgestart om deze wijziging door te voeren.</value>
+  </data>
+  <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
+    <value>Schakelt GPU hardwareversnelling uit en gebruikt in plaats daarvan software rendering. Schakel dit in als je last hebt van grafische-gerelateerde crashes (UCEERRRENDERTHREADFAILURE). Vereist opnieuw opstarten.</value>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord actie: Een embed moet ten minste een titel, beschrijving, miniatuur of afbeelding hebben.</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Bericht (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Titel insluiten</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Titel URL (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Beschrijving insluiten</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Tijdstempel opnemen</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Auteur (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Voettekst (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Naam auteur (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL auteurspictogram (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL thumbnail (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL afbeelding (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Tekst voettekst (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL voettekstpictogram (optioneel)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Embed verzenden</value>
+  </data>
+  <data name="BackupsReminder" xml:space="preserve">
+    <value>Herinnering: Automatische back-ups zijn uitgeschakeld. Schakel ze in bij Instellingen → Geavanceerd om je instellingen te beschermen tegen onverwacht gegevensverlies.</value>
   </data>
 </root>
