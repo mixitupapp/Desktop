@@ -8,6 +8,7 @@ using MixItUp.Base.Web;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -158,7 +159,7 @@ namespace MixItUp.Base.Services
 
         private OverlayV3KestrelServer kestrelServer;
 
-        private Dictionary<Guid, OverlayEndpointV3Service> overlayEndpoints = new Dictionary<Guid, OverlayEndpointV3Service>();
+        private ConcurrentDictionary<Guid, OverlayEndpointV3Service> overlayEndpoints = new ConcurrentDictionary<Guid, OverlayEndpointV3Service>();
 
         public Task<Result> Enable()
         {
@@ -268,7 +269,10 @@ namespace MixItUp.Base.Services
             return this.GetOverlayEndpoints().FirstOrDefault(oe => oe.ID == id) ?? this.GetDefaultOverlayEndpoint();
         }
 
-        public OverlayEndpointV3Model GetDefaultOverlayEndpoint() { return this.GetOverlayEndpoint(Guid.Empty); }
+        public OverlayEndpointV3Model GetDefaultOverlayEndpoint()
+        {
+            return this.GetOverlayEndpoints().FirstOrDefault(oe => oe.ID == Guid.Empty);
+        }
 
         public void ConnectOverlayEndpointService(OverlayEndpointV3Model overlayEndpoint)
         {
@@ -303,7 +307,7 @@ namespace MixItUp.Base.Services
             {
                 await service.Disconnect();
             }
-            this.overlayEndpoints.Remove(id);
+            this.overlayEndpoints.TryRemove(id, out _);
         }
 
         public OverlayEndpointV3Service GetDefaultOverlayEndpointService()
@@ -318,9 +322,9 @@ namespace MixItUp.Base.Services
 
         public OverlayEndpointV3Service GetOverlayEndpointService(Guid id)
         {
-            if (this.overlayEndpoints.ContainsKey(id))
+            if (this.overlayEndpoints.TryGetValue(id, out OverlayEndpointV3Service service))
             {
-                return this.overlayEndpoints[id];
+                return service;
             }
             return null;
         }
@@ -402,7 +406,7 @@ namespace MixItUp.Base.Services
                 if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(html))
                 {
                     Logger.Log(LogLevel.Debug, $"Overlay - Setting HTML - {id} - {html}");
-                    this.kestrelServer.SetHTMLData(id, html);
+                    this.kestrelServer?.SetHTMLData(id, html);
                 }
             }
             catch (Exception ex)
@@ -464,7 +468,7 @@ namespace MixItUp.Base.Services
 
         private SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
-        private List<OverlayV3WebSocketServer> webSocketServers = new List<OverlayV3WebSocketServer>();
+        private LockedList<OverlayV3WebSocketServer> webSocketServers = new LockedList<OverlayV3WebSocketServer>();
 
         public OverlayEndpointV3Service(OverlayEndpointV3Model model)
         {
@@ -604,12 +608,11 @@ namespace MixItUp.Base.Services
 
         public async Task EndBatching()
         {
-            this.isBatching = false;
-
             await this.semaphore.WaitAsync();
 
             IEnumerable<OverlayV3Packet> packets = this.batchPackets.ToList();
             this.batchPackets.Clear();
+            this.isBatching = false;
 
             this.semaphore.Release();
 
@@ -683,35 +686,42 @@ namespace MixItUp.Base.Services
 
         private async void WebSocketServer_OnPacketReceived(object sender, OverlayV3Packet packet)
         {
-            this.OnPacketReceived(this, packet);
-
-            this.PacketReceived(packet);
-
-            if (packet.Data.TryGetValue("ID", out JToken idString) && idString != null && Guid.TryParse(idString.ToString(), out Guid id))
+            try
             {
-                if (string.Equals(packet.Type, OverlaySoundV3Model.SoundFinishedPacketType))
+                this.OnPacketReceived(this, packet);
+
+                this.PacketReceived(packet);
+
+                if (packet.Data.TryGetValue("ID", out JToken idString) && idString != null && Guid.TryParse(idString.ToString(), out Guid id))
                 {
-                    ServiceManager.Get<IAudioService>().OverlaySoundFinished(id);
-                }
-                else
-                {
-                    if (OverlayWidgetV3ViewModel.WidgetsInEditing.TryGetValue(id, out OverlayWidgetV3ViewModel widgetViewModel))
+                    if (string.Equals(packet.Type, OverlaySoundV3Model.SoundFinishedPacketType))
                     {
-                        await widgetViewModel.ProcessPacket(packet);
-                    }
-                    else if (PacketListeningItems.TryGetValue(id, out OverlayItemV3ModelBase item))
-                    {
-                        await item.ProcessPacket(packet);
+                        ServiceManager.Get<IAudioService>().OverlaySoundFinished(id);
                     }
                     else
                     {
-                        OverlayWidgetV3Model widget = ServiceManager.Get<OverlayV3Service>().GetWidget(id);
-                        if (widget != null)
+                        if (OverlayWidgetV3ViewModel.WidgetsInEditing.TryGetValue(id, out OverlayWidgetV3ViewModel widgetViewModel))
                         {
-                            await widget.Item.ProcessPacket(packet);
+                            await widgetViewModel.ProcessPacket(packet);
+                        }
+                        else if (PacketListeningItems.TryGetValue(id, out OverlayItemV3ModelBase item))
+                        {
+                            await item.ProcessPacket(packet);
+                        }
+                        else
+                        {
+                            OverlayWidgetV3Model widget = ServiceManager.Get<OverlayV3Service>().GetWidget(id);
+                            if (widget != null)
+                            {
+                                await widget.Item.ProcessPacket(packet);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
             }
         }
 
@@ -763,6 +773,31 @@ namespace MixItUp.Base.Services
         public const string OverlayDataPrefix = "data";
         public const string OverlayFilesPrefix = "files";
         public const string OverlayScriptsPrefix = "scripts";
+
+        private static readonly Dictionary<string, string> MimeTypes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { ".jpg", "image/jpeg" },
+            { ".jpeg", "image/jpeg" },
+            { ".png", "image/png" },
+            { ".gif", "image/gif" },
+            { ".webp", "image/webp" },
+            { ".svg", "image/svg+xml" },
+            { ".bmp", "image/bmp" },
+            { ".ico", "image/x-icon" },
+            { ".mp4", "video/mp4" },
+            { ".webm", "video/webm" },
+            { ".ogg", "video/ogg" },
+            { ".ogv", "video/ogg" },
+            { ".mp3", "audio/mpeg" },
+            { ".wav", "audio/wav" },
+            { ".flac", "audio/flac" },
+            { ".aac", "audio/aac" },
+            { ".css", "text/css" },
+            { ".js", "application/javascript" },
+            { ".json", "application/json" },
+            { ".html", "text/html" },
+            { ".txt", "text/plain" },
+        };
 
         public int TotalConnectedClients { get { return this.webSocketServers.Count; } }
 
@@ -955,7 +990,15 @@ namespace MixItUp.Base.Services
                             }
 
                             context.Response.StatusCode = StatusCodes.Status200OK;
-                            context.Response.ContentType = fileType + "/" + Path.GetExtension(filePath).Replace(".", "");
+                            string extension = Path.GetExtension(filePath);
+                            if (MimeTypes.TryGetValue(extension, out string mimeType))
+                            {
+                                context.Response.ContentType = mimeType;
+                            }
+                            else
+                            {
+                                context.Response.ContentType = fileType + "/" + extension.TrimStart('.');
+                            }
                             context.Response.Headers["Accept-Ranges"] = "bytes";
 
                             FileInfo fileInfo = new FileInfo(filePath);
