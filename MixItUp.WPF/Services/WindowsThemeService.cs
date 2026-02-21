@@ -11,6 +11,10 @@ namespace MixItUp.WPF.Services
 {
     public class WindowsThemeService : IThemeService
     {
+        public bool IsDarkTheme { get; private set; } = false;
+
+        public event EventHandler ThemeChanged = delegate { };
+
         public void ApplyTheme(string colorScheme, string backgroundColor, string foregroundColor, string fullThemeName)
         {
             try
@@ -56,6 +60,7 @@ namespace MixItUp.WPF.Services
                 // Material Design base theme
                 BaseTheme baseThemeEnum = backgroundColor == "Light" ? BaseTheme.Light : BaseTheme.Dark;
                 theme.SetBaseTheme(baseThemeEnum);
+                this.IsDarkTheme = baseThemeEnum == BaseTheme.Dark;
 
                 // Color scheme
                 colorScheme = (colorScheme ?? "Indigo").Replace(" ", "");
@@ -87,6 +92,8 @@ namespace MixItUp.WPF.Services
                     Source = new Uri($"Themes/MixItUpBackgroundColor.{backgroundColor}.xaml", UriKind.Relative)
                 };
                 ReplaceResourceDictionary("MixItUpBackgroundColor.", backgroundDict);
+
+                this.ThemeChanged(this, EventArgs.Empty);
             }
             catch (Exception ex)
             {

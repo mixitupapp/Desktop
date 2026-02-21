@@ -10,6 +10,7 @@
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
              xmlns:OverlayControls="clr-namespace:MixItUp.WPF.Controls.Overlay"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <local:ActionEditorControlBase.Resources>
@@ -106,7 +107,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Border Style="{StaticResource DefaultBorder}">
-                                <TextBox Text="{Binding HTML}" Style="{StaticResource OverlayEditorMultiLineTextBox}" Height="250" />
+                                <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding HTML}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                             </Border>
                         </Grid>
                     </TabItem>
@@ -117,7 +118,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Border Style="{StaticResource DefaultBorder}">
-                                <TextBox Text="{Binding CSS}" Style="{StaticResource OverlayEditorMultiLineTextBox}" Height="250" />
+                                <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding CSS}" SyntaxHighlighting="CSS" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                             </Border>
                         </Grid>
                     </TabItem>
@@ -128,7 +129,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Border Style="{StaticResource DefaultBorder}">
-                                <TextBox Text="{Binding Javascript}" Style="{StaticResource OverlayEditorMultiLineTextBox}" Height="250" />
+                                <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding Javascript}" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                             </Border>
                         </Grid>
                     </TabItem>
