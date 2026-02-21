@@ -174,10 +174,15 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
                                 <Border Style="{StaticResource DefaultBorder}">
                                     <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Popout Editor">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
                             </Grid>
                         </TabItem>
 
@@ -186,10 +191,15 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
                                 <Border Style="{StaticResource DefaultBorder}">
                                     <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" SyntaxHighlighting="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Popout Editor">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
                             </Grid>
                         </TabItem>
 
@@ -198,14 +208,18 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
                                 <Border Style="{StaticResource DefaultBorder}">
                                     <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Popout Editor">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
                             </Grid>
                         </TabItem>
                     </TabControl>
-
                 </Border>
             </Grid>
         </ScrollViewer>

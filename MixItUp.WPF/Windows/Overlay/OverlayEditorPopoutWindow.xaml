@@ -1,0 +1,63 @@
+<Window
+    x:Class="MixItUp.WPF.Windows.Overlay.OverlayEditorPopoutWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+    Title="Code Editor"
+    Width="1000"
+    Height="700"
+    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    Style="{StaticResource MaterialDesignWindow}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium">
+
+    <Grid Margin="10">
+        <TabControl
+            SnapsToDevicePixels="True"
+            Style="{StaticResource MaterialDesignFilledTabControl}"
+            TabStripPlacement="Top">
+
+            <TabItem Header="{Binding HTMLHeader}">
+                <Border Style="{StaticResource DefaultBorder}">
+                    <avalonEdit:TextEditor
+                        x:Name="HtmlEditor"
+                        Util:AvalonEditBehaviour.Text="{Binding HTML}"
+                        SyntaxHighlighting="HTML"
+                        ShowLineNumbers="True"
+                        FontFamily="Consolas"
+                        Background="{DynamicResource MaterialDesignPaper}"
+                        Foreground="{DynamicResource MaterialDesignBody}" />
+                </Border>
+            </TabItem>
+
+            <TabItem Header="{Binding CSSHeader}">
+                <Border Style="{StaticResource DefaultBorder}">
+                    <avalonEdit:TextEditor
+                        x:Name="CssEditor"
+                        Util:AvalonEditBehaviour.Text="{Binding CSS}"
+                        SyntaxHighlighting="CSS"
+                        ShowLineNumbers="True"
+                        FontFamily="Consolas"
+                        Background="{DynamicResource MaterialDesignPaper}"
+                        Foreground="{DynamicResource MaterialDesignBody}" />
+                </Border>
+            </TabItem>
+
+            <TabItem Header="{Binding JavascriptHeader}">
+                <Border Style="{StaticResource DefaultBorder}">
+                    <avalonEdit:TextEditor
+                        x:Name="JavascriptEditor"
+                        Util:AvalonEditBehaviour.Text="{Binding Javascript}"
+                        SyntaxHighlighting="JavaScript"
+                        ShowLineNumbers="True"
+                        FontFamily="Consolas"
+                        Background="{DynamicResource MaterialDesignPaper}"
+                        Foreground="{DynamicResource MaterialDesignBody}" />
+                </Border>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

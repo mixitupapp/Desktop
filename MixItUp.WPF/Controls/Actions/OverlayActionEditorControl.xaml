@@ -58,81 +58,99 @@
 
         <Grid Grid.Row="3" Visibility="{Binding ShowItem, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border Style="{StaticResource DefaultBorder}">
-                <TabControl SnapsToDevicePixels="True"
-            Style="{StaticResource MaterialDesignFilledTabControl}"
-            TabStripPlacement="Top">
+                    <TabControl SnapsToDevicePixels="True"
+                        Style="{StaticResource MaterialDesignFilledTabControl}"
+                        TabStripPlacement="Top">
 
-                    <TabItem Header="{x:Static resx:Resources.Details}" HorizontalAlignment="Stretch">
-                        <ContentControl x:Name="InnerContent" Margin="10" />
-                    </TabItem>
+                        <TabItem Header="{x:Static resx:Resources.Details}" HorizontalAlignment="Stretch">
+                            <ContentControl x:Name="InnerContent" Margin="10" />
+                        </TabItem>
 
-                    <TabItem Header="{x:Static resx:Resources.Position}" HorizontalContentAlignment="Stretch" IsEnabled="{Binding SupportsStandardActionPositioning}">
-                        <OverlayControls:OverlayPositionV3Control x:Name="Position" DataContext="{Binding Position}" Margin="10" />
-                    </TabItem>
+                        <TabItem Header="{x:Static resx:Resources.Position}" HorizontalContentAlignment="Stretch" IsEnabled="{Binding SupportsStandardActionPositioning}">
+                            <OverlayControls:OverlayPositionV3Control x:Name="Position" DataContext="{Binding Position}" Margin="10" />
+                        </TabItem>
 
-                    <TabItem Header="{x:Static resx:Resources.Animation}" IsEnabled="{Binding SupportsStandardActionAnimations}">
-                        <Grid Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="10" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                        <TabItem Header="{x:Static resx:Resources.Animation}" IsEnabled="{Binding SupportsStandardActionAnimations}">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <StackPanel x:Name="AnimationsMayNotWork" Grid.Row="0" Orientation="Vertical">
-                                <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning1}"/>
-                                <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning2}"/>
-                                <TextBlock HorizontalAlignment="Center">
+                                <StackPanel x:Name="AnimationsMayNotWork" Grid.Row="0" Orientation="Vertical">
+                                    <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning1}"/>
+                                    <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning2}"/>
+                                    <TextBlock HorizontalAlignment="Center">
                     <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
-                                        <TextBlock Text="{x:Static resx:Resources.OverlayWarning3}"/>
+                                            <TextBlock Text="{x:Static resx:Resources.OverlayWarning3}"/>
                     </Hyperlink>
                 </TextBlock>
-                            </StackPanel>
+                                </StackPanel>
 
-                            <Button Grid.Row="1" Content="{x:Static resx:Resources.AddAnimation}" Command="{Binding AddCustomAnimationCommand}" HorizontalAlignment="Center" />
+                                <Button Grid.Row="1" Content="{x:Static resx:Resources.AddAnimation}" Command="{Binding AddCustomAnimationCommand}" HorizontalAlignment="Center" />
 
-                            <ItemsControl Grid.Row="3" ItemsSource="{Binding Animations}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <OverlayControls:OverlayAnimationV3Control />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </TabItem>
+                                <ItemsControl Grid.Row="3" ItemsSource="{Binding Animations}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <OverlayControls:OverlayAnimationV3Control />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </TabItem>
 
-                    <TabItem Header="{Binding HTMLHeader}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Border Style="{StaticResource DefaultBorder}">
-                                <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding HTML}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
-                            </Border>
-                        </Grid>
-                    </TabItem>
+                        <TabItem Header="{Binding HTMLHeader}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Style="{StaticResource DefaultBorder}">
+                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding HTML}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Popout Editor">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
+                            </Grid>
+                        </TabItem>
 
-                    <TabItem Header="{Binding CSSHeader}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Border Style="{StaticResource DefaultBorder}">
-                                <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding CSS}" SyntaxHighlighting="CSS" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
-                            </Border>
-                        </Grid>
-                    </TabItem>
+                        <TabItem Header="{Binding CSSHeader}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Style="{StaticResource DefaultBorder}">
+                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding CSS}" SyntaxHighlighting="CSS" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Popout Editor">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
+                            </Grid>
+                        </TabItem>
 
-                    <TabItem Header="{Binding JavascriptHeader}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Border Style="{StaticResource DefaultBorder}">
-                                <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding Javascript}" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
-                            </Border>
-                        </Grid>
-                    </TabItem>
+                        <TabItem Header="{Binding JavascriptHeader}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Style="{StaticResource DefaultBorder}">
+                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding Javascript}" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="Popout Editor">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
+                            </Grid>
+                        </TabItem>
                 </TabControl>
             </Border>
         </Grid>
