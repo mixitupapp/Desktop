@@ -457,7 +457,17 @@ namespace MixItUp.Base.ViewModel.User
 
                 if (!string.IsNullOrEmpty(this.Model.PatreonUserID) && ServiceManager.Get<PatreonService>().IsConnected)
                 {
-                    this.patreonUser = ServiceManager.Get<PatreonService>().CampaignMembers.FirstOrDefault(m => this.Model.PatreonUserID.Equals(m.ID));
+                    this.patreonUser = ServiceManager.Get<PatreonService>().CampaignMembers.FirstOrDefault(m => this.Model.PatreonUserID.Equals(m.UserID));
+
+                    if (this.patreonUser == null)
+                    {
+                        this.patreonUser = ServiceManager.Get<PatreonService>().CampaignMembers.FirstOrDefault(m => this.Model.PatreonUserID.Equals(m.ID));
+
+                        if (this.patreonUser != null)
+                        {
+                            this.Model.PatreonUserID = this.patreonUser.UserID;
+                        }
+                    }
                 }
 
                 return this.patreonUser;
@@ -467,7 +477,7 @@ namespace MixItUp.Base.ViewModel.User
                 this.patreonUser = value;
                 if (this.patreonUser != null)
                 {
-                    this.Model.PatreonUserID = this.patreonUser.ID;
+                    this.Model.PatreonUserID = this.patreonUser.UserID;
                 }
                 else
                 {
@@ -641,6 +651,11 @@ namespace MixItUp.Base.ViewModel.User
                 if (!string.IsNullOrEmpty(this.model.PatreonUserID))
                 {
                     this.PatreonUser = campaignMembers.FirstOrDefault(u => u.UserID.Equals(this.model.PatreonUserID));
+
+                    if (this.PatreonUser == null)
+                    {
+                        this.PatreonUser = campaignMembers.FirstOrDefault(u => u.ID.Equals(this.model.PatreonUserID));
+                    }
                 }
                 else
                 {
