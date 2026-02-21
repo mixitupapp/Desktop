@@ -211,9 +211,15 @@ namespace MixItUp.WPF.Windows.Commands
 
             if (this.importedActions != null)
             {
+                int index = 0;
                 foreach (ActionModelBase action in this.importedActions)
                 {
                     await this.viewModel.AddAction(action);
+                    index++;
+                    if (index % 10 == 0)
+                    {
+                        await Task.Yield();
+                    }
                 }
             }
 
@@ -281,9 +287,15 @@ namespace MixItUp.WPF.Windows.Commands
                         CommandModelBase command = await FileSerializerHelper.DeserializeFromFile<CommandModelBase>(filename);
                         if (command != null)
                         {
+                            int index = 0;
                             foreach (ActionModelBase action in command.Actions)
                             {
                                 await this.viewModel.AddAction(action);
+                                index++;
+                                if (index % 10 == 0)
+                                {
+                                    await Task.Yield();
+                                }
                             }
                             success = true;
                         }

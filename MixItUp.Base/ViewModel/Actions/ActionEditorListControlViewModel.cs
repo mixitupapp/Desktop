@@ -192,7 +192,7 @@ namespace MixItUp.Base.ViewModel.Actions
             List<Result> results = new List<Result>();
             foreach (ActionEditorControlViewModelBase actionViewModel in this.Actions)
             {
-                results.Add(await actionViewModel.Validate());
+                results.Add(await actionViewModel.ValidateForCommandBuild());
             }
             return results;
         }
@@ -212,14 +212,14 @@ namespace MixItUp.Base.ViewModel.Actions
             return actions;
         }
 
-        private async Task AddActionViewModel(ActionEditorControlViewModelBase editorViewModel)
+        private Task AddActionViewModel(ActionEditorControlViewModelBase editorViewModel)
         {
             if (editorViewModel != null)
             {
                 editorViewModel.Initialize(this);
-                await editorViewModel.OnOpen();
                 this.Actions.Add(editorViewModel);
             }
+            return Task.CompletedTask;
         }
     }
 }

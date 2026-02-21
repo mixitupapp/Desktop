@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.ViewModel.Actions;
 using MixItUp.WPF.Util;
 using System.Threading.Tasks;
@@ -18,83 +18,152 @@ namespace MixItUp.WPF.Controls.Actions
 
         public ActionEditorControlBase ActionControl { get; private set; }
 
+        private bool isCreatingControl = false;
+
         public ActionEditorContainerControl()
         {
             InitializeComponent();
+            this.DataContextChanged += ActionEditorContainerControl_DataContextChanged;
         }
 
-        protected override Task OnLoaded()
+        protected override async Task OnLoaded()
         {
             this.ContentControl = (ContentControl)this.GetByUid("ActionContentControl");
+            await this.InitializeFromDataContext();
+        }
 
-            if (this.IsLoaded && this.DataContext != null && this.DataContext is ActionEditorControlViewModelBase && this.ContentControl.Content == null)
+        private async void ActionEditorContainerControl_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            this.ViewModel = null;
+            this.ReleaseContentControl();
+
+            if (this.IsLoaded)
             {
-                this.ViewModel = (ActionEditorControlViewModelBase)this.DataContext;
-                switch (this.ViewModel.Type)
-                {
-                    case ActionTypeEnum.Chat: this.ActionControl = new ChatActionEditorControl(); break;
-                    case ActionTypeEnum.Command: this.ActionControl = new CommandActionEditorControl(); break;
-                    case ActionTypeEnum.Conditional: this.ActionControl = new ConditionalActionEditorControl(); break;
-                    case ActionTypeEnum.Consumables: this.ActionControl = new ConsumablesActionEditorControl(); break;
-                    case ActionTypeEnum.Counter: this.ActionControl = new CounterActionEditorControl(); break;
-                    case ActionTypeEnum.Discord: this.ActionControl = new DiscordActionEditorControl(); break;
-                    case ActionTypeEnum.ExternalProgram: this.ActionControl = new ExternalProgramActionEditorControl(); break;
-                    case ActionTypeEnum.File: this.ActionControl = new FileActionEditorControl(); break;
-                    case ActionTypeEnum.GameQueue: this.ActionControl = new GameQueueActionEditorControl(); break;
-                    case ActionTypeEnum.Group: this.ActionControl = new GroupActionEditorControl(); break;
-                    case ActionTypeEnum.IFTTT: this.ActionControl = new IFTTTActionEditorControl(); break;
-                    case ActionTypeEnum.InfiniteAlbum: this.ActionControl = new InfiniteAlbumActionEditorControl(); break;
-                    case ActionTypeEnum.Input: this.ActionControl = new InputActionEditorControl(); break;
-                    case ActionTypeEnum.LumiaStream: this.ActionControl = new LumiaStreamActionEditorControl(); break;
-                    case ActionTypeEnum.MeldStudio: this.ActionControl = new MeldStudioActionEditorControl(); break;
-                    case ActionTypeEnum.Moderation: this.ActionControl = new ModerationActionEditorControl(); break;
-                    case ActionTypeEnum.MtionStudio: this.ActionControl = new MtionStudioActionEditorControl(); break;
-                    case ActionTypeEnum.MusicPlayer: this.ActionControl = new MusicPlayerActionEditorControl(); break;
-                    case ActionTypeEnum.Overlay: this.ActionControl = new OverlayActionEditorControl(); break;
-                    case ActionTypeEnum.OvrStream: this.ActionControl = new OvrStreamActionEditorControl(); break;
-                    case ActionTypeEnum.PixelChat: this.ActionControl = new PixelChatActionEditorControl(); break;
-                    case ActionTypeEnum.PolyPop: this.ActionControl = new PolyPopActionEditorControl(); break;
-                    case ActionTypeEnum.Random: this.ActionControl = new RandomActionEditorControl(); break;
-                    case ActionTypeEnum.Repeat: this.ActionControl = new RepeatActionEditorControl(); break;
-                    case ActionTypeEnum.SAMMI: this.ActionControl = new SAMMIActionEditorControl(); break;
-                    case ActionTypeEnum.Script: this.ActionControl = new ScriptActionEditorControl(); break;
-                    case ActionTypeEnum.Serial: this.ActionControl = new SerialActionEditorControl(); break;
-                    case ActionTypeEnum.Sound: this.ActionControl = new SoundActionEditorControl(); break;
-                    case ActionTypeEnum.SpecialIdentifier: this.ActionControl = new SpecialIdentifierActionEditorControl(); break;
-                    case ActionTypeEnum.StreamingSoftware: this.ActionControl = new StreamingSoftwareActionEditorControl(); break;
-                    case ActionTypeEnum.Streamlabs: this.ActionControl = new StreamlabsActionEditorControl(); break;
-                    case ActionTypeEnum.TextToSpeech: this.ActionControl = new TextToSpeechActionEditorControl(); break;
-                    case ActionTypeEnum.TITS: this.ActionControl = new TITSActionEditorControl(); break;
-                    case ActionTypeEnum.Trovo: this.ActionControl = new TrovoActionEditorControl(); break;
-                    case ActionTypeEnum.Twitch: this.ActionControl = new TwitchActionEditorControl(); break;
-                    case ActionTypeEnum.Voicemod: this.ActionControl = new VoicemodActionEditorControl(); break;
-                    case ActionTypeEnum.VTSPog: this.ActionControl = new VTSPogActionEditorControl(); break;
-                    case ActionTypeEnum.VTubeStudio: this.ActionControl = new VTubeStudioActionEditorControl(); break;
-                    case ActionTypeEnum.Wait: this.ActionControl = new WaitActionEditorControl(); break;
-                    case ActionTypeEnum.WebRequest: this.ActionControl = new WebRequestActionEditorControl(); break;
-                    case ActionTypeEnum.YouTube: this.ActionControl = new YouTubeActionEditorControl(); break;
-                }
+                await this.InitializeFromDataContext();
+            }
+        }
 
+        private async Task InitializeFromDataContext()
+        {
+            if (!this.IsLoaded || this.ContentControl == null || !(this.DataContext is ActionEditorControlViewModelBase))
+            {
+                return;
+            }
+
+            this.ViewModel = (ActionEditorControlViewModelBase)this.DataContext;
+
+            if (this.ViewModel.IsMinimized)
+            {
+                this.ActionContainer.Minimize();
+            }
+            else
+            {
+                this.ActionContainer.Maximize();
+                await this.EnsureActionControlLoaded();
+            }
+        }
+
+        private async Task EnsureActionControlLoaded()
+        {
+            if (this.ViewModel == null || this.ContentControl == null || this.isCreatingControl)
+            {
+                return;
+            }
+
+            if (this.ActionControl != null && this.ContentControl.Content == this.ActionControl)
+            {
+                return;
+            }
+
+            this.isCreatingControl = true;
+            try
+            {
+                this.ActionControl = this.CreateActionControl(this.ViewModel.Type);
                 if (this.ActionControl != null)
                 {
                     this.ContentControl.Content = this.ActionControl;
-                    if (this.ViewModel.IsMinimized)
-                    {
-                        this.ActionContainer.Minimize();
-                    }
+                    await this.ViewModel.EnsureEditorOpened();
                 }
             }
-            return Task.CompletedTask;
+            finally
+            {
+                this.isCreatingControl = false;
+            }
         }
 
-        private void ActionContainer_Maximized(object sender, RoutedEventArgs e)
+        private ActionEditorControlBase CreateActionControl(ActionTypeEnum type)
         {
-            this.ViewModel.IsMinimized = false;
+            switch (type)
+            {
+                case ActionTypeEnum.Chat: return new ChatActionEditorControl();
+                case ActionTypeEnum.Command: return new CommandActionEditorControl();
+                case ActionTypeEnum.Conditional: return new ConditionalActionEditorControl();
+                case ActionTypeEnum.Consumables: return new ConsumablesActionEditorControl();
+                case ActionTypeEnum.Counter: return new CounterActionEditorControl();
+                case ActionTypeEnum.Discord: return new DiscordActionEditorControl();
+                case ActionTypeEnum.ExternalProgram: return new ExternalProgramActionEditorControl();
+                case ActionTypeEnum.File: return new FileActionEditorControl();
+                case ActionTypeEnum.GameQueue: return new GameQueueActionEditorControl();
+                case ActionTypeEnum.Group: return new GroupActionEditorControl();
+                case ActionTypeEnum.IFTTT: return new IFTTTActionEditorControl();
+                case ActionTypeEnum.InfiniteAlbum: return new InfiniteAlbumActionEditorControl();
+                case ActionTypeEnum.Input: return new InputActionEditorControl();
+                case ActionTypeEnum.LumiaStream: return new LumiaStreamActionEditorControl();
+                case ActionTypeEnum.MeldStudio: return new MeldStudioActionEditorControl();
+                case ActionTypeEnum.Moderation: return new ModerationActionEditorControl();
+                case ActionTypeEnum.MtionStudio: return new MtionStudioActionEditorControl();
+                case ActionTypeEnum.MusicPlayer: return new MusicPlayerActionEditorControl();
+                case ActionTypeEnum.Overlay: return new OverlayActionEditorControl();
+                case ActionTypeEnum.OvrStream: return new OvrStreamActionEditorControl();
+                case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControl();
+                case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControl();
+                case ActionTypeEnum.Random: return new RandomActionEditorControl();
+                case ActionTypeEnum.Repeat: return new RepeatActionEditorControl();
+                case ActionTypeEnum.SAMMI: return new SAMMIActionEditorControl();
+                case ActionTypeEnum.Script: return new ScriptActionEditorControl();
+                case ActionTypeEnum.Serial: return new SerialActionEditorControl();
+                case ActionTypeEnum.Sound: return new SoundActionEditorControl();
+                case ActionTypeEnum.SpecialIdentifier: return new SpecialIdentifierActionEditorControl();
+                case ActionTypeEnum.StreamingSoftware: return new StreamingSoftwareActionEditorControl();
+                case ActionTypeEnum.Streamlabs: return new StreamlabsActionEditorControl();
+                case ActionTypeEnum.TextToSpeech: return new TextToSpeechActionEditorControl();
+                case ActionTypeEnum.TITS: return new TITSActionEditorControl();
+                case ActionTypeEnum.Trovo: return new TrovoActionEditorControl();
+                case ActionTypeEnum.Twitch: return new TwitchActionEditorControl();
+                case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControl();
+                case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControl();
+                case ActionTypeEnum.VTubeStudio: return new VTubeStudioActionEditorControl();
+                case ActionTypeEnum.Wait: return new WaitActionEditorControl();
+                case ActionTypeEnum.WebRequest: return new WebRequestActionEditorControl();
+                case ActionTypeEnum.YouTube: return new YouTubeActionEditorControl();
+            }
+            return null;
+        }
+
+        private async void ActionContainer_Maximized(object sender, RoutedEventArgs e)
+        {
+            if (this.ViewModel != null)
+            {
+                this.ViewModel.IsMinimized = false;
+                await this.EnsureActionControlLoaded();
+            }
         }
 
         private void ActionContainer_Minimized(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.IsMinimized = true;
+            if (this.ViewModel != null)
+            {
+                this.ViewModel.IsMinimized = true;
+            }
+        }
+
+        private void ReleaseContentControl()
+        {
+            if (this.ContentControl != null)
+            {
+                this.ContentControl.Content = null;
+            }
+            this.ActionControl = null;
         }
     }
 }

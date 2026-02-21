@@ -75,9 +75,15 @@ namespace MixItUp.Base.ViewModel.Actions
                 }
             });
 
+            int index = 0;
             foreach (ActionModelBase subAction in subActions)
             {
                 await this.ActionEditorList.AddAction(subAction);
+                index++;
+                if (index % 10 == 0)
+                {
+                    await Task.Yield();
+                }
             }
             subActions.Clear();
 
@@ -98,9 +104,15 @@ namespace MixItUp.Base.ViewModel.Actions
         {
             if (command != null)
             {
+                int index = 0;
                 foreach (ActionModelBase action in command.Actions)
                 {
                     await this.ActionEditorList.AddAction(action);
+                    index++;
+                    if (index % 10 == 0)
+                    {
+                        await Task.Yield();
+                    }
                 }
             }
         }
