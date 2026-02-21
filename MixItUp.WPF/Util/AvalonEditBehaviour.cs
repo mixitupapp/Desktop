@@ -216,21 +216,30 @@ namespace MixItUp.WPF.Util
         public void ClearCache()
         {
             this.adjustedBrushCache.Clear();
+            this.cachedBackgroundColor = null;
         }
+
+        private Color? cachedBackgroundColor;
 
         private Color GetEditorBackgroundColor()
         {
+            if (this.cachedBackgroundColor.HasValue)
+            {
+                return this.cachedBackgroundColor.Value;
+            }
+
+            Color color = Colors.Black;
             if (this.editor.Background is SolidColorBrush editorBackgroundBrush)
             {
-                return editorBackgroundBrush.Color;
+                color = editorBackgroundBrush.Color;
             }
-
-            if (this.editor.TryFindResource("MaterialDesignPaper") is SolidColorBrush paperBrush)
+            else if (this.editor.TryFindResource("MaterialDesignPaper") is SolidColorBrush paperBrush)
             {
-                return paperBrush.Color;
+                color = paperBrush.Color;
             }
 
-            return Colors.Black;
+            this.cachedBackgroundColor = color;
+            return color;
         }
 
         private Brush GetAdjustedForegroundBrush(Color foreground, Color background)
