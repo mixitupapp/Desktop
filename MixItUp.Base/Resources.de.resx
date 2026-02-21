@@ -11229,4 +11229,10 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="BackupsReminder" xml:space="preserve">
     <value>Zur Erinnerung: Automatisierte Sicherungen sind deaktiviert. Aktivieren Sie sie unter Einstellungen → Erweitert, um Ihre Einstellungen vor unerwartetem Datenverlust zu schützen.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Code-Editor</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Popout-Editor</value>
+  </data>
 </root>

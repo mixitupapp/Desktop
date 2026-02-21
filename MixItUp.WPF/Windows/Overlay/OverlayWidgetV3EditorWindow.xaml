@@ -180,7 +180,7 @@
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="Popout Editor">
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
                                     <MaterialDesign:PackIcon Kind="OpenInNew" />
                                 </Button>
                             </Grid>
@@ -197,7 +197,7 @@
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="Popout Editor">
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
                                     <MaterialDesign:PackIcon Kind="OpenInNew" />
                                 </Button>
                             </Grid>
@@ -214,7 +214,7 @@
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="Popout Editor">
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
                                     <MaterialDesign:PackIcon Kind="OpenInNew" />
                                 </Button>
                             </Grid>

@@ -3266,6 +3266,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code Editor.
+        /// </summary>
+        public static string CodeEditor {
+            get {
+                return ResourceManager.GetString("CodeEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coin Pusher.
         /// </summary>
         public static string CoinPusher {
@@ -17703,6 +17712,15 @@ namespace MixItUp.Base {
         public static string PolyPopInfo2 {
             get {
                 return ResourceManager.GetString("PolyPopInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Popout Editor.
+        /// </summary>
+        public static string PopoutEditor {
+            get {
+                return ResourceManager.GetString("PopoutEditor", resourceCulture);
             }
         }
         

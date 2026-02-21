@@ -11224,4 +11224,10 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="BackupsReminder" xml:space="preserve">
     <value>Herinnering: Automatische back-ups zijn uitgeschakeld. Schakel ze in bij Instellingen → Geavanceerd om je instellingen te beschermen tegen onverwacht gegevensverlies.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Code-editor</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Popout-editor</value>
+  </data>
 </root>
