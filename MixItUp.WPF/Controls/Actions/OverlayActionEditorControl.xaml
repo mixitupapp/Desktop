@@ -252,14 +252,6 @@
             <ComboBox Grid.Row="0" ItemsSource="{Binding EndCredits}" SelectedItem="{Binding SelectedEndCredits}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
         </Grid>
 
-        <Grid Grid.Row="3" Visibility="{Binding ShowPlayEndCredits, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <ComboBox Grid.Row="0" ItemsSource="{Binding EndCredits}" SelectedItem="{Binding SelectedEndCredits}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
-        </Grid>
-
         <Grid Grid.Row="3" Visibility="{Binding ShowAddToEventList, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
