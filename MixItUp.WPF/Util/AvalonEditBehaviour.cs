@@ -2,6 +2,7 @@ using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 using MixItUp.Base.Services;
+using MixItUp.Base.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,10 @@ namespace MixItUp.WPF.Util
                         {
                             editor.CaretOffset = Math.Min(caretOffset, editor.Document.TextLength);
                         }
-                        catch { }
+                        catch (Exception ex) when (ex is ArgumentOutOfRangeException || ex is InvalidOperationException)
+                        {
+                            Logger.Log(ex);
+                        }
                     }
                 }
 
@@ -58,6 +62,11 @@ namespace MixItUp.WPF.Util
         {
             if (sender is TextEditor editor)
             {
+                if (editor.Document == null)
+                {
+                    return;
+                }
+
                 SetText(editor, editor.Document.Text);
             }
         }
