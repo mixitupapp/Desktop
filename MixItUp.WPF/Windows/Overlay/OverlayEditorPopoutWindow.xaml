@@ -13,9 +13,64 @@
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium">
+    <Window.Resources>
+        <Style x:Key="PopoutSearchPanelButtonStyle" TargetType="{x:Type Button}" BasedOn="{x:Null}">
+            <Setter Property="Margin" Value="2,0" />
+            <Setter Property="Padding" Value="8,2" />
+            <Setter Property="MinWidth" Value="28" />
+            <Setter Property="MinHeight" Value="24" />
+            <Setter Property="Background" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesign.Brush.Primary.Dark}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="PopoutSearchPanelToggleButtonStyle" TargetType="{x:Type ToggleButton}" BasedOn="{x:Null}">
+            <Setter Property="Margin" Value="2,0" />
+            <Setter Property="Padding" Value="8,2" />
+            <Setter Property="MinWidth" Value="28" />
+            <Setter Property="MinHeight" Value="24" />
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="PopoutSearchPanelTextBoxStyle" TargetType="{x:Type TextBox}" BasedOn="{x:Null}">
+            <Setter Property="Margin" Value="4,0" />
+            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="MinWidth" Value="180" />
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="PopoutSearchPanelCheckBoxStyle" TargetType="{x:Type CheckBox}" BasedOn="{x:Null}">
+            <Setter Property="Margin" Value="4,0" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary.Dark}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="8" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" Text="Word Wrap" />
+            <ToggleButton x:Name="WordWrapToggleButton" Margin="0,0,16,0" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Wrap long lines visually" Checked="WordWrapToggleButton_Checked" Unchecked="WordWrapToggleButton_Unchecked" />
+            <TextBlock Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" Text="Show Whitespace" />
+            <ToggleButton x:Name="WhitespaceToggleButton" Margin="0,0,16,0" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Show spaces, tabs, and line endings" Checked="WhitespaceToggleButton_Checked" Unchecked="WhitespaceToggleButton_Unchecked" />
+            <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" Text="Search: CTRL+F" />
+        </StackPanel>
+
         <TabControl
+            Grid.Row="2"
             SnapsToDevicePixels="True"
             Style="{StaticResource MaterialDesignFilledTabControl}"
             TabStripPlacement="Top">
