@@ -86,7 +86,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Streamloots;
                 }
-                else if (this.EventType == EventTypeEnum.StreamElementsDonation || this.EventType == EventTypeEnum.StreamElementsMerchPurchase)
+                else if (this.EventType == EventTypeEnum.StreamElementsDonation)
                 {
                     return Resources.StreamElements;
                 }
@@ -223,7 +223,6 @@ namespace MixItUp.Base.ViewModel.MainControls
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.DonorDriveDonationTeamMilestone));
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlabsDonation));
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamElementsDonation));
-            donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamElementsMerchPurchase));
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TipeeeStreamDonation));
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TreatStreamDonation));
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.RainmakerDonation));

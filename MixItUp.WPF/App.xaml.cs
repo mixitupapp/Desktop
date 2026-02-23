@@ -52,7 +52,7 @@ namespace MixItUp.WPF
                 ServiceManager.Add(new WindowsMicrosoftAzureSpeechService());
                 ServiceManager.Add(new StreamlabsService(new WindowsSocketIOConnection()));
                 ServiceManager.Add(new RainmakerService(new WindowsSocketIOConnection()));
-                ServiceManager.Add(new StreamElementsService(new WindowsSocketIOConnection()));
+                ServiceManager.Add(new StreamElementsService());
                 ServiceManager.Add(new TipeeeStreamService(new WindowsSocketIOConnection()));
                 ServiceManager.Add(new TreatStreamService(new WindowsSocketIOConnection()));
                 ServiceManager.Add<IOvrStreamService>(new WindowsOvrStreamService());
