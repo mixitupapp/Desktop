@@ -29,7 +29,7 @@ namespace MixItUp.WPF.Services
         private int reconnectLoopRunning = 0;
         private int hasEverConnected = 0;
         private int disconnectionNotified = 0;
-        private volatile bool manualDisconnectRequested = false;
+        private int manualDisconnectRequested = 0;
 
         public WindowsOBSService()
         {
@@ -45,12 +45,13 @@ namespace MixItUp.WPF.Services
 
         public async Task<Result> Connect()
         {
+            Interlocked.Exchange(ref this.manualDisconnectRequested, 0);
             return await this.ConnectInternal();
         }
 
         public async Task Disconnect()
         {
-            this.manualDisconnectRequested = true;
+            Interlocked.Exchange(ref this.manualDisconnectRequested, 1);
             await this.DisconnectInternal(notifyDisconnected: true);
         }
 
@@ -255,13 +256,11 @@ namespace MixItUp.WPF.Services
         {
             bool attemptedConnect = false;
             bool isConnected = false;
-            bool runConnectSideEffects = false;
             bool firstConnect = false;
 
             await this.operationSemaphore.WaitAsync();
             try
             {
-                this.manualDisconnectRequested = false;
                 if (!this.OBSWebsocket.IsConnected)
                 {
                     try
@@ -302,7 +301,6 @@ namespace MixItUp.WPF.Services
                     {
                         firstConnect = Interlocked.Exchange(ref this.hasEverConnected, 1) == 0;
                         Interlocked.Exchange(ref this.disconnectionNotified, 0);
-                        runConnectSideEffects = true;
                     }
                     isConnected = true;
                 }
@@ -314,7 +312,7 @@ namespace MixItUp.WPF.Services
 
             if (isConnected)
             {
-                if (runConnectSideEffects)
+                if (attemptedConnect)
                 {
                     await this.StartReplayBuffer();
                     this.Connected(this, new EventArgs());
@@ -361,9 +359,10 @@ namespace MixItUp.WPF.Services
 
         private void OBSWebsocket_Disconnected(object sender, ObsDisconnectionInfo e)
         {
+            bool wasConnected = this.IsConnected;
             this.IsConnected = false;
 
-            if (this.manualDisconnectRequested)
+            if (Interlocked.CompareExchange(ref this.manualDisconnectRequested, 0, 0) != 0)
             {
                 return;
             }
@@ -374,6 +373,11 @@ namespace MixItUp.WPF.Services
                 disconnectDetails += $", Exception: {e.WebsocketDisconnectionInfo.Exception.Message}";
             }
             Logger.Log(LogLevel.Warning, disconnectDetails);
+
+            if (!wasConnected)
+            {
+                return;
+            }
 
             this.NotifyDisconnected();
             this.TryStartReconnectLoop();
@@ -391,7 +395,7 @@ namespace MixItUp.WPF.Services
             {
                 try
                 {
-                    while (!this.manualDisconnectRequested)
+                    while (Interlocked.CompareExchange(ref this.manualDisconnectRequested, 0, 0) == 0)
                     {
                         await Task.Delay(5000, cancellationToken);
 
@@ -466,7 +470,7 @@ namespace MixItUp.WPF.Services
                 if (this.IsConnectionException(ex))
                 {
                     this.IsConnected = false;
-                    if (!this.manualDisconnectRequested)
+                    if (Interlocked.CompareExchange(ref this.manualDisconnectRequested, 0, 0) == 0)
                     {
                         this.NotifyDisconnected();
                         this.TryStartReconnectLoop();
@@ -548,10 +552,7 @@ namespace MixItUp.WPF.Services
             if (this.IsConnectionException(ex))
             {
                 Logger.Log(LogLevel.Warning, "OBS Studio connection failed: " + current.Message);
-                if (Logger.Level == LogLevel.Debug)
-                {
-                    Logger.Log(LogLevel.Debug, ex, includeStackTrace: true);
-                }
+                Logger.Log(LogLevel.Warning, ex, includeStackTrace: true);
             }
             else
             {
