@@ -53,14 +53,17 @@ namespace MixItUp.Base.Web
                 {
                     await this.StopInternal();
                     await this.app.StopAsync();
-                    await this.app.DisposeAsync();
                 }
                 catch (Exception ex)
                 {
                     Logger.Log(ex);
                 }
+                finally
+                {
+                    await this.app.DisposeAsync();
+                    this.app = null;
+                }
             }
-            this.app = null;
         }
 
         protected virtual Task StopInternal() { return Task.CompletedTask; }
