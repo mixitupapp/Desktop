@@ -368,6 +368,13 @@ namespace MixItUp.WPF.Services
                 return;
             }
 
+            string disconnectDetails = $"OBS disconnect - Code: {e?.ObsCloseCode}, Reason: {e?.DisconnectReason}";
+            if (e?.WebsocketDisconnectionInfo?.Exception != null)
+            {
+                disconnectDetails += $", Exception: {e.WebsocketDisconnectionInfo.Exception.Message}";
+            }
+            Logger.Log(LogLevel.Warning, disconnectDetails);
+
             this.NotifyDisconnected();
             this.TryStartReconnectLoop();
         }
@@ -541,6 +548,10 @@ namespace MixItUp.WPF.Services
             if (this.IsConnectionException(ex))
             {
                 Logger.Log(LogLevel.Warning, "OBS Studio connection failed: " + current.Message);
+                if (Logger.Level == LogLevel.Debug)
+                {
+                    Logger.Log(LogLevel.Debug, ex, includeStackTrace: true);
+                }
             }
             else
             {
