@@ -4,9 +4,10 @@ using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
+using System.Net.WebSockets;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.External
@@ -35,19 +36,6 @@ namespace MixItUp.Base.Services.External
     }
 
     [DataContract]
-    public class StreamElementsTipEventItemModel
-    {
-        [DataMember]
-        public string name { get; set; }
-
-        [DataMember]
-        public double? price { get; set; }
-
-        [DataMember]
-        public int? quantity { get; set; }
-    }
-
-    [DataContract]
     public class StreamElementsTipEventModel
     {
         [DataMember]
@@ -63,111 +51,50 @@ namespace MixItUp.Base.Services.External
         public string currency { get; set; }
 
         [DataMember]
-        public double? count { get; set; }
-
-        [DataMember]
         public string message { get; set; }
-
-        [DataMember]
-        public List<StreamElementsTipEventItemModel> items { get; set; } = new List<StreamElementsTipEventItemModel>();
 
         public UserDonationModel ToGenericDonation()
         {
-            if (this.items.Count > 0)
+            return new UserDonationModel()
             {
-                double amount = this.items.Sum(i => i.price.GetValueOrDefault() * i.quantity.GetValueOrDefault());
-                if (amount == 0 && this.amount != null && this.amount > 0)
-                {
-                    amount = this.amount.GetValueOrDefault();
-                }
+                Source = UserDonationSourceEnum.StreamElements,
 
-                return new UserDonationModel()
-                {
-                    Source = UserDonationSourceEnum.StreamElements,
+                ID = this.tipId,
+                Username = this.username,
+                Message = this.message ?? string.Empty,
 
-                    ID = Guid.NewGuid().ToString(),
-                    Username = this.username,
-                    Message = this.message ?? string.Empty,
+                Amount = Math.Round(this.amount.GetValueOrDefault(), 2),
 
-                    Amount = Math.Round(amount, 2),
-
-                    DateTime = DateTimeOffset.Now,
-                };
-            }
-            else
-            {
-                return new UserDonationModel()
-                {
-                    Source = UserDonationSourceEnum.StreamElements,
-
-                    ID = this.tipId.ToString(),
-                    Username = this.username,
-                    Message = this.message ?? string.Empty,
-
-                    Amount = Math.Round(this.amount.GetValueOrDefault(), 2),
-
-                    DateTime = DateTimeOffset.Now,
-                };
-            }
+                DateTime = DateTimeOffset.Now,
+            };
         }
-    }
-
-    [DataContract]
-    public class StreamElementsWebSocketEventModel
-    {
-        public const string TipEvent = "tip";
-        public const string MerchEvent = "merch";
-
-        [DataMember]
-        public string _id { get; set; }
-
-        [DataMember]
-        public string channel { get; set; }
-
-        [DataMember]
-        public string type { get; set; }
-
-        [DataMember]
-        public string provider { get; set; }
-
-        [DataMember]
-        public string createdAt { get; set; }
-
-        [DataMember]
-        public string updatedAt { get; set; }
-
-        [DataMember]
-        public bool isMock { get; set; }
-
-        [DataMember]
-        public JToken data { get; set; }
     }
 
     public class StreamElementsService : OAuthExternalServiceBase
     {
-        public const string TotalSpentSpecialIdentifier = "totalspent";
-
         private const string BaseAddress = "https://api.streamelements.com/kappa/v2/";
 
         private const string ClientID = "460928647d5469dd";
         private const string AuthorizationUrl = "https://api.streamelements.com/oauth2/authorize?client_id={0}&redirect_uri=http://localhost:8919/&response_type=code&state={1}&scope=tips:read";
         private const string TokenUrl = "https://api.streamelements.com/oauth2/token";
 
-        private const string MerchAllItemsSpecialIdentifier = "allitems";
-        private const string MerchTotalItemsSpecialIdentifier = "totalitems";
+        private const string AstroWebSocketAddress = "wss://astro.streamelements.com";
+        private const string AstroTopicTips = "channel.tips";
+        private const string AstroTokenTypeOAuth = "oauth";
 
         public bool WebSocketConnected { get; private set; }
 
         private HashSet<string> donationsProcessed = new HashSet<string>();
+        private object donationsProcessedLock = new object();
 
         private StreamElementsChannel channel;
+        private AdvancedClientWebSocket webSocket = new AdvancedClientWebSocket();
+        private string tipsSubscriptionNonce;
+        private bool isDisconnecting = false;
 
-        private ISocketIOConnection socket;
-
-        public StreamElementsService(ISocketIOConnection socket)
+        public StreamElementsService()
             : base(StreamElementsService.BaseAddress)
         {
-            this.socket = socket;
         }
 
         public override string Name { get { return MixItUp.Base.Resources.StreamElements; } }
@@ -205,11 +132,10 @@ namespace MixItUp.Base.Services.External
 
         public override async Task Disconnect()
         {
-            if (this.socket != null)
-            {
-                this.socket.OnDisconnected -= Socket_OnDisconnected;
-                await this.socket.Disconnect();
-            }
+            this.isDisconnecting = true;
+            this.webSocket.PacketReceived -= WebSocket_PacketReceived;
+            this.webSocket.Disconnected -= WebSocket_Disconnected;
+            await this.webSocket.Disconnect();
             this.WebSocketConnected = false;
 
             this.token = null;
@@ -242,7 +168,7 @@ namespace MixItUp.Base.Services.External
             this.channel = await this.GetCurrentChannel();
             if (this.channel != null)
             {
-                if (await this.ConnectSocket())
+                if (await this.ConnectWebSocket())
                 {
                     this.TrackServiceTelemetry("StreamElements");
                     return new Result();
@@ -262,127 +188,57 @@ namespace MixItUp.Base.Services.External
             return client;
         }
 
-        private async void Socket_OnDisconnected(object sender, EventArgs e)
+        private async void WebSocket_Disconnected(object sender, WebSocketCloseStatus e)
         {
+            if (this.isDisconnecting) { return; }
+
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.StreamElements);
 
             do
             {
                 await Task.Delay(5000);
-            } while (!await this.ConnectSocket());
+            } while (!this.isDisconnecting && !await this.ConnectWebSocket());
 
-            ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.StreamElements);
+            if (!this.isDisconnecting)
+            {
+                ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.StreamElements);
+            }
         }
 
-        private async Task<bool> ConnectSocket()
+        private async Task<bool> ConnectWebSocket()
         {
             try
             {
+                this.isDisconnecting = false;
                 this.WebSocketConnected = false;
-                this.socket.OnDisconnected -= Socket_OnDisconnected;
-                await this.socket.Disconnect();
+                this.webSocket.PacketReceived -= WebSocket_PacketReceived;
+                this.webSocket.Disconnected -= WebSocket_Disconnected;
+                await this.webSocket.Disconnect();
 
-                this.socket.Listen("disconnect", (data) =>
+                this.webSocket.PacketReceived += WebSocket_PacketReceived;
+                this.webSocket.Disconnected += WebSocket_Disconnected;
+
+                if (!await this.webSocket.Connect(StreamElementsService.AstroWebSocketAddress, CancellationToken.None))
                 {
-                    this.Socket_OnDisconnected(null, new EventArgs());
-                });
+                    return false;
+                }
 
-                this.socket.Listen("authenticated", (data) =>
+                this.tipsSubscriptionNonce = Guid.NewGuid().ToString();
+                JObject tipsPacket = new JObject();
+                tipsPacket["type"] = "subscribe";
+                tipsPacket["nonce"] = this.tipsSubscriptionNonce;
+                tipsPacket["data"] = new JObject()
                 {
-                    try
-                    {
-                        if (data != null)
-                        {
-                            JObject eventJObj = JObject.Parse(data.ToString());
-                            var channelId = eventJObj["channelId"]?.Value<string>();
-                            if (this.channel._id.Equals(channelId))
-                            {
-                                this.WebSocketConnected = true;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex);
-                    }
-                });
-
-                this.socket.Listen("event", async (data) =>
-                {
-                    try
-                    {
-                        if (data != null)
-                        {
-                            Logger.Log(LogLevel.Debug, "StreamElements event: " + data.ToString());
-
-                            StreamElementsWebSocketEventModel e = JSONSerializerHelper.DeserializeFromString<StreamElementsWebSocketEventModel>(data.ToString());
-                            if (e.type != null && e.data != null)
-                            {
-                                if (string.Equals(e.type, StreamElementsWebSocketEventModel.TipEvent, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    StreamElementsTipEventModel tipEvent = e.data.ToObject<StreamElementsTipEventModel>();
-                                    if (string.IsNullOrEmpty(tipEvent.tipId))
-                                    {
-                                        tipEvent.tipId = e._id;
-                                    }
-
-                                    if (e.isMock || !this.donationsProcessed.Contains(tipEvent.tipId))
-                                    {
-                                        if (!e.isMock)
-                                        {
-                                            this.donationsProcessed.Add(tipEvent.tipId);
-                                        }
-                                        if (tipEvent.amount.GetValueOrDefault() > 0)
-                                        {
-                                            await EventService.ProcessDonationEvent(EventTypeEnum.StreamElementsDonation, tipEvent.ToGenericDonation());
-                                        }
-                                    }
-                                }
-                                else if (string.Equals(e.type, StreamElementsWebSocketEventModel.MerchEvent, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    StreamElementsTipEventModel tipEvent = e.data.ToObject<StreamElementsTipEventModel>();
-                                    if (string.IsNullOrEmpty(tipEvent.tipId))
-                                    {
-                                        tipEvent.tipId = e._id;
-                                    }
-                                    if ((e.isMock || !this.donationsProcessed.Contains(tipEvent.tipId)) && tipEvent.items.Count > 0)
-                                    {
-                                        if (!e.isMock)
-                                        {
-                                            this.donationsProcessed.Add(tipEvent.tipId);
-                                        }
-
-                                        List<string> arguments = new List<string>(tipEvent.items.Select(i => $"{i.name} x{i.quantity.GetValueOrDefault()}"));
-                                        Dictionary<string, string> specialIdentifiers = new Dictionary<string, string>();
-                                        specialIdentifiers[StreamElementsService.MerchAllItemsSpecialIdentifier] = string.Join(", ", arguments);
-                                        specialIdentifiers[StreamElementsService.MerchTotalItemsSpecialIdentifier] = tipEvent.items.Sum(i => i.quantity.GetValueOrDefault()).ToString();
-                                        await EventService.ProcessDonationEvent(EventTypeEnum.StreamElementsMerchPurchase, tipEvent.ToGenericDonation(), arguments: arguments, additionalSpecialIdentifiers: specialIdentifiers);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex);
-                    }
-                });
-
-                await this.socket.Connect($"wss://realtime.streamelements.com");
-
-                JObject packet = new JObject();
-                packet["method"] = "oauth2";
-                packet["token"] = this.token.accessToken;
-                this.socket.Send("authenticate", packet);
+                    ["topic"] = StreamElementsService.AstroTopicTips,
+                    ["room"] = this.channel._id,
+                    ["token"] = this.token.accessToken,
+                    ["token_type"] = StreamElementsService.AstroTokenTypeOAuth,
+                };
+                await this.webSocket.Send(tipsPacket);
 
                 for (int i = 0; i < 10 && !this.WebSocketConnected; i++)
                 {
                     await Task.Delay(1000);
-                }
-
-                if (this.WebSocketConnected)
-                {
-                    this.socket.OnDisconnected += Socket_OnDisconnected;
                 }
             }
             catch (Exception ex)
@@ -391,6 +247,85 @@ namespace MixItUp.Base.Services.External
             }
 
             return this.WebSocketConnected;
+        }
+
+        private void WebSocket_PacketReceived(object sender, string packet)
+        {
+            _ = Task.Run(() => this.ProcessWebSocketPacket(packet));
+        }
+
+        private async Task ProcessWebSocketPacket(string packet)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(packet)) { return; }
+
+                Logger.Log(LogLevel.Debug, "StreamElements event: " + packet);
+
+                JObject eventJObj = JObject.Parse(packet);
+                string type = eventJObj["type"]?.Value<string>();
+                if (string.IsNullOrEmpty(type)) { return; }
+
+                if (string.Equals(type, "response", StringComparison.OrdinalIgnoreCase))
+                {
+                    string nonce = eventJObj["nonce"]?.Value<string>();
+                    string error = eventJObj["error"]?.Value<string>();
+                    string topic = eventJObj["data"]?["topic"]?.Value<string>();
+                    if (string.Equals(nonce, this.tipsSubscriptionNonce, StringComparison.OrdinalIgnoreCase)
+                        && string.IsNullOrEmpty(error)
+                        && string.Equals(topic, StreamElementsService.AstroTopicTips, StringComparison.OrdinalIgnoreCase))
+                    {
+                        this.WebSocketConnected = true;
+                    }
+                    return;
+                }
+
+                if (!string.Equals(type, "message", StringComparison.OrdinalIgnoreCase)) { return; }
+
+                string topicName = eventJObj["topic"]?.Value<string>();
+                if (!string.Equals(topicName, StreamElementsService.AstroTopicTips, StringComparison.OrdinalIgnoreCase)) { return; }
+
+                JObject tipData = eventJObj["data"] as JObject;
+                if (tipData == null) { return; }
+
+                string tipStatus = tipData["status"]?.Value<string>();
+                if (!string.IsNullOrEmpty(tipStatus) && !string.Equals(tipStatus, "success", StringComparison.OrdinalIgnoreCase)) { return; }
+
+                StreamElementsTipEventModel tipEvent = new StreamElementsTipEventModel()
+                {
+                    tipId = tipData["transactionId"]?.Value<string>() ?? tipData["_id"]?.Value<string>() ?? eventJObj["id"]?.Value<string>(),
+                    username = tipData["donation"]?["user"]?["username"]?.Value<string>() ?? tipData["username"]?.Value<string>(),
+                    amount = tipData["donation"]?["amount"]?.Value<double?>() ?? tipData["amount"]?.Value<double?>(),
+                    currency = tipData["donation"]?["currency"]?.Value<string>() ?? tipData["currency"]?.Value<string>(),
+                    message = tipData["donation"]?["message"]?.Value<string>() ?? tipData["message"]?.Value<string>(),
+                };
+
+                await this.ProcessTipDonation(tipEvent);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        private async Task ProcessTipDonation(StreamElementsTipEventModel tipEvent)
+        {
+            if (tipEvent == null) { return; }
+
+            bool shouldProcessDonation = false;
+            lock (this.donationsProcessedLock)
+            {
+                if (!this.donationsProcessed.Contains(tipEvent.tipId))
+                {
+                    this.donationsProcessed.Add(tipEvent.tipId);
+                    shouldProcessDonation = true;
+                }
+            }
+
+            if (shouldProcessDonation && !string.IsNullOrWhiteSpace(tipEvent.username) && tipEvent.amount.GetValueOrDefault() > 0)
+            {
+                await EventService.ProcessDonationEvent(EventTypeEnum.StreamElementsDonation, tipEvent.ToGenericDonation());
+            }
         }
     }
 }
