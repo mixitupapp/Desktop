@@ -52,7 +52,7 @@ namespace MixItUp.WPF.Services
         public async Task Disconnect()
         {
             Interlocked.Exchange(ref this.manualDisconnectRequested, 1);
-            await this.DisconnectInternal(notifyDisconnected: true);
+            await this.DisconnectInternal(notifyDisconnected: false);
         }
 
         public Task<bool> TestConnection() { return Task.FromResult(true); }
