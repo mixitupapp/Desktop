@@ -12,6 +12,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.WebSockets;
 using System.Runtime.Serialization;
 using System.Text;
@@ -1003,42 +1004,27 @@ namespace MixItUp.Base.Services
 
                             FileInfo fileInfo = new FileInfo(filePath);
 
-                            // If they overlay requests a range, let's chunk this file
-                            string range = context.Request.Headers["Range"];
-                            if (range != null)
+                            string rangeHeader = context.Request.Headers["Range"];
+                            if (rangeHeader != null && RangeHeaderValue.TryParse(rangeHeader, out RangeHeaderValue rangeValue) && rangeValue.Ranges.Any())
                             {
-                                // The total file size
+                                var rangeItem = rangeValue.Ranges.First();
                                 long filesize = fileInfo.Length;
-
-                                // Format is: bytes=0-123
-                                //  0  : start byte
-                                //  123: end byte (can be empty, means to give me what you want)
-                                range = range.Replace("bytes=", string.Empty);
-                                string[] markers = range.Split('-');
-                                long startByte = long.Parse(markers[0]);
-                                // Max of 1MB past startByte
-                                long endByte = Math.Min(filesize, startByte + 1024 * 1024);
-                                if (markers.Length > 1 && !string.IsNullOrEmpty(markers[1]))
-                                {
-                                    // If they requested less bytes, then provide less instead
-                                    endByte = Math.Min(long.Parse(markers[1]) + 1, endByte);
-                                }
-
+                                long startByte = rangeItem.From ?? 0;
+                                long requestedEnd = rangeItem.To.HasValue ? rangeItem.To.Value + 1 : filesize;
+                                long endByte = Math.Min(filesize, Math.Min(requestedEnd, startByte + 1024 * 1024));
                                 int byteRange = (int)(endByte - startByte);
 
-                                // Write out necessary headers
                                 context.Response.Headers["Content-Range"] = $"bytes {startByte}-{endByte - 1}/{filesize}";
                                 context.Response.StatusCode = StatusCodes.Status206PartialContent;
                                 context.Response.ContentLength = byteRange;
 
-                                // Only read/write the range of bytes requested
                                 byte[] fileData = new byte[byteRange];
                                 using (BinaryReader reader = new BinaryReader(new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read)))
                                 {
                                     reader.BaseStream.Seek(startByte, SeekOrigin.Begin);
                                     reader.Read(fileData, 0, byteRange);
                                 }
-                                await context.Response.Body.WriteAsync(fileData, 0, fileData.Length);
+                                await context.Response.Body.WriteAsync(fileData, 0, fileData.Length, context.RequestAborted);
                             }
                             else
                             {
