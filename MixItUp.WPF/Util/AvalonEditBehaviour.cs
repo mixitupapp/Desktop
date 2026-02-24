@@ -5,8 +5,6 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 
@@ -14,10 +12,19 @@ namespace MixItUp.WPF.Util
 {
     public static class AvalonEditBehaviour
     {
-        private static readonly ConditionalWeakTable<TextEditor, ThemeSubscriptionState> themeSubscriptions = new ConditionalWeakTable<TextEditor, ThemeSubscriptionState>();
+        private static readonly HashSet<TextEditor> updatingEditors = new HashSet<TextEditor>();
 
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.RegisterAttached("Text", typeof(string), typeof(AvalonEditBehaviour), new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, PropertyChangedCallback));
+
+        private static readonly DependencyProperty ThemeIntegrationInstalledProperty =
+            DependencyProperty.RegisterAttached("ThemeIntegrationInstalled", typeof(bool), typeof(AvalonEditBehaviour), new PropertyMetadata(false));
+
+        private static readonly DependencyProperty ThemeHandlerProperty =
+            DependencyProperty.RegisterAttached("ThemeHandler", typeof(EventHandler), typeof(AvalonEditBehaviour), new PropertyMetadata(null));
+
+        private static readonly DependencyProperty ColorizerProperty =
+            DependencyProperty.RegisterAttached("Colorizer", typeof(ThemeAwareContrastColorizer), typeof(AvalonEditBehaviour), new PropertyMetadata(null));
 
         public static string GetText(DependencyObject dp)
         {
@@ -35,106 +42,111 @@ namespace MixItUp.WPF.Util
             {
                 EnsureThemeIntegration(editor);
 
-                if (editor.Document != null)
+                if (editor.Document != null && !updatingEditors.Contains(editor))
                 {
                     string newText = e.NewValue as string;
                     if (editor.Document.Text != newText)
                     {
-                        var caretOffset = editor.CaretOffset;
+                        int caretOffset = editor.CaretOffset;
                         editor.Document.Text = newText ?? string.Empty;
                         try
                         {
                             editor.CaretOffset = Math.Min(caretOffset, editor.Document.TextLength);
                         }
-                        catch (Exception ex) when (ex is ArgumentOutOfRangeException || ex is InvalidOperationException)
+                        catch (InvalidOperationException ex)
                         {
                             Logger.Log(ex);
                         }
                     }
                 }
-
-                editor.TextChanged -= Editor_TextChanged;
-                editor.TextChanged += Editor_TextChanged;
             }
         }
 
         private static void Editor_TextChanged(object sender, EventArgs e)
         {
-            if (sender is TextEditor editor)
+            if (sender is TextEditor editor && editor.Document != null)
             {
-                if (editor.Document == null)
+                updatingEditors.Add(editor);
+                try
                 {
-                    return;
+                    SetText(editor, editor.Document.Text);
                 }
-
-                SetText(editor, editor.Document.Text);
+                finally
+                {
+                    updatingEditors.Remove(editor);
+                }
             }
         }
 
         private static void EnsureThemeIntegration(TextEditor editor)
         {
-            if (!editor.TextArea.TextView.LineTransformers.OfType<ThemeAwareContrastColorizer>().Any())
+            if ((bool)editor.GetValue(ThemeIntegrationInstalledProperty))
             {
-                var colorizer = new ThemeAwareContrastColorizer(editor);
-                if (ServiceManager.Has<IThemeService>())
+                return;
+            }
+
+            editor.SetValue(ThemeIntegrationInstalledProperty, true);
+
+            var colorizer = new ThemeAwareContrastColorizer(editor);
+            IThemeService themeService = ServiceManager.Has<IThemeService>() ? ServiceManager.Get<IThemeService>() : null;
+            colorizer.SetIsDarkTheme(themeService?.IsDarkTheme ?? false);
+            editor.TextArea.TextView.LineTransformers.Add(colorizer);
+            editor.SetValue(ColorizerProperty, colorizer);
+
+            editor.TextChanged += Editor_TextChanged;
+
+            EventHandler themeChangedHandler = (s, args) =>
+            {
+                var c = (ThemeAwareContrastColorizer)editor.GetValue(ColorizerProperty);
+                IThemeService ts = ServiceManager.Has<IThemeService>() ? ServiceManager.Get<IThemeService>() : null;
+
+                if (c != null)
                 {
-                    IThemeService themeService = ServiceManager.Get<IThemeService>();
-                    colorizer.SetIsDarkTheme(themeService?.IsDarkTheme ?? false);
+                    c.SetIsDarkTheme(ts?.IsDarkTheme ?? false);
+                    c.ClearCache();
                 }
-                editor.TextArea.TextView.LineTransformers.Add(colorizer);
-            }
 
-            if (!themeSubscriptions.TryGetValue(editor, out _))
-            {
-                EventHandler themeChangedHandler = (s, e) =>
-                {
-                    var colorizer = editor.TextArea.TextView.LineTransformers.OfType<ThemeAwareContrastColorizer>().FirstOrDefault();
-                    IThemeService themeService = ServiceManager.Has<IThemeService>() ? ServiceManager.Get<IThemeService>() : null;
-                    if (colorizer != null && themeService != null)
-                    {
-                        colorizer.SetIsDarkTheme(themeService.IsDarkTheme);
-                        colorizer.ClearCache();
-                    }
-                    editor.TextArea?.TextView?.Redraw();
-                };
+                editor.TextArea?.TextView?.Redraw();
+            };
 
-                var state = new ThemeSubscriptionState(themeChangedHandler);
-                themeSubscriptions.Add(editor, state);
+            editor.SetValue(ThemeHandlerProperty, themeChangedHandler);
 
-                editor.Unloaded += Editor_Unloaded;
-                editor.Loaded += Editor_Loaded;
+            editor.Unloaded += Editor_Unloaded;
+            editor.Loaded += Editor_Loaded;
 
-                SubscribeToThemeChanges(state);
-            }
+            SubscribeToThemeChanges(editor);
         }
 
         private static void Editor_Loaded(object sender, RoutedEventArgs e)
         {
-            if (sender is TextEditor editor && themeSubscriptions.TryGetValue(editor, out ThemeSubscriptionState state))
+            if (sender is TextEditor editor)
             {
-                SubscribeToThemeChanges(state);
-                var colorizer = editor.TextArea.TextView.LineTransformers.OfType<ThemeAwareContrastColorizer>().FirstOrDefault();
+                SubscribeToThemeChanges(editor);
+
+                var colorizer = (ThemeAwareContrastColorizer)editor.GetValue(ColorizerProperty);
                 IThemeService themeService = ServiceManager.Has<IThemeService>() ? ServiceManager.Get<IThemeService>() : null;
                 if (colorizer != null)
                 {
                     colorizer.SetIsDarkTheme(themeService?.IsDarkTheme ?? false);
                     colorizer.ClearCache();
                 }
+
                 editor.TextArea?.TextView?.Redraw();
             }
         }
 
         private static void Editor_Unloaded(object sender, RoutedEventArgs e)
         {
-            if (sender is TextEditor editor && themeSubscriptions.TryGetValue(editor, out ThemeSubscriptionState state))
+            if (sender is TextEditor editor)
             {
-                UnsubscribeFromThemeChanges(state);
+                UnsubscribeFromThemeChanges(editor);
             }
         }
 
-        private static void SubscribeToThemeChanges(ThemeSubscriptionState state)
+        private static void SubscribeToThemeChanges(TextEditor editor)
         {
-            if (state.IsSubscribed)
+            EventHandler handler = (EventHandler)editor.GetValue(ThemeHandlerProperty);
+            if (handler == null)
             {
                 return;
             }
@@ -144,15 +156,16 @@ namespace MixItUp.WPF.Util
                 IThemeService themeService = ServiceManager.Get<IThemeService>();
                 if (themeService != null)
                 {
-                    themeService.ThemeChanged += state.ThemeChangedHandler;
-                    state.IsSubscribed = true;
+                    themeService.ThemeChanged -= handler;
+                    themeService.ThemeChanged += handler;
                 }
             }
         }
 
-        private static void UnsubscribeFromThemeChanges(ThemeSubscriptionState state)
+        private static void UnsubscribeFromThemeChanges(TextEditor editor)
         {
-            if (!state.IsSubscribed)
+            EventHandler handler = (EventHandler)editor.GetValue(ThemeHandlerProperty);
+            if (handler == null)
             {
                 return;
             }
@@ -162,22 +175,8 @@ namespace MixItUp.WPF.Util
                 IThemeService themeService = ServiceManager.Get<IThemeService>();
                 if (themeService != null)
                 {
-                    themeService.ThemeChanged -= state.ThemeChangedHandler;
+                    themeService.ThemeChanged -= handler;
                 }
-            }
-
-            state.IsSubscribed = false;
-        }
-
-        private sealed class ThemeSubscriptionState
-        {
-            public EventHandler ThemeChangedHandler { get; }
-
-            public bool IsSubscribed { get; set; }
-
-            public ThemeSubscriptionState(EventHandler themeChangedHandler)
-            {
-                this.ThemeChangedHandler = themeChangedHandler;
             }
         }
     }
