@@ -8,6 +8,7 @@
     xmlns:Windows="clr-namespace:MixItUp.WPF.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     Title="{x:Static resx:Resources.OverlayWidgetEditor}"
     Width="800"
@@ -51,10 +52,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <TextBox
-                                        MinHeight="250"
-                                        Style="{StaticResource OverlayEditorMultiLineTextBox}"
-                                        Text="{Binding Head}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Head}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
                             </Grid>
                         </TabItem>
@@ -66,10 +64,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <TextBox
-                                        MinHeight="250"
-                                        Style="{StaticResource OverlayEditorMultiLineTextBox}"
-                                        Text="{Binding HTML}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
                             </Grid>
                         </TabItem>
@@ -81,10 +76,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <TextBox
-                                        MinHeight="250"
-                                        Style="{StaticResource OverlayEditorMultiLineTextBox}"
-                                        Text="{Binding CSS}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" SyntaxHighlighting="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
                             </Grid>
                         </TabItem>
@@ -96,10 +88,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <TextBox
-                                        MinHeight="250"
-                                        Style="{StaticResource OverlayEditorMultiLineTextBox}"
-                                        Text="{Binding Javascript}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
                             </Grid>
                         </TabItem>

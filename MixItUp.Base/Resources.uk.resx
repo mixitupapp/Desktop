@@ -11223,4 +11223,10 @@ print(run())</value>
   <data name="BackupsReminder" xml:space="preserve">
     <value>Нагадування: Автоматичне резервне копіювання вимкнено. Увімкніть їх у Налаштування → Додатково, щоб захистити свої налаштування від несподіваної втрати даних.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Редактор коду</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Редактор витікання</value>
+  </data>
 </root>

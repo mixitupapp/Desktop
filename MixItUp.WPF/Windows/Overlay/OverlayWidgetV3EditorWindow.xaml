@@ -10,6 +10,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MixItUp.WPF.Windows.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     Title="{x:Static resx:Resources.OverlayWidgetEditor}"
     Width="800"
@@ -173,13 +174,15 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <TextBox
-                                        MinHeight="250"
-                                        Style="{StaticResource OverlayEditorMultiLineTextBox}"
-                                        Text="{Binding HTML}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
                             </Grid>
                         </TabItem>
 
@@ -188,13 +191,15 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <TextBox
-                                        MinHeight="250"
-                                        Style="{StaticResource OverlayEditorMultiLineTextBox}"
-                                        Text="{Binding CSS}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" SyntaxHighlighting="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
                             </Grid>
                         </TabItem>
 
@@ -203,17 +208,18 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <TextBox
-                                        MinHeight="250"
-                                        Style="{StaticResource OverlayEditorMultiLineTextBox}"
-                                        Text="{Binding Javascript}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
+                                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                                        Click="PopoutButton_Click"
+                                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
+                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                </Button>
                             </Grid>
                         </TabItem>
                     </TabControl>
-
                 </Border>
             </Grid>
         </ScrollViewer>

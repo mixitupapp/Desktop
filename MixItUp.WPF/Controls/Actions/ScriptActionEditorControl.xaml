@@ -7,6 +7,7 @@
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Actions"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -18,33 +19,47 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="10" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-
-        <Border Grid.Row="2" Style="{StaticResource DefaultBorder}">
-            <TextBox Text="{Binding Script}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Script}" Style="{StaticResource MultiLineTextBox}" MinHeight="300" MinWidth="700" />
-        </Border>
-
-        <Grid Grid.Row="4" Visibility="{Binding ShowPlainTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,10,0,0">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$scriptresult" Style="{StaticResource TextBoxReadOnlySelectable}" />
+            <ComboBox x:Name="ActionTypeComboBox" Grid.Column="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ActionTypeComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Grid Grid.Column="2" Visibility="{Binding ShowPlainTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$scriptresult" Style="{StaticResource TextBoxReadOnlySelectable}" />
+            </Grid>
         </Grid>
+
+        <Border Grid.Row="2" Style="{StaticResource DefaultBorder}">
+            <avalonEdit:TextEditor
+                x:Name="ScriptEditor"
+                Util:AvalonEditBehaviour.Text="{Binding Script}"
+                ShowLineNumbers="True"
+                FontFamily="Consolas"
+                MinHeight="300"
+                MinWidth="700"
+                Background="{DynamicResource MaterialDesignPaper}"
+                Foreground="{DynamicResource MaterialDesignBody}" />
+        </Border>
     </Grid>
 </local:ActionEditorControlBase>

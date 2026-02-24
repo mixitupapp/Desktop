@@ -11224,4 +11224,10 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="BackupsReminder" xml:space="preserve">
     <value>Lembrete: As cópias de segurança automáticas estão desactivadas. Active-as em Definições → Avançadas para proteger as suas definições contra a perda inesperada de dados.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Editor de código</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Editor de popout</value>
+  </data>
 </root>
