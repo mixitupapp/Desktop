@@ -1021,7 +1021,7 @@ namespace MixItUp.Base.Services
                                 if (markers.Length > 1 && !string.IsNullOrEmpty(markers[1]))
                                 {
                                     // If they requested less bytes, then provide less instead
-                                    endByte = Math.Min(long.Parse(markers[1]), endByte);
+                                    endByte = Math.Min(long.Parse(markers[1]) + 1, endByte);
                                 }
 
                                 int byteRange = (int)(endByte - startByte);
@@ -1042,9 +1042,11 @@ namespace MixItUp.Base.Services
                             }
                             else
                             {
-                                byte[] fileData = File.ReadAllBytes(filePath);
-                                context.Response.ContentLength = fileData.Length;
-                                await context.Response.Body.WriteAsync(fileData, 0, fileData.Length);
+                                context.Response.ContentLength = fileInfo.Length;
+                                using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                                {
+                                    await stream.CopyToAsync(context.Response.Body, context.RequestAborted);
+                                }
                             }
                             await context.Response.Body.FlushAsync();
                             await context.Response.CompleteAsync();
