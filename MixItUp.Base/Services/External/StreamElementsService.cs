@@ -89,8 +89,17 @@ namespace MixItUp.Base.Services.External
 
         private StreamElementsChannel channel;
         private AdvancedClientWebSocket webSocket = new AdvancedClientWebSocket();
-        private string tipsSubscriptionNonce;
-        private bool isDisconnecting = false;
+        private readonly string[] subscriptionTopics = new string[] { StreamElementsService.AstroTopicTips };
+        private readonly object subscriptionLock = new object();
+        private readonly Dictionary<string, string> pendingSubscriptionsByNonce = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> successfulSubscriptions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private bool subscriptionFailed = false;
+
+        private int isDisconnecting = 0;
+        private int? lastConnectionFailureStatusCode = null;
+
+        private readonly SemaphoreSlim connectSemaphore = new SemaphoreSlim(1);
+        private readonly SemaphoreSlim reconnectSemaphore = new SemaphoreSlim(1);
 
         public StreamElementsService()
             : base(StreamElementsService.BaseAddress)
@@ -132,11 +141,14 @@ namespace MixItUp.Base.Services.External
 
         public override async Task Disconnect()
         {
-            this.isDisconnecting = true;
+            this.SetIsDisconnecting(true);
+            this.WebSocketConnected = false;
+            this.ResetSubscriptionState();
+            this.lastConnectionFailureStatusCode = null;
+
             this.webSocket.PacketReceived -= WebSocket_PacketReceived;
             this.webSocket.Disconnected -= WebSocket_Disconnected;
             await this.webSocket.Disconnect();
-            this.WebSocketConnected = false;
 
             this.token = null;
         }
@@ -165,6 +177,8 @@ namespace MixItUp.Base.Services.External
 
         protected override async Task<Result> InitializeInternal()
         {
+            this.SetIsDisconnecting(false);
+
             this.channel = await this.GetCurrentChannel();
             if (this.channel != null)
             {
@@ -188,29 +202,25 @@ namespace MixItUp.Base.Services.External
             return client;
         }
 
-        private async void WebSocket_Disconnected(object sender, WebSocketCloseStatus e)
+        private void WebSocket_Disconnected(object sender, WebSocketCloseStatus e)
         {
-            if (this.isDisconnecting) { return; }
-
-            ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.StreamElements);
-
-            do
-            {
-                await Task.Delay(5000);
-            } while (!this.isDisconnecting && !await this.ConnectWebSocket());
-
-            if (!this.isDisconnecting)
-            {
-                ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.StreamElements);
-            }
+            _ = Task.Run(() => this.ReconnectLoop());
         }
 
         private async Task<bool> ConnectWebSocket()
         {
+            await this.connectSemaphore.WaitAsync();
             try
             {
-                this.isDisconnecting = false;
+                if (this.IsDisconnecting() || this.channel == null || this.token == null)
+                {
+                    return false;
+                }
+
                 this.WebSocketConnected = false;
+                this.ResetSubscriptionState();
+                this.lastConnectionFailureStatusCode = null;
+
                 this.webSocket.PacketReceived -= WebSocket_PacketReceived;
                 this.webSocket.Disconnected -= WebSocket_Disconnected;
                 await this.webSocket.Disconnect();
@@ -223,27 +233,46 @@ namespace MixItUp.Base.Services.External
                     return false;
                 }
 
-                this.tipsSubscriptionNonce = Guid.NewGuid().ToString();
-                JObject tipsPacket = new JObject();
-                tipsPacket["type"] = "subscribe";
-                tipsPacket["nonce"] = this.tipsSubscriptionNonce;
-                tipsPacket["data"] = new JObject()
+                foreach (string topic in this.subscriptionTopics)
                 {
-                    ["topic"] = StreamElementsService.AstroTopicTips,
-                    ["room"] = this.channel._id,
-                    ["token"] = this.token.accessToken,
-                    ["token_type"] = StreamElementsService.AstroTokenTypeOAuth,
-                };
-                await this.webSocket.Send(tipsPacket);
+                    string nonce = Guid.NewGuid().ToString();
+                    lock (this.subscriptionLock)
+                    {
+                        this.pendingSubscriptionsByNonce[nonce] = topic;
+                    }
 
-                for (int i = 0; i < 10 && !this.WebSocketConnected; i++)
+                    JObject subscribePacket = new JObject();
+                    subscribePacket["type"] = "subscribe";
+                    subscribePacket["nonce"] = nonce;
+                    subscribePacket["data"] = new JObject()
+                    {
+                        ["topic"] = topic,
+                        ["room"] = this.channel._id,
+                        ["token"] = this.token.accessToken,
+                        ["token_type"] = StreamElementsService.AstroTokenTypeOAuth,
+                    };
+                    await this.webSocket.Send(subscribePacket);
+                }
+
+                for (int i = 0; i < 10 && !this.WebSocketConnected && !this.HasSubscriptionFailure(); i++)
                 {
                     await Task.Delay(1000);
+                }
+
+                if (!this.WebSocketConnected || this.HasSubscriptionFailure())
+                {
+                    await this.webSocket.Disconnect();
+                    return false;
                 }
             }
             catch (Exception ex)
             {
+                this.lastConnectionFailureStatusCode = this.webSocket.LastConnectHttpStatusCode;
                 Logger.Log(ex);
+            }
+            finally
+            {
+                this.connectSemaphore.Release();
             }
 
             return this.WebSocketConnected;
@@ -271,11 +300,32 @@ namespace MixItUp.Base.Services.External
                     string nonce = eventJObj["nonce"]?.Value<string>();
                     string error = eventJObj["error"]?.Value<string>();
                     string topic = eventJObj["data"]?["topic"]?.Value<string>();
-                    if (string.Equals(nonce, this.tipsSubscriptionNonce, StringComparison.OrdinalIgnoreCase)
-                        && string.IsNullOrEmpty(error)
-                        && string.Equals(topic, StreamElementsService.AstroTopicTips, StringComparison.OrdinalIgnoreCase))
+                    if (!string.IsNullOrEmpty(nonce))
                     {
-                        this.WebSocketConnected = true;
+                        string expectedTopic = null;
+                        lock (this.subscriptionLock)
+                        {
+                            this.pendingSubscriptionsByNonce.TryGetValue(nonce, out expectedTopic);
+                        }
+
+                        if (!string.IsNullOrEmpty(expectedTopic) &&
+                            (string.IsNullOrEmpty(topic) || string.Equals(topic, expectedTopic, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            lock (this.subscriptionLock)
+                            {
+                                if (string.IsNullOrEmpty(error))
+                                {
+                                    this.successfulSubscriptions.Add(expectedTopic);
+                                }
+                                else
+                                {
+                                    this.subscriptionFailed = true;
+                                }
+                                this.pendingSubscriptionsByNonce.Remove(nonce);
+                            }
+
+                            this.WebSocketConnected = this.AreAllSubscriptionsConnected();
+                        }
                     }
                     return;
                 }
@@ -306,6 +356,107 @@ namespace MixItUp.Base.Services.External
             {
                 Logger.Log(ex);
             }
+        }
+
+        private async Task ReconnectLoop()
+        {
+            if (!await this.reconnectSemaphore.WaitAsync(0))
+            {
+                return;
+            }
+
+            try
+            {
+                if (this.IsDisconnecting())
+                {
+                    return;
+                }
+
+                this.WebSocketConnected = false;
+                ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.StreamElements);
+
+                int attempt = 0;
+                while (!this.IsDisconnecting())
+                {
+                    int delayMs = this.GetReconnectDelayMs(attempt++);
+                    await Task.Delay(delayMs);
+
+                    if (this.IsDisconnecting())
+                    {
+                        break;
+                    }
+
+                    if (await this.ConnectWebSocket())
+                    {
+                        ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.StreamElements);
+                        break;
+                    }
+                }
+            }
+            finally
+            {
+                this.reconnectSemaphore.Release();
+            }
+        }
+
+        private int GetReconnectDelayMs(int attempt)
+        {
+            int clampedAttempt = Math.Min(attempt, 8);
+            int delayMs = (int)Math.Min(60000, 5000 * (1 << clampedAttempt));
+
+            if (this.lastConnectionFailureStatusCode == 429)
+            {
+                delayMs = Math.Max(delayMs, 30000);
+            }
+            else if (this.lastConnectionFailureStatusCode >= 500 && this.lastConnectionFailureStatusCode <= 599)
+            {
+                delayMs = Math.Max(delayMs, 10000);
+            }
+
+            return delayMs + Random.Shared.Next(0, 1001);
+        }
+
+        private void ResetSubscriptionState()
+        {
+            lock (this.subscriptionLock)
+            {
+                this.pendingSubscriptionsByNonce.Clear();
+                this.successfulSubscriptions.Clear();
+                this.subscriptionFailed = false;
+            }
+        }
+
+        private bool HasSubscriptionFailure()
+        {
+            lock (this.subscriptionLock)
+            {
+                return this.subscriptionFailed;
+            }
+        }
+
+        private bool AreAllSubscriptionsConnected()
+        {
+            lock (this.subscriptionLock)
+            {
+                foreach (string topic in this.subscriptionTopics)
+                {
+                    if (!this.successfulSubscriptions.Contains(topic))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        private bool IsDisconnecting()
+        {
+            return Interlocked.CompareExchange(ref this.isDisconnecting, 0, 0) == 1;
+        }
+
+        private void SetIsDisconnecting(bool value)
+        {
+            Interlocked.Exchange(ref this.isDisconnecting, value ? 1 : 0);
         }
 
         private async Task ProcessTipDonation(StreamElementsTipEventModel tipEvent)
