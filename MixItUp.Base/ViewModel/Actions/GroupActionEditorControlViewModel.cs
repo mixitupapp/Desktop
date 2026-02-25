@@ -75,7 +75,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 }
             });
 
-            this.ActionEditorList.AddActions(subActions);
+            await this.ActionEditorList.AddActions(subActions);
             subActions.Clear();
 
             await base.OnOpenInternal();
@@ -91,13 +91,12 @@ namespace MixItUp.Base.ViewModel.Actions
             return new Result();
         }
 
-        public Task ImportActionsFromCommand(CommandModelBase command)
+        public async Task ImportActionsFromCommand(CommandModelBase command)
         {
             if (command != null)
             {
-                this.ActionEditorList.AddActions(command.Actions);
+                await this.ActionEditorList.AddActions(command.Actions);
             }
-            return Task.CompletedTask;
         }
 
         protected override async Task<ActionModelBase> GetActionInternal()

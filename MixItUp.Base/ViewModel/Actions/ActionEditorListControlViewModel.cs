@@ -142,25 +142,35 @@ namespace MixItUp.Base.ViewModel.Actions
             }
         }
 
-        public void AddActions(IEnumerable<ActionModelBase> actions)
+        public async Task AddActions(IEnumerable<ActionModelBase> actions)
         {
             if (actions == null)
             {
                 return;
             }
 
-            List<ActionEditorControlViewModelBase> viewModels = new List<ActionEditorControlViewModelBase>();
+            List<ActionEditorControlViewModelBase> batch = new List<ActionEditorControlViewModelBase>();
             foreach (ActionModelBase action in actions)
             {
                 ActionEditorControlViewModelBase editorViewModel = this.CreateEditorViewModel(action);
                 if (editorViewModel != null)
                 {
                     editorViewModel.Initialize(this);
-                    viewModels.Add(editorViewModel);
+                    batch.Add(editorViewModel);
+                }
+
+                if (batch.Count >= 20)
+                {
+                    this.Actions.AddRange(batch);
+                    batch.Clear();
+                    await Task.Yield();
                 }
             }
 
-            this.Actions.AddRange(viewModels);
+            if (batch.Count > 0)
+            {
+                this.Actions.AddRange(batch);
+            }
         }
 
         private ActionEditorControlViewModelBase CreateEditorViewModel(ActionModelBase action)

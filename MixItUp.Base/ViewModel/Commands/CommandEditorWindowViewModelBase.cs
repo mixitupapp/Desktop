@@ -271,7 +271,7 @@ namespace MixItUp.Base.ViewModel.Commands
 
                     if (command != null)
                     {
-                        this.AddActions(command.Actions);
+                        await this.AddActions(command.Actions);
                     }
                 }
                 catch (Exception ex)
@@ -300,13 +300,12 @@ namespace MixItUp.Base.ViewModel.Commands
 
         public abstract Task SaveCommandToSettings(CommandModelBase command);
 
-        protected override Task OnOpenInternal()
+        protected override async Task OnOpenInternal()
         {
             if (this.existingCommand != null)
             {
-                this.AddActions(this.existingCommand.Actions);
+                await this.AddActions(this.existingCommand.Actions);
             }
-            return Task.CompletedTask;
         }
 
         public async Task<CommandModelBase> ValidateAndBuildCommand()
