@@ -83,6 +83,7 @@ namespace MixItUp.WPF.Controls.Actions
                 {
                     this.ContentControl.Content = this.ActionControl;
                     await this.ViewModel.EnsureEditorOpened();
+                    this.ViewModel.MarkUserExpanded();
                 }
             }
             finally

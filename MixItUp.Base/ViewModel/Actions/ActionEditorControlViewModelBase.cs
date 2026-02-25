@@ -67,9 +67,10 @@ namespace MixItUp.Base.ViewModel.Actions
 
         private ActionEditorListControlViewModel actionEditorListControlViewModel;
         private readonly ActionModelBase originalActionModel;
-        private bool editorOpened = false;
+        private Task _openTask;
+        private bool userExpandedEditor = false;
 
-        public bool CanUseOriginalActionModel { get { return this.originalActionModel != null && !this.editorOpened; } }
+        public bool CanUseOriginalActionModel { get { return this.originalActionModel != null && !this.userExpandedEditor; } }
 
         public ActionEditorControlViewModelBase(ActionModelBase action)
         {
@@ -87,7 +88,6 @@ namespace MixItUp.Base.ViewModel.Actions
 
         protected override Task OnOpenInternal()
         {
-            this.editorOpened = true;
             this.InitializeSharedCommands();
             return Task.CompletedTask;
         }
@@ -98,12 +98,31 @@ namespace MixItUp.Base.ViewModel.Actions
             this.InitializeSharedCommands();
         }
 
-        public async Task EnsureEditorOpened()
+        public Task EnsureEditorOpened()
         {
-            if (!this.editorOpened)
+            if (_openTask == null)
+            {
+                _openTask = EnsureEditorOpenedCore();
+            }
+            return _openTask;
+        }
+
+        private async Task EnsureEditorOpenedCore()
+        {
+            try
             {
                 await this.OnOpen();
             }
+            catch
+            {
+                _openTask = null;
+                throw;
+            }
+        }
+
+        public void MarkUserExpanded()
+        {
+            this.userExpandedEditor = true;
         }
 
         public virtual Task<Result> Validate()
