@@ -192,32 +192,6 @@ namespace MixItUp.Base.Web
         }
 
         /// <summary>
-        /// Handles all receiving &amp; processing of packets.
-        /// </summary>
-        /// <returns>An awaitable task with the close status of the web socket connection</returns>
-        protected virtual async Task<WebSocketCloseStatus> Receive()
-        {
-            ClientWebSocket socket = this.webSocket;
-            CancellationToken cancellationToken = CancellationToken.None;
-
-            lock (this.webSocketStateLock)
-            {
-                socket = this.webSocket;
-                if (this.receiveCancellationTokenSource != null)
-                {
-                    cancellationToken = this.receiveCancellationTokenSource.Token;
-                }
-            }
-
-            if (socket == null)
-            {
-                return WebSocketCloseStatus.NormalClosure;
-            }
-
-            return await this.Receive(socket, cancellationToken);
-        }
-
-        /// <summary>
         /// Handles all receiving &amp; processing of packets for a specific socket connection.
         /// </summary>
         /// <param name="socket">The socket to receive from</param>
@@ -264,12 +238,12 @@ namespace MixItUp.Base.Web
                     }
                     catch (TaskCanceledException)
                     {
-                        closeStatus = WebSocketCloseStatus.NormalClosure;
+                        closeStatus = cancellationToken.IsCancellationRequested ? WebSocketCloseStatus.NormalClosure : WebSocketCloseStatus.InternalServerError;
                         break;
                     }
                     catch (OperationCanceledException)
                     {
-                        closeStatus = WebSocketCloseStatus.NormalClosure;
+                        closeStatus = cancellationToken.IsCancellationRequested ? WebSocketCloseStatus.NormalClosure : WebSocketCloseStatus.InternalServerError;
                         break;
                     }
                     catch (Exception ex)
@@ -277,6 +251,7 @@ namespace MixItUp.Base.Web
                         Logger.Log(ex);
                         closeStatus = WebSocketCloseStatus.InternalServerError;
                         jsonBuffer = string.Empty;
+                        break;
                     }
                 }
             }
@@ -286,8 +261,15 @@ namespace MixItUp.Base.Web
                 closeStatus = WebSocketCloseStatus.InternalServerError;
             }
 
+            if (!cancellationToken.IsCancellationRequested &&
+                closeStatus == WebSocketCloseStatus.NormalClosure &&
+                socket.State == WebSocketState.Aborted)
+            {
+                closeStatus = WebSocketCloseStatus.InternalServerError;
+            }
+
             await this.DisconnectInternal(closeStatus, waitForReceiveTask: false, expectedWebSocket: socket);
-            if (!cancellationToken.IsCancellationRequested && closeStatus != WebSocketCloseStatus.NormalClosure)
+            if (closeStatus != WebSocketCloseStatus.NormalClosure)
             {
                 this.Disconnected?.Invoke(this, closeStatus);
             }
@@ -378,21 +360,6 @@ namespace MixItUp.Base.Web
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Waits for an successful operation to complete.
-        /// </summary>
-        /// <param name="valueToCheck">Where the operation was successful</param>
-        /// <param name="secondsToWait">The total amount of seconds to wait for success</param>
-        /// <returns>An awaitable task</returns>
-        protected async Task WaitForSuccess(Func<bool> valueToCheck, int secondsToWait = 15)
-        {
-            int loops = (secondsToWait * 1000) / 100;
-            for (int i = 0; i < loops && !valueToCheck(); i++)
-            {
-                await Task.Delay(100);
-            }
         }
     }
 }
