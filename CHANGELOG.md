@@ -1,5 +1,19 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.310
+
+- [FEAT] Add custom code editor for script action and overlay HTML/CSS/JS tabs in widgets and overlay actions
+- [FEAT] Add Years and Months to dateto() and datefrom() functions in special identifier action
+- [MAINT] Improve action loading when opening the command editor
+- [MAINT] Update OBS Studio websocket connections to v5.0 *
+- [MAINT] Update Stream Elements service to new WebSocket server and remove deprecated Stream Elements Merch event **
+- [MAINT] Upgrade local authentication and overlay servers to Kestrel-based servers
+- [FIX] Fix bug with Patreon account linking and losing subscriber status.
+- [FIX] Fix crash when trying to edit LumiaStream actions
+
+> **\* Legacy OBS WebSocket support (< v5.0) removed**  
+> **\*\* Test donations from SE Dashboard/Activity feed no longer triggers MIU SE Donation event**
+
 ## 1.6.30
 
 - [MAINT] Update branding and logos across the application
