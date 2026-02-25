@@ -271,16 +271,7 @@ namespace MixItUp.Base.ViewModel.Commands
 
                     if (command != null)
                     {
-                        int index = 0;
-                        foreach (ActionModelBase action in command.Actions)
-                        {
-                            await this.AddAction(action);
-                            index++;
-                            if (index % 10 == 0)
-                            {
-                                await Task.Yield();
-                            }
-                        }
+                        this.AddActions(command.Actions);
                     }
                 }
                 catch (Exception ex)
@@ -309,21 +300,13 @@ namespace MixItUp.Base.ViewModel.Commands
 
         public abstract Task SaveCommandToSettings(CommandModelBase command);
 
-        protected override async Task OnOpenInternal()
+        protected override Task OnOpenInternal()
         {
             if (this.existingCommand != null)
             {
-                int index = 0;
-                foreach (ActionModelBase action in this.existingCommand.Actions)
-                {
-                    await this.AddAction(action);
-                    index++;
-                    if (index % 10 == 0)
-                    {
-                        await Task.Yield();
-                    }
-                }
+                this.AddActions(this.existingCommand.Actions);
             }
+            return Task.CompletedTask;
         }
 
         public async Task<CommandModelBase> ValidateAndBuildCommand()

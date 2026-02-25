@@ -26,7 +26,7 @@ namespace MixItUp.Base.ViewModel.Actions
 
         public ICommand AddCommand { get; private set; }
 
-        public ObservableCollection<ActionEditorControlViewModelBase> Actions { get; set; } = new ObservableCollection<ActionEditorControlViewModelBase>();
+        public BulkObservableCollection<ActionEditorControlViewModelBase> Actions { get; set; } = new BulkObservableCollection<ActionEditorControlViewModelBase>();
 
         public ActionEditorListControlViewModel()
         {
@@ -135,56 +135,81 @@ namespace MixItUp.Base.ViewModel.Actions
 
         public async Task AddAction(ActionModelBase action)
         {
-            ActionEditorControlViewModelBase editorViewModel = null;
-            switch (action.Type)
-            {
-                case ActionTypeEnum.Chat: editorViewModel = new ChatActionEditorControlViewModel((ChatActionModel)action); break;
-                case ActionTypeEnum.Command: editorViewModel = new CommandActionEditorControlViewModel((CommandActionModel)action); break;
-                case ActionTypeEnum.Conditional: editorViewModel = new ConditionalActionEditorControlViewModel((ConditionalActionModel)action); break;
-                case ActionTypeEnum.Consumables: editorViewModel = new ConsumablesActionEditorControlViewModel((ConsumablesActionModel)action); break;
-                case ActionTypeEnum.Counter: editorViewModel = new CounterActionEditorControlViewModel((CounterActionModel)action); break;
-                case ActionTypeEnum.Discord: editorViewModel = new DiscordActionEditorControlViewModel((DiscordActionModel)action); break;
-                case ActionTypeEnum.ExternalProgram: editorViewModel = new ExternalProgramActionEditorControlViewModel((ExternalProgramActionModel)action); break;
-                case ActionTypeEnum.File: editorViewModel = new FileActionEditorControlViewModel((FileActionModel)action); break;
-                case ActionTypeEnum.GameQueue: editorViewModel = new GameQueueActionEditorControlViewModel((GameQueueActionModel)action); break;
-                case ActionTypeEnum.Group: editorViewModel = new GroupActionEditorControlViewModel((GroupActionModel)action); break;
-                case ActionTypeEnum.IFTTT: editorViewModel = new IFTTTActionEditorControlViewModel((IFTTTActionModel)action); break;
-                case ActionTypeEnum.InfiniteAlbum: editorViewModel = new InfiniteAlbumActionEditorControlViewModel((InfiniteAlbumActionModel)action); break;
-                case ActionTypeEnum.Input: editorViewModel = new InputActionEditorControlViewModel((InputActionModel)action); break;
-                case ActionTypeEnum.LumiaStream: editorViewModel = new LumiaStreamActionEditorControlViewModel((LumiaStreamActionModel)action); break;
-                case ActionTypeEnum.MeldStudio: editorViewModel = new MeldStudioActionEditorControlViewModel((MeldStudioActionModel)action); break;
-                case ActionTypeEnum.Moderation: editorViewModel = new ModerationActionEditorControlViewModel((ModerationActionModel)action); break;
-                case ActionTypeEnum.MtionStudio: editorViewModel = new MtionStudioActionViewModel((MtionStudioActionModel)action); break;
-                case ActionTypeEnum.MusicPlayer: editorViewModel = new MusicPlayerActionEditorControlViewModel((MusicPlayerActionModel)action); break;
-                case ActionTypeEnum.Overlay: editorViewModel = new OverlayActionEditorControlViewModel((OverlayActionModel)action); break;
-                case ActionTypeEnum.OvrStream: editorViewModel = new OvrStreamActionEditorControlViewModel((OvrStreamActionModel)action); break;
-                case ActionTypeEnum.PixelChat: editorViewModel = new PixelChatActionEditorControlViewModel((PixelChatActionModel)action); break;
-                case ActionTypeEnum.PolyPop: editorViewModel = new PolyPopActionEditorControlViewModel((PolyPopActionModel)action); break;
-                case ActionTypeEnum.Random: editorViewModel = new RandomActionEditorControlViewModel((RandomActionModel)action); break;
-                case ActionTypeEnum.Repeat: editorViewModel = new RepeatActionEditorControlViewModel((RepeatActionModel)action); break;
-                case ActionTypeEnum.SAMMI: editorViewModel = new SAMMIActionEditorControlViewModel((SAMMIActionModel)action); break;
-                case ActionTypeEnum.Script: editorViewModel = new ScriptActionEditorControlViewModel((ScriptActionModel)action); break;
-                case ActionTypeEnum.Serial: editorViewModel = new SerialActionEditorControlViewModel((SerialActionModel)action); break;
-                case ActionTypeEnum.Sound: editorViewModel = new SoundActionEditorControlViewModel((SoundActionModel)action); break;
-                case ActionTypeEnum.SpecialIdentifier: editorViewModel = new SpecialIdentifierActionEditorControlViewModel((SpecialIdentifierActionModel)action); break;
-                case ActionTypeEnum.StreamingSoftware: editorViewModel = new StreamingSoftwareActionEditorControlViewModel((StreamingSoftwareActionModel)action); break;
-                case ActionTypeEnum.Streamlabs: editorViewModel = new StreamlabsActionEditorControlViewModel((StreamlabsActionModel)action); break;
-                case ActionTypeEnum.TextToSpeech: editorViewModel = new TextToSpeechActionEditorControlViewModel((TextToSpeechActionModel)action); break;
-                case ActionTypeEnum.TITS: editorViewModel = new TITSActionEditorControlViewModel((TITSActionModel)action); break;
-                case ActionTypeEnum.Trovo: editorViewModel = new TrovoActionEditorControlViewModel((TrovoActionModel)action); break;
-                case ActionTypeEnum.Twitch: editorViewModel = new TwitchActionEditorControlViewModel((TwitchActionModel)action); break;
-                case ActionTypeEnum.Voicemod: editorViewModel = new VoicemodActionEditorControlViewModel((VoicemodActionModel)action); break;
-                case ActionTypeEnum.VTSPog: editorViewModel = new VTSPogActionEditorControlViewModel((VTSPogActionModel)action); break;
-                case ActionTypeEnum.VTubeStudio: editorViewModel = new VTubeStudioActionEditorControlViewModel((VTubeStudioActionModel)action); break;
-                case ActionTypeEnum.Wait: editorViewModel = new WaitActionEditorControlViewModel((WaitActionModel)action); break;
-                case ActionTypeEnum.WebRequest: editorViewModel = new WebRequestActionEditorControlViewModel((WebRequestActionModel)action); break;
-                case ActionTypeEnum.YouTube: editorViewModel = new YouTubeActionEditorControlViewModel((YouTubeActionModel)action); break;
-            }
-
+            ActionEditorControlViewModelBase editorViewModel = this.CreateEditorViewModel(action);
             if (editorViewModel != null)
             {
                 await this.AddActionViewModel(editorViewModel);
             }
+        }
+
+        public void AddActions(IEnumerable<ActionModelBase> actions)
+        {
+            if (actions == null)
+            {
+                return;
+            }
+
+            List<ActionEditorControlViewModelBase> viewModels = new List<ActionEditorControlViewModelBase>();
+            foreach (ActionModelBase action in actions)
+            {
+                ActionEditorControlViewModelBase editorViewModel = this.CreateEditorViewModel(action);
+                if (editorViewModel != null)
+                {
+                    editorViewModel.Initialize(this);
+                    viewModels.Add(editorViewModel);
+                }
+            }
+
+            this.Actions.AddRange(viewModels);
+        }
+
+        private ActionEditorControlViewModelBase CreateEditorViewModel(ActionModelBase action)
+        {
+            switch (action.Type)
+            {
+                case ActionTypeEnum.Chat: return new ChatActionEditorControlViewModel((ChatActionModel)action);
+                case ActionTypeEnum.Command: return new CommandActionEditorControlViewModel((CommandActionModel)action);
+                case ActionTypeEnum.Conditional: return new ConditionalActionEditorControlViewModel((ConditionalActionModel)action);
+                case ActionTypeEnum.Consumables: return new ConsumablesActionEditorControlViewModel((ConsumablesActionModel)action);
+                case ActionTypeEnum.Counter: return new CounterActionEditorControlViewModel((CounterActionModel)action);
+                case ActionTypeEnum.Discord: return new DiscordActionEditorControlViewModel((DiscordActionModel)action);
+                case ActionTypeEnum.ExternalProgram: return new ExternalProgramActionEditorControlViewModel((ExternalProgramActionModel)action);
+                case ActionTypeEnum.File: return new FileActionEditorControlViewModel((FileActionModel)action);
+                case ActionTypeEnum.GameQueue: return new GameQueueActionEditorControlViewModel((GameQueueActionModel)action);
+                case ActionTypeEnum.Group: return new GroupActionEditorControlViewModel((GroupActionModel)action);
+                case ActionTypeEnum.IFTTT: return new IFTTTActionEditorControlViewModel((IFTTTActionModel)action);
+                case ActionTypeEnum.InfiniteAlbum: return new InfiniteAlbumActionEditorControlViewModel((InfiniteAlbumActionModel)action);
+                case ActionTypeEnum.Input: return new InputActionEditorControlViewModel((InputActionModel)action);
+                case ActionTypeEnum.LumiaStream: return new LumiaStreamActionEditorControlViewModel((LumiaStreamActionModel)action);
+                case ActionTypeEnum.MeldStudio: return new MeldStudioActionEditorControlViewModel((MeldStudioActionModel)action);
+                case ActionTypeEnum.Moderation: return new ModerationActionEditorControlViewModel((ModerationActionModel)action);
+                case ActionTypeEnum.MtionStudio: return new MtionStudioActionViewModel((MtionStudioActionModel)action);
+                case ActionTypeEnum.MusicPlayer: return new MusicPlayerActionEditorControlViewModel((MusicPlayerActionModel)action);
+                case ActionTypeEnum.Overlay: return new OverlayActionEditorControlViewModel((OverlayActionModel)action);
+                case ActionTypeEnum.OvrStream: return new OvrStreamActionEditorControlViewModel((OvrStreamActionModel)action);
+                case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControlViewModel((PixelChatActionModel)action);
+                case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControlViewModel((PolyPopActionModel)action);
+                case ActionTypeEnum.Random: return new RandomActionEditorControlViewModel((RandomActionModel)action);
+                case ActionTypeEnum.Repeat: return new RepeatActionEditorControlViewModel((RepeatActionModel)action);
+                case ActionTypeEnum.SAMMI: return new SAMMIActionEditorControlViewModel((SAMMIActionModel)action);
+                case ActionTypeEnum.Script: return new ScriptActionEditorControlViewModel((ScriptActionModel)action);
+                case ActionTypeEnum.Serial: return new SerialActionEditorControlViewModel((SerialActionModel)action);
+                case ActionTypeEnum.Sound: return new SoundActionEditorControlViewModel((SoundActionModel)action);
+                case ActionTypeEnum.SpecialIdentifier: return new SpecialIdentifierActionEditorControlViewModel((SpecialIdentifierActionModel)action);
+                case ActionTypeEnum.StreamingSoftware: return new StreamingSoftwareActionEditorControlViewModel((StreamingSoftwareActionModel)action);
+                case ActionTypeEnum.Streamlabs: return new StreamlabsActionEditorControlViewModel((StreamlabsActionModel)action);
+                case ActionTypeEnum.TextToSpeech: return new TextToSpeechActionEditorControlViewModel((TextToSpeechActionModel)action);
+                case ActionTypeEnum.TITS: return new TITSActionEditorControlViewModel((TITSActionModel)action);
+                case ActionTypeEnum.Trovo: return new TrovoActionEditorControlViewModel((TrovoActionModel)action);
+                case ActionTypeEnum.Twitch: return new TwitchActionEditorControlViewModel((TwitchActionModel)action);
+                case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControlViewModel((VoicemodActionModel)action);
+                case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControlViewModel((VTSPogActionModel)action);
+                case ActionTypeEnum.VTubeStudio: return new VTubeStudioActionEditorControlViewModel((VTubeStudioActionModel)action);
+                case ActionTypeEnum.Wait: return new WaitActionEditorControlViewModel((WaitActionModel)action);
+                case ActionTypeEnum.WebRequest: return new WebRequestActionEditorControlViewModel((WebRequestActionModel)action);
+                case ActionTypeEnum.YouTube: return new YouTubeActionEditorControlViewModel((YouTubeActionModel)action);
+            }
+            return null;
         }
 
         public async Task<IEnumerable<Result>> ValidateActions()
