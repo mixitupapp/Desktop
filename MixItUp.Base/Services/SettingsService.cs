@@ -191,13 +191,6 @@ namespace MixItUp.Base.Services
 
                     settings.CopyLatestValues();
                     await FileSerializerHelper.SerializeSettingsToFile(settings.SettingsFilePath, settings);
-
-                    if (File.Exists(settings.SettingsFilePath))
-                    {
-                        File.Copy(settings.SettingsFilePath, settings.SettingsLocalBackupFilePath, overwrite: true);
-                        Logger.Log(LogLevel.Debug, "Local backup file updated");
-                    }
-
                     await settings.SaveDatabaseData();
                 }
                 catch (Exception ex)
@@ -657,13 +650,28 @@ namespace MixItUp.Base.Services
 
         public static async Task<int> GetSettingsVersion(string filePath)
         {
-            string fileData = await ServiceManager.Get<IFileService>().ReadFile(filePath);
-            if (string.IsNullOrEmpty(fileData))
+            try
             {
+                string fileData = await ServiceManager.Get<IFileService>().ReadFile(filePath);
+                if (string.IsNullOrWhiteSpace(fileData) || fileData.Contains('\0'))
+                {
+                    return -1;
+                }
+
+                JObject settingsJObj = JObject.Parse(fileData);
+                JToken versionToken = settingsJObj["Version"];
+                if (versionToken == null || versionToken.Type != JTokenType.Integer)
+                {
+                    return -1;
+                }
+
+                return versionToken.Value<int>();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
                 return -1;
             }
-            JObject settingsJObj = JObject.Parse(fileData);
-            return (int)settingsJObj["Version"];
         }
 
         private static readonly Dictionary<string, string> HTMLColorSchemeDictionary = new Dictionary<string, string>()

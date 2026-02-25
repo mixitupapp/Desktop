@@ -276,7 +276,13 @@ namespace MixItUp.WPF.Services
                     await WindowsFileService.fileLock.WaitAsync();
 
                     string tempPath = filePath + ".tmp";
-                    await File.WriteAllTextAsync(tempPath, data ?? string.Empty, System.Text.Encoding.UTF8);
+                    byte[] bytes = System.Text.Encoding.UTF8.GetBytes(data ?? string.Empty);
+                    using (FileStream stream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.WriteThrough))
+                    {
+                        await stream.WriteAsync(bytes, 0, bytes.Length);
+                        await stream.FlushAsync();
+                        stream.Flush(true);
+                    }
 
                     if (new FileInfo(tempPath).Length == 0)
                     {
@@ -284,7 +290,22 @@ namespace MixItUp.WPF.Services
                         throw new IOException("Empty file");
                     }
 
-                    File.Move(tempPath, filePath, overwrite: true);
+                    string tempContents = await File.ReadAllTextAsync(tempPath, System.Text.Encoding.UTF8);
+                    if (string.IsNullOrWhiteSpace(tempContents) || tempContents.Contains('\0') || !tempContents.TrimStart().StartsWith("{"))
+                    {
+                        File.Delete(tempPath);
+                        throw new IOException("Invalid settings file");
+                    }
+
+                    string backupPath = filePath + ".backup";
+                    if (File.Exists(filePath))
+                    {
+                        File.Replace(tempPath, filePath, backupPath, ignoreMetadataErrors: true);
+                    }
+                    else
+                    {
+                        File.Move(tempPath, filePath, overwrite: true);
+                    }
                 }
                 catch (Exception ex)
                 {
