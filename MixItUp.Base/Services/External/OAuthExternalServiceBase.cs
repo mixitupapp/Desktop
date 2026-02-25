@@ -60,7 +60,7 @@ namespace MixItUp.Base.Services.External
                 </div>
                 </div>
                 <script>
-                (function(){var img=new Image();img.onload=function(){document.getElementById('bg').style.backgroundImage='url('+img.src+')';document.getElementById('bg').classList.add('loaded');document.getElementById('loader').classList.add('hidden');document.getElementById('content').classList.add('visible')};img.onerror=function(){document.getElementById('loader').classList.add('hidden');document.getElementById('content').classList.add('visible')};img.src='https://files.mixitupapp.com/static/branding/mixitup_wallpaper-color_1080.png'})();
+                (function(){var done=false;function show(){if(done)return;done=true;document.getElementById('loader').classList.add('hidden');document.getElementById('content').classList.add('visible')}var img=new Image();img.onload=function(){document.getElementById('bg').style.backgroundImage='url('+img.src+')';document.getElementById('bg').classList.add('loaded');show()};img.onerror=function(){show()};setTimeout(show,5000);img.src='https://files.mixitupapp.com/static/branding/mixitup_wallpaper-color_1080.png'})();
                 </script>
                 </body>
                 </html>";
