@@ -75,10 +75,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 }
             });
 
-            foreach (ActionModelBase subAction in subActions)
-            {
-                await this.ActionEditorList.AddAction(subAction);
-            }
+            await this.ActionEditorList.AddActions(subActions);
             subActions.Clear();
 
             await base.OnOpenInternal();
@@ -98,10 +95,7 @@ namespace MixItUp.Base.ViewModel.Actions
         {
             if (command != null)
             {
-                foreach (ActionModelBase action in command.Actions)
-                {
-                    await this.ActionEditorList.AddAction(action);
-                }
+                await this.ActionEditorList.AddActions(command.Actions);
             }
         }
 

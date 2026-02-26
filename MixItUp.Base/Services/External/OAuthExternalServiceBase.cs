@@ -32,31 +32,35 @@ namespace MixItUp.Base.Services.External
                 <link rel=""shortcut icon"" href=""https://files.mixitupapp.com/static/branding/mixitup.ico"">
                 <style>
                 *{margin:0;padding:0;box-sizing:border-box}
-                body{font-family:system-ui,sans-serif;background:radial-gradient(circle at 125% 125%,#9b305e 0%,#12053a 85%);background-attachment:fixed;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative}
-                #particles-js{position:absolute;width:100%;height:100%;z-index:1}
-                .content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
-                .logo{width:80px;height:80px;margin-bottom:1.5rem;opacity:0;animation:fadeIn .8s .2s forwards}
-                .card{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:2.5rem 2rem;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.3);max-width:400px;width:90%;opacity:0;animation:fadeIn .8s .4s forwards}
-                .title{color:#fff;font-size:2rem;font-weight:600;margin-bottom:.5rem}
-                .subtitle{color:#e2e8f0;font-size:1.25rem;margin-bottom:1.5rem}
-                .message{color:#cbd5e1;font-size:.95rem;line-height:1.5}
-                @keyframes fadeIn{to{opacity:1}}
-                @media(max-width:640px){.card{padding:2rem 1.5rem}.title{font-size:1.75rem}.logo{width:60px;height:60px}}
+                body{font-family:system-ui,-apple-system,sans-serif;background:#12053a;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden;position:relative}
+                .bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .6s ease}
+                .bg.loaded{opacity:1}
+                .loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;transition:opacity .4s ease}
+                .loader.hidden{opacity:0;pointer-events:none}
+                .spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:rgba(255,255,255,.7);border-radius:50%;animation:spin .8s linear infinite}
+                @keyframes spin{to{transform:rotate(360deg)}}
+                .content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;margin-bottom:3rem;opacity:0;transform:translateY(12px);transition:opacity .6s ease .15s,transform .6s ease .15s}
+                .content.visible{opacity:1;transform:translateY(0)}
+                .card{background:rgba(0,0,0,.45);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1.75rem 2.25rem;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.4);max-width:420px;width:90%}
+                .check{width:44px;height:44px;margin:0 auto 1rem;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center}
+                .check svg{width:24px;height:24px}
+                .subtitle{color:#fff;font-size:1.35rem;font-weight:600;margin-bottom:.4rem}
+                .message{color:rgba(255,255,255,.7);font-size:.9rem;line-height:1.5}
+                @media(max-width:640px){.card{padding:1.5rem 1.25rem}.subtitle{font-size:1.15rem}.content{margin-bottom:2rem}}
                 </style>
                 </head>
                 <body>
-                <div id=""particles-js""></div>
-                <div class=""content"">
+                <div class=""bg"" id=""bg""></div>
+                <div class=""loader"" id=""loader""><div class=""spinner""></div></div>
+                <div class=""content"" id=""content"">
                 <div class=""card"">
-                <img src=""https://files.mixitupapp.com/static/branding/mixitup_logo-spiral_color_lg.png"" alt=""Mix It Up Logo"" class=""logo"">
-                <h1 class=""title"">Mix It Up</h1>
+                <div class=""check""><svg viewBox=""0 0 24 24"" fill=""none"" stroke=""#4ade80"" stroke-width=""2.5"" stroke-linecap=""round"" stroke-linejoin=""round""><polyline points=""20 6 9 17 4 12""/></svg></div>
                 <h2 class=""subtitle"">Logged In Successfully</h2>
-                <p class=""message"">You have been logged in successfully. You may now close this webpage.</p>
+                <p class=""message"">You may now close this page and return to Mix It Up.</p>
                 </div>
                 </div>
-                <script src=""https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js""></script>
                 <script>
-                particlesJS('particles-js',{particles:{number:{value:40,density:{enable:true,value_area:2000}},color:{value:'#dcb8f5'},shape:{type:'image',stroke:{width:0,color:'#000000'},polygon:{nb_sides:3},image:{src:'https://files.mixitupapp.com/static/branding/mixitup_logo-spiral_color_lg.png',width:100,height:100}},opacity:{value:0.5,random:false,anim:{enable:false,speed:1,opacity_min:0.1,sync:false}},size:{value:10,random:true,anim:{enable:true,speed:5,size_min:5,sync:false}},line_linked:{enable:true,distance:155,color:'#b926cd',opacity:0.5,width:3},move:{enable:true,speed:2,direction:'top-left',random:false,straight:false,out_mode:'out',bounce:false,attract:{enable:true,rotateX:600,rotateY:1200}}},interactivity:{detect_on:'canvas',events:{onhover:{enable:true,mode:'repulse'},onclick:{enable:false,mode:'push'},resize:true},modes:{grab:{distance:400,line_linked:{opacity:1}},bubble:{distance:400,size:40,duration:2,opacity:8,speed:3},repulse:{distance:200,duration:0.4},push:{particles_nb:4},remove:{particles_nb:2}}},retina_detect:true});
+                (function(){var done=false;function show(){if(done)return;done=true;document.getElementById('loader').classList.add('hidden');document.getElementById('content').classList.add('visible')}var img=new Image();img.onload=function(){document.getElementById('bg').style.backgroundImage='url('+img.src+')';document.getElementById('bg').classList.add('loaded');show()};img.onerror=function(){show()};setTimeout(show,5000);img.src='https://files.mixitupapp.com/static/branding/mixitup_wallpaper-color_1080.png'})();
                 </script>
                 </body>
                 </html>";
@@ -117,7 +121,7 @@ namespace MixItUp.Base.Services.External
 
         protected virtual async Task<string> ConnectViaOAuthRedirect(string oauthPageURL, string listeningAddress, int secondsToWait = 45)
         {
-            LocalOAuthHttpListenerServer oauthServer = new LocalOAuthHttpListenerServer();
+            LocalOAuthKestrelServer oauthServer = new LocalOAuthKestrelServer();
             return await oauthServer.GetAuthorizationCode(oauthPageURL, secondsToWait);
         }
 

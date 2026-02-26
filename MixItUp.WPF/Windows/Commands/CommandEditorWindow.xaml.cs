@@ -211,10 +211,7 @@ namespace MixItUp.WPF.Windows.Commands
 
             if (this.importedActions != null)
             {
-                foreach (ActionModelBase action in this.importedActions)
-                {
-                    await this.viewModel.AddAction(action);
-                }
+                await this.viewModel.AddActions(this.importedActions);
             }
 
             this.DetailsContentControl.Content = this.editorDetailsControl;
@@ -281,10 +278,7 @@ namespace MixItUp.WPF.Windows.Commands
                         CommandModelBase command = await FileSerializerHelper.DeserializeFromFile<CommandModelBase>(filename);
                         if (command != null)
                         {
-                            foreach (ActionModelBase action in command.Actions)
-                            {
-                                await this.viewModel.AddAction(action);
-                            }
+                            await this.viewModel.AddActions(command.Actions);
                             success = true;
                         }
                     }

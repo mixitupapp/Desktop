@@ -196,7 +196,7 @@ namespace MixItUp.Base.Services
 
         protected async Task<Result<string>> GetAuthorizationCode(IEnumerable<string> scopes, string state, CancellationToken cancellationToken, bool forceApprovalPrompt = false)
         {
-            LocalOAuthHttpListenerServer oauthServer = new LocalOAuthHttpListenerServer();
+            LocalOAuthKestrelServer oauthServer = new LocalOAuthKestrelServer();
             return await oauthServer.GetAuthorizationCode(await this.GetAuthorizationCodeURL(scopes, state, forceApprovalPrompt), cancellationToken);
         }
 

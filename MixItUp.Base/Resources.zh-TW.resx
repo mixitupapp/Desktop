@@ -11223,4 +11223,10 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="BackupsReminder" xml:space="preserve">
     <value>提醒：自动备份已禁用。请在 "设置" → "高级 "中启用自动备份，以保护您的设置，防止意外数据丢失。</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>代码编辑器</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>弹出编辑器</value>
+  </data>
 </root>

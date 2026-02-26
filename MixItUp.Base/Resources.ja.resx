@@ -11223,4 +11223,10 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="BackupsReminder" xml:space="preserve">
     <value>リマインダー自動バックアップは無効になっています。予期せぬデータ損失から設定を保護するために、設定 → 詳細設定から有効にしてください。</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>コードエディター</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>ポップアウトエディター</value>
+  </data>
 </root>

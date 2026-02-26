@@ -11228,4 +11228,10 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="BackupsReminder" xml:space="preserve">
     <value>Напоминание: Автоматическое резервное копирование отключено. Включите их в разделе Настройки → Дополнительно, чтобы защитить свои настройки от непредвиденной потери данных.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Редактор кода</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Выпадающий редактор</value>
+  </data>
 </root>

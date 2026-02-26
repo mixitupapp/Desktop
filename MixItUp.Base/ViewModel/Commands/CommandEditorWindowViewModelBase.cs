@@ -271,10 +271,7 @@ namespace MixItUp.Base.ViewModel.Commands
 
                     if (command != null)
                     {
-                        foreach (ActionModelBase action in command.Actions)
-                        {
-                            await this.AddAction(action);
-                        }
+                        await this.AddActions(command.Actions);
                     }
                 }
                 catch (Exception ex)
@@ -307,10 +304,7 @@ namespace MixItUp.Base.ViewModel.Commands
         {
             if (this.existingCommand != null)
             {
-                foreach (ActionModelBase action in this.existingCommand.Actions)
-                {
-                    await this.AddAction(action);
-                }
+                await this.AddActions(this.existingCommand.Actions);
             }
         }
 

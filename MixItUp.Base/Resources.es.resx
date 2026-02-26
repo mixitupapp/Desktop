@@ -11225,4 +11225,10 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="BackupsReminder" xml:space="preserve">
     <value>Recordatorio: Las copias de seguridad automatizadas están desactivadas. Actívelas en Ajustes → Avanzado para proteger su configuración de pérdidas de datos inesperadas.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Editor de código</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Editor desplegable</value>
+  </data>
 </root>

@@ -39,7 +39,7 @@ namespace MixItUp.Base.Util
         {
             string dataString = JSONSerializerHelper.SerializeToString(data);
 
-            if (string.IsNullOrEmpty(dataString) || !dataString.TrimStart().StartsWith("{"))
+            if (string.IsNullOrEmpty(dataString) || dataString.Contains('\0') || !dataString.TrimStart().StartsWith('{'))
             {
                 throw new InvalidOperationException("Serialization failed");
             }

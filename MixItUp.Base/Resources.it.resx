@@ -11223,4 +11223,10 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="BackupsReminder" xml:space="preserve">
     <value>Promemoria: I backup automatici sono disattivati. Abilitateli in Impostazioni → Avanzate per proteggere le vostre impostazioni da perdite di dati impreviste.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Editor di codice</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Editor a comparsa</value>
+  </data>
 </root>

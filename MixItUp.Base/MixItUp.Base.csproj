@@ -3,8 +3,8 @@
   	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<AssemblyTitle>MixItUp.Base</AssemblyTitle>
-    <AssemblyVersion>1.6.30.0</AssemblyVersion>
-    <FileVersion>1.6.30.0</FileVersion>
+    <AssemblyVersion>1.6.311.0</AssemblyVersion>
+    <FileVersion>1.6.311.0</FileVersion>
 		<Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
 	</PropertyGroup>
@@ -24,6 +24,10 @@
 		<Content Include="XSplit\Mix It Up.html">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<ItemGroup>

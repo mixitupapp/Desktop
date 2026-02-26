@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
@@ -32,12 +33,37 @@ namespace MixItUp.Base.Web
         /// <summary>
         /// Locking semaphore to prevent clashing packet sends.
         /// </summary>
-        protected SemaphoreSlim webSocketSemaphore = new SemaphoreSlim(1);
+        protected readonly SemaphoreSlim webSocketSemaphore = new SemaphoreSlim(1);
+
+        /// <summary>
+        /// Locking semaphore to prevent connect/disconnect races.
+        /// </summary>
+        private readonly SemaphoreSlim connectionSemaphore = new SemaphoreSlim(1);
+
+        /// <summary>
+        /// Lock object for accessing websocket state fields.
+        /// </summary>
+        private readonly object webSocketStateLock = new object();
 
         /// <summary>
         /// The web socket connection.
         /// </summary>
         protected ClientWebSocket webSocket;
+
+        /// <summary>
+        /// The HTTP status code returned during the most recent failed websocket connect, if available.
+        /// </summary>
+        public int? LastConnectHttpStatusCode { get; private set; }
+
+        /// <summary>
+        /// The cancellation token source for the active receive loop.
+        /// </summary>
+        private CancellationTokenSource receiveCancellationTokenSource;
+
+        /// <summary>
+        /// The active receive loop task.
+        /// </summary>
+        private Task receiveTask;
 
         /// <summary>
         /// Connects the web socket to the server.
@@ -46,21 +72,32 @@ namespace MixItUp.Base.Web
         /// <returns>Whether the connection was successful</returns>
         public virtual async Task<bool> Connect(string endpoint, CancellationToken cancellationToken)
         {
+            await this.connectionSemaphore.WaitAsync(cancellationToken);
             try
             {
-                this.webSocket = new ClientWebSocket();
+                this.LastConnectHttpStatusCode = null;
 
-                await this.webSocket.ConnectAsync(new Uri(endpoint), cancellationToken);
+                await this.DisconnectInternal(WebSocketCloseStatus.NormalClosure, waitForReceiveTask: true);
 
-                await Task.Delay(1000);
+                ClientWebSocket socket = new ClientWebSocket();
 
-                this.Receive().Wait(1);
+                await socket.ConnectAsync(new Uri(endpoint), cancellationToken);
 
-                return IsOpen();
+                CancellationTokenSource cts = new CancellationTokenSource();
+                lock (this.webSocketStateLock)
+                {
+                    this.webSocket = socket;
+                    this.receiveCancellationTokenSource = cts;
+                    this.receiveTask = Task.Run(() => this.Receive(socket, cts.Token));
+                }
+
+                return socket.State == WebSocketState.Open;
             }
             catch (Exception ex)
             {
-                await this.Disconnect();
+                this.LastConnectHttpStatusCode = this.ExtractHttpStatusCode(ex);
+
+                await this.DisconnectInternal(WebSocketCloseStatus.NormalClosure, waitForReceiveTask: true);
                 if (ex is WebSocketException && ex.InnerException is WebException)
                 {
                     WebException webException = (WebException)ex.InnerException;
@@ -74,6 +111,10 @@ namespace MixItUp.Base.Web
                 }
                 throw;
             }
+            finally
+            {
+                this.connectionSemaphore.Release();
+            }
         }
 
         /// <summary>
@@ -81,22 +122,17 @@ namespace MixItUp.Base.Web
         /// </summary>
         /// <param name="closeStatus">Optional status to send to partner web socket as to why the web socket is being closed</param>
         /// <returns>A task for the closing of the web socket</returns>
-        public Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
+        public async Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
         {
-            if (this.webSocket != null)
+            await this.connectionSemaphore.WaitAsync();
+            try
             {
-                try
-                {
-                    if (GetState() != WebSocketState.Closed)
-                    {
-                        this.webSocket.CloseAsync(closeStatus, string.Empty, CancellationToken.None).Wait(1);
-                    }
-                }
-                catch (Exception ex) { Logger.Log(ex); }
+                await this.DisconnectInternal(closeStatus, waitForReceiveTask: true);
             }
-            this.webSocket = null;
-
-            return Task.FromResult(0);
+            finally
+            {
+                this.connectionSemaphore.Release();
+            }
         }
 
         /// <summary>
@@ -119,13 +155,18 @@ namespace MixItUp.Base.Web
             byte[] buffer = Encoding.UTF8.GetBytes(packet);
 
             await this.webSocketSemaphore.WaitAsync();
-
-            if (this.IsOpen())
+            try
             {
-                await this.webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                ClientWebSocket socket = this.webSocket;
+                if (socket != null && socket.State == WebSocketState.Open)
+                {
+                    await socket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
+                }
             }
-
-            this.webSocketSemaphore.Release();
+            finally
+            {
+                this.webSocketSemaphore.Release();
+            }
 
             this.PacketSent?.Invoke(this, packet);
         }
@@ -142,22 +183,21 @@ namespace MixItUp.Base.Web
         /// <returns>The current state of the web socket</returns>
         public WebSocketState GetState()
         {
-            try
+            ClientWebSocket socket = this.webSocket;
+            if (socket != null)
             {
-                if (this.webSocket != null && (this.webSocket.CloseStatus == null || this.webSocket.CloseStatus == WebSocketCloseStatus.Empty))
-                {
-                    return this.webSocket.State;
-                }
+                return socket.State;
             }
-            finally { }
             return WebSocketState.Closed;
         }
 
         /// <summary>
-        /// Handles all receiving &amp; processing of packets.
+        /// Handles all receiving &amp; processing of packets for a specific socket connection.
         /// </summary>
+        /// <param name="socket">The socket to receive from</param>
+        /// <param name="cancellationToken">Cancellation token for this receive loop</param>
         /// <returns>An awaitable task with the close status of the web socket connection</returns>
-        protected virtual async Task<WebSocketCloseStatus> Receive()
+        protected virtual async Task<WebSocketCloseStatus> Receive(ClientWebSocket socket, CancellationToken cancellationToken)
         {
             string jsonBuffer = string.Empty;
             byte[] buffer = new byte[AdvancedClientWebSocket.BUFFER_SIZE];
@@ -167,18 +207,19 @@ namespace MixItUp.Base.Web
 
             try
             {
-                while (this.IsOpen())
+                while (!cancellationToken.IsCancellationRequested && socket.State == WebSocketState.Open)
                 {
                     try
                     {
                         Array.Clear(buffer, 0, buffer.Length);
-                        WebSocketReceiveResult result = await this.webSocket.ReceiveAsync(arrayBuffer, CancellationToken.None);
+                        WebSocketReceiveResult result = await socket.ReceiveAsync(arrayBuffer, cancellationToken);
 
                         if (result != null)
                         {
                             if (result.MessageType == WebSocketMessageType.Close || (result.CloseStatus != null && result.CloseStatus.GetValueOrDefault() != WebSocketCloseStatus.Empty))
                             {
                                 closeStatus = result.CloseStatus.GetValueOrDefault();
+                                break;
                             }
                             else if (result.MessageType == WebSocketMessageType.Text)
                             {
@@ -195,12 +236,22 @@ namespace MixItUp.Base.Web
                             }
                         }
                     }
-                    catch (TaskCanceledException) { }
+                    catch (TaskCanceledException)
+                    {
+                        closeStatus = cancellationToken.IsCancellationRequested ? WebSocketCloseStatus.NormalClosure : WebSocketCloseStatus.InternalServerError;
+                        break;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        closeStatus = cancellationToken.IsCancellationRequested ? WebSocketCloseStatus.NormalClosure : WebSocketCloseStatus.InternalServerError;
+                        break;
+                    }
                     catch (Exception ex)
                     {
                         Logger.Log(ex);
                         closeStatus = WebSocketCloseStatus.InternalServerError;
                         jsonBuffer = string.Empty;
+                        break;
                     }
                 }
             }
@@ -210,28 +261,105 @@ namespace MixItUp.Base.Web
                 closeStatus = WebSocketCloseStatus.InternalServerError;
             }
 
-            await this.Disconnect(closeStatus);
+            if (!cancellationToken.IsCancellationRequested &&
+                closeStatus == WebSocketCloseStatus.NormalClosure &&
+                socket.State == WebSocketState.Aborted)
+            {
+                closeStatus = WebSocketCloseStatus.InternalServerError;
+            }
+
+            await this.DisconnectInternal(closeStatus, waitForReceiveTask: false, expectedWebSocket: socket);
             if (closeStatus != WebSocketCloseStatus.NormalClosure)
             {
-                Task.Run(() => { this.Disconnected?.Invoke(this, closeStatus); }).Wait(1);
+                this.Disconnected?.Invoke(this, closeStatus);
             }
 
             return closeStatus;
         }
 
-        /// <summary>
-        /// Waits for an successful operation to complete.
-        /// </summary>
-        /// <param name="valueToCheck">Where the operation was successful</param>
-        /// <param name="secondsToWait">The total amount of seconds to wait for success</param>
-        /// <returns>An awaitable task</returns>
-        protected async Task WaitForSuccess(Func<bool> valueToCheck, int secondsToWait = 15)
+        private async Task DisconnectInternal(WebSocketCloseStatus closeStatus, bool waitForReceiveTask, ClientWebSocket expectedWebSocket = null)
         {
-            int loops = (secondsToWait * 1000) / 100;
-            for (int i = 0; i < loops && !valueToCheck(); i++)
+            ClientWebSocket socketToClose = null;
+            CancellationTokenSource cancellationTokenSourceToCancel = null;
+            Task receiveTaskToWait = null;
+
+            lock (this.webSocketStateLock)
             {
-                await Task.Delay(100);
+                if (expectedWebSocket != null && this.webSocket != null && !ReferenceEquals(this.webSocket, expectedWebSocket))
+                {
+                    socketToClose = expectedWebSocket;
+                }
+                else
+                {
+                    socketToClose = this.webSocket;
+                    cancellationTokenSourceToCancel = this.receiveCancellationTokenSource;
+                    receiveTaskToWait = this.receiveTask;
+
+                    this.webSocket = null;
+                    this.receiveCancellationTokenSource = null;
+                    this.receiveTask = null;
+                }
             }
+
+            if (cancellationTokenSourceToCancel != null)
+            {
+                try { cancellationTokenSourceToCancel.Cancel(); }
+                catch { }
+                cancellationTokenSourceToCancel.Dispose();
+            }
+
+            if (socketToClose != null)
+            {
+                try
+                {
+                    if (socketToClose.State == WebSocketState.Open || socketToClose.State == WebSocketState.CloseReceived)
+                    {
+                        await socketToClose.CloseAsync(closeStatus, string.Empty, CancellationToken.None);
+                    }
+                }
+                catch (TaskCanceledException) { }
+                catch (OperationCanceledException) { }
+                catch (ObjectDisposedException) { }
+                catch (InvalidOperationException) { }
+                catch (Exception ex) { Logger.Log(ex); }
+                finally
+                {
+                    socketToClose.Dispose();
+                }
+            }
+
+            if (waitForReceiveTask && receiveTaskToWait != null && !receiveTaskToWait.IsCompleted)
+            {
+                try
+                {
+                    Task completedTask = await Task.WhenAny(receiveTaskToWait, Task.Delay(2000));
+                    if (!ReferenceEquals(completedTask, receiveTaskToWait))
+                    {
+                        Logger.Log(LogLevel.Debug, "Timed out waiting for websocket receive loop to stop within 2 seconds");
+                    }
+                }
+                catch { }
+            }
+        }
+
+        private int? ExtractHttpStatusCode(Exception ex)
+        {
+            if (ex is WebSocketException websocketException)
+            {
+                if (websocketException.InnerException is WebException webException &&
+                    webException.Response is HttpWebResponse response)
+                {
+                    return (int)response.StatusCode;
+                }
+
+                if (websocketException.InnerException is HttpRequestException httpRequestException &&
+                    httpRequestException.StatusCode != null)
+                {
+                    return (int)httpRequestException.StatusCode.Value;
+                }
+            }
+
+            return null;
         }
     }
 }

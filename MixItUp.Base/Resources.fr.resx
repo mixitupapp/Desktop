@@ -11224,4 +11224,10 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="BackupsReminder" xml:space="preserve">
     <value>Rappel : Les sauvegardes automatiques sont désactivées. Activez-les dans Paramètres → Avancés pour protéger vos paramètres contre toute perte de données inattendue.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Éditeur de code</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Éditeur de fenêtres contextuelles</value>
+  </data>
 </root>

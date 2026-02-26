@@ -1080,7 +1080,7 @@ namespace MixItUp.Base.Model.Settings
               WHERE ID NOT IN (
                   SELECT ID FROM SettingsBackupHistory 
                   ORDER BY BackupDateTime DESC 
-                  LIMIT 10
+                  LIMIT 20
               )");
 
                 Logger.Log(LogLevel.Debug, "Settings backed up to database");

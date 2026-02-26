@@ -168,6 +168,7 @@ namespace MixItUp.Base.Services
         StreamlootsPackGifted = 1092,
 
         StreamElementsDonation = 1100,
+        [Obsolete]
         StreamElementsMerchPurchase = 1101,
 
         CrowdControlEffectRedeemed = 1110,
