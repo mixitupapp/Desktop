@@ -616,7 +616,23 @@ namespace MixItUp.WPF.Services
                     ["scaleY"] = yScale,
                     ["rotation"] = rotation
                 };
-                await Send(new OBSMessageSetSceneItemTransformRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, newTransform));
+                string packet = await SendAndWait(new OBSMessageSetSceneItemTransformRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, newTransform));
+                if (!string.IsNullOrEmpty(packet))
+                {
+                    OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                    if (response?.Data?.Status?.Code == 600)
+                    {
+                        if (sceneSourceNameToSceneItemDictionary.TryGetValue(sceneName, out var items))
+                        {
+                            items.TryRemove(sourceName, out _);
+                        }
+                        sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
+                        if (sceneItem != null)
+                        {
+                            await Send(new OBSMessageSetSceneItemTransformRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, newTransform));
+                        }
+                    }
+                }
             }
         }
 
@@ -646,7 +662,23 @@ namespace MixItUp.WPF.Services
             SceneItem sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
             if (sceneItem != null)
             {
-                await Send(new OBSMessageSetSceneItemEnabledRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, visibility));
+                string packet = await SendAndWait(new OBSMessageSetSceneItemEnabledRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, visibility));
+                if (!string.IsNullOrEmpty(packet))
+                {
+                    OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                    if (response?.Data?.Status?.Code == 600)
+                    {
+                        if (sceneSourceNameToSceneItemDictionary.TryGetValue(sceneName, out var items))
+                        {
+                            items.TryRemove(sourceName, out _);
+                        }
+                        sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
+                        if (sceneItem != null)
+                        {
+                            await Send(new OBSMessageSetSceneItemEnabledRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, visibility));
+                        }
+                    }
+                }
             }
         }
 
