@@ -11234,4 +11234,10 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="PopoutEditor" xml:space="preserve">
     <value>Выпадающий редактор</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Удалить все цитаты</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить ВСЕ цитаты? Это действие нельзя отменить</value>
+  </data>
 </root>

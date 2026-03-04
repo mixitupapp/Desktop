@@ -11229,4 +11229,10 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="PopoutEditor" xml:space="preserve">
     <value>Edytor wyskakujących okienek</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Usuń wszystkie cytaty</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć WSZYSTKIE cudzysłowy? Tej czynności nie można cofnąć</value>
+  </data>
 </root>

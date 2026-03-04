@@ -5171,6 +5171,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete All Quotes.
+        /// </summary>
+        public static string DeleteAllQuotes {
+            get {
+                return ResourceManager.GetString("DeleteAllQuotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete ALL quotes? This action cannot be undone.
+        /// </summary>
+        public static string DeleteAllQuotesWarning {
+            get {
+                return ResourceManager.GetString("DeleteAllQuotesWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Chat Commands When Run.
         /// </summary>
         public static string DeleteChatCommandsWhenRun {

@@ -985,6 +985,39 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        // to do: move somewhere else (Viewmodel or QuoteService?)
+        public async Task SaveRenumberedQuotes()
+        {
+            List<UserQuoteModel> allQuotes = this.Quotes.ToList();
+            if (allQuotes.Count == 0)
+            {
+                return;
+            }
+
+            await ServiceManager.Get<IDatabaseService>().BulkWrite(this.DatabaseFilePath,
+                "REPLACE INTO Quotes(ID, Quote, GameName, DateTime) VALUES($ID, $Quote, $GameName, $DateTime)",
+                allQuotes.Select(q => new Dictionary<string, object>()
+                {
+                    { "$ID", q.ID.ToString() },
+                    { "$Quote", q.Quote },
+                    { "$GameName", q.GameName },
+                    { "$DateTime", q.DateTime.ToString() }
+                }));
+
+            await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath,
+                $"DELETE FROM Quotes WHERE ID > {allQuotes.Count}");
+
+            this.Quotes.ClearTracking();
+        }
+
+        // to do: move somewhere else (Viewmodel or QuoteService?)
+        public async Task DeleteAllQuotes()
+        {
+            this.Quotes.Clear();
+            await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "DELETE FROM Quotes");
+            this.Quotes.ClearTracking();
+        }
+
         public async Task SaveDatabaseData()
         {
             IEnumerable<Guid> removedUsers = this.Users.GetRemovedValues();

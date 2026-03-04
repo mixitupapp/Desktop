@@ -63,6 +63,8 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public ICommand RenumberQuotesCommand { get; set; }
 
+        public ICommand DeleteAllQuotesCommand { get; set; }
+
         public QuotesMainControlViewModel(MainWindowViewModel windowViewModel)
             : base(windowViewModel)
         {
@@ -128,6 +130,22 @@ namespace MixItUp.Base.ViewModel.MainControls
                         sortedQuotes[i].ID = i + 1;
                     }
 
+                    await ChannelSession.Settings.SaveRenumberedQuotes();
+
+                    this.Refresh();
+                }
+            });
+
+            this.DeleteAllQuotesCommand = this.CreateCommand(async () =>
+            {
+                if (ChannelSession.Settings.Quotes.Count == 0)
+                {
+                    return;
+                }
+
+                if (await DialogHelper.ShowConfirmation(Resources.DeleteAllQuotesWarning))
+                {
+                    await ChannelSession.Settings.DeleteAllQuotes();
                     this.Refresh();
                 }
             });
