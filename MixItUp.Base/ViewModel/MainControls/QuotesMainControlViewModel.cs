@@ -128,6 +128,8 @@ namespace MixItUp.Base.ViewModel.MainControls
                         sortedQuotes[i].ID = i + 1;
                     }
 
+                    await ChannelSession.Settings.SaveRenumberedQuotes();
+
                     this.Refresh();
                 }
             });
