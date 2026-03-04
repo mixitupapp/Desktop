@@ -206,20 +206,8 @@ namespace MixItUp.WPF.Services
         {
             return await this.ExecuteOBSCommand(async () =>
             {
-                try
-                {
-                    await this.OBSWebsocketV5.StartReplayBuffer();
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    if (ex.Message.Equals("replay buffer already active") || ex.Message.Equals("replay buffer disabled in settings"))
-                    {
-                        return true;
-                    }
-                    Logger.Log(ex);
-                }
-                return false;
+                await this.OBSWebsocketV5.StartReplayBuffer();
+                return true;
             }, defaultValue: false);
         }
 
@@ -476,7 +464,7 @@ namespace MixItUp.WPF.Services
         private string password;
         private bool identified = false;
         private string identifyError = null;
-        private ConcurrentDictionary<Guid, string> responses = new ConcurrentDictionary<Guid, string>();
+        private ConcurrentDictionary<Guid, TaskCompletionSource<string>> responses = new ConcurrentDictionary<Guid, TaskCompletionSource<string>>();
         private SemaphoreSlim sendSemaphore = new SemaphoreSlim(1);
         private ConcurrentDictionary<string, ConcurrentDictionary<string, SceneItem>> sceneSourceNameToSceneItemDictionary = new ConcurrentDictionary<string, ConcurrentDictionary<string, SceneItem>>(StringComparer.OrdinalIgnoreCase);
 
@@ -489,7 +477,19 @@ namespace MixItUp.WPF.Services
             base.PacketReceived += async (sender, packet) => await ProcessReceivedPacket(packet);
             base.Disconnected += (sender, closeStatus) =>
             {
+                bool wasIdentified = this.identified;
                 this.identified = false;
+                this.CancelAllRequests();
+
+                if ((int)closeStatus == 4009)
+                {
+                    this.identifyError = "Authentication failed - please check your OBS WebSocket password";
+                }
+                else if (!wasIdentified)
+                {
+                    this.identifyError = $"Connection closed during handshake (code: {(int)closeStatus})";
+                }
+
                 this.Disconnected?.Invoke(this, EventArgs.Empty);
             };
         }
@@ -546,6 +546,7 @@ namespace MixItUp.WPF.Services
         public new async Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
         {
             this.identified = false;
+            this.CancelAllRequests();
             await base.Disconnect(closeStatus);
         }
 
@@ -566,7 +567,19 @@ namespace MixItUp.WPF.Services
 
         public async Task StartReplayBuffer()
         {
-            await Send(new OBSMessageStartReplayBufferRequest());
+            string packet = await SendAndWait(new OBSMessageStartReplayBufferRequest());
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                if (response?.Data?.Status != null && !response.Data.Status.Result)
+                {
+                    if (response.Data.Status.Code == 500 || response.Data.Status.Code == 604)
+                    {
+                        return;
+                    }
+                    throw new Exception(response.Data.Status.Comment);
+                }
+            }
         }
 
         public async Task StartStopRecording()
@@ -590,78 +603,20 @@ namespace MixItUp.WPF.Services
             return "Unknown";
         }
 
-        public async Task<(float X, float Y, float Width, float Height, float SourceWidth, float SourceHeight)?> GetSceneItemTransform(string sceneName, string sourceName)
-        {
-            string packet = await SendAndWait(new OBSMessageGetSceneItemListRequest(sceneName));
-            if (!string.IsNullOrEmpty(packet))
-            {
-                OBSMessageGetSceneItemListResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageGetSceneItemListResponse>(packet);
-                if (response?.Data?.Data != null)
-                {
-                    foreach (SceneItem sceneItem in response.Data.Data.SceneItems)
-                    {
-                        if (string.Equals(sceneItem.SourceName, sourceName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            return TransformToTuple(sceneItem.SceneItemTransform);
-                        }
-                    }
-
-                    foreach (SceneItem sceneItem in response.Data.Data.SceneItems)
-                    {
-                        if (sceneItem.IsGroup.GetValueOrDefault())
-                        {
-                            string groupPacket = await SendAndWait(new OBSMessageGetGroupSceneItemListRequest(sceneItem.SourceName));
-                            if (!string.IsNullOrEmpty(groupPacket))
-                            {
-                                OBSMessageGetGroupSceneItemListResponse groupResponse = JSONSerializerHelper.DeserializeFromString<OBSMessageGetGroupSceneItemListResponse>(groupPacket);
-                                if (groupResponse?.Data?.Data != null)
-                                {
-                                    foreach (SceneItem groupSceneItem in groupResponse.Data.Data.SceneItems)
-                                    {
-                                        if (string.Equals(groupSceneItem.SourceName, sourceName, StringComparison.OrdinalIgnoreCase))
-                                        {
-                                            return TransformToTuple(groupSceneItem.SceneItemTransform);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        private static (float X, float Y, float Width, float Height, float SourceWidth, float SourceHeight) TransformToTuple(SceneItemTransform t)
-        {
-            return (t.PositionX, t.PositionY, t.Width, t.Height, t.SourceWidth, t.SourceHeight);
-        }
-
         public async Task SetSceneItemProperties(string sceneName, string sourceName, int x, int y, float xScale, float yScale, float rotation)
         {
-            string packet = await SendAndWait(new OBSMessageGetSceneItemListRequest(sceneName));
-            if (!string.IsNullOrEmpty(packet))
+            SceneItem sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
+            if (sceneItem != null)
             {
-                OBSMessageGetSceneItemListResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageGetSceneItemListResponse>(packet);
-                if (response?.Data?.Data != null)
+                JObject newTransform = new JObject
                 {
-                    foreach (SceneItem scene in response.Data.Data.SceneItems)
-                    {
-                        if (string.Equals(scene.SourceName, sourceName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            JObject newTransform = new JObject
-                            {
-                                ["positionX"] = x,
-                                ["positionY"] = y,
-                                ["scaleX"] = xScale,
-                                ["scaleY"] = yScale,
-                                ["rotation"] = rotation
-                            };
-                            await Send(new OBSMessageSetSceneItemTransformRequest(sceneName, scene.SceneItemId, newTransform));
-                            return;
-                        }
-                    }
-                }
+                    ["positionX"] = x,
+                    ["positionY"] = y,
+                    ["scaleX"] = xScale,
+                    ["scaleY"] = yScale,
+                    ["rotation"] = rotation
+                };
+                await Send(new OBSMessageSetSceneItemTransformRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, newTransform));
             }
         }
 
@@ -693,6 +648,23 @@ namespace MixItUp.WPF.Services
             {
                 await Send(new OBSMessageSetSceneItemEnabledRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, visibility));
             }
+        }
+
+        public async Task<(float X, float Y, float Width, float Height, float SourceWidth, float SourceHeight)?> GetSceneItemTransform(string sceneName, string sourceName)
+        {
+            SceneItem item = await this.SearchForSceneItem(sourceName, sceneName);
+            if (item?.SceneItemTransform != null)
+            {
+                return (
+                    item.SceneItemTransform.PositionX,
+                    item.SceneItemTransform.PositionY,
+                    item.SceneItemTransform.Width,
+                    item.SceneItemTransform.Height,
+                    item.SceneItemTransform.SourceWidth,
+                    item.SceneItemTransform.SourceHeight
+                );
+            }
+            return null;
         }
 
         private async Task<SceneItem> SearchForSceneItem(string sourceName, string sceneName)
@@ -802,9 +774,9 @@ namespace MixItUp.WPF.Services
         private void HandleResponse(string packet)
         {
             OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
-            if (this.responses.TryRemove(response.Data.RequestId, out _))
+            if (responses.TryRemove(response.Data.RequestId, out var tcs))
             {
-                this.responses.TryAdd(response.Data.RequestId, packet);
+                tcs.TrySetResult(packet);
             }
         }
 
@@ -873,24 +845,34 @@ namespace MixItUp.WPF.Services
 
         private async Task<string> SendAndWait(OBSMessageRequest request)
         {
-            this.responses.TryAdd(request.Data.RequestId, null);
+            var tcs = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
+            responses.TryAdd(request.Data.RequestId, tcs);
             await Send(request);
 
             using (CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
             {
-                while (!cts.IsCancellationRequested)
+                cts.Token.Register(() => tcs.TrySetCanceled());
+                try
                 {
-                    if (this.responses.TryGetValue(request.Data.RequestId, out string packet) && !string.IsNullOrEmpty(packet))
-                    {
-                        this.responses.TryRemove(request.Data.RequestId, out _);
-                        return packet;
-                    }
-                    await Task.Delay(100);
+                    return await tcs.Task;
+                }
+                catch (TaskCanceledException)
+                {
+                    responses.TryRemove(request.Data.RequestId, out _);
+                    return null;
                 }
             }
+        }
 
-            this.responses.TryRemove(request.Data.RequestId, out _);
-            return null;
+        private void CancelAllRequests()
+        {
+            foreach (var kvp in responses.ToList())
+            {
+                if (responses.TryRemove(kvp.Key, out var tcs))
+                {
+                    tcs.TrySetCanceled();
+                }
+            }
         }
 
         private async Task HandleHello(OBSMessageHello message)
