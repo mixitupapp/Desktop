@@ -11230,4 +11230,10 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="PopoutEditor" xml:space="preserve">
     <value>Éditeur de fenêtres contextuelles</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Supprimer toutes les citations</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer TOUTES les citations ? Cette action ne peut être annulée</value>
+  </data>
 </root>

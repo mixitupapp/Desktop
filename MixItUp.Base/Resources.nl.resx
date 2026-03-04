@@ -11230,4 +11230,10 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="PopoutEditor" xml:space="preserve">
     <value>Popout-editor</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Alle citaten verwijderen</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Weet je zeker dat je ALLE citaten wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt</value>
+  </data>
 </root>

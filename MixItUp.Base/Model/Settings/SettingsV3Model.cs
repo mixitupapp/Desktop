@@ -985,6 +985,7 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        // to do: move somewhere else (Viewmodel or QuoteService?)
         public async Task SaveRenumberedQuotes()
         {
             List<UserQuoteModel> allQuotes = this.Quotes.ToList();
@@ -1006,6 +1007,14 @@ namespace MixItUp.Base.Model.Settings
             await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath,
                 $"DELETE FROM Quotes WHERE ID > {allQuotes.Count}");
 
+            this.Quotes.ClearTracking();
+        }
+
+        // to do: move somewhere else (Viewmodel or QuoteService?)
+        public async Task DeleteAllQuotes()
+        {
+            this.Quotes.Clear();
+            await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "DELETE FROM Quotes");
             this.Quotes.ClearTracking();
         }
 

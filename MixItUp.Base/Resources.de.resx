@@ -11235,4 +11235,10 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="PopoutEditor" xml:space="preserve">
     <value>Popout-Editor</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Alle Zitate löschen</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie ALLE Zitate löschen wollen? Diese Aktion kann nicht rückgängig gemacht werden</value>
+  </data>
 </root>

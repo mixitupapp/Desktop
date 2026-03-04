@@ -11229,4 +11229,10 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="PopoutEditor" xml:space="preserve">
     <value>ポップアウトエディター</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>すべての引用符を削除</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>本当にすべての引用符を削除しますか？この操作は元に戻せません。</value>
+  </data>
 </root>
