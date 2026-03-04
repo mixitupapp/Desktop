@@ -483,7 +483,7 @@ namespace MixItUp.WPF.Services
 
                 if ((int)closeStatus == 4009)
                 {
-                    this.identifyError = "Authentication failed - please check your OBS WebSocket password";
+                    this.identifyError = "Authentication failed - please check your OBS WebSocket password (code: 4009)";
                 }
                 else if (!wasIdentified)
                 {
