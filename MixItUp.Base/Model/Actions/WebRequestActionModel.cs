@@ -1,8 +1,5 @@
 ﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
-using MixItUp.Base.Services.Trovo;
-using MixItUp.Base.Services.Twitch;
-using MixItUp.Base.Services.YouTube;
 using Newtonsoft.Json.Linq;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
@@ -15,9 +12,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using MixItUp.Base.Services.Trovo.New;
-using MixItUp.Base.Services.Twitch.New;
-using MixItUp.Base.Services.YouTube.New;
 
 namespace MixItUp.Base.Model.Actions
 {
@@ -89,12 +83,6 @@ namespace MixItUp.Base.Model.Actions
                 using (AdvancedHttpClient httpClient = new AdvancedHttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    httpClient.DefaultRequestHeaders.Add("Twitch-UserID", ServiceManager.Get<TwitchSession>()?.StreamerID ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("Twitch-UserLogin", ServiceManager.Get<TwitchSession>().StreamerUsername ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("YouTube-UserID", ServiceManager.Get<YouTubeSession>()?.StreamerID ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("YouTube-UserLogin", Uri.EscapeDataString(ServiceManager.Get<YouTubeSession>().StreamerUsername ?? string.Empty));
-                    httpClient.DefaultRequestHeaders.Add("Trovo-UserID", ServiceManager.Get<TrovoSession>()?.StreamerID ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("Trovo-UserLogin", ServiceManager.Get<TrovoSession>().StreamerUsername ?? string.Empty);
 
                     if (this.CustomHeaders != null)
                     {
