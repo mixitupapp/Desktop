@@ -359,6 +359,8 @@ namespace MixItUp.Base.Services.External
             return true;
         }
 
+        public Task SaveSourceScreenshot(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight) { return Task.CompletedTask; }
+
         public Task SetSceneCollection(string sceneCollectionName) { return Task.CompletedTask; }
 
         private async Task<StreamlabsOBSScene> GetActiveScene()

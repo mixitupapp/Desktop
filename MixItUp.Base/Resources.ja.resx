@@ -11235,4 +11235,22 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="DeleteAllQuotesWarning" xml:space="preserve">
     <value>本当にすべての引用符を削除しますか？この操作は元に戻せません。</value>
   </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>ソースのスクリーンショットを保存</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>画像フォーマット</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>画像の幅（オプション）</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>画像の高さ（オプション）</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>画像フォーマットを指定する必要があります（例：png、jpg）。</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>保存先の画像ファイルのパスを指定する必要があります。</value>
+  </data>
 </root>

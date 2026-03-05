@@ -11748,11 +11748,38 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image Format.
+        /// </summary>
+        public static string ImageFormat {
+            get {
+                return ResourceManager.GetString("ImageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image Height (Optional).
+        /// </summary>
+        public static string ImageHeightOptional {
+            get {
+                return ResourceManager.GetString("ImageHeightOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image Source.
         /// </summary>
         public static string ImageSource {
             get {
                 return ResourceManager.GetString("ImageSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image Width (Optional).
+        /// </summary>
+        public static string ImageWidthOptional {
+            get {
+                return ResourceManager.GetString("ImageWidthOptional", resourceCulture);
             }
         }
         
@@ -20468,6 +20495,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Source Screenshot.
+        /// </summary>
+        public static string SaveSourceScreenshot {
+            get {
+                return ResourceManager.GetString("SaveSourceScreenshot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save To File.
         /// </summary>
         public static string SaveToFile {
@@ -22836,6 +22872,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An image format must be specified (e.g. png, jpg).
+        /// </summary>
+        public static string StreamingSoftwareActionMissingImageFormat {
+            get {
+                return ResourceManager.GetString("StreamingSoftwareActionMissingImageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Streaming Software Action: Missing image source file path.
         /// </summary>
         public static string StreamingSoftwareActionMissingImageSourceFilePath {
@@ -22868,6 +22913,15 @@ namespace MixItUp.Base {
         public static string StreamingSoftwareActionMissingSceneCollection {
             get {
                 return ResourceManager.GetString("StreamingSoftwareActionMissingSceneCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An image file path must be specified to save to.
+        /// </summary>
+        public static string StreamingSoftwareActionMissingScreenshotFilePath {
+            get {
+                return ResourceManager.GetString("StreamingSoftwareActionMissingScreenshotFilePath", resourceCulture);
             }
         }
         
