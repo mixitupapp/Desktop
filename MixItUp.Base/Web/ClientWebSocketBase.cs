@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,15 +41,22 @@ namespace MixItUp.Base.Web
             catch (Exception ex)
             {
                 await this.Disconnect();
-                if (ex is WebSocketException && ex.InnerException is WebException)
+                if (ex is WebSocketException websocketEx)
                 {
-                    WebException webException = (WebException)ex.InnerException;
-                    if (webException.Response != null && webException.Response is HttpWebResponse)
+                    if (websocketEx.InnerException is WebException webException &&
+                        webException.Response is HttpWebResponse httpWebResponse)
                     {
-                        HttpWebResponse response = (HttpWebResponse)webException.Response;
-                        StreamReader reader = new StreamReader(response.GetResponseStream());
-                        string responseString = reader.ReadToEnd();
-                        throw new WebSocketException(string.Format("{0} - {1} - {2}", response.StatusCode, response.StatusDescription, responseString), ex);
+                        using (StreamReader reader = new StreamReader(httpWebResponse.GetResponseStream()))
+                        {
+                            string responseString = reader.ReadToEnd();
+                            throw new WebSocketException(string.Format("{0} - {1} - {2}", httpWebResponse.StatusCode, httpWebResponse.StatusDescription, responseString), ex);
+                        }
+                    }
+
+                    if (websocketEx.InnerException is HttpRequestException httpRequestEx &&
+                        httpRequestEx.StatusCode != null)
+                    {
+                        throw new WebSocketException(string.Format("{0} - {1}", (int)httpRequestEx.StatusCode.Value, httpRequestEx.Message), ex);
                     }
                 }
                 throw;

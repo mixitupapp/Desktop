@@ -73,10 +73,14 @@ namespace MixItUp.Base.Web
             byte[] buffer = Encoding.UTF8.GetBytes(packet);
 
             await this.webSocketSemaphore.WaitAsync();
-
-            await this.SendInternal(buffer);
-
-            this.webSocketSemaphore.Release();
+            try
+            {
+                await this.SendInternal(buffer);
+            }
+            finally
+            {
+                this.webSocketSemaphore.Release();
+            }
 
             this.OnSentOccurred?.Invoke(this, packet);
         }
