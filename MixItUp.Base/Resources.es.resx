@@ -11237,4 +11237,22 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="DeleteAllQuotesWarning" xml:space="preserve">
     <value>¿Estás seguro de que quieres borrar TODAS las citas? Esta acción no se puede deshacer</value>
   </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Guardar captura de pantalla de origen</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Formato de imagen</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Anchura de la imagen (opcional)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Altura de la imagen (opcional)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>Debe especificarse un formato de imagen (por ejemplo, png, jpg)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>Debe especificarse una ruta de archivo de imagen para guardar en</value>
+  </data>
 </root>

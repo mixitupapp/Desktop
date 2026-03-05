@@ -11235,4 +11235,22 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="DeleteAllQuotesWarning" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć WSZYSTKIE cudzysłowy? Tej czynności nie można cofnąć</value>
   </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Zapisz zrzut ekranu źródła</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Format obrazu</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Szerokość obrazu (opcjonalnie)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Wysokość obrazu (opcjonalnie)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>Należy określić format obrazu (np. png, jpg).</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>Ścieżka do pliku obrazu musi być określona, aby zapisać go w pliku</value>
+  </data>
 </root>

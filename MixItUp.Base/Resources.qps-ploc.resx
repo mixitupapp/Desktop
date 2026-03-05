@@ -11235,4 +11235,22 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="DeleteAllQuotesWarning" xml:space="preserve">
     <value>Are you sure you want to delete ALL quotes? This action cannot be undone</value>
   </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Save Source Screenshot</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Image Format</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Image Width (Optional)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Image Height (Optional)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>An image format must be specified (e.g. png, jpg)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>An image file path must be specified to save to</value>
+  </data>
 </root>

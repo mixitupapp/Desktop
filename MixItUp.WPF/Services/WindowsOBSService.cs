@@ -229,6 +229,16 @@ namespace MixItUp.WPF.Services
             });
         }
 
+        public async Task SaveSourceScreenshot(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight)
+        {
+            Logger.Log(LogLevel.Debug, "Saving OBS Source screenshot - " + sourceName + " to " + imageFilePath);
+            await this.ExecuteOBSCommand(async () =>
+            {
+                await this.OBSWebsocketV5.SaveSourceScreenshot(sourceName, imageFormat, imageFilePath, imageWidth, imageHeight);
+                return true;
+            });
+        }
+
         private async Task<Result> ConnectInternal()
         {
             bool attemptedConnect = false;
@@ -577,6 +587,19 @@ namespace MixItUp.WPF.Services
                     {
                         return;
                     }
+                    throw new Exception(response.Data.Status.Comment);
+                }
+            }
+        }
+
+        public async Task SaveSourceScreenshot(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight)
+        {
+            string packet = await SendAndWait(new OBSMessageSaveSourceScreenshotRequest(sourceName, imageFormat, imageFilePath, imageWidth, imageHeight, -1));
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                if (response?.Data?.Status != null && !response.Data.Status.Result)
+                {
                     throw new Exception(response.Data.Status.Comment);
                 }
             }
@@ -1295,6 +1318,44 @@ namespace MixItUp.WPF.Services
 
             [JsonProperty("filterEnabled")]
             public bool FilterEnabled { get; set; }
+        }
+
+        private class OBSMessageSaveSourceScreenshotRequest : OBSMessageRequest<SaveSourceScreenshotRequestData>
+        {
+            public OBSMessageSaveSourceScreenshotRequest(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight, int? imageCompressionQuality) : base()
+            {
+                this.Data.RequestType = "SaveSourceScreenshot";
+                this.Data.Data = new SaveSourceScreenshotRequestData
+                {
+                    SourceName = sourceName,
+                    ImageFormat = imageFormat,
+                    ImageFilePath = imageFilePath,
+                    ImageWidth = imageWidth,
+                    ImageHeight = imageHeight,
+                    ImageCompressionQuality = imageCompressionQuality
+                };
+            }
+        }
+
+        private class SaveSourceScreenshotRequestData
+        {
+            [JsonProperty("sourceName")]
+            public string SourceName { get; set; }
+
+            [JsonProperty("imageFormat")]
+            public string ImageFormat { get; set; }
+
+            [JsonProperty("imageFilePath")]
+            public string ImageFilePath { get; set; }
+
+            [JsonProperty("imageWidth", NullValueHandling = NullValueHandling.Ignore)]
+            public int? ImageWidth { get; set; }
+
+            [JsonProperty("imageHeight", NullValueHandling = NullValueHandling.Ignore)]
+            public int? ImageHeight { get; set; }
+
+            [JsonProperty("imageCompressionQuality", NullValueHandling = NullValueHandling.Ignore)]
+            public int? ImageCompressionQuality { get; set; }
         }
 
         private class OBSMessageRequest : OBSMessage<RequestData>

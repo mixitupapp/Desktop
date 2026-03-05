@@ -31,6 +31,8 @@ namespace MixItUp.Base.Services.External
         Task<bool> StartReplayBuffer();
 
         Task SetSceneCollection(string sceneCollectionName);
+
+        Task SaveSourceScreenshot(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight);
     }
 
     public interface IOBSStudioService : IStreamingSoftwareService

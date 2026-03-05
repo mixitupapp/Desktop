@@ -11240,4 +11240,22 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="DeleteAllQuotesWarning" xml:space="preserve">
     <value>Вы уверены, что хотите удалить ВСЕ цитаты? Это действие нельзя отменить</value>
   </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Сохранить скриншот источника</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Формат изображения</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Ширина изображения (дополнительно)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Высота изображения (опционально)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>Необходимо указать формат изображения (например, png, jpg)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>Для сохранения необходимо указать путь к файлу изображения</value>
+  </data>
 </root>
