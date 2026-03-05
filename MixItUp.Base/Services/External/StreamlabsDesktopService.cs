@@ -225,8 +225,8 @@ namespace MixItUp.Base.Services.External
 
         public async Task SetSourceVisibility(string sceneName, string sourceName, bool visibility)
         {
-            StreamlabsOBSSceneItem sceneItem = await this.GetSceneItem(sceneName, sourceName);
-            if (sceneItem != null)
+            IEnumerable<StreamlabsOBSSceneItem> sceneItems = await this.GetSceneItems(sceneName, sourceName);
+            foreach (StreamlabsOBSSceneItem sceneItem in sceneItems)
             {
                 StreamlabsOBSRequest request = new StreamlabsOBSRequest("setVisibility", sceneItem.ResourceID);
                 request.Arguments.Add(visibility);
@@ -238,8 +238,8 @@ namespace MixItUp.Base.Services.External
 
         public async Task SetImageSourceFilePath(string sceneName, string sourceName, string filePath)
         {
-            StreamlabsOBSSceneItem sceneItem = await this.GetSceneItem(sceneName, sourceName);
-            if (sceneItem != null)
+            IEnumerable<StreamlabsOBSSceneItem> sceneItems = await this.GetSceneItems(sceneName, sourceName);
+            foreach (StreamlabsOBSSceneItem sceneItem in sceneItems)
             {
                 StreamlabsOBSSource source = await this.GetItemSource(sceneItem);
                 if (source != null && source.Type.Equals("image_source"))
@@ -261,8 +261,8 @@ namespace MixItUp.Base.Services.External
 
         public async Task SetMediaSourceFilePath(string sceneName, string sourceName, string filePath)
         {
-            StreamlabsOBSSceneItem sceneItem = await this.GetSceneItem(sceneName, sourceName);
-            if (sceneItem != null)
+            IEnumerable<StreamlabsOBSSceneItem> sceneItems = await this.GetSceneItems(sceneName, sourceName);
+            foreach (StreamlabsOBSSceneItem sceneItem in sceneItems)
             {
                 StreamlabsOBSSource source = await this.GetItemSource(sceneItem);
                 if (source != null && source.Type.Equals("ffmpeg_source"))
@@ -284,8 +284,8 @@ namespace MixItUp.Base.Services.External
 
         public async Task SetWebBrowserSourceURL(string sceneName, string sourceName, string url)
         {
-            StreamlabsOBSSceneItem sceneItem = await this.GetSceneItem(sceneName, sourceName);
-            if (sceneItem != null)
+            IEnumerable<StreamlabsOBSSceneItem> sceneItems = await this.GetSceneItems(sceneName, sourceName);
+            foreach (StreamlabsOBSSceneItem sceneItem in sceneItems)
             {
                 StreamlabsOBSSource source = await this.GetItemSource(sceneItem);
                 if (source != null && source.Type.Equals("browser_source"))
@@ -374,15 +374,21 @@ namespace MixItUp.Base.Services.External
             return scenes.FirstOrDefault(s => s.Name.Equals(sceneName));
         }
 
-        private async Task<StreamlabsOBSSceneItem> GetSceneItem(string sceneName, string sourceName)
+        private async Task<IEnumerable<StreamlabsOBSSceneItem>> GetSceneItems(string sceneName, string sourceName)
         {
             StreamlabsOBSScene scene = (!string.IsNullOrEmpty(sceneName)) ? await this.GetScene(sceneName) : await this.GetActiveScene();
             if (scene != null)
             {
                 IEnumerable<StreamlabsOBSSceneItem> sceneItems = await this.GetArrayResult<StreamlabsOBSSceneItem>(new StreamlabsOBSRequest("getItems", scene.ResourceID));
-                return sceneItems.FirstOrDefault(s => s.Name.Equals(sourceName));
+                return sceneItems.Where(s => s.Name.Equals(sourceName));
             }
-            return null;
+            return new List<StreamlabsOBSSceneItem>();
+        }
+
+        private async Task<StreamlabsOBSSceneItem> GetSceneItem(string sceneName, string sourceName)
+        {
+            IEnumerable<StreamlabsOBSSceneItem> items = await this.GetSceneItems(sceneName, sourceName);
+            return items.FirstOrDefault();
         }
 
         private async Task<StreamlabsOBSSource> GetItemSource(StreamlabsOBSSceneItem sceneItem)
