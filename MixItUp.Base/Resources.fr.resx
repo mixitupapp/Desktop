@@ -11254,4 +11254,7 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>Un chemin d'accès au fichier image doit être spécifié pour l'enregistrement.</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Cette mise à jour est nécessaire pour continuer à utiliser Mix It Up</value>
+  </data>
 </root>

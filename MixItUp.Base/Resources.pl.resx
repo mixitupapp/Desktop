@@ -11253,4 +11253,7 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>Ścieżka do pliku obrazu musi być określona, aby zapisać go w pliku</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Ta aktualizacja jest wymagana do dalszego korzystania z Mix It Up</value>
+  </data>
 </root>

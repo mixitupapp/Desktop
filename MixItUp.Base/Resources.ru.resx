@@ -11258,4 +11258,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>Для сохранения необходимо указать путь к файлу изображения</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Это обновление необходимо для продолжения использования Mix It Up</value>
+  </data>
 </root>

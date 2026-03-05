@@ -11253,4 +11253,7 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>È necessario specificare un percorso per il file immagine da salvare su</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Questo aggiornamento è necessario per continuare a utilizzare Mix It Up.</value>
+  </data>
 </root>

@@ -9972,4 +9972,7 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>Es muss ein Pfad für die Bilddatei angegeben werden, in der gespeichert werden soll</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Dieses Update ist erforderlich, um Mix It Up weiterhin nutzen zu können.</value>
+  </data>
 </root>

@@ -11253,4 +11253,7 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>保存先の画像ファイルのパスを指定する必要があります。</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>このアップデートは、Mix It Upを使用し続けるために必要です。</value>
+  </data>
 </root>

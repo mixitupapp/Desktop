@@ -11254,4 +11254,7 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>Er moet een pad naar een afbeeldingsbestand worden opgegeven om op te slaan in</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Deze update is vereist om Mix It Up te kunnen blijven gebruiken</value>
+  </data>
 </root>

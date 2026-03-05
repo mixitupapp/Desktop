@@ -24123,6 +24123,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This update is required to continue using Mix It Up.
+        /// </summary>
+        public static string ThisUpdateIsRequired {
+            get {
+                return ResourceManager.GetString("ThisUpdateIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Three Left.
         /// </summary>
         public static string ThreeLeft {

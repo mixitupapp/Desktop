@@ -11254,4 +11254,7 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>Deve ser especificado um caminho para o ficheiro de imagem a guardar</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Esta atualização é necessária para continuar a utilizar o Mix It Up</value>
+  </data>
 </root>

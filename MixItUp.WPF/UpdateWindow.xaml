@@ -72,7 +72,7 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
-                            Text="This update is required to continue using Mix It Up" />
+                            Text="{x:Static resx:Resources.ThisUpdateIsRequired}" />
                     </StackPanel>
 
                     <StackPanel

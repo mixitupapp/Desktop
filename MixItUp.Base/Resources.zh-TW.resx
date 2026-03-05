@@ -11253,4 +11253,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>必须指定图像文件路径，以便保存到</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>要继续使用 Mix It Up，必须进行此更新</value>
+  </data>
 </root>

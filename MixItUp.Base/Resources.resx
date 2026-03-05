@@ -11259,4 +11259,7 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
     <value>An image file path must be specified to save to</value>
   </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>This update is required to continue using Mix It Up</value>
+  </data>
 </root>
