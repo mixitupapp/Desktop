@@ -85,6 +85,9 @@ namespace MixItUp.Base.Services.External
                     return new Result(MixItUp.Base.Resources.InfiniteAlbumConnectionFailed);
                 }
 
+                this.websocket.OnDisconnectOccurred -= Websocket_OnDisconnectOccurred;
+                this.websocket.OnDisconnectOccurred += Websocket_OnDisconnectOccurred;
+
                 this.TrackServiceTelemetry("Infinite Album");
                 return new Result();
             }

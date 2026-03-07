@@ -3,6 +3,7 @@ using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -81,7 +82,14 @@ namespace MixItUp.Base.Services.External
 
     public class VTubeStudioWebSocket : ClientWebSocketBase
     {
-        private Dictionary<string, VTubeStudioWebSocketResponsePacket> responses = new Dictionary<string, VTubeStudioWebSocketResponsePacket>();
+        private readonly ConcurrentDictionary<string, TaskCompletionSource<VTubeStudioWebSocketResponsePacket>> pendingResponses =
+            new ConcurrentDictionary<string, TaskCompletionSource<VTubeStudioWebSocketResponsePacket>>();
+
+        public override Task<bool> Connect(string endpoint)
+        {
+            this.pendingResponses.Clear();
+            return base.Connect(endpoint);
+        }
 
         public async Task<VTubeStudioWebSocketResponsePacket> SendAndReceive(VTubeStudioWebSocketRequestPacket packet, int delaySeconds = 5)
         {
@@ -89,22 +97,24 @@ namespace MixItUp.Base.Services.External
 
             try
             {
-                this.responses.Remove(packet.requestID);
+                var responseCompletionSource = new TaskCompletionSource<VTubeStudioWebSocketResponsePacket>(TaskCreationOptions.RunContinuationsAsynchronously);
+                this.pendingResponses[packet.requestID] = responseCompletionSource;
 
                 await this.Send(JSONSerializerHelper.SerializeToString(packet));
 
-                int cycles = delaySeconds * 10;
-                for (int i = 0; i < cycles && !this.responses.ContainsKey(packet.requestID); i++)
+                Task completedTask = await Task.WhenAny(responseCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(delaySeconds)));
+                if (ReferenceEquals(completedTask, responseCompletionSource.Task))
                 {
-                    await Task.Delay(100);
+                    return await responseCompletionSource.Task;
                 }
-
-                this.responses.TryGetValue(packet.requestID, out VTubeStudioWebSocketResponsePacket response);
-                return response;
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
+            }
+            finally
+            {
+                this.pendingResponses.TryRemove(packet.requestID, out _);
             }
             return null;
         }
@@ -118,7 +128,10 @@ namespace MixItUp.Base.Services.External
                 VTubeStudioWebSocketResponsePacket response = JSONSerializerHelper.DeserializeFromString<VTubeStudioWebSocketResponsePacket>(packet);
                 if (response != null && !string.IsNullOrEmpty(response.requestID))
                 {
-                    this.responses[response.requestID] = response;
+                    if (this.pendingResponses.TryRemove(response.requestID, out TaskCompletionSource<VTubeStudioWebSocketResponsePacket> responseCompletionSource))
+                    {
+                        responseCompletionSource.TrySetResult(response);
+                    }
                 }
             }
             catch (Exception ex)
