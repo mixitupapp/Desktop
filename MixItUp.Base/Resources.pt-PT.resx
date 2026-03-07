@@ -11231,4 +11231,31 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="PopoutEditor" xml:space="preserve">
     <value>Editor de popout</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Apagar todas as citações</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Tem a certeza de que pretende apagar TODAS as aspas? Esta ação não pode ser anulada</value>
+  </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Guardar a captura de ecrã da fonte</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Formato da imagem</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Largura da imagem (opcional)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Altura da imagem (opcional)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>Deve ser especificado um formato de imagem (por exemplo, png, jpg)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>Deve ser especificado um caminho para o ficheiro de imagem a guardar</value>
+  </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Esta atualização é necessária para continuar a utilizar o Mix It Up</value>
+  </data>
 </root>

@@ -161,6 +161,8 @@ namespace MixItUp.Base.Services.External
         public Task SaveReplayBuffer() { return Task.CompletedTask; }
         public Task<bool> StartReplayBuffer() { return Task.FromResult(false); }
 
+        public Task SaveSourceScreenshot(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight) { return Task.CompletedTask; }
+
         public Task SetSceneCollection(string sceneCollectionName) { return Task.CompletedTask; }
 
         protected override WebSocketServerBase CreateWebSocketServer(HttpListenerContext listenerContext)

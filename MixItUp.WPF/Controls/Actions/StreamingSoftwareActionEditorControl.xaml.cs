@@ -60,5 +60,17 @@ namespace MixItUp.WPF.Controls.Actions
                 }
             }
         }
+
+        private void SaveSourceScreenshotBrowseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (this.DataContext is StreamingSoftwareActionEditorControlViewModel)
+            {
+                string filePath = ServiceManager.Get<IFileService>().ShowSaveFileDialog(((StreamingSoftwareActionEditorControlViewModel)this.DataContext).ImageFilePath, MixItUp.Base.Resources.ImageFileFormatFilter);
+                if (!string.IsNullOrEmpty(filePath))
+                {
+                    ((StreamingSoftwareActionEditorControlViewModel)this.DataContext).ImageFilePath = filePath;
+                }
+            }
+        }
     }
 }

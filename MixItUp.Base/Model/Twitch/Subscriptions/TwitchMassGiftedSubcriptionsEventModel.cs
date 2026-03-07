@@ -13,7 +13,7 @@ namespace MixItUp.Base.Model.Twitch.Subscriptions
 
         public int TotalGifted { get; set; }
 
-        public int LifetimeGifted { get; set; }
+        public int? LifetimeGifted { get; set; }
 
         public int Tier { get; set; }
 
@@ -33,7 +33,7 @@ namespace MixItUp.Base.Model.Twitch.Subscriptions
             this.CommunityGiftID = communitySubGift.id;
 
             this.TotalGifted = communitySubGift.total.GetValueOrDefault();
-            this.LifetimeGifted = communitySubGift.cumulative_total.GetValueOrDefault();
+            this.LifetimeGifted = communitySubGift.cumulative_total;
 
             this.Tier = communitySubGift.TierNumber;
             this.TierName = this.TierName = $"{MixItUp.Base.Resources.Tier} {this.Tier}";

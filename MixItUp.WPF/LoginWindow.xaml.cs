@@ -190,15 +190,6 @@ namespace MixItUp.WPF
                 {
                     updateFound = true;
 
-                    if (this.currentUpdate.Mandatory)
-                    {
-                        bool launched = await UpdateWindow.DownloadAndInstallUpdate(this.currentUpdate);
-                        if (launched)
-                        {
-                            return;
-                        }
-                    }
-
                     UpdateWindow window = new UpdateWindow(this.currentUpdate);
                     window.Show();
                 }

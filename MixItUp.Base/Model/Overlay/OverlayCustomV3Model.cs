@@ -107,15 +107,22 @@ namespace MixItUp.Base.Model.Overlay
 
         public override async void OnMassSubscription(object sender, IEnumerable<SubscriptionDetailsModel> subscriptions)
         {
-            StreamingPlatformTypeEnum platform = subscriptions.First().Platform;
-            UserV2ViewModel gifter = subscriptions.First().Gifter;
-            int tier = subscriptions.First().Tier;
-            string membershipName = subscriptions.First().YouTubeMembershipTier;
-            int amount = subscriptions.Count();
+            List<SubscriptionDetailsModel> subscriptionList = subscriptions?.Where(s => s != null).ToList();
+            if (subscriptionList == null || subscriptionList.Count == 0)
+            {
+                return;
+            }
+
+            SubscriptionDetailsModel firstSubscription = subscriptionList[0];
+            StreamingPlatformTypeEnum platform = firstSubscription.Platform;
+            UserV2ViewModel gifter = firstSubscription.Gifter;
+            int tier = firstSubscription.Tier;
+            string membershipName = firstSubscription.YouTubeMembershipTier;
+            int amount = subscriptionList.Count;
 
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
-                { "Users", subscriptions.Select(s => s.User) },
+                { "Users", subscriptionList.Select(s => s.User) },
                 { "Tier", tier.ToString() },
                 { "Amount", amount },
                 { "Gifter", gifter }

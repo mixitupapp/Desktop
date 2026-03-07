@@ -1,5 +1,18 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.312
+
+- [MAINT] Update WebSocket error handling
+- [MAINT] Remove pre-made headers for Web Request action
+- [MAINT] Update Window redesign and improvements when handling mandatory updates
+- [MAINT] Update Chagelog page to point to local file instead of external URL
+- [FEAT] Add save source screenshot option to Streaming Software action (OBS Studio only)
+- [FEAT] Add delete all quotes button
+- [FIX] Additional OBS Studio WebSocket connectivity improvements and fix source visibility in groups
+- [FIX] Renumbering quotes saving on app shutdown
+- [FIX] Streamlabs Desktop source visibility fixed for dual output scenes
+- [FIX] Crashes when receiving mass gifted subs, and fix total gifted tracking
+
 ## 1.6.311
 
 - [MAINT] Significant improvements when opening the command editor and loading various actions

@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace MixItUp.WPF
@@ -44,6 +45,11 @@ namespace MixItUp.WPF
 
             this.SkipUpdateButton.Visibility = this.update.Mandatory ? Visibility.Collapsed : Visibility.Visible;
             this.SkipUpdateButton.IsEnabled = !this.update.Mandatory;
+
+            if (this.update.Mandatory)
+            {
+                this.MandatoryBanner.Visibility = Visibility.Visible;
+            }
 
             try
             {
@@ -135,6 +141,24 @@ namespace MixItUp.WPF
         private void SkipUpdateButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.update.Mandatory)
+            {
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
         }
 
         private void AttachHyperlinkHandler()

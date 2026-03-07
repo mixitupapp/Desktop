@@ -11230,4 +11230,31 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="PopoutEditor" xml:space="preserve">
     <value>Popout-editor</value>
   </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Alle citaten verwijderen</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Weet je zeker dat je ALLE citaten wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt</value>
+  </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Bron screenshot opslaan</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Afbeeldingsformaat</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Breedte afbeelding (optioneel)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Hoogte afbeelding (optioneel)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>Er moet een afbeeldingsformaat worden opgegeven (bijv. png, jpg)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>Er moet een pad naar een afbeeldingsbestand worden opgegeven om op te slaan in</value>
+  </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Deze update is vereist om Mix It Up te kunnen blijven gebruiken</value>
+  </data>
 </root>

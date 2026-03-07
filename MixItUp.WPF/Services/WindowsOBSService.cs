@@ -3,13 +3,15 @@ using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
 using MixItUp.Base.Util;
+using MixItUp.Base.Web;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OBSWebsocketDotNet;
-using OBSWebsocketDotNet.Communication;
-using OBSWebsocketDotNet.Types;
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Linq;
 using System.Net.WebSockets;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +25,7 @@ namespace MixItUp.WPF.Services
         public event EventHandler Connected = delegate { };
         public event EventHandler Disconnected = delegate { };
 
-        private readonly OBSWebsocket OBSWebsocket = new OBSWebsocket();
+        private readonly OBSWebsocketV5 OBSWebsocketV5 = new OBSWebsocketV5();
         private readonly SemaphoreSlim operationSemaphore = new SemaphoreSlim(1, 1);
 
         private int reconnectLoopRunning = 0;
@@ -33,8 +35,7 @@ namespace MixItUp.WPF.Services
 
         public WindowsOBSService()
         {
-            this.OBSWebsocket.WSTimeout = TimeSpan.FromMilliseconds(ConnectTimeoutInMilliseconds);
-            this.OBSWebsocket.Disconnected += this.OBSWebsocket_Disconnected;
+            this.OBSWebsocketV5.Disconnected += this.OBSWebsocketV5_Disconnected;
         }
 
         public string Name { get { return "OBS Studio"; } }
@@ -60,16 +61,19 @@ namespace MixItUp.WPF.Services
         public async Task ShowScene(string sceneName)
         {
             Logger.Log(LogLevel.Debug, "Showing OBS Scene - " + sceneName);
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                this.OBSWebsocket.SetCurrentProgramScene(sceneName);
+                await this.OBSWebsocketV5.SetCurrentScene(sceneName);
                 return true;
             });
         }
 
         public async Task<string> GetCurrentScene()
         {
-            string sceneName = await this.ExecuteOBSCommand(() => this.OBSWebsocket.GetCurrentProgramScene(), defaultValue: "Unknown");
+            string sceneName = await this.ExecuteOBSCommand(async () =>
+            {
+                return await this.OBSWebsocketV5.GetCurrentSceneName();
+            }, defaultValue: "Unknown");
             Logger.Log(LogLevel.Debug, "Current OBS Scene - " + sceneName);
             return sceneName;
         }
@@ -77,12 +81,13 @@ namespace MixItUp.WPF.Services
         public async Task SetSourceVisibility(string sceneName, string sourceName, bool visibility)
         {
             Logger.Log(LogLevel.Debug, "Setting source visibility - " + sourceName);
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                if (this.TryGetSceneItemReference(this.ResolveSceneName(sceneName), sourceName, out string targetSceneName, out int sceneItemId))
+                if (string.IsNullOrEmpty(sceneName))
                 {
-                    this.OBSWebsocket.SetSceneItemEnabled(targetSceneName, sceneItemId, visibility);
+                    sceneName = await this.OBSWebsocketV5.GetCurrentSceneName();
                 }
+                await this.OBSWebsocketV5.SetSourceRender(sourceName, visibility, sceneName);
                 return true;
             });
         }
@@ -90,9 +95,9 @@ namespace MixItUp.WPF.Services
         public async Task SetSourceFilterVisibility(string sourceName, string filterName, bool visibility)
         {
             Logger.Log(LogLevel.Debug, "Setting source filter visibility - " + sourceName + " - " + filterName);
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                this.OBSWebsocket.SetSourceFilterEnabled(sourceName, filterName, visibility);
+                await this.OBSWebsocketV5.SetSourceFilterVisibility(sourceName, filterName, visibility);
                 return true;
             });
         }
@@ -100,13 +105,13 @@ namespace MixItUp.WPF.Services
         public async Task SetImageSourceFilePath(string sceneName, string sourceName, string filePath)
         {
             Logger.Log(LogLevel.Debug, "Setting image source file path - " + sourceName);
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                InputSettings inputSettings = this.OBSWebsocket.GetInputSettings(sourceName);
-                if (inputSettings?.Settings != null)
+                JObject settings = await this.OBSWebsocketV5.GetSourceSettings(sourceName);
+                if (settings != null)
                 {
-                    inputSettings.Settings["file"] = filePath;
-                    this.OBSWebsocket.SetInputSettings(sourceName, inputSettings.Settings, overlay: true);
+                    settings["file"] = filePath;
+                    await this.OBSWebsocketV5.SetSourceSettings(sourceName, settings);
                 }
                 return true;
             });
@@ -115,13 +120,13 @@ namespace MixItUp.WPF.Services
         public async Task SetMediaSourceFilePath(string sceneName, string sourceName, string filePath)
         {
             Logger.Log(LogLevel.Debug, "Setting media source file path - " + sourceName);
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                InputSettings inputSettings = this.OBSWebsocket.GetInputSettings(sourceName);
-                if (inputSettings?.Settings != null)
+                JObject settings = await this.OBSWebsocketV5.GetSourceSettings(sourceName);
+                if (settings != null)
                 {
-                    inputSettings.Settings["local_file"] = filePath;
-                    this.OBSWebsocket.SetInputSettings(sourceName, inputSettings.Settings, overlay: true);
+                    settings["local_file"] = filePath;
+                    await this.OBSWebsocketV5.SetSourceSettings(sourceName, settings);
                 }
                 return true;
             });
@@ -133,13 +138,10 @@ namespace MixItUp.WPF.Services
 
             await this.SetSourceVisibility(sceneName, sourceName, visibility: false);
 
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                InputSettings inputSettings = this.OBSWebsocket.GetInputSettings(sourceName);
-                JObject settings = inputSettings?.Settings ?? new JObject();
-                settings["is_local_file"] = false;
-                settings["url"] = url;
-                this.OBSWebsocket.SetInputSettings(sourceName, settings, overlay: true);
+                JObject settings = new JObject { ["url"] = url };
+                await this.OBSWebsocketV5.SetSourceSettings(sourceName, settings);
                 return true;
             });
         }
@@ -147,107 +149,92 @@ namespace MixItUp.WPF.Services
         public async Task SetSourceDimensions(string sceneName, string sourceName, StreamingSoftwareSourceDimensionsModel dimensions)
         {
             Logger.Log(LogLevel.Debug, "Setting source dimensions - " + sourceName);
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                if (this.TryGetSceneItemReference(this.ResolveSceneName(sceneName), sourceName, out string targetSceneName, out int sceneItemId))
+                if (string.IsNullOrEmpty(sceneName))
                 {
-                    JObject transform = new JObject
-                    {
-                        ["positionX"] = dimensions.X,
-                        ["positionY"] = dimensions.Y,
-                        ["scaleX"] = dimensions.XScale,
-                        ["scaleY"] = dimensions.YScale,
-                        ["rotation"] = dimensions.Rotation,
-                    };
-
-                    this.OBSWebsocket.SetSceneItemTransform(targetSceneName, sceneItemId, transform);
+                    sceneName = await this.OBSWebsocketV5.GetCurrentSceneName();
                 }
+                await this.OBSWebsocketV5.SetSceneItemProperties(sceneName, sourceName, dimensions.X, dimensions.Y, dimensions.XScale, dimensions.YScale, dimensions.Rotation);
                 return true;
             });
         }
 
         public async Task<StreamingSoftwareSourceDimensionsModel> GetSourceDimensions(string sceneName, string sourceName)
         {
-            return await this.ExecuteOBSCommand(() =>
+            return await this.ExecuteOBSCommand(async () =>
             {
-                if (this.TryGetSceneItemReference(this.ResolveSceneName(sceneName), sourceName, out string targetSceneName, out int sceneItemId))
+                if (string.IsNullOrEmpty(sceneName))
                 {
-                    SceneItemTransformInfo transform = this.OBSWebsocket.GetSceneItemTransform(targetSceneName, sceneItemId);
-                    return new StreamingSoftwareSourceDimensionsModel()
-                    {
-                        X = (int)transform.X,
-                        Y = (int)transform.Y,
-                        Rotation = (int)transform.Rotation,
-                        XScale = (float)transform.ScaleX,
-                        YScale = (float)transform.ScaleY,
-                    };
+                    sceneName = await this.OBSWebsocketV5.GetCurrentSceneName();
                 }
 
+                var response = await this.OBSWebsocketV5.GetSceneItemTransform(sceneName, sourceName);
+                if (response.HasValue)
+                {
+                    return new StreamingSoftwareSourceDimensionsModel()
+                    {
+                        X = (int)response.Value.X,
+                        Y = (int)response.Value.Y,
+                        XScale = (response.Value.Width / response.Value.SourceWidth),
+                        YScale = (response.Value.Height / response.Value.SourceHeight),
+                    };
+                }
                 return null;
             });
         }
 
         public async Task StartStopStream()
         {
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                this.OBSWebsocket.ToggleStream();
+                await this.OBSWebsocketV5.StartStopStreaming();
                 return true;
             });
         }
 
         public async Task StartStopRecording()
         {
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                this.OBSWebsocket.ToggleRecord();
+                await this.OBSWebsocketV5.StartStopRecording();
                 return true;
             });
         }
 
         public async Task<bool> StartReplayBuffer()
         {
-            return await this.ExecuteOBSCommand(() =>
+            return await this.ExecuteOBSCommand(async () =>
             {
-                try
-                {
-                    if (this.OBSWebsocket.GetReplayBufferStatus())
-                    {
-                        return true;
-                    }
-
-                    this.OBSWebsocket.StartReplayBuffer();
-                    return true;
-                }
-                catch (ErrorResponseException ex)
-                {
-                    if (ex.ErrorCode == 604)
-                    {
-                        return true;
-                    }
-                    if (ex.ErrorCode == 500 && this.OBSWebsocket.GetReplayBufferStatus())
-                    {
-                        return true;
-                    }
-                    throw;
-                }
+                await this.OBSWebsocketV5.StartReplayBuffer();
+                return true;
             }, defaultValue: false);
         }
 
         public async Task SaveReplayBuffer()
         {
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                this.OBSWebsocket.SaveReplayBuffer();
+                await this.OBSWebsocketV5.SaveReplayBuffer();
                 return true;
             });
         }
 
         public async Task SetSceneCollection(string sceneCollectionName)
         {
-            await this.ExecuteOBSCommand(() =>
+            await this.ExecuteOBSCommand(async () =>
             {
-                this.OBSWebsocket.SetCurrentSceneCollection(sceneCollectionName);
+                await this.OBSWebsocketV5.SetCurrentSceneCollection(sceneCollectionName);
+                return true;
+            });
+        }
+
+        public async Task SaveSourceScreenshot(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight)
+        {
+            Logger.Log(LogLevel.Debug, "Saving OBS Source screenshot - " + sourceName + " to " + imageFilePath);
+            await this.ExecuteOBSCommand(async () =>
+            {
+                await this.OBSWebsocketV5.SaveSourceScreenshot(sourceName, imageFormat, imageFilePath, imageWidth, imageHeight);
                 return true;
             });
         }
@@ -261,17 +248,9 @@ namespace MixItUp.WPF.Services
             await this.operationSemaphore.WaitAsync();
             try
             {
-                if (!this.OBSWebsocket.IsConnected)
+                if (!this.OBSWebsocketV5.IsConnected)
                 {
-                    try
-                    {
-                        this.OBSWebsocket.ConnectAsync(ChannelSession.Settings.OBSStudioServerIP, ChannelSession.Settings.OBSStudioServerPassword);
-                        attemptedConnect = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        this.LogConnectFailure(ex);
-                    }
+                    attemptedConnect = true;
                 }
             }
             finally
@@ -283,18 +262,29 @@ namespace MixItUp.WPF.Services
             {
                 try
                 {
-                    await this.WaitForConnectedState(TimeSpan.FromMilliseconds(ConnectTimeoutInMilliseconds));
+                    using (CancellationTokenSource cts = new CancellationTokenSource(ConnectTimeoutInMilliseconds))
+                    {
+                        string connectError = await this.OBSWebsocketV5.Connect(
+                            ChannelSession.Settings.OBSStudioServerIP,
+                            ChannelSession.Settings.OBSStudioServerPassword,
+                            cts.Token);
+
+                        if (connectError != null)
+                        {
+                            Logger.Log(LogLevel.Warning, "OBS Studio connection failed: " + connectError);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    this.LogConnectFailure(ex);
+                    Logger.Log(LogLevel.Warning, "OBS Studio connection failed: " + ex.Message);
                 }
             }
 
             await this.operationSemaphore.WaitAsync();
             try
             {
-                this.IsConnected = this.OBSWebsocket.IsConnected;
+                this.IsConnected = this.OBSWebsocketV5.IsConnected;
                 if (this.IsConnected)
                 {
                     if (attemptedConnect)
@@ -330,16 +320,15 @@ namespace MixItUp.WPF.Services
 
         private async Task DisconnectInternal(bool notifyDisconnected)
         {
-            bool wasConnected = this.IsConnected || this.OBSWebsocket.IsConnected;
+            bool wasConnected = this.IsConnected || this.OBSWebsocketV5.IsConnected;
 
             await this.operationSemaphore.WaitAsync();
             try
             {
                 this.IsConnected = false;
-
-                if (this.OBSWebsocket.IsConnected)
+                if (this.OBSWebsocketV5.IsConnected)
                 {
-                    this.OBSWebsocket.Disconnect();
+                    await this.OBSWebsocketV5.Disconnect();
                 }
             }
             catch (Exception ex)
@@ -357,7 +346,7 @@ namespace MixItUp.WPF.Services
             }
         }
 
-        private void OBSWebsocket_Disconnected(object sender, ObsDisconnectionInfo e)
+        private void OBSWebsocketV5_Disconnected(object sender, EventArgs e)
         {
             bool wasConnected = this.IsConnected;
             this.IsConnected = false;
@@ -366,13 +355,6 @@ namespace MixItUp.WPF.Services
             {
                 return;
             }
-
-            string disconnectDetails = $"OBS disconnect - Code: {e?.ObsCloseCode}, Reason: {e?.DisconnectReason}";
-            if (e?.WebsocketDisconnectionInfo?.Exception != null)
-            {
-                disconnectDetails += $", Exception: {e.WebsocketDisconnectionInfo.Exception.Message}";
-            }
-            Logger.Log(LogLevel.Warning, disconnectDetails);
 
             if (!wasConnected)
             {
@@ -406,12 +388,8 @@ namespace MixItUp.WPF.Services
                         }
                     }
                 }
-                catch (TaskCanceledException)
-                {
-                }
-                catch (OperationCanceledException)
-                {
-                }
+                catch (TaskCanceledException) { }
+                catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
                     Logger.Log(ex);
@@ -437,9 +415,9 @@ namespace MixItUp.WPF.Services
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.OBSStudio);
         }
 
-        private async Task<T> ExecuteOBSCommand<T>(Func<T> command, int timeout = CommandTimeoutInMilliseconds, T defaultValue = default)
+        private async Task<T> ExecuteOBSCommand<T>(Func<Task<T>> command, int timeout = CommandTimeoutInMilliseconds, T defaultValue = default)
         {
-            if (!this.IsConnected || !this.OBSWebsocket.IsConnected)
+            if (!this.IsConnected || !this.OBSWebsocketV5.IsConnected)
             {
                 this.IsConnected = false;
                 return defaultValue;
@@ -448,13 +426,13 @@ namespace MixItUp.WPF.Services
             await this.operationSemaphore.WaitAsync();
             try
             {
-                if (!this.OBSWebsocket.IsConnected)
+                if (!this.OBSWebsocketV5.IsConnected)
                 {
                     this.IsConnected = false;
                     return defaultValue;
                 }
 
-                return await Task.Run(command).WaitAsync(TimeSpan.FromMilliseconds(timeout));
+                return await command().WaitAsync(TimeSpan.FromMilliseconds(timeout));
             }
             catch (Exception ex)
             {
@@ -467,7 +445,7 @@ namespace MixItUp.WPF.Services
                     Logger.Log(ex);
                 }
 
-                if (this.IsConnectionException(ex))
+                if (ex is TimeoutException || ex is WebSocketException || ex is OperationCanceledException)
                 {
                     this.IsConnected = false;
                     if (Interlocked.CompareExchange(ref this.manualDisconnectRequested, 0, 0) == 0)
@@ -484,138 +462,972 @@ namespace MixItUp.WPF.Services
                 this.operationSemaphore.Release();
             }
         }
+    }
 
-        private string ResolveSceneName(string sceneName)
+    public class OBSWebsocketV5 : AdvancedClientWebSocket
+    {
+        private const string SceneNameChangedEvent = "SceneNameChanged";
+        private const string SceneItemRemovedEvent = "SceneItemRemoved";
+        private const string InputRemovedEvent = "InputRemoved";
+        private const string InputNameChangedEvent = "InputNameChanged";
+
+        private string password;
+        private bool identified = false;
+        private string identifyError = null;
+        private ConcurrentDictionary<Guid, TaskCompletionSource<string>> responses = new ConcurrentDictionary<Guid, TaskCompletionSource<string>>();
+        private SemaphoreSlim sendSemaphore = new SemaphoreSlim(1);
+        private ConcurrentDictionary<string, ConcurrentDictionary<string, SceneItem>> sceneSourceNameToSceneItemDictionary = new ConcurrentDictionary<string, ConcurrentDictionary<string, SceneItem>>(StringComparer.OrdinalIgnoreCase);
+
+        public new event EventHandler Disconnected;
+
+        public bool IsConnected => this.identified;
+
+        public OBSWebsocketV5()
         {
-            if (!string.IsNullOrEmpty(sceneName))
+            base.PacketReceived += async (sender, packet) => await ProcessReceivedPacket(packet);
+            base.Disconnected += (sender, closeStatus) =>
             {
-                return sceneName;
-            }
-            return this.OBSWebsocket.GetCurrentProgramScene();
+                bool wasIdentified = this.identified;
+                this.identified = false;
+                this.CancelAllRequests();
+
+                if ((int)closeStatus == 4009)
+                {
+                    this.identifyError = "Authentication failed - please check your OBS WebSocket password (code: 4009)";
+                }
+                else if (!wasIdentified)
+                {
+                    this.identifyError = $"Connection closed during handshake (code: {(int)closeStatus})";
+                }
+
+                this.Disconnected?.Invoke(this, EventArgs.Empty);
+            };
         }
 
-        private bool TryGetSceneItemReference(string sceneName, string sourceName, out string targetSceneName, out int sceneItemId)
+
+        public async Task<string> Connect(string endpoint, string password, CancellationToken cancellationToken)
         {
-            targetSceneName = sceneName;
-            sceneItemId = 0;
-
-            if (this.TryGetSceneItemId(sceneName, sourceName, out sceneItemId))
-            {
-                return true;
-            }
-
-            foreach (SceneItemDetails sceneItem in this.OBSWebsocket.GetSceneItemList(sceneName) ?? new List<SceneItemDetails>())
-            {
-                if (!string.Equals(sceneItem.SourceKind, "group", StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                if (this.TryGetSceneItemId(sceneItem.SourceName, sourceName, out sceneItemId))
-                {
-                    targetSceneName = sceneItem.SourceName;
-                    return true;
-                }
-            }
-
-            foreach (string groupName in this.OBSWebsocket.GetGroupList() ?? new List<string>())
-            {
-                if (this.TryGetSceneItemId(groupName, sourceName, out sceneItemId))
-                {
-                    targetSceneName = groupName;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private bool TryGetSceneItemId(string sceneName, string sourceName, out int sceneItemId)
-        {
-            sceneItemId = 0;
+            this.password = password;
+            this.identified = false;
+            this.identifyError = null;
 
             try
             {
-                sceneItemId = this.OBSWebsocket.GetSceneItemId(sceneName, sourceName, 0);
-                return true;
+                await base.Connect(endpoint, cancellationToken);
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                string detail = base.LastConnectHttpStatusCode.HasValue
+                    ? $"HTTP {base.LastConnectHttpStatusCode.Value} - {ex.Message}"
+                    : ex.Message;
+                return detail;
+            }
+
+            if (!base.IsOpen())
+            {
+                string detail = "WebSocket failed to open";
+                if (base.LastConnectHttpStatusCode.HasValue)
+                {
+                    detail += $" (HTTP {base.LastConnectHttpStatusCode.Value})";
+                }
+                return detail;
+            }
+
+            while (!this.identified && this.identifyError == null && !cancellationToken.IsCancellationRequested)
+            {
+                await Task.Delay(100, cancellationToken);
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                await base.Disconnect();
+                return "Connection timed out during OBS identification handshake";
+            }
+
+            if (this.identifyError != null)
+            {
+                await base.Disconnect();
+                return this.identifyError;
+            }
+
+            return null;
+        }
+
+        public new async Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
+        {
+            this.identified = false;
+            this.CancelAllRequests();
+            await base.Disconnect(closeStatus);
+        }
+
+        public async Task SetCurrentScene(string sceneName)
+        {
+            await Send(new OBSMessageSetCurrentProgramSceneRequest(sceneName));
+        }
+
+        public async Task SetCurrentSceneCollection(string sceneCollectionName)
+        {
+            await Send(new OBSMessageSetCurrentSceneCollectionRequest(sceneCollectionName));
+        }
+
+        public async Task SaveReplayBuffer()
+        {
+            await Send(new OBSMessageSaveReplayBufferRequest());
+        }
+
+        public async Task StartReplayBuffer()
+        {
+            string packet = await SendAndWait(new OBSMessageStartReplayBufferRequest());
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                if (response?.Data?.Status != null && !response.Data.Status.Result)
+                {
+                    if (response.Data.Status.Code == 500 || response.Data.Status.Code == 604)
+                    {
+                        return;
+                    }
+                    throw new Exception(response.Data.Status.Comment);
+                }
             }
         }
 
-        private void LogConnectFailure(Exception ex)
+        public async Task SaveSourceScreenshot(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight)
         {
-            Exception current = this.GetInnermostException(ex);
-
-            if (this.IsConnectionException(ex))
+            string packet = await SendAndWait(new OBSMessageSaveSourceScreenshotRequest(sourceName, imageFormat, imageFilePath, imageWidth, imageHeight, -1));
+            if (!string.IsNullOrEmpty(packet))
             {
-                Logger.Log(LogLevel.Warning, "OBS Studio connection failed: " + current.Message);
-                Logger.Log(LogLevel.Warning, ex, includeStackTrace: true);
+                OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                if (response?.Data?.Status != null && !response.Data.Status.Result)
+                {
+                    throw new Exception(response.Data.Status.Comment);
+                }
+            }
+        }
+
+        public async Task StartStopRecording()
+        {
+            await Send(new OBSMessageToggleRecordRequest());
+        }
+
+        public async Task StartStopStreaming()
+        {
+            await Send(new OBSMessageToggleStreamRequest());
+        }
+
+        public async Task<string> GetCurrentSceneName()
+        {
+            string packet = await SendAndWait(new OBSMessageGetCurrentProgramSceneRequest());
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageGetCurrentProgramSceneResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageGetCurrentProgramSceneResponse>(packet);
+                return response?.Data?.Data?.CurrentProgramSceneName ?? "Unknown";
+            }
+            return "Unknown";
+        }
+
+        public async Task SetSceneItemProperties(string sceneName, string sourceName, int x, int y, float xScale, float yScale, float rotation)
+        {
+            SceneItem sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
+            if (sceneItem != null)
+            {
+                JObject newTransform = new JObject
+                {
+                    ["positionX"] = x,
+                    ["positionY"] = y,
+                    ["scaleX"] = xScale,
+                    ["scaleY"] = yScale,
+                    ["rotation"] = rotation
+                };
+                string packet = await SendAndWait(new OBSMessageSetSceneItemTransformRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, newTransform));
+                if (!string.IsNullOrEmpty(packet))
+                {
+                    OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                    if (response?.Data?.Status?.Code == 600)
+                    {
+                        if (sceneSourceNameToSceneItemDictionary.TryGetValue(sceneName, out var items))
+                        {
+                            items.TryRemove(sourceName, out _);
+                        }
+                        sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
+                        if (sceneItem != null)
+                        {
+                            await Send(new OBSMessageSetSceneItemTransformRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, newTransform));
+                        }
+                    }
+                }
+            }
+        }
+
+        public async Task<JObject> GetSourceSettings(string sourceName)
+        {
+            string packet = await SendAndWait(new OBSMessageGetInputSettingsRequest(sourceName));
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageGetInputSettingsResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageGetInputSettingsResponse>(packet);
+                return response?.Data?.Data?.InputSettings;
+            }
+            return null;
+        }
+
+        public async Task SetSourceSettings(string sourceName, JObject settings)
+        {
+            await Send(new OBSMessageSetInputSettingsRequest(sourceName, settings));
+        }
+
+        public async Task SetSourceFilterVisibility(string sourceName, string filterName, bool visibility)
+        {
+            await Send(new OBSMessageSetSourceFilterEnabledRequest(sourceName, filterName, visibility));
+        }
+
+        public async Task SetSourceRender(string sourceName, bool visibility, string sceneName)
+        {
+            SceneItem sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
+            if (sceneItem != null)
+            {
+                string packet = await SendAndWait(new OBSMessageSetSceneItemEnabledRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, visibility));
+                if (!string.IsNullOrEmpty(packet))
+                {
+                    OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+                    if (response?.Data?.Status?.Code == 600)
+                    {
+                        if (sceneSourceNameToSceneItemDictionary.TryGetValue(sceneName, out var items))
+                        {
+                            items.TryRemove(sourceName, out _);
+                        }
+                        sceneItem = await this.SearchForSceneItem(sourceName, sceneName);
+                        if (sceneItem != null)
+                        {
+                            await Send(new OBSMessageSetSceneItemEnabledRequest(sceneItem.GroupName ?? sceneName, sceneItem.SceneItemId, visibility));
+                        }
+                    }
+                }
+            }
+        }
+
+        public async Task<(float X, float Y, float Width, float Height, float SourceWidth, float SourceHeight)?> GetSceneItemTransform(string sceneName, string sourceName)
+        {
+            SceneItem item = await this.SearchForSceneItem(sourceName, sceneName);
+            if (item?.SceneItemTransform != null)
+            {
+                return (
+                    item.SceneItemTransform.PositionX,
+                    item.SceneItemTransform.PositionY,
+                    item.SceneItemTransform.Width,
+                    item.SceneItemTransform.Height,
+                    item.SceneItemTransform.SourceWidth,
+                    item.SceneItemTransform.SourceHeight
+                );
+            }
+            return null;
+        }
+
+        private async Task<SceneItem> SearchForSceneItem(string sourceName, string sceneName)
+        {
+            // Check our scene cache first
+            if (sceneSourceNameToSceneItemDictionary.TryGetValue(sceneName, out var sceneItems))
+            {
+                if (sceneItems.TryGetValue(sourceName, out var cachedItem))
+                {
+                    return cachedItem;
+                }
             }
             else
+            {
+                sceneSourceNameToSceneItemDictionary[sceneName] = new ConcurrentDictionary<string, SceneItem>(StringComparer.OrdinalIgnoreCase);
+            }
+
+            // Failed hit, invalid the scene's cache
+            sceneSourceNameToSceneItemDictionary[sceneName].Clear();
+
+            string packet = await SendAndWait(new OBSMessageGetSceneItemListRequest(sceneName));
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageGetSceneItemListResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageGetSceneItemListResponse>(packet);
+                if (response?.Data?.Data != null)
+                {
+                    // Cache all items first
+                    foreach (SceneItem sceneItem in response.Data.Data.SceneItems)
+                    {
+                        sceneSourceNameToSceneItemDictionary[sceneName][sceneItem.SourceName] = sceneItem;
+                    }
+
+                    foreach (SceneItem sceneItem in response.Data.Data.SceneItems)
+                    {
+                        if (string.Equals(sceneItem.SourceName, sourceName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return sceneItem;
+                        }
+                    }
+
+                    // If we got here, then the item is not found, search groups (this is slow)
+                    foreach (SceneItem sceneItem in response.Data.Data.SceneItems)
+                    {
+                        if (sceneItem.IsGroup.GetValueOrDefault())
+                        {
+                            string groupPacket = await SendAndWait(new OBSMessageGetGroupSceneItemListRequest(sceneItem.SourceName));
+                            if (!string.IsNullOrEmpty(groupPacket))
+                            {
+                                OBSMessageGetGroupSceneItemListResponse groupResponse = JSONSerializerHelper.DeserializeFromString<OBSMessageGetGroupSceneItemListResponse>(groupPacket);
+                                if (groupResponse?.Data?.Data != null)
+                                {
+                                    // Cache all items first
+                                    foreach (SceneItem groupSceneItem in groupResponse.Data.Data.SceneItems)
+                                    {
+                                        groupSceneItem.GroupName = sceneItem.SourceName;
+                                        sceneSourceNameToSceneItemDictionary[sceneName][groupSceneItem.SourceName] = groupSceneItem;
+                                    }
+
+                                    foreach (SceneItem groupSceneItem in groupResponse.Data.Data.SceneItems)
+                                    {
+                                        if (string.Equals(groupSceneItem.SourceName, sourceName, StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            return groupSceneItem;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        private async Task ProcessReceivedPacket(string packet)
+        {
+            try
+            {
+                Logger.Log(LogLevel.Debug, "OBS Studio packet received: " + packet);
+
+                OBSMessage message = JSONSerializerHelper.DeserializeFromString<OBSMessage>(packet);
+                switch (message.OpCode)
+                {
+                    case 0: // Hello
+                        await HandleHello(JSONSerializerHelper.DeserializeFromString<OBSMessageHello>(packet));
+                        break;
+                    case 2: // Identified
+                        this.identified = true;
+                        break;
+                    case 5: // Event
+                        HandleEvent(JSONSerializerHelper.DeserializeFromString<OBSMessageEvent>(packet));
+                        break;
+                    case 7: // Response
+                        HandleResponse(packet);
+                        break;
+                    default:
+                        System.Diagnostics.Debug.WriteLine(packet);
+                        break;
+                }
+            }
+            catch (Exception ex)
             {
                 Logger.Log(ex);
             }
         }
 
-        private bool IsConnectionException(Exception ex)
+        private void HandleResponse(string packet)
         {
-            if (ex == null)
+            OBSMessageResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageResponse>(packet);
+            if (responses.TryRemove(response.Data.RequestId, out var tcs))
             {
-                return false;
+                tcs.TrySetResult(packet);
             }
-
-            Exception current = this.GetInnermostException(ex);
-
-            if (current is TimeoutException || current is OperationCanceledException || current is WebSocketException)
-            {
-                return true;
-            }
-
-            if (current is InvalidOperationException && current.Message.IndexOf("WebSocket", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                return true;
-            }
-
-            return false;
         }
 
-        private Exception GetInnermostException(Exception ex)
+        private void HandleEvent(OBSMessageEvent message)
         {
-            Exception current = ex;
-            if (current is AggregateException aggregate)
+            switch (message.Data.EventType)
             {
-                aggregate = aggregate.Flatten();
-                if (aggregate.InnerExceptions.Count > 0)
-                {
-                    current = aggregate.InnerExceptions[0];
-                }
+                case SceneNameChangedEvent:
+                    if (message.Data.Data.TryGetValue("oldSceneName", out var oldSceneName))
+                    {
+                        sceneSourceNameToSceneItemDictionary.TryRemove(oldSceneName?.ToString(), out _);
+                    }
+                    break;
+                case SceneItemRemovedEvent:
+                    if (message.Data.Data.TryGetValue("sceneName", out var removedSceneName) && message.Data.Data.TryGetValue("sourceName", out var removedSourceName))
+                    {
+                        if (sceneSourceNameToSceneItemDictionary.TryGetValue(removedSceneName?.ToString(), out var items))
+                        {
+                            items.TryRemove(removedSourceName?.ToString(), out _);
+                        }
+                    }
+                    break;
+                case InputRemovedEvent:
+                    if (message.Data.Data.TryGetValue("inputName", out var inputName))
+                    {
+                        foreach (var scene in sceneSourceNameToSceneItemDictionary.Keys.ToList())
+                        {
+                            if (sceneSourceNameToSceneItemDictionary.TryGetValue(scene, out var items))
+                            {
+                                items.TryRemove(inputName?.ToString(), out _);
+                            }
+                        }
+                    }
+                    break;
+                case InputNameChangedEvent:
+                    if (message.Data.Data.TryGetValue("oldInputName", out var oldInputName))
+                    {
+                        foreach (var scene in sceneSourceNameToSceneItemDictionary.Keys.ToList())
+                        {
+                            if (sceneSourceNameToSceneItemDictionary.TryGetValue(scene, out var items))
+                            {
+                                items.TryRemove(oldInputName?.ToString(), out _);
+                            }
+                        }
+                    }
+                    break;
             }
-
-            while (current.InnerException != null)
-            {
-                current = current.InnerException;
-            }
-
-            return current;
         }
 
-        private async Task WaitForConnectedState(TimeSpan timeout)
+        private async Task Send(OBSMessage message)
         {
-            DateTime deadline = DateTime.UtcNow.Add(timeout);
-            while (DateTime.UtcNow < deadline)
+            try
             {
-                if (this.OBSWebsocket.IsConnected)
-                {
-                    return;
-                }
+                await this.sendSemaphore.WaitAsync();
+                await base.Send(JsonConvert.SerializeObject(message));
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sendSemaphore.Release();
+            }
+        }
 
-                await Task.Delay(100);
+        private async Task<string> SendAndWait(OBSMessageRequest request)
+        {
+            var tcs = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
+            responses.TryAdd(request.Data.RequestId, tcs);
+            await Send(request);
+
+            using (CancellationTokenSource cts = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+            {
+                cts.Token.Register(() => tcs.TrySetCanceled());
+                try
+                {
+                    return await tcs.Task;
+                }
+                catch (TaskCanceledException)
+                {
+                    responses.TryRemove(request.Data.RequestId, out _);
+                    return null;
+                }
+            }
+        }
+
+        private void CancelAllRequests()
+        {
+            foreach (var kvp in responses.ToList())
+            {
+                if (responses.TryRemove(kvp.Key, out var tcs))
+                {
+                    tcs.TrySetCanceled();
+                }
+            }
+        }
+
+        private async Task HandleHello(OBSMessageHello message)
+        {
+            OBSMessageIdentify identify = new OBSMessageIdentify();
+            if (message?.Data?.Authentication != null)
+            {
+                // To generate the authentication string, follow these steps:
+                // Concatenate the websocket password with the salt provided by the server(password + salt)
+                string passwordAndSalt = this.password + message.Data.Authentication.Salt;
+
+                // Generate an SHA256 binary hash of the result and base64 encode it, known as a base64 secret.
+                using (SHA256 sha256Hash = SHA256.Create())
+                {
+                    byte[] bytes = sha256Hash.ComputeHash(Encoding.ASCII.GetBytes(passwordAndSalt));
+                    string base64Secret = Convert.ToBase64String(bytes);
+
+                    // Concatenate the base64 secret with the challenge sent by the server(base64_secret + challenge)
+                    string base64SecretAndChallenge = base64Secret + message.Data.Authentication.Challenge;
+
+                    // Generate a binary SHA256 hash of that result and base64 encode it. You now have your authentication string.
+                    bytes = sha256Hash.ComputeHash(Encoding.ASCII.GetBytes(base64SecretAndChallenge));
+                    identify.Data.Authentication = Convert.ToBase64String(bytes);
+                }
+            }
+            await Send(identify);
+        }
+
+        private class OBSMessage
+        {
+            [JsonProperty("op")]
+            public int OpCode { get; protected set; }
+        }
+
+        private class OBSMessage<T> : OBSMessage
+        {
+            [JsonProperty("d")]
+            public T Data { get; set; }
+        }
+
+        private class OBSMessageHello : OBSMessage<HelloData> { }
+
+        private class HelloData
+        {
+            [JsonProperty("obsWebSocketVersion")]
+            public string OBSWebSocketVersion { get; set; }
+
+            [JsonProperty("rpcVersion")]
+            public int RPCVersion { get; set; }
+
+            [JsonProperty("authentication")]
+            public HelloDataAuthentication Authentication { get; set; }
+        }
+
+        private class HelloDataAuthentication
+        {
+            [JsonProperty("challenge")]
+            public string Challenge { get; set; }
+
+            [JsonProperty("salt")]
+            public string Salt { get; set; }
+        }
+
+        private class OBSMessageIdentify : OBSMessage<IdentifyData>
+        {
+            public OBSMessageIdentify()
+            {
+                OpCode = 1;
+                Data = new IdentifyData
+                {
+                    RPCVersion = 1,
+                    EventSubscriptions = (1 << 2) | (1 << 3) | (1 << 7),   // Scene, Input, Scene Items events
+                };
+            }
+        }
+
+        private class IdentifyData
+        {
+            [JsonProperty("rpcVersion")]
+            public int RPCVersion { get; set; }
+
+            [JsonProperty("authentication")]
+            public string Authentication { get; set; }
+
+            [JsonProperty("eventSubscriptions")]
+            public ulong EventSubscriptions { get; set; }
+        }
+
+        private class OBSMessageIdentified : OBSMessage<IdentifiedData> { }
+
+        private class IdentifiedData
+        {
+            [JsonProperty("negotiatedRpcVersion")]
+            public string NegotiatedRpcVersion { get; set; }
+        }
+
+        private class OBSMessageEvent : OBSMessage<EventData> { }
+
+        private class EventData
+        {
+            [JsonProperty("eventType")]
+            public string EventType { get; set; }
+
+            [JsonProperty("eventIntent")]
+            public int EventIntent { get; set; }
+
+            [JsonProperty("eventData")]
+            public JObject Data { get; set; }
+        }
+
+        private class OBSMessageToggleStreamRequest : OBSMessageRequest
+        {
+            public OBSMessageToggleStreamRequest() : base() { this.Data.RequestType = "ToggleStream"; }
+        }
+
+        private class OBSMessageToggleRecordRequest : OBSMessageRequest
+        {
+            public OBSMessageToggleRecordRequest() : base() { this.Data.RequestType = "ToggleRecord"; }
+        }
+
+        private class OBSMessageStartReplayBufferRequest : OBSMessageRequest
+        {
+            public OBSMessageStartReplayBufferRequest() : base() { this.Data.RequestType = "StartReplayBuffer"; }
+        }
+
+        private class OBSMessageSaveReplayBufferRequest : OBSMessageRequest
+        {
+            public OBSMessageSaveReplayBufferRequest() : base() { this.Data.RequestType = "SaveReplayBuffer"; }
+        }
+
+        private class OBSMessageGetCurrentProgramSceneRequest : OBSMessageRequest
+        {
+            public OBSMessageGetCurrentProgramSceneRequest() : base() { this.Data.RequestType = "GetCurrentProgramScene"; }
+        }
+
+        private class OBSMessageGetCurrentProgramSceneResponse : OBSMessageResponse<GetCurrentProgramSceneData> { }
+
+        private class GetCurrentProgramSceneData
+        {
+            [JsonProperty("currentProgramSceneName")]
+            public string CurrentProgramSceneName { get; set; }
+        }
+
+        private class OBSMessageSetCurrentProgramSceneRequest : OBSMessageRequest<SetCurrentProgramSceneRequestData>
+        {
+            public OBSMessageSetCurrentProgramSceneRequest(string sceneName) : base()
+            {
+                this.Data.RequestType = "SetCurrentProgramScene";
+                this.Data.Data = new SetCurrentProgramSceneRequestData { SceneName = sceneName };
+            }
+        }
+
+        private class SetCurrentProgramSceneRequestData
+        {
+            [JsonProperty("sceneName")]
+            public string SceneName { get; set; }
+        }
+
+        private class OBSMessageSetCurrentSceneCollectionRequest : OBSMessageRequest<SetCurrentSceneCollectionData>
+        {
+            public OBSMessageSetCurrentSceneCollectionRequest(string sceneCollectionName) : base()
+            {
+                this.Data.RequestType = "SetCurrentSceneCollection";
+                this.Data.Data = new SetCurrentSceneCollectionData { SceneCollectionName = sceneCollectionName };
+            }
+        }
+
+        private class SetCurrentSceneCollectionData
+        {
+            [JsonProperty("sceneCollectionName")]
+            public string SceneCollectionName { get; set; }
+        }
+
+        private class OBSMessageGetSceneItemListRequest : OBSMessageRequest<GetSceneItemListRequestData>
+        {
+            public OBSMessageGetSceneItemListRequest(string sceneName) : base()
+            {
+                this.Data.RequestType = "GetSceneItemList";
+                this.Data.Data = new GetSceneItemListRequestData { SceneName = sceneName };
+            }
+        }
+
+        private class GetSceneItemListRequestData
+        {
+            [JsonProperty("sceneName")]
+            public string SceneName { get; set; }
+        }
+
+        private class OBSMessageGetSceneItemListResponse : OBSMessageResponse<GetSceneItemListResponseData> { }
+
+        private class GetSceneItemListResponseData
+        {
+            [JsonProperty("sceneItems")]
+            public SceneItem[] SceneItems { get; set; }
+        }
+
+        private class OBSMessageGetGroupSceneItemListRequest : OBSMessageRequest<GetGroupSceneItemListRequestData>
+        {
+            public OBSMessageGetGroupSceneItemListRequest(string groupName) : base()
+            {
+                this.Data.RequestType = "GetGroupSceneItemList";
+                this.Data.Data = new GetGroupSceneItemListRequestData { SceneName = groupName };
+            }
+        }
+
+        private class GetGroupSceneItemListRequestData
+        {
+            [JsonProperty("sceneName")]
+            public string SceneName { get; set; }
+        }
+
+        private class OBSMessageGetGroupSceneItemListResponse : OBSMessageResponse<GetGroupSceneItemListResponseData> { }
+
+        private class GetGroupSceneItemListResponseData
+        {
+            [JsonProperty("sceneItems")]
+            public SceneItem[] SceneItems { get; set; }
+        }
+
+        private class SceneItem
+        {
+            [JsonProperty("sceneItemId")]
+            public int SceneItemId { get; set; }
+
+            [JsonProperty("sourceName")]
+            public string SourceName { get; set; }
+
+            [JsonProperty("sceneItemTransform")]
+            public SceneItemTransform SceneItemTransform { get; set; }
+
+            [JsonProperty("isGroup")]
+            public bool? IsGroup { get; set; }
+
+            public string GroupName { get; set; }
+        }
+
+        private class SceneItemTransform
+        {
+            [JsonProperty("height")]
+            public float Height { get; set; }
+
+            [JsonProperty("positionX")]
+            public float PositionX { get; set; }
+
+            [JsonProperty("positionY")]
+            public float PositionY { get; set; }
+
+            [JsonProperty("rotation")]
+            public float Rotation { get; set; }
+
+            [JsonProperty("scaleX")]
+            public float ScaleX { get; set; }
+
+            [JsonProperty("scaleY")]
+            public float ScaleY { get; set; }
+
+            [JsonProperty("sourceHeight")]
+            public float SourceHeight { get; set; }
+
+            [JsonProperty("sourceWidth")]
+            public float SourceWidth { get; set; }
+
+            [JsonProperty("width")]
+            public float Width { get; set; }
+        }
+
+        private class OBSMessageSetSceneItemTransformRequest : OBSMessageRequest<SetSceneItemTransformRequestData>
+        {
+            public OBSMessageSetSceneItemTransformRequest(string sceneName, int sceneItemId, JObject sceneItemTransform) : base()
+            {
+                this.Data.RequestType = "SetSceneItemTransform";
+                this.Data.Data = new SetSceneItemTransformRequestData
+                {
+                    SceneName = sceneName,
+                    SceneItemId = sceneItemId,
+                    SceneItemTransform = sceneItemTransform,
+                };
+            }
+        }
+
+        private class SetSceneItemTransformRequestData
+        {
+            [JsonProperty("sceneName")]
+            public string SceneName { get; set; }
+
+            [JsonProperty("sceneItemId")]
+            public int SceneItemId { get; set; }
+
+            [JsonProperty("sceneItemTransform")]
+            public JObject SceneItemTransform { get; set; }
+        }
+
+        private class OBSMessageSetSceneItemEnabledRequest : OBSMessageRequest<SetSceneItemEnabledData>
+        {
+            public OBSMessageSetSceneItemEnabledRequest(string sceneName, int sceneItemId, bool sceneItemEnabled) : base()
+            {
+                this.Data.RequestType = "SetSceneItemEnabled";
+                this.Data.Data = new SetSceneItemEnabledData
+                {
+                    SceneName = sceneName,
+                    SceneItemId = sceneItemId,
+                    SceneItemEnabled = sceneItemEnabled,
+                };
+            }
+        }
+
+        private class SetSceneItemEnabledData
+        {
+            [JsonProperty("sceneName")]
+            public string SceneName { get; set; }
+
+            [JsonProperty("sceneItemId")]
+            public int SceneItemId { get; set; }
+
+            [JsonProperty("sceneItemEnabled")]
+            public bool SceneItemEnabled { get; set; }
+        }
+
+        private class OBSMessageGetInputSettingsRequest : OBSMessageRequest<GetInputSettingsData>
+        {
+            public OBSMessageGetInputSettingsRequest(string sourceName) : base()
+            {
+                this.Data.RequestType = "GetInputSettings";
+                this.Data.Data = new GetInputSettingsData { InputName = sourceName };
+            }
+        }
+
+        private class GetInputSettingsData
+        {
+            [JsonProperty("inputName")]
+            public string InputName { get; set; }
+        }
+
+        private class OBSMessageGetInputSettingsResponse : OBSMessageResponse<GetInputSettingsResponseData> { }
+
+        private class GetInputSettingsResponseData
+        {
+            [JsonProperty("inputSettings")]
+            public JObject InputSettings { get; set; }
+
+            [JsonProperty("inputKind")]
+            public string InputKind { get; set; }
+        }
+
+        private class OBSMessageSetInputSettingsRequest : OBSMessageRequest<SetInputSettingsData>
+        {
+            public OBSMessageSetInputSettingsRequest(string sourceName, JObject settings) : base()
+            {
+                this.Data.RequestType = "SetInputSettings";
+                this.Data.Data = new SetInputSettingsData
+                {
+                    InputName = sourceName,
+                    InputSettings = settings,
+                };
+            }
+        }
+
+        private class SetInputSettingsData
+        {
+            [JsonProperty("inputName")]
+            public string InputName { get; set; }
+
+            [JsonProperty("inputSettings")]
+            public JObject InputSettings { get; set; }
+        }
+
+        private class OBSMessageSetSourceFilterEnabledRequest : OBSMessageRequest<SetSourceFilterEnabledData>
+        {
+            public OBSMessageSetSourceFilterEnabledRequest(string sourceName, string filterName, bool filterEnabled) : base()
+            {
+                this.Data.RequestType = "SetSourceFilterEnabled";
+                this.Data.Data = new SetSourceFilterEnabledData
+                {
+                    SourceName = sourceName,
+                    FilterName = filterName,
+                    FilterEnabled = filterEnabled,
+                };
+            }
+        }
+
+        private class SetSourceFilterEnabledData
+        {
+            [JsonProperty("sourceName")]
+            public string SourceName { get; set; }
+
+            [JsonProperty("filterName")]
+            public string FilterName { get; set; }
+
+            [JsonProperty("filterEnabled")]
+            public bool FilterEnabled { get; set; }
+        }
+
+        private class OBSMessageSaveSourceScreenshotRequest : OBSMessageRequest<SaveSourceScreenshotRequestData>
+        {
+            public OBSMessageSaveSourceScreenshotRequest(string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight, int? imageCompressionQuality) : base()
+            {
+                this.Data.RequestType = "SaveSourceScreenshot";
+                this.Data.Data = new SaveSourceScreenshotRequestData
+                {
+                    SourceName = sourceName,
+                    ImageFormat = imageFormat,
+                    ImageFilePath = imageFilePath,
+                    ImageWidth = imageWidth,
+                    ImageHeight = imageHeight,
+                    ImageCompressionQuality = imageCompressionQuality
+                };
+            }
+        }
+
+        private class SaveSourceScreenshotRequestData
+        {
+            [JsonProperty("sourceName")]
+            public string SourceName { get; set; }
+
+            [JsonProperty("imageFormat")]
+            public string ImageFormat { get; set; }
+
+            [JsonProperty("imageFilePath")]
+            public string ImageFilePath { get; set; }
+
+            [JsonProperty("imageWidth", NullValueHandling = NullValueHandling.Ignore)]
+            public int? ImageWidth { get; set; }
+
+            [JsonProperty("imageHeight", NullValueHandling = NullValueHandling.Ignore)]
+            public int? ImageHeight { get; set; }
+
+            [JsonProperty("imageCompressionQuality", NullValueHandling = NullValueHandling.Ignore)]
+            public int? ImageCompressionQuality { get; set; }
+        }
+
+        private class OBSMessageRequest : OBSMessage<RequestData>
+        {
+            public OBSMessageRequest()
+            {
+                OpCode = 6;
+                this.Data = new RequestData { RequestId = Guid.NewGuid() };
+            }
+        }
+
+        private class OBSMessageRequest<T> : OBSMessageRequest
+        {
+            public new RequestData<T> Data
+            {
+                get => (RequestData<T>)base.Data;
+                private set => base.Data = value;
             }
 
-            throw new TimeoutException("OBS Studio connection timed out");
+            public OBSMessageRequest()
+            {
+                this.Data = new RequestData<T> { RequestId = Guid.NewGuid() };
+            }
+        }
+
+        private class RequestData
+        {
+            [JsonProperty("requestType")]
+            public string RequestType { get; set; }
+
+            [JsonProperty("requestId")]
+            public Guid RequestId { get; set; }
+        }
+
+        private class RequestData<T> : RequestData
+        {
+            [JsonProperty("requestData")]
+            public T Data { get; set; }
+        }
+
+        private class OBSMessageResponse : OBSMessage<ResponseData> { }
+
+        private class OBSMessageResponse<T> : OBSMessage<ResponseData<T>> { }
+
+        private class ResponseData
+        {
+            [JsonProperty("requestType")]
+            public string RequestType { get; set; }
+
+            [JsonProperty("requestId")]
+            public Guid RequestId { get; set; }
+
+            [JsonProperty("requestStatus")]
+            public RequestStatus Status { get; set; }
+        }
+
+        private class ResponseData<T> : ResponseData
+        {
+            [JsonProperty("responseData")]
+            public T Data { get; set; }
+        }
+
+        private class RequestStatus
+        {
+            [JsonProperty("result")]
+            public bool Result { get; set; }
+
+            [JsonProperty("code")]
+            public int Code { get; set; }
+
+            [JsonProperty("comment")]
+            public string Comment { get; set; }
         }
     }
 }
