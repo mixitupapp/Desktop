@@ -1,9 +1,7 @@
-﻿using MixItUp.Base.Model.API;
-using MixItUp.Base.Services;
-using MixItUp.Base.Util;
+﻿using MixItUp.Base.Util;
 using System;
 using System.Diagnostics;
-using System.Net.Http;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -28,26 +26,14 @@ namespace MixItUp.WPF.Controls.MainControls
         {
             try
             {
-                MixItUpUpdateModel update = await ServiceManager.Get<MixItUpService>().GetLatestUpdate();
-                if (update != null)
+                string changelogFilePath = Path.Combine(AppContext.BaseDirectory, "CHANGELOG.md");
+                if (File.Exists(changelogFilePath))
                 {
-                    using (HttpClient client = new HttpClient())
-                    {
-                        HttpResponseMessage response = await client.GetAsync(update.ChangelogLink);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            string markdown = await response.Content.ReadAsStringAsync();
-                            this.ChangelogViewer.Markdown = markdown;
-                        }
-                        else
-                        {
-                            Logger.Log(LogLevel.Warning, $"Failed to retrieve changelog from {update.ChangelogLink}: {(int)response.StatusCode} {response.ReasonPhrase}");
-                            this.ChangelogViewer.Markdown = "Unable to load changelog.";
-                        }
-                    }
+                    this.ChangelogViewer.Markdown = await File.ReadAllTextAsync(changelogFilePath);
                 }
                 else
                 {
+                    Logger.Log(LogLevel.Warning, $"Bundled changelog not found at {changelogFilePath}");
                     this.ChangelogViewer.Markdown = "No changelog available.";
                 }
             }
