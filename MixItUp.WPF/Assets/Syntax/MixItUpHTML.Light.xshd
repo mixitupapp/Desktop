@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SyntaxDefinition name="MixItUpHTMLLight" extensions=".mixhtmllight" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-    <Color name="Comment" foreground="#57606A" />
-    <Color name="Tag" foreground="#CF222E" />
-    <Color name="Attribute" foreground="#0550AE" />
-    <Color name="String" foreground="#0A3069" />
-    <Color name="Entity" foreground="#116329" />
-    <Color name="Placeholder" foreground="#8250DF" />
-    <Color name="Punctuation" foreground="#24292F" />
+    <Color name="Comment" foreground="#008000" />
+    <Color name="Tag" foreground="#0000FF" />
+    <Color name="Attribute" foreground="#001080" />
+    <Color name="String" foreground="#A31515" />
+    <Color name="Entity" foreground="#795E26" />
+    <Color name="Placeholder" foreground="#AF00DB" />
+    <Color name="Punctuation" foreground="#000000" />
 
     <RuleSet ignoreCase="true">
         <Span color="Comment" begin="&lt;!--" end="--&gt;" />

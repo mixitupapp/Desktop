@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SyntaxDefinition name="MixItUpJavaScriptLight" extensions=".mixjslight" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-    <Color name="Comment" foreground="#57606A" />
-    <Color name="String" foreground="#0A3069" />
-    <Color name="Number" foreground="#9A6700" />
-    <Color name="Placeholder" foreground="#8250DF" />
-    <Color name="Punctuation" foreground="#24292F" />
+    <Color name="Comment" foreground="#008000" />
+    <Color name="Keyword" foreground="#0000FF" />
+    <Color name="String" foreground="#A31515" />
+    <Color name="Number" foreground="#098658" />
+    <Color name="Function" foreground="#795E26" />
+    <Color name="Identifier" foreground="#001080" />
+    <Color name="Placeholder" foreground="#AF00DB" />
+    <Color name="Punctuation" foreground="#000000" />
 
     <RuleSet ignoreCase="false">
         <Span color="Comment" begin="//" end="$" />
@@ -14,7 +17,10 @@
         <Span color="String" begin="`" end="`" />
 
         <Rule color="Placeholder">\{[A-Za-z_][A-Za-z0-9_]*\}</Rule>
+        <Rule color="Keyword">\b(?:async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|export|extends|false|finally|for|function|if|import|in|instanceof|let|new|null|return|super|switch|this|throw|true|try|typeof|var|void|while|with|yield)\b</Rule>
         <Rule color="Number">\b\d+(\.\d+)?\b</Rule>
+        <Rule color="Function">\b[A-Za-z_$][A-Za-z0-9_$]*\b(?=\s*\()</Rule>
+        <Rule color="Identifier">\b[A-Za-z_$][A-Za-z0-9_$]*\b</Rule>
         <Rule color="Punctuation">[{}()\[\].,;:+\-*/%=&lt;&gt;!?|]</Rule>
     </RuleSet>
 </SyntaxDefinition>
