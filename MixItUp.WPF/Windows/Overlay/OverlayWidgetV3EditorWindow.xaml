@@ -175,7 +175,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" SyntaxHighlighting="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
@@ -192,7 +192,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" SyntaxHighlighting="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" Util:AvalonEditCustomHighlighting.Language="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
@@ -209,7 +209,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" SyntaxHighlighting="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" Util:AvalonEditCustomHighlighting.Language="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"

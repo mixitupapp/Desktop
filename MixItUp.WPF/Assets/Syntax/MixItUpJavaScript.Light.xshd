@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxDefinition name="MixItUpJavaScriptLight" extensions=".mixjslight" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+    <Color name="Comment" foreground="#57606A" />
+    <Color name="String" foreground="#0A3069" />
+    <Color name="Number" foreground="#9A6700" />
+    <Color name="Placeholder" foreground="#8250DF" />
+    <Color name="Punctuation" foreground="#24292F" />
+
+    <RuleSet ignoreCase="false">
+        <Span color="Comment" begin="//" end="$" />
+        <Span color="Comment" begin="/\*" end="\*/" />
+        <Span color="String" begin="&quot;" end="&quot;" />
+        <Span color="String" begin="'" end="'" />
+        <Span color="String" begin="`" end="`" />
+
+        <Rule color="Placeholder">\{[A-Za-z_][A-Za-z0-9_]*\}</Rule>
+        <Rule color="Number">\b\d+(\.\d+)?\b</Rule>
+        <Rule color="Punctuation">[{}()\[\].,;:+\-*/%=&lt;&gt;!?|]</Rule>
+    </RuleSet>
+</SyntaxDefinition>

@@ -88,6 +88,7 @@ namespace MixItUp.WPF
             DispatcherHelper.RegisterDispatcher(new WindowsDispatcher(this.Dispatcher));
 
             DialogHelper.Initialize(new WPFDialogShower());
+            AvalonEditCustomHighlighting.Initialize();
 
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;

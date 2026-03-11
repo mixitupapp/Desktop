@@ -97,6 +97,12 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 	</ItemGroup>
   <ItemGroup Label="Resources">
     <Resource Include="Logo.png" />
+    <Resource Include="Assets\Syntax\MixItUpHTML.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpCSS.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpJavaScript.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpHTML.Light.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpCSS.Light.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpJavaScript.Light.xshd" />
     <Resource Include="Assets\Images\mixitup_logo-full_color-light_xl.png" />
     <Resource Include="Assets\Images\CommandExample.png" />
     <Resource Include="Assets\Images\ExampleRecipe.png" />   

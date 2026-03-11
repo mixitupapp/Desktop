@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxDefinition name="MixItUpCSS" extensions=".mixcss" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+    <Color name="Comment" foreground="#8B949E" />
+    <Color name="AtRule" foreground="#FF7B72" />
+    <Color name="Selector" foreground="#D2A8FF" />
+    <Color name="Property" foreground="#79C0FF" />
+    <Color name="String" foreground="#A5D6FF" />
+    <Color name="Number" foreground="#E3B341" />
+    <Color name="Placeholder" foreground="#D2A8FF" />
+    <Color name="Punctuation" foreground="#C9D1D9" />
+
+    <RuleSet ignoreCase="true">
+        <Span color="Comment" begin="/\*" end="\*/" />
+        <Span color="String" begin="&quot;" end="&quot;" />
+        <Span color="String" begin="'" end="'" />
+
+        <Rule color="Placeholder">\{[A-Za-z_][A-Za-z0-9_]*\}</Rule>
+        <Rule color="AtRule">@[A-Za-z_-][A-Za-z0-9_-]*</Rule>
+        <Rule color="Property">\b[A-Za-z-]+\b(?=\s*:)</Rule>
+        <Rule color="Selector">[#.]?[A-Za-z_][A-Za-z0-9_-]*(?=\s*\{)</Rule>
+        <Rule color="Number">-?\d+(\.\d+)?(%|[A-Za-z]+)?</Rule>
+
+        <Rule color="Punctuation">[{}:;(),]</Rule>
+    </RuleSet>
+</SyntaxDefinition>

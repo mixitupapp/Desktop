@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SyntaxDefinition name="MixItUpHTML" extensions=".mixhtml" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+    <Color name="Comment" foreground="#8B949E" />
+    <Color name="Tag" foreground="#FF7B72" />
+    <Color name="Attribute" foreground="#79C0FF" />
+    <Color name="String" foreground="#A5D6FF" />
+    <Color name="Entity" foreground="#7EE787" />
+    <Color name="Placeholder" foreground="#D2A8FF" />
+    <Color name="Punctuation" foreground="#C9D1D9" />
+
+    <RuleSet ignoreCase="true">
+        <Span color="Comment" begin="&lt;!--" end="--&gt;" />
+        <Rule color="Placeholder">\{[A-Za-z_][A-Za-z0-9_]*\}</Rule>
+        <Rule color="Entity">&amp;[A-Za-z0-9#]+;</Rule>
+        <Span color="Tag" begin="&lt;/?[A-Za-z][A-Za-z0-9:_-]*" end="&gt;" ruleSet="TagAttributes" />
+    </RuleSet>
+
+    <RuleSet name="TagAttributes" ignoreCase="false">
+        <Rule color="Attribute">\b[A-Za-z_:][A-Za-z0-9:._-]*(?=\s*=)</Rule>
+        <Span color="String" begin="&quot;" end="&quot;" />
+        <Span color="String" begin="'" end="'" />
+        <Rule color="Placeholder">\{[A-Za-z_][A-Za-z0-9_]*\}</Rule>
+        <Rule color="Punctuation">[/=]</Rule>
+    </RuleSet>
+</SyntaxDefinition>

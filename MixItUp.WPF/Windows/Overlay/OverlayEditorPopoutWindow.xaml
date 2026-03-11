@@ -80,7 +80,7 @@
                     <avalonEdit:TextEditor
                         x:Name="HtmlEditor"
                         Util:AvalonEditBehaviour.Text="{Binding HTML}"
-                        SyntaxHighlighting="HTML"
+                        Util:AvalonEditCustomHighlighting.Language="HTML"
                         ShowLineNumbers="True"
                         FontFamily="Consolas"
                         Background="{DynamicResource MaterialDesignPaper}"
@@ -93,7 +93,7 @@
                     <avalonEdit:TextEditor
                         x:Name="CssEditor"
                         Util:AvalonEditBehaviour.Text="{Binding CSS}"
-                        SyntaxHighlighting="CSS"
+                        Util:AvalonEditCustomHighlighting.Language="CSS"
                         ShowLineNumbers="True"
                         FontFamily="Consolas"
                         Background="{DynamicResource MaterialDesignPaper}"
@@ -106,7 +106,7 @@
                     <avalonEdit:TextEditor
                         x:Name="JavascriptEditor"
                         Util:AvalonEditBehaviour.Text="{Binding Javascript}"
-                        SyntaxHighlighting="JavaScript"
+                        Util:AvalonEditCustomHighlighting.Language="JavaScript"
                         ShowLineNumbers="True"
                         FontFamily="Consolas"
                         Background="{DynamicResource MaterialDesignPaper}"
