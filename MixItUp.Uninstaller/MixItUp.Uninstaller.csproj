@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
 	</ItemGroup>
 
 	<ItemGroup>
