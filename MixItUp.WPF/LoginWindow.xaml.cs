@@ -185,13 +185,22 @@ namespace MixItUp.WPF
 
                 bool hasNewerVersion = updateVersion > currentVersion;
                 bool semverMatches = VersionHelper.SemVerEquals(currentVersion, this.currentUpdate.Version);
+                bool isMandatory = this.currentUpdate.Mandatory;
 
-                if (hasNewerVersion || (this.currentUpdate.Mandatory && !semverMatches))
+                if (hasNewerVersion || (isMandatory && !semverMatches))
                 {
                     updateFound = true;
 
-                    UpdateWindow window = new UpdateWindow(this.currentUpdate);
-                    window.Show();
+                    UpdateWindow window = new UpdateWindow(this.currentUpdate, isMandatory);
+                    if (isMandatory)
+                    {
+                        window.Owner = this;
+                        window.ShowDialog();
+                    }
+                    else
+                    {
+                        window.Show();
+                    }
                 }
             }
         }
