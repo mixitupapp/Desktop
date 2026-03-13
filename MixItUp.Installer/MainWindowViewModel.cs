@@ -1008,41 +1008,64 @@ namespace MixItUp.Installer
                 this.IsOperationIndeterminate = true;
                 this.OperationProgress = 0;
 
-                if (!Directory.Exists(StartMenuDirectory))
+                bool startMenuCreated = this.CreateShortcutFile(StartMenuShortCutFilePath);
+                bool desktopCreated = this.CreateShortcutFile(DesktopShortCutFilePath);
+
+                if (startMenuCreated && desktopCreated)
                 {
-                    Directory.CreateDirectory(StartMenuDirectory);
+                    this.WriteToLogFile("Start Menu and Desktop shortcuts created successfully.");
+                    return true;
                 }
 
-                if (Directory.Exists(StartMenuDirectory))
+                if (startMenuCreated)
                 {
-                    string tempLinkFilePath = Path.Combine(DefaultInstallDirectory, "Mix It Up.link");
-                    if (File.Exists(tempLinkFilePath))
-                    {
-                        File.Copy(tempLinkFilePath, StartMenuShortCutFilePath, overwrite: true);
-                        if (File.Exists(StartMenuShortCutFilePath))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            File.Copy(tempLinkFilePath, DesktopShortCutFilePath, overwrite: true);
-                            if (File.Exists(DesktopShortCutFilePath))
-                            {
-                                this.WriteToLogFile("Start Menu shortcut could not be created, but Desktop shortcut was created.");
-                            }
-                            else
-                            {
-                                this.WriteToLogFile("Failed to create Start Menu and Desktop shortcuts.");
-                            }
-                        }
-                    }
+                    this.WriteToLogFile("Desktop shortcut could not be created.");
+                    return true;
                 }
+
+                if (desktopCreated)
+                {
+                    this.WriteToLogFile("Start Menu shortcut could not be created.");
+                    return true;
+                }
+
+                this.WriteToLogFile("Failed to create Start Menu and Desktop shortcuts.");
             }
             catch (Exception ex)
             {
                 this.WriteToLogFile("Shortcut creation threw an exception: " + ex);
             }
             return false;
+        }
+
+        private bool CreateShortcutFile(string shortcutPath)
+        {
+            string executablePath = Path.Combine(this.installDirectory, "MixItUp.exe");
+            if (!File.Exists(executablePath))
+            {
+                return false;
+            }
+
+            string shortcutDirectory = Path.GetDirectoryName(shortcutPath);
+            if (!string.IsNullOrEmpty(shortcutDirectory) && !Directory.Exists(shortcutDirectory))
+            {
+                Directory.CreateDirectory(shortcutDirectory);
+            }
+
+            Type shellType = Type.GetTypeFromProgID("WScript.Shell");
+            if (shellType == null)
+            {
+                return false;
+            }
+
+            dynamic shell = Activator.CreateInstance(shellType);
+            dynamic shortcut = shell.CreateShortcut(shortcutPath);
+            shortcut.TargetPath = executablePath;
+            shortcut.WorkingDirectory = this.installDirectory;
+            shortcut.IconLocation = executablePath + ",0";
+            shortcut.Save();
+
+            return File.Exists(shortcutPath);
         }
 
         private void ShowNetworkRetryError(string detailMessage = null)
