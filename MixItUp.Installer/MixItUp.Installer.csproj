@@ -28,6 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Reference Include="Microsoft.CSharp" />
 		<Reference Include="System.IO.Compression" />
 		<Reference Include="System.IO.Compression.FileSystem" />
 		<Reference Include="System.Runtime.Serialization" />
