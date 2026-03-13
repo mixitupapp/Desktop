@@ -43,6 +43,19 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public ICommand ClearChatCommand { get; private set; }
 
+        public bool ShowTopActionButtons
+        {
+            get { return this.showTopActionButtons; }
+            set
+            {
+                this.showTopActionButtons = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool showTopActionButtons = true;
+
+        public ICommand ToggleTopActionButtonsCommand { get; private set; }
+
         public string EnableDisableChatButtonText
         {
             get
@@ -80,6 +93,11 @@ namespace MixItUp.Base.ViewModel.MainControls
         public ChatMainControlViewModel(MainWindowViewModel windowViewModel)
             : base(windowViewModel)
         {
+            this.ToggleTopActionButtonsCommand = this.CreateCommand(() =>
+            {
+                this.ShowTopActionButtons = !this.ShowTopActionButtons;
+            });
+
             this.ClearChatCommand = this.CreateCommand(async () =>
             {
                 if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.ClearChatConfirmation))
