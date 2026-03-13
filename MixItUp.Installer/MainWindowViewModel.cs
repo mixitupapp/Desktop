@@ -351,7 +351,7 @@ namespace MixItUp.Installer
                             {
                                 if (!this.CreateMixItUpShortcut())
                                 {
-                                    this.WriteToLogFile("Shortcut creation did not complete successfully. Installation will still be treated as successful.");
+                                    this.WriteToLogFile("Shortcut creation did not complete successfully.");
                                 }
 
                                 result = true;
