@@ -347,8 +347,13 @@ namespace MixItUp.Installer
 
                         if (await this.DownloadPackageAsync(update))
                         {
-                            if (this.InstallMixItUp() && this.CreateMixItUpShortcut())
+                            if (this.InstallMixItUp())
                             {
+                                if (!this.CreateMixItUpShortcut())
+                                {
+                                    this.WriteToLogFile("Shortcut creation did not complete successfully. Installation will still be treated as successful.");
+                                }
+
                                 result = true;
                             }
                         }
@@ -734,6 +739,7 @@ namespace MixItUp.Installer
 
                 this.OperationProgress = 100;
                 this.CleanupTemporaryDownload();
+                this.WriteToLogFile("Installation files updated successfully.");
                 return true;
             }
             catch (UnauthorizedAccessException uaex)
@@ -1022,11 +1028,11 @@ namespace MixItUp.Installer
                             File.Copy(tempLinkFilePath, DesktopShortCutFilePath, overwrite: true);
                             if (File.Exists(DesktopShortCutFilePath))
                             {
-                                this.ShowError("We were unable to create the Start Menu shortcut.", "You can instead use the Desktop shortcut to launch Mix It Up");
+                                this.WriteToLogFile("Start Menu shortcut could not be created, but Desktop shortcut was created.");
                             }
                             else
                             {
-                                this.ShowError("We were unable to create the Start Menu & Desktop shortcuts.", "Email support@mixitupapp.com to help diagnose this issue further.");
+                                this.WriteToLogFile("Failed to create Start Menu and Desktop shortcuts.");
                             }
                         }
                     }
@@ -1034,7 +1040,7 @@ namespace MixItUp.Installer
             }
             catch (Exception ex)
             {
-                this.WriteToLogFile(ex.ToString());
+                this.WriteToLogFile("Shortcut creation threw an exception: " + ex);
             }
             return false;
         }
