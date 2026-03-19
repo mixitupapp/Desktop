@@ -197,7 +197,7 @@ namespace MixItUp.Base.Services
                 {
                     Logger.Log(LogLevel.Error, "Settings save operation failed");
                     Logger.Log(ex);
-                    await DialogHelper.ShowMessage("WARNING: Failed to save user settings. Please visit the Mix it Up Discord for assistance.");
+                    //await DialogHelper.ShowMessage("WARNING: Failed to save user settings. Please visit the Mix it Up Discord for assistance.");
                 }
                 finally
                 {
