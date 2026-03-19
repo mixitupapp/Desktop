@@ -4,11 +4,13 @@ using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using MixItUp.Base.ViewModel.User;
 using MixItUp.Base.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -121,6 +123,8 @@ namespace MixItUp.Base.ViewModel.Currency
         public ICommand DeleteItemCommand { get; private set; }
 
         public ICommand ManualResetCommand { get; private set; }
+
+        public ICommand ExportToFileCommand { get; private set; }
 
         public bool ShopEnabled
         {
@@ -304,6 +308,27 @@ namespace MixItUp.Base.ViewModel.Currency
                     if (await DialogHelper.ShowConfirmation(Resources.ResetAllItemPrompt))
                     {
                         await this.Inventory.Reset();
+                    }
+                }
+            });
+
+            this.ExportToFileCommand = this.CreateCommand(async () =>
+            {
+                if (this.Inventory != null)
+                {
+                    await ServiceManager.Get<UserService>().LoadAllUserData();
+                    string filePath = ServiceManager.Get<IFileService>().ShowSaveFileDialog(this.Inventory.Name + " Data.txt", MixItUp.Base.Resources.TextFileFormatFilter);
+                    if (!string.IsNullOrEmpty(filePath))
+                    {
+                        List<InventoryItemModel> items = this.Inventory.Items.Values.ToList();
+                        StringBuilder fileContents = new StringBuilder();
+                        fileContents.AppendLine("UserID\tPlatform\tPlatformID\tUsername\t" + string.Join("\t", items.Select(i => i.Name)));
+                        foreach (UserV2Model userData in ChannelSession.Settings.Users.Values.ToList())
+                        {
+                            UserV2ViewModel user = new UserV2ViewModel(userData);
+                            fileContents.AppendLine(string.Format("{0}\t{1}\t{2}\t{3}\t{4}", user.ID, user.Platform, user.PlatformID, user.Username, string.Join("\t", items.Select(i => this.Inventory.GetAmount(user, i).ToString()))));
+                        }
+                        await ServiceManager.Get<IFileService>().SaveFile(filePath, fileContents.ToString());
                     }
                 }
             });
