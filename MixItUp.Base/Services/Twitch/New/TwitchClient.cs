@@ -915,7 +915,7 @@ namespace MixItUp.Base.Services.Twitch.New
                     if (emote != null)
                     {
                         parameters.SpecialIdentifiers["emotename"] = emote.Name;
-                        parameters.SpecialIdentifiers["emoteurl"] = emote.OverlayAnimatedImageURL;
+                        parameters.SpecialIdentifiers["emoteurl"] = emote.OverlayAnimatedOrStaticImageURL;
 
                         await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPowerUpGigantifiedEmote, parameters);
                     }

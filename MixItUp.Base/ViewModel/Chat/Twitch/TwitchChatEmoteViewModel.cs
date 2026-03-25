@@ -32,6 +32,11 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
             this.Name = text;
 
             this.ImageURL = this.BuildV2EmoteURL("default", ChatEmoteModel.DarkThemeName, ChatEmoteModel.Scale3Name);
+            if (emote.HasAnimated)
+            {
+                this.IsAnimated = true;
+                this.AnimatedImageURL = this.BuildV2EmoteURL(ChatEmoteModel.AnimatedFormatName, ChatEmoteModel.DarkThemeName, ChatEmoteModel.Scale3Name);
+            }
         }
 
         private string BuildV2EmoteURL(string type, string theme, string size) { return $"https://static-cdn.jtvnw.net/emoticons/v2/{this.ID}/{type}/{theme}/{size}"; }
