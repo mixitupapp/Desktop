@@ -262,14 +262,18 @@ if ($productKey -eq "desktop") {
 
 Write-Host "Updating Assembly Versions to $assemblyVersion..."
 
-Update-Csproj (Join-Path $desktopDir "APIs\MixItUp.API\MixItUp.API.csproj") $assemblyVersion | Out-Null
-Update-Csproj (Join-Path $desktopDir "MixItUp.Base\MixItUp.Base.csproj") $assemblyVersion | Out-Null
-Update-Csproj (Join-Path $desktopDir "MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj") $assemblyVersion | Out-Null
-Update-Csproj (Join-Path $desktopDir "MixItUp.WPF\MixItUp.WPF.csproj") $assemblyVersion | Out-Null
+if ($productKey -eq "desktop") {
+    Update-Csproj (Join-Path $desktopDir "APIs\MixItUp.API\MixItUp.API.csproj") $assemblyVersion | Out-Null
+    Update-Csproj (Join-Path $desktopDir "MixItUp.Base\MixItUp.Base.csproj") $assemblyVersion | Out-Null
+    Update-Csproj (Join-Path $desktopDir "MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj") $assemblyVersion | Out-Null
+    Update-Csproj (Join-Path $desktopDir "MixItUp.WPF\MixItUp.WPF.csproj") $assemblyVersion | Out-Null
 
-Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.Reporter\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
-Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.Uninstaller\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
-Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.WPF\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
+    Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.Reporter\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
+    Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.Uninstaller\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
+    Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.WPF\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
+} else {
+    Update-Csproj (Join-Path $desktopDir "MixItUp.Installer\MixItUp.Installer.csproj") $assemblyVersion | Out-Null
+}
 
 if ($cleanArtifactDir) {
     Remove-Item -LiteralPath $artifactDir -Recurse -Force -ErrorAction SilentlyContinue
@@ -305,27 +309,42 @@ Write-Host "Cleaning Solution..."
 & dotnet clean (Join-Path $desktopDir "mixer-mixitup.sln") -c Release
 if ($LASTEXITCODE -ne 0) { Fail }
 
-Write-Host "Publishing WPF Application..."
-if (Test-Path -LiteralPath $publishOutputDir) {
-    Remove-Item -LiteralPath $publishOutputDir -Recurse -Force -ErrorAction SilentlyContinue
-}
-New-Item -ItemType Directory -Path $publishOutputDir -Force | Out-Null
-& dotnet publish (Join-Path $desktopDir "MixItUp.WPF\MixItUp.WPF.csproj") -c Release -r win-x64 --self-contained -o $publishOutputDir
-if ($LASTEXITCODE -ne 0) { Fail }
-
 $installerExe = Join-Path $desktopDir "MixItUp.Installer\bin\Release\net48\MixItUp-Setup.exe"
+
+if ($productKey -eq "desktop") {
+    Write-Host "Publishing WPF Application..."
+    if (Test-Path -LiteralPath $publishOutputDir) {
+        Remove-Item -LiteralPath $publishOutputDir -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    New-Item -ItemType Directory -Path $publishOutputDir -Force | Out-Null
+    & dotnet publish (Join-Path $desktopDir "MixItUp.WPF\MixItUp.WPF.csproj") -c Release -r win-x64 --self-contained -o $publishOutputDir
+    if ($LASTEXITCODE -ne 0) { Fail }
+} else {
+    Write-Host "Building Installer..."
+    & dotnet build (Join-Path $desktopDir "MixItUp.Installer\MixItUp.Installer.csproj") -c Release
+    if ($LASTEXITCODE -ne 0) { Fail }
+
+    if (-not (Test-Path -LiteralPath $installerExe)) {
+        Write-Host "Installer executable not found at \"$installerExe\" after build."
+        Fail
+    }
+}
+
 if ($doSign) {
     Write-Host "Signing Binaries..."
     $filesToSign = @()
-    if (Test-Path -LiteralPath $installerExe) {
+    if ($productKey -eq "desktop") {
+        if (Test-Path -LiteralPath $installerExe) {
+            $filesToSign += $installerExe
+        }
+        Push-Location $publishOutputDir | Out-Null
+        $foundFiles = Get-ChildItem -Recurse -File -Include "MixItUp*.exe","MixItUp*.dll"
+        Pop-Location | Out-Null
+        if ($foundFiles) {
+            $filesToSign += $foundFiles.FullName
+        }
+    } else {
         $filesToSign += $installerExe
-    }
-
-    Push-Location $publishOutputDir | Out-Null
-    $foundFiles = Get-ChildItem -Recurse -File -Include "MixItUp*.exe","MixItUp*.dll"
-    Pop-Location | Out-Null
-    if ($foundFiles) {
-        $filesToSign += $foundFiles.FullName
     }
 
     if ($filesToSign.Count -eq 0) {
@@ -343,19 +362,21 @@ if ($doSign) {
     }
 }
 
-Write-Host "Creating MixItUp.zip..."
-$zipPath = Join-Path $publishingDir "MixItUp.zip"
-if (Test-Path -LiteralPath $zipPath) {
-    Remove-Item -LiteralPath $zipPath -Force -ErrorAction SilentlyContinue
-}
-Push-Location $publishOutputDir | Out-Null
-& tar -a -c -f $zipPath *
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to create archive."
+if ($productKey -eq "desktop") {
+    Write-Host "Creating MixItUp.zip..."
+    $zipPath = Join-Path $publishingDir "MixItUp.zip"
+    if (Test-Path -LiteralPath $zipPath) {
+        Remove-Item -LiteralPath $zipPath -Force -ErrorAction SilentlyContinue
+    }
+    Push-Location $publishOutputDir | Out-Null
+    & tar -a -c -f $zipPath *
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Failed to create archive."
+        Pop-Location | Out-Null
+        Fail
+    }
     Pop-Location | Out-Null
-    Fail
 }
-Pop-Location | Out-Null
 
 Write-Host "Copying Installer..."
 if (Test-Path -LiteralPath $installerExe) {
@@ -365,7 +386,12 @@ if (Test-Path -LiteralPath $installerExe) {
         Fail
     }
 } else {
-    Write-Host "Installer executable not found at \"$installerExe\". Skipping copy."
+    if ($productKey -eq "installer") {
+        Write-Host "Installer executable not found at \"$installerExe\"."
+        Fail
+    } else {
+        Write-Host "Installer executable not found at \"$installerExe\". Skipping copy."
+    }
 }
 
 Write-Host ""
