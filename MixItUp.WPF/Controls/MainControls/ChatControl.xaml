@@ -33,7 +33,10 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <WrapPanel Grid.Column="0" HorizontalAlignment="Center" Margin="5,0">
+                    <WrapPanel Grid.Column="0"
+                               HorizontalAlignment="Center"
+                               Margin="5,0"
+                               Visibility="{Binding ShowTopActionButtons, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Button x:Name="DashboardButton" MinWidth="100" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="DashboardButton_Click" Content="{x:Static resx:Resources.Dashboard}" />
 
                         <Button Command="{Binding ClearChatCommand}" MinWidth="100" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" Content="{x:Static resx:Resources.ClearChat}" />
@@ -43,7 +46,20 @@
                         <Button Command="{Binding PauseUnpauseCommandsCommand}" Content="{Binding PauseUnpauseCommandsButtonText}" MinWidth="165" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" />
                     </WrapPanel>
 
-                    <Grid Grid.Column="2" Visibility="{Binding ShowViewerAndChatterNumbers, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Center" Height="20">
+                    <Grid Grid.Column="1" HorizontalAlignment="Center" Height="20">
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowViewerAndChatterNumbers}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ShowTopActionButtons}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="5" />
@@ -52,31 +68,72 @@
 
                         <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding ViewersCount}" />
                         <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.WatchingNow}" />
-                        
                     </Grid>
                 </Grid>
             </GroupBox.Header>
 
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                <ChatControls:ChatListControl x:Name="ChatList" Grid.Column="0" />
+                    <ChatControls:ChatListControl x:Name="ChatList" Grid.Column="0" />
 
-                <GridSplitter x:Name="ChatSplitter" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5" />
+                    <GridSplitter x:Name="ChatSplitter" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5" />
 
-                <ListView x:Name="UserList" ItemsSource="{Binding DisplayUsers}" ContextMenu="{StaticResource UserListContextMenu}" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="2" VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" MinWidth="200">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ChatControls:ChatUserControl DataContext="{Binding}" Grid.Column="0" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    <ListView x:Name="UserList" ItemsSource="{Binding DisplayUsers}" ContextMenu="{StaticResource UserListContextMenu}" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="2" VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" MinWidth="200">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ChatControls:ChatUserControl DataContext="{Binding}" Grid.Column="0" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                    <Button Grid.Column="0"
+                            Width="16"
+                            Height="16"
+                            MinWidth="0"
+                            MinHeight="0"
+                            Padding="0"
+                            Margin="0,4,4,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Panel.ZIndex="5"
+                            Background="Transparent"
+                            BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+                            BorderThickness="1"
+                            Command="{Binding ToggleTopActionButtonsCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                                <Setter Property="Opacity" Value="0.65" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="1" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <MaterialDesign:PackIcon Width="10"
+                                                 Height="10"
+                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                                 Kind="ChevronUp">
+                            <MaterialDesign:PackIcon.Style>
+                                <Style TargetType="{x:Type MaterialDesign:PackIcon}">
+                                    <Setter Property="Kind" Value="ChevronUp" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ShowTopActionButtons}" Value="False">
+                                            <Setter Property="Kind" Value="ChevronDown" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </MaterialDesign:PackIcon.Style>
+                        </MaterialDesign:PackIcon>
+                    </Button>
+                </Grid>
             </Grid>
-
         </GroupBox>
     </Grid>
 </local:MainControlBase>

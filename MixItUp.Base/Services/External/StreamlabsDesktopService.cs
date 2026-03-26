@@ -340,7 +340,7 @@ namespace MixItUp.Base.Services.External
                     X = (int)sceneItem.Transform.Position.X,
                     Y = (int)sceneItem.Transform.Position.Y,
                     XScale = (int)sceneItem.Transform.Scale.X,
-                    YScale = (int)sceneItem.Transform.Scale.X,
+                    YScale = (int)sceneItem.Transform.Scale.Y,
                     Rotation = (int)sceneItem.Transform.Rotation
                 };
             }

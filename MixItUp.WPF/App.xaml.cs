@@ -81,14 +81,14 @@ namespace MixItUp.WPF
 
             RegistryHelpers.RegisterFileAssociation();
             RegistryHelpers.RegisterURIActivationProtocol();
-            // Disabled for now until we can figure out why anti-virus hates it
-            // RegistryHelpers.RegisterUninstaller();
+            //RegistryHelpers.RegisterUninstaller(); // Disabled for now
 
             FileLoggerHandler.Initialize();
 
             DispatcherHelper.RegisterDispatcher(new WindowsDispatcher(this.Dispatcher));
 
             DialogHelper.Initialize(new WPFDialogShower());
+            AvalonEditCustomHighlighting.Initialize();
 
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;

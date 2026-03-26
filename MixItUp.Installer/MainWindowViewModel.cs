@@ -347,8 +347,13 @@ namespace MixItUp.Installer
 
                         if (await this.DownloadPackageAsync(update))
                         {
-                            if (this.InstallMixItUp() && this.CreateMixItUpShortcut())
+                            if (this.InstallMixItUp())
                             {
+                                if (!this.CreateMixItUpShortcut())
+                                {
+                                    this.WriteToLogFile("Shortcut creation did not complete successfully.");
+                                }
+
                                 result = true;
                             }
                         }
@@ -734,6 +739,7 @@ namespace MixItUp.Installer
 
                 this.OperationProgress = 100;
                 this.CleanupTemporaryDownload();
+                this.WriteToLogFile("Installation files updated successfully.");
                 return true;
             }
             catch (UnauthorizedAccessException uaex)
@@ -1002,41 +1008,64 @@ namespace MixItUp.Installer
                 this.IsOperationIndeterminate = true;
                 this.OperationProgress = 0;
 
-                if (!Directory.Exists(StartMenuDirectory))
+                bool startMenuCreated = this.CreateShortcutFile(StartMenuShortCutFilePath);
+                bool desktopCreated = this.CreateShortcutFile(DesktopShortCutFilePath);
+
+                if (startMenuCreated && desktopCreated)
                 {
-                    Directory.CreateDirectory(StartMenuDirectory);
+                    this.WriteToLogFile("Start Menu and Desktop shortcuts created successfully.");
+                    return true;
                 }
 
-                if (Directory.Exists(StartMenuDirectory))
+                if (startMenuCreated)
                 {
-                    string tempLinkFilePath = Path.Combine(DefaultInstallDirectory, "Mix It Up.link");
-                    if (File.Exists(tempLinkFilePath))
-                    {
-                        File.Copy(tempLinkFilePath, StartMenuShortCutFilePath, overwrite: true);
-                        if (File.Exists(StartMenuShortCutFilePath))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            File.Copy(tempLinkFilePath, DesktopShortCutFilePath, overwrite: true);
-                            if (File.Exists(DesktopShortCutFilePath))
-                            {
-                                this.ShowError("We were unable to create the Start Menu shortcut.", "You can instead use the Desktop shortcut to launch Mix It Up");
-                            }
-                            else
-                            {
-                                this.ShowError("We were unable to create the Start Menu & Desktop shortcuts.", "Email support@mixitupapp.com to help diagnose this issue further.");
-                            }
-                        }
-                    }
+                    this.WriteToLogFile("Desktop shortcut could not be created.");
+                    return true;
                 }
+
+                if (desktopCreated)
+                {
+                    this.WriteToLogFile("Start Menu shortcut could not be created.");
+                    return true;
+                }
+
+                this.WriteToLogFile("Failed to create Start Menu and Desktop shortcuts.");
             }
             catch (Exception ex)
             {
-                this.WriteToLogFile(ex.ToString());
+                this.WriteToLogFile("Shortcut creation threw an exception: " + ex);
             }
             return false;
+        }
+
+        private bool CreateShortcutFile(string shortcutPath)
+        {
+            string executablePath = Path.Combine(this.installDirectory, "MixItUp.exe");
+            if (!File.Exists(executablePath))
+            {
+                return false;
+            }
+
+            string shortcutDirectory = Path.GetDirectoryName(shortcutPath);
+            if (!string.IsNullOrEmpty(shortcutDirectory) && !Directory.Exists(shortcutDirectory))
+            {
+                Directory.CreateDirectory(shortcutDirectory);
+            }
+
+            Type shellType = Type.GetTypeFromProgID("WScript.Shell");
+            if (shellType == null)
+            {
+                return false;
+            }
+
+            dynamic shell = Activator.CreateInstance(shellType);
+            dynamic shortcut = shell.CreateShortcut(shortcutPath);
+            shortcut.TargetPath = executablePath;
+            shortcut.WorkingDirectory = this.installDirectory;
+            shortcut.IconLocation = executablePath + ",0";
+            shortcut.Save();
+
+            return File.Exists(shortcutPath);
         }
 
         private void ShowNetworkRetryError(string detailMessage = null)

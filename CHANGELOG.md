@@ -1,5 +1,15 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.313
+
+[MAINT]: Refactor Websocket handling for various services (VTube Studio, Voicemod, Discord, T.I.T.S, VTSPog, and InfiniteAlbum)
+[MAINT]: Update MIU Installer error logging and shortcut creation (release v0.7.0)
+[FEAT]: Add Export Data button to inventory window
+[FIX]: Various improvements to HTML/CSS/JS Overlay UI editors
+[FIX]: Adjust mandatory update logic and update window
+[FIX]: Streamlabs Desktop minor fix for Y Scale typo
+[FIX]: Twitch gigantified emote $emoteurl
+
 ## 1.6.312
 
 - [MAINT] Update WebSocket error handling

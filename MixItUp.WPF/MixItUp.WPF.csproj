@@ -9,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-    <AssemblyVersion>1.6.312.0</AssemblyVersion>
-    <FileVersion>1.6.312.0</FileVersion>
+    <AssemblyVersion>1.6.313.0</AssemblyVersion>
+    <FileVersion>1.6.313.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -97,6 +97,12 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 	</ItemGroup>
   <ItemGroup Label="Resources">
     <Resource Include="Logo.png" />
+    <Resource Include="Assets\Syntax\MixItUpHTML.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpCSS.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpJavaScript.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpHTML.Light.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpCSS.Light.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpJavaScript.Light.xshd" />
     <Resource Include="Assets\Images\mixitup_logo-full_color-light_xl.png" />
     <Resource Include="Assets\Images\CommandExample.png" />
     <Resource Include="Assets\Images\ExampleRecipe.png" />   

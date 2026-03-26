@@ -53,6 +53,7 @@
                 Height="140"
                 materialDesign:HintAssist.Hint="{x:Static resx:Resources.IssueDescription}"
                 AcceptsReturn="True"
+                MaxLength="500"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 VerticalScrollBarVisibility="Auto" />
             <TextBox
@@ -60,6 +61,7 @@
                 Grid.Row="4"
                 Width="440"
                 materialDesign:HintAssist.Hint="{x:Static resx:Resources.Email}"
+                MaxLength="300"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}" />
             <Grid Grid.Row="6" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
