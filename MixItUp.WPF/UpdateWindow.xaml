@@ -53,50 +53,64 @@
                         Click="CloseButton_Click"
                         Style="{StaticResource MaterialDesignIconButton}"
                         ToolTip="{x:Static resx:Resources.Close}">
-                        <MaterialDesign:PackIcon Width="20" Height="20" Kind="Close" />
+                        <MaterialDesign:PackIcon
+                            Width="20"
+                            Height="20"
+                            Kind="Close" />
                     </Button>
 
-                    <StackPanel
+                    <Grid
                         x:Name="MandatoryBanner"
                         Grid.Row="1"
+                        MaxWidth="600"
                         Margin="0,0,0,15"
                         HorizontalAlignment="Center"
-                        Orientation="Horizontal"
                         Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <MaterialDesign:PackIcon
-                            Width="20" Height="20"
+                            Grid.Column="0"
+                            Width="20"
+                            Height="20"
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
                             Kind="AlertCircle" />
                         <TextBlock
+                            Grid.Column="1"
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
-                            Text="{x:Static resx:Resources.ThisUpdateIsRequired}" />
-                    </StackPanel>
+                            Text="{x:Static resx:Resources.ThisUpdateIsRequired}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                    </Grid>
 
-                    <StackPanel
+                    <Grid
                         Grid.Row="2"
+                        MaxWidth="600"
                         Margin="0,0,0,15"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
+                        HorizontalAlignment="Center">
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="22"
                             FontWeight="SemiBold"
-                            Text="{x:Static resx:Resources.ANewUpdateIsAvailableForMixItUp}" />
-                    </StackPanel>
+                            Text="{x:Static resx:Resources.ANewUpdateIsAvailableForMixItUp}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                    </Grid>
 
-                    <StackPanel
+                    <WrapPanel
                         Grid.Row="3"
                         Margin="0,0,0,15"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
                         <Border
+                            Padding="12,6"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="1"
-                            CornerRadius="6"
-                            Padding="12,6">
+                            CornerRadius="6">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     VerticalAlignment="Center"
@@ -110,15 +124,16 @@
                             </StackPanel>
                         </Border>
                         <MaterialDesign:PackIcon
-                            Width="24" Height="24"
+                            Width="24"
+                            Height="24"
                             Margin="12,0"
                             VerticalAlignment="Center"
                             Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
                             Kind="ArrowRight" />
                         <Border
+                            Padding="12,6"
                             Background="{DynamicResource MaterialDesign.Brush.Primary}"
-                            CornerRadius="6"
-                            Padding="12,6">
+                            CornerRadius="6">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     VerticalAlignment="Center"
@@ -132,7 +147,7 @@
                                     Foreground="White" />
                             </StackPanel>
                         </Border>
-                    </StackPanel>
+                    </WrapPanel>
 
                     <Border
                         x:Name="PreviewUpdateGrid"
@@ -144,17 +159,24 @@
                         CornerRadius="8"
                         Visibility="Collapsed">
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
                                 <MaterialDesign:PackIcon
-                                    Width="20" Height="20"
+                                    Grid.Column="0"
+                                    Width="20"
+                                    Height="20"
                                     Margin="0,0,8,0"
                                     VerticalAlignment="Top"
                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
                                     Kind="AlertOutline" />
                                 <TextBlock
+                                    Grid.Column="1"
                                     Text="{x:Static resx:Resources.PreviewUpdateWarning1}"
                                     TextWrapping="Wrap" />
-                            </StackPanel>
+                            </Grid>
                             <TextBlock
                                 Margin="28,6,0,0"
                                 Text="{x:Static resx:Resources.PreviewUpdateWarning2}"
@@ -200,10 +222,10 @@
                     <TextBlock
                         Grid.Row="8"
                         Margin="0,15,0,15"
-                        HorizontalAlignment="Center"
                         FontSize="12"
                         Opacity="0.6"
                         Text="{x:Static resx:Resources.IfUpdateDoesNotCompleteRestartComputer}"
+                        TextAlignment="Center"
                         TextWrapping="Wrap" />
 
                     <Controls:LoadingStatusBar
