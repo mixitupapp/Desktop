@@ -84,11 +84,23 @@ namespace MixItUp.Base.Model.Actions
                 {
                     httpClient.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
 
+                    string requestContentType = "application/json";
+
                     if (this.CustomHeaders != null)
                     {
                         foreach (var header in this.CustomHeaders)
                         {
                             string headerValue = await ReplaceStringWithSpecialModifiers(header.Value, parameters);
+
+                            if (string.Equals(header.Key, "Content-Type", StringComparison.OrdinalIgnoreCase))
+                            {
+                                if (!string.IsNullOrWhiteSpace(headerValue))
+                                {
+                                    requestContentType = headerValue;
+                                }
+                                continue;
+                            }
+
                             try
                             {
                                 httpClient.DefaultRequestHeaders.Add(header.Key, headerValue);
@@ -110,7 +122,7 @@ namespace MixItUp.Base.Model.Actions
                     if (!string.IsNullOrEmpty(this.RequestBody) && (this.HttpMethod == HttpMethodEnum.POST || this.HttpMethod == HttpMethodEnum.PUT))
                     {
                         string processedBody = await ReplaceStringWithSpecialModifiers(this.RequestBody, parameters);
-                        content = new StringContent(processedBody, Encoding.UTF8, "application/json");
+                        content = new StringContent(processedBody, Encoding.UTF8, requestContentType);
                     }
 
                     HttpResponseMessage response = null;
@@ -132,7 +144,7 @@ namespace MixItUp.Base.Model.Actions
 
                     using (response)
                     {
-                        if (string.Equals(response?.Content?.Headers?.ContentType?.CharSet, "utf8"))
+                        if (string.Equals(response?.Content?.Headers?.ContentType?.CharSet, "utf8", StringComparison.OrdinalIgnoreCase))
                         {
                             response.Content.Headers.ContentType.CharSet = "utf-8";
                         }
