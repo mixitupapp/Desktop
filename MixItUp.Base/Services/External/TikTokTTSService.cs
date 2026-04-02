@@ -57,14 +57,15 @@ namespace MixItUp.Base.Services.External
     new TextToSpeechVoice("kr_004", "Korean - Male 2"),
     new TextToSpeechVoice("kr_003", "Korean - Female"),
 
-    new TextToSpeechVoice("en_female_f08_salut_damour", "Alto"),
-    new TextToSpeechVoice("en_male_m2_xhxs_m03_silly", "Chipmunk"),
-    new TextToSpeechVoice("en_female_ht_f08_wonderful_world", "Dramatic"),
-    new TextToSpeechVoice("en_female_ht_f08_glorious", "Glorious"),
-    new TextToSpeechVoice("en_male_sing_funny_it_goes_up", "It Goes Up"),
-    new TextToSpeechVoice("en_male_m03_sunshine_soon", "Sunshine Soon"),
-    new TextToSpeechVoice("en_male_m03_lobby", "Tenor"),
-    new TextToSpeechVoice("en_female_f08_warmy_breeze", "Warmy Breeze"),
+    // Stopped working as of April 01, 2026 by TikTok
+    //new TextToSpeechVoice("en_female_f08_salut_damour", "Alto"),
+    //new TextToSpeechVoice("en_male_m2_xhxs_m03_silly", "Chipmunk"),
+    //new TextToSpeechVoice("en_female_ht_f08_wonderful_world", "Dramatic"),
+    //new TextToSpeechVoice("en_female_ht_f08_glorious", "Glorious"),
+    //new TextToSpeechVoice("en_male_sing_funny_it_goes_up", "It Goes Up"),
+    //new TextToSpeechVoice("en_male_m03_sunshine_soon", "Sunshine Soon"),
+    //new TextToSpeechVoice("en_male_m03_lobby", "Tenor"),
+    //new TextToSpeechVoice("en_female_f08_warmy_breeze", "Warmy Breeze"),
 
     new TextToSpeechVoice("en_us_c3po", "C3PO (Star Wars)"),
     new TextToSpeechVoice("en_us_chewbacca", "Chewbacca (Star Wars)"),
