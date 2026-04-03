@@ -940,6 +940,14 @@ namespace MixItUp.Base.Services.Twitch.New
             await ServiceManager.Get<ChatService>().DeleteMessage(messageDeleted.message_id);
         }
 
+        private async Task HandleWatchStreak(UserV2ViewModel user, ChatNotification notification)
+        {
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["userwatchstreak"] = notification.watch_streak.streak_count.GetValueOrDefault().ToString();
+            parameters.SpecialIdentifiers["watchstreakchannelpointsawarded"] = notification.watch_streak.channel_points_awarded.GetValueOrDefault().ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelWatchStreak, parameters);
+        }
+
         private async Task HandleChatNotification(JObject payload)
         {
             ChatNotification notification = payload.ToObject<ChatNotification>();
@@ -965,6 +973,10 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(notification, user);
                 await ServiceManager.Get<ChatService>().AddMessage(message);
+            }
+            else if (notification.NoticeType == ChatNotificationType.watch_streak)
+            {
+                await this.HandleWatchStreak(user, notification);
             }
 
             // Subs
