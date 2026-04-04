@@ -675,6 +675,9 @@ namespace MixItUp.Base.Services.Twitch.New
                     tempMassGiftedSubs.AddRange(this.pendingMassGiftedSubs.ToList().OrderBy(s => s.Processed));
                 }
 
+                List<TwitchSubcriptionEventModel> giftedSubsToRetry = new List<TwitchSubcriptionEventModel>();
+                DateTimeOffset now = DateTimeOffset.Now;
+
                 foreach (var giftedSub in tempGiftedSubs)
                 {
                     TwitchMassGiftedSubcriptionsEventModel massGiftedSub = null;
@@ -705,7 +708,22 @@ namespace MixItUp.Base.Services.Twitch.New
                     }
                     else
                     {
-                        await ProcessGiftedSub(giftedSub);
+                        if ((now - giftedSub.Processed).TotalMilliseconds >= 1500)
+                        {
+                            await ProcessGiftedSub(giftedSub);
+                        }
+                        else
+                        {
+                            giftedSubsToRetry.Add(giftedSub);
+                        }
+                    }
+                }
+
+                if (giftedSubsToRetry.Count > 0)
+                {
+                    lock (this.pendingGiftedSubs)
+                    {
+                        this.pendingGiftedSubs.AddRange(giftedSubsToRetry);
                     }
                 }
             }
