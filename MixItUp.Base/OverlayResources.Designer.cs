@@ -1189,7 +1189,7 @@ namespace MixItUp.Base {
         ///&lt;head&gt;
         ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
         ///    &lt;title&gt;Mix It Up - Overlay&lt;/title&gt;
-        ///    &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;https://mixitupapp.com/favicon.ico&quot;&gt;
+        ///    &lt;link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;https://files.mixitupapp.com/static/branding/mixitup.ico&quot;&gt;
         ///
         ///    &lt;script&gt;
         ///        var connection;
@@ -1199,7 +1199,7 @@ namespace MixItUp.Base {
         ///            openWebsocketConnectionWithAddressPort(window.location.hostname, window.location.port, path);
         ///        }
         ///
-        ///        function openWebsocketCo [rest of string was truncated]&quot;;.
+        ///        fu [rest of string was truncated]&quot;;.
         /// </summary>
         public static string OverlayMainHTML {
             get {
