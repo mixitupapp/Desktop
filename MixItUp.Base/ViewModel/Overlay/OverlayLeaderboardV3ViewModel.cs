@@ -68,16 +68,16 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private int totalToShow;
 
-        public int RefreshTime
+        public int RefreshTimeSeconds
         {
-            get { return this.refreshTime; }
+            get { return this.refreshTimeSeconds; }
             set
             {
-                this.refreshTime = value;
+                this.refreshTimeSeconds = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private int refreshTime;
+        private int refreshTimeSeconds;
 
         public string BorderColor
         {
@@ -163,7 +163,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.BackgroundColor = "White";
 
             this.TotalToShow = 5;
-            this.RefreshTime = OverlayLeaderboardV3Model.DefaultRefreshTime;
+            this.RefreshTimeSeconds = OverlayLeaderboardV3Model.DefaultRefreshTimeSeconds;
 
             this.SelectedLeaderboardType = OverlayLeaderboardTypeV3Enum.ViewingTime;
 
@@ -184,7 +184,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.BackgroundColor = item.BackgroundColor;
 
             this.TotalToShow = item.TotalToShow;
-            this.RefreshTime = (item.RefreshTime > 0) ? item.RefreshTime : OverlayLeaderboardV3Model.DefaultRefreshTime;
+            this.RefreshTimeSeconds = (item.RefreshTimeSeconds > 0) ? item.RefreshTimeSeconds : OverlayLeaderboardV3Model.DefaultRefreshTimeSeconds;
 
             this.SelectedLeaderboardType = item.LeaderboardType;
             if (this.SelectedLeaderboardType == OverlayLeaderboardTypeV3Enum.Consumable)
@@ -228,7 +228,7 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         public override Result Validate()
         {
-            if (this.RefreshTime < 1)
+            if (this.RefreshTimeSeconds < 1)
             {
                 return new Result(Resources.OverlayWidgetAValidRefreshTimeMustBeSpecified);
             }
@@ -254,7 +254,7 @@ namespace MixItUp.Base.ViewModel.Overlay
                 BackgroundColor = this.BackgroundColor,
 
                 TotalToShow = this.TotalToShow,
-                RefreshTime = (this.RefreshTime > 0) ? this.RefreshTime : OverlayLeaderboardV3Model.DefaultRefreshTime,
+                RefreshTimeSeconds = (this.RefreshTimeSeconds > 0) ? this.RefreshTimeSeconds : OverlayLeaderboardV3Model.DefaultRefreshTimeSeconds,
 
                 LeaderboardType = this.SelectedLeaderboardType,
                 TwitchBitsDataRange = this.SelectedTwitchBitsDataRange,
