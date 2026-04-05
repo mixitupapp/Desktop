@@ -68,6 +68,17 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private int totalToShow;
 
+        public int RefreshTime
+        {
+            get { return this.refreshTime; }
+            set
+            {
+                this.refreshTime = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private int refreshTime;
+
         public string BorderColor
         {
             get { return this.borderColor; }
@@ -152,6 +163,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.BackgroundColor = "White";
 
             this.TotalToShow = 5;
+            this.RefreshTime = OverlayLeaderboardV3Model.DefaultRefreshTime;
 
             this.SelectedLeaderboardType = OverlayLeaderboardTypeV3Enum.ViewingTime;
 
@@ -172,6 +184,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.BackgroundColor = item.BackgroundColor;
 
             this.TotalToShow = item.TotalToShow;
+            this.RefreshTime = (item.RefreshTime > 0) ? item.RefreshTime : OverlayLeaderboardV3Model.DefaultRefreshTime;
 
             this.SelectedLeaderboardType = item.LeaderboardType;
             if (this.SelectedLeaderboardType == OverlayLeaderboardTypeV3Enum.Consumable)
@@ -215,6 +228,11 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         public override Result Validate()
         {
+            if (this.RefreshTime < 1)
+            {
+                return new Result(Resources.OverlayWidgetAValidRefreshTimeMustBeSpecified);
+            }
+
             if (this.SelectedLeaderboardType == OverlayLeaderboardTypeV3Enum.Consumable)
             {
                 if (this.SelectedConsumable == null)
@@ -236,6 +254,7 @@ namespace MixItUp.Base.ViewModel.Overlay
                 BackgroundColor = this.BackgroundColor,
 
                 TotalToShow = this.TotalToShow,
+                RefreshTime = (this.RefreshTime > 0) ? this.RefreshTime : OverlayLeaderboardV3Model.DefaultRefreshTime,
 
                 LeaderboardType = this.SelectedLeaderboardType,
                 TwitchBitsDataRange = this.SelectedTwitchBitsDataRange,

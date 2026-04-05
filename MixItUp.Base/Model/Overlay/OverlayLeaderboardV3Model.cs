@@ -42,6 +42,7 @@ namespace MixItUp.Base.Model.Overlay
     public class OverlayLeaderboardV3Model : OverlayVisualTextV3ModelBase
     {
         public const string DetailsAmountPropertyName = "Amount";
+        public const int DefaultRefreshTime = 60;
 
         public static readonly string DefaultHTML = OverlayResources.OverlayLeaderboardDefaultHTML;
         public static readonly string DefaultCSS = OverlayResources.OverlayLeaderboardDefaultCSS + Environment.NewLine + Environment.NewLine + OverlayResources.OverlayTextDefaultCSS + Environment.NewLine + Environment.NewLine + OverlayResources.OverlayHeaderTextDefaultCSS;
@@ -68,13 +69,19 @@ namespace MixItUp.Base.Model.Overlay
         public int TotalToShow { get; set; }
 
         [DataMember]
+        public int RefreshTime { get; set; }
+
+        [DataMember]
         public OverlayAnimationV3Model ItemAddedAnimation { get; set; } = new OverlayAnimationV3Model();
         [DataMember]
         public OverlayAnimationV3Model ItemRemovedAnimation { get; set; } = new OverlayAnimationV3Model();
 
         private CancellationTokenSource cancellationTokenSource;
 
-        public OverlayLeaderboardV3Model() : base(OverlayItemV3Type.Leaderboard) { }
+        public OverlayLeaderboardV3Model() : base(OverlayItemV3Type.Leaderboard)
+        {
+            this.RefreshTime = DefaultRefreshTime;
+        }
 
         public async Task ClearLeaderboard()
         {
@@ -146,22 +153,22 @@ namespace MixItUp.Base.Model.Overlay
             }
 
             this.cancellationTokenSource = new CancellationTokenSource();
+            int refreshTimeMilliseconds = 1000 * ((this.RefreshTime > 0) ? this.RefreshTime : DefaultRefreshTime);
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.ViewingTime)
             {
-                AsyncRunner.RunAsyncBackground(this.ViewingTimeBackgroundTask, this.cancellationTokenSource.Token, 60000);
+                AsyncRunner.RunAsyncBackground(this.ViewingTimeBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
             }
             else if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.Consumable)
             {
-                if (ChannelSession.Settings.Currency.TryGetValue(this.ConsumableID, out var currency))
+                if (ChannelSession.Settings.Currency.ContainsKey(this.ConsumableID))
                 {
-                    int interval = (currency.AcquireInterval > 0) ? currency.AcquireInterval : 1;
-                    AsyncRunner.RunAsyncBackground(this.ConsumableBackgroundTask, this.cancellationTokenSource.Token, interval * 60000);
+                    AsyncRunner.RunAsyncBackground(this.ConsumableBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
                 }
             }
             else if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.TwitchBits)
             {
-                AsyncRunner.RunAsyncBackground(this.TwitchBitsBackgroundTask, this.cancellationTokenSource.Token, 60000);
+                AsyncRunner.RunAsyncBackground(this.TwitchBitsBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
             }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
