@@ -11258,4 +11258,10 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Esta atualização é necessária para continuar a utilizar o Mix It Up</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Mostrar sequências de visualização do Twitch</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} tem uma série de observação de {1}</value>
+  </data>
 </root>

@@ -11256,4 +11256,10 @@ print(run())</value>
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Це оновлення необхідне для продовження використання Mix It Up</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Показати Twitch Watch Streaks</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} має годинникову стрічку {1}</value>
+  </data>
 </root>

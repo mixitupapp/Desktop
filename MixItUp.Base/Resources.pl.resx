@@ -11256,4 +11256,10 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Ta aktualizacja jest wymagana do dalszego korzystania z Mix It Up</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Wyświetlanie pasm oglądania na Twitchu</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} ma serię obserwacyjną {1}.</value>
+  </data>
 </root>

@@ -11258,4 +11258,10 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Esta actualización es necesaria para seguir utilizando Mix It Up</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Mostrar Twitch Watch Streaks</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} tiene una Racha de Vigilancia de {1}</value>
+  </data>
 </root>

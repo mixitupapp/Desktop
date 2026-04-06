@@ -11256,4 +11256,10 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>このアップデートは、Mix It Upを使用し続けるために必要です。</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Twitchウォッチストリークの表示</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0}は{1}のウォッチストリークを持っている。</value>
+  </data>
 </root>

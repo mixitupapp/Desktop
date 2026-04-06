@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Overlay;
@@ -946,6 +946,8 @@ namespace MixItUp.Base.Services.Twitch.New
             parameters.SpecialIdentifiers["userwatchstreak"] = notification.watch_streak.streak_count.GetValueOrDefault().ToString();
             parameters.SpecialIdentifiers["watchstreakchannelpointsawarded"] = notification.watch_streak.channel_points_awarded.GetValueOrDefault().ToString();
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelWatchStreak, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchWatchStreak, user.FullDisplayName, notification.watch_streak.streak_count.GetValueOrDefault()), ChannelSession.Settings.AlertTwitchWatchStreakColor));
         }
 
         private async Task HandleChatNotification(JObject payload)

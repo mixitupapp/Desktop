@@ -11256,4 +11256,10 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>要继续使用 Mix It Up，必须进行此更新</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>显示 Twitch 观看记录</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0}的连续观察次数为{1}。</value>
+  </data>
 </root>
