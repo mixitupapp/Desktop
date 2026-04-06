@@ -594,10 +594,10 @@ namespace MixItUp.Base.Services
 
                         if (!this.userEntranceCommands.Contains(message.User.ID))
                         {
-                            this.userEntranceCommands.Add(message.User.ID);
-
                             if (!ChannelSession.Settings.UserEntranceCommandsOnlyWhenLive || StreamingPlatforms.GetPlatformSession(message.User.Platform).IsLive)
                             {
+                                this.userEntranceCommands.Add(message.User.ID);
+
                                 CommandModelBase customEntranceCommand = ChannelSession.Settings.GetCommand(message.User.EntranceCommandID);
                                 if (customEntranceCommand != null && customEntranceCommand.IsEnabled)
                                 {
