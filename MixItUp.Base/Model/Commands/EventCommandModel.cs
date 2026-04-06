@@ -88,6 +88,10 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["usersubplan"] = "Tier 1";
                     specialIdentifiers["isanonymous"] = "false";
                     break;
+                case EventTypeEnum.TwitchChannelWatchStreak:
+                    specialIdentifiers["userwatchstreak"] = "5";
+                    specialIdentifiers["watchstreakchannelpointsawarded"] = "100";
+                    break;
 
                 case EventTypeEnum.TwitchChannelHighlightedMessage:
                     specialIdentifiers["message"] = "Test Message";

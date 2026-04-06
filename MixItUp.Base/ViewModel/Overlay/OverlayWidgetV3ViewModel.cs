@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Overlay;
+using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -236,6 +236,8 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         private bool isSaving = false;
 
+        private int existingPersistentTimerCurrentAmount;
+
         public OverlayWidgetV3ViewModel(OverlayItemV3Type type)
         {
             this.ID = Guid.NewGuid();
@@ -289,6 +291,11 @@ namespace MixItUp.Base.ViewModel.Overlay
         {
             this.existingWidget = widget;
             this.existingWidgetState = this.existingWidget.IsEnabled;
+
+            if (widget.Item is OverlayPersistentTimerV3Model existingPersistentTimer)
+            {
+                this.existingPersistentTimerCurrentAmount = existingPersistentTimer.CurrentAmount;
+            }
 
             this.ID = widget.ID;
             this.Type = widget.Item.Type;
@@ -385,6 +392,11 @@ namespace MixItUp.Base.ViewModel.Overlay
             item.DisplayOption = this.SelectedDisplayOption;
             this.Position.SetPosition(item);
 
+            if (this.existingWidget != null && item is OverlayPersistentTimerV3Model newTimer)
+            {
+                newTimer.CurrentAmount = this.existingPersistentTimerCurrentAmount;
+            }
+
             if (this.existingWidget == null)
             {
                 await item.Reset();
@@ -434,6 +446,10 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             if (this.newWidget == null && this.existingWidget != null && this.existingWidgetState)
             {
+                if (this.existingWidget.Item is OverlayPersistentTimerV3Model existingPersistentTimer)
+                {
+                    existingPersistentTimer.CurrentAmount = this.existingPersistentTimerCurrentAmount;
+                }
                 await this.existingWidget.Enable();
             }
         }
