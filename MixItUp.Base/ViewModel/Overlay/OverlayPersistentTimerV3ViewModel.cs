@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Util;
@@ -168,6 +168,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             OverlayPersistentTimerV3Model result = new OverlayPersistentTimerV3Model()
             {
                 InitialAmount = this.InitialAmount,
+                CurrentAmount = this.InitialAmount,
                 DisplayFormat = this.DisplayFormat,
                 MaxAmount = this.MaxAmount,
                 DisableOnCompletion = this.DisableOnCompletion,
