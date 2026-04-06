@@ -1024,6 +1024,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} has a Watch Streak of {1}.
+        /// </summary>
+        public static string AlertTwitchWatchStreak {
+            get {
+                return ResourceManager.GetString("AlertTwitchWatchStreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - First Time Chat.
         /// </summary>
         public static string AlertUserFirstMessage {
@@ -21884,6 +21893,15 @@ namespace MixItUp.Base {
         public static string ShowTwitchPredictionChannelPoints {
             get {
                 return ResourceManager.GetString("ShowTwitchPredictionChannelPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Watch Streaks.
+        /// </summary>
+        public static string ShowTwitchWatchStreak {
+            get {
+                return ResourceManager.GetString("ShowTwitchWatchStreak", resourceCulture);
             }
         }
         

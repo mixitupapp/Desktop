@@ -1,4 +1,4 @@
-﻿<local:SettingsControlBase x:Class="MixItUp.WPF.Controls.Settings.AlertsSettingsControl"
+<local:SettingsControlBase x:Class="MixItUp.WPF.Controls.Settings.AlertsSettingsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -27,6 +27,7 @@
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchChannelPoints}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchHypeTrain}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchAds}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchWatchStreak}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding YouTubeSuperChat}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TrovoSpellCast}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Donation}" />
