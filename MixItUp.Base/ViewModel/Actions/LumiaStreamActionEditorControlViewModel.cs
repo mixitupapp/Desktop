@@ -178,34 +178,37 @@ namespace MixItUp.Base.ViewModel.Actions
             {
                 LumiaStreamSettings settings = await ServiceManager.Get<LumiaStreamService>().GetSettings();
 
-                foreach (LumiaStreamActionCommandTypeEnum commandType in this.CommandTypes)
+                if (settings?.options != null)
                 {
-                    this.commands[commandType] = new List<string>();
-                    switch (commandType)
+                    foreach (LumiaStreamActionCommandTypeEnum commandType in this.CommandTypes)
                     {
-                        case LumiaStreamActionCommandTypeEnum.ChatCommand:
-                            this.commands[commandType].AddRange(settings.options.chatCommands.values);
-                            break;
-                        case LumiaStreamActionCommandTypeEnum.TwitchPoint:
-                            this.commands[commandType].AddRange(settings.options.twitchPoints.values);
-                            break;
-                        case LumiaStreamActionCommandTypeEnum.TwitchExtension:
-                            this.commands[commandType].AddRange(settings.options.twitchExtension.values);
-                            break;
-                        case LumiaStreamActionCommandTypeEnum.TrovoSpell:
-                            this.commands[commandType].AddRange(settings.options.trovoSpells.values);
-                            break;
+                        this.commands[commandType] = new List<string>();
+                        switch (commandType)
+                        {
+                            case LumiaStreamActionCommandTypeEnum.ChatCommand:
+                                if (settings.options.chatCommands?.values != null) { this.commands[commandType].AddRange(settings.options.chatCommands.values); }
+                                break;
+                            case LumiaStreamActionCommandTypeEnum.TwitchPoint:
+                                if (settings.options.twitchPoints?.values != null) { this.commands[commandType].AddRange(settings.options.twitchPoints.values); }
+                                break;
+                            case LumiaStreamActionCommandTypeEnum.TwitchExtension:
+                                if (settings.options.twitchExtension?.values != null) { this.commands[commandType].AddRange(settings.options.twitchExtension.values); }
+                                break;
+                            case LumiaStreamActionCommandTypeEnum.TrovoSpell:
+                                if (settings.options.trovoSpells?.values != null) { this.commands[commandType].AddRange(settings.options.trovoSpells.values); }
+                                break;
+                        }
                     }
-                }
 
-                if (!string.IsNullOrEmpty(this._previousCommandName))
-                {
-                    this.SelectedCommandType = this._previousCommandType;
-                    this.CommandName = this._previousCommandName;
-                }
-                else
-                {
-                    this.SelectedCommandType = LumiaStreamActionCommandTypeEnum.ChatCommand;
+                    if (!string.IsNullOrEmpty(this._previousCommandName))
+                    {
+                        this.SelectedCommandType = this._previousCommandType;
+                        this.CommandName = this._previousCommandName;
+                    }
+                    else
+                    {
+                        this.SelectedCommandType = LumiaStreamActionCommandTypeEnum.ChatCommand;
+                    }
                 }
             }
 

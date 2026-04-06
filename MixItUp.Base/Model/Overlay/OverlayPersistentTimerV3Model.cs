@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -60,6 +60,8 @@ namespace MixItUp.Base.Model.Overlay
 
         [JsonIgnore]
         private object amountLock = new object();
+
+        public override bool IsResettable { get { return true; } }
 
         public OverlayPersistentTimerV3Model() : base(OverlayItemV3Type.PersistentTimer) { }
 

@@ -110,14 +110,14 @@ namespace MixItUp.Base.Services.Trovo.API
             Validator.ValidateString(clientID, "clientID");
             Validator.ValidateList(scopes, "scopes");
 
-            string url = await TrovoConnection.GetAuthorizationCodeURLForOAuthBrowser(clientID, scopes, LocalOAuthHttpListenerServer.REDIRECT_URL, state, forceApprovalPrompt);
+            string url = await TrovoConnection.GetAuthorizationCodeURLForOAuthBrowser(clientID, scopes, LocalOAuthKestrelServer.REDIRECT_URL, state, forceApprovalPrompt);
 
-            LocalOAuthHttpListenerServer oauthServer = new LocalOAuthHttpListenerServer();
+            LocalOAuthKestrelServer oauthServer = new LocalOAuthKestrelServer();
             string authorizationCode = await oauthServer.GetAuthorizationCode(url, 30);
 
             if (authorizationCode != null)
             {
-                return await TrovoConnection.ConnectViaAuthorizationCode(clientID, clientSecret, authorizationCode, scopes, LocalOAuthHttpListenerServer.REDIRECT_URL);
+                return await TrovoConnection.ConnectViaAuthorizationCode(clientID, clientSecret, authorizationCode, scopes, LocalOAuthKestrelServer.REDIRECT_URL);
             }
             return null;
         }

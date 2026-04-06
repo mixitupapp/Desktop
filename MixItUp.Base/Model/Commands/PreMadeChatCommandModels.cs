@@ -88,28 +88,20 @@ namespace MixItUp.Base.Model.Commands
         {
             string groupFilter = (parameters.Arguments != null) ? string.Join(" ", parameters.Arguments) : null;
 
-            List<string> commandTriggers = new List<string>();
+            HashSet<string> commandTriggers = new HashSet<string>();
             foreach (ChatCommandModel command in ServiceManager.Get<CommandService>().AllEnabledChatAccessibleCommands)
             {
-                if (command.IsEnabled && !command.Wildcards)
-                {
-                    if (string.IsNullOrEmpty(groupFilter) || string.Equals(groupFilter, command.GroupName, StringComparison.OrdinalIgnoreCase))
-                    {
-                        RoleRequirementModel roleRequirement = command.Requirements.Role;
-                        if (roleRequirement != null)
-                        {
-                            Result result = await roleRequirement.Validate(parameters);
-                            if (result.Success)
-                            {
-                                string firstTrigger = command.Triggers.First();
-                                if (command.IncludeExclamation)
-                                {
-                                    firstTrigger = $"!{firstTrigger}";
-                                }
+                await this.AddCommandTrigger(commandTriggers, command, parameters, groupFilter);
+            }
 
-                                commandTriggers.Add(firstTrigger);
-                            }
-                        }
+            if (parameters.User != null && parameters.User.CustomCommandIDs.Count > 0)
+            {
+                foreach (Guid commandID in parameters.User.CustomCommandIDs)
+                {
+                    UserOnlyChatCommandModel command = ChannelSession.Settings.GetCommand<UserOnlyChatCommandModel>(commandID);
+                    if (command != null)
+                    {
+                        await this.AddCommandTrigger(commandTriggers, command, parameters, groupFilter);
                     }
                 }
             }
@@ -118,6 +110,31 @@ namespace MixItUp.Base.Model.Commands
             {
                 string text = MixItUp.Base.Resources.PreMadeChatCommandCommandsHeader + string.Join(", ", commandTriggers.OrderBy(c => c));
                 await ServiceManager.Get<ChatService>().SendMessage(text, parameters);
+            }
+        }
+
+        private async Task AddCommandTrigger(HashSet<string> commandTriggers, ChatCommandModel command, CommandParametersModel parameters, string groupFilter)
+        {
+            if (command.IsEnabled && !command.Wildcards)
+            {
+                if (string.IsNullOrEmpty(groupFilter) || string.Equals(groupFilter, command.GroupName, StringComparison.OrdinalIgnoreCase))
+                {
+                    RoleRequirementModel roleRequirement = command.Requirements.Role;
+                    if (roleRequirement != null)
+                    {
+                        Result result = await roleRequirement.Validate(parameters);
+                        if (result.Success)
+                        {
+                            string firstTrigger = command.Triggers.First();
+                            if (command.IncludeExclamation)
+                            {
+                                firstTrigger = $"!{firstTrigger}";
+                            }
+
+                            commandTriggers.Add(firstTrigger);
+                        }
+                    }
+                }
             }
         }
     }

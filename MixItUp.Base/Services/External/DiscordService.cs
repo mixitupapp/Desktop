@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -423,7 +424,7 @@ namespace MixItUp.Base.Services.External
         public DiscordVoiceWebSocketPacketTypeEnum OPCodeType { get { return (DiscordVoiceWebSocketPacketTypeEnum)this.OPCode; } set { this.OPCode = (int)value; } }
     }
 
-    public class DiscordOAuthServer : LocalOAuthHttpListenerServer
+    public class DiscordOAuthServer : LocalOAuthKestrelServer
     {
         private const string ServerIDIdentifier = "guild_id";
         private const string BotPermissionsIdentifier = "permissions";
@@ -433,18 +434,16 @@ namespace MixItUp.Base.Services.External
 
         public DiscordOAuthServer() { }
 
-        protected override async Task ProcessConnection(HttpListenerContext listenerContext)
+        protected override void ProcessRequestParameters(HttpContext context)
         {
             if (this.ServerID == null)
             {
-                this.ServerID = this.GetRequestParameter(listenerContext, ServerIDIdentifier);
+                this.ServerID = this.GetRequestParameter(context, ServerIDIdentifier);
             }
             if (this.BotPermissions == null)
             {
-                this.BotPermissions = this.GetRequestParameter(listenerContext, BotPermissionsIdentifier);
+                this.BotPermissions = this.GetRequestParameter(context, BotPermissionsIdentifier);
             }
-
-            await base.ProcessConnection(listenerContext);
         }
     }
 
@@ -462,6 +461,8 @@ namespace MixItUp.Base.Services.External
 
         private int? lastSequenceNumber = null;
         private int heartbeatTime = 0;
+        private CancellationTokenSource heartbeatCancellationTokenSource;
+        private Task heartbeatTask;
 
         public async Task<bool> Connect(DiscordVoiceConnection voiceConnection)
         {
@@ -484,7 +485,7 @@ namespace MixItUp.Base.Services.External
 
                 if (this.IsReady)
                 {
-                    this.HeartbeatPing().Wait(1);
+                    this.StartHeartbeat();
 
                     return true;
                 }
@@ -500,6 +501,7 @@ namespace MixItUp.Base.Services.External
         public override async Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
         {
             this.IsReady = false;
+            this.StopHeartbeat();
             await base.Disconnect(closeStatus);
         }
 
@@ -575,17 +577,36 @@ namespace MixItUp.Base.Services.External
             return Task.CompletedTask;
         }
 
-        private async Task HeartbeatPing()
+        private void StartHeartbeat()
+        {
+            this.StopHeartbeat();
+            this.heartbeatCancellationTokenSource = new CancellationTokenSource();
+            this.heartbeatTask = Task.Run(() => this.HeartbeatPing(this.heartbeatCancellationTokenSource.Token));
+        }
+
+        private void StopHeartbeat()
+        {
+            if (this.heartbeatCancellationTokenSource != null)
+            {
+                try { this.heartbeatCancellationTokenSource.Cancel(); }
+                catch { }
+                this.heartbeatCancellationTokenSource.Dispose();
+                this.heartbeatCancellationTokenSource = null;
+            }
+            this.heartbeatTask = null;
+        }
+
+        private async Task HeartbeatPing(CancellationToken cancellationToken)
         {
             try
             {
-                while (this.IsOpen())
+                while (!cancellationToken.IsCancellationRequested && this.IsOpen())
                 {
                     try
                     {
                         if (this.IsReady && this.heartbeatTime > 0)
                         {
-                            await Task.Delay(this.heartbeatTime / 2);
+                            await Task.Delay(this.heartbeatTime / 2, cancellationToken);
 
                             JObject jobj = new JObject()
                             {
@@ -597,9 +618,10 @@ namespace MixItUp.Base.Services.External
                         }
                         else
                         {
-                            await Task.Delay(1000);
+                            await Task.Delay(1000, cancellationToken);
                         }
                     }
+                    catch (OperationCanceledException) { return; }
                     catch (Exception ex) { Logger.Log(ex); }
                 }
             }
@@ -620,6 +642,8 @@ namespace MixItUp.Base.Services.External
         private int heartbeatTime = 0;
 
         private string sessionID;
+        private CancellationTokenSource heartbeatCancellationTokenSource;
+        private Task heartbeatTask;
 
         private DiscordWebSocketPacket voiceStateUpdatePacket;
         private DiscordWebSocketPacket voiceServerUpdatePacket;
@@ -631,7 +655,7 @@ namespace MixItUp.Base.Services.External
 
             if (await base.Connect(endpoint))
             {
-                this.HeartbeatPing().Wait(1);
+                this.StartHeartbeat();
                 return true;
             }
             return false;
@@ -645,6 +669,7 @@ namespace MixItUp.Base.Services.External
         public override async Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
         {
             this.IsReady = false;
+            this.StopHeartbeat();
             await base.Disconnect(closeStatus);
         }
 
@@ -759,24 +784,44 @@ namespace MixItUp.Base.Services.External
             }
         }
 
-        private async Task HeartbeatPing()
+        private void StartHeartbeat()
+        {
+            this.StopHeartbeat();
+            this.heartbeatCancellationTokenSource = new CancellationTokenSource();
+            this.heartbeatTask = Task.Run(() => this.HeartbeatPing(this.heartbeatCancellationTokenSource.Token));
+        }
+
+        private void StopHeartbeat()
+        {
+            if (this.heartbeatCancellationTokenSource != null)
+            {
+                try { this.heartbeatCancellationTokenSource.Cancel(); }
+                catch { }
+                this.heartbeatCancellationTokenSource.Dispose();
+                this.heartbeatCancellationTokenSource = null;
+            }
+            this.heartbeatTask = null;
+        }
+
+        private async Task HeartbeatPing(CancellationToken cancellationToken)
         {
             try
             {
-                while (this.IsOpen())
+                while (!cancellationToken.IsCancellationRequested && this.IsOpen())
                 {
                     try
                     {
                         if (this.IsReady && this.heartbeatTime > 0)
                         {
-                            await Task.Delay(this.heartbeatTime / 2);
+                            await Task.Delay(this.heartbeatTime / 2, cancellationToken);
                             await this.Send(new DiscordWebSocketPacket() { OPCodeType = DiscordWebSocketPacketTypeEnum.Heartbeat, Sequence = this.lastSequenceNumber });
                         }
                         else
                         {
-                            await Task.Delay(1000);
+                            await Task.Delay(1000, cancellationToken);
                         }
                     }
+                    catch (OperationCanceledException) { return; }
                     catch (Exception ex) { Logger.Log(ex); }
                 }
             }

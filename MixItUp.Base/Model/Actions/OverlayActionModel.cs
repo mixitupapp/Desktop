@@ -15,6 +15,8 @@ namespace MixItUp.Base.Model.Actions
     [DataContract]
     public class OverlayActionModel : ActionModelBase
     {
+        public const string TwitchClipDurationSpecialIdentifier = "twitchclipduration";
+
         [DataMember]
         [Obsolete]
         public string OverlayName { get; set; }
@@ -298,6 +300,8 @@ namespace MixItUp.Base.Model.Actions
                         {
                             return;
                         }
+
+                        parameters.SpecialIdentifiers[TwitchClipDurationSpecialIdentifier] = overlayTwitchClipItemV3.ClipDuration.ToString(CultureInfo.InvariantCulture);
                     }
 
                     double.TryParse(await SpecialIdentifierStringBuilder.ProcessSpecialIdentifiers(this.Duration, parameters), NumberStyles.Any, CultureInfo.CurrentCulture, out double duration);

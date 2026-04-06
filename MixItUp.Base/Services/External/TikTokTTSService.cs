@@ -16,7 +16,7 @@ namespace MixItUp.Base.Services.External
     {
         public static readonly IEnumerable<TextToSpeechVoice> AvailableVoices = new List<TextToSpeechVoice>()
 {
-    new TextToSpeechVoice("en_us_001", "English US - Female"),
+new TextToSpeechVoice("en_us_001", "English US - Female"),
     new TextToSpeechVoice("en_us_006", "English US - Male 1"),
     new TextToSpeechVoice("en_us_007", "English US - Male 2"),
     new TextToSpeechVoice("en_us_009", "English US - Male 3"),
@@ -46,6 +46,9 @@ namespace MixItUp.Base.Services.External
     new TextToSpeechVoice("br_004", "Portuguese BR - Female 3"),
     new TextToSpeechVoice("br_005", "Portuguese BR - Male"),
 
+    new TextToSpeechVoice("pt_female_lhays", "Lhays Macedo (Portuguese)"),
+    new TextToSpeechVoice("pt_female_laizza", "Laizza (Portuguese)"),
+
     new TextToSpeechVoice("id_001", "Indonesian - Female"),
 
     new TextToSpeechVoice("jp_001", "Japanese - Female 1"),
@@ -56,6 +59,9 @@ namespace MixItUp.Base.Services.External
     new TextToSpeechVoice("kr_002", "Korean - Male 1"),
     new TextToSpeechVoice("kr_004", "Korean - Male 2"),
     new TextToSpeechVoice("kr_003", "Korean - Female"),
+
+    new TextToSpeechVoice("BV074_streaming", "Vietnamese - Female"),
+    new TextToSpeechVoice("BV075_streaming", "Vietnamese - Male"),
 
     new TextToSpeechVoice("en_female_f08_salut_damour", "Alto"),
     new TextToSpeechVoice("en_male_m2_xhxs_m03_silly", "Chipmunk"),
@@ -78,7 +84,42 @@ namespace MixItUp.Base.Services.External
     new TextToSpeechVoice("en_male_narration", "Narrator"),
     new TextToSpeechVoice("en_male_funny", "Wacky"),
     new TextToSpeechVoice("en_female_emotional", "Peaceful"),
-    new TextToSpeechVoice("en_male_cody", "Serious")
+    new TextToSpeechVoice("en_male_cody", "Serious"),
+
+    new TextToSpeechVoice("en_male_jomboy", "Game On"),
+    new TextToSpeechVoice("en_female_samc", "Empathetic"),
+    new TextToSpeechVoice("en_female_makeup", "Beauty Guru"),
+    new TextToSpeechVoice("en_female_richgirl", "Bestie"),
+    new TextToSpeechVoice("en_male_grinch", "Trickster"),
+    new TextToSpeechVoice("en_male_deadpool", "Mr. GoodGuy"),
+    new TextToSpeechVoice("en_male_jarvis", "Alfred"),
+    new TextToSpeechVoice("en_male_ashmagic", "Ashmagic"),
+    new TextToSpeechVoice("en_male_olantekkers", "Olantekkers"),
+    new TextToSpeechVoice("en_male_ukneighbor", "Lord Cringe"),
+    new TextToSpeechVoice("en_male_ukbutler", "Mr. Meticulous"),
+    new TextToSpeechVoice("en_female_shenna", "Debutante"),
+    new TextToSpeechVoice("en_female_pansino", "Varsity"),
+    new TextToSpeechVoice("en_male_trevor", "Marty"),
+    new TextToSpeechVoice("en_female_f08_twinkle", "Pop Lullaby"),
+    new TextToSpeechVoice("en_male_m03_classical", "Classic Electric"),
+    new TextToSpeechVoice("en_female_betty", "Bae"),
+    new TextToSpeechVoice("en_male_cupid", "Cupid"),
+    new TextToSpeechVoice("en_female_grandma", "Granny"),
+    new TextToSpeechVoice("en_male_m2_xhxs_m03_christmas", "Cozy"),
+    new TextToSpeechVoice("en_male_santa_narration", "Author"),
+    new TextToSpeechVoice("en_male_santa_effect", "Santa"),
+    new TextToSpeechVoice("en_male_wizard", "Magician"),
+
+
+    new TextToSpeechVoice("jp_female_yagishaki", "八木沙季"),
+    new TextToSpeechVoice("jp_male_hikakin", "ヒカキン"),
+    new TextToSpeechVoice("jp_female_rei", "丸山礼"),
+    new TextToSpeechVoice("jp_male_shuichiro", "修一朗"),
+    new TextToSpeechVoice("jp_male_matsudake", "マツダ家の日常"),
+    new TextToSpeechVoice("jp_female_machikoriiita", "まちこりーた"),
+    new TextToSpeechVoice("jp_male_osada", "モリスケ"),
+
+
 };
 
         public TextToSpeechProviderType ProviderType { get { return TextToSpeechProviderType.TikTokTTS; } }

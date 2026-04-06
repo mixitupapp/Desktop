@@ -18,6 +18,7 @@ namespace MixItUp.WPF.Windows.Overlay
     public partial class OverlayWidgetV3EditorWindow : LoadingWindowBase
     {
         private OverlayWidgetV3ViewModel viewModel;
+        private OverlayEditorPopoutWindow popoutWindow;
 
         public OverlayWidgetV3EditorWindow(OverlayItemV3Type type)
         {
@@ -51,9 +52,23 @@ namespace MixItUp.WPF.Windows.Overlay
 
         protected override async Task OnClosing()
         {
+            popoutWindow?.Close();
             await this.ViewModel.OnClosed();
 
             await base.OnClosing();
+        }
+
+        private void PopoutButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (popoutWindow != null)
+            {
+                popoutWindow.Focus();
+                return;
+            }
+
+            popoutWindow = new OverlayEditorPopoutWindow(this.viewModel);
+            popoutWindow.Closed += (s, args) => popoutWindow = null;
+            popoutWindow.Show();
         }
 
         private void AssignOverlayTypeControl(OverlayItemV3Type type)

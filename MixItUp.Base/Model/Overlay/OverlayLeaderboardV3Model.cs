@@ -42,6 +42,7 @@ namespace MixItUp.Base.Model.Overlay
     public class OverlayLeaderboardV3Model : OverlayVisualTextV3ModelBase
     {
         public const string DetailsAmountPropertyName = "Amount";
+        public const int DefaultRefreshTimeSeconds = 60;
 
         public static readonly string DefaultHTML = OverlayResources.OverlayLeaderboardDefaultHTML;
         public static readonly string DefaultCSS = OverlayResources.OverlayLeaderboardDefaultCSS + Environment.NewLine + Environment.NewLine + OverlayResources.OverlayTextDefaultCSS + Environment.NewLine + Environment.NewLine + OverlayResources.OverlayHeaderTextDefaultCSS;
@@ -68,27 +69,36 @@ namespace MixItUp.Base.Model.Overlay
         public int TotalToShow { get; set; }
 
         [DataMember]
+        public int RefreshTimeSeconds { get; set; }
+
+        [DataMember]
         public OverlayAnimationV3Model ItemAddedAnimation { get; set; } = new OverlayAnimationV3Model();
         [DataMember]
         public OverlayAnimationV3Model ItemRemovedAnimation { get; set; } = new OverlayAnimationV3Model();
 
         private CancellationTokenSource cancellationTokenSource;
+        private string lastLeaderboardState;
 
-        public OverlayLeaderboardV3Model() : base(OverlayItemV3Type.Leaderboard) { }
+        public OverlayLeaderboardV3Model() : base(OverlayItemV3Type.Leaderboard)
+        {
+            this.RefreshTimeSeconds = DefaultRefreshTimeSeconds;
+        }
 
         public async Task ClearLeaderboard()
         {
+            this.lastLeaderboardState = null;
             await this.CallFunction("clear", new Dictionary<string, object>());
         }
 
         public async Task UpdateLeaderboard(IEnumerable<Tuple<UserV2ViewModel, long>> users)
         {
-            if (users == null || users.Count() == 0)
+            if (users == null)
             {
                 return;
             }
 
             JArray jarr = new JArray();
+            List<string> leaderboardState = new List<string>();
 
             foreach (var kvp in users.Take(this.TotalToShow))
             {
@@ -101,6 +111,25 @@ namespace MixItUp.Base.Model.Overlay
                 jobj[UserProperty] = JObject.FromObject(kvp.Item1);
                 jobj["Details"] = kvp.Item2;
                 jarr.Add(jobj);
+
+                if (kvp.Item1 != null)
+                {
+                    leaderboardState.Add($"{kvp.Item1.ID}:{kvp.Item2}");
+                }
+            }
+
+            string currentLeaderboardState = string.Join("|", leaderboardState);
+            if (string.Equals(this.lastLeaderboardState, currentLeaderboardState))
+            {
+                return;
+            }
+
+            await this.ClearLeaderboard();
+            this.lastLeaderboardState = currentLeaderboardState;
+
+            if (jarr.Count == 0)
+            {
+                return;
             }
 
             Dictionary<string, object> data = new Dictionary<string, object>();
@@ -135,6 +164,8 @@ namespace MixItUp.Base.Model.Overlay
                 this.cancellationTokenSource.Cancel();
                 this.cancellationTokenSource = null;
             }
+
+            this.lastLeaderboardState = null;
         }
 
         protected override Task Loaded()
@@ -146,22 +177,23 @@ namespace MixItUp.Base.Model.Overlay
             }
 
             this.cancellationTokenSource = new CancellationTokenSource();
+            this.lastLeaderboardState = null;
+            int refreshTimeMilliseconds = 1000 * ((this.RefreshTimeSeconds > 0) ? this.RefreshTimeSeconds : DefaultRefreshTimeSeconds);
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.ViewingTime)
             {
-                AsyncRunner.RunAsyncBackground(this.ViewingTimeBackgroundTask, this.cancellationTokenSource.Token, 60000);
+                AsyncRunner.RunAsyncBackground(this.ViewingTimeBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
             }
             else if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.Consumable)
             {
-                if (ChannelSession.Settings.Currency.TryGetValue(this.ConsumableID, out var currency))
+                if (ChannelSession.Settings.Currency.ContainsKey(this.ConsumableID))
                 {
-                    int interval = (currency.AcquireInterval > 0) ? currency.AcquireInterval : 1;
-                    AsyncRunner.RunAsyncBackground(this.ConsumableBackgroundTask, this.cancellationTokenSource.Token, interval * 60000);
+                    AsyncRunner.RunAsyncBackground(this.ConsumableBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
                 }
             }
             else if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.TwitchBits)
             {
-                AsyncRunner.RunAsyncBackground(this.TwitchBitsBackgroundTask, this.cancellationTokenSource.Token, 60000);
+                AsyncRunner.RunAsyncBackground(this.TwitchBitsBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
             }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 

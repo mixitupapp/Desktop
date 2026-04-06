@@ -1,4 +1,4 @@
-﻿using Google.Apis.YouTube.v3.Data;
+using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
@@ -654,10 +654,7 @@ namespace MixItUp.Base.Services.YouTube.New
 
                             foreach (CurrencyModel currency in ChannelSession.Settings.Currency.Values)
                             {
-                                for (int i = 0; i < membershipsGifted.Amount; i++)
-                                {
-                                    currency.AddAmount(user, currency.OnSubscribeBonus * membershipsGifted.Amount);
-                                }
+                                currency.AddAmount(user, currency.OnSubscribeBonus * membershipsGifted.Amount);
                             }
 
                             foreach (StreamPassModel streamPass in ChannelSession.Settings.StreamPass.Values)
@@ -675,6 +672,13 @@ namespace MixItUp.Base.Services.YouTube.New
                             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.YouTubeChannelMassMembershipGifted, parameters);
 
                             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertMassSubscriptionsGiftedTier, user.FullDisplayName, membershipsGifted.Amount, membershipsGifted.Tier), ChannelSession.Settings.AlertMassGiftedSubColor));
+
+                            List<SubscriptionDetailsModel> subscriptions = new List<SubscriptionDetailsModel>();
+                            for (int i = 0; i < membershipsGifted.Amount; i++)
+                            {
+                                subscriptions.Add(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.YouTube, user, youTubeMembershipTier: membershipsGifted.Tier));
+                            }
+                            EventService.MassSubscriptionsGiftedOccurred(subscriptions);
                         }
                     }
                     else if (GiftMembershipReceivedEventMessageType.Equals(liveChatMessage.Snippet.Type))

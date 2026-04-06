@@ -45,7 +45,7 @@ namespace MixItUp.Base.ViewModel.Settings
                 ChannelSession.Settings.DeleteChatCommandsWhenRun, (value) => { ChannelSession.Settings.DeleteChatCommandsWhenRun = value; });
             this.MassGiftedSubsFilterAmount = new GenericToggleNumberSettingsOptionControlViewModel(MixItUp.Base.Resources.MassGiftedSubsFilterAmount, ChannelSession.Settings.MassGiftedSubsFilterAmount,
                 (value) => { ChannelSession.Settings.MassGiftedSubsFilterAmount = value; }, MixItUp.Base.Resources.MassGiftedSubsFilterAmountTooltip);
-            this.UserEntranceCommandsOnlyWhenLive = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.IgnoreYourBotAccountForCommands,
+            this.UserEntranceCommandsOnlyWhenLive = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.UserEntranceCommandsOnlyWhenLive,
                 ChannelSession.Settings.UserEntranceCommandsOnlyWhenLive, (value) => { ChannelSession.Settings.UserEntranceCommandsOnlyWhenLive = value; });
             this.CommandLockSystem = new GenericComboBoxSettingsOptionControlViewModel<CommandServiceLockTypeEnum>(MixItUp.Base.Resources.CommandLockSystem, EnumHelper.GetEnumList<CommandServiceLockTypeEnum>(),
                 ChannelSession.Settings.CommandServiceLockType, (value) => { ChannelSession.Settings.CommandServiceLockType = value; }, MixItUp.Base.Resources.CommandLockSystemTooltip);

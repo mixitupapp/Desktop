@@ -39,6 +39,7 @@ namespace MixItUp.Base.Model.Actions
 
         ImageSource,
         MediaSource,
+        SaveSourceScreenshot,
     }
 
     [DataContract]
@@ -164,6 +165,17 @@ namespace MixItUp.Base.Model.Actions
             return action;
         }
 
+        public static StreamingSoftwareActionModel CreateSaveSourceScreenshotAction(StreamingSoftwareTypeEnum softwareType, string sourceName, string imageFormat, string imageFilePath, int? imageWidth, int? imageHeight)
+        {
+            StreamingSoftwareActionModel action = new StreamingSoftwareActionModel(softwareType, StreamingSoftwareActionTypeEnum.SaveSourceScreenshot);
+            action.ItemName = sourceName;
+            action.ImageFormat = imageFormat;
+            action.ImageFilePath = imageFilePath;
+            action.ImageWidth = imageWidth;
+            action.ImageHeight = imageHeight;
+            return action;
+        }
+
         public static StreamingSoftwareActionModel CreateSourceDimensionsAction(StreamingSoftwareTypeEnum softwareType, string sceneName, string sourceName, bool sourceVisible, StreamingSoftwareSourceDimensionsModel sourceDimensions)
         {
             StreamingSoftwareActionModel action = StreamingSoftwareActionModel.CreateSourceVisibilityAction(softwareType, sceneName, sourceName, sourceVisible);
@@ -203,6 +215,15 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public StreamingSoftwareSourceDimensionsModel SourceDimensions { get; set; }
+
+        [DataMember]
+        public string ImageFormat { get; set; }
+        [DataMember]
+        public string ImageFilePath { get; set; }
+        [DataMember]
+        public int? ImageWidth { get; set; }
+        [DataMember]
+        public int? ImageHeight { get; set; }
 
         public StreamingSoftwareActionModel(StreamingSoftwareTypeEnum softwareType, StreamingSoftwareActionTypeEnum actionType)
             : base(ActionTypeEnum.StreamingSoftware)
@@ -330,7 +351,18 @@ namespace MixItUp.Base.Model.Actions
                         {
                             await ssService.SetSourceDimensions(parentName, name, this.SourceDimensions);
                         }
-                        await ssService.SetSourceVisibility(parentName, name, this.Visible);
+
+                        if (this.ActionType == StreamingSoftwareActionTypeEnum.SaveSourceScreenshot)
+                        {
+                            if (!string.IsNullOrEmpty(this.ImageFormat) && !string.IsNullOrEmpty(this.ImageFilePath))
+                            {
+                                await ssService.SaveSourceScreenshot(name, await ReplaceStringWithSpecialModifiers(this.ImageFormat, parameters), await ReplaceStringWithSpecialModifiers(this.ImageFilePath, parameters), this.ImageWidth, this.ImageHeight);
+                            }
+                        }
+                        else
+                        {
+                            await ssService.SetSourceVisibility(parentName, name, this.Visible);
+                        }
                     }
                 }
             }

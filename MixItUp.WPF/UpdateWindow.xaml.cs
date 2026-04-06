@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace MixItUp.WPF
@@ -20,10 +21,12 @@ namespace MixItUp.WPF
     public partial class UpdateWindow : LoadingWindowBase
     {
         private MixItUpUpdateModel update;
+        private readonly bool isMandatory;
 
-        public UpdateWindow(MixItUpUpdateModel update)
+        public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
         {
             this.update = update;
+            this.isMandatory = isMandatory;
 
             InitializeComponent();
 
@@ -42,8 +45,13 @@ namespace MixItUp.WPF
                 this.PreviewUpdateGrid.Visibility = Visibility.Visible;
             }
 
-            this.SkipUpdateButton.Visibility = this.update.Mandatory ? Visibility.Collapsed : Visibility.Visible;
-            this.SkipUpdateButton.IsEnabled = !this.update.Mandatory;
+            this.SkipUpdateButton.Visibility = this.isMandatory ? Visibility.Collapsed : Visibility.Visible;
+            this.SkipUpdateButton.IsEnabled = !this.isMandatory;
+
+            if (this.isMandatory)
+            {
+                this.MandatoryBanner.Visibility = Visibility.Visible;
+            }
 
             try
             {
@@ -135,6 +143,24 @@ namespace MixItUp.WPF
         private void SkipUpdateButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.isMandatory)
+            {
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove();
         }
 
         private void AttachHyperlinkHandler()

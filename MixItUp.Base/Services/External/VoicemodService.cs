@@ -2,6 +2,7 @@
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
@@ -31,13 +32,17 @@ namespace MixItUp.Base.Services.External
 
     public class VoicemodWebSocket : ClientWebSocketBase
     {
-        private Dictionary<string, JObject> responses = new Dictionary<string, JObject>();
+        private readonly ConcurrentDictionary<string, TaskCompletionSource<JObject>> pendingResponses =
+            new ConcurrentDictionary<string, TaskCompletionSource<JObject>>();
+
+        private readonly ConcurrentQueue<string> pendingResponseOrder = new ConcurrentQueue<string>();
 
         public event EventHandler<JObject> OnVoiceChangedEvent;
 
         public override Task<bool> Connect(string endpoint)
         {
-            this.responses.Clear();
+            this.pendingResponses.Clear();
+            while (this.pendingResponseOrder.TryDequeue(out _)) { }
             return base.Connect(endpoint);
         }
 
@@ -45,20 +50,30 @@ namespace MixItUp.Base.Services.External
         {
             Logger.Log(LogLevel.Debug, "Voicemod Packet Sent - " + JSONSerializerHelper.SerializeToString(packet));
 
-            this.responses[packet.id] = null;
+            var responseCompletionSource = new TaskCompletionSource<JObject>(TaskCreationOptions.RunContinuationsAsynchronously);
+            this.pendingResponses[packet.id] = responseCompletionSource;
+            this.pendingResponseOrder.Enqueue(packet.id);
 
-            await this.Send(JSONSerializerHelper.SerializeToString(packet));
-
-            int cycles = delaySeconds * 10;
-            JObject response = null;
-            for (int i = 0; i < cycles && response == null; i++)
+            try
             {
-                this.responses.TryGetValue(packet.id, out response);
-                await Task.Delay(100);
+                await this.Send(JSONSerializerHelper.SerializeToString(packet));
+
+                Task completedTask = await Task.WhenAny(responseCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(delaySeconds)));
+                if (ReferenceEquals(completedTask, responseCompletionSource.Task))
+                {
+                    return await responseCompletionSource.Task;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.pendingResponses.TryRemove(packet.id, out _);
             }
 
-            this.responses.Remove(packet.id);
-            return response;
+            return null;
         }
 
         protected override Task ProcessReceivedPacket(string packet)
@@ -73,17 +88,19 @@ namespace MixItUp.Base.Services.External
                     string actionType = response["actionType"]?.ToString();
                     if (actionType == "voiceChangedEvent")
                     {
-                        this.OnVoiceChangedEvent?.Invoke(this, response);
+                        _ = Task.Run(() => this.OnVoiceChangedEvent?.Invoke(this, response));
                     }
 
                     string responseId = response["id"]?.ToString();
-                    if (!string.IsNullOrEmpty(responseId) && this.responses.ContainsKey(responseId))
+                    if (!string.IsNullOrEmpty(responseId) &&
+                        this.pendingResponses.TryRemove(responseId, out TaskCompletionSource<JObject> responseCompletionSourceById))
                     {
-                        this.responses[responseId] = response;
+                        responseCompletionSourceById.TrySetResult(response);
                     }
-                    else if (this.responses.Keys.Count > 0)
+                    else if (this.TryGetOldestPendingResponseId(out string oldestPendingResponseId) &&
+                             this.pendingResponses.TryRemove(oldestPendingResponseId, out TaskCompletionSource<JObject> responseCompletionSource))
                     {
-                        this.responses[this.responses.Keys.First()] = response;
+                        responseCompletionSource.TrySetResult(response);
                     }
                 }
             }
@@ -92,6 +109,20 @@ namespace MixItUp.Base.Services.External
                 Logger.Log(ex);
             }
             return Task.FromResult(0);
+        }
+
+        private bool TryGetOldestPendingResponseId(out string pendingResponseId)
+        {
+            pendingResponseId = null;
+            while (this.pendingResponseOrder.TryDequeue(out string dequeuedPendingResponseId))
+            {
+                if (this.pendingResponses.ContainsKey(dequeuedPendingResponseId))
+                {
+                    pendingResponseId = dequeuedPendingResponseId;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

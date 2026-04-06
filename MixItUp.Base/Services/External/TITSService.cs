@@ -84,7 +84,7 @@ namespace MixItUp.Base.Services.External
                 TITSWebSocketResponsePacket response = JSONSerializerHelper.DeserializeFromString<TITSWebSocketResponsePacket>(packet);
                 if (response != null && !string.IsNullOrEmpty(response.requestID))
                 {
-                    this.ResponseReceived(this, response);
+                    _ = Task.Run(() => this.ResponseReceived(this, response));
                 }
             }
             catch (Exception ex)

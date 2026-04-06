@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebSocketSharp;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MixItUp.WPF.Services.DeveloperAPI.V1
@@ -38,7 +37,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
         [HttpPut]
         public async Task<IActionResult> Add([FromBody] AddQuote quote)
         {
-            if (quote == null || quote.QuoteText.IsNullOrEmpty())
+            if (quote == null || string.IsNullOrEmpty(quote.QuoteText))
             {
                 return BadRequest(new Error { Message = $"Unable to create quote, no QuoteText was supplied." });
             }

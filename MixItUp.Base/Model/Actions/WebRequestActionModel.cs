@@ -1,8 +1,5 @@
 ﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
-using MixItUp.Base.Services.Trovo;
-using MixItUp.Base.Services.Twitch;
-using MixItUp.Base.Services.YouTube;
 using Newtonsoft.Json.Linq;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
@@ -15,9 +12,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using MixItUp.Base.Services.Trovo.New;
-using MixItUp.Base.Services.Twitch.New;
-using MixItUp.Base.Services.YouTube.New;
 
 namespace MixItUp.Base.Model.Actions
 {
@@ -89,18 +83,24 @@ namespace MixItUp.Base.Model.Actions
                 using (AdvancedHttpClient httpClient = new AdvancedHttpClient())
                 {
                     httpClient.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    httpClient.DefaultRequestHeaders.Add("Twitch-UserID", ServiceManager.Get<TwitchSession>()?.StreamerID ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("Twitch-UserLogin", ServiceManager.Get<TwitchSession>().StreamerUsername ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("YouTube-UserID", ServiceManager.Get<YouTubeSession>()?.StreamerID ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("YouTube-UserLogin", Uri.EscapeDataString(ServiceManager.Get<YouTubeSession>().StreamerUsername ?? string.Empty));
-                    httpClient.DefaultRequestHeaders.Add("Trovo-UserID", ServiceManager.Get<TrovoSession>()?.StreamerID ?? string.Empty);
-                    httpClient.DefaultRequestHeaders.Add("Trovo-UserLogin", ServiceManager.Get<TrovoSession>().StreamerUsername ?? string.Empty);
+
+                    string requestContentType = "application/json";
 
                     if (this.CustomHeaders != null)
                     {
                         foreach (var header in this.CustomHeaders)
                         {
                             string headerValue = await ReplaceStringWithSpecialModifiers(header.Value, parameters);
+
+                            if (string.Equals(header.Key, "Content-Type", StringComparison.OrdinalIgnoreCase))
+                            {
+                                if (!string.IsNullOrWhiteSpace(headerValue))
+                                {
+                                    requestContentType = headerValue;
+                                }
+                                continue;
+                            }
+
                             try
                             {
                                 httpClient.DefaultRequestHeaders.Add(header.Key, headerValue);
@@ -122,7 +122,7 @@ namespace MixItUp.Base.Model.Actions
                     if (!string.IsNullOrEmpty(this.RequestBody) && (this.HttpMethod == HttpMethodEnum.POST || this.HttpMethod == HttpMethodEnum.PUT))
                     {
                         string processedBody = await ReplaceStringWithSpecialModifiers(this.RequestBody, parameters);
-                        content = new StringContent(processedBody, Encoding.UTF8, "application/json");
+                        content = new StringContent(processedBody, Encoding.UTF8, requestContentType);
                     }
 
                     HttpResponseMessage response = null;
@@ -144,7 +144,7 @@ namespace MixItUp.Base.Model.Actions
 
                     using (response)
                     {
-                        if (string.Equals(response?.Content?.Headers?.ContentType?.CharSet, "utf8"))
+                        if (string.Equals(response?.Content?.Headers?.ContentType?.CharSet, "utf8", StringComparison.OrdinalIgnoreCase))
                         {
                             response.Content.Headers.ContentType.CharSet = "utf-8";
                         }

@@ -50,6 +50,8 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged("ShowWebBrowserSourceGrid");
                 this.NotifyPropertyChanged("ShowSourceDimensionsGrid");
                 this.NotifyPropertyChanged("ShowSourceFilterGrid");
+                this.NotifyPropertyChanged("ShowSaveSourceScreenshotGrid");
+                this.NotifyPropertyChanged("ShowSourceVisibilityToggle");
             }
         }
         private StreamingSoftwareActionTypeEnum selectedActionType;
@@ -121,6 +123,13 @@ namespace MixItUp.Base.ViewModel.Actions
                         return true;
                     }
                 }
+                else if (this.SelectedActionType == StreamingSoftwareActionTypeEnum.SaveSourceScreenshot)
+                {
+                    if (streamingSoftware == StreamingSoftwareTypeEnum.XSplit || streamingSoftware == StreamingSoftwareTypeEnum.StreamlabsDesktop)
+                    {
+                        return true;
+                    }
+                }
                 return false;
             }
         }
@@ -151,12 +160,20 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private string sceneName;
 
+        public bool ShowSourceVisibilityToggle
+        {
+            get
+            {
+                return this.SelectedActionType != StreamingSoftwareActionTypeEnum.SaveSourceScreenshot;
+            }
+        }
+
         public bool ShowSourceGrid
         {
             get
             {
                 return this.SelectedActionType == StreamingSoftwareActionTypeEnum.SourceVisibility || this.ShowTextSourceGrid || this.ShowImageSourceGrid ||
-                    this.ShowMediaSourceGrid || this.ShowWebBrowserSourceGrid || this.ShowSourceDimensionsGrid;
+                    this.ShowMediaSourceGrid || this.ShowWebBrowserSourceGrid || this.ShowSourceDimensionsGrid || this.ShowSaveSourceScreenshotGrid;
             }
         }
 
@@ -260,6 +277,52 @@ namespace MixItUp.Base.ViewModel.Actions
         private string sourceWebPageFilePath;
 
         public bool ShowSourceDimensionsGrid { get { return this.SelectedActionType == StreamingSoftwareActionTypeEnum.SourceDimensions; } }
+
+        public bool ShowSaveSourceScreenshotGrid { get { return this.SelectedActionType == StreamingSoftwareActionTypeEnum.SaveSourceScreenshot; } }
+
+        public string ImageFormat
+        {
+            get { return this.imageFormat; }
+            set
+            {
+                this.imageFormat = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string imageFormat = "png";
+
+        public string ImageFilePath
+        {
+            get { return this.imageFilePath; }
+            set
+            {
+                this.imageFilePath = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string imageFilePath;
+
+        public int? ImageWidth
+        {
+            get { return this.imageWidth; }
+            set
+            {
+                this.imageWidth = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private int? imageWidth;
+
+        public int? ImageHeight
+        {
+            get { return this.imageHeight; }
+            set
+            {
+                this.imageHeight = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private int? imageHeight;
 
         public int SourceXPosition
         {
@@ -377,6 +440,13 @@ namespace MixItUp.Base.ViewModel.Actions
                 {
                     this.SourceWebPageFilePath = action.SourceURL;
                 }
+                else if (this.ShowSaveSourceScreenshotGrid)
+                {
+                    this.ImageFormat = action.ImageFormat;
+                    this.ImageFilePath = action.ImageFilePath;
+                    this.ImageWidth = action.ImageWidth;
+                    this.ImageHeight = action.ImageHeight;
+                }
                 else if (this.ShowSourceDimensionsGrid)
                 {
                     this.SourceXPosition = action.SourceDimensions.X;
@@ -467,6 +537,17 @@ namespace MixItUp.Base.ViewModel.Actions
                         return Task.FromResult(new Result(MixItUp.Base.Resources.StreamingSoftwareActionMissingWebBrowserSourceFilePath));
                     }
                 }
+                else if (this.ShowSaveSourceScreenshotGrid)
+                {
+                    if (string.IsNullOrEmpty(this.ImageFormat))
+                    {
+                        return Task.FromResult(new Result(MixItUp.Base.Resources.StreamingSoftwareActionMissingImageFormat));
+                    }
+                    if (string.IsNullOrEmpty(this.ImageFilePath))
+                    {
+                        return Task.FromResult(new Result(MixItUp.Base.Resources.StreamingSoftwareActionMissingScreenshotFilePath));
+                    }
+                }
                 else if (this.ShowSourceDimensionsGrid)
                 {
 
@@ -514,6 +595,10 @@ namespace MixItUp.Base.ViewModel.Actions
                 else if (this.ShowWebBrowserSourceGrid)
                 {
                     return Task.FromResult<ActionModelBase>(StreamingSoftwareActionModel.CreateWebBrowserSourceAction(this.SelectedStreamingSoftwareType, this.SceneName, this.SourceName, this.SourceVisible, this.SourceWebPageFilePath));
+                }
+                else if (this.ShowSaveSourceScreenshotGrid)
+                {
+                    return Task.FromResult<ActionModelBase>(StreamingSoftwareActionModel.CreateSaveSourceScreenshotAction(this.SelectedStreamingSoftwareType, this.SourceName, this.ImageFormat, this.ImageFilePath, this.ImageWidth, this.ImageHeight));
                 }
                 else if (this.ShowSourceDimensionsGrid)
                 {

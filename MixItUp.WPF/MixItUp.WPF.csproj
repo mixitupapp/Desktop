@@ -9,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-    <AssemblyVersion>1.6.30.0</AssemblyVersion>
-    <FileVersion>1.6.30.0</FileVersion>
+    <AssemblyVersion>1.6.400.0</AssemblyVersion>
+    <FileVersion>1.6.400.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -77,7 +77,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="obs-websocket-dotnet" Version="4.9.1" />
 		<PackageReference Include="ovrstream-client-csharp" Version="0.0.2" />
 		<PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2.2" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
@@ -98,6 +97,12 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 	</ItemGroup>
   <ItemGroup Label="Resources">
     <Resource Include="Logo.png" />
+    <Resource Include="Assets\Syntax\MixItUpHTML.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpCSS.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpJavaScript.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpHTML.Light.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpCSS.Light.xshd" />
+    <Resource Include="Assets\Syntax\MixItUpJavaScript.Light.xshd" />
     <Resource Include="Assets\Images\mixitup_logo-full_color-light_xl.png" />
     <Resource Include="Assets\Images\CommandExample.png" />
     <Resource Include="Assets\Images\ExampleRecipe.png" />   

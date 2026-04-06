@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.Actions;
 using MixItUp.WPF.Controls.Overlay;
+using MixItUp.WPF.Windows.Overlay;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -13,6 +14,7 @@ namespace MixItUp.WPF.Controls.Actions
     public partial class OverlayActionEditorControl : ActionEditorControlBase
     {
         private OverlayActionEditorControlViewModel viewModel;
+        private OverlayEditorPopoutWindow popoutWindow;
 
         public OverlayActionEditorControl()
         {
@@ -25,6 +27,20 @@ namespace MixItUp.WPF.Controls.Actions
         private void OverlayActionEditorControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             this.AnimationsMayNotWork.Visibility = SystemParameters.ClientAreaAnimation ? Visibility.Collapsed : Visibility.Visible;
+            this.Unloaded += (s, args) => popoutWindow?.Close();
+        }
+
+        private void PopoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (popoutWindow != null)
+            {
+                popoutWindow.Focus();
+                return;
+            }
+
+            popoutWindow = new OverlayEditorPopoutWindow(this.viewModel);
+            popoutWindow.Closed += (s, args) => popoutWindow = null;
+            popoutWindow.Show();
         }
 
         private void OverlayActionEditorControl_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)

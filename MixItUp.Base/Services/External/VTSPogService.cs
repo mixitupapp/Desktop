@@ -106,11 +106,12 @@ namespace MixItUp.Base.Services.External
                     }
                     else if (string.Equals(response.type, TTSStartType))
                     {
-                        this.OnTTSStart(this, response.data.ToObject<VTSPogWebSocketTTSStartData>());
+                        VTSPogWebSocketTTSStartData data = response.data.ToObject<VTSPogWebSocketTTSStartData>();
+                        _ = Task.Run(() => this.OnTTSStart(this, data));
                     }
                     else if (string.Equals(response.type, TTSStopType))
                     {
-                        this.OnTTSStop(this, new EventArgs());
+                        _ = Task.Run(() => this.OnTTSStop(this, new EventArgs()));
                     }
                     else if (string.Equals(response.type, TTSStateType))
                     {
@@ -119,7 +120,8 @@ namespace MixItUp.Base.Services.External
                             JObject jobj = (JObject)response.data;
                             if (jobj.TryGetValue("state", out JToken value))
                             {
-                                this.OnTTSStateChanged(this, (bool)value);
+                                bool state = (bool)value;
+                                _ = Task.Run(() => this.OnTTSStateChanged(this, state));
                             }
                         }
                     }

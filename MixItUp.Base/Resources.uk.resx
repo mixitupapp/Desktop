@@ -11223,4 +11223,37 @@ print(run())</value>
   <data name="BackupsReminder" xml:space="preserve">
     <value>Нагадування: Автоматичне резервне копіювання вимкнено. Увімкніть їх у Налаштування → Додатково, щоб захистити свої налаштування від несподіваної втрати даних.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Редактор коду</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Редактор витікання</value>
+  </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Видалити всі цитати</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>Ви впевнені, що хочете видалити ВСІ лапки? Ця дія не може бути скасована</value>
+  </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Зберегти вихідний знімок екрана</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Формат зображення</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Ширина зображення (необов'язково)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Висота зображення (необов'язково)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>Необхідно вказати формат зображення (наприклад, png, jpg)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>Необхідно вказати шлях до файлу зображення для збереження</value>
+  </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Це оновлення необхідне для продовження використання Mix It Up</value>
+  </data>
 </root>

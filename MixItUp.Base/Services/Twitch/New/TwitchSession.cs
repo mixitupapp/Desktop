@@ -675,6 +675,9 @@ namespace MixItUp.Base.Services.Twitch.New
                     tempMassGiftedSubs.AddRange(this.pendingMassGiftedSubs.ToList().OrderBy(s => s.Processed));
                 }
 
+                List<TwitchSubcriptionEventModel> giftedSubsToRetry = new List<TwitchSubcriptionEventModel>();
+                DateTimeOffset now = DateTimeOffset.Now;
+
                 foreach (var giftedSub in tempGiftedSubs)
                 {
                     TwitchMassGiftedSubcriptionsEventModel massGiftedSub = null;
@@ -705,7 +708,22 @@ namespace MixItUp.Base.Services.Twitch.New
                     }
                     else
                     {
-                        await ProcessGiftedSub(giftedSub);
+                        if ((now - giftedSub.Processed).TotalMilliseconds >= 1500)
+                        {
+                            await ProcessGiftedSub(giftedSub);
+                        }
+                        else
+                        {
+                            giftedSubsToRetry.Add(giftedSub);
+                        }
+                    }
+                }
+
+                if (giftedSubsToRetry.Count > 0)
+                {
+                    lock (this.pendingGiftedSubs)
+                    {
+                        this.pendingGiftedSubs.AddRange(giftedSubsToRetry);
                     }
                 }
             }
@@ -735,6 +753,18 @@ namespace MixItUp.Base.Services.Twitch.New
                 }
             }
 
+            if (giftedSubEvent.Gifter != null && !giftedSubEvent.IsAnonymous)
+            {
+                if (giftedSubEvent.CumulativeGifts.HasValue)
+                {
+                    giftedSubEvent.Gifter.TotalSubsGifted = giftedSubEvent.CumulativeGifts.Value;
+                }
+                else
+                {
+                    giftedSubEvent.Gifter.TotalSubsGifted++;
+                }
+            }
+
             if (fireEventCommand)
             {
                 CommandParametersModel parameters = new CommandParametersModel(giftedSubEvent.Gifter, StreamingPlatformTypeEnum.Twitch);
@@ -758,7 +788,7 @@ namespace MixItUp.Base.Services.Twitch.New
             CommandParametersModel parameters = new CommandParametersModel(massGiftedSubEvent.Gifter, StreamingPlatformTypeEnum.Twitch);
             parameters.SpecialIdentifiers["subsgiftedamount"] = massGiftedSubEvent.TotalGifted.ToString();
             parameters.SpecialIdentifiers["substotalpoints"] = massGiftedSubEvent.TotalSubPoints.ToString();
-            parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = massGiftedSubEvent.LifetimeGifted.ToString();
+            parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = massGiftedSubEvent.LifetimeGifted.GetValueOrDefault().ToString();
             parameters.SpecialIdentifiers["usersubplan"] = massGiftedSubEvent.TierName;
             parameters.SpecialIdentifiers["isanonymous"] = massGiftedSubEvent.IsAnonymous.ToString();
 
@@ -772,9 +802,9 @@ namespace MixItUp.Base.Services.Twitch.New
                 parameters.Arguments.Add(sub.User.Username);
             }
 
-            if (!massGiftedSubEvent.IsAnonymous)
+            if (!massGiftedSubEvent.IsAnonymous && massGiftedSubEvent.LifetimeGifted.HasValue)
             {
-                massGiftedSubEvent.Gifter.TotalSubsGifted = (uint)massGiftedSubEvent.LifetimeGifted;
+                massGiftedSubEvent.Gifter.TotalSubsGifted = massGiftedSubEvent.LifetimeGifted.Value;
             }
 
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelMassSubscriptionsGifted, parameters);

@@ -11223,4 +11223,37 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="BackupsReminder" xml:space="preserve">
     <value>提醒：自动备份已禁用。请在 "设置" → "高级 "中启用自动备份，以保护您的设置，防止意外数据丢失。</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>代码编辑器</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>弹出编辑器</value>
+  </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>删除所有报价</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>您确定要删除所有引号吗？此操作无法撤销</value>
+  </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>保存源截图</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>图像格式</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>图像宽度（可选）</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>图像高度（可选）</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>必须指定图像格式（如 png、jpg）</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>必须指定图像文件路径，以便保存到</value>
+  </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>要继续使用 Mix It Up，必须进行此更新</value>
+  </data>
 </root>

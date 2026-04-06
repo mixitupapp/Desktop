@@ -56,7 +56,7 @@ namespace MixItUp.Base.Services.Twitch.API
                 { "client_secret", clientSecret },
                 { "code", authorizationCode },
                 { "grant_type", "authorization_code" },
-                { "redirect_uri", LocalOAuthHttpListenerServer.REDIRECT_URL },
+                { "redirect_uri", LocalOAuthKestrelServer.REDIRECT_URL },
             };
             FormUrlEncodedContent content = new FormUrlEncodedContent(parameters.AsEnumerable());
 

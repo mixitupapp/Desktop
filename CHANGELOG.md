@@ -1,5 +1,44 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.400
+
+- [MAINT] Update OBS Studio WebSocket V5 connections and stabilize reconnection logic *
+- [MAINT] Update Stream Elements service to new WebSocket server and remove deprecated Stream Elements Merch event **
+- [MAINT] Improve performance when opening commands with a large number of actions
+- [MAINT] Upgrade local authentication and overlay servers to Kestrel-based servers
+- [MAINT] Harden Stream Elements WebSocket reconnection and subscription flows
+- [MAINT] Improve WebSocket connections for various services
+- [MAINT] Update MIU Installer error logging and shortcut creation
+
+- [FEAT] Add Twitch Watch Streak event (supports $userwatchstreak and $watchstreakchannelpointsawarded)
+- [FEAT] Add new option Settings -> Commands to run Entrance Commands only when live
+- [FEAT] Add custom code editor for script action and overlay HTML/CSS/JS tabs in widgets and overlay actions
+- [FEAT] Add $twitchclipduration clip duration special identifier for Twitch clips playback in Overlay action
+- [FEAT] Add Years and Months to dateto() and datefrom() functions in special identifier action
+- [FEAT] Update branding in various places
+- [FEAT] Add Export Data button to inventory window
+- [FEAT] Add save source screenshot option to Streaming Software action (OBS Studio only)
+- [FEAT] Add delete all quotes button
+- [FEAT] Add custom refresh rate for leaderboard overlay widgets
+- [FEAT] Add reset button for persistent timer and persist timer amount between widget saves
+- [FEAT] Include user-only chat commands in the !commands pre-made command
+
+- [FIX] YouTube mass gifted memberships goal overlay and bonus currency
+- [FIX] Harden settings persistence to prevent settings loss in the case of a crash or power failure during a save operation
+- [FIX] Fix bug with Patreon account linking and losing subscriber status
+- [FIX] Fix crash when trying to edit Lumia Stream actions
+- [FIX] Add support for custom content-type and remove pre-made headers in Web Request Action
+- [FIX] Show full app history in changelog page
+- [FIX] Streamlabs Desktop minor fix for Y Scale typo
+- [FIX] Twitch gigantified emote $emoteurl
+- [FIX] Streamlabs Desktop source visibility fixed for dual output scenes
+- [FIX] Crashes when receiving mass gifted subs, and fix total gifted tracking
+- [FIX] Minor UI fixes across the application
+- [FIX] Persistent timer showing 0:00 when editing
+
+> **\* Legacy OBS WebSocket support (< v5.0) removed**  
+> **\*\* Test donations from SE Dashboard/Activity feed no longer triggers MIU SE Donation event**
+
 ## 1.6.30
 
 - [MAINT] Update branding and logos across the application

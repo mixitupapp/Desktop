@@ -11225,4 +11225,37 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="BackupsReminder" xml:space="preserve">
     <value>Recordatorio: Las copias de seguridad automatizadas están desactivadas. Actívelas en Ajustes → Avanzado para proteger su configuración de pérdidas de datos inesperadas.</value>
   </data>
+  <data name="CodeEditor" xml:space="preserve">
+    <value>Editor de código</value>
+  </data>
+  <data name="PopoutEditor" xml:space="preserve">
+    <value>Editor desplegable</value>
+  </data>
+  <data name="DeleteAllQuotes" xml:space="preserve">
+    <value>Borrar todas las citas</value>
+  </data>
+  <data name="DeleteAllQuotesWarning" xml:space="preserve">
+    <value>¿Estás seguro de que quieres borrar TODAS las citas? Esta acción no se puede deshacer</value>
+  </data>
+  <data name="SaveSourceScreenshot" xml:space="preserve">
+    <value>Guardar captura de pantalla de origen</value>
+  </data>
+  <data name="ImageFormat" xml:space="preserve">
+    <value>Formato de imagen</value>
+  </data>
+  <data name="ImageWidthOptional" xml:space="preserve">
+    <value>Anchura de la imagen (opcional)</value>
+  </data>
+  <data name="ImageHeightOptional" xml:space="preserve">
+    <value>Altura de la imagen (opcional)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingImageFormat" xml:space="preserve">
+    <value>Debe especificarse un formato de imagen (por ejemplo, png, jpg)</value>
+  </data>
+  <data name="StreamingSoftwareActionMissingScreenshotFilePath" xml:space="preserve">
+    <value>Debe especificarse una ruta de archivo de imagen para guardar en</value>
+  </data>
+  <data name="ThisUpdateIsRequired" xml:space="preserve">
+    <value>Esta actualización es necesaria para seguir utilizando Mix It Up</value>
+  </data>
 </root>

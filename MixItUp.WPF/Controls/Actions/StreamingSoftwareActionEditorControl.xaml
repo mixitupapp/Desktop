@@ -83,8 +83,8 @@
 
                 <TextBox Grid.Column="2" Text="{Binding SourceName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SourceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Visible}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <ToggleButton Grid.Column="6" IsChecked="{Binding SourceVisible}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="4" Visibility="{Binding ShowSourceVisibilityToggle, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Visible}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <ToggleButton Grid.Column="6" Visibility="{Binding ShowSourceVisibilityToggle, Converter={StaticResource BooleanToVisibilityConverter}}" IsChecked="{Binding SourceVisible}" VerticalAlignment="Center"/>
             </Grid>
 
             <Grid Grid.Row="2" Visibility="{Binding ShowTextSourceGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -143,6 +143,40 @@
                 <TextBox Grid.Column="0" Text="{Binding SourceWebPageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebPageOrLocalFile}" />
 
                 <Button Grid.Column="2" x:Name="SourceWebPageBrowseButton" Click="SourceWebPageBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Visibility="{Binding ShowSaveSourceScreenshotGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Text="{Binding ImageFormat}" Width="90" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFormat}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="2" Text="{Binding ImageWidth}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageWidthOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="4" Text="{Binding ImageHeight}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageHeightOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Text="{Binding ImageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFilePath}" />
+
+                    <Button Grid.Column="2" x:Name="SaveSourceScreenshotBrowseButton" Click="SaveSourceScreenshotBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="2" Visibility="{Binding ShowSourceDimensionsGrid, Converter={StaticResource BooleanToVisibilityConverter}}">

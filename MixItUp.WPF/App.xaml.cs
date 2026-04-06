@@ -52,7 +52,7 @@ namespace MixItUp.WPF
                 ServiceManager.Add(new WindowsMicrosoftAzureSpeechService());
                 ServiceManager.Add(new StreamlabsService(new WindowsSocketIOConnection()));
                 ServiceManager.Add(new RainmakerService(new WindowsSocketIOConnection()));
-                ServiceManager.Add(new StreamElementsService(new WindowsSocketIOConnection()));
+                ServiceManager.Add(new StreamElementsService());
                 ServiceManager.Add(new TipeeeStreamService(new WindowsSocketIOConnection()));
                 ServiceManager.Add(new TreatStreamService(new WindowsSocketIOConnection()));
                 ServiceManager.Add<IOvrStreamService>(new WindowsOvrStreamService());
@@ -81,14 +81,14 @@ namespace MixItUp.WPF
 
             RegistryHelpers.RegisterFileAssociation();
             RegistryHelpers.RegisterURIActivationProtocol();
-            // Disabled for now until we can figure out why anti-virus hates it
-            // RegistryHelpers.RegisterUninstaller();
+            //RegistryHelpers.RegisterUninstaller(); // Disabled for now
 
             FileLoggerHandler.Initialize();
 
             DispatcherHelper.RegisterDispatcher(new WindowsDispatcher(this.Dispatcher));
 
             DialogHelper.Initialize(new WPFDialogShower());
+            AvalonEditCustomHighlighting.Initialize();
 
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;

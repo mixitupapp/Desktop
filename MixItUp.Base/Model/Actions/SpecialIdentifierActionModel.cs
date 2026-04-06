@@ -95,18 +95,7 @@ namespace MixItUp.Base.Model.Actions
                                 return Task.FromResult(MixItUp.Base.Resources.DateNotOccurred);
                             }
 
-                            int days = (int)difference.TotalDays;
-                            int hours = difference.Hours;
-                            int minutes = difference.Minutes;
-                            int seconds = difference.Seconds;
-
-                            List<string> parts = new List<string>();
-                            if (days > 0) parts.Add(days + " " + MixItUp.Base.Resources.TimeDays);
-                            if (hours > 0) parts.Add(hours + " " + MixItUp.Base.Resources.TimeHours);
-                            if (minutes > 0) parts.Add(minutes + " " + MixItUp.Base.Resources.TimeMinutes);
-                            if (seconds > 0 || parts.Count == 0) parts.Add(seconds + " " + MixItUp.Base.Resources.Seconds);
-
-                            return Task.FromResult(string.Join(", ", parts));
+                            return Task.FromResult(this.FormatDateDifference(targetDate, now));
                         }
                         catch
                         {
@@ -136,18 +125,7 @@ namespace MixItUp.Base.Model.Actions
                                 return Task.FromResult(MixItUp.Base.Resources.DateHasPassed);
                             }
 
-                            int days = (int)difference.TotalDays;
-                            int hours = difference.Hours;
-                            int minutes = difference.Minutes;
-                            int seconds = difference.Seconds;
-
-                            List<string> parts = new List<string>();
-                            if (days > 0) parts.Add(days + " " + MixItUp.Base.Resources.TimeDays);
-                            if (hours > 0) parts.Add(hours + " " + MixItUp.Base.Resources.TimeHours);
-                            if (minutes > 0) parts.Add(minutes + " " + MixItUp.Base.Resources.TimeMinutes);
-                            if (seconds > 0 || parts.Count == 0) parts.Add(seconds + " " + MixItUp.Base.Resources.Seconds);
-
-                            return Task.FromResult(string.Join(", ", parts));
+                            return Task.FromResult(this.FormatDateDifference(now, targetDate));
                         }
                         catch
                         {
@@ -231,6 +209,44 @@ namespace MixItUp.Base.Model.Actions
                 }
             }
             return text;
+        }
+
+        private string FormatDateDifference(DateTime startDate, DateTime endDate)
+        {
+            int years = 0;
+            DateTime yearCheckDate = startDate.AddYears(1);
+            while (yearCheckDate <= endDate)
+            {
+                years++;
+                yearCheckDate = startDate.AddYears(years + 1);
+            }
+
+            DateTime afterYears = startDate.AddYears(years);
+
+            int months = 0;
+            DateTime monthCheckDate = afterYears.AddMonths(1);
+            while (monthCheckDate <= endDate)
+            {
+                months++;
+                monthCheckDate = afterYears.AddMonths(months + 1);
+            }
+
+            DateTime afterMonths = afterYears.AddMonths(months);
+            TimeSpan remainingDifference = endDate - afterMonths;
+
+            int days = (int)remainingDifference.TotalDays;
+            int hours = remainingDifference.Hours;
+            int minutes = remainingDifference.Minutes;
+            int seconds = remainingDifference.Seconds;
+
+            List<string> parts = new List<string>();
+            if (years > 0) parts.Add(years + " " + MixItUp.Base.Resources.TimeYears);
+            if (months > 0) parts.Add(months + " " + MixItUp.Base.Resources.TimeMonths);
+            if (days > 0) parts.Add(days + " " + MixItUp.Base.Resources.TimeDays);
+            if (hours > 0) parts.Add(hours + " " + MixItUp.Base.Resources.TimeHours);
+            if (minutes > 0) parts.Add(minutes + " " + MixItUp.Base.Resources.TimeMinutes);
+            if (seconds > 0 || parts.Count == 0) parts.Add(seconds + " " + MixItUp.Base.Resources.Seconds);
+            return string.Join(", ", parts);
         }
 
         private async Task<string> PerformStringFunction(CommandParametersModel parameters, string text, string functionName, int expectedArgumentNumber, Func<IEnumerable<string>, Task<string>> processor, int startIndex, int endIndex)

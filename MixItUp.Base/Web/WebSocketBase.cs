@@ -45,7 +45,7 @@ namespace MixItUp.Base.Web
         /// </summary>
         /// <param name="closeStatus">Optional status to send to partner web socket as to why the web socket is being closed</param>
         /// <returns>A task for the closing of the web socket</returns>
-        public virtual Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
+        public virtual async Task Disconnect(WebSocketCloseStatus closeStatus = WebSocketCloseStatus.NormalClosure)
         {
             if (this.webSocket != null)
             {
@@ -53,14 +53,12 @@ namespace MixItUp.Base.Web
                 {
                     if (GetState() != WebSocketState.Closed)
                     {
-                        this.webSocket.CloseAsync(closeStatus, string.Empty, CancellationToken.None).Wait(1);
+                        await this.webSocket.CloseAsync(closeStatus, string.Empty, CancellationToken.None);
                     }
                 }
                 catch (Exception ex) { Logger.Log(ex); }
             }
             this.webSocket = null;
-
-            return Task.FromResult(0);
         }
 
         /// <summary>
@@ -73,10 +71,14 @@ namespace MixItUp.Base.Web
             byte[] buffer = Encoding.UTF8.GetBytes(packet);
 
             await this.webSocketSemaphore.WaitAsync();
-
-            await this.SendInternal(buffer);
-
-            this.webSocketSemaphore.Release();
+            try
+            {
+                await this.SendInternal(buffer);
+            }
+            finally
+            {
+                this.webSocketSemaphore.Release();
+            }
 
             this.OnSentOccurred?.Invoke(this, packet);
         }
@@ -135,6 +137,11 @@ namespace MixItUp.Base.Web
         protected abstract Task ProcessReceivedPacket(string packet);
 
         /// <summary>
+        /// Gets the cancellation token to use for receiving.
+        /// </summary>
+        protected virtual CancellationToken ReceiveCancellationToken { get { return CancellationToken.None; } }
+
+        /// <summary>
         /// Handles all receiving &amp; processing of packets.
         /// </summary>
         /// <returns>An awaitable task with the close status of the web socket connection</returns>
@@ -148,12 +155,18 @@ namespace MixItUp.Base.Web
 
             try
             {
-                while (this.IsOpen())
+                while (this.IsOpen() && !this.ReceiveCancellationToken.IsCancellationRequested)
                 {
                     try
                     {
                         Array.Clear(buffer, 0, buffer.Length);
-                        WebSocketReceiveResult result = await this.webSocket.ReceiveAsync(arrayBuffer, CancellationToken.None);
+                        WebSocket activeWebSocket = this.webSocket;
+                        if (activeWebSocket == null)
+                        {
+                            break;
+                        }
+
+                        WebSocketReceiveResult result = await activeWebSocket.ReceiveAsync(arrayBuffer, this.ReceiveCancellationToken);
 
                         if (result != null)
                         {
@@ -179,6 +192,7 @@ namespace MixItUp.Base.Web
                         }
                     }
                     catch (TaskCanceledException) { }
+                    catch (OperationCanceledException) { }
                     catch (Exception ex)
                     {
                         Logger.Log(ex);
@@ -223,7 +237,7 @@ namespace MixItUp.Base.Web
         {
             await this.Disconnect(closeStatus);
 
-            Task.Run(() => { this.OnDisconnectOccurred?.Invoke(this, closeStatus); }).Wait(1);
+            _ = Task.Run(() => { this.OnDisconnectOccurred?.Invoke(this, closeStatus); });
         }
 
         /// <summary>
