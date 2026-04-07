@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.User;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat.Trovo;
@@ -91,6 +91,7 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.TwitchChannelWatchStreak:
                     specialIdentifiers["userwatchstreak"] = "5";
                     specialIdentifiers["watchstreakchannelpointsawarded"] = "100";
+                    specialIdentifiers["message"] = "Test Message";
                     break;
 
                 case EventTypeEnum.TwitchChannelHighlightedMessage:
