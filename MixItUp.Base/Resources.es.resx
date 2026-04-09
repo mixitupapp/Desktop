@@ -11264,4 +11264,7 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0} tiene una Racha de Vigilancia de {1}</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Parada al finalizar</value>
+  </data>
 </root>

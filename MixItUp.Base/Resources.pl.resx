@@ -11262,4 +11262,7 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0} ma serię obserwacyjną {1}.</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Zatrzymanie po zakończeniu</value>
+  </data>
 </root>

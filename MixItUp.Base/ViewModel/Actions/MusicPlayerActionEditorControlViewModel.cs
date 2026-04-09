@@ -51,6 +51,17 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private string searchText;
 
+        public bool StopOnCompletion
+        {
+            get { return this.stopOnCompletion; }
+            set
+            {
+                this.stopOnCompletion = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool stopOnCompletion = false;
+
         public bool ShowFolderPath { get { return this.SelectedActionType == MusicPlayerActionTypeEnum.ChangeFolder; } }
 
         public string FolderPath
@@ -75,6 +86,7 @@ namespace MixItUp.Base.ViewModel.Actions
             else if (this.SelectedActionType == MusicPlayerActionTypeEnum.PlaySpecificSong)
             {
                 this.SearchText = action.SearchText;
+                this.StopOnCompletion = action.StopOnCompletion;
             }
             else if (this.SelectedActionType == MusicPlayerActionTypeEnum.ChangeFolder)
             {
@@ -97,7 +109,7 @@ namespace MixItUp.Base.ViewModel.Actions
             }
             else if (this.ShowSearchText)
             {
-                return Task.FromResult<ActionModelBase>(new MusicPlayerActionModel(this.SelectedActionType) { SearchText = this.SearchText });
+                return Task.FromResult<ActionModelBase>(new MusicPlayerActionModel(this.SelectedActionType) { SearchText = this.SearchText, StopOnCompletion = this.StopOnCompletion });
             }
             else if (this.ShowFolderPath)
             {

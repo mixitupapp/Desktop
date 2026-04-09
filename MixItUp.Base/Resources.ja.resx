@@ -11262,4 +11262,7 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0}は{1}のウォッチストリークを持っている。</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>完了時に停止</value>
+  </data>
 </root>

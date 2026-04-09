@@ -11263,4 +11263,7 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0} a une série de montres de {1}</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Arrêt à l'achèvement</value>
+  </data>
 </root>

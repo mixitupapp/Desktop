@@ -22647,6 +22647,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stop on Completion.
+        /// </summary>
+        public static string StopOnCompletion {
+            get {
+                return ResourceManager.GetString("StopOnCompletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Store In Memory.
         /// </summary>
         public static string StoreInMemory {

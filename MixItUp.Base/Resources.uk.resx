@@ -11262,4 +11262,7 @@ print(run())</value>
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0} має годинникову стрічку {1}</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Зупинка на завершенні</value>
+  </data>
 </root>

@@ -11262,4 +11262,7 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0} ha una Watch Streak di {1}</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Arresto al completamento</value>
+  </data>
 </root>

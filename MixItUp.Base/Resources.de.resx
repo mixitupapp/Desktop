@@ -11268,4 +11268,7 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0} hat eine Watch Streak von {1}</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Stopp bei Fertigstellung</value>
+  </data>
 </root>

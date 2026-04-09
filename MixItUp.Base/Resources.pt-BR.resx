@@ -11263,4 +11263,7 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0} tem uma série de observação de {1}</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Parar na conclusão</value>
+  </data>
 </root>

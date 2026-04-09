@@ -42,6 +42,8 @@ namespace MixItUp.WPF.Services
 
         private ThreadSafeObservableCollection<MusicPlayerSong> songs = new ThreadSafeObservableCollection<MusicPlayerSong>();
         private int currentSongIndex = 0;
+        private bool stopOnSpecificSongCompletion = false;
+        private int stopOnSpecificSongIndex = -1;
 
         private CancellationTokenSource backgroundPlayThreadTokenSource = new CancellationTokenSource();
         private WaveOutEvent currentWaveOutEvent;
@@ -148,6 +150,8 @@ namespace MixItUp.WPF.Services
                     this.backgroundPlayThreadTokenSource.Cancel();
                 }
                 this.backgroundPlayThreadTokenSource = null;
+                this.stopOnSpecificSongCompletion = false;
+                this.stopOnSpecificSongIndex = -1;
             }
             catch (Exception ex)
             {
@@ -363,7 +367,7 @@ namespace MixItUp.WPF.Services
             });
         }
 
-        public async Task<MusicPlayerSong> SearchAndPlaySong(string searchText)
+        public async Task<MusicPlayerSong> SearchAndPlaySong(string searchText, bool stopOnCompletion)
         {
             MusicPlayerSong song = null;
 
@@ -377,6 +381,8 @@ namespace MixItUp.WPF.Services
             {
                 await this.Stop();
                 this.currentSongIndex = this.songs.IndexOf(song);
+                this.stopOnSpecificSongCompletion = stopOnCompletion;
+                this.stopOnSpecificSongIndex = this.currentSongIndex;
                 await this.Play();
             }
 
@@ -410,7 +416,14 @@ namespace MixItUp.WPF.Services
 
                 if (this.currentSongIndex == songIndex && this.State == MusicPlayerState.Playing)
                 {
-                    await this.Next();
+                    if (this.stopOnSpecificSongCompletion && songIndex == this.stopOnSpecificSongIndex)
+                    {
+                        await this.Stop();
+                    }
+                    else
+                    {
+                        await this.Next();
+                    }
                 }
             }
         }

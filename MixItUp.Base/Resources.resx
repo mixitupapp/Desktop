@@ -11270,4 +11270,7 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>This update is required to continue using Mix It Up</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Stop on Completion</value>
+  </data>
 </root>

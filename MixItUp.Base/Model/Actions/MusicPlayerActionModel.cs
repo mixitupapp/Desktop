@@ -33,6 +33,9 @@ namespace MixItUp.Base.Model.Actions
         public string SearchText { get; set; }
 
         [DataMember]
+        public bool StopOnCompletion { get; set; }
+
+        [DataMember]
         public string FolderPath { get; set; }
 
         public MusicPlayerActionModel(MusicPlayerActionTypeEnum actionType)
@@ -64,7 +67,7 @@ namespace MixItUp.Base.Model.Actions
             else if (this.ActionType == MusicPlayerActionTypeEnum.PlaySpecificSong)
             {
                 string search = await SpecialIdentifierStringBuilder.ProcessSpecialIdentifiers(this.SearchText, parameters);
-                MusicPlayerSong song = await ServiceManager.Get<IMusicPlayerService>().SearchAndPlaySong(search);
+                MusicPlayerSong song = await ServiceManager.Get<IMusicPlayerService>().SearchAndPlaySong(search, this.StopOnCompletion);
                 if (song == null)
                 {
                     await ServiceManager.Get<ChatService>().SendMessage(string.Format(Resources.MusicPlayerUnableToFindSong, search), parameters.Platform);

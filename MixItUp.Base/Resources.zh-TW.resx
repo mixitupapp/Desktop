@@ -11262,4 +11262,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AlertTwitchWatchStreak" xml:space="preserve">
     <value>{0}的连续观察次数为{1}。</value>
   </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>完成时停止</value>
+  </data>
 </root>
