@@ -349,6 +349,7 @@ namespace MixItUp.Base.Services.External
                     currency = tipData["donation"]?["currency"]?.Value<string>() ?? tipData["currency"]?.Value<string>(),
                     message = tipData["donation"]?["message"]?.Value<string>() ?? tipData["message"]?.Value<string>(),
                 };
+                Logger.ForceLog(LogLevel.Information, $"StreamElements donation event received: {tipEvent.username ?? string.Empty} - {tipEvent.amount?.ToString() ?? string.Empty} - {tipEvent.message ?? string.Empty}");
 
                 await this.ProcessTipDonation(tipEvent);
             }

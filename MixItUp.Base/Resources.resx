@@ -9844,6 +9844,14 @@ print(run())</value>
     <value>Twitch Ad Started - Duration {0} Seconds</value>
     <comment>{0} = The amount of seconds of the ad</comment>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Show Twitch Watch Streaks</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} has a Watch Streak of {1}</value>
+    <comment>{0} is the name of the user
+{1} is the watch streak count</comment>
+  </data>
   <data name="SnoozeNextAd" xml:space="preserve">
     <value>Snooze Next Ad</value>
   </data>
@@ -11261,5 +11269,8 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   </data>
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>This update is required to continue using Mix It Up</value>
+  </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Stop on Completion</value>
   </data>
 </root>

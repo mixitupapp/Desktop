@@ -11261,4 +11261,13 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Это обновление необходимо для продолжения использования Mix It Up</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Показывать стримы Twitch</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} имеет полосу наблюдений {1}.</value>
+  </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Остановка по завершении</value>
+  </data>
 </root>

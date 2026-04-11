@@ -70,6 +70,6 @@ namespace MixItUp.Base.Services
 
         Task LoadSongs();
 
-        Task<MusicPlayerSong> SearchAndPlaySong(string searchText);
+        Task<MusicPlayerSong> SearchAndPlaySong(string searchText, bool stopOnCompletion);
     }
 }

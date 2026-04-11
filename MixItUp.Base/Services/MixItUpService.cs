@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.API;
 using MixItUp.Base.Model.Commands;
@@ -819,6 +819,42 @@ namespace MixItUp.Base.Services
             }
 
             return new OutageModel { Enabled = false, Message = "", Severity = "warning" };
+        }
+
+        public async Task UtilServiceLogin()
+        {
+            try
+            {
+                string clientKey = UtilServiceHelper.GenerateClientKey();
+                string version = VersionHelper.NormalizeSemVerString(Assembly.GetEntryAssembly()?.GetName().Version);
+                string release = "unknown";
+                if (ChannelSession.AppSettings != null)
+                {
+                    release = ChannelSession.AppSettings.PreviewProgram ? "preview" : "public";
+                }
+
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    client.Timeout = new TimeSpan(0, 0, 5);
+                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                    client.DefaultRequestHeaders.Add("Client-Key", clientKey);
+
+                    JObject body = new JObject();
+                    body["version"] = version;
+                    body["release"] = release;
+
+                    HttpResponseMessage response = await client.PostAsync("api/user/login", AdvancedHttpClient.CreateContentFromObject(body));
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        string content = await response.Content.ReadAsStringAsync();
+                        Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {(int)response.StatusCode} - {content}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {ex.Message}");
+            }
         }
 
         #region IDisposable Support

@@ -85,6 +85,11 @@ namespace MixItUp.Base.Services.External
                 JObject response = JObject.Parse(packet);
                 if (response != null)
                 {
+                    if (response["msg"] != null && response["id"] == null)
+                    {
+                        return Task.FromResult(0);
+                    }
+
                     string actionType = response["actionType"]?.ToString();
                     if (actionType == "voiceChangedEvent")
                     {

@@ -1,5 +1,14 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.410
+
+- [FEAT] Add Twitch Watch Streak Alert in Settings -> Alerts
+- [FEAT] Add $message special identifier to Watch Streak event
+- [FEAT] Add StopOnCompletion for Music Player action after playing a specific song
+- [MAINT] Add escalated priority logging for Streamelements Donation event
+- [FIX] Voicemod V2 connection failure for certain users
+- [FIX] Prevent viewer count from hiding when top chat buttons are collapsed, now follows the toggle in settings -> chat
+
 ## 1.6.400
 
 - [MAINT] Update OBS Studio WebSocket V5 connections and stabilize reconnection logic *
