@@ -82,6 +82,7 @@ namespace MixItUp.Base.Services
         public async Task<UserV2ViewModel> GetUserByPlatform(StreamingPlatformTypeEnum platform, string platformID = null, string platformUsername = null, bool performPlatformSearch = false)
         {
             UserV2ViewModel user = null;
+            platformUsername = UserService.SanitizeUsername(platformUsername);
 
             if (string.IsNullOrEmpty(platformID) && string.IsNullOrEmpty(platformUsername))
             {
