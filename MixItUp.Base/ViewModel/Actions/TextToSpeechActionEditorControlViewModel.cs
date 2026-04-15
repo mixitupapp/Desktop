@@ -344,7 +344,13 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.NotifyPropertyChanged(nameof(this.TTSMonsterNotEnabled));
 
                     string voiceID = (this.SelectedVoice != null) ? this.SelectedVoice.ID : null;
-                    this.Voices.ClearAndAddRange(service.GetVoices());
+                    List<TextToSpeechVoice> voices = new List<TextToSpeechVoice>();
+                    if (service.ProviderType != TextToSpeechProviderType.WindowsTextToSpeech)
+                    {
+                        voices.Add(new TextToSpeechVoice(TextToSpeechConstants.RandomVoiceID, Resources.RandomVoice));
+                    }
+                    voices.AddRange(service.GetVoices());
+                    this.Voices.ClearAndAddRange(voices);
                     if (voiceID != null)
                     {
                         this.SelectedVoice = this.Voices.FirstOrDefault(v => string.Equals(v.ID, voiceID, StringComparison.OrdinalIgnoreCase));
