@@ -74,6 +74,8 @@ namespace MixItUp.Base.ViewModel.Overlay
         public bool CanSetProbabilities { get { return !this.wheel.EqualProbabilityForOutcomes; } }
 
         public ICommand DeleteCommand { get; private set; }
+        public ICommand MoveUpCommand { get; private set; }
+        public ICommand MoveDownCommand { get; private set; }
 
         private OverlayWheelV3ViewModel wheel;
 
@@ -142,6 +144,16 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.DeleteCommand = this.CreateCommand(() =>
             {
                 this.wheel.DeleteOutcome(this);
+            });
+
+            this.MoveUpCommand = this.CreateCommand(() =>
+            {
+                this.wheel.MoveOutcomeUp(this);
+            });
+
+            this.MoveDownCommand = this.CreateCommand(() =>
+            {
+                this.wheel.MoveOutcomeDown(this);
             });
         }
     }
@@ -368,6 +380,26 @@ namespace MixItUp.Base.ViewModel.Overlay
         public void DeleteOutcome(OverlayWheelOutcomeV3ViewModel outcome)
         {
             this.Outcomes.Remove(outcome);
+        }
+
+        public void MoveOutcomeUp(OverlayWheelOutcomeV3ViewModel outcome)
+        {
+            int index = this.Outcomes.IndexOf(outcome);
+            if (index > 0)
+            {
+                this.Outcomes.Remove(outcome);
+                this.Outcomes.Insert(index - 1, outcome);
+            }
+        }
+
+        public void MoveOutcomeDown(OverlayWheelOutcomeV3ViewModel outcome)
+        {
+            int index = this.Outcomes.IndexOf(outcome);
+            if (index < this.Outcomes.Count - 1)
+            {
+                this.Outcomes.Remove(outcome);
+                this.Outcomes.Insert(index + 1, outcome);
+            }
         }
 
         protected override OverlayItemV3ModelBase GetItemInternal()
