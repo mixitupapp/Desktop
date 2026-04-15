@@ -178,9 +178,9 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="10" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="5" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="5" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
