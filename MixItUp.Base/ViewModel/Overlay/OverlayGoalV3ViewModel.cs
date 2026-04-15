@@ -50,6 +50,8 @@ namespace MixItUp.Base.ViewModel.Overlay
         private CustomCommandModel command;
 
         public ICommand DeleteCommand { get; private set; }
+        public ICommand MoveUpCommand { get; private set; }
+        public ICommand MoveDownCommand { get; private set; }
 
         private OverlayGoalV3ViewModel viewModel;
 
@@ -62,6 +64,16 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.DeleteCommand = this.CreateCommand(() =>
             {
                 this.viewModel.DeleteSegment(this);
+            });
+
+            this.MoveUpCommand = this.CreateCommand(() =>
+            {
+                this.viewModel.MoveSegmentUp(this);
+            });
+
+            this.MoveDownCommand = this.CreateCommand(() =>
+            {
+                this.viewModel.MoveSegmentDown(this);
             });
         }
 
@@ -327,6 +339,26 @@ namespace MixItUp.Base.ViewModel.Overlay
         public void DeleteSegment(OverlayGoalSegmentV3ViewModel segment)
         {
             this.Segments.Remove(segment);
+        }
+
+        public void MoveSegmentUp(OverlayGoalSegmentV3ViewModel segment)
+        {
+            int index = this.Segments.IndexOf(segment);
+            if (index > 0)
+            {
+                this.Segments.Remove(segment);
+                this.Segments.Insert(index - 1, segment);
+            }
+        }
+
+        public void MoveSegmentDown(OverlayGoalSegmentV3ViewModel segment)
+        {
+            int index = this.Segments.IndexOf(segment);
+            if (index < this.Segments.Count - 1)
+            {
+                this.Segments.Remove(segment);
+                this.Segments.Insert(index + 1, segment);
+            }
         }
 
         public override Result Validate()
