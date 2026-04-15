@@ -3,6 +3,8 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
 using MixItUp.Base.Util;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -111,10 +113,7 @@ namespace MixItUp.Base.Model.Actions
                     string message = await ReplaceStringWithSpecialModifiers(this.MessageText, parameters);
                     string filePath = await ReplaceStringWithSpecialModifiers(this.FilePath, parameters);
 
-                    if (!string.IsNullOrEmpty(filePath) && !ServiceManager.Get<IFileService>().IsURLPath(filePath) && !ServiceManager.Get<IFileService>().FileExists(filePath))
-                    {
-                        Logger.Log(LogLevel.Error, $"Command: {parameters.InitialCommandID} - Discord Action - File does not exist: {filePath}");
-                    }
+                    this.LogMissingFiles(parameters.InitialCommandID, filePath);
 
                     await ServiceManager.Get<DiscordService>().CreateMessage(this.channel, message, filePath);
                 }
@@ -139,10 +138,7 @@ namespace MixItUp.Base.Model.Actions
                     string message = await ReplaceStringWithSpecialModifiers(this.MessageText, parameters);
                     string filePath = await ReplaceStringWithSpecialModifiers(this.FilePath, parameters);
 
-                    if (!string.IsNullOrEmpty(filePath) && !ServiceManager.Get<IFileService>().IsURLPath(filePath) && !ServiceManager.Get<IFileService>().FileExists(filePath))
-                    {
-                        Logger.Log(LogLevel.Error, $"Command: {parameters.InitialCommandID} - Discord Action - File does not exist: {filePath}");
-                    }
+                    this.LogMissingFiles(parameters.InitialCommandID, filePath);
 
                     string embedTitle = await ReplaceStringWithSpecialModifiers(this.EmbedTitle, parameters);
                     string embedDescription = await ReplaceStringWithSpecialModifiers(this.EmbedDescription, parameters);
@@ -173,6 +169,26 @@ namespace MixItUp.Base.Model.Actions
                     await ServiceManager.Get<DiscordService>().CreateMessageWithEmbed(this.channel, message, embed, filePath);
                 }
             }
+        }
+
+        private void LogMissingFiles(Guid commandID, string filePath)
+        {
+            foreach (string path in this.GetFilePaths(filePath))
+            {
+                if (!ServiceManager.Get<IFileService>().IsURLPath(path) && !ServiceManager.Get<IFileService>().FileExists(path))
+                {
+                    Logger.Log(LogLevel.Error, $"Command: {commandID} - Discord Action - File does not exist: {path}");
+                }
+            }
+        }
+
+        private IEnumerable<string> GetFilePaths(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                return Enumerable.Empty<string>();
+            }
+            return filePath.Split('|').Select(p => p.Trim()).Where(p => !string.IsNullOrWhiteSpace(p));
         }
     }
 }
