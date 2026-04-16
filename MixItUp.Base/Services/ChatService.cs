@@ -9,6 +9,7 @@ using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
+using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
 using System.Collections.Generic;
@@ -149,7 +150,17 @@ namespace MixItUp.Base.Services
                     }
                     else if (platform == StreamingPlatformTypeEnum.YouTube && ServiceManager.Get<YouTubeSession>().IsConnected)
                     {
-                        await ServiceManager.Get<YouTubeSession>().SendMessage(message, sendAsStreamer);
+                        if (!string.IsNullOrEmpty(replyMessageID) &&
+                            this.messagesLookup.TryGetValue(replyMessageID, out ChatMessageViewModel replyMessage) &&
+                            replyMessage is YouTubeChatMessageViewModel youTubeReplyMessage &&
+                            !string.IsNullOrEmpty(youTubeReplyMessage.BroadcastID))
+                        {
+                            await ServiceManager.Get<YouTubeSession>().SendMessage(message, youTubeReplyMessage.BroadcastID, sendAsStreamer);
+                        }
+                        else
+                        {
+                            await ServiceManager.Get<YouTubeSession>().SendMessage(message, sendAsStreamer);
+                        }
                     }
                     else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
                     {
