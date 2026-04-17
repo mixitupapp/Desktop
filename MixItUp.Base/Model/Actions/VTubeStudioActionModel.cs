@@ -85,11 +85,7 @@ namespace MixItUp.Base.Model.Actions
                 }
                 else if (this.ActionType == VTubeStudioActionTypeEnum.MoveModel)
                 {
-                    bool moveModelResult = await ServiceManager.Get<VTubeStudioService>().MoveModel(this.MovementTimeInSeconds, this.MovementRelative, this.MovementX, this.MovementY, this.Rotation, this.Size);
-                    if (moveModelResult)
-                    {
-                        await Task.Delay(TimeSpan.FromMilliseconds(100));
-                    }
+                    await ServiceManager.Get<VTubeStudioService>().MoveModel(this.MovementTimeInSeconds, this.MovementRelative, this.MovementX, this.MovementY, this.Rotation, this.Size);
                 }
                 else if (this.ActionType == VTubeStudioActionTypeEnum.RunHotKey)
                 {
