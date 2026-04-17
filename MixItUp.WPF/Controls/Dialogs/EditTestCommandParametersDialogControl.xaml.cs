@@ -1,4 +1,4 @@
-﻿using MixItUp.Base;
+using MixItUp.Base;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
@@ -48,7 +48,8 @@ namespace MixItUp.WPF.Controls.Dialogs
         {
             this.parameters.Platform = (StreamingPlatformTypeEnum)this.PlatformComboBox.SelectedItem;
 
-            if (!string.Equals(this.UserTextBox.Text, ChannelSession.User.Username, System.StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(this.UserTextBox.Text) &&
+                !string.Equals(this.UserTextBox.Text, ChannelSession.User.Username, System.StringComparison.OrdinalIgnoreCase))
             {
                 UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(this.parameters.Platform, platformUsername: this.UserTextBox.Text, performPlatformSearch: true);
                 if (user != null)

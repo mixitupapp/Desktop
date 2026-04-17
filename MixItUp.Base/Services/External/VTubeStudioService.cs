@@ -105,7 +105,9 @@ namespace MixItUp.Base.Services.External
                 Task completedTask = await Task.WhenAny(responseCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(delaySeconds)));
                 if (ReferenceEquals(completedTask, responseCompletionSource.Task))
                 {
-                    return await responseCompletionSource.Task;
+                    VTubeStudioWebSocketResponsePacket response = await responseCompletionSource.Task;
+                    await Task.Delay(100);
+                    return response;
                 }
             }
             catch (Exception ex)

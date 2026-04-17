@@ -1,7 +1,9 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
+using MixItUp.Base.Util;
 using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -62,7 +64,18 @@ namespace MixItUp.Base.Model.Actions
             {
                 if (service.ProviderType == this.ProviderType)
                 {
-                    await service.Speak(this.OutputDevice, this.OverlayEndpointID, message, this.Voice, this.Volume, this.Pitch, this.Rate, this.SSML, this.WaitForFinish);
+                    string voice = this.Voice;
+                    if (string.Equals(voice, TextToSpeechConstants.RandomVoiceID, StringComparison.OrdinalIgnoreCase))
+                    {
+                        TextToSpeechVoice randomVoice = service.GetVoices()?.Where(v => !string.IsNullOrWhiteSpace(v?.ID)).Random();
+                        if (randomVoice == null)
+                        {
+                            break;
+                        }
+                        voice = randomVoice.ID;
+                    }
+
+                    await service.Speak(this.OutputDevice, this.OverlayEndpointID, message, voice, this.Volume, this.Pitch, this.Rate, this.SSML, this.WaitForFinish);
                     break;
                 }
             }

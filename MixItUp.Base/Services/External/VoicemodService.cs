@@ -231,6 +231,39 @@ namespace MixItUp.Base.Services.External
             }
         }
 
+        public async Task<string> GetCurrentVoice()
+        {
+            if (this.WebSocketConnected)
+            {
+                JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getVoices"));
+                if (response != null)
+                {
+                    string currentVoiceID = response["currentVoice"]?.ToString();
+                    if (string.IsNullOrEmpty(currentVoiceID))
+                    {
+                        currentVoiceID = response["actionObject"]?["currentVoice"]?.ToString();
+                    }
+                    if (!string.IsNullOrEmpty(currentVoiceID))
+                    {
+                        this.currentVoiceID = currentVoiceID;
+                    }
+
+                    JArray voices = response["actionObject"]?["voices"] as JArray;
+                    if (voices != null && !string.IsNullOrEmpty(currentVoiceID))
+                    {
+                        foreach (JToken voice in voices)
+                        {
+                            if (string.Equals(voice["id"]?.ToString(), currentVoiceID, StringComparison.OrdinalIgnoreCase))
+                            {
+                                return voice["friendlyName"]?.ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         public async Task RandomVoice(VoicemodRandomVoiceType voiceType)
         {
             await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("selectRandomVoice", new JObject()
@@ -344,7 +377,7 @@ namespace MixItUp.Base.Services.External
                                 this.websocket.OnDisconnectOccurred += Websocket_OnDisconnectOccurred;
                                 this.websocket.OnVoiceChangedEvent += Websocket_OnVoiceChangedEvent;
 
-                                await this.GetCurrentVoice();
+                                await this.UpdateCurrentVoiceID();
 
                                 ServiceManager.Get<ITelemetryService>().TrackService("Voicemod");
                                 return new Result();
@@ -362,7 +395,7 @@ namespace MixItUp.Base.Services.External
             return new Result(MixItUp.Base.Resources.VoicemodConnectionFailed);
         }
 
-        private async Task GetCurrentVoice()
+        private async Task UpdateCurrentVoiceID()
         {
             JObject response = await this.websocket.SendAndReceive(new VoicemodWebSocketRequestPacket("getCurrentVoice"));
             if (response != null)

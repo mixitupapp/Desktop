@@ -973,18 +973,9 @@ namespace MixItUp.Base.Services.External
                 var messageContent = AdvancedHttpClient.CreateContentFromObject(messageObj);
 
                 var multiPart = new MultipartFormDataContent();
-                multiPart.Add(messageContent, "\"payload_json\"");
+                multiPart.Add(messageContent, "payload_json");
 
-                if (!string.IsNullOrEmpty(filePath))
-                {
-                    byte[] bytes = await ServiceManager.Get<IFileService>().ReadFileAsBytes(filePath);
-                    if (bytes != null && bytes.Length > 0)
-                    {
-                        var fileContent = new ByteArrayContent(bytes);
-                        string fileName = System.IO.Path.GetFileName(filePath);
-                        multiPart.Add(fileContent, "\"file\"", $"\"{fileName}\"");
-                    }
-                }
+                await this.AddFilesToMultipart(multiPart, filePath);
 
                 return await this.PostAsync<DiscordMessage>("channels/" + channel.ID + "/messages", multiPart);
             }
@@ -1013,23 +1004,61 @@ namespace MixItUp.Base.Services.External
                 var messageContent = new StringContent(messageObj.ToString(), System.Text.Encoding.UTF8, "application/json");
 
                 var multiPart = new MultipartFormDataContent();
-                multiPart.Add(messageContent, "\"payload_json\"");
+                multiPart.Add(messageContent, "payload_json");
 
-                if (!string.IsNullOrEmpty(filePath))
-                {
-                    byte[] bytes = await ServiceManager.Get<IFileService>().ReadFileAsBytes(filePath);
-                    if (bytes != null && bytes.Length > 0)
-                    {
-                        var fileContent = new ByteArrayContent(bytes);
-                        string fileName = System.IO.Path.GetFileName(filePath);
-                        multiPart.Add(fileContent, "\"file\"", $"\"{fileName}\"");
-                    }
-                }
+                await this.AddFilesToMultipart(multiPart, filePath);
 
                 return await this.PostAsync<DiscordMessage>("channels/" + channel.ID + "/messages", multiPart);
             }
             catch (Exception ex) { Logger.Log(ex); }
             return null;
+        }
+
+        private async Task AddFilesToMultipart(MultipartFormDataContent multiPart, string filePaths)
+        {
+            int fileIndex = 0;
+            foreach (string filePath in this.GetFilePaths(filePaths))
+            {
+                byte[] bytes = await ServiceManager.Get<IFileService>().ReadFileAsBytes(filePath);
+                if (bytes != null && bytes.Length > 0)
+                {
+                    var fileContent = new ByteArrayContent(bytes);
+                    string fileName = this.GetFileName(filePath, fileIndex);
+                    multiPart.Add(fileContent, $"files[{fileIndex}]", fileName);
+                    fileIndex++;
+                }
+            }
+        }
+
+        private IEnumerable<string> GetFilePaths(string filePaths)
+        {
+            if (string.IsNullOrWhiteSpace(filePaths))
+            {
+                return Enumerable.Empty<string>();
+            }
+
+            return filePaths.Split('|').Select(p => p.Trim()).Where(p => !string.IsNullOrWhiteSpace(p));
+        }
+
+        private string GetFileName(string filePath, int fileIndex)
+        {
+            string fileName = System.IO.Path.GetFileName(filePath);
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                return fileName;
+            }
+
+            Uri uri;
+            if (Uri.TryCreate(filePath, UriKind.Absolute, out uri))
+            {
+                fileName = System.IO.Path.GetFileName(uri.AbsolutePath);
+                if (!string.IsNullOrWhiteSpace(fileName))
+                {
+                    return fileName;
+                }
+            }
+
+            return $"discord_attachment_{fileIndex + 1}";
         }
 
         public async Task<DiscordChannelInvite> CreateChannelInvite(DiscordChannel channel, bool isTemporary = false)

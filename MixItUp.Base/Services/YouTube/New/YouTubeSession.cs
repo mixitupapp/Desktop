@@ -284,11 +284,25 @@ namespace MixItUp.Base.Services.YouTube.New
 
         public override async Task SendMessage(string message, bool sendAsStreamer = false)
         {
+            await this.SendMessageInternal(message, sendAsStreamer);
+        }
+
+        public async Task SendMessage(string message, string broadcastID, bool sendAsStreamer = false)
+        {
+            await this.SendMessageInternal(message, sendAsStreamer, broadcastID);
+        }
+
+        private async Task SendMessageInternal(string message, bool sendAsStreamer = false, string broadcastID = null)
+        {
+            LiveBroadcast targetedBroadcast = null;
+            bool hasTargetedBroadcast = !string.IsNullOrEmpty(broadcastID) && this.LiveBroadcasts.TryGetValue(broadcastID, out targetedBroadcast);
+
             List<LiveChatMessage> messagesToProcess = new List<LiveChatMessage>();
             foreach (string m in this.SplitLargeMessage(message))
             {
                 bool processedMessage = false;
-                foreach (LiveBroadcast broadcast in this.LiveBroadcasts.Values.ToList())
+                IEnumerable<LiveBroadcast> broadcasts = hasTargetedBroadcast ? new List<LiveBroadcast>() { targetedBroadcast } : this.LiveBroadcasts.Values.ToList();
+                foreach (LiveBroadcast broadcast in broadcasts)
                 {
                     LiveChatMessage resultMessage = null;
                     if (sendAsStreamer || !this.IsBotConnected)
@@ -339,7 +353,7 @@ namespace MixItUp.Base.Services.YouTube.New
 
             foreach (LiveChatMessage messageToProcess in messagesToProcess)
             {
-                await this.ProcessMessage(messageToProcess);
+                await this.ProcessMessage(messageToProcess, hasTargetedBroadcast ? broadcastID : null);
             }
         }
 
@@ -515,7 +529,7 @@ namespace MixItUp.Base.Services.YouTube.New
                                         {
                                             if (!messageIDsToIgnore.Contains(message.Id))
                                             {
-                                                await this.ProcessMessage(message);
+                                                await this.ProcessMessage(message, broadcast.Id);
                                             }
                                         }
 
@@ -547,7 +561,7 @@ namespace MixItUp.Base.Services.YouTube.New
             }
         }
 
-        private async Task ProcessMessage(LiveChatMessage liveChatMessage)
+        private async Task ProcessMessage(LiveChatMessage liveChatMessage, string broadcastID = null)
         {
             try
             {
@@ -571,7 +585,7 @@ namespace MixItUp.Base.Services.YouTube.New
                     {
                         if (liveChatMessage.Snippet.HasDisplayContent.GetValueOrDefault() && !string.IsNullOrEmpty(liveChatMessage.Snippet.DisplayMessage))
                         {
-                            await ServiceManager.Get<ChatService>().AddMessage(new YouTubeChatMessageViewModel(liveChatMessage, user));
+                            await ServiceManager.Get<ChatService>().AddMessage(new YouTubeChatMessageViewModel(liveChatMessage, user, broadcastID));
                         }
                     }
                     else if (NewMemberEventMessageType.Equals(liveChatMessage.Snippet.Type))
