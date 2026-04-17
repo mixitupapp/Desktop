@@ -1,13 +1,22 @@
 # Mix It Up Desktop Changelog
 
-## 1.6.410
+## 1.6.500
 
 - [FEAT] Add Twitch Watch Streak Alert in Settings -> Alerts
 - [FEAT] Add $message special identifier to Watch Streak event
 - [FEAT] Add StopOnCompletion for Music Player action after playing a specific song
-- [MAINT] Add escalated priority logging for Streamelements Donation event
+- [FEAT] Add Random Voice option to Text to Speech action
+- [FEAT] Add $voicemodcurrentvoice special identifier
+- [FEAT] Add support for multiple file attachments in Discord action
+- [FEAT] Add move up and move down arrow buttons to segments section in goal overlay widget
+- [FEAT] Add move up and move down arrow buttons to outcome section in wheel overlay widget
+- [FEAT] send command chat replies only to the YouTube stream where the command was used instead of all active YT broadcasts
+- [MAINT] Add additional logging for StreamElements Donation event
 - [FIX] Voicemod V2 connection failure for certain users
-- [FIX] Prevent viewer count from hiding when top chat buttons are collapsed, now follows the toggle in settings -> chat
+- [FIX] Prevent viewer count from hiding when top chat buttons are collapsed, now follows the toggle in Settings -> Chat
+- [FIX] Crash when adding a blank user in the Users page
+- [FIX] Crash when using the test popup with blank fields
+- [FIX] Adjustments for VTube Studio model moves and hotkeys
 
 ## 1.6.400
 
