@@ -178,6 +178,10 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="10" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -186,7 +190,11 @@
 
                                 <CommandControls:CommandListingButtonsControl Grid.Column="4" EditClicked="CommandListingButtonsControl_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
 
-                                <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="6" Command="{Binding MoveUpCommand}" HorizontalAlignment="Center" Icon="ArrowUpBold" ToolTip="{x:Static resx:Resources.MoveUp}" />
+
+                                <Controls:IconButton Grid.Column="8" Command="{Binding MoveDownCommand}" HorizontalAlignment="Center" Icon="ArrowDownBold" ToolTip="{x:Static resx:Resources.MoveDown}" />
+
+                                <Controls:IconButton Grid.Column="10" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

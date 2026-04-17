@@ -11257,4 +11257,13 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Deze update is vereist om Mix It Up te kunnen blijven gebruiken</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Twitch-wachtreeksen tonen</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} heeft een Watch Streak van {1}</value>
+  </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Stoppen na voltooiing</value>
+  </data>
 </root>

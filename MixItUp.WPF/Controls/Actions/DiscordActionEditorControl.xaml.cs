@@ -1,5 +1,6 @@
-﻿using MixItUp.Base.Services;
+using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.Actions;
+using System.Collections.Generic;
 
 namespace MixItUp.WPF.Controls.Actions
 {
@@ -15,10 +16,10 @@ namespace MixItUp.WPF.Controls.Actions
 
         private void FilePathBrowseButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            string filePath = ServiceManager.Get<IFileService>().ShowOpenFileDialog();
-            if (!string.IsNullOrEmpty(filePath) && this.DataContext is DiscordActionEditorControlViewModel)
+            IEnumerable<string> filePaths = ServiceManager.Get<IFileService>().ShowMultiselectOpenFileDialog("All files (*.*)|*.*");
+            if (filePaths != null && this.DataContext is DiscordActionEditorControlViewModel)
             {
-                ((DiscordActionEditorControlViewModel)this.DataContext).UploadFilePath = filePath;
+                ((DiscordActionEditorControlViewModel)this.DataContext).UploadFilePath = string.Join("|", filePaths);
             }
         }
     }

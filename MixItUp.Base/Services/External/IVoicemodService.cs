@@ -35,6 +35,7 @@ namespace MixItUp.Base.Services.External
         Task VoiceChangerOnOff(bool state);
         Task SelectVoice(string voiceID);
         Task SelectPreviousVoice();
+        Task<string> GetCurrentVoice();
         Task RandomVoice(VoicemodRandomVoiceType voiceType);
 
         Task BeepSoundOnOff(bool state);
@@ -65,6 +66,8 @@ namespace MixItUp.Base.Services.External
         public Task SelectVoice(string voiceID) { return Task.CompletedTask; }
 
         public Task SelectPreviousVoice() { return Task.CompletedTask; }
+
+        public Task<string> GetCurrentVoice() { return Task.FromResult(string.Empty); }
 
         public Task RandomVoice(VoicemodRandomVoiceType voiceType) { return Task.CompletedTask; }
 

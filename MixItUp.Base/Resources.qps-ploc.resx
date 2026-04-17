@@ -11256,4 +11256,13 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>This update is required to continue using Mix It Up</value>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Show Twitch Watch Streaks</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} has a Watch Streak of {1}</value>
+  </data>
+  <data name="StopOnCompletion" xml:space="preserve">
+    <value>Stop on Completion</value>
+  </data>
 </root>

@@ -284,6 +284,35 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier("streamcurrentscene", currentScene);
             }
 
+            if (this.ContainsSpecialIdentifier("voicemodcurrentvoice"))
+            {
+                IVoicemodService vmService = ServiceManager.Get<IVoicemodService>();
+
+                string currentVoice = "Unknown";
+                if (ChannelSession.Settings.EnableVoicemodStudio)
+                {
+                    if (!vmService.IsConnected)
+                    {
+                        Result result = await vmService.Connect();
+                        if (!result.Success)
+                        {
+                            Logger.Log(LogLevel.Error, result.Message);
+                        }
+                    }
+
+                    if (vmService.IsConnected)
+                    {
+                        string voicemodCurrentVoice = await vmService.GetCurrentVoice();
+                        if (!string.IsNullOrEmpty(voicemodCurrentVoice))
+                        {
+                            currentVoice = voicemodCurrentVoice;
+                        }
+                    }
+                }
+
+                this.ReplaceSpecialIdentifier("voicemodcurrentvoice", currentVoice);
+            }
+
             if (ServiceManager.Get<GameQueueService>().IsEnabled && this.ContainsSpecialIdentifier(GameQueueSpecialIdentifierHeader))
             {
                 this.ReplaceSpecialIdentifier(GameQueueSpecialIdentifierHeader + "total", ServiceManager.Get<GameQueueService>().Queue.Count().ToString());

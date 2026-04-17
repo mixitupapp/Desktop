@@ -160,7 +160,7 @@ namespace MixItUp.Base.Services
                         break;
 
                     case DiscordActionModel discordAction:
-                        if (discordAction.ActionType == DiscordActionTypeEnum.SendMessage)
+                        if (discordAction.ActionType == DiscordActionTypeEnum.SendMessage || discordAction.ActionType == DiscordActionTypeEnum.SendEmbed)
                         {
                             AddReference(references, command, MixItUp.Base.Resources.Discord, discordAction.FilePath, p => discordAction.FilePath = p);
                         }

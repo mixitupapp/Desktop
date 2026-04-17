@@ -35,6 +35,11 @@ namespace MixItUp.Base.Services.External
         }
     }
 
+    public static class TextToSpeechConstants
+    {
+        public const string RandomVoiceID = "__MIXITUP_RANDOM_VOICE__";
+    }
+
     public interface ITextToSpeechService
     {
         TextToSpeechProviderType ProviderType { get; }
