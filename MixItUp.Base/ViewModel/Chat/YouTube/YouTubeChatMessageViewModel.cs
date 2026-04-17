@@ -10,6 +10,8 @@ namespace MixItUp.Base.ViewModel.Chat.YouTube
 {
     public class YouTubeChatMessageViewModel : UserChatMessageViewModel
     {
+        public string BroadcastID { get; private set; }
+
         // YouTube Emojis:
         // https://emojipedia.org/youtube/
         // https://emojis.wiki/youtube/
@@ -17,9 +19,10 @@ namespace MixItUp.Base.ViewModel.Chat.YouTube
         // 
         // https://www.gstatic.com/youtube/img/emojis/emojis-svg-5.json
 
-        public YouTubeChatMessageViewModel(LiveChatMessage message, UserV2ViewModel user = null)
+        public YouTubeChatMessageViewModel(LiveChatMessage message, UserV2ViewModel user = null, string broadcastID = null)
             : base(message.Id, StreamingPlatformTypeEnum.YouTube, user)
         {
+            this.BroadcastID = broadcastID;
             this.ProcessMessageContents(message.Snippet.DisplayMessage);
         }
 
