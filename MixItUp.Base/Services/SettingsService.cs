@@ -82,6 +82,7 @@ namespace MixItUp.Base.Services
                                 {
                                     allSettings.Add(setting);
                                     backupSettingsLoaded = true;
+                                    Logger.Log(LogLevel.Error, $"Used settings backup file for settings ID {setting.ID}.");
                                 }
                             }
                             catch (Exception ex)
@@ -190,14 +191,26 @@ namespace MixItUp.Base.Services
                     await semaphore.WaitAsync();
 
                     settings.CopyLatestValues();
-                    await FileSerializerHelper.SerializeSettingsToFile(settings.SettingsFilePath, settings);
-                    await settings.SaveDatabaseData();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(LogLevel.Error, "Settings save operation failed");
-                    Logger.Log(ex);
-                    //await DialogHelper.ShowMessage("WARNING: Failed to save user settings. Please visit the Mix it Up Discord for assistance.");
+
+                    try
+                    {
+                        await FileSerializerHelper.SerializeSettingsToFile(settings.SettingsFilePath, settings);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(LogLevel.Error, $"Failed to save settings file for settings ID {settings.ID}.");
+                        Logger.Log(ex);
+                    }
+
+                    try
+                    {
+                        await settings.SaveDatabaseData();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(LogLevel.Error, $"Failed to save settings database for settings ID {settings.ID}.");
+                        Logger.Log(ex);
+                    }
                 }
                 finally
                 {

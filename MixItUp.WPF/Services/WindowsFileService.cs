@@ -300,11 +300,21 @@ namespace MixItUp.WPF.Services
                     string backupPath = filePath + ".backup";
                     if (File.Exists(filePath))
                     {
-                        File.Replace(tempPath, filePath, backupPath, ignoreMetadataErrors: true);
+                        File.Replace(tempPath, filePath, null, ignoreMetadataErrors: true);
                     }
                     else
                     {
                         File.Move(tempPath, filePath, overwrite: true);
+                    }
+
+                    try
+                    {
+                        File.Copy(filePath, backupPath, overwrite: true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(LogLevel.Error, "Failed to save settings backup file.");
+                        Logger.Log(ex);
                     }
                 }
                 catch (Exception ex)
