@@ -235,7 +235,6 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.GameQueue: actionPageName = "game-queue-action"; break;
                         case ActionTypeEnum.Group: actionPageName = "group-action"; break;
                         case ActionTypeEnum.IFTTT: actionPageName = "ifttt-action"; break;
-                        case ActionTypeEnum.InfiniteAlbum: actionPageName = "infinite-album"; break;
                         case ActionTypeEnum.Input: actionPageName = "input-action"; break;
                         case ActionTypeEnum.LumiaStream: actionPageName = "lumia-stream-action"; break;
                         case ActionTypeEnum.MeldStudio: actionPageName = "meld-studio-action"; break;

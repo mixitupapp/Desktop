@@ -128,7 +128,6 @@ namespace MixItUp.Base
             ServiceManager.Add(new VTubeStudioService());
             ServiceManager.Add(new CrowdControlService());
             ServiceManager.Add(new SAMMIService());
-            ServiceManager.Add(new InfiniteAlbumService());
             ServiceManager.Add(new TITSService());
             ServiceManager.Add(new LumiaStreamService());
             ServiceManager.Add(new PulsoidService());
@@ -362,7 +361,6 @@ namespace MixItUp.Base
                 if (ChannelSession.Settings.DiscordOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<DiscordService>()] = ChannelSession.Settings.DiscordOAuthToken; }
                 if (ChannelSession.Settings.PixelChatOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<PixelChatService>()] = ChannelSession.Settings.PixelChatOAuthToken; }
                 if (ChannelSession.Settings.VTubeStudioOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<VTubeStudioService>()] = ChannelSession.Settings.VTubeStudioOAuthToken; }
-                if (ChannelSession.Settings.InfiniteAlbumOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<InfiniteAlbumService>()] = ChannelSession.Settings.InfiniteAlbumOAuthToken; }
                 if (ChannelSession.Settings.TITSOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<TITSService>()] = ChannelSession.Settings.TITSOAuthToken; }
                 if (ChannelSession.Settings.LumiaStreamOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<LumiaStreamService>()] = ChannelSession.Settings.LumiaStreamOAuthToken; }
                 if (ChannelSession.Settings.PulsoidOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<PulsoidService>()] = ChannelSession.Settings.PulsoidOAuthToken; }

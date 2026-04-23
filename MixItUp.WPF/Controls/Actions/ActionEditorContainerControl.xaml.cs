@@ -107,7 +107,6 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.GameQueue: return new GameQueueActionEditorControl();
                 case ActionTypeEnum.Group: return new GroupActionEditorControl();
                 case ActionTypeEnum.IFTTT: return new IFTTTActionEditorControl();
-                case ActionTypeEnum.InfiniteAlbum: return new InfiniteAlbumActionEditorControl();
                 case ActionTypeEnum.Input: return new InputActionEditorControl();
                 case ActionTypeEnum.LumiaStream: return new LumiaStreamActionEditorControl();
                 case ActionTypeEnum.MeldStudio: return new MeldStudioActionEditorControl();

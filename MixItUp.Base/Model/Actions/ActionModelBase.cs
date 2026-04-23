@@ -51,6 +51,7 @@ namespace MixItUp.Base.Model.Actions
         Trovo,
         PolyPop,
         SAMMI,
+        [Obsolete]
         InfiniteAlbum,
         TITS,
         MusicPlayer,

@@ -30,7 +30,6 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new DiscordServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new DonorDriveServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new IFTTTServiceControl()));
-            services.Add(new ServiceContainerControl(this.Window, new InfiniteAlbumServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new JustGivingServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LoupeDeckServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LumiaStreamServiceControl()));
