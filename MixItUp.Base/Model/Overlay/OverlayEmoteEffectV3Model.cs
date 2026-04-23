@@ -1,11 +1,9 @@
 ﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using System;
@@ -78,25 +76,6 @@ namespace MixItUp.Base.Model.Overlay
                             if (ServiceManager.Get<YouTubeSession>().EmoteDictionary.TryGetValue(split, out YouTubeChatEmoteViewModel youtubeEmote))
                             {
                                 emoteURLs.Add(youtubeEmote.OverlayAnimatedOrStaticImageURL);
-                                continue;
-                            }
-                        }
-
-                        if (StreamingPlatforms.ContainsPlatform(parameters.Platform, StreamingPlatformTypeEnum.Trovo))
-                        {
-                            if (ServiceManager.Get<TrovoSession>().ChannelEmotes.TryGetValue(split, out TrovoChatEmoteViewModel trovoChannelEmote))
-                            {
-                                emoteURLs.Add(trovoChannelEmote.OverlayAnimatedOrStaticImageURL);
-                                continue;
-                            }
-                            else if (ServiceManager.Get<TrovoSession>().EventEmotes.TryGetValue(split, out TrovoChatEmoteViewModel trovoEventEmote))
-                            {
-                                emoteURLs.Add(trovoEventEmote.OverlayAnimatedOrStaticImageURL);
-                                continue;
-                            }
-                            else if (ServiceManager.Get<TrovoSession>().GlobalEmotes.TryGetValue(split, out TrovoChatEmoteViewModel trovoGlobalEmote))
-                            {
-                                emoteURLs.Add(trovoGlobalEmote.OverlayAnimatedOrStaticImageURL);
                                 continue;
                             }
                         }

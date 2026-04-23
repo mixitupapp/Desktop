@@ -24,6 +24,7 @@ namespace MixItUp.Base.Model.Commands
         PreMade = 8,
         StreamlootsCard = 9,
         Webhook = 10,
+        [Obsolete]
         TrovoSpell = 11,
         TwitchBits = 12,
         CrowdControlEffect = 13,

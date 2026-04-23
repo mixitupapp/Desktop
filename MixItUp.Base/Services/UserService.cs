@@ -1,8 +1,7 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -173,10 +172,6 @@ namespace MixItUp.Base.Services
                             platformModel = new YouTubeUserPlatformV2Model(youtubeUser);
                         }
                     }
-                    else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                    {
-                        // Trovo does not support user look-up by user ID
-                    }
                 }
 
                 if (platformModel == null && !string.IsNullOrEmpty(platformUsername))
@@ -201,14 +196,6 @@ namespace MixItUp.Base.Services
                         if (youtubeUser != null)
                         {
                             platformModel = new YouTubeUserPlatformV2Model(youtubeUser);
-                        }
-                    }
-                    else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                    {
-                        var trovoUser = await ServiceManager.Get<TrovoSession>().StreamerService.GetUserByName(platformUsername);
-                        if (trovoUser != null)
-                        {
-                            platformModel = new TrovoUserPlatformV2Model(trovoUser);
                         }
                     }
                 }

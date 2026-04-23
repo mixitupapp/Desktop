@@ -5,7 +5,6 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.Overlay;
 using MixItUp.Base.ViewModel.User;
@@ -491,19 +490,6 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                         section.Track(superChat.User, superChat.Amount);
-                        break;
-                }
-            }
-        }
-
-        public override void OnTrovoSpell(object sender, TrovoChatSpellViewModel spell)
-        {
-            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
-            {
-                switch (section.Type)
-                {
-                    case OverlayEndCreditsSectionV3Type.TrovoSpells:
-                        section.Track(spell.User, spell.ValueTotal);
                         break;
                 }
             }

@@ -3,7 +3,6 @@ using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
@@ -86,10 +85,6 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnYouTubeSuperChatOccurred += EventService_OnYouTubeSuperChatOccurred;
             }
 
-            if (this.TrovoElixirSpellAmount > 0)
-            {
-                EventService.OnTrovoSpellCastOccurred += EventService_OnTrovoSpellCastOccurred;
-            }
         }
 
         public override async Task Uninitialize()
@@ -229,15 +224,6 @@ namespace MixItUp.Base.Model.Overlay
             await this.ProcessEvent(superChat.User, this.YouTubeSuperChatAmount * superChat.Amount);
         }
 
-        private async void EventService_OnTrovoSpellCastOccurred(object sender, TrovoChatSpellViewModel spell)
-        {
-            if (spell.IsElixir)
-            {
-                Logger.Log(LogLevel.Debug, $"Processing Trovo Elixir of {spell.ValueTotal} for {this.ID} Overlay Widget");
-                await this.ProcessEvent(spell.User, this.TrovoElixirSpellAmount * spell.ValueTotal);
-            }
-        }
-
         private void RemoveEventHandlers()
         {
             EventService.OnFollowOccurred -= EventService_OnFollowOccurred;
@@ -249,7 +235,6 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnDonationOccurred -= EventService_OnDonationOccurred;
             EventService.OnTwitchBitsCheeredOccurred -= EventService_OnTwitchBitsCheeredOccurred;
             EventService.OnYouTubeSuperChatOccurred -= EventService_OnYouTubeSuperChatOccurred;
-            EventService.OnTrovoSpellCastOccurred -= EventService_OnTrovoSpellCastOccurred;
         }
     }
 }

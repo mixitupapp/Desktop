@@ -1,8 +1,7 @@
-﻿using MixItUp.Base.Model.Trovo.Channels;
+using MixItUp.Base.Model.Trovo.Channels;
 using MixItUp.Base.Model.Trovo.Chat;
 using MixItUp.Base.Model.Trovo.Users;
 using MixItUp.Base.Services;
-using MixItUp.Base.Services.Trovo.New;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -50,19 +49,7 @@ namespace MixItUp.Base.Model.User.Platform
         [Obsolete]
         public TrovoUserPlatformV2Model() : base() { }
 
-        public override async Task Refresh()
-        {
-            if (ServiceManager.Get<TrovoSession>().IsConnected)
-            {
-                UserModel user = await ServiceManager.Get<TrovoSession>().StreamerService.GetUserByName(this.Username);
-                if (user != null)
-                {
-                    this.SetUserProperties(user);
-                }
-
-                this.Roles.Add(UserRoleEnum.User);
-            }
-        }
+        public override Task Refresh() { return Task.CompletedTask; }
 
         public void SetUserProperties(ChatMessageModel message)
         {
@@ -91,17 +78,6 @@ namespace MixItUp.Base.Model.User.Platform
                     if (rolesSet.Remove(ChatMessageModel.SubscriberRole))
                     {
                         this.Roles.Add(UserRoleEnum.Subscriber);
-                        if (ServiceManager.Get<TrovoSession>().Subscribers.TryGetValue(this.ID, out ChannelSubscriberModel subscriber))
-                        {
-                            if (int.TryParse(subscriber.sub_tier, out int subTier) && subTier > this.SubscriberTier)
-                            {
-                                this.SubscriberTier = subTier;
-                            }
-                            if (subscriber.sub_created_at != null)
-                            {
-                                this.SubscribeDate = TrovoService.GetTrovoDateTime(subscriber.sub_created_at.GetValueOrDefault().ToString());
-                            }
-                        }
                     }
                     else
                     {

@@ -1,6 +1,5 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Commands;
-using MixItUp.Base.Model.Trovo.Chat;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -8,7 +7,6 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
@@ -227,11 +225,6 @@ namespace MixItUp.Base.Model.Overlay
             await this.AddEvent(superChat.User, nameof(this.YouTubeSuperChats), this.YouTubeSuperChatsDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, superChat.AmountDisplay } });
         }
 
-        public override async void OnTrovoSpell(object sender, TrovoChatSpellViewModel spell)
-        {
-            await this.AddEvent(spell.User, nameof(this.TrovoElixirSpells), this.TrovoElixirSpellsDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, spell.ValueTotal.ToString() } });
-        }
-
         public override Dictionary<string, object> GetGenerationProperties()
         {
             Dictionary<string, object> properties = base.GetGenerationProperties();
@@ -370,19 +363,6 @@ namespace MixItUp.Base.Model.Overlay
                         subs.Add(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User, ChannelSession.User));
                     }
                     this.OnMassSubscription(this, subs);
-                    await Task.Delay(3000);
-                }
-
-                if (this.TrovoElixirSpells)
-                {
-                    this.OnTrovoSpell(this, new TrovoChatSpellViewModel(ChannelSession.User, new ChatMessageModel() { content = "" })
-                    {
-                        Contents = new TrovoChatSpellContentModel()
-                        {
-                            num = 10,
-                            gift_value = 10
-                        }
-                    });
                     await Task.Delay(3000);
                 }
 

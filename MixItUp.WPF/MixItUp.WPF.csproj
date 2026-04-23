@@ -108,9 +108,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Resource Include="Assets\Images\discord-color_sm.png" />
     <Resource Include="Assets\Images\github-color_sm.png" />
     <Resource Include="Assets\Images\patreon-color_sm.png" />
-    <Resource Include="Assets\Images\trovo-color_lg.png" />
-    <Resource Include="Assets\Images\trovo-color_sm.png" />
-    <Resource Include="Assets\Images\trovo-dark_lg.png" />
     <Resource Include="Assets\Images\twitch-color_lg.png" />
     <Resource Include="Assets\Images\twitch-color_sm.png" />
     <Resource Include="Assets\Images\twitch-dark_lg.png" />

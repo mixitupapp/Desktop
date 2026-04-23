@@ -1,10 +1,9 @@
-﻿using Google.Apis.YouTube.v3.Data;
+using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Requirements;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -154,7 +153,6 @@ namespace MixItUp.Base.ViewModel.Requirements
         }
         private MembershipsLevel youtubeMembershipLevel;
 
-        public bool IsTrovoConnected { get { return ServiceManager.Get<TrovoSession>().IsConnected; } }
 
         public string TrovoCustomRole
         {

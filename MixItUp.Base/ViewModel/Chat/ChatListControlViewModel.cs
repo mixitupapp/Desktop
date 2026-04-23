@@ -1,7 +1,6 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -42,7 +41,6 @@ namespace MixItUp.Base.ViewModel.Chat
             {
                 List<string> results = new List<string>() { MixItUp.Base.Resources.Streamer };
                 if (ServiceManager.Get<TwitchSession>().IsBotConnected ||
-                    ServiceManager.Get<TrovoSession>().IsBotConnected ||
                     ServiceManager.Get<YouTubeSession>().IsBotConnected)
                 {
                     results.Add(MixItUp.Base.Resources.Bot);

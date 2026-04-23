@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace MixItUp.Base.Model.Commands
 {
+    [Obsolete]
     [DataContract]
     public class TrovoSpellCommandModel : CommandModelBase
     {

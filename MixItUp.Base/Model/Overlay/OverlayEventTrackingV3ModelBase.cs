@@ -4,7 +4,6 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
@@ -102,10 +101,6 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnYouTubeSuperChatOccurred += OnYouTubeSuperChat;
             }
 
-            if (this.TrovoElixirSpells)
-            {
-                EventService.OnTrovoSpellCastOccurred += EventService_OnTrovoSpellCastOccurred;
-            }
         }
 
         public override async Task Uninitialize()
@@ -139,16 +134,6 @@ namespace MixItUp.Base.Model.Overlay
 
         public virtual void OnYouTubeSuperChat(object sender, YouTubeSuperChatViewModel superChat) { }
 
-        public virtual void OnTrovoSpell(object sender, TrovoChatSpellViewModel spell) { }
-
-        private void EventService_OnTrovoSpellCastOccurred(object sender, TrovoChatSpellViewModel spell)
-        {
-            if (spell.IsElixir)
-            {
-                this.OnTrovoSpell(sender, spell);
-            }
-        }
-
         private void RemoveEventHandlers()
         {
             ChatService.OnChatUserBanned -= OnChatUserBanned;
@@ -165,7 +150,6 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnDonationOccurred -= OnDonation;
             EventService.OnTwitchBitsCheeredOccurred -= OnTwitchBits;
             EventService.OnYouTubeSuperChatOccurred -= OnYouTubeSuperChat;
-            EventService.OnTrovoSpellCastOccurred -= EventService_OnTrovoSpellCastOccurred;
         }
     }
 }

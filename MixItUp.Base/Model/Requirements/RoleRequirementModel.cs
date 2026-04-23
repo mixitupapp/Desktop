@@ -1,10 +1,8 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
-using MixItUp.Base.Services.Trovo;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -149,15 +147,6 @@ namespace MixItUp.Base.Model.Requirements
                         return Task.FromResult(new Result());
                     }
                 }    
-
-                if (parameters.Platform == StreamingPlatformTypeEnum.Trovo && !string.IsNullOrEmpty(this.TrovoCustomRole) && ServiceManager.Get<TrovoSession>().IsConnected)
-                {
-                    TrovoUserPlatformV2Model trovoUser = parameters.User.GetPlatformData<TrovoUserPlatformV2Model>(StreamingPlatformTypeEnum.Trovo);
-                    if (trovoUser != null && trovoUser.CustomRoles.Contains(this.TrovoCustomRole))
-                    {
-                        return Task.FromResult(new Result());
-                    }
-                }
 
                 if (!string.IsNullOrEmpty(this.PatreonBenefitID) && ServiceManager.Get<PatreonService>().IsConnected)
                 {
