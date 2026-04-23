@@ -40,6 +40,7 @@ namespace MixItUp.Base.Model.Store
         Command,
         Serial,
         Moderation,
+        [Obsolete]
         OvrStream,
         IFTTT,
         Twitch,
@@ -50,6 +51,7 @@ namespace MixItUp.Base.Model.Store
         Trovo,
         PolyPop,
         SAMMI,
+        [Obsolete]
         InfiniteAlbum,
         TITS,
         MusicPlayer,

@@ -111,6 +111,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public OAuthTokenModel VTubeStudioOAuthToken { get; set; }
         [DataMember]
+        [Obsolete]
         public OAuthTokenModel InfiniteAlbumOAuthToken { get; set; }
         [DataMember]
         public OAuthTokenModel TITSOAuthToken { get; set; }
@@ -509,6 +510,7 @@ namespace MixItUp.Base.Model.Settings
         #region Services
 
         [DataMember]
+        [Obsolete]
         public string OvrStreamServerIP { get; set; }
 
         [DataMember]
@@ -970,10 +972,6 @@ namespace MixItUp.Base.Model.Settings
             if (ServiceManager.Get<VTubeStudioService>().IsConnected)
             {
                 this.VTubeStudioOAuthToken = ServiceManager.Get<VTubeStudioService>().GetOAuthTokenCopy();
-            }
-            if (ServiceManager.Get<InfiniteAlbumService>().IsConnected)
-            {
-                this.InfiniteAlbumOAuthToken = ServiceManager.Get<InfiniteAlbumService>().GetOAuthTokenCopy();
             }
             if (ServiceManager.Get<TITSService>().IsConnected)
             {

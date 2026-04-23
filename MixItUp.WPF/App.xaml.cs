@@ -55,7 +55,6 @@ namespace MixItUp.WPF
                 ServiceManager.Add(new StreamElementsService());
                 ServiceManager.Add(new TipeeeStreamService(new WindowsSocketIOConnection()));
                 ServiceManager.Add(new TreatStreamService(new WindowsSocketIOConnection()));
-                ServiceManager.Add<IOvrStreamService>(new WindowsOvrStreamService());
                 ServiceManager.Add<IOBSStudioService>(new WindowsOBSService());
                 ServiceManager.Add(new WindowsSpeechService());
                 ServiceManager.Add(new WindowsAmazonPollyService());
