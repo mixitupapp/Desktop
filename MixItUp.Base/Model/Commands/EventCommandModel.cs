@@ -193,6 +193,15 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["message"] = "Test Message";
                     specialIdentifiers["currencytype"] = "USD";
                     break;
+                case EventTypeEnum.YouTubeChannelJewelsGift: // to be edited once i receive actual test data for this event type
+                    specialIdentifiers["message"] = "Test Message";
+                    specialIdentifiers["jewelsamount"] = "100";
+                    specialIdentifiers["giftname"] = "Gift Name";
+                    specialIdentifiers["giftimageurl"] = "https://www.youtube.com/some-gift-url";
+                    specialIdentifiers["giftdurationseconds"] = "5";
+                    specialIdentifiers["gifthasvisualeffect"] = "true";
+                    specialIdentifiers["giftcombocount"] = "3";
+                    break;
 
                 // Chat
                 case EventTypeEnum.ChatUserTimeout:

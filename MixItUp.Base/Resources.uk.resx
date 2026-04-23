@@ -11265,4 +11265,13 @@ print(run())</value>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Зупинка на завершенні</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Канал YouTube Подарунок коштовностей</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Подарунок YouTube Jewels - {1} ({2} Коштовності)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Показати ювелірний подарунок YouTube</value>
+  </data>
 </root>

@@ -1042,6 +1042,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} YouTube Jewels Gift - {1} ({2} Jewels).
+        /// </summary>
+        public static string AlertYouTubeJewelsGift {
+            get {
+                return ResourceManager.GetString("AlertYouTubeJewelsGift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Super Chat - {1}.
         /// </summary>
         public static string AlertYouTubeSuperChat {
@@ -21951,6 +21960,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show YouTube Jewels Gift.
+        /// </summary>
+        public static string ShowYouTubeJewelsGift {
+            get {
+                return ResourceManager.GetString("ShowYouTubeJewelsGift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show YouTube Super Chat.
         /// </summary>
         public static string ShowYouTubeSuperChat {
@@ -29048,6 +29066,15 @@ namespace MixItUp.Base {
         public static string YouTubeActionUnableToRunAdBreak {
             get {
                 return ResourceManager.GetString("YouTubeActionUnableToRunAdBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YouTube Channel Jewels Gift.
+        /// </summary>
+        public static string YouTubeChannelJewelsGift {
+            get {
+                return ResourceManager.GetString("YouTubeChannelJewelsGift", resourceCulture);
             }
         }
         

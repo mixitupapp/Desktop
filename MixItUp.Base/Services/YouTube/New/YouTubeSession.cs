@@ -39,6 +39,7 @@ namespace MixItUp.Base.Services.YouTube.New
         private const string GiftMembershipReceivedEventMessageType = "giftMembershipReceivedEvent";
         private const string SuperChatEventMessageType = "superChatEvent";
         private const string SuperStickerEventMessageType = "superStickerEvent";
+        private const string GiftEventMessageType = "giftEvent";
         private const string MessageDeletedEventMessageType = "messageDeletedEvent";
         private const string UserBannedEventMessageType = "userBannedEvent";
 
@@ -772,7 +773,7 @@ namespace MixItUp.Base.Services.YouTube.New
                     }
                     else if (SuperStickerEventMessageType.Equals(liveChatMessage.Snippet.Type))
                     {
-                        YouTubeSuperChatViewModel superChat = new YouTubeSuperChatViewModel(liveChatMessage.Snippet.SuperChatDetails, user);
+                        YouTubeSuperChatViewModel superChat = new YouTubeSuperChatViewModel(liveChatMessage.Snippet.SuperStickerDetails, user);
 
                         ChannelSession.Settings.LatestSpecialIdentifiersData[SpecialIdentifierStringBuilder.LatestSuperChatUserData] = user.ID;
                         ChannelSession.Settings.LatestSpecialIdentifiersData[SpecialIdentifierStringBuilder.LatestSuperChatAmountData] = superChat.AmountDisplay;
@@ -793,6 +794,18 @@ namespace MixItUp.Base.Services.YouTube.New
                         await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertYouTubeSuperChat, user.FullDisplayName, superChat.AmountDisplay), ChannelSession.Settings.AlertYouTubeSuperChatColor));
 
                         EventService.YouTubeSuperChatOccurred(superChat);
+                    }
+                    else if (GiftEventMessageType.Equals(liveChatMessage.Snippet.Type))
+                    {
+                        YouTubeJewelsGiftViewModel jewelsGift = new YouTubeJewelsGiftViewModel(liveChatMessage.Snippet.GiftDetails, user, liveChatMessage.Snippet.DisplayMessage);
+
+                        CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.YouTube);
+                        jewelsGift.SetCommandParameterData(parameters);
+
+                        await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.YouTubeChannelJewelsGift, parameters);
+
+                        await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertYouTubeJewelsGift,
+                            user.FullDisplayName, jewelsGift.GiftName, jewelsGift.JewelsAmount), ChannelSession.Settings.AlertYouTubeJewelsGiftColor));
                     }
                     else if (MessageDeletedEventMessageType.Equals(liveChatMessage.Snippet.Type))
                     {

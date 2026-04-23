@@ -11265,4 +11265,13 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stop on Completion</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube Channel Jewels Gift</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Jewels Gift - {1} ({2} Jewels)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Show YouTube Jewels Gift</value>
+  </data>
 </root>

@@ -105,6 +105,7 @@ namespace MixItUp.Base.Services
         YouTubeChannelMassMembershipGifted = 323,
 
         YouTubeChannelSuperChat = 370,
+        YouTubeChannelJewelsGift = 371,
 
         // 400 = Trovo
 

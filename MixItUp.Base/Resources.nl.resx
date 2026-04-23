@@ -11266,4 +11266,13 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stoppen na voltooiing</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube-kanaal juwelen cadeau</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Juwelen Cadeau - {1} ({2} Juwelen)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTube juwelen cadeau tonen</value>
+  </data>
 </root>
