@@ -11266,4 +11266,13 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Arrêt à l'achèvement</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Cadeau pour les bijoux de la chaîne YouTube</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Cadeau YouTube Jewels - {1} ({2} Jewels)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Voir YouTube Jewels Gift</value>
+  </data>
 </root>

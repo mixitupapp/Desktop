@@ -11265,4 +11265,13 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="StopOnCompletion" xml:space="preserve">
     <value>完成时停止</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube 频道珠宝礼品</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0}YouTube宝石礼物 - {1}（{2}宝石）</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>显示 YouTube 珠宝礼品</value>
+  </data>
 </root>

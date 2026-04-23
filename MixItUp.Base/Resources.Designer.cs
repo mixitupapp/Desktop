@@ -1042,7 +1042,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} YouTube Gift - {1} ({2} Jewels).
+        ///   Looks up a localized string similar to {0} YouTube Jewels Gift - {1} ({2} Jewels).
         /// </summary>
         public static string AlertYouTubeJewelsGift {
             get {

@@ -8971,7 +8971,7 @@ via Twitch, it's a "your mileage may vary" situation.</value>
 {1} is the amount of the super chat</comment>
   </data>
   <data name="AlertYouTubeJewelsGift" xml:space="preserve">
-    <value>{0} YouTube Gift - {1} ({2} Jewels)</value>
+    <value>{0} YouTube Jewels Gift - {1} ({2} Jewels)</value>
     <comment>{0} is the name of the user
 {1} is the name of the gift
 {2} is the amount of jewels</comment>

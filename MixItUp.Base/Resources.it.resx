@@ -11265,4 +11265,13 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Arresto al completamento</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Canale YouTube Gioielli Regalo</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Regalo Gioielli YouTube - {1} ({2} Gioielli)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Mostra YouTube Jewels Gift</value>
+  </data>
 </root>

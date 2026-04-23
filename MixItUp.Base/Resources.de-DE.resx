@@ -9984,4 +9984,13 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stopp bei Fertigstellung</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube-Kanal Juwelen Geschenk</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Juwelen Geschenk - {1} ({2} Juwelen)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTube Jewels Geschenk anzeigen</value>
+  </data>
 </root>

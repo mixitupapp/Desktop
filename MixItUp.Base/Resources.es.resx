@@ -11267,4 +11267,13 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Parada al finalizar</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Canal YouTube Joyas Regalo</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Regalo de Joyas de YouTube - {1} ({2} Joyas)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Mostrar YouTube Joyas Regalo</value>
+  </data>
 </root>

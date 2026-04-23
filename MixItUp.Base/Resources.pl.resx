@@ -11265,4 +11265,13 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Zatrzymanie po zakończeniu</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Prezent w postaci klejnotów na kanale YouTube</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Prezent Klejnoty YouTube - {1} ({2} Klejnoty)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Pokaż prezent YouTube Jewels</value>
+  </data>
 </root>
