@@ -29,6 +29,7 @@
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchAds}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchWatchStreak}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding YouTubeSuperChat}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding YouTubeJewelsGift}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TrovoSpellCast}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Donation}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Streamloots}" />
