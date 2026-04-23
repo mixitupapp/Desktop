@@ -11275,4 +11275,7 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="ShowYouTubeJewelsGift" xml:space="preserve">
     <value>YouTube juwelen cadeau tonen</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Keuze 5</value>
+  </data>
 </root>

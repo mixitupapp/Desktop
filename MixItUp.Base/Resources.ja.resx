@@ -11274,4 +11274,7 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ShowYouTubeJewelsGift" xml:space="preserve">
     <value>YouTubeのジュエル・ギフトを表示</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選択肢 5</value>
+  </data>
 </root>

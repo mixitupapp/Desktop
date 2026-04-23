@@ -6759,6 +6759,9 @@ ensure this option is disabled after any testing you are doing is done by headin
   <data name="Choice4" xml:space="preserve">
     <value>Choice 4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Choice 5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>Create Poll</value>
   </data>

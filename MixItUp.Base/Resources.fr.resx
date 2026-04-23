@@ -11275,4 +11275,7 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="ShowYouTubeJewelsGift" xml:space="preserve">
     <value>Voir YouTube Jewels Gift</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Choix 5</value>
+  </data>
 </root>

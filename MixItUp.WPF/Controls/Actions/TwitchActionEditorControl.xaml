@@ -179,6 +179,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBox Grid.Row="0" Text="{Binding PollTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -222,6 +224,8 @@
 
                 <TextBox Grid.Column="2" Text="{Binding PollChoice4}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice4}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
+
+            <TextBox Grid.Row="8" Text="{Binding PollChoice5}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice5}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowPredictionGrid, Converter={StaticResource BooleanToVisibilityConverter}}">

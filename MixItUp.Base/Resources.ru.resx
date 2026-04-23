@@ -11279,4 +11279,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ShowYouTubeJewelsGift" xml:space="preserve">
     <value>Показать подарок YouTube Jewels</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Выбор 5</value>
+  </data>
 </root>

@@ -9993,4 +9993,7 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="ShowYouTubeJewelsGift" xml:space="preserve">
     <value>YouTube Jewels Geschenk anzeigen</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Wahl 5</value>
+  </data>
 </root>

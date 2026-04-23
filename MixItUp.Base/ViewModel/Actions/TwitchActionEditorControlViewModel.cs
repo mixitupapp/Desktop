@@ -444,6 +444,17 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private string pollChoice4;
 
+        public string PollChoice5
+        {
+            get { return this.pollChoice5; }
+            set
+            {
+                this.pollChoice5 = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string pollChoice5;
+
         public bool ShowPredictionGrid { get { return this.SelectedActionType == TwitchActionType.CreatePrediction; } }
 
         public string PredictionTitle
@@ -776,6 +787,10 @@ namespace MixItUp.Base.ViewModel.Actions
                 {
                     this.PollChoice4 = action.PollChoices[3];
                 }
+                if (action.PollChoices.Count > 4)
+                {
+                    this.PollChoice5 = action.PollChoices[4];
+                }
             }
             else if (this.ShowPredictionGrid)
             {
@@ -907,7 +922,8 @@ namespace MixItUp.Base.ViewModel.Actions
                 if ((!string.IsNullOrEmpty(this.PollChoice1) && this.PollChoice1.Length > 25) ||
                     (!string.IsNullOrEmpty(this.PollChoice2) && this.PollChoice2.Length > 25) ||
                     (!string.IsNullOrEmpty(this.PollChoice3) && this.PollChoice3.Length > 25) ||
-                    (!string.IsNullOrEmpty(this.PollChoice4) && this.PollChoice4.Length > 25))
+                    (!string.IsNullOrEmpty(this.PollChoice4) && this.PollChoice4.Length > 25) ||
+                    (!string.IsNullOrEmpty(this.PollChoice5) && this.PollChoice5.Length > 25))
                 {
                     return new Result(MixItUp.Base.Resources.TwitchActionPollChoicesTooLong);
                 }
@@ -1069,6 +1085,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 if (!string.IsNullOrEmpty(this.PollChoice2)) { choices.Add(this.PollChoice2); }
                 if (!string.IsNullOrEmpty(this.PollChoice3)) { choices.Add(this.PollChoice3); }
                 if (!string.IsNullOrEmpty(this.PollChoice4)) { choices.Add(this.PollChoice4); }
+                if (!string.IsNullOrEmpty(this.PollChoice5)) { choices.Add(this.PollChoice5); }
                 return TwitchActionModel.CreatePollAction(this.PollTitle, this.PollDurationSeconds, this.pollChannelPointsCost, this.pollBitsCost, choices, await this.ActionEditorList.GetActions());
             }
             else if (this.ShowPredictionGrid)

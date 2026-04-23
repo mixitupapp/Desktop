@@ -11274,4 +11274,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ShowYouTubeJewelsGift" xml:space="preserve">
     <value>显示 YouTube 珠宝礼品</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選擇5</value>
+  </data>
 </root>

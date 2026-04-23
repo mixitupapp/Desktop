@@ -11275,4 +11275,7 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="ShowYouTubeJewelsGift" xml:space="preserve">
     <value>Mostrar oferta de jóias do YouTube</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Escolha 5</value>
+  </data>
 </root>
