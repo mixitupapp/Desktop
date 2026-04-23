@@ -10380,6 +10380,14 @@ print(run())</value>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>Port numbers for the Overlay must be between 0 and 65353</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Disable iframe removal (OBS CEF freezing workaround)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Warning: Testing workaround. Not recommended to enable unless needed for OBS CEF video freezing. This may increase memory usage or introduce other issues.
+
+Only enable if you know what you are doing. Continue?</value>
+  </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>Hide Specific User Messages (Space Separated)</value>
   </data>

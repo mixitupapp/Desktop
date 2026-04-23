@@ -480,6 +480,7 @@ namespace MixItUp.Base.Services
         {
             this.mainHTML = OverlayResources.OverlayMainHTML;
             this.mainHTML = OverlayV3Service.ReplaceProperty(this.mainHTML, nameof(WebSocketConnectionURL), WebSocketConnectionURL);
+            this.mainHTML = OverlayV3Service.ReplaceProperty(this.mainHTML, "DisableIFrameRemoval", ChannelSession.Settings.DisableOverlayIFrameRemoval.ToString().ToLowerInvariant());
 
             ResponsiveVoiceService responsiveVoiceService = ServiceManager.Get<ResponsiveVoiceService>();
             if (responsiveVoiceService != null)

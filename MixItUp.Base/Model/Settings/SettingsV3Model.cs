@@ -494,6 +494,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string OverlaySourceName { get; set; }
         [DataMember]
+        public bool DisableOverlayIFrameRemoval { get; set; }
+        [DataMember]
         public List<OverlayEndpointV3Model> OverlayEndpointsV3 { get; set; } = new List<OverlayEndpointV3Model>();
         [DataMember]
         public List<OverlayWidgetV3Model> OverlayWidgetsV3 { get; set; } = new List<OverlayWidgetV3Model>();

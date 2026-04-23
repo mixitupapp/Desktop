@@ -2082,6 +2082,21 @@ sendParentMessage({ Type: "WidgetLoaded", ID: "{ID}" });</value>
         var noTextToSpeechDiv = document.getElementById('noTextToSpeechDiv');
 
         var iframes = new Map();
+        var disableIFrameRemoval = {DisableIFrameRemoval};
+
+        function removeIFrame(id) {
+            if (iframes.has(id)) {
+                var iframeContainer = iframes.get(id);
+                if (disableIFrameRemoval) {
+                    iframeContainer.style.display = "none";
+                }
+                else {
+                    mainOverlayDiv.removeChild(iframeContainer);
+                }
+
+                iframes.delete(id);
+            }
+        }
 
         function packetReceived(packet) {
             try {
@@ -2149,9 +2164,7 @@ sendParentMessage({ Type: "WidgetLoaded", ID: "{ID}" });</value>
 
         function processRemove(data) {
             if (iframes.has(data.ID)) {
-                mainOverlayDiv.removeChild(iframes.get(data.ID));
-
-                iframes.delete(data.ID);
+                removeIFrame(data.ID);
             }
         }
 
@@ -2232,7 +2245,7 @@ sendParentMessage({ Type: "WidgetLoaded", ID: "{ID}" });</value>
                     if (typeof obj.Type !== 'undefined' &amp;&amp; typeof obj.ID !== 'undefined') {
                         if (obj.Type == 'Remove') {
                             if (iframes.has(obj.ID)) {
-                                mainOverlayDiv.removeChild(iframes.get(obj.ID));
+                                removeIFrame(obj.ID);
                             }
                         }
                         else {

@@ -11278,4 +11278,12 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="Choice5" xml:space="preserve">
     <value>Choix 5</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Désactiver la suppression des iframes (solution de contournement du gel de l'OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Avertissement : Test de solution de contournement. Il n'est pas recommandé de l'activer à moins que cela ne soit nécessaire pour le gel des vidéos OBS CEF. Cela peut augmenter l'utilisation de la mémoire ou introduire d'autres problèmes.
+
+Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
+  </data>
 </root>

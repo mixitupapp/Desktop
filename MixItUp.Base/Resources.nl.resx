@@ -11278,4 +11278,12 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="Choice5" xml:space="preserve">
     <value>Keuze 5</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Verwijdering iframe uitschakelen (OBS CEF bevriezing workaround)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Waarschuwing: Workaround testen. Niet aanbevolen om in te schakelen tenzij het nodig is voor OBS CEF video bevriezing. Dit kan het geheugengebruik verhogen of andere problemen veroorzaken.
+
+Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
+  </data>
 </root>

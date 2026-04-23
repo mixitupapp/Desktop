@@ -11277,4 +11277,12 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="Choice5" xml:space="preserve">
     <value>Scelta 5</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Disattivare la rimozione degli iframe (soluzione per il congelamento di OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Attenzione: Soluzione di prova. Si sconsiglia di attivarlo se non è necessario per il congelamento del video di OBS CEF. Potrebbe aumentare l'utilizzo della memoria o introdurre altri problemi.
+
+Attivare solo se si sa cosa si sta facendo. Continuare?</value>
+  </data>
 </root>

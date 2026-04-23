@@ -11278,4 +11278,12 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="Choice5" xml:space="preserve">
     <value>Escolha 5</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Desativar a remoção de iframe (solução alternativa para o congelamento do OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Aviso: Teste de solução alternativa. Não é recomendável ativar a menos que seja necessário para o congelamento de vídeo OBS CEF. Isso pode aumentar o uso de memória ou introduzir outros problemas.
+
+Só ative se souber o que está fazendo. Continuar?</value>
+  </data>
 </root>

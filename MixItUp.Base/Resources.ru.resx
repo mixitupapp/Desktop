@@ -11282,4 +11282,12 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="Choice5" xml:space="preserve">
     <value>Выбор 5</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Отключите удаление iframe (обходное решение для заморозки OBS CEF).</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Предупреждение: Тестирование обходного пути. Не рекомендуется включать, если это не требуется для заморозки видео OBS CEF. Это может увеличить потребление памяти или вызвать другие проблемы.
+
+Включайте только в том случае, если вы знаете, что делаете. Продолжить?</value>
+  </data>
 </root>

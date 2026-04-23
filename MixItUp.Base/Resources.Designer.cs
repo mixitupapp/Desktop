@@ -16319,6 +16319,26 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning: Testing workaround. Not recommended to enable unless needed for OBS CEF video freezing. This may increase memory usage or introduce other issues.
+        ///
+        ///Only enable if you know what you are doing. Continue?.
+        /// </summary>
+        public static string OverlayDisableIFrameRemovalConfirmationMessage {
+            get {
+                return ResourceManager.GetString("OverlayDisableIFrameRemovalConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable iframe removal (OBS CEF freezing workaround).
+        /// </summary>
+        public static string OverlayDisableIFrameRemovalToggleText {
+            get {
+                return ResourceManager.GetString("OverlayDisableIFrameRemovalToggleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An active image must be set for custom user visuals.
         /// </summary>
         public static string OverlayDiscordReactiveVoiceActiveImageMustBeSet {

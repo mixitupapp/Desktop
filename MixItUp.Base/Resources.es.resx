@@ -11279,4 +11279,12 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="Choice5" xml:space="preserve">
     <value>Opción 5</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Desactivar la eliminación de iframe (solución para la congelación de OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Advertencia: Prueba de solución. No se recomienda activar a menos que sea necesario para la congelación de vídeo OBS CEF. Esto puede aumentar el uso de memoria o introducir otros problemas.
+
+Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
+  </data>
 </root>

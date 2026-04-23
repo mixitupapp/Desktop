@@ -11277,4 +11277,12 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="Choice5" xml:space="preserve">
     <value>Wybór 5</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Wyłączenie usuwania ramek iframe (obejście zamrażania OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Ostrzeżenie: Obejście testowe. Nie zaleca się włączania, chyba że jest to konieczne do zamrożenia wideo OBS CEF. Może to zwiększyć zużycie pamięci lub wprowadzić inne problemy.
+
+Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
+  </data>
 </root>
