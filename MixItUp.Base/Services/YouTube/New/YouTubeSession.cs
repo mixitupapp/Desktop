@@ -772,7 +772,7 @@ namespace MixItUp.Base.Services.YouTube.New
                     }
                     else if (SuperStickerEventMessageType.Equals(liveChatMessage.Snippet.Type))
                     {
-                        YouTubeSuperChatViewModel superChat = new YouTubeSuperChatViewModel(liveChatMessage.Snippet.SuperChatDetails, user);
+                        YouTubeSuperChatViewModel superChat = new YouTubeSuperChatViewModel(liveChatMessage.Snippet.SuperStickerDetails, user);
 
                         ChannelSession.Settings.LatestSpecialIdentifiersData[SpecialIdentifierStringBuilder.LatestSuperChatUserData] = user.ID;
                         ChannelSession.Settings.LatestSpecialIdentifiersData[SpecialIdentifierStringBuilder.LatestSuperChatAmountData] = superChat.AmountDisplay;
