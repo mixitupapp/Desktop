@@ -510,6 +510,7 @@ namespace MixItUp.Base.Model.Settings
         #region Services
 
         [DataMember]
+        [Obsolete]
         public string OvrStreamServerIP { get; set; }
 
         [DataMember]

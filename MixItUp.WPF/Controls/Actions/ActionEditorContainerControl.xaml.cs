@@ -114,7 +114,6 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.MtionStudio: return new MtionStudioActionEditorControl();
                 case ActionTypeEnum.MusicPlayer: return new MusicPlayerActionEditorControl();
                 case ActionTypeEnum.Overlay: return new OverlayActionEditorControl();
-                case ActionTypeEnum.OvrStream: return new OvrStreamActionEditorControl();
                 case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControl();
                 case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControl();
                 case ActionTypeEnum.Random: return new RandomActionEditorControl();

@@ -37,7 +37,6 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new MtionStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OBSStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OverlayServiceControl()));
-            services.Add(new ServiceContainerControl(this.Window, new OvrStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PatreonServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PixelChatServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PolyPopServiceControl()));
