@@ -19705,6 +19705,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset Moderation Strikes for All Users.
+        /// </summary>
+        public static string ResetModerationStrikes {
+            get {
+                return ResourceManager.GetString("ResetModerationStrikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset On Enable.
         /// </summary>
         public static string ResetOnEnable {

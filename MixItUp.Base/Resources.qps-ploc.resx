@@ -11285,4 +11285,7 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
 
 Only enable if you know what you are doing. Continue?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Reset Moderation Strikes for All Users</value>
+  </data>
 </root>

@@ -11290,4 +11290,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
 
 Включайте только в том случае, если вы знаете, что делаете. Продолжить?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Сброс ударов модерации для всех пользователей</value>
+  </data>
 </root>

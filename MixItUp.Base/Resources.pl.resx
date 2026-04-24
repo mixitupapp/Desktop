@@ -11285,4 +11285,7 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
 
 Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Resetowanie ostrzeżeń moderacyjnych dla wszystkich użytkowników</value>
+  </data>
 </root>

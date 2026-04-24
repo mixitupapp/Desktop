@@ -11285,4 +11285,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
 
 只有在知道自己在做什么的情况下才能启用。继续？</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>重置所有用户的审核罢工</value>
+  </data>
 </root>

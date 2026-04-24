@@ -11286,4 +11286,7 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
 
 Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Moderatiestrikes resetten voor alle gebruikers</value>
+  </data>
 </root>

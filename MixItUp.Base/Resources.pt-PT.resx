@@ -11287,4 +11287,7 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
 
 Só ative se souber o que está fazendo. Continuar?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Repor os ataques de moderação para todos os utilizadores</value>
+  </data>
 </root>

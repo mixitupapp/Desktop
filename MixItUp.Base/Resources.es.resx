@@ -11287,4 +11287,7 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
 
 Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Restablecer las huelgas de moderación para todos los usuarios</value>
+  </data>
 </root>

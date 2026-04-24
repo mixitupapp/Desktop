@@ -10004,4 +10004,7 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
 
 Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Moderationsstrikes für alle Benutzer zurücksetzen</value>
+  </data>
 </root>

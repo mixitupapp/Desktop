@@ -11285,4 +11285,7 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
 
 何をやっているかわかっている場合のみ有効にしてください。続行しますか？</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>全ユーザーのモデレーションストライクをリセットする</value>
+  </data>
 </root>

@@ -11286,4 +11286,7 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
 
 Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Réinitialiser les grèves de modération pour tous les utilisateurs</value>
+  </data>
 </root>

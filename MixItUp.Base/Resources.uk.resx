@@ -11285,4 +11285,7 @@ print(run())</value>
 
 Вмикайте, тільки якщо ви знаєте, що робите. Продовжити?</value>
   </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Скинути блокування модерації для всіх користувачів</value>
+  </data>
 </root>
