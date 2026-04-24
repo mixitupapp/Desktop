@@ -107,7 +107,6 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.GameQueue: return new GameQueueActionEditorControl();
                 case ActionTypeEnum.Group: return new GroupActionEditorControl();
                 case ActionTypeEnum.IFTTT: return new IFTTTActionEditorControl();
-                case ActionTypeEnum.InfiniteAlbum: return new InfiniteAlbumActionEditorControl();
                 case ActionTypeEnum.Input: return new InputActionEditorControl();
                 case ActionTypeEnum.LumiaStream: return new LumiaStreamActionEditorControl();
                 case ActionTypeEnum.MeldStudio: return new MeldStudioActionEditorControl();
@@ -115,7 +114,6 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.MtionStudio: return new MtionStudioActionEditorControl();
                 case ActionTypeEnum.MusicPlayer: return new MusicPlayerActionEditorControl();
                 case ActionTypeEnum.Overlay: return new OverlayActionEditorControl();
-                case ActionTypeEnum.OvrStream: return new OvrStreamActionEditorControl();
                 case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControl();
                 case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControl();
                 case ActionTypeEnum.Random: return new RandomActionEditorControl();
@@ -129,7 +127,6 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.Streamlabs: return new StreamlabsActionEditorControl();
                 case ActionTypeEnum.TextToSpeech: return new TextToSpeechActionEditorControl();
                 case ActionTypeEnum.TITS: return new TITSActionEditorControl();
-                case ActionTypeEnum.Trovo: return new TrovoActionEditorControl();
                 case ActionTypeEnum.Twitch: return new TwitchActionEditorControl();
                 case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControl();
                 case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControl();

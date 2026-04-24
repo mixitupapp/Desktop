@@ -57,7 +57,6 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.GameQueue: editorViewModel = new GameQueueActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Group: editorViewModel = new GroupActionEditorControlViewModel(); break;
                         case ActionTypeEnum.IFTTT: editorViewModel = new IFTTTActionEditorControlViewModel(); break;
-                        case ActionTypeEnum.InfiniteAlbum: editorViewModel = new InfiniteAlbumActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Input: editorViewModel = new InputActionEditorControlViewModel(); break;
                         case ActionTypeEnum.LumiaStream: editorViewModel = new LumiaStreamActionEditorControlViewModel(); break;
                         case ActionTypeEnum.MeldStudio: editorViewModel = new MeldStudioActionEditorControlViewModel(); break;
@@ -65,7 +64,6 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.MtionStudio: editorViewModel = new MtionStudioActionViewModel(); break;
                         case ActionTypeEnum.MusicPlayer: editorViewModel = new MusicPlayerActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Overlay: editorViewModel = new OverlayActionEditorControlViewModel(); break;
-                        case ActionTypeEnum.OvrStream: editorViewModel = new OvrStreamActionEditorControlViewModel(); break;
                         case ActionTypeEnum.PixelChat: editorViewModel = new PixelChatActionEditorControlViewModel(); break;
                         case ActionTypeEnum.PolyPop: editorViewModel = new PolyPopActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Random: editorViewModel = new RandomActionEditorControlViewModel(); break;
@@ -79,7 +77,6 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.Streamlabs: editorViewModel = new StreamlabsActionEditorControlViewModel(); break;
                         case ActionTypeEnum.TextToSpeech: editorViewModel = new TextToSpeechActionEditorControlViewModel(); break;
                         case ActionTypeEnum.TITS: editorViewModel = new TITSActionEditorControlViewModel(); break;
-                        case ActionTypeEnum.Trovo: editorViewModel = new TrovoActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Twitch: editorViewModel = new TwitchActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Voicemod: editorViewModel = new VoicemodActionEditorControlViewModel(); break;
                         case ActionTypeEnum.VTSPog: editorViewModel = new VTSPogActionEditorControlViewModel(); break;
@@ -188,7 +185,6 @@ namespace MixItUp.Base.ViewModel.Actions
                 case ActionTypeEnum.GameQueue: return new GameQueueActionEditorControlViewModel((GameQueueActionModel)action);
                 case ActionTypeEnum.Group: return new GroupActionEditorControlViewModel((GroupActionModel)action);
                 case ActionTypeEnum.IFTTT: return new IFTTTActionEditorControlViewModel((IFTTTActionModel)action);
-                case ActionTypeEnum.InfiniteAlbum: return new InfiniteAlbumActionEditorControlViewModel((InfiniteAlbumActionModel)action);
                 case ActionTypeEnum.Input: return new InputActionEditorControlViewModel((InputActionModel)action);
                 case ActionTypeEnum.LumiaStream: return new LumiaStreamActionEditorControlViewModel((LumiaStreamActionModel)action);
                 case ActionTypeEnum.MeldStudio: return new MeldStudioActionEditorControlViewModel((MeldStudioActionModel)action);
@@ -196,7 +192,6 @@ namespace MixItUp.Base.ViewModel.Actions
                 case ActionTypeEnum.MtionStudio: return new MtionStudioActionViewModel((MtionStudioActionModel)action);
                 case ActionTypeEnum.MusicPlayer: return new MusicPlayerActionEditorControlViewModel((MusicPlayerActionModel)action);
                 case ActionTypeEnum.Overlay: return new OverlayActionEditorControlViewModel((OverlayActionModel)action);
-                case ActionTypeEnum.OvrStream: return new OvrStreamActionEditorControlViewModel((OvrStreamActionModel)action);
                 case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControlViewModel((PixelChatActionModel)action);
                 case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControlViewModel((PolyPopActionModel)action);
                 case ActionTypeEnum.Random: return new RandomActionEditorControlViewModel((RandomActionModel)action);
@@ -210,7 +205,6 @@ namespace MixItUp.Base.ViewModel.Actions
                 case ActionTypeEnum.Streamlabs: return new StreamlabsActionEditorControlViewModel((StreamlabsActionModel)action);
                 case ActionTypeEnum.TextToSpeech: return new TextToSpeechActionEditorControlViewModel((TextToSpeechActionModel)action);
                 case ActionTypeEnum.TITS: return new TITSActionEditorControlViewModel((TITSActionModel)action);
-                case ActionTypeEnum.Trovo: return new TrovoActionEditorControlViewModel((TrovoActionModel)action);
                 case ActionTypeEnum.Twitch: return new TwitchActionEditorControlViewModel((TwitchActionModel)action);
                 case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControlViewModel((VoicemodActionModel)action);
                 case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControlViewModel((VTSPogActionModel)action);

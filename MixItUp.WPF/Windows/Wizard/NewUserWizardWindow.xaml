@@ -215,10 +215,8 @@
                         TextWrapping="Wrap" />
 
                     <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Visible">
-                        <Grid Margin="10">
+                            <Grid Margin="10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="20" />
                                 <RowDefinition Height="Auto" />
@@ -227,8 +225,6 @@
                             <AccountControls:StreamingPlatformAccountControl Grid.Row="0" DataContext="{Binding Twitch}" />
 
                             <AccountControls:StreamingPlatformAccountControl Grid.Row="2" DataContext="{Binding YouTube}" />
-
-                            <AccountControls:StreamingPlatformAccountControl Grid.Row="4" DataContext="{Binding Trovo}" />
                         </Grid>
                     </ScrollViewer>
                 </Grid>

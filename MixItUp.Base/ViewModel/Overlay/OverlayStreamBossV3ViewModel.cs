@@ -202,11 +202,6 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.YouTubeSuperChatAmount = 10;
 
-            this.TrovoSubscriptionTier1Amount = 100;
-            this.TrovoSubscriptionTier2Amount = 200;
-            this.TrovoSubscriptionTier3Amount = 300;
-            this.TrovoElixirSpellAmount = 0.1;
-
             this.DonationAmount = 10;
 
             this.DamageOccurredCommand = this.CreateEmbeddedCommand(Resources.DamageOccurred);

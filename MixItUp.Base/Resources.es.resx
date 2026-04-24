@@ -11267,4 +11267,27 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Parada al finalizar</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Canal YouTube Joyas Regalo</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Regalo de Joyas de YouTube - {1} ({2} Joyas)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Mostrar YouTube Joyas Regalo</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Opción 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Desactivar la eliminación de iframe (solución para la congelación de OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Advertencia: Prueba de solución. No se recomienda activar a menos que sea necesario para la congelación de vídeo OBS CEF. Esto puede aumentar el uso de memoria o introducir otros problemas.
+
+Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Restablecer las huelgas de moderación para todos los usuarios</value>
+  </data>
 </root>

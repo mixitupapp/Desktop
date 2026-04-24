@@ -1,5 +1,19 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.510
+
+- [FEAT] Add YouTube Channel Jewel Gift Event
+- [FEAT] Add support for ten prediction outcomes in Twitch Action
+- [FEAT] Add fifth poll choice in Twitch Action
+- [FEAT] Add new overlay compatibility setting as a workaround for OBS CEF freezes
+- [FEAT] Add $messagenoemotes and $messageemotecount special identifiers
+- [FEAT] Add reset moderation strikes for all users in Moderation Action
+- [MAINT] **Remove Trovo platform**
+- [MAINT] **Remove Infinite Album integration**
+- [MAINT] **Remove OvrStream integration**
+- [CHORE] Update dependencies to latest version for improved performance and stability
+- [FIX] Typo causing YouTube super sticker event to trigger from super chat events
+
 ## 1.6.500
 
 - [FEAT] Add Twitch Watch Streak Alert in Settings -> Alerts

@@ -11271,4 +11271,27 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stopp bei Fertigstellung</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube-Kanal Juwelen Geschenk</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Juwelen Geschenk - {1} ({2} Juwelen)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTube Jewels Geschenk anzeigen</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Wahl 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Iframe-Entfernung deaktivieren (Umgehung des Einfrierens von OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Warnung: Test-Workaround. Die Aktivierung wird nicht empfohlen, es sei denn, sie wird für das Einfrieren von OBS CEF-Video benötigt. Dies kann die Speichernutzung erhöhen oder andere Probleme verursachen.
+
+Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Moderationsstrikes für alle Benutzer zurücksetzen</value>
+  </data>
 </root>

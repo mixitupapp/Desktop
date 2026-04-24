@@ -11265,4 +11265,27 @@ print(run())</value>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Зупинка на завершенні</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Канал YouTube Подарунок коштовностей</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Подарунок YouTube Jewels - {1} ({2} Коштовності)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Показати ювелірний подарунок YouTube</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Вибір 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Вимкнути видалення iframe (обхідний шлях заморожування OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Увага: Тестування обхідного шляху. Не рекомендується вмикати, якщо це не потрібно для заморожування відео OBS CEF. Це може збільшити використання пам'яті або спричинити інші проблеми.
+
+Вмикайте, тільки якщо ви знаєте, що робите. Продовжити?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Скинути блокування модерації для всіх користувачів</value>
+  </data>
 </root>

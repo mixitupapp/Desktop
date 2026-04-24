@@ -1,7 +1,9 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.User;
 using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -20,6 +22,7 @@ namespace MixItUp.Base.Model.Actions
         RemoveModerationStrike,
         EnableChat,
         DisableChat,
+        ResetModerationStrikes,
     }
 
     [DataContract]
@@ -54,6 +57,21 @@ namespace MixItUp.Base.Model.Actions
             if (this.ActionType == ModerationActionTypeEnum.ClearChat)
             {
                 await ServiceManager.Get<ChatService>().ClearMessages(parameters.Platform);
+            }
+            else if (this.ActionType == ModerationActionTypeEnum.ResetModerationStrikes)
+            {
+                await ServiceManager.Get<UserService>().LoadAllUserData();
+
+                foreach (UserV2Model userData in ChannelSession.Settings.Users.Values.ToList())
+                {
+                    if (userData != null && userData.ID != Guid.Empty && userData.GetPlatforms().Count() > 0 && userData.ModerationStrikes > 0)
+                    {
+                        userData.ModerationStrikes = 0;
+                        ChannelSession.Settings.Users.ManualValueChanged(userData.ID);
+                    }
+                }
+
+                await ChannelSession.SaveSettings();
             }
             else
             {

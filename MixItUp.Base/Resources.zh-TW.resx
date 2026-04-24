@@ -11265,4 +11265,27 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="StopOnCompletion" xml:space="preserve">
     <value>完成时停止</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube 频道珠宝礼品</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0}YouTube宝石礼物 - {1}（{2}宝石）</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>显示 YouTube 珠宝礼品</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選擇5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>禁用 iframe 移除（OBS CEF 冻结解决方法）</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>警告：测试解决方法。除非 OBS CEF 视频冻结需要，否则不建议启用。这可能会增加内存使用量或引发其他问题。
+
+只有在知道自己在做什么的情况下才能启用。继续？</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>重置所有用户的审核罢工</value>
+  </data>
 </root>

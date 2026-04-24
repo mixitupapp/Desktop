@@ -25,7 +25,7 @@ namespace MixItUp.Base.Services
     {
         private static readonly HashSet<ActionTypeEnum> VisualAudioActionTypes = new HashSet<ActionTypeEnum>()
         {
-            ActionTypeEnum.Overlay, ActionTypeEnum.OvrStream, ActionTypeEnum.PolyPop, ActionTypeEnum.Sound, ActionTypeEnum.StreamingSoftware, ActionTypeEnum.TextToSpeech,
+            ActionTypeEnum.Overlay, ActionTypeEnum.PolyPop, ActionTypeEnum.Sound, ActionTypeEnum.StreamingSoftware, ActionTypeEnum.TextToSpeech,
             ActionTypeEnum.MusicPlayer, ActionTypeEnum.TITS, ActionTypeEnum.Voicemod, ActionTypeEnum.VTubeStudio, ActionTypeEnum.VTSPog, ActionTypeEnum.LumiaStream,
             ActionTypeEnum.MtionStudio,
         };
@@ -102,7 +102,6 @@ namespace MixItUp.Base.Services
         public List<TwitchChannelPointsCommandModel> TwitchChannelPointsCommands { get; set; } = new List<TwitchChannelPointsCommandModel>();
         public List<StreamlootsCardCommandModel> StreamlootsCardCommands { get; set; } = new List<StreamlootsCardCommandModel>();
         public List<WebhookCommandModel> WebhookCommands { get; set; } = new List<WebhookCommandModel>();
-        public List<TrovoSpellCommandModel> TrovoSpellCommands { get; set; } = new List<TrovoSpellCommandModel>();
         public List<TwitchBitsCommandModel> TwitchBitsCommands { get; set; } = new List<TwitchBitsCommandModel>();
         public List<CrowdControlEffectCommandModel> CrowdControlEffectCommands { get; set; } = new List<CrowdControlEffectCommandModel>();
 
@@ -132,7 +131,6 @@ namespace MixItUp.Base.Services
                 commands.AddRange(this.TwitchChannelPointsCommands);
                 commands.AddRange(this.StreamlootsCardCommands);
                 commands.AddRange(this.WebhookCommands);
-                commands.AddRange(this.TrovoSpellCommands);
                 commands.AddRange(this.TwitchBitsCommands);
                 commands.AddRange(this.CrowdControlEffectCommands);
                 return commands;
@@ -180,7 +178,6 @@ namespace MixItUp.Base.Services
             this.TwitchChannelPointsCommands.Clear();
             this.StreamlootsCardCommands.Clear();
             this.WebhookCommands.Clear();
-            this.TrovoSpellCommands.Clear();
             this.TwitchBitsCommands.Clear();
             this.CrowdControlEffectCommands.Clear();
 
@@ -198,7 +195,6 @@ namespace MixItUp.Base.Services
                 else if (command is TwitchChannelPointsCommandModel) { this.TwitchChannelPointsCommands.Add((TwitchChannelPointsCommandModel)command); }
                 else if (command is StreamlootsCardCommandModel) { this.StreamlootsCardCommands.Add((StreamlootsCardCommandModel)command); }
                 else if (command is WebhookCommandModel) { this.WebhookCommands.Add((WebhookCommandModel)command); }
-                else if (command is TrovoSpellCommandModel) { this.TrovoSpellCommands.Add((TrovoSpellCommandModel)command); }
                 else if (command is TwitchBitsCommandModel) { this.TwitchBitsCommands.Add((TwitchBitsCommandModel)command); }
                 else if (command is CrowdControlEffectCommandModel) { this.CrowdControlEffectCommands.Add((CrowdControlEffectCommandModel)command); }
             }

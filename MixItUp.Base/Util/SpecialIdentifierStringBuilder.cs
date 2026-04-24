@@ -1,4 +1,4 @@
-﻿using Google.Apis.YouTube.v3.Data;
+using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
@@ -13,7 +13,6 @@ using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.ViewModel.User;
@@ -688,7 +687,7 @@ namespace MixItUp.Base.Util
                 if (this.ContainsSpecialIdentifier(StreamUptimeSpecialIdentifierHeader) || this.ContainsSpecialIdentifier(StreamStartSpecialIdentifierHeader))
                 {
                     DateTimeOffset startTime = await UptimePreMadeChatCommandModel.GetStartTime(parameters.Platform);
-                    Logger.Log(LogLevel.Debug, $"Channel stream info: {JSONSerializerHelper.SerializeToString(ServiceManager.Get<TwitchSession>().Stream)} - {JSONSerializerHelper.SerializeToString(ServiceManager.Get<YouTubeSession>().LiveBroadcasts.Values.FirstOrDefault())} - {ServiceManager.Get<TrovoSession>().ChannelModel}");
+                    Logger.Log(LogLevel.Debug, $"Channel stream info: {JSONSerializerHelper.SerializeToString(ServiceManager.Get<TwitchSession>().Stream)} - {JSONSerializerHelper.SerializeToString(ServiceManager.Get<YouTubeSession>().LiveBroadcasts.Values.FirstOrDefault())}");
                     if (startTime > DateTimeOffset.MinValue)
                     {
                         TimeSpan duration = DateTimeOffset.Now.Subtract(startTime);
@@ -765,12 +764,6 @@ namespace MixItUp.Base.Util
                         this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "youtubeurl", ServiceManager.Get<YouTubeSession>().StreamLink);
                     }
                 }
-                else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                {
-                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "followercount", ServiceManager.Get<TrovoSession>().ChannelModel?.followers.ToString());
-                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "subscribercount", ServiceManager.Get<TrovoSession>().ChannelModel?.subscriber_num.ToString());
-                }
-
                 this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "chattercount", ServiceManager.Get<UserService>().ActiveUserCount.ToString());
             }
 
@@ -1315,16 +1308,6 @@ namespace MixItUp.Base.Util
                     this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "youtubeid", pUser?.ID);
                 }
 
-                if (user.HasPlatformData(StreamingPlatformTypeEnum.Trovo))
-                {
-                    TrovoUserPlatformV2Model pUser = user.GetPlatformData<TrovoUserPlatformV2Model>(StreamingPlatformTypeEnum.Trovo);
-                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "trovoid", pUser?.ID);
-                    if (pUser != null)
-                    {
-                        this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "trovocustomroles", string.Join(", ", pUser?.CustomRoles));
-                    }
-                }
-
                 string userStreamHeader = identifierHeader + UserSpecialIdentifierHeader + "stream";
                 if (this.ContainsSpecialIdentifier(userStreamHeader))
                 {
@@ -1363,23 +1346,6 @@ namespace MixItUp.Base.Util
                             if (yChannel != null)
                             {
 
-                            }
-                        }
-                    }
-                    else if (user.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                    {
-                        TrovoUserPlatformV2Model trovoUser = user.GetPlatformData<TrovoUserPlatformV2Model>(StreamingPlatformTypeEnum.Trovo);
-                        if (trovoUser != null)
-                        {
-                            MixItUp.Base.Model.Trovo.Users.UserModel tUser = await ServiceManager.Get<TrovoSession>().StreamerService.GetUserByName(trovoUser.Username);
-                            if (tUser != null)
-                            {
-                                MixItUp.Base.Model.Trovo.Channels.ChannelModel tChannel = await ServiceManager.Get<TrovoSession>().StreamerService.GetChannelByID(tUser.channel_id);
-
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "title", tChannel?.live_title);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", tChannel?.category_name);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "game", tChannel?.category_name);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "islive", tChannel?.is_live.ToString());
                             }
                         }
                     }

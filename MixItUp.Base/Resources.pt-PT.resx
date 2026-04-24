@@ -11267,4 +11267,27 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Parar na conclusão</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Prenda de jóias do canal do YouTube</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{Oferta de Jóias do YouTube - {1} ({2} Jóias)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Mostrar oferta de jóias do YouTube</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Escolha 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Desativar a remoção de iframe (solução alternativa para o congelamento do OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Aviso: Teste de solução alternativa. Não é recomendável ativar a menos que seja necessário para o congelamento de vídeo OBS CEF. Isso pode aumentar o uso de memória ou introduzir outros problemas.
+
+Só ative se souber o que está fazendo. Continuar?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Repor os ataques de moderação para todos os utilizadores</value>
+  </data>
 </root>

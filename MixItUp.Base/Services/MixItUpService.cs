@@ -5,8 +5,6 @@ using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Model.Web;
 using MixItUp.Base.Model.Webhooks;
-using MixItUp.Base.Services.Trovo;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
@@ -640,11 +638,6 @@ namespace MixItUp.Base.Services
                     expiresIn = token.expiresIn,
                 };
             }
-            if (ServiceManager.Get<TrovoSession>().IsConnected)
-            {
-                login.TrovoAccessToken = ServiceManager.Get<TrovoSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
-            }
-
             return login;
         }
 

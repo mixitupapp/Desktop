@@ -194,13 +194,10 @@ namespace MixItUp.Base.ViewModel.Actions
                             case LumiaStreamActionCommandTypeEnum.TwitchExtension:
                                 if (settings.options.twitchExtension?.values != null) { this.commands[commandType].AddRange(settings.options.twitchExtension.values); }
                                 break;
-                            case LumiaStreamActionCommandTypeEnum.TrovoSpell:
-                                if (settings.options.trovoSpells?.values != null) { this.commands[commandType].AddRange(settings.options.trovoSpells.values); }
-                                break;
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(this._previousCommandName))
+                    if (!string.IsNullOrEmpty(this._previousCommandName) && !EnumHelper.IsObsolete(this._previousCommandType))
                     {
                         this.SelectedCommandType = this._previousCommandType;
                         this.CommandName = this._previousCommandName;

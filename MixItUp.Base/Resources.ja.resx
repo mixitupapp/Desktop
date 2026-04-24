@@ -11265,4 +11265,27 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="StopOnCompletion" xml:space="preserve">
     <value>完了時に停止</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTubeチャンネル ジュエルギフト</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube ジュエルギフト - {1} ({2} ジュエル)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTubeのジュエル・ギフトを表示</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選択肢 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>iframeの削除を無効にする（OBS CEF凍結の回避策）</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>警告回避策をテストしています。OBS CEFビデオフリーズのために必要でない限り、有効にすることはお勧めしません。メモリ使用量が増えたり、他の問題が発生する可能性があります。
+
+何をやっているかわかっている場合のみ有効にしてください。続行しますか？</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>全ユーザーのモデレーションストライクをリセットする</value>
+  </data>
 </root>

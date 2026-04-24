@@ -11265,4 +11265,27 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stop on Completion</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube Channel Jewels Gift</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Jewels Gift - {1} ({2} Jewels)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Show YouTube Jewels Gift</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>[Çĥöîçéẋẋ ④ẋ]</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Disable iframe removal (OBS CEF freezing workaround)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Warning: Testing workaround. Not recommended to enable unless needed for OBS CEF video freezing. This may increase memory usage or introduce other issues.
+
+Only enable if you know what you are doing. Continue?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Reset Moderation Strikes for All Users</value>
+  </data>
 </root>
