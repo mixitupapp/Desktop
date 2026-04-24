@@ -33,28 +33,23 @@ namespace MixItUp.Base.Model.Requirements
         public string YouTubeMembershipLevelID { get; set; }
 
         [DataMember]
-        public string TrovoCustomRole { get; set; }
-
-        [DataMember]
         public string PatreonBenefitID { get; set; }
 
-        public RoleRequirementModel(StreamingPlatformTypeEnum streamingPlatform, UserRoleEnum role, int subscriberTier = 1, string youtubeMembershipLevelID = null, string trovoCustomRole = null, string patreonBenefitID = null)
+        public RoleRequirementModel(StreamingPlatformTypeEnum streamingPlatform, UserRoleEnum role, int subscriberTier = 1, string youtubeMembershipLevelID = null, string patreonBenefitID = null)
         {
             this.StreamingPlatform = streamingPlatform;
             this.UserRole = role;
             this.SubscriberTier = subscriberTier;
             this.YouTubeMembershipLevelID = youtubeMembershipLevelID;
-            this.TrovoCustomRole = trovoCustomRole;
             this.PatreonBenefitID = patreonBenefitID;
         }
 
-        public RoleRequirementModel(StreamingPlatformTypeEnum streamingPlatform, IEnumerable<UserRoleEnum> roleList, int subscriberTier = 1, string youtubeMembershipLevelID = null, string trovoCustomRole = null, string patreonBenefitID = null)
+        public RoleRequirementModel(StreamingPlatformTypeEnum streamingPlatform, IEnumerable<UserRoleEnum> roleList, int subscriberTier = 1, string youtubeMembershipLevelID = null, string patreonBenefitID = null)
         {
             this.StreamingPlatform = streamingPlatform;
             this.UserRoleList = new HashSet<UserRoleEnum>(roleList);
             this.SubscriberTier = subscriberTier;
             this.YouTubeMembershipLevelID = youtubeMembershipLevelID;
-            this.TrovoCustomRole = trovoCustomRole;
             this.PatreonBenefitID = patreonBenefitID;
         }
 

@@ -78,17 +78,6 @@ namespace MixItUp.Base.Model.Overlay
         public string YouTubeSuperChatsDetailsTemplate { get; set; }
 
         [DataMember]
-        public string TrovoSubscriptionsDetailsTemplate { get; set; }
-        [DataMember]
-        public string TrovoResubscriptionsDetailsTemplate { get; set; }
-        [DataMember]
-        public string TrovoGiftedSubscriptionsDetailsTemplate { get; set; }
-        [DataMember]
-        public string TrovoMassGiftedSubscriptionsDetailsTemplate { get; set; }
-        [DataMember]
-        public string TrovoElixirSpellsDetailsTemplate { get; set; }
-
-        [DataMember]
         public string DonationsDetailsTemplate { get; set; }
 
         [DataMember]
@@ -120,10 +109,6 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     await this.AddEvent(subscription.Gifter, nameof(this.YouTubeMemberships), this.YouTubeGiftedMembershipsDetailsTemplate, new Dictionary<string, string>() { { DetailsMembershipNamePropertyName, subscription.Tier.ToString() } });
                 }
-                else if (subscription.Platform == StreamingPlatformTypeEnum.Trovo)
-                {
-                    await this.AddEvent(subscription.Gifter, nameof(this.TrovoSubscriptions), this.TrovoGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
-                }
             }
             else if (subscription.Months > 1)
             {
@@ -143,14 +128,6 @@ namespace MixItUp.Base.Model.Overlay
                         { DetailsAmountPropertyName, subscription.Months.ToString() }
                     });
                 }
-                else if (subscription.Platform == StreamingPlatformTypeEnum.Trovo)
-                {
-                    await this.AddEvent(subscription.User, nameof(this.TrovoSubscriptions), this.TrovoResubscriptionsDetailsTemplate, new Dictionary<string, string>()
-                    {
-                        { DetailsTierPropertyName, subscription.Tier.ToString() },
-                        { DetailsAmountPropertyName, subscription.Months.ToString() }
-                    });
-                }
             }
             else
             {
@@ -161,10 +138,6 @@ namespace MixItUp.Base.Model.Overlay
                 else if (subscription.Platform == StreamingPlatformTypeEnum.YouTube)
                 {
                     await this.AddEvent(subscription.User, nameof(this.YouTubeMemberships), this.YouTubeMembershipsDetailsTemplate, new Dictionary<string, string>() { { DetailsMembershipNamePropertyName, subscription.YouTubeMembershipTier } });
-                }
-                else if (subscription.Platform == StreamingPlatformTypeEnum.Trovo)
-                {
-                    await this.AddEvent(subscription.User, nameof(this.TrovoSubscriptions), this.TrovoSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
                 }
             }
         }
@@ -197,14 +170,6 @@ namespace MixItUp.Base.Model.Overlay
                 await this.AddEvent(gifter, nameof(this.YouTubeMemberships), this.YouTubeMassGiftedMembershipsDetailsTemplate, new Dictionary<string, string>()
                 {
                     { DetailsMembershipNamePropertyName, membershipName },
-                    { DetailsAmountPropertyName, amount.ToString() }
-                });
-            }
-            else if (platform == StreamingPlatformTypeEnum.Trovo)
-            {
-                await this.AddEvent(gifter, nameof(this.TrovoSubscriptions), this.TrovoMassGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>()
-                {
-                    { DetailsTierPropertyName, tier.ToString() },
                     { DetailsAmountPropertyName, amount.ToString() }
                 });
             }
@@ -343,26 +308,6 @@ namespace MixItUp.Base.Model.Overlay
                 if (this.YouTubeSuperChats)
                 {
                     this.OnYouTubeSuperChat(this, new YouTubeSuperChatViewModel(new LiveChatSuperChatDetails() { AmountDisplayString = "$12.34" }, ChannelSession.User));
-                    await Task.Delay(3000);
-                }
-
-                if (this.TrovoSubscriptions)
-                {
-                    this.OnSubscribe(this, new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User));
-                    await Task.Delay(3000);
-
-                    this.OnSubscribe(this, new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User, months: 10));
-                    await Task.Delay(3000);
-
-                    this.OnSubscribe(this, new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User, ChannelSession.User));
-                    await Task.Delay(3000);
-
-                    List<SubscriptionDetailsModel> subs = new List<SubscriptionDetailsModel>();
-                    for (int i = 0; i < 5; i++)
-                    {
-                        subs.Add(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User, ChannelSession.User));
-                    }
-                    this.OnMassSubscription(this, subs);
                     await Task.Delay(3000);
                 }
 

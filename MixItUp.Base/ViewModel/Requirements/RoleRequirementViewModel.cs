@@ -152,19 +152,6 @@ namespace MixItUp.Base.ViewModel.Requirements
             }
         }
         private MembershipsLevel youtubeMembershipLevel;
-
-
-        public string TrovoCustomRole
-        {
-            get { return this.trovoCustomRole; }
-            set
-            {
-                this.trovoCustomRole = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private string trovoCustomRole;
-
         public bool IsPatreonConnected { get { return ServiceManager.Get<PatreonService>().IsConnected; } }
 
         public IEnumerable<PatreonBenefit> PatreonBenefits
@@ -231,8 +218,6 @@ namespace MixItUp.Base.ViewModel.Requirements
                 this.YouTubeMembershipLevel = this.YouTubeMembershipLevels.FirstOrDefault(m => string.Equals(m.Id, requirement.YouTubeMembershipLevelID));
             }
 
-            this.TrovoCustomRole = requirement.TrovoCustomRole;
-
             if (this.IsPatreonConnected && !string.IsNullOrEmpty(requirement.PatreonBenefitID))
             {
                 this.SelectedPatreonBenefit = this.PatreonBenefits.FirstOrDefault(b => b.ID.Equals(requirement.PatreonBenefitID));
@@ -259,11 +244,11 @@ namespace MixItUp.Base.ViewModel.Requirements
         {
             if (this.IsAdvancedRolesSelected)
             {
-                return new RoleRequirementModel(this.SelectedPlatform, this.SelectedAdvancedRoles.Select(r => r.Role), this.SubscriberTier, this.YouTubeMembershipLevel?.Id, this.TrovoCustomRole, this.selectedPatreonBenefit?.ID);
+                return new RoleRequirementModel(this.SelectedPlatform, this.SelectedAdvancedRoles.Select(r => r.Role), this.SubscriberTier, this.YouTubeMembershipLevel?.Id, this.selectedPatreonBenefit?.ID);
             }
             else
             {
-                return new RoleRequirementModel(this.SelectedPlatform, this.SelectedRole, this.SubscriberTier, this.YouTubeMembershipLevel?.Id, this.TrovoCustomRole, this.selectedPatreonBenefit?.ID);
+                return new RoleRequirementModel(this.SelectedPlatform, this.SelectedRole, this.SubscriberTier, this.YouTubeMembershipLevel?.Id, this.selectedPatreonBenefit?.ID);
             }
         }
     }

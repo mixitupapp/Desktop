@@ -36,24 +36,15 @@ namespace MixItUp.Base.Model.User
 
         [TwitchUserRole]
         TwitchGlobalMod = 701,
-        [Obsolete]
-        TrovoWarden = 702,
 
         [TwitchUserRole]
         TwitchStaff = 751,
-        [Obsolete]
-        TrovoAdmin = 752,
 
         [GenericUserRole, TwitchUserRole, YouTubeUserRole]
         Moderator = 800,
 
-        [Obsolete]
-        TrovoSuperMod = 825,
-
         [TwitchUserRole]
         TwitchChannelEditor = 850,
-        [Obsolete]
-        TrovoEditor = 851,
 
         [GenericUserRole, TwitchUserRole, YouTubeUserRole]
         Streamer = 900,

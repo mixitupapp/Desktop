@@ -36,8 +36,6 @@ namespace MixItUp.Base.Model.Overlay
 
         YouTubeSuperChats = 50,
 
-        TrovoSpells = 60,
-
         Donations = 200,
 
         HTML = 900,
@@ -185,7 +183,6 @@ namespace MixItUp.Base.Model.Overlay
                     case OverlayEndCreditsSectionV3Type.Resubscribers:
                     case OverlayEndCreditsSectionV3Type.GiftedSubscriptions:
                     case OverlayEndCreditsSectionV3Type.TwitchBits:
-                    case OverlayEndCreditsSectionV3Type.TrovoSpells:
                     case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                     case OverlayEndCreditsSectionV3Type.Donations:
                         text = OverlayV3Service.ReplaceProperty(text, AmountPropertyName, item.Value.ToNumberDisplayString());
@@ -276,11 +273,6 @@ namespace MixItUp.Base.Model.Overlay
         public override bool YouTubeMemberships { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
         [DataMember]
         public override bool YouTubeSuperChats { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.YouTubeSuperChats); } set { } }
-
-        [DataMember]
-        public override bool TrovoSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
-        [DataMember]
-        public override bool TrovoElixirSpells { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.TrovoSpells); } set { } }
 
         [DataMember]
         public override bool Donations { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.Donations); } set { } }

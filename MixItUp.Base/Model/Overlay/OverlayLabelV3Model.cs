@@ -29,7 +29,6 @@ namespace MixItUp.Base.Model.Overlay
         LatestRaid,
         LatestDonation,
         LatestTwitchBits,
-        LatestTrovoElixir,
         LatestYouTubeSuperChat,
         LatestSubscriptionGifter,
 

@@ -299,8 +299,6 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertYouTubeJewelsGiftColor { get; set; }
         [DataMember]
-        public string AlertTrovoSpellCastColor { get; set; }
-        [DataMember]
         public string AlertDonationColor { get; set; }
         [DataMember]
         public string AlertModerationColor { get; set; }

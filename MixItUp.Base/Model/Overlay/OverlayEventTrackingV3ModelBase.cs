@@ -39,11 +39,6 @@ namespace MixItUp.Base.Model.Overlay
         public virtual bool YouTubeSuperChats { get; set; }
 
         [DataMember]
-        public virtual bool TrovoSubscriptions { get; set; }
-        [DataMember]
-        public virtual bool TrovoElixirSpells { get; set; }
-
-        [DataMember]
         public virtual bool Donations { get; set; }
 
         public OverlayEventTrackingV3ModelBase(OverlayItemV3Type type) : base(type) { }

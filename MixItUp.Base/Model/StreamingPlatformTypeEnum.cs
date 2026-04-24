@@ -33,13 +33,9 @@ namespace MixItUp.Base.Model
     {
         public const string TwitchLogoImageAssetFilePath = "/Assets/Images/twitch-color_lg.png";
         public const string YouTubeLogoImageAssetFilePath = "/Assets/Images/youtube-color_lg.png";
-        [Obsolete]
-        public const string TrovoLogoImageAssetFilePath = "/Assets/Images/trovo-color_lg.png";
 
         public const string TwitchSmallLogoImageAssetFilePath = "/Assets/Images/twitch-color_sm.png";
         public const string YouTubeSmallLogoImageAssetFilePath = "/Assets/Images/youtube-color_sm.png";
-        [Obsolete]
-        public const string TrovoSmallLogoImageAssetFilePath = "/Assets/Images/trovo-color_sm.png";
 
         public static ISet<StreamingPlatformTypeEnum> SupportedPlatforms { get; private set; } = new HashSet<StreamingPlatformTypeEnum>()
         {

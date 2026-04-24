@@ -183,28 +183,6 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private bool youTubeSuperChats;
 
-        public bool TrovoSubscriptions
-        {
-            get { return this.trovoSubscriptions; }
-            set
-            {
-                this.trovoSubscriptions = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private bool trovoSubscriptions;
-
-        public bool TrovoElixirSpells
-        {
-            get { return this.trovoElixirSpells; }
-            set
-            {
-                this.trovoElixirSpells = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private bool trovoElixirSpells;
-
         public bool Donations
         {
             get { return this.donations; }
@@ -238,8 +216,6 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.TwitchBits = item.TwitchBits;
             this.YouTubeMemberships = item.YouTubeMemberships;
             this.YouTubeSuperChats = item.YouTubeSuperChats;
-            this.TrovoSubscriptions = item.TrovoSubscriptions;
-            this.TrovoElixirSpells = item.TrovoElixirSpells;
             this.Donations = item.Donations;
 
             foreach (var property in item.Properties)
@@ -374,8 +350,6 @@ namespace MixItUp.Base.ViewModel.Overlay
                 TwitchBits = this.TwitchBits,
                 YouTubeMemberships = this.YouTubeMemberships,
                 YouTubeSuperChats = this.YouTubeSuperChats,
-                TrovoSubscriptions = this.TrovoSubscriptions,
-                TrovoElixirSpells = this.TrovoElixirSpells,
                 Donations = this.Donations,
             };
 
