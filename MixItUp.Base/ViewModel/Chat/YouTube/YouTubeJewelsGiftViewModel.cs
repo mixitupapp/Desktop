@@ -1,7 +1,7 @@
 using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.ViewModel.User;
-using Newtonsoft.Json.Linq;
+using System;
 
 namespace MixItUp.Base.ViewModel.Chat.YouTube
 {
@@ -25,9 +25,22 @@ namespace MixItUp.Base.ViewModel.Chat.YouTube
             this.JewelsAmount = giftDetails?.JewelsAmount.GetValueOrDefault() ?? 0;
             this.GiftName = giftDetails?.GiftName;
             this.GiftImageUrl = giftDetails?.GiftUrl;
-            this.GiftDurationSeconds = giftDetails?.GiftDuration != null ?
-                (giftDetails.GiftDuration as JToken ?? JToken.FromObject(giftDetails.GiftDuration))["seconds"]?.ToString() :
-                null;
+            if (!string.IsNullOrEmpty(this.GiftImageUrl) && this.GiftImageUrl.StartsWith("//"))
+            {
+                this.GiftImageUrl = $"https:{this.GiftImageUrl}";
+            }
+
+            string giftDurationSeconds = null;
+            if (giftDetails?.GiftDuration is string duration)
+            {
+                giftDurationSeconds = duration.Trim();
+                if (giftDurationSeconds.EndsWith("s", StringComparison.OrdinalIgnoreCase))
+                {
+                    giftDurationSeconds = giftDurationSeconds.Substring(0, giftDurationSeconds.Length - 1);
+                }
+            }
+            this.GiftDurationSeconds = giftDurationSeconds;
+
             this.HasVisualEffect = giftDetails?.HasVisualEffect.GetValueOrDefault() ?? false;
             this.ComboCount = giftDetails?.ComboCount.GetValueOrDefault() ?? 0;
 
