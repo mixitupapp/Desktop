@@ -6759,6 +6759,9 @@ ensure this option is disabled after any testing you are doing is done by headin
   <data name="Choice4" xml:space="preserve">
     <value>Choice 4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Choice 5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>Create Poll</value>
   </data>
@@ -8959,6 +8962,9 @@ via Twitch, it's a "your mileage may vary" situation.</value>
   <data name="YouTubeChannelSuperChat" xml:space="preserve">
     <value>YouTube Channel Super Chat</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube Channel Jewels Gift</value>
+  </data>
   <data name="YouTubeChannelSuperSticker" xml:space="preserve">
     <value>YouTube Channel Super Sticker</value>
   </data>
@@ -8966,6 +8972,12 @@ via Twitch, it's a "your mileage may vary" situation.</value>
     <value>{0} Super Chat - {1}</value>
     <comment>{0} is the name of the user
 {1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Jewels Gift - {1} ({2} Jewels)</value>
+    <comment>{0} is the name of the user
+{1} is the name of the gift
+{2} is the amount of jewels</comment>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0} Super Sticker - {1} - {2}</value>
@@ -8975,6 +8987,9 @@ via Twitch, it's a "your mileage may vary" situation.</value>
   </data>
   <data name="ShowYouTubeSuperChat" xml:space="preserve">
     <value>Show YouTube Super Chat</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Show YouTube Jewels Gift</value>
   </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Mock Connection</value>
@@ -10365,6 +10380,14 @@ print(run())</value>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>Port numbers for the Overlay must be between 0 and 65353</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Disable iframe removal (OBS CEF freezing workaround)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Warning: Testing workaround. Not recommended to enable unless needed for OBS CEF video freezing. This may increase memory usage or introduce other issues.
+
+Only enable if you know what you are doing. Continue?</value>
+  </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>Hide Specific User Messages (Space Separated)</value>
   </data>
@@ -11272,5 +11295,8 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   </data>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stop on Completion</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Reset Moderation Strikes for All Users</value>
   </data>
 </root>

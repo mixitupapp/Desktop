@@ -3,8 +3,8 @@
   	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<AssemblyTitle>MixItUp.Base</AssemblyTitle>
-    <AssemblyVersion>1.6.500.0</AssemblyVersion>
-    <FileVersion>1.6.500.0</FileVersion>
+    <AssemblyVersion>1.6.510.0</AssemblyVersion>
+    <FileVersion>1.6.510.0</FileVersion>
 		<Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
 	</PropertyGroup>
@@ -33,11 +33,11 @@
 	<ItemGroup>
 		<PackageReference Include="ExcelDataReader" Version="3.8.0" />
 		<PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
-		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.4029" />
+		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.4099" />
 		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
 		<PackageReference Include="Jace" Version="1.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="System.IO.Ports" Version="10.0.2" />
+		<PackageReference Include="System.IO.Ports" Version="10.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>

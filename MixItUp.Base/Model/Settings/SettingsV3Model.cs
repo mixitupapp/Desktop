@@ -111,6 +111,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public OAuthTokenModel VTubeStudioOAuthToken { get; set; }
         [DataMember]
+        [Obsolete]
         public OAuthTokenModel InfiniteAlbumOAuthToken { get; set; }
         [DataMember]
         public OAuthTokenModel TITSOAuthToken { get; set; }
@@ -296,7 +297,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertYouTubeSuperChatColor { get; set; }
         [DataMember]
-        public string AlertTrovoSpellCastColor { get; set; }
+        public string AlertYouTubeJewelsGiftColor { get; set; }
         [DataMember]
         public string AlertDonationColor { get; set; }
         [DataMember]
@@ -491,6 +492,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string OverlaySourceName { get; set; }
         [DataMember]
+        public bool DisableOverlayIFrameRemoval { get; set; }
+        [DataMember]
         public List<OverlayEndpointV3Model> OverlayEndpointsV3 { get; set; } = new List<OverlayEndpointV3Model>();
         [DataMember]
         public List<OverlayWidgetV3Model> OverlayWidgetsV3 { get; set; } = new List<OverlayWidgetV3Model>();
@@ -507,6 +510,7 @@ namespace MixItUp.Base.Model.Settings
         #region Services
 
         [DataMember]
+        [Obsolete]
         public string OvrStreamServerIP { get; set; }
 
         [DataMember]
@@ -817,10 +821,6 @@ namespace MixItUp.Base.Model.Settings
                     {
                         command = JSONSerializerHelper.DeserializeFromString<WebhookCommandModel>(commandData);
                     }
-                    else if (type == CommandTypeEnum.TrovoSpell)
-                    {
-                        command = JSONSerializerHelper.DeserializeFromString<TrovoSpellCommandModel>(commandData);
-                    }
                     else if (type == CommandTypeEnum.TwitchBits)
                     {
                         TwitchBitsCommandModel tbCommand = JSONSerializerHelper.DeserializeFromString<TwitchBitsCommandModel>(commandData);
@@ -969,10 +969,6 @@ namespace MixItUp.Base.Model.Settings
             {
                 this.VTubeStudioOAuthToken = ServiceManager.Get<VTubeStudioService>().GetOAuthTokenCopy();
             }
-            if (ServiceManager.Get<InfiniteAlbumService>().IsConnected)
-            {
-                this.InfiniteAlbumOAuthToken = ServiceManager.Get<InfiniteAlbumService>().GetOAuthTokenCopy();
-            }
             if (ServiceManager.Get<TITSService>().IsConnected)
             {
                 this.TITSOAuthToken = ServiceManager.Get<TITSService>().GetOAuthTokenCopy();
@@ -1036,8 +1032,8 @@ namespace MixItUp.Base.Model.Settings
                     { "$YouTubeID", u.GetPlatformID(StreamingPlatformTypeEnum.YouTube) }, { "$YouTubeUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.YouTube) },
 #pragma warning disable CS0612 // Type or member is obsolete
                     { "$FacebookID", u.GetPlatformID(StreamingPlatformTypeEnum.Facebook) }, { "$FacebookUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Facebook) },
-#pragma warning restore CS0612 // Type or member is obsolete
                     { "$TrovoID", u.GetPlatformID(StreamingPlatformTypeEnum.Trovo) }, { "$TrovoUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Trovo) },
+#pragma warning restore CS0612 // Type or member is obsolete                    
                     { "$Data", JSONSerializerHelper.SerializeToString(u) }
                 }));
 

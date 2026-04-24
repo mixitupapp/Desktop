@@ -1042,6 +1042,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} YouTube Jewels Gift - {1} ({2} Jewels).
+        /// </summary>
+        public static string AlertYouTubeJewelsGift {
+            get {
+                return ResourceManager.GetString("AlertYouTubeJewelsGift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Super Chat - {1}.
         /// </summary>
         public static string AlertYouTubeSuperChat {
@@ -3064,6 +3073,15 @@ namespace MixItUp.Base {
         public static string Choice4 {
             get {
                 return ResourceManager.GetString("Choice4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choice 5.
+        /// </summary>
+        public static string Choice5 {
+            get {
+                return ResourceManager.GetString("Choice5", resourceCulture);
             }
         }
         
@@ -16301,6 +16319,26 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning: Testing workaround. Not recommended to enable unless needed for OBS CEF video freezing. This may increase memory usage or introduce other issues.
+        ///
+        ///Only enable if you know what you are doing. Continue?.
+        /// </summary>
+        public static string OverlayDisableIFrameRemovalConfirmationMessage {
+            get {
+                return ResourceManager.GetString("OverlayDisableIFrameRemovalConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable iframe removal (OBS CEF freezing workaround).
+        /// </summary>
+        public static string OverlayDisableIFrameRemovalToggleText {
+            get {
+                return ResourceManager.GetString("OverlayDisableIFrameRemovalToggleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An active image must be set for custom user visuals.
         /// </summary>
         public static string OverlayDiscordReactiveVoiceActiveImageMustBeSet {
@@ -19667,6 +19705,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset Moderation Strikes for All Users.
+        /// </summary>
+        public static string ResetModerationStrikes {
+            get {
+                return ResourceManager.GetString("ResetModerationStrikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset On Enable.
         /// </summary>
         public static string ResetOnEnable {
@@ -21947,6 +21994,15 @@ namespace MixItUp.Base {
         public static string ShowWindow {
             get {
                 return ResourceManager.GetString("ShowWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show YouTube Jewels Gift.
+        /// </summary>
+        public static string ShowYouTubeJewelsGift {
+            get {
+                return ResourceManager.GetString("ShowYouTubeJewelsGift", resourceCulture);
             }
         }
         
@@ -29048,6 +29104,15 @@ namespace MixItUp.Base {
         public static string YouTubeActionUnableToRunAdBreak {
             get {
                 return ResourceManager.GetString("YouTubeActionUnableToRunAdBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YouTube Channel Jewels Gift.
+        /// </summary>
+        public static string YouTubeChannelJewelsGift {
+            get {
+                return ResourceManager.GetString("YouTubeChannelJewelsGift", resourceCulture);
             }
         }
         

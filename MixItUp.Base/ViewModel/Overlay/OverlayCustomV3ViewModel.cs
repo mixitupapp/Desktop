@@ -1,7 +1,6 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
-using MixItUp.Base.Model.Trovo.Chat;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -10,7 +9,6 @@ using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
@@ -46,7 +44,6 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         YouTubeSuperChat,
 
-        TrovoElixirSpell,
     }
 
     public class OverlayCustomPropertyV3ViewModel : UIViewModelBase
@@ -186,28 +183,6 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private bool youTubeSuperChats;
 
-        public bool TrovoSubscriptions
-        {
-            get { return this.trovoSubscriptions; }
-            set
-            {
-                this.trovoSubscriptions = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private bool trovoSubscriptions;
-
-        public bool TrovoElixirSpells
-        {
-            get { return this.trovoElixirSpells; }
-            set
-            {
-                this.trovoElixirSpells = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private bool trovoElixirSpells;
-
         public bool Donations
         {
             get { return this.donations; }
@@ -241,8 +216,6 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.TwitchBits = item.TwitchBits;
             this.YouTubeMemberships = item.YouTubeMemberships;
             this.YouTubeSuperChats = item.YouTubeSuperChats;
-            this.TrovoSubscriptions = item.TrovoSubscriptions;
-            this.TrovoElixirSpells = item.TrovoElixirSpells;
             this.Donations = item.Donations;
 
             foreach (var property in item.Properties)
@@ -356,19 +329,6 @@ namespace MixItUp.Base.ViewModel.Overlay
                         UserComment = "Hello World"
                     }, ChannelSession.User));
                 }
-                else if (type == OverlayCustomV3TestTypeEnum.TrovoElixirSpell)
-                {
-                    custom.OnTrovoSpell(this, new TrovoChatSpellViewModel(ChannelSession.User, new ChatMessageModel() { content = "" })
-                    {
-                        Contents = new TrovoChatSpellContentModel()
-                        {
-                            gift = "Foobar",
-                            value_type = TrovoChatSpellViewModel.ElixirValueType,
-                            num = 10,
-                            gift_value = 10,
-                        }
-                    });
-                }
             }
 
             await base.TestWidget(widget);
@@ -390,8 +350,6 @@ namespace MixItUp.Base.ViewModel.Overlay
                 TwitchBits = this.TwitchBits,
                 YouTubeMemberships = this.YouTubeMemberships,
                 YouTubeSuperChats = this.YouTubeSuperChats,
-                TrovoSubscriptions = this.TrovoSubscriptions,
-                TrovoElixirSpells = this.TrovoElixirSpells,
                 Donations = this.Donations,
             };
 

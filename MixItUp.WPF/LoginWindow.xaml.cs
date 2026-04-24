@@ -199,7 +199,8 @@ namespace MixItUp.WPF
                     }
                     else
                     {
-                        window.Show();
+                        window.Owner = this;
+                        window.ShowDialog();
                     }
                 }
             }

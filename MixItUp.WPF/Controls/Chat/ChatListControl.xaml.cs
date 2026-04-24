@@ -1,17 +1,14 @@
-﻿using MaterialDesignThemes.Wpf;
+using MaterialDesignThemes.Wpf;
 using MixItUp.Base;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
-using MixItUp.Base.Services.Trovo;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.User;
 using MixItUp.WPF.Util;
@@ -178,12 +175,6 @@ namespace MixItUp.WPF.Controls.Chat
                             if (ServiceManager.Get<TwitchSession>().IsConnected)
                             {
                                 emotes.AddRange(this.FindMatchingEmoticons<TwitchChatEmoteViewModel>(tagText, ServiceManager.Get<TwitchSession>().Emotes));
-                            }
-                            if (ServiceManager.Get<TrovoSession>().IsConnected)
-                            {
-                                emotes.AddRange(this.FindMatchingEmoticons<TrovoChatEmoteViewModel>(tagText, ServiceManager.Get<TrovoSession>().ChannelEmotes));
-                                emotes.AddRange(this.FindMatchingEmoticons<TrovoChatEmoteViewModel>(tagText, ServiceManager.Get<TrovoSession>().EventEmotes));
-                                emotes.AddRange(this.FindMatchingEmoticons<TrovoChatEmoteViewModel>(tagText, ServiceManager.Get<TrovoSession>().GlobalEmotes));
                             }
 
                             this.ShowIntellisense(tag, this.EmoticonIntellisense, this.EmoticonIntellisenseListBox, emotes);
@@ -435,15 +426,7 @@ namespace MixItUp.WPF.Controls.Chat
 
         private void SelectIntellisenseEmoticon()
         {
-            if (this.EmoticonIntellisenseListBox.SelectedItem is TrovoChatEmoteViewModel)
-            {
-                TrovoChatEmoteViewModel emoticon = this.EmoticonIntellisenseListBox.SelectedItem as TrovoChatEmoteViewModel;
-                if (emoticon != null)
-                {
-                    this.SelectIntellisenseItem(":" + emoticon.Name);
-                }
-            }
-            else if (this.EmoticonIntellisenseListBox.SelectedItem is ChatEmoteViewModelBase)
+            if (this.EmoticonIntellisenseListBox.SelectedItem is ChatEmoteViewModelBase)
             {
                 ChatEmoteViewModelBase emoticon = this.EmoticonIntellisenseListBox.SelectedItem as ChatEmoteViewModelBase;
                 if (emoticon != null)

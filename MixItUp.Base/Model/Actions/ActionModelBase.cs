@@ -41,6 +41,7 @@ namespace MixItUp.Base.Model.Actions
         Command,
         Serial,
         Moderation,
+        [Obsolete]
         OvrStream,
         IFTTT,
         Twitch,
@@ -48,9 +49,11 @@ namespace MixItUp.Base.Model.Actions
         VTubeStudio,
         Voicemod,
         YouTube,
+        [Obsolete]
         Trovo,
         PolyPop,
         SAMMI,
+        [Obsolete]
         InfiniteAlbum,
         TITS,
         MusicPlayer,

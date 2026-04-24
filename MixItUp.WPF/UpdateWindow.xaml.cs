@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model.API;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using MixItUp.WPF.Util;
 using MixItUp.WPF.Windows;
 using System;
 using System.Diagnostics;
@@ -32,6 +33,7 @@ namespace MixItUp.WPF
 
             this.Initialize(this.StatusBar);
             this.AttachHyperlinkHandler();
+            this.Closing += UpdateWindow_Closing;
         }
 
         protected override async Task OnLoaded()
@@ -75,6 +77,8 @@ namespace MixItUp.WPF
                 Logger.Log(ex);
                 this.UpdateChangelogViewer.Markdown = "Unable to load changelog.";
             }
+
+            TaskbarFlashHelper.Flash(this);
 
             await base.OnLoaded();
         }
@@ -155,6 +159,11 @@ namespace MixItUp.WPF
             {
                 this.Close();
             }
+        }
+
+        private void UpdateWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            TaskbarFlashHelper.Flash(this, stop: true);
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

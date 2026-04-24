@@ -11266,4 +11266,27 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Arrêt à l'achèvement</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Cadeau pour les bijoux de la chaîne YouTube</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Cadeau YouTube Jewels - {1} ({2} Jewels)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Voir YouTube Jewels Gift</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Choix 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Désactiver la suppression des iframes (solution de contournement du gel de l'OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Avertissement : Test de solution de contournement. Il n'est pas recommandé de l'activer à moins que cela ne soit nécessaire pour le gel des vidéos OBS CEF. Cela peut augmenter l'utilisation de la mémoire ou introduire d'autres problèmes.
+
+Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Réinitialiser les grèves de modération pour tous les utilisateurs</value>
+  </data>
 </root>

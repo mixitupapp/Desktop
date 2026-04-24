@@ -9,7 +9,7 @@ namespace MixItUp.Base.Model.User
         [Obsolete]
         Banned = 0,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, TrovoUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
         User = 100,
 
         [TwitchUserRole]
@@ -18,44 +18,35 @@ namespace MixItUp.Base.Model.User
         [TwitchUserRole]
         TwitchPartner = 250,
 
-        [GenericUserRole, TwitchUserRole, TrovoUserRole]
+        [GenericUserRole, TwitchUserRole]
         Follower = 300,
         [YouTubeUserRole]
         YouTubeSubscriber = 301,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, TrovoUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
         Regular = 400,
 
         [TwitchUserRole]
         TwitchVIP = 500,
 
-        [GenericUserRole, TwitchUserRole, TrovoUserRole]
+        [GenericUserRole, TwitchUserRole]
         Subscriber = 600,
         [YouTubeUserRole]
         YouTubeMember = 601,
 
         [TwitchUserRole]
         TwitchGlobalMod = 701,
-        [TrovoUserRole]
-        TrovoWarden = 702,
 
         [TwitchUserRole]
         TwitchStaff = 751,
-        [TrovoUserRole]
-        TrovoAdmin = 752,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, TrovoUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
         Moderator = 800,
-
-        [TrovoUserRole]
-        TrovoSuperMod = 825,
 
         [TwitchUserRole]
         TwitchChannelEditor = 850,
-        [TrovoUserRole]
-        TrovoEditor = 851,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, TrovoUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
         Streamer = 900,
     }
 
@@ -72,9 +63,6 @@ namespace MixItUp.Base.Model.User
 
         public static IEnumerable<UserRoleEnum> YouTube { get { return youtube; } }
         private readonly static IEnumerable<UserRoleEnum> youtube = GetSelectableRoles<YouTubeUserRoleAttribute>();
-
-        public static IEnumerable<UserRoleEnum> Trovo { get { return trovo; } }
-        private readonly static IEnumerable<UserRoleEnum> trovo = GetSelectableRoles<TrovoUserRoleAttribute>();
 
         private static IEnumerable<UserRoleEnum> GetSelectableRoles<T>() where T : UserRoleAttributeBase
         {
@@ -151,25 +139,5 @@ namespace MixItUp.Base.Model.User
         }
 
         public override bool IsDefaultAttribute() { return this.Equals(YouTubeUserRoleAttribute.Default); }
-    }
-
-    [AttributeUsage(AttributeTargets.All)]
-    public class TrovoUserRoleAttribute : UserRoleAttributeBase
-    {
-        public static readonly TrovoUserRoleAttribute Default;
-
-        public TrovoUserRoleAttribute() { }
-
-        public override bool Equals(object obj) { return (obj is TrovoUserRoleAttribute); }
-
-        public override int GetHashCode()
-        {
-            int hashCode = -86145682;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<object>.Default.GetHashCode(TypeId);
-            return hashCode;
-        }
-
-        public override bool IsDefaultAttribute() { return this.Equals(TrovoUserRoleAttribute.Default); }
     }
 }
