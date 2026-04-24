@@ -1,7 +1,6 @@
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -147,28 +146,6 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["hypetraintotalpoints"] = "1234";
                     break;
 
-                // Trovo
-                case EventTypeEnum.TrovoChannelRaided:
-                    specialIdentifiers["raidviewercount"] = "123";
-                    break;
-                case EventTypeEnum.TrovoChannelSubscribed:
-                    specialIdentifiers["message"] = "Test Message";
-                    break;
-                case EventTypeEnum.TrovoChannelResubscribed:
-                    specialIdentifiers["message"] = "Test Message";
-                    specialIdentifiers["usersubmonths"] = "5";
-                    break;
-                case EventTypeEnum.TrovoChannelMassSubscriptionsGifted:
-                    specialIdentifiers["subsgiftedamount"] = "5";
-                    break;
-                case EventTypeEnum.TrovoChannelSpellCast:
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellNameSpecialIdentifier] = "Spell Name";
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellQuantitySpecialIdentifier] = "5";
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellTotalValueSpecialIdentifier] = "250";
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellValueTypeSpecialIdentifier] = MixItUp.Base.Resources.TrovoElixir;
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellValueSpecialIdentifier] = "50";
-                    break;
-
                 // YouTube
                 case EventTypeEnum.YouTubeChannelNewMember:
                     specialIdentifiers["usersubplan"] = "Plan Name";
@@ -310,10 +287,6 @@ namespace MixItUp.Base.Model.Commands
             else if (eventNumber >= 300 && eventNumber < 400)
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.YouTube.ToString();
-            }
-            else if (eventNumber >= 400 && eventNumber < 500)
-            {
-                specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.Trovo.ToString();
             }
             else
             {

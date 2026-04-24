@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace MixItUp.Base.Model.Actions
 {
+    [Obsolete]
     public enum InfiniteAlbumActionTypeEnum
     {
         Styles,

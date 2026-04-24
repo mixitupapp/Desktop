@@ -1,6 +1,5 @@
 ﻿using MixItUp.Base.Services;
 using MixItUp.Base.Services.Mock.New;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using System;
@@ -18,6 +17,7 @@ namespace MixItUp.Base.Model
         Mixer = 1,
         Twitch = 2,
         YouTube = 3,
+        [Obsolete]
         Trovo = 4,
         [Obsolete]
         Glimesh = 5,
@@ -33,17 +33,14 @@ namespace MixItUp.Base.Model
     {
         public const string TwitchLogoImageAssetFilePath = "/Assets/Images/twitch-color_lg.png";
         public const string YouTubeLogoImageAssetFilePath = "/Assets/Images/youtube-color_lg.png";
-        public const string TrovoLogoImageAssetFilePath = "/Assets/Images/trovo-color_lg.png";
 
         public const string TwitchSmallLogoImageAssetFilePath = "/Assets/Images/twitch-color_sm.png";
         public const string YouTubeSmallLogoImageAssetFilePath = "/Assets/Images/youtube-color_sm.png";
-        public const string TrovoSmallLogoImageAssetFilePath = "/Assets/Images/trovo-color_sm.png";
 
         public static ISet<StreamingPlatformTypeEnum> SupportedPlatforms { get; private set; } = new HashSet<StreamingPlatformTypeEnum>()
         {
             StreamingPlatformTypeEnum.Twitch,
             StreamingPlatformTypeEnum.YouTube,
-            StreamingPlatformTypeEnum.Trovo,
         };
 
         public static ISet<StreamingPlatformTypeEnum> SelectablePlatforms { get; private set; } = new HashSet<StreamingPlatformTypeEnum>()
@@ -51,7 +48,6 @@ namespace MixItUp.Base.Model
             StreamingPlatformTypeEnum.All,
             StreamingPlatformTypeEnum.Twitch,
             StreamingPlatformTypeEnum.YouTube,
-            StreamingPlatformTypeEnum.Trovo,
         };
 
         public static bool IsValidPlatform(StreamingPlatformTypeEnum platform) { return StreamingPlatforms.SupportedPlatforms.Contains(platform); }
@@ -64,7 +60,6 @@ namespace MixItUp.Base.Model
             {
                 ServiceManager.Get<TwitchSession>(),
                 ServiceManager.Get<YouTubeSession>(),
-                ServiceManager.Get<TrovoSession>(),
                 //ServiceManager.Get<MockSession>()
             };
         }
@@ -87,7 +82,6 @@ namespace MixItUp.Base.Model
         {
             if (platform == StreamingPlatformTypeEnum.Twitch) { return ServiceManager.Get<TwitchSession>(); }
             else if (platform == StreamingPlatformTypeEnum.YouTube) { return ServiceManager.Get<YouTubeSession>(); }
-            else if (platform == StreamingPlatformTypeEnum.Trovo) { return ServiceManager.Get<TrovoSession>(); }
             else if (platform == StreamingPlatformTypeEnum.Mock) { return ServiceManager.Get<MockSession>(); }
             else if (platform == StreamingPlatformTypeEnum.All && ChannelSession.Settings != null)
             {
@@ -100,7 +94,6 @@ namespace MixItUp.Base.Model
         {
             if (platform == StreamingPlatformTypeEnum.Twitch) { return TwitchLogoImageAssetFilePath; }
             else if (platform == StreamingPlatformTypeEnum.YouTube) { return YouTubeLogoImageAssetFilePath; }
-            else if (platform == StreamingPlatformTypeEnum.Trovo) { return TrovoLogoImageAssetFilePath; }
             return string.Empty;
         }
 
@@ -108,7 +101,6 @@ namespace MixItUp.Base.Model
         {
             if (platform == StreamingPlatformTypeEnum.Twitch) { return TwitchSmallLogoImageAssetFilePath; }
             else if (platform == StreamingPlatformTypeEnum.YouTube) { return YouTubeSmallLogoImageAssetFilePath; }
-            else if (platform == StreamingPlatformTypeEnum.Trovo) { return TrovoSmallLogoImageAssetFilePath; }
             return string.Empty;
         }
 

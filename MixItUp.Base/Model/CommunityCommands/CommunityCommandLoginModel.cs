@@ -16,8 +16,6 @@ namespace MixItUp.Base.Model.Store
         [DataMember]
         public StreamingClient.Base.Model.OAuth.OAuthTokenModel YouTubeOAuthToken { get; set; }
         [DataMember]
-        public string TrovoAccessToken { get; set; }
-        [DataMember]
         public bool BypassTwitchWebhooks { get; set; }
     }
 

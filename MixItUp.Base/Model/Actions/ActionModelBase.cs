@@ -49,6 +49,7 @@ namespace MixItUp.Base.Model.Actions
         VTubeStudio,
         Voicemod,
         YouTube,
+        [Obsolete]
         Trovo,
         PolyPop,
         SAMMI,

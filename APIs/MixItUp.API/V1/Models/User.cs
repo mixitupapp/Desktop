@@ -14,8 +14,6 @@ namespace MixItUp.API.V1.Models
         public string TwitchID { get; set; }
         [DataMember]
         public string YouTubeID { get; set; }
-        [DataMember]
-        public string TrovoID { get; set; }
 
         [DataMember]
         public string Username { get; set; }

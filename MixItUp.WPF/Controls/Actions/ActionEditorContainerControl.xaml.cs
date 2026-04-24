@@ -127,7 +127,6 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.Streamlabs: return new StreamlabsActionEditorControl();
                 case ActionTypeEnum.TextToSpeech: return new TextToSpeechActionEditorControl();
                 case ActionTypeEnum.TITS: return new TITSActionEditorControl();
-                case ActionTypeEnum.Trovo: return new TrovoActionEditorControl();
                 case ActionTypeEnum.Twitch: return new TwitchActionEditorControl();
                 case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControl();
                 case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControl();

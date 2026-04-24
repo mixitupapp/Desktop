@@ -48,6 +48,7 @@ namespace MixItUp.Base.Model.Store
         VTubeStudio,
         Voicemod,
         YouTube,
+        [Obsolete]
         Trovo,
         PolyPop,
         SAMMI,
@@ -68,6 +69,7 @@ namespace MixItUp.Base.Model.Store
         TwitchChannelPointsCommand,
         GameCommand,
         Webhook,
+        [Obsolete]
         TrovoSpell,
         TwitchBits,
         CrowdControlEffect,

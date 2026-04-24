@@ -299,8 +299,6 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertYouTubeJewelsGiftColor { get; set; }
         [DataMember]
-        public string AlertTrovoSpellCastColor { get; set; }
-        [DataMember]
         public string AlertDonationColor { get; set; }
         [DataMember]
         public string AlertModerationColor { get; set; }
@@ -823,10 +821,6 @@ namespace MixItUp.Base.Model.Settings
                     {
                         command = JSONSerializerHelper.DeserializeFromString<WebhookCommandModel>(commandData);
                     }
-                    else if (type == CommandTypeEnum.TrovoSpell)
-                    {
-                        command = JSONSerializerHelper.DeserializeFromString<TrovoSpellCommandModel>(commandData);
-                    }
                     else if (type == CommandTypeEnum.TwitchBits)
                     {
                         TwitchBitsCommandModel tbCommand = JSONSerializerHelper.DeserializeFromString<TwitchBitsCommandModel>(commandData);
@@ -1038,8 +1032,8 @@ namespace MixItUp.Base.Model.Settings
                     { "$YouTubeID", u.GetPlatformID(StreamingPlatformTypeEnum.YouTube) }, { "$YouTubeUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.YouTube) },
 #pragma warning disable CS0612 // Type or member is obsolete
                     { "$FacebookID", u.GetPlatformID(StreamingPlatformTypeEnum.Facebook) }, { "$FacebookUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Facebook) },
-#pragma warning restore CS0612 // Type or member is obsolete
                     { "$TrovoID", u.GetPlatformID(StreamingPlatformTypeEnum.Trovo) }, { "$TrovoUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Trovo) },
+#pragma warning restore CS0612 // Type or member is obsolete                    
                     { "$Data", JSONSerializerHelper.SerializeToString(u) }
                 }));
 

@@ -6,7 +6,6 @@ using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
@@ -164,21 +163,6 @@ namespace MixItUp.Base.Model.Overlay
                 { "AmountDisplay", superChat.AmountDisplay },
                 { "Message", superChat.Message }
             });
-        }
-
-        public override async void OnTrovoSpell(object sender, TrovoChatSpellViewModel spell)
-        {
-            if (spell.IsElixir)
-            {
-                await this.CallFunction("TrovoElixirSpell", new Dictionary<string, object>()
-                {
-                    { "User", spell.User },
-                    { "Name", spell.Name },
-                    { "Quantity", spell.Quantity },
-                    { "Value", spell.Value },
-                    { "Total", spell.ValueTotal }
-                });
-            }
         }
 
         public override Dictionary<string, object> GetGenerationProperties()

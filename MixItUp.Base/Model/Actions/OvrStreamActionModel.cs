@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MixItUp.Base.Model.Actions
 {
+    [Obsolete]
     public enum OvrStreamActionTypeEnum
     {
         PlayTitle,

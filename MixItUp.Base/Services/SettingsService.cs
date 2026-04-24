@@ -845,7 +845,6 @@ namespace MixItUp.Base.Services
                 {
                     newItem.TwitchSubscriptions = true;
                     newItem.YouTubeMemberships = true;
-                    newItem.TrovoSubscriptions = true;
                 }
                 if (oldItem.ItemTypes.Contains(OverlayEventListItemTypeEnum.Donations))
                 {
@@ -962,9 +961,6 @@ namespace MixItUp.Base.Services
                     newItem.TwitchSubscriptionTier1Amount = 1;
                     newItem.TwitchSubscriptionTier2Amount = 1;
                     newItem.TwitchSubscriptionTier3Amount = 1;
-                    newItem.TrovoSubscriptionTier1Amount = 1;
-                    newItem.TrovoSubscriptionTier2Amount = 1;
-                    newItem.TrovoSubscriptionTier3Amount = 1;
                     foreach (var membership in newItem.YouTubeMemberships)
                     {
                         membership.Amount = 1;
@@ -1018,9 +1014,6 @@ namespace MixItUp.Base.Services
                 newItem.TwitchSubscriptionTier1Amount = oldItem.SubscriberBonus;
                 newItem.TwitchSubscriptionTier2Amount = oldItem.SubscriberBonus;
                 newItem.TwitchSubscriptionTier3Amount = oldItem.SubscriberBonus;
-                newItem.TrovoSubscriptionTier1Amount = oldItem.SubscriberBonus;
-                newItem.TrovoSubscriptionTier2Amount = oldItem.SubscriberBonus;
-                newItem.TrovoSubscriptionTier3Amount = oldItem.SubscriberBonus;
                 foreach (var membership in newItem.YouTubeMemberships)
                 {
                     membership.Amount = oldItem.SubscriberBonus;
@@ -1031,7 +1024,6 @@ namespace MixItUp.Base.Services
                 newItem.OverkillBonusHealthMultiplier = oldItem.OverkillBonus;
                 newItem.KillBonusHealth = 0;
                 newItem.YouTubeSuperChatAmount = 0;
-                newItem.TrovoElixirSpellAmount = 0;
                 result = newItem.GetItem();
                 result.OldCustomHTML = oldItem.HTML;
 
@@ -1082,9 +1074,6 @@ namespace MixItUp.Base.Services
                 newItem.TwitchSubscriptionTier1Amount = oldItem.SubscriberBonus;
                 newItem.TwitchSubscriptionTier2Amount = oldItem.SubscriberBonus;
                 newItem.TwitchSubscriptionTier3Amount = oldItem.SubscriberBonus;
-                newItem.TrovoSubscriptionTier1Amount = oldItem.SubscriberBonus;
-                newItem.TrovoSubscriptionTier2Amount = oldItem.SubscriberBonus;
-                newItem.TrovoSubscriptionTier3Amount = oldItem.SubscriberBonus;
                 foreach (var membership in newItem.YouTubeMemberships)
                 {
                     membership.Amount = oldItem.SubscriberBonus;
