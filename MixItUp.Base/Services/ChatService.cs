@@ -205,7 +205,7 @@ namespace MixItUp.Base.Services
                 return;
             }
 
-            if (externalDeletion && !this.messagesLookup.TryGetValue(message.ID, out ChatMessageViewModel existingMessage) && existingMessage != null)
+            if (externalDeletion && this.messagesLookup.TryGetValue(message.ID, out ChatMessageViewModel existingMessage) && existingMessage != null)
             {
                 message = existingMessage;
             }

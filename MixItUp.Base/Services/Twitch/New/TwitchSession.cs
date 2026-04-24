@@ -464,7 +464,7 @@ namespace MixItUp.Base.Services.Twitch.New
 
         public override async Task SendMessage(string message, bool sendAsStreamer = false)
         {
-            await this.SendMessage(message, sendAsStreamer);
+            await this.SendMessage(message, sendAsStreamer, null);
         }
 
         public async Task SendMessage(string message, bool sendAsStreamer = false, string replyMessageID = null)

@@ -739,7 +739,7 @@ namespace MixItUp.Base.Services.Twitch.New
         {
             return await AsyncRunner.RunAsync(async () =>
             {
-                return await this.GetPagedDataResultAsync<StreamModel>("streams?user_id" + string.Join("&user_id=", userIDs), userIDs.Count());
+                return await this.GetPagedDataResultAsync<StreamModel>("streams?user_id=" + string.Join("&user_id=", userIDs), userIDs.Count());
             });
         }
 
