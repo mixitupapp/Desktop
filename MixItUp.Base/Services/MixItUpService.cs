@@ -460,19 +460,19 @@ namespace MixItUp.Base.Services
 
         protected override string GetBaseAddress()
         {
-            if (ChannelSession.IsDebug())
-            {
-                return MixItUpService.DevMixItUpAPIEndpoint;
-            }
+            //if (ChannelSession.IsDebug())
+            //{
+            //    return MixItUpService.DevMixItUpAPIEndpoint;
+            //}
             return MixItUpService.MixItUpAPIEndpoint;
         }
 
         protected string GetWebhookHubAddress()
         {
-            if (ChannelSession.IsDebug())
-            {
-                return MixItUpService.DevMixItUpWebhookHubEndpoint;
-            }
+            //if (ChannelSession.IsDebug())
+            //{
+            //    return MixItUpService.DevMixItUpWebhookHubEndpoint;
+            //}
             return MixItUpService.MixItUpWebhookHubEndpoint;
         }
 
