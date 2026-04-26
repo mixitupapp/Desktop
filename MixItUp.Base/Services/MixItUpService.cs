@@ -11,7 +11,6 @@ using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
-using MixItUp.SignalR.Client;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -134,11 +133,11 @@ namespace MixItUp.Base.Services
 
     public class MixItUpService : OAuthRestServiceBase, ICommunityCommandsService, IMixItUpService, IWebhookService, IDisposable
     {
-        public const string MixItUpAPIEndpoint = "https://api.mixitupapp.com/api/";
-        public const string MixItUpSignalRHubEndpoint = "https://api.mixitupapp.com/webhookhub";
+        public const string MixItUpAPIEndpoint = "https://desktop.api.mixitupapp.com/api/";
+        public const string MixItUpWebhookHubEndpoint = "wss://desktop.api.mixitupapp.com/webhookhub";
 
-        public const string DevMixItUpAPIEndpoint = "https://localhost:44309/api/";                // Dev Endpoint
-        public const string DevMixItUpSignalRHubEndpoint = "https://localhost:44309/webhookhub";   // Dev Endpoint
+        public const string DevMixItUpAPIEndpoint = "http://localhost:3000/api/";                // Dev Endpoint
+        public const string DevMixItUpWebhookHubEndpoint = "ws://localhost:3000/webhookhub";      // Dev Endpoint
 
         private const string UtilApiEndpoint = "https://util.mixitupapp.com/";
 
@@ -311,8 +310,11 @@ namespace MixItUp.Base.Services
         {
             return await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                return await PostAsync<CommunityCommandDetailsModel>("v2/community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
+                return await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    return await PostAsync<CommunityCommandDetailsModel>("v2/community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
+                });
             });
         }
 
@@ -320,8 +322,11 @@ namespace MixItUp.Base.Services
         {
             await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                await DeleteAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}/delete");
+                await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    await DeleteAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}/delete");
+                });
             });
         }
 
@@ -329,8 +334,11 @@ namespace MixItUp.Base.Services
         {
             await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                await PostAsync($"v2/community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
+                await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    await PostAsync($"v2/community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
+                });
             });
         }
 
@@ -347,8 +355,11 @@ namespace MixItUp.Base.Services
         {
             return await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/mine?skip={skip}&top={top}"));
+                return await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/mine?skip={skip}&top={top}"));
+                });
             });
         }
 
@@ -356,8 +367,11 @@ namespace MixItUp.Base.Services
         {
             return await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                return await PostAsync<CommunityCommandReviewModel>($"v2/community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
+                return await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    return await PostAsync<CommunityCommandReviewModel>($"v2/community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
+                });
             });
         }
 
@@ -396,6 +410,34 @@ namespace MixItUp.Base.Services
             });
         }
 
+        private async Task<T> AuthorizedDesktopApiRequest<T>(Func<Task<T>> action, bool hasRetried = false)
+        {
+            try
+            {
+                return await action();
+            }
+            catch (HttpRestRequestException ex) when (!hasRetried && ex.Response?.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                this.accessToken = null;
+                await this.EnsureLogin();
+                return await this.AuthorizedDesktopApiRequest(action, hasRetried: true);
+            }
+        }
+
+        private async Task AuthorizedDesktopApiRequest(Func<Task> action, bool hasRetried = false)
+        {
+            try
+            {
+                await action();
+            }
+            catch (HttpRestRequestException ex) when (!hasRetried && ex.Response?.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                this.accessToken = null;
+                await this.EnsureLogin();
+                await this.AuthorizedDesktopApiRequest(action, hasRetried: true);
+            }
+        }
+
         private async Task<string> GetCommunityCommandsUnavailableMessage(HttpRestRequestException ex)
         {
             const string fallback = "Community Commands is temporarily unavailable.";
@@ -418,20 +460,20 @@ namespace MixItUp.Base.Services
 
         protected override string GetBaseAddress()
         {
-            //if (ChannelSession.IsDebug())
-            //{
-            //    return MixItUpService.DevMixItUpAPIEndpoint;
-            //}
+            if (ChannelSession.IsDebug())
+            {
+                return MixItUpService.DevMixItUpAPIEndpoint;
+            }
             return MixItUpService.MixItUpAPIEndpoint;
         }
 
-        protected string GetSingalRAddress()
+        protected string GetWebhookHubAddress()
         {
-            //if (ChannelSession.IsDebug())
-            //{
-            //    return MixItUpService.DevMixItUpSignalRHubEndpoint;
-            //}
-            return MixItUpService.MixItUpSignalRHubEndpoint;
+            if (ChannelSession.IsDebug())
+            {
+                return MixItUpService.DevMixItUpWebhookHubEndpoint;
+            }
+            return MixItUpService.MixItUpWebhookHubEndpoint;
         }
 
         private async Task EnsureLogin()
@@ -439,15 +481,16 @@ namespace MixItUp.Base.Services
             if (accessToken == null)
             {
                 var token = this.GetLoginToken();
-                var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("user/login", AdvancedHttpClient.CreateContentFromObject(token));
+                var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("v2/user/login", AdvancedHttpClient.CreateContentFromObject(token));
                 this.accessToken = loginResponse.AccessToken;
             }
         }
 
         // IWebhookService
         public const string AuthenticateMethodName = "AuthenticateMany";
-        private SignalRConnection signalRConnection = null;
-        public bool IsWebhookHubConnected { get { return this.signalRConnection?.IsConnected() ?? false; } }
+        private WebhookHubConnection webhookHubConnection = null;
+        private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
+        public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
         public bool IsWebhookHubAllowed { get; private set; } = false;
 
         public void BackgroundConnect()
@@ -457,7 +500,7 @@ namespace MixItUp.Base.Services
                 Result result = await this.Connect();
                 if (!result.Success)
                 {
-                    SignalRConnection_Disconnected(this, new Exception());
+                    WebhookHubConnection_Disconnected(this, new Exception());
                 }
             }, new CancellationToken());
         }
@@ -466,21 +509,22 @@ namespace MixItUp.Base.Services
         {
             if (!this.IsWebhookHubConnected)
             {
-                if (this.signalRConnection == null)
+                if (this.webhookHubConnection == null)
                 {
-                    this.signalRConnection = new SignalRConnection(this.GetSingalRAddress());
+                    this.webhookHubConnection = new WebhookHubConnection(this.GetWebhookHubAddress());
 
-                    this.signalRConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
+                    this.webhookHubConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
                     {
                         Logger.Log($"Webhook Event - Generic Webhook - {id} - {payload}");
                         var _ = this.TriggerGenericWebhook(id, payload);
                     });
 
-                    this.signalRConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
+                    this.webhookHubConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
                     {
                         Logger.Log($"Webhook Authentication - {approved}");
 
                         this.IsWebhookHubAllowed = approved;
+                        this.webhookAuthenticationCompletionSource?.TrySetResult(approved);
                         if (!this.IsWebhookHubAllowed)
                         {
                             Logger.Log(LogLevel.Error, $"Webhook Authentication Failed");
@@ -491,16 +535,29 @@ namespace MixItUp.Base.Services
                     });
                 }
 
-                this.signalRConnection.Connected -= SignalRConnection_Connected;
-                this.signalRConnection.Disconnected -= SignalRConnection_Disconnected;
+                this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
+                this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
 
-                this.signalRConnection.Connected += SignalRConnection_Connected;
-                this.signalRConnection.Disconnected += SignalRConnection_Disconnected;
+                this.webhookHubConnection.Connected += WebhookHubConnection_Connected;
+                this.webhookHubConnection.Disconnected += WebhookHubConnection_Disconnected;
 
-                if (await this.signalRConnection.Connect())
+                if (await this.webhookHubConnection.Connect())
                 {
-                    return new Result(this.IsWebhookHubConnected);
+                    this.IsWebhookHubAllowed = false;
+                    this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
+
+                    Task completedTask = await Task.WhenAny(this.webhookAuthenticationCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(15)));
+                    bool authenticated = completedTask == this.webhookAuthenticationCompletionSource.Task && this.webhookAuthenticationCompletionSource.Task.Result;
+                    this.webhookAuthenticationCompletionSource = null;
+
+                    if (!authenticated)
+                    {
+                        await this.Disconnect();
+                    }
+
+                    return new Result(authenticated);
                 }
+
                 return new Result(MixItUp.Base.Resources.WebhooksServiceFailedConnection);
             }
             return new Result(MixItUp.Base.Resources.WebhookServiceAlreadyConnected);
@@ -508,25 +565,29 @@ namespace MixItUp.Base.Services
 
         public async Task Disconnect()
         {
-            if (this.signalRConnection != null)
+            if (this.webhookHubConnection != null)
             {
-                this.signalRConnection.Connected -= SignalRConnection_Connected;
-                this.signalRConnection.Disconnected -= SignalRConnection_Disconnected;
+                this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
+                this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
 
-                await this.signalRConnection.Disconnect();
+                await this.webhookHubConnection.Disconnect();
 
-                this.signalRConnection = null;
+                this.webhookHubConnection = null;
             }
+
+            this.IsWebhookHubAllowed = false;
+            this.webhookAuthenticationCompletionSource?.TrySetResult(false);
+            this.webhookAuthenticationCompletionSource = null;
         }
 
-        private async void SignalRConnection_Connected(object sender, EventArgs e)
+        private async void WebhookHubConnection_Connected(object sender, EventArgs e)
         {
             ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
             await this.Authenticate(this.GetLoginToken());
         }
 
-        private async void SignalRConnection_Disconnected(object sender, Exception e)
+        private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
@@ -550,7 +611,7 @@ namespace MixItUp.Base.Services
 
             try
             {
-                await this.AsyncWrapper(this.signalRConnection.Send(AuthenticateMethodName, login));
+                await this.AsyncWrapper(this.webhookHubConnection.Send(AuthenticateMethodName, login));
             }
             catch (Exception ex)
             {
@@ -560,20 +621,29 @@ namespace MixItUp.Base.Services
 
         public async Task<GetWebhooksResponseModel> GetWebhooks()
         {
-            await EnsureLogin();
-            return await GetAsync<GetWebhooksResponseModel>($"webhook");
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+                return await GetAsync<GetWebhooksResponseModel>($"webhook");
+            });
         }
 
         public async Task<Webhook> CreateWebhook()
         {
-            await EnsureLogin();
-            return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new { }));
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+                return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new { }));
+            });
         }
 
         public async Task DeleteWebhook(Guid id)
         {
-            await EnsureLogin();
-            await DeleteAsync($"webhook/{id}");
+            await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+                await DeleteAsync($"webhook/{id}");
+            });
         }
 
         private async Task AsyncWrapper(Task task)
@@ -621,7 +691,6 @@ namespace MixItUp.Base.Services
             if (ServiceManager.Get<TwitchSession>().IsConnected)
             {
                 login.TwitchAccessToken = ServiceManager.Get<TwitchSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
-                login.BypassTwitchWebhooks = true;
             }
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {

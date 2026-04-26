@@ -51,7 +51,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
   <ProjectReference Include="..\APIs\MixItUp.API\MixItUp.API.csproj" />
     <ProjectReference Include="..\MixItUp.Base\MixItUp.Base.csproj" />
     <ProjectReference Include="..\MixItUp.Reporter\MixItUp.Reporter.csproj" />
-    <ProjectReference Include="..\MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj" />
   </ItemGroup>
 	<ItemGroup Label="Package References">
 		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
