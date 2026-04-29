@@ -529,6 +529,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add or Drop Here.
+        /// </summary>
+        public static string AddOrDropHere {
+            get {
+                return ResourceManager.GetString("AddOrDropHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Outcome.
         /// </summary>
         public static string AddOutcome {

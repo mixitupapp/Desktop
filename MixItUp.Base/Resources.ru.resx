@@ -11293,4 +11293,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Сброс ударов модерации для всех пользователей</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Добавить или убрать здесь</value>
+  </data>
 </root>

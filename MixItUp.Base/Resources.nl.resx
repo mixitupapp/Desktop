@@ -11289,4 +11289,7 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Moderatiestrikes resetten voor alle gebruikers</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Hier toevoegen of laten vallen</value>
+  </data>
 </root>

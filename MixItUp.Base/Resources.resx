@@ -11299,4 +11299,7 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Reset Moderation Strikes for All Users</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Add or Drop Here</value>
+  </data>
 </root>

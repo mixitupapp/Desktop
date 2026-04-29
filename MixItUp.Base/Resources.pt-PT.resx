@@ -11290,4 +11290,7 @@ Só ative se souber o que está fazendo. Continuar?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Repor os ataques de moderação para todos os utilizadores</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Adicionar ou largar aqui</value>
+  </data>
 </root>

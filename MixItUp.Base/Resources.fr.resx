@@ -11289,4 +11289,7 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Réinitialiser les grèves de modération pour tous les utilisateurs</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Ajouter ou déposer ici</value>
+  </data>
 </root>

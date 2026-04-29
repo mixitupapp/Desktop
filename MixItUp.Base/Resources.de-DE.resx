@@ -10007,4 +10007,7 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Moderationsstrikes für alle Benutzer zurücksetzen</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Hier hinzufügen oder löschen</value>
+  </data>
 </root>

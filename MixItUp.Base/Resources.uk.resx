@@ -11288,4 +11288,7 @@ print(run())</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Скинути блокування модерації для всіх користувачів</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Додати або скинути тут</value>
+  </data>
 </root>

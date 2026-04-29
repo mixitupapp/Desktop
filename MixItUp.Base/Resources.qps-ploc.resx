@@ -11288,4 +11288,7 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Reset Moderation Strikes for All Users</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Add or Drop Here</value>
+  </data>
 </root>

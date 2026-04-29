@@ -11288,4 +11288,7 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Resetowanie ostrzeżeń moderacyjnych dla wszystkich użytkowników</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Dodaj lub upuść tutaj</value>
+  </data>
 </root>

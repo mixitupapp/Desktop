@@ -11290,4 +11290,7 @@ Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Restablecer las huelgas de moderación para todos los usuarios</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Añadir o dejar aquí</value>
+  </data>
 </root>

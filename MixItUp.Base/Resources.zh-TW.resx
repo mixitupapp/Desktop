@@ -11288,4 +11288,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>重置所有用户的审核罢工</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>在此添加或删除</value>
+  </data>
 </root>

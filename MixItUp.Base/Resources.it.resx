@@ -11288,4 +11288,7 @@ Attivare solo se si sa cosa si sta facendo. Continuare?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Azzeramento degli attacchi di moderazione per tutti gli utenti</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Aggiungi o lascia qui</value>
+  </data>
 </root>
