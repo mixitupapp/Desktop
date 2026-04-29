@@ -28,7 +28,10 @@ namespace MixItUp.Base.Model.Commands
 
         public override Dictionary<string, string> GetTestSpecialIdentifiers()
         {
-            return JSONParameters.ToDictionary(j => j.SpecialIdentifierName, j => "Test Value");
+            return JSONParameters
+                .Where(j => !string.IsNullOrWhiteSpace(j.SpecialIdentifierName))
+                .GroupBy(j => j.SpecialIdentifierName, StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(g => g.First().SpecialIdentifierName, g => "Test Value");
         }
     }
 }

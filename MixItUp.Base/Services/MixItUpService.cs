@@ -602,7 +602,10 @@ namespace MixItUp.Base.Services
 
                     // Do JSON => Special Identifier logic
                     CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.All, eventCommandSpecialIdentifiers);
-                    Dictionary<string, string> jsonParameters = command.JSONParameters.ToDictionary(param => param.JSONParameterName, param => param.SpecialIdentifierName);
+                    Dictionary<string, string> jsonParameters = command.JSONParameters
+                        .Where(param => !string.IsNullOrWhiteSpace(param.JSONParameterName) && !string.IsNullOrWhiteSpace(param.SpecialIdentifierName))
+                        .GroupBy(param => param.JSONParameterName)
+                        .ToDictionary(g => g.First().JSONParameterName, g => g.First().SpecialIdentifierName);
                     await WebRequestActionModel.ProcessJSONToSpecialIdentifiers(payload, jsonParameters, parameters);
 
                     await ServiceManager.Get<CommandService>().Queue(command, parameters);
