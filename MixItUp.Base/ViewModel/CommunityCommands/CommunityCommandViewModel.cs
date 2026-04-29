@@ -81,7 +81,10 @@ namespace MixItUp.Base.ViewModel.CommunityCommands
 
             foreach (CommunityCommandReviewModel review in this.model.Reviews.OrderByDescending(r => r.DateTime))
             {
-                this.Reviews.Add(new CommunityCommandReviewViewModel(review));
+                if (!string.IsNullOrWhiteSpace(review.Review))
+                {
+                    this.Reviews.Add(new CommunityCommandReviewViewModel(review));
+                }
             }
             this.NotifyPropertyChanged("HasNoReviews");
         }
