@@ -881,17 +881,23 @@ namespace MixItUp.Base.Model.Settings
             var unusedCooldownGroupNames = this.CooldownGroupAmounts.Select(c => c.Key).ToList();
             foreach (var command in this.Commands.Values.ToList())
             {
-                if (!string.IsNullOrEmpty(command.Requirements?.Cooldown?.GroupName))
+                foreach (CooldownRequirementModel cooldown in command.Requirements?.Cooldowns ?? Enumerable.Empty<CooldownRequirementModel>())
                 {
-                    unusedCooldownGroupNames.Remove(command.Requirements?.Cooldown?.GroupName);
+                    if (!string.IsNullOrEmpty(cooldown.GroupName))
+                    {
+                        unusedCooldownGroupNames.Remove(cooldown.GroupName);
+                    }
                 }
             }
 
             foreach (var product in this.RedemptionStoreProducts)
             {
-                if (!string.IsNullOrEmpty(product.Value.Requirements?.Cooldown?.GroupName))
+                foreach (CooldownRequirementModel cooldown in product.Value.Requirements?.Cooldowns ?? Enumerable.Empty<CooldownRequirementModel>())
                 {
-                    unusedCooldownGroupNames.Remove(product.Value.Requirements?.Cooldown?.GroupName);
+                    if (!string.IsNullOrEmpty(cooldown.GroupName))
+                    {
+                        unusedCooldownGroupNames.Remove(cooldown.GroupName);
+                    }
                 }
             }
 
