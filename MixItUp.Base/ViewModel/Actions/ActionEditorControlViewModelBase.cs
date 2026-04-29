@@ -70,6 +70,8 @@ namespace MixItUp.Base.ViewModel.Actions
         private Task _openTask;
         private bool userExpandedEditor = false;
 
+        public ActionEditorListControlViewModel ActionEditorListControlViewModel { get { return this.actionEditorListControlViewModel; } }
+
         public bool CanUseOriginalActionModel { get { return this.originalActionModel != null && !this.userExpandedEditor; } }
 
         public ActionEditorControlViewModelBase(ActionModelBase action)

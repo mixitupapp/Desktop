@@ -28,6 +28,8 @@ namespace MixItUp.Base.ViewModel.Actions
 
         public BulkObservableCollection<ActionEditorControlViewModelBase> Actions { get; set; } = new BulkObservableCollection<ActionEditorControlViewModelBase>();
 
+        public ActionEditorControlViewModelBase ParentAction { get; set; }
+
         public ActionEditorListControlViewModel()
         {
             List<ActionTypeEnum> actionTypes = new List<ActionTypeEnum>(EnumHelper.GetEnumList<ActionTypeEnum>());
@@ -128,6 +130,58 @@ namespace MixItUp.Base.ViewModel.Actions
         public void DeleteAction(ActionEditorControlViewModelBase actionViewModel)
         {
             this.Actions.Remove(actionViewModel);
+        }
+
+        public bool CanDropAction(ActionEditorControlViewModelBase actionViewModel)
+        {
+            if (actionViewModel == null)
+            {
+                return false;
+            }
+
+            return !this.IsNestedUnderAction(actionViewModel);
+        }
+
+        public void DropAction(ActionEditorControlViewModelBase actionViewModel, int insertIndex)
+        {
+            if (!this.CanDropAction(actionViewModel))
+            {
+                return;
+            }
+
+            ActionEditorListControlViewModel sourceActionEditorListControlViewModel = actionViewModel.ActionEditorListControlViewModel;
+            if (sourceActionEditorListControlViewModel == this)
+            {
+                int sourceIndex = this.Actions.IndexOf(actionViewModel);
+                if (sourceIndex < 0)
+                {
+                    return;
+                }
+
+                insertIndex = this.GetSafeInsertIndex(insertIndex);
+                if (sourceIndex < insertIndex)
+                {
+                    insertIndex--;
+                }
+
+                if (sourceIndex != insertIndex)
+                {
+                    this.Actions.RemoveAt(sourceIndex);
+                    this.Actions.Insert(insertIndex, actionViewModel);
+                }
+                return;
+            }
+
+            if (sourceActionEditorListControlViewModel == null)
+            {
+                return;
+            }
+
+            sourceActionEditorListControlViewModel.Actions.Remove(actionViewModel);
+
+            insertIndex = this.GetSafeInsertIndex(insertIndex);
+            actionViewModel.Initialize(this);
+            this.Actions.Insert(insertIndex, actionViewModel);
         }
 
         public async Task AddAction(ActionModelBase action)
@@ -249,6 +303,35 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.Actions.Add(editorViewModel);
             }
             return Task.CompletedTask;
+        }
+
+        private bool IsNestedUnderAction(ActionEditorControlViewModelBase actionViewModel)
+        {
+            ActionEditorControlViewModelBase parentAction = this.ParentAction;
+            while (parentAction != null)
+            {
+                if (object.Equals(parentAction, actionViewModel))
+                {
+                    return true;
+                }
+
+                parentAction = parentAction.ActionEditorListControlViewModel?.ParentAction;
+            }
+            return false;
+        }
+
+        private int GetSafeInsertIndex(int insertIndex)
+        {
+            if (insertIndex < 0)
+            {
+                return 0;
+            }
+
+            if (insertIndex > this.Actions.Count)
+            {
+                return this.Actions.Count;
+            }
+            return insertIndex;
         }
     }
 }
