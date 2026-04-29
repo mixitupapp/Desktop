@@ -11265,30 +11265,6 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Arresto al completamento</value>
   </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>{0} Riscattato {1}</value>
-  </data>
-  <data name="CustomPowerUp" xml:space="preserve">
-    <value>Potenziamento personalizzato</value>
-  </data>
-  <data name="CustomPowerUpMissing" xml:space="preserve">
-    <value>È necessario selezionare un'accensione personalizzata</value>
-  </data>
-  <data name="TwitchCustomPowerUp" xml:space="preserve">
-    <value>Potenziamento personalizzato Twitch</value>
-  </data>
-  <data name="TwitchCustomPowerUps" xml:space="preserve">
-    <value>Potenziamenti personalizzati di Twitch</value>
-  </data>
-  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
-    <value>Comando di accensione personalizzato di Twitch</value>
-  </data>
-  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
-    <value>Potenziamento personalizzato del canale Twitch riscattato</value>
-  </data>
-  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
-    <value>Mostra i potenziamenti personalizzati di Twitch</value>
-  </data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Canale YouTube Gioielli Regalo</value>
   </data>
@@ -11314,76 +11290,5 @@ Attivare solo se si sa cosa si sta facendo. Continuare?</value>
   </data>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Aggiungi o lascia qui</value>
-  </data>
-  <data name="Kick" xml:space="preserve">
-    <value>Kick</value>
-  </data>
-  <data name="LogInWithKick" xml:space="preserve">
-    <value>Accedere con Kick</value>
-  </data>
-  <data name="LogOutOfKick" xml:space="preserve">
-    <value>Disconnettersi da Kick</value>
-  </data>
-  <data name="KickChannelStreamStart" xml:space="preserve">
-    <value>Kick Channel Stream Start</value>
-  </data>
-  <data name="KickChannelStreamStop" xml:space="preserve">
-    <value>Kick Channel Stream Stop</value>
-  </data>
-  <data name="KickChannelUpdated" xml:space="preserve">
-    <value>Kick Channel aggiornato</value>
-  </data>
-  <data name="KickChannelFollowed" xml:space="preserve">
-    <value>Kick Channel Seguito</value>
-  </data>
-  <data name="KickChannelSubscribed" xml:space="preserve">
-    <value>Canale Kick Abbonati</value>
-  </data>
-  <data name="KickChannelResubscribed" xml:space="preserve">
-    <value>Kick Channel Reiscritto</value>
-  </data>
-  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
-    <value>Abbonamento a Kick Channel Regalato</value>
-  </data>
-  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
-    <value>Canale Kick Abbonamento di massa Regalato</value>
-  </data>
-  <data name="KickChannelPointsRedeemed" xml:space="preserve">
-    <value>Punti Kick Channel riscattati</value>
-  </data>
-  <data name="KickChannelKicksGifted" xml:space="preserve">
-    <value>Canale Kick Kicks Gifted</value>
-  </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>Per utilizzare questa funzione è necessario connettere un account Kick.</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>Comando punti del canale Kick</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>Esiste già un altro comando Kick Kicks con la stessa quantità/intervallo di questo comando.</value>
-  </data>
-  <data name="KickChannelPoints" xml:space="preserve">
-    <value>Punti del canale Kick</value>
-  </data>
-  <data name="KickKicks" xml:space="preserve">
-    <value>Kick Kicks</value>
-  </data>
-  <data name="KickKicksCommand" xml:space="preserve">
-    <value>Comando Kick Kicks</value>
-  </data>
-
-  <data name="KickActionNameMissing" xml:space="preserve">
-    <value>Azione Kick: è necessario specificare un nome valido</value>
-  </data>
-  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
-    <value>Azione Kick: premio punti canale mancanti</value>
-  </data>
-  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
-    <value>ERRORE: impossibile aggiornare il premio Channel Point. Riprova più tardi. Se questo premio non è stato creato tramite l'interfaccia utente di Mix It Up, dovrai eliminarlo e aggiungerlo nuovamente nella pagina Punti canale poiché devono essere creati tramite Mix It Up per consentire all'app di poterli aggiornare.</value>
-  </data>
-  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
-    <value>I premi Channel Point devono essere creati tramite Mix It Up per consentire all'app di aggiornarli.
-Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagina Punti canale in Mix It Up.</value>
   </data>
 </root>

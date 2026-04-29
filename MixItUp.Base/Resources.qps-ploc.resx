@@ -11265,30 +11265,6 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stop on Completion</value>
   </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>[{0} Ŕéðééɱéðẋẋẋ {1}]</value>
-  </data>
-  <data name="CustomPowerUp" xml:space="preserve">
-    <value>Custom Power-Up</value>
-  </data>
-  <data name="CustomPowerUpMissing" xml:space="preserve">
-    <value>A Custom Power-Up must be selected</value>
-  </data>
-  <data name="TwitchCustomPowerUp" xml:space="preserve">
-    <value>Twitch Custom Power-Up</value>
-  </data>
-  <data name="TwitchCustomPowerUps" xml:space="preserve">
-    <value>Twitch Custom Power-Ups</value>
-  </data>
-  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
-    <value>Twitch Custom Power-Up Command</value>
-  </data>
-  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
-    <value>Twitch Channel Custom Power-Up Redeemed</value>
-  </data>
-  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
-    <value>Show Twitch Custom Power-Ups</value>
-	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube Channel Jewels Gift</value>
   </data>
@@ -11314,76 +11290,5 @@ Only enable if you know what you are doing. Continue?</value>
   </data>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Add or Drop Here</value>
-  </data>
-  <data name="Kick" xml:space="preserve">
-    <value>Kick</value>
-  </data>
-  <data name="LogInWithKick" xml:space="preserve">
-    <value>Log in with Kick</value>
-  </data>
-  <data name="LogOutOfKick" xml:space="preserve">
-    <value>Log out of Kick</value>
-  </data>
-  <data name="KickChannelStreamStart" xml:space="preserve">
-    <value>Kick Channel Stream Start</value>
-  </data>
-  <data name="KickChannelStreamStop" xml:space="preserve">
-    <value>Kick Channel Stream Stop</value>
-  </data>
-  <data name="KickChannelUpdated" xml:space="preserve">
-    <value>Kick Channel Updated</value>
-  </data>
-  <data name="KickChannelFollowed" xml:space="preserve">
-    <value>Kick Channel Followed</value>
-  </data>
-  <data name="KickChannelSubscribed" xml:space="preserve">
-    <value>Kick Channel Subscribed</value>
-  </data>
-  <data name="KickChannelResubscribed" xml:space="preserve">
-    <value>Kick Channel Resubscribed</value>
-  </data>
-  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
-    <value>Kick Channel Subscription Gifted</value>
-  </data>
-  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
-    <value>Kick Channel Mass Subscription Gifted</value>
-  </data>
-  <data name="KickChannelPointsRedeemed" xml:space="preserve">
-    <value>Kick Channel Points Redeemed</value>
-  </data>
-  <data name="KickChannelKicksGifted" xml:space="preserve">
-    <value>Kick Channel Kicks Gifted</value>
-  </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>[A Kick account must be connected to use this feature. !!!]</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>[Kick Channel Points Command !!!]</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>[There already exists another Kick Kicks command with the same amount / range as this command. !!!]</value>
-  </data>
-  <data name="KickChannelPoints" xml:space="preserve">
-    <value>[Kick Channel Points !!!]</value>
-  </data>
-  <data name="KickKicks" xml:space="preserve">
-    <value>[Kick Kicks !!!]</value>
-  </data>
-  <data name="KickKicksCommand" xml:space="preserve">
-    <value>[Kick Kicks Command !!!]</value>
-  </data>
-
-  <data name="KickActionNameMissing" xml:space="preserve">
-    <value>[Ţŵîţçĥẋẋ Åçţîöñ∶ẋẋẋ Åẋ ṽåļîðẋẋ ñåɱéẋẋ ɱûšţẋẋ ƀéẋ šþéçîƒîéðẋẋẋ]</value>
-  </data>
-  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
-    <value>[Ţŵîţçĥẋẋ Åçţîöñ∶ẋẋẋ Ṁîššîñĝẋẋẋ Çĥåññéļẋẋẋ Þöîñţẋẋ Ŕéŵåŕðẋẋ]</value>
-  </data>
-  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
-    <value>[ÉŔŔÖŔ∶ẋẋ Çöûļðẋẋ ñöţẋ ûþðåţéẋẋ Çĥåññéļẋẋẋ Þöîñţẋẋ Ŕéŵåŕð،ẋẋẋ þļéåšéẋẋ ţŕýẋ åĝåîñẋẋ ļåţéŕ·ẋẋ Îƒẋ ţĥîšẋẋ ŕéŵåŕðẋẋ ŵåšẋ ñöţẋ çŕéåţéðẋẋẋ ţĥŕöûĝĥẋẋẋ ţĥéẋ Ṁîẋẋ Îţẋ Ûþẋ ÛÎ،ẋ ýöûẋ ŵîļļẋẋ ñééðẋẋ ţöẋ ðéļéţéẋẋ îţẋ åñðẋ ŕé‐åððẋẋ îţẋ öñẋ ţĥéẋ Çĥåññéļẋẋẋ Þöîñţšẋẋ þåĝéẋẋ åšẋ ţĥéýẋẋ ɱûšţẋẋ ƀéẋ çŕéåţéðẋẋẋ ţĥŕöûĝĥẋẋẋ Ṁîẋẋ Îţẋ Ûþẋ ţöẋ åļļöŵẋẋ ţĥéẋ åþþẋ ţöẋ ƀéẋ åƀļéẋẋ ţöẋ ûþðåţéẋẋ ţĥéɱ·ẋẋ]</value>
-  </data>
-  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
-    <value>[Çĥåññéļẋẋẋ Þöîñţẋẋ Ŕéŵåŕðšẋẋẋ ɱûšţẋẋ ƀéẋ çŕéåţéðẋẋẋ ţĥŕöûĝĥẋẋẋ Ṁîẋẋ Îţẋ Ûþẋ ţöẋ åļļöŵẋẋ ţĥéẋ åþþẋ ţöẋ ƀéẋ åƀļéẋẋ ţöẋ ûþðåţéẋẋ ţĥéɱ·
-Ţĥîšẋẋẋẋ çåñẋ ƀéẋ ðöñéẋẋ ƀýẋ çļîçķîñĝẋẋẋ öñẋ Çŕéåţéẋẋ Çĥåññéļẋẋẋ Þöîñţẋẋ Ŕéŵåŕðẋẋ öñẋ ţĥéẋ Çĥåññéļẋẋẋ Þöîñţšẋẋ þåĝéẋẋ îñẋ Ṁîẋẋ Îţẋ Ûþ·ẋ]</value>
   </data>
 </root>

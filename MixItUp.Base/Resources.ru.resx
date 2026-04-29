@@ -11270,30 +11270,6 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Остановка по завершении</value>
   </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>{0} погашен {1}</value>
-  </data>
-  <data name="CustomPowerUp" xml:space="preserve">
-    <value>Пользовательское усиление</value>
-  </data>
-  <data name="CustomPowerUpMissing" xml:space="preserve">
-    <value>Необходимо выбрать пользовательское включение</value>
-  </data>
-  <data name="TwitchCustomPowerUp" xml:space="preserve">
-    <value>Twitch Custom Power-Up</value>
-  </data>
-  <data name="TwitchCustomPowerUps" xml:space="preserve">
-    <value>Twitch Custom Power-Ups</value>
-  </data>
-  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
-    <value>Twitch Custom Power-Up Command</value>
-  </data>
-  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
-    <value>Пользовательское усиление канала Twitch выкуплено</value>
-  </data>
-  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
-    <value>Показать Twitch Пользовательские бонусы</value>
-	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Подарок для канала YouTube Jewels</value>
   </data>
@@ -11319,76 +11295,5 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Добавить или убрать здесь</value>
-  </data>
-  <data name="Kick" xml:space="preserve">
-    <value>Kick</value>
-  </data>
-  <data name="LogInWithKick" xml:space="preserve">
-    <value>Войдите в систему с помощью Kick</value>
-  </data>
-  <data name="LogOutOfKick" xml:space="preserve">
-    <value>Выход из системы Kick</value>
-  </data>
-  <data name="KickChannelStreamStart" xml:space="preserve">
-    <value>Начало потока канала Kick</value>
-  </data>
-  <data name="KickChannelStreamStop" xml:space="preserve">
-    <value>Kick Channel Остановка потока</value>
-  </data>
-  <data name="KickChannelUpdated" xml:space="preserve">
-    <value>Обновление канала Kick</value>
-  </data>
-  <data name="KickChannelFollowed" xml:space="preserve">
-    <value>Kick Channel Отслеживается</value>
-  </data>
-  <data name="KickChannelSubscribed" xml:space="preserve">
-    <value>Подпишись на канал Kick</value>
-  </data>
-  <data name="KickChannelResubscribed" xml:space="preserve">
-    <value>Kick Channel Повторная подписка</value>
-  </data>
-  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
-    <value>Kick Channel Подаренная подписка</value>
-  </data>
-  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
-    <value>Массовая подписка на канал Kick Channel в подарок</value>
-  </data>
-  <data name="KickChannelPointsRedeemed" xml:space="preserve">
-    <value>Использованные баллы канала Kick</value>
-  </data>
-  <data name="KickChannelKicksGifted" xml:space="preserve">
-    <value>Kick Channel Kicks Gifted</value>
-  </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>Для использования этой функции необходимо подключить аккаунт Kick.</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>Команда очков канала Kick</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>Уже существует другая команда Kick Kicks с таким же количеством/диапазоном, что и эта команда.</value>
-  </data>
-  <data name="KickChannelPoints" xml:space="preserve">
-    <value>Очки канала Kick</value>
-  </data>
-  <data name="KickKicks" xml:space="preserve">
-    <value>Kick Kicks</value>
-  </data>
-  <data name="KickKicksCommand" xml:space="preserve">
-    <value>Команда Kick Kicks</value>
-  </data>
-
-  <data name="KickActionNameMissing" xml:space="preserve">
-    <value>Действие Kick: необходимо указать допустимое имя.</value>
-  </data>
-  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
-    <value>Действие Kick: отсутствует награда за очки канала</value>
-  </data>
-  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
-    <value>ОШИБКА: не удалось обновить награду за очки канала. Повторите попытку позже. Если эта награда не была создана через интерфейс Mix It Up, вам нужно будет удалить ее и повторно добавить на странице Channel Points, поскольку они должны быть созданы через Mix It Up, чтобы приложение могло их обновлять.</value>
-  </data>
-  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
-    <value>Награды за баллы канала необходимо создавать с помощью Mix It Up, чтобы приложение могло их обновлять.
-Это можно сделать, нажав «Создать вознаграждение за очки канала» на странице «Очки канала» в Mix It Up.</value>
   </data>
 </root>
