@@ -8683,7 +8683,7 @@ We will attempt to re-connect with the service when possible. If this continues,
     <value>In this example, our shout out command sends a message to chat, plays a sound, waits 10 seconds, and then shows an image. Each of those correspond to a different action type (Chat, Sound, Wait, and Overlay).</value>
   </data>
   <data name="WizardFinal1" xml:space="preserve">
-    <value>Mix It Up is a desktop-only application, so your settings and data only exist on your computer. Therefore we encourge users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:</value>
+    <value>Mix It Up is a desktop only application, so your settings and data only exist on your computer. Therefore we encourage users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:</value>
   </data>
   <data name="WizardFinal2" xml:space="preserve">
     <value>Don't know how a feature works or want more info? Simply click on the Help icon on the top bar of the main window to find out more!</value>

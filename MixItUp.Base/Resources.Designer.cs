@@ -28739,7 +28739,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mix It Up is a desktop-only application, so your settings and data only exist on your computer. Therefore we encourge users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:.
+        ///   Looks up a localized string similar to Mix It Up is a desktop only application, so your settings and data only exist on your computer. Therefore we encourage users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:.
         /// </summary>
         public static string WizardFinal1 {
             get {
