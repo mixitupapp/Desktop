@@ -2,6 +2,7 @@ using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -172,6 +173,14 @@ namespace MixItUp.Base.Services
                             platformModel = new YouTubeUserPlatformV2Model(youtubeUser);
                         }
                     }
+                    else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                    {
+                        var kickUser = await ServiceManager.Get<KickSession>().StreamerService.GetCurrentUser();
+                        if (kickUser != null && string.Equals(kickUser.UserID.ToString(), platformID, StringComparison.OrdinalIgnoreCase))
+                        {
+                            platformModel = new KickUserPlatformV2Model(kickUser);
+                        }
+                    }
                 }
 
                 if (platformModel == null && !string.IsNullOrEmpty(platformUsername))
@@ -196,6 +205,14 @@ namespace MixItUp.Base.Services
                         if (youtubeUser != null)
                         {
                             platformModel = new YouTubeUserPlatformV2Model(youtubeUser);
+                        }
+                    }
+                    else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                    {
+                        var kickUser = await ServiceManager.Get<KickSession>().StreamerService.GetCurrentUser();
+                        if (kickUser != null && string.Equals(kickUser.Name, platformUsername, StringComparison.OrdinalIgnoreCase))
+                        {
+                            platformModel = new KickUserPlatformV2Model(kickUser);
                         }
                     }
                 }
@@ -661,3 +678,5 @@ namespace MixItUp.Base.Services
         #endregion Active Users
     }
 }
+
+

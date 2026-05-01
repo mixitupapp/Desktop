@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.ViewModel.Accounts;
 
 namespace MixItUp.Base.ViewModel.MainControls
@@ -9,6 +9,8 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public StreamingPlatformAccountControlViewModel YouTube { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.YouTube);
 
+        public StreamingPlatformAccountControlViewModel Kick { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.Kick);
+
         public AccountsMainControlViewModel(MainWindowViewModel windowViewModel)
             : base(windowViewModel)
         {
@@ -16,6 +18,8 @@ namespace MixItUp.Base.ViewModel.MainControls
             this.Twitch.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
             this.YouTube.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
             this.YouTube.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
+            this.Kick.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
+            this.Kick.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
         }
     }
 }

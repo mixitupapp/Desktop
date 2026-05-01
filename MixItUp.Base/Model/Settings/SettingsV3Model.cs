@@ -749,6 +749,8 @@ namespace MixItUp.Base.Model.Settings
                 await ServiceManager.Get<IFileService>().CopyFile(SettingsV3Model.SettingsTemplateDatabaseFileName, this.DatabaseFilePath);
             }
 
+            await this.EnsureUsersTableHasKickColumns();  // TODO: fix or implement better migration with trovo replacement
+
             await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "SELECT * FROM Quotes", (Dictionary<string, object> data) =>
             {
                 DateTimeOffset.TryParse((string)data["DateTime"], out DateTimeOffset dateTime);
@@ -1029,13 +1031,14 @@ namespace MixItUp.Base.Model.Settings
 
             IEnumerable<UserV2Model> changedUsers = this.Users.GetAddedChangedValues();
             await ServiceManager.Get<IDatabaseService>().BulkWrite(this.DatabaseFilePath,
-                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data) " +
-                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data)",
+                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, KickID, KickUsername, Data) " +
+                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $KickID, $KickUsername, $Data)",
                 changedUsers.Select(u => new Dictionary<string, object>()
                 {
                     { "$ID", u.ID.ToString() },
                     { "$TwitchID", u.GetPlatformID(StreamingPlatformTypeEnum.Twitch) }, { "$TwitchUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Twitch) },
                     { "$YouTubeID", u.GetPlatformID(StreamingPlatformTypeEnum.YouTube) }, { "$YouTubeUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.YouTube) },
+                                        { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) },
 #pragma warning disable CS0612 // Type or member is obsolete
                     { "$FacebookID", u.GetPlatformID(StreamingPlatformTypeEnum.Facebook) }, { "$FacebookUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Facebook) },
                     { "$TrovoID", u.GetPlatformID(StreamingPlatformTypeEnum.Trovo) }, { "$TrovoUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Trovo) },
@@ -1285,6 +1288,35 @@ namespace MixItUp.Base.Model.Settings
         }
 
         public CommandModelBase GetCommand(Guid id) { return this.Commands.ContainsKey(id) ? this.Commands[id] : null; }
+
+        private async Task EnsureUsersTableHasKickColumns()  // TODO: fix or implement better migration with trovo replacement
+        {
+            bool hasKickID = false;
+            bool hasKickUsername = false;
+
+            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (Dictionary<string, object> row) =>
+            {
+                string columnName = row["name"]?.ToString();
+                if (string.Equals(columnName, "KickID", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasKickID = true;
+                }
+                else if (string.Equals(columnName, "KickUsername", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasKickUsername = true;
+                }
+            });
+
+            if (!hasKickID)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickID TEXT");
+            }
+
+            if (!hasKickUsername)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickUsername TEXT");
+            }
+        }
 
         public T GetCommand<T>(Guid id) where T : CommandModelBase { return (T)this.GetCommand(id); }
 

@@ -111,6 +111,9 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Resource Include="Assets\Images\twitch-color_lg.png" />
     <Resource Include="Assets\Images\twitch-color_sm.png" />
     <Resource Include="Assets\Images\twitch-dark_lg.png" />
+	<Resource Include="Assets\Images\kick-color_lg.png" />
+	<Resource Include="Assets\Images\kick-color_sm.png" />
+	<Resource Include="Assets\Images\kick-dark_lg.png" />
     <Resource Include="Assets\Images\twitter-color_sm.png" /> 
     <Resource Include="Assets\Images\wiki-color_sm.png" />  
     <Resource Include="Assets\Images\youtube-color_lg.png" />
