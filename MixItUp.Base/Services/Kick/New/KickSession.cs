@@ -220,6 +220,33 @@ namespace MixItUp.Base.Services.Kick.New
             }
         }
 
+        public void ApplyStreamStatusUpdate(bool isLive, string title = null, string startedAt = null)
+        {
+            this.IsLive = isLive;
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                this.StreamTitle = title;
+            }
+
+            if (isLive && !string.IsNullOrWhiteSpace(startedAt))
+            {
+                this.StreamStart = DateTimeOffsetExtensions.FromGeneralString(startedAt);
+            }
+            else if (!isLive)
+            {
+                this.StreamStart = DateTimeOffset.MinValue;
+                this.StreamViewerCount = 0;
+            }
+        }
+
+        public void ApplyMetadataUpdate(string title, long? categoryID, string categoryName, string categoryThumbnail)
+        {
+            this.StreamTitle = title;
+            this.StreamCategoryID = categoryID?.ToString();
+            this.StreamCategoryName = categoryName;
+            this.StreamCategoryImageURL = categoryThumbnail;
+        }
+
     }
 }
 

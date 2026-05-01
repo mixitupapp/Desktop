@@ -11,8 +11,11 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         [JsonProperty("replies_to")]
         public KickWebhookRepliesToModel RepliesTo { get; set; }
 
+        [JsonProperty("broadcaster")]
+        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+
         [JsonProperty("sender")]
-        public KickWebhookSenderModel Sender { get; set; }
+        public KickWebhookUserReferenceModel Sender { get; set; }
 
         [JsonProperty("content")]
         public string Content { get; set; }
@@ -28,18 +31,8 @@ namespace MixItUp.Base.Model.Kick.Webhooks
     {
         [JsonProperty("message_id")]
         public string MessageID { get; set; }
-    }
-
-    public class KickWebhookSenderModel
-    {
-        [JsonProperty("user_id")]
-        public long UserID { get; set; }
-
-        [JsonProperty("username")]
-        public string Username { get; set; }
-
-        [JsonProperty("profile_picture")]
-        public string ProfilePicture { get; set; }
+        [JsonProperty("sender")]
+        public KickWebhookUserReferenceModel Sender { get; set; }
     }
 
     public class KickWebhookEmoteModel
