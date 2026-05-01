@@ -26,7 +26,7 @@ namespace MixItUp.Base.Model.Settings
     [DataContract]
     public class SettingsV3Model
     {
-        public const int LatestVersion = 8;
+        public const int LatestVersion = 9;
 
         public const string SettingsDirectoryName = "Settings";
         public const string DefaultAutomaticBackupSettingsDirectoryName = "AutomaticBackups";
@@ -749,8 +749,6 @@ namespace MixItUp.Base.Model.Settings
                 await ServiceManager.Get<IFileService>().CopyFile(SettingsV3Model.SettingsTemplateDatabaseFileName, this.DatabaseFilePath);
             }
 
-            await this.EnsureUsersTableHasKickColumns();
-
             await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "SELECT * FROM Quotes", (Dictionary<string, object> data) =>
             {
                 DateTimeOffset.TryParse((string)data["DateTime"], out DateTimeOffset dateTime);
@@ -1289,34 +1287,7 @@ namespace MixItUp.Base.Model.Settings
 
         public CommandModelBase GetCommand(Guid id) { return this.Commands.ContainsKey(id) ? this.Commands[id] : null; }
 
-        private async Task EnsureUsersTableHasKickColumns()
-        {
-            bool hasKickID = false;
-            bool hasKickUsername = false;
 
-            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (Dictionary<string, object> row) =>
-            {
-                string columnName = row["name"]?.ToString();
-                if (string.Equals(columnName, "KickID", StringComparison.OrdinalIgnoreCase))
-                {
-                    hasKickID = true;
-                }
-                else if (string.Equals(columnName, "KickUsername", StringComparison.OrdinalIgnoreCase))
-                {
-                    hasKickUsername = true;
-                }
-            });
-
-            if (!hasKickID)
-            {
-                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickID TEXT");
-            }
-
-            if (!hasKickUsername)
-            {
-                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickUsername TEXT");
-            }
-        }
 
         public T GetCommand<T>(Guid id) where T : CommandModelBase { return (T)this.GetCommand(id); }
 
