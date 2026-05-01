@@ -9,6 +9,7 @@ using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
@@ -709,6 +710,10 @@ namespace MixItUp.Base.Services
 
                     expiresIn = token.expiresIn,
                 };
+            }
+            if (ServiceManager.Get<KickSession>().IsConnected)
+            {
+                login.KickAccessToken = ServiceManager.Get<KickSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
             }
             return login;
         }

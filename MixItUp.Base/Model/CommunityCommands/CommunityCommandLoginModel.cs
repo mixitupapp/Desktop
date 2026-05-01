@@ -15,6 +15,8 @@ namespace MixItUp.Base.Model.Store
         public string TwitchAccessToken { get; set; }
         [DataMember]
         public StreamingClient.Base.Model.OAuth.OAuthTokenModel YouTubeOAuthToken { get; set; }
+        [DataMember]
+        public string KickAccessToken { get; set; }
 
     }
 
