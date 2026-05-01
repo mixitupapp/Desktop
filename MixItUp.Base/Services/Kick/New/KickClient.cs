@@ -1,12 +1,15 @@
 using MixItUp.Base.Model;
-using MixItUp.Base.Model.Kick.Users;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Kick.Webhooks;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Util;
+using MixItUp.Base.ViewModel.Chat;
 using MixItUp.Base.ViewModel.Chat.Kick;
 using MixItUp.Base.ViewModel.User;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.Kick.New
@@ -37,46 +40,402 @@ namespace MixItUp.Base.Services.Kick.New
                     return;
                 }
 
-                if (!string.Equals(eventType, "chat.message.sent", StringComparison.OrdinalIgnoreCase))
+                switch (eventType.ToLowerInvariant())
                 {
-                    return;
+                    case "chat.message.sent":
+                        await this.HandleChatMessage(payload);
+                        break;
+                    case "channel.followed":
+                        await this.HandleFollow(payload);
+                        break;
+                    case "channel.subscription.new":
+                        await this.HandleSubscriptionNew(payload);
+                        break;
+                    case "channel.subscription.renewal":
+                        await this.HandleSubscriptionRenewal(payload);
+                        break;
+                    case "channel.subscription.gifts":
+                        await this.HandleSubscriptionGifts(payload);
+                        break;
+                    case "channel.reward.redemption.updated":
+                        await this.HandleRewardRedemptionUpdated(payload);
+                        break;
+                    case "livestream.status.updated":
+                        await this.HandleLivestreamStatusUpdated(payload);
+                        break;
+                    case "livestream.metadata.updated":
+                        await this.HandleLivestreamMetadataUpdated(payload);
+                        break;
+                    case "moderation.banned":
+                        await this.HandleModerationBanned(payload);
+                        break;
+                    case "kicks.gifted":
+                        await this.HandleKicksGifted(payload);
+                        break;
                 }
-
-                KickWebhookChatMessageEventModel messageEvent = payload.ToObject<KickWebhookChatMessageEventModel>();
-                if (messageEvent?.Sender == null || messageEvent.Sender.UserID <= 0 || string.IsNullOrWhiteSpace(messageEvent.Content))
-                {
-                    return;
-                }
-
-                KickUserModel kickUser = new KickUserModel()
-                {
-                    UserID = messageEvent.Sender.UserID,
-                    Name = messageEvent.Sender.Username,
-                    ProfilePicture = messageEvent.Sender.ProfilePicture,
-                };
-
-                UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: kickUser.UserID.ToString(), platformUsername: kickUser.Name);
-                if (user == null)
-                {
-                    user = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(kickUser));
-                }
-                else
-                {
-                    KickUserPlatformV2Model platformData = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
-                    platformData?.SetUserProperties(kickUser);
-                }
-
-                if (user == null)
-                {
-                    return;
-                }
-
-                await ServiceManager.Get<ChatService>().AddMessage(new KickChatMessageViewModel(messageEvent, user));
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
             }
+        }
+
+        private async Task HandleChatMessage(JObject payload)
+        {
+            KickWebhookChatMessageEventModel messageEvent = payload.ToObject<KickWebhookChatMessageEventModel>();
+            if (messageEvent?.Sender == null || messageEvent.Sender.UserID <= 0 || string.IsNullOrWhiteSpace(messageEvent.Content))
+            {
+                return;
+            }
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: messageEvent.Sender.UserID.ToString(), platformUsername: messageEvent.Sender.Username);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(messageEvent.Sender));
+            }
+            else
+            {
+                KickUserPlatformV2Model platformData = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                platformData?.SetUserProperties(messageEvent.Sender);
+            }
+
+            if (user == null)
+            {
+                return;
+            }
+
+            await ServiceManager.Get<ChatService>().AddMessage(new KickChatMessageViewModel(messageEvent, user));
+        }
+
+        private async Task HandleFollow(JObject payload)
+        {
+            KickWebhookChannelFollowedEventModel followEvent = payload.ToObject<KickWebhookChannelFollowedEventModel>();
+            if (followEvent?.Follower == null)
+            {
+                return;
+            }
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: followEvent.Follower.UserID.ToString(), platformUsername: followEvent.Follower.Username);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(followEvent.Follower));
+            }
+            else
+            {
+                KickUserPlatformV2Model platformData = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                platformData?.SetUserProperties(followEvent.Follower);
+            }
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.Roles.Add(UserRoleEnum.Follower);
+            user.FollowDate = DateTimeOffset.Now;
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Kick);
+            if (await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelFollowed, parameters))
+            {
+                EventService.FollowOccurred(user);
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertFollow, user.FullDisplayName), ChannelSession.Settings.AlertFollowColor));
+            }
+        }
+
+        private async Task HandleSubscriptionNew(JObject payload)
+        {
+            KickWebhookChannelSubscriptionNewEventModel subEvent = payload.ToObject<KickWebhookChannelSubscriptionNewEventModel>();
+            if (subEvent?.Subscriber == null)
+            {
+                return;
+            }
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: subEvent.Subscriber.UserID.ToString(), platformUsername: subEvent.Subscriber.Username);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(subEvent.Subscriber));
+            }
+            else
+            {
+                KickUserPlatformV2Model platformData = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                platformData?.SetUserProperties(subEvent.Subscriber);
+            }
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.Roles.Add(UserRoleEnum.Subscriber);
+            user.SubscribeDate = DateTimeOffset.Now;
+            user.TotalMonthsSubbed++;
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Kick);
+            parameters.SpecialIdentifiers["usersubmonths"] = Math.Max(subEvent.Duration, 1).ToString();
+            if (await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscribed, parameters))
+            {
+                EventService.SubscribeOccurred(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Kick, user, months: Math.Max(subEvent.Duration, 1), tier: 1));
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertSubscribedTier, user.FullDisplayName, "Kick Subscription"), ChannelSession.Settings.AlertSubColor));
+            }
+        }
+
+        private async Task HandleSubscriptionRenewal(JObject payload)
+        {
+            KickWebhookChannelSubscriptionRenewalEventModel subEvent = payload.ToObject<KickWebhookChannelSubscriptionRenewalEventModel>();
+            if (subEvent?.Subscriber == null)
+            {
+                return;
+            }
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: subEvent.Subscriber.UserID.ToString(), platformUsername: subEvent.Subscriber.Username);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(subEvent.Subscriber));
+            }
+            else
+            {
+                KickUserPlatformV2Model platformData = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                platformData?.SetUserProperties(subEvent.Subscriber);
+            }
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.Roles.Add(UserRoleEnum.Subscriber);
+            user.SubscribeDate = DateTimeOffset.Now;
+            user.TotalMonthsSubbed = Math.Max(user.TotalMonthsSubbed, (uint)Math.Max(subEvent.Duration, 1));
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Kick);
+            parameters.SpecialIdentifiers["usersubmonths"] = Math.Max(subEvent.Duration, 1).ToString();
+            parameters.SpecialIdentifiers["usersubstreak"] = Math.Max(subEvent.Duration, 1).ToString();
+            if (await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelResubscribed, parameters))
+            {
+                EventService.ResubscribeOccurred(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Kick, user, months: Math.Max(subEvent.Duration, 1), tier: 1));
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertResubscribedTier, user.FullDisplayName, Math.Max(subEvent.Duration, 1), "Kick Subscription"), ChannelSession.Settings.AlertSubColor));
+            }
+        }
+
+        private async Task HandleSubscriptionGifts(JObject payload)
+        {
+            KickWebhookChannelSubscriptionGiftsEventModel giftsEvent = payload.ToObject<KickWebhookChannelSubscriptionGiftsEventModel>();
+            if (giftsEvent == null || giftsEvent.Giftees == null || giftsEvent.Giftees.Count == 0)
+            {
+                return;
+            }
+
+            UserV2ViewModel gifter = null;
+            if (giftsEvent.Gifter != null && giftsEvent.Gifter.UserID > 0)
+            {
+                gifter = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: giftsEvent.Gifter.UserID.ToString(), platformUsername: giftsEvent.Gifter.Username);
+                if (gifter == null)
+                {
+                    gifter = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(giftsEvent.Gifter));
+                }
+                else
+                {
+                    KickUserPlatformV2Model platformData = gifter.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                    platformData?.SetUserProperties(giftsEvent.Gifter);
+                }
+            }
+            if (gifter == null)
+            {
+                gifter = UserV2ViewModel.CreateUnassociated("Anonymous");
+            }
+
+            List<SubscriptionDetailsModel> subscriptions = new List<SubscriptionDetailsModel>();
+            foreach (KickWebhookUserReferenceModel gifteeRef in giftsEvent.Giftees)
+            {
+                UserV2ViewModel giftee = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: gifteeRef.UserID.ToString(), platformUsername: gifteeRef.Username);
+                if (giftee == null)
+                {
+                    giftee = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(gifteeRef));
+                }
+                else
+                {
+                    KickUserPlatformV2Model platformData = giftee.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                    platformData?.SetUserProperties(gifteeRef);
+                }
+
+                if (giftee == null)
+                {
+                    continue;
+                }
+
+                giftee.Roles.Add(UserRoleEnum.Subscriber);
+                giftee.SubscribeDate = DateTimeOffset.Now;
+                giftee.TotalSubsReceived++;
+
+                CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
+                giftParameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                giftParameters.TargetUser = giftee;
+                giftParameters.Arguments.Add(giftee.Username);
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscriptionGifted, giftParameters);
+
+                subscriptions.Add(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Kick, giftee, gifter, tier: 1));
+            }
+
+            if (subscriptions.Count > 0)
+            {
+                CommandParametersModel parameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
+                parameters.SpecialIdentifiers["subsgiftedamount"] = subscriptions.Count.ToString();
+                parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
+                parameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                foreach (SubscriptionDetailsModel sub in subscriptions)
+                {
+                    parameters.Arguments.Add(sub.User.Username);
+                }
+
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelMassSubscriptionsGifted, parameters);
+                EventService.MassSubscriptionsGiftedOccurred(subscriptions);
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(gifter, string.Format(MixItUp.Base.Resources.AlertMassSubscriptionsGiftedTier, gifter.FullDisplayName, subscriptions.Count, "Kick Subscription"), ChannelSession.Settings.AlertMassGiftedSubColor));
+            }
+        }
+
+        private async Task HandleRewardRedemptionUpdated(JObject payload)
+        {
+            KickWebhookRewardRedemptionUpdatedEventModel redemptionEvent = payload.ToObject<KickWebhookRewardRedemptionUpdatedEventModel>();
+            if (redemptionEvent?.Redeemer == null || redemptionEvent.Reward == null || !string.Equals(redemptionEvent.Status, "pending", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: redemptionEvent.Redeemer.UserID.ToString(), platformUsername: redemptionEvent.Redeemer.Username);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(redemptionEvent.Redeemer));
+            }
+            else
+            {
+                KickUserPlatformV2Model platformData = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                platformData?.SetUserProperties(redemptionEvent.Redeemer);
+            }
+
+            if (user == null)
+            {
+                return;
+            }
+
+            List<string> arguments = null;
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Kick);
+            parameters.SpecialIdentifiers["rewardname"] = redemptionEvent.Reward.Title;
+            parameters.SpecialIdentifiers["rewardcost"] = redemptionEvent.Reward.Cost.ToString();
+            if (!string.IsNullOrWhiteSpace(redemptionEvent.UserInput))
+            {
+                parameters.SpecialIdentifiers["message"] = redemptionEvent.UserInput;
+                arguments = new List<string>(redemptionEvent.UserInput.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+                parameters.Arguments.AddRange(arguments);
+            }
+
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelPointsRedeemed, parameters);
+        }
+
+        private async Task HandleLivestreamStatusUpdated(JObject payload)
+        {
+            KickWebhookLivestreamStatusUpdatedEventModel streamEvent = payload.ToObject<KickWebhookLivestreamStatusUpdatedEventModel>();
+            if (streamEvent == null)
+            {
+                return;
+            }
+
+            if (streamEvent.IsLive)
+            {
+                ServiceManager.Get<KickSession>().ApplyStreamStatusUpdate(true, streamEvent.Title, streamEvent.StartedAt);
+
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelStreamStart, new CommandParametersModel(StreamingPlatformTypeEnum.Kick));
+            }
+            else
+            {
+                ServiceManager.Get<KickSession>().ApplyStreamStatusUpdate(false, streamEvent.Title, null);
+
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelStreamStop, new CommandParametersModel(StreamingPlatformTypeEnum.Kick));
+            }
+        }
+
+        private async Task HandleLivestreamMetadataUpdated(JObject payload)
+        {
+            KickWebhookLivestreamMetadataUpdatedEventModel metadataEvent = payload.ToObject<KickWebhookLivestreamMetadataUpdatedEventModel>();
+            if (metadataEvent?.Metadata == null)
+            {
+                return;
+            }
+
+            ServiceManager.Get<KickSession>().ApplyMetadataUpdate(metadataEvent.Metadata.Title, metadataEvent.Metadata.Category?.ID, metadataEvent.Metadata.Category?.Name, metadataEvent.Metadata.Category?.Thumbnail);
+
+            CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Kick);
+            parameters.SpecialIdentifiers["streamtitle"] = metadataEvent.Metadata.Title;
+            parameters.SpecialIdentifiers["streamgameid"] = metadataEvent.Metadata.Category?.ID.ToString();
+            parameters.SpecialIdentifiers["streamgameimage"] = metadataEvent.Metadata.Category?.Thumbnail;
+            parameters.SpecialIdentifiers["streamgame"] = metadataEvent.Metadata.Category?.Name;
+            parameters.SpecialIdentifiers["streamgamename"] = metadataEvent.Metadata.Category?.Name;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelUpdated, parameters);
+        }
+
+        private async Task HandleModerationBanned(JObject payload)
+        {
+            KickWebhookModerationBannedEventModel moderationEvent = payload.ToObject<KickWebhookModerationBannedEventModel>();
+            if (moderationEvent?.BannedUser == null)
+            {
+                return;
+            }
+
+            UserV2ViewModel bannedUser = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: moderationEvent.BannedUser.UserID.ToString(), platformUsername: moderationEvent.BannedUser.Username);
+            if (bannedUser == null)
+            {
+                bannedUser = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(moderationEvent.BannedUser));
+            }
+            else
+            {
+                KickUserPlatformV2Model platformData = bannedUser.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                platformData?.SetUserProperties(moderationEvent.BannedUser);
+            }
+
+            if (bannedUser == null)
+            {
+                return;
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(StreamingPlatformTypeEnum.Kick);
+            parameters.Arguments.Add("@" + bannedUser.Username);
+            parameters.TargetUser = bannedUser;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.ChatUserBan, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(bannedUser, string.Format(MixItUp.Base.Resources.AlertBanned, bannedUser.FullDisplayName), ChannelSession.Settings.AlertModerationColor));
+            ChatService.ChatUserBanned(bannedUser);
+        }
+
+        private async Task HandleKicksGifted(JObject payload)
+        {
+            KickWebhookKicksGiftedEventModel kicksEvent = payload.ToObject<KickWebhookKicksGiftedEventModel>();
+            if (kicksEvent?.Sender == null || kicksEvent.Gift == null)
+            {
+                return;
+            }
+
+            UserV2ViewModel sender = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: kicksEvent.Sender.UserID.ToString(), platformUsername: kicksEvent.Sender.Username);
+            if (sender == null)
+            {
+                sender = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(kicksEvent.Sender));
+            }
+            else
+            {
+                KickUserPlatformV2Model platformData = sender.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                platformData?.SetUserProperties(kicksEvent.Sender);
+            }
+
+            if (sender == null)
+            {
+                return;
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(sender, StreamingPlatformTypeEnum.Kick);
+            parameters.SpecialIdentifiers["kicksamount"] = kicksEvent.Gift.Amount.ToString();
+            parameters.SpecialIdentifiers["giftname"] = kicksEvent.Gift.Name;
+            parameters.SpecialIdentifiers["gifttype"] = kicksEvent.Gift.Type;
+            parameters.SpecialIdentifiers["gifttier"] = kicksEvent.Gift.Tier;
+            parameters.SpecialIdentifiers["message"] = kicksEvent.Gift.Message;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelKicksGifted, parameters);
         }
     }
 }
