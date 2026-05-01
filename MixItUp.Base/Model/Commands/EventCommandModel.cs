@@ -180,6 +180,35 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["giftcombocount"] = "3";
                     break;
 
+                // Kick
+                case EventTypeEnum.KickChannelSubscribed:
+                    specialIdentifiers["usersubmonths"] = "1";
+                    break;
+                case EventTypeEnum.KickChannelResubscribed:
+                    specialIdentifiers["usersubmonths"] = "5";
+                    specialIdentifiers["usersubstreak"] = "5";
+                    break;
+                case EventTypeEnum.KickChannelSubscriptionGifted:
+                    specialIdentifiers["isanonymous"] = "false";
+                    break;
+                case EventTypeEnum.KickChannelMassSubscriptionsGifted:
+                    specialIdentifiers["subsgiftedamount"] = "5";
+                    specialIdentifiers["subsgiftedlifetimeamount"] = "100";
+                    specialIdentifiers["isanonymous"] = "false";
+                    break;
+                case EventTypeEnum.KickChannelPointsRedeemed:
+                    specialIdentifiers["rewardname"] = "Kick Reward";
+                    specialIdentifiers["rewardcost"] = "1000";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.KickChannelKicksGifted:
+                    specialIdentifiers["kicksamount"] = "500";
+                    specialIdentifiers["giftname"] = "Gift Name";
+                    specialIdentifiers["gifttype"] = "LEVEL_UP";
+                    specialIdentifiers["gifttier"] = "MID";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+
                 // Chat
                 case EventTypeEnum.ChatUserTimeout:
                     specialIdentifiers["timeoutlength"] = "5m";
@@ -288,6 +317,10 @@ namespace MixItUp.Base.Model.Commands
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.YouTube.ToString();
             }
+            else if (eventNumber >= 600 && eventNumber < 700)
+            {
+                specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.Kick.ToString();
+            }
             else
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = ChannelSession.Settings.DefaultStreamingPlatform.ToString();
@@ -345,6 +378,10 @@ namespace MixItUp.Base.Model.Commands
             if (ChannelSession.Settings.ModerationFollowEvent)
             {
                 if (this.EventType == EventTypeEnum.TwitchChannelFollowed)
+                {
+                    return true;
+                }
+                else if (this.EventType == EventTypeEnum.KickChannelFollowed)
                 {
                     return true;
                 }
