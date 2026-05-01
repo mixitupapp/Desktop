@@ -1308,6 +1308,12 @@ namespace MixItUp.Base.Util
                     this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "youtubeid", pUser?.ID);
                 }
 
+                if (user.HasPlatformData(StreamingPlatformTypeEnum.Kick))
+                {
+                    KickUserPlatformV2Model pUser = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "kickid", pUser?.ID);
+                }
+
                 string userStreamHeader = identifierHeader + UserSpecialIdentifierHeader + "stream";
                 if (this.ContainsSpecialIdentifier(userStreamHeader))
                 {
