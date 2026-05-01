@@ -1,0 +1,100 @@
+.mainContainer {
+  width: {Width};
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: -5px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: {BorderColor};
+  background-color: {BackgroundColor};
+}
+
+.question {
+
+}
+
+.floatright {
+  float: right;
+}
+
+.box120 {
+  display: inline-grid;
+  justify-content: flex-end;
+  width: 120px;
+}
+
+.total {
+
+}
+
+.time {
+
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: left;
+  justify-content: left;
+  flex-direction: column;
+  border-style: solid;
+  border-width: 5px;
+  border-color: {BorderColor};
+  background-color: {BackgroundColor};
+}
+
+.option {
+  margin: 10px;
+}
+
+.name {
+
+}
+
+.channelPoints {
+  display: inline;
+}
+
+.channelPointAmount {
+  
+}
+
+.channelPointImage {
+  margin-bottom: -4px;
+}
+
+.amount {
+
+}
+
+.percentage {
+
+}
+
+.bar {
+  height: {BarHeight}px;
+}
+
+.barBackground {
+  background-color: Black;
+}
+
+@keyframes adjustBarAnimation {
+  from {
+    width: var(--startPercentage);
+  }
+  to {
+    width: var(--endPercentage);
+  }
+}
+
+.adjustBar {
+  --startPercentage: 0%;
+  --endPercentage: 0%;
+  animation-name: adjustBarAnimation;
+  animation-duration: 2s;
+}

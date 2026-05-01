@@ -1,0 +1,1 @@
+addLabelDisplay("{Type}", "{Format}");

@@ -1,0 +1,108 @@
+.maindiv
+{
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    margin: 0px;
+    z-index: {Layer};
+}
+
+.emote
+{
+    visibility: hidden;
+}
+
+@keyframes rain-keyframes
+{
+    0% { transform: translateY(-20vh); visibility: visible; }
+    100% { transform: translateY(120vh); }
+}
+
+.rain
+{
+    animation: rain-keyframes {Duration}s linear;
+}
+
+@keyframes float-keyframes
+{
+    0% { transform: translateY(120vh); visibility: visible; }
+    100% { transform: translateY(-20vh); }
+}
+
+.float
+{
+    animation: float-keyframes {Duration}s linear;
+}
+
+@keyframes fade-keyframes
+{
+    0% { opacity: 0; visibility: visible; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.fade
+{
+    animation: fade-keyframes {Duration}s linear;
+}
+
+@keyframes zoom-keyframes
+{
+    0% { transform: scale(0); visibility: visible; }
+    50% { transform: scale(1); }
+    100% { transform: scale(0); }
+}
+
+.zoom
+{
+    animation: zoom-keyframes {Duration}s ease-in-out;
+}
+
+@keyframes falling-leaves-keyframes
+{
+    0% { transform: translateY(-20vh); visibility: visible; }
+    5% { transform: translateY(0vh); }
+    10% { transform: translateY(10vh) translateX(30vw); }
+    15% { transform: translateY(5vh) translateX(15vw); }
+    20% { transform: translateY(20vh) translateX(-15vw); }
+    25% { transform: translateY(15vh) translateX(-30vw); }
+    30% { transform: translateY(30vh) translateX(15vw); }
+    35% { transform: translateY(25vh) translateX(30vw); }
+    40% { transform: translateY(40vh) translateX(-15vw); }
+    45% { transform: translateY(35vh) translateX(-30vw); }
+    50% { transform: translateY(50vh) translateX(15vw); }
+    55% { transform: translateY(45vh) translateX(30vw); }
+    60% { transform: translateY(60vh) translateX(-15vw); }
+    65% { transform: translateY(55vh) translateX(-30vw); }
+    70% { transform: translateY(70vh) translateX(15vw); }
+    75% { transform: translateY(65vh) translateX(30vw); }
+    80% { transform: translateY(80vh) translateX(-15vw); }
+    85% { transform: translateY(75vh) translateX(-30vw); }
+    90% { transform: translateY(90vh) translateX(15vw); }
+    95% { transform: translateY(85vh) translateX(30vw); }
+    100% { transform: translateY(100vh) translateX(-15vw); }
+}
+
+.falling-leaves
+{
+    animation: falling-leaves-keyframes {Duration}s linear;
+}
+
+@keyframes shooting-stars-keyframes
+{
+    0% { transform: scale(0.01); visibility: visible; }
+    20% { transform: translateX(-10vw) translateY(3vh) scale(1); }
+    40% { transform: translateX(-20vw) translateY(9vh) scale(1); }
+    60% { transform: translateX(-30vw) translateY(15vh) scale(1); }
+    80% { transform: translateX(-40vw) translateY(22vh) scale(1); }
+    100% { transform: translateX(-50vw) translateY(30vh) scale(0); }
+}
+
+.shooting-stars
+{
+    animation: shooting-stars-keyframes {Duration}s linear;
+}

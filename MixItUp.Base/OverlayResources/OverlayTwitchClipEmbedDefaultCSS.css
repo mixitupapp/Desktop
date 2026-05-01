@@ -1,0 +1,7 @@
+.clip {
+    width: {ClipWidth};
+    height: {ClipHeight};
+    border: none;
+    margin: 0;
+    padding: 0;
+}
