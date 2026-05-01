@@ -5,6 +5,7 @@ using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Model.Web;
 using MixItUp.Base.Model.Webhooks;
+using MixItUp.Base.Model.Kick.Webhooks;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
@@ -134,8 +135,8 @@ namespace MixItUp.Base.Services
 
     public class MixItUpService : OAuthRestServiceBase, ICommunityCommandsService, IMixItUpService, IWebhookService, IDisposable
     {
-        public const string MixItUpAPIEndpoint = "https://desktop.api.mixitupapp.com/api/";
-        public const string MixItUpWebhookHubEndpoint = "wss://desktop.api.mixitupapp.com/webhookhub";
+        public const string MixItUpAPIEndpoint = "https://dev.desktop.api.mixitupapp.com/api/";  // TODO: revert back
+        public const string MixItUpWebhookHubEndpoint = "wss://dev.desktop.api.mixitupapp.com/webhookhub"; // TODO: revert back
 
         public const string DevMixItUpAPIEndpoint = "http://localhost:3000/api/";                // Dev Endpoint
         public const string DevMixItUpWebhookHubEndpoint = "ws://localhost:3000/webhookhub";      // Dev Endpoint
@@ -532,6 +533,21 @@ namespace MixItUp.Base.Services
 
                             // Force disconnect is it doesn't retry
                             var _ = this.Disconnect();
+                        }
+                    });
+
+                    this.webhookHubConnection.Listen<string, JObject, JObject>("KickWebhookEvent", (eventType, payload, metadataObject) =>
+                    {
+                        try
+                        {
+                            Logger.Log(LogLevel.Debug, $"Kick Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
+
+                            KickWebhookEventModel metadata = metadataObject?.ToObject<KickWebhookEventModel>();
+                            var _ = ServiceManager.Get<KickSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Log(ex);
                         }
                     });
                 }

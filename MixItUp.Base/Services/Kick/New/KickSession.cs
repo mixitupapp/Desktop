@@ -42,6 +42,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         public KickService StreamerService { get; private set; } = new KickService(StreamerScopes);
         public KickService BotService { get; private set; } = new KickService(BotScopes, isBotService: true);
+        public KickClient Client { get; private set; } = new KickClient();
 
         public KickUserModel StreamerModel { get; private set; }
         public KickUserModel BotModel { get; private set; }
@@ -75,10 +76,20 @@ namespace MixItUp.Base.Services.Kick.New
                 this.Streamer = await ServiceManager.Get<UserService>().CreateUser(new KickUserPlatformV2Model(this.StreamerModel));
             }
 
+            Result result = await this.Client.Connect();
+            if (!result.Success)
+            {
+                await this.Client.Disconnect();
+                return result;
+            }
+
             return new Result();
         }
 
-        protected override Task DisconnectStreamerInternal() { return Task.CompletedTask; }
+        protected override async Task DisconnectStreamerInternal()
+        {
+            await this.Client.Disconnect();
+        }
 
         protected override async Task<Result> InitializeBotInternal()
         {
@@ -208,6 +219,7 @@ namespace MixItUp.Base.Services.Kick.New
                 await this.StreamerService.UnbanUser(channelID, userID);
             }
         }
+
     }
 }
 
