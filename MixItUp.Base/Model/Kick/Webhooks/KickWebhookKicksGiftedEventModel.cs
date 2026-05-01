@@ -12,6 +12,9 @@ namespace MixItUp.Base.Model.Kick.Webhooks
 
         [JsonProperty("gift")]
         public KickWebhookGiftModel Gift { get; set; }
+
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
     }
 
     public class KickWebhookGiftModel
@@ -30,5 +33,8 @@ namespace MixItUp.Base.Model.Kick.Webhooks
 
         [JsonProperty("message")]
         public string Message { get; set; }
+
+        [JsonProperty("pinned_time_seconds")]
+        public int PinnedTimeSeconds { get; set; }
     }
 }

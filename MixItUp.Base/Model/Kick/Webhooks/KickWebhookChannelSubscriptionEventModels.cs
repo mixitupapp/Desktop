@@ -13,6 +13,12 @@ namespace MixItUp.Base.Model.Kick.Webhooks
 
         [JsonProperty("duration")]
         public int Duration { get; set; }
+
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
+
+        [JsonProperty("expires_at")]
+        public string ExpiresAt { get; set; }
     }
 
     public class KickWebhookChannelSubscriptionNewEventModel
@@ -25,6 +31,12 @@ namespace MixItUp.Base.Model.Kick.Webhooks
 
         [JsonProperty("duration")]
         public int Duration { get; set; }
+
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
+
+        [JsonProperty("expires_at")]
+        public string ExpiresAt { get; set; }
     }
 
     public class KickWebhookChannelSubscriptionGiftsEventModel
@@ -37,5 +49,11 @@ namespace MixItUp.Base.Model.Kick.Webhooks
 
         [JsonProperty("giftees")]
         public List<KickWebhookUserReferenceModel> Giftees { get; set; } = new List<KickWebhookUserReferenceModel>();
+
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
+
+        [JsonProperty("expires_at")]
+        public string ExpiresAt { get; set; }
     }
 }

@@ -13,11 +13,17 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         [JsonProperty("status")]
         public string Status { get; set; }
 
+        [JsonProperty("redeemed_at")]
+        public string RedeemedAt { get; set; }
+
         [JsonProperty("reward")]
         public KickWebhookRewardModel Reward { get; set; }
 
         [JsonProperty("redeemer")]
         public KickWebhookUserReferenceModel Redeemer { get; set; }
+
+        [JsonProperty("broadcaster")]
+        public KickWebhookUserReferenceModel Broadcaster { get; set; }
     }
 
     public class KickWebhookRewardModel

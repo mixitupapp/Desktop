@@ -15,6 +15,9 @@ namespace MixItUp.Base.Model.Kick.Webhooks
 
         [JsonProperty("started_at")]
         public string StartedAt { get; set; }
+
+        [JsonProperty("ended_at")]
+        public string EndedAt { get; set; }
     }
 
     public class KickWebhookLivestreamMetadataUpdatedEventModel
@@ -30,6 +33,12 @@ namespace MixItUp.Base.Model.Kick.Webhooks
     {
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonProperty("language")]
+        public string Language { get; set; }
+
+        [JsonProperty("has_mature_content")]
+        public bool HasMatureContent { get; set; }
 
         [JsonProperty("category")]
         public KickWebhookCategoryModel Category { get; set; }

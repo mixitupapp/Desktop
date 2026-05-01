@@ -21,5 +21,11 @@ namespace MixItUp.Base.Model.Kick.Webhooks
     {
         [JsonProperty("reason")]
         public string Reason { get; set; }
+
+        [JsonProperty("created_at")]
+        public string CreatedAt { get; set; }
+
+        [JsonProperty("expires_at")]
+        public string ExpiresAt { get; set; }
     }
 }
