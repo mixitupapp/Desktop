@@ -2,10 +2,10 @@ using Newtonsoft.Json;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookLivestreamStatusUpdatedEventModel
+    public class WebhookLivestreamStatusUpdatedEventModel
     {
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("is_live")]
         public bool IsLive { get; set; }
@@ -20,16 +20,16 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         public string EndedAt { get; set; }
     }
 
-    public class KickWebhookLivestreamMetadataUpdatedEventModel
+    public class WebhookLivestreamMetadataUpdatedEventModel
     {
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("metadata")]
-        public KickWebhookLivestreamMetadataModel Metadata { get; set; }
+        public WebhookLivestreamMetadataModel Metadata { get; set; }
     }
 
-    public class KickWebhookLivestreamMetadataModel
+    public class WebhookLivestreamMetadataModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -41,10 +41,10 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         public bool HasMatureContent { get; set; }
 
         [JsonProperty("category")]
-        public KickWebhookCategoryModel Category { get; set; }
+        public WebhookCategoryModel Category { get; set; }
     }
 
-    public class KickWebhookCategoryModel
+    public class WebhookCategoryModel
     {
         [JsonProperty("id")]
         public long ID { get; set; }

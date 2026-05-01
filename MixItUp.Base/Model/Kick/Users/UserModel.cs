@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace MixItUp.Base.Model.Kick.Users
 {
-    public class KickUserModel
+    public class UserModel
     {
         [JsonProperty("user_id")]
         public long UserID { get; set; }
@@ -29,19 +29,19 @@ namespace MixItUp.Base.Model.Kick.Users
         public string ChannelSlug { get; set; }
 
         [JsonProperty("identity")]
-        public KickIdentityModel Identity { get; set; }
+        public IdentityModel Identity { get; set; }
     }
 
-    public class KickIdentityModel
+    public class IdentityModel
     {
         [JsonProperty("username_color")]
         public string UsernameColor { get; set; }
 
         [JsonProperty("badges")]
-        public KickBadgeModel[] Badges { get; set; }
+        public BadgeModel[] Badges { get; set; }
     }
 
-    public class KickBadgeModel
+    public class BadgeModel
     {
         [JsonProperty("text")]
         public string Text { get; set; }

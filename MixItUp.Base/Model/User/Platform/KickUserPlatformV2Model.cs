@@ -13,28 +13,28 @@ namespace MixItUp.Base.Model.User.Platform
     [DataContract]
     public class KickUserPlatformV2Model : UserPlatformV2ModelBase
     {
-        public KickUserPlatformV2Model(KickUserModel user)
+        public KickUserPlatformV2Model(UserModel user)
         {
             this.Platform = StreamingPlatformTypeEnum.Kick;
             this.SetUserProperties(user);
         }
 
-        public KickUserPlatformV2Model(KickWebhookUserReferenceModel user)
+        public KickUserPlatformV2Model(WebhookUserReferenceModel user)
         {
             this.Platform = StreamingPlatformTypeEnum.Kick;
             this.SetUserProperties(user);
         }
 
-        public KickUserPlatformV2Model(KickWebhookChannelFollowedEventModel follow)
+        public KickUserPlatformV2Model(WebhookChannelFollowedEventModel follow)
             : this(follow?.Follower) { }
 
-        public KickUserPlatformV2Model(KickWebhookChannelSubscriptionNewEventModel sub)
+        public KickUserPlatformV2Model(WebhookChannelSubscriptionNewEventModel sub)
             : this(sub?.Subscriber) { }
 
-        public KickUserPlatformV2Model(KickWebhookChannelSubscriptionRenewalEventModel sub)
+        public KickUserPlatformV2Model(WebhookChannelSubscriptionRenewalEventModel sub)
             : this(sub?.Subscriber) { }
 
-        public KickUserPlatformV2Model(KickWebhookModerationBannedEventModel moderation)
+        public KickUserPlatformV2Model(WebhookModerationBannedEventModel moderation)
             : this(moderation?.BannedUser) { }
 
         public KickUserPlatformV2Model(string id, string username, string displayName)
@@ -52,7 +52,7 @@ namespace MixItUp.Base.Model.User.Platform
         {
             if (ServiceManager.Get<KickSession>().IsConnected)
             {
-                KickUserModel user = await ServiceManager.Get<KickSession>().StreamerService.GetCurrentUser();
+                UserModel user = await ServiceManager.Get<KickSession>().StreamerService.GetCurrentUser();
                 if (user != null && string.Equals(this.ID, user.UserID.ToString(), StringComparison.OrdinalIgnoreCase))
                 {
                     this.SetUserProperties(user);
@@ -60,7 +60,7 @@ namespace MixItUp.Base.Model.User.Platform
             }
         }
 
-        public void SetUserProperties(KickUserModel user)
+        public void SetUserProperties(UserModel user)
         {
             if (user == null)
             {
@@ -72,7 +72,7 @@ namespace MixItUp.Base.Model.User.Platform
             this.SetRoleProperties();
         }
 
-        public void SetUserProperties(KickWebhookUserReferenceModel user)
+        public void SetUserProperties(WebhookUserReferenceModel user)
         {
             if (user == null)
             {
@@ -84,7 +84,7 @@ namespace MixItUp.Base.Model.User.Platform
             this.SetRoleProperties();
         }
 
-        public void SetIdentityBadges(IEnumerable<KickBadgeModel> badges)
+        public void SetIdentityBadges(IEnumerable<BadgeModel> badges)
         {
             this.SetIdentityProperties(badges);
             this.SetRoleProperties();
@@ -100,7 +100,7 @@ namespace MixItUp.Base.Model.User.Platform
             this.AvatarLink = avatarLink;
         }
 
-        private void SetIdentityProperties(IEnumerable<KickBadgeModel> badges)
+        private void SetIdentityProperties(IEnumerable<BadgeModel> badges)
         {
             this.Roles.Remove(UserRoleEnum.Moderator);
             this.Roles.Remove(UserRoleEnum.Subscriber);
@@ -110,7 +110,7 @@ namespace MixItUp.Base.Model.User.Platform
                 return;
             }
 
-            foreach (KickBadgeModel badge in badges)
+            foreach (BadgeModel badge in badges)
             {
                 if (badge == null || string.IsNullOrWhiteSpace(badge.Type))
                 {
@@ -128,7 +128,7 @@ namespace MixItUp.Base.Model.User.Platform
             }
         }
 
-        private void SetIdentityProperties(KickWebhookIdentityModel identity)
+        private void SetIdentityProperties(WebhookIdentityModel identity)
         {
             this.Roles.Remove(UserRoleEnum.Moderator);
             this.Roles.Remove(UserRoleEnum.Subscriber);
@@ -138,7 +138,7 @@ namespace MixItUp.Base.Model.User.Platform
                 return;
             }
 
-            foreach (KickWebhookBadgeModel badge in identity.Badges)
+            foreach (WebhookBadgeModel badge in identity.Badges)
             {
                 if (badge == null || string.IsNullOrWhiteSpace(badge.Type))
                 {

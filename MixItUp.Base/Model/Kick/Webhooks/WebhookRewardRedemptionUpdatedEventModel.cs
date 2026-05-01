@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookRewardRedemptionUpdatedEventModel
+    public class WebhookRewardRedemptionUpdatedEventModel
     {
         [JsonProperty("id")]
         public string ID { get; set; }
@@ -17,16 +17,16 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         public string RedeemedAt { get; set; }
 
         [JsonProperty("reward")]
-        public KickWebhookRewardModel Reward { get; set; }
+        public WebhookRewardModel Reward { get; set; }
 
         [JsonProperty("redeemer")]
-        public KickWebhookUserReferenceModel Redeemer { get; set; }
+        public WebhookUserReferenceModel Redeemer { get; set; }
 
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
     }
 
-    public class KickWebhookRewardModel
+    public class WebhookRewardModel
     {
         [JsonProperty("id")]
         public string ID { get; set; }

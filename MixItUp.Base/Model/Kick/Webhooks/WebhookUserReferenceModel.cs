@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookUserReferenceModel
+    public class WebhookUserReferenceModel
     {
         [JsonProperty("is_anonymous")]
         public bool IsAnonymous { get; set; }
@@ -24,19 +24,19 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         public string ChannelSlug { get; set; }
 
         [JsonProperty("identity")]
-        public KickWebhookIdentityModel Identity { get; set; }
+        public WebhookIdentityModel Identity { get; set; }
     }
 
-    public class KickWebhookIdentityModel
+    public class WebhookIdentityModel
     {
         [JsonProperty("username_color")]
         public string UsernameColor { get; set; }
 
         [JsonProperty("badges")]
-        public List<KickWebhookBadgeModel> Badges { get; set; } = new List<KickWebhookBadgeModel>();
+        public List<WebhookBadgeModel> Badges { get; set; } = new List<WebhookBadgeModel>();
     }
 
-    public class KickWebhookBadgeModel
+    public class WebhookBadgeModel
     {
         [JsonProperty("text")]
         public string Text { get; set; }

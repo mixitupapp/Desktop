@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace MixItUp.Base.Model.Kick.Chat
 {
-    public class KickChatMessageResultModel
+    public class ChatMessageResultModel
     {
         [JsonProperty("is_sent")]
         public bool IsSent { get; set; }

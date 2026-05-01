@@ -31,7 +31,7 @@ namespace MixItUp.Base.Services.Kick.New
             return Task.CompletedTask;
         }
 
-        public async Task HandleWebhookEvent(string eventType, JObject payload, KickWebhookEventModel metadata = null)
+        public async Task HandleWebhookEvent(string eventType, JObject payload, WebhookEventModel metadata = null)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleChatMessage(JObject payload)
         {
-            KickWebhookChatMessageEventModel messageEvent = payload.ToObject<KickWebhookChatMessageEventModel>();
+            WebhookChatMessageEventModel messageEvent = payload.ToObject<WebhookChatMessageEventModel>();
             if (messageEvent?.Sender == null || messageEvent.Sender.UserID <= 0 || string.IsNullOrWhiteSpace(messageEvent.Content))
             {
                 return;
@@ -109,7 +109,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleFollow(JObject payload)
         {
-            KickWebhookChannelFollowedEventModel followEvent = payload.ToObject<KickWebhookChannelFollowedEventModel>();
+            WebhookChannelFollowedEventModel followEvent = payload.ToObject<WebhookChannelFollowedEventModel>();
             if (followEvent?.Follower == null)
             {
                 return;
@@ -144,7 +144,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleSubscriptionNew(JObject payload)
         {
-            KickWebhookChannelSubscriptionNewEventModel subEvent = payload.ToObject<KickWebhookChannelSubscriptionNewEventModel>();
+            WebhookChannelSubscriptionNewEventModel subEvent = payload.ToObject<WebhookChannelSubscriptionNewEventModel>();
             if (subEvent?.Subscriber == null)
             {
                 return;
@@ -181,7 +181,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleSubscriptionRenewal(JObject payload)
         {
-            KickWebhookChannelSubscriptionRenewalEventModel subEvent = payload.ToObject<KickWebhookChannelSubscriptionRenewalEventModel>();
+            WebhookChannelSubscriptionRenewalEventModel subEvent = payload.ToObject<WebhookChannelSubscriptionRenewalEventModel>();
             if (subEvent?.Subscriber == null)
             {
                 return;
@@ -219,7 +219,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleSubscriptionGifts(JObject payload)
         {
-            KickWebhookChannelSubscriptionGiftsEventModel giftsEvent = payload.ToObject<KickWebhookChannelSubscriptionGiftsEventModel>();
+            WebhookChannelSubscriptionGiftsEventModel giftsEvent = payload.ToObject<WebhookChannelSubscriptionGiftsEventModel>();
             if (giftsEvent == null || giftsEvent.Giftees == null || giftsEvent.Giftees.Count == 0)
             {
                 return;
@@ -245,7 +245,7 @@ namespace MixItUp.Base.Services.Kick.New
             }
 
             List<SubscriptionDetailsModel> subscriptions = new List<SubscriptionDetailsModel>();
-            foreach (KickWebhookUserReferenceModel gifteeRef in giftsEvent.Giftees)
+            foreach (WebhookUserReferenceModel gifteeRef in giftsEvent.Giftees)
             {
                 UserV2ViewModel giftee = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: gifteeRef.UserID.ToString(), platformUsername: gifteeRef.Username);
                 if (giftee == null)
@@ -295,7 +295,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleRewardRedemptionUpdated(JObject payload)
         {
-            KickWebhookRewardRedemptionUpdatedEventModel redemptionEvent = payload.ToObject<KickWebhookRewardRedemptionUpdatedEventModel>();
+            WebhookRewardRedemptionUpdatedEventModel redemptionEvent = payload.ToObject<WebhookRewardRedemptionUpdatedEventModel>();
             if (redemptionEvent?.Redeemer == null || redemptionEvent.Reward == null || !string.Equals(redemptionEvent.Status, "pending", StringComparison.OrdinalIgnoreCase))
             {
                 return;
@@ -333,7 +333,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleLivestreamStatusUpdated(JObject payload)
         {
-            KickWebhookLivestreamStatusUpdatedEventModel streamEvent = payload.ToObject<KickWebhookLivestreamStatusUpdatedEventModel>();
+            WebhookLivestreamStatusUpdatedEventModel streamEvent = payload.ToObject<WebhookLivestreamStatusUpdatedEventModel>();
             if (streamEvent == null)
             {
                 return;
@@ -355,7 +355,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleLivestreamMetadataUpdated(JObject payload)
         {
-            KickWebhookLivestreamMetadataUpdatedEventModel metadataEvent = payload.ToObject<KickWebhookLivestreamMetadataUpdatedEventModel>();
+            WebhookLivestreamMetadataUpdatedEventModel metadataEvent = payload.ToObject<WebhookLivestreamMetadataUpdatedEventModel>();
             if (metadataEvent?.Metadata == null)
             {
                 return;
@@ -374,7 +374,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleModerationBanned(JObject payload)
         {
-            KickWebhookModerationBannedEventModel moderationEvent = payload.ToObject<KickWebhookModerationBannedEventModel>();
+            WebhookModerationBannedEventModel moderationEvent = payload.ToObject<WebhookModerationBannedEventModel>();
             if (moderationEvent?.BannedUser == null)
             {
                 return;
@@ -407,7 +407,7 @@ namespace MixItUp.Base.Services.Kick.New
 
         private async Task HandleKicksGifted(JObject payload)
         {
-            KickWebhookKicksGiftedEventModel kicksEvent = payload.ToObject<KickWebhookKicksGiftedEventModel>();
+            WebhookKicksGiftedEventModel kicksEvent = payload.ToObject<WebhookKicksGiftedEventModel>();
             if (kicksEvent?.Sender == null || kicksEvent.Gift == null)
             {
                 return;

@@ -2,22 +2,22 @@ using Newtonsoft.Json;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookKicksGiftedEventModel
+    public class WebhookKicksGiftedEventModel
     {
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("sender")]
-        public KickWebhookUserReferenceModel Sender { get; set; }
+        public WebhookUserReferenceModel Sender { get; set; }
 
         [JsonProperty("gift")]
-        public KickWebhookGiftModel Gift { get; set; }
+        public WebhookGiftModel Gift { get; set; }
 
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
     }
 
-    public class KickWebhookGiftModel
+    public class WebhookGiftModel
     {
         [JsonProperty("amount")]
         public int Amount { get; set; }

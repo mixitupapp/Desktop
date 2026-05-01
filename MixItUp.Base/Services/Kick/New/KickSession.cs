@@ -44,10 +44,10 @@ namespace MixItUp.Base.Services.Kick.New
         public KickService BotService { get; private set; } = new KickService(BotScopes, isBotService: true);
         public KickClient Client { get; private set; } = new KickClient();
 
-        public KickUserModel StreamerModel { get; private set; }
-        public KickUserModel BotModel { get; private set; }
+        public UserModel StreamerModel { get; private set; }
+        public UserModel BotModel { get; private set; }
 
-        public KickChannelModel Channel { get; private set; }
+        public ChannelModel Channel { get; private set; }
 
         protected override async Task<Result> InitializeStreamerInternal()
         {

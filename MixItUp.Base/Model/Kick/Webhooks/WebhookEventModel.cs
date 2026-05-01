@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookEventModel
+    public class WebhookEventModel
     {
         [JsonProperty("EventVersion")]
         public string EventVersion { get; set; }

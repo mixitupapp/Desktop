@@ -13,7 +13,7 @@ namespace MixItUp.Base.ViewModel.Chat.Kick
 
         public string ReplyThreadID { get; set; }
 
-        public KickChatMessageViewModel(KickWebhookChatMessageEventModel message, UserV2ViewModel user)
+        public KickChatMessageViewModel(WebhookChatMessageEventModel message, UserV2ViewModel user)
             : base(string.IsNullOrWhiteSpace(message?.MessageID) ? Guid.NewGuid().ToString() : message.MessageID, StreamingPlatformTypeEnum.Kick, user)
         {
             this.ReplyThreadID = message?.RepliesTo?.MessageID;

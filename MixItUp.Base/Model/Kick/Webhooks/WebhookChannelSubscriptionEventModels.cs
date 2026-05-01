@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookChannelSubscriptionRenewalEventModel
+    public class WebhookChannelSubscriptionRenewalEventModel
     {
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("subscriber")]
-        public KickWebhookUserReferenceModel Subscriber { get; set; }
+        public WebhookUserReferenceModel Subscriber { get; set; }
 
         [JsonProperty("duration")]
         public int Duration { get; set; }
@@ -21,13 +21,13 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         public string ExpiresAt { get; set; }
     }
 
-    public class KickWebhookChannelSubscriptionNewEventModel
+    public class WebhookChannelSubscriptionNewEventModel
     {
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("subscriber")]
-        public KickWebhookUserReferenceModel Subscriber { get; set; }
+        public WebhookUserReferenceModel Subscriber { get; set; }
 
         [JsonProperty("duration")]
         public int Duration { get; set; }
@@ -39,16 +39,16 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         public string ExpiresAt { get; set; }
     }
 
-    public class KickWebhookChannelSubscriptionGiftsEventModel
+    public class WebhookChannelSubscriptionGiftsEventModel
     {
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("gifter")]
-        public KickWebhookUserReferenceModel Gifter { get; set; }
+        public WebhookUserReferenceModel Gifter { get; set; }
 
         [JsonProperty("giftees")]
-        public List<KickWebhookUserReferenceModel> Giftees { get; set; } = new List<KickWebhookUserReferenceModel>();
+        public List<WebhookUserReferenceModel> Giftees { get; set; } = new List<WebhookUserReferenceModel>();
 
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }

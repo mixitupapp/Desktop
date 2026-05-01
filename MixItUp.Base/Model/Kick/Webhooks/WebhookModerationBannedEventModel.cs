@@ -2,22 +2,22 @@ using Newtonsoft.Json;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookModerationBannedEventModel
+    public class WebhookModerationBannedEventModel
     {
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("moderator")]
-        public KickWebhookUserReferenceModel Moderator { get; set; }
+        public WebhookUserReferenceModel Moderator { get; set; }
 
         [JsonProperty("banned_user")]
-        public KickWebhookUserReferenceModel BannedUser { get; set; }
+        public WebhookUserReferenceModel BannedUser { get; set; }
 
         [JsonProperty("metadata")]
-        public KickWebhookModerationBannedMetadataModel Metadata { get; set; }
+        public WebhookModerationBannedMetadataModel Metadata { get; set; }
     }
 
-    public class KickWebhookModerationBannedMetadataModel
+    public class WebhookModerationBannedMetadataModel
     {
         [JsonProperty("reason")]
         public string Reason { get; set; }

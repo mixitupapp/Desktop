@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace MixItUp.Base.Model.Kick.Webhooks
 {
-    public class KickWebhookChatMessageEventModel
+    public class WebhookChatMessageEventModel
     {
         [JsonProperty("message_id")]
         public string MessageID { get; set; }
 
         [JsonProperty("replies_to")]
-        public KickWebhookRepliesToModel RepliesTo { get; set; }
+        public WebhookRepliesToModel RepliesTo { get; set; }
 
         [JsonProperty("broadcaster")]
-        public KickWebhookUserReferenceModel Broadcaster { get; set; }
+        public WebhookUserReferenceModel Broadcaster { get; set; }
 
         [JsonProperty("sender")]
-        public KickWebhookUserReferenceModel Sender { get; set; }
+        public WebhookUserReferenceModel Sender { get; set; }
 
         [JsonProperty("content")]
         public string Content { get; set; }
@@ -24,27 +24,27 @@ namespace MixItUp.Base.Model.Kick.Webhooks
         public string CreatedAt { get; set; }
 
         [JsonProperty("emotes")]
-        public List<KickWebhookEmoteModel> Emotes { get; set; } = new List<KickWebhookEmoteModel>();
+        public List<WebhookEmoteModel> Emotes { get; set; } = new List<WebhookEmoteModel>();
     }
 
-    public class KickWebhookRepliesToModel
+    public class WebhookRepliesToModel
     {
         [JsonProperty("message_id")]
         public string MessageID { get; set; }
         [JsonProperty("sender")]
-        public KickWebhookUserReferenceModel Sender { get; set; }
+        public WebhookUserReferenceModel Sender { get; set; }
     }
 
-    public class KickWebhookEmoteModel
+    public class WebhookEmoteModel
     {
         [JsonProperty("emote_id")]
         public string EmoteID { get; set; }
 
         [JsonProperty("positions")]
-        public List<KickWebhookEmotePositionModel> Positions { get; set; } = new List<KickWebhookEmotePositionModel>();
+        public List<WebhookEmotePositionModel> Positions { get; set; } = new List<WebhookEmotePositionModel>();
     }
 
-    public class KickWebhookEmotePositionModel
+    public class WebhookEmotePositionModel
     {
         [JsonProperty("s")]
         public int Start { get; set; }

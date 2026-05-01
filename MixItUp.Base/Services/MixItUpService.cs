@@ -542,7 +542,7 @@ namespace MixItUp.Base.Services
                         {
                             Logger.Log(LogLevel.Debug, $"Kick Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
 
-                            KickWebhookEventModel metadata = metadataObject?.ToObject<KickWebhookEventModel>();
+                            WebhookEventModel metadata = metadataObject?.ToObject<WebhookEventModel>();
                             var _ = ServiceManager.Get<KickSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
                         }
                         catch (Exception ex)
