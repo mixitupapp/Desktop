@@ -1,0 +1,6 @@
+.labelDisplay
+{
+    position: absolute;
+    transform: translate({XTranslation}%, {YTranslation}%);
+    width: {Width};
+}

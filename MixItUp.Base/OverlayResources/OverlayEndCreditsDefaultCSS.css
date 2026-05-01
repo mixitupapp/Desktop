@@ -1,0 +1,37 @@
+.list {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    flex-direction: column;
+}
+
+.section {
+    display: contents;
+}
+
+.header {
+    padding-bottom: 20px;
+    font-size: {HeaderFontSize}px;
+    color: {HeaderFontColor};
+    font-family: '{HeaderFontFamily}';
+    font-weight: {HeaderFontWeight};
+    text-decoration: {HeaderTextDecoration};
+    font-style: {HeaderFontStyle};
+    text-align: {HeaderTextAlignment};
+    text-shadow: {HeaderShadowColor};
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.columns {
+    display: flex;
+}
+
+.spacer {
+    height: 50px;
+}

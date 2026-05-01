@@ -42,11 +42,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="OverlayResources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>OverlayResources.resx</DependentUpon>
-		</Compile>
 		<Compile Update="Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -64,10 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="OverlayResources.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-			<LastGenOutput>OverlayResources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
+		<EmbeddedResource Include="OverlayResources\**\*" />
 		<EmbeddedResource Update="Resources.resx">
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>

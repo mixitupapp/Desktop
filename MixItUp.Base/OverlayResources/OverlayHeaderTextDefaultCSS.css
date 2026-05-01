@@ -1,0 +1,10 @@
+.header {
+    font-size: {HeaderFontSize}px;
+    color: {HeaderFontColor};
+    font-family: '{HeaderFontFamily}';
+    font-weight: {HeaderFontWeight};
+    text-decoration: {HeaderTextDecoration};
+    font-style: {HeaderFontStyle};
+    text-align: {HeaderTextAlignment};
+    text-shadow: {HeaderShadowColor};
+}
