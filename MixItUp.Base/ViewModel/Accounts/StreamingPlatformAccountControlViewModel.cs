@@ -43,7 +43,7 @@ namespace MixItUp.Base.ViewModel.Accounts
             {
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "/Assets/Images/twitch-dark_lg.png"; }
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/youtube-dark_lg.png"; }
-                if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "/Assets/Images/kick-dark_lg.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "/Assets/Images/kick-light_lg.png"; }
                 return StreamingPlatforms.GetPlatformImage(this.Platform);
             }
         }
@@ -53,7 +53,7 @@ namespace MixItUp.Base.ViewModel.Accounts
             {
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "#FFFFFF"; }
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FFFFFF"; }
-                if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "#FFFFFF"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "#000000"; }
                 return "#000000";
             }
         }
