@@ -764,6 +764,20 @@ namespace MixItUp.Base.Util
                         this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "youtubeurl", ServiceManager.Get<YouTubeSession>().StreamLink);
                     }
                 }
+                else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<MixItUp.Base.Services.Kick.New.KickSession>().IsConnected)
+                {
+                    var channel = ServiceManager.Get<MixItUp.Base.Services.Kick.New.KickSession>().Channel;
+                    if (channel != null)
+                    {
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "subscribercount", channel.ActiveSubscribersCount.ToString());
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "description", channel.ChannelDescription);
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "thumbnail", channel.Stream?.Thumbnail);
+                        if (channel.Stream?.CustomTags != null && channel.Stream.CustomTags.Count > 0)
+                        {
+                            this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "kicktags", string.Join(", ", channel.Stream.CustomTags));
+                        }
+                    }
+                }
                 this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "chattercount", ServiceManager.Get<UserService>().ActiveUserCount.ToString());
             }
 
@@ -1273,7 +1287,7 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isfollower", user.IsFollower.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isregular", user.IsRegular.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "issubscriber", user.IsPlatformSubscriber.ToString());
-                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isvip", user.HasRole(UserRoleEnum.TwitchVIP).ToString());
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isvip", (user.HasRole(UserRoleEnum.TwitchVIP) || user.HasRole(UserRoleEnum.KickVIP)).ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "ismod", user.MeetsRole(UserRoleEnum.Moderator).ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isspecialtyexcluded", user.IsSpecialtyExcluded.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "notes", user.Notes);
