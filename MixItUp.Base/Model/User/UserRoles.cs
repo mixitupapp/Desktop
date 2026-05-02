@@ -28,6 +28,10 @@ namespace MixItUp.Base.Model.User
 
         [TwitchUserRole]
         TwitchVIP = 500,
+        [KickUserRole]
+        KickVIP = 501,
+        [KickUserRole]
+        KickOG = 502,
 
         [GenericUserRole, TwitchUserRole, KickUserRole]
         Subscriber = 600,

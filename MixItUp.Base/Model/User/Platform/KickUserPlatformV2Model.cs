@@ -66,7 +66,6 @@ namespace MixItUp.Base.Model.User.Platform
 
             this.SetCoreProperties(user.UserID.ToString(), user.Username, user.Name, user.ProfilePicture, user.ChannelSlug);
             this.Color = user.Identity?.UsernameColor;
-            this.SetIdentityProperties(user.Identity?.Badges);
             this.SetRoleProperties();
         }
 
@@ -82,12 +81,6 @@ namespace MixItUp.Base.Model.User.Platform
             this.SetRoleProperties();
         }
 
-        public void SetIdentityBadges(IEnumerable<BadgeModel> badges)
-        {
-            this.SetIdentityProperties(badges);
-            this.SetRoleProperties();
-        }
-
         private void SetCoreProperties(string id, string username, string displayName, string avatarLink, string channelSlug = null)
         {
             this.ID = id;
@@ -99,94 +92,31 @@ namespace MixItUp.Base.Model.User.Platform
             this.ChannelSlug = channelSlug;
         }
 
-        private void SetIdentityProperties(IEnumerable<BadgeModel> badges)
-        {
-            this.Roles.Remove(UserRoleEnum.Moderator);
-            this.Roles.Remove(UserRoleEnum.Subscriber);
-            this.Roles.Remove(UserRoleEnum.KickVIP);
-            this.Roles.Remove(UserRoleEnum.KickOG);
-            this.SubscriberBadgeLink = null;
-            this.RoleBadgeLink = null;
-            this.SpecialtyBadgeLink = null;
-
-            if (badges == null)
-            {
-                return;
-            }
-
-            HashSet<string> badgeTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (BadgeModel badge in badges)
-            {
-                if (badge == null || string.IsNullOrWhiteSpace(badge.Type))
-                {
-                    continue;
-                }
-
-                badgeTypes.Add(badge.Type);
-                if (string.Equals(badge.Type, "moderator", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.Moderator);
-                }
-                else if (string.Equals(badge.Type, "subscriber", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.Subscriber);
-                }
-                else if (string.Equals(badge.Type, "vip", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.KickVIP);
-                }
-                else if (string.Equals(badge.Type, "og", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.KickOG);
-                }
-            }
-
-            this.SetBadgeLinksFromTypes(badgeTypes);
-        }
-
         private void SetIdentityProperties(WebhookIdentityModel identity)
         {
-            this.Roles.Remove(UserRoleEnum.Moderator);
-            this.Roles.Remove(UserRoleEnum.Subscriber);
-            this.Roles.Remove(UserRoleEnum.KickVIP);
-            this.Roles.Remove(UserRoleEnum.KickOG);
             this.SubscriberBadgeLink = null;
             this.RoleBadgeLink = null;
             this.SpecialtyBadgeLink = null;
 
             this.Color = identity?.UsernameColor;
 
-            if (identity?.Badges == null)
-            {
-                return;
-            }
-
             HashSet<string> badgeTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (WebhookBadgeModel badge in identity.Badges)
+            if (identity?.Badges != null)
             {
-                if (badge == null || string.IsNullOrWhiteSpace(badge.Type))
+                foreach (WebhookBadgeModel badge in identity.Badges)
                 {
-                    continue;
-                }
-
-                badgeTypes.Add(badge.Type);
-                if (string.Equals(badge.Type, "moderator", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.Moderator);
-                }
-                else if (string.Equals(badge.Type, "subscriber", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.Subscriber);
-                }
-                else if (string.Equals(badge.Type, "vip", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.KickVIP);
-                }
-                else if (string.Equals(badge.Type, "og", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.Roles.Add(UserRoleEnum.KickOG);
+                    if (badge == null || string.IsNullOrWhiteSpace(badge.Type))
+                    {
+                        continue;
+                    }
+                    badgeTypes.Add(badge.Type);
                 }
             }
+
+            if (badgeTypes.Contains("moderator")) { this.Roles.Add(UserRoleEnum.Moderator); } else { this.Roles.Remove(UserRoleEnum.Moderator); }
+            if (badgeTypes.Contains("subscriber")) { this.Roles.Add(UserRoleEnum.Subscriber); } else { this.Roles.Remove(UserRoleEnum.Subscriber); }
+            if (badgeTypes.Contains("vip")) { this.Roles.Add(UserRoleEnum.KickVIP); } else { this.Roles.Remove(UserRoleEnum.KickVIP); }
+            if (badgeTypes.Contains("og")) { this.Roles.Add(UserRoleEnum.KickOG); } else { this.Roles.Remove(UserRoleEnum.KickOG); }
 
             this.SetBadgeLinksFromTypes(badgeTypes);
         }
