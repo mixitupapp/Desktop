@@ -229,6 +229,10 @@ namespace MixItUp.Base.Services
                 {
                     await ServiceManager.Get<YouTubeSession>().DeleteMessage(message);
                 }
+                else if (message.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                {
+                    await ServiceManager.Get<KickSession>().DeleteMessage(message);
+                }
                 else if (message.Platform == StreamingPlatformTypeEnum.Mock)
                 {
                     await ServiceManager.Get<MockSession>().DeleteMessage(message);
@@ -382,10 +386,6 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.YouTube && ServiceManager.Get<YouTubeSession>().IsConnected)
             {
                 await ServiceManager.Get<YouTubeSession>().UnbanUser(user);
-            }
-            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
-            {
-                await ServiceManager.Get<KickSession>().UnbanUser(user);
             }
             if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
