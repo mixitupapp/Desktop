@@ -26,7 +26,7 @@ namespace MixItUp.Base.Model.Settings
     [DataContract]
     public class SettingsV3Model
     {
-        public const int LatestVersion = 9;
+        public const int LatestVersion = 8;
 
         public const string SettingsDirectoryName = "Settings";
         public const string DefaultAutomaticBackupSettingsDirectoryName = "AutomaticBackups";
@@ -1206,6 +1206,29 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        public async Task AddMissingUsersTableKickColumns()
+        {
+            HashSet<string> columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (row) =>
+            {
+                if (row.TryGetValue("name", out object name) && name != null)
+                {
+                    columns.Add(name.ToString());
+                }
+            });
+
+            if (!columns.Contains("KickID"))
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickID TEXT");
+            }
+
+            if (!columns.Contains("KickUsername"))
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickUsername TEXT");
+            }
+        }
+
         public async Task<IEnumerable<StatisticModel>> LoadSpecificStatisticType(StatisticItemTypeEnum type)
         {
             List<StatisticModel> statistics = new List<StatisticModel>();
@@ -1300,6 +1323,7 @@ namespace MixItUp.Base.Model.Settings
         private async void InitializeMissingData()
         {
             await this.CreateUserImportTable();
+            await this.AddMissingUsersTableKickColumns();
             //await this.CreateStatisticsTable();
 
             StreamingPlatforms.ForEachPlatform(p =>

@@ -394,7 +394,6 @@ namespace MixItUp.Base.Services
             {
                 await SettingsV3Upgrader.Version7Upgrade(currentVersion, filePath);
                 await SettingsV3Upgrader.Version8Upgrade(currentVersion, filePath);
-                await SettingsV3Upgrader.Version9Upgrade(currentVersion, filePath);
             }
             SettingsV3Model settings = await FileSerializerHelper.DeserializeFromFile<SettingsV3Model>(filePath, ignoreErrors: true);
             settings.Version = SettingsV3Model.LatestVersion;
@@ -418,27 +417,6 @@ namespace MixItUp.Base.Services
                 }
 
                 await ServiceManager.Get<SettingsService>().Save(settings);
-            }
-        }
-
-        public static async Task Version9Upgrade(int version, string filePath)
-        {
-            if (version < 9)
-            {
-                SettingsV3Model settings = await FileSerializerHelper.DeserializeFromFile<SettingsV3Model>(filePath, ignoreErrors: true);
-
-                string databaseFilePath = Path.Combine(
-                    SettingsV3Model.SettingsDirectoryName,
-                    string.Format("{0}.{1}", settings.ID, SettingsV3Model.DatabaseFileExtension));
-
-                if (File.Exists(databaseFilePath))
-                {
-                    await ServiceManager.Get<IDatabaseService>().Write(databaseFilePath, "ALTER TABLE Users ADD COLUMN KickID TEXT");
-                    await ServiceManager.Get<IDatabaseService>().Write(databaseFilePath, "ALTER TABLE Users ADD COLUMN KickUsername TEXT");
-                }
-
-                settings.Version = SettingsV3Model.LatestVersion;
-                await FileSerializerHelper.SerializeSettingsToFile(settings.SettingsFilePath, settings);
             }
         }
 
