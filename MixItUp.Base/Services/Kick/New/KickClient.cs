@@ -10,14 +10,35 @@ using MixItUp.Base.ViewModel.User;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.Kick.New
 {
     public class KickClient : ServiceClientBase
     {
+        private const int MaxProcessedEventsCacheSize = 3000;
+
+        private readonly IReadOnlyDictionary<string, string> KickEventVersions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "chat.message.sent", "1" },
+            { "channel.followed", "1" },
+            { "channel.subscription.new", "1" },
+            { "channel.subscription.renewal", "1" },
+            { "channel.subscription.gifts", "1" },
+            { "channel.reward.redemption.updated", "1" },
+            { "livestream.status.updated", "1" },
+            { "livestream.metadata.updated", "1" },
+            { "moderation.banned", "1" },
+            { "kicks.gifted", "1" },
+        };
+
         public override bool IsConnected { get { return this.isConnected; } }
         private bool isConnected;
+
+        private readonly object processedEventIDsLock = new object();
+        private readonly Queue<string> processedEventIDsQueue = new Queue<string>();
+        private readonly HashSet<string> processedEventIDs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         public override Task<Result> Connect()
         {
@@ -36,6 +57,11 @@ namespace MixItUp.Base.Services.Kick.New
             try
             {
                 if (!this.IsConnected || string.IsNullOrWhiteSpace(eventType) || payload == null)
+                {
+                    return;
+                }
+
+                if (!this.ShouldProcessEvent(eventType, metadata))
                 {
                     return;
                 }
@@ -168,7 +194,7 @@ namespace MixItUp.Base.Services.Kick.New
 
             user.Roles.Add(UserRoleEnum.Subscriber);
             user.SubscribeDate = DateTimeOffset.Now;
-            user.TotalMonthsSubbed++;
+            user.TotalMonthsSubbed = Math.Max(user.TotalMonthsSubbed, (uint)Math.Max(subEvent.Duration, 1));
 
             CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Kick);
             parameters.SpecialIdentifiers["usersubmonths"] = Math.Max(subEvent.Duration, 1).ToString();
@@ -278,6 +304,11 @@ namespace MixItUp.Base.Services.Kick.New
 
             if (subscriptions.Count > 0)
             {
+                if (giftsEvent.Gifter != null && !giftsEvent.Gifter.IsAnonymous)
+                {
+                    gifter.TotalSubsGifted += (uint)subscriptions.Count;
+                }
+
                 CommandParametersModel parameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
                 parameters.SpecialIdentifiers["subsgiftedamount"] = subscriptions.Count.ToString();
                 parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
@@ -396,13 +427,42 @@ namespace MixItUp.Base.Services.Kick.New
                 return;
             }
 
-            CommandParametersModel parameters = new CommandParametersModel(StreamingPlatformTypeEnum.Kick);
-            parameters.Arguments.Add("@" + bannedUser.Username);
-            parameters.TargetUser = bannedUser;
-            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.ChatUserBan, parameters);
+            int timeoutLength = 0;
+            if (moderationEvent.Metadata != null && !string.IsNullOrWhiteSpace(moderationEvent.Metadata.ExpiresAt))
+            {
+                DateTimeOffset createdAt = DateTimeOffset.Now;
+                if (!string.IsNullOrWhiteSpace(moderationEvent.Metadata.CreatedAt) && DateTimeOffset.TryParse(moderationEvent.Metadata.CreatedAt, out DateTimeOffset createdAtResult))
+                {
+                    createdAt = createdAtResult;
+                }
 
-            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(bannedUser, string.Format(MixItUp.Base.Resources.AlertBanned, bannedUser.FullDisplayName), ChannelSession.Settings.AlertModerationColor));
-            ChatService.ChatUserBanned(bannedUser);
+                if (DateTimeOffset.TryParse(moderationEvent.Metadata.ExpiresAt, out DateTimeOffset expiresAt))
+                {
+                    timeoutLength = Math.Max(0, (int)Math.Round((expiresAt - createdAt).TotalSeconds));
+                }
+            }
+            if (timeoutLength > 0)
+            {
+                CommandParametersModel parameters = new CommandParametersModel(StreamingPlatformTypeEnum.Kick);
+                parameters.Arguments.Add("@" + bannedUser.Username);
+                parameters.TargetUser = bannedUser;
+                parameters.SpecialIdentifiers["timeoutlength"] = timeoutLength.ToString();
+                parameters.SpecialIdentifiers["timeoutreason"] = moderationEvent.Metadata?.Reason;
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.ChatUserTimeout, parameters);
+
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(bannedUser, string.Format(MixItUp.Base.Resources.AlertTimedOut, bannedUser.FullDisplayName, timeoutLength), ChannelSession.Settings.AlertModerationColor));
+                ChatService.ChatUserTimedOut(bannedUser);
+            }
+            else
+            {
+                CommandParametersModel parameters = new CommandParametersModel(StreamingPlatformTypeEnum.Kick);
+                parameters.Arguments.Add("@" + bannedUser.Username);
+                parameters.TargetUser = bannedUser;
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.ChatUserBan, parameters);
+
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(bannedUser, string.Format(MixItUp.Base.Resources.AlertBanned, bannedUser.FullDisplayName), ChannelSession.Settings.AlertModerationColor));
+                ChatService.ChatUserBanned(bannedUser);
+            }
         }
 
         private async Task HandleKicksGifted(JObject payload)
@@ -436,6 +496,39 @@ namespace MixItUp.Base.Services.Kick.New
             parameters.SpecialIdentifiers["gifttier"] = kicksEvent.Gift.Tier;
             parameters.SpecialIdentifiers["message"] = kicksEvent.Gift.Message;
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelKicksGifted, parameters);
+        }
+
+        private bool ShouldProcessEvent(string eventType, WebhookEventModel metadata)
+        {
+            if (!string.IsNullOrWhiteSpace(metadata?.EventVersion) &&
+                this.KickEventVersions.TryGetValue(eventType, out string desiredVersion) &&
+                !string.Equals(metadata.EventVersion, desiredVersion, StringComparison.OrdinalIgnoreCase))
+            {
+                Logger.Log(LogLevel.Warning, $"Ignoring unsupported Kick webhook event version: {metadata.EventVersion} for event type {eventType}");
+                return false;
+            }
+
+            string eventID = metadata?.MessageID;
+            if (string.IsNullOrWhiteSpace(eventID))
+            {
+                return true;
+            }
+
+            lock (this.processedEventIDsLock)
+            {
+                if (!this.processedEventIDs.Add(eventID))
+                {
+                    Logger.Log(LogLevel.Debug, $"Skipping duplicate Kick webhook event: {eventType} ({eventID})");
+                    return false;
+                }
+
+                this.processedEventIDsQueue.Enqueue(eventID);
+                while (this.processedEventIDsQueue.Count > MaxProcessedEventsCacheSize)
+                {
+                    this.processedEventIDs.Remove(this.processedEventIDsQueue.Dequeue());
+                }
+            }
+            return true;
         }
     }
 }
