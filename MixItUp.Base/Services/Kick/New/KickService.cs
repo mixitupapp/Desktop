@@ -73,7 +73,7 @@ namespace MixItUp.Base.Services.Kick.New
         {
             return await AsyncRunner.RunAsync(async () =>
             {
-                ResponseModel<TokenIntrospectionModel> result = await this.HttpClient.PostAsync<ResponseModel<TokenIntrospectionModel>>("token/introspect");
+                ResponseModel<TokenIntrospectionModel> result = await this.HttpClient.PostAsync<ResponseModel<TokenIntrospectionModel>>("https://id.kick.com/oauth/token/introspect");
                 return result?.Data;
             });
         }
@@ -139,9 +139,9 @@ namespace MixItUp.Base.Services.Kick.New
             });
         }
 
-        public async Task UpdateChannel(string title = null, long? categoryID = null, IEnumerable<string> customTags = null)
+        public async Task<Result> UpdateChannel(string title = null, long? categoryID = null, IEnumerable<string> customTags = null)
         {
-            await AsyncRunner.RunAsync(async () =>
+            return await AsyncRunner.RunAsync(async () =>
             {
                 JObject jobj = new JObject();
                 if (!string.IsNullOrEmpty(title)) { jobj["stream_title"] = title; }
@@ -149,8 +149,14 @@ namespace MixItUp.Base.Services.Kick.New
                 if (customTags != null && customTags.Count() > 0) { jobj["custom_tags"] = JArray.FromObject(customTags.Take(10).ToArray()); }
                 if (jobj.Count > 0)
                 {
-                    await this.HttpClient.PatchAsync("channels", AdvancedHttpClient.CreateContentFromObject(jobj));
+                    HttpResponseMessage response = await this.HttpClient.PatchAsync("channels", AdvancedHttpClient.CreateContentFromObject(jobj));
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return new Result(await response.Content.ReadAsStringAsync());
+                    }
                 }
+
+                return new Result();
             });
         }
 
@@ -329,7 +335,7 @@ namespace MixItUp.Base.Services.Kick.New
                 if (broadcasterUserIDs != null && broadcasterUserIDs.Count() > 0) { parameters.AddRange(broadcasterUserIDs.Take(50).Select(id => "broadcaster_user_id=" + id)); }
                 if (!string.IsNullOrEmpty(categoryID)) { parameters.Add("category_id=" + categoryID); }
                 if (!string.IsNullOrEmpty(language)) { parameters.Add("language=" + AdvancedHttpClient.URLEncodeString(language)); }
-                if (limit > 0) { parameters.Add("limit=" + limit); }
+                if (limit > 0) { parameters.Add("limit=" + Math.Min(limit, 100)); }
                 if (!string.IsNullOrEmpty(sort)) { parameters.Add("sort=" + sort); }
 
                 return await this.GetDataResultAsync<LivestreamModel>("livestreams" + ((parameters.Count > 0) ? "?" + string.Join("&", parameters) : string.Empty));
@@ -360,28 +366,11 @@ namespace MixItUp.Base.Services.Kick.New
             });
         }
 
-        public async Task<IEnumerable<CategoryModel>> SearchCategories(string query, int page = 1)
-        {
-            return await AsyncRunner.RunAsync(async () =>
-            {
-                return await this.GetDataResultAsync<CategoryModel>("categories?q=" + AdvancedHttpClient.URLEncodeString(query) + "&page=" + page);
-            });
-        }
-
-        public async Task<CategoryDetailModel> GetCategory(string categoryID)
-        {
-            return await AsyncRunner.RunAsync(async () =>
-            {
-                ResponseModel<CategoryDetailModel> result = await this.HttpClient.GetAsync<ResponseModel<CategoryDetailModel>>("categories/" + categoryID);
-                return result?.Data;
-            });
-        }
-
         public async Task<LeaderboardModel> GetKicksLeaderboard(int top = 10)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
-                ResponseModel<LeaderboardModel> result = await this.HttpClient.GetAsync<ResponseModel<LeaderboardModel>>("kicks/leaderboard?top=" + top);
+                ResponseModel<LeaderboardModel> result = await this.HttpClient.GetAsync<ResponseModel<LeaderboardModel>>("kicks/leaderboard?top=" + Math.Min(top, 100));
                 return result?.Data;
             });
         }

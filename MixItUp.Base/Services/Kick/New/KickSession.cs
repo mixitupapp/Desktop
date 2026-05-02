@@ -1,5 +1,7 @@
 using MixItUp.Base.Model;
+using MixItUp.Base.Model.Kick.Categories;
 using MixItUp.Base.Model.Kick.Channels;
+using MixItUp.Base.Model.Kick.Common;
 using MixItUp.Base.Model.Kick.Users;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Util;
@@ -7,6 +9,7 @@ using MixItUp.Base.ViewModel.Chat;
 using MixItUp.Base.ViewModel.User;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.Kick.New
@@ -151,13 +154,43 @@ namespace MixItUp.Base.Services.Kick.New
 
         public override async Task<Result> SetStreamTitle(string title)
         {
-            await this.StreamerService.UpdateChannel(title: title);
+            Result result = await this.StreamerService.UpdateChannel(title: title);
+            if (!result.Success)
+            {
+                return result;
+            }
             return await this.RefreshDetails();
         }
 
-        public override Task<Result> SetStreamCategory(string category)
+        public override async Task<Result> SetStreamCategory(string category)
         {
-            return Task.FromResult(new Result());
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                return new Result(success: false);
+            }
+
+            CategoryWithTagsModel selectedCategory = null;
+            PaginatedResponseModel<CategoryWithTagsModel> categories = await this.StreamerService.GetCategories(limit: 100, names: new List<string>() { category });
+            if (categories != null && categories.Data != null && categories.Data.Count > 0)
+            {
+                selectedCategory = categories.Data.FirstOrDefault(c => string.Equals(c.Name, category, StringComparison.OrdinalIgnoreCase));
+                if (selectedCategory == null)
+                {
+                    selectedCategory = categories.Data.First();
+                }
+            }
+
+            if (selectedCategory == null)
+            {
+                return new Result(success: false);
+            }
+
+            Result result = await this.StreamerService.UpdateChannel(categoryID: selectedCategory.ID);
+            if (!result.Success)
+            {
+                return result;
+            }
+            return await this.RefreshDetails();
         }
 
         public override async Task SendMessage(string message, bool sendAsStreamer = false)
@@ -175,13 +208,14 @@ namespace MixItUp.Base.Services.Kick.New
             }
         }
 
-        public override Task DeleteMessage(ChatMessageViewModel message)
+        public override async Task DeleteMessage(ChatMessageViewModel message)
         {
-            return Task.CompletedTask;
+            await this.StreamerService.DeleteChatMessage(message.ID);
         }
 
         public override Task ClearMessages()
         {
+            Logger.Log(LogLevel.Debug, "Kick clear chat is not currently supported by the API");
             return Task.CompletedTask;
         }
 
