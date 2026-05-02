@@ -31,6 +31,10 @@ namespace MixItUp.Base.Model.Kick.Webhooks
     {
         [JsonProperty("message_id")]
         public string MessageID { get; set; }
+
+        [JsonProperty("content")]
+        public string Content { get; set; }
+
         [JsonProperty("sender")]
         public WebhookUserReferenceModel Sender { get; set; }
     }
