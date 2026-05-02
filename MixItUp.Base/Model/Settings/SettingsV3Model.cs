@@ -1208,22 +1208,28 @@ namespace MixItUp.Base.Model.Settings
 
         public async Task AddMissingUsersTableKickColumns()
         {
-            HashSet<string> columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            bool hasKickID = false;
+            bool hasKickUsername = false;
 
             await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (row) =>
             {
-                if (row.TryGetValue("name", out object name) && name != null)
+                string columnName = row["name"]?.ToString();
+                if (string.Equals(columnName, "KickID", StringComparison.OrdinalIgnoreCase))
                 {
-                    columns.Add(name.ToString());
+                    hasKickID = true;
+                }
+                else if (string.Equals(columnName, "KickUsername", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasKickUsername = true;
                 }
             });
 
-            if (!columns.Contains("KickID"))
+            if (!hasKickID)
             {
                 await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickID TEXT");
             }
 
-            if (!columns.Contains("KickUsername"))
+            if (!hasKickUsername)
             {
                 await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickUsername TEXT");
             }
