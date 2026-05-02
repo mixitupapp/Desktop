@@ -2,6 +2,7 @@ using MixItUp.Base.Model.Kick.Users;
 using MixItUp.Base.Model.Kick.Webhooks;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Kick.New;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,9 @@ namespace MixItUp.Base.Model.User.Platform
             this.Username = username;
             this.DisplayName = displayName;
         }
+
+        [JsonConstructor]
+        public KickUserPlatformV2Model() : base() { }
 
         public override async Task Refresh()
         {
