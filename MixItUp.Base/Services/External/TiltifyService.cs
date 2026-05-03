@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.User;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.Web;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -186,7 +187,6 @@ namespace MixItUp.Base.Services.External
                     this.token = await this.PostAsync<OAuthTokenModel>("https://v5api.tiltify.com/oauth/token", AdvancedHttpClient.CreateContentFromObject(payload), autoRefreshToken: false);
                     if (this.token != null)
                     {
-                        token.expiresIn = int.MaxValue;
 
                         return await this.InitializeInternal();
                     }
@@ -369,7 +369,7 @@ namespace MixItUp.Base.Services.External
         {
             try
             {
-                JObject result = await this.GetJObjectAsync(url);
+                JObject result = await this.GetJObjectWith401RefreshRetry(url);
                 if (result != null && result.ContainsKey("data"))
                 {
                     return result["data"].ToObject<T>();
@@ -393,7 +393,7 @@ namespace MixItUp.Base.Services.External
                         queryUrl += $"&after={afterCursor}";
                     }
 
-                    JObject result = await this.GetJObjectAsync(queryUrl);
+                    JObject result = await this.GetJObjectWith401RefreshRetry(queryUrl);
                     afterCursor = null;
 
                     if (result != null)
@@ -419,6 +419,18 @@ namespace MixItUp.Base.Services.External
             }
             catch (Exception ex) { Logger.Log(ex); }
             return results;
+        }
+        private async Task<JObject> GetJObjectWith401RefreshRetry(string url)
+        {
+            try
+            {
+                return await this.GetJObjectAsync(url);
+            }
+            catch (HttpRestRequestException ex) when (ex.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                await this.RefreshOAuthToken();
+                return await this.GetJObjectAsync(url);
+            }
         }
     }
 }
