@@ -426,7 +426,7 @@ namespace MixItUp.Base.Services.External
             {
                 return await this.GetJObjectAsync(url);
             }
-            catch (HttpRestRequestException ex) when (ex.StatusCode == HttpStatusCode.Unauthorized)
+            catch (HttpRestRequestException ex) when (ex.Response?.StatusCode == HttpStatusCode.Unauthorized)
             {
                 await this.RefreshOAuthToken();
                 return await this.GetJObjectAsync(url);
