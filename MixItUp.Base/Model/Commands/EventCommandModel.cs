@@ -197,21 +197,22 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["isanonymous"] = "false";
                     break;
                 case EventTypeEnum.KickChannelPointsRedeemed:
-                    specialIdentifiers["rewardname"] = "Kick Reward";
-                    specialIdentifiers["rewardcost"] = "1000";
+                    specialIdentifiers["rewardname"] = "Hydrate";
+                    specialIdentifiers["rewardcost"] = "5";
                     specialIdentifiers["message"] = "Test Message";
                     break;
                 case EventTypeEnum.KickChannelKicksGifted:
-                    specialIdentifiers["kicksamount"] = "500";
-                    specialIdentifiers["giftname"] = "Gift Name";
-                    specialIdentifiers["gifttype"] = "LEVEL_UP";
-                    specialIdentifiers["gifttier"] = "MID";
-                    specialIdentifiers["message"] = "Test Message";
+                    specialIdentifiers["kicksamount"] = "100";
+                    specialIdentifiers["giftname"] = "Full Send";
+                    specialIdentifiers["gifttype"] = "BASIC";
+                    specialIdentifiers["gifttier"] = "BASIC";
+                    specialIdentifiers["message"] = "";
+                    specialIdentifiers["giftpinnedseconds"] = "0";
                     break;
 
                 // Chat
                 case EventTypeEnum.ChatUserTimeout:
-                    specialIdentifiers["timeoutlength"] = "5m";
+                    specialIdentifiers["timeoutlength"] = "300";
                     break;
 
                 // Donation
