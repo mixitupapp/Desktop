@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace MixItUp.Base.Model.Kick.Kicks
 {
+    public enum KicksLeaderboardPeriodEnum
+    {
+        Lifetime,
+        Month,
+        Week
+    }
+
     public class LeaderboardModel
     {
         [JsonProperty("lifetime")]
