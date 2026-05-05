@@ -495,6 +495,7 @@ namespace MixItUp.Base.Services.Kick.New
             parameters.SpecialIdentifiers["gifttype"] = kicksEvent.Gift.Type;
             parameters.SpecialIdentifiers["gifttier"] = kicksEvent.Gift.Tier;
             parameters.SpecialIdentifiers["message"] = kicksEvent.Gift.Message;
+            parameters.SpecialIdentifiers["giftpinnedseconds"] = kicksEvent.Gift.PinnedTimeSeconds.ToString();
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelKicksGifted, parameters);
         }
 
