@@ -9,7 +9,7 @@ namespace MixItUp.Base.ViewModel.Chat.Kick
 {
     public class KickChatMessageViewModel : UserChatMessageViewModel
     {
-        private static readonly Regex EmoteTokenRegex = new Regex(@"^\[emote:(?<id>\d+):(?<name>[^\]]+)\]$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex EmoteRegex = new Regex(@"\[emote:(?<id>\d+):(?<name>[^\]]+)\]", RegexOptions.Compiled);
 
         public string ReplyThreadID { get; set; }
 
@@ -33,14 +33,43 @@ namespace MixItUp.Base.ViewModel.Chat.Kick
                 return;
             }
 
-            foreach (string part in message.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+            MatchCollection matches = EmoteRegex.Matches(message);
+            if (matches.Count > 0)
             {
-                this.AddStringMessagePart(part);
-
-                Match match = EmoteTokenRegex.Match(part);
-                if (match.Success)
+                int currentIndex = 0;
+                foreach (Match match in matches)
                 {
-                    this.MessageParts[this.MessageParts.Count - 1] = new KickChatEmoteViewModel(match.Groups["id"].Value, match.Groups["name"].Value);
+                    if (match.Index > currentIndex)
+                    {
+                        string textBefore = message.Substring(currentIndex, match.Index - currentIndex).Trim();
+                        foreach (string part in textBefore.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            this.AddStringMessagePart(part);
+                        }
+                    }
+
+                    string emoteId = match.Groups["id"].Value;
+                    string emoteName = match.Groups["name"].Value;
+                    this.AddStringMessagePart(emoteName);
+                    this.MessageParts[this.MessageParts.Count - 1] = new KickChatEmoteViewModel(emoteId, emoteName);
+
+                    currentIndex = match.Index + match.Length;
+                }
+
+                if (currentIndex < message.Length)
+                {
+                    string remaining = message.Substring(currentIndex).Trim();
+                    foreach (string part in remaining.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        this.AddStringMessagePart(part);
+                    }
+                }
+            }
+            else
+            {
+                foreach (string part in message.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    this.AddStringMessagePart(part);
                 }
             }
         }
