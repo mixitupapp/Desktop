@@ -230,11 +230,13 @@ namespace MixItUp.Base.Services.Kick.New
 
         public override Task ModUser(UserV2ViewModel user)
         {
+            Logger.Log(LogLevel.Debug, "Kick mod user is not currently supported by the API");
             return Task.CompletedTask;
         }
 
         public override Task UnmodUser(UserV2ViewModel user)
         {
+            Logger.Log(LogLevel.Debug, "Kick unmod user is not currently supported by the API");
             return Task.CompletedTask;
         }
 
