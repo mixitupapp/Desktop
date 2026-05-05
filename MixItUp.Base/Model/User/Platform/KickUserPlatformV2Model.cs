@@ -55,8 +55,8 @@ namespace MixItUp.Base.Model.User.Platform
         {
             if (ServiceManager.Get<KickSession>().IsConnected)
             {
-                UserModel user = await ServiceManager.Get<KickSession>().StreamerService.GetCurrentUser();
-                if (user != null && string.Equals(this.ID, user.UserID.ToString(), StringComparison.OrdinalIgnoreCase))
+                UserModel user = await ServiceManager.Get<KickSession>().StreamerService.GetUserByID(this.ID);
+                if (user != null)
                 {
                     this.SetUserProperties(user);
                 }
