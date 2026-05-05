@@ -19,6 +19,8 @@ namespace MixItUp.Base.Model.User.Platform
         private const string ModeratorBadgeURL = BadgeBaseURL + "moderator.png";
         private const string VIPBadgeURL = BadgeBaseURL + "vip.png";
         private const string OGBadgeURL = BadgeBaseURL + "og.png";
+        private const string VerifiedBadgeURL = BadgeBaseURL + "verified.png";
+        private const string BotBadgeURL = BadgeBaseURL + "bot.png";
 
         [DataMember]
         public string Color { get; set; }
@@ -117,6 +119,7 @@ namespace MixItUp.Base.Model.User.Platform
                 }
             }
 
+            if (badgeTypes.Contains("broadcaster")) { this.Roles.Add(UserRoleEnum.Streamer); } else { this.Roles.Remove(UserRoleEnum.Streamer); }
             if (badgeTypes.Contains("moderator")) { this.Roles.Add(UserRoleEnum.Moderator); } else { this.Roles.Remove(UserRoleEnum.Moderator); }
             if (badgeTypes.Contains("subscriber")) { this.Roles.Add(UserRoleEnum.Subscriber); } else { this.Roles.Remove(UserRoleEnum.Subscriber); }
             if (badgeTypes.Contains("vip")) { this.Roles.Add(UserRoleEnum.KickVIP); } else { this.Roles.Remove(UserRoleEnum.KickVIP); }
@@ -158,11 +161,12 @@ namespace MixItUp.Base.Model.User.Platform
             else if (badgeTypes.Contains("moderator")) { this.RoleBadgeLink = ModeratorBadgeURL; }
             else if (badgeTypes.Contains("vip")) { this.RoleBadgeLink = VIPBadgeURL; }
             else if (badgeTypes.Contains("og")) { this.RoleBadgeLink = OGBadgeURL; }
+            else if (badgeTypes.Contains("bot")) { this.RoleBadgeLink = BotBadgeURL; }
 
             this.SubscriberBadgeLink = null; // TODO: kick has sub badge api??
 
-            // TODO: Keep null for now until Kick specialty badge mapping is documented.
-            this.SpecialtyBadgeLink = null;
+            if (badgeTypes.Contains("verified")) { this.SpecialtyBadgeLink = VerifiedBadgeURL; }
+            else { this.SpecialtyBadgeLink = null; }
         }
     }
 }
