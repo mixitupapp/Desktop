@@ -83,7 +83,10 @@ namespace MixItUp.Base.Model.User.Platform
             }
 
             this.SetCoreProperties(user.UserID.ToString(), user.Username, null, user.ProfilePicture, user.ChannelSlug);
-            this.SetIdentityProperties(user.Identity);
+            if (user.Identity != null)
+            {
+                this.SetIdentityProperties(user.Identity);
+            }
             this.SetRoleProperties();
         }
 
