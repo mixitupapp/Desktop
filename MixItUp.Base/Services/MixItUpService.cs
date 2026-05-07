@@ -48,6 +48,7 @@ namespace MixItUp.Base.Services
         bool HasUnreadNotifications { get; }
         void MarkNotificationsAsRead();
         Task<OutageModel> CheckOutageStatus();
+        Task<PatreonMemberShoutoutModel> GetRandomPatreonMemberShoutout();
     }
 
     public interface IWebhookService
@@ -159,6 +160,8 @@ namespace MixItUp.Base.Services
         private List<NotificationModel> cachedNotifications = null;
         private DateTime? lastNotificationFetch = null;
         private readonly TimeSpan notificationCacheExpiry = TimeSpan.FromMinutes(5);
+        private readonly object patreonShoutoutFetchLock = new object();
+        private Task<PatreonMemberShoutoutModel> patreonShoutoutFetchTask = null;
 
         public event EventHandler<bool> NotificationStatusChanged;
         public bool HasUnreadNotifications { get; private set; }
@@ -905,6 +908,54 @@ namespace MixItUp.Base.Services
             }
 
             return new OutageModel { Enabled = false, Message = "", Severity = "warning" };
+        }
+
+        public Task<PatreonMemberShoutoutModel> GetRandomPatreonMemberShoutout()
+        {
+            lock (this.patreonShoutoutFetchLock)
+            {
+                if (this.patreonShoutoutFetchTask == null)
+                {
+                    this.patreonShoutoutFetchTask = this.FetchRandomPatreonMemberShoutout();
+                }
+                return this.patreonShoutoutFetchTask;
+            }
+        }
+
+        private async Task<PatreonMemberShoutoutModel> FetchRandomPatreonMemberShoutout()
+        {
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    client.Timeout = TimeSpan.FromSeconds(5);
+
+                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/random");
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        JObject data = JObject.Parse(json);
+                        if (data["success"]?.Value<bool>() == true)
+                        {
+                            JObject member = data["member"] as JObject;
+                            string displayName = member?["display_name"]?.ToString();
+                            if (!string.IsNullOrWhiteSpace(displayName))
+                            {
+                                return new PatreonMemberShoutoutModel()
+                                {
+                                    DisplayName = displayName,
+                                    AvatarUrl = member?["avatar_url"]?.ToString(),
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            return null;
         }
 
         public async Task UtilServiceLogin()
