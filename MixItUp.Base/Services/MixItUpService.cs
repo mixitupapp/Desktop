@@ -49,6 +49,7 @@ namespace MixItUp.Base.Services
         void MarkNotificationsAsRead();
         Task<OutageModel> CheckOutageStatus();
         Task<PatreonMemberShoutoutModel> GetRandomPatreonMemberShoutout();
+        Task<List<string>> GetAllPatreonMemberNames();
     }
 
     public interface IWebhookService
@@ -162,6 +163,7 @@ namespace MixItUp.Base.Services
         private readonly TimeSpan notificationCacheExpiry = TimeSpan.FromMinutes(5);
         private readonly object patreonShoutoutFetchLock = new object();
         private Task<PatreonMemberShoutoutModel> patreonShoutoutFetchTask = null;
+        private Task<List<string>> patreonMembersFetchTask = null;
 
         public event EventHandler<bool> NotificationStatusChanged;
         public bool HasUnreadNotifications { get; private set; }
@@ -956,6 +958,50 @@ namespace MixItUp.Base.Services
                 Logger.Log(ex);
             }
             return null;
+        }
+
+        public Task<List<string>> GetAllPatreonMemberNames()
+        {
+            if (this.patreonMembersFetchTask == null)
+            {
+                this.patreonMembersFetchTask = this.FetchAllPatreonMemberNames();
+            }
+            return this.patreonMembersFetchTask;
+        }
+
+        private async Task<List<string>> FetchAllPatreonMemberNames()
+        {
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    client.Timeout = TimeSpan.FromSeconds(10);
+
+                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/all");
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        JObject data = JObject.Parse(json);
+                        if (data["success"]?.Value<bool>() == true)
+                        {
+                            JArray namesArray = data["names"] as JArray;
+                            if (namesArray != null)
+                            {
+                                return namesArray.Values<string>()
+                                    .Where(n => !string.IsNullOrWhiteSpace(n))
+                                    .Select(n => n.Trim())
+                                    .OrderBy(n => n, StringComparer.OrdinalIgnoreCase)
+                                    .ToList();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            return new List<string>();
         }
 
         public async Task UtilServiceLogin()
