@@ -938,7 +938,7 @@ namespace MixItUp.Base.Services
                         if (data["success"]?.Value<bool>() == true)
                         {
                             JObject member = data["member"] as JObject;
-                            string displayName = member?["display_name"]?.ToString();
+                            string displayName = member?["display_name"]?.ToString()?.Trim();
                             if (!string.IsNullOrWhiteSpace(displayName))
                             {
                                 return new PatreonMemberShoutoutModel()
