@@ -9,7 +9,7 @@ namespace MixItUp.Base.Model.User
         [Obsolete]
         Banned = 0,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
         User = 100,
 
         [TwitchUserRole]
@@ -18,18 +18,22 @@ namespace MixItUp.Base.Model.User
         [TwitchUserRole]
         TwitchPartner = 250,
 
-        [GenericUserRole, TwitchUserRole]
+        [GenericUserRole, TwitchUserRole, KickUserRole]
         Follower = 300,
         [YouTubeUserRole]
         YouTubeSubscriber = 301,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
         Regular = 400,
 
         [TwitchUserRole]
         TwitchVIP = 500,
+        [KickUserRole]
+        KickVIP = 501,
+        [KickUserRole]
+        KickOG = 502,
 
-        [GenericUserRole, TwitchUserRole]
+        [GenericUserRole, TwitchUserRole, KickUserRole]
         Subscriber = 600,
         [YouTubeUserRole]
         YouTubeMember = 601,
@@ -40,13 +44,13 @@ namespace MixItUp.Base.Model.User
         [TwitchUserRole]
         TwitchStaff = 751,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
         Moderator = 800,
 
         [TwitchUserRole]
         TwitchChannelEditor = 850,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
         Streamer = 900,
     }
 
@@ -63,6 +67,9 @@ namespace MixItUp.Base.Model.User
 
         public static IEnumerable<UserRoleEnum> YouTube { get { return youtube; } }
         private readonly static IEnumerable<UserRoleEnum> youtube = GetSelectableRoles<YouTubeUserRoleAttribute>();
+
+        public static IEnumerable<UserRoleEnum> Kick { get { return kick; } }
+        private readonly static IEnumerable<UserRoleEnum> kick = GetSelectableRoles<KickUserRoleAttribute>();
 
         private static IEnumerable<UserRoleEnum> GetSelectableRoles<T>() where T : UserRoleAttributeBase
         {
@@ -139,5 +146,25 @@ namespace MixItUp.Base.Model.User
         }
 
         public override bool IsDefaultAttribute() { return this.Equals(YouTubeUserRoleAttribute.Default); }
+    }
+
+    [AttributeUsage(AttributeTargets.All)]
+    public class KickUserRoleAttribute : UserRoleAttributeBase
+    {
+        public static readonly KickUserRoleAttribute Default;
+
+        public KickUserRoleAttribute() { }
+
+        public override bool Equals(object obj) { return (obj is KickUserRoleAttribute); }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -86145682;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<object>.Default.GetHashCode(TypeId);
+            return hashCode;
+        }
+
+        public override bool IsDefaultAttribute() { return this.Equals(KickUserRoleAttribute.Default); }
     }
 }

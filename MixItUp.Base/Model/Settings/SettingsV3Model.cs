@@ -1029,8 +1029,8 @@ namespace MixItUp.Base.Model.Settings
 
             IEnumerable<UserV2Model> changedUsers = this.Users.GetAddedChangedValues();
             await ServiceManager.Get<IDatabaseService>().BulkWrite(this.DatabaseFilePath,
-                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data) " +
-                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data)",
+                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername) " +
+                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername)",
                 changedUsers.Select(u => new Dictionary<string, object>()
                 {
                     { "$ID", u.ID.ToString() },
@@ -1040,7 +1040,8 @@ namespace MixItUp.Base.Model.Settings
                     { "$FacebookID", u.GetPlatformID(StreamingPlatformTypeEnum.Facebook) }, { "$FacebookUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Facebook) },
                     { "$TrovoID", u.GetPlatformID(StreamingPlatformTypeEnum.Trovo) }, { "$TrovoUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Trovo) },
 #pragma warning restore CS0612 // Type or member is obsolete                    
-                    { "$Data", JSONSerializerHelper.SerializeToString(u) }
+                    { "$Data", JSONSerializerHelper.SerializeToString(u) },
+                    { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) }
                 }));
 
             List<Guid> removedCommands = new List<Guid>();
@@ -1205,6 +1206,35 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        public async Task AddMissingUsersTableKickColumns()
+        {
+            bool hasKickID = false;
+            bool hasKickUsername = false;
+
+            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (row) =>
+            {
+                string columnName = row["name"]?.ToString();
+                if (string.Equals(columnName, "KickID", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasKickID = true;
+                }
+                else if (string.Equals(columnName, "KickUsername", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasKickUsername = true;
+                }
+            });
+
+            if (!hasKickID)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickID TEXT");
+            }
+
+            if (!hasKickUsername)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickUsername TEXT");
+            }
+        }
+
         public async Task<IEnumerable<StatisticModel>> LoadSpecificStatisticType(StatisticItemTypeEnum type)
         {
             List<StatisticModel> statistics = new List<StatisticModel>();
@@ -1286,6 +1316,8 @@ namespace MixItUp.Base.Model.Settings
 
         public CommandModelBase GetCommand(Guid id) { return this.Commands.ContainsKey(id) ? this.Commands[id] : null; }
 
+
+
         public T GetCommand<T>(Guid id) where T : CommandModelBase { return (T)this.GetCommand(id); }
 
         public void SetCommand(CommandModelBase command) { if (command != null) { this.Commands[command.ID] = command; } }
@@ -1297,6 +1329,7 @@ namespace MixItUp.Base.Model.Settings
         private async void InitializeMissingData()
         {
             await this.CreateUserImportTable();
+            await this.AddMissingUsersTableKickColumns();
             //await this.CreateStatisticsTable();
 
             StreamingPlatforms.ForEachPlatform(p =>
