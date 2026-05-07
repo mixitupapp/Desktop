@@ -3,6 +3,7 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.WPF.Util;
 using MixItUp.WPF.Windows;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -38,6 +39,8 @@ namespace MixItUp.WPF
 
         protected override async Task OnLoaded()
         {
+            _ = this.TryLoadPatreonMemberShoutout();
+
             this.NewVersionTextBlock.Text = this.update.Version;
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
             this.CurrentVersionTextBlock.Text = VersionHelper.NormalizeSemVerString(entryVersion);
@@ -77,7 +80,6 @@ namespace MixItUp.WPF
                 Logger.Log(ex);
                 this.UpdateChangelogViewer.Markdown = "Unable to load changelog.";
             }
-
             TaskbarFlashHelper.Flash(this);
 
             await base.OnLoaded();
@@ -192,6 +194,69 @@ namespace MixItUp.WPF
             {
                 // Ignore navigation failures.
             }
+        }
+
+        private async Task TryLoadPatreonMemberShoutout()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(5);
+                    using HttpResponseMessage response = await client.GetAsync("https://util.mixitupapp.com/api/services/external/patreon/members/random");
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        Logger.Log(LogLevel.Warning, $"Failed to retrieve Patreon shoutout member: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        return;
+                    }
+
+                    string json = await response.Content.ReadAsStringAsync();
+                    PatreonRandomMemberResponseModel result = JsonConvert.DeserializeObject<PatreonRandomMemberResponseModel>(json);
+                    if (result?.Success != true || string.IsNullOrWhiteSpace(result.Member?.DisplayName))
+                    {
+                        return;
+                    }
+
+                    string[] shoutoutMessages = new string[]
+                    {
+                        "This update is brought to you by Patreon supporter {0}.",
+                        "This update is made possible in part by Patreon supporter {0}.",
+                        "Special thanks to Patreon supporter {0} for helping power this update.",
+                        "This release gets a boost from Patreon supporter {0}.",
+                        "Shoutout to Patreon supporter {0} for supporting Mix It Up.",
+                        "Thank you to Patreon supporter {0} for backing Mix It Up.",
+                    };
+                    this.PatreonMemberNameTextBlock.Text = string.Format(shoutoutMessages[RandomHelper.GenerateRandomNumber(shoutoutMessages.Length)], result.Member.DisplayName);
+                    this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
+
+                    if (!string.IsNullOrWhiteSpace(result.Member.AvatarUrl))
+                    {
+                        ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, result.Member.AvatarUrl, 28, 28, result.Member.DisplayName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        private class PatreonRandomMemberResponseModel
+        {
+            [JsonProperty("success")]
+            public bool Success { get; set; }
+
+            [JsonProperty("member")]
+            public PatreonRandomMemberModel Member { get; set; }
+        }
+
+        private class PatreonRandomMemberModel
+        {
+            [JsonProperty("display_name")]
+            public string DisplayName { get; set; }
+
+            [JsonProperty("avatar_url")]
+            public string AvatarUrl { get; set; }
         }
 
         internal static string QuoteArgument(string value)
