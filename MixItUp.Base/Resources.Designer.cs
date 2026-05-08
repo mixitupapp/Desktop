@@ -12837,6 +12837,105 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kick.
+        /// </summary>
+        public static string Kick {
+            get {
+                return ResourceManager.GetString("Kick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Followed.
+        /// </summary>
+        public static string KickChannelFollowed {
+            get {
+                return ResourceManager.GetString("KickChannelFollowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Kicks Gifted.
+        /// </summary>
+        public static string KickChannelKicksGifted {
+            get {
+                return ResourceManager.GetString("KickChannelKicksGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Mass Subscription Gifted.
+        /// </summary>
+        public static string KickChannelMassSubscriptionsGifted {
+            get {
+                return ResourceManager.GetString("KickChannelMassSubscriptionsGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Points Redeemed.
+        /// </summary>
+        public static string KickChannelPointsRedeemed {
+            get {
+                return ResourceManager.GetString("KickChannelPointsRedeemed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Resubscribed.
+        /// </summary>
+        public static string KickChannelResubscribed {
+            get {
+                return ResourceManager.GetString("KickChannelResubscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Stream Start.
+        /// </summary>
+        public static string KickChannelStreamStart {
+            get {
+                return ResourceManager.GetString("KickChannelStreamStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Stream Stop.
+        /// </summary>
+        public static string KickChannelStreamStop {
+            get {
+                return ResourceManager.GetString("KickChannelStreamStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Subscribed.
+        /// </summary>
+        public static string KickChannelSubscribed {
+            get {
+                return ResourceManager.GetString("KickChannelSubscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Subscription Gifted.
+        /// </summary>
+        public static string KickChannelSubscriptionGifted {
+            get {
+                return ResourceManager.GetString("KickChannelSubscriptionGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Updated.
+        /// </summary>
+        public static string KickChannelUpdated {
+            get {
+                return ResourceManager.GetString("KickChannelUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kill Bonus Health.
         /// </summary>
         public static string KillBonusHealth {
@@ -13512,6 +13611,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log in with Kick.
+        /// </summary>
+        public static string LogInWithKick {
+            get {
+                return ResourceManager.GetString("LogInWithKick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in with Trovo.
         /// </summary>
         public static string LogInWithTrovo {
@@ -13553,6 +13661,15 @@ namespace MixItUp.Base {
         public static string LogOutOfGlimesh {
             get {
                 return ResourceManager.GetString("LogOutOfGlimesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out of Kick.
+        /// </summary>
+        public static string LogOutOfKick {
+            get {
+                return ResourceManager.GetString("LogOutOfKick", resourceCulture);
             }
         }
         

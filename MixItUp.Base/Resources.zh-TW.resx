@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11290,5 +11290,44 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>在此添加或删除</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>用 Kick 登录</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>退出 Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick 頻道直播開始</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick 頻道直播結束</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Kick 頻道已更新</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick 頻道已追蹤</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Kick 頻道已訂閱</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick 頻道已重新訂閱</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Kick Channel 订阅赠品</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick 頻道點數已兌換</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
   </data>
 </root>

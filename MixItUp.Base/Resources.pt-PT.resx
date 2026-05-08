@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11292,5 +11292,44 @@ Só ative se souber o que está fazendo. Continuar?</value>
   </data>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Adicionar ou largar aqui</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Iniciar sessão com o Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Sair do Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Início do fluxo do canal Kick</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Stream Stop</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Canal Kick Atualizado</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Seguido</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Canal Kick Inscrito</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Canal Kick Inscrito novamente</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Oferta de uma subscrição do Kick Channel</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Pontos do Kick Channel resgatados</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Canal Kick Kicks Gifted</value>
   </data>
 </root>

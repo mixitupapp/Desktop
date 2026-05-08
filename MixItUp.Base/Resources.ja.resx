@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11290,5 +11290,44 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>ここに追加またはドロップする</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>キックでログイン</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>キックからログアウトする</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>キック・チャンネル・ストリーム・スタート</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>キック・チャンネル・ストリーム・ストップ</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>キック・チャンネル更新</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick チャンネルをフォローした</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>キック・チャンネル登録</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>キック・チャンネル再登録</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>キック・チャンネル購読プレゼント</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>キック・チャンネル大量購読プレゼント</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick チャンネルポイント引き換え</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>キック・チャンネル キック・ギフテッド</value>
   </data>
 </root>

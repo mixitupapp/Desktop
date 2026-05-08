@@ -11302,4 +11302,43 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Add or Drop Here</value>
   </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Log in with Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Log out of Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick Channel Stream Start</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Stream Stop</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Kick Channel Updated</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Followed</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Kick Channel Subscribed</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick Channel Resubscribed</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Kick Channel Subscription Gifted</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick Channel Points Redeemed</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
+  </data>
 </root>

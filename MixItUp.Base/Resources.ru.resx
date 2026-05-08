@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11295,5 +11295,44 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Добавить или убрать здесь</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Войдите в систему с помощью Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Выход из системы Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Начало потока канала Kick</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Остановка потока</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Обновление канала Kick</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Отслеживается</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Подпишись на канал Kick</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick Channel Повторная подписка</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Kick Channel Подаренная подписка</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Массовая подписка на канал Kick Channel в подарок</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Использованные баллы канала Kick</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
   </data>
 </root>
