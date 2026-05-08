@@ -198,6 +198,8 @@ namespace MixItUp.Base.ViewModel.Actions
 
         protected override async Task OnOpenInternal()
         {
+            await this.TagEditor.OnOpen();
+
             if (ServiceManager.Get<KickSession>().IsConnected)
             {
                 IEnumerable<ChannelRewardModel> rewards = await ServiceManager.Get<KickSession>().StreamerService.GetChannelRewards();

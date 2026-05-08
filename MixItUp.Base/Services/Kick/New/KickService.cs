@@ -146,7 +146,7 @@ namespace MixItUp.Base.Services.Kick.New
                 JObject jobj = new JObject();
                 if (!string.IsNullOrEmpty(title)) { jobj["stream_title"] = title; }
                 if (categoryID.HasValue) { jobj["category_id"] = categoryID.Value; }
-                if (customTags != null && customTags.Count() > 0) { jobj["custom_tags"] = JArray.FromObject(customTags.Take(10).ToArray()); }
+                if (customTags != null) { jobj["custom_tags"] = JArray.FromObject(customTags.Take(10).ToArray()); }
                 if (jobj.Count > 0)
                 {
                     HttpResponseMessage response = await this.HttpClient.PatchAsync("channels", AdvancedHttpClient.CreateContentFromObject(jobj));
