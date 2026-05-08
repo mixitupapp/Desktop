@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11331,5 +11331,23 @@ Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   </data>
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Canal Kick Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Se debe conectar una cuenta de Kick para utilizar esta función.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Comando de puntos de canal Kick</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Ya existe otro comando de Kick Kicks con la misma cantidad/rango que este comando.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Puntos de canal Kick</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Comando de Kick Kicks</value>
   </data>
 </root>

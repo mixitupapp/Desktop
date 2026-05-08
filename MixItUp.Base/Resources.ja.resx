@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11329,5 +11329,23 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>キック・チャンネル キック・ギフテッド</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>この機能を使用するには Kick アカウントを接続する必要があります。</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick チャンネルポイントコマンド</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>このコマンドと同じ量/範囲を持つ別の Kick Kicks コマンドがすでに存在します。</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick チャンネルポイント</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks コマンド</value>
   </data>
 </root>

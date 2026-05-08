@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Webhooks;
 using MixItUp.Base.Services;
@@ -91,6 +91,14 @@ namespace MixItUp.WPF.Windows.Commands
                     this.editorDetailsControl = new CrowdControlEffectCommandEditorDetailsControl();
                     this.viewModel = new CrowdControlEffectCommandEditorWindowViewModel((CrowdControlEffectCommandModel)existingCommand);
                     break;
+                case CommandTypeEnum.KickChannelPoints:
+                    this.editorDetailsControl = new KickChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new KickChannelPointsCommandEditorWindowViewModel((KickChannelPointsCommandModel)existingCommand);
+                    break;
+                case CommandTypeEnum.KickKicks:
+                    this.editorDetailsControl = new KickKicksCommandEditorDetailsControl();
+                    this.viewModel = new KickKicksCommandEditorWindowViewModel((KickKicksCommandModel)existingCommand);
+                    break;
             }
 
             this.importedActions = actions;
@@ -133,6 +141,14 @@ namespace MixItUp.WPF.Windows.Commands
                 case CommandTypeEnum.CrowdControlEffect:
                     this.editorDetailsControl = new CrowdControlEffectCommandEditorDetailsControl();
                     this.viewModel = new CrowdControlEffectCommandEditorWindowViewModel();
+                    break;
+                case CommandTypeEnum.KickChannelPoints:
+                    this.editorDetailsControl = new KickChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new KickChannelPointsCommandEditorWindowViewModel();
+                    break;
+                case CommandTypeEnum.KickKicks:
+                    this.editorDetailsControl = new KickKicksCommandEditorDetailsControl();
+                    this.viewModel = new KickKicksCommandEditorWindowViewModel();
                     break;
                 case CommandTypeEnum.Custom:
                     this.editorDetailsControl = new CustomCommandEditorDetailsControl();

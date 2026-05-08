@@ -11341,4 +11341,22 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Channel Kicks Gifted</value>
   </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick Channel Points</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>There already exists another Kick Kicks command with the same amount / range as this command.</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>A Kick account must be connected to use this feature.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick Channel Points Command</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks Command</value>
+  </data>
 </root>

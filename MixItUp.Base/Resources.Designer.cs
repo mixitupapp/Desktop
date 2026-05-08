@@ -12846,6 +12846,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A Kick account must be connected to use this feature..
+        /// </summary>
+        public static string KickAccountMustBeConnectedToUseThisFeature {
+            get {
+                return ResourceManager.GetString("KickAccountMustBeConnectedToUseThisFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kick Channel Followed.
         /// </summary>
         public static string KickChannelFollowed {
@@ -12869,6 +12878,24 @@ namespace MixItUp.Base {
         public static string KickChannelMassSubscriptionsGifted {
             get {
                 return ResourceManager.GetString("KickChannelMassSubscriptionsGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Points.
+        /// </summary>
+        public static string KickChannelPoints {
+            get {
+                return ResourceManager.GetString("KickChannelPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Points Command.
+        /// </summary>
+        public static string KickChannelPointsCommand {
+            get {
+                return ResourceManager.GetString("KickChannelPointsCommand", resourceCulture);
             }
         }
         
@@ -12932,6 +12959,33 @@ namespace MixItUp.Base {
         public static string KickChannelUpdated {
             get {
                 return ResourceManager.GetString("KickChannelUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Kicks.
+        /// </summary>
+        public static string KickKicks {
+            get {
+                return ResourceManager.GetString("KickKicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Kicks Command.
+        /// </summary>
+        public static string KickKicksCommand {
+            get {
+                return ResourceManager.GetString("KickKicksCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There already exists another Kick Kicks command with the same amount / range as this command..
+        /// </summary>
+        public static string KickKicksCommandsAlreadyExistsDuplicateAmount {
+            get {
+                return ResourceManager.GetString("KickKicksCommandsAlreadyExistsDuplicateAmount", resourceCulture);
             }
         }
         

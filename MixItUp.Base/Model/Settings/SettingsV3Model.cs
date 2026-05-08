@@ -834,6 +834,19 @@ namespace MixItUp.Base.Model.Settings
                     {
                         command = JSONSerializerHelper.DeserializeFromString<CrowdControlEffectCommandModel>(commandData);
                     }
+                    else if (type == CommandTypeEnum.KickChannelPoints)
+                    {
+                        command = JSONSerializerHelper.DeserializeFromString<KickChannelPointsCommandModel>(commandData);
+                    }
+                    else if (type == CommandTypeEnum.KickKicks)
+                    {
+                        KickKicksCommandModel kkCommand = JSONSerializerHelper.DeserializeFromString<KickKicksCommandModel>(commandData);
+                        if (string.IsNullOrWhiteSpace(kkCommand.Name))
+                        {
+                            kkCommand.Name = kkCommand.AmountDisplay;
+                        }
+                        command = kkCommand;
+                    }
 
                     if (command != null)
                     {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11334,5 +11334,23 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Для использования этой функции необходимо подключить аккаунт Kick.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Команда очков канала Kick</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Уже существует другая команда Kick Kicks с таким же количеством/диапазоном, что и эта команда.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Очки канала Kick</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Команда Kick Kicks</value>
   </data>
 </root>

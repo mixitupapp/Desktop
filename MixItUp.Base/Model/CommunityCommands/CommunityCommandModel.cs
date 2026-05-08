@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Util;
 using System;
 using System.Collections.Generic;
@@ -73,6 +73,8 @@ namespace MixItUp.Base.Model.Store
         TrovoSpell,
         TwitchBits,
         CrowdControlEffect,
+        KickChannelPoints,
+        KickKicks,
 
         // Extra Tags
         [Obsolete]

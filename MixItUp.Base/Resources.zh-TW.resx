@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11329,5 +11329,23 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>必須連接 Kick 帳號才能使用此功能。</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick 頻道點數命令</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>已經存在另一個具有相同數量/範圍的 Kick Kicks 命令。</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick 頻道點數</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks 命令</value>
   </data>
 </root>

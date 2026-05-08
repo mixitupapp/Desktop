@@ -360,6 +360,18 @@ namespace MixItUp.Base.Services.Kick.New
             }
 
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelPointsRedeemed, parameters);
+
+            KickChannelPointsCommandModel command = ServiceManager.Get<CommandService>().KickChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID, redemptionEvent.Reward.ID, StringComparison.OrdinalIgnoreCase));
+            if (command == null)
+            {
+                command = ServiceManager.Get<CommandService>().KickChannelPointsCommands.FirstOrDefault(c => string.Equals(c.Name, redemptionEvent.Reward.Title, StringComparison.CurrentCultureIgnoreCase));
+            }
+
+            if (command != null)
+            {
+                Dictionary<string, string> channelPointSpecialIdentifiers = new Dictionary<string, string>(parameters.SpecialIdentifiers);
+                await ServiceManager.Get<CommandService>().Queue(command, new CommandParametersModel(user, platform: StreamingPlatformTypeEnum.Kick, arguments: arguments, specialIdentifiers: channelPointSpecialIdentifiers));
+            }
         }
 
         private async Task HandleLivestreamStatusUpdated(JObject payload)
@@ -497,6 +509,18 @@ namespace MixItUp.Base.Services.Kick.New
             parameters.SpecialIdentifiers["message"] = kicksEvent.Gift.Message;
             parameters.SpecialIdentifiers["giftpinnedseconds"] = kicksEvent.Gift.PinnedTimeSeconds.ToString();
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelKicksGifted, parameters);
+
+            int kicksAmount = kicksEvent.Gift.Amount;
+            KickKicksCommandModel command = ServiceManager.Get<CommandService>().KickKicksCommands.FirstOrDefault(c => c.IsEnabled && c.IsSingle && c.StartingAmount == kicksAmount);
+            if (command == null)
+            {
+                command = ServiceManager.Get<CommandService>().KickKicksCommands.Where(c => c.IsEnabled && c.IsRange).OrderBy(c => c.Range).FirstOrDefault(c => c.IsInRange(kicksAmount));
+            }
+
+            if (command != null)
+            {
+                await ServiceManager.Get<CommandService>().Queue(command, parameters);
+            }
         }
 
         private bool ShouldProcessEvent(string eventType, WebhookEventModel metadata)

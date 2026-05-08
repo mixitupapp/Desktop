@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11330,5 +11330,23 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   </data>
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Kanaal Kicks Geschonken</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Om deze functie te kunnen gebruiken, moet er een Kick-account zijn aangesloten.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick Channel-punten commando</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Er bestaat al een ander Kick Kicks-commando met hetzelfde aantal/bereik als dit commando.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick Channel-punten</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks-commando</value>
   </data>
 </root>
