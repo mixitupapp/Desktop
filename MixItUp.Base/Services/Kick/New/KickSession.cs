@@ -34,7 +34,6 @@ namespace MixItUp.Base.Services.Kick.New
         {
             "user:read",
             "chat:write",
-            "moderation:chat_message:manage",
         };
 
         public override int MaxMessageLength { get { return 500; } }
