@@ -432,6 +432,8 @@ namespace MixItUp.Base.Services.Kick.New
             {
                 token.clientID = this.ClientID;
                 token.ScopeList = OAuthTokenModel.GenerateScopeList(scopes);
+
+                await this.ValidateTokenScopes(token, scopes);
             }
             return token;
         }
@@ -475,6 +477,30 @@ namespace MixItUp.Base.Services.Kick.New
         private static string Base64UrlEncode(byte[] bytes)
         {
             return Convert.ToBase64String(bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');
+        }
+
+        private async Task ValidateTokenScopes(OAuthTokenModel token, IEnumerable<string> scopes)
+        {
+            TokenIntrospectionModel introspection = null;
+            using (AdvancedHttpClient client = new AdvancedHttpClient())
+            {
+                client.SetBearerAuthorization(token);
+                ResponseModel<TokenIntrospectionModel> response = await client.PostAsync<ResponseModel<TokenIntrospectionModel>>("https://id.kick.com/oauth/token/introspect");
+                introspection = response?.Data;
+            }
+
+            HashSet<string> expectedScopes = new HashSet<string>(scopes ?? Enumerable.Empty<string>(), StringComparer.OrdinalIgnoreCase);
+            HashSet<string> grantedScopes = new HashSet<string>((introspection.Scope ?? string.Empty)
+                .Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries), StringComparer.OrdinalIgnoreCase);
+
+            IEnumerable<string> missingScopes = expectedScopes.Except(grantedScopes, StringComparer.OrdinalIgnoreCase).OrderBy(s => s);
+
+            if (missingScopes.Any())
+            {
+                throw new InvalidOperationException(
+                    "Missing Kick scopes: " + string.Join(", ", missingScopes) + Environment.NewLine +
+                    "Please log in again and enable all requested scopes.");
+            }
         }
     }
 }
