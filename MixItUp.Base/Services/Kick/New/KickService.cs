@@ -166,12 +166,8 @@ namespace MixItUp.Base.Services.Kick.New
             {
                 JObject jobj = new JObject();
                 jobj["content"] = content;
-                jobj["type"] = isBot ? "bot" : "user";
-
-                if (!isBot)
-                {
-                    jobj["broadcaster_user_id"] = broadcasterUserID;
-                }
+                jobj["type"] = "user";
+                jobj["broadcaster_user_id"] = broadcasterUserID;
 
                 if (!string.IsNullOrEmpty(replyMessageID))
                 {
