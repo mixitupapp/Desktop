@@ -100,7 +100,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 }
                 else if (eventNumber >= 600 && eventNumber < 700)
                 {
-                    return "Kick"; // TODO: Localize
+                    return Resources.Kick;
                 }
                 else
                 {
@@ -191,7 +191,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelJewelsGift));
             commandGroups.Add(youtubeCommands);
 
-            EventCommandGroupViewModel kickCommands = new EventCommandGroupViewModel("Kick", image: StreamingPlatforms.KickLogoImageAssetFilePath); // TODO: Localize
+            EventCommandGroupViewModel kickCommands = new EventCommandGroupViewModel(Resources.Kick, image: StreamingPlatforms.KickLogoImageAssetFilePath);
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStart));
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStop));
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelUpdated));
