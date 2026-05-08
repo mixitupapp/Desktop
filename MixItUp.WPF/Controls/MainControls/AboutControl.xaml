@@ -107,7 +107,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="Made Possible By">
+        <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="Made Possible By Our Patreon Supporters">
             <ScrollViewer
                 Margin="6,4,6,6"
                 VerticalScrollBarVisibility="Auto">
