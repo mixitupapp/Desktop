@@ -11,11 +11,12 @@ namespace MixItUp.Base.Model.Commands
         {
             return new Dictionary<string, string>()
             {
-                { "kicksamount", "500" },
-                { "kicksname", "Rage Quit" },
-                { "kickstier", "MID" },
-                { "kickstype", "LEVEL_UP" },
-                { "message", "Test Message" }
+                { "kicksamount", "100" },
+                { "giftname", "Full Send" },
+                { "gifttype", "BASIC" },
+                { "gifttier", "BASIC" },
+                { "message", "Test Message" },
+                { "giftpinnedseconds", "0" }
             };
         }
 

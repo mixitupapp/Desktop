@@ -11,8 +11,8 @@ namespace MixItUp.Base.Model.Commands
         {
             return new Dictionary<string, string>()
             {
-                { "rewardname", "Test Reward" },
-                { "rewardcost", "100" },
+                { "rewardname", "Hydrate" },
+                { "rewardcost", "5" },
                 { "message", "Test Message" }
             };
         }
