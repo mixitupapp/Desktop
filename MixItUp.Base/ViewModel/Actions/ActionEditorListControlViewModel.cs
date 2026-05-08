@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModels;
@@ -60,6 +60,7 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.Group: editorViewModel = new GroupActionEditorControlViewModel(); break;
                         case ActionTypeEnum.IFTTT: editorViewModel = new IFTTTActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Input: editorViewModel = new InputActionEditorControlViewModel(); break;
+                        case ActionTypeEnum.Kick: editorViewModel = new KickActionEditorControlViewModel(); break;
                         case ActionTypeEnum.LumiaStream: editorViewModel = new LumiaStreamActionEditorControlViewModel(); break;
                         case ActionTypeEnum.MeldStudio: editorViewModel = new MeldStudioActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Moderation: editorViewModel = new ModerationActionEditorControlViewModel(); break;
@@ -240,6 +241,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 case ActionTypeEnum.Group: return new GroupActionEditorControlViewModel((GroupActionModel)action);
                 case ActionTypeEnum.IFTTT: return new IFTTTActionEditorControlViewModel((IFTTTActionModel)action);
                 case ActionTypeEnum.Input: return new InputActionEditorControlViewModel((InputActionModel)action);
+                case ActionTypeEnum.Kick: return new KickActionEditorControlViewModel((KickActionModel)action);
                 case ActionTypeEnum.LumiaStream: return new LumiaStreamActionEditorControlViewModel((LumiaStreamActionModel)action);
                 case ActionTypeEnum.MeldStudio: return new MeldStudioActionEditorControlViewModel((MeldStudioActionModel)action);
                 case ActionTypeEnum.Moderation: return new ModerationActionEditorControlViewModel((ModerationActionModel)action);

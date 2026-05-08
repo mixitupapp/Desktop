@@ -4,6 +4,7 @@ using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Requirements;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services.Mock.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -113,6 +114,10 @@ namespace MixItUp.Base.Services
             {
                 viewerCount += ServiceManager.Get<YouTubeSession>().StreamViewerCount;
             }
+            if (ServiceManager.Get<KickSession>().IsConnected && ServiceManager.Get<KickSession>().IsLive)
+            {
+                viewerCount += ServiceManager.Get<KickSession>().StreamViewerCount;
+            }
             return viewerCount;
         }
 
@@ -156,6 +161,10 @@ namespace MixItUp.Base.Services
                         {
                             await ServiceManager.Get<YouTubeSession>().SendMessage(message, sendAsStreamer);
                         }
+                    }
+                    else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                    {
+                        await ServiceManager.Get<KickSession>().SendMessage(message, sendAsStreamer);
                     }
                     else if (platform == StreamingPlatformTypeEnum.Mock)
                     {
@@ -219,6 +228,10 @@ namespace MixItUp.Base.Services
                 else if (message.Platform == StreamingPlatformTypeEnum.YouTube && ServiceManager.Get<YouTubeSession>().IsConnected)
                 {
                     await ServiceManager.Get<YouTubeSession>().DeleteMessage(message);
+                }
+                else if (message.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                {
+                    await ServiceManager.Get<KickSession>().DeleteMessage(message);
                 }
                 else if (message.Platform == StreamingPlatformTypeEnum.Mock)
                 {
@@ -300,6 +313,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().TimeoutUser(user, durationInSeconds);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+            {
+                await ServiceManager.Get<KickSession>().TimeoutUser(user, durationInSeconds, reason);
+            }
 
             ChatService.ChatUserTimedOut(user);
         }
@@ -315,6 +332,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().ModUser(user);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+            {
+                await ServiceManager.Get<KickSession>().ModUser(user);
+            }
 
         }
 
@@ -328,6 +349,10 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.YouTube && ServiceManager.Get<YouTubeSession>().IsConnected)
             {
                 await ServiceManager.Get<YouTubeSession>().UnmodUser(user);
+            }
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+            {
+                await ServiceManager.Get<KickSession>().UnmodUser(user);
             }
 
         }
@@ -343,6 +368,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().BanUser(user, reason);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+            {
+                await ServiceManager.Get<KickSession>().BanUser(user, reason);
+            }
 
             ChatService.ChatUserBanned(user);
         }
@@ -357,6 +386,10 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.YouTube && ServiceManager.Get<YouTubeSession>().IsConnected)
             {
                 await ServiceManager.Get<YouTubeSession>().UnbanUser(user);
+            }
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+            {
+                await ServiceManager.Get<KickSession>().UnbanUser(user);
             }
 
         }

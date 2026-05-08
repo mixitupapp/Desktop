@@ -3,6 +3,7 @@ using MixItUp.Base.Model.API;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using MixItUp.WPF.Util;
 using MixItUp.WPF.Windows;
 using MixItUp.WPF.Windows.Wizard;
 using System;
@@ -38,6 +39,8 @@ namespace MixItUp.WPF
 
         protected override async Task OnLoaded()
         {
+            _ = this.TryLoadPatreonMemberShoutout();
+
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
@@ -129,6 +132,38 @@ namespace MixItUp.WPF
             }
 
             await base.OnLoaded();
+        }
+
+        private async Task TryLoadPatreonMemberShoutout()
+        {
+            try
+            {
+                PatreonMemberShoutoutModel member = await ServiceManager.Get<MixItUpService>().GetRandomPatreonMemberShoutout();
+                if (member == null || string.IsNullOrWhiteSpace(member.DisplayName))
+                {
+                    return;
+                }
+
+                string[] shoutoutMessages = new string[]
+                {
+                    "Mix It Up is powered by Patreon member {0}.",
+                    "Mix It Up is made possible by Patreon member {0}.",
+                    "Mix It Up is backed by Patreon member {0}.",
+                    "Thank you for supporting Mix It Up, {0}.",
+                };
+
+                this.PatreonMemberNameTextBlock.Text = string.Format(shoutoutMessages[RandomHelper.GenerateRandomNumber(shoutoutMessages.Length)], member.DisplayName);
+                this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
+
+                if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
+                {
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 20, 20, member.DisplayName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         private async void StreamerLoginButton_Click(object sender, RoutedEventArgs e)
@@ -342,6 +377,5 @@ namespace MixItUp.WPF
         {
             OutageBanner.Visibility = Visibility.Collapsed;
         }
-
     }
 }

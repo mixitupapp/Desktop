@@ -200,7 +200,33 @@
                         Grid.Row="7"
                         Margin="0,20,0,0"
                         HorizontalAlignment="Center"
-                        Orientation="Horizontal">
+                        Orientation="Vertical">
+                        <Border
+                            x:Name="PatreonShoutoutBorder"
+                            Margin="0,0,0,10"
+                            Padding="8,6"
+                            BorderBrush="{DynamicResource MaterialDesignDivider}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image
+                                    x:Name="PatreonMemberAvatarImage"
+                                    Width="28"
+                                    Height="28"
+                                    Stretch="UniformToFill" />
+                                <TextBlock
+                                    x:Name="PatreonMemberNameTextBlock"
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button
                             x:Name="DownloadUpdateButton"
                             Height="40"
@@ -217,6 +243,7 @@
                             Content="{x:Static resx:Resources.Skip}"
                             Style="{StaticResource MaterialDesignOutlinedButton}"
                             Visibility="Collapsed" />
+                        </StackPanel>
                     </StackPanel>
 
                     <TextBlock

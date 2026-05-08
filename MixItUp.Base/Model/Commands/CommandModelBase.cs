@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Requirements;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -28,6 +28,8 @@ namespace MixItUp.Base.Model.Commands
         TrovoSpell = 11,
         TwitchBits = 12,
         CrowdControlEffect = 13,
+        KickChannelPoints = 14,
+        KickKicks = 15,
 
         // Specialty Command Types
         UserOnlyChat = 1000,

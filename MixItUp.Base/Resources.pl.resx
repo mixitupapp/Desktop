@@ -11291,4 +11291,75 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Dodaj lub upuść tutaj</value>
   </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Zaloguj się za pomocą Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Wylogowanie z Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick Channel Stream Start</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Stream Stop</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Aktualizacja kanału Kick</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Obserwowany</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Subskrybowany kanał Kick</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Ponowna subskrypcja kanału Kick</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Subskrypcja Kick Channel w prezencie</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Subskrypcja Kick Channel Mass Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Wykorzystane punkty Kick Channel</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Aby móc korzystać z tej funkcji, konieczne jest połączenie konta Kick.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Polecenie punktów kanału Kick</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Istnieje już inne polecenie Kick Kicks z tą samą ilością/zakresem co to polecenie.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Punkty kanału Kick</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Polecenie Kick Kicks</value>
+  </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Akcja Kicka: Należy podać prawidłową nazwę</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Akcja na Kicku: brakująca nagroda za punkty kanału</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>BŁĄD: nie można zaktualizować nagrody za punkty kanału. Spróbuj ponownie później. Jeśli ta nagroda nie została utworzona za pomocą interfejsu użytkownika Mix It Up, musisz ją usunąć i dodać ponownie na stronie Punkty kanału, ponieważ muszą one zostać utworzone za pomocą interfejsu Mix It Up, aby aplikacja mogła je zaktualizować.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Nagrody za punkty kanału muszą zostać utworzone za pomocą Mix It Up, aby aplikacja mogła je aktualizować.
+Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stronie Punkty kanału w aplikacji Mix It Up.</value>
+  </data>
 </root>
