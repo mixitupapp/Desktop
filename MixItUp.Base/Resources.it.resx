@@ -11348,4 +11348,18 @@ Attivare solo se si sa cosa si sta facendo. Continuare?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Comando Kick Kicks</value>
   </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Azione Kick: è necessario specificare un nome valido</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Azione Kick: premio punti canale mancanti</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>ERRORE: impossibile aggiornare il premio Channel Point. Riprova più tardi. Se questo premio non è stato creato tramite l'interfaccia utente di Mix It Up, dovrai eliminarlo e aggiungerlo nuovamente nella pagina Punti canale poiché devono essere creati tramite Mix It Up per consentire all'app di poterli aggiornare.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>I premi Channel Point devono essere creati tramite Mix It Up per consentire all'app di aggiornarli.
+Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagina Punti canale in Mix It Up.</value>
+  </data>
 </root>

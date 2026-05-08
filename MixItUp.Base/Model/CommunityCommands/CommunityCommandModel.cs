@@ -59,6 +59,7 @@ namespace MixItUp.Base.Model.Store
         LumiaStream,
         Random,
         Script,
+        Kick,
 
         // Command Tags
         ChatCommand = 1000,

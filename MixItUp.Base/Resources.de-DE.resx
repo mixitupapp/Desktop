@@ -10067,4 +10067,18 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Kick Kicks-Befehl</value>
   </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Kick-Aktion: Ein gültiger Name muss angegeben werden</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Kick-Aktion: Belohnung für fehlende Kanalpunkte</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>FEHLER: Channel Point Reward konnte nicht aktualisieren, bitte versuchen Sie es später erneut. Wenn diese Belohnung nicht über die Mix It Up-Benutzeroberfläche erstellt wurde, musst du sie löschen und auf der Channel Points-Seite wieder hinzufügen, da sie über Mix It Up erstellt werden müssen, damit die App sie aktualisieren kann.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Channel Point Rewards müssen über Mix It Up erstellt werden, damit die App sie aktualisieren kann.
+Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up auf Belohnung für Channel Points erstellen.</value>
+  </data>
 </root>

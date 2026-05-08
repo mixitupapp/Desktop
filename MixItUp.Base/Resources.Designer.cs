@@ -12855,6 +12855,43 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ERROR: Could not update Channel Point Reward, please try again later. If this reward was not created through the Mix It Up UI, you will need to delete it and re-add it on the Channel Points page as they must be created through Mix It Up to allow the app to be able to update them..
+        /// </summary>
+        public static string KickActionChannelPointRewardCouldNotBeUpdated {
+            get {
+                return ResourceManager.GetString("KickActionChannelPointRewardCouldNotBeUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Action: Missing Channel Point Reward.
+        /// </summary>
+        public static string KickActionChannelPointRewardMissing {
+            get {
+                return ResourceManager.GetString("KickActionChannelPointRewardMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel Point Rewards must be created through Mix It Up to allow the app to be able to update them.
+        ///This can be done by clicking on Create Channel Point Reward on the Kick Channel Points page in Mix It Up..
+        /// </summary>
+        public static string KickActionChannelPointRewardMustBeCreatedInMixItUp {
+            get {
+                return ResourceManager.GetString("KickActionChannelPointRewardMustBeCreatedInMixItUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Action: A valid name must be specified.
+        /// </summary>
+        public static string KickActionNameMissing {
+            get {
+                return ResourceManager.GetString("KickActionNameMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kick Channel Followed.
         /// </summary>
         public static string KickChannelFollowed {

@@ -11349,4 +11349,18 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Kick Kicks-commando</value>
   </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Kick-actie: er moet een geldige naam worden opgegeven</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Kick-actie: ontbrekende kanaalpuntbeloning</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>FOUT: Kan Channel Point Reward niet bijwerken. Probeer het later opnieuw. Als deze beloning niet via de Mix It Up-gebruikersinterface is gemaakt, moet je deze verwijderen en opnieuw toevoegen op de Kanaalpuntenpagina, omdat ze via Mix It Up moeten worden aangemaakt zodat de app ze kan updaten.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Kanaalpuntbeloningen moeten via Mix It Up worden aangemaakt, zodat de app deze kan updaten.
+Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpagina in Mix It Up.</value>
+  </data>
 </root>

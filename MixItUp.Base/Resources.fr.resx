@@ -11349,4 +11349,18 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Commande Kick Kicks</value>
   </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Action Kick : un nom valide doit être spécifié</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Action Kick : récompense de points de chaîne manquants</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>ERREUR : Impossible de mettre à jour Channel Point Reward. Veuillez réessayer plus tard. Si cette récompense n'a pas été créée via l'interface utilisateur Mix It Up, vous devrez la supprimer et la rajouter sur la page Channel Points, car elles doivent être créées via Mix It Up pour permettre à l'application de les mettre à jour.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Les récompenses Channel Point doivent être créées via Mix It Up pour permettre à l'application de pouvoir les mettre à jour.
+Cela peut être fait en cliquant sur Créer une récompense de points de chaîne sur la page Points de chaîne dans Mix It Up.</value>
+  </data>
 </root>
