@@ -1,5 +1,20 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.520
+
+- [FEAT] Add Kick integration for chat, events, channel points, and Kicks
+- [FEAT] Add Kick action
+- [FEAT] Add sort quotes button in quotes page
+- [FEAT] Add support for multiple cooldown usage requirements
+- [FEAT] Add actions drag and drop support to actions that contain nested sub actions list
+- [FEAT] Add Patreon recognition for Login, Update, and About windows
+- [FIX] Handle missing song titles during library load and title search for music player
+- [FIX] Webhook command crash when using duplicate json pairs
+- [FIX] Tiltify authentication when it expires
+- [FIX] Scrollbar visibility in stream pass window
+- [FIX] Typo in new user wizard
+- [BREAKING] We are migrating our webhooks to a new subdomiain. Update your services to point to ***https://desktop.api.mixitupapp.com/api/webhook/[your id tokens here]*** to prevent any interruptions
+
 ## 1.6.510
 
 - [FEAT] Add YouTube Channel Jewel Gift Event
