@@ -14,13 +14,32 @@ namespace MixItUp.Base.Model.Requirements
         [DataMember]
         public List<RequirementModelBase> Requirements { get; set; } = new List<RequirementModelBase>();
 
-        public RequirementsSetModel(IEnumerable<RequirementModelBase> requirements) { this.Requirements.AddRange(requirements); }
+        public RequirementsSetModel(IEnumerable<RequirementModelBase> requirements)
+        {
+            if (requirements != null)
+            {
+                this.Requirements.AddRange(requirements);
+            }
+        }
 
         public RequirementsSetModel() { }
 
         public RoleRequirementModel Role { get { return (RoleRequirementModel)this.Requirements.FirstOrDefault(r => r is RoleRequirementModel); } }
 
         public CooldownRequirementModel Cooldown { get { return (CooldownRequirementModel)this.Requirements.FirstOrDefault(r => r is CooldownRequirementModel); } }
+
+        public IEnumerable<CooldownRequirementModel> Cooldowns { get { return this.Requirements.Where(r => r is CooldownRequirementModel).Select(r => (CooldownRequirementModel)r); } }
+
+        public CooldownRequirementModel GetOrCreateCooldown()
+        {
+            CooldownRequirementModel cooldown = this.Cooldown;
+            if (cooldown == null)
+            {
+                cooldown = new CooldownRequirementModel();
+                this.Requirements.Add(cooldown);
+            }
+            return cooldown;
+        }
 
         public IEnumerable<CurrencyRequirementModel> Currency { get { return this.Requirements.Where(r => r is CurrencyRequirementModel).Select(r => (CurrencyRequirementModel)r); } }
 

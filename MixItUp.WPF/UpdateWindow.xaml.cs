@@ -27,8 +27,11 @@ namespace MixItUp.WPF
         public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
         {
             this.update = update;
+            #if DEBUG
+            this.isMandatory = false;
+            #else
             this.isMandatory = isMandatory;
-
+            #endif
             InitializeComponent();
 
             this.Initialize(this.StatusBar);
@@ -38,6 +41,8 @@ namespace MixItUp.WPF
 
         protected override async Task OnLoaded()
         {
+            _ = this.TryLoadPatreonMemberShoutout();
+
             this.NewVersionTextBlock.Text = this.update.Version;
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
             this.CurrentVersionTextBlock.Text = VersionHelper.NormalizeSemVerString(entryVersion);
@@ -77,7 +82,6 @@ namespace MixItUp.WPF
                 Logger.Log(ex);
                 this.UpdateChangelogViewer.Markdown = "Unable to load changelog.";
             }
-
             TaskbarFlashHelper.Flash(this);
 
             await base.OnLoaded();
@@ -149,6 +153,11 @@ namespace MixItUp.WPF
             this.Close();
         }
 
+        private void PatreonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupapp");
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.isMandatory)
@@ -191,6 +200,61 @@ namespace MixItUp.WPF
             catch
             {
                 // Ignore navigation failures.
+            }
+        }
+
+        private async Task TryLoadPatreonMemberShoutout()
+        {
+            string[] supporterLeadInMessages = new string[]
+            {
+                "This update was made possible by supporters like:",
+                "Special thanks to the Patreon supporters helping power this update:",
+                "This release was supported by amazing community members like:",
+                "With support from Patreon members like:",
+                "Mix It Up development is fueled by supporters like:",
+            };
+
+            string[] patreonCallToActionMessages = new string[]
+            {
+                "Want to help shape the future of Mix It Up? Join us on Patreon!",
+                "If you enjoy Mix It Up, consider supporting development on Patreon.",
+                "Become part of the community that helps make Mix It Up possible.",
+                "Support future updates and features by joining the Mix It Up Patreon community.",
+                "Help keep Mix It Up growing by becoming a Patreon supporter.",
+            };
+
+            string[] communitySupportMessages = new string[]
+            {
+                "Mix It Up is a free, open-source project powered by the incredible support of our Patreon community.",
+                "Mix It Up stays free and growing thanks to the generosity of Patreon supporters like you.",
+                "Built by the community, supported by the community. Patreon supporters help keep Mix It Up moving forward.",
+                "Every Patreon supporter helps fund development, improvements, and new features for Mix It Up.",
+                "Mix It Up is made possible through the continued support of our amazing Patreon community.",
+            };
+
+            this.PatreonLeadInTextBlock.Text = supporterLeadInMessages[RandomHelper.GenerateRandomNumber(supporterLeadInMessages.Length)];
+            this.PatreonCommunityTextBlock.Text = communitySupportMessages[RandomHelper.GenerateRandomNumber(communitySupportMessages.Length)];
+            this.PatreonCTATextBlock.Text = patreonCallToActionMessages[RandomHelper.GenerateRandomNumber(patreonCallToActionMessages.Length)];
+
+            try
+            {
+                PatreonMemberShoutoutModel member = await ServiceManager.Get<MixItUpService>().GetRandomPatreonMemberShoutout();
+                if (member == null || string.IsNullOrWhiteSpace(member.DisplayName))
+                {
+                    return;
+                }
+
+                this.PatreonMemberNameTextBlock.Text = member.DisplayName;
+                this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
+
+                if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
+                {
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl,56,56, member.DisplayName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
             }
         }
 

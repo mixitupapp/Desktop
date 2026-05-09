@@ -11289,4 +11289,78 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Réinitialiser les grèves de modération pour tous les utilisateurs</value>
   </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Ajouter ou déposer ici</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Se connecter avec Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Se déconnecter de Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick Channel Stream Start</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Stream Stop</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Mise à jour du canal Kick</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Suivi</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Kick Channel Abonné</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick Channel Réabonné</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Abonnement à Kick Channel offert</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Abonnement de masse Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Points de la chaîne Kick échangés</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Un compte Kick doit être connecté pour utiliser cette fonctionnalité.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Commande de points de chaîne Kick</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Il existe déjà une autre commande Kick Kicks avec le même montant/plage que cette commande.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Points de chaîne Kick</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Commande Kick Kicks</value>
+  </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Action Kick : un nom valide doit être spécifié</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Action Kick : récompense de points de chaîne manquants</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>ERREUR : Impossible de mettre à jour Channel Point Reward. Veuillez réessayer plus tard. Si cette récompense n'a pas été créée via l'interface utilisateur Mix It Up, vous devrez la supprimer et la rajouter sur la page Channel Points, car elles doivent être créées via Mix It Up pour permettre à l'application de les mettre à jour.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Les récompenses Channel Point doivent être créées via Mix It Up pour permettre à l'application de pouvoir les mettre à jour.
+Cela peut être fait en cliquant sur Créer une récompense de points de chaîne sur la page Points de chaîne dans Mix It Up.</value>
+  </data>
 </root>

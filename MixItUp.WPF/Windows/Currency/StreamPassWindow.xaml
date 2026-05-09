@@ -324,47 +324,43 @@
                             HorizontalAlignment="Center"
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}"
                             Style="{StaticResource DefaultBorder}">
-                            <ScrollViewer
-                                Width="340"
-                                Height="200"
-                                HorizontalScrollBarVisibility="Auto"
-                                VerticalScrollBarVisibility="Visible">
-                                <DataGrid
-                                    HorizontalContentAlignment="Center"
-                                    AutoGenerateColumns="False"
-                                    CellStyle="{StaticResource StandardDataGridCell}"
-                                    ItemsSource="{Binding CustomLevelUpCommands}"
-                                    Style="{StaticResource StandardDataGrid}">
-                                    <DataGrid.Columns>
-                                        <DataGridTemplateColumn
-                                            Width="70"
-                                            Header="{x:Static resx:Resources.Level}"
-                                            IsReadOnly="True">
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Level}" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                        <DataGridTemplateColumn Width="250" Header="{x:Static resx:Resources.Command}">
-                                            <DataGridTemplateColumn.CellStyle>
-                                                <Style BasedOn="{StaticResource StandardDataGridCell}" TargetType="DataGridCell">
-                                                    <Setter Property="Padding" Value="5,0,5,0" />
-                                                </Style>
-                                            </DataGridTemplateColumn.CellStyle>
-                                            <DataGridTemplateColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <CommandsControls:CommandListingButtonsControl
-                                                        x:Name="LevelCommandButtons"
-                                                        HorizontalAlignment="Center"
-                                                        DeleteClicked="LevelCommandButtons_DeleteClicked"
-                                                        EditClicked="LevelCommandButtons_EditClicked" />
-                                                </DataTemplate>
-                                            </DataGridTemplateColumn.CellTemplate>
-                                        </DataGridTemplateColumn>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </ScrollViewer>
+                            <DataGrid
+                                MaxHeight="250"
+                                HorizontalContentAlignment="Center"
+                                AutoGenerateColumns="False"
+                                CellStyle="{StaticResource StandardDataGridCell}"
+                                ItemsSource="{Binding CustomLevelUpCommands}"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                Style="{StaticResource StandardDataGrid}">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn
+                                        Width="70"
+                                        Header="{x:Static resx:Resources.Level}"
+                                        IsReadOnly="True">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock HorizontalAlignment="Center" Text="{Binding Level}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTemplateColumn Width="250" Header="{x:Static resx:Resources.Command}">
+                                        <DataGridTemplateColumn.CellStyle>
+                                            <Style BasedOn="{StaticResource StandardDataGridCell}" TargetType="DataGridCell">
+                                                <Setter Property="Padding" Value="5,0,5,0" />
+                                            </Style>
+                                        </DataGridTemplateColumn.CellStyle>
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CommandsControls:CommandListingButtonsControl
+                                                    x:Name="LevelCommandButtons"
+                                                    HorizontalAlignment="Center"
+                                                    DeleteClicked="LevelCommandButtons_DeleteClicked"
+                                                    EditClicked="LevelCommandButtons_EditClicked" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </Border>
 
                         <Grid Grid.Column="2" VerticalAlignment="Center">

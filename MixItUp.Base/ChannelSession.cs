@@ -6,6 +6,7 @@ using MixItUp.Base.Model.Web;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
 using MixItUp.Base.Services.Mock.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -92,6 +93,7 @@ namespace MixItUp.Base
 
             ServiceManager.Add(new TwitchSession());
             ServiceManager.Add(new YouTubeSession());
+            ServiceManager.Add(new KickSession());
             ServiceManager.Add(new MockSession());
 
             ServiceManager.Add(new CommandService());

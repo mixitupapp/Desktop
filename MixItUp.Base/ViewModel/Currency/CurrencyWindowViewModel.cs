@@ -781,8 +781,8 @@ namespace MixItUp.Base.ViewModel.Currency
                 ChatCommandModel statusCommand = new ChatCommandModel($"{MixItUp.Base.Resources.User} {this.Currency.Name}", new HashSet<string>() { this.Currency.SpecialIdentifier });
                 statusCommand.Requirements.AddBasicRequirements();
                 statusCommand.Requirements.Role.UserRole = UserRoleEnum.User;
-                statusCommand.Requirements.Cooldown.Type = CooldownTypeEnum.Standard;
-                statusCommand.Requirements.Cooldown.IndividualAmount = 5;
+                statusCommand.Requirements.GetOrCreateCooldown().Type = CooldownTypeEnum.Standard;
+                statusCommand.Requirements.GetOrCreateCooldown().IndividualAmount = 5;
 
                 string statusChatText = string.Empty;
                 if (this.Currency.IsRank)
@@ -801,8 +801,8 @@ namespace MixItUp.Base.ViewModel.Currency
                     ChatCommandModel addCommand = new ChatCommandModel($"{MixItUp.Base.Resources.Add} {this.Currency.Name}", new HashSet<string>() { MixItUp.Base.Resources.Add.ToLower() + this.Currency.SpecialIdentifier });
                     addCommand.Requirements.AddBasicRequirements();
                     addCommand.Requirements.Role.UserRole = UserRoleEnum.Moderator;
-                    addCommand.Requirements.Cooldown.Type = CooldownTypeEnum.Standard;
-                    addCommand.Requirements.Cooldown.IndividualAmount = 5;
+                    addCommand.Requirements.GetOrCreateCooldown().Type = CooldownTypeEnum.Standard;
+                    addCommand.Requirements.GetOrCreateCooldown().IndividualAmount = 5;
 
                     addCommand.Actions.Add(new ConsumablesActionModel(this.Currency, ConsumablesActionTypeEnum.AddToSpecificUser, usersMustBePresent: true, "$arg2text", username: "$targetusername"));
                     addCommand.Actions.Add(new ChatActionModel(string.Format(MixItUp.Base.Resources.ConsumablesCurrencyRankAddCommandDefault, this.Currency.Name)));
@@ -811,8 +811,8 @@ namespace MixItUp.Base.ViewModel.Currency
                     ChatCommandModel addAllCommand = new ChatCommandModel($"{MixItUp.Base.Resources.AddAll} {this.Currency.Name}", new HashSet<string>() { MixItUp.Base.Resources.AddAll.ToLower() + this.Currency.SpecialIdentifier });
                     addAllCommand.Requirements.AddBasicRequirements();
                     addAllCommand.Requirements.Role.UserRole = UserRoleEnum.Moderator;
-                    addAllCommand.Requirements.Cooldown.Type = CooldownTypeEnum.Standard;
-                    addAllCommand.Requirements.Cooldown.IndividualAmount = 5;
+                    addAllCommand.Requirements.GetOrCreateCooldown().Type = CooldownTypeEnum.Standard;
+                    addAllCommand.Requirements.GetOrCreateCooldown().IndividualAmount = 5;
 
                     addAllCommand.Actions.Add(new ConsumablesActionModel(this.Currency, ConsumablesActionTypeEnum.AddToAllChatUsers, usersMustBePresent: true, "$arg1text"));
                     addAllCommand.Actions.Add(new ChatActionModel(string.Format(MixItUp.Base.Resources.ConsumablesCurrencyRankAddAllCommandDefault, this.Currency.Name)));
@@ -823,8 +823,8 @@ namespace MixItUp.Base.ViewModel.Currency
                         ChatCommandModel giveCommand = new ChatCommandModel($"{MixItUp.Base.Resources.Give} {this.Currency.Name}", new HashSet<string>() { MixItUp.Base.Resources.Give.ToLower() + this.Currency.SpecialIdentifier });
                         giveCommand.Requirements.AddBasicRequirements();
                         giveCommand.Requirements.Role.UserRole = UserRoleEnum.User;
-                        giveCommand.Requirements.Cooldown.Type = CooldownTypeEnum.Standard;
-                        giveCommand.Requirements.Cooldown.IndividualAmount = 5;
+                        giveCommand.Requirements.GetOrCreateCooldown().Type = CooldownTypeEnum.Standard;
+                        giveCommand.Requirements.GetOrCreateCooldown().IndividualAmount = 5;
 
                         giveCommand.Actions.Add(new ConsumablesActionModel(this.Currency, ConsumablesActionTypeEnum.AddToSpecificUser, usersMustBePresent: true, "$arg2text", username: "$targetusername", deductFromUser: true));
                         giveCommand.Actions.Add(new ChatActionModel(string.Format(MixItUp.Base.Resources.ConsumablesCurrencyRankGiveCommandDefault, this.Currency.Name)));

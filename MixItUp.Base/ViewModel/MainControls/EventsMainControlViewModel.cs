@@ -98,6 +98,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.YouTube;
                 }
+                else if (eventNumber >= 600 && eventNumber < 700)
+                {
+                    return Resources.Kick;
+                }
                 else
                 {
                     return Resources.Generic;
@@ -186,6 +190,19 @@ namespace MixItUp.Base.ViewModel.MainControls
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelSuperChat));
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelJewelsGift));
             commandGroups.Add(youtubeCommands);
+
+            EventCommandGroupViewModel kickCommands = new EventCommandGroupViewModel(Resources.Kick, image: StreamingPlatforms.KickLogoImageAssetFilePath);
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStart));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStop));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelUpdated));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelFollowed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelSubscribed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelResubscribed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelSubscriptionGifted));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelMassSubscriptionsGifted));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelPointsRedeemed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelKicksGifted));
+            commandGroups.Add(kickCommands);
 
             EventCommandGroupViewModel chatCommands = new EventCommandGroupViewModel(Resources.Chat, packIconName: "Chat");
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatUserEntranceCommand));

@@ -3,8 +3,8 @@
   	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<AssemblyTitle>MixItUp.Base</AssemblyTitle>
-    <AssemblyVersion>1.6.510.0</AssemblyVersion>
-    <FileVersion>1.6.510.0</FileVersion>
+    <AssemblyVersion>1.6.520.0</AssemblyVersion>
+    <FileVersion>1.6.520.0</FileVersion>
 		<Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
 	</PropertyGroup>
@@ -38,10 +38,7 @@
 		<PackageReference Include="Jace" Version="1.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="System.IO.Ports" Version="10.0.7" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj" />
+		<PackageReference Include="System.Net.ServerSentEvents" Version="10.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>

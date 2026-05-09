@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
@@ -189,6 +190,10 @@ namespace MixItUp.Base.Services.External
                             {
                                 requester = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.YouTube, platformID: effect.requester.originID, platformUsername: effect.requester.name);
                             }
+                            else if (string.Equals(effect.requester.profile, StreamingPlatformTypeEnum.Kick.ToString(), StringComparison.OrdinalIgnoreCase))
+                            {
+                                requester = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: effect.requester.originID, platformUsername: effect.requester.name);
+                            }
 
                             if (requester == null)
                             {
@@ -271,6 +276,10 @@ namespace MixItUp.Base.Services.External
                 else if (ServiceManager.Get<YouTubeSession>().IsConnected)
                 {
                     this.id = await this.GetCrowdControlID(StreamingPlatformTypeEnum.YouTube.ToString(), ServiceManager.Get<YouTubeSession>().StreamerID);
+                }
+                else if (ServiceManager.Get<KickSession>().IsConnected)
+                {
+                    this.id = await this.GetCrowdControlID(StreamingPlatformTypeEnum.Kick.ToString(), ServiceManager.Get<KickSession>().StreamerID);
                 }
 
                 if (string.IsNullOrEmpty(this.id))

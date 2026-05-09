@@ -227,11 +227,11 @@ namespace MixItUp.Base.Model.Actions
 
                     if (cooldownAmount <= 0)
                     {
-                        command.Requirements.Cooldown.Reset();
+                        command.Requirements.Cooldown?.Reset();
                     }
                     else if (cooldownAmount > 0)
                     {
-                        command.Requirements.Cooldown.Perform(parameters, cooldownAmount);
+                        command.Requirements.GetOrCreateCooldown().Perform(parameters, cooldownAmount);
                     }
                 }
             }

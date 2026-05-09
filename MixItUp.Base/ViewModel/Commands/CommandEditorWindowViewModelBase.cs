@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Requirements;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Actions;
@@ -71,9 +72,9 @@ namespace MixItUp.Base.ViewModel.Commands
             else
             {
                 await ServiceManager.Get<CommandService>().RunDirectly(new CommandInstanceModel(command, parameters));
-                if (command.Requirements.Cooldown != null)
+                foreach (CooldownRequirementModel cooldown in command.Requirements.Cooldowns)
                 {
-                    command.Requirements.Cooldown.Reset();
+                    cooldown.Reset();
                 }
             }
         }

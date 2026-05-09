@@ -529,6 +529,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add or Drop Here.
+        /// </summary>
+        public static string AddOrDropHere {
+            get {
+                return ResourceManager.GetString("AddOrDropHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Outcome.
         /// </summary>
         public static string AddOutcome {
@@ -12828,6 +12837,196 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kick.
+        /// </summary>
+        public static string Kick {
+            get {
+                return ResourceManager.GetString("Kick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Kick account must be connected to use this feature..
+        /// </summary>
+        public static string KickAccountMustBeConnectedToUseThisFeature {
+            get {
+                return ResourceManager.GetString("KickAccountMustBeConnectedToUseThisFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ERROR: Could not update Channel Point Reward, please try again later. If this reward was not created through the Mix It Up UI, you will need to delete it and re-add it on the Channel Points page as they must be created through Mix It Up to allow the app to be able to update them..
+        /// </summary>
+        public static string KickActionChannelPointRewardCouldNotBeUpdated {
+            get {
+                return ResourceManager.GetString("KickActionChannelPointRewardCouldNotBeUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Action: Missing Channel Point Reward.
+        /// </summary>
+        public static string KickActionChannelPointRewardMissing {
+            get {
+                return ResourceManager.GetString("KickActionChannelPointRewardMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel Point Rewards must be created through Mix It Up to allow the app to be able to update them.
+        ///This can be done by clicking on Create Channel Point Reward on the Kick Channel Points page in Mix It Up..
+        /// </summary>
+        public static string KickActionChannelPointRewardMustBeCreatedInMixItUp {
+            get {
+                return ResourceManager.GetString("KickActionChannelPointRewardMustBeCreatedInMixItUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Action: A valid name must be specified.
+        /// </summary>
+        public static string KickActionNameMissing {
+            get {
+                return ResourceManager.GetString("KickActionNameMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Followed.
+        /// </summary>
+        public static string KickChannelFollowed {
+            get {
+                return ResourceManager.GetString("KickChannelFollowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Kicks Gifted.
+        /// </summary>
+        public static string KickChannelKicksGifted {
+            get {
+                return ResourceManager.GetString("KickChannelKicksGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Mass Subscription Gifted.
+        /// </summary>
+        public static string KickChannelMassSubscriptionsGifted {
+            get {
+                return ResourceManager.GetString("KickChannelMassSubscriptionsGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Points.
+        /// </summary>
+        public static string KickChannelPoints {
+            get {
+                return ResourceManager.GetString("KickChannelPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Points Command.
+        /// </summary>
+        public static string KickChannelPointsCommand {
+            get {
+                return ResourceManager.GetString("KickChannelPointsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Points Redeemed.
+        /// </summary>
+        public static string KickChannelPointsRedeemed {
+            get {
+                return ResourceManager.GetString("KickChannelPointsRedeemed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Resubscribed.
+        /// </summary>
+        public static string KickChannelResubscribed {
+            get {
+                return ResourceManager.GetString("KickChannelResubscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Stream Start.
+        /// </summary>
+        public static string KickChannelStreamStart {
+            get {
+                return ResourceManager.GetString("KickChannelStreamStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Stream Stop.
+        /// </summary>
+        public static string KickChannelStreamStop {
+            get {
+                return ResourceManager.GetString("KickChannelStreamStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Subscribed.
+        /// </summary>
+        public static string KickChannelSubscribed {
+            get {
+                return ResourceManager.GetString("KickChannelSubscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Subscription Gifted.
+        /// </summary>
+        public static string KickChannelSubscriptionGifted {
+            get {
+                return ResourceManager.GetString("KickChannelSubscriptionGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Channel Updated.
+        /// </summary>
+        public static string KickChannelUpdated {
+            get {
+                return ResourceManager.GetString("KickChannelUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Kicks.
+        /// </summary>
+        public static string KickKicks {
+            get {
+                return ResourceManager.GetString("KickKicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Kicks Command.
+        /// </summary>
+        public static string KickKicksCommand {
+            get {
+                return ResourceManager.GetString("KickKicksCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There already exists another Kick Kicks command with the same amount / range as this command..
+        /// </summary>
+        public static string KickKicksCommandsAlreadyExistsDuplicateAmount {
+            get {
+                return ResourceManager.GetString("KickKicksCommandsAlreadyExistsDuplicateAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kill Bonus Health.
         /// </summary>
         public static string KillBonusHealth {
@@ -13503,6 +13702,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log in with Kick.
+        /// </summary>
+        public static string LogInWithKick {
+            get {
+                return ResourceManager.GetString("LogInWithKick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in with Trovo.
         /// </summary>
         public static string LogInWithTrovo {
@@ -13544,6 +13752,15 @@ namespace MixItUp.Base {
         public static string LogOutOfGlimesh {
             get {
                 return ResourceManager.GetString("LogOutOfGlimesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out of Kick.
+        /// </summary>
+        public static string LogOutOfKick {
+            get {
+                return ResourceManager.GetString("LogOutOfKick", resourceCulture);
             }
         }
         
@@ -28730,7 +28947,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mix It Up is a desktop-only application, so your settings and data only exist on your computer. Therefore we encourge users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:.
+        ///   Looks up a localized string similar to Mix It Up is a desktop only application, so your settings and data only exist on your computer. Therefore we encourage users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:.
         /// </summary>
         public static string WizardFinal1 {
             get {
