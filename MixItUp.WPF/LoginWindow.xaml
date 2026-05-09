@@ -34,7 +34,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" /> 
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -179,16 +179,33 @@
 
                         <StackPanel 
                             x:Name="PatreonShoutoutBorder"
-                            Margin="0"
+                    
                             HorizontalAlignment="Left"
                             Orientation="Horizontal"
                             Visibility="Collapsed">
-                            <Image
-                                x:Name="PatreonMemberAvatarImage"
-                                Width="20"
-                                Height="20"
+
+                            <Border
+                                Width="24"
+                                Height="24"
                                 Margin="0,0,6,0"
-                                Stretch="UniformToFill" />
+                                HorizontalAlignment="Center"
+                                BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+                                Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                                BorderThickness="2"
+                                CornerRadius="16">
+                                <Image
+                                    Width="20"
+                                    Height="20" 
+                                    x:Name="PatreonMemberAvatarImage"
+                                    Stretch="UniformToFill" >
+                                    <Image.Clip>
+                                        <EllipseGeometry Center="10,10" RadiusX="10" RadiusY="10" />
+                                    </Image.Clip>
+                                </Image>
+                            </Border>
+
+
+
                             <TextBlock
                                 x:Name="PatreonMemberNameTextBlock"
                                 VerticalAlignment="Center"
