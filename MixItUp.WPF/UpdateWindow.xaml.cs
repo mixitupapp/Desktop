@@ -27,8 +27,11 @@ namespace MixItUp.WPF
         public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
         {
             this.update = update;
+            #if DEBUG
+            this.isMandatory = false;
+            #else
             this.isMandatory = isMandatory;
-
+            #endif
             InitializeComponent();
 
             this.Initialize(this.StatusBar);
