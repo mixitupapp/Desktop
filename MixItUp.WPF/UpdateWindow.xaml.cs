@@ -153,6 +153,11 @@ namespace MixItUp.WPF
             this.Close();
         }
 
+        private void PatreonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupapp");
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.isMandatory)
@@ -200,6 +205,37 @@ namespace MixItUp.WPF
 
         private async Task TryLoadPatreonMemberShoutout()
         {
+            string[] supporterLeadInMessages = new string[]
+            {
+                "This update was made possible by supporters like:",
+                "Special thanks to the Patreon supporters helping power this update:",
+                "This release was supported by amazing community members like:",
+                "With support from Patreon members like:",
+                "Mix It Up development is fueled by supporters like:",
+            };
+
+            string[] patreonCallToActionMessages = new string[]
+            {
+                "Want to help shape the future of Mix It Up? Join us on Patreon!",
+                "If you enjoy Mix It Up, consider supporting development on Patreon.",
+                "Become part of the community that helps make Mix It Up possible.",
+                "Support future updates and features by joining the Mix It Up Patreon community.",
+                "Help keep Mix It Up growing by becoming a Patreon supporter.",
+            };
+
+            string[] communitySupportMessages = new string[]
+            {
+                "Mix It Up is a free, open-source project powered by the incredible support of our Patreon community.",
+                "Mix It Up stays free and growing thanks to the generosity of Patreon supporters like you.",
+                "Built by the community, supported by the community. Patreon supporters help keep Mix It Up moving forward.",
+                "Every Patreon supporter helps fund development, improvements, and new features for Mix It Up.",
+                "Mix It Up is made possible through the continued support of our amazing Patreon community.",
+            };
+
+            this.PatreonLeadInTextBlock.Text = supporterLeadInMessages[RandomHelper.GenerateRandomNumber(supporterLeadInMessages.Length)];
+            this.PatreonCommunityTextBlock.Text = communitySupportMessages[RandomHelper.GenerateRandomNumber(communitySupportMessages.Length)];
+            this.PatreonCTATextBlock.Text = patreonCallToActionMessages[RandomHelper.GenerateRandomNumber(patreonCallToActionMessages.Length)];
+
             try
             {
                 PatreonMemberShoutoutModel member = await ServiceManager.Get<MixItUpService>().GetRandomPatreonMemberShoutout();
@@ -208,21 +244,12 @@ namespace MixItUp.WPF
                     return;
                 }
 
-                string[] shoutoutMessages = new string[]
-                {
-                    "This update is brought to you by Patreon supporter {0}.",
-                    "This update is made possible in part by Patreon supporter {0}.",
-                    "Special thanks to Patreon supporter {0} for helping power this update.",
-                    "This release gets a boost from Patreon supporter {0}.",
-                    "Shoutout to Patreon supporter {0} for supporting Mix It Up.",
-                    "Thank you to Patreon supporter {0} for backing Mix It Up.",
-                };
-                this.PatreonMemberNameTextBlock.Text = string.Format(shoutoutMessages[RandomHelper.GenerateRandomNumber(shoutoutMessages.Length)], member.DisplayName);
+                this.PatreonMemberNameTextBlock.Text = member.DisplayName;
                 this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
                 {
-                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 28, 28, member.DisplayName);
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl,56,56, member.DisplayName);
                 }
             }
             catch (Exception ex)

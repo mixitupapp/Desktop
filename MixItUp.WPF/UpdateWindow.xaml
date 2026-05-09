@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     Title="{x:Static resx:Resources.MixItUpUpdateAvailable}"
-    Width="775"
+    Width="969"
     Height="700"
     AllowsTransparency="True"
     Background="Transparent"
@@ -24,142 +24,164 @@
     <Grid>
         <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog">
             <MaterialDesign:Card
-                Padding="30,30,30,0"
+                Padding="0"
                 MaterialDesign:ElevationAssist.Elevation="Dp16"
                 Background="{DynamicResource MaterialDesign.Brush.Background}"
                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                 UniformCornerRadius="16">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Button
-                        Grid.Row="0"
-                        Width="32"
-                        Height="32"
-                        Margin="0,-10,-10,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Click="CloseButton_Click"
-                        Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="{x:Static resx:Resources.Close}">
-                        <MaterialDesign:PackIcon
-                            Width="20"
-                            Height="20"
-                            Kind="Close" />
-                    </Button>
-
-                    <Grid
-                        x:Name="MandatoryBanner"
-                        Grid.Row="1"
-                        MaxWidth="600"
-                        Margin="0,0,0,15"
-                        HorizontalAlignment="Center"
-                        Visibility="Collapsed">
+                    <!--  Two-column body: Patreon CTA (left) + Update content (right)  -->
+                    <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="240" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <MaterialDesign:PackIcon
+
+                        <!--  Left: Patreon CTA  -->
+                        <Border
                             Grid.Column="0"
-                            Width="20"
-                            Height="20"
-                            Margin="0,0,8,0"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                            Kind="AlertCircle" />
-                        <TextBlock
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            FontWeight="SemiBold"
-                            Text="{x:Static resx:Resources.ThisUpdateIsRequired}"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
-                    </Grid>
-
-                    <Grid
-                        Grid.Row="2"
-                        MaxWidth="600"
-                        Margin="0,0,0,15"
-                        HorizontalAlignment="Center">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontSize="22"
-                            FontWeight="SemiBold"
-                            Text="{x:Static resx:Resources.ANewUpdateIsAvailableForMixItUp}"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
-                    </Grid>
-
-                    <WrapPanel
-                        Grid.Row="3"
-                        Margin="0,0,0,15"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <Border
-                            Padding="12,6"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
-                            BorderThickness="1"
-                            CornerRadius="6">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Opacity="0.7"
-                                    Text="{Binding Source={x:Static resx:Resources.CurrentVersion}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <TextBlock
-                                    x:Name="CurrentVersionTextBlock"
-                                    Margin="4,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontWeight="SemiBold" />
-                            </StackPanel>
-                        </Border>
-                        <MaterialDesign:PackIcon
-                            Width="24"
-                            Height="24"
-                            Margin="12,0"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                            Kind="ArrowRight" />
-                        <Border
-                            Padding="12,6"
-                            Background="{DynamicResource MaterialDesign.Brush.Primary}"
-                            CornerRadius="6">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Foreground="White"
-                                    Text="{Binding Source={x:Static resx:Resources.NewVersion}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <TextBlock
-                                    x:Name="NewVersionTextBlock"
-                                    Margin="4,0,0,0"
-                                    VerticalAlignment="Center"
-                                    FontWeight="SemiBold"
-                                    Foreground="White" />
-                            </StackPanel>
-                        </Border>
-                    </WrapPanel>
+                            BorderThickness="0,0,1,0">
+                            <StackPanel
+                                Margin="24,30,24,30"
+                                VerticalAlignment="Center">
 
-                    <Border
-                        x:Name="PreviewUpdateGrid"
-                        Grid.Row="4"
-                        Margin="0,0,0,10"
-                        Padding="12,8"
-                        BorderBrush="{DynamicResource MaterialDesignDivider}"
-                        BorderThickness="1"
-                        CornerRadius="8"
-                        Visibility="Collapsed">
-                        <StackPanel>
-                            <Grid>
+                                <!--  Patreon header  -->
+                                <StackPanel
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,20"
+                                    Orientation="Horizontal">
+                                    <Image
+                                        Width="24"
+                                        Height="24"
+                                        Margin="0,0,8,0"
+                                        VerticalAlignment="Center"
+                                        Source="/Assets/Images/patreon-color_sm.png" />
+                                    <TextBlock
+                                        FontSize="17"
+                                        FontWeight="SemiBold"
+                                        Text="Patreon"
+                                        VerticalAlignment="Center" />
+                                </StackPanel>
+
+                                <!--  Member shoutout — shown when a member is fetched  -->
+                                <Border
+                                    x:Name="PatreonShoutoutBorder"
+                                    Margin="0,0,0,16"
+                                    Padding="12,12"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Visibility="Collapsed">
+                                    <StackPanel>
+                                        <TextBlock
+                                            x:Name="PatreonLeadInTextBlock"
+                                            FontSize="11"
+                                            Margin="0,0,0,10"
+                                            Opacity="0.7"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap" />
+                                        <Border
+                                            Width="64"
+                                            Height="64"
+                                            Margin="0"
+                                            HorizontalAlignment="Center"
+                                            BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+                                            BorderThickness="4"
+                                            CornerRadius="32">
+                                            <Image
+                                                Width="56"
+                                                Height="56" 
+                                                x:Name="PatreonMemberAvatarImage"
+                                                Stretch="UniformToFill" >
+                                                <Image.Clip>
+                                                    <EllipseGeometry Center="28,28" RadiusX="28" RadiusY="28" />
+                                                </Image.Clip>
+                                            </Image>
+                                        </Border>
+                                        <TextBlock
+                                            x:Name="PatreonMemberNameTextBlock"
+                                            FontSize="13"
+                                            FontWeight="SemiBold"
+                                            TextAlignment="Center"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Separator Margin="0,0,0,16" />
+
+                                <!--  CTA body  -->
+                                <TextBlock
+                                    x:Name="PatreonCommunityTextBlock"
+                                    FontSize="12"
+                                    LineHeight="18"
+                                    Margin="0,0,0,12"
+                                    Opacity="0.85"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+                                <TextBlock
+                                    x:Name="PatreonCTATextBlock"
+                                    FontSize="12"
+                                    LineHeight="18"
+                                    Margin="0,0,0,20"
+                                    Opacity="0.85"
+                                    TextAlignment="Center"
+                                    TextWrapping="Wrap" />
+
+                                <Button
+                                    HorizontalAlignment="Center"
+                                    Click="PatreonButton_Click"
+                                    Style="{StaticResource MaterialDesignRaisedButton}">
+                                    Support on Patreon
+                                </Button>
+
+                            </StackPanel>
+                        </Border>
+
+                        <!--  Right: Update content  -->
+                        <Grid
+                            Grid.Column="1"
+                            Margin="30,30,30,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Button
+                                Grid.Row="0"
+                                Width="32"
+                                Height="32"
+                                Margin="0,-10,-10,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Click="CloseButton_Click"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="{x:Static resx:Resources.Close}">
+                                <MaterialDesign:PackIcon
+                                    Width="20"
+                                    Height="20"
+                                    Kind="Close" />
+                            </Button>
+
+                            <Grid
+                                x:Name="MandatoryBanner"
+                                Grid.Row="1"
+                                MaxWidth="600"
+                                Margin="0,0,0,15"
+                                HorizontalAlignment="Center"
+                                Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
@@ -169,96 +191,164 @@
                                     Width="20"
                                     Height="20"
                                     Margin="0,0,8,0"
-                                    VerticalAlignment="Top"
+                                    VerticalAlignment="Center"
                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                    Kind="AlertOutline" />
+                                    Kind="AlertCircle" />
                                 <TextBlock
                                     Grid.Column="1"
-                                    Text="{x:Static resx:Resources.PreviewUpdateWarning1}"
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Text="{x:Static resx:Resources.ThisUpdateIsRequired}"
+                                    TextAlignment="Center"
                                     TextWrapping="Wrap" />
                             </Grid>
-                            <TextBlock
-                                Margin="28,6,0,0"
-                                Text="{x:Static resx:Resources.PreviewUpdateWarning2}"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </Border>
 
-
-
-                    <Border
-                        Grid.Row="6"
-                        Margin="5,0"
-                        Padding="10"
-                        BorderBrush="{DynamicResource MaterialDesignDivider}"
-                        BorderThickness="1"
-                        CornerRadius="8">
-                        <markdown:MarkdownScrollViewer x:Name="UpdateChangelogViewer" />
-                    </Border>
-
-                    <StackPanel
-                        Grid.Row="7"
-                        Margin="0,20,0,0"
-                        HorizontalAlignment="Center"
-                        Orientation="Vertical">
-                        <Border
-                            x:Name="PatreonShoutoutBorder"
-                            Margin="0,0,0,10"
-                            Padding="8,6"
-                            BorderBrush="{DynamicResource MaterialDesignDivider}"
-                            BorderThickness="1"
-                            CornerRadius="8"
-                            Visibility="Collapsed">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Image
-                                    x:Name="PatreonMemberAvatarImage"
-                                    Width="28"
-                                    Height="28"
-                                    Stretch="UniformToFill" />
+                            <Grid
+                                Grid.Row="2"
+                                MaxWidth="600"
+                                Margin="0,0,0,15"
+                                HorizontalAlignment="Center">
                                 <TextBlock
-                                    x:Name="PatreonMemberNameTextBlock"
-                                    Margin="8,0,0,0"
                                     VerticalAlignment="Center"
-                                    FontSize="12"
+                                    FontSize="22"
                                     FontWeight="SemiBold"
-                                    Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                    Text="{x:Static resx:Resources.ANewUpdateIsAvailableForMixItUp}"
+                                    TextAlignment="Center"
                                     TextWrapping="Wrap" />
+                            </Grid>
+
+                            <WrapPanel
+                                Grid.Row="3"
+                                Margin="0,0,0,15"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Border
+                                    Padding="12,6"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="1"
+                                    CornerRadius="6">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Opacity="0.7"
+                                            Text="{Binding Source={x:Static resx:Resources.CurrentVersion}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                                        <TextBlock
+                                            x:Name="CurrentVersionTextBlock"
+                                            Margin="4,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontWeight="SemiBold" />
+                                    </StackPanel>
+                                </Border>
+                                <MaterialDesign:PackIcon
+                                    Width="24"
+                                    Height="24"
+                                    Margin="12,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                    Kind="ArrowRight" />
+                                <Border
+                                    Padding="12,6"
+                                    Background="{DynamicResource MaterialDesign.Brush.Primary}"
+                                    CornerRadius="6">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="White"
+                                            Text="{Binding Source={x:Static resx:Resources.NewVersion}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                                        <TextBlock
+                                            x:Name="NewVersionTextBlock"
+                                            Margin="4,0,0,0"
+                                            VerticalAlignment="Center"
+                                            FontWeight="SemiBold"
+                                            Foreground="White" />
+                                    </StackPanel>
+                                </Border>
+                            </WrapPanel>
+
+                            <Border
+                                x:Name="PreviewUpdateGrid"
+                                Grid.Row="4"
+                                Margin="0,0,0,10"
+                                Padding="12,8"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Visibility="Collapsed">
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <MaterialDesign:PackIcon
+                                            Grid.Column="0"
+                                            Width="20"
+                                            Height="20"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Top"
+                                            Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                            Kind="AlertOutline" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="{x:Static resx:Resources.PreviewUpdateWarning1}"
+                                            TextWrapping="Wrap" />
+                                    </Grid>
+                                    <TextBlock
+                                        Margin="28,6,0,0"
+                                        Text="{x:Static resx:Resources.PreviewUpdateWarning2}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border
+                                Grid.Row="6"
+                                Margin="5,0"
+                                Padding="10"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <markdown:MarkdownScrollViewer x:Name="UpdateChangelogViewer" />
+                            </Border>
+
+                            <StackPanel
+                                Grid.Row="7"
+                                Margin="0,20,0,0"
+                                HorizontalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    x:Name="DownloadUpdateButton"
+                                    Height="40"
+                                    MinWidth="130"
+                                    Click="DownloadUpdateButton_Click"
+                                    Content="{x:Static resx:Resources.Update}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                                <Button
+                                    x:Name="SkipUpdateButton"
+                                    Height="40"
+                                    MinWidth="100"
+                                    Margin="20,0,0,0"
+                                    Click="SkipUpdateButton_Click"
+                                    Content="{x:Static resx:Resources.Skip}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Visibility="Collapsed" />
                             </StackPanel>
-                        </Border>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button
-                            x:Name="DownloadUpdateButton"
-                            Height="40"
-                            MinWidth="130"
-                            Click="DownloadUpdateButton_Click"
-                            Content="{x:Static resx:Resources.Update}"
-                            Style="{StaticResource MaterialDesignRaisedButton}" />
-                        <Button
-                            x:Name="SkipUpdateButton"
-                            Height="40"
-                            MinWidth="100"
-                            Margin="20,0,0,0"
-                            Click="SkipUpdateButton_Click"
-                            Content="{x:Static resx:Resources.Skip}"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            Visibility="Collapsed" />
-                        </StackPanel>
-                    </StackPanel>
+                            <TextBlock
+                                Grid.Row="8"
+                                Margin="0,15,0,15"
+                                FontSize="12"
+                                Opacity="0.6"
+                                Text="{x:Static resx:Resources.IfUpdateDoesNotCompleteRestartComputer}"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap" />
 
-                    <TextBlock
-                        Grid.Row="8"
-                        Margin="0,15,0,15"
-                        FontSize="12"
-                        Opacity="0.6"
-                        Text="{x:Static resx:Resources.IfUpdateDoesNotCompleteRestartComputer}"
-                        TextAlignment="Center"
-                        TextWrapping="Wrap" />
+                        </Grid>
+                    </Grid>
 
+                    <!--  StatusBar spans full card width  -->
                     <Controls:LoadingStatusBar
                         x:Name="StatusBar"
-                        Grid.Row="9"
-                        Margin="-30,10,-30,0" />
+                        Grid.Row="1" />
                 </Grid>
             </MaterialDesign:Card>
         </MaterialDesign:DialogHost>
