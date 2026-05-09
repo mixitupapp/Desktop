@@ -45,12 +45,12 @@ namespace MixItUp.WPF
 
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
             string versionString = "v" + VersionHelper.NormalizeSemVerString(entryVersion);
-            
+
             if (Util.BuildExpirationHelper.IsEnabled())
             {
                 versionString += " -- TEST BUILD --";
             }
-            
+
             this.Title += " - " + versionString;
 
             this.VersionTextBlock.Text = versionString;
@@ -146,10 +146,54 @@ namespace MixItUp.WPF
 
                 string[] shoutoutMessages = new string[]
                 {
-                    "Mix It Up is powered by Patreon member {0}.",
-                    "Mix It Up is made possible by Patreon member {0}.",
-                    "Mix It Up is backed by Patreon member {0}.",
-                    "Thank you for supporting Mix It Up, {0}.",
+                    "Mix It Up is powered by Patreon supporter {0}.",
+                    "This session is powered by Patreon supporter {0}.",
+                    "This launch was made possible by Patreon member {0}.",
+                    "Special thanks to Patreon supporter {0}.",
+                    "This session exists thanks to supporters like {0}.",
+                    "Powered behind the scenes by {0}.",
+                    "Mix It Up is proudly supported by {0}.",
+                    "Huge thanks to Patreon supporter {0}.",
+                    "Patreon supporter {0} helped make this possible.",
+                    "This instance of Mix It Up is courtesy of {0}.",
+                    "Fueling this session: Patreon supporter {0}.",
+                    "A quiet nod of gratitude to {0}.",
+                    "Mix It Up appreciates supporters like {0}.",
+                    "Patreon member {0} is helping keep Mix It Up growing.",
+                    "Built with support from Patreon member {0}.",
+                    "This launch was assisted by the legendary {0}.",
+                    "Running with support from Patreon supporter {0}.",
+                    "Mix It Up is community-powered by folks like {0}.",
+                    "Patreon supporter {0} helped make today happen.",
+                    "Keeping Mix It Up moving forward: {0}.",
+                    "Mix It Up is stronger thanks to {0}.",
+                    "Today’s runtime sponsor: Patreon supporter {0}.",
+                    "This launch was approved by the highly prestigious {0}.",
+                    "Patreon member {0} is helping shape the future of Mix It Up.",
+                    "Mix It Up sends a virtual high five to {0}.",
+                    "Today’s runtime brought to you by {0}.",
+                    "This session exists because {0} believed in the project.",
+                    "This startup sequence has been sponsored by {0}.",
+                    "Special thanks to {0} for helping keep Mix It Up online.",
+                    "This session was made possible by {0}.",
+                    "Mix It Up appreciates {0}.",
+                    "This runtime is supported by the excellent taste of {0}.",
+                    "Patreon member {0} helped support new features and improvements.",
+                    "This session is running smoother thanks to {0}.",
+                    "Mix It Up salutes Patreon supporter {0}.",
+                    "This launch is proudly backed by {0}.",
+                    "Thanks to {0} for supporting Mix It Up.",
+                    "Mix It Up continues its journey thanks to {0}.",
+                    "This session brought to you by Patreon supporter {0}.",
+                    "Patreon member {0} is one reason Mix It Up keeps improving.",
+                    "This startup sequence has received support from {0}.",
+                    "Mix It Up is community-powered by legends like {0}.",
+                    "This session was handcrafted with support from {0}.",
+                    "Mix It Up runs with support from amazing people like {0}.",
+                    "Patreon supporter {0} helped turn ideas into reality.",
+                    "Mix It Up tips its imaginary hat to {0}.",
+                    "Patreon member {0} helps make Mix It Up better every day.",
+                    "Special thanks to {0} for supporting the future of Mix It Up.",
                 };
 
                 this.PatreonMemberNameTextBlock.Text = string.Format(shoutoutMessages[RandomHelper.GenerateRandomNumber(shoutoutMessages.Length)], member.DisplayName);
@@ -295,9 +339,9 @@ namespace MixItUp.WPF
         private async Task BackupProfileSettings(SettingsV3Model setting)
         {
             string filePath = ServiceManager.Get<IFileService>().ShowSaveFileDialog(
-                setting.Name + "." + SettingsV3Model.SettingsBackupFileExtension, 
+                setting.Name + "." + SettingsV3Model.SettingsBackupFileExtension,
                 MixItUp.Base.Resources.MixItUpBackupFileFormatFilter);
-            
+
             if (!string.IsNullOrEmpty(filePath))
             {
                 await ServiceManager.Get<SettingsService>().SavePackagedBackup(setting, filePath);
@@ -358,9 +402,9 @@ namespace MixItUp.WPF
             ChannelSession.AppSettings.DashboardWidth = 0;
             ChannelSession.AppSettings.DashboardHeight = 0;
             ChannelSession.AppSettings.IsDashboardMaximized = false;
-            
+
             await ChannelSession.AppSettings.Save();
-            
+
             await DialogHelper.ShowMessage(MixItUp.Base.Resources.ResetWindowPositionDialog);
         }
 
