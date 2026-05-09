@@ -10,7 +10,7 @@
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     Title="{x:Static resx:Resources.MixItUpLogin}"
     Width="700"
-    Height="500"
+    Height="550"
     AllowsTransparency="True"
     Background="Transparent"
     FontFamily="{MaterialDesign:MaterialDesignFont}"
@@ -34,7 +34,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" /> 
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -125,49 +125,30 @@
                         </StackPanel>
                     </Grid>
 
-                    <StackPanel
-                        Grid.Row="2"
-                        x:Name="PatreonShoutoutBorder"
-                        Margin="0,14,0,0"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        Visibility="Collapsed">
-                        <Image
-                            x:Name="PatreonMemberAvatarImage"
-                            Width="20"
-                            Height="20"
-                            Margin="0,0,6,0"
-                            Stretch="UniformToFill" />
-                        <TextBlock
-                            x:Name="PatreonMemberNameTextBlock"
-                            VerticalAlignment="Center"
-                            FontSize="11"
-                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
-                            Opacity="0.85"
-                            TextWrapping="Wrap" />
-                    </StackPanel>
-
-                    <StackPanel
-                        Grid.Row="3"
-                        Margin="0,8,0,12"
+                    <StackPanel 
+        Grid.Row="2"
+      HorizontalAlignment="Center"
+      Orientation="Vertical">
+                        <StackPanel 
+                        Margin="0,0,0,0"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
-                        <TextBlock>
+                            <TextBlock>
                             <Hyperlink NavigateUri="https://mixitupapp.com/TermsOfService" RequestNavigate="Hyperlink_RequestNavigate">
                                 <TextBlock FontSize="11" Text="{x:Static resx:Resources.TermsOfService}" />
                             </Hyperlink>
                         </TextBlock>
-                        <TextBlock
+                            <TextBlock
                             Margin="8,0"
                             FontSize="11"
                             Opacity="0.6"
                             Text=" • " />
-                        <TextBlock>
+                            <TextBlock>
                             <Hyperlink NavigateUri="https://mixitupapp.com/Privacy" RequestNavigate="Hyperlink_RequestNavigate">
                                 <TextBlock FontSize="11" Text="{x:Static resx:Resources.PrivacyPolicy}" />
                             </Hyperlink>
                         </TextBlock>
-                        <!--<TextBlock
+                            <!--<TextBlock
                             Margin="8,0"
                             FontSize="11"
                             Opacity="0.6"
@@ -177,9 +158,8 @@
                                 <TextBlock FontSize="11" Text="{x:Static resx:Resources.License}" />
                             </Hyperlink>
                         </TextBlock>-->
-                    </StackPanel>
+                        </StackPanel>
 
-                    <Grid Grid.Row="4" Margin="0,0,0,8">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock
                                 HorizontalAlignment="Center"
@@ -193,9 +173,37 @@
                                 Opacity="0.6" />
                         </StackPanel>
 
+                    </StackPanel>
+
+                    <Grid Grid.Row="3" Margin="0,24,0,8">
+
+                        <StackPanel 
+                            x:Name="PatreonShoutoutBorder"
+                            Margin="0"
+                            HorizontalAlignment="Left"
+                            Orientation="Horizontal"
+                            Visibility="Collapsed">
+                            <Image
+                                x:Name="PatreonMemberAvatarImage"
+                                Width="20"
+                                Height="20"
+                                Margin="0,0,6,0"
+                                Stretch="UniformToFill" />
+                            <TextBlock
+                                x:Name="PatreonMemberNameTextBlock"
+                                VerticalAlignment="Center"
+                                FontSize="11"
+                                Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                                Opacity="0.85"
+                                TextWrapping="Wrap"
+                                />
+                        </StackPanel>
+
+
+
                         <MaterialDesign:PopupBox
-                            Width="32"
-                            Height="32"
+                            Width="20"
+                            Height="20  "
                             Margin="0,0,0,0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
@@ -206,6 +214,7 @@
                                 <MaterialDesign:PackIcon
                                     Width="20"
                                     Height="20"
+                                    
                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
                                     Kind="HelpCircle" />
                             </MaterialDesign:PopupBox.ToggleContent>
@@ -271,7 +280,7 @@
 
                     <Controls:LoadingStatusBar
                         x:Name="StatusBar"
-                        Grid.Row="5"
+                        Grid.Row="4"
                         Margin="-40,0,-40,0" />
 
                     <MaterialDesign:Card
