@@ -137,4 +137,10 @@ namespace MixItUp.Base.Model.API
             return this.normalizedVersionCache;
         }
     }
+
+    public class PatreonMemberShoutoutModel
+    {
+        public string DisplayName { get; set; }
+        public string AvatarUrl { get; set; }
+    }
 }

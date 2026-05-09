@@ -11291,4 +11291,75 @@ print(run())</value>
   <data name="AddOrDropHere" xml:space="preserve">
     <value>Додати або скинути тут</value>
   </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Увійдіть за допомогою Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Вийдіть з Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Початок трансляції Kick Channel</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Зупинка потоку каналу Kick Channel</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Оновлений канал Kick</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Підписка</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Підписався на канал Kick</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick Channel Перепідписався на канал</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Підписка на канал Kick Подаровано</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Масова підписка подарована</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick Channel Бали погашено</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Для використання цієї функції необхідно підключити обліковий запис Kick.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Команда балів каналу Kick</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Вже існує інша команда Kick Kicks із такою ж кількістю/діапазоном, що й ця команда.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Бали каналу Kick</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Команда Kick Kicks</value>
+  </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Дія Kick: необхідно вказати дійсне ім’я</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Дія Kick: брак балів за канал</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>ПОМИЛКА. Не вдається оновити нагороду каналу. Повторіть спробу пізніше. Якщо ця нагорода не була створена через інтерфейс користувача Mix It Up, вам потрібно буде видалити її та повторно додати на сторінці Бали каналу, оскільки їх потрібно створити через Mix It Up, щоб програма могла їх оновлювати.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Нагороди Channel Point Rewards потрібно створити через Mix It Up, щоб програма могла їх оновлювати.
+Це можна зробити, натиснувши «Створити нагороду балами каналу» на сторінці балів каналу в Mix It Up.</value>
+  </data>
 </root>

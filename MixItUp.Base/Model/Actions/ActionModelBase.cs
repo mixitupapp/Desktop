@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using System;
@@ -65,6 +65,7 @@ namespace MixItUp.Base.Model.Actions
         VTSPog,
         MtionStudio = 42,
         MeldStudio,
+        Kick,
     }
 
     [DataContract]

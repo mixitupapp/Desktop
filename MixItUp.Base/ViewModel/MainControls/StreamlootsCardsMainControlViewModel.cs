@@ -1,5 +1,6 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using System.Collections.Generic;
@@ -26,6 +27,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 else if (ServiceManager.Get<YouTubeSession>().IsConnected)
                 {
                     ServiceManager.Get<IProcessService>().LaunchLink($"https://www.streamloots.com/{ServiceManager.Get<YouTubeSession>().StreamerID}/manage/cards");
+                }
+                else if (ServiceManager.Get<KickSession>().IsConnected)
+                {
+                    ServiceManager.Get<IProcessService>().LaunchLink($"https://www.streamloots.com/{ServiceManager.Get<KickSession>().StreamerUsername}/manage/cards");
                 }
             });
         }

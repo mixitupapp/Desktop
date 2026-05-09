@@ -2,6 +2,7 @@
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using System.Reflection;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -20,8 +21,22 @@ namespace MixItUp.WPF.Controls.MainControls
         protected override Task InitializeInternal()
         {
             this.VersionTextBlock.Text = Assembly.GetEntryAssembly().GetName().Version.ToString();
+            _ = this.LoadPatreonMembers();
 
             return base.InitializeInternal();
+        }
+
+        private async Task LoadPatreonMembers()
+        {
+            try
+            {
+                List<string> names = await ServiceManager.Get<MixItUpService>().GetAllPatreonMemberNames();
+                this.PatreonMembersTextBlock.Text = string.Join(" • ", names);
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         private void IssueReportHyperlink_Click(object sender, RoutedEventArgs e)

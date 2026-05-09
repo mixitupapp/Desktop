@@ -1,4 +1,4 @@
-﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.AccountsControl"
+<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.AccountsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -29,6 +29,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" TextWrapping="Wrap" FontWeight="Bold" TextDecorations="Underline" HorizontalAlignment="Center" Text="{x:Static resx:Resources.AccountsChangesRequireRestart}"/>
@@ -38,6 +40,8 @@
             <AccountControls:StreamingPlatformAccountControl Grid.Row="4" DataContext="{Binding Twitch}" />
 
             <AccountControls:StreamingPlatformAccountControl Grid.Row="6" DataContext="{Binding YouTube}" />
+
+            <AccountControls:StreamingPlatformAccountControl Grid.Row="8" DataContext="{Binding Kick}" />
 
         </Grid>
     </ScrollViewer>

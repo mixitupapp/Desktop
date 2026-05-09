@@ -1,4 +1,4 @@
-﻿using MixItUp.API.V1.Models;
+using MixItUp.API.V1.Models;
 using MixItUp.Base;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Currency;
@@ -94,6 +94,21 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
             await ServiceManager.Get<UserService>().LoadAllUserData();
 
             UserV2ViewModel user = await UserV1Controller.GetUserData(StreamingPlatformTypeEnum.YouTube, usernameOrID);
+            if (user == null)
+            {
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
+            }
+
+            return Ok(UserFromUserDataViewModel(user));
+        }
+
+        [Route("kick/{usernameOrID}")]
+        [HttpGet]
+        public async Task<IActionResult> GetKick(string usernameOrID)
+        {
+            await ServiceManager.Get<UserService>().LoadAllUserData();
+
+            UserV2ViewModel user = await UserV1Controller.GetUserData(StreamingPlatformTypeEnum.Kick, usernameOrID);
             if (user == null)
             {
                 return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
@@ -202,6 +217,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 ID = userData.ID,
                 TwitchID = userData.Model.GetPlatformID(StreamingPlatformTypeEnum.Twitch),
                 YouTubeID = userData.Model.GetPlatformID(StreamingPlatformTypeEnum.YouTube),
+                KickID = userData.Model.GetPlatformID(StreamingPlatformTypeEnum.Kick),
                 Username = userData.Model.GetPlatformUsername(ChannelSession.Settings.DefaultStreamingPlatform),
                 ViewingMinutes = userData.OnlineViewingMinutes
             };

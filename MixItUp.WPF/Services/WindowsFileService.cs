@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace MixItUp.WPF.Services
 {
@@ -271,11 +272,12 @@ namespace MixItUp.WPF.Services
             filePath = this.ExpandEnvironmentVariablesInFilePath(filePath);
             if (!string.IsNullOrEmpty(filePath))
             {
+                string tempPath = filePath + ".tmp";
+
                 try
                 {
                     await WindowsFileService.fileLock.WaitAsync();
 
-                    string tempPath = filePath + ".tmp";
                     byte[] bytes = System.Text.Encoding.UTF8.GetBytes(data ?? string.Empty);
                     using (FileStream stream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, FileOptions.WriteThrough))
                     {
@@ -296,17 +298,33 @@ namespace MixItUp.WPF.Services
                         File.Delete(tempPath);
                         throw new IOException("Invalid settings file");
                     }
+                    JObject.Parse(tempContents);
+
+                    const int maxAttempts = 5;
+                    for (int attempt = 1; ; attempt++)
+                    {
+                        try
+                        {
+                            if (File.Exists(filePath))
+                            {
+                                File.Replace(tempPath, filePath, null, ignoreMetadataErrors: true);
+                            }
+                            else
+                            {
+                                File.Move(tempPath, filePath, overwrite: true);
+                            }
+                            tempPath = null;
+                            break;
+                        }
+                        catch (Exception ex) when ((ex is IOException || ex is UnauthorizedAccessException) && attempt < maxAttempts)
+                        {
+                            Logger.Log(LogLevel.Warning, $"Settings file replace failed for {filePath}. Retrying attempt {attempt + 1} of {maxAttempts}.");
+                            Logger.Log(LogLevel.Warning, ex);
+                            await Task.Delay(100 * attempt);
+                        }
+                    }
 
                     string backupPath = filePath + ".backup";
-                    if (File.Exists(filePath))
-                    {
-                        File.Replace(tempPath, filePath, null, ignoreMetadataErrors: true);
-                    }
-                    else
-                    {
-                        File.Move(tempPath, filePath, overwrite: true);
-                    }
-
                     try
                     {
                         File.Copy(filePath, backupPath, overwrite: true);
@@ -324,6 +342,11 @@ namespace MixItUp.WPF.Services
                 }
                 finally
                 {
+                    if (!string.IsNullOrEmpty(tempPath) && File.Exists(tempPath))
+                    {
+                        try { File.Delete(tempPath); }
+                        catch (Exception ex) { Logger.Log(ex); }
+                    }
                     WindowsFileService.fileLock.Release();
                 }
             }

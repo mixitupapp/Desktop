@@ -41,6 +41,8 @@ namespace MixItUp.WPF
 
         protected override async Task OnLoaded()
         {
+            _ = this.TryLoadPatreonMemberShoutout();
+
             this.NewVersionTextBlock.Text = this.update.Version;
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
             this.CurrentVersionTextBlock.Text = VersionHelper.NormalizeSemVerString(entryVersion);
@@ -80,7 +82,6 @@ namespace MixItUp.WPF
                 Logger.Log(ex);
                 this.UpdateChangelogViewer.Markdown = "Unable to load changelog.";
             }
-
             TaskbarFlashHelper.Flash(this);
 
             await base.OnLoaded();
@@ -194,6 +195,39 @@ namespace MixItUp.WPF
             catch
             {
                 // Ignore navigation failures.
+            }
+        }
+
+        private async Task TryLoadPatreonMemberShoutout()
+        {
+            try
+            {
+                PatreonMemberShoutoutModel member = await ServiceManager.Get<MixItUpService>().GetRandomPatreonMemberShoutout();
+                if (member == null || string.IsNullOrWhiteSpace(member.DisplayName))
+                {
+                    return;
+                }
+
+                string[] shoutoutMessages = new string[]
+                {
+                    "This update is brought to you by Patreon supporter {0}.",
+                    "This update is made possible in part by Patreon supporter {0}.",
+                    "Special thanks to Patreon supporter {0} for helping power this update.",
+                    "This release gets a boost from Patreon supporter {0}.",
+                    "Shoutout to Patreon supporter {0} for supporting Mix It Up.",
+                    "Thank you to Patreon supporter {0} for backing Mix It Up.",
+                };
+                this.PatreonMemberNameTextBlock.Text = string.Format(shoutoutMessages[RandomHelper.GenerateRandomNumber(shoutoutMessages.Length)], member.DisplayName);
+                this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
+
+                if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
+                {
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 28, 28, member.DisplayName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
             }
         }
 

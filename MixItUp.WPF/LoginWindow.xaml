@@ -37,6 +37,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Button
@@ -126,7 +127,29 @@
 
                     <StackPanel
                         Grid.Row="2"
-                        Margin="0,20,0,12"
+                        x:Name="PatreonShoutoutBorder"
+                        Margin="0,14,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
+                        <Image
+                            x:Name="PatreonMemberAvatarImage"
+                            Width="20"
+                            Height="20"
+                            Margin="0,0,6,0"
+                            Stretch="UniformToFill" />
+                        <TextBlock
+                            x:Name="PatreonMemberNameTextBlock"
+                            VerticalAlignment="Center"
+                            FontSize="11"
+                            Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
+                            Opacity="0.85"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="3"
+                        Margin="0,8,0,12"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal">
                         <TextBlock>
@@ -156,7 +179,7 @@
                         </TextBlock>-->
                     </StackPanel>
 
-                    <Grid Grid.Row="3" Margin="0,0,0,8">
+                    <Grid Grid.Row="4" Margin="0,0,0,8">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock
                                 HorizontalAlignment="Center"
@@ -248,13 +271,13 @@
 
                     <Controls:LoadingStatusBar
                         x:Name="StatusBar"
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Margin="-40,0,-40,0" />
 
                     <MaterialDesign:Card
                         x:Name="OutageBanner"
                         Grid.Row="0"
-                        Grid.RowSpan="5"
+                        Grid.RowSpan="6"
                         Margin="20,0,20,20"
                         Padding="16,12"
                         VerticalAlignment="Bottom"
