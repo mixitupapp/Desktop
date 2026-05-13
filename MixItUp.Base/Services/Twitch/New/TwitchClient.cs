@@ -83,6 +83,7 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.channel_points_automatic_reward_redemption.add", null },
             { "channel.channel_points_custom_reward_redemption.add", null },
+            { "channel.custom_power_up_redemption.add", null },
 
             { "channel.chat.message", null },
             { "channel.chat.message_delete", null },
@@ -109,6 +110,7 @@ namespace MixItUp.Base.Services.Twitch.New
 
         private HashSet<string> followCache = new HashSet<string>();
         private HashSet<string> channelPointRewardRedeemsCache = new HashSet<string>();
+        private HashSet<string> customPowerUpRedeemsCache = new HashSet<string>();
 
         private int lastHypeTrainLevel = 1;
 
@@ -363,6 +365,9 @@ namespace MixItUp.Base.Services.Twitch.New
                         break;
                     case "channel.channel_points_custom_reward_redemption.add":
                         await HandleChannelPointRewardAddCustomRedemption(message.Payload.Event);
+                        break;
+                    case "channel.custom_power_up_redemption.add":
+                        await HandleChannelCustomPowerUpRedemptionAdd(message.Payload.Event);
                         break;
 
                     case "channel.chat.message":
@@ -829,6 +834,55 @@ namespace MixItUp.Base.Services.Twitch.New
                 }
             }
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchChannelPointRedeemed, user.FullDisplayName, redemption.reward.title), ChannelSession.Settings.AlertTwitchChannelPointsColor));
+        }
+
+        private async Task HandleChannelCustomPowerUpRedemptionAdd(JObject payload)
+        {
+            ChannelCustomPowerUpRedemptionNotification redemption = payload.ToObject<ChannelCustomPowerUpRedemptionNotification>();
+
+            if (customPowerUpRedeemsCache.Contains(redemption.id))
+            {
+                return;
+            }
+            customPowerUpRedeemsCache.Add(redemption.id);
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: redemption.user_id);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(redemption));
+            }
+
+            List<string> arguments = null;
+            Dictionary<string, string> eventCommandSpecialIdentifiers = new Dictionary<string, string>();
+            eventCommandSpecialIdentifiers["rewardname"] = redemption.custom_power_up.title;
+            eventCommandSpecialIdentifiers["powerupname"] = redemption.custom_power_up.title;
+            eventCommandSpecialIdentifiers["rewardcost"] = redemption.custom_power_up.bits.ToString();
+            eventCommandSpecialIdentifiers["powerupcost"] = redemption.custom_power_up.bits.ToString();
+            eventCommandSpecialIdentifiers["bitsamount"] = redemption.custom_power_up.bits.ToString();
+
+            if (!string.IsNullOrEmpty(redemption.user_input))
+            {
+                eventCommandSpecialIdentifiers["message"] = redemption.user_input;
+                arguments = new List<string>(redemption.user_input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+            }
+
+            if (string.IsNullOrEmpty(await ServiceManager.Get<ModerationService>().ShouldTextBeModerated(user, redemption.user_input)))
+            {
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelCustomPowerUpRedeemed, new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, arguments, eventCommandSpecialIdentifiers));
+
+                TwitchCustomPowerUpCommandModel command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => string.Equals(c.CustomPowerUpID, redemption.custom_power_up.id, StringComparison.CurrentCultureIgnoreCase));
+                if (command == null)
+                {
+                    command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => string.Equals(c.Name, redemption.custom_power_up.title, StringComparison.CurrentCultureIgnoreCase));
+                }
+
+                if (command != null)
+                {
+                    Dictionary<string, string> customPowerUpSpecialIdentifiers = new Dictionary<string, string>(eventCommandSpecialIdentifiers);
+                    await ServiceManager.Get<CommandService>().Queue(command, new CommandParametersModel(user, platform: StreamingPlatformTypeEnum.Twitch, arguments: arguments, specialIdentifiers: customPowerUpSpecialIdentifiers));
+                }
+            }
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchCustomPowerUpRedeemed, user.FullDisplayName, redemption.custom_power_up.title), ChannelSession.Settings.AlertTwitchCustomPowerUpsColor));
         }
 
         private async Task HandleChatMessage(JObject payload)

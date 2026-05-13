@@ -548,6 +548,16 @@ namespace MixItUp.Base.Services.Twitch.New
             });
         }
 
+        public async Task<IEnumerable<CustomPowerUpModel>> GetCustomPowerUps(UserModel broadcaster)
+        {
+            IEnumerable<CustomPowerUpModel> results = await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.GetDataResultAsync<CustomPowerUpModel>("bits/custom_power_ups?broadcaster_id=" + broadcaster.id);
+            });
+
+            return results ?? new List<CustomPowerUpModel>();
+        }
+
         public async Task<IEnumerable<ChatBadgeSetModel>> GetChannelChatBadges(UserModel channel)
         {
             return await AsyncRunner.RunAsync(async () =>

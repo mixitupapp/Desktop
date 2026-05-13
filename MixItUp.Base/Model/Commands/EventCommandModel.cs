@@ -120,6 +120,11 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["rewardcost"] = "100";
                     specialIdentifiers["message"] = "Test Message";
                     break;
+                case EventTypeEnum.TwitchChannelCustomPowerUpRedeemed:
+                    specialIdentifiers["powerupname"] = "Test Power-Up";
+                    specialIdentifiers["powerupcost"] = "100";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
                 case EventTypeEnum.TwitchChannelAdUpcoming:
                     specialIdentifiers["adsnoozecount"] = "3";
                     specialIdentifiers["adnextduration"] = "60";

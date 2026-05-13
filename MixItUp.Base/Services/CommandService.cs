@@ -105,6 +105,7 @@ namespace MixItUp.Base.Services
         public List<TrovoSpellCommandModel> TrovoSpellCommands { get; set; } = new List<TrovoSpellCommandModel>();
         public List<TwitchBitsCommandModel> TwitchBitsCommands { get; set; } = new List<TwitchBitsCommandModel>();
         public List<CrowdControlEffectCommandModel> CrowdControlEffectCommands { get; set; } = new List<CrowdControlEffectCommandModel>();
+        public List<TwitchCustomPowerUpCommandModel> TwitchCustomPowerUpCommands { get; set; } = new List<TwitchCustomPowerUpCommandModel>();
 
         public IEnumerable<CommandModelBase> AllEnabledChatAccessibleCommands
         {
@@ -135,6 +136,7 @@ namespace MixItUp.Base.Services
                 commands.AddRange(this.TrovoSpellCommands);
                 commands.AddRange(this.TwitchBitsCommands);
                 commands.AddRange(this.CrowdControlEffectCommands);
+                commands.AddRange(this.TwitchCustomPowerUpCommands);
                 return commands;
             }
         }
@@ -183,6 +185,7 @@ namespace MixItUp.Base.Services
             this.TrovoSpellCommands.Clear();
             this.TwitchBitsCommands.Clear();
             this.CrowdControlEffectCommands.Clear();
+            this.TwitchCustomPowerUpCommands.Clear();
 
             foreach (CommandModelBase command in ChannelSession.Settings.Commands.Values.ToList())
             {
@@ -201,6 +204,7 @@ namespace MixItUp.Base.Services
                 else if (command is TrovoSpellCommandModel) { this.TrovoSpellCommands.Add((TrovoSpellCommandModel)command); }
                 else if (command is TwitchBitsCommandModel) { this.TwitchBitsCommands.Add((TwitchBitsCommandModel)command); }
                 else if (command is CrowdControlEffectCommandModel) { this.CrowdControlEffectCommands.Add((CrowdControlEffectCommandModel)command); }
+                else if (command is TwitchCustomPowerUpCommandModel) { this.TwitchCustomPowerUpCommands.Add((TwitchCustomPowerUpCommandModel)command); }
             }
 
             foreach (PreMadeChatCommandSettingsModel commandSetting in ChannelSession.Settings.PreMadeChatCommandSettings)
