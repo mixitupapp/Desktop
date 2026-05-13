@@ -104,6 +104,7 @@ namespace MixItUp.Base.Services
         public List<WebhookCommandModel> WebhookCommands { get; set; } = new List<WebhookCommandModel>();
         public List<TwitchBitsCommandModel> TwitchBitsCommands { get; set; } = new List<TwitchBitsCommandModel>();
         public List<CrowdControlEffectCommandModel> CrowdControlEffectCommands { get; set; } = new List<CrowdControlEffectCommandModel>();
+        public List<TwitchCustomPowerUpCommandModel> TwitchCustomPowerUpCommands { get; set; } = new List<TwitchCustomPowerUpCommandModel>();
         public List<KickChannelPointsCommandModel> KickChannelPointsCommands { get; set; } = new List<KickChannelPointsCommandModel>();
         public List<KickKicksCommandModel> KickKicksCommands { get; set; } = new List<KickKicksCommandModel>();
 
@@ -135,6 +136,7 @@ namespace MixItUp.Base.Services
                 commands.AddRange(this.WebhookCommands);
                 commands.AddRange(this.TwitchBitsCommands);
                 commands.AddRange(this.CrowdControlEffectCommands);
+                commands.AddRange(this.TwitchCustomPowerUpCommands);
                 commands.AddRange(this.KickChannelPointsCommands);
                 commands.AddRange(this.KickKicksCommands);
                 return commands;
@@ -184,6 +186,7 @@ namespace MixItUp.Base.Services
             this.WebhookCommands.Clear();
             this.TwitchBitsCommands.Clear();
             this.CrowdControlEffectCommands.Clear();
+            this.TwitchCustomPowerUpCommands.Clear();
             this.KickChannelPointsCommands.Clear();
             this.KickKicksCommands.Clear();
 
@@ -203,6 +206,7 @@ namespace MixItUp.Base.Services
                 else if (command is WebhookCommandModel) { this.WebhookCommands.Add((WebhookCommandModel)command); }
                 else if (command is TwitchBitsCommandModel) { this.TwitchBitsCommands.Add((TwitchBitsCommandModel)command); }
                 else if (command is CrowdControlEffectCommandModel) { this.CrowdControlEffectCommands.Add((CrowdControlEffectCommandModel)command); }
+                else if (command is TwitchCustomPowerUpCommandModel) { this.TwitchCustomPowerUpCommands.Add((TwitchCustomPowerUpCommandModel)command); }
                 else if (command is KickChannelPointsCommandModel) { this.KickChannelPointsCommands.Add((KickChannelPointsCommandModel)command); }
                 else if (command is KickKicksCommandModel) { this.KickKicksCommands.Add((KickKicksCommandModel)command); }
             }

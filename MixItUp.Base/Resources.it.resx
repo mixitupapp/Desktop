@@ -11265,6 +11265,30 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Arresto al completamento</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Riscattato {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Potenziamento personalizzato</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>È necessario selezionare un'accensione personalizzata</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Potenziamento personalizzato Twitch</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Potenziamenti personalizzati di Twitch</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Comando di accensione personalizzato di Twitch</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Potenziamento personalizzato del canale Twitch riscattato</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Mostra i potenziamenti personalizzati di Twitch</value>
+  </data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Canale YouTube Gioielli Regalo</value>
   </data>

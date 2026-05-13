@@ -76,6 +76,7 @@ namespace MixItUp.Base.Model.Store
         CrowdControlEffect,
         KickChannelPoints,
         KickKicks,
+        TwitchCustomPowerUpCommand,
 
         // Extra Tags
         [Obsolete]

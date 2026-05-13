@@ -11265,6 +11265,30 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stop on Completion</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>[{0} Ŕéðééɱéðẋẋẋ {1}]</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Custom Power-Up</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>A Custom Power-Up must be selected</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitch Custom Power-Up</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch Custom Power-Ups</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch Custom Power-Up Command</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Twitch Channel Custom Power-Up Redeemed</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Show Twitch Custom Power-Ups</value>
+	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube Channel Jewels Gift</value>
   </data>

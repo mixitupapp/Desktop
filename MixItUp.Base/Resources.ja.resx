@@ -11265,6 +11265,30 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="StopOnCompletion" xml:space="preserve">
     <value>完了時に停止</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} を引き換えました {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>カスタム・パワーアップ</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>カスタム・パワーアップを選択する必要がある</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitchカスタム・パワーアップ</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitchカスタム・パワーアップ</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitchカスタム・パワーアップ・コマンド</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Twitchチャンネル・カスタム・パワーアップ償還</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitchカスタムパワーアップを表示する</value>
+ </data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTubeチャンネル ジュエルギフト</value>
   </data>

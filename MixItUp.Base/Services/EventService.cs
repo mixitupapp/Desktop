@@ -86,6 +86,7 @@ namespace MixItUp.Base.Services
         TwitchChannelCharityDonation = 272,
         [Obsolete]
         TwitchChannelHypeChat = 273,
+        TwitchChannelCustomPowerUpRedeemed = 274,
 
         TwitchChannelHypeTrainBegin = 280,
         [Obsolete]
