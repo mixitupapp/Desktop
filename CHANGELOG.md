@@ -1,5 +1,9 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.620
+
+- [FEAT] Add support for Twitch Custom Power-ups
+
 ## 1.6.520
 
 - [FEAT] Add Kick integration for chat, events, channel points, and Kicks
