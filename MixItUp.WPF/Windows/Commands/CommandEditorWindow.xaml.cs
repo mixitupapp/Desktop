@@ -91,6 +91,9 @@ namespace MixItUp.WPF.Windows.Commands
                     this.editorDetailsControl = new CrowdControlEffectCommandEditorDetailsControl();
                     this.viewModel = new CrowdControlEffectCommandEditorWindowViewModel((CrowdControlEffectCommandModel)existingCommand);
                     break;
+                case CommandTypeEnum.TwitchCustomPowerUp:
+                    this.editorDetailsControl = new TwitchCustomPowerUpCommandEditorDetailsControl();
+                    this.viewModel = new TwitchCustomPowerUpCommandEditorWindowViewModel((TwitchCustomPowerUpCommandModel)existingCommand);
                 case CommandTypeEnum.KickChannelPoints:
                     this.editorDetailsControl = new KickChannelPointsCommandEditorDetailsControl();
                     this.viewModel = new KickChannelPointsCommandEditorWindowViewModel((KickChannelPointsCommandModel)existingCommand);
@@ -142,6 +145,9 @@ namespace MixItUp.WPF.Windows.Commands
                     this.editorDetailsControl = new CrowdControlEffectCommandEditorDetailsControl();
                     this.viewModel = new CrowdControlEffectCommandEditorWindowViewModel();
                     break;
+                case CommandTypeEnum.TwitchCustomPowerUp:
+                    this.editorDetailsControl = new TwitchCustomPowerUpCommandEditorDetailsControl();
+                    this.viewModel = new TwitchCustomPowerUpCommandEditorWindowViewModel();
                 case CommandTypeEnum.KickChannelPoints:
                     this.editorDetailsControl = new KickChannelPointsCommandEditorDetailsControl();
                     this.viewModel = new KickChannelPointsCommandEditorWindowViewModel();

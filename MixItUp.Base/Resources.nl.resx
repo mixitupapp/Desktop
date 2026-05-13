@@ -11266,6 +11266,29 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stoppen na voltooiing</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Ingewisseld {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Aangepaste Power-Up</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Er moet een aangepaste Power-Up worden geselecteerd</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitch aangepaste power-up</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch aangepaste power-ups</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch aangepast power-upcommando</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Aangepaste Power-Up voor Twitch-kanaal ingewisseld</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Toon Twitch aangepaste power-ups</value>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube-kanaal juwelen cadeau</value>
   </data>

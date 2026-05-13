@@ -92,6 +92,8 @@ namespace MixItUp.Base.Model.User.Platform
 
         public TwitchUserPlatformV2Model(ChannelPointRewardCustomRedemptionNotification redemption) : this(redemption.user_id, redemption.user_login, redemption.user_name) { }
 
+        public TwitchUserPlatformV2Model(ChannelCustomPowerUpRedemptionNotification redemption) : this(redemption.user_id, redemption.user_login, redemption.user_name) { }
+
         public TwitchUserPlatformV2Model(ChatUserClearNotification userClear) : this(userClear.target_user_id, userClear.target_user_login, userClear.target_user_name) { }
 
         public TwitchUserPlatformV2Model(CheerNotification cheer) : this(cheer.user_id, cheer.user_login, cheer.user_name) { }

@@ -1033,6 +1033,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Redeemed {1}.
+        /// </summary>
+        public static string AlertTwitchCustomPowerUpRedeemed {
+            get {
+                return ResourceManager.GetString("AlertTwitchCustomPowerUpRedeemed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} has a Watch Streak of {1}.
         /// </summary>
         public static string AlertTwitchWatchStreak {
@@ -4726,6 +4735,24 @@ namespace MixItUp.Base {
         public static string CustomLevelGreaterThanZero {
             get {
                 return ResourceManager.GetString("CustomLevelGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Power-Up.
+        /// </summary>
+        public static string CustomPowerUp {
+            get {
+                return ResourceManager.GetString("CustomPowerUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Custom Power-Up must be selected.
+        /// </summary>
+        public static string CustomPowerUpMissing {
+            get {
+                return ResourceManager.GetString("CustomPowerUpMissing", resourceCulture);
             }
         }
         
@@ -22143,6 +22170,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Custom Power-Ups.
+        /// </summary>
+        public static string ShowTwitchCustomPowerUps {
+            get {
+                return ResourceManager.GetString("ShowTwitchCustomPowerUps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Twitch Hype Train.
         /// </summary>
         public static string ShowTwitchHypeTrain {
@@ -26125,6 +26161,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Custom Power-Up Redeemed.
+        /// </summary>
+        public static string TwitchChannelCustomPowerUpRedeemed {
+            get {
+                return ResourceManager.GetString("TwitchChannelCustomPowerUpRedeemed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitch Channel Editor.
         /// </summary>
         public static string TwitchChannelEditor {
@@ -26445,6 +26490,33 @@ namespace MixItUp.Base {
         public static string TwitchConnectionFailed {
             get {
                 return ResourceManager.GetString("TwitchConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Custom Power-Up.
+        /// </summary>
+        public static string TwitchCustomPowerUp {
+            get {
+                return ResourceManager.GetString("TwitchCustomPowerUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Custom Power-Up Command.
+        /// </summary>
+        public static string TwitchCustomPowerUpCommand {
+            get {
+                return ResourceManager.GetString("TwitchCustomPowerUpCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Custom Power-Ups.
+        /// </summary>
+        public static string TwitchCustomPowerUps {
+            get {
+                return ResourceManager.GetString("TwitchCustomPowerUps", resourceCulture);
             }
         }
         

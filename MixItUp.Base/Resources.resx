@@ -11296,6 +11296,39 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stop on Completion</value>
   </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Custom Power-Up</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>A Custom Power-Up must be selected</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitch Custom Power-Up</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch Custom Power-Ups</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch Custom Power-Up Command</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Twitch Channel Custom Power-Up Redeemed</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Show Twitch Custom Power-Ups</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Redeemed {1}</value>
+    <comment>{0} is the name of the user
+{1} is the name of the custom Power-Up</comment>
+  </data></root>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Reset Moderation Strikes for All Users</value>
   </data>

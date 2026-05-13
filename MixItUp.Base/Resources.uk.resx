@@ -11265,6 +11265,29 @@ print(run())</value>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Зупинка на завершенні</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Використано {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Спеціальне включення живлення</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Має бути обрано спеціальне ввімкнення</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitch Custom Power-Up</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch Custom Power-Ups</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch Користувацька команда ввімкнення</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Кастомне ввімкнення каналу Twitch Викуплено</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Покажіть Twitch користувацькі ввімкнення</value>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Канал YouTube Подарунок коштовностей</value>
   </data>

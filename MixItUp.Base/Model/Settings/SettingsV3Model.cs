@@ -289,6 +289,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertTwitchChannelPointsColor { get; set; }
         [DataMember]
+        public string AlertTwitchCustomPowerUpsColor { get; set; }
+        [DataMember]
         public string AlertTwitchHypeTrainColor { get; set; }
         [DataMember]
         public string AlertTwitchAdsColor { get; set; }
@@ -834,6 +836,9 @@ namespace MixItUp.Base.Model.Settings
                     {
                         command = JSONSerializerHelper.DeserializeFromString<CrowdControlEffectCommandModel>(commandData);
                     }
+                    else if (type == CommandTypeEnum.TwitchCustomPowerUp)
+                    {
+                        command = JSONSerializerHelper.DeserializeFromString<TwitchCustomPowerUpCommandModel>(commandData);
                     else if (type == CommandTypeEnum.KickChannelPoints)
                     {
                         command = JSONSerializerHelper.DeserializeFromString<KickChannelPointsCommandModel>(commandData);

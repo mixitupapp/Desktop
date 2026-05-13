@@ -11265,6 +11265,29 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="StopOnCompletion" xml:space="preserve">
     <value>完成时停止</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0}已兌換{1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>自定义启动</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>必须选择自定义启动</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitch 自定义增强功能</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch 自定义功能</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch 自定义启动指令</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>兑换 Twitch 频道自定义启动器</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>显示 Twitch 自定义功能</value>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube 频道珠宝礼品</value>
   </data>

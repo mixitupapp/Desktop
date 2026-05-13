@@ -9984,6 +9984,29 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stopp bei Fertigstellung</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Erlöste {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Benutzerdefiniertes Power-Up</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Es muss ein benutzerdefiniertes Power-Up ausgewählt werden</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitch Custom Power-Up</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch Custom Power-Ups</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch Benutzerdefinierter Power-Up-Befehl</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Twitch-Kanal Benutzerdefiniertes Power-Up eingelöst</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch Custom Power-Ups anzeigen</value>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube-Kanal Juwelen Geschenk</value>
   </data>

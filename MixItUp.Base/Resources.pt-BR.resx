@@ -11266,6 +11266,29 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Parar na conclusão</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} resgatou {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Power-Up personalizado</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Deve ser selecionado um Power-Up personalizado</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Power-Up personalizado do Twitch</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Power-Ups personalizados do Twitch</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Comando de aumento de energia personalizado do Twitch</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Power-Up personalizado do canal Twitch resgatado</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Mostrar Power-Ups personalizados do Twitch</value>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Oferta de jóias do canal do YouTube</value>
   </data>

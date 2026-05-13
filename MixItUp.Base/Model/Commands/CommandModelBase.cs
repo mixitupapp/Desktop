@@ -30,6 +30,7 @@ namespace MixItUp.Base.Model.Commands
         CrowdControlEffect = 13,
         KickChannelPoints = 14,
         KickKicks = 15,
+        TwitchCustomPowerUp = 16,
 
         // Specialty Command Types
         UserOnlyChat = 1000,
