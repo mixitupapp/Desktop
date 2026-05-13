@@ -1,5 +1,9 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.600
+
+- [FEAT] Add support for Twitch Custom Power-ups
+
 ## 1.6.500
 
 - [FEAT] Add Twitch Watch Streak Alert in Settings -> Alerts
