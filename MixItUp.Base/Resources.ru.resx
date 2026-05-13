@@ -11293,6 +11293,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Показать Twitch Пользовательские бонусы</value>
+	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Подарок для канала YouTube Jewels</value>
   </data>

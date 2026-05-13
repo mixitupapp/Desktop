@@ -11290,6 +11290,7 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Mostrar potenciadores personalizados de Twitch</value>
+  </data>	
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Canal YouTube Joyas Regalo</value>
   </data>

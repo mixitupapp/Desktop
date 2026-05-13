@@ -11289,6 +11289,7 @@ Aceda à página Contas no menu principal para ligar a sua conta de transmissão
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Mostrar Power-Ups personalizados do Twitch</value>
+	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Oferta de jóias do canal do YouTube</value>
   </data>

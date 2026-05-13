@@ -11328,7 +11328,7 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
     <value>{0} Redeemed {1}</value>
     <comment>{0} is the name of the user
 {1} is the name of the custom Power-Up</comment>
-  </data></root>
+  </data>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Reset Moderation Strikes for All Users</value>
   </data>

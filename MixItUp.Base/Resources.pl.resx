@@ -11288,6 +11288,7 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Pokaż niestandardowe ulepszenia Twitcha</value>
+	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Prezent w postaci klejnotów na kanale YouTube</value>
   </data>

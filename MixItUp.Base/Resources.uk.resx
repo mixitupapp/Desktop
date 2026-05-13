@@ -11288,6 +11288,7 @@ print(run())</value>
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Покажіть Twitch користувацькі ввімкнення</value>
+	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Канал YouTube Подарунок коштовностей</value>
   </data>

@@ -11288,6 +11288,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>显示 Twitch 自定义功能</value>
+	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube 频道珠宝礼品</value>
   </data>

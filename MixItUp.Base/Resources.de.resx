@@ -11294,6 +11294,7 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Twitch Custom Power-Ups anzeigen</value>
+  </data>	  
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube-Kanal Juwelen Geschenk</value>
   </data>

@@ -11288,6 +11288,7 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Show Twitch Custom Power-Ups</value>
+	</data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube Channel Jewels Gift</value>
   </data>

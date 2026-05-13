@@ -11288,6 +11288,7 @@ Andare alla pagina Account nel menu principale per collegare l'account di stream
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Mostra i potenziamenti personalizzati di Twitch</value>
+  </data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Canale YouTube Gioielli Regalo</value>
   </data>

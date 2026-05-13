@@ -839,6 +839,7 @@ namespace MixItUp.Base.Model.Settings
                     else if (type == CommandTypeEnum.TwitchCustomPowerUp)
                     {
                         command = JSONSerializerHelper.DeserializeFromString<TwitchCustomPowerUpCommandModel>(commandData);
+                    }
                     else if (type == CommandTypeEnum.KickChannelPoints)
                     {
                         command = JSONSerializerHelper.DeserializeFromString<KickChannelPointsCommandModel>(commandData);

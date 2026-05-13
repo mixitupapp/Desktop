@@ -11289,6 +11289,7 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Show Twitch Custom Power-Ups</value>
+  </data>	
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Cadeau pour les bijoux de la chaîne YouTube</value>
   </data>
