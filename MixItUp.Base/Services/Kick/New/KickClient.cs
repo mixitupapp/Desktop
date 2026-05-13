@@ -270,6 +270,10 @@ namespace MixItUp.Base.Services.Kick.New
                 gifter = UserV2ViewModel.CreateUnassociated("Anonymous");
             }
 
+            int filterAmount = ChannelSession.Settings.MassGiftedSubsFilterAmount;
+            bool fireMassEvent = filterAmount == 0 || giftsEvent.Giftees.Count > filterAmount;
+            bool fireIndividualEvents = filterAmount == 0 || giftsEvent.Giftees.Count <= filterAmount;
+
             List<SubscriptionDetailsModel> subscriptions = new List<SubscriptionDetailsModel>();
             foreach (WebhookUserReferenceModel gifteeRef in giftsEvent.Giftees)
             {
@@ -293,11 +297,14 @@ namespace MixItUp.Base.Services.Kick.New
                 giftee.SubscribeDate = DateTimeOffset.Now;
                 giftee.TotalSubsReceived++;
 
-                CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
-                giftParameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
-                giftParameters.TargetUser = giftee;
-                giftParameters.Arguments.Add(giftee.Username);
-                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscriptionGifted, giftParameters);
+                if (fireIndividualEvents)
+                {
+                    CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
+                    giftParameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                    giftParameters.TargetUser = giftee;
+                    giftParameters.Arguments.Add(giftee.Username);
+                    await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscriptionGifted, giftParameters);
+                }
 
                 subscriptions.Add(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Kick, giftee, gifter, tier: 1));
             }
@@ -309,18 +316,21 @@ namespace MixItUp.Base.Services.Kick.New
                     gifter.TotalSubsGifted += (uint)subscriptions.Count;
                 }
 
-                CommandParametersModel parameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
-                parameters.SpecialIdentifiers["subsgiftedamount"] = subscriptions.Count.ToString();
-                parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
-                parameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
-                foreach (SubscriptionDetailsModel sub in subscriptions)
+                if (fireMassEvent)
                 {
-                    parameters.Arguments.Add(sub.User.Username);
-                }
+                    CommandParametersModel parameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
+                    parameters.SpecialIdentifiers["subsgiftedamount"] = subscriptions.Count.ToString();
+                    parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
+                    parameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                    foreach (SubscriptionDetailsModel sub in subscriptions)
+                    {
+                        parameters.Arguments.Add(sub.User.Username);
+                    }
 
-                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelMassSubscriptionsGifted, parameters);
-                EventService.MassSubscriptionsGiftedOccurred(subscriptions);
-                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(gifter, string.Format(MixItUp.Base.Resources.AlertMassSubscriptionsGiftedTier, gifter.FullDisplayName, subscriptions.Count, "Kick Subscription"), ChannelSession.Settings.AlertMassGiftedSubColor));
+                    await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelMassSubscriptionsGifted, parameters);
+                    EventService.MassSubscriptionsGiftedOccurred(subscriptions);
+                    await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(gifter, string.Format(MixItUp.Base.Resources.AlertMassSubscriptionsGiftedTier, gifter.FullDisplayName, subscriptions.Count, "Kick Subscription"), ChannelSession.Settings.AlertMassGiftedSubColor));
+                }
             }
         }
 
