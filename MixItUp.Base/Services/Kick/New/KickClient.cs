@@ -130,6 +130,15 @@ namespace MixItUp.Base.Services.Kick.New
                 return;
             }
 
+            if (messageEvent.Sender?.Identity?.Badges != null)
+            {
+                var gifterBadge = messageEvent.Sender.Identity.Badges.FirstOrDefault(b => string.Equals(b.Type, "sub_gifter", StringComparison.OrdinalIgnoreCase));
+                if (gifterBadge != null && gifterBadge.Count.HasValue)
+                {
+                    user.TotalSubsGifted = (uint)gifterBadge.Count.Value;
+                }
+            }
+
             await ServiceManager.Get<ChatService>().AddMessage(new KickChatMessageViewModel(messageEvent, user));
         }
 
