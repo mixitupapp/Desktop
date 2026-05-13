@@ -17,6 +17,7 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericColorComboBoxSettingsOptionControlViewModel MassGiftedSub { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchBitsCheered { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchChannelPoints { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchCustomPowerUps { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchHypeTrain { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchAds { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchWatchStreak { get; set; }
@@ -40,6 +41,7 @@ namespace MixItUp.Base.ViewModel.Settings
             this.MassGiftedSub = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowMassGiftedSubs, ChannelSession.Settings.AlertMassGiftedSubColor, (value) => { ChannelSession.Settings.AlertMassGiftedSubColor = value; });
             this.TwitchBitsCheered = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchBitsCheered, ChannelSession.Settings.AlertTwitchBitsCheeredColor, (value) => { ChannelSession.Settings.AlertTwitchBitsCheeredColor = value; });
             this.TwitchChannelPoints = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchChannelPoints, ChannelSession.Settings.AlertTwitchChannelPointsColor, (value) => { ChannelSession.Settings.AlertTwitchChannelPointsColor = value; });
+            this.TwitchCustomPowerUps = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchCustomPowerUps, ChannelSession.Settings.AlertTwitchCustomPowerUpsColor, (value) => { ChannelSession.Settings.AlertTwitchCustomPowerUpsColor = value; });
             this.TwitchHypeTrain = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchHypeTrain, ChannelSession.Settings.AlertTwitchHypeTrainColor, (value) => { ChannelSession.Settings.AlertTwitchHypeTrainColor = value; });
             this.TwitchAds = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchAds, ChannelSession.Settings.AlertTwitchAdsColor, (value) => { ChannelSession.Settings.AlertTwitchAdsColor = value; });
             this.TwitchWatchStreak = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchWatchStreak, ChannelSession.Settings.AlertTwitchWatchStreakColor, (value) => { ChannelSession.Settings.AlertTwitchWatchStreakColor = value; });

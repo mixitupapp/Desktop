@@ -27,6 +27,7 @@ namespace MixItUp.Base.Model.Commands
         TrovoSpell = 11,
         TwitchBits = 12,
         CrowdControlEffect = 13,
+        TwitchCustomPowerUp = 16,
 
         // Specialty Command Types
         UserOnlyChat = 1000,

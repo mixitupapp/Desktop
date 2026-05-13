@@ -69,6 +69,7 @@ namespace MixItUp.Base.Model.Store
         TrovoSpell,
         TwitchBits,
         CrowdControlEffect,
+        TwitchCustomPowerUpCommand,
 
         // Extra Tags
         [Obsolete]
