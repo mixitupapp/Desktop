@@ -181,7 +181,6 @@ namespace MixItUp.Base.Services.Twitch.New
                 }
                 await Task.WhenAll(subscriptionDeletionTasks);
 
-                List<Task> subscriptionRegisterTasks = new List<Task>();
                 foreach (string missingSub in missingSubs)
                 {
                     if (missingSub.Equals("channel.raid", StringComparison.OrdinalIgnoreCase))
@@ -220,8 +219,6 @@ namespace MixItUp.Base.Services.Twitch.New
                         await this.RegisterEventSubSubscription(missingSub, message, DesiredSubscriptionsAndVersions[missingSub], conditions);
                     }
                 }
-                await Task.WhenAll(subscriptionRegisterTasks);
-
                 IEnumerable<ChannelFollowerModel> followers = await ServiceManager.Get<TwitchSession>().StreamerService.GetNewAPIFollowers(ServiceManager.Get<TwitchSession>().StreamerModel, maxResults: 100);
                 if (followers != null)
                 {
@@ -1372,8 +1369,6 @@ namespace MixItUp.Base.Services.Twitch.New
                             streamPass.AddAmount(subscription.User, streamPass.SubscribeBonus);
                         }
                     }
-
-                    await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelSubscribed, parameters);
                 }
 
                 EventService.SubscribeOccurred(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Twitch, subscription.User, tier: subscription.Tier));

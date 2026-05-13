@@ -11290,5 +11290,101 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Mostrar potenciadores personalizados de Twitch</value>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Canal YouTube Joyas Regalo</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Regalo de Joyas de YouTube - {1} ({2} Joyas)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Mostrar YouTube Joyas Regalo</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Opción 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Desactivar la eliminación de iframe (solución para la congelación de OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Advertencia: Prueba de solución. No se recomienda activar a menos que sea necesario para la congelación de vídeo OBS CEF. Esto puede aumentar el uso de memoria o introducir otros problemas.
+
+Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Restablecer las huelgas de moderación para todos los usuarios</value>
+  </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Añadir o dejar aquí</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Iniciar sesión con Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Salir de Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick Channel Stream Start</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Stream Stop</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Canal Kick actualizado</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Canal Seguido</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Canal Kick Suscrito</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick Canal Resuscrito</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Abono Kick Channel Regalado</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Suscripción masiva Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Puntos Kick Channel canjeados</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Canal Kick Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Se debe conectar una cuenta de Kick para utilizar esta función.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Comando de puntos de canal Kick</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Ya existe otro comando de Kick Kicks con la misma cantidad/rango que este comando.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Puntos de canal Kick</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Comando de Kick Kicks</value>
+  </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Acción de Kick: se debe especificar un nombre válido</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Acción de Kick: recompensa de puntos de canal faltantes</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>ERROR: No se pudo actualizar Channel Point Reward. Vuelva a intentarlo más tarde. Si esta recompensa no se creó a través de la interfaz de usuario de Mix It Up, deberá eliminarla y volver a agregarla en la página de puntos del canal, ya que deben crearse a través de Mix It Up para permitir que la aplicación pueda actualizarlos.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Las recompensas de puntos de canal deben crearse a través de Mix It Up para permitir que la aplicación pueda actualizarlas.
+Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la página Puntos de canal en Mix It Up.</value>
   </data>
 </root>

@@ -36,6 +36,21 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public ThreadSafeObservableCollection<UserQuoteViewModel> Quotes { get; private set; } = new ThreadSafeObservableCollection<UserQuoteViewModel>();
 
+        public bool LatestQuotesAtTop
+        {
+            get { return this.latestQuotesAtTop; }
+            set
+            {
+                this.latestQuotesAtTop = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.QuotesOrderIcon));
+                this.Refresh();
+            }
+        }
+        private bool latestQuotesAtTop;
+
+        public string QuotesOrderIcon { get { return this.LatestQuotesAtTop ? "SortDescending" : "SortAscending"; } }
+
         public string QuotesFormatText
         {
             get { return ChannelSession.Settings.QuotesFormat; }
@@ -59,6 +74,8 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public ICommand AddQuoteCommand { get; set; }
 
+        public ICommand ToggleLatestQuotesAtTopCommand { get; set; }
+
         public ICommand ExportQuotesCommand { get; set; }
 
         public ICommand RenumberQuotesCommand { get; set; }
@@ -69,6 +86,11 @@ namespace MixItUp.Base.ViewModel.MainControls
             : base(windowViewModel)
         {
             this.QuoteAddedCommand = ChannelSession.Settings.GetCommand(ChannelSession.Settings.QuoteAddedCommandID);
+
+            this.ToggleLatestQuotesAtTopCommand = this.CreateCommand(() =>
+            {
+                this.LatestQuotesAtTop = !this.LatestQuotesAtTop;
+            });
 
             this.AddQuoteCommand = this.CreateCommand(async () =>
             {
@@ -153,7 +175,10 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public void Refresh()
         {
-            this.Quotes.ClearAndAddRange(ChannelSession.Settings.Quotes.ToList().OrderBy(q => q.ID).Select(q => new UserQuoteViewModel(q)));
+            IEnumerable<UserQuoteModel> quotes = ChannelSession.Settings.Quotes.ToList();
+            quotes = this.LatestQuotesAtTop ? quotes.OrderByDescending(q => q.ID) : quotes.OrderBy(q => q.ID);
+
+            this.Quotes.ClearAndAddRange(quotes.Select(q => new UserQuoteViewModel(q)));
         }
 
         public async Task RemoveQuote(UserQuoteViewModel quote)

@@ -1,5 +1,34 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.520
+
+- [FEAT] Add Kick integration for chat, events, channel points, and Kicks
+- [FEAT] Add Kick action
+- [FEAT] Add sort quotes button in quotes page
+- [FEAT] Add support for multiple cooldown usage requirements
+- [FEAT] Add actions drag and drop support to actions that contain nested sub actions list
+- [FEAT] Add Patreon recognition for Login, Update, and About windows
+- [FIX] Handle missing song titles during library load and title search for music player
+- [FIX] Webhook command crash when using duplicate json pairs
+- [FIX] Tiltify authentication when it expires
+- [FIX] Scrollbar visibility in stream pass window
+- [FIX] Typo in new user wizard
+- [BREAKING] We are migrating our webhooks to a new subdomiain. Update your services to point to ***https://desktop.api.mixitupapp.com/api/webhook/[your id tokens here]*** to prevent any interruptions
+
+## 1.6.510
+
+- [FEAT] Add YouTube Channel Jewel Gift Event
+- [FEAT] Add support for ten prediction outcomes in Twitch Action
+- [FEAT] Add fifth poll choice in Twitch Action
+- [FEAT] Add new overlay compatibility setting as a workaround for OBS CEF freezes
+- [FEAT] Add $messagenoemotes and $messageemotecount special identifiers
+- [FEAT] Add reset moderation strikes for all users in Moderation Action
+- [MAINT] **Remove Trovo platform**
+- [MAINT] **Remove Infinite Album integration**
+- [MAINT] **Remove OvrStream integration**
+- [CHORE] Update dependencies to latest version for improved performance and stability
+- [FIX] Typo causing YouTube super sticker event to trigger from super chat events
+
 ## 1.6.500
 
 - [FEAT] Add Twitch Watch Streak Alert in Settings -> Alerts

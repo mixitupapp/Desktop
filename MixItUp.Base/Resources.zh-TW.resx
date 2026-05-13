@@ -11288,5 +11288,101 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>显示 Twitch 自定义功能</value>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube 频道珠宝礼品</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0}YouTube宝石礼物 - {1}（{2}宝石）</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>显示 YouTube 珠宝礼品</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選擇5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>禁用 iframe 移除（OBS CEF 冻结解决方法）</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>警告：测试解决方法。除非 OBS CEF 视频冻结需要，否则不建议启用。这可能会增加内存使用量或引发其他问题。
+
+只有在知道自己在做什么的情况下才能启用。继续？</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>重置所有用户的审核罢工</value>
+  </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>在此添加或删除</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>用 Kick 登录</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>退出 Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick 頻道直播開始</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick 頻道直播結束</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Kick 頻道已更新</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick 頻道已追蹤</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Kick 頻道已訂閱</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick 頻道已重新訂閱</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Kick Channel 订阅赠品</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick 頻道點數已兌換</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>必須連接 Kick 帳號才能使用此功能。</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick 頻道點數命令</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>已經存在另一個具有相同數量/範圍的 Kick Kicks 命令。</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick 頻道點數</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks 命令</value>
+  </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Kick 操作：必須指定有效名稱</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Kick Action：缺少頻道點數獎勵</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>錯誤：無法更新頻道點獎勵，請稍後重試。如果此獎勵不是透過 Mix It Up UI 建立的，您將需要將其刪除並在頻道點頁面上重新添加它，因為它們必須透過 Mix It Up 建立才能允許應用程式能夠更新它們。</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>頻道點獎勵必須透過 Mix It Up 創建，以便應用程式能夠更新它們。
+這可以透過點擊 Mix It Up 中頻道點頁面上的建立頻道點獎勵來完成。</value>
   </data>
 </root>

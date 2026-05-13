@@ -5,16 +5,49 @@ using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Twitch;
+using MixItUp.Base.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MixItUp.Base.ViewModel.Actions
 {
+    public class TwitchPredictionOutcomeViewModel : UIViewModelBase
+    {
+        public string Outcome
+        {
+            get { return this.outcome; }
+            set
+            {
+                this.outcome = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string outcome;
+
+        public ICommand DeleteCommand { get; private set; }
+
+        private TwitchActionEditorControlViewModel viewModel;
+
+        public TwitchPredictionOutcomeViewModel(TwitchActionEditorControlViewModel viewModel, string outcome = null)
+        {
+            this.viewModel = viewModel;
+            this.Outcome = outcome;
+            this.DeleteCommand = this.CreateCommand(() =>
+            {
+                this.viewModel.RemovePredictionOutcome(this);
+            });
+        }
+    }
+
     public class TwitchActionEditorControlViewModel : GroupActionEditorControlViewModel
     {
+        private const int PredictionMinimumOutcomes = 2;
+        private const int PredictionMaximumOutcomes = 10;
+        private const int PredictionOutcomeMaxLength = 25;
         private const int PredictionTitleMaxLength = 45;
 
         public override ActionTypeEnum Type { get { return ActionTypeEnum.Twitch; } }
@@ -411,6 +444,17 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private string pollChoice4;
 
+        public string PollChoice5
+        {
+            get { return this.pollChoice5; }
+            set
+            {
+                this.pollChoice5 = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string pollChoice5;
+
         public bool ShowPredictionGrid { get { return this.SelectedActionType == TwitchActionType.CreatePrediction; } }
 
         public string PredictionTitle
@@ -434,6 +478,14 @@ namespace MixItUp.Base.ViewModel.Actions
             }
         }
         private int predictionDurationSeconds = 60;
+
+        public ObservableCollection<TwitchPredictionOutcomeViewModel> PredictionAdditionalOutcomes { get; } = new ObservableCollection<TwitchPredictionOutcomeViewModel>();
+
+        public ICommand AddPredictionOutcomeCommand { get; private set; }
+
+        public bool CanAddPredictionOutcome { get { return this.TotalPredictionOutcomeCount < PredictionMaximumOutcomes; } }
+
+        public int TotalPredictionOutcomeCount { get { return PredictionMinimumOutcomes + this.PredictionAdditionalOutcomes.Count; } }
 
         public string PredictionOutcome1
         {
@@ -652,6 +704,7 @@ namespace MixItUp.Base.ViewModel.Actions
         public TwitchActionEditorControlViewModel(TwitchActionModel action)
             : base(action)
         {
+            this.InitializePredictionCommands();
             action.UpdateSetChatSettingsProperties();
 
             this.SelectedActionType = action.ActionType;
@@ -734,13 +787,28 @@ namespace MixItUp.Base.ViewModel.Actions
                 {
                     this.PollChoice4 = action.PollChoices[3];
                 }
+                if (action.PollChoices.Count > 4)
+                {
+                    this.PollChoice5 = action.PollChoices[4];
+                }
             }
             else if (this.ShowPredictionGrid)
             {
                 this.PredictionTitle = action.PredictionTitle;
                 this.PredictionDurationSeconds = action.PredictionDurationSeconds;
-                this.PredictionOutcome1 = action.PredictionOutcomes[0];
-                this.PredictionOutcome2 = action.PredictionOutcomes[1];
+                if (action.PredictionOutcomes != null && action.PredictionOutcomes.Count > 0)
+                {
+                    this.PredictionOutcome1 = action.PredictionOutcomes[0];
+                }
+                if (action.PredictionOutcomes != null && action.PredictionOutcomes.Count > 1)
+                {
+                    this.PredictionOutcome2 = action.PredictionOutcomes[1];
+                }
+
+                foreach (string predictionOutcome in (action.PredictionOutcomes ?? new List<string>()).Skip(PredictionMinimumOutcomes).Take(PredictionMaximumOutcomes - PredictionMinimumOutcomes))
+                {
+                    this.AddPredictionOutcome(predictionOutcome);
+                }
             }
             else if (this.ShowSendAnnouncementGrid)
             {
@@ -784,7 +852,10 @@ namespace MixItUp.Base.ViewModel.Actions
             }
         }
 
-        public TwitchActionEditorControlViewModel() : base() { }
+        public TwitchActionEditorControlViewModel() : base()
+        {
+            this.InitializePredictionCommands();
+        }
 
         public override async Task<Result> Validate()
         {
@@ -851,7 +922,8 @@ namespace MixItUp.Base.ViewModel.Actions
                 if ((!string.IsNullOrEmpty(this.PollChoice1) && this.PollChoice1.Length > 25) ||
                     (!string.IsNullOrEmpty(this.PollChoice2) && this.PollChoice2.Length > 25) ||
                     (!string.IsNullOrEmpty(this.PollChoice3) && this.PollChoice3.Length > 25) ||
-                    (!string.IsNullOrEmpty(this.PollChoice4) && this.PollChoice4.Length > 25))
+                    (!string.IsNullOrEmpty(this.PollChoice4) && this.PollChoice4.Length > 25) ||
+                    (!string.IsNullOrEmpty(this.PollChoice5) && this.PollChoice5.Length > 25))
                 {
                     return new Result(MixItUp.Base.Resources.TwitchActionPollChoicesTooLong);
                 }
@@ -878,7 +950,18 @@ namespace MixItUp.Base.ViewModel.Actions
                     return new Result(MixItUp.Base.Resources.TwitchActionCreatePredictionTwoChoices);
                 }
 
-                if (this.PredictionOutcome1.Length > 25 || this.PredictionOutcome2.Length > 25)
+                List<string> predictionOutcomes = this.GetPredictionOutcomes().ToList();
+                if (predictionOutcomes.Count < PredictionMinimumOutcomes || predictionOutcomes.Count > PredictionMaximumOutcomes)
+                {
+                    return new Result(MixItUp.Base.Resources.TwitchActionCreatePredictionTwoChoices);
+                }
+
+                if (predictionOutcomes.Any(o => string.IsNullOrEmpty(o)))
+                {
+                    return new Result(MixItUp.Base.Resources.TwitchActionCreatePredictionTwoChoices);
+                }
+
+                if (predictionOutcomes.Any(o => o.Length > PredictionOutcomeMaxLength))
                 {
                     return new Result(MixItUp.Base.Resources.TwitchActionPredictionOutcomesTooLong);
                 }
@@ -1002,11 +1085,12 @@ namespace MixItUp.Base.ViewModel.Actions
                 if (!string.IsNullOrEmpty(this.PollChoice2)) { choices.Add(this.PollChoice2); }
                 if (!string.IsNullOrEmpty(this.PollChoice3)) { choices.Add(this.PollChoice3); }
                 if (!string.IsNullOrEmpty(this.PollChoice4)) { choices.Add(this.PollChoice4); }
+                if (!string.IsNullOrEmpty(this.PollChoice5)) { choices.Add(this.PollChoice5); }
                 return TwitchActionModel.CreatePollAction(this.PollTitle, this.PollDurationSeconds, this.pollChannelPointsCost, this.pollBitsCost, choices, await this.ActionEditorList.GetActions());
             }
             else if (this.ShowPredictionGrid)
             {
-                return TwitchActionModel.CreatePredictionAction(this.PredictionTitle, this.PredictionDurationSeconds, new List<string>() { this.PredictionOutcome1, this.PredictionOutcome2 }, await this.ActionEditorList.GetActions());
+                return TwitchActionModel.CreatePredictionAction(this.PredictionTitle, this.PredictionDurationSeconds, this.GetPredictionOutcomes(), await this.ActionEditorList.GetActions());
             }
             else if (this.ShowSendAnnouncementGrid)
             {
@@ -1051,6 +1135,45 @@ namespace MixItUp.Base.ViewModel.Actions
             {
                 return TwitchActionModel.CreateAction(this.SelectedActionType);
             }
+        }
+
+        private void InitializePredictionCommands()
+        {
+            this.AddPredictionOutcomeCommand = this.CreateCommand(() =>
+            {
+                this.AddPredictionOutcome();
+            });
+        }
+
+        private IEnumerable<string> GetPredictionOutcomes()
+        {
+            List<string> predictionOutcomes = new List<string>() { this.PredictionOutcome1, this.PredictionOutcome2 };
+            predictionOutcomes.AddRange(this.PredictionAdditionalOutcomes.Select(o => o.Outcome));
+            return predictionOutcomes;
+        }
+
+        private void AddPredictionOutcome(string outcome = null)
+        {
+            if (!this.CanAddPredictionOutcome)
+            {
+                return;
+            }
+
+            this.PredictionAdditionalOutcomes.Add(new TwitchPredictionOutcomeViewModel(this, outcome));
+            this.NotifyPropertyChanged(nameof(this.CanAddPredictionOutcome));
+            this.NotifyPropertyChanged(nameof(this.TotalPredictionOutcomeCount));
+        }
+
+        public void RemovePredictionOutcome(TwitchPredictionOutcomeViewModel outcome)
+        {
+            if (outcome == null)
+            {
+                return;
+            }
+
+            this.PredictionAdditionalOutcomes.Remove(outcome);
+            this.NotifyPropertyChanged(nameof(this.CanAddPredictionOutcome));
+            this.NotifyPropertyChanged(nameof(this.TotalPredictionOutcomeCount));
         }
     }
 }

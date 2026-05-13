@@ -28,6 +28,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" HorizontalAlignment="Center">
@@ -42,9 +44,13 @@
                 <Button Grid.Column="2" Command="{Binding UpdatePortNumberCommand}" Content="{x:Static resx:Resources.Update}" Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center" />
             </Grid>
 
-            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.OverlayEndpoints}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+                <CheckBox IsChecked="{Binding DisableIFrameRemoval}" Command="{Binding ToggleDisableIFrameRemovalCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Content="{x:Static resx:Resources.OverlayDisableIFrameRemovalToggleText}" VerticalAlignment="Center" />
+            </StackPanel>
 
-            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="4" BorderThickness="1">
+            <TextBlock Grid.Row="4" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.OverlayEndpoints}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+
+            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="6" BorderThickness="1">
                 <ItemsControl ItemsSource="{Binding Endpoints}" HorizontalAlignment="Center">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -76,7 +82,7 @@
                 </ItemsControl>
             </Border>
 
-            <Grid Grid.Row="6" HorizontalAlignment="Center">
+            <Grid Grid.Row="8" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="20" />

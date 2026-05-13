@@ -343,6 +343,10 @@ namespace MixItUp.WPF.Services
                     {
                         song = new MusicPlayerSong() { FilePath = file, Title = Path.GetFileNameWithoutExtension(file), Length = songLength };
                     }
+                    else if (string.IsNullOrWhiteSpace(song.Title))
+                    {
+                        song.Title = Path.GetFileNameWithoutExtension(file);
+                    }
                     tempSongs.Add(song);
                 }
 
@@ -371,7 +375,7 @@ namespace MixItUp.WPF.Services
         {
             MusicPlayerSong song = null;
 
-            var songs = this.songs.Where(s => s.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+            var songs = this.songs.Where(s => !string.IsNullOrEmpty(s.Title) && s.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase));
             if (songs != null && songs.Count() > 0)
             {
                 song = songs.OrderBy(s => s.Title.Length).First();

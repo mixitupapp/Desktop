@@ -11288,5 +11288,101 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Twitchカスタムパワーアップを表示する</value>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTubeチャンネル ジュエルギフト</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube ジュエルギフト - {1} ({2} ジュエル)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTubeのジュエル・ギフトを表示</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選択肢 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>iframeの削除を無効にする（OBS CEF凍結の回避策）</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>警告回避策をテストしています。OBS CEFビデオフリーズのために必要でない限り、有効にすることはお勧めしません。メモリ使用量が増えたり、他の問題が発生する可能性があります。
+
+何をやっているかわかっている場合のみ有効にしてください。続行しますか？</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>全ユーザーのモデレーションストライクをリセットする</value>
+  </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>ここに追加またはドロップする</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>キックでログイン</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>キックからログアウトする</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>キック・チャンネル・ストリーム・スタート</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>キック・チャンネル・ストリーム・ストップ</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>キック・チャンネル更新</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick チャンネルをフォローした</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>キック・チャンネル登録</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>キック・チャンネル再登録</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>キック・チャンネル購読プレゼント</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>キック・チャンネル大量購読プレゼント</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick チャンネルポイント引き換え</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>キック・チャンネル キック・ギフテッド</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>この機能を使用するには Kick アカウントを接続する必要があります。</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick チャンネルポイントコマンド</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>このコマンドと同じ量/範囲を持つ別の Kick Kicks コマンドがすでに存在します。</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick チャンネルポイント</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks コマンド</value>
+  </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Kick アクション: 有効な名前を指定する必要があります</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Kick アクション: チャンネル ポイント報酬がありません</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>エラー: チャネル ポイント特典を更新できませんでした。後でもう一度お試しください。この報酬が Mix It Up UI を通じて作成されていない場合は、アプリが更新できるようにするには Mix It Up を通じて作成する必要があるため、報酬を削除してチャネル ポイント ページに再度追加する必要があります。</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>アプリがチャネル ポイント リワードを更新できるようにするには、Mix It Up を通じてチャネル ポイント リワードを作成する必要があります。
+これは、Mix It Up の [チャネル ポイント] ページで [チャネル ポイント報酬の作成] をクリックすることで実行できます。</value>
   </data>
 </root>

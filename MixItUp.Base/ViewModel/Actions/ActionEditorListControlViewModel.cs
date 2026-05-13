@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModels;
@@ -27,6 +27,8 @@ namespace MixItUp.Base.ViewModel.Actions
         public ICommand AddCommand { get; private set; }
 
         public BulkObservableCollection<ActionEditorControlViewModelBase> Actions { get; set; } = new BulkObservableCollection<ActionEditorControlViewModelBase>();
+
+        public ActionEditorControlViewModelBase ParentAction { get; set; }
 
         public ActionEditorListControlViewModel()
         {
@@ -57,15 +59,14 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.GameQueue: editorViewModel = new GameQueueActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Group: editorViewModel = new GroupActionEditorControlViewModel(); break;
                         case ActionTypeEnum.IFTTT: editorViewModel = new IFTTTActionEditorControlViewModel(); break;
-                        case ActionTypeEnum.InfiniteAlbum: editorViewModel = new InfiniteAlbumActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Input: editorViewModel = new InputActionEditorControlViewModel(); break;
+                        case ActionTypeEnum.Kick: editorViewModel = new KickActionEditorControlViewModel(); break;
                         case ActionTypeEnum.LumiaStream: editorViewModel = new LumiaStreamActionEditorControlViewModel(); break;
                         case ActionTypeEnum.MeldStudio: editorViewModel = new MeldStudioActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Moderation: editorViewModel = new ModerationActionEditorControlViewModel(); break;
                         case ActionTypeEnum.MtionStudio: editorViewModel = new MtionStudioActionViewModel(); break;
                         case ActionTypeEnum.MusicPlayer: editorViewModel = new MusicPlayerActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Overlay: editorViewModel = new OverlayActionEditorControlViewModel(); break;
-                        case ActionTypeEnum.OvrStream: editorViewModel = new OvrStreamActionEditorControlViewModel(); break;
                         case ActionTypeEnum.PixelChat: editorViewModel = new PixelChatActionEditorControlViewModel(); break;
                         case ActionTypeEnum.PolyPop: editorViewModel = new PolyPopActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Random: editorViewModel = new RandomActionEditorControlViewModel(); break;
@@ -79,7 +80,6 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.Streamlabs: editorViewModel = new StreamlabsActionEditorControlViewModel(); break;
                         case ActionTypeEnum.TextToSpeech: editorViewModel = new TextToSpeechActionEditorControlViewModel(); break;
                         case ActionTypeEnum.TITS: editorViewModel = new TITSActionEditorControlViewModel(); break;
-                        case ActionTypeEnum.Trovo: editorViewModel = new TrovoActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Twitch: editorViewModel = new TwitchActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Voicemod: editorViewModel = new VoicemodActionEditorControlViewModel(); break;
                         case ActionTypeEnum.VTSPog: editorViewModel = new VTSPogActionEditorControlViewModel(); break;
@@ -131,6 +131,58 @@ namespace MixItUp.Base.ViewModel.Actions
         public void DeleteAction(ActionEditorControlViewModelBase actionViewModel)
         {
             this.Actions.Remove(actionViewModel);
+        }
+
+        public bool CanDropAction(ActionEditorControlViewModelBase actionViewModel)
+        {
+            if (actionViewModel == null)
+            {
+                return false;
+            }
+
+            return !this.IsNestedUnderAction(actionViewModel);
+        }
+
+        public void DropAction(ActionEditorControlViewModelBase actionViewModel, int insertIndex)
+        {
+            if (!this.CanDropAction(actionViewModel))
+            {
+                return;
+            }
+
+            ActionEditorListControlViewModel sourceActionEditorListControlViewModel = actionViewModel.ActionEditorListControlViewModel;
+            if (sourceActionEditorListControlViewModel == this)
+            {
+                int sourceIndex = this.Actions.IndexOf(actionViewModel);
+                if (sourceIndex < 0)
+                {
+                    return;
+                }
+
+                insertIndex = this.GetSafeInsertIndex(insertIndex);
+                if (sourceIndex < insertIndex)
+                {
+                    insertIndex--;
+                }
+
+                if (sourceIndex != insertIndex)
+                {
+                    this.Actions.RemoveAt(sourceIndex);
+                    this.Actions.Insert(insertIndex, actionViewModel);
+                }
+                return;
+            }
+
+            if (sourceActionEditorListControlViewModel == null)
+            {
+                return;
+            }
+
+            sourceActionEditorListControlViewModel.Actions.Remove(actionViewModel);
+
+            insertIndex = this.GetSafeInsertIndex(insertIndex);
+            actionViewModel.Initialize(this);
+            this.Actions.Insert(insertIndex, actionViewModel);
         }
 
         public async Task AddAction(ActionModelBase action)
@@ -188,15 +240,14 @@ namespace MixItUp.Base.ViewModel.Actions
                 case ActionTypeEnum.GameQueue: return new GameQueueActionEditorControlViewModel((GameQueueActionModel)action);
                 case ActionTypeEnum.Group: return new GroupActionEditorControlViewModel((GroupActionModel)action);
                 case ActionTypeEnum.IFTTT: return new IFTTTActionEditorControlViewModel((IFTTTActionModel)action);
-                case ActionTypeEnum.InfiniteAlbum: return new InfiniteAlbumActionEditorControlViewModel((InfiniteAlbumActionModel)action);
                 case ActionTypeEnum.Input: return new InputActionEditorControlViewModel((InputActionModel)action);
+                case ActionTypeEnum.Kick: return new KickActionEditorControlViewModel((KickActionModel)action);
                 case ActionTypeEnum.LumiaStream: return new LumiaStreamActionEditorControlViewModel((LumiaStreamActionModel)action);
                 case ActionTypeEnum.MeldStudio: return new MeldStudioActionEditorControlViewModel((MeldStudioActionModel)action);
                 case ActionTypeEnum.Moderation: return new ModerationActionEditorControlViewModel((ModerationActionModel)action);
                 case ActionTypeEnum.MtionStudio: return new MtionStudioActionViewModel((MtionStudioActionModel)action);
                 case ActionTypeEnum.MusicPlayer: return new MusicPlayerActionEditorControlViewModel((MusicPlayerActionModel)action);
                 case ActionTypeEnum.Overlay: return new OverlayActionEditorControlViewModel((OverlayActionModel)action);
-                case ActionTypeEnum.OvrStream: return new OvrStreamActionEditorControlViewModel((OvrStreamActionModel)action);
                 case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControlViewModel((PixelChatActionModel)action);
                 case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControlViewModel((PolyPopActionModel)action);
                 case ActionTypeEnum.Random: return new RandomActionEditorControlViewModel((RandomActionModel)action);
@@ -210,7 +261,6 @@ namespace MixItUp.Base.ViewModel.Actions
                 case ActionTypeEnum.Streamlabs: return new StreamlabsActionEditorControlViewModel((StreamlabsActionModel)action);
                 case ActionTypeEnum.TextToSpeech: return new TextToSpeechActionEditorControlViewModel((TextToSpeechActionModel)action);
                 case ActionTypeEnum.TITS: return new TITSActionEditorControlViewModel((TITSActionModel)action);
-                case ActionTypeEnum.Trovo: return new TrovoActionEditorControlViewModel((TrovoActionModel)action);
                 case ActionTypeEnum.Twitch: return new TwitchActionEditorControlViewModel((TwitchActionModel)action);
                 case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControlViewModel((VoicemodActionModel)action);
                 case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControlViewModel((VTSPogActionModel)action);
@@ -255,6 +305,35 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.Actions.Add(editorViewModel);
             }
             return Task.CompletedTask;
+        }
+
+        private bool IsNestedUnderAction(ActionEditorControlViewModelBase actionViewModel)
+        {
+            ActionEditorControlViewModelBase parentAction = this.ParentAction;
+            while (parentAction != null)
+            {
+                if (object.Equals(parentAction, actionViewModel))
+                {
+                    return true;
+                }
+
+                parentAction = parentAction.ActionEditorListControlViewModel?.ParentAction;
+            }
+            return false;
+        }
+
+        private int GetSafeInsertIndex(int insertIndex)
+        {
+            if (insertIndex < 0)
+            {
+                return 0;
+            }
+
+            if (insertIndex > this.Actions.Count)
+            {
+                return this.Actions.Count;
+            }
+            return insertIndex;
         }
     }
 }

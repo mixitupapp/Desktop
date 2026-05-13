@@ -9,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-    <AssemblyVersion>1.6.500.0</AssemblyVersion>
-    <FileVersion>1.6.500.0</FileVersion>
+    <AssemblyVersion>1.6.520.0</AssemblyVersion>
+    <FileVersion>1.6.520.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -51,7 +51,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
   <ProjectReference Include="..\APIs\MixItUp.API\MixItUp.API.csproj" />
     <ProjectReference Include="..\MixItUp.Base\MixItUp.Base.csproj" />
     <ProjectReference Include="..\MixItUp.Reporter\MixItUp.Reporter.csproj" />
-    <ProjectReference Include="..\MixItUp.SignalR.Client\MixItUp.SignalR.Client.csproj" />
   </ItemGroup>
 	<ItemGroup Label="Package References">
 		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
@@ -61,7 +60,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="ExcelDataReader" Version="3.8.0" />
 		<PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
 		<PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
-		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.4029" />
+		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.4099" />
 		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
 		<PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
 		<PackageReference Include="ID3" Version="0.6.0" />
@@ -69,22 +68,21 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
 		<PackageReference Include="MdXaml" Version="1.27.0" />
 		<PackageReference Include="MdXaml.Plugins" Version="1.27.0" />
-		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.15.0" />
-		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.0" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
-		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.47.0" />
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.2" />
-		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-		<PackageReference Include="NAudio" Version="2.2.1" />
+		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.15.3" />
+		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
+		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.49.1" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
+		<PackageReference Include="NAudio" Version="2.3.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="ovrstream-client-csharp" Version="0.0.2" />
-		<PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2.2" />
+		<PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2.3" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
 		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
-		<PackageReference Include="System.IO.Ports" Version="10.0.2" />
-		<PackageReference Include="System.Management" Version="10.0.2" />
-		<PackageReference Include="System.Speech" Version="10.0.2" />
-		<PackageReference Include="WriteableBitmapEx" Version="1.6.9" />
+		<PackageReference Include="System.IO.Ports" Version="10.0.7" />
+		<PackageReference Include="System.Management" Version="10.0.7" />
+		<PackageReference Include="System.Speech" Version="10.0.7" />
+		<PackageReference Include="WriteableBitmapEx" Version="1.6.11" />
 	</ItemGroup>
 	<ItemGroup>
     <AppDesigner Include="Properties\" />
@@ -109,12 +107,13 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Resource Include="Assets\Images\discord-color_sm.png" />
     <Resource Include="Assets\Images\github-color_sm.png" />
     <Resource Include="Assets\Images\patreon-color_sm.png" />
-    <Resource Include="Assets\Images\trovo-color_lg.png" />
-    <Resource Include="Assets\Images\trovo-color_sm.png" />
-    <Resource Include="Assets\Images\trovo-dark_lg.png" />
     <Resource Include="Assets\Images\twitch-color_lg.png" />
     <Resource Include="Assets\Images\twitch-color_sm.png" />
     <Resource Include="Assets\Images\twitch-dark_lg.png" />
+	<Resource Include="Assets\Images\kick-color_lg.png" />
+	<Resource Include="Assets\Images\kick-color_sm.png" />
+	<Resource Include="Assets\Images\kick-dark_lg.png" />
+	<Resource Include="Assets\Images\kick-light_lg.png" />
     <Resource Include="Assets\Images\twitter-color_sm.png" /> 
     <Resource Include="Assets\Images\wiki-color_sm.png" />  
     <Resource Include="Assets\Images\youtube-color_lg.png" />

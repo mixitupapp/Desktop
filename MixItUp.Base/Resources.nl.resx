@@ -11289,5 +11289,101 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Toon Twitch aangepaste power-ups</value>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube-kanaal juwelen cadeau</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Juwelen Cadeau - {1} ({2} Juwelen)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTube juwelen cadeau tonen</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Keuze 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Verwijdering iframe uitschakelen (OBS CEF bevriezing workaround)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Waarschuwing: Workaround testen. Niet aanbevolen om in te schakelen tenzij het nodig is voor OBS CEF video bevriezing. Dit kan het geheugengebruik verhogen of andere problemen veroorzaken.
+
+Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Moderatiestrikes resetten voor alle gebruikers</value>
+  </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Hier toevoegen of laten vallen</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Log in met Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Afmelden bij Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick Kanaal Stream Start</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Kanaal Stroom Stop</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Kick-kanaal bijgewerkt</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Kanaal Gevolgd</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Kick-kanaal geabonneerd</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick-kanaal opnieuw ingeschreven</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Kick Channel Abonnement Geschonken</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Massabonnement Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick Kanaal Punten Ingewisseld</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Kanaal Kicks Geschonken</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Om deze functie te kunnen gebruiken, moet er een Kick-account zijn aangesloten.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick Channel-punten commando</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Er bestaat al een ander Kick Kicks-commando met hetzelfde aantal/bereik als dit commando.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick Channel-punten</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks-commando</value>
+  </data>
+
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Kick-actie: er moet een geldige naam worden opgegeven</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Kick-actie: ontbrekende kanaalpuntbeloning</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>FOUT: Kan Channel Point Reward niet bijwerken. Probeer het later opnieuw. Als deze beloning niet via de Mix It Up-gebruikersinterface is gemaakt, moet je deze verwijderen en opnieuw toevoegen op de Kanaalpuntenpagina, omdat ze via Mix It Up moeten worden aangemaakt zodat de app ze kan updaten.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Kanaalpuntbeloningen moeten via Mix It Up worden aangemaakt, zodat de app deze kan updaten.
+Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpagina in Mix It Up.</value>
   </data>
 </root>

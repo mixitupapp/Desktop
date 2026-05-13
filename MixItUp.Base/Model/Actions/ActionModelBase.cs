@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using System;
@@ -41,6 +41,7 @@ namespace MixItUp.Base.Model.Actions
         Command,
         Serial,
         Moderation,
+        [Obsolete]
         OvrStream,
         IFTTT,
         Twitch,
@@ -48,9 +49,11 @@ namespace MixItUp.Base.Model.Actions
         VTubeStudio,
         Voicemod,
         YouTube,
+        [Obsolete]
         Trovo,
         PolyPop,
         SAMMI,
+        [Obsolete]
         InfiniteAlbum,
         TITS,
         MusicPlayer,
@@ -62,6 +65,7 @@ namespace MixItUp.Base.Model.Actions
         VTSPog,
         MtionStudio = 42,
         MeldStudio,
+        Kick,
     }
 
     [DataContract]

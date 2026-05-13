@@ -5,15 +5,14 @@ using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Model.Web;
 using MixItUp.Base.Model.Webhooks;
-using MixItUp.Base.Services.Trovo;
-using MixItUp.Base.Services.Trovo.New;
+using MixItUp.Base.Model.Kick.Webhooks;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
-using MixItUp.SignalR.Client;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -49,6 +48,8 @@ namespace MixItUp.Base.Services
         bool HasUnreadNotifications { get; }
         void MarkNotificationsAsRead();
         Task<OutageModel> CheckOutageStatus();
+        Task<PatreonMemberShoutoutModel> GetRandomPatreonMemberShoutout();
+        Task<List<string>> GetAllPatreonMemberNames();
     }
 
     public interface IWebhookService
@@ -136,11 +137,11 @@ namespace MixItUp.Base.Services
 
     public class MixItUpService : OAuthRestServiceBase, ICommunityCommandsService, IMixItUpService, IWebhookService, IDisposable
     {
-        public const string MixItUpAPIEndpoint = "https://api.mixitupapp.com/api/";
-        public const string MixItUpSignalRHubEndpoint = "https://api.mixitupapp.com/webhookhub";
+        public const string MixItUpAPIEndpoint = "https://desktop.api.mixitupapp.com/api/";
+        public const string MixItUpWebhookHubEndpoint = "wss://desktop.api.mixitupapp.com/webhookhub";
 
-        public const string DevMixItUpAPIEndpoint = "https://localhost:44309/api/";                // Dev Endpoint
-        public const string DevMixItUpSignalRHubEndpoint = "https://localhost:44309/webhookhub";   // Dev Endpoint
+        public const string DevMixItUpAPIEndpoint = "http://localhost:3000/api/";                // Dev Endpoint
+        public const string DevMixItUpWebhookHubEndpoint = "ws://localhost:3000/webhookhub";      // Dev Endpoint
 
         private const string UtilApiEndpoint = "https://util.mixitupapp.com/";
 
@@ -160,6 +161,9 @@ namespace MixItUp.Base.Services
         private List<NotificationModel> cachedNotifications = null;
         private DateTime? lastNotificationFetch = null;
         private readonly TimeSpan notificationCacheExpiry = TimeSpan.FromMinutes(5);
+        private readonly object patreonShoutoutFetchLock = new object();
+        private Task<PatreonMemberShoutoutModel> patreonShoutoutFetchTask = null;
+        private Task<List<string>> patreonMembersFetchTask = null;
 
         public event EventHandler<bool> NotificationStatusChanged;
         public bool HasUnreadNotifications { get; private set; }
@@ -313,8 +317,11 @@ namespace MixItUp.Base.Services
         {
             return await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                return await PostAsync<CommunityCommandDetailsModel>("v2/community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
+                return await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    return await PostAsync<CommunityCommandDetailsModel>("v2/community/commands/command", AdvancedHttpClient.CreateContentFromObject(command));
+                });
             });
         }
 
@@ -322,8 +329,11 @@ namespace MixItUp.Base.Services
         {
             await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                await DeleteAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}/delete");
+                await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    await DeleteAsync<CommunityCommandDetailsModel>($"v2/community/commands/command/{id}/delete");
+                });
             });
         }
 
@@ -331,8 +341,11 @@ namespace MixItUp.Base.Services
         {
             await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                await PostAsync($"v2/community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
+                await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    await PostAsync($"v2/community/commands/command/{report.CommandID}/report", AdvancedHttpClient.CreateContentFromObject(report));
+                });
             });
         }
 
@@ -349,8 +362,11 @@ namespace MixItUp.Base.Services
         {
             return await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/mine?skip={skip}&top={top}"));
+                return await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    return await CommunityCommandsSearchResult.Create(await GetAsync($"v2/community/commands/command/mine?skip={skip}&top={top}"));
+                });
             });
         }
 
@@ -358,8 +374,11 @@ namespace MixItUp.Base.Services
         {
             return await this.CommunityCommandsRequest(async () =>
             {
-                await EnsureLogin();
-                return await PostAsync<CommunityCommandReviewModel>($"v2/community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
+                return await this.AuthorizedDesktopApiRequest(async () =>
+                {
+                    await EnsureLogin();
+                    return await PostAsync<CommunityCommandReviewModel>($"v2/community/commands/command/{review.CommandID}/review", AdvancedHttpClient.CreateContentFromObject(review));
+                });
             });
         }
 
@@ -398,6 +417,34 @@ namespace MixItUp.Base.Services
             });
         }
 
+        private async Task<T> AuthorizedDesktopApiRequest<T>(Func<Task<T>> action, bool hasRetried = false)
+        {
+            try
+            {
+                return await action();
+            }
+            catch (HttpRestRequestException ex) when (!hasRetried && ex.Response?.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                this.accessToken = null;
+                await this.EnsureLogin();
+                return await this.AuthorizedDesktopApiRequest(action, hasRetried: true);
+            }
+        }
+
+        private async Task AuthorizedDesktopApiRequest(Func<Task> action, bool hasRetried = false)
+        {
+            try
+            {
+                await action();
+            }
+            catch (HttpRestRequestException ex) when (!hasRetried && ex.Response?.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                this.accessToken = null;
+                await this.EnsureLogin();
+                await this.AuthorizedDesktopApiRequest(action, hasRetried: true);
+            }
+        }
+
         private async Task<string> GetCommunityCommandsUnavailableMessage(HttpRestRequestException ex)
         {
             const string fallback = "Community Commands is temporarily unavailable.";
@@ -427,13 +474,13 @@ namespace MixItUp.Base.Services
             return MixItUpService.MixItUpAPIEndpoint;
         }
 
-        protected string GetSingalRAddress()
+        protected string GetWebhookHubAddress()
         {
             //if (ChannelSession.IsDebug())
             //{
-            //    return MixItUpService.DevMixItUpSignalRHubEndpoint;
+            //    return MixItUpService.DevMixItUpWebhookHubEndpoint;
             //}
-            return MixItUpService.MixItUpSignalRHubEndpoint;
+            return MixItUpService.MixItUpWebhookHubEndpoint;
         }
 
         private async Task EnsureLogin()
@@ -441,15 +488,16 @@ namespace MixItUp.Base.Services
             if (accessToken == null)
             {
                 var token = this.GetLoginToken();
-                var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("user/login", AdvancedHttpClient.CreateContentFromObject(token));
+                var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("v2/user/login", AdvancedHttpClient.CreateContentFromObject(token));
                 this.accessToken = loginResponse.AccessToken;
             }
         }
 
         // IWebhookService
         public const string AuthenticateMethodName = "AuthenticateMany";
-        private SignalRConnection signalRConnection = null;
-        public bool IsWebhookHubConnected { get { return this.signalRConnection?.IsConnected() ?? false; } }
+        private WebhookHubConnection webhookHubConnection = null;
+        private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
+        public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
         public bool IsWebhookHubAllowed { get; private set; } = false;
 
         public void BackgroundConnect()
@@ -459,7 +507,7 @@ namespace MixItUp.Base.Services
                 Result result = await this.Connect();
                 if (!result.Success)
                 {
-                    SignalRConnection_Disconnected(this, new Exception());
+                    WebhookHubConnection_Disconnected(this, new Exception());
                 }
             }, new CancellationToken());
         }
@@ -468,21 +516,22 @@ namespace MixItUp.Base.Services
         {
             if (!this.IsWebhookHubConnected)
             {
-                if (this.signalRConnection == null)
+                if (this.webhookHubConnection == null)
                 {
-                    this.signalRConnection = new SignalRConnection(this.GetSingalRAddress());
+                    this.webhookHubConnection = new WebhookHubConnection(this.GetWebhookHubAddress());
 
-                    this.signalRConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
+                    this.webhookHubConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
                     {
                         Logger.Log($"Webhook Event - Generic Webhook - {id} - {payload}");
                         var _ = this.TriggerGenericWebhook(id, payload);
                     });
 
-                    this.signalRConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
+                    this.webhookHubConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
                     {
                         Logger.Log($"Webhook Authentication - {approved}");
 
                         this.IsWebhookHubAllowed = approved;
+                        this.webhookAuthenticationCompletionSource?.TrySetResult(approved);
                         if (!this.IsWebhookHubAllowed)
                         {
                             Logger.Log(LogLevel.Error, $"Webhook Authentication Failed");
@@ -491,18 +540,46 @@ namespace MixItUp.Base.Services
                             var _ = this.Disconnect();
                         }
                     });
+
+                    this.webhookHubConnection.Listen<string, JObject, JObject>("KickWebhookEvent", (eventType, payload, metadataObject) =>
+                    {
+                        try
+                        {
+                            Logger.Log(LogLevel.Debug, $"Kick Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
+
+                            WebhookEventModel metadata = metadataObject?.ToObject<WebhookEventModel>();
+                            var _ = ServiceManager.Get<KickSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.Log(ex);
+                        }
+                    });
                 }
 
-                this.signalRConnection.Connected -= SignalRConnection_Connected;
-                this.signalRConnection.Disconnected -= SignalRConnection_Disconnected;
+                this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
+                this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
 
-                this.signalRConnection.Connected += SignalRConnection_Connected;
-                this.signalRConnection.Disconnected += SignalRConnection_Disconnected;
+                this.webhookHubConnection.Connected += WebhookHubConnection_Connected;
+                this.webhookHubConnection.Disconnected += WebhookHubConnection_Disconnected;
 
-                if (await this.signalRConnection.Connect())
+                if (await this.webhookHubConnection.Connect())
                 {
-                    return new Result(this.IsWebhookHubConnected);
+                    this.IsWebhookHubAllowed = false;
+                    this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
+
+                    Task completedTask = await Task.WhenAny(this.webhookAuthenticationCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(15)));
+                    bool authenticated = completedTask == this.webhookAuthenticationCompletionSource.Task && this.webhookAuthenticationCompletionSource.Task.Result;
+                    this.webhookAuthenticationCompletionSource = null;
+
+                    if (!authenticated)
+                    {
+                        await this.Disconnect();
+                    }
+
+                    return new Result(authenticated);
                 }
+
                 return new Result(MixItUp.Base.Resources.WebhooksServiceFailedConnection);
             }
             return new Result(MixItUp.Base.Resources.WebhookServiceAlreadyConnected);
@@ -510,25 +587,29 @@ namespace MixItUp.Base.Services
 
         public async Task Disconnect()
         {
-            if (this.signalRConnection != null)
+            if (this.webhookHubConnection != null)
             {
-                this.signalRConnection.Connected -= SignalRConnection_Connected;
-                this.signalRConnection.Disconnected -= SignalRConnection_Disconnected;
+                this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
+                this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
 
-                await this.signalRConnection.Disconnect();
+                await this.webhookHubConnection.Disconnect();
 
-                this.signalRConnection = null;
+                this.webhookHubConnection = null;
             }
+
+            this.IsWebhookHubAllowed = false;
+            this.webhookAuthenticationCompletionSource?.TrySetResult(false);
+            this.webhookAuthenticationCompletionSource = null;
         }
 
-        private async void SignalRConnection_Connected(object sender, EventArgs e)
+        private async void WebhookHubConnection_Connected(object sender, EventArgs e)
         {
             ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
             await this.Authenticate(this.GetLoginToken());
         }
 
-        private async void SignalRConnection_Disconnected(object sender, Exception e)
+        private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
@@ -552,7 +633,7 @@ namespace MixItUp.Base.Services
 
             try
             {
-                await this.AsyncWrapper(this.signalRConnection.Send(AuthenticateMethodName, login));
+                await this.AsyncWrapper(this.webhookHubConnection.Send(AuthenticateMethodName, login));
             }
             catch (Exception ex)
             {
@@ -562,20 +643,29 @@ namespace MixItUp.Base.Services
 
         public async Task<GetWebhooksResponseModel> GetWebhooks()
         {
-            await EnsureLogin();
-            return await GetAsync<GetWebhooksResponseModel>($"webhook");
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+                return await GetAsync<GetWebhooksResponseModel>($"webhook");
+            });
         }
 
         public async Task<Webhook> CreateWebhook()
         {
-            await EnsureLogin();
-            return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new { }));
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+                return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new { }));
+            });
         }
 
         public async Task DeleteWebhook(Guid id)
         {
-            await EnsureLogin();
-            await DeleteAsync($"webhook/{id}");
+            await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+                await DeleteAsync($"webhook/{id}");
+            });
         }
 
         private async Task AsyncWrapper(Task task)
@@ -604,7 +694,10 @@ namespace MixItUp.Base.Services
 
                     // Do JSON => Special Identifier logic
                     CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.All, eventCommandSpecialIdentifiers);
-                    Dictionary<string, string> jsonParameters = command.JSONParameters.ToDictionary(param => param.JSONParameterName, param => param.SpecialIdentifierName);
+                    Dictionary<string, string> jsonParameters = command.JSONParameters
+                        .Where(param => !string.IsNullOrWhiteSpace(param.JSONParameterName) && !string.IsNullOrWhiteSpace(param.SpecialIdentifierName))
+                        .GroupBy(param => param.JSONParameterName)
+                        .ToDictionary(g => g.First().JSONParameterName, g => g.First().SpecialIdentifierName);
                     await WebRequestActionModel.ProcessJSONToSpecialIdentifiers(payload, jsonParameters, parameters);
 
                     await ServiceManager.Get<CommandService>().Queue(command, parameters);
@@ -623,7 +716,6 @@ namespace MixItUp.Base.Services
             if (ServiceManager.Get<TwitchSession>().IsConnected)
             {
                 login.TwitchAccessToken = ServiceManager.Get<TwitchSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
-                login.BypassTwitchWebhooks = true;
             }
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {
@@ -640,11 +732,10 @@ namespace MixItUp.Base.Services
                     expiresIn = token.expiresIn,
                 };
             }
-            if (ServiceManager.Get<TrovoSession>().IsConnected)
+            if (ServiceManager.Get<KickSession>().IsConnected)
             {
-                login.TrovoAccessToken = ServiceManager.Get<TrovoSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
+                login.KickAccessToken = ServiceManager.Get<KickSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
             }
-
             return login;
         }
 
@@ -819,6 +910,98 @@ namespace MixItUp.Base.Services
             }
 
             return new OutageModel { Enabled = false, Message = "", Severity = "warning" };
+        }
+
+        public Task<PatreonMemberShoutoutModel> GetRandomPatreonMemberShoutout()
+        {
+            lock (this.patreonShoutoutFetchLock)
+            {
+                if (this.patreonShoutoutFetchTask == null)
+                {
+                    this.patreonShoutoutFetchTask = this.FetchRandomPatreonMemberShoutout();
+                }
+                return this.patreonShoutoutFetchTask;
+            }
+        }
+
+        private async Task<PatreonMemberShoutoutModel> FetchRandomPatreonMemberShoutout()
+        {
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    client.Timeout = TimeSpan.FromSeconds(5);
+
+                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/random");
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        JObject data = JObject.Parse(json);
+                        if (data["success"]?.Value<bool>() == true)
+                        {
+                            JObject member = data["member"] as JObject;
+                            string displayName = member?["display_name"]?.ToString()?.Trim();
+                            if (!string.IsNullOrWhiteSpace(displayName))
+                            {
+                                return new PatreonMemberShoutoutModel()
+                                {
+                                    DisplayName = displayName,
+                                    AvatarUrl = member?["avatar_url"]?.ToString(),
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            return null;
+        }
+
+        public Task<List<string>> GetAllPatreonMemberNames()
+        {
+            if (this.patreonMembersFetchTask == null)
+            {
+                this.patreonMembersFetchTask = this.FetchAllPatreonMemberNames();
+            }
+            return this.patreonMembersFetchTask;
+        }
+
+        private async Task<List<string>> FetchAllPatreonMemberNames()
+        {
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                {
+                    client.Timeout = TimeSpan.FromSeconds(10);
+
+                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/all");
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        JObject data = JObject.Parse(json);
+                        if (data["success"]?.Value<bool>() == true)
+                        {
+                            JArray namesArray = data["names"] as JArray;
+                            if (namesArray != null)
+                            {
+                                return namesArray.Values<string>()
+                                    .Where(n => !string.IsNullOrWhiteSpace(n))
+                                    .Select(n => n.Trim())
+                                    .OrderBy(n => n, StringComparer.OrdinalIgnoreCase)
+                                    .ToList();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            return new List<string>();
         }
 
         public async Task UtilServiceLogin()

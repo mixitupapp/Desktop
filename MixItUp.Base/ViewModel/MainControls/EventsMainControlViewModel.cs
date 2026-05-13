@@ -98,9 +98,9 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.YouTube;
                 }
-                else if (eventNumber >= 400 && eventNumber < 500)
+                else if (eventNumber >= 600 && eventNumber < 700)
                 {
-                    return Resources.Trovo;
+                    return Resources.Kick;
                 }
                 else
                 {
@@ -189,20 +189,21 @@ namespace MixItUp.Base.ViewModel.MainControls
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelMembershipGifted));
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelMassMembershipGifted));
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelSuperChat));
+            youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelJewelsGift));
             commandGroups.Add(youtubeCommands);
 
-            EventCommandGroupViewModel trovoCommands = new EventCommandGroupViewModel(Resources.Trovo, image: StreamingPlatforms.TrovoLogoImageAssetFilePath);
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelStreamStart));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelStreamStop));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelFollowed));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelRaided));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelSubscribed));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelResubscribed));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelSubscriptionGifted));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelMassSubscriptionsGifted));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelSpellCast));
-            trovoCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TrovoChannelMagicChat));
-            commandGroups.Add(trovoCommands);
+            EventCommandGroupViewModel kickCommands = new EventCommandGroupViewModel(Resources.Kick, image: StreamingPlatforms.KickLogoImageAssetFilePath);
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStart));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStop));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelUpdated));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelFollowed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelSubscribed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelResubscribed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelSubscriptionGifted));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelMassSubscriptionsGifted));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelPointsRedeemed));
+            kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelKicksGifted));
+            commandGroups.Add(kickCommands);
 
             EventCommandGroupViewModel chatCommands = new EventCommandGroupViewModel(Resources.Chat, packIconName: "Chat");
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatUserEntranceCommand));

@@ -42,9 +42,6 @@ namespace MixItUp.Base.Services
 
         YouTubeSuperChat = 4000,
 
-        TrovoSpell = 5000,
-        TrovoMagicChat,
-
         Donation = 10000,
         StreamlootsCardRedeemed,
         StreamlootsPackPurchased,
@@ -181,28 +178,6 @@ namespace MixItUp.Base.Services
             //            this.LogStatistic(StatisticItemTypeEnum.SubscriptionGifted, StreamingPlatformTypeEnum.YouTube, amount: this.GetAmountValue(parameters.SpecialIdentifiers, "subsgiftedamount")); break;
             //        case EventTypeEnum.YouTubeChannelSuperChat:
             //            this.LogStatistic(StatisticItemTypeEnum.YouTubeSuperChat, StreamingPlatformTypeEnum.YouTube, amount: this.GetAmountValue(parameters.SpecialIdentifiers, "amountnumber")); break;
-
-            //        case EventTypeEnum.TrovoChannelStreamStart:
-            //            this.LogStatistic(StatisticItemTypeEnum.StreamStart, platform: StreamingPlatformTypeEnum.Trovo); break;
-            //        case EventTypeEnum.TrovoChannelStreamStop:
-            //            this.LogStatistic(StatisticItemTypeEnum.StreamStop, platform: StreamingPlatformTypeEnum.Trovo); break;
-            //        case EventTypeEnum.TrovoChannelRaided:
-            //            this.LogStatistic(StatisticItemTypeEnum.Raid, StreamingPlatformTypeEnum.Trovo, amount: this.GetAmountValue(parameters.SpecialIdentifiers, "raidviewercount")); break;
-            //        case EventTypeEnum.TrovoChannelFollowed:
-            //            this.LogStatistic(StatisticItemTypeEnum.Follow, StreamingPlatformTypeEnum.Trovo); break;
-            //        case EventTypeEnum.TrovoChannelSubscribed:
-            //            this.LogStatistic(StatisticItemTypeEnum.Subscription, StreamingPlatformTypeEnum.Trovo); break;
-            //        case EventTypeEnum.TrovoChannelResubscribed:
-            //            this.LogStatistic(StatisticItemTypeEnum.Resubscription, StreamingPlatformTypeEnum.Trovo, amount: this.GetAmountValue(parameters.SpecialIdentifiers, "usersubmonths")); break;
-            //        case EventTypeEnum.TrovoChannelSubscriptionGifted:
-            //            this.LogStatistic(StatisticItemTypeEnum.SubscriptionGifted, StreamingPlatformTypeEnum.Trovo, amount: 1); break;
-            //        case EventTypeEnum.TrovoChannelMassSubscriptionsGifted:
-            //            this.LogStatistic(StatisticItemTypeEnum.SubscriptionGifted, StreamingPlatformTypeEnum.Trovo, amount: this.GetAmountValue(parameters.SpecialIdentifiers, "subsgiftedamount")); break;
-            //        case EventTypeEnum.TrovoChannelSpellCast:
-            //            this.LogStatistic(StatisticItemTypeEnum.TrovoSpell, StreamingPlatformTypeEnum.Trovo, this.GetAmountValue(parameters.SpecialIdentifiers, TrovoChatSpellViewModel.SpellTotalValueSpecialIdentifier),
-            //                parameters.SpecialIdentifiers[TrovoChatSpellViewModel.SpellValueTypeSpecialIdentifier]); break;
-            //        case EventTypeEnum.TrovoChannelMagicChat:
-            //            this.LogStatistic(StatisticItemTypeEnum.TrovoSpell, StreamingPlatformTypeEnum.Trovo); break;
 
             //        case EventTypeEnum.StreamlabsDonation:
             //        case EventTypeEnum.TiltifyDonation:

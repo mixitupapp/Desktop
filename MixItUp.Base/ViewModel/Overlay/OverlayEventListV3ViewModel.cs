@@ -1,7 +1,6 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
-using MixItUp.Base.Model.Trovo.Chat;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -9,7 +8,6 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
@@ -35,7 +33,6 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         YouTubeSuperChat,
 
-        TrovoElixirSpell,
     }
 
     public class OverlayEventListHeaderV3ViewModel : OverlayHeaderV3ViewModelBase
@@ -324,83 +321,6 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private string youTubeSuperChatsDetailsTemplate;
 
-        public bool TrovoSubscriptions
-        {
-            get { return this.trovoSubscriptions; }
-            set
-            {
-                this.trovoSubscriptions = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private bool trovoSubscriptions;
-
-        public string TrovoSubscriptionsDetailsTemplate
-        {
-            get { return this.trovoSubscriptionsDetailsTemplate; }
-            set
-            {
-                this.trovoSubscriptionsDetailsTemplate = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private string trovoSubscriptionsDetailsTemplate;
-
-        public string TrovoResubscriptionsDetailsTemplate
-        {
-            get { return this.trovoResubscriptionsDetailsTemplate; }
-            set
-            {
-                this.trovoResubscriptionsDetailsTemplate = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private string trovoResubscriptionsDetailsTemplate;
-
-        public string TrovoGiftedSubscriptionsDetailsTemplate
-        {
-            get { return this.trovoGiftedSubscriptionsDetailsTemplate; }
-            set
-            {
-                this.trovoGiftedSubscriptionsDetailsTemplate = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private string trovoGiftedSubscriptionsDetailsTemplate;
-
-        public string TrovoMassGiftedSubscriptionsDetailsTemplate
-        {
-            get { return this.trovoMassGiftedSubscriptionsDetailsTemplate; }
-            set
-            {
-                this.trovoMassGiftedSubscriptionsDetailsTemplate = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private string trovoMassGiftedSubscriptionsDetailsTemplate;
-
-        public bool TrovoElixirSpells
-        {
-            get { return this.trovoElixirSpells; }
-            set
-            {
-                this.trovoElixirSpells = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private bool trovoElixirSpells;
-
-        public string TrovoElixirSpellsDetailsTemplate
-        {
-            get { return this.trovoElixirSpellsDetailsTemplate; }
-            set
-            {
-                this.trovoElixirSpellsDetailsTemplate = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private string trovoElixirSpellsDetailsTemplate;
-
         public bool Donations
         {
             get { return this.donations; }
@@ -459,13 +379,6 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.YouTubeSuperChatsDetailsTemplate = $"{Resources.SuperChat} - {{Amount}}";
 
-            this.TrovoSubscriptionsDetailsTemplate = $"{Resources.Subscribed} - {Resources.Tier} {{Tier}}";
-            this.TrovoResubscriptionsDetailsTemplate = $"{Resources.Resubscribed} - {Resources.Tier} {{Tier}} - {{Amount}} Months";
-            this.TrovoGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}}";
-            this.TrovoMassGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}} x{{Amount}}";
-
-            this.TrovoElixirSpellsDetailsTemplate = $"{{Amount}} {Resources.Elixir}";
-
             this.DonationsDetailsTemplate = $"{Resources.Donation} - {{Amount}}";
 
             this.ItemAddedAnimation = new OverlayAnimationV3ViewModel(Resources.ItemAdded, new OverlayAnimationV3Model());
@@ -510,15 +423,6 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.YouTubeSuperChats = item.YouTubeSuperChats;
             this.YouTubeSuperChatsDetailsTemplate = item.YouTubeSuperChatsDetailsTemplate;
-
-            this.TrovoSubscriptions = item.TrovoSubscriptions;
-            this.TrovoSubscriptionsDetailsTemplate = item.TrovoSubscriptionsDetailsTemplate;
-            this.TrovoResubscriptionsDetailsTemplate = item.TrovoResubscriptionsDetailsTemplate;
-            this.TrovoGiftedSubscriptionsDetailsTemplate = item.TrovoGiftedSubscriptionsDetailsTemplate;
-            this.TrovoMassGiftedSubscriptionsDetailsTemplate = item.TrovoMassGiftedSubscriptionsDetailsTemplate;
-
-            this.TrovoElixirSpells = item.TrovoElixirSpells;
-            this.TrovoElixirSpellsDetailsTemplate = item.TrovoElixirSpellsDetailsTemplate;
 
             this.Donations = item.Donations;
             this.DonationsDetailsTemplate = item.DonationsDetailsTemplate;
@@ -594,19 +498,6 @@ namespace MixItUp.Base.ViewModel.Overlay
                         UserComment = "Hello World"
                     }, ChannelSession.User));
                 }
-                else if (type == OverlayEventListV3TestTypeEnum.TrovoElixirSpell)
-                {
-                    eventList.OnTrovoSpell(this, new TrovoChatSpellViewModel(ChannelSession.User, new ChatMessageModel() { content = "" })
-                    {
-                        Contents = new TrovoChatSpellContentModel()
-                        {
-                            gift = "Foobar",
-                            value_type = TrovoChatSpellViewModel.ElixirValueType,
-                            num = 10,
-                            gift_value = 10,
-                        }
-                    });
-                }
             }
 
             await base.TestWidget(widget);
@@ -647,15 +538,6 @@ namespace MixItUp.Base.ViewModel.Overlay
 
                 YouTubeSuperChats = this.YouTubeSuperChats,
                 YouTubeSuperChatsDetailsTemplate = this.YouTubeSuperChatsDetailsTemplate,
-
-                TrovoSubscriptions = this.TrovoSubscriptions,
-                TrovoSubscriptionsDetailsTemplate = this.TrovoSubscriptionsDetailsTemplate,
-                TrovoResubscriptionsDetailsTemplate = this.TrovoResubscriptionsDetailsTemplate,
-                TrovoGiftedSubscriptionsDetailsTemplate = this.TrovoGiftedSubscriptionsDetailsTemplate,
-                TrovoMassGiftedSubscriptionsDetailsTemplate = this.TrovoMassGiftedSubscriptionsDetailsTemplate,
-
-                TrovoElixirSpells = this.TrovoElixirSpells,
-                TrovoElixirSpellsDetailsTemplate = this.TrovoElixirSpellsDetailsTemplate,
 
                 Donations = this.Donations,
                 DonationsDetailsTemplate = this.DonationsDetailsTemplate,

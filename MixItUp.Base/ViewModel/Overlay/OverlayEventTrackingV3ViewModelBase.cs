@@ -126,39 +126,6 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         public ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel> YouTubeMemberships { get; set; } = new ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel>();
 
-        public double TrovoSubscriptionTier1Amount
-        {
-            get { return this.trovoSubscriptionTier1Amount; }
-            set
-            {
-                this.trovoSubscriptionTier1Amount = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private double trovoSubscriptionTier1Amount;
-
-        public double TrovoSubscriptionTier2Amount
-        {
-            get { return this.trovoSubscriptionTier2Amount; }
-            set
-            {
-                this.trovoSubscriptionTier2Amount = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private double trovoSubscriptionTier2Amount;
-
-        public double TrovoSubscriptionTier3Amount
-        {
-            get { return this.trovoSubscriptionTier3Amount; }
-            set
-            {
-                this.trovoSubscriptionTier3Amount = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private double trovoSubscriptionTier3Amount;
-
         public double TwitchBitsAmount
         {
             get { return this.twitchBitsAmount; }
@@ -198,27 +165,6 @@ namespace MixItUp.Base.ViewModel.Overlay
             {
                 double total = this.YouTubeSuperChatAmount * SampleDecimalAmount;
                 return $"{this.YouTubeSuperChatAmount} * {CurrencyHelper.ToCurrencyString(SampleDecimalAmount)} = {total} {this.EquationUnits}";
-            }
-        }
-
-        public double TrovoElixirSpellAmount
-        {
-            get { return this.trovoElixirSpellAmount; }
-            set
-            {
-                this.trovoElixirSpellAmount = value;
-                this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.TrovoElixirSpellEquation));
-            }
-        }
-        private double trovoElixirSpellAmount;
-
-        public string TrovoElixirSpellEquation
-        {
-            get
-            {
-                double total = this.TrovoElixirSpellAmount * SampleIntegerAmount;
-                return $"{this.TrovoElixirSpellAmount} * {SampleIntegerAmount} {Resources.Elixir} = {total} {this.EquationUnits}";
             }
         }
 
@@ -286,11 +232,6 @@ namespace MixItUp.Base.ViewModel.Overlay
             }
             this.YouTubeSuperChatAmount = item.YouTubeSuperChatAmount;
 
-            this.TrovoSubscriptionTier1Amount = item.TrovoSubscriptionsAmount[1];
-            this.TrovoSubscriptionTier2Amount = item.TrovoSubscriptionsAmount[2];
-            this.TrovoSubscriptionTier3Amount = item.TrovoSubscriptionsAmount[3];
-            this.TrovoElixirSpellAmount = item.TrovoElixirSpellAmount;
-
             this.DonationAmount = item.DonationAmount;
 
             this.InitializeInternal();
@@ -321,11 +262,6 @@ namespace MixItUp.Base.ViewModel.Overlay
                 result.YouTubeMembershipsAmount[membership.Name] = membership.Amount;
             }
             result.YouTubeSuperChatAmount = this.YouTubeSuperChatAmount;
-
-            result.TrovoSubscriptionsAmount[1] = this.TrovoSubscriptionTier1Amount;
-            result.TrovoSubscriptionsAmount[2] = this.TrovoSubscriptionTier2Amount;
-            result.TrovoSubscriptionsAmount[3] = this.TrovoSubscriptionTier3Amount;
-            result.TrovoElixirSpellAmount = this.TrovoElixirSpellAmount;
 
             result.DonationAmount = this.DonationAmount;
         }

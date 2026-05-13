@@ -6759,6 +6759,9 @@ ensure this option is disabled after any testing you are doing is done by headin
   <data name="Choice4" xml:space="preserve">
     <value>Choice 4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Choice 5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>Create Poll</value>
   </data>
@@ -8680,7 +8683,7 @@ We will attempt to re-connect with the service when possible. If this continues,
     <value>In this example, our shout out command sends a message to chat, plays a sound, waits 10 seconds, and then shows an image. Each of those correspond to a different action type (Chat, Sound, Wait, and Overlay).</value>
   </data>
   <data name="WizardFinal1" xml:space="preserve">
-    <value>Mix It Up is a desktop-only application, so your settings and data only exist on your computer. Therefore we encourge users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:</value>
+    <value>Mix It Up is a desktop only application, so your settings and data only exist on your computer. Therefore we encourage users to set up automatic backups for your settings to ensure you always have something to fall back to in the event of any issues:</value>
   </data>
   <data name="WizardFinal2" xml:space="preserve">
     <value>Don't know how a feature works or want more info? Simply click on the Help icon on the top bar of the main window to find out more!</value>
@@ -8959,6 +8962,9 @@ via Twitch, it's a "your mileage may vary" situation.</value>
   <data name="YouTubeChannelSuperChat" xml:space="preserve">
     <value>YouTube Channel Super Chat</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube Channel Jewels Gift</value>
+  </data>
   <data name="YouTubeChannelSuperSticker" xml:space="preserve">
     <value>YouTube Channel Super Sticker</value>
   </data>
@@ -8966,6 +8972,12 @@ via Twitch, it's a "your mileage may vary" situation.</value>
     <value>{0} Super Chat - {1}</value>
     <comment>{0} is the name of the user
 {1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Jewels Gift - {1} ({2} Jewels)</value>
+    <comment>{0} is the name of the user
+{1} is the name of the gift
+{2} is the amount of jewels</comment>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0} Super Sticker - {1} - {2}</value>
@@ -8975,6 +8987,9 @@ via Twitch, it's a "your mileage may vary" situation.</value>
   </data>
   <data name="ShowYouTubeSuperChat" xml:space="preserve">
     <value>Show YouTube Super Chat</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Show YouTube Jewels Gift</value>
   </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Mock Connection</value>
@@ -10365,6 +10380,14 @@ print(run())</value>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>Port numbers for the Overlay must be between 0 and 65353</value>
   </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Disable iframe removal (OBS CEF freezing workaround)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Warning: Testing workaround. Not recommended to enable unless needed for OBS CEF video freezing. This may increase memory usage or introduce other issues.
+
+Only enable if you know what you are doing. Continue?</value>
+  </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>Hide Specific User Messages (Space Separated)</value>
   </data>
@@ -11306,3 +11329,80 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
     <comment>{0} is the name of the user
 {1} is the name of the custom Power-Up</comment>
   </data></root>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Reset Moderation Strikes for All Users</value>
+  </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Add or Drop Here</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Log in with Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Log out of Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Kick Channel Stream Start</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Stream Stop</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Kick Channel Updated</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Followed</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Kick Channel Subscribed</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick Channel Resubscribed</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Kick Channel Subscription Gifted</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Kick Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Kick Channel Points Redeemed</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Kick Channel Points</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>There already exists another Kick Kicks command with the same amount / range as this command.</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>A Kick account must be connected to use this feature.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick Channel Points Command</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Kick Kicks Command</value>
+  </data>
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Kick Action: A valid name must be specified</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Kick Action: Missing Channel Point Reward</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>ERROR: Could not update Channel Point Reward, please try again later. If this reward was not created through the Mix It Up UI, you will need to delete it and re-add it on the Channel Points page as they must be created through Mix It Up to allow the app to be able to update them.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Channel Point Rewards must be created through Mix It Up to allow the app to be able to update them.
+This can be done by clicking on Create Channel Point Reward on the Kick Channel Points page in Mix It Up.</value>
+  </data>
+</root>
