@@ -11267,4 +11267,28 @@ Ve a la página Cuentas del menú principal para conectar tu cuenta de streaming
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Parada al finalizar</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Canjeado {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Potenciación personalizada</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Debe seleccionarse un Encendido Personalizado</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Potenciador personalizado de Twitch</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Potenciadores personalizados de Twitch</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch Custom Power-Up Command</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Potenciador personalizado del canal de Twitch canjeado</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Mostrar potenciadores personalizados de Twitch</value>
+  </data>
 </root>

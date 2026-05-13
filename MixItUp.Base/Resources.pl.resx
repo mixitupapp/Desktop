@@ -11265,4 +11265,28 @@ Przejdź do strony Konta w menu głównym, aby połączyć swoje konto streaming
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Zatrzymanie po zakończeniu</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Wykorzystane {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Niestandardowe wzmocnienie</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Należy wybrać niestandardowe zasilanie</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Niestandardowe wzmocnienie Twitcha</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Niestandardowe ulepszenia Twitcha</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Niestandardowe polecenie zwiększenia mocy Twitcha</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Wykorzystano niestandardowe wzmocnienie na kanale Twitcha</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Pokaż niestandardowe ulepszenia Twitcha</value>
+  </data>
 </root>

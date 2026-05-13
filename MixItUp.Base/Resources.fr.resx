@@ -11266,4 +11266,28 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Arrêt à l'achèvement</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Utilisé {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Puissance personnalisée</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Une mise sous tension personnalisée doit être sélectionnée</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Power-Up personnalisé de Twitch</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch Custom Power-Ups</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Commande d'alimentation personnalisée de Twitch</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Puissance personnalisée de la chaîne Twitch récupérée</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Show Twitch Custom Power-Ups</value>
+  </data>
 </root>

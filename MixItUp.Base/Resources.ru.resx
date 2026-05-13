@@ -11270,4 +11270,28 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Остановка по завершении</value>
   </data>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} погашен {1}</value>
+  </data>
+  <data name="CustomPowerUp" xml:space="preserve">
+    <value>Пользовательское усиление</value>
+  </data>
+  <data name="CustomPowerUpMissing" xml:space="preserve">
+    <value>Необходимо выбрать пользовательское включение</value>
+  </data>
+  <data name="TwitchCustomPowerUp" xml:space="preserve">
+    <value>Twitch Custom Power-Up</value>
+  </data>
+  <data name="TwitchCustomPowerUps" xml:space="preserve">
+    <value>Twitch Custom Power-Ups</value>
+  </data>
+  <data name="TwitchCustomPowerUpCommand" xml:space="preserve">
+    <value>Twitch Custom Power-Up Command</value>
+  </data>
+  <data name="TwitchChannelCustomPowerUpRedeemed" xml:space="preserve">
+    <value>Пользовательское усиление канала Twitch выкуплено</value>
+  </data>
+  <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
+    <value>Показать Twitch Пользовательские бонусы</value>
+  </data>
 </root>
