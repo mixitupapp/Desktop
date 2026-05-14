@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Web;
+using MixItUp.Base.Model.Web;
 using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
@@ -8,6 +8,9 @@ namespace MixItUp.Base.Model.Store
     [DataContract]
     public class CommunityCommandLoginModel
     {
+        [DataMember]
+        public string Version { get; set; }
+
         [DataMember]
         public Guid UserID { get; set; }
 

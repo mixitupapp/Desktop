@@ -487,9 +487,17 @@ namespace MixItUp.Base.Services
         {
             if (accessToken == null)
             {
-                var token = this.GetLoginToken();
-                var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("v2/user/login", AdvancedHttpClient.CreateContentFromObject(token));
-                this.accessToken = loginResponse.AccessToken;
+                try
+                {
+                    var token = this.GetLoginToken();
+                    var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("v2/user/login", AdvancedHttpClient.CreateContentFromObject(token));
+                    this.accessToken = loginResponse.AccessToken;
+                }
+                catch (HttpRestRequestException ex) when (ex.Response?.StatusCode == HttpStatusCode.UpgradeRequired)
+                {
+                    Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up API services.");
+                    return;
+                }
             }
         }
 
@@ -613,6 +621,12 @@ namespace MixItUp.Base.Services
         {
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
+            if (e.Message.Contains("4426"))
+            {
+                Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up WebhookHub services.");
+                return;
+            }
+
             Result result = new Result();
             do
             {
@@ -712,6 +726,7 @@ namespace MixItUp.Base.Services
         private CommunityCommandLoginModel GetLoginToken()
         {
             var login = new CommunityCommandLoginModel();
+            login.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
 
             if (ServiceManager.Get<TwitchSession>().IsConnected)
             {
