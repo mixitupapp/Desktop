@@ -154,6 +154,7 @@ namespace MixItUp.Base.Services
         };
 
         private string accessToken = null;
+        private bool isUpdateRequired = false;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         private CancellationTokenSource notificationCancellationTokenSource;
@@ -495,8 +496,9 @@ namespace MixItUp.Base.Services
                 }
                 catch (HttpRestRequestException ex) when (ex.Response?.StatusCode == HttpStatusCode.UpgradeRequired)
                 {
+                    isUpdateRequired = true;
                     Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up API services.");
-                    return;
+                    throw;
                 }
             }
         }
@@ -513,7 +515,7 @@ namespace MixItUp.Base.Services
             AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
             {
                 Result result = await this.Connect();
-                if (!result.Success)
+                if (!result.Success && !isUpdateRequired)
                 {
                     WebhookHubConnection_Disconnected(this, new Exception());
                 }
@@ -522,6 +524,7 @@ namespace MixItUp.Base.Services
 
         public async Task<Result> Connect()
         {
+            if (isUpdateRequired) return new Result("Update Required");
             if (!this.IsWebhookHubConnected)
             {
                 if (this.webhookHubConnection == null)
@@ -619,24 +622,23 @@ namespace MixItUp.Base.Services
 
         private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
-            ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
-
             if (e.Message.Contains("4426"))
             {
+                isUpdateRequired = true;
                 Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up WebhookHub services.");
                 return;
             }
 
-            Result result = new Result();
+            ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+
+            Result result;
             do
             {
                 await this.Disconnect();
-
                 await Task.Delay(5000 + RandomHelper.GenerateRandomNumber(5000));
-
                 result = await this.Connect();
             }
-            while (!result.Success);
+            while (!result.Success && !isUpdateRequired);
 
             ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
         }
