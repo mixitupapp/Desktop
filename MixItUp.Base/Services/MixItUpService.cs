@@ -937,11 +937,11 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
 
-                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/random");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -982,11 +982,11 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
                     client.Timeout = TimeSpan.FromSeconds(10);
 
-                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/all");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/all");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
