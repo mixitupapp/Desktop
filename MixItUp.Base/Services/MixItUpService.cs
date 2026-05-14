@@ -498,6 +498,7 @@ namespace MixItUp.Base.Services
                 {
                     isUpdateRequired = true;
                     Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up API services.");
+                    ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
                     throw;
                 }
             }
