@@ -773,7 +773,7 @@ namespace MixItUp.Base.Services
             var notificationPollingTokenSource = notificationCancellationTokenSource;
             if (notificationPollingTokenSource != null)
             {
-                AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationPollingTokenSource.Token, 30 * 60000);
+                AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationPollingTokenSource.Token, 60 * 60000);
             }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
@@ -794,12 +794,9 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                    HttpResponseMessage response = await client.GetAsync("api/services/notifications/id");
+                    HttpResponseMessage response = await client.GetAsync("services/notifications/id");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -843,12 +840,9 @@ namespace MixItUp.Base.Services
 
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                    HttpResponseMessage response = await client.GetAsync("/api/services/notifications");
+                    HttpResponseMessage response = await client.GetAsync("services/notifications");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -902,12 +896,9 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                    HttpResponseMessage response = await client.GetAsync("api/services/notifications/outage");
+                    HttpResponseMessage response = await client.GetAsync("services/notifications/outage");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
