@@ -11372,7 +11372,6 @@ print(run())</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Команда Kick Kicks</value>
   </data>
-
   <data name="KickActionNameMissing" xml:space="preserve">
     <value>Дія Kick: необхідно вказати дійсне ім’я</value>
   </data>
@@ -11385,5 +11384,8 @@ print(run())</value>
   <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
     <value>Нагороди Channel Point Rewards потрібно створити через Mix It Up, щоб програма могла їх оновлювати.
 Це можна зробити, натиснувши «Створити нагороду балами каналу» на сторінці балів каналу в Mix It Up.</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>Винагороду за точку каналу успішно створено! Тепер ви можете динамічно оновлювати цю винагороду за призові очки каналу за допомогою дії Kick всередині команди. Будь ласка, скористайтеся посиланням на головній сторінці Channel Points, щоб відвідати редактор Kick і налаштувати свою винагороду.</value>
   </data>
 </root>

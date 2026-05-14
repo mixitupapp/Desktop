@@ -11289,7 +11289,7 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Show Twitch Custom Power-Ups</value>
-  </data>	
+  </data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>Cadeau pour les bijoux de la chaîne YouTube</value>
   </data>
@@ -11373,7 +11373,6 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Commande Kick Kicks</value>
   </data>
-
   <data name="KickActionNameMissing" xml:space="preserve">
     <value>Action Kick : un nom valide doit être spécifié</value>
   </data>
@@ -11386,5 +11385,8 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
     <value>Les récompenses Channel Point doivent être créées via Mix It Up pour permettre à l'application de pouvoir les mettre à jour.
 Cela peut être fait en cliquant sur Créer une récompense de points de chaîne sur la page Points de chaîne dans Mix It Up.</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>Récompense en points de chaîne créée avec succès ! Vous pouvez maintenant mettre à jour dynamiquement cette récompense en utilisant l'action Kick à l'intérieur d'une commande. Veuillez utiliser le lien sur la page principale des points de chaîne pour visiter l'éditeur sur Kick afin de personnaliser votre récompense.</value>
   </data>
 </root>

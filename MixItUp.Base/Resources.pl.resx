@@ -11372,7 +11372,6 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Polecenie Kick Kicks</value>
   </data>
-
   <data name="KickActionNameMissing" xml:space="preserve">
     <value>Akcja Kicka: Należy podać prawidłową nazwę</value>
   </data>
@@ -11385,5 +11384,8 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
     <value>Nagrody za punkty kanału muszą zostać utworzone za pomocą Mix It Up, aby aplikacja mogła je aktualizować.
 Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stronie Punkty kanału w aplikacji Mix It Up.</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>Nagroda za punkt kanału została pomyślnie utworzona! Możesz teraz dynamicznie aktualizować tę nagrodę za punkty kanału za pomocą akcji Kick wewnątrz polecenia. Skorzystaj z linku na głównej stronie punktów kanału, aby odwiedzić edytor w Kick i dostosować nagrodę.</value>
   </data>
 </root>

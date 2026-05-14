@@ -39,7 +39,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                     {
                         this.AddCommand(new KickChannelPointsCommandModel(reward.Title, reward.ID));
 
-                        await DialogHelper.ShowMessage(MixItUp.Base.Resources.CreateChannelPointRewardSuccess);
+                        await DialogHelper.ShowMessage(MixItUp.Base.Resources.KickCreateChannelPointRewardSuccess);
                     }
                     else
                     {

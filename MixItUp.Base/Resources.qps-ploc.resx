@@ -11372,7 +11372,6 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>[Kick Kicks Command !!!]</value>
   </data>
-
   <data name="KickActionNameMissing" xml:space="preserve">
     <value>[Ţŵîţçĥẋẋ Åçţîöñ∶ẋẋẋ Åẋ ṽåļîðẋẋ ñåɱéẋẋ ɱûšţẋẋ ƀéẋ šþéçîƒîéðẋẋẋ]</value>
   </data>
@@ -11385,5 +11384,8 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
     <value>[Çĥåññéļẋẋẋ Þöîñţẋẋ Ŕéŵåŕðšẋẋẋ ɱûšţẋẋ ƀéẋ çŕéåţéðẋẋẋ ţĥŕöûĝĥẋẋẋ Ṁîẋẋ Îţẋ Ûþẋ ţöẋ åļļöŵẋẋ ţĥéẋ åþþẋ ţöẋ ƀéẋ åƀļéẋẋ ţöẋ ûþðåţéẋẋ ţĥéɱ·
 Ţĥîšẋẋẋẋ çåñẋ ƀéẋ ðöñéẋẋ ƀýẋ çļîçķîñĝẋẋẋ öñẋ Çŕéåţéẋẋ Çĥåññéļẋẋẋ Þöîñţẋẋ Ŕéŵåŕðẋẋ öñẋ ţĥéẋ Çĥåññéļẋẋẋ Þöîñţšẋẋ þåĝéẋẋ îñẋ Ṁîẋẋ Îţẋ Ûþ·ẋ]</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>Channel Point Reward successfully created! You can now dynamically update this Channel Point Reward using the Kick action inside of a command. Please use the link on the main Channel Points page to visit the editor on Kick to customize your reward.</value>
   </data>
 </root>
