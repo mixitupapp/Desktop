@@ -40,6 +40,8 @@ namespace MixItUp.Base.Services.Kick.New
         private readonly Queue<string> processedEventIDsQueue = new Queue<string>();
         private readonly HashSet<string> processedEventIDs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        private readonly HashSet<string> channelPointRedemptionCache = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
         public override Task<Result> Connect()
         {
             this.isConnected = true;
@@ -346,10 +348,13 @@ namespace MixItUp.Base.Services.Kick.New
         private async Task HandleRewardRedemptionUpdated(JObject payload)
         {
             WebhookRewardRedemptionUpdatedEventModel redemptionEvent = payload.ToObject<WebhookRewardRedemptionUpdatedEventModel>();
-            if (redemptionEvent?.Redeemer == null || redemptionEvent.Reward == null || !string.Equals(redemptionEvent.Status, "pending", StringComparison.OrdinalIgnoreCase))
+            if (redemptionEvent?.Redeemer == null || redemptionEvent.Reward == null || this.channelPointRedemptionCache.Contains(redemptionEvent.ID) ||
+                !string.Equals(redemptionEvent.Status, "accepted", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
+
+            this.channelPointRedemptionCache.Add(redemptionEvent.ID);
 
             UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: redemptionEvent.Redeemer.UserID.ToString(), platformUsername: redemptionEvent.Redeemer.Username);
             if (user == null)
