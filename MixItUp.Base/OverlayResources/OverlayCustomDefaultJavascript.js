@@ -104,14 +104,6 @@ function YouTubeSuperChat(data)
     addToDiv("YouTubeSuperChat");
 }
 
-function TrovoElixirSpell(data)
-{
-    console.log("TrovoElixirSpell");
-    console.log(data);
-    
-    addToDiv("TrovoElixirSpell");
-}
-
 function addToDiv(text)
 {
     var div = document.createElement("div");
