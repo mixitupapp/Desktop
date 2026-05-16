@@ -31,6 +31,17 @@ namespace MixItUp.Base.ViewModel.MainControls
     {
         public ObservableCollection<WebhookCommandItemViewModel> WebhookCommands { get; set; } = new ObservableCollection<WebhookCommandItemViewModel>();
 
+        public bool ShowApiMigrationBanner
+        {
+            get { return this.showApiMigrationBanner; }
+            set
+            {
+                this.showApiMigrationBanner = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool showApiMigrationBanner = true;
+
         public int MaxNumberOfWebhooks
         {
             get { return this.maxNumberOfWebhooks; }

@@ -16,12 +16,63 @@
     </local:MainControlBase.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="10" Grid.Row="0">
+        <MaterialDesign:Card
+            x:Name="ApiMigrationBanner"
+            Grid.Row="0"
+            Margin="0,0,0,12"
+            Padding="16,12"
+            Background="#1976D2"
+            UniformCornerRadius="8"
+            Visibility="{Binding ShowApiMigrationBanner, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <MaterialDesign:PackIcon
+                    Grid.Column="0"
+                    Width="24"
+                    Height="24"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Center"
+                    Foreground="White"
+                    Kind="Information" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontSize="13"
+                    Foreground="White"
+                    TextWrapping="Wrap"
+                    Text="We're switching our Webhooks API domain from api.mixitupapp.com to desktop.api.mixitupapp.com. Please ensure that you update your webhook URLs in any external services that use them. You can press the Copy URL button to get the updated link." />
+
+                <Button
+                    Grid.Column="2"
+                    Width="24"
+                    Height="24"
+                    Margin="12,0,0,0"
+                    Padding="0"
+                    Click="CloseApiMigrationBanner_Click"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Close">
+                    <MaterialDesign:PackIcon
+                        Width="18"
+                        Height="18"
+                        Foreground="White"
+                        Kind="Close" />
+                </Button>
+            </Grid>
+        </MaterialDesign:Card>
+
+        <Grid Margin="10" Grid.Row="1">
             <DataGrid ItemsSource="{Binding WebhookCommands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
@@ -57,7 +108,7 @@
             </DataGrid>
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Center">
+        <Grid Grid.Row="3" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="40" />
