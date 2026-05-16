@@ -285,11 +285,15 @@ namespace MixItUp.Base.ViewModel.MainControls
             this.UpcomingBroadcasts.Clear();
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {
-                foreach (LiveBroadcast broadcast in await ServiceManager.Get<YouTubeSession>().StreamerService.GetLatestBroadcasts())
+                IEnumerable<LiveBroadcast> broadcasts = await ServiceManager.Get<YouTubeSession>().StreamerService.GetLatestBroadcasts();
+                if (broadcasts != null)
                 {
-                    if (!ServiceManager.Get<YouTubeSession>().LiveBroadcasts.ContainsKey(broadcast.Id))
+                    foreach (LiveBroadcast broadcast in broadcasts)
                     {
-                        this.UpcomingBroadcasts.Add(new LiveBroadcastViewModel(broadcast));
+                        if (broadcast != null && !ServiceManager.Get<YouTubeSession>().LiveBroadcasts.ContainsKey(broadcast.Id))
+                        {
+                            this.UpcomingBroadcasts.Add(new LiveBroadcastViewModel(broadcast));
+                        }
                     }
                 }
             }
