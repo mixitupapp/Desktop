@@ -122,6 +122,8 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Resource Include="Assets\Images\youtube-light_sm.png" />
     <Resource Include="Assets\Fonts\BebasNeue.otf" />
     <Resource Include="Assets\Fonts\NotoSans-Regular.ttf" />
+    <Resource Include="Assets\Images\MixItUp_Background-Starfield.png" />
+    <Resource Include="Assets\Images\MixItUp_Logo-Stacked_Dark.png" />
   </ItemGroup>
   <ItemGroup Label="Content">
     <Content Include="Logo.ico">
