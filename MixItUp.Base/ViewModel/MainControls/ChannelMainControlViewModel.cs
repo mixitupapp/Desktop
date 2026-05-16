@@ -1,13 +1,17 @@
 using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
+using MixItUp.Base.Model.Kick.Categories;
+using MixItUp.Base.Model.Kick.Common;
 using MixItUp.Base.Model.Twitch.Games;
 using MixItUp.Base.Model.Twitch.Streams;
 using MixItUp.Base.Model.Twitch.Teams;
 using MixItUp.Base.Model.Twitch.User;
 using MixItUp.Base.Services;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
+using MixItUp.Base.ViewModel.Kick;
 using MixItUp.Base.ViewModel.Twitch;
 using MixItUp.Base.ViewModels;
 using System;
@@ -333,6 +337,71 @@ namespace MixItUp.Base.ViewModel.MainControls
         }
     }
 
+    public class KickChannelControlViewModel : PlatformChannelControlViewModelBase
+    {
+        public KickTagEditorViewModel TagEditor { get; set; } = new KickTagEditorViewModel();
+
+        public KickChannelControlViewModel() { this.Platform = StreamingPlatformTypeEnum.Kick; }
+
+        protected override async Task OnOpenInternal()
+        {
+            await this.TagEditor.OnOpen();
+
+            await this.TagEditor.LoadCurrentTags();
+
+            await base.OnOpenInternal();
+        }
+
+        protected override async Task<Result> UpdateChannelInformation()
+        {
+            long? categoryID = null;
+            if (!string.IsNullOrWhiteSpace(this.Category))
+            {
+                PaginatedResponseModel<CategoryWithTagsModel> categories = await ServiceManager.Get<KickSession>().StreamerService.GetCategories(limit: 100, names: new List<string>() { this.Category });
+                if (categories != null && categories.Data != null && categories.Data.Count > 0)
+                {
+                    CategoryWithTagsModel selectedCategory = categories.Data.FirstOrDefault(c => string.Equals(c.Name, this.Category, StringComparison.OrdinalIgnoreCase));
+                    if (selectedCategory == null)
+                    {
+                        selectedCategory = categories.Data.First();
+                    }
+                    categoryID = selectedCategory.ID;
+                }
+            }
+
+            return await ServiceManager.Get<KickSession>().StreamerService.UpdateChannel(
+                title: this.Title,
+                categoryID: categoryID,
+                customTags: this.TagEditor.CustomTags.Select(t => t.Tag));
+        }
+
+        protected override async Task RefreshChannelInformation()
+        {
+            KickSession session = ServiceManager.Get<KickSession>();
+            await session.RefreshDetails();
+
+            if (!string.IsNullOrEmpty(session.Channel?.StreamTitle))
+            {
+                this.Title = session.Channel.StreamTitle;
+            }
+            if (!string.IsNullOrEmpty(session.Channel?.Category?.Name))
+            {
+                this.Category = session.Channel.Category.Name;
+            }
+
+            if (session.Channel?.Stream?.CustomTags != null)
+            {
+                this.TagEditor.ClearCustomTags();
+                foreach (string tag in session.Channel.Stream.CustomTags)
+                {
+                    await this.TagEditor.AddCustomTag(tag);
+                }
+            }
+        }
+
+        protected override Task SearchChannelsToRaid() { return Task.CompletedTask; }
+    }
+
     public abstract class PlatformChannelControlViewModelBase : UIViewModelBase
     {
         public class ChannelToRaidItemViewModel : UIViewModelBase
@@ -518,9 +587,13 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public YouTubeChannelControlViewModel YouTube { get; set; } = new YouTubeChannelControlViewModel();
 
+        public KickChannelControlViewModel Kick { get; set; } = new KickChannelControlViewModel();
+
         public bool IsTwitchConnected { get { return ServiceManager.Get<TwitchSession>().IsConnected; } }
 
         public bool IsYouTubeConnected { get { return ServiceManager.Get<YouTubeSession>().IsConnected; } }
+
+        public bool IsKickConnected { get { return ServiceManager.Get<KickSession>().IsConnected; } }
 
         public ChannelMainControlViewModel(MainWindowViewModel windowViewModel) : base(windowViewModel) { }
 
@@ -536,6 +609,11 @@ namespace MixItUp.Base.ViewModel.MainControls
                 await this.YouTube.OnOpen();
             }
 
+            if (this.IsKickConnected)
+            {
+                await this.Kick.OnOpen();
+            }
+
             await base.OnOpenInternal();
         }
 
@@ -549,6 +627,11 @@ namespace MixItUp.Base.ViewModel.MainControls
             if (this.IsYouTubeConnected)
             {
                 await this.YouTube.OnVisible();
+            }
+
+            if (this.IsKickConnected)
+            {
+                await this.Kick.OnVisible();
             }
 
             await base.OnVisibleInternal();

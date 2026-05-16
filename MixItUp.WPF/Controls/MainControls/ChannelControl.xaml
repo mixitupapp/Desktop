@@ -9,6 +9,7 @@
              xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:TwitchControls="clr-namespace:MixItUp.WPF.Controls.Twitch"
+             xmlns:KickControls="clr-namespace:MixItUp.WPF.Controls.Kick"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <local:MainControlBase.Resources>
@@ -204,6 +205,57 @@
                                     <ComboBox Grid.Row="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
 
                                     <TextBox Grid.Row="2" Text="{Binding Description}" AcceptsReturn="True" Height="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                                    <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                </Expander>
+            </Border>
+            <!-- Kick -->
+            <Border Visibility="{Binding IsKickConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                <Expander DataContext="{Binding Kick}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
+                    <Expander.Header>
+                        <Grid Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="/Assets/Images/kick-color_sm.png" Height="24" Width="24" VerticalAlignment="Center" />
+
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Kick}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+                        </Grid>
+                    </Expander.Header>
+
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
+                        <Grid Margin="10">
+                            <GroupBox Header="{x:Static resx:Resources.ChannelInfo}">
+                                <Grid Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+
+                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                    </Grid>
+
+                                    <Grid Grid.Row="2">
+                                        <KickControls:KickTagEditorControl DataContext="{Binding TagEditor}" />
+                                    </Grid>
 
                                     <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
                                 </Grid>
