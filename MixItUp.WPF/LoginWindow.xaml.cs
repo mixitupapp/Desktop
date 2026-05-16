@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Media;
@@ -85,7 +86,7 @@ namespace MixItUp.WPF
 
             if (this.streamerSettings.Count > 0)
             {
-                this.ExistingStreamerComboBox.Visibility = Visibility.Visible;
+                this.ExistingProfilePanel.Visibility = Visibility.Visible;
                 this.StreamerLoginButton.IsEnabled = true;
                 if (this.streamerSettings.Count == 1)
                 {
@@ -144,59 +145,29 @@ namespace MixItUp.WPF
                     return;
                 }
 
-                string[] shoutoutMessages = new string[]
+                string[] ctaMessages = new string[]
                 {
-                    "Mix It Up is powered by Patreon supporter {0}.",
-                    "This session is powered by Patreon supporter {0}.",
-                    "This launch was made possible by Patreon member {0}.",
-                    "Special thanks to Patreon supporter {0}.",
-                    "This session exists thanks to supporters like {0}.",
-                    "Powered behind the scenes by {0}.",
-                    "Mix It Up is proudly supported by {0}.",
-                    "Huge thanks to Patreon supporter {0}.",
-                    "Patreon supporter {0} helped make this possible.",
-                    "This instance of Mix It Up is courtesy of {0}.",
-                    "Fueling this session: Patreon supporter {0}.",
-                    "A quiet nod of gratitude to {0}.",
-                    "Mix It Up appreciates supporters like {0}.",
-                    "Patreon member {0} is helping keep Mix It Up growing.",
-                    "Built with support from Patreon member {0}.",
-                    "This launch was assisted by the legendary {0}.",
-                    "Running with support from Patreon supporter {0}.",
-                    "Mix It Up is community-powered by folks like {0}.",
-                    "Patreon supporter {0} helped make today happen.",
-                    "Keeping Mix It Up moving forward: {0}.",
-                    "Mix It Up is stronger thanks to {0}.",
-                    "Today’s runtime sponsor: Patreon supporter {0}.",
-                    "This launch was approved by the highly prestigious {0}.",
-                    "Patreon member {0} is helping shape the future of Mix It Up.",
-                    "Mix It Up sends a virtual high five to {0}.",
-                    "Today’s runtime brought to you by {0}.",
-                    "This session exists because {0} believed in the project.",
-                    "This startup sequence has been sponsored by {0}.",
-                    "Special thanks to {0} for helping keep Mix It Up online.",
-                    "This session was made possible by {0}.",
-                    "Mix It Up appreciates {0}.",
-                    "This runtime is supported by the excellent taste of {0}.",
-                    "Patreon member {0} helped support new features and improvements.",
-                    "This session is running smoother thanks to {0}.",
-                    "Mix It Up salutes Patreon supporter {0}.",
-                    "This launch is proudly backed by {0}.",
-                    "Thanks to {0} for supporting Mix It Up.",
-                    "Mix It Up continues its journey thanks to {0}.",
-                    "This session brought to you by Patreon supporter {0}.",
-                    "Patreon member {0} is one reason Mix It Up keeps improving.",
-                    "This startup sequence has received support from {0}.",
-                    "Mix It Up is community-powered by legends like {0}.",
-                    "This session was handcrafted with support from {0}.",
-                    "Mix It Up runs with support from amazing people like {0}.",
-                    "Patreon supporter {0} helped turn ideas into reality.",
-                    "Mix It Up tips its imaginary hat to {0}.",
-                    "Patreon member {0} helps make Mix It Up better every day.",
-                    "Special thanks to {0} for supporting the future of Mix It Up.",
+                    "No ads. No investors. No board of directors. Just amazing **Patreon** members.",
+                    "Every launch, every update, every feature, made possible by **Patreon** members.",
+                    "Mix It Up only exists because of our **Patreon** supporters.",
+                    "No corporate overloards. Just community belief and **Patreon** supporters.", 
+                    "No venture capital. No compromises. Just **Patreon** love.",
+                    "Built for the community, sustained by **Patreon** members.",
+                    "Creator-driven. Community-funded.",
                 };
 
-                this.PatreonMemberNameTextBlock.Text = string.Format(shoutoutMessages[RandomHelper.GenerateRandomNumber(shoutoutMessages.Length)], member.DisplayName);
+                string[] shoutOutMessages = new string[]
+                {
+                    "This session made possible by **{0}**.",
+                    "Brought to you by **{0}**.",
+                    "**{0}**, making free software possible.",
+                    "This launch, courtesy of **{0}**.",
+                    "Sincere thanks to **{0}**.",
+                    "Thank you, **{0}**",
+                };
+
+                SetBoldInlineText(this.PatreonCTAHyperlink, ctaMessages[RandomHelper.GenerateRandomNumber(ctaMessages.Length)]);
+                SetBoldInlineText(this.PatreonShoutOutHyperlink, string.Format(shoutOutMessages[RandomHelper.GenerateRandomNumber(shoutOutMessages.Length)], member.DisplayName));
                 this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
@@ -207,6 +178,31 @@ namespace MixItUp.WPF
             catch (Exception ex)
             {
                 Logger.Log(ex);
+            }
+        }
+
+        private static void SetBoldInlineText(Span container, string text)
+        {
+            container.Inlines.Clear();
+            int i = 0;
+            while (i < text.Length)
+            {
+                int boldStart = text.IndexOf("**", i, StringComparison.Ordinal);
+                if (boldStart < 0)
+                {
+                    container.Inlines.Add(new Run(text[i..]));
+                    break;
+                }
+                if (boldStart > i)
+                    container.Inlines.Add(new Run(text[i..boldStart]));
+                int boldEnd = text.IndexOf("**", boldStart + 2, StringComparison.Ordinal);
+                if (boldEnd < 0)
+                {
+                    container.Inlines.Add(new Run(text[boldStart..]));
+                    break;
+                }
+                container.Inlines.Add(new Run(text[(boldStart + 2)..boldEnd]) { FontWeight = FontWeights.Bold });
+                i = boldEnd + 2;
             }
         }
 
