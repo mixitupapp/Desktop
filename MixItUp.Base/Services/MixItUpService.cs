@@ -16,6 +16,7 @@ using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -1047,6 +1048,96 @@ namespace MixItUp.Base.Services
             {
                 Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {ex.Message}");
             }
+        }
+
+        public async Task<Stream> GenerateEdgeTTSAudio(string text, string voice, int pitch, int rate)
+        {
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+
+                JObject body = new JObject();
+                body["text"] = text;
+                body["voice"] = voice;
+
+                if (pitch != 0)
+                {
+                    body["pitch"] = pitch > 0 ? $"+{pitch}%" : $"{pitch}%";
+                }
+                if (rate != 0)
+                {
+                    body["rate"] = rate > 0 ? $"+{rate}%" : $"{rate}%";
+                }
+
+                string[] voiceParts = voice.Split('-');
+                if (voiceParts.Length >= 2)
+                {
+                    body["lang"] = $"{voiceParts[0]}-{voiceParts[1]}";
+                }
+
+                HttpResponseMessage response = await this.PostAsync("util/tts/edge", AdvancedHttpClient.CreateContentFromObject(body));
+                if (response.IsSuccessStatusCode)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    using (Stream responseStream = await response.Content.ReadAsStreamAsync())
+                    {
+                        await responseStream.CopyToAsync(stream);
+                        stream.Position = 0;
+                    }
+                    return stream;
+                }
+
+                string content = await response.Content.ReadAsStringAsync();
+                Logger.Log(LogLevel.Error, $"Edge TTS Error ({(int)response.StatusCode}): {content}");
+                return null;
+            });
+        }
+
+        public async Task<Stream> GenerateTikTokTTSAudio(string text, string voice)
+        {
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+
+                JObject body = new JObject();
+                body["text"] = text;
+                body["voice"] = voice;
+
+                HttpResponseMessage response = await this.PostAsync("util/tts/tiktok", AdvancedHttpClient.CreateContentFromObject(body));
+                if (response.IsSuccessStatusCode)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    using (Stream responseStream = await response.Content.ReadAsStreamAsync())
+                    {
+                        await responseStream.CopyToAsync(stream);
+                        stream.Position = 0;
+                    }
+                    return stream;
+                }
+
+                string content = await response.Content.ReadAsStringAsync();
+                Logger.Log(LogLevel.Error, $"TikTok TTS Error ({(int)response.StatusCode}): {content}");
+                return null;
+            });
+        }
+
+        public async Task<string> GetTwitchClipUrl(string clipId)
+        {
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+
+                HttpResponseMessage response = await this.GetAsync($"util/twitch/clips?id={Uri.EscapeDataString(clipId)}");
+                if (response.IsSuccessStatusCode)
+                {
+                    string url = await response.Content.ReadAsStringAsync();
+                    return url?.Trim();
+                }
+
+                string content = await response.Content.ReadAsStringAsync();
+                Logger.Log(LogLevel.Error, $"Twitch Clip URL Error ({(int)response.StatusCode}): {content}");
+                return null;
+            });
         }
 
         #region IDisposable Support
