@@ -201,7 +201,7 @@ namespace MixItUp.WPF
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
                 {
-                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 20, 20, member.DisplayName);
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 36, 36, member.DisplayName);
                 }
             }
             catch (Exception ex)
