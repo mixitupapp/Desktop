@@ -9937,8 +9937,8 @@ imprimir(ejecutar())</value>
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Hechizos de elixir trovo</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>Suscripciones Trovo</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Suscripciones Kick</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Suscripciones a Twitch</value>

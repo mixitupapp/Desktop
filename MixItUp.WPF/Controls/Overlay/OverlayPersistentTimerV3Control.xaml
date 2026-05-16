@@ -253,7 +253,21 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </GroupBox><GroupBox Header="{x:Static resx:Resources.TwitchBits}" Grid.Row="8" Grid.Column="0">
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.KickSubscriptions}" Grid.Row="6" Grid.ColumnSpan="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
+                    <TextBox Grid.Column="1" Text="{Binding KickSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.TwitchBits}" Grid.Row="8" Grid.Column="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -285,7 +299,26 @@
 
                     <TextBlock Grid.Row="2" Text="{Binding YouTubeSuperChatEquation}" />
                 </Grid>
-            </GroupBox><GroupBox Header="{x:Static resx:Resources.Donations}" Grid.Row="10" Grid.Column="2">
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.KickKicks}" Grid.Row="10" Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding KickKicksAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBlock Grid.Row="2" Text="{Binding KickKicksEquation}" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.Donations}" Grid.Row="10" Grid.Column="2">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

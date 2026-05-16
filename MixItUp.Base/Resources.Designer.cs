@@ -13063,6 +13063,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kick Subscriptions.
+        /// </summary>
+        public static string KickSubscriptions {
+            get {
+                return ResourceManager.GetString("KickSubscriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kill Bonus Health.
         /// </summary>
         public static string KillBonusHealth {
@@ -25715,15 +25724,6 @@ namespace MixItUp.Base {
         public static string TrovoSpells {
             get {
                 return ResourceManager.GetString("TrovoSpells", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trovo Subscriptions.
-        /// </summary>
-        public static string TrovoSubscriptions {
-            get {
-                return ResourceManager.GetString("TrovoSubscriptions", resourceCulture);
             }
         }
         

@@ -9936,8 +9936,8 @@ afdrukken(uitvoeren())</value>
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Trovo Elixir-spreuken</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>Trovo-abonnementen</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Kick-abonnementen</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Twitch-abonnementen</value>

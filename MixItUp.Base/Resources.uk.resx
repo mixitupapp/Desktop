@@ -9935,7 +9935,7 @@ print(run())</value>
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Заклинання Trovo Elixir</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
+  <data name="KickSubscriptions" xml:space="preserve">
     <value>Підписки Trovo</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">

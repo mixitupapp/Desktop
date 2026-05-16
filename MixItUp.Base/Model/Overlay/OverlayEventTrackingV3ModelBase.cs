@@ -1,4 +1,5 @@
-﻿using MixItUp.Base.Model.Twitch.Bits;
+﻿using MixItUp.Base.Model.Kick.Kicks;
+using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
@@ -37,6 +38,11 @@ namespace MixItUp.Base.Model.Overlay
         public virtual bool YouTubeMemberships { get; set; }
         [DataMember]
         public virtual bool YouTubeSuperChats { get; set; }
+
+        [DataMember]
+        public virtual bool KickSubscriptions { get; set; }
+        [DataMember]
+        public virtual bool KickKicks { get; set; }
 
         [DataMember]
         public virtual bool Donations { get; set; }
@@ -96,6 +102,11 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnYouTubeSuperChatOccurred += OnYouTubeSuperChat;
             }
 
+            if (this.KickKicks)
+            {
+                EventService.OnKickKicksGiftedOccurred += OnKickKicksGifted;
+            }
+
         }
 
         public override async Task Uninitialize()
@@ -129,6 +140,8 @@ namespace MixItUp.Base.Model.Overlay
 
         public virtual void OnYouTubeSuperChat(object sender, YouTubeSuperChatViewModel superChat) { }
 
+        public virtual void OnKickKicksGifted(object sender, KickKicksGiftedEventModel kicksGifted) { }
+
         private void RemoveEventHandlers()
         {
             ChatService.OnChatUserBanned -= OnChatUserBanned;
@@ -145,6 +158,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnDonationOccurred -= OnDonation;
             EventService.OnTwitchBitsCheeredOccurred -= OnTwitchBits;
             EventService.OnYouTubeSuperChatOccurred -= OnYouTubeSuperChat;
+            EventService.OnKickKicksGiftedOccurred -= OnKickKicksGifted;
         }
     }
 }

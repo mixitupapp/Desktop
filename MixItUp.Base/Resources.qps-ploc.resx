@@ -9923,8 +9923,8 @@
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>[Ţŕöṽöẋẋ Éļîẋîŕẋẋ Šþéļļšẋẋ]</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>[Ţŕöṽöẋẋ Šûƀšçŕîþţîöñšẋẋẋẋẋ]</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>[kick Šûƀšçŕîþţîöñšẋẋẋẋẋ]</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>[Ţŵîţçĥẋẋ Šûƀšçŕîþţîöñšẋẋẋẋẋ]</value>

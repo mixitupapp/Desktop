@@ -8655,8 +8655,8 @@ Druck(Lauf())</value>
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Trovo-Elixierzauber</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>Trovo-Abonnements</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Kick-Abonnements</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Twitch-Abonnements</value>

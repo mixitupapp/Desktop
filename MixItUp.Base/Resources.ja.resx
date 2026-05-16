@@ -9935,8 +9935,8 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>トロヴォエリクサーの呪文</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>Trovo のサブスクリプション</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Kick のサブスクリプション</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Twitchのサブスクリプション</value>
