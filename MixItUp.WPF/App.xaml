@@ -18,6 +18,8 @@
                 <ResourceDictionary Source="Themes/ColorPickerStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <FontFamily x:Key="BebasNeue">pack://application:,,,/Assets/Fonts/BebasNeue.otf#Bebas Neue</FontFamily>
+            <FontFamily x:Key="NotoSans">pack://application:,,,/Assets/Fonts/NotoSans-Regular.ttf#Noto Sans</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
