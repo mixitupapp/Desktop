@@ -56,11 +56,11 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
 		<PackageReference Include="AWSSDK.Polly" Version="3.7.107.6" />
 		<PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
-		<PackageReference Include="EntityFramework" Version="6.5.1" />
+		<PackageReference Include="EntityFramework" Version="6.5.2" />
 		<PackageReference Include="ExcelDataReader" Version="3.8.0" />
 		<PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
 		<PackageReference Include="gong-wpf-dragdrop" Version="4.0.0" />
-		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.4099" />
+		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.74.0.4137" />
 		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
 		<PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
 		<PackageReference Include="ID3" Version="0.6.0" />
@@ -71,17 +71,17 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.15.3" />
 		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
-		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.49.1" />
-		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.7" />
+		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.50.0" />
+		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.8" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
 		<PackageReference Include="NAudio" Version="2.3.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2.3" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="2.1.12" />
-		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.2" />
-		<PackageReference Include="System.IO.Ports" Version="10.0.7" />
-		<PackageReference Include="System.Management" Version="10.0.7" />
-		<PackageReference Include="System.Speech" Version="10.0.7" />
+		<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
+		<PackageReference Include="System.IO.Ports" Version="10.0.8" />
+		<PackageReference Include="System.Management" Version="10.0.8" />
+		<PackageReference Include="System.Speech" Version="10.0.8" />
 		<PackageReference Include="WriteableBitmapEx" Version="1.6.11" />
 	</ItemGroup>
 	<ItemGroup>

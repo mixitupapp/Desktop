@@ -33,12 +33,12 @@
 	<ItemGroup>
 		<PackageReference Include="ExcelDataReader" Version="3.8.0" />
 		<PackageReference Include="ExcelDataReader.DataSet" Version="3.8.0" />
-		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.73.0.4099" />
+		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.74.0.4137" />
 		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
 		<PackageReference Include="Jace" Version="1.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-		<PackageReference Include="System.IO.Ports" Version="10.0.7" />
-		<PackageReference Include="System.Net.ServerSentEvents" Version="10.0.7" />
+		<PackageReference Include="System.IO.Ports" Version="10.0.8" />
+		<PackageReference Include="System.Net.ServerSentEvents" Version="10.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>
