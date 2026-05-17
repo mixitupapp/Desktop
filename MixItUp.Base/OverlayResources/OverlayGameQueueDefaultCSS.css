@@ -1,0 +1,30 @@
+.list {
+}
+
+.item {
+    width: {Width};
+    height: {Height};
+    background-color: {BackgroundColor};
+    border-style: solid;
+    border-width: 5px;
+    border-color: {BorderColor};
+    overflow: hidden;
+}
+
+.itemContents {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.avatar {
+    width: max-content;
+    height: {FontSize}px;
+    margin-right: 10px;
+}
+
+.centeredText {
+    line-height: {Height};
+}

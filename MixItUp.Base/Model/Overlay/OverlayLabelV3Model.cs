@@ -1,10 +1,12 @@
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
@@ -30,6 +32,7 @@ namespace MixItUp.Base.Model.Overlay
         LatestDonation,
         LatestTwitchBits,
         LatestYouTubeSuperChat,
+        LatestKicksGifted,
         LatestSubscriptionGifter,
 
         Counter = 100,
@@ -238,6 +241,13 @@ namespace MixItUp.Base.Model.Overlay
                     {
                         amount = await ServiceManager.Get<TwitchSession>().StreamerService.GetSubscriberCount(ServiceManager.Get<TwitchSession>().StreamerModel);
                     }
+                    else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                    {
+                        if (ServiceManager.Get<KickSession>().Channel != null)
+                        {
+                            amount = ServiceManager.Get<KickSession>().Channel.ActiveSubscribersCount;
+                        }
+                    }
                     this.Displays[OverlayLabelDisplayV3TypeEnum.TotalSubscribers].Amount = amount;
                 }
             }
@@ -255,6 +265,11 @@ namespace MixItUp.Base.Model.Overlay
             if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestYouTubeSuperChat))
             {
                 EventService.OnYouTubeSuperChatOccurred += EventService_OnYouTubeSuperChatOccurred;
+            }
+
+            if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestKicksGifted))
+            {
+                EventService.OnKickKicksGiftedOccurred += EventService_OnKickKicksGiftedOccurred;
             }
 
             if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.Counter))
@@ -485,6 +500,13 @@ namespace MixItUp.Base.Model.Overlay
             await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestYouTubeSuperChat);
         }
 
+        private async void EventService_OnKickKicksGiftedOccurred(object sender, KickKicksGiftedEventModel kicksGifted)
+        {
+            this.Displays[OverlayLabelDisplayV3TypeEnum.LatestKicksGifted].UserID = kicksGifted.User.ID;
+            this.Displays[OverlayLabelDisplayV3TypeEnum.LatestKicksGifted].Amount = kicksGifted.Amount;
+            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestKicksGifted);
+        }
+
         private async void CounterModel_OnCounterUpdated(object sender, CounterModel counter)
         {
             if (string.Equals(counter.Name, this.Displays[OverlayLabelDisplayV3TypeEnum.Counter].CounterName, StringComparison.OrdinalIgnoreCase))
@@ -595,6 +617,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnDonationOccurred -= EventService_OnDonationOccurred;
             EventService.OnTwitchBitsCheeredOccurred -= EventService_OnTwitchBitsCheeredOccurred;
             EventService.OnYouTubeSuperChatOccurred -= EventService_OnYouTubeSuperChatOccurred;
+            EventService.OnKickKicksGiftedOccurred -= EventService_OnKickKicksGiftedOccurred;
             CounterModel.OnCounterUpdated -= CounterModel_OnCounterUpdated;
         }
     }

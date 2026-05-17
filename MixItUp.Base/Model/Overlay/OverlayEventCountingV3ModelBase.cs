@@ -1,4 +1,5 @@
-﻿using MixItUp.Base.Model.Twitch.Bits;
+﻿using MixItUp.Base.Model.Kick.Kicks;
+using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch.New;
@@ -35,6 +36,11 @@ namespace MixItUp.Base.Model.Overlay
         public double YouTubeSuperChatAmount { get; set; }
 
         [DataMember]
+        public Dictionary<int, double> KickSubscriptionsAmount { get; set; } = new Dictionary<int, double>();
+        [DataMember]
+        public double KickKicksAmount { get; set; }
+
+        [DataMember]
         public double DonationAmount { get; set; }
 
         public OverlayEventCountingV3ModelBase(OverlayItemV3Type type) : base(type) { }
@@ -57,7 +63,7 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnRaidOccurred += EventService_OnRaidOccurred;
             }
 
-            if (this.TwitchSubscriptionsAmount.Any(d => d.Value > 0) || this.YouTubeMembershipsAmount.Any(d => d.Value > 0))
+            if (this.TwitchSubscriptionsAmount.Any(d => d.Value > 0) || this.YouTubeMembershipsAmount.Any(d => d.Value > 0) || this.KickSubscriptionsAmount.Any(d => d.Value > 0))
             {
                 EventService.OnSubscribeOccurred += EventService_OnSubscribeOccurred;
                 EventService.OnResubscribeOccurred += EventService_OnSubscribeOccurred;
@@ -78,6 +84,11 @@ namespace MixItUp.Base.Model.Overlay
             if (this.YouTubeSuperChatAmount > 0)
             {
                 EventService.OnYouTubeSuperChatOccurred += EventService_OnYouTubeSuperChatOccurred;
+            }
+
+            if (this.KickKicksAmount > 0)
+            {
+                EventService.OnKickKicksGiftedOccurred += EventService_OnKickKicksGiftedOccurred;
             }
 
         }
@@ -119,6 +130,9 @@ namespace MixItUp.Base.Model.Overlay
             this.YouTubeMembershipsAmount.Clear();
             this.YouTubeSuperChatAmount = 0;
 
+            this.KickSubscriptionsAmount.Clear();
+            this.KickKicksAmount = 0;
+
             this.DonationAmount = 0;
         }
 
@@ -151,6 +165,13 @@ namespace MixItUp.Base.Model.Overlay
                     await this.ProcessEvent(subscription.User, amount);
                 }
             }
+            else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
+            {
+                if (this.KickSubscriptionsAmount.TryGetValue(subscription.Tier, out double amount))
+                {
+                    await this.ProcessEvent(subscription.User, amount);
+                }
+            }
         }
 
         private async void EventService_OnMassSubscriptionsGiftedOccurred(object sender, IEnumerable<SubscriptionDetailsModel> subscriptions)
@@ -171,6 +192,13 @@ namespace MixItUp.Base.Model.Overlay
                     else if (subscription.Platform == StreamingPlatformTypeEnum.YouTube)
                     {
                         if (this.YouTubeMembershipsAmount.TryGetValue(subscription.YouTubeMembershipTier, out double amount))
+                        {
+                            total += amount;
+                        }
+                    }
+                    else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
+                    {
+                        if (this.KickSubscriptionsAmount.TryGetValue(subscription.Tier, out double amount))
                         {
                             total += amount;
                         }
@@ -199,6 +227,12 @@ namespace MixItUp.Base.Model.Overlay
             await this.ProcessEvent(superChat.User, this.YouTubeSuperChatAmount * superChat.Amount);
         }
 
+        private async void EventService_OnKickKicksGiftedOccurred(object sender, KickKicksGiftedEventModel kicksGifted)
+        {
+            Logger.Log(LogLevel.Debug, $"Processing Kick Kicks of {kicksGifted.Amount} for {this.ID} Overlay Widget");
+            await this.ProcessEvent(kicksGifted.User, this.KickKicksAmount * kicksGifted.Amount);
+        }
+
         private void RemoveEventHandlers()
         {
             EventService.OnFollowOccurred -= EventService_OnFollowOccurred;
@@ -210,6 +244,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnDonationOccurred -= EventService_OnDonationOccurred;
             EventService.OnTwitchBitsCheeredOccurred -= EventService_OnTwitchBitsCheeredOccurred;
             EventService.OnYouTubeSuperChatOccurred -= EventService_OnYouTubeSuperChatOccurred;
+            EventService.OnKickKicksGiftedOccurred -= EventService_OnKickKicksGiftedOccurred;
         }
     }
 }

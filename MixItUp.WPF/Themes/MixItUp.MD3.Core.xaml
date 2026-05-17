@@ -1,0 +1,304 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+    ============================================================
+     MixItUp.MD3.Core.xaml
+     MD3 Color Brushes + Typography Styles
+     Sourced from app.css §2 Color Palette and §3 Typography
+    ============================================================
+    -->
+
+    <!-- 
+    ===========================================================
+        Color Brushes — MD3 Light Palette
+        Naming: MIU.Brush.Light.<TokenName-in-PascalCase>
+    ===========================================================
+    -->
+
+    <!-- Surface -->
+    <SolidColorBrush x:Key="MIU.Brush.Light.Background"               Color="#FAF8FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnBackground"             Color="#313238" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.Surface"                  Color="#FAF8FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceDim"               Color="#DAD9E0" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceBright"            Color="#FAF8FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceContainerLowest"   Color="#FFFFFF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceContainerLow"      Color="#F4F3FA" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceContainer"         Color="#EEEDF4" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceContainerHigh"     Color="#E9E7EF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceContainerHighest"  Color="#E3E2E9" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnSurface"                Color="#313238" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceVariant"           Color="#E3E2E9" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnSurfaceVariant"         Color="#5E5F65" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.Outline"                  Color="#7A7A81" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OutlineVariant"           Color="#B2B1B8" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.InverseSurface"           Color="#0D0E13" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.InverseOnSurface"         Color="#9D9CA3" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.Shadow"                   Color="#000000" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.Scrim"                    Color="#000000" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SurfaceTint"              Color="#3F5BA9" />
+
+    <!-- Primary -->
+    <SolidColorBrush x:Key="MIU.Brush.Light.Primary"                  Color="#3F5BA9" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.PrimaryDim"               Color="#324F9C" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnPrimary"                Color="#FAF8FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.PrimaryContainer"         Color="#8DA8FC" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnPrimaryContainer"       Color="#00266F" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.PrimaryFixed"             Color="#8DA8FC" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.PrimaryFixedDim"          Color="#809BEE" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnPrimaryFixed"           Color="#000D33" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnPrimaryFixedVariant"    Color="#0A2F7D" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.InversePrimary"           Color="#8DA8FC" />
+
+    <!-- Secondary -->
+    <SolidColorBrush x:Key="MIU.Brush.Light.Secondary"                Color="#714DA2" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SecondaryDim"             Color="#644195" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnSecondary"              Color="#FEF6FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SecondaryContainer"       Color="#EDDCFF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnSecondaryContainer"     Color="#633F93" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SecondaryFixed"           Color="#EDDCFF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.SecondaryFixedDim"        Color="#E3CBFF" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnSecondaryFixed"         Color="#502C7F" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnSecondaryFixedVariant"  Color="#6D499E" />
+
+    <!-- Tertiary -->
+    <SolidColorBrush x:Key="MIU.Brush.Light.Tertiary"                 Color="#406A00" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.TertiaryDim"              Color="#375D00" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnTertiary"               Color="#EEFFD4" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.TertiaryContainer"        Color="#B5F26D" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnTertiaryContainer"      Color="#355A00" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.TertiaryFixed"            Color="#B5F26D" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.TertiaryFixedDim"         Color="#A7E360" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnTertiaryFixed"          Color="#284500" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnTertiaryFixedVariant"   Color="#3C6400" />
+
+    <!-- Error -->
+    <SolidColorBrush x:Key="MIU.Brush.Light.Error"                    Color="#BB1B1B" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.ErrorDim"                 Color="#A90810" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnError"                  Color="#FFF7F6" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.ErrorContainer"           Color="#FE4E44" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.OnErrorContainer"         Color="#570003" />
+
+    <!-- Control + Text Inverse -->
+    <SolidColorBrush x:Key="MIU.Brush.Light.ControlActivated"         Color="#8DA8FC" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.ControlNormal"            Color="#5E5F65" />
+    <SolidColorBrush x:Key="MIU.Brush.Light.ControlHighlight"         Color="#000000" />
+
+
+    <!-- 
+    ===========================================================
+        Color Brushes — MD3 Dark Palette
+        Naming: MIU.Brush.Dark.<TokenName-in-PascalCase>
+    ===========================================================
+    -->
+
+    <!-- Surface -->
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Background"               Color="#0D0E13" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnBackground"             Color="#E6E4EC" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Surface"                  Color="#0D0E13" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceDim"               Color="#0D0E13" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceBright"            Color="#2B2C31" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceContainerLowest"   Color="#000000" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceContainerLow"      Color="#121318" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceContainer"         Color="#18191E" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceContainerHigh"     Color="#1E1F25" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceContainerHighest"  Color="#24252B" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnSurface"                Color="#E6E4EC" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceVariant"           Color="#24252B" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnSurfaceVariant"         Color="#ABAAB1" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Outline"                  Color="#75757B" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OutlineVariant"           Color="#47474D" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.InverseSurface"           Color="#FAF8FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.InverseOnSurface"         Color="#54555B" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Shadow"                   Color="#000000" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Scrim"                    Color="#000000" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SurfaceTint"              Color="#90ABFF" />
+
+    <!-- Primary -->
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Primary"                  Color="#90ABFF" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.PrimaryDim"               Color="#839DF0" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnPrimary"                Color="#002874" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.PrimaryContainer"         Color="#839DF0" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnPrimaryContainer"       Color="#001D5B" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.PrimaryFixed"             Color="#8DA8FC" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.PrimaryFixedDim"          Color="#809BEE" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnPrimaryFixed"           Color="#000D33" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnPrimaryFixedVariant"    Color="#0A2F7D" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.InversePrimary"           Color="#3F5BA9" />
+
+    <!-- Secondary -->
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Secondary"                Color="#D8B9FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SecondaryDim"             Color="#C9A1FE" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnSecondary"              Color="#512D80" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SecondaryContainer"       Color="#4C277B" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnSecondaryContainer"     Color="#D2B0FF" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SecondaryFixed"           Color="#EDDCFF" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.SecondaryFixedDim"        Color="#E3CBFF" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnSecondaryFixed"         Color="#502C7F" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnSecondaryFixedVariant"  Color="#6D499E" />
+
+    <!-- Tertiary -->
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Tertiary"                 Color="#C7FF84" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.TertiaryDim"              Color="#B5F26D" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnTertiary"               Color="#3B6300" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.TertiaryContainer"        Color="#B5F26D" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnTertiaryContainer"      Color="#355A00" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.TertiaryFixed"            Color="#B5F26D" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.TertiaryFixedDim"         Color="#A7E360" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnTertiaryFixed"          Color="#284500" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnTertiaryFixedVariant"   Color="#3C6400" />
+
+    <!-- Error -->
+    <SolidColorBrush x:Key="MIU.Brush.Dark.Error"                    Color="#FF7164" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.ErrorDim"                 Color="#DA342E" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnError"                  Color="#4A0002" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.ErrorContainer"           Color="#AC0C12" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.OnErrorContainer"         Color="#FFB8B0" />
+
+    <!-- Control + Text Inverse -->
+    <SolidColorBrush x:Key="MIU.Brush.Dark.ControlActivated"         Color="#839DF0" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.ControlNormal"            Color="#ABAAB1" />
+    <SolidColorBrush x:Key="MIU.Brush.Dark.ControlHighlight"         Color="#FFFFFF" />
+
+
+    <!-- ===========================================================
+         Typography — MD3 Type Scale
+         Source: app.css §3 Typography
+         Base:   1rem = 16px
+         Brand:  BebasNeue  → Display / Headline / Title  (h1–h3)
+         Plain:  NotoSans   → Body / Label               (p / label)
+         CharacterSpacing is in thousandths of an em (em × 1000).
+         =========================================================== -->
+
+    <!-- ── Display ─────────────────────────────────────────────── -->
+
+    <!-- h1.large  57px / 64px lh / Regular / tracking -0.0044em -->
+    <Style x:Key="DisplayLarge" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="57" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="64" />
+    </Style>
+
+    <!-- h1       45px / 52px lh / Regular / tracking 0 -->
+    <Style x:Key="DisplayMedium" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="45" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="52" />
+    </Style>
+
+    <!-- h1.small  36px / 44px lh / Regular / tracking 0 -->
+    <Style x:Key="DisplaySmall" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="36" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="44" /> 
+    </Style>
+
+    <!-- ── Headline ─────────────────────────────────────────────── -->
+
+    <!-- h2.large  32px / 40px lh / Regular / tracking 0 -->
+    <Style x:Key="HeadlineLarge" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="32" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="40" /> 
+    </Style>
+
+    <!-- h2       28px / 36px lh / Regular / tracking 0 -->
+    <Style x:Key="HeadlineMedium" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="28" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="36" /> 
+    </Style>
+
+    <!-- h2.small  24px / 32px lh / Regular / tracking 0 -->
+    <Style x:Key="HeadlineSmall" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="24" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="32" /> 
+    </Style>
+
+    <!-- ── Title ─────────────────────────────────────────────────── -->
+
+    <!-- h3.large  22px / 28px lh / Regular / tracking 0 -->
+    <Style x:Key="TitleLarge" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="22" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="28" /> 
+    </Style>
+
+    <!-- h3       16px / 24px lh / Medium / tracking 0.0094em -->
+    <Style x:Key="TitleMedium" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="16" />
+        <Setter Property="FontWeight"                  Value="Medium" />
+        <Setter Property="LineHeight"                  Value="24" /> 
+    </Style>
+
+    <!-- h3.small  14px / 20px lh / Medium / tracking 0.0071em -->
+    <Style x:Key="TitleSmall" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
+        <Setter Property="FontSize"                    Value="14" />
+        <Setter Property="FontWeight"                  Value="Medium" />
+        <Setter Property="LineHeight"                  Value="20" /> 
+    </Style>
+
+    <!-- ── Body ─────────────────────────────────────────────────── -->
+
+    <!-- p.large  16px / 24px lh / Regular / tracking 0.0313em -->
+    <Style x:Key="BodyLarge" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
+        <Setter Property="FontSize"                    Value="16" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="24" /> 
+    </Style>
+
+    <!-- p        14px / 20px lh / Regular / tracking 0.0179em -->
+    <Style x:Key="BodyMedium" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
+        <Setter Property="FontSize"                    Value="14" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="20" /> 
+    </Style>
+
+    <!-- p.small  12px / 16px lh / Regular / tracking 0.0333em -->
+    <Style x:Key="BodySmall" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
+        <Setter Property="FontSize"                    Value="12" />
+        <Setter Property="FontWeight"                  Value="Normal" />
+        <Setter Property="LineHeight"                  Value="16" /> 
+    </Style>
+
+    <!-- ── Label ─────────────────────────────────────────────────── -->
+
+    <!-- label.large   14px / 20px lh / Medium / tracking 0.0071em -->
+    <Style x:Key="LabelLarge" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
+        <Setter Property="FontSize"                    Value="14" />
+        <Setter Property="FontWeight"                  Value="Medium" />
+        <Setter Property="LineHeight"                  Value="20" /> 
+    </Style>
+
+    <!-- label.medium  12px / 16px lh / Medium / tracking 0.0417em -->
+    <Style x:Key="LabelMedium" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
+        <Setter Property="FontSize"                    Value="12" />
+        <Setter Property="FontWeight"                  Value="Medium" />
+        <Setter Property="LineHeight"                  Value="16" /> 
+    </Style>
+
+    <!-- label.small   11px / 16px lh / Medium / tracking 0.0455em -->
+    <Style x:Key="LabelSmall" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
+        <Setter Property="FontSize"                    Value="11" />
+        <Setter Property="FontWeight"                  Value="Medium" />
+        <Setter Property="LineHeight"                  Value="16" /> 
+    </Style>
+
+</ResourceDictionary>

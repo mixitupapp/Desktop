@@ -1,5 +1,21 @@
 # Mix It Up Desktop Changelog
 
+## 1.6.630
+
+- [FEAT] Make Kick channel points trigger when status is accepted (Skip reward request queue enabled or approved by mod )
+- [FEAT] Track total subs gifted for Kick users
+- [FEAT] Add Kick to channel page to update tags, category, and title
+- [FEAT] Add banner in Webhooks page notifying user of API domain switch
+- [FEAT] Add additional properties to Chat overlay widget & custom widget
+- [FEAT] Login UI branding & M3 alignment
+- [FIX] Kick mass gifted event
+- [FIX] Update various Kick text strings
+- [FIX] Crash in channel page when YT does not return any broadcasts
+- [MAINT] Move TTS services to new Desktop API
+- [MAINT] Move notifications and outage checks to new Desktop API
+- [MAINT] Remove leftover Trovo references
+- [CHORE] Update dependencies to latest version for improved performance and stability
+
 ## 1.6.620
 
 - [FEAT] Add support for Twitch Custom Power-ups

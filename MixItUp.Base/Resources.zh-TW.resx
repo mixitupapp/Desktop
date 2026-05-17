@@ -9935,8 +9935,8 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Trovo Elixir 法術</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>特羅沃訂閱</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Kick訂閱</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Twitch 訂閱</value>
@@ -11372,7 +11372,6 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Kick Kicks 命令</value>
   </data>
-
   <data name="KickActionNameMissing" xml:space="preserve">
     <value>Kick 操作：必須指定有效名稱</value>
   </data>
@@ -11385,5 +11384,8 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
     <value>頻道點獎勵必須透過 Mix It Up 創建，以便應用程式能夠更新它們。
 這可以透過點擊 Mix It Up 中頻道點頁面上的建立頻道點獎勵來完成。</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>成功创建通道积分奖励！现在，您可以使用命令中的 Kick 操作动态更新此频道积分奖励。请使用 "频道积分 "主页面上的链接访问 Kick 上的编辑器，自定义您的奖励。</value>
   </data>
 </root>

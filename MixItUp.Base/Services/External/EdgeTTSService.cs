@@ -1,12 +1,8 @@
 ﻿using MixItUp.Base.Model;
-using Newtonsoft.Json.Linq;
 using MixItUp.Base.Util;
-using MixItUp.Base.Web;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.External
@@ -434,51 +430,10 @@ namespace MixItUp.Base.Services.External
 
         public async Task Speak(string outputDevice, Guid overlayEndpointID, string text, string voice, int volume, int pitch, int rate, bool ssml, bool waitForFinish)
         {
-            using (AdvancedHttpClient client = new AdvancedHttpClient())
+            Stream stream = await ServiceManager.Get<MixItUpService>().GenerateEdgeTTSAudio(text, voice, pitch, rate);
+            if (stream != null)
             {
-                client.Timeout = new TimeSpan(0, 0, 10);
-                client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                JObject body = new JObject();
-                body["text"] = text;
-                body["voice"] = voice;
-
-                // Convert pitch and rate to percentage format (e.g., +10%, -10%)
-                if (pitch != 0)
-                {
-                    body["pitch"] = pitch > 0 ? $"+{pitch}%" : $"{pitch}%";
-                }
-                if (rate != 0)
-                {
-                    body["rate"] = rate > 0 ? $"+{rate}%" : $"{rate}%";
-                }
-
-                // Extract language from voice ID (e.g., "en-US-AvaNeural" -> "en-US")
-                string[] voiceParts = voice.Split('-');
-                if (voiceParts.Length >= 2)
-                {
-                    body["lang"] = $"{voiceParts[0]}-{voiceParts[1]}";
-                }
-
-                HttpResponseMessage response = await client.PostAsync("https://util.mixitupapp.com/api/services/external/edgetts/tts/generate", AdvancedHttpClient.CreateContentFromObject(body));
-                if (response.IsSuccessStatusCode)
-                {
-                    MemoryStream stream = new MemoryStream();
-                    using (Stream responseStream = await response.Content.ReadAsStreamAsync())
-                    {
-                        responseStream.CopyTo(stream);
-                        stream.Position = 0;
-                    }
-
-                    await ServiceManager.Get<IAudioService>().PlayMP3Stream(stream, volume, outputDevice, waitForFinish: waitForFinish);
-                }
-                else
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    Logger.Log(LogLevel.Error, "Edge TTS Error: " + content);
-                    await ServiceManager.Get<ChatService>().SendMessage("Edge TTS Error: " + content, StreamingPlatformTypeEnum.All);
-                }
+                await ServiceManager.Get<IAudioService>().PlayMP3Stream(stream, volume, outputDevice, waitForFinish: waitForFinish);
             }
         }
     }

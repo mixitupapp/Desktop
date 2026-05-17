@@ -13027,6 +13027,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Channel Point Reward successfully created! You can now dynamically update this Channel Point Reward using the Kick action inside of a command. Please use the link on the main Channel Points page to visit the editor on Kick to customize your reward..
+        /// </summary>
+        public static string KickCreateChannelPointRewardSuccess {
+            get {
+                return ResourceManager.GetString("KickCreateChannelPointRewardSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kick Kicks.
         /// </summary>
         public static string KickKicks {
@@ -13050,6 +13059,15 @@ namespace MixItUp.Base {
         public static string KickKicksCommandsAlreadyExistsDuplicateAmount {
             get {
                 return ResourceManager.GetString("KickKicksCommandsAlreadyExistsDuplicateAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kick Subscriptions.
+        /// </summary>
+        public static string KickSubscriptions {
+            get {
+                return ResourceManager.GetString("KickSubscriptions", resourceCulture);
             }
         }
         
@@ -25706,15 +25724,6 @@ namespace MixItUp.Base {
         public static string TrovoSpells {
             get {
                 return ResourceManager.GetString("TrovoSpells", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trovo Subscriptions.
-        /// </summary>
-        public static string TrovoSubscriptions {
-            get {
-                return ResourceManager.GetString("TrovoSubscriptions", resourceCulture);
             }
         }
         

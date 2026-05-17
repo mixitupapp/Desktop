@@ -110,6 +110,54 @@ function Update-AssemblyInfo {
     return $true
 }
 
+function Update-BuildExpirationHelper {
+    param(
+        [string]$FilePath,
+        [bool]$Enabled,
+        [DateTime]$ExpirationDate
+    )
+
+    if (-not (Test-Path -LiteralPath $FilePath)) {
+        Write-Host "Warning: BuildExpirationHelper not found at \"$FilePath\""
+        return $false
+    }
+
+    $year  = $ExpirationDate.Year
+    $month = $ExpirationDate.Month
+    $day   = $ExpirationDate.Day
+    $enabledStr = if ($Enabled) { "true" } else { "false" }
+
+    $tempFile = "$FilePath.tmp"
+    if (Test-Path -LiteralPath $tempFile) {
+        Remove-Item -LiteralPath $tempFile -Force -ErrorAction SilentlyContinue
+    }
+
+    $reader = New-Object System.IO.StreamReader($FilePath, [System.Text.Encoding]::Default, $true)
+    $null = $reader.Peek()
+    $encoding = $reader.CurrentEncoding
+    $writer = New-Object System.IO.StreamWriter($tempFile, $false, $encoding)
+    $writer.NewLine = "`r`n"
+
+    try {
+        while (($line = $reader.ReadLine()) -ne $null) {
+            if ($line.Contains("private static readonly bool ENABLED")) {
+                $writer.WriteLine("        private static readonly bool ENABLED = $enabledStr;  // Set to true to enable build expiration checking")
+            } elseif ($line.Contains("private static readonly DateTime EXPIRATION_DATE")) {
+                $writer.WriteLine("        private static readonly DateTime EXPIRATION_DATE = new DateTime($year, $month, $day); // (year, month, day) - Set expiration date here")
+            } else {
+                $writer.WriteLine($line)
+            }
+        }
+    } finally {
+        $writer.Close()
+        $reader.Close()
+    }
+
+    Move-Item -LiteralPath $tempFile -Destination $FilePath -Force
+    Write-Host "Updated $FilePath (ENABLED=$enabledStr, expires $($ExpirationDate.ToString('yyyy-MM-dd')))"
+    return $true
+}
+
 function Prompt-YesNo {
     param(
         [string]$Prompt,
@@ -207,12 +255,40 @@ if ($productKey -eq "desktop") {
 }
 
 $releaseChannel = $null
+$buildChannel = $null
 while (-not $releaseChannel) {
-    $releaseChannel = Read-Host "Enter release channel (e.g. public, preview): "
-    $releaseChannel = $releaseChannel -replace '"', ''
-    if ($releaseChannel -eq "") {
-        Write-Host "Release channel is required."
-        $releaseChannel = $null
+    $channelInput = Read-Host "Select release channel: (P) Public, (R) Preview, (T) Test"
+    $channelInput = $channelInput -replace '"', ''
+    if ($channelInput -match '^[Pp]$') {
+        $releaseChannel = "public"
+        $buildChannel = "PUBLIC_BUILD"
+        $vsConfig = "Public"
+    } elseif ($channelInput -match '^[Rr]$') {
+        $releaseChannel = "preview"
+        $buildChannel = "PREVIEW_BUILD"
+        $vsConfig = "Preview"
+    } elseif ($channelInput -match '^[Tt]$') {
+        $releaseChannel = "test"
+        $buildChannel = "TEST_BUILD"
+        $vsConfig = "Test"
+    }
+}
+
+$expirationDays = $null
+if ($releaseChannel -eq "test") {
+    while ($null -eq $expirationDays) {
+        $daysInput = Read-Host "Enter expiration window in days (1-7)"
+        $daysInput = $daysInput -replace '"', ''
+        if ($daysInput -match '^\d+$') {
+            $daysInt = [int]$daysInput
+            if ($daysInt -ge 1 -and $daysInt -le 7) {
+                $expirationDays = $daysInt
+            } else {
+                Write-Host "Expiration days must be between 1 and 7."
+            }
+        } else {
+            Write-Host "Please enter a valid number."
+        }
     }
 }
 
@@ -243,7 +319,7 @@ if (Test-Path -LiteralPath $artifactDir) {
 
 $installerVersion = $null
 $installerUrl = $null
-if ($productKey -eq "desktop") {
+if ($productKey -eq "desktop" -and $releaseChannel -ne "test") {
     while (-not $installerVersion) {
         $installerVersion = Read-Host "Enter installer version to reference in manifest (e.g. 0.5.0): "
         $installerVersion = $installerVersion -replace '"', ''
@@ -271,6 +347,14 @@ if ($productKey -eq "desktop") {
     Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.Reporter\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
     Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.Uninstaller\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
     Update-AssemblyInfo (Join-Path $desktopDir "MixItUp.WPF\Properties\AssemblyInfo.cs") $assemblyVersion | Out-Null
+
+    $expirationHelperPath = Join-Path $desktopDir "MixItUp.WPF\Util\BuildExpirationHelper.cs"
+    if ($releaseChannel -eq "test") {
+        $expirationDate = (Get-Date).AddDays($expirationDays)
+        Update-BuildExpirationHelper $expirationHelperPath $true $expirationDate | Out-Null
+    } else {
+        Update-BuildExpirationHelper $expirationHelperPath $false (Get-Date) | Out-Null
+    }
 } else {
     Update-Csproj (Join-Path $desktopDir "MixItUp.Installer\MixItUp.Installer.csproj") $assemblyVersion | Out-Null
 }
@@ -289,7 +373,12 @@ try {
     Fail
 }
 
-$doSign = Prompt-YesNo "Would you like to sign the build? (Y/n): " $true
+if ($releaseChannel -eq "test") {
+    $doSign = $false
+    Write-Host "Test builds are not signed."
+} else {
+    $doSign = Prompt-YesNo "Would you like to sign the build? (Y/n): " $true
+}
 
 Write-Host ""
 Write-Host "==============================================================================="
@@ -306,7 +395,7 @@ if ($doSign) {
 }
 
 Write-Host "Cleaning Solution..."
-& dotnet clean (Join-Path $desktopDir "mixer-mixitup.sln") -c Release
+& dotnet clean (Join-Path $desktopDir "mixer-mixitup.sln") -c $vsConfig
 if ($LASTEXITCODE -ne 0) { Fail }
 
 $installerExe = Join-Path $desktopDir "MixItUp.Installer\bin\Release\net48\MixItUp-Setup.exe"
@@ -317,7 +406,7 @@ if ($productKey -eq "desktop") {
         Remove-Item -LiteralPath $publishOutputDir -Recurse -Force -ErrorAction SilentlyContinue
     }
     New-Item -ItemType Directory -Path $publishOutputDir -Force | Out-Null
-    & dotnet publish (Join-Path $desktopDir "MixItUp.WPF\MixItUp.WPF.csproj") -c Release -r win-x64 --self-contained -o $publishOutputDir
+    & dotnet publish (Join-Path $desktopDir "MixItUp.WPF\MixItUp.WPF.csproj") -c $vsConfig -r win-x64 --self-contained -o $publishOutputDir -p:BuildChannel=$buildChannel
     if ($LASTEXITCODE -ne 0) { Fail }
 } else {
     Write-Host "Building Installer..."
@@ -442,40 +531,42 @@ if ($productKey -eq "desktop") {
     $packagePath = Join-Path $artifactDir $packageFilename
 }
 
-try {
-    New-Item -ItemType File -Path (Join-Path $artifactDir "changelog.md") -Force -ErrorAction Stop | Out-Null
-} catch {
-    Fail
-}
+if ($releaseChannel -ne "test") {
+    try {
+        New-Item -ItemType File -Path (Join-Path $artifactDir "changelog.md") -Force -ErrorAction Stop | Out-Null
+    } catch {
+        Fail
+    }
 
-try {
-    Copy-Item -LiteralPath $eulaSource -Destination (Join-Path $artifactDir "eula.md") -Force -ErrorAction Stop
-} catch {
-    Fail
-}
+    try {
+        Copy-Item -LiteralPath $eulaSource -Destination (Join-Path $artifactDir "eula.md") -Force -ErrorAction Stop
+    } catch {
+        Fail
+    }
 
-$eulaVersion = ""
-$eulaVersionLine = $null
-try {
-    $eulaLines = Get-Content -LiteralPath $eulaSource
-    foreach ($line in $eulaLines) {
-        if ($line.IndexOf("**Version:**", [System.StringComparison]::Ordinal) -ge 0) {
-            $eulaVersionLine = $line
-            break
+    $eulaVersion = ""
+    $eulaVersionLine = $null
+    try {
+        $eulaLines = Get-Content -LiteralPath $eulaSource
+        foreach ($line in $eulaLines) {
+            if ($line.IndexOf("**Version:**", [System.StringComparison]::Ordinal) -ge 0) {
+                $eulaVersionLine = $line
+                break
+            }
+        }
+    } catch {
+    }
+
+    if ($eulaVersionLine) {
+        $eulaVersion = $eulaVersionLine.Replace("**Version:**", "")
+        $eulaVersion = $eulaVersion.Replace("> ", "")
+        $eulaVersion = $eulaVersion.TrimStart()
+        while ($eulaVersion.EndsWith(" ")) {
+            $eulaVersion = $eulaVersion.Substring(0, $eulaVersion.Length - 1)
         }
     }
-} catch {
+    if ($eulaVersion -eq "") { $eulaVersion = "unknown" }
 }
-
-if ($eulaVersionLine) {
-    $eulaVersion = $eulaVersionLine.Replace("**Version:**", "")
-    $eulaVersion = $eulaVersion.Replace("> ", "")
-    $eulaVersion = $eulaVersion.TrimStart()
-    while ($eulaVersion.EndsWith(" ")) {
-        $eulaVersion = $eulaVersion.Substring(0, $eulaVersion.Length - 1)
-    }
-}
-if ($eulaVersion -eq "") { $eulaVersion = "unknown" }
 
 $packageSha = $null
 $certOutput = & certutil -hashfile $packagePath SHA256
@@ -506,14 +597,15 @@ Write-Host "====================================================================
 Write-Host "Released At: $releasedAt"
 Write-Host "Package: $packageFilename"
 Write-Host "SHA256: $packageSha"
-Write-Host "EULA Version: $eulaVersion"
+if ($releaseChannel -ne "test") { Write-Host "EULA Version: $eulaVersion" }
 Write-Host ""
 Write-Host "Please run: "
 Write-Host "git commit -am \"Release $releaseVersion\""
 Write-Host ""
 
-$manifestPath = Join-Path $artifactDir "manifest.json"
-$manifestContent = @"
+if ($releaseChannel -ne "test") {
+    $manifestPath = Join-Path $artifactDir "manifest.json"
+    $manifestContent = @"
 {
     "schemaVersion": "1.0.0",
     "product": "$productSlug",
@@ -533,17 +625,18 @@ $manifestContent = @"
 }
 "@
 
-try {
-    Set-Content -LiteralPath $manifestPath -Value $manifestContent -Encoding ASCII
-} catch {
-    Fail
+    try {
+        Set-Content -LiteralPath $manifestPath -Value $manifestContent -Encoding ASCII
+    } catch {
+        Fail
+    }
 }
 
 Write-Host ""
 Write-Host "Artifact prepared at: $artifactDir"
 Write-Host "Package: $packagePath"
 Write-Host "SHA256: $packageSha"
-Write-Host "Populate changelog at: $artifactDir\changelog.md"
+if ($releaseChannel -ne "test") { Write-Host "Populate changelog at: $artifactDir\changelog.md" }
 
 if ($script:LocationPushed) {
     Pop-Location | Out-Null

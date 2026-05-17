@@ -40,6 +40,8 @@ namespace MixItUp.Base.Services.Kick.New
         private readonly Queue<string> processedEventIDsQueue = new Queue<string>();
         private readonly HashSet<string> processedEventIDs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        private readonly HashSet<string> channelPointRedemptionCache = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
         public override Task<Result> Connect()
         {
             this.isConnected = true;
@@ -128,6 +130,15 @@ namespace MixItUp.Base.Services.Kick.New
             if (user == null)
             {
                 return;
+            }
+
+            if (messageEvent.Sender?.Identity?.Badges != null)
+            {
+                var gifterBadge = messageEvent.Sender.Identity.Badges.FirstOrDefault(b => string.Equals(b.Type, "sub_gifter", StringComparison.OrdinalIgnoreCase));
+                if (gifterBadge != null && gifterBadge.Count.HasValue)
+                {
+                    user.TotalSubsGifted = (uint)gifterBadge.Count.Value;
+                }
             }
 
             await ServiceManager.Get<ChatService>().AddMessage(new KickChatMessageViewModel(messageEvent, user));
@@ -270,6 +281,10 @@ namespace MixItUp.Base.Services.Kick.New
                 gifter = UserV2ViewModel.CreateUnassociated("Anonymous");
             }
 
+            int filterAmount = ChannelSession.Settings.MassGiftedSubsFilterAmount;
+            bool fireMassEvent = filterAmount == 0 || giftsEvent.Giftees.Count > filterAmount;
+            bool fireIndividualEvents = filterAmount == 0 || giftsEvent.Giftees.Count <= filterAmount;
+
             List<SubscriptionDetailsModel> subscriptions = new List<SubscriptionDetailsModel>();
             foreach (WebhookUserReferenceModel gifteeRef in giftsEvent.Giftees)
             {
@@ -293,11 +308,14 @@ namespace MixItUp.Base.Services.Kick.New
                 giftee.SubscribeDate = DateTimeOffset.Now;
                 giftee.TotalSubsReceived++;
 
-                CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
-                giftParameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
-                giftParameters.TargetUser = giftee;
-                giftParameters.Arguments.Add(giftee.Username);
-                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscriptionGifted, giftParameters);
+                if (fireIndividualEvents)
+                {
+                    CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
+                    giftParameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                    giftParameters.TargetUser = giftee;
+                    giftParameters.Arguments.Add(giftee.Username);
+                    await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscriptionGifted, giftParameters);
+                }
 
                 subscriptions.Add(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Kick, giftee, gifter, tier: 1));
             }
@@ -309,28 +327,34 @@ namespace MixItUp.Base.Services.Kick.New
                     gifter.TotalSubsGifted += (uint)subscriptions.Count;
                 }
 
-                CommandParametersModel parameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
-                parameters.SpecialIdentifiers["subsgiftedamount"] = subscriptions.Count.ToString();
-                parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
-                parameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
-                foreach (SubscriptionDetailsModel sub in subscriptions)
+                if (fireMassEvent)
                 {
-                    parameters.Arguments.Add(sub.User.Username);
-                }
+                    CommandParametersModel parameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
+                    parameters.SpecialIdentifiers["subsgiftedamount"] = subscriptions.Count.ToString();
+                    parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
+                    parameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                    foreach (SubscriptionDetailsModel sub in subscriptions)
+                    {
+                        parameters.Arguments.Add(sub.User.Username);
+                    }
 
-                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelMassSubscriptionsGifted, parameters);
-                EventService.MassSubscriptionsGiftedOccurred(subscriptions);
-                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(gifter, string.Format(MixItUp.Base.Resources.AlertMassSubscriptionsGiftedTier, gifter.FullDisplayName, subscriptions.Count, "Kick Subscription"), ChannelSession.Settings.AlertMassGiftedSubColor));
+                    await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelMassSubscriptionsGifted, parameters);
+                    EventService.MassSubscriptionsGiftedOccurred(subscriptions);
+                    await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(gifter, string.Format(MixItUp.Base.Resources.AlertMassSubscriptionsGiftedTier, gifter.FullDisplayName, subscriptions.Count, "Kick Subscription"), ChannelSession.Settings.AlertMassGiftedSubColor));
+                }
             }
         }
 
         private async Task HandleRewardRedemptionUpdated(JObject payload)
         {
             WebhookRewardRedemptionUpdatedEventModel redemptionEvent = payload.ToObject<WebhookRewardRedemptionUpdatedEventModel>();
-            if (redemptionEvent?.Redeemer == null || redemptionEvent.Reward == null || !string.Equals(redemptionEvent.Status, "pending", StringComparison.OrdinalIgnoreCase))
+            if (redemptionEvent?.Redeemer == null || redemptionEvent.Reward == null || this.channelPointRedemptionCache.Contains(redemptionEvent.ID) ||
+                !string.Equals(redemptionEvent.Status, "accepted", StringComparison.OrdinalIgnoreCase))
             {
                 return;
             }
+
+            this.channelPointRedemptionCache.Add(redemptionEvent.ID);
 
             UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: redemptionEvent.Redeemer.UserID.ToString(), platformUsername: redemptionEvent.Redeemer.Username);
             if (user == null)

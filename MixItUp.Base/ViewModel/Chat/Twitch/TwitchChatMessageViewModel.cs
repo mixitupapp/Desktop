@@ -28,7 +28,11 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
 
         public bool HasBits { get; set; }
 
+        public int BitsAmount { get; set; }
+
         public bool IsHighlightedMessage { get; set; }
+
+        public ChatNotificationMessageType? MessageType { get; set; }
 
         public string WhisperThreadID { get; set; }
         public UserV2ViewModel WhisperRecipient { get; set; }
@@ -133,6 +137,8 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
             this.IsInUsersChannel = string.IsNullOrEmpty(notification.source_broadcaster_user_id) || string.Equals(ServiceManager.Get<TwitchSession>().ChannelID, notification.source_broadcaster_user_id);
 
             this.HasBits = notification.cheer?.bits > 0;
+            this.BitsAmount = notification.cheer?.bits ?? 0;
+            this.MessageType = notification.MessageType;
             this.IsHighlightedMessage =
                 notification.MessageType == ChatNotificationMessageType.power_ups_message_effect ||
                 notification.MessageType == ChatNotificationMessageType.channel_points_highlighted ||

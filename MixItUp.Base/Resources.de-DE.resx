@@ -8655,8 +8655,8 @@ Druck(Lauf())</value>
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Trovo-Elixierzauber</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>Trovo-Abonnements</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Kick-Abonnements</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Twitch-Abonnements</value>
@@ -10007,7 +10007,7 @@ Bitte gehen Sie auf die Seite Konten im Hauptmenü, um Ihr Streaming-Konto zu ve
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Twitch Custom Power-Ups anzeigen</value>
-  </data>	  
+  </data>
   <data name="YouTubeChannelJewelsGift" xml:space="preserve">
     <value>YouTube-Kanal Juwelen Geschenk</value>
   </data>
@@ -10091,7 +10091,6 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Kick Kicks-Befehl</value>
   </data>
-
   <data name="KickActionNameMissing" xml:space="preserve">
     <value>Kick-Aktion: Ein gültiger Name muss angegeben werden</value>
   </data>
@@ -10104,5 +10103,8 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
     <value>Channel Point Rewards müssen über Mix It Up erstellt werden, damit die App sie aktualisieren kann.
 Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up auf Belohnung für Channel Points erstellen.</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>Channel Point Reward erfolgreich erstellt! Sie können diese Channel-Point-Belohnung jetzt dynamisch aktualisieren, indem Sie die Kick-Aktion innerhalb eines Befehls verwenden. Bitte verwenden Sie den Link auf der Hauptseite der Channel Points, um den Editor auf Kick zu besuchen und Ihre Belohnung anzupassen.</value>
   </data>
 </root>

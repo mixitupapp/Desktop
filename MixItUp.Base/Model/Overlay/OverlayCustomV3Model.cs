@@ -1,4 +1,5 @@
 ﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
@@ -162,6 +163,16 @@ namespace MixItUp.Base.Model.Overlay
                 { "Amount", superChat.Amount },
                 { "AmountDisplay", superChat.AmountDisplay },
                 { "Message", superChat.Message }
+            });
+        }
+
+        public override async void OnKickKicksGifted(object sender, KickKicksGiftedEventModel kicksGifted)
+        {
+            await this.CallFunction("KickKicksGifted", new Dictionary<string, object>()
+            {
+                { "User", kicksGifted.User },
+                { "Amount", kicksGifted.Amount },
+                { "Message", kicksGifted.Message }
             });
         }
 

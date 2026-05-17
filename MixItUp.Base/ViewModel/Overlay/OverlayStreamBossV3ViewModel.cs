@@ -200,7 +200,11 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.TwitchSubscriptionTier3Amount = 300;
             this.TwitchBitsAmount = 0.1;
 
+            this.KickSubscriptionAmount = 100;
+
             this.YouTubeSuperChatAmount = 10;
+
+            this.KickKicksAmount = 0.5;
 
             this.DonationAmount = 10;
 

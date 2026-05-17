@@ -1,5 +1,6 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -78,6 +79,17 @@ namespace MixItUp.Base.Model.Overlay
         public string YouTubeSuperChatsDetailsTemplate { get; set; }
 
         [DataMember]
+        public string KickSubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
+        public string KickResubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
+        public string KickGiftedSubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
+        public string KickMassGiftedSubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
+        public string KickKicksDetailsTemplate { get; set; }
+
+        [DataMember]
         public string DonationsDetailsTemplate { get; set; }
 
         [DataMember]
@@ -109,6 +121,10 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     await this.AddEvent(subscription.Gifter, nameof(this.YouTubeMemberships), this.YouTubeGiftedMembershipsDetailsTemplate, new Dictionary<string, string>() { { DetailsMembershipNamePropertyName, subscription.Tier.ToString() } });
                 }
+                else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
+                {
+                    await this.AddEvent(subscription.Gifter, nameof(this.KickSubscriptions), this.KickGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
+                }
             }
             else if (subscription.Months > 1)
             {
@@ -128,6 +144,14 @@ namespace MixItUp.Base.Model.Overlay
                         { DetailsAmountPropertyName, subscription.Months.ToString() }
                     });
                 }
+                else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
+                {
+                    await this.AddEvent(subscription.User, nameof(this.KickSubscriptions), this.KickResubscriptionsDetailsTemplate, new Dictionary<string, string>()
+                    {
+                        { DetailsTierPropertyName, subscription.Tier.ToString() },
+                        { DetailsAmountPropertyName, subscription.Months.ToString() }
+                    });
+                }
             }
             else
             {
@@ -138,6 +162,10 @@ namespace MixItUp.Base.Model.Overlay
                 else if (subscription.Platform == StreamingPlatformTypeEnum.YouTube)
                 {
                     await this.AddEvent(subscription.User, nameof(this.YouTubeMemberships), this.YouTubeMembershipsDetailsTemplate, new Dictionary<string, string>() { { DetailsMembershipNamePropertyName, subscription.YouTubeMembershipTier } });
+                }
+                else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
+                {
+                    await this.AddEvent(subscription.User, nameof(this.KickSubscriptions), this.KickSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
                 }
             }
         }
@@ -173,6 +201,14 @@ namespace MixItUp.Base.Model.Overlay
                     { DetailsAmountPropertyName, amount.ToString() }
                 });
             }
+            else if (platform == StreamingPlatformTypeEnum.Kick)
+            {
+                await this.AddEvent(gifter, nameof(this.KickSubscriptions), this.KickMassGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>()
+                {
+                    { DetailsTierPropertyName, tier.ToString() },
+                    { DetailsAmountPropertyName, amount.ToString() }
+                });
+            }
         }
 
         public override async void OnDonation(object sender, UserDonationModel donation)
@@ -188,6 +224,11 @@ namespace MixItUp.Base.Model.Overlay
         public override async void OnYouTubeSuperChat(object sender, YouTubeSuperChatViewModel superChat)
         {
             await this.AddEvent(superChat.User, nameof(this.YouTubeSuperChats), this.YouTubeSuperChatsDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, superChat.AmountDisplay } });
+        }
+
+        public override async void OnKickKicksGifted(object sender, KickKicksGiftedEventModel kicksGifted)
+        {
+            await this.AddEvent(kicksGifted.User, nameof(this.KickKicks), this.KickKicksDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, kicksGifted.Amount.ToString() } });
         }
 
         public override Dictionary<string, object> GetGenerationProperties()
@@ -308,6 +349,12 @@ namespace MixItUp.Base.Model.Overlay
                 if (this.YouTubeSuperChats)
                 {
                     this.OnYouTubeSuperChat(this, new YouTubeSuperChatViewModel(new LiveChatSuperChatDetails() { AmountDisplayString = "$12.34" }, ChannelSession.User));
+                    await Task.Delay(3000);
+                }
+
+                if (this.KickKicks)
+                {
+                    this.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
                     await Task.Delay(3000);
                 }
 

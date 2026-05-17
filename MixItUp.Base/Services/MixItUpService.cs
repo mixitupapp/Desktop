@@ -16,6 +16,7 @@ using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -154,6 +155,7 @@ namespace MixItUp.Base.Services
         };
 
         private string accessToken = null;
+        private bool isUpdateRequired = false;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         private CancellationTokenSource notificationCancellationTokenSource;
@@ -487,9 +489,19 @@ namespace MixItUp.Base.Services
         {
             if (accessToken == null)
             {
-                var token = this.GetLoginToken();
-                var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("v2/user/login", AdvancedHttpClient.CreateContentFromObject(token));
-                this.accessToken = loginResponse.AccessToken;
+                try
+                {
+                    var token = this.GetLoginToken();
+                    var loginResponse = await PostAsync<CommunityCommandLoginResponseModel>("v2/user/login", AdvancedHttpClient.CreateContentFromObject(token));
+                    this.accessToken = loginResponse.AccessToken;
+                }
+                catch (HttpRestRequestException ex) when (ex.Response?.StatusCode == HttpStatusCode.UpgradeRequired)
+                {
+                    isUpdateRequired = true;
+                    Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up API services.");
+                    ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+                    throw;
+                }
             }
         }
 
@@ -505,7 +517,7 @@ namespace MixItUp.Base.Services
             AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
             {
                 Result result = await this.Connect();
-                if (!result.Success)
+                if (!result.Success && !isUpdateRequired)
                 {
                     WebhookHubConnection_Disconnected(this, new Exception());
                 }
@@ -514,6 +526,7 @@ namespace MixItUp.Base.Services
 
         public async Task<Result> Connect()
         {
+            if (isUpdateRequired) return new Result("Update Required");
             if (!this.IsWebhookHubConnected)
             {
                 if (this.webhookHubConnection == null)
@@ -611,18 +624,23 @@ namespace MixItUp.Base.Services
 
         private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
+            if (e.Message.Contains("4426"))
+            {
+                isUpdateRequired = true;
+                Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up WebhookHub services.");
+                return;
+            }
+
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
-            Result result = new Result();
+            Result result;
             do
             {
                 await this.Disconnect();
-
                 await Task.Delay(5000 + RandomHelper.GenerateRandomNumber(5000));
-
                 result = await this.Connect();
             }
-            while (!result.Success);
+            while (!result.Success && !isUpdateRequired);
 
             ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
         }
@@ -712,6 +730,7 @@ namespace MixItUp.Base.Services
         private CommunityCommandLoginModel GetLoginToken()
         {
             var login = new CommunityCommandLoginModel();
+            login.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
 
             if (ServiceManager.Get<TwitchSession>().IsConnected)
             {
@@ -755,7 +774,7 @@ namespace MixItUp.Base.Services
             var notificationPollingTokenSource = notificationCancellationTokenSource;
             if (notificationPollingTokenSource != null)
             {
-                AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationPollingTokenSource.Token, 30 * 60000);
+                AsyncRunner.RunAsyncBackground(this.NotificationPollingBackground, notificationPollingTokenSource.Token, 60 * 60000);
             }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
@@ -776,12 +795,9 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                    HttpResponseMessage response = await client.GetAsync("api/services/notifications/id");
+                    HttpResponseMessage response = await client.GetAsync("services/notifications/id");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -825,12 +841,9 @@ namespace MixItUp.Base.Services
 
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                    HttpResponseMessage response = await client.GetAsync("/api/services/notifications");
+                    HttpResponseMessage response = await client.GetAsync("services/notifications");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -884,12 +897,9 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                    HttpResponseMessage response = await client.GetAsync("api/services/notifications/outage");
+                    HttpResponseMessage response = await client.GetAsync("services/notifications/outage");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -928,11 +938,11 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
 
-                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/random");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -973,11 +983,11 @@ namespace MixItUp.Base.Services
         {
             try
             {
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                using (AdvancedHttpClient client = new AdvancedHttpClient(MixItUpAPIEndpoint))
                 {
                     client.Timeout = TimeSpan.FromSeconds(10);
 
-                    HttpResponseMessage response = await client.GetAsync("api/services/external/patreon/members/all");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/all");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -1038,6 +1048,96 @@ namespace MixItUp.Base.Services
             {
                 Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {ex.Message}");
             }
+        }
+
+        public async Task<Stream> GenerateEdgeTTSAudio(string text, string voice, int pitch, int rate)
+        {
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+
+                JObject body = new JObject();
+                body["text"] = text;
+                body["voice"] = voice;
+
+                if (pitch != 0)
+                {
+                    body["pitch"] = pitch > 0 ? $"+{pitch}%" : $"{pitch}%";
+                }
+                if (rate != 0)
+                {
+                    body["rate"] = rate > 0 ? $"+{rate}%" : $"{rate}%";
+                }
+
+                string[] voiceParts = voice.Split('-');
+                if (voiceParts.Length >= 2)
+                {
+                    body["lang"] = $"{voiceParts[0]}-{voiceParts[1]}";
+                }
+
+                HttpResponseMessage response = await this.PostAsync("util/tts/edge", AdvancedHttpClient.CreateContentFromObject(body));
+                if (response.IsSuccessStatusCode)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    using (Stream responseStream = await response.Content.ReadAsStreamAsync())
+                    {
+                        await responseStream.CopyToAsync(stream);
+                        stream.Position = 0;
+                    }
+                    return stream;
+                }
+
+                string content = await response.Content.ReadAsStringAsync();
+                Logger.Log(LogLevel.Error, $"Edge TTS Error ({(int)response.StatusCode}): {content}");
+                return null;
+            });
+        }
+
+        public async Task<Stream> GenerateTikTokTTSAudio(string text, string voice)
+        {
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+
+                JObject body = new JObject();
+                body["text"] = text;
+                body["voice"] = voice;
+
+                HttpResponseMessage response = await this.PostAsync("util/tts/tiktok", AdvancedHttpClient.CreateContentFromObject(body));
+                if (response.IsSuccessStatusCode)
+                {
+                    MemoryStream stream = new MemoryStream();
+                    using (Stream responseStream = await response.Content.ReadAsStreamAsync())
+                    {
+                        await responseStream.CopyToAsync(stream);
+                        stream.Position = 0;
+                    }
+                    return stream;
+                }
+
+                string content = await response.Content.ReadAsStringAsync();
+                Logger.Log(LogLevel.Error, $"TikTok TTS Error ({(int)response.StatusCode}): {content}");
+                return null;
+            });
+        }
+
+        public async Task<string> GetTwitchClipUrl(string clipId)
+        {
+            return await this.AuthorizedDesktopApiRequest(async () =>
+            {
+                await EnsureLogin();
+
+                HttpResponseMessage response = await this.GetAsync($"util/twitch/clips?id={Uri.EscapeDataString(clipId)}");
+                if (response.IsSuccessStatusCode)
+                {
+                    string url = await response.Content.ReadAsStringAsync();
+                    return url?.Trim();
+                }
+
+                string content = await response.Content.ReadAsStringAsync();
+                Logger.Log(LogLevel.Error, $"Twitch Clip URL Error ({(int)response.StatusCode}): {content}");
+                return null;
+            });
         }
 
         #region IDisposable Support

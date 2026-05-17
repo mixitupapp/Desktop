@@ -1,0 +1,39 @@
+<div id="mainContainer" class="mainContainer" style="visibility: hidden">
+    <div class="top">
+        <span id="question" class="header question"></span>
+    </div>
+
+    <div class="top">
+        <span id="total" class="header total">0 Votes</span>
+
+        <span id="time" class="header floatright time"></span>
+    </div>
+    
+    <div id="options" class="options">
+    </div>
+</div>
+
+<template id="option">
+    <div class="option">
+        <span class="text name"></span>
+
+        <div class="barBackground" style="width: 100%">
+          <div class="bar" style="width: 0%"></div>
+        </div>
+
+        <div>
+            <span class="text">
+                <span class="amount">0 Votes</span>
+                <span class="percentage">(0%)</span>
+            </span>
+
+            <div class="floatright text channelPoints" style="visibility: hidden;">
+                <span class="channelPointAmount">0 </span>
+                <svg class="channelPointImage" width="{FontSize}" height="{FontSize}" viewBox="0 0 20 20">
+                    <path d="M10 6a4 4 0 0 1 4 4h-2a2 2 0 0 0-2-2V6z"></path>
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0zm-2 0a6 6 0 1 1-12 0 6 6 0 0 1 12 0z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+</template>

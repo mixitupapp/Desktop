@@ -10011,8 +10011,8 @@ print(run())</value>
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Trovo Elixir Spells</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>Trovo Subscriptions</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Kick Subscriptions</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Twitch Subscriptions</value>
@@ -11404,5 +11404,8 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
     <value>Channel Point Rewards must be created through Mix It Up to allow the app to be able to update them.
 This can be done by clicking on Create Channel Point Reward on the Kick Channel Points page in Mix It Up.</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>Channel Point Reward successfully created! You can now dynamically update this Channel Point Reward using the Kick action inside of a command. Please use the link on the main Channel Points page to visit the editor on Kick to customize your reward.</value>
   </data>
 </root>

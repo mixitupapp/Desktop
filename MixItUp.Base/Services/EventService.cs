@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Util;
@@ -265,6 +266,9 @@ namespace MixItUp.Base.Services
 
         public static event EventHandler<YouTubeSuperChatViewModel> OnYouTubeSuperChatOccurred = delegate { };
         public static void YouTubeSuperChatOccurred(YouTubeSuperChatViewModel superchat) { OnYouTubeSuperChatOccurred(null, superchat); }
+
+        public static event EventHandler<KickKicksGiftedEventModel> OnKickKicksGiftedOccurred = delegate { };
+        public static void KickKicksGiftedOccurred(KickKicksGiftedEventModel kicksGifted) { OnKickKicksGiftedOccurred(null, kicksGifted); }
 
         private static HashSet<EventTypeEnum> singleUseTracking = new HashSet<EventTypeEnum>()
         {

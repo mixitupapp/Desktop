@@ -1,4 +1,5 @@
 ﻿using Google.Apis.YouTube.v3.Data;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Model.Twitch.Bits;
@@ -32,6 +33,8 @@ namespace MixItUp.Base.ViewModel.Overlay
         TwitchBits,
 
         YouTubeSuperChat,
+
+        KickKicksGifted,
 
     }
 
@@ -321,6 +324,83 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private string youTubeSuperChatsDetailsTemplate;
 
+        public bool KickSubscriptions
+        {
+            get { return this.kickSubscriptions; }
+            set
+            {
+                this.kickSubscriptions = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool kickSubscriptions;
+
+        public string KickSubscriptionsDetailsTemplate
+        {
+            get { return this.kickSubscriptionsDetailsTemplate; }
+            set
+            {
+                this.kickSubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string kickSubscriptionsDetailsTemplate;
+
+        public string KickResubscriptionsDetailsTemplate
+        {
+            get { return this.kickResubscriptionsDetailsTemplate; }
+            set
+            {
+                this.kickResubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string kickResubscriptionsDetailsTemplate;
+
+        public string KickGiftedSubscriptionsDetailsTemplate
+        {
+            get { return this.kickGiftedSubscriptionsDetailsTemplate; }
+            set
+            {
+                this.kickGiftedSubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string kickGiftedSubscriptionsDetailsTemplate;
+
+        public string KickMassGiftedSubscriptionsDetailsTemplate
+        {
+            get { return this.kickMassGiftedSubscriptionsDetailsTemplate; }
+            set
+            {
+                this.kickMassGiftedSubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string kickMassGiftedSubscriptionsDetailsTemplate;
+
+        public bool KickKicks
+        {
+            get { return this.kickKicks; }
+            set
+            {
+                this.kickKicks = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool kickKicks;
+
+        public string KickKicksDetailsTemplate
+        {
+            get { return this.kickKicksDetailsTemplate; }
+            set
+            {
+                this.kickKicksDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string kickKicksDetailsTemplate;
+
         public bool Donations
         {
             get { return this.donations; }
@@ -379,6 +459,13 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.YouTubeSuperChatsDetailsTemplate = $"{Resources.SuperChat} - {{Amount}}";
 
+            this.KickSubscriptionsDetailsTemplate = $"{Resources.Subscribed} - {Resources.Tier} {{Tier}}";
+            this.KickResubscriptionsDetailsTemplate = $"{Resources.Resubscribed} - {Resources.Tier} {{Tier}} - {{Amount}} Months";
+            this.KickGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}}";
+            this.KickMassGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}} x{{Amount}}";
+
+            this.KickKicksDetailsTemplate = $"{{Amount}} {Resources.KickKicks}";
+
             this.DonationsDetailsTemplate = $"{Resources.Donation} - {{Amount}}";
 
             this.ItemAddedAnimation = new OverlayAnimationV3ViewModel(Resources.ItemAdded, new OverlayAnimationV3Model());
@@ -423,6 +510,15 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.YouTubeSuperChats = item.YouTubeSuperChats;
             this.YouTubeSuperChatsDetailsTemplate = item.YouTubeSuperChatsDetailsTemplate;
+
+            this.KickSubscriptions = item.KickSubscriptions;
+            this.KickSubscriptionsDetailsTemplate = item.KickSubscriptionsDetailsTemplate;
+            this.KickResubscriptionsDetailsTemplate = item.KickResubscriptionsDetailsTemplate;
+            this.KickGiftedSubscriptionsDetailsTemplate = item.KickGiftedSubscriptionsDetailsTemplate;
+            this.KickMassGiftedSubscriptionsDetailsTemplate = item.KickMassGiftedSubscriptionsDetailsTemplate;
+
+            this.KickKicks = item.KickKicks;
+            this.KickKicksDetailsTemplate = item.KickKicksDetailsTemplate;
 
             this.Donations = item.Donations;
             this.DonationsDetailsTemplate = item.DonationsDetailsTemplate;
@@ -498,6 +594,10 @@ namespace MixItUp.Base.ViewModel.Overlay
                         UserComment = "Hello World"
                     }, ChannelSession.User));
                 }
+                else if (type == OverlayEventListV3TestTypeEnum.KickKicksGifted)
+                {
+                    eventList.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
+                }
             }
 
             await base.TestWidget(widget);
@@ -538,6 +638,15 @@ namespace MixItUp.Base.ViewModel.Overlay
 
                 YouTubeSuperChats = this.YouTubeSuperChats,
                 YouTubeSuperChatsDetailsTemplate = this.YouTubeSuperChatsDetailsTemplate,
+
+                KickSubscriptions = this.KickSubscriptions,
+                KickSubscriptionsDetailsTemplate = this.KickSubscriptionsDetailsTemplate,
+                KickResubscriptionsDetailsTemplate = this.KickResubscriptionsDetailsTemplate,
+                KickGiftedSubscriptionsDetailsTemplate = this.KickGiftedSubscriptionsDetailsTemplate,
+                KickMassGiftedSubscriptionsDetailsTemplate = this.KickMassGiftedSubscriptionsDetailsTemplate,
+
+                KickKicks = this.KickKicks,
+                KickKicksDetailsTemplate = this.KickKicksDetailsTemplate,
 
                 Donations = this.Donations,
                 DonationsDetailsTemplate = this.DonationsDetailsTemplate,

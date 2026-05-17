@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Mix It Up - Overlay</title>
+    
+    {JQuery}
+
+    {Head}
+
+    <style type="text/css">
+        {AnimateCSS}
+    </style>
+
+    <style type="text/css">
+        {WoahCSS}
+    </style>
+
+    <style type="text/css">
+        {CSS}
+    </style>
+</head>
+<body style="background-color: transparent; overflow: hidden; position: absolute; width: 100%; max-width: 100%; min-width: 100%; height: 100%; max-height: 100%; min-height: 100%; margin: 0px;">
+
+    {HTML}
+
+    <script>
+        function sendParentMessage(obj) {
+            window.top.postMessage(JSON.stringify(obj), '*');
+        }
+        
+        const animateCSS = (element, animation, prefix = 'animate__') =>
+            // We create a Promise and return it
+            new Promise((resolve, reject) => {
+                if (animation != null && animation) {
+                    const animationName = `${prefix}${animation}`;
+
+                    element.classList.add(`${prefix}animated`, animationName);
+
+                    // When the animation ends, we clean the classes and resolve the Promise
+                    function handleAnimationEnd(event) {
+                        event.stopPropagation();
+                        element.classList.remove(`${prefix}animated`, animationName);
+                        resolve('Animation ended');
+                    }
+
+                    element.addEventListener('animationend', handleAnimationEnd, { once: true });
+                }
+                else {
+                    resolve('Animation ended');
+                }
+            });
+
+        const performAnimation = (animationFramework, animationName, element) =>
+            new Promise((resolve, reject) => {
+                if (animationFramework === "animate.css") {
+                    animateCSS(element, animationName).then((postAnimation) => {
+                        resolve("Animation complete");
+                    });
+                }
+                else if (animationFramework === "Woah.css") {
+                    element.onanimationend = () => {
+                        element.classList.remove(animationName);
+                        element.classList.remove("woah");
+                        resolve("Animation complete");
+                    };
+                    element.classList.add("woah");
+                    element.classList.add(animationName);
+                }
+                else {
+                    resolve("No/Invalid animation specified");
+                }
+            });
+        
+        {Javascript}
+    </script>
+</body>
+</html>

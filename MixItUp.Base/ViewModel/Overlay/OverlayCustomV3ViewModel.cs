@@ -1,4 +1,5 @@
 ﻿using Google.Apis.YouTube.v3.Data;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Model.Twitch.Bits;
@@ -43,6 +44,8 @@ namespace MixItUp.Base.ViewModel.Overlay
         TwitchBits,
 
         YouTubeSuperChat,
+
+        KickKicksGifted,
 
     }
 
@@ -183,6 +186,28 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private bool youTubeSuperChats;
 
+        public bool KickSubscriptions
+        {
+            get { return this.kickSubscriptions; }
+            set
+            {
+                this.kickSubscriptions = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool kickSubscriptions;
+
+        public bool KickKicks
+        {
+            get { return this.kickKicks; }
+            set
+            {
+                this.kickKicks = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool kickKicks;
+
         public bool Donations
         {
             get { return this.donations; }
@@ -216,6 +241,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.TwitchBits = item.TwitchBits;
             this.YouTubeMemberships = item.YouTubeMemberships;
             this.YouTubeSuperChats = item.YouTubeSuperChats;
+            this.KickSubscriptions = item.KickSubscriptions;
+            this.KickKicks = item.KickKicks;
             this.Donations = item.Donations;
 
             foreach (var property in item.Properties)
@@ -329,6 +356,10 @@ namespace MixItUp.Base.ViewModel.Overlay
                         UserComment = "Hello World"
                     }, ChannelSession.User));
                 }
+                else if (type == OverlayCustomV3TestTypeEnum.KickKicksGifted)
+                {
+                    custom.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
+                }
             }
 
             await base.TestWidget(widget);
@@ -350,6 +381,8 @@ namespace MixItUp.Base.ViewModel.Overlay
                 TwitchBits = this.TwitchBits,
                 YouTubeMemberships = this.YouTubeMemberships,
                 YouTubeSuperChats = this.YouTubeSuperChats,
+                KickSubscriptions = this.KickSubscriptions,
+                KickKicks = this.KickKicks,
                 Donations = this.Donations,
             };
 

@@ -1,0 +1,10 @@
+.text {
+    font-size: {FontSize}px;
+    color: {FontColor};
+    font-family: '{FontFamily}';
+    font-weight: {FontWeight};
+    text-decoration: {TextDecoration};
+    font-style: {FontStyle};
+    text-align: {TextAlignment};
+    text-shadow: {ShadowColor};
+}
