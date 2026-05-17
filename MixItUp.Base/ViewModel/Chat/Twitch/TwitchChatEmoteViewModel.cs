@@ -5,6 +5,8 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
 {
     public class TwitchChatEmoteViewModel : ChatEmoteViewModelBase
     {
+        public override string Provider { get { return "twitch"; } }
+
         public TwitchChatEmoteViewModel(ChatEmoteModel emote)
         {
             this.ID = emote.id;

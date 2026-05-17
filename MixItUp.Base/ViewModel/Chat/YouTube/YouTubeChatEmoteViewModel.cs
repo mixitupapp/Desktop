@@ -5,6 +5,8 @@ namespace MixItUp.Base.ViewModel.Chat.YouTube
 {
     public class YouTubeChatEmoteViewModel : ChatEmoteViewModelBase
     {
+        public override string Provider { get { return "youtube"; } }
+
         public YouTubeChatEmoteModel Emote { get; set; }
 
         public YouTubeChatEmoteViewModel(YouTubeChatEmoteModel emote)
