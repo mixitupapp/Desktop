@@ -84,6 +84,28 @@ namespace MixItUp.Base.Services.External
     }
 
     [DataContract]
+    public class TiltifyReward
+    {
+        [DataMember]
+        public string id { get; set; }
+        [DataMember]
+        public string name { get; set; }
+        [DataMember]
+        public string description { get; set; }
+        [DataMember]
+        public int quantity { get; set; }
+        [DataMember]
+        public int quantity_remaining { get; set; }
+        [DataMember]
+        public bool active { get; set; }
+        [DataMember]
+        public JObject amount { get; set; }
+
+        [JsonIgnore]
+        public double Amount { get { return TiltifyService.GetValueFromTiltifyJObject(this.amount); } }
+    }
+
+    [DataContract]
     public class TiltifyDonation
     {
         [DataMember]
@@ -92,6 +114,8 @@ namespace MixItUp.Base.Services.External
         public string campaign_id { get; set; }
         [DataMember]
         public string cause_id { get; set; }
+        [DataMember]
+        public string reward_id { get; set; }
         [DataMember]
         public string created_at { get; set; }
         [DataMember]
@@ -152,6 +176,7 @@ namespace MixItUp.Base.Services.External
 
         private TiltifyCampaign campaign = null;
         private Dictionary<string, TiltifyDonation> donationsReceived = new Dictionary<string, TiltifyDonation>();
+        private Dictionary<string, TiltifyReward> rewards = new Dictionary<string, TiltifyReward>();
 
         public TiltifyService() : base(TiltifyService.BaseAddress) { }
 
@@ -249,6 +274,18 @@ namespace MixItUp.Base.Services.External
             }
         }
 
+        public async Task<IEnumerable<TiltifyReward>> GetCampaignRewards(TiltifyCampaign campaign)
+        {
+            if (campaign.IsPartOfTeam)
+            {
+                return await this.GetArrayResult<TiltifyReward>($"api/public/team_campaigns/{campaign.id}/rewards?limit=100", usePageCursor: true);
+            }
+            else
+            {
+                return await this.GetArrayResult<TiltifyReward>($"api/public/campaigns/{campaign.id}/rewards?limit=100", usePageCursor: true);
+            }
+        }
+
         public async Task RefreshCampaign()
         {
             if (this.campaign != null)
@@ -319,6 +356,7 @@ namespace MixItUp.Base.Services.External
                 Logger.Log(LogLevel.Debug, $"Initializing campaign donations...");
 
                 donationsReceived.Clear();
+                rewards.Clear();
 
                 if (ChannelSession.Settings.TiltifyCampaignV5IsTeam)
                 {
@@ -335,11 +373,27 @@ namespace MixItUp.Base.Services.External
                     {
                         donationsReceived[donation.id] = donation;
                     }
+
+                    foreach (TiltifyReward reward in await this.GetCampaignRewards(this.campaign))
+                    {
+                        if (!string.IsNullOrEmpty(reward.id))
+                        {
+                            rewards[reward.id] = reward;
+                        }
+                    }
                 }
             }
 
             if (this.campaign != null)
             {
+                foreach (TiltifyReward reward in await this.GetCampaignRewards(this.campaign))
+                {
+                    if (!string.IsNullOrEmpty(reward.id))
+                    {
+                        rewards[reward.id] = reward;
+                    }
+                }
+
                 foreach (TiltifyDonation tDonation in await this.GetCampaignDonations(this.campaign))
                 {
                     Logger.Log(LogLevel.Debug, $"Checking of donation {tDonation.id} at {tDonation.Timestamp} has already been processed...");
@@ -350,7 +404,21 @@ namespace MixItUp.Base.Services.External
                         if (tDonation.Timestamp > this.startTime)
                         {
                             Logger.Log(LogLevel.Debug, $"Donation {tDonation.id} is new, start processing...");
-                            await EventService.ProcessDonationEvent(EventTypeEnum.TiltifyDonation, tDonation.ToGenericDonation());
+
+                            Dictionary<string, string> rewardSpecialIdentifiers = new Dictionary<string, string>();
+                            rewardSpecialIdentifiers["tiltifyrewardid"] = string.Empty;
+                            rewardSpecialIdentifiers["tiltifyrewardname"] = string.Empty;
+                            rewardSpecialIdentifiers["tiltifyrewarddescription"] = string.Empty;
+                            rewardSpecialIdentifiers["tiltifyrewardamount"] = string.Empty;
+                            if (!string.IsNullOrEmpty(tDonation.reward_id) && this.rewards.TryGetValue(tDonation.reward_id, out TiltifyReward reward))
+                            {
+                                rewardSpecialIdentifiers["tiltifyrewardid"] = reward.id;
+                                rewardSpecialIdentifiers["tiltifyrewardname"] = reward.name;
+                                rewardSpecialIdentifiers["tiltifyrewarddescription"] = reward.description;
+                                rewardSpecialIdentifiers["tiltifyrewardamount"] = reward.Amount.ToString();
+                            }
+
+                            await EventService.ProcessDonationEvent(EventTypeEnum.TiltifyDonation, tDonation.ToGenericDonation(), additionalSpecialIdentifiers: rewardSpecialIdentifiers);
                         }
                         else
                         {
