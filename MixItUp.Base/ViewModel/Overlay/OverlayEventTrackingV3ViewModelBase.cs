@@ -243,12 +243,13 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.RaidAmount = item.RaidAmount;
             this.RaidPerViewAmount = item.RaidPerViewAmount;
 
-            this.TwitchSubscriptionTier1Amount = item.TwitchSubscriptionsAmount.GetValueOrDefault(1);
-            this.TwitchSubscriptionTier2Amount = item.TwitchSubscriptionsAmount.GetValueOrDefault(2);
-            this.TwitchSubscriptionTier3Amount = item.TwitchSubscriptionsAmount.GetValueOrDefault(3);
+            this.TwitchSubscriptionTier1Amount = item.TwitchSubscriptionsAmount[1];
+            this.TwitchSubscriptionTier2Amount = item.TwitchSubscriptionsAmount[2];
+            this.TwitchSubscriptionTier3Amount = item.TwitchSubscriptionsAmount[3];
             this.TwitchBitsAmount = item.TwitchBitsAmount;
 
-            this.KickSubscriptionAmount = item.KickSubscriptionsAmount.GetValueOrDefault(1);
+            item.KickSubscriptionsAmount.TryGetValue(1, out double kickTier1);
+            this.KickSubscriptionAmount = kickTier1;
 
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {
