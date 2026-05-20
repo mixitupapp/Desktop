@@ -2,6 +2,8 @@ namespace MixItUp.Base.ViewModel.Chat.Kick
 {
     public class KickChatEmoteViewModel : ChatEmoteViewModelBase
     {
+        public override string Provider { get { return "kick"; } }
+
         public KickChatEmoteViewModel(string emoteID, string emoteName)
         {
             this.ID = emoteID;

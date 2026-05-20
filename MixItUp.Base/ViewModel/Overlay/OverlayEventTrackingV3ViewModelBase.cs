@@ -248,7 +248,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.TwitchSubscriptionTier3Amount = item.TwitchSubscriptionsAmount[3];
             this.TwitchBitsAmount = item.TwitchBitsAmount;
 
-            this.KickSubscriptionAmount = item.KickSubscriptionsAmount[1];
+            item.KickSubscriptionsAmount.TryGetValue(1, out double kickTier1);
+            this.KickSubscriptionAmount = kickTier1;
 
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {

@@ -276,6 +276,14 @@ namespace MixItUp.Base.Model.Commands
                     {
                         specialIdentifiers["donordriveincentivedescription"] = "Incentive Description";
                     }
+
+                    if (eventType == EventTypeEnum.TiltifyDonation)
+                    {
+                        specialIdentifiers["tiltifyrewardid"] = "0b696369-5957-451f-b147-e200d48243d3";
+                        specialIdentifiers["tiltifyrewardname"] = "Reward Name";
+                        specialIdentifiers["tiltifyrewarddescription"] = "Reward Description";
+                        specialIdentifiers["tiltifyrewardamount"] = "12.34";
+                    }
                     break;
                 case EventTypeEnum.DonorDriveDonationMilestone:
                 case EventTypeEnum.DonorDriveDonationTeamMilestone:

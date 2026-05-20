@@ -15,6 +15,8 @@ namespace MixItUp.Base.Services.External
         public string name { get; set; }
         public JObject urls { get; set; }
 
+        public override string Provider { get { return "ffz"; } }
+
         public override string ID { get { return this.id; } protected set { } }
         public override string Name { get { return this.name; } protected set { } }
         public override string ImageURL

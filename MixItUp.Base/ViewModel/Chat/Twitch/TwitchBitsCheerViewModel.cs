@@ -7,6 +7,8 @@ namespace MixItUp.Base.ViewModel.Chat.Twitch
 {
     public class TwitchBitsCheerViewModel : ChatEmoteViewModelBase
     {
+        public override string Provider { get { return "twitch-bits"; } }
+
         public static TwitchBitsCheerViewModel GetBitCheermote(string part)
         {
             foreach (var cheermote in ServiceManager.Get<TwitchSession>().BitsCheermotes.ToList())

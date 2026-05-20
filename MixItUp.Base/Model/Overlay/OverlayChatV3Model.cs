@@ -24,6 +24,7 @@ namespace MixItUp.Base.Model.Overlay
         public const string MessagePartTypeProperty = "Type";
         public const string MessagePartContentProperty = "Content";
         public const string MessagePartNameProperty = "Name";
+        public const string MessagePartProviderProperty = "Provider";
 
         public const string MessagePartTypeTextValue = "Text";
         public const string MessagePartTypeEmoteValue = "Emote";
@@ -79,6 +80,7 @@ namespace MixItUp.Base.Model.Overlay
                     part[MessagePartTypeProperty] = MessagePartTypeEmoteValue;
                     part[MessagePartContentProperty] = emote.OverlayAnimatedOrStaticImageURL;
                     part[MessagePartNameProperty] = emote.Name;
+                    part[MessagePartProviderProperty] = emote.Provider;
                 }
                 messageParts.Add(part);
             }
