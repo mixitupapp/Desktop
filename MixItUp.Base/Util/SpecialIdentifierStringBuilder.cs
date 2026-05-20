@@ -1,7 +1,8 @@
-﻿using Google.Apis.YouTube.v3.Data;
+using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Model.Settings;
@@ -13,7 +14,7 @@ using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
-using MixItUp.Base.Services.Trovo.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.ViewModel.User;
@@ -42,6 +43,9 @@ namespace MixItUp.Base.Util
 
         public const string TopBitsCheeredSpecialIdentifier = TopSpecialIdentifierHeader + "bitscheered";
         public const string TopBitsCheeredRegexSpecialIdentifier = TopSpecialIdentifierHeader + "\\d+bitscheered";
+
+        public const string TopKicksGiftedSpecialIdentifier = TopSpecialIdentifierHeader + "kicksgifted";
+        public const string TopKicksGiftedRegexSpecialIdentifier = TopSpecialIdentifierHeader + "\\d+kicksgifted";
 
         public const string UserSpecialIdentifierHeader = "user";
         public const string ArgSpecialIdentifierHeader = "arg";
@@ -349,6 +353,20 @@ namespace MixItUp.Base.Util
                     await this.HandleTopBitsCheered(BitsLeaderboardPeriodEnum.Month);
                     await this.HandleTopBitsCheered(BitsLeaderboardPeriodEnum.Year);
                     await this.HandleTopBitsCheered(BitsLeaderboardPeriodEnum.All);
+                }
+
+                if (this.ContainsRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopKicksGiftedRegexSpecialIdentifier))
+                {
+                    await this.HandleTopKicksGiftedRegex(KicksLeaderboardPeriodEnum.Lifetime);
+                    await this.HandleTopKicksGiftedRegex(KicksLeaderboardPeriodEnum.Month);
+                    await this.HandleTopKicksGiftedRegex(KicksLeaderboardPeriodEnum.Week);
+                }
+
+                if (this.ContainsSpecialIdentifier(SpecialIdentifierStringBuilder.TopKicksGiftedSpecialIdentifier))
+                {
+                    await this.HandleTopKicksGifted(KicksLeaderboardPeriodEnum.Lifetime);
+                    await this.HandleTopKicksGifted(KicksLeaderboardPeriodEnum.Month);
+                    await this.HandleTopKicksGifted(KicksLeaderboardPeriodEnum.Week);
                 }
 
                 if (this.ContainsRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopTimeRegexSpecialIdentifier))
@@ -688,7 +706,7 @@ namespace MixItUp.Base.Util
                 if (this.ContainsSpecialIdentifier(StreamUptimeSpecialIdentifierHeader) || this.ContainsSpecialIdentifier(StreamStartSpecialIdentifierHeader))
                 {
                     DateTimeOffset startTime = await UptimePreMadeChatCommandModel.GetStartTime(parameters.Platform);
-                    Logger.Log(LogLevel.Debug, $"Channel stream info: {JSONSerializerHelper.SerializeToString(ServiceManager.Get<TwitchSession>().Stream)} - {JSONSerializerHelper.SerializeToString(ServiceManager.Get<YouTubeSession>().LiveBroadcasts.Values.FirstOrDefault())} - {ServiceManager.Get<TrovoSession>().ChannelModel}");
+                    Logger.Log(LogLevel.Debug, $"Channel stream info: {JSONSerializerHelper.SerializeToString(ServiceManager.Get<TwitchSession>().Stream)} - {JSONSerializerHelper.SerializeToString(ServiceManager.Get<YouTubeSession>().LiveBroadcasts.Values.FirstOrDefault())}");
                     if (startTime > DateTimeOffset.MinValue)
                     {
                         TimeSpan duration = DateTimeOffset.Now.Subtract(startTime);
@@ -765,12 +783,20 @@ namespace MixItUp.Base.Util
                         this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "youtubeurl", ServiceManager.Get<YouTubeSession>().StreamLink);
                     }
                 }
-                else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+                else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<MixItUp.Base.Services.Kick.New.KickSession>().IsConnected)
                 {
-                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "followercount", ServiceManager.Get<TrovoSession>().ChannelModel?.followers.ToString());
-                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "subscribercount", ServiceManager.Get<TrovoSession>().ChannelModel?.subscriber_num.ToString());
+                    var channel = ServiceManager.Get<MixItUp.Base.Services.Kick.New.KickSession>().Channel;
+                    if (channel != null)
+                    {
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "subscribercount", channel.ActiveSubscribersCount.ToString());
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "description", channel.ChannelDescription);
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "thumbnail", channel.Stream?.Thumbnail);
+                        if (channel.Stream?.CustomTags != null && channel.Stream.CustomTags.Count > 0)
+                        {
+                            this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "kicktags", string.Join(", ", channel.Stream.CustomTags));
+                        }
+                    }
                 }
-
                 this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "chattercount", ServiceManager.Get<UserService>().ActiveUserCount.ToString());
             }
 
@@ -1280,7 +1306,7 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isfollower", user.IsFollower.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isregular", user.IsRegular.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "issubscriber", user.IsPlatformSubscriber.ToString());
-                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isvip", user.HasRole(UserRoleEnum.TwitchVIP).ToString());
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isvip", (user.HasRole(UserRoleEnum.TwitchVIP) || user.HasRole(UserRoleEnum.KickVIP)).ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "ismod", user.MeetsRole(UserRoleEnum.Moderator).ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isspecialtyexcluded", user.IsSpecialtyExcluded.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "notes", user.Notes);
@@ -1315,14 +1341,10 @@ namespace MixItUp.Base.Util
                     this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "youtubeid", pUser?.ID);
                 }
 
-                if (user.HasPlatformData(StreamingPlatformTypeEnum.Trovo))
+                if (user.HasPlatformData(StreamingPlatformTypeEnum.Kick))
                 {
-                    TrovoUserPlatformV2Model pUser = user.GetPlatformData<TrovoUserPlatformV2Model>(StreamingPlatformTypeEnum.Trovo);
-                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "trovoid", pUser?.ID);
-                    if (pUser != null)
-                    {
-                        this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "trovocustomroles", string.Join(", ", pUser?.CustomRoles));
-                    }
+                    KickUserPlatformV2Model pUser = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "kickid", pUser?.ID);
                 }
 
                 string userStreamHeader = identifierHeader + UserSpecialIdentifierHeader + "stream";
@@ -1363,23 +1385,6 @@ namespace MixItUp.Base.Util
                             if (yChannel != null)
                             {
 
-                            }
-                        }
-                    }
-                    else if (user.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                    {
-                        TrovoUserPlatformV2Model trovoUser = user.GetPlatformData<TrovoUserPlatformV2Model>(StreamingPlatformTypeEnum.Trovo);
-                        if (trovoUser != null)
-                        {
-                            MixItUp.Base.Model.Trovo.Users.UserModel tUser = await ServiceManager.Get<TrovoSession>().StreamerService.GetUserByName(trovoUser.Username);
-                            if (tUser != null)
-                            {
-                                MixItUp.Base.Model.Trovo.Channels.ChannelModel tChannel = await ServiceManager.Get<TrovoSession>().StreamerService.GetChannelByID(tUser.channel_id);
-
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "title", tChannel?.live_title);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", tChannel?.category_name);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "game", tChannel?.category_name);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "islive", tChannel?.is_live.ToString());
                             }
                         }
                     }
@@ -1446,6 +1451,80 @@ namespace MixItUp.Base.Util
                         user = UserV2ViewModel.CreateUnassociated(bitsUser.user_name);
                     }
                     await this.HandleUserSpecialIdentifiers(user, SpecialIdentifierStringBuilder.TopBitsCheeredSpecialIdentifier + period.ToString().ToLower());
+                }
+            }
+        }
+
+        private async Task HandleTopKicksGiftedRegex(KicksLeaderboardPeriodEnum period)
+        {
+            if (ServiceManager.Get<KickSession>().IsConnected && this.ContainsRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopKicksGiftedRegexSpecialIdentifier + period.ToString().ToLower()))
+            {
+                await this.ReplaceNumberBasedRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopKicksGiftedRegexSpecialIdentifier + period.ToString().ToLower(), async (total) =>
+                {
+                    string result = MixItUp.Base.Resources.NoUsersFound;
+                    LeaderboardModel leaderboard = await ServiceManager.Get<KickSession>().StreamerService.GetKicksLeaderboard(total);
+                    if (leaderboard != null)
+                    {
+                        List<LeaderboardEntryModel> entries = null;
+                        switch (period)
+                        {
+                            case KicksLeaderboardPeriodEnum.Lifetime: entries = leaderboard.Lifetime; break;
+                            case KicksLeaderboardPeriodEnum.Month: entries = leaderboard.Month; break;
+                            case KicksLeaderboardPeriodEnum.Week: entries = leaderboard.Week; break;
+                        }
+
+                        if (entries != null && entries.Count > 0)
+                        {
+                            IEnumerable<LeaderboardEntryModel> sorted = entries.OrderBy(e => e.Rank);
+
+                            List<string> leaderboardsList = new List<string>();
+                            int position = 1;
+                            for (int i = 0; i < total && i < sorted.Count(); i++)
+                            {
+                                LeaderboardEntryModel entry = sorted.ElementAt(i);
+                                leaderboardsList.Add($"#{i + 1}) {entry.Username} - {entry.GiftedAmount}");
+                                position++;
+                            }
+
+                            if (leaderboardsList.Count > 0)
+                            {
+                                result = string.Join(", ", leaderboardsList);
+                            }
+                        }
+                    }
+                    return result;
+                });
+            }
+        }
+
+        private async Task HandleTopKicksGifted(KicksLeaderboardPeriodEnum period)
+        {
+            if (ServiceManager.Get<KickSession>().IsConnected && this.ContainsSpecialIdentifier(SpecialIdentifierStringBuilder.TopKicksGiftedSpecialIdentifier + period.ToString().ToLower()))
+            {
+                LeaderboardModel leaderboard = await ServiceManager.Get<KickSession>().StreamerService.GetKicksLeaderboard(1);
+                if (leaderboard != null)
+                {
+                    List<LeaderboardEntryModel> entries = null;
+                    switch (period)
+                    {
+                        case KicksLeaderboardPeriodEnum.Lifetime: entries = leaderboard.Lifetime; break;
+                        case KicksLeaderboardPeriodEnum.Month: entries = leaderboard.Month; break;
+                        case KicksLeaderboardPeriodEnum.Week: entries = leaderboard.Week; break;
+                    }
+
+                    if (entries != null && entries.Count > 0)
+                    {
+                        LeaderboardEntryModel kicksUser = entries.OrderBy(e => e.Rank).First();
+
+                        this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.TopKicksGiftedSpecialIdentifier + period.ToString().ToLower() + "amount", kicksUser.GiftedAmount.ToString());
+
+                        UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: kicksUser.UserID.ToString(), platformUsername: kicksUser.Username);
+                        if (user == null)
+                        {
+                            user = UserV2ViewModel.CreateUnassociated(kicksUser.Username);
+                        }
+                        await this.HandleUserSpecialIdentifiers(user, SpecialIdentifierStringBuilder.TopKicksGiftedSpecialIdentifier + period.ToString().ToLower());
+                    }
                 }
             }
         }

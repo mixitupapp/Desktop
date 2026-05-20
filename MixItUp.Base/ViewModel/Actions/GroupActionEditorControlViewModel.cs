@@ -16,7 +16,19 @@ namespace MixItUp.Base.ViewModel.Actions
         public ICommand ImportActionsCommand { get; private set; }
         public ICommand ExportActionsCommand { get; private set; }
 
-        public ActionEditorListControlViewModel ActionEditorList { get; set; } = new ActionEditorListControlViewModel();
+        public ActionEditorListControlViewModel ActionEditorList
+        {
+            get { return this.actionEditorList; }
+            set
+            {
+                this.actionEditorList = value;
+                if (this.actionEditorList != null)
+                {
+                    this.actionEditorList.ParentAction = this;
+                }
+            }
+        }
+        private ActionEditorListControlViewModel actionEditorList = new ActionEditorListControlViewModel();
 
         public override ActionTypeEnum Type { get { return ActionTypeEnum.Group; } }
 
@@ -25,13 +37,19 @@ namespace MixItUp.Base.ViewModel.Actions
         public GroupActionEditorControlViewModel(GroupActionModel action)
             : base(action)
         {
+            this.InitializeActionEditorList();
+
             foreach (ActionModelBase subAction in action.Actions)
             {
                 this.subActions.Add(subAction);
             }
         }
 
-        public GroupActionEditorControlViewModel() : base() { }
+        public GroupActionEditorControlViewModel()
+            : base()
+        {
+            this.InitializeActionEditorList();
+        }
 
         protected override async Task OnOpenInternal()
         {
@@ -102,6 +120,14 @@ namespace MixItUp.Base.ViewModel.Actions
         protected override async Task<ActionModelBase> GetActionInternal()
         {
             return new GroupActionModel(await this.ActionEditorList.GetActions());
+        }
+
+        private void InitializeActionEditorList()
+        {
+            if (this.ActionEditorList != null)
+            {
+                this.ActionEditorList.ParentAction = this;
+            }
         }
     }
 }

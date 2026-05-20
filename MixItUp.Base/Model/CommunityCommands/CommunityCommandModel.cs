@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Util;
 using System;
 using System.Collections.Generic;
@@ -40,6 +40,7 @@ namespace MixItUp.Base.Model.Store
         Command,
         Serial,
         Moderation,
+        [Obsolete]
         OvrStream,
         IFTTT,
         Twitch,
@@ -47,15 +48,18 @@ namespace MixItUp.Base.Model.Store
         VTubeStudio,
         Voicemod,
         YouTube,
+        [Obsolete]
         Trovo,
         PolyPop,
         SAMMI,
+        [Obsolete]
         InfiniteAlbum,
         TITS,
         MusicPlayer,
         LumiaStream,
         Random,
         Script,
+        Kick,
 
         // Command Tags
         ChatCommand = 1000,
@@ -66,9 +70,12 @@ namespace MixItUp.Base.Model.Store
         TwitchChannelPointsCommand,
         GameCommand,
         Webhook,
+        [Obsolete]
         TrovoSpell,
         TwitchBits,
         CrowdControlEffect,
+        KickChannelPoints,
+        KickKicks,
         TwitchCustomPowerUpCommand,
 
         // Extra Tags

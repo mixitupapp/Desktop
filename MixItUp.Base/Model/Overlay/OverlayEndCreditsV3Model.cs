@@ -1,11 +1,11 @@
 ﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.Overlay;
 using MixItUp.Base.ViewModel.User;
@@ -37,7 +37,7 @@ namespace MixItUp.Base.Model.Overlay
 
         YouTubeSuperChats = 50,
 
-        TrovoSpells = 60,
+        KickKicks = 60,
 
         Donations = 200,
 
@@ -186,8 +186,8 @@ namespace MixItUp.Base.Model.Overlay
                     case OverlayEndCreditsSectionV3Type.Resubscribers:
                     case OverlayEndCreditsSectionV3Type.GiftedSubscriptions:
                     case OverlayEndCreditsSectionV3Type.TwitchBits:
-                    case OverlayEndCreditsSectionV3Type.TrovoSpells:
                     case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
+                    case OverlayEndCreditsSectionV3Type.KickKicks:
                     case OverlayEndCreditsSectionV3Type.Donations:
                         text = OverlayV3Service.ReplaceProperty(text, AmountPropertyName, item.Value.ToNumberDisplayString());
                         break;
@@ -279,9 +279,9 @@ namespace MixItUp.Base.Model.Overlay
         public override bool YouTubeSuperChats { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.YouTubeSuperChats); } set { } }
 
         [DataMember]
-        public override bool TrovoSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
+        public override bool KickSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
         [DataMember]
-        public override bool TrovoElixirSpells { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.TrovoSpells); } set { } }
+        public override bool KickKicks { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.KickKicks); } set { } }
 
         [DataMember]
         public override bool Donations { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.Donations); } set { } }
@@ -496,14 +496,14 @@ namespace MixItUp.Base.Model.Overlay
             }
         }
 
-        public override void OnTrovoSpell(object sender, TrovoChatSpellViewModel spell)
+        public override void OnKickKicksGifted(object sender, KickKicksGiftedEventModel kicksGifted)
         {
             foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
             {
                 switch (section.Type)
                 {
-                    case OverlayEndCreditsSectionV3Type.TrovoSpells:
-                        section.Track(spell.User, spell.ValueTotal);
+                    case OverlayEndCreditsSectionV3Type.KickKicks:
+                        section.Track(kicksGifted.User, kicksGifted.Amount);
                         break;
                 }
             }

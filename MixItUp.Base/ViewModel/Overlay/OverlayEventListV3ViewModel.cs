@@ -1,7 +1,7 @@
 ﻿using Google.Apis.YouTube.v3.Data;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
-using MixItUp.Base.Model.Trovo.Chat;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -9,7 +9,6 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
@@ -35,7 +34,8 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         YouTubeSuperChat,
 
-        TrovoElixirSpell,
+        KickKicksGifted,
+
     }
 
     public class OverlayEventListHeaderV3ViewModel : OverlayHeaderV3ViewModelBase
@@ -324,82 +324,82 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private string youTubeSuperChatsDetailsTemplate;
 
-        public bool TrovoSubscriptions
+        public bool KickSubscriptions
         {
-            get { return this.trovoSubscriptions; }
+            get { return this.kickSubscriptions; }
             set
             {
-                this.trovoSubscriptions = value;
+                this.kickSubscriptions = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private bool trovoSubscriptions;
+        private bool kickSubscriptions;
 
-        public string TrovoSubscriptionsDetailsTemplate
+        public string KickSubscriptionsDetailsTemplate
         {
-            get { return this.trovoSubscriptionsDetailsTemplate; }
+            get { return this.kickSubscriptionsDetailsTemplate; }
             set
             {
-                this.trovoSubscriptionsDetailsTemplate = value;
+                this.kickSubscriptionsDetailsTemplate = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private string trovoSubscriptionsDetailsTemplate;
+        private string kickSubscriptionsDetailsTemplate;
 
-        public string TrovoResubscriptionsDetailsTemplate
+        public string KickResubscriptionsDetailsTemplate
         {
-            get { return this.trovoResubscriptionsDetailsTemplate; }
+            get { return this.kickResubscriptionsDetailsTemplate; }
             set
             {
-                this.trovoResubscriptionsDetailsTemplate = value;
+                this.kickResubscriptionsDetailsTemplate = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private string trovoResubscriptionsDetailsTemplate;
+        private string kickResubscriptionsDetailsTemplate;
 
-        public string TrovoGiftedSubscriptionsDetailsTemplate
+        public string KickGiftedSubscriptionsDetailsTemplate
         {
-            get { return this.trovoGiftedSubscriptionsDetailsTemplate; }
+            get { return this.kickGiftedSubscriptionsDetailsTemplate; }
             set
             {
-                this.trovoGiftedSubscriptionsDetailsTemplate = value;
+                this.kickGiftedSubscriptionsDetailsTemplate = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private string trovoGiftedSubscriptionsDetailsTemplate;
+        private string kickGiftedSubscriptionsDetailsTemplate;
 
-        public string TrovoMassGiftedSubscriptionsDetailsTemplate
+        public string KickMassGiftedSubscriptionsDetailsTemplate
         {
-            get { return this.trovoMassGiftedSubscriptionsDetailsTemplate; }
+            get { return this.kickMassGiftedSubscriptionsDetailsTemplate; }
             set
             {
-                this.trovoMassGiftedSubscriptionsDetailsTemplate = value;
+                this.kickMassGiftedSubscriptionsDetailsTemplate = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private string trovoMassGiftedSubscriptionsDetailsTemplate;
+        private string kickMassGiftedSubscriptionsDetailsTemplate;
 
-        public bool TrovoElixirSpells
+        public bool KickKicks
         {
-            get { return this.trovoElixirSpells; }
+            get { return this.kickKicks; }
             set
             {
-                this.trovoElixirSpells = value;
+                this.kickKicks = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private bool trovoElixirSpells;
+        private bool kickKicks;
 
-        public string TrovoElixirSpellsDetailsTemplate
+        public string KickKicksDetailsTemplate
         {
-            get { return this.trovoElixirSpellsDetailsTemplate; }
+            get { return this.kickKicksDetailsTemplate; }
             set
             {
-                this.trovoElixirSpellsDetailsTemplate = value;
+                this.kickKicksDetailsTemplate = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private string trovoElixirSpellsDetailsTemplate;
+        private string kickKicksDetailsTemplate;
 
         public bool Donations
         {
@@ -459,12 +459,12 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.YouTubeSuperChatsDetailsTemplate = $"{Resources.SuperChat} - {{Amount}}";
 
-            this.TrovoSubscriptionsDetailsTemplate = $"{Resources.Subscribed} - {Resources.Tier} {{Tier}}";
-            this.TrovoResubscriptionsDetailsTemplate = $"{Resources.Resubscribed} - {Resources.Tier} {{Tier}} - {{Amount}} Months";
-            this.TrovoGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}}";
-            this.TrovoMassGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}} x{{Amount}}";
+            this.KickSubscriptionsDetailsTemplate = $"{Resources.Subscribed} - {Resources.Tier} {{Tier}}";
+            this.KickResubscriptionsDetailsTemplate = $"{Resources.Resubscribed} - {Resources.Tier} {{Tier}} - {{Amount}} Months";
+            this.KickGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}}";
+            this.KickMassGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}} x{{Amount}}";
 
-            this.TrovoElixirSpellsDetailsTemplate = $"{{Amount}} {Resources.Elixir}";
+            this.KickKicksDetailsTemplate = $"{{Amount}} {Resources.KickKicks}";
 
             this.DonationsDetailsTemplate = $"{Resources.Donation} - {{Amount}}";
 
@@ -511,14 +511,14 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.YouTubeSuperChats = item.YouTubeSuperChats;
             this.YouTubeSuperChatsDetailsTemplate = item.YouTubeSuperChatsDetailsTemplate;
 
-            this.TrovoSubscriptions = item.TrovoSubscriptions;
-            this.TrovoSubscriptionsDetailsTemplate = item.TrovoSubscriptionsDetailsTemplate;
-            this.TrovoResubscriptionsDetailsTemplate = item.TrovoResubscriptionsDetailsTemplate;
-            this.TrovoGiftedSubscriptionsDetailsTemplate = item.TrovoGiftedSubscriptionsDetailsTemplate;
-            this.TrovoMassGiftedSubscriptionsDetailsTemplate = item.TrovoMassGiftedSubscriptionsDetailsTemplate;
+            this.KickSubscriptions = item.KickSubscriptions;
+            this.KickSubscriptionsDetailsTemplate = item.KickSubscriptionsDetailsTemplate;
+            this.KickResubscriptionsDetailsTemplate = item.KickResubscriptionsDetailsTemplate;
+            this.KickGiftedSubscriptionsDetailsTemplate = item.KickGiftedSubscriptionsDetailsTemplate;
+            this.KickMassGiftedSubscriptionsDetailsTemplate = item.KickMassGiftedSubscriptionsDetailsTemplate;
 
-            this.TrovoElixirSpells = item.TrovoElixirSpells;
-            this.TrovoElixirSpellsDetailsTemplate = item.TrovoElixirSpellsDetailsTemplate;
+            this.KickKicks = item.KickKicks;
+            this.KickKicksDetailsTemplate = item.KickKicksDetailsTemplate;
 
             this.Donations = item.Donations;
             this.DonationsDetailsTemplate = item.DonationsDetailsTemplate;
@@ -594,18 +594,9 @@ namespace MixItUp.Base.ViewModel.Overlay
                         UserComment = "Hello World"
                     }, ChannelSession.User));
                 }
-                else if (type == OverlayEventListV3TestTypeEnum.TrovoElixirSpell)
+                else if (type == OverlayEventListV3TestTypeEnum.KickKicksGifted)
                 {
-                    eventList.OnTrovoSpell(this, new TrovoChatSpellViewModel(ChannelSession.User, new ChatMessageModel() { content = "" })
-                    {
-                        Contents = new TrovoChatSpellContentModel()
-                        {
-                            gift = "Foobar",
-                            value_type = TrovoChatSpellViewModel.ElixirValueType,
-                            num = 10,
-                            gift_value = 10,
-                        }
-                    });
+                    eventList.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
                 }
             }
 
@@ -648,14 +639,14 @@ namespace MixItUp.Base.ViewModel.Overlay
                 YouTubeSuperChats = this.YouTubeSuperChats,
                 YouTubeSuperChatsDetailsTemplate = this.YouTubeSuperChatsDetailsTemplate,
 
-                TrovoSubscriptions = this.TrovoSubscriptions,
-                TrovoSubscriptionsDetailsTemplate = this.TrovoSubscriptionsDetailsTemplate,
-                TrovoResubscriptionsDetailsTemplate = this.TrovoResubscriptionsDetailsTemplate,
-                TrovoGiftedSubscriptionsDetailsTemplate = this.TrovoGiftedSubscriptionsDetailsTemplate,
-                TrovoMassGiftedSubscriptionsDetailsTemplate = this.TrovoMassGiftedSubscriptionsDetailsTemplate,
+                KickSubscriptions = this.KickSubscriptions,
+                KickSubscriptionsDetailsTemplate = this.KickSubscriptionsDetailsTemplate,
+                KickResubscriptionsDetailsTemplate = this.KickResubscriptionsDetailsTemplate,
+                KickGiftedSubscriptionsDetailsTemplate = this.KickGiftedSubscriptionsDetailsTemplate,
+                KickMassGiftedSubscriptionsDetailsTemplate = this.KickMassGiftedSubscriptionsDetailsTemplate,
 
-                TrovoElixirSpells = this.TrovoElixirSpells,
-                TrovoElixirSpellsDetailsTemplate = this.TrovoElixirSpellsDetailsTemplate,
+                KickKicks = this.KickKicks,
+                KickKicksDetailsTemplate = this.KickKicksDetailsTemplate,
 
                 Donations = this.Donations,
                 DonationsDetailsTemplate = this.DonationsDetailsTemplate,

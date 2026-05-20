@@ -8,6 +8,8 @@
         public virtual string AnimatedImageURL { get; protected set; }
         public virtual string OverlayAnimatedImageURL { get { return this.AnimatedImageURL; } protected set { } }
 
+        public virtual string Provider { get { return string.Empty; } }
+
         public virtual bool IsAnimated { get; protected set; }
 
         public string OverlayAnimatedOrStaticImageURL { get { return (this.IsAnimated && !string.IsNullOrEmpty(this.OverlayAnimatedImageURL)) ? this.OverlayAnimatedImageURL : this.ImageURL; } }

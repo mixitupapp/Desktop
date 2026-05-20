@@ -124,40 +124,18 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private double twitchSubscriptionTier3Amount;
 
+        public double KickSubscriptionAmount
+        {
+            get { return this.kickSubscriptionAmount; }
+            set
+            {
+                this.kickSubscriptionAmount = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private double kickSubscriptionAmount;
+
         public ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel> YouTubeMemberships { get; set; } = new ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel>();
-
-        public double TrovoSubscriptionTier1Amount
-        {
-            get { return this.trovoSubscriptionTier1Amount; }
-            set
-            {
-                this.trovoSubscriptionTier1Amount = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private double trovoSubscriptionTier1Amount;
-
-        public double TrovoSubscriptionTier2Amount
-        {
-            get { return this.trovoSubscriptionTier2Amount; }
-            set
-            {
-                this.trovoSubscriptionTier2Amount = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private double trovoSubscriptionTier2Amount;
-
-        public double TrovoSubscriptionTier3Amount
-        {
-            get { return this.trovoSubscriptionTier3Amount; }
-            set
-            {
-                this.trovoSubscriptionTier3Amount = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private double trovoSubscriptionTier3Amount;
 
         public double TwitchBitsAmount
         {
@@ -201,24 +179,24 @@ namespace MixItUp.Base.ViewModel.Overlay
             }
         }
 
-        public double TrovoElixirSpellAmount
+        public double KickKicksAmount
         {
-            get { return this.trovoElixirSpellAmount; }
+            get { return this.kickKicksAmount; }
             set
             {
-                this.trovoElixirSpellAmount = value;
+                this.kickKicksAmount = value;
                 this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.TrovoElixirSpellEquation));
+                this.NotifyPropertyChanged(nameof(this.KickKicksEquation));
             }
         }
-        private double trovoElixirSpellAmount;
+        private double kickKicksAmount;
 
-        public string TrovoElixirSpellEquation
+        public string KickKicksEquation
         {
             get
             {
-                double total = this.TrovoElixirSpellAmount * SampleIntegerAmount;
-                return $"{this.TrovoElixirSpellAmount} * {SampleIntegerAmount} {Resources.Elixir} = {total} {this.EquationUnits}";
+                double total = this.KickKicksAmount * SampleIntegerAmount;
+                return $"{this.KickKicksAmount} * {SampleIntegerAmount} {Resources.KickKicks} = {total} {this.EquationUnits}";
             }
         }
 
@@ -270,6 +248,9 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.TwitchSubscriptionTier3Amount = item.TwitchSubscriptionsAmount[3];
             this.TwitchBitsAmount = item.TwitchBitsAmount;
 
+            item.KickSubscriptionsAmount.TryGetValue(1, out double kickTier1);
+            this.KickSubscriptionAmount = kickTier1;
+
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {
                 foreach (MembershipsLevel membershipsLevel in ServiceManager.Get<YouTubeSession>().MembershipLevels)
@@ -286,10 +267,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             }
             this.YouTubeSuperChatAmount = item.YouTubeSuperChatAmount;
 
-            this.TrovoSubscriptionTier1Amount = item.TrovoSubscriptionsAmount[1];
-            this.TrovoSubscriptionTier2Amount = item.TrovoSubscriptionsAmount[2];
-            this.TrovoSubscriptionTier3Amount = item.TrovoSubscriptionsAmount[3];
-            this.TrovoElixirSpellAmount = item.TrovoElixirSpellAmount;
+            this.KickKicksAmount = item.KickKicksAmount;
 
             this.DonationAmount = item.DonationAmount;
 
@@ -315,6 +293,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             result.TwitchSubscriptionsAmount[3] = this.TwitchSubscriptionTier3Amount;
             result.TwitchBitsAmount = this.TwitchBitsAmount;
 
+            result.KickSubscriptionsAmount[1] = this.KickSubscriptionAmount;
+
             result.YouTubeMembershipsAmount.Clear();
             foreach (OverlayEventTrackingYouTubeMembershipViewModel membership in this.YouTubeMemberships)
             {
@@ -322,10 +302,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             }
             result.YouTubeSuperChatAmount = this.YouTubeSuperChatAmount;
 
-            result.TrovoSubscriptionsAmount[1] = this.TrovoSubscriptionTier1Amount;
-            result.TrovoSubscriptionsAmount[2] = this.TrovoSubscriptionTier2Amount;
-            result.TrovoSubscriptionsAmount[3] = this.TrovoSubscriptionTier3Amount;
-            result.TrovoElixirSpellAmount = this.TrovoElixirSpellAmount;
+            result.KickKicksAmount = this.KickKicksAmount;
 
             result.DonationAmount = this.DonationAmount;
         }

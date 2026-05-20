@@ -38,7 +38,7 @@ namespace MixItUp.Base.Model.Commands
             this.Name = command.Name;
             this.IsEnabled = command.IsEnabled;
             this.UserRole = command.Requirements.Role.UserRole;
-            this.Cooldown = command.Requirements.Cooldown.IndividualAmount;
+            this.Cooldown = command.Requirements.Cooldown?.IndividualAmount ?? 0;
         }
     }
 
@@ -51,15 +51,16 @@ namespace MixItUp.Base.Model.Commands
         {
             this.Requirements.AddBasicRequirements();
             this.Requirements.Role.UserRole = role;
-            this.Requirements.Cooldown.Type = CooldownTypeEnum.Standard;
-            this.Requirements.Cooldown.IndividualAmount = cooldown;
+            CooldownRequirementModel cooldownRequirement = this.Requirements.GetOrCreateCooldown();
+            cooldownRequirement.Type = CooldownTypeEnum.Standard;
+            cooldownRequirement.IndividualAmount = cooldown;
         }
 
         public void UpdateFromSettings(PreMadeChatCommandSettingsModel settings)
         {
             this.IsEnabled = settings.IsEnabled;
             this.Requirements.Role.UserRole = settings.UserRole;
-            this.Requirements.Cooldown.IndividualAmount = settings.Cooldown;
+            this.Requirements.GetOrCreateCooldown().IndividualAmount = settings.Cooldown;
         }
 
         public override bool HasCustomRun { get { return true; } }
@@ -832,8 +833,9 @@ namespace MixItUp.Base.Model.Commands
                 ChatCommandModel newCommand = new ChatCommandModel(commandTrigger, new HashSet<string>() { commandTrigger }, includeExclamation: true, wildcards: false);
                 newCommand.Requirements.AddBasicRequirements();
                 newCommand.Requirements.Role.UserRole = UserRoleEnum.User;
-                newCommand.Requirements.Cooldown.Type = CooldownTypeEnum.Standard;
-                newCommand.Requirements.Cooldown.IndividualAmount = cooldown;
+                CooldownRequirementModel cooldownRequirement = newCommand.Requirements.GetOrCreateCooldown();
+                cooldownRequirement.Type = CooldownTypeEnum.Standard;
+                cooldownRequirement.IndividualAmount = cooldown;
                 newCommand.Actions.Add(new ChatActionModel(commandText));
                 ChannelSession.Settings.SetCommand(newCommand);
                 ServiceManager.Get<CommandService>().ChatCommands.Add(newCommand);
@@ -872,10 +874,7 @@ namespace MixItUp.Base.Model.Commands
                     return;
                 }
 
-                if (command.Requirements.Cooldown != null)
-                {
-                    command.Requirements.Cooldown.IndividualAmount = cooldown;
-                }
+                command.Requirements.GetOrCreateCooldown().IndividualAmount = cooldown;
 
                 if (parameters.Arguments.Count() > 2)
                 {

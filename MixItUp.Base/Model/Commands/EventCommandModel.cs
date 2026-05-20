@@ -1,7 +1,6 @@
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -152,28 +151,6 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["hypetraintotalpoints"] = "1234";
                     break;
 
-                // Trovo
-                case EventTypeEnum.TrovoChannelRaided:
-                    specialIdentifiers["raidviewercount"] = "123";
-                    break;
-                case EventTypeEnum.TrovoChannelSubscribed:
-                    specialIdentifiers["message"] = "Test Message";
-                    break;
-                case EventTypeEnum.TrovoChannelResubscribed:
-                    specialIdentifiers["message"] = "Test Message";
-                    specialIdentifiers["usersubmonths"] = "5";
-                    break;
-                case EventTypeEnum.TrovoChannelMassSubscriptionsGifted:
-                    specialIdentifiers["subsgiftedamount"] = "5";
-                    break;
-                case EventTypeEnum.TrovoChannelSpellCast:
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellNameSpecialIdentifier] = "Spell Name";
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellQuantitySpecialIdentifier] = "5";
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellTotalValueSpecialIdentifier] = "250";
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellValueTypeSpecialIdentifier] = MixItUp.Base.Resources.TrovoElixir;
-                    specialIdentifiers[TrovoChatSpellViewModel.SpellValueSpecialIdentifier] = "50";
-                    break;
-
                 // YouTube
                 case EventTypeEnum.YouTubeChannelNewMember:
                     specialIdentifiers["usersubplan"] = "Plan Name";
@@ -198,10 +175,49 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["message"] = "Test Message";
                     specialIdentifiers["currencytype"] = "USD";
                     break;
+                case EventTypeEnum.YouTubeChannelJewelsGift:
+                    specialIdentifiers["message"] = "Test Message";
+                    specialIdentifiers["jewelsamount"] = "100";
+                    specialIdentifiers["giftname"] = "Gift Name";
+                    specialIdentifiers["giftimageurl"] = "https://www.gstatic.com/youtube/img/pdg/gift/assets/love_is_in_the_air.png";
+                    specialIdentifiers["giftdurationseconds"] = "5";
+                    specialIdentifiers["gifthasvisualeffect"] = "true";
+                    specialIdentifiers["giftcombocount"] = "3";
+                    break;
+
+                // Kick
+                case EventTypeEnum.KickChannelSubscribed:
+                    specialIdentifiers["usersubmonths"] = "1";
+                    break;
+                case EventTypeEnum.KickChannelResubscribed:
+                    specialIdentifiers["usersubmonths"] = "5";
+                    specialIdentifiers["usersubstreak"] = "5";
+                    break;
+                case EventTypeEnum.KickChannelSubscriptionGifted:
+                    specialIdentifiers["isanonymous"] = "false";
+                    break;
+                case EventTypeEnum.KickChannelMassSubscriptionsGifted:
+                    specialIdentifiers["subsgiftedamount"] = "5";
+                    specialIdentifiers["subsgiftedlifetimeamount"] = "100";
+                    specialIdentifiers["isanonymous"] = "false";
+                    break;
+                case EventTypeEnum.KickChannelPointsRedeemed:
+                    specialIdentifiers["rewardname"] = "Hydrate";
+                    specialIdentifiers["rewardcost"] = "5";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.KickChannelKicksGifted:
+                    specialIdentifiers["kicksamount"] = "100";
+                    specialIdentifiers["giftname"] = "Full Send";
+                    specialIdentifiers["gifttype"] = "BASIC";
+                    specialIdentifiers["gifttier"] = "BASIC";
+                    specialIdentifiers["message"] = "";
+                    specialIdentifiers["giftpinnedseconds"] = "0";
+                    break;
 
                 // Chat
                 case EventTypeEnum.ChatUserTimeout:
-                    specialIdentifiers["timeoutlength"] = "5m";
+                    specialIdentifiers["timeoutlength"] = "300";
                     break;
 
                 // Donation
@@ -260,6 +276,14 @@ namespace MixItUp.Base.Model.Commands
                     {
                         specialIdentifiers["donordriveincentivedescription"] = "Incentive Description";
                     }
+
+                    if (eventType == EventTypeEnum.TiltifyDonation)
+                    {
+                        specialIdentifiers["tiltifyrewardid"] = "0b696369-5957-451f-b147-e200d48243d3";
+                        specialIdentifiers["tiltifyrewardname"] = "Reward Name";
+                        specialIdentifiers["tiltifyrewarddescription"] = "Reward Description";
+                        specialIdentifiers["tiltifyrewardamount"] = "12.34";
+                    }
                     break;
                 case EventTypeEnum.DonorDriveDonationMilestone:
                 case EventTypeEnum.DonorDriveDonationTeamMilestone:
@@ -307,9 +331,9 @@ namespace MixItUp.Base.Model.Commands
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.YouTube.ToString();
             }
-            else if (eventNumber >= 400 && eventNumber < 500)
+            else if (eventNumber >= 600 && eventNumber < 700)
             {
-                specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.Trovo.ToString();
+                specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.Kick.ToString();
             }
             else
             {
@@ -368,6 +392,10 @@ namespace MixItUp.Base.Model.Commands
             if (ChannelSession.Settings.ModerationFollowEvent)
             {
                 if (this.EventType == EventTypeEnum.TwitchChannelFollowed)
+                {
+                    return true;
+                }
+                else if (this.EventType == EventTypeEnum.KickChannelFollowed)
                 {
                     return true;
                 }

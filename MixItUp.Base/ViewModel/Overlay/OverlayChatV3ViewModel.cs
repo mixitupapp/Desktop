@@ -5,20 +5,19 @@ using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
+using MixItUp.Base.ViewModel.Chat.Kick;
 using MixItUp.Base.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MixItUp.Base.ViewModel.User;
-using MixItUp.Base.Services.Trovo;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
-using MixItUp.Base.Services.Trovo.New;
+using MixItUp.Base.Services.Kick.New;
 
 namespace MixItUp.Base.ViewModel.Overlay
 {
@@ -311,15 +310,15 @@ namespace MixItUp.Base.ViewModel.Overlay
                     YouTubeChatMessageViewModel message = new YouTubeChatMessageViewModel(user, "Hello World! This is a test message from YouTube so you can see how chat looks :grinning_face:");
                     await chat.AddMessage(message);
                 }
-                else if (platform == StreamingPlatformTypeEnum.Trovo)
+                else if (platform == StreamingPlatformTypeEnum.Kick)
                 {
-                    UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Trovo, platformID: ServiceManager.Get<TrovoSession>().StreamerID);
+                    UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: ServiceManager.Get<KickSession>().StreamerID);
                     if (user == null)
                     {
                         user = ChannelSession.User;
                     }
 
-                    TrovoChatMessageViewModel message = new TrovoChatMessageViewModel(user, "Hello World! This is a test message from Trovo so you can see how chat looks :smile");
+                    KickChatMessageViewModel message = new KickChatMessageViewModel(new Model.Kick.Webhooks.WebhookChatMessageEventModel() { Content = "Hello World! This is a test message from Kick so you can see how chat looks" }, user);
                     await chat.AddMessage(message);
                 }
                 else

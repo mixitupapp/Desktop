@@ -1,6 +1,8 @@
-﻿using MixItUp.Base.Services;
+﻿using MixItUp.Base.Model.Twitch.EventSub;
+using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
+using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.User;
 using Newtonsoft.Json.Linq;
 using System;
@@ -21,6 +23,8 @@ namespace MixItUp.Base.Model.Overlay
 
         public const string MessagePartTypeProperty = "Type";
         public const string MessagePartContentProperty = "Content";
+        public const string MessagePartNameProperty = "Name";
+        public const string MessagePartProviderProperty = "Provider";
 
         public const string MessagePartTypeTextValue = "Text";
         public const string MessagePartTypeEmoteValue = "Emote";
@@ -38,6 +42,28 @@ namespace MixItUp.Base.Model.Overlay
 
             properties[MessageIDProperty] = message.ID.ToString();
             properties[UserProperty] = JObject.FromObject(message.User);
+            properties["Platform"] = message.Platform.ToString();
+
+            string messageType = ChatNotificationMessageType.text.ToString();
+            bool isHighlightedMessage = false;
+            bool isFirstMessage = false;
+            int bitsAmount = 0;
+
+            if (message is TwitchChatMessageViewModel twitchMessage)
+            {
+                isHighlightedMessage = twitchMessage.IsHighlightedMessage;
+                if (twitchMessage.MessageType.HasValue)
+                {
+                    messageType = twitchMessage.MessageType.Value.ToString();
+                    isFirstMessage = twitchMessage.MessageType.Value == ChatNotificationMessageType.user_intro;
+                }
+                bitsAmount = twitchMessage.BitsAmount;
+            }
+
+            properties["MessageType"] = messageType;
+            properties["IsHighlightedMessage"] = isHighlightedMessage;
+            properties["IsFirstMessage"] = isFirstMessage;
+            properties["BitsAmount"] = bitsAmount;
 
             List<JObject> messageParts = new List<JObject>();
             foreach (var messagePart in message.MessageParts)
@@ -50,8 +76,11 @@ namespace MixItUp.Base.Model.Overlay
                 }
                 else if (messagePart is ChatEmoteViewModelBase)
                 {
+                    ChatEmoteViewModelBase emote = (ChatEmoteViewModelBase)messagePart;
                     part[MessagePartTypeProperty] = MessagePartTypeEmoteValue;
-                    part[MessagePartContentProperty] = ((ChatEmoteViewModelBase)messagePart).OverlayAnimatedOrStaticImageURL;
+                    part[MessagePartContentProperty] = emote.OverlayAnimatedOrStaticImageURL;
+                    part[MessagePartNameProperty] = emote.Name;
+                    part[MessagePartProviderProperty] = emote.Provider;
                 }
                 messageParts.Add(part);
             }

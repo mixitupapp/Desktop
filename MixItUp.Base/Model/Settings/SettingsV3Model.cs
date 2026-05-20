@@ -111,6 +111,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public OAuthTokenModel VTubeStudioOAuthToken { get; set; }
         [DataMember]
+        [Obsolete]
         public OAuthTokenModel InfiniteAlbumOAuthToken { get; set; }
         [DataMember]
         public OAuthTokenModel TITSOAuthToken { get; set; }
@@ -298,7 +299,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertYouTubeSuperChatColor { get; set; }
         [DataMember]
-        public string AlertTrovoSpellCastColor { get; set; }
+        public string AlertYouTubeJewelsGiftColor { get; set; }
         [DataMember]
         public string AlertDonationColor { get; set; }
         [DataMember]
@@ -493,6 +494,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string OverlaySourceName { get; set; }
         [DataMember]
+        public bool DisableOverlayIFrameRemoval { get; set; }
+        [DataMember]
         public List<OverlayEndpointV3Model> OverlayEndpointsV3 { get; set; } = new List<OverlayEndpointV3Model>();
         [DataMember]
         public List<OverlayWidgetV3Model> OverlayWidgetsV3 { get; set; } = new List<OverlayWidgetV3Model>();
@@ -509,6 +512,7 @@ namespace MixItUp.Base.Model.Settings
         #region Services
 
         [DataMember]
+        [Obsolete]
         public string OvrStreamServerIP { get; set; }
 
         [DataMember]
@@ -819,10 +823,6 @@ namespace MixItUp.Base.Model.Settings
                     {
                         command = JSONSerializerHelper.DeserializeFromString<WebhookCommandModel>(commandData);
                     }
-                    else if (type == CommandTypeEnum.TrovoSpell)
-                    {
-                        command = JSONSerializerHelper.DeserializeFromString<TrovoSpellCommandModel>(commandData);
-                    }
                     else if (type == CommandTypeEnum.TwitchBits)
                     {
                         TwitchBitsCommandModel tbCommand = JSONSerializerHelper.DeserializeFromString<TwitchBitsCommandModel>(commandData);
@@ -839,6 +839,19 @@ namespace MixItUp.Base.Model.Settings
                     else if (type == CommandTypeEnum.TwitchCustomPowerUp)
                     {
                         command = JSONSerializerHelper.DeserializeFromString<TwitchCustomPowerUpCommandModel>(commandData);
+                    }
+                    else if (type == CommandTypeEnum.KickChannelPoints)
+                    {
+                        command = JSONSerializerHelper.DeserializeFromString<KickChannelPointsCommandModel>(commandData);
+                    }
+                    else if (type == CommandTypeEnum.KickKicks)
+                    {
+                        KickKicksCommandModel kkCommand = JSONSerializerHelper.DeserializeFromString<KickKicksCommandModel>(commandData);
+                        if (string.IsNullOrWhiteSpace(kkCommand.Name))
+                        {
+                            kkCommand.Name = kkCommand.AmountDisplay;
+                        }
+                        command = kkCommand;
                     }
 
                     if (command != null)
@@ -887,17 +900,23 @@ namespace MixItUp.Base.Model.Settings
             var unusedCooldownGroupNames = this.CooldownGroupAmounts.Select(c => c.Key).ToList();
             foreach (var command in this.Commands.Values.ToList())
             {
-                if (!string.IsNullOrEmpty(command.Requirements?.Cooldown?.GroupName))
+                foreach (CooldownRequirementModel cooldown in command.Requirements?.Cooldowns ?? Enumerable.Empty<CooldownRequirementModel>())
                 {
-                    unusedCooldownGroupNames.Remove(command.Requirements?.Cooldown?.GroupName);
+                    if (!string.IsNullOrEmpty(cooldown.GroupName))
+                    {
+                        unusedCooldownGroupNames.Remove(cooldown.GroupName);
+                    }
                 }
             }
 
             foreach (var product in this.RedemptionStoreProducts)
             {
-                if (!string.IsNullOrEmpty(product.Value.Requirements?.Cooldown?.GroupName))
+                foreach (CooldownRequirementModel cooldown in product.Value.Requirements?.Cooldowns ?? Enumerable.Empty<CooldownRequirementModel>())
                 {
-                    unusedCooldownGroupNames.Remove(product.Value.Requirements?.Cooldown?.GroupName);
+                    if (!string.IsNullOrEmpty(cooldown.GroupName))
+                    {
+                        unusedCooldownGroupNames.Remove(cooldown.GroupName);
+                    }
                 }
             }
 
@@ -975,10 +994,6 @@ namespace MixItUp.Base.Model.Settings
             {
                 this.VTubeStudioOAuthToken = ServiceManager.Get<VTubeStudioService>().GetOAuthTokenCopy();
             }
-            if (ServiceManager.Get<InfiniteAlbumService>().IsConnected)
-            {
-                this.InfiniteAlbumOAuthToken = ServiceManager.Get<InfiniteAlbumService>().GetOAuthTokenCopy();
-            }
             if (ServiceManager.Get<TITSService>().IsConnected)
             {
                 this.TITSOAuthToken = ServiceManager.Get<TITSService>().GetOAuthTokenCopy();
@@ -1033,8 +1048,8 @@ namespace MixItUp.Base.Model.Settings
 
             IEnumerable<UserV2Model> changedUsers = this.Users.GetAddedChangedValues();
             await ServiceManager.Get<IDatabaseService>().BulkWrite(this.DatabaseFilePath,
-                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data) " +
-                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data)",
+                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername) " +
+                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername)",
                 changedUsers.Select(u => new Dictionary<string, object>()
                 {
                     { "$ID", u.ID.ToString() },
@@ -1042,9 +1057,10 @@ namespace MixItUp.Base.Model.Settings
                     { "$YouTubeID", u.GetPlatformID(StreamingPlatformTypeEnum.YouTube) }, { "$YouTubeUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.YouTube) },
 #pragma warning disable CS0612 // Type or member is obsolete
                     { "$FacebookID", u.GetPlatformID(StreamingPlatformTypeEnum.Facebook) }, { "$FacebookUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Facebook) },
-#pragma warning restore CS0612 // Type or member is obsolete
                     { "$TrovoID", u.GetPlatformID(StreamingPlatformTypeEnum.Trovo) }, { "$TrovoUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Trovo) },
-                    { "$Data", JSONSerializerHelper.SerializeToString(u) }
+#pragma warning restore CS0612 // Type or member is obsolete                    
+                    { "$Data", JSONSerializerHelper.SerializeToString(u) },
+                    { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) }
                 }));
 
             List<Guid> removedCommands = new List<Guid>();
@@ -1209,6 +1225,35 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        public async Task AddMissingUsersTableKickColumns()
+        {
+            bool hasKickID = false;
+            bool hasKickUsername = false;
+
+            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (row) =>
+            {
+                string columnName = row["name"]?.ToString();
+                if (string.Equals(columnName, "KickID", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasKickID = true;
+                }
+                else if (string.Equals(columnName, "KickUsername", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasKickUsername = true;
+                }
+            });
+
+            if (!hasKickID)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickID TEXT");
+            }
+
+            if (!hasKickUsername)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN KickUsername TEXT");
+            }
+        }
+
         public async Task<IEnumerable<StatisticModel>> LoadSpecificStatisticType(StatisticItemTypeEnum type)
         {
             List<StatisticModel> statistics = new List<StatisticModel>();
@@ -1290,6 +1335,8 @@ namespace MixItUp.Base.Model.Settings
 
         public CommandModelBase GetCommand(Guid id) { return this.Commands.ContainsKey(id) ? this.Commands[id] : null; }
 
+
+
         public T GetCommand<T>(Guid id) where T : CommandModelBase { return (T)this.GetCommand(id); }
 
         public void SetCommand(CommandModelBase command) { if (command != null) { this.Commands[command.ID] = command; } }
@@ -1301,6 +1348,7 @@ namespace MixItUp.Base.Model.Settings
         private async void InitializeMissingData()
         {
             await this.CreateUserImportTable();
+            await this.AddMissingUsersTableKickColumns();
             //await this.CreateStatisticsTable();
 
             StreamingPlatforms.ForEachPlatform(p =>

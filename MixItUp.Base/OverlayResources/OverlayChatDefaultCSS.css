@@ -1,0 +1,44 @@
+.list {
+    width: {Width};
+    height: {Height};
+    background-color: {BackgroundColor};
+    border-style: solid;
+    border-width: 5px;
+    border-color: {BorderColor};
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: {FlexAlignment};
+}
+
+.item {
+    margin: 5px;
+}
+
+.message {
+    font-size: {FontSize}px;
+    color: {FontColor};
+    font-family: '{FontFamily}';
+    font-weight: {FontWeight};
+    text-decoration: {TextDecoration};
+    font-style: {FontStyle};
+    text-shadow: {ShadowColor};
+    word-wrap: break-word;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.badge {
+    margin-top: 3px;
+}
+
+.image {
+    vertical-align: text-top;
+    width: max-content;
+    height: {FontSize}px;
+}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -15,7 +15,7 @@ namespace MixItUp.API.V1.Models
         [DataMember]
         public string YouTubeID { get; set; }
         [DataMember]
-        public string TrovoID { get; set; }
+        public string KickID { get; set; }
 
         [DataMember]
         public string Username { get; set; }

@@ -3,6 +3,7 @@ using MixItUp.Base.Model.API;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using MixItUp.WPF.Util;
 using MixItUp.WPF.Windows;
 using MixItUp.WPF.Windows.Wizard;
 using System;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Media;
@@ -38,16 +40,14 @@ namespace MixItUp.WPF
 
         protected override async Task OnLoaded()
         {
+            _ = this.TryLoadPatreonMemberShoutout();
+
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
             Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
             string versionString = "v" + VersionHelper.NormalizeSemVerString(entryVersion);
-            
-            if (Util.BuildExpirationHelper.IsEnabled())
-            {
-                versionString += " -- TEST BUILD --";
-            }
-            
+            versionString += BuildChannelHelper.GetChannelSuffix();
+
             this.Title += " - " + versionString;
 
             this.VersionTextBlock.Text = versionString;
@@ -82,7 +82,7 @@ namespace MixItUp.WPF
 
             if (this.streamerSettings.Count > 0)
             {
-                this.ExistingStreamerComboBox.Visibility = Visibility.Visible;
+                this.ExistingProfilePanel.Visibility = Visibility.Visible;
                 this.StreamerLoginButton.IsEnabled = true;
                 if (this.streamerSettings.Count == 1)
                 {
@@ -129,6 +129,77 @@ namespace MixItUp.WPF
             }
 
             await base.OnLoaded();
+        }
+
+        private async Task TryLoadPatreonMemberShoutout()
+        {
+            try
+            {
+                PatreonMemberShoutoutModel member = await ServiceManager.Get<MixItUpService>().GetRandomPatreonMemberShoutout();
+                if (member == null || string.IsNullOrWhiteSpace(member.DisplayName))
+                {
+                    return;
+                }
+
+                string[] ctaMessages = new string[]
+                {
+                    "No ads. No investors. No board of directors. Just amazing **Patreon** members.",
+                    "Every launch, every update, every feature, made possible by **Patreon** members.",
+                    "Mix It Up only exists because of our **Patreon** supporters.",
+                    "No corporate overloards. Just community belief and **Patreon** supporters.", 
+                    "No venture capital. No compromises. Just **Patreon** love.",
+                    "Built for the community, sustained by **Patreon** members.",
+                    "Creator-driven. Community-funded.",
+                };
+
+                string[] shoutOutMessages = new string[]
+                {
+                    "This session made possible by **{0}**.",
+                    "Brought to you by **{0}**.",
+                    "**{0}**, making free software possible.",
+                    "This launch, courtesy of **{0}**.",
+                    "Sincere thanks to **{0}**.",
+                    "Thank you, **{0}**",
+                };
+
+                SetBoldInlineText(this.PatreonCTAHyperlink, ctaMessages[RandomHelper.GenerateRandomNumber(ctaMessages.Length)]);
+                SetBoldInlineText(this.PatreonShoutOutHyperlink, string.Format(shoutOutMessages[RandomHelper.GenerateRandomNumber(shoutOutMessages.Length)], member.DisplayName));
+                this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
+
+                if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
+                {
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 36, 36, member.DisplayName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        private static void SetBoldInlineText(Span container, string text)
+        {
+            container.Inlines.Clear();
+            int i = 0;
+            while (i < text.Length)
+            {
+                int boldStart = text.IndexOf("**", i, StringComparison.Ordinal);
+                if (boldStart < 0)
+                {
+                    container.Inlines.Add(new Run(text[i..]));
+                    break;
+                }
+                if (boldStart > i)
+                    container.Inlines.Add(new Run(text[i..boldStart]));
+                int boldEnd = text.IndexOf("**", boldStart + 2, StringComparison.Ordinal);
+                if (boldEnd < 0)
+                {
+                    container.Inlines.Add(new Run(text[boldStart..]));
+                    break;
+                }
+                container.Inlines.Add(new Run(text[(boldStart + 2)..boldEnd]) { FontWeight = FontWeights.Bold });
+                i = boldEnd + 2;
+            }
         }
 
         private async void StreamerLoginButton_Click(object sender, RoutedEventArgs e)
@@ -199,7 +270,8 @@ namespace MixItUp.WPF
                     }
                     else
                     {
-                        window.Show();
+                        window.Owner = this;
+                        window.ShowDialog();
                     }
                 }
             }
@@ -259,9 +331,9 @@ namespace MixItUp.WPF
         private async Task BackupProfileSettings(SettingsV3Model setting)
         {
             string filePath = ServiceManager.Get<IFileService>().ShowSaveFileDialog(
-                setting.Name + "." + SettingsV3Model.SettingsBackupFileExtension, 
+                setting.Name + "." + SettingsV3Model.SettingsBackupFileExtension,
                 MixItUp.Base.Resources.MixItUpBackupFileFormatFilter);
-            
+
             if (!string.IsNullOrEmpty(filePath))
             {
                 await ServiceManager.Get<SettingsService>().SavePackagedBackup(setting, filePath);
@@ -322,9 +394,9 @@ namespace MixItUp.WPF
             ChannelSession.AppSettings.DashboardWidth = 0;
             ChannelSession.AppSettings.DashboardHeight = 0;
             ChannelSession.AppSettings.IsDashboardMaximized = false;
-            
+
             await ChannelSession.AppSettings.Save();
-            
+
             await DialogHelper.ShowMessage(MixItUp.Base.Resources.ResetWindowPositionDialog);
         }
 
@@ -341,6 +413,5 @@ namespace MixItUp.WPF
         {
             OutageBanner.Visibility = Visibility.Collapsed;
         }
-
     }
 }

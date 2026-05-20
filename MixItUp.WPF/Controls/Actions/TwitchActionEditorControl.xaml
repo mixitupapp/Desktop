@@ -10,6 +10,7 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:ActionControls="clr-namespace:MixItUp.WPF.Controls.Actions"
              xmlns:TwitchControls="clr-namespace:MixItUp.WPF.Controls.Twitch"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <local:ActionEditorControlBase.Resources>
@@ -178,6 +179,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBox Grid.Row="0" Text="{Binding PollTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -221,12 +224,18 @@
 
                 <TextBox Grid.Column="2" Text="{Binding PollChoice4}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice4}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
+
+            <TextBox Grid.Row="8" Text="{Binding PollChoice5}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice5}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowPredictionGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="15" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="15" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -253,6 +262,31 @@
 
                 <TextBox Grid.Column="2" Text="{Binding PredictionOutcome2}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
+
+            <Button Grid.Row="6" Command="{Binding AddPredictionOutcomeCommand}" Content="{x:Static resx:Resources.AddOutcome}" HorizontalAlignment="Center" MinWidth="150" IsEnabled="{Binding CanAddPredictionOutcome}" />
+
+            <ItemsControl Grid.Row="4" ItemsSource="{Binding PredictionAdditionalOutcomes}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,5,10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Grid.Column="0" Text="{Binding Outcome}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                            <Controls:IconButton Grid.Column="2" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowSendAnnouncementGrid, Converter={StaticResource BooleanToVisibilityConverter}}">

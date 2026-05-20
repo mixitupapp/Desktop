@@ -1,8 +1,8 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
-using MixItUp.Base.Services.Trovo.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -173,9 +173,13 @@ namespace MixItUp.Base.Services
                             platformModel = new YouTubeUserPlatformV2Model(youtubeUser);
                         }
                     }
-                    else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+                    else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                     {
-                        // Trovo does not support user look-up by user ID
+                        var kickUser = await ServiceManager.Get<KickSession>().StreamerService.GetUserByID(platformID);
+                        if (kickUser != null)
+                        {
+                            platformModel = new KickUserPlatformV2Model(kickUser);
+                        }
                     }
                 }
 
@@ -203,12 +207,12 @@ namespace MixItUp.Base.Services
                             platformModel = new YouTubeUserPlatformV2Model(youtubeUser);
                         }
                     }
-                    else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+                    else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                     {
-                        var trovoUser = await ServiceManager.Get<TrovoSession>().StreamerService.GetUserByName(platformUsername);
-                        if (trovoUser != null)
+                        var kickUser = await ServiceManager.Get<KickSession>().StreamerService.GetUserByChannelSlug(platformUsername);
+                        if (kickUser != null)
                         {
-                            platformModel = new TrovoUserPlatformV2Model(trovoUser);
+                            platformModel = new KickUserPlatformV2Model(kickUser);
                         }
                     }
                 }
@@ -674,3 +678,5 @@ namespace MixItUp.Base.Services
         #endregion Active Users
     }
 }
+
+

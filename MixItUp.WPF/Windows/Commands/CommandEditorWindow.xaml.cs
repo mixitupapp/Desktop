@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Webhooks;
 using MixItUp.Base.Services;
@@ -75,10 +75,6 @@ namespace MixItUp.WPF.Windows.Commands
                     this.editorDetailsControl = new WebhookCommandEditorDetailsControl();
                     this.viewModel = new WebhookCommandEditorWindowViewModel((WebhookCommandModel)existingCommand);
                     break;
-                case CommandTypeEnum.TrovoSpell:
-                    this.editorDetailsControl = new TrovoSpellCommandEditorDetailsControl();
-                    this.viewModel = new TrovoSpellCommandEditorWindowViewModel((TrovoSpellCommandModel)existingCommand);
-                    break;
                 case CommandTypeEnum.Custom:
                     this.editorDetailsControl = new CustomCommandEditorDetailsControl();
                     this.viewModel = new CustomCommandEditorWindowViewModel((CustomCommandModel)existingCommand);
@@ -98,6 +94,14 @@ namespace MixItUp.WPF.Windows.Commands
                 case CommandTypeEnum.TwitchCustomPowerUp:
                     this.editorDetailsControl = new TwitchCustomPowerUpCommandEditorDetailsControl();
                     this.viewModel = new TwitchCustomPowerUpCommandEditorWindowViewModel((TwitchCustomPowerUpCommandModel)existingCommand);
+                    break;
+                case CommandTypeEnum.KickChannelPoints:
+                    this.editorDetailsControl = new KickChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new KickChannelPointsCommandEditorWindowViewModel((KickChannelPointsCommandModel)existingCommand);
+                    break;
+                case CommandTypeEnum.KickKicks:
+                    this.editorDetailsControl = new KickKicksCommandEditorDetailsControl();
+                    this.viewModel = new KickKicksCommandEditorWindowViewModel((KickKicksCommandModel)existingCommand);
                     break;
             }
 
@@ -134,10 +138,6 @@ namespace MixItUp.WPF.Windows.Commands
                     this.editorDetailsControl = new StreamlootsCardCommandEditorDetailsControl();
                     this.viewModel = new StreamlootsCardCommandEditorWindowViewModel();
                     break;
-                case CommandTypeEnum.TrovoSpell:
-                    this.editorDetailsControl = new TrovoSpellCommandEditorDetailsControl();
-                    this.viewModel = new TrovoSpellCommandEditorWindowViewModel();
-                    break;
                 case CommandTypeEnum.TwitchBits:
                     this.editorDetailsControl = new TwitchBitsCommandEditorDetailsControl();
                     this.viewModel = new TwitchBitsCommandEditorWindowViewModel();
@@ -149,6 +149,14 @@ namespace MixItUp.WPF.Windows.Commands
                 case CommandTypeEnum.TwitchCustomPowerUp:
                     this.editorDetailsControl = new TwitchCustomPowerUpCommandEditorDetailsControl();
                     this.viewModel = new TwitchCustomPowerUpCommandEditorWindowViewModel();
+                    break;
+                case CommandTypeEnum.KickChannelPoints:
+                    this.editorDetailsControl = new KickChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new KickChannelPointsCommandEditorWindowViewModel();
+                    break;
+                case CommandTypeEnum.KickKicks:
+                    this.editorDetailsControl = new KickKicksCommandEditorDetailsControl();
+                    this.viewModel = new KickKicksCommandEditorWindowViewModel();
                     break;
                 case CommandTypeEnum.Custom:
                     this.editorDetailsControl = new CustomCommandEditorDetailsControl();

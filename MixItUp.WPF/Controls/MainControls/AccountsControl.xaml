@@ -1,4 +1,4 @@
-﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.AccountsControl"
+<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.AccountsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -41,7 +41,8 @@
 
             <AccountControls:StreamingPlatformAccountControl Grid.Row="6" DataContext="{Binding YouTube}" />
 
-            <AccountControls:StreamingPlatformAccountControl Grid.Row="8" DataContext="{Binding Trovo}" />
+            <AccountControls:StreamingPlatformAccountControl Grid.Row="8" DataContext="{Binding Kick}" />
+
         </Grid>
     </ScrollViewer>
 </local:MainControlBase>

@@ -1,13 +1,7 @@
 ﻿using MixItUp.Base.Model;
-using MixItUp.Base.Services.Twitch;
-using Newtonsoft.Json.Linq;
-using MixItUp.Base.Util;
-using MixItUp.Base.Web;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.External
@@ -146,34 +140,10 @@ new TextToSpeechVoice("en_us_001", "English US - Female"),
 
         public async Task Speak(string outputDevice, Guid overlayEndpointID, string text, string voice, int volume, int pitch, int rate, bool ssml, bool waitForFinish)
         {
-            using (AdvancedHttpClient client = new AdvancedHttpClient())
+            Stream stream = await ServiceManager.Get<MixItUpService>().GenerateTikTokTTSAudio(text, voice);
+            if (stream != null)
             {
-                client.Timeout = new TimeSpan(0, 0, 10);
-                client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-                JObject body = new JObject();
-                body["text"] = text;
-                body["voice"] = voice;
-
-                HttpResponseMessage response = await client.PostAsync("https://util.mixitupapp.com/api/services/external/tiktoktts/tts/generate", AdvancedHttpClient.CreateContentFromObject(body));
-                if (response.IsSuccessStatusCode)
-                {
-                    MemoryStream stream = new MemoryStream();
-                    using (Stream responseStream = await response.Content.ReadAsStreamAsync())
-                    {
-                        responseStream.CopyTo(stream);
-                        stream.Position = 0;
-                    }
-
-                    await ServiceManager.Get<IAudioService>().PlayMP3Stream(stream, volume, outputDevice, waitForFinish: waitForFinish);
-                }
-                else
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    Logger.Log(LogLevel.Error, "TikTok TTS Error: " + content);
-                    await ServiceManager.Get<ChatService>().SendMessage("TikTok TTS Error: " + content, StreamingPlatformTypeEnum.All);
-                }
+                await ServiceManager.Get<IAudioService>().PlayMP3Stream(stream, volume, outputDevice, waitForFinish: waitForFinish);
             }
         }
     }

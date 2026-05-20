@@ -31,6 +31,8 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
@@ -41,7 +43,11 @@
 
             <Button Grid.Column="6" Content="{x:Static resx:Resources.AddQuote}" Command="{Binding AddQuoteCommand}" />
 
-            <MaterialDesign:PopupBox Grid.Column="8" PlacementMode="BottomAndAlignCentres" StaysOpen="False" ToolTip="{x:Static resx:Resources.Settings}">
+            <Button Grid.Column="8" Width="40" Height="40" MinWidth="40" Padding="4" Command="{Binding ToggleLatestQuotesAtTopCommand}" Style="{StaticResource MaterialDesignIconButton}">
+                <MaterialDesign:PackIcon Width="28" Height="28" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="{Binding QuotesOrderIcon}" />
+            </Button>
+
+            <MaterialDesign:PopupBox Grid.Column="10" PlacementMode="BottomAndAlignCentres" StaysOpen="False" ToolTip="{x:Static resx:Resources.Settings}">
                 <MaterialDesign:PopupBox.ToggleContent>
                     <MaterialDesign:PackIcon Width="32" Height="32" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="Cog" />
                 </MaterialDesign:PopupBox.ToggleContent>

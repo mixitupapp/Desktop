@@ -1,0 +1,71 @@
+.mainContainer {
+  display: flex;
+  border-style: solid;
+  border-width: 5px;
+  border-color: {BorderColor};
+  background-color: {BackgroundColor};
+  width: {Width};
+  height: {Height};
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+}
+
+.healthBarDamage {
+  background-color: {DamageColor};
+  height: 100%;
+}
+
+.healthRemainingBar {
+  background-color: {HealthColor};
+  height: 100%;
+}
+
+.imageContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2%;
+}
+
+.infoContainer {
+  flex: 3;
+  padding: 20px;
+}
+
+.infoContainerVerticalSplit {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.verticalFlexAuto {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexAuto {
+  flex: auto;
+}
+
+@keyframes adjustHealthAnimation {
+  from {
+    width: var(--startPercentage);
+  }
+  to {
+    width: var(--endPercentage);
+  }
+}
+
+.adjustHealth {
+  --startPercentage: 0%;
+  --endPercentage: 0%;
+  animation-name: adjustHealthAnimation;
+  animation-duration: 2s;
+}

@@ -1,4 +1,4 @@
-﻿using MixItUp.API.V1.Models;
+using MixItUp.API.V1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

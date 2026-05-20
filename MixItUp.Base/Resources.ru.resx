@@ -9940,8 +9940,8 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="TrovoElixirSpells" xml:space="preserve">
     <value>Заклинания Трово Эликсира</value>
   </data>
-  <data name="TrovoSubscriptions" xml:space="preserve">
-    <value>Подписки Трово</value>
+  <data name="KickSubscriptions" xml:space="preserve">
+    <value>Подписки Kick</value>
   </data>
   <data name="TwitchSubscriptions" xml:space="preserve">
     <value>Подписки на Twitch</value>
@@ -11293,5 +11293,104 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Показать Twitch Пользовательские бонусы</value>
+	</data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Подарок для канала YouTube Jewels</value>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>Подарок {0} Драгоценности YouTube - {1} ({2} Драгоценности)</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Показать подарок YouTube Jewels</value>
+  </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Выбор 5</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Отключите удаление iframe (обходное решение для заморозки OBS CEF).</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Предупреждение: Тестирование обходного пути. Не рекомендуется включать, если это не требуется для заморозки видео OBS CEF. Это может увеличить потребление памяти или вызвать другие проблемы.
+
+Включайте только в том случае, если вы знаете, что делаете. Продолжить?</value>
+  </data>
+  <data name="ResetModerationStrikes" xml:space="preserve">
+    <value>Сброс ударов модерации для всех пользователей</value>
+  </data>
+  <data name="AddOrDropHere" xml:space="preserve">
+    <value>Добавить или убрать здесь</value>
+  </data>
+  <data name="Kick" xml:space="preserve">
+    <value>Kick</value>
+  </data>
+  <data name="LogInWithKick" xml:space="preserve">
+    <value>Войдите в систему с помощью Kick</value>
+  </data>
+  <data name="LogOutOfKick" xml:space="preserve">
+    <value>Выход из системы Kick</value>
+  </data>
+  <data name="KickChannelStreamStart" xml:space="preserve">
+    <value>Начало потока канала Kick</value>
+  </data>
+  <data name="KickChannelStreamStop" xml:space="preserve">
+    <value>Kick Channel Остановка потока</value>
+  </data>
+  <data name="KickChannelUpdated" xml:space="preserve">
+    <value>Обновление канала Kick</value>
+  </data>
+  <data name="KickChannelFollowed" xml:space="preserve">
+    <value>Kick Channel Отслеживается</value>
+  </data>
+  <data name="KickChannelSubscribed" xml:space="preserve">
+    <value>Подпишись на канал Kick</value>
+  </data>
+  <data name="KickChannelResubscribed" xml:space="preserve">
+    <value>Kick Channel Повторная подписка</value>
+  </data>
+  <data name="KickChannelSubscriptionGifted" xml:space="preserve">
+    <value>Kick Channel Подаренная подписка</value>
+  </data>
+  <data name="KickChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Массовая подписка на канал Kick Channel в подарок</value>
+  </data>
+  <data name="KickChannelPointsRedeemed" xml:space="preserve">
+    <value>Использованные баллы канала Kick</value>
+  </data>
+  <data name="KickChannelKicksGifted" xml:space="preserve">
+    <value>Kick Channel Kicks Gifted</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Для использования этой функции необходимо подключить аккаунт Kick.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Команда очков канала Kick</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Уже существует другая команда Kick Kicks с таким же количеством/диапазоном, что и эта команда.</value>
+  </data>
+  <data name="KickChannelPoints" xml:space="preserve">
+    <value>Очки канала Kick</value>
+  </data>
+  <data name="KickKicks" xml:space="preserve">
+    <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommand" xml:space="preserve">
+    <value>Команда Kick Kicks</value>
+  </data>
+  <data name="KickActionNameMissing" xml:space="preserve">
+    <value>Действие Kick: необходимо указать допустимое имя.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMissing" xml:space="preserve">
+    <value>Действие Kick: отсутствует награда за очки канала</value>
+  </data>
+  <data name="KickActionChannelPointRewardCouldNotBeUpdated" xml:space="preserve">
+    <value>ОШИБКА: не удалось обновить награду за очки канала. Повторите попытку позже. Если эта награда не была создана через интерфейс Mix It Up, вам нужно будет удалить ее и повторно добавить на странице Channel Points, поскольку они должны быть созданы через Mix It Up, чтобы приложение могло их обновлять.</value>
+  </data>
+  <data name="KickActionChannelPointRewardMustBeCreatedInMixItUp" xml:space="preserve">
+    <value>Награды за баллы канала необходимо создавать с помощью Mix It Up, чтобы приложение могло их обновлять.
+Это можно сделать, нажав «Создать вознаграждение за очки канала» на странице «Очки канала» в Mix It Up.</value>
+  </data>
+  <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
+    <value>Награда за очки канала успешно создана! Теперь вы можете динамически обновлять это вознаграждение за очки канала с помощью действия Kick внутри команды. Пожалуйста, воспользуйтесь ссылкой на главной странице "Очки канала", чтобы перейти в редактор на Kick для настройки награды.</value>
   </data>
 </root>

@@ -1,6 +1,6 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Commands;
-using MixItUp.Base.Model.Trovo.Chat;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -8,7 +8,6 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
@@ -80,15 +79,15 @@ namespace MixItUp.Base.Model.Overlay
         public string YouTubeSuperChatsDetailsTemplate { get; set; }
 
         [DataMember]
-        public string TrovoSubscriptionsDetailsTemplate { get; set; }
+        public string KickSubscriptionsDetailsTemplate { get; set; }
         [DataMember]
-        public string TrovoResubscriptionsDetailsTemplate { get; set; }
+        public string KickResubscriptionsDetailsTemplate { get; set; }
         [DataMember]
-        public string TrovoGiftedSubscriptionsDetailsTemplate { get; set; }
+        public string KickGiftedSubscriptionsDetailsTemplate { get; set; }
         [DataMember]
-        public string TrovoMassGiftedSubscriptionsDetailsTemplate { get; set; }
+        public string KickMassGiftedSubscriptionsDetailsTemplate { get; set; }
         [DataMember]
-        public string TrovoElixirSpellsDetailsTemplate { get; set; }
+        public string KickKicksDetailsTemplate { get; set; }
 
         [DataMember]
         public string DonationsDetailsTemplate { get; set; }
@@ -122,9 +121,9 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     await this.AddEvent(subscription.Gifter, nameof(this.YouTubeMemberships), this.YouTubeGiftedMembershipsDetailsTemplate, new Dictionary<string, string>() { { DetailsMembershipNamePropertyName, subscription.Tier.ToString() } });
                 }
-                else if (subscription.Platform == StreamingPlatformTypeEnum.Trovo)
+                else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
                 {
-                    await this.AddEvent(subscription.Gifter, nameof(this.TrovoSubscriptions), this.TrovoGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
+                    await this.AddEvent(subscription.Gifter, nameof(this.KickSubscriptions), this.KickGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
                 }
             }
             else if (subscription.Months > 1)
@@ -145,9 +144,9 @@ namespace MixItUp.Base.Model.Overlay
                         { DetailsAmountPropertyName, subscription.Months.ToString() }
                     });
                 }
-                else if (subscription.Platform == StreamingPlatformTypeEnum.Trovo)
+                else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
                 {
-                    await this.AddEvent(subscription.User, nameof(this.TrovoSubscriptions), this.TrovoResubscriptionsDetailsTemplate, new Dictionary<string, string>()
+                    await this.AddEvent(subscription.User, nameof(this.KickSubscriptions), this.KickResubscriptionsDetailsTemplate, new Dictionary<string, string>()
                     {
                         { DetailsTierPropertyName, subscription.Tier.ToString() },
                         { DetailsAmountPropertyName, subscription.Months.ToString() }
@@ -164,9 +163,9 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     await this.AddEvent(subscription.User, nameof(this.YouTubeMemberships), this.YouTubeMembershipsDetailsTemplate, new Dictionary<string, string>() { { DetailsMembershipNamePropertyName, subscription.YouTubeMembershipTier } });
                 }
-                else if (subscription.Platform == StreamingPlatformTypeEnum.Trovo)
+                else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
                 {
-                    await this.AddEvent(subscription.User, nameof(this.TrovoSubscriptions), this.TrovoSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
+                    await this.AddEvent(subscription.User, nameof(this.KickSubscriptions), this.KickSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
                 }
             }
         }
@@ -202,9 +201,9 @@ namespace MixItUp.Base.Model.Overlay
                     { DetailsAmountPropertyName, amount.ToString() }
                 });
             }
-            else if (platform == StreamingPlatformTypeEnum.Trovo)
+            else if (platform == StreamingPlatformTypeEnum.Kick)
             {
-                await this.AddEvent(gifter, nameof(this.TrovoSubscriptions), this.TrovoMassGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>()
+                await this.AddEvent(gifter, nameof(this.KickSubscriptions), this.KickMassGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>()
                 {
                     { DetailsTierPropertyName, tier.ToString() },
                     { DetailsAmountPropertyName, amount.ToString() }
@@ -227,9 +226,9 @@ namespace MixItUp.Base.Model.Overlay
             await this.AddEvent(superChat.User, nameof(this.YouTubeSuperChats), this.YouTubeSuperChatsDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, superChat.AmountDisplay } });
         }
 
-        public override async void OnTrovoSpell(object sender, TrovoChatSpellViewModel spell)
+        public override async void OnKickKicksGifted(object sender, KickKicksGiftedEventModel kicksGifted)
         {
-            await this.AddEvent(spell.User, nameof(this.TrovoElixirSpells), this.TrovoElixirSpellsDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, spell.ValueTotal.ToString() } });
+            await this.AddEvent(kicksGifted.User, nameof(this.KickKicks), this.KickKicksDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, kicksGifted.Amount.ToString() } });
         }
 
         public override Dictionary<string, object> GetGenerationProperties()
@@ -353,36 +352,9 @@ namespace MixItUp.Base.Model.Overlay
                     await Task.Delay(3000);
                 }
 
-                if (this.TrovoSubscriptions)
+                if (this.KickKicks)
                 {
-                    this.OnSubscribe(this, new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User));
-                    await Task.Delay(3000);
-
-                    this.OnSubscribe(this, new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User, months: 10));
-                    await Task.Delay(3000);
-
-                    this.OnSubscribe(this, new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User, ChannelSession.User));
-                    await Task.Delay(3000);
-
-                    List<SubscriptionDetailsModel> subs = new List<SubscriptionDetailsModel>();
-                    for (int i = 0; i < 5; i++)
-                    {
-                        subs.Add(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Trovo, ChannelSession.User, ChannelSession.User));
-                    }
-                    this.OnMassSubscription(this, subs);
-                    await Task.Delay(3000);
-                }
-
-                if (this.TrovoElixirSpells)
-                {
-                    this.OnTrovoSpell(this, new TrovoChatSpellViewModel(ChannelSession.User, new ChatMessageModel() { content = "" })
-                    {
-                        Contents = new TrovoChatSpellContentModel()
-                        {
-                            num = 10,
-                            gift_value = 10
-                        }
-                    });
+                    this.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
                     await Task.Delay(3000);
                 }
 

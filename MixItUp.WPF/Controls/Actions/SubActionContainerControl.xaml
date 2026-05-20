@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Actions"
              xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+             xmlns:DragDrop="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:ActionControls="clr-namespace:MixItUp.WPF.Controls.Actions"
              mc:Ignorable="d" 
@@ -56,12 +57,32 @@
             <Controls:IconButton Grid.Column="10" ToolTip="{x:Static resx:Resources.ImportActions}" Icon="Import" Command="{Binding ImportActionsCommand}" />
         </Grid>
 
-        <ItemsControl ItemsSource="{Binding ActionEditorList.Actions}" Grid.Row="2">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <ActionControls:ActionEditorContainerControl />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Grid Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding ActionEditorList.Actions}" Background="Transparent" MinHeight="80" DragDrop:DragDrop.IsDragSource="True" DragDrop:DragDrop.IsDropTarget="True" DragDrop:DragDrop.DropHandler="{Binding Source={x:Static Util:ActionListDropHandler.Instance}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ActionControls:ActionEditorContainerControl />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Border IsHitTestVisible="False" MinHeight="80" BorderBrush="{DynamicResource MaterialDesign.Brush.Foreground}" BorderThickness="1" Opacity="0.45">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ActionEditorList.Actions.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <MaterialDesign:PackIcon Kind="PlaylistPlus" Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
+                    <TextBlock Text="{x:Static resx:Resources.AddOrDropHere}" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

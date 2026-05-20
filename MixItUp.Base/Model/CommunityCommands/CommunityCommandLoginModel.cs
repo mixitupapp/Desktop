@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Web;
+using MixItUp.Base.Model.Web;
 using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
@@ -9,6 +9,9 @@ namespace MixItUp.Base.Model.Store
     public class CommunityCommandLoginModel
     {
         [DataMember]
+        public string Version { get; set; }
+
+        [DataMember]
         public Guid UserID { get; set; }
 
         [DataMember]
@@ -16,9 +19,8 @@ namespace MixItUp.Base.Model.Store
         [DataMember]
         public StreamingClient.Base.Model.OAuth.OAuthTokenModel YouTubeOAuthToken { get; set; }
         [DataMember]
-        public string TrovoAccessToken { get; set; }
-        [DataMember]
-        public bool BypassTwitchWebhooks { get; set; }
+        public string KickAccessToken { get; set; }
+
     }
 
     [DataContract]

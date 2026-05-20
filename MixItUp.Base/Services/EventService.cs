@@ -1,11 +1,11 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
@@ -106,21 +106,32 @@ namespace MixItUp.Base.Services
         YouTubeChannelMassMembershipGifted = 323,
 
         YouTubeChannelSuperChat = 370,
+        YouTubeChannelJewelsGift = 371,
 
         // 400 = Trovo
 
+        [Obsolete]
         TrovoChannelStreamStart = 400,
+        [Obsolete]
         TrovoChannelStreamStop = 401,
+        [Obsolete]
         TrovoChannelRaided = 403,
 
+        [Obsolete]
         TrovoChannelFollowed = 410,
 
+        [Obsolete]
         TrovoChannelSubscribed = 420,
+        [Obsolete]
         TrovoChannelResubscribed = 421,
+        [Obsolete]
         TrovoChannelSubscriptionGifted = 422,
+        [Obsolete]
         TrovoChannelMassSubscriptionsGifted = 423,
 
+        [Obsolete]
         TrovoChannelSpellCast = 470,
+        [Obsolete]
         TrovoChannelMagicChat = 471,
 
         // 500 = Glimesh
@@ -138,6 +149,21 @@ namespace MixItUp.Base.Services
         GlimeshChannelSubscriptionGifted = 522,
         [Obsolete]
         GlimeshChannelDonation = 550,
+
+        // 600 = Kick
+        KickChannelStreamStart = 600,
+        KickChannelStreamStop = 601,
+        KickChannelUpdated = 602,
+
+        KickChannelFollowed = 610,
+
+        KickChannelSubscribed = 620,
+        KickChannelResubscribed = 621,
+        KickChannelSubscriptionGifted = 622,
+        KickChannelMassSubscriptionsGifted = 623,
+
+        KickChannelPointsRedeemed = 670,
+        KickChannelKicksGifted = 671,
 
         // Donation Services = 1000
 
@@ -238,11 +264,11 @@ namespace MixItUp.Base.Services
         public static event EventHandler<TwitchBitsCheeredEventModel> OnTwitchBitsCheeredOccurred = delegate { };
         public static void TwitchBitsCheeredOccurred(TwitchBitsCheeredEventModel bitsCheer) { OnTwitchBitsCheeredOccurred(null, bitsCheer); }
 
-        public static event EventHandler<TrovoChatSpellViewModel> OnTrovoSpellCastOccurred = delegate { };
-        public static void TrovoSpellCastOccurred(TrovoChatSpellViewModel spell) { OnTrovoSpellCastOccurred(null, spell); }
-
         public static event EventHandler<YouTubeSuperChatViewModel> OnYouTubeSuperChatOccurred = delegate { };
         public static void YouTubeSuperChatOccurred(YouTubeSuperChatViewModel superchat) { OnYouTubeSuperChatOccurred(null, superchat); }
+
+        public static event EventHandler<KickKicksGiftedEventModel> OnKickKicksGiftedOccurred = delegate { };
+        public static void KickKicksGiftedOccurred(KickKicksGiftedEventModel kicksGifted) { OnKickKicksGiftedOccurred(null, kicksGifted); }
 
         private static HashSet<EventTypeEnum> singleUseTracking = new HashSet<EventTypeEnum>()
         {
@@ -254,7 +280,7 @@ namespace MixItUp.Base.Services
 
             EventTypeEnum.YouTubeChannelStreamStart, EventTypeEnum.YouTubeChannelStreamStop, EventTypeEnum.YouTubeChannelNewMember, EventTypeEnum.YouTubeChannelMemberMilestone,
 
-            EventTypeEnum.TrovoChannelStreamStart, EventTypeEnum.TrovoChannelStreamStop, EventTypeEnum.TrovoChannelFollowed, EventTypeEnum.TrovoChannelRaided, EventTypeEnum.TrovoChannelSubscribed, EventTypeEnum.TrovoChannelResubscribed,
+            EventTypeEnum.KickChannelStreamStart, EventTypeEnum.KickChannelStreamStop, EventTypeEnum.KickChannelFollowed, EventTypeEnum.KickChannelSubscribed, EventTypeEnum.KickChannelResubscribed,
         };
 
         private LockedDictionary<EventTypeEnum, HashSet<Guid>> userEventTracking = new LockedDictionary<EventTypeEnum, HashSet<Guid>>();
@@ -332,20 +358,20 @@ namespace MixItUp.Base.Services
                 switch (type)
                 {
                     case EventTypeEnum.TwitchChannelFollowed:
-                    case EventTypeEnum.TrovoChannelFollowed:
+                    case EventTypeEnum.KickChannelFollowed:
                         ChannelSession.Settings.LastFollowerUserID = parameters.User.ID;
                         break;
                     case EventTypeEnum.TwitchChannelSubscribed:
+                    case EventTypeEnum.KickChannelSubscribed:
                     case EventTypeEnum.YouTubeChannelNewMember:
-                    case EventTypeEnum.TrovoChannelSubscribed:
                     case EventTypeEnum.TwitchChannelResubscribed:
+                    case EventTypeEnum.KickChannelResubscribed:
                     case EventTypeEnum.YouTubeChannelMemberMilestone:
-                    case EventTypeEnum.TrovoChannelResubscribed:
                         ChannelSession.Settings.LastSubscriberUserID = parameters.User.ID;
                         break;
                     case EventTypeEnum.TwitchChannelSubscriptionGifted:
+                    case EventTypeEnum.KickChannelSubscriptionGifted:
                     case EventTypeEnum.YouTubeChannelMembershipGifted:
-                    case EventTypeEnum.TrovoChannelSubscriptionGifted:
                         if (parameters.TargetUser != null)
                         {
                             ChannelSession.Settings.LastSubscriberUserID = parameters.TargetUser.ID;
@@ -387,40 +413,39 @@ namespace MixItUp.Base.Services
                     {
                         case EventTypeEnum.TwitchChannelStreamStart:
                         case EventTypeEnum.YouTubeChannelStreamStart:
-                        case EventTypeEnum.TrovoChannelStreamStart:
+                        case EventTypeEnum.KickChannelStreamStart:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelStreamStart);
                             break;
                         case EventTypeEnum.TwitchChannelStreamStop:
                         case EventTypeEnum.YouTubeChannelStreamStop:
-                        case EventTypeEnum.TrovoChannelStreamStop:
+                        case EventTypeEnum.KickChannelStreamStop:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelStreamStop);
                             break;
                         case EventTypeEnum.TwitchChannelRaided:
-                        case EventTypeEnum.TrovoChannelRaided:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelRaided);
                             break;
                         case EventTypeEnum.TwitchChannelFollowed:
-                        case EventTypeEnum.TrovoChannelFollowed:
+                        case EventTypeEnum.KickChannelFollowed:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelFollowed);
                             break;
                         case EventTypeEnum.TwitchChannelSubscribed:
+                        case EventTypeEnum.KickChannelSubscribed:
                         case EventTypeEnum.YouTubeChannelNewMember:
-                        case EventTypeEnum.TrovoChannelSubscribed:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelSubscribed);
                             break;
                         case EventTypeEnum.TwitchChannelResubscribed:
+                        case EventTypeEnum.KickChannelResubscribed:
                         case EventTypeEnum.YouTubeChannelMemberMilestone:
-                        case EventTypeEnum.TrovoChannelResubscribed:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelResubscribed);
                             break;
                         case EventTypeEnum.TwitchChannelSubscriptionGifted:
+                        case EventTypeEnum.KickChannelSubscriptionGifted:
                         case EventTypeEnum.YouTubeChannelMembershipGifted:
-                        case EventTypeEnum.TrovoChannelSubscriptionGifted:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelSubscriptionGifted);
                             break;
                         case EventTypeEnum.TwitchChannelMassSubscriptionsGifted:
+                        case EventTypeEnum.KickChannelMassSubscriptionsGifted:
                         case EventTypeEnum.YouTubeChannelMassMembershipGifted:
-                        case EventTypeEnum.TrovoChannelMassSubscriptionsGifted:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelMassSubscriptionsGifted);
                             break;
                     }

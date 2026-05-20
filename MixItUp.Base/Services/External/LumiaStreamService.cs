@@ -20,9 +20,6 @@ namespace MixItUp.Base.Services.External
         [JsonProperty("chat-command")]
         public LumiaStreamSettingsOptionsValue chatCommands { get; set; }
 
-        [JsonProperty("trovo-spells")]
-        public LumiaStreamSettingsOptionsValue trovoSpells { get; set; }
-
         [JsonProperty("twitch-extension")]
         public LumiaStreamSettingsOptionsValue twitchExtension { get; set; }
 

@@ -79,7 +79,19 @@ namespace MixItUp.Base.ViewModel.Settings
         }
         private string newEndpointName;
 
+        public bool DisableIFrameRemoval
+        {
+            get { return this.disableIFrameRemoval; }
+            set
+            {
+                this.disableIFrameRemoval = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool disableIFrameRemoval;
+
         public ICommand UpdatePortNumberCommand { get; set; }
+        public ICommand ToggleDisableIFrameRemovalCommand { get; set; }
 
         public ICommand AddCommand { get; set; }
 
@@ -105,6 +117,35 @@ namespace MixItUp.Base.ViewModel.Settings
                 }
             });
 
+            this.ToggleDisableIFrameRemovalCommand = this.CreateCommand(async (state) =>
+            {
+                bool disableIFrameRemoval = state as bool? ?? false;
+                bool previousDisableIFrameRemoval = ChannelSession.Settings.DisableOverlayIFrameRemoval;
+                if (disableIFrameRemoval == previousDisableIFrameRemoval)
+                {
+                    return;
+                }
+
+                if (disableIFrameRemoval &&
+                    !await DialogHelper.ShowConfirmation(Resources.OverlayDisableIFrameRemovalConfirmationMessage))
+                {
+                    this.DisableIFrameRemoval = previousDisableIFrameRemoval;
+                    return;
+                }
+
+                ChannelSession.Settings.DisableOverlayIFrameRemoval = disableIFrameRemoval;
+
+                await ServiceManager.Get<OverlayV3Service>().Disconnect();
+
+                if (!(await ServiceManager.Get<OverlayV3Service>().Connect()).Success)
+                {
+                    await ServiceManager.Get<OverlayV3Service>().Disconnect();
+
+                    ChannelSession.Settings.DisableOverlayIFrameRemoval = previousDisableIFrameRemoval;
+                    this.DisableIFrameRemoval = previousDisableIFrameRemoval;
+                }
+            });
+
             this.AddCommand = this.CreateCommand(() =>
             {
                 if (!string.IsNullOrEmpty(this.NewEndpointName))
@@ -126,6 +167,7 @@ namespace MixItUp.Base.ViewModel.Settings
         protected override Task OnOpenInternal()
         {
             this.PortNumber = ChannelSession.Settings.OverlayPortNumber;
+            this.DisableIFrameRemoval = ChannelSession.Settings.DisableOverlayIFrameRemoval;
 
             this.Endpoints.ClearAndAddRange(ServiceManager.Get<OverlayV3Service>().GetOverlayEndpoints().Select(oe => new OverlayEndpointListingViewModel(this, oe)));
 

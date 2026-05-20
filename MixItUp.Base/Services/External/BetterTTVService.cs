@@ -17,6 +17,8 @@ namespace MixItUp.Base.Services.External
         public string code { get; set; }
         public string imageType { get; set; }
 
+        public override string Provider { get { return "bttv"; } }
+
         public override string ID { get { return this.id; } protected set { } }
         public override string Name { get { return this.code; } protected set { } }
         public override string ImageURL { get { return string.Format("https://cdn.betterttv.net/emote/{0}/3x", this.id); } protected set { } }

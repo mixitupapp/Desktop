@@ -207,6 +207,10 @@ FakesAssemblies/
 MixItUp.WPF/ApplicationSettings.json
 MixItUp.WPF/Logs/*.txt
 MixItUp.WPF/Settings/*.miu3*
+MixItUp.WPF/*.db
+MixItUp.WPF/*.db3
+MixItUp.WPF/Settings/*.db*
+MixItUp.WPF/Counters
 
 # SignTool - ignore everything except zip files
 Util/SignTool/*

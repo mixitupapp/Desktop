@@ -1,10 +1,10 @@
-﻿using MixItUp.Base.Model.Twitch.Bits;
+﻿using MixItUp.Base.Model.Kick.Kicks;
+using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
@@ -40,9 +40,9 @@ namespace MixItUp.Base.Model.Overlay
         public virtual bool YouTubeSuperChats { get; set; }
 
         [DataMember]
-        public virtual bool TrovoSubscriptions { get; set; }
+        public virtual bool KickSubscriptions { get; set; }
         [DataMember]
-        public virtual bool TrovoElixirSpells { get; set; }
+        public virtual bool KickKicks { get; set; }
 
         [DataMember]
         public virtual bool Donations { get; set; }
@@ -102,10 +102,11 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnYouTubeSuperChatOccurred += OnYouTubeSuperChat;
             }
 
-            if (this.TrovoElixirSpells)
+            if (this.KickKicks)
             {
-                EventService.OnTrovoSpellCastOccurred += EventService_OnTrovoSpellCastOccurred;
+                EventService.OnKickKicksGiftedOccurred += OnKickKicksGifted;
             }
+
         }
 
         public override async Task Uninitialize()
@@ -139,15 +140,7 @@ namespace MixItUp.Base.Model.Overlay
 
         public virtual void OnYouTubeSuperChat(object sender, YouTubeSuperChatViewModel superChat) { }
 
-        public virtual void OnTrovoSpell(object sender, TrovoChatSpellViewModel spell) { }
-
-        private void EventService_OnTrovoSpellCastOccurred(object sender, TrovoChatSpellViewModel spell)
-        {
-            if (spell.IsElixir)
-            {
-                this.OnTrovoSpell(sender, spell);
-            }
-        }
+        public virtual void OnKickKicksGifted(object sender, KickKicksGiftedEventModel kicksGifted) { }
 
         private void RemoveEventHandlers()
         {
@@ -165,7 +158,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnDonationOccurred -= OnDonation;
             EventService.OnTwitchBitsCheeredOccurred -= OnTwitchBits;
             EventService.OnYouTubeSuperChatOccurred -= OnYouTubeSuperChat;
-            EventService.OnTrovoSpellCastOccurred -= EventService_OnTrovoSpellCastOccurred;
+            EventService.OnKickKicksGiftedOccurred -= OnKickKicksGifted;
         }
     }
 }

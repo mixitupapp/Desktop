@@ -58,7 +58,10 @@ namespace MixItUp.Base.ViewModel.Commands
 
         public override Dictionary<string, string> GetTestSpecialIdentifiers()
         {
-            return JSONParameters.ToDictionary(j => j.SpecialIdentifierName, j => "Test Value");
+            return JSONParameters
+                .Where(j => !string.IsNullOrWhiteSpace(j.SpecialIdentifierName))
+                .GroupBy(j => j.SpecialIdentifierName, StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(g => g.First().SpecialIdentifierName, g => "Test Value");
         }
 
         protected override async Task OnOpenInternal()
@@ -77,14 +80,37 @@ namespace MixItUp.Base.ViewModel.Commands
                 return Task.FromResult(new Result(MixItUp.Base.Resources.ACommandNameMustBeSpecified));
             }
 
-            if (this.JSONParameters.Any(j => string.IsNullOrWhiteSpace(j.JSONParameterName)))
+            HashSet<string> jsonParameterNames = new HashSet<string>();
+            HashSet<string> specialIdentifierNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (WebhookJSONParameterViewModel jsonParameter in this.JSONParameters)
             {
-                return Task.FromResult(new Result(MixItUp.Base.Resources.AJSONParameterNameMustBeSpecified));
-            }
+                if (string.IsNullOrWhiteSpace(jsonParameter.JSONParameterName))
+                {
+                    return Task.FromResult(new Result(MixItUp.Base.Resources.AJSONParameterNameMustBeSpecified));
+                }
 
-            if (this.JSONParameters.Any(j => string.IsNullOrWhiteSpace(j.SpecialIdentifierName)))
-            {
-                return Task.FromResult(new Result(MixItUp.Base.Resources.ASpecialIdentifierNameMustBeSpecified));
+                if (string.IsNullOrWhiteSpace(jsonParameter.SpecialIdentifierName))
+                {
+                    return Task.FromResult(new Result(MixItUp.Base.Resources.ASpecialIdentifierNameMustBeSpecified));
+                }
+
+                jsonParameter.SpecialIdentifierName = jsonParameter.SpecialIdentifierName.Replace("$", "");
+                if (!SpecialIdentifierStringBuilder.IsValidSpecialIdentifier(jsonParameter.SpecialIdentifierName))
+                {
+                    return Task.FromResult(new Result(MixItUp.Base.Resources.SpecialIdentifierActionInvalidSpecialIdentifierName));
+                }
+
+                if (jsonParameterNames.Contains(jsonParameter.JSONParameterName))
+                {
+                    return Task.FromResult(new Result(MixItUp.Base.Resources.WebRequestActionDuplicateJSONParameter));
+                }
+                jsonParameterNames.Add(jsonParameter.JSONParameterName);
+
+                if (specialIdentifierNames.Contains(jsonParameter.SpecialIdentifierName))
+                {
+                    return Task.FromResult(new Result($"Duplicate special identifier name: {jsonParameter.SpecialIdentifierName}"));
+                }
+                specialIdentifierNames.Add(jsonParameter.SpecialIdentifierName);
             }
 
             return Task.FromResult(new Result());

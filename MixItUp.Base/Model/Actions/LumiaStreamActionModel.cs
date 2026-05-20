@@ -18,6 +18,7 @@ namespace MixItUp.Base.Model.Actions
         ChatCommand,
         TwitchPoint,
         TwitchExtension,
+        [Obsolete]
         TrovoSpell,
     }
 
@@ -87,9 +88,6 @@ namespace MixItUp.Base.Model.Actions
                             break;
                         case LumiaStreamActionCommandTypeEnum.TwitchExtension:
                             commandType = "twitch-extension";
-                            break;
-                        case LumiaStreamActionCommandTypeEnum.TrovoSpell:
-                            commandType = "trovo-spells";
                             break;
                     }
 

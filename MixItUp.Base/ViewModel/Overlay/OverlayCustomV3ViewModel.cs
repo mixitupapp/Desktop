@@ -1,7 +1,7 @@
 ﻿using Google.Apis.YouTube.v3.Data;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
-using MixItUp.Base.Model.Trovo.Chat;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -10,7 +10,6 @@ using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
@@ -46,7 +45,8 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         YouTubeSuperChat,
 
-        TrovoElixirSpell,
+        KickKicksGifted,
+
     }
 
     public class OverlayCustomPropertyV3ViewModel : UIViewModelBase
@@ -186,27 +186,27 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private bool youTubeSuperChats;
 
-        public bool TrovoSubscriptions
+        public bool KickSubscriptions
         {
-            get { return this.trovoSubscriptions; }
+            get { return this.kickSubscriptions; }
             set
             {
-                this.trovoSubscriptions = value;
+                this.kickSubscriptions = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private bool trovoSubscriptions;
+        private bool kickSubscriptions;
 
-        public bool TrovoElixirSpells
+        public bool KickKicks
         {
-            get { return this.trovoElixirSpells; }
+            get { return this.kickKicks; }
             set
             {
-                this.trovoElixirSpells = value;
+                this.kickKicks = value;
                 this.NotifyPropertyChanged();
             }
         }
-        private bool trovoElixirSpells;
+        private bool kickKicks;
 
         public bool Donations
         {
@@ -241,8 +241,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.TwitchBits = item.TwitchBits;
             this.YouTubeMemberships = item.YouTubeMemberships;
             this.YouTubeSuperChats = item.YouTubeSuperChats;
-            this.TrovoSubscriptions = item.TrovoSubscriptions;
-            this.TrovoElixirSpells = item.TrovoElixirSpells;
+            this.KickSubscriptions = item.KickSubscriptions;
+            this.KickKicks = item.KickKicks;
             this.Donations = item.Donations;
 
             foreach (var property in item.Properties)
@@ -356,18 +356,9 @@ namespace MixItUp.Base.ViewModel.Overlay
                         UserComment = "Hello World"
                     }, ChannelSession.User));
                 }
-                else if (type == OverlayCustomV3TestTypeEnum.TrovoElixirSpell)
+                else if (type == OverlayCustomV3TestTypeEnum.KickKicksGifted)
                 {
-                    custom.OnTrovoSpell(this, new TrovoChatSpellViewModel(ChannelSession.User, new ChatMessageModel() { content = "" })
-                    {
-                        Contents = new TrovoChatSpellContentModel()
-                        {
-                            gift = "Foobar",
-                            value_type = TrovoChatSpellViewModel.ElixirValueType,
-                            num = 10,
-                            gift_value = 10,
-                        }
-                    });
+                    custom.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
                 }
             }
 
@@ -390,8 +381,8 @@ namespace MixItUp.Base.ViewModel.Overlay
                 TwitchBits = this.TwitchBits,
                 YouTubeMemberships = this.YouTubeMemberships,
                 YouTubeSuperChats = this.YouTubeSuperChats,
-                TrovoSubscriptions = this.TrovoSubscriptions,
-                TrovoElixirSpells = this.TrovoElixirSpells,
+                KickSubscriptions = this.KickSubscriptions,
+                KickKicks = this.KickKicks,
                 Donations = this.Donations,
             };
 

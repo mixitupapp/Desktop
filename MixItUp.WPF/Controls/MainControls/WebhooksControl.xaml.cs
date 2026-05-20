@@ -111,5 +111,10 @@ namespace MixItUp.WPF.Controls.MainControls
         {
             await this.viewModel.RefreshCommands();
         }
+
+        private void CloseApiMigrationBanner_Click(object sender, RoutedEventArgs e)
+        {
+            this.viewModel.ShowApiMigrationBanner = false;
+        }
     }
 }

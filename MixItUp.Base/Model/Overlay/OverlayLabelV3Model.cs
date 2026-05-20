@@ -1,14 +1,13 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
-using MixItUp.Base.Services.Trovo;
-using MixItUp.Base.Services.Trovo.New;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.ViewModel.Chat.Trovo;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
@@ -32,8 +31,8 @@ namespace MixItUp.Base.Model.Overlay
         LatestRaid,
         LatestDonation,
         LatestTwitchBits,
-        LatestTrovoElixir,
         LatestYouTubeSuperChat,
+        LatestKicksGifted,
         LatestSubscriptionGifter,
 
         Counter = 100,
@@ -174,15 +173,6 @@ namespace MixItUp.Base.Model.Overlay
                             user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: followers.First().user_id, performPlatformSearch: true);
                         }
                     }
-                    else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                    {
-                        var followers = await ServiceManager.Get<TrovoSession>().StreamerService.GetFollowers(ServiceManager.Get<TrovoSession>().ChannelID, maxResults: 1);
-                        if (followers != null && followers.Count() > 0)
-                        {
-                            user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Trovo, platformID: followers.First().user_id, platformUsername: followers.First().nickname, performPlatformSearch: true);
-                        }
-                    }
-
                     if (user == null && ChannelSession.Settings.LastFollowerUserID != Guid.Empty)
                     {
                         user = await ServiceManager.Get<UserService>().GetUserByID(ChannelSession.Settings.DefaultStreamingPlatform, ChannelSession.Settings.LastFollowerUserID);
@@ -200,10 +190,6 @@ namespace MixItUp.Base.Model.Overlay
                     if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Twitch && ServiceManager.Get<TwitchSession>().IsConnected)
                     {
                         amount = await ServiceManager.Get<TwitchSession>().StreamerService.GetFollowerCount(ServiceManager.Get<TwitchSession>().StreamerModel);
-                    }
-                    else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                    {
-                        amount = (await ServiceManager.Get<TrovoSession>().StreamerService.GetFollowers(ServiceManager.Get<TrovoSession>().ChannelID, int.MaxValue)).Count();
                     }
                     this.Displays[OverlayLabelDisplayV3TypeEnum.TotalFollowers].Amount = amount;
                 }
@@ -255,9 +241,12 @@ namespace MixItUp.Base.Model.Overlay
                     {
                         amount = await ServiceManager.Get<TwitchSession>().StreamerService.GetSubscriberCount(ServiceManager.Get<TwitchSession>().StreamerModel);
                     }
-                    else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+                    else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                     {
-                        amount = (await ServiceManager.Get<TrovoSession>().StreamerService.GetSubscribers(ServiceManager.Get<TrovoSession>().ChannelID, int.MaxValue)).Count();
+                        if (ServiceManager.Get<KickSession>().Channel != null)
+                        {
+                            amount = ServiceManager.Get<KickSession>().Channel.ActiveSubscribersCount;
+                        }
                     }
                     this.Displays[OverlayLabelDisplayV3TypeEnum.TotalSubscribers].Amount = amount;
                 }
@@ -273,14 +262,14 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnTwitchBitsCheeredOccurred += EventService_OnTwitchBitsCheeredOccurred;
             }
 
-            if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestTrovoElixir))
-            {
-                EventService.OnTrovoSpellCastOccurred += EventService_OnTrovoSpellCastOccurred;
-            }
-
             if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestYouTubeSuperChat))
             {
                 EventService.OnYouTubeSuperChatOccurred += EventService_OnYouTubeSuperChatOccurred;
+            }
+
+            if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestKicksGifted))
+            {
+                EventService.OnKickKicksGiftedOccurred += EventService_OnKickKicksGiftedOccurred;
             }
 
             if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.Counter))
@@ -504,21 +493,18 @@ namespace MixItUp.Base.Model.Overlay
             await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestTwitchBits);
         }
 
-        private async void EventService_OnTrovoSpellCastOccurred(object sender, TrovoChatSpellViewModel spell)
-        {
-            if (spell.IsElixir)
-            {
-                this.Displays[OverlayLabelDisplayV3TypeEnum.LatestTrovoElixir].UserID = spell.User.ID;
-                this.Displays[OverlayLabelDisplayV3TypeEnum.LatestTrovoElixir].Amount = spell.ValueTotal;
-                await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestTrovoElixir);
-            }
-        }
-
         private async void EventService_OnYouTubeSuperChatOccurred(object sender, YouTubeSuperChatViewModel superChat)
         {
             this.Displays[OverlayLabelDisplayV3TypeEnum.LatestYouTubeSuperChat].UserID = superChat.User.ID;
             this.Displays[OverlayLabelDisplayV3TypeEnum.LatestYouTubeSuperChat].AmountText = superChat.AmountDisplay;
             await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestYouTubeSuperChat);
+        }
+
+        private async void EventService_OnKickKicksGiftedOccurred(object sender, KickKicksGiftedEventModel kicksGifted)
+        {
+            this.Displays[OverlayLabelDisplayV3TypeEnum.LatestKicksGifted].UserID = kicksGifted.User.ID;
+            this.Displays[OverlayLabelDisplayV3TypeEnum.LatestKicksGifted].Amount = kicksGifted.Amount;
+            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestKicksGifted);
         }
 
         private async void CounterModel_OnCounterUpdated(object sender, CounterModel counter)
@@ -630,8 +616,8 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnMassSubscriptionsGiftedOccurred -= EventService_OnMassSubscriptionsGiftedOccurred;
             EventService.OnDonationOccurred -= EventService_OnDonationOccurred;
             EventService.OnTwitchBitsCheeredOccurred -= EventService_OnTwitchBitsCheeredOccurred;
-            EventService.OnTrovoSpellCastOccurred -= EventService_OnTrovoSpellCastOccurred;
             EventService.OnYouTubeSuperChatOccurred -= EventService_OnYouTubeSuperChatOccurred;
+            EventService.OnKickKicksGiftedOccurred -= EventService_OnKickKicksGiftedOccurred;
             CounterModel.OnCounterUpdated -= CounterModel_OnCounterUpdated;
         }
     }

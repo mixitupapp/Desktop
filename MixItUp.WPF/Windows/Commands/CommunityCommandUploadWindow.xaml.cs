@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Services;
@@ -83,10 +83,11 @@ namespace MixItUp.WPF.Windows.Commands
                         case CommandTypeEnum.StreamlootsCard: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.StreamlootsCardCommand); break;
                         case CommandTypeEnum.TwitchChannelPoints: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.TwitchChannelPointsCommand); break;
                         case CommandTypeEnum.Webhook: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.Webhook); break;
-                        case CommandTypeEnum.TrovoSpell: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.TrovoSpell); break;
                         case CommandTypeEnum.TwitchBits: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.TwitchBits); break;
                         case CommandTypeEnum.CrowdControlEffect: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.CrowdControlEffect); break;
                         case CommandTypeEnum.TwitchCustomPowerUp: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.TwitchCustomPowerUpCommand); break;
+                        case CommandTypeEnum.KickChannelPoints: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.KickChannelPoints); break;
+                        case CommandTypeEnum.KickKicks: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.KickKicks); break;
                     }
                 }
                 else

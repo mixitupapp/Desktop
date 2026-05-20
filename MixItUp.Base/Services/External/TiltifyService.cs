@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.User;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.Web;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -83,6 +84,28 @@ namespace MixItUp.Base.Services.External
     }
 
     [DataContract]
+    public class TiltifyReward
+    {
+        [DataMember]
+        public string id { get; set; }
+        [DataMember]
+        public string name { get; set; }
+        [DataMember]
+        public string description { get; set; }
+        [DataMember]
+        public int quantity { get; set; }
+        [DataMember]
+        public int quantity_remaining { get; set; }
+        [DataMember]
+        public bool active { get; set; }
+        [DataMember]
+        public JObject amount { get; set; }
+
+        [JsonIgnore]
+        public double Amount { get { return TiltifyService.GetValueFromTiltifyJObject(this.amount); } }
+    }
+
+    [DataContract]
     public class TiltifyDonation
     {
         [DataMember]
@@ -91,6 +114,8 @@ namespace MixItUp.Base.Services.External
         public string campaign_id { get; set; }
         [DataMember]
         public string cause_id { get; set; }
+        [DataMember]
+        public string reward_id { get; set; }
         [DataMember]
         public string created_at { get; set; }
         [DataMember]
@@ -151,6 +176,7 @@ namespace MixItUp.Base.Services.External
 
         private TiltifyCampaign campaign = null;
         private Dictionary<string, TiltifyDonation> donationsReceived = new Dictionary<string, TiltifyDonation>();
+        private Dictionary<string, TiltifyReward> rewards = new Dictionary<string, TiltifyReward>();
 
         public TiltifyService() : base(TiltifyService.BaseAddress) { }
 
@@ -186,7 +212,6 @@ namespace MixItUp.Base.Services.External
                     this.token = await this.PostAsync<OAuthTokenModel>("https://v5api.tiltify.com/oauth/token", AdvancedHttpClient.CreateContentFromObject(payload), autoRefreshToken: false);
                     if (this.token != null)
                     {
-                        token.expiresIn = int.MaxValue;
 
                         return await this.InitializeInternal();
                     }
@@ -246,6 +271,18 @@ namespace MixItUp.Base.Services.External
             else
             {
                 return await this.GetArrayResult<TiltifyDonation>($"api/public/campaigns/{campaign.id}/donations?limit=20");
+            }
+        }
+
+        public async Task<IEnumerable<TiltifyReward>> GetCampaignRewards(TiltifyCampaign campaign)
+        {
+            if (campaign.IsPartOfTeam)
+            {
+                return await this.GetArrayResult<TiltifyReward>($"api/public/team_campaigns/{campaign.id}/rewards?limit=100", usePageCursor: true);
+            }
+            else
+            {
+                return await this.GetArrayResult<TiltifyReward>($"api/public/campaigns/{campaign.id}/rewards?limit=100", usePageCursor: true);
             }
         }
 
@@ -319,6 +356,7 @@ namespace MixItUp.Base.Services.External
                 Logger.Log(LogLevel.Debug, $"Initializing campaign donations...");
 
                 donationsReceived.Clear();
+                rewards.Clear();
 
                 if (ChannelSession.Settings.TiltifyCampaignV5IsTeam)
                 {
@@ -335,11 +373,27 @@ namespace MixItUp.Base.Services.External
                     {
                         donationsReceived[donation.id] = donation;
                     }
+
+                    foreach (TiltifyReward reward in await this.GetCampaignRewards(this.campaign))
+                    {
+                        if (!string.IsNullOrEmpty(reward.id))
+                        {
+                            rewards[reward.id] = reward;
+                        }
+                    }
                 }
             }
 
             if (this.campaign != null)
             {
+                foreach (TiltifyReward reward in await this.GetCampaignRewards(this.campaign))
+                {
+                    if (!string.IsNullOrEmpty(reward.id))
+                    {
+                        rewards[reward.id] = reward;
+                    }
+                }
+
                 foreach (TiltifyDonation tDonation in await this.GetCampaignDonations(this.campaign))
                 {
                     Logger.Log(LogLevel.Debug, $"Checking of donation {tDonation.id} at {tDonation.Timestamp} has already been processed...");
@@ -350,7 +404,21 @@ namespace MixItUp.Base.Services.External
                         if (tDonation.Timestamp > this.startTime)
                         {
                             Logger.Log(LogLevel.Debug, $"Donation {tDonation.id} is new, start processing...");
-                            await EventService.ProcessDonationEvent(EventTypeEnum.TiltifyDonation, tDonation.ToGenericDonation());
+
+                            Dictionary<string, string> rewardSpecialIdentifiers = new Dictionary<string, string>();
+                            rewardSpecialIdentifiers["tiltifyrewardid"] = string.Empty;
+                            rewardSpecialIdentifiers["tiltifyrewardname"] = string.Empty;
+                            rewardSpecialIdentifiers["tiltifyrewarddescription"] = string.Empty;
+                            rewardSpecialIdentifiers["tiltifyrewardamount"] = string.Empty;
+                            if (!string.IsNullOrEmpty(tDonation.reward_id) && this.rewards.TryGetValue(tDonation.reward_id, out TiltifyReward reward))
+                            {
+                                rewardSpecialIdentifiers["tiltifyrewardid"] = reward.id;
+                                rewardSpecialIdentifiers["tiltifyrewardname"] = reward.name;
+                                rewardSpecialIdentifiers["tiltifyrewarddescription"] = reward.description;
+                                rewardSpecialIdentifiers["tiltifyrewardamount"] = reward.Amount.ToString();
+                            }
+
+                            await EventService.ProcessDonationEvent(EventTypeEnum.TiltifyDonation, tDonation.ToGenericDonation(), additionalSpecialIdentifiers: rewardSpecialIdentifiers);
                         }
                         else
                         {
@@ -369,7 +437,7 @@ namespace MixItUp.Base.Services.External
         {
             try
             {
-                JObject result = await this.GetJObjectAsync(url);
+                JObject result = await this.GetJObjectWith401RefreshRetry(url);
                 if (result != null && result.ContainsKey("data"))
                 {
                     return result["data"].ToObject<T>();
@@ -393,7 +461,7 @@ namespace MixItUp.Base.Services.External
                         queryUrl += $"&after={afterCursor}";
                     }
 
-                    JObject result = await this.GetJObjectAsync(queryUrl);
+                    JObject result = await this.GetJObjectWith401RefreshRetry(queryUrl);
                     afterCursor = null;
 
                     if (result != null)
@@ -419,6 +487,18 @@ namespace MixItUp.Base.Services.External
             }
             catch (Exception ex) { Logger.Log(ex); }
             return results;
+        }
+        private async Task<JObject> GetJObjectWith401RefreshRetry(string url)
+        {
+            try
+            {
+                return await this.GetJObjectAsync(url);
+            }
+            catch (HttpRestRequestException ex) when (ex.Response?.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                await this.RefreshOAuthToken();
+                return await this.GetJObjectAsync(url);
+            }
         }
     }
 }

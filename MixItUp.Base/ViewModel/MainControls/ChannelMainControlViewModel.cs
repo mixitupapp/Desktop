@@ -1,16 +1,17 @@
-﻿using Google.Apis.YouTube.v3.Data;
+using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
-using MixItUp.Base.Model.Trovo.Category;
-using MixItUp.Base.Model.Trovo.Channels;
+using MixItUp.Base.Model.Kick.Categories;
+using MixItUp.Base.Model.Kick.Common;
 using MixItUp.Base.Model.Twitch.Games;
 using MixItUp.Base.Model.Twitch.Streams;
 using MixItUp.Base.Model.Twitch.Teams;
 using MixItUp.Base.Model.Twitch.User;
 using MixItUp.Base.Services;
-using MixItUp.Base.Services.Trovo.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
+using MixItUp.Base.ViewModel.Kick;
 using MixItUp.Base.ViewModel.Twitch;
 using MixItUp.Base.ViewModels;
 using System;
@@ -288,11 +289,15 @@ namespace MixItUp.Base.ViewModel.MainControls
             this.UpcomingBroadcasts.Clear();
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {
-                foreach (LiveBroadcast broadcast in await ServiceManager.Get<YouTubeSession>().StreamerService.GetLatestBroadcasts())
+                IEnumerable<LiveBroadcast> broadcasts = await ServiceManager.Get<YouTubeSession>().StreamerService.GetLatestBroadcasts();
+                if (broadcasts != null)
                 {
-                    if (!ServiceManager.Get<YouTubeSession>().LiveBroadcasts.ContainsKey(broadcast.Id))
+                    foreach (LiveBroadcast broadcast in broadcasts)
                     {
-                        this.UpcomingBroadcasts.Add(new LiveBroadcastViewModel(broadcast));
+                        if (broadcast != null && !ServiceManager.Get<YouTubeSession>().LiveBroadcasts.ContainsKey(broadcast.Id))
+                        {
+                            this.UpcomingBroadcasts.Add(new LiveBroadcastViewModel(broadcast));
+                        }
                     }
                 }
             }
@@ -332,65 +337,69 @@ namespace MixItUp.Base.ViewModel.MainControls
         }
     }
 
-    public class TrovoChannelControlViewModel : PlatformChannelControlViewModelBase
+    public class KickChannelControlViewModel : PlatformChannelControlViewModelBase
     {
-        public enum TrovoSearchFindChannelToRaidTypeEnum
+        public KickTagEditorViewModel TagEditor { get; set; } = new KickTagEditorViewModel();
+
+        public KickChannelControlViewModel() { this.Platform = StreamingPlatformTypeEnum.Kick; }
+
+        protected override async Task OnOpenInternal()
         {
-            SameCategory,
-            Featured,
+            await this.TagEditor.OnOpen();
+
+            await this.TagEditor.LoadCurrentTags();
+
+            await base.OnOpenInternal();
         }
-
-        public IEnumerable<TrovoSearchFindChannelToRaidTypeEnum> SearchFindChannelToRaidOptions { get; set; } = EnumHelper.GetEnumList<TrovoSearchFindChannelToRaidTypeEnum>();
-
-        public TrovoSearchFindChannelToRaidTypeEnum SelectedSearchFindChannelToRaidOption
-        {
-            get { return this.selectedSearchFindChannelToRaidOption; }
-            set
-            {
-                this.selectedSearchFindChannelToRaidOption = value;
-                this.NotifyPropertyChanged();
-            }
-        }
-        private TrovoSearchFindChannelToRaidTypeEnum selectedSearchFindChannelToRaidOption;
-
-        public TrovoChannelControlViewModel() { this.Platform = StreamingPlatformTypeEnum.Trovo; }
 
         protected override async Task<Result> UpdateChannelInformation()
         {
-            CategoryModel category = null;
-
-            IEnumerable<CategoryModel> categories = await ServiceManager.Get<TrovoSession>().StreamerService.SearchCategories(this.Category, maxResults: 10);
-            if (categories != null && categories.Count() > 0)
+            long? categoryID = null;
+            if (!string.IsNullOrWhiteSpace(this.Category))
             {
-                category = categories.FirstOrDefault();
+                PaginatedResponseModel<CategoryWithTagsModel> categories = await ServiceManager.Get<KickSession>().StreamerService.GetCategories(limit: 100, names: new List<string>() { this.Category });
+                if (categories != null && categories.Data != null && categories.Data.Count > 0)
+                {
+                    CategoryWithTagsModel selectedCategory = categories.Data.FirstOrDefault(c => string.Equals(c.Name, this.Category, StringComparison.OrdinalIgnoreCase));
+                    if (selectedCategory == null)
+                    {
+                        selectedCategory = categories.Data.First();
+                    }
+                    categoryID = selectedCategory.ID;
+                }
             }
 
-            return await ServiceManager.Get<TrovoSession>().StreamerService.UpdateChannel(ServiceManager.Get<TrovoSession>().ChannelID, title: this.Title, categoryID: category?.id);
+            return await ServiceManager.Get<KickSession>().StreamerService.UpdateChannel(
+                title: this.Title,
+                categoryID: categoryID,
+                customTags: this.TagEditor.CustomTags.Select(t => t.Tag));
         }
 
-        protected override async Task SearchChannelsToRaid()
+        protected override async Task RefreshChannelInformation()
         {
-            this.ChannelsToRaid.Clear();
+            KickSession session = ServiceManager.Get<KickSession>();
+            await session.RefreshDetails();
 
-            List<ChannelToRaidItemViewModel> results = new List<ChannelToRaidItemViewModel>();
-
-            if (this.SelectedSearchFindChannelToRaidOption == TrovoSearchFindChannelToRaidTypeEnum.Featured)
+            if (!string.IsNullOrEmpty(session.Channel?.StreamTitle))
             {
-                foreach (TopChannelModel channel in await ServiceManager.Get<TrovoSession>().StreamerService.GetTopChannels(maxResults: 10))
-                {
-                    results.Add(new ChannelToRaidItemViewModel(channel));
-                }
+                this.Title = session.Channel.StreamTitle;
             }
-            else if (this.SelectedSearchFindChannelToRaidOption == TrovoSearchFindChannelToRaidTypeEnum.SameCategory)
+            if (!string.IsNullOrEmpty(session.Channel?.Category?.Name))
             {
-                foreach (TopChannelModel channel in await ServiceManager.Get<TrovoSession>().StreamerService.GetTopChannels(maxResults: 10, categoryID: ServiceManager.Get<TrovoSession>().ChannelModel.category_id))
-                {
-                    results.Add(new ChannelToRaidItemViewModel(channel));
-                }
+                this.Category = session.Channel.Category.Name;
             }
 
-            this.ChannelsToRaid.AddRange(results.Take(10));
+            if (session.Channel?.Stream?.CustomTags != null)
+            {
+                this.TagEditor.ClearCustomTags();
+                foreach (string tag in session.Channel.Stream.CustomTags)
+                {
+                    await this.TagEditor.AddCustomTag(tag);
+                }
+            }
         }
+
+        protected override Task SearchChannelsToRaid() { return Task.CompletedTask; }
     }
 
     public abstract class PlatformChannelControlViewModelBase : UIViewModelBase
@@ -426,14 +435,6 @@ namespace MixItUp.Base.ViewModel.MainControls
                 this.Category = (game != null) ? game.name : MixItUp.Base.Resources.Unknown;
             }
 
-            public ChannelToRaidItemViewModel(TopChannelModel channel)
-            {
-                this.Platform = StreamingPlatformTypeEnum.Trovo;
-                this.ID = channel.channel_id;
-                this.Name = channel.username;
-                this.Viewers = channel.current_viewers;
-                this.Category = channel.category_name;
-            }
 
             private ChannelToRaidItemViewModel()
             {
@@ -452,10 +453,6 @@ namespace MixItUp.Base.ViewModel.MainControls
                             await ServiceManager.Get<TwitchSession>().StreamerService.RaidChannel(ServiceManager.Get<TwitchSession>().StreamerModel, targetChannel);
                         }
                     }
-                    else if (this.Platform == StreamingPlatformTypeEnum.Trovo)
-                    {
-                        await ServiceManager.Get<TrovoSession>().StreamerService.HostUser(ServiceManager.Get<TrovoSession>().ChannelID, this.Name);
-                    }
                 });
             }
 
@@ -466,10 +463,6 @@ namespace MixItUp.Base.ViewModel.MainControls
                     if (this.Platform == StreamingPlatformTypeEnum.Twitch)
                     {
                         return $"https://www.twitch.tv/{this.Name}";
-                    }
-                    else if (this.Platform == StreamingPlatformTypeEnum.Trovo)
-                    {
-                        return $"https://www.trovo.live/{this.Name}";
                     }
                     return string.Empty;
                 }
@@ -594,13 +587,13 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public YouTubeChannelControlViewModel YouTube { get; set; } = new YouTubeChannelControlViewModel();
 
-        public TrovoChannelControlViewModel Trovo { get; set; } = new TrovoChannelControlViewModel();
+        public KickChannelControlViewModel Kick { get; set; } = new KickChannelControlViewModel();
 
         public bool IsTwitchConnected { get { return ServiceManager.Get<TwitchSession>().IsConnected; } }
 
         public bool IsYouTubeConnected { get { return ServiceManager.Get<YouTubeSession>().IsConnected; } }
 
-        public bool IsTrovoConnected { get { return ServiceManager.Get<TrovoSession>().IsConnected; } }
+        public bool IsKickConnected { get { return ServiceManager.Get<KickSession>().IsConnected; } }
 
         public ChannelMainControlViewModel(MainWindowViewModel windowViewModel) : base(windowViewModel) { }
 
@@ -616,9 +609,9 @@ namespace MixItUp.Base.ViewModel.MainControls
                 await this.YouTube.OnOpen();
             }
 
-            if (this.IsTrovoConnected)
+            if (this.IsKickConnected)
             {
-                await this.Trovo.OnOpen();
+                await this.Kick.OnOpen();
             }
 
             await base.OnOpenInternal();
@@ -636,9 +629,9 @@ namespace MixItUp.Base.ViewModel.MainControls
                 await this.YouTube.OnVisible();
             }
 
-            if (this.IsTrovoConnected)
+            if (this.IsKickConnected)
             {
-                await this.Trovo.OnVisible();
+                await this.Kick.OnVisible();
             }
 
             await base.OnVisibleInternal();

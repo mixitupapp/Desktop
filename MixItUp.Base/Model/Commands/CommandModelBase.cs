@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Requirements;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -24,9 +24,12 @@ namespace MixItUp.Base.Model.Commands
         PreMade = 8,
         StreamlootsCard = 9,
         Webhook = 10,
+        [Obsolete]
         TrovoSpell = 11,
         TwitchBits = 12,
         CrowdControlEffect = 13,
+        KickChannelPoints = 14,
+        KickKicks = 15,
         TwitchCustomPowerUp = 16,
 
         // Specialty Command Types

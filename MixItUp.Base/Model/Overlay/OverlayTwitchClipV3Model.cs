@@ -5,12 +5,9 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
-using MixItUp.Base.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
@@ -175,28 +172,14 @@ namespace MixItUp.Base.Model.Overlay
                 this.ClipID = clip.id;
                 this.ClipDuration = clip.duration;
 
-                using (AdvancedHttpClient client = new AdvancedHttpClient())
+                this.ClipDirectLink = await ServiceManager.Get<MixItUpService>().GetTwitchClipUrl(clip.id);
+                if (!string.IsNullOrEmpty(this.ClipDirectLink))
                 {
-                    client.Timeout = new TimeSpan(0, 0, 10);
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", UtilServiceHelper.GenerateClientKey());
-
-
-                    HttpResponseMessage response = await client.GetAsync($"https://util.mixitupapp.com/api/services/external/twitch/clips?id={clip.id}");
-                    if (response.IsSuccessStatusCode)
-                    {
-                        this.ClipDirectLink = await response.Content.ReadAsStringAsync();
-                        this.ClipDirectLink = this.ClipDirectLink.Trim();
-                        return true;
-                    }
-                    else
-                    {
-                        string content = await response.Content.ReadAsStringAsync();
-                        Logger.Log(LogLevel.Error, "Twitch Clip URL Error: " + content);
-                        await ServiceManager.Get<ChatService>().SendMessage(Resources.OverlayTwitchClipErrorUnableToFindValidClip, StreamingPlatformTypeEnum.Twitch);
-                        return false;
-                    }
+                    return true;
                 }
+
+                await ServiceManager.Get<ChatService>().SendMessage(Resources.OverlayTwitchClipErrorUnableToFindValidClip, StreamingPlatformTypeEnum.Twitch);
+                return false;
             }
 
             return false;

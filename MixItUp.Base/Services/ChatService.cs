@@ -1,10 +1,10 @@
-﻿using MixItUp.Base.Model;
+using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Requirements;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services.Mock.New;
-using MixItUp.Base.Services.Trovo.New;
+using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
@@ -110,13 +110,13 @@ namespace MixItUp.Base.Services
             {
                 viewerCount += ServiceManager.Get<TwitchSession>().StreamViewerCount;
             }
-            if (ServiceManager.Get<TrovoSession>().IsConnected && ServiceManager.Get<TrovoSession>().IsLive)
-            {
-                viewerCount += ServiceManager.Get<TrovoSession>().StreamViewerCount;
-            }
             if (ServiceManager.Get<YouTubeSession>().IsConnected && ServiceManager.Get<YouTubeSession>().IsLive)
             {
                 viewerCount += ServiceManager.Get<YouTubeSession>().StreamViewerCount;
+            }
+            if (ServiceManager.Get<KickSession>().IsConnected && ServiceManager.Get<KickSession>().IsLive)
+            {
+                viewerCount += ServiceManager.Get<KickSession>().StreamViewerCount;
             }
             return viewerCount;
         }
@@ -162,9 +162,9 @@ namespace MixItUp.Base.Services
                             await ServiceManager.Get<YouTubeSession>().SendMessage(message, sendAsStreamer);
                         }
                     }
-                    else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+                    else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                     {
-                        await ServiceManager.Get<TrovoSession>().SendMessage(message, sendAsStreamer);
+                        await ServiceManager.Get<KickSession>().SendMessage(message, sendAsStreamer);
                     }
                     else if (platform == StreamingPlatformTypeEnum.Mock)
                     {
@@ -214,7 +214,7 @@ namespace MixItUp.Base.Services
                 return;
             }
 
-            if (externalDeletion && !this.messagesLookup.TryGetValue(message.ID, out ChatMessageViewModel existingMessage) && existingMessage != null)
+            if (externalDeletion && this.messagesLookup.TryGetValue(message.ID, out ChatMessageViewModel existingMessage) && existingMessage != null)
             {
                 message = existingMessage;
             }
@@ -229,9 +229,9 @@ namespace MixItUp.Base.Services
                 {
                     await ServiceManager.Get<YouTubeSession>().DeleteMessage(message);
                 }
-                else if (message.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+                else if (message.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                 {
-                    await ServiceManager.Get<TrovoSession>().DeleteMessage(message);
+                    await ServiceManager.Get<KickSession>().DeleteMessage(message);
                 }
                 else if (message.Platform == StreamingPlatformTypeEnum.Mock)
                 {
@@ -285,11 +285,6 @@ namespace MixItUp.Base.Services
                 {
                     await ServiceManager.Get<TwitchSession>().ClearMessages();
                 }
-                else if (platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
-                {
-                    await ServiceManager.Get<TrovoSession>().ClearMessages();
-                }
-
                 this.messagesLookup.Clear();
                 this.Messages.Clear();
             }
@@ -318,10 +313,9 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().TimeoutUser(user, durationInSeconds);
             }
-
-            if (user.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
-                await ServiceManager.Get<TrovoSession>().TimeoutUser(user, durationInSeconds);
+                await ServiceManager.Get<KickSession>().TimeoutUser(user, durationInSeconds, reason);
             }
 
             ChatService.ChatUserTimedOut(user);
@@ -338,11 +332,11 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().ModUser(user);
             }
-
-            if (user.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
-                await ServiceManager.Get<TrovoSession>().ModUser(user);
+                await ServiceManager.Get<KickSession>().ModUser(user);
             }
+
         }
 
         public async Task UnmodUser(UserV2ViewModel user)
@@ -356,11 +350,11 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().UnmodUser(user);
             }
-
-            if (user.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
-                await ServiceManager.Get<TrovoSession>().UnmodUser(user);
+                await ServiceManager.Get<KickSession>().UnmodUser(user);
             }
+
         }
 
         public async Task BanUser(UserV2ViewModel user, string reason = null)
@@ -374,10 +368,9 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().BanUser(user, reason);
             }
-
-            if (user.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
-                await ServiceManager.Get<TrovoSession>().BanUser(user, reason);
+                await ServiceManager.Get<KickSession>().BanUser(user, reason);
             }
 
             ChatService.ChatUserBanned(user);
@@ -394,11 +387,11 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<YouTubeSession>().UnbanUser(user);
             }
-
-            if (user.Platform == StreamingPlatformTypeEnum.Trovo && ServiceManager.Get<TrovoSession>().IsConnected)
+            if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
-                await ServiceManager.Get<TrovoSession>().UnbanUser(user);
+                await ServiceManager.Get<KickSession>().UnbanUser(user);
             }
+
         }
 
         public void RebuildCommandTriggers()
