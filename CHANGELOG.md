@@ -1,22 +1,51 @@
 # Mix It Up Desktop Changelog
 
-## 1.6.630
+## 1.7.000
 
-- [FEAT] Make Kick channel points trigger when status is accepted (Skip reward request queue enabled or approved by mod )
-- [FEAT] Track total subs gifted for Kick users
-- [FEAT] Add Kick to channel page to update tags, category, and title
-- [FEAT] Add banner in Webhooks page notifying user of API domain switch
-- [FEAT] Add additional properties to Chat overlay widget & custom widget
-- [FEAT] Login UI branding & M3 alignment
-- [FIX] Kick mass gifted event
-- [FIX] Update various Kick text strings
-- [FIX] Crash in channel page when YT does not return any broadcasts
-- [MAINT] Move TTS services to new Desktop API
-- [MAINT] Move notifications and outage checks to new Desktop API
-- [MAINT] Remove leftover Trovo references
-- [CHORE] Update dependencies to latest version for improved performance and stability
+### ***BREAKING CHANGES***
 
-## 1.6.620
+- Remove Trovo platform
+- Remove Infinite Album integration
+- Remove OvrStream integration
+- Webhooks Server Migration (Please update your integrations (EX: Ko-fi) from api.mixitupapp.com to desktop.api.mixitupapp.com by May 27)
+
+### FEATURES
+
+- Added Kick integration for chat, events, channel points, and Kicks
+- Added Kick Action
+- Added Kick to channel page to update tags, category, and title
+- Added Twitch Custom Power-Up commands and event
+- Support for ten prediction outcomes in Twitch Action
+- Fifth poll choice in Twitch Action
+- YouTube Channel Jewel Gift Event
+- Patreon Member recognition
+- New Tiltify rewards special identifiers
+- New overlay compatibility setting as a workaround for OBS CEF freezes (Settings -> Overlay)
+- Added additional properties to Chat overlay widget & custom widget
+- New $messagenoemotes and $messageemotecount special identifiers
+- Reset moderation strikes for all users in Moderation Action
+- Added sort quotes button in quotes page
+- Support for multiple cooldown usage requirements
+- Actions drag and drop support to actions that contain nested sub actions list
+- Refreshed Login UI for branding & M3 alignment
+
+### FIXES
+
+- Crash in channel page when YT does not return any broadcasts
+- Typo causing YouTube super sticker event to trigger from super chat events
+- Handle missing song titles during library load and title search for music player
+- Webhook command crash when using duplicate json pairs
+- Tiltify authentication when it expires
+- Scrollbar visibility in stream pass window
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Typo in new user wizard
+- Move TTS services to new Desktop API
+- Move notifications and outage checks to new Desktop API
+- Update dependencies to latest version for improved performance and stability
+
+## 1.6.600
 
 - [FEAT] Add support for Twitch Custom Power-ups
 
@@ -33,7 +62,7 @@
 - [FIX] Tiltify authentication when it expires
 - [FIX] Scrollbar visibility in stream pass window
 - [FIX] Typo in new user wizard
-- [BREAKING] We are migrating our webhooks to a new subdomiain. Update your services to point to ***https://desktop.api.mixitupapp.com/api/webhook/[your id tokens here]*** to prevent any interruptions
+- [BREAKING] We are migrating our webhooks to a new subdomiain. Update your services to point to ***<https://desktop.api.mixitupapp.com/api/webhook/[your> id tokens here]*** to prevent any interruptions
 
 ## 1.6.510
 
