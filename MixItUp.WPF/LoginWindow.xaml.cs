@@ -248,7 +248,7 @@ namespace MixItUp.WPF
 
         private async Task CheckForUpdates()
         {
-            this.currentUpdate = await ServiceManager.Get<MixItUpService>().GetLatestUpdate();
+            this.currentUpdate = await ServiceManager.Get<MixItUpService>()?.GetLatestUpdate();
             if (this.currentUpdate != null)
             {
                 Version currentVersion = Assembly.GetEntryAssembly()?.GetName().Version ?? new Version(0, 0, 0, 0);
