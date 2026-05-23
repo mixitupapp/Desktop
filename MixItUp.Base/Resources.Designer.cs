@@ -1069,7 +1069,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} goal ended at {1}/{2}.
+        ///   Looks up a localized string similar to {0} Goal Ended at {1} of {2}.
         /// </summary>
         public static string AlertTwitchGoalEnded {
             get {
@@ -1078,7 +1078,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Started a {0} goal: {1} → {2}.
+        ///   Looks up a localized string similar to {0} Goal Started, Target: {1}.
         /// </summary>
         public static string AlertTwitchGoalStarted {
             get {
@@ -1105,7 +1105,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Sent a Shoutout ({1} viewers).
+        ///   Looks up a localized string similar to {0} Sent a Shoutout with {1} Viewers.
         /// </summary>
         public static string AlertTwitchShoutoutReceived {
             get {
@@ -1114,7 +1114,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} (Suspicious User) Sent a Message.
+        ///   Looks up a localized string similar to Suspicious User {0} Sent a Message.
         /// </summary>
         public static string AlertTwitchSuspiciousUserMessage {
             get {
@@ -1123,7 +1123,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Suspicious Status Updated to {1}.
+        ///   Looks up a localized string similar to {0} Suspicious Status Set to {1}.
         /// </summary>
         public static string AlertTwitchSuspiciousUserUpdated {
             get {
@@ -1132,7 +1132,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Warned.
+        ///   Looks up a localized string similar to {0} was Warned.
         /// </summary>
         public static string AlertTwitchUserWarned {
             get {

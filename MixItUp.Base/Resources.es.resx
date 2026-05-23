@@ -11417,4 +11417,88 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="UnpinMessage" xml:space="preserve">
     <value>Desanclar el mensaje</value>
   </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>Establecer el estado de usuario sospechoso</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>Eliminar el estado de usuario sospechoso</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>Supervisión activa</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>Restringido</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Advertencia a un usuario de un canal de Twitch</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>Canal de Twitch Shoutout recibido</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Mensaje de usuario sospechoso en el canal de Twitch</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Canal de Twitch usuario sospechoso actualizado</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0} fue Avisado</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} Envió un Shoutout con {1} Visitantes</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Usuario sospechoso {0} Envió un mensaje</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0} Estado sospechoso Configurado a {1}</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>Mostrar advertencias a los usuarios de Twitch</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>Mostrar gritos recibidos en Twitch</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Mostrar mensajes de usuarios sospechosos de Twitch</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>Mostrar actualizaciones de usuarios sospechosos en Twitch</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Canal de Twitch Modo Escudo iniciado</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Canal Twitch Modo Escudo Ended</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} Modo Escudo Activado</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} Modo Escudo desactivado</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>Mostrar Twitch Modo Escudo Iniciado</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>Mostrar el modo de escudo Twitch Ended</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Comienza el objetivo del canal de Twitch</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Objetivo canal de Twitch Ended</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0} Gol iniciado en {1} de {2}</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0} Gol Finalizado en {1} de {2}</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>Show Twitch Goal Iniciado</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>Mostrar Twitch Meta Terminado</value>
+  </data>
 </root>

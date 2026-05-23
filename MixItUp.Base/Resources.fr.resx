@@ -11416,4 +11416,88 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="UnpinMessage" xml:space="preserve">
     <value>Message d'épinglage</value>
   </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>Définir le statut de l'utilisateur suspect</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>Supprimer le statut d'utilisateur suspect</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>Surveillance active</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>Restreint</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Avertissement à l'utilisateur d'une chaîne Twitch</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>Shoutout de la chaîne Twitch reçu</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Message d'un utilisateur suspect sur une chaîne Twitch</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Mise à jour de la chaîne Twitch d'un utilisateur suspect</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0} a été averti</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} a envoyé un message à {1} Les téléspectateurs</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>L'utilisateur suspect {0} a envoyé un message</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0} État suspect réglé sur {1}</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>Afficher les avertissements des utilisateurs de Twitch</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>Montrer les shoutouts reçus sur Twitch</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Afficher les messages d'utilisateurs suspects de Twitch</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>Afficher les mises à jour des utilisateurs suspects de Twitch</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Démarrage du mode bouclier de la chaîne Twitch</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Canal Twitch Shield Mode Terminé</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} Mode bouclier activé</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} Mode bouclier désactivé</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>Show Twitch Shield Mode Started</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>Afficher le mode Twitch Shield Ended</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Objectif de la chaîne Twitch lancé</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Objectif de la chaîne Twitch Ended</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0} Objectif commencé à {1} de {2}</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0} But terminé à {1} de {2}</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>Show Twitch Goal Started</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>Show Twitch Goal Terminé</value>
+  </data>
 </root>

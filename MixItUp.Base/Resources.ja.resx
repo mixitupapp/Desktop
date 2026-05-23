@@ -11415,4 +11415,88 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="UnpinMessage" xml:space="preserve">
     <value>アンピンメッセージ</value>
   </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>疑わしいユーザーのステータスを設定する</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>疑わしいユーザーのステータスを削除する</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>アクティブ・モニタリング</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>制限あり</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Twitchチャンネル・ユーザーに警告</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>Twitchチャンネルのシャウトを受信</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitchチャンネルの不審なユーザーメッセージ</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Twitchチャンネルの不審なユーザーが更新されました</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0}が警告された</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0}が{1}にシャウトを送った視聴者</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>不審なユーザー {0} がメッセージを送信した</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0} 不審なステータス {1} に設定</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>Twitchユーザーの警告を表示する</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>受信したTwitchシャウトを表示する</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitchの不審なユーザーメッセージを表示する</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>Twitchに不審なユーザーのアップデートを表示する</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Twitchチャンネルシールドモード開始</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Twitchチャンネル・シールド・モード 終了</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} シールドモード起動</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} シールドモード解除</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>Twitchシールドモード開始を表示</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>Twitchのシールドモードを表示 Ended</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Twitchチャンネル目標スタート</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Twitch チャンネル ゴール 終了</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0}ゴール {2}の{1}でスタート</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0}ゴールは{2}の{1}で終了。</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>ショー・ツイッチ・ゴールスタート</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>Twitchのゴールを表示する 終了</value>
+  </data>
 </root>

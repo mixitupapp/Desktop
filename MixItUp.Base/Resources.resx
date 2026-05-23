@@ -11464,16 +11464,16 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>Twitch Channel Suspicious User Updated</value>
   </data>
   <data name="AlertTwitchUserWarned" xml:space="preserve">
-    <value>{0} Warned</value>
+    <value>{0} was Warned</value>
   </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
-    <value>{0} Sent a Shoutout ({1} viewers)</value>
+    <value>{0} Sent a Shoutout with {1} Viewers</value>
   </data>
   <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
-    <value>{0} (Suspicious User) Sent a Message</value>
+    <value>Suspicious User {0} Sent a Message</value>
   </data>
   <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
-    <value>{0} Suspicious Status Updated to {1}</value>
+    <value>{0} Suspicious Status Set to {1}</value>
   </data>
   <data name="ShowTwitchUserWarned" xml:space="preserve">
     <value>Show Twitch User Warnings</value>
@@ -11512,10 +11512,10 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>Twitch Channel Goal Ended</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
-    <value>Started a {0} goal: {1} → {2}</value>
+    <value>{0} Goal Started at {1} of {2}</value>
   </data>
   <data name="AlertTwitchGoalEnded" xml:space="preserve">
-    <value>{0} goal ended at {1}/{2}</value>
+    <value>{0} Goal Ended at {1} of {2}</value>
   </data>
   <data name="ShowTwitchGoalStarted" xml:space="preserve">
     <value>Show Twitch Goal Started</value>

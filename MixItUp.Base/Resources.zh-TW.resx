@@ -11415,4 +11415,88 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="UnpinMessage" xml:space="preserve">
     <value>取消留言</value>
   </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>设置可疑用户状态</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>删除可疑用户状态</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>主动监测</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>受限制</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Twitch 频道用户受到警告</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>收到 Twitch 频道呐喊</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitch 频道可疑用户信息</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Twitch 频道可疑用户已更新</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0}收到警告</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} 与 {1} 一起呐喊观众</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>可疑用户 {0} 发送了一条信息</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0}可疑状态 设置为 {1｝</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>显示 Twitch 用户警告</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>显示收到的 Twitch 喊声</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>显示 Twitch 可疑用户信息</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>显示 Twitch 可疑用户更新</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Twitch 频道屏蔽模式启动</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Twitch 频道屏蔽模式</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} 激活屏蔽模式</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} 关闭屏蔽模式</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>显示已启动的 Twitch 屏蔽模式</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>显示 Twitch 屏蔽模式 Ended</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Twitch 频道目标启动</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Twitch 频道目标</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0}目标从{2}的{1}开始</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0}目标在{2}的{1}处结束</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>开始显示 Twitch 目标</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>显示 Twitch 目标 已结束</value>
+  </data>
 </root>
