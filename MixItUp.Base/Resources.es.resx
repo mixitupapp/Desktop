@@ -11390,4 +11390,16 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>¡Recompensa de Puntos de Canal creada con éxito! Ahora puede actualizar dinámicamente esta Recompensa de Puntos de Canal utilizando la acción Kick dentro de un comando. Utilice el enlace de la página principal de Puntos de Canal para visitar el editor de Kick y personalizar su recompensa.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Mostrar puntos de canal de Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Mostrar Kicks de Kick</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} canjeó {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} regaló {1} Kicks</value>
+  </data>
 </root>

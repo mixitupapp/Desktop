@@ -34,6 +34,8 @@
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Donation}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Streamloots}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Moderation}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding KickChannelPoints}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding KickKicks}" />
         </StackPanel>
     </Grid>
 </local:SettingsControlBase>

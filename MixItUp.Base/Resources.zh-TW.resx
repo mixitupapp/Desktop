@@ -11388,4 +11388,16 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>成功创建通道积分奖励！现在，您可以使用命令中的 Kick 操作动态更新此频道积分奖励。请使用 "频道积分 "主页面上的链接访问 Kick 上的编辑器，自定义您的奖励。</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>顯示 Kick 頻道點數</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>顯示 Kick 的 Kicks</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} 已兌換 {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} 贈送了 {1} 個 Kicks</value>
+  </data>
 </root>

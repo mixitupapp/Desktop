@@ -11394,4 +11394,16 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Channel Point Reward erfolgreich erstellt! Sie können diese Channel-Point-Belohnung jetzt dynamisch aktualisieren, indem Sie die Kick-Aktion innerhalb eines Befehls verwenden. Bitte verwenden Sie den Link auf der Hauptseite der Channel Points, um den Editor auf Kick zu besuchen und Ihre Belohnung anzupassen.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Kick Kanalpunkte anzeigen</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Kick Kicks anzeigen</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} hat {1} eingelöst</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} hat {1} Kicks verschenkt</value>
+  </data>
 </root>

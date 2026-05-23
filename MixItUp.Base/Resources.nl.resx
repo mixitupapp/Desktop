@@ -11389,4 +11389,16 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Beloning voor kanaalpunten succesvol aangemaakt! Je kunt deze Kanaalpuntbeloning nu dynamisch bijwerken met de Kick-actie in een opdracht. Gebruik de link op de hoofdpagina met kanaalpunten om naar de editor op Kick te gaan om je beloning aan te passen.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Kick kanaalpunten tonen</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Kick Kicks tonen</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} heeft {1} ingewisseld</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} heeft {1} Kicks cadeau gedaan</value>
+  </data>
 </root>

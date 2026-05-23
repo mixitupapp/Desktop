@@ -11389,4 +11389,16 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Récompense en points de chaîne créée avec succès ! Vous pouvez maintenant mettre à jour dynamiquement cette récompense en utilisant l'action Kick à l'intérieur d'une commande. Veuillez utiliser le lien sur la page principale des points de chaîne pour visiter l'éditeur sur Kick afin de personnaliser votre récompense.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Afficher les points de chaîne Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Afficher les Kicks de Kick</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} a échangé {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} a offert {1} Kicks</value>
+  </data>
 </root>

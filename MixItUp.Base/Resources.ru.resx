@@ -11393,4 +11393,16 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Награда за очки канала успешно создана! Теперь вы можете динамически обновлять это вознаграждение за очки канала с помощью действия Kick внутри команды. Пожалуйста, воспользуйтесь ссылкой на главной странице "Очки канала", чтобы перейти в редактор на Kick для настройки награды.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Показать очки канала Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Показать Kicks на Kick</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} использовал(а) {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} подарил(а) {1} Kicks</value>
+  </data>
 </root>

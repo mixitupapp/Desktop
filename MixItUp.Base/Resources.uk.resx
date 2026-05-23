@@ -11388,4 +11388,16 @@ print(run())</value>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Винагороду за точку каналу успішно створено! Тепер ви можете динамічно оновлювати цю винагороду за призові очки каналу за допомогою дії Kick всередині команди. Будь ласка, скористайтеся посиланням на головній сторінці Channel Points, щоб відвідати редактор Kick і налаштувати свою винагороду.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Показати очки каналу Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Показати Kicks на Kick</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} використав(ла) {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} подарував(ла) {1} Kicks</value>
+  </data>
 </root>

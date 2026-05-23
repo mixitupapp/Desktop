@@ -7363,6 +7363,12 @@ Failure to do one of the following could effect how users rate &amp; review your
   <data name="ShowTwitchChannelPoints" xml:space="preserve">
     <value>Show Twitch Channel Points</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Show Kick Channel Points</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Show Kick Kicks</value>
+  </data>
   <data name="ShowTwitchHypeTrain" xml:space="preserve">
     <value>Show Twitch Hype Train</value>
   </data>
@@ -8288,6 +8294,16 @@ Imported quotes with IDs that match existing quotes will altered to the next max
     <value>{0} Redeemed {1}</value>
     <comment>{0} is the name of the user
 {1} is the name of the channel point reward</comment>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} Redeemed {1}</value>
+    <comment>{0} is the name of the user
+{1} is the name of the channel point reward</comment>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} Gifted {1} Kicks</value>
+    <comment>{0} is the name of the user
+{1} is the number of kicks gifted</comment>
   </data>
   <data name="AverageViewers" xml:space="preserve">
     <value>Average Viewers</value>

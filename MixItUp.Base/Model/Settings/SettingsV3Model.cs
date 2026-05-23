@@ -306,6 +306,10 @@ namespace MixItUp.Base.Model.Settings
         public string AlertModerationColor { get; set; }
         [DataMember]
         public string AlertStreamlootsColor { get; set; }
+        [DataMember]
+        public string AlertKickChannelPointsColor { get; set; }
+        [DataMember]
+        public string AlertKickKicksColor { get; set; }
 
         [Obsolete]
         [DataMember]

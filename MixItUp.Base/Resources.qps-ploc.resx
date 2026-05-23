@@ -11388,4 +11388,16 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Channel Point Reward successfully created! You can now dynamically update this Channel Point Reward using the Kick action inside of a command. Please use the link on the main Channel Points page to visit the editor on Kick to customize your reward.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Show Kick Channel Points</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Show Kick Kicks</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>[{0} Ŕéðééɱéðẋẋẋ {1}]</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} Gifted {1} Kicks</value>
+  </data>
 </root>

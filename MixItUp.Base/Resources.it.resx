@@ -11388,4 +11388,16 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Ricompensa in punti canale creata con successo! È ora possibile aggiornare dinamicamente questa ricompensa in punti canale utilizzando l'azione Kick all'interno di un comando. Utilizzate il link nella pagina principale dei punti canale per visitare l'editor su Kick e personalizzare la ricompensa.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Mostra i punti canale di Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Mostra i Kicks di Kick</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} ha riscattato {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} ha regalato {1} Kicks</value>
+  </data>
 </root>

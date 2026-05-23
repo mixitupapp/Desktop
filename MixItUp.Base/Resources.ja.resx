@@ -11388,4 +11388,16 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>チャンネル・ポイント特典の作成に成功！このチャンネルポイント報酬は、コマンドのKickアクションを使って動的に更新することができます。リワードをカスタマイズするには、メイン・チャンネル・ポイント・ページのリンクからKickのエディターにアクセスしてください。</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Kick チャンネルポイントを表示</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Kick の Kicks を表示</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} が {1} を交換しました</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} が {1} Kicks をギフトしました</value>
+  </data>
 </root>

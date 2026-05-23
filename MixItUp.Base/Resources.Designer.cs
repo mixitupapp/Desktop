@@ -880,6 +880,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Redeemed {1}.
+        /// </summary>
+        public static string AlertKickChannelPointRedeemed {
+            get {
+                return ResourceManager.GetString("AlertKickChannelPointRedeemed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Gifted {1} Kicks.
+        /// </summary>
+        public static string AlertKickKicksGifted {
+            get {
+                return ResourceManager.GetString("AlertKickKicksGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Gifted {1} Subs.
         /// </summary>
         public static string AlertMassSubscriptionsGifted {
@@ -22004,6 +22022,24 @@ namespace MixItUp.Base {
         public static string ShowInfoInChat {
             get {
                 return ResourceManager.GetString("ShowInfoInChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Kick Channel Points.
+        /// </summary>
+        public static string ShowKickChannelPoints {
+            get {
+                return ResourceManager.GetString("ShowKickChannelPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Kick Kicks.
+        /// </summary>
+        public static string ShowKickKicks {
+            get {
+                return ResourceManager.GetString("ShowKickKicks", resourceCulture);
             }
         }
         

@@ -26,6 +26,8 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericColorComboBoxSettingsOptionControlViewModel Donation { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel Streamloots { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel Moderation { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel KickChannelPoints { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel KickKicks { get; set; }
 
         public AlertsSettingsControlViewModel()
         {
@@ -50,6 +52,8 @@ namespace MixItUp.Base.ViewModel.Settings
             this.Donation = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowDonations, ChannelSession.Settings.AlertDonationColor, (value) => { ChannelSession.Settings.AlertDonationColor = value; });
             this.Streamloots = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowStreamloots, ChannelSession.Settings.AlertStreamlootsColor, (value) => { ChannelSession.Settings.AlertStreamlootsColor = value; });
             this.Moderation = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowModeration, ChannelSession.Settings.AlertModerationColor, (value) => { ChannelSession.Settings.AlertModerationColor = value; });
+            this.KickChannelPoints = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowKickChannelPoints, ChannelSession.Settings.AlertKickChannelPointsColor, (value) => { ChannelSession.Settings.AlertKickChannelPointsColor = value; });
+            this.KickKicks = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowKickKicks, ChannelSession.Settings.AlertKickKicksColor, (value) => { ChannelSession.Settings.AlertKickKicksColor = value; });
         }
     }
 }

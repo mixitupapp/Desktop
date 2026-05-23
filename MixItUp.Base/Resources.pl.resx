@@ -11388,4 +11388,16 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Nagroda za punkt kanału została pomyślnie utworzona! Możesz teraz dynamicznie aktualizować tę nagrodę za punkty kanału za pomocą akcji Kick wewnątrz polecenia. Skorzystaj z linku na głównej stronie punktów kanału, aby odwiedzić edytor w Kick i dostosować nagrodę.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Pokaż punkty kanału Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Pokaż Kicks na Kick</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} wykorzystał(a) {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} podarował(a) {1} Kicks</value>
+  </data>
 </root>
