@@ -151,6 +151,22 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["hypetraintotalpoints"] = "1234";
                     break;
 
+                case EventTypeEnum.TwitchChannelUserWarned:
+                    specialIdentifiers["warnreason"] = "Be nice in chat";
+                    break;
+                case EventTypeEnum.TwitchChannelShoutoutReceived:
+                    specialIdentifiers["shoutoutviewercount"] = "50";
+                    break;
+                case EventTypeEnum.TwitchChannelSuspiciousUserMessage:
+                    specialIdentifiers["message"] = "Test Message";
+                    specialIdentifiers["suspicioususertypes"] = "ban_evader";
+                    specialIdentifiers["suspicioususerstatus"] = "active_monitoring";
+                    specialIdentifiers["suspicioususerbanevasion"] = "likely";
+                    break;
+                case EventTypeEnum.TwitchChannelSuspiciousUserUpdated:
+                    specialIdentifiers["suspicioususerstatus"] = "restricted";
+                    break;
+
                 // YouTube
                 case EventTypeEnum.YouTubeChannelNewMember:
                     specialIdentifiers["usersubplan"] = "Plan Name";

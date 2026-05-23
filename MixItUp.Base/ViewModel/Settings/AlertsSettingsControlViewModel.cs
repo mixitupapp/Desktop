@@ -28,6 +28,10 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericColorComboBoxSettingsOptionControlViewModel Moderation { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel KickChannelPoints { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel KickKicks { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchUserWarned { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchShoutoutReceived { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchSuspiciousUserMessage { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchSuspiciousUserUpdated { get; set; }
 
         public AlertsSettingsControlViewModel()
         {
@@ -54,6 +58,10 @@ namespace MixItUp.Base.ViewModel.Settings
             this.Moderation = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowModeration, ChannelSession.Settings.AlertModerationColor, (value) => { ChannelSession.Settings.AlertModerationColor = value; });
             this.KickChannelPoints = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowKickChannelPoints, ChannelSession.Settings.AlertKickChannelPointsColor, (value) => { ChannelSession.Settings.AlertKickChannelPointsColor = value; });
             this.KickKicks = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowKickKicks, ChannelSession.Settings.AlertKickKicksColor, (value) => { ChannelSession.Settings.AlertKickKicksColor = value; });
+            this.TwitchUserWarned = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchUserWarned, ChannelSession.Settings.AlertTwitchUserWarnedColor, (value) => { ChannelSession.Settings.AlertTwitchUserWarnedColor = value; });
+            this.TwitchShoutoutReceived = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchShoutoutReceived, ChannelSession.Settings.AlertTwitchShoutoutReceivedColor, (value) => { ChannelSession.Settings.AlertTwitchShoutoutReceivedColor = value; });
+            this.TwitchSuspiciousUserMessage = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchSuspiciousUserMessage, ChannelSession.Settings.AlertTwitchSuspiciousUserMessageColor, (value) => { ChannelSession.Settings.AlertTwitchSuspiciousUserMessageColor = value; });
+            this.TwitchSuspiciousUserUpdated = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchSuspiciousUserUpdated, ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor, (value) => { ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor = value; });
         }
     }
 }

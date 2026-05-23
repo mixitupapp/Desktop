@@ -11451,4 +11451,40 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="Restricted" xml:space="preserve">
     <value>Restricted</value>
   </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Twitch Channel User Warned</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>Twitch Channel Shoutout Received</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitch Channel Suspicious User Message</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Twitch Channel Suspicious User Updated</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0} Warned</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} Sent a Shoutout ({1} viewers)</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>{0} (Suspicious User) Sent a Message</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0} Suspicious Status Updated to {1}</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>Show Twitch User Warnings</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>Show Twitch Shoutouts Received</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Show Twitch Suspicious User Messages</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>Show Twitch Suspicious User Updates</value>
+  </data>
 </root>

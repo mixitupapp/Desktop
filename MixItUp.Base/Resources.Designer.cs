@@ -1069,6 +1069,42 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Sent a Shoutout ({1} viewers).
+        /// </summary>
+        public static string AlertTwitchShoutoutReceived {
+            get {
+                return ResourceManager.GetString("AlertTwitchShoutoutReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (Suspicious User) Sent a Message.
+        /// </summary>
+        public static string AlertTwitchSuspiciousUserMessage {
+            get {
+                return ResourceManager.GetString("AlertTwitchSuspiciousUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Suspicious Status Updated to {1}.
+        /// </summary>
+        public static string AlertTwitchSuspiciousUserUpdated {
+            get {
+                return ResourceManager.GetString("AlertTwitchSuspiciousUserUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Warned.
+        /// </summary>
+        public static string AlertTwitchUserWarned {
+            get {
+                return ResourceManager.GetString("AlertTwitchUserWarned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} has a Watch Streak of {1}.
         /// </summary>
         public static string AlertTwitchWatchStreak {
@@ -22314,6 +22350,42 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Shoutouts Received.
+        /// </summary>
+        public static string ShowTwitchShoutoutReceived {
+            get {
+                return ResourceManager.GetString("ShowTwitchShoutoutReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Suspicious User Messages.
+        /// </summary>
+        public static string ShowTwitchSuspiciousUserMessage {
+            get {
+                return ResourceManager.GetString("ShowTwitchSuspiciousUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Suspicious User Updates.
+        /// </summary>
+        public static string ShowTwitchSuspiciousUserUpdated {
+            get {
+                return ResourceManager.GetString("ShowTwitchSuspiciousUserUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Twitch User Warnings.
+        /// </summary>
+        public static string ShowTwitchUserWarned {
+            get {
+                return ResourceManager.GetString("ShowTwitchUserWarned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Twitch Watch Streaks.
         /// </summary>
         public static string ShowTwitchWatchStreak {
@@ -26467,6 +26539,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shoutout Received.
+        /// </summary>
+        public static string TwitchChannelShoutoutReceived {
+            get {
+                return ResourceManager.GetString("TwitchChannelShoutoutReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitch Channel Stream Start.
         /// </summary>
         public static string TwitchChannelStreamStart {
@@ -26503,6 +26584,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Suspicious User Message.
+        /// </summary>
+        public static string TwitchChannelSuspiciousUserMessage {
+            get {
+                return ResourceManager.GetString("TwitchChannelSuspiciousUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suspicious User Updated.
+        /// </summary>
+        public static string TwitchChannelSuspiciousUserUpdated {
+            get {
+                return ResourceManager.GetString("TwitchChannelSuspiciousUserUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitch Channel Unfollowed.
         /// </summary>
         public static string TwitchChannelUnfollowed {
@@ -26526,6 +26625,15 @@ namespace MixItUp.Base {
         public static string TwitchChannelUserIntro {
             get {
                 return ResourceManager.GetString("TwitchChannelUserIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Warned.
+        /// </summary>
+        public static string TwitchChannelUserWarned {
+            get {
+                return ResourceManager.GetString("TwitchChannelUserWarned", resourceCulture);
             }
         }
         

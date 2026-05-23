@@ -66,6 +66,8 @@ namespace MixItUp.Base.Services.Twitch.New
             "moderator:read:chatters",
             "moderator:read:chat_settings",
             "moderator:read:followers",
+            "moderator:read:shoutouts",
+            "moderator:read:suspicious_users",
             "moderator:read:vips",
             "moderator:read:moderators",
 

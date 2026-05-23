@@ -310,6 +310,14 @@ namespace MixItUp.Base.Model.Settings
         public string AlertKickChannelPointsColor { get; set; }
         [DataMember]
         public string AlertKickKicksColor { get; set; }
+        [DataMember]
+        public string AlertTwitchUserWarnedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchShoutoutReceivedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchSuspiciousUserMessageColor { get; set; }
+        [DataMember]
+        public string AlertTwitchSuspiciousUserUpdatedColor { get; set; }
 
         [Obsolete]
         [DataMember]

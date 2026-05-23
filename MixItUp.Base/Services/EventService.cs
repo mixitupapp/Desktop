@@ -71,6 +71,7 @@ namespace MixItUp.Base.Services
         TwitchChannelMassSubscriptionsGifted = 223,
 
         TwitchChannelWatchStreak = 230,
+        TwitchChannelShoutoutReceived = 231,
 
         TwitchChannelHighlightedMessage = 240,
         TwitchChannelUserIntro = 241,
@@ -94,6 +95,10 @@ namespace MixItUp.Base.Services
         TwitchChannelHypeTrainProgress = 281,
         TwitchChannelHypeTrainEnd = 282,
         TwitchChannelHypeTrainLevelUp = 283,
+
+        TwitchChannelUserWarned = 290,
+        TwitchChannelSuspiciousUserMessage = 291,
+        TwitchChannelSuspiciousUserUpdated = 292,
 
         // 300 = YouTube
 
