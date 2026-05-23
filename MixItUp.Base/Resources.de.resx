@@ -11505,4 +11505,7 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Twitch-Ziel anzeigen Beendet</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Pro Person Gruppe</value>
+  </data>
 </root>

@@ -11504,4 +11504,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Показать цель на Twitch Завершено</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Группа на человека</value>
+  </data>
 </root>

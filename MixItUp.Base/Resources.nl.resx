@@ -11500,4 +11500,7 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Twitch doel tonen Voltooid</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Per persoon Groep</value>
+  </data>
 </root>

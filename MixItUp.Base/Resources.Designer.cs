@@ -1078,7 +1078,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Goal Started, Target: {1}.
+        ///   Looks up a localized string similar to {0} Goal Started at {1} of {2}.
         /// </summary>
         public static string AlertTwitchGoalStarted {
             get {
@@ -17760,6 +17760,15 @@ namespace MixItUp.Base {
         public static string PerPerson {
             get {
                 return ResourceManager.GetString("PerPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Per Person Group.
+        /// </summary>
+        public static string PerPersonGroup {
+            get {
+                return ResourceManager.GetString("PerPersonGroup", resourceCulture);
             }
         }
         

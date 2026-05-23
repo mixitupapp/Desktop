@@ -11500,4 +11500,7 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Mostrar objetivo do Twitch Terminado</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Grupo por pessoa</value>
+  </data>
 </root>

@@ -11499,4 +11499,7 @@ print(run())</value>
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Show Twitch Goal Ended</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Група на одну особу</value>
+  </data>
 </root>

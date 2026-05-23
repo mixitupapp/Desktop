@@ -11499,4 +11499,7 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Mostra obiettivo Twitch Finito</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Gruppo per persona</value>
+  </data>
 </root>

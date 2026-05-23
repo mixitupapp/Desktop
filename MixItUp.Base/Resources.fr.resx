@@ -11500,4 +11500,7 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Show Twitch Goal Terminé</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Par personne Groupe</value>
+  </data>
 </root>

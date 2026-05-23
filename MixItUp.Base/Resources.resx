@@ -1605,6 +1605,9 @@
   <data name="PerPerson" xml:space="preserve">
     <value>Per Person</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Per Person Group</value>
+  </data>
   <data name="Pink" xml:space="preserve">
     <value>Pink</value>
     <comment>Manual</comment>

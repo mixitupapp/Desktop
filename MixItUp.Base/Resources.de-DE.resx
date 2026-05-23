@@ -10218,4 +10218,7 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Twitch-Ziel anzeigen Beendet</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Pro Person Gruppe</value>
+  </data>
 </root>

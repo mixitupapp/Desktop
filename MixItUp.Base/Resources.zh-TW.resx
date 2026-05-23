@@ -11499,4 +11499,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>显示 Twitch 目标 已结束</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>每人团体</value>
+  </data>
 </root>

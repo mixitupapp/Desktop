@@ -11499,4 +11499,7 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Show Twitch Goal Ended</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Per Person Group</value>
+  </data>
 </root>

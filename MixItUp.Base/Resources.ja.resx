@@ -11499,4 +11499,7 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Twitchのゴールを表示する 終了</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>お一人様グループ</value>
+  </data>
 </root>
