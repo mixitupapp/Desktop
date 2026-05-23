@@ -35,7 +35,21 @@
         </ComboBox>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowUsernameGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <ComboBox Grid.Row="2" Visibility="{Binding ShowSetSuspiciousUserStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding SuspiciousUserStatuses}" SelectedItem="{Binding SelectedSuspiciousUserStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}">

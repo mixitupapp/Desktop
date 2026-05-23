@@ -388,6 +388,26 @@ namespace MixItUp.Base.Services.Twitch.New
             });
         }
 
+        public async Task SetSuspiciousUserStatus(UserModel channel, string user_id, string status)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["user_id"] = user_id;
+                jobj["status"] = status;
+
+                await this.HttpClient.PostAsync("moderation/suspicious_users?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id, AdvancedHttpClient.CreateContentFromObject(jobj));
+            });
+        }
+
+        public async Task RemoveSuspiciousUserStatus(UserModel channel, string user_id)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.DeleteAsync("moderation/suspicious_users?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id + "&user_id=" + user_id);
+            });
+        }
+
         public async Task<IEnumerable<ChatterModel>> GetChatters(UserModel channel)
         {
             return await AsyncRunner.RunAsync(async () =>

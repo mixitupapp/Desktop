@@ -66,6 +66,14 @@ namespace MixItUp.Base.Model.Actions
         ShieldModeOff,
         PinMessage,
         UnpinMessage,
+        SetSuspiciousUserStatus,
+        RemoveSuspiciousUserStatus,
+    }
+
+    public enum TwitchSuspiciousUserStatus
+    {
+        ActiveMonitoring = 0,
+        Restricted,
     }
 
     public enum TwitchAnnouncementColor
@@ -95,6 +103,12 @@ namespace MixItUp.Base.Model.Actions
             { TwitchAnnouncementColor.Green, "green" },
             { TwitchAnnouncementColor.Orange, "orange" },
             { TwitchAnnouncementColor.Purple, "purple" },
+        };
+
+        private readonly Dictionary<TwitchSuspiciousUserStatus, string> SuspiciousUserStatusMap = new Dictionary<TwitchSuspiciousUserStatus, string>
+        {
+            { TwitchSuspiciousUserStatus.ActiveMonitoring, "ACTIVE_MONITORING" },
+            { TwitchSuspiciousUserStatus.Restricted, "RESTRICTED" },
         };
 
         public static readonly IEnumerable<int> SupportedAdLengths = new List<int>() { 30, 60, 90, 120, 150, 180 };
@@ -240,6 +254,21 @@ namespace MixItUp.Base.Model.Actions
             return actionModel;
         }
 
+        public static TwitchActionModel CreateSetSuspiciousUserStatusAction(string username, TwitchSuspiciousUserStatus status)
+        {
+            TwitchActionModel actionModel = new TwitchActionModel(TwitchActionType.SetSuspiciousUserStatus);
+            actionModel.Username = username;
+            actionModel.SuspiciousUserStatus = status;
+            return actionModel;
+        }
+
+        public static TwitchActionModel CreateRemoveSuspiciousUserStatusAction(string username)
+        {
+            TwitchActionModel actionModel = new TwitchActionModel(TwitchActionType.RemoveSuspiciousUserStatus);
+            actionModel.Username = username;
+            return actionModel;
+        }
+
         public static TwitchActionModel CreateAction(TwitchActionType type)
         {
             return new TwitchActionModel(type);
@@ -359,6 +388,9 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public string PinMessageText { get; set; }
+
+        [DataMember]
+        public TwitchSuspiciousUserStatus SuspiciousUserStatus { get; set; }
 
         private TwitchActionModel(TwitchActionType type)
             : base(ActionTypeEnum.Twitch)
@@ -899,6 +931,32 @@ namespace MixItUp.Base.Model.Actions
                     if (pinned != null && !string.IsNullOrEmpty(pinned.message_id))
                     {
                         await ServiceManager.Get<TwitchSession>().StreamerService.UnpinChatMessage(ServiceManager.Get<TwitchSession>().StreamerModel, pinned.message_id);
+                    }
+                }
+                else if (this.ActionType == TwitchActionType.SetSuspiciousUserStatus || this.ActionType == TwitchActionType.RemoveSuspiciousUserStatus)
+                {
+                    UserV2ViewModel targetUser = null;
+                    if (!string.IsNullOrEmpty(this.Username))
+                    {
+                        string targetUsername = await ReplaceStringWithSpecialModifiers(this.Username, parameters);
+                        targetUser = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformUsername: targetUsername, performPlatformSearch: true);
+                    }
+                    else
+                    {
+                        targetUser = parameters.User;
+                    }
+
+                    if (targetUser != null)
+                    {
+                        TwitchUserPlatformV2Model twitchUser = targetUser.GetPlatformData<TwitchUserPlatformV2Model>(StreamingPlatformTypeEnum.Twitch);
+                        if (this.ActionType == TwitchActionType.SetSuspiciousUserStatus)
+                        {
+                            await ServiceManager.Get<TwitchSession>().StreamerService.SetSuspiciousUserStatus(ServiceManager.Get<TwitchSession>().StreamerModel, twitchUser.ID, SuspiciousUserStatusMap[this.SuspiciousUserStatus]);
+                        }
+                        else
+                        {
+                            await ServiceManager.Get<TwitchSession>().StreamerService.RemoveSuspiciousUserStatus(ServiceManager.Get<TwitchSession>().StreamerModel, twitchUser.ID);
+                        }
                     }
                 }
             }

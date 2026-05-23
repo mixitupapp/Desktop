@@ -77,6 +77,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged(nameof(this.ShowVIPUserSettingsGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowWarnUserGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowPinMessageGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowSetSuspiciousUserStatusGrid));
             }
         }
         private TwitchActionType selectedActionType;
@@ -100,7 +101,9 @@ namespace MixItUp.Base.ViewModel.Actions
             {
                 return this.SelectedActionType == TwitchActionType.Raid ||
                     this.SelectedActionType == TwitchActionType.UnVIPUser ||
-                    this.SelectedActionType == TwitchActionType.SendShoutout;
+                    this.SelectedActionType == TwitchActionType.SendShoutout ||
+                    this.SelectedActionType == TwitchActionType.SetSuspiciousUserStatus ||
+                    this.SelectedActionType == TwitchActionType.RemoveSuspiciousUserStatus;
             }
         }
 
@@ -726,6 +729,21 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private string pinMessageText;
 
+        public bool ShowSetSuspiciousUserStatusGrid { get { return this.SelectedActionType == TwitchActionType.SetSuspiciousUserStatus; } }
+
+        public IEnumerable<TwitchSuspiciousUserStatus> SuspiciousUserStatuses { get { return EnumHelper.GetEnumList<TwitchSuspiciousUserStatus>(); } }
+
+        public TwitchSuspiciousUserStatus SelectedSuspiciousUserStatus
+        {
+            get { return this.selectedSuspiciousUserStatus; }
+            set
+            {
+                this.selectedSuspiciousUserStatus = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private TwitchSuspiciousUserStatus selectedSuspiciousUserStatus = TwitchSuspiciousUserStatus.ActiveMonitoring;
+
         private IEnumerable<string> existingTags = null;
         private IEnumerable<string> existingContentClassificationLabelIDs = null;
 
@@ -740,6 +758,10 @@ namespace MixItUp.Base.ViewModel.Actions
             if (this.ShowUsernameGrid)
             {
                 this.Username = action.Username;
+                if (this.ShowSetSuspiciousUserStatusGrid)
+                {
+                    this.SelectedSuspiciousUserStatus = action.SuspiciousUserStatus;
+                }
             }
             else if (this.ShowTextGrid)
             {
@@ -1102,6 +1124,14 @@ namespace MixItUp.Base.ViewModel.Actions
         {
             if (this.ShowUsernameGrid)
             {
+                if (this.SelectedActionType == TwitchActionType.SetSuspiciousUserStatus)
+                {
+                    return TwitchActionModel.CreateSetSuspiciousUserStatusAction(this.Username, this.SelectedSuspiciousUserStatus);
+                }
+                else if (this.SelectedActionType == TwitchActionType.RemoveSuspiciousUserStatus)
+                {
+                    return TwitchActionModel.CreateRemoveSuspiciousUserStatusAction(this.Username);
+                }
                 return TwitchActionModel.CreateUserAction(this.SelectedActionType, this.Username);
             }
             else if (this.ShowTextGrid)

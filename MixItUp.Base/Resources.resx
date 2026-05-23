@@ -11439,4 +11439,16 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="UnpinMessage" xml:space="preserve">
     <value>Unpin Message</value>
   </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>Set Suspicious User Status</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>Remove Suspicious User Status</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>Active Monitoring</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>Restricted</value>
+  </data>
 </root>

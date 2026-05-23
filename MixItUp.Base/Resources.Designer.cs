@@ -376,6 +376,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active Monitoring.
+        /// </summary>
+        public static string ActiveMonitoring {
+            get {
+                return ResourceManager.GetString("ActiveMonitoring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
@@ -19684,6 +19693,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Suspicious User Status.
+        /// </summary>
+        public static string RemoveSuspiciousUserStatus {
+            get {
+                return ResourceManager.GetString("RemoveSuspiciousUserStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove User Role.
         /// </summary>
         public static string RemoveUserRole {
@@ -20134,6 +20152,15 @@ namespace MixItUp.Base {
         public static string RestoreSettingsConfirmation {
             get {
                 return ResourceManager.GetString("RestoreSettingsConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restricted.
+        /// </summary>
+        public static string Restricted {
+            get {
+                return ResourceManager.GetString("Restricted", resourceCulture);
             }
         }
         
@@ -21660,6 +21687,15 @@ namespace MixItUp.Base {
         public static string SetLocation {
             get {
                 return ResourceManager.GetString("SetLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Suspicious User Status.
+        /// </summary>
+        public static string SetSuspiciousUserStatus {
+            get {
+                return ResourceManager.GetString("SetSuspiciousUserStatus", resourceCulture);
             }
         }
         
