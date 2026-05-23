@@ -1388,6 +1388,22 @@ namespace MixItUp.Base.Util
                             }
                         }
                     }
+                    else if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                    {
+                        KickUserPlatformV2Model kickUser = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                        if (kickUser != null)
+                        {
+                            MixItUp.Base.Model.Kick.Channels.ChannelModel kChannel = await ServiceManager.Get<KickSession>().StreamerService.GetChannelByUserID(kickUser.ID);
+                            if (kChannel != null)
+                            {
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "title", kChannel.StreamTitle);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", kChannel.Category?.Name);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "game", kChannel.Category?.Name);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage", kChannel.Category?.Thumbnail);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "islive", (kChannel.Stream?.IsLive ?? false).ToString());
+                            }
+                        }
+                    }
                 }
 
                 if (ServiceManager.Get<PatreonService>().IsConnected)
