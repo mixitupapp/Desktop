@@ -32,6 +32,8 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchShoutoutReceived { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchSuspiciousUserMessage { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchSuspiciousUserUpdated { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchShieldModeStarted { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchShieldModeEnded { get; set; }
 
         public AlertsSettingsControlViewModel()
         {
@@ -62,6 +64,8 @@ namespace MixItUp.Base.ViewModel.Settings
             this.TwitchShoutoutReceived = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchShoutoutReceived, ChannelSession.Settings.AlertTwitchShoutoutReceivedColor, (value) => { ChannelSession.Settings.AlertTwitchShoutoutReceivedColor = value; });
             this.TwitchSuspiciousUserMessage = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchSuspiciousUserMessage, ChannelSession.Settings.AlertTwitchSuspiciousUserMessageColor, (value) => { ChannelSession.Settings.AlertTwitchSuspiciousUserMessageColor = value; });
             this.TwitchSuspiciousUserUpdated = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchSuspiciousUserUpdated, ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor, (value) => { ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor = value; });
+            this.TwitchShieldModeStarted = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchShieldModeStarted, ChannelSession.Settings.AlertTwitchShieldModeStartedColor, (value) => { ChannelSession.Settings.AlertTwitchShieldModeStartedColor = value; });
+            this.TwitchShieldModeEnded = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchShieldModeEnded, ChannelSession.Settings.AlertTwitchShieldModeEndedColor, (value) => { ChannelSession.Settings.AlertTwitchShieldModeEndedColor = value; });
         }
     }
 }

@@ -11487,4 +11487,22 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
     <value>Show Twitch Suspicious User Updates</value>
   </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Twitch Channel Shield Mode Started</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Twitch Channel Shield Mode Ended</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} Activated Shield Mode</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} Deactivated Shield Mode</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>Show Twitch Shield Mode Started</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>Show Twitch Shield Mode Ended</value>
+  </data>
 </root>

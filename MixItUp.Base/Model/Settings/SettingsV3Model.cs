@@ -318,6 +318,10 @@ namespace MixItUp.Base.Model.Settings
         public string AlertTwitchSuspiciousUserMessageColor { get; set; }
         [DataMember]
         public string AlertTwitchSuspiciousUserUpdatedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchShieldModeStartedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchShieldModeEndedColor { get; set; }
 
         [Obsolete]
         [DataMember]

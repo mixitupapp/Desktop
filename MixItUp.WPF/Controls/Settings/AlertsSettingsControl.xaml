@@ -33,6 +33,8 @@
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchShoutoutReceived}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchSuspiciousUserMessage}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchSuspiciousUserUpdated}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchShieldModeStarted}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchShieldModeEnded}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding YouTubeSuperChat}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding YouTubeJewelsGift}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Donation}" />

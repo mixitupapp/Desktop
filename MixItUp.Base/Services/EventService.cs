@@ -99,6 +99,8 @@ namespace MixItUp.Base.Services
         TwitchChannelUserWarned = 290,
         TwitchChannelSuspiciousUserMessage = 291,
         TwitchChannelSuspiciousUserUpdated = 292,
+        TwitchChannelShieldModeStarted = 293,
+        TwitchChannelShieldModeEnded = 294,
 
         // 300 = YouTube
 

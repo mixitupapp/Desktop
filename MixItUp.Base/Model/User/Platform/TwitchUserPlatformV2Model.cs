@@ -114,6 +114,8 @@ namespace MixItUp.Base.Model.User.Platform
 
         public TwitchUserPlatformV2Model(ShoutoutReceiveNotification shoutout) : this(shoutout.from_broadcaster_user_id, shoutout.from_broadcaster_user_login, shoutout.from_broadcaster_user_name) { }
 
+        public TwitchUserPlatformV2Model(ShieldModeNotification shieldMode) : this(shieldMode.moderator_user_id, shieldMode.moderator_user_login, shieldMode.moderator_user_name) { }
+
         public TwitchUserPlatformV2Model(SuspiciousUserMessageNotification suspicious) : this(suspicious.user_id, suspicious.user_login, suspicious.user_name) { }
 
         public TwitchUserPlatformV2Model(SuspiciousUserUpdateNotification suspicious) : this(suspicious.moderator_user_id, suspicious.moderator_user_login, suspicious.moderator_user_name) { }

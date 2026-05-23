@@ -1069,6 +1069,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Deactivated Shield Mode.
+        /// </summary>
+        public static string AlertTwitchShieldModeEnded {
+            get {
+                return ResourceManager.GetString("AlertTwitchShieldModeEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Activated Shield Mode.
+        /// </summary>
+        public static string AlertTwitchShieldModeStarted {
+            get {
+                return ResourceManager.GetString("AlertTwitchShieldModeStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Sent a Shoutout ({1} viewers).
         /// </summary>
         public static string AlertTwitchShoutoutReceived {
@@ -22350,6 +22368,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Shield Mode Ended.
+        /// </summary>
+        public static string ShowTwitchShieldModeEnded {
+            get {
+                return ResourceManager.GetString("ShowTwitchShieldModeEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Shield Mode Started.
+        /// </summary>
+        public static string ShowTwitchShieldModeStarted {
+            get {
+                return ResourceManager.GetString("ShowTwitchShieldModeStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Twitch Shoutouts Received.
         /// </summary>
         public static string ShowTwitchShoutoutReceived {
@@ -26539,7 +26575,25 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shoutout Received.
+        ///   Looks up a localized string similar to Twitch Channel Shield Mode Ended.
+        /// </summary>
+        public static string TwitchChannelShieldModeEnded {
+            get {
+                return ResourceManager.GetString("TwitchChannelShieldModeEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Shield Mode Started.
+        /// </summary>
+        public static string TwitchChannelShieldModeStarted {
+            get {
+                return ResourceManager.GetString("TwitchChannelShieldModeStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Shoutout Received.
         /// </summary>
         public static string TwitchChannelShoutoutReceived {
             get {
@@ -26584,7 +26638,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Suspicious User Message.
+        ///   Looks up a localized string similar to Twitch Channel Suspicious User Message.
         /// </summary>
         public static string TwitchChannelSuspiciousUserMessage {
             get {
@@ -26593,7 +26647,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Suspicious User Updated.
+        ///   Looks up a localized string similar to Twitch Channel Suspicious User Updated.
         /// </summary>
         public static string TwitchChannelSuspiciousUserUpdated {
             get {
@@ -26629,7 +26683,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User Warned.
+        ///   Looks up a localized string similar to Twitch Channel User Warned.
         /// </summary>
         public static string TwitchChannelUserWarned {
             get {

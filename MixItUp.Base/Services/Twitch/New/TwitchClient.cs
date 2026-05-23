@@ -105,6 +105,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.suspicious_user.message", null },
             { "channel.suspicious_user.update", null },
+
+            { "channel.shield_mode.begin", null },
+            { "channel.shield_mode.end", null },
         };
 
         public override bool IsConnected { get { return this.webSocket != null && this.webSocket.IsOpen() && this.eventSubSubscriptionsConnected; } }
@@ -209,6 +212,8 @@ namespace MixItUp.Base.Services.Twitch.New
                             case "channel.shoutout.receive":
                             case "channel.suspicious_user.message":
                             case "channel.suspicious_user.update":
+                            case "channel.shield_mode.begin":
+                            case "channel.shield_mode.end":
                                 conditions["moderator_user_id"] = ServiceManager.Get<TwitchSession>().StreamerID;
                                 break;
 
@@ -420,6 +425,13 @@ namespace MixItUp.Base.Services.Twitch.New
                         break;
                     case "channel.suspicious_user.update":
                         await HandleSuspiciousUserUpdate(message.Payload.Event);
+                        break;
+
+                    case "channel.shield_mode.begin":
+                        await HandleShieldModeBegin(message.Payload.Event);
+                        break;
+                    case "channel.shield_mode.end":
+                        await HandleShieldModeEnd(message.Payload.Event);
                         break;
                 }
             }
@@ -1368,6 +1380,38 @@ namespace MixItUp.Base.Services.Twitch.New
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelSuspiciousUserUpdated, parameters);
 
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(targetUser, string.Format(MixItUp.Base.Resources.AlertTwitchSuspiciousUserUpdated, targetUser.FullDisplayName, suspicious.low_trust_status), ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor));
+        }
+
+        private async Task HandleShieldModeBegin(JObject payload)
+        {
+            ShieldModeNotification shieldMode = payload.ToObject<ShieldModeNotification>();
+
+            UserV2ViewModel moderator = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: shieldMode.moderator_user_id);
+            if (moderator == null)
+            {
+                moderator = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(shieldMode));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(moderator, StreamingPlatformTypeEnum.Twitch);
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelShieldModeStarted, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(moderator, string.Format(MixItUp.Base.Resources.AlertTwitchShieldModeStarted, moderator.FullDisplayName), ChannelSession.Settings.AlertTwitchShieldModeStartedColor));
+        }
+
+        private async Task HandleShieldModeEnd(JObject payload)
+        {
+            ShieldModeNotification shieldMode = payload.ToObject<ShieldModeNotification>();
+
+            UserV2ViewModel moderator = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: shieldMode.moderator_user_id);
+            if (moderator == null)
+            {
+                moderator = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(shieldMode));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(moderator, StreamingPlatformTypeEnum.Twitch);
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelShieldModeEnded, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(moderator, string.Format(MixItUp.Base.Resources.AlertTwitchShieldModeEnded, moderator.FullDisplayName), ChannelSession.Settings.AlertTwitchShieldModeEndedColor));
         }
 
         private async Task ProcessSub(TwitchSubcriptionEventModel subscription)
