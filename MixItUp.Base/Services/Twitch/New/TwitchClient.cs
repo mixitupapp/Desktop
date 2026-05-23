@@ -859,10 +859,10 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPointsRedeemed, new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, arguments, eventCommandSpecialIdentifiers));
 
-                TwitchChannelPointsCommandModel command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID.ToString(), redemption.reward.id, StringComparison.CurrentCultureIgnoreCase));
+                TwitchChannelPointsCommandModel command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.ChannelPointRewardID.ToString(), redemption.reward.id, StringComparison.CurrentCultureIgnoreCase));
                 if (command == null)
                 {
-                    command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => string.Equals(c.Name, redemption.reward.title, StringComparison.CurrentCultureIgnoreCase));
+                    command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.Name, redemption.reward.title, StringComparison.CurrentCultureIgnoreCase));
                 }
 
                 if (command != null)
@@ -908,10 +908,10 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelCustomPowerUpRedeemed, new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, arguments, eventCommandSpecialIdentifiers));
 
-                TwitchCustomPowerUpCommandModel command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => string.Equals(c.CustomPowerUpID, redemption.custom_power_up.id, StringComparison.CurrentCultureIgnoreCase));
+                TwitchCustomPowerUpCommandModel command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.CustomPowerUpID, redemption.custom_power_up.id, StringComparison.CurrentCultureIgnoreCase));
                 if (command == null)
                 {
-                    command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => string.Equals(c.Name, redemption.custom_power_up.title, StringComparison.CurrentCultureIgnoreCase));
+                    command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.Name, redemption.custom_power_up.title, StringComparison.CurrentCultureIgnoreCase));
                 }
 
                 if (command != null)
