@@ -342,6 +342,31 @@ namespace MixItUp.Base.Services.Twitch.New
             });
         }
 
+        public async Task WarnUser(UserModel channel, string user_id, string reason)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jdata = new JObject();
+                JObject jobj = new JObject();
+                jobj["user_id"] = user_id;
+                jobj["reason"] = reason;
+                jdata["data"] = jobj;
+
+                await this.HttpClient.PostAsync("moderation/warnings?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id, AdvancedHttpClient.CreateContentFromObject(jdata));
+            });
+        }
+
+        public async Task UpdateShieldMode(UserModel channel, bool active)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["is_active"] = active;
+
+                await this.HttpClient.PutAsync("moderation/shield_mode?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id, AdvancedHttpClient.CreateContentFromObject(jobj));
+            });
+        }
+
         public async Task<IEnumerable<ChatterModel>> GetChatters(UserModel channel)
         {
             return await AsyncRunner.RunAsync(async () =>

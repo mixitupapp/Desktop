@@ -21819,6 +21819,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shield Mode Off.
+        /// </summary>
+        public static string ShieldModeOff {
+            get {
+                return ResourceManager.GetString("ShieldModeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shield Mode On.
+        /// </summary>
+        public static string ShieldModeOn {
+            get {
+                return ResourceManager.GetString("ShieldModeOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shift.
         /// </summary>
         public static string Shift {
@@ -28651,6 +28669,15 @@ namespace MixItUp.Base {
         public static string WaitUntilComplete {
             get {
                 return ResourceManager.GetString("WaitUntilComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warn User.
+        /// </summary>
+        public static string WarnUser {
+            get {
+                return ResourceManager.GetString("WarnUser", resourceCulture);
             }
         }
         

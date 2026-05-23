@@ -61,6 +61,9 @@ namespace MixItUp.Base.Model.Actions
         SetContentClassificationLabels,
         SnoozeNextAd,
         SetChatSettings,
+        WarnUser,
+        ShieldModeOn,
+        ShieldModeOff,
     }
 
     public enum TwitchAnnouncementColor
@@ -220,6 +223,14 @@ namespace MixItUp.Base.Model.Actions
             return actionModel;
         }
 
+        public static TwitchActionModel CreateWarnUserAction(string username, string reason)
+        {
+            TwitchActionModel actionModel = new TwitchActionModel(TwitchActionType.WarnUser);
+            actionModel.Username = username;
+            actionModel.WarnReason = reason;
+            return actionModel;
+        }
+
         public static TwitchActionModel CreateAction(TwitchActionType type)
         {
             return new TwitchActionModel(type);
@@ -333,6 +344,9 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public DurationSpan VIPUserAutomaticRemovalDurationSpan = null;
+
+        [DataMember]
+        public string WarnReason { get; set; }
 
         private TwitchActionModel(TwitchActionType type)
             : base(ActionTypeEnum.Twitch)
@@ -826,6 +840,38 @@ namespace MixItUp.Base.Model.Actions
                 else if (this.ActionType == TwitchActionType.SnoozeNextAd)
                 {
                     await ServiceManager.Get<TwitchSession>().StreamerService.SnoozeNextAd(ServiceManager.Get<TwitchSession>().StreamerModel);
+                }
+                else if (this.ActionType == TwitchActionType.WarnUser)
+                {
+                    UserV2ViewModel targetUser = null;
+                    if (!string.IsNullOrEmpty(this.Username))
+                    {
+                        string targetUsername = await ReplaceStringWithSpecialModifiers(this.Username, parameters);
+                        targetUser = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformUsername: targetUsername, performPlatformSearch: true);
+                    }
+                    else
+                    {
+                        targetUser = parameters.User;
+                    }
+
+                    if (targetUser != null)
+                    {
+                        TwitchUserPlatformV2Model twitchUser = targetUser.GetPlatformData<TwitchUserPlatformV2Model>(StreamingPlatformTypeEnum.Twitch);
+                        string reason = (!string.IsNullOrEmpty(this.WarnReason)) ? await ReplaceStringWithSpecialModifiers(this.WarnReason, parameters) : null;
+                        if (string.IsNullOrWhiteSpace(reason))
+                        {
+                            reason = "Warned by moderator";
+                        }
+                        await ServiceManager.Get<TwitchSession>().StreamerService.WarnUser(ServiceManager.Get<TwitchSession>().StreamerModel, twitchUser.ID, reason);
+                    }
+                }
+                else if (this.ActionType == TwitchActionType.ShieldModeOn)
+                {
+                    await ServiceManager.Get<TwitchSession>().StreamerService.UpdateShieldMode(ServiceManager.Get<TwitchSession>().StreamerModel, active: true);
+                }
+                else if (this.ActionType == TwitchActionType.ShieldModeOff)
+                {
+                    await ServiceManager.Get<TwitchSession>().StreamerService.UpdateShieldMode(ServiceManager.Get<TwitchSession>().StreamerModel, active: false);
                 }
             }
         }

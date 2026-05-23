@@ -75,6 +75,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged(nameof(this.ShowSetContentClassificationLabelsGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowSetChatSettingsGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowVIPUserSettingsGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowWarnUserGrid));
             }
         }
         private TwitchActionType selectedActionType;
@@ -698,6 +699,19 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private DurationSpanTypeEnum selectedVIPUserAutomaticRemovalDuration = DurationSpanTypeEnum.Days;
 
+        public bool ShowWarnUserGrid { get { return this.SelectedActionType == TwitchActionType.WarnUser; } }
+
+        public string WarnReason
+        {
+            get { return this.warnReason; }
+            set
+            {
+                this.warnReason = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string warnReason;
+
         private IEnumerable<string> existingTags = null;
         private IEnumerable<string> existingContentClassificationLabelIDs = null;
 
@@ -850,6 +864,11 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.VIPUserAutomaticRemovalAmount = action.VIPUserAutomaticRemovalDurationSpan.Amount;
                 }
             }
+            else if (this.ShowWarnUserGrid)
+            {
+                this.Username = action.Username;
+                this.WarnReason = action.WarnReason;
+            }
         }
 
         public TwitchActionEditorControlViewModel() : base()
@@ -997,6 +1016,13 @@ namespace MixItUp.Base.ViewModel.Actions
                     return new Result(MixItUp.Base.Resources.TwitchActionUsernameMissing);
                 }
             }
+            else if (this.ShowWarnUserGrid)
+            {
+                if (string.IsNullOrEmpty(this.Username))
+                {
+                    return new Result(MixItUp.Base.Resources.TwitchActionUsernameMissing);
+                }
+            }
             return await base.Validate();
         }
 
@@ -1130,6 +1156,10 @@ namespace MixItUp.Base.ViewModel.Actions
                     duration = new DurationSpan(this.SelectedVIPUserAutomaticRemovalDuration, this.VIPUserAutomaticRemovalAmount);
                 }
                 return TwitchActionModel.CreateVIPUserAction(this.Username, duration);
+            }
+            else if (this.ShowWarnUserGrid)
+            {
+                return TwitchActionModel.CreateWarnUserAction(this.Username, this.WarnReason);
             }
             else
             {

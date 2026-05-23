@@ -11424,4 +11424,13 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Channel Point Reward successfully created! You can now dynamically update this Channel Point Reward using the Kick action inside of a command. Please use the link on the main Channel Points page to visit the editor on Kick to customize your reward.</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Warn User</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Shield Mode On</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Shield Mode Off</value>
+  </data>
 </root>

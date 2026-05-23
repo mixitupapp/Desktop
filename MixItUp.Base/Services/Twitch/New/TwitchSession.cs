@@ -74,6 +74,7 @@ namespace MixItUp.Base.Services.Twitch.New
             "moderator:manage:blocked_terms",
             "moderator:manage:chat_messages",
             "moderator:manage:chat_settings",
+            "moderator:manage:shield_mode",
             "moderator:manage:shoutouts",
             "moderator:manage:unban_requests",
             "moderator:manage:warnings",

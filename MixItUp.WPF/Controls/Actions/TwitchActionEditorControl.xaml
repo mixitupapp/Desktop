@@ -410,6 +410,18 @@
             </ComboBox>
         </Grid>
 
+        <Grid Grid.Row="2" Visibility="{Binding ShowWarnUserGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox Grid.Column="2" Text="{Binding WarnReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModerationReasonOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        </Grid>
+
         <ActionControls:SubActionContainerControl Grid.Row="3" Visibility="{Binding ShowSubActions, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,20,0,0" />
     </Grid>
 </local:ActionEditorControlBase>
