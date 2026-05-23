@@ -11401,4 +11401,19 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} heeft {1} Kicks cadeau gedaan</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Gebruiker waarschuwen</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Schermmodus Aan</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Schermmodus Uit</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Speldbericht</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Bericht verwijderen</value>
+  </data>
 </root>

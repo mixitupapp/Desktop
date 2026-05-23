@@ -11433,4 +11433,10 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="ShieldModeOff" xml:space="preserve">
     <value>Shield Mode Off</value>
   </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Pin Message</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Unpin Message</value>
+  </data>
 </root>

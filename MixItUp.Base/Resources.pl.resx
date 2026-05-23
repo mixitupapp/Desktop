@@ -11400,4 +11400,19 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} podarował(a) {1} Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Ostrzeż użytkownika</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Tryb osłony włączony</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Tryb osłony wyłączony</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Wiadomość pin</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Odepnij wiadomość</value>
+  </data>
 </root>

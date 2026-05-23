@@ -11402,4 +11402,19 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} ofereceu {1} Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Avisar o utilizador</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Modo de proteção ligado</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Modo de proteção Desligado</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Mensagem do pino</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Desafixar mensagem</value>
+  </data>
 </root>

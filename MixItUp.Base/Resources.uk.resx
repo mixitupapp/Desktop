@@ -11400,4 +11400,19 @@ print(run())</value>
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} подарував(ла) {1} Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Попередити користувача</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Режим екрана увімкнено</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Режим екрана вимкнено</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Пін-повідомлення</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Розкріпити повідомлення</value>
+  </data>
 </root>

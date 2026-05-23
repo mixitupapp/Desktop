@@ -11400,4 +11400,19 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} 贈送了 {1} 個 Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>警告用户</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>开启屏蔽模式</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>屏蔽模式关闭</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>图钉信息</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>取消留言</value>
+  </data>
 </root>

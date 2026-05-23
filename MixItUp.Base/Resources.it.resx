@@ -11400,4 +11400,19 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} ha regalato {1} Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Avvertire l'utente</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Modalità Scudo On</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Modalità Scudo Off</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Messaggio del pin</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Messaggio non appeso</value>
+  </data>
 </root>

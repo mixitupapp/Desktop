@@ -17746,6 +17746,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pin Message.
+        /// </summary>
+        public static string PinMessage {
+            get {
+                return ResourceManager.GetString("PinMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pitch.
         /// </summary>
         public static string Pitch {
@@ -27196,6 +27205,15 @@ namespace MixItUp.Base {
         public static string Unpin {
             get {
                 return ResourceManager.GetString("Unpin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unpin Message.
+        /// </summary>
+        public static string UnpinMessage {
+            get {
+                return ResourceManager.GetString("UnpinMessage", resourceCulture);
             }
         }
         

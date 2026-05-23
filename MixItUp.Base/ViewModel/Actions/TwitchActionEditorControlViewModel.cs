@@ -76,6 +76,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged(nameof(this.ShowSetChatSettingsGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowVIPUserSettingsGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowWarnUserGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowPinMessageGrid));
             }
         }
         private TwitchActionType selectedActionType;
@@ -712,6 +713,19 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private string warnReason;
 
+        public bool ShowPinMessageGrid { get { return this.SelectedActionType == TwitchActionType.PinMessage; } }
+
+        public string PinMessageText
+        {
+            get { return this.pinMessageText; }
+            set
+            {
+                this.pinMessageText = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string pinMessageText;
+
         private IEnumerable<string> existingTags = null;
         private IEnumerable<string> existingContentClassificationLabelIDs = null;
 
@@ -869,6 +883,10 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.Username = action.Username;
                 this.WarnReason = action.WarnReason;
             }
+            else if (this.ShowPinMessageGrid)
+            {
+                this.PinMessageText = action.PinMessageText;
+            }
         }
 
         public TwitchActionEditorControlViewModel() : base()
@@ -1023,6 +1041,13 @@ namespace MixItUp.Base.ViewModel.Actions
                     return new Result(MixItUp.Base.Resources.TwitchActionUsernameMissing);
                 }
             }
+            else if (this.ShowPinMessageGrid)
+            {
+                if (string.IsNullOrEmpty(this.PinMessageText))
+                {
+                    return new Result(MixItUp.Base.Resources.TwitchActionMessageMissing);
+                }
+            }
             return await base.Validate();
         }
 
@@ -1160,6 +1185,10 @@ namespace MixItUp.Base.ViewModel.Actions
             else if (this.ShowWarnUserGrid)
             {
                 return TwitchActionModel.CreateWarnUserAction(this.Username, this.WarnReason);
+            }
+            else if (this.ShowPinMessageGrid)
+            {
+                return TwitchActionModel.CreatePinMessageAction(this.PinMessageText);
             }
             else
             {

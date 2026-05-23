@@ -11400,4 +11400,19 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} が {1} Kicks をギフトしました</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>ユーザーへの警告</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>シールドモードオン</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>シールド・モード・オフ</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>ピンメッセージ</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>アンピンメッセージ</value>
+  </data>
 </root>

@@ -11400,4 +11400,19 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} Gifted {1} Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Warn User</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Shield Mode On</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Shield Mode Off</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Pin Message</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Unpin Message</value>
+  </data>
 </root>

@@ -64,6 +64,8 @@ namespace MixItUp.Base.Model.Actions
         WarnUser,
         ShieldModeOn,
         ShieldModeOff,
+        PinMessage,
+        UnpinMessage,
     }
 
     public enum TwitchAnnouncementColor
@@ -231,6 +233,13 @@ namespace MixItUp.Base.Model.Actions
             return actionModel;
         }
 
+        public static TwitchActionModel CreatePinMessageAction(string message)
+        {
+            TwitchActionModel actionModel = new TwitchActionModel(TwitchActionType.PinMessage);
+            actionModel.PinMessageText = message;
+            return actionModel;
+        }
+
         public static TwitchActionModel CreateAction(TwitchActionType type)
         {
             return new TwitchActionModel(type);
@@ -347,6 +356,9 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public string WarnReason { get; set; }
+
+        [DataMember]
+        public string PinMessageText { get; set; }
 
         private TwitchActionModel(TwitchActionType type)
             : base(ActionTypeEnum.Twitch)
@@ -872,6 +884,22 @@ namespace MixItUp.Base.Model.Actions
                 else if (this.ActionType == TwitchActionType.ShieldModeOff)
                 {
                     await ServiceManager.Get<TwitchSession>().StreamerService.UpdateShieldMode(ServiceManager.Get<TwitchSession>().StreamerModel, active: false);
+                }
+                else if (this.ActionType == TwitchActionType.PinMessage)
+                {
+                    string text = await ReplaceStringWithSpecialModifiers(this.PinMessageText, parameters);
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        await ServiceManager.Get<TwitchSession>().StreamerService.SendChatMessage(ServiceManager.Get<TwitchSession>().StreamerModel, ServiceManager.Get<TwitchSession>().StreamerModel, text, pin: true);
+                    }
+                }
+                else if (this.ActionType == TwitchActionType.UnpinMessage)
+                {
+                    PinnedChatMessageModel pinned = await ServiceManager.Get<TwitchSession>().StreamerService.GetPinnedChatMessage(ServiceManager.Get<TwitchSession>().StreamerModel);
+                    if (pinned != null && !string.IsNullOrEmpty(pinned.message_id))
+                    {
+                        await ServiceManager.Get<TwitchSession>().StreamerService.UnpinChatMessage(ServiceManager.Get<TwitchSession>().StreamerModel, pinned.message_id);
+                    }
                 }
             }
         }

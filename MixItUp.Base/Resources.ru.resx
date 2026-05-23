@@ -11405,4 +11405,19 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} подарил(а) {1} Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Предупредить пользователя</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Режим щита Вкл.</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Режим щита Выкл.</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Сообщение о булавке</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Открепить сообщение</value>
+  </data>
 </root>

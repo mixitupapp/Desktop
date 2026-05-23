@@ -422,6 +422,10 @@
             <TextBox Grid.Column="2" Text="{Binding WarnReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModerationReasonOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
         </Grid>
 
+        <Grid Grid.Row="2" Visibility="{Binding ShowPinMessageGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBox Text="{Binding PinMessageText}" Height="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextWrapping="Wrap" />
+        </Grid>
+
         <ActionControls:SubActionContainerControl Grid.Row="3" Visibility="{Binding ShowSubActions, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,20,0,0" />
     </Grid>
 </local:ActionEditorControlBase>

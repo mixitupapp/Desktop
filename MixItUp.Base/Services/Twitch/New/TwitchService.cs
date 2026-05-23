@@ -213,7 +213,7 @@ namespace MixItUp.Base.Services.Twitch.New
             return false;
         }
 
-        public async Task<SendChatMessageResponseModel> SendChatMessage(UserModel channel, UserModel sender, string message, string replyMessageID = null)
+        public async Task<SendChatMessageResponseModel> SendChatMessage(UserModel channel, UserModel sender, string message, string replyMessageID = null, bool pin = false)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
@@ -221,7 +221,11 @@ namespace MixItUp.Base.Services.Twitch.New
                 jobj["broadcaster_id"] = channel.id;
                 jobj["sender_id"] = sender.id;
                 jobj["message"] = message;
-                if (!string.IsNullOrEmpty(replyMessageID))
+                if (pin)
+                {
+                    jobj["pin"] = true;
+                }
+                else if (!string.IsNullOrEmpty(replyMessageID))
                 {
                     jobj["reply_parent_message_id"] = replyMessageID;
                 }
@@ -235,6 +239,23 @@ namespace MixItUp.Base.Services.Twitch.New
             await AsyncRunner.RunAsync(async () =>
             {
                 await this.HttpClient.DeleteAsync("moderation/chat?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id + "&message_id=" + messageID);
+            });
+        }
+
+        public async Task<PinnedChatMessageModel> GetPinnedChatMessage(UserModel channel)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                IEnumerable<PinnedChatMessageModel> pins = await this.GetDataResultAsync<PinnedChatMessageModel>("chat/pins?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id);
+                return pins?.FirstOrDefault();
+            });
+        }
+
+        public async Task UnpinChatMessage(UserModel channel, string messageID)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.DeleteAsync("chat/pins?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id + "&message_id=" + messageID);
             });
         }
 

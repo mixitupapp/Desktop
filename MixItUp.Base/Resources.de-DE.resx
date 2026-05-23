@@ -10119,4 +10119,19 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} hat {1} Kicks verschenkt</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Benutzer warnen</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Abschirmungsmodus Ein</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Abschirmungsmodus Aus</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Pin-Nachricht</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Nachricht entpinnen</value>
+  </data>
 </root>

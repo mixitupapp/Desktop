@@ -11401,4 +11401,19 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="AlertKickKicksGifted" xml:space="preserve">
     <value>{0} a offert {1} Kicks</value>
   </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Avertir l'utilisateur</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Mode bouclier activé</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Mode bouclier désactivé</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Message de l'épingle</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Message d'épinglage</value>
+  </data>
 </root>
