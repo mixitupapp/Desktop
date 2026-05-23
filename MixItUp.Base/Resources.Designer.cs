@@ -2213,6 +2213,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Block User.
+        /// </summary>
+        public static string BlockUser {
+            get {
+                return ResourceManager.GetString("BlockUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Blue.
         /// </summary>
         public static string Blue {
@@ -11325,6 +11334,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Harassment.
+        /// </summary>
+        public static string Harassment {
+            get {
+                return ResourceManager.GetString("Harassment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Head.
         /// </summary>
         public static string Head {
@@ -16527,6 +16545,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Outcome.
         /// </summary>
         public static string Outcome {
@@ -19428,6 +19455,15 @@ namespace MixItUp.Base {
         public static string ReadSpecificLineFromFile {
             get {
                 return ResourceManager.GetString("ReadSpecificLineFromFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reason.
+        /// </summary>
+        public static string Reason {
+            get {
+                return ResourceManager.GetString("Reason", resourceCulture);
             }
         }
         
@@ -22841,6 +22877,15 @@ namespace MixItUp.Base {
         public static string Space {
             get {
                 return ResourceManager.GetString("Space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spam.
+        /// </summary>
+        public static string Spam {
+            get {
+                return ResourceManager.GetString("Spam", resourceCulture);
             }
         }
         
@@ -27327,6 +27372,15 @@ namespace MixItUp.Base {
         public static string UnbanUser {
             get {
                 return ResourceManager.GetString("UnbanUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unblock User.
+        /// </summary>
+        public static string UnblockUser {
+            get {
+                return ResourceManager.GetString("UnblockUser", resourceCulture);
             }
         }
         

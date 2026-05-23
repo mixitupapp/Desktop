@@ -50,6 +50,14 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+
+            <ComboBox Grid.Row="2" Visibility="{Binding ShowBlockUserGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding BlockUserReasons}" SelectedItem="{Binding SelectedBlockUserReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}">

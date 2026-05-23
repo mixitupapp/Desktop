@@ -68,12 +68,22 @@ namespace MixItUp.Base.Model.Actions
         UnpinMessage,
         SetSuspiciousUserStatus,
         RemoveSuspiciousUserStatus,
+        BlockUser,
+        UnblockUser,
     }
 
     public enum TwitchSuspiciousUserStatus
     {
         ActiveMonitoring = 0,
         Restricted,
+    }
+
+    public enum TwitchBlockUserReason
+    {
+        None = 0,
+        Harassment,
+        Spam,
+        Other,
     }
 
     public enum TwitchAnnouncementColor
@@ -109,6 +119,13 @@ namespace MixItUp.Base.Model.Actions
         {
             { TwitchSuspiciousUserStatus.ActiveMonitoring, "ACTIVE_MONITORING" },
             { TwitchSuspiciousUserStatus.Restricted, "RESTRICTED" },
+        };
+
+        private readonly Dictionary<TwitchBlockUserReason, string> BlockUserReasonMap = new Dictionary<TwitchBlockUserReason, string>
+        {
+            { TwitchBlockUserReason.Harassment, "harassment" },
+            { TwitchBlockUserReason.Spam, "spam" },
+            { TwitchBlockUserReason.Other, "other" },
         };
 
         public static readonly IEnumerable<int> SupportedAdLengths = new List<int>() { 30, 60, 90, 120, 150, 180 };
@@ -269,6 +286,21 @@ namespace MixItUp.Base.Model.Actions
             return actionModel;
         }
 
+        public static TwitchActionModel CreateBlockUserAction(string username, TwitchBlockUserReason reason)
+        {
+            TwitchActionModel actionModel = new TwitchActionModel(TwitchActionType.BlockUser);
+            actionModel.Username = username;
+            actionModel.BlockUserReason = reason;
+            return actionModel;
+        }
+
+        public static TwitchActionModel CreateUnblockUserAction(string username)
+        {
+            TwitchActionModel actionModel = new TwitchActionModel(TwitchActionType.UnblockUser);
+            actionModel.Username = username;
+            return actionModel;
+        }
+
         public static TwitchActionModel CreateAction(TwitchActionType type)
         {
             return new TwitchActionModel(type);
@@ -391,6 +423,9 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public TwitchSuspiciousUserStatus SuspiciousUserStatus { get; set; }
+
+        [DataMember]
+        public TwitchBlockUserReason BlockUserReason { get; set; }
 
         private TwitchActionModel(TwitchActionType type)
             : base(ActionTypeEnum.Twitch)
@@ -956,6 +991,33 @@ namespace MixItUp.Base.Model.Actions
                         else
                         {
                             await ServiceManager.Get<TwitchSession>().StreamerService.RemoveSuspiciousUserStatus(ServiceManager.Get<TwitchSession>().StreamerModel, twitchUser.ID);
+                        }
+                    }
+                }
+                else if (this.ActionType == TwitchActionType.BlockUser || this.ActionType == TwitchActionType.UnblockUser)
+                {
+                    UserV2ViewModel targetUser = null;
+                    if (!string.IsNullOrEmpty(this.Username))
+                    {
+                        string targetUsername = await ReplaceStringWithSpecialModifiers(this.Username, parameters);
+                        targetUser = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformUsername: targetUsername, performPlatformSearch: true);
+                    }
+                    else
+                    {
+                        targetUser = parameters.User;
+                    }
+
+                    if (targetUser != null)
+                    {
+                        TwitchUserPlatformV2Model twitchUser = targetUser.GetPlatformData<TwitchUserPlatformV2Model>(StreamingPlatformTypeEnum.Twitch);
+                        if (this.ActionType == TwitchActionType.BlockUser)
+                        {
+                            string reason = BlockUserReasonMap.TryGetValue(this.BlockUserReason, out string mapped) ? mapped : null;
+                            await ServiceManager.Get<TwitchSession>().StreamerService.BlockUser(ServiceManager.Get<TwitchSession>().StreamerModel, twitchUser.ID, reason);
+                        }
+                        else
+                        {
+                            await ServiceManager.Get<TwitchSession>().StreamerService.UnblockUser(ServiceManager.Get<TwitchSession>().StreamerModel, twitchUser.ID);
                         }
                     }
                 }

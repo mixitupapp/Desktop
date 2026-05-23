@@ -11507,4 +11507,22 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="PerPersonGroup" xml:space="preserve">
     <value>Группа на человека</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Пользователь блока</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Разблокировать пользователя</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Домогательства</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Спам</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другие</value>
+  </data>
 </root>

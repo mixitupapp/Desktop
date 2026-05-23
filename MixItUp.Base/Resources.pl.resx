@@ -11502,4 +11502,22 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="PerPersonGroup" xml:space="preserve">
     <value>Za osobę Grupa</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Blokuj użytkownika</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Odblokuj użytkownika</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Powód</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Nękanie</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Inne</value>
+  </data>
 </root>

@@ -11502,4 +11502,22 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="PerPersonGroup" xml:space="preserve">
     <value>Gruppo per persona</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Blocco dell'utente</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Sbloccare l'utente</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Motivo</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Molestie</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Altro</value>
+  </data>
 </root>

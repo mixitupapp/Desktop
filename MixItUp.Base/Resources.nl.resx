@@ -11503,4 +11503,22 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="PerPersonGroup" xml:space="preserve">
     <value>Per persoon Groep</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Gebruiker blokkeren</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Gebruiker deblokkeren</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reden</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Intimidatie</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andere</value>
+  </data>
 </root>

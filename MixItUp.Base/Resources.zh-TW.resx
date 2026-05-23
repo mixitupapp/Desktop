@@ -11502,4 +11502,22 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="PerPersonGroup" xml:space="preserve">
     <value>每人团体</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>阻止用户</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>解封用户</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>骚扰</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>垃圾邮件</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
 </root>

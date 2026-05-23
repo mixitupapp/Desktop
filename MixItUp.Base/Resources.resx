@@ -11526,4 +11526,22 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Show Twitch Goal Ended</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Block User</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Unblock User</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Harassment</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
 </root>

@@ -11504,4 +11504,22 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="PerPersonGroup" xml:space="preserve">
     <value>Por persona Grupo</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Bloquear usuario</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Desbloquear usuario</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Razón</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Acoso</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Otros</value>
+  </data>
 </root>

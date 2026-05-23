@@ -408,6 +408,22 @@ namespace MixItUp.Base.Services.Twitch.New
             });
         }
 
+        public async Task BlockUser(UserModel channel, string target_user_id, string reason = null)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.PutAsync("users/blocks?target_user_id=" + target_user_id + (!string.IsNullOrEmpty(reason) ? "&reason=" + reason : string.Empty), AdvancedHttpClient.CreateContentFromString(string.Empty));
+            });
+        }
+
+        public async Task UnblockUser(UserModel channel, string target_user_id)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.DeleteAsync("users/blocks?target_user_id=" + target_user_id);
+            });
+        }
+
         public async Task<IEnumerable<ChatterModel>> GetChatters(UserModel channel)
         {
             return await AsyncRunner.RunAsync(async () =>

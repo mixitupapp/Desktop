@@ -10221,4 +10221,22 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="PerPersonGroup" xml:space="preserve">
     <value>Pro Person Gruppe</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Benutzer sperren</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Benutzer entsperren</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Grund</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Belästigung</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andere</value>
+  </data>
 </root>

@@ -11503,4 +11503,22 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="PerPersonGroup" xml:space="preserve">
     <value>Par personne Groupe</value>
   </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Bloquer l'utilisateur</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Débloquer l'utilisateur</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Raison</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Harcèlement</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Autres</value>
+  </data>
 </root>

@@ -78,6 +78,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged(nameof(this.ShowWarnUserGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowPinMessageGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowSetSuspiciousUserStatusGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowBlockUserGrid));
             }
         }
         private TwitchActionType selectedActionType;
@@ -103,7 +104,9 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.SelectedActionType == TwitchActionType.UnVIPUser ||
                     this.SelectedActionType == TwitchActionType.SendShoutout ||
                     this.SelectedActionType == TwitchActionType.SetSuspiciousUserStatus ||
-                    this.SelectedActionType == TwitchActionType.RemoveSuspiciousUserStatus;
+                    this.SelectedActionType == TwitchActionType.RemoveSuspiciousUserStatus ||
+                    this.SelectedActionType == TwitchActionType.BlockUser ||
+                    this.SelectedActionType == TwitchActionType.UnblockUser;
             }
         }
 
@@ -744,6 +747,21 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private TwitchSuspiciousUserStatus selectedSuspiciousUserStatus = TwitchSuspiciousUserStatus.ActiveMonitoring;
 
+        public bool ShowBlockUserGrid { get { return this.SelectedActionType == TwitchActionType.BlockUser; } }
+
+        public IEnumerable<TwitchBlockUserReason> BlockUserReasons { get { return EnumHelper.GetEnumList<TwitchBlockUserReason>(); } }
+
+        public TwitchBlockUserReason SelectedBlockUserReason
+        {
+            get { return this.selectedBlockUserReason; }
+            set
+            {
+                this.selectedBlockUserReason = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private TwitchBlockUserReason selectedBlockUserReason = TwitchBlockUserReason.None;
+
         private IEnumerable<string> existingTags = null;
         private IEnumerable<string> existingContentClassificationLabelIDs = null;
 
@@ -761,6 +779,10 @@ namespace MixItUp.Base.ViewModel.Actions
                 if (this.ShowSetSuspiciousUserStatusGrid)
                 {
                     this.SelectedSuspiciousUserStatus = action.SuspiciousUserStatus;
+                }
+                if (this.ShowBlockUserGrid)
+                {
+                    this.SelectedBlockUserReason = action.BlockUserReason;
                 }
             }
             else if (this.ShowTextGrid)
@@ -1131,6 +1153,14 @@ namespace MixItUp.Base.ViewModel.Actions
                 else if (this.SelectedActionType == TwitchActionType.RemoveSuspiciousUserStatus)
                 {
                     return TwitchActionModel.CreateRemoveSuspiciousUserStatusAction(this.Username);
+                }
+                else if (this.SelectedActionType == TwitchActionType.BlockUser)
+                {
+                    return TwitchActionModel.CreateBlockUserAction(this.Username, this.SelectedBlockUserReason);
+                }
+                else if (this.SelectedActionType == TwitchActionType.UnblockUser)
+                {
+                    return TwitchActionModel.CreateUnblockUserAction(this.Username);
                 }
                 return TwitchActionModel.CreateUserAction(this.SelectedActionType, this.Username);
             }
