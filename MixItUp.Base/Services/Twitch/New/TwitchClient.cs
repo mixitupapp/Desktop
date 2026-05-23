@@ -108,6 +108,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.shield_mode.begin", null },
             { "channel.shield_mode.end", null },
+
+            { "channel.goal.begin", null },
+            { "channel.goal.end", null },
         };
 
         public override bool IsConnected { get { return this.webSocket != null && this.webSocket.IsOpen() && this.eventSubSubscriptionsConnected; } }
@@ -432,6 +435,13 @@ namespace MixItUp.Base.Services.Twitch.New
                         break;
                     case "channel.shield_mode.end":
                         await HandleShieldModeEnd(message.Payload.Event);
+                        break;
+
+                    case "channel.goal.begin":
+                        await HandleGoalBegin(message.Payload.Event);
+                        break;
+                    case "channel.goal.end":
+                        await HandleGoalEnd(message.Payload.Event);
                         break;
                 }
             }
@@ -1412,6 +1422,35 @@ namespace MixItUp.Base.Services.Twitch.New
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelShieldModeEnded, parameters);
 
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(moderator, string.Format(MixItUp.Base.Resources.AlertTwitchShieldModeEnded, moderator.FullDisplayName), ChannelSession.Settings.AlertTwitchShieldModeEndedColor));
+        }
+
+        private async Task HandleGoalBegin(JObject payload)
+        {
+            GoalNotification goal = payload.ToObject<GoalNotification>();
+
+            CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["goaltype"] = goal.type ?? string.Empty;
+            parameters.SpecialIdentifiers["goaldescription"] = goal.description ?? string.Empty;
+            parameters.SpecialIdentifiers["goalcurrentamount"] = goal.current_amount.ToString();
+            parameters.SpecialIdentifiers["goaltargetamount"] = goal.target_amount.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelGoalStarted, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Twitch, string.Format(MixItUp.Base.Resources.AlertTwitchGoalStarted, goal.type, goal.current_amount, goal.target_amount), ChannelSession.Settings.AlertTwitchGoalStartedColor));
+        }
+
+        private async Task HandleGoalEnd(JObject payload)
+        {
+            GoalNotification goal = payload.ToObject<GoalNotification>();
+
+            CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["goaltype"] = goal.type ?? string.Empty;
+            parameters.SpecialIdentifiers["goaldescription"] = goal.description ?? string.Empty;
+            parameters.SpecialIdentifiers["goalcurrentamount"] = goal.current_amount.ToString();
+            parameters.SpecialIdentifiers["goaltargetamount"] = goal.target_amount.ToString();
+            parameters.SpecialIdentifiers["goalachieved"] = goal.is_achieved.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelGoalEnded, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Twitch, string.Format(MixItUp.Base.Resources.AlertTwitchGoalEnded, goal.type, goal.current_amount, goal.target_amount), ChannelSession.Settings.AlertTwitchGoalEndedColor));
         }
 
         private async Task ProcessSub(TwitchSubcriptionEventModel subscription)

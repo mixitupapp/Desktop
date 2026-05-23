@@ -1069,6 +1069,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} goal ended at {1}/{2}.
+        /// </summary>
+        public static string AlertTwitchGoalEnded {
+            get {
+                return ResourceManager.GetString("AlertTwitchGoalEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Started a {0} goal: {1} → {2}.
+        /// </summary>
+        public static string AlertTwitchGoalStarted {
+            get {
+                return ResourceManager.GetString("AlertTwitchGoalStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Deactivated Shield Mode.
         /// </summary>
         public static string AlertTwitchShieldModeEnded {
@@ -22350,6 +22368,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Goal Ended.
+        /// </summary>
+        public static string ShowTwitchGoalEnded {
+            get {
+                return ResourceManager.GetString("ShowTwitchGoalEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Goal Started.
+        /// </summary>
+        public static string ShowTwitchGoalStarted {
+            get {
+                return ResourceManager.GetString("ShowTwitchGoalStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Twitch Hype Train.
         /// </summary>
         public static string ShowTwitchHypeTrain {
@@ -26400,6 +26436,24 @@ namespace MixItUp.Base {
         public static string TwitchChannelFollowed {
             get {
                 return ResourceManager.GetString("TwitchChannelFollowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Goal Ended.
+        /// </summary>
+        public static string TwitchChannelGoalEnded {
+            get {
+                return ResourceManager.GetString("TwitchChannelGoalEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Goal Started.
+        /// </summary>
+        public static string TwitchChannelGoalStarted {
+            get {
+                return ResourceManager.GetString("TwitchChannelGoalStarted", resourceCulture);
             }
         }
         

@@ -34,6 +34,8 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchSuspiciousUserUpdated { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchShieldModeStarted { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchShieldModeEnded { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchGoalStarted { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel TwitchGoalEnded { get; set; }
 
         public AlertsSettingsControlViewModel()
         {
@@ -66,6 +68,8 @@ namespace MixItUp.Base.ViewModel.Settings
             this.TwitchSuspiciousUserUpdated = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchSuspiciousUserUpdated, ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor, (value) => { ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor = value; });
             this.TwitchShieldModeStarted = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchShieldModeStarted, ChannelSession.Settings.AlertTwitchShieldModeStartedColor, (value) => { ChannelSession.Settings.AlertTwitchShieldModeStartedColor = value; });
             this.TwitchShieldModeEnded = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchShieldModeEnded, ChannelSession.Settings.AlertTwitchShieldModeEndedColor, (value) => { ChannelSession.Settings.AlertTwitchShieldModeEndedColor = value; });
+            this.TwitchGoalStarted = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchGoalStarted, ChannelSession.Settings.AlertTwitchGoalStartedColor, (value) => { ChannelSession.Settings.AlertTwitchGoalStartedColor = value; });
+            this.TwitchGoalEnded = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchGoalEnded, ChannelSession.Settings.AlertTwitchGoalEndedColor, (value) => { ChannelSession.Settings.AlertTwitchGoalEndedColor = value; });
         }
     }
 }

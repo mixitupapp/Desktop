@@ -185,6 +185,8 @@ namespace MixItUp.Base.ViewModel.MainControls
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelSuspiciousUserUpdated));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelShieldModeStarted));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelShieldModeEnded));
+            twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelGoalStarted));
+            twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelGoalEnded));
             commandGroups.Add(twitchCommands);
 
             EventCommandGroupViewModel youtubeCommands = new EventCommandGroupViewModel(Resources.YouTube, image: StreamingPlatforms.YouTubeLogoImageAssetFilePath);

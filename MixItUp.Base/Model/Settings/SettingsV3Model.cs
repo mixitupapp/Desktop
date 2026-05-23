@@ -322,6 +322,10 @@ namespace MixItUp.Base.Model.Settings
         public string AlertTwitchShieldModeStartedColor { get; set; }
         [DataMember]
         public string AlertTwitchShieldModeEndedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchGoalStartedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchGoalEndedColor { get; set; }
 
         [Obsolete]
         [DataMember]

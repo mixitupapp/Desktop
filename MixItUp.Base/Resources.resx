@@ -11505,4 +11505,22 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
     <value>Show Twitch Shield Mode Ended</value>
   </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Twitch Channel Goal Started</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Twitch Channel Goal Ended</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>Started a {0} goal: {1} → {2}</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0} goal ended at {1}/{2}</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>Show Twitch Goal Started</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>Show Twitch Goal Ended</value>
+  </data>
 </root>
