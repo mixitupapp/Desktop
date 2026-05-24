@@ -211,7 +211,8 @@ namespace MixItUp.Base.Services.External
 
                             CrowdControlEffectCommandModel command = ServiceManager.Get<CommandService>().CrowdControlEffectCommands.FirstOrDefault(c =>
                                 string.Equals(c.GameID, effect.game.gameID, StringComparison.OrdinalIgnoreCase) &&
-                                string.Equals(c.PackID, effect.gamePack.gamePackID, StringComparison.OrdinalIgnoreCase) &&
+                                (string.Equals(c.PackID, effect.gamePack.gamePackID, StringComparison.OrdinalIgnoreCase) ||
+                                 string.Equals(c.PackName, effect.gamePack.gamePackID, StringComparison.OrdinalIgnoreCase)) &&
                                 string.Equals(c.EffectID, effect.effect.effectID, StringComparison.OrdinalIgnoreCase));
 
                             if (effect.quantity == 0)
