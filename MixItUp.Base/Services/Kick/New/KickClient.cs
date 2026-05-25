@@ -378,7 +378,10 @@ namespace MixItUp.Base.Services.Kick.New
             parameters.SpecialIdentifiers["rewardcost"] = redemptionEvent.Reward.Cost.ToString();
             if (!string.IsNullOrWhiteSpace(redemptionEvent.UserInput))
             {
+                KickChatMessageViewModel message = new KickChatMessageViewModel(user, redemptionEvent.UserInput);
                 parameters.SpecialIdentifiers["message"] = redemptionEvent.UserInput;
+                parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                 arguments = new List<string>(redemptionEvent.UserInput.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
                 parameters.Arguments.AddRange(arguments);
             }
@@ -525,12 +528,16 @@ namespace MixItUp.Base.Services.Kick.New
                 return;
             }
 
+            KickChatMessageViewModel message = new KickChatMessageViewModel(sender, kicksEvent.Gift.Message);
+
             CommandParametersModel parameters = new CommandParametersModel(sender, StreamingPlatformTypeEnum.Kick);
             parameters.SpecialIdentifiers["kicksamount"] = kicksEvent.Gift.Amount.ToString();
             parameters.SpecialIdentifiers["giftname"] = kicksEvent.Gift.Name;
             parameters.SpecialIdentifiers["gifttype"] = kicksEvent.Gift.Type;
             parameters.SpecialIdentifiers["gifttier"] = kicksEvent.Gift.Tier;
             parameters.SpecialIdentifiers["message"] = kicksEvent.Gift.Message;
+            parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+            parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
             parameters.SpecialIdentifiers["giftpinnedseconds"] = kicksEvent.Gift.PinnedTimeSeconds.ToString();
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelKicksGifted, parameters);
 

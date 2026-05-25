@@ -810,7 +810,10 @@ namespace MixItUp.Base.Services.Twitch.New
             eventCommandSpecialIdentifiers["rewardcost"] = redemption.reward.cost.ToString();
             if (!string.IsNullOrEmpty(redemption.user_input))
             {
+                TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(user, redemption.user_input);
                 eventCommandSpecialIdentifiers["message"] = redemption.user_input;
+                eventCommandSpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                eventCommandSpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                 arguments = new List<string>(redemption.user_input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
             }
 
@@ -859,7 +862,10 @@ namespace MixItUp.Base.Services.Twitch.New
 
             if (!string.IsNullOrEmpty(redemption.user_input))
             {
+                TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(user, redemption.user_input);
                 eventCommandSpecialIdentifiers["message"] = redemption.user_input;
+                eventCommandSpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                eventCommandSpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                 arguments = new List<string>(redemption.user_input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
             }
 
@@ -929,6 +935,8 @@ namespace MixItUp.Base.Services.Twitch.New
                     parameters.SpecialIdentifiers["bitsamount"] = bits.ToString();
                     parameters.SpecialIdentifiers["messagenocheermotes"] = message.PlainTextMessageNoCheermotes;
                     parameters.SpecialIdentifiers["message"] = message.PlainTextMessage;
+                    parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                    parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelBitsCheered, parameters);
 
                     TwitchBitsCommandModel command = ServiceManager.Get<CommandService>().TwitchBitsCommands.FirstOrDefault(c => c.IsEnabled && c.IsSingle && c.StartingAmount == bits);
@@ -951,6 +959,8 @@ namespace MixItUp.Base.Services.Twitch.New
                 CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, message.ToArguments());
                 parameters.SpecialIdentifiers["messagenocheermotes"] = message.PlainTextMessageNoCheermotes;
                 parameters.SpecialIdentifiers["message"] = message.PlainTextMessage;
+                parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
 
                 if (messageNotification.MessageType == ChatNotificationMessageType.user_intro)
                 {
@@ -993,10 +1003,14 @@ namespace MixItUp.Base.Services.Twitch.New
 
         private async Task HandleWatchStreak(UserV2ViewModel user, ChatNotification notification)
         {
+            TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(notification, user);
+
             CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
             parameters.SpecialIdentifiers["userwatchstreak"] = notification.watch_streak.streak_count.GetValueOrDefault().ToString();
             parameters.SpecialIdentifiers["watchstreakchannelpointsawarded"] = notification.watch_streak.channel_points_awarded.GetValueOrDefault().ToString();
             parameters.SpecialIdentifiers["message"] = notification.message?.text;
+            parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+            parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelWatchStreak, parameters);
 
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchWatchStreak, user.FullDisplayName, notification.watch_streak.streak_count.GetValueOrDefault()), ChannelSession.Settings.AlertTwitchWatchStreakColor));
@@ -1283,6 +1297,8 @@ namespace MixItUp.Base.Services.Twitch.New
 
                 CommandParametersModel parameters = new CommandParametersModel(subscription.User, subscription.Message.ToArguments());
                 parameters.SpecialIdentifiers["message"] = subscription.Message.PlainTextMessage;
+                parameters.SpecialIdentifiers["messagenoemotes"] = subscription.Message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = subscription.Message.EmotesOnlyContents.Count().ToString();
                 parameters.SpecialIdentifiers["usersubmonths"] = subscription.Cumulative.ToString();
                 parameters.SpecialIdentifiers["usersubplanname"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
@@ -1344,6 +1360,8 @@ namespace MixItUp.Base.Services.Twitch.New
                 subscription.User.SubscriberTier = subscription.Tier;
 
                 parameters.SpecialIdentifiers["message"] = subscription.Message.PlainTextMessage;
+                parameters.SpecialIdentifiers["messagenoemotes"] = subscription.Message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = subscription.Message.EmotesOnlyContents.Count().ToString();
                 parameters.SpecialIdentifiers["usersubplanname"] = subscription.PlanName;
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubpoints"] = subscription.SubPoints.ToString();

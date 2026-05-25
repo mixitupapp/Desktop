@@ -223,6 +223,8 @@ namespace MixItUp.Base.ViewModel.Chat
                         parameters.Arguments.Add(this.User.Username);
                         parameters.TargetUser = this.User;
                         parameters.SpecialIdentifiers["message"] = this.PlainTextMessage;
+                        parameters.SpecialIdentifiers["messagenoemotes"] = this.TextOnlyMessageContents;
+                        parameters.SpecialIdentifiers["messageemotecount"] = this.EmotesOnlyContents.Count().ToString();
                         parameters.SpecialIdentifiers["reason"] = this.ModerationReason;
                         await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.ChatMessageDeleted, parameters);
                     }
