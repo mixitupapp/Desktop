@@ -509,6 +509,7 @@ namespace MixItUp.Base.Services
         public const string AuthenticateMethodName = "AuthenticateMany";
         private WebhookHubConnection webhookHubConnection = null;
         private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
+        private readonly SemaphoreSlim webhookConnectLock = new SemaphoreSlim(1, 1);
         public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
         public bool IsWebhookHubAllowed { get; private set; } = false;
 
@@ -527,6 +528,10 @@ namespace MixItUp.Base.Services
         public async Task<Result> Connect()
         {
             if (isUpdateRequired) return new Result("Update Required");
+
+            await this.webhookConnectLock.WaitAsync();
+            try
+            {
             if (!this.IsWebhookHubConnected)
             {
                 if (this.webhookHubConnection == null)
@@ -596,6 +601,11 @@ namespace MixItUp.Base.Services
                 return new Result(MixItUp.Base.Resources.WebhooksServiceFailedConnection);
             }
             return new Result(MixItUp.Base.Resources.WebhookServiceAlreadyConnected);
+            }
+            finally
+            {
+                this.webhookConnectLock.Release();
+            }
         }
 
         public async Task Disconnect()
