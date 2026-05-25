@@ -585,9 +585,10 @@ namespace MixItUp.Base.Services
                 {
                     this.IsWebhookHubAllowed = false;
                     this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
+                    TaskCompletionSource<bool> tcs = this.webhookAuthenticationCompletionSource;
 
-                    Task completedTask = await Task.WhenAny(this.webhookAuthenticationCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(15)));
-                    bool authenticated = completedTask == this.webhookAuthenticationCompletionSource.Task && this.webhookAuthenticationCompletionSource.Task.Result;
+                    Task completedTask = await Task.WhenAny(tcs.Task, Task.Delay(TimeSpan.FromSeconds(15)));
+                    bool authenticated = completedTask == tcs.Task && tcs.Task.Result;
                     this.webhookAuthenticationCompletionSource = null;
 
                     if (!authenticated)
