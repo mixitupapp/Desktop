@@ -1,5 +1,16 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.001 (HOTFIX)
+
+### FIXES
+
+- $messagenoemotes and $messageemotecount not working properly
+- Login window crashing when checking for updates
+- Webhook connection crash during reconnection
+- Crowd Control commands not triggering after being edited
+- Kick channel information special identifiers
+- Twitch channel points and custom power-ups sometimes not working when disabled duplicates exist
+
 ## 1.7.000
 
 ### ***BREAKING CHANGES***
