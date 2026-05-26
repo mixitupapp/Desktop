@@ -27,11 +27,13 @@ namespace MixItUp.WPF
         public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
         {
             this.update = update;
-            #if DEBUG
-            this.isMandatory = false;
-            #else
-            this.isMandatory = isMandatory;
-            #endif
+
+            if (!BuildChannelHelper.BYPASS_UPDATE_CHECK)
+            {
+
+                this.isMandatory = isMandatory;
+            }
+
             InitializeComponent();
 
             this.Initialize(this.StatusBar);
@@ -248,7 +250,7 @@ namespace MixItUp.WPF
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
                 {
-                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl,56,56, member.DisplayName);
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 56, 56, member.DisplayName);
                 }
             }
             catch (Exception ex)

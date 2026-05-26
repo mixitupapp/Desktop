@@ -19,7 +19,7 @@ namespace MixItUp.WPF.Controls.MainControls
 
         protected override Task InitializeInternal()
         {
-            this.VersionTextBlock.Text = VersionHelper.GetFullVersionString() + BuildChannelHelper.GetChannelSuffix();
+            this.VersionTextBlock.Text = VersionHelper.GetFullVersionString() + BuildChannelHelper.BUILD_CHANNEL_SUFFIX;
             _ = this.LoadPatreonMembers();
 
             return base.InitializeInternal();
