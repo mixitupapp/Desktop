@@ -45,7 +45,7 @@ namespace MixItUp.WPF
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
             string versionString = "v" + VersionHelper.GetFullVersionString();
-            versionString += BuildChannelHelper.GetChannelSuffix();
+            versionString += BuildChannelHelper.BUILD_CHANNEL_SUFFIX;
 
             this.Title += " - " + versionString;
 
