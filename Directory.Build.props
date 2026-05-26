@@ -1,0 +1,20 @@
+<Project>
+
+  <!-- Propagate build-channel constants to all projects under Desktop/ so that
+       MixItUp.Base and MixItUp.WPF share the same #if symbols when built with
+       the same -c <Configuration> flag. -->
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants);DEBUG_BUILD</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Preview|AnyCPU'">
+    <DefineConstants>$(DefineConstants);PREVIEW_BUILD</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DefineConstants>$(DefineConstants);TEST_BUILD</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BuildChannel)' != ''">
+    <DefineConstants>$(DefineConstants);$(BuildChannel)</DefineConstants>
+  </PropertyGroup>
+
+</Project>
