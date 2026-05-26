@@ -145,7 +145,7 @@ namespace MixItUp.WPF
                     "No ads. No investors. No board of directors. Just amazing **Patreon** members.",
                     "Every launch, every update, every feature, made possible by **Patreon** members.",
                     "Mix It Up only exists because of our **Patreon** supporters.",
-                    "No corporate overloards. Just community belief and **Patreon** supporters.", 
+                    "No corporate overlords. Just community belief and **Patreon** supporters.", 
                     "No venture capital. No compromises. Just **Patreon** love.",
                     "Built for the community, sustained by **Patreon** members.",
                     "Creator-driven. Community-funded.",
