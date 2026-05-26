@@ -146,7 +146,7 @@ namespace MixItUp.Base.Services
 
         private const string UtilApiEndpoint = "https://util.mixitupapp.com/";
 
-        private const string FileServiceBaseUrl = "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
         private static readonly TimeSpan[] FileServiceRetryDelays = new[]
         {
             TimeSpan.FromSeconds(2),
