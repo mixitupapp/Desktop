@@ -120,7 +120,7 @@ namespace MixItUp.WPF
                 this.Title += " - " + ChannelSession.Settings.Name;
             }
 
-            this.Title += " - v" + VersionHelper.GetFullVersionString() + MixItUp.WPF.Util.BuildChannelHelper.GetChannelSuffix();
+            this.Title += " - v" + VersionHelper.GetFullVersionString() + BuildChannelHelper.GetChannelSuffix();
 
             await this.MainMenu.Initialize(this);
 

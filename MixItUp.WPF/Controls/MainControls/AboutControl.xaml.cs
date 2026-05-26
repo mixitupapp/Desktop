@@ -1,7 +1,6 @@
 ﻿using MixItUp.Base;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
-using MixItUp.WPF.Util;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
