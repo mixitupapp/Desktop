@@ -173,6 +173,17 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private string embedAuthorName;
 
+        public string EmbedAuthorURL
+        {
+            get { return this.embedAuthorURL; }
+            set
+            {
+                this.embedAuthorURL = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string embedAuthorURL;
+
         public string EmbedAuthorIconURL
         {
             get { return this.embedAuthorIconURL; }
@@ -251,6 +262,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.EmbedThumbnailURL = action.EmbedThumbnailURL;
                 this.EmbedImageURL = action.EmbedImageURL;
                 this.EmbedAuthorName = action.EmbedAuthorName;
+                this.EmbedAuthorURL = action.EmbedAuthorURL;
                 this.EmbedAuthorIconURL = action.EmbedAuthorIconURL;
                 this.EmbedFooterText = action.EmbedFooterText;
                 this.EmbedFooterIconURL = action.EmbedFooterIconURL;
@@ -346,6 +358,7 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.EmbedThumbnailURL,
                     this.EmbedImageURL,
                     this.EmbedAuthorName,
+                    this.EmbedAuthorURL,
                     this.EmbedAuthorIconURL,
                     this.EmbedFooterText,
                     this.EmbedFooterIconURL,

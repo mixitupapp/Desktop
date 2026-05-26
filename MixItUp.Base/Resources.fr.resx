@@ -11521,4 +11521,7 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="Other" xml:space="preserve">
     <value>Autres</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL de l'auteur (facultatif)</value>
+  </data>
 </root>

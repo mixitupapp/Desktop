@@ -3429,6 +3429,9 @@ For example, if this option is enabled and amount is set to 5, then any time 5 O
   <data name="DiscordEmbedAuthorName" xml:space="preserve">
     <value>Author Name (Optional)</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>Author URL (Optional)</value>
+  </data>
   <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
     <value>Author Icon URL (Optional)</value>
   </data>

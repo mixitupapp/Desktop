@@ -11520,4 +11520,7 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="Other" xml:space="preserve">
     <value>Altro</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL dell'autore (facoltativo)</value>
+  </data>
 </root>

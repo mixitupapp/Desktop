@@ -11520,4 +11520,7 @@ print(run())</value>
   <data name="Other" xml:space="preserve">
     <value>Інше</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL-адреса автора (необов'язково)</value>
+  </data>
 </root>

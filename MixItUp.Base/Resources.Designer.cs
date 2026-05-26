@@ -6072,6 +6072,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author URL (Optional).
+        /// </summary>
+        public static string DiscordEmbedAuthorURL {
+            get {
+                return ResourceManager.GetString("DiscordEmbedAuthorURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color.
         /// </summary>
         public static string DiscordEmbedColor {

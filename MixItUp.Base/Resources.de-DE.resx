@@ -10239,4 +10239,7 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="Other" xml:space="preserve">
     <value>Andere</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>Autor-URL (optional)</value>
+  </data>
 </root>

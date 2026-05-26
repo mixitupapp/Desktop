@@ -11520,4 +11520,7 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>Author URL (Optional)</value>
+  </data>
 </root>

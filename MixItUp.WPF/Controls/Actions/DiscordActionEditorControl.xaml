@@ -158,11 +158,15 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Column="0" Text="{Binding EmbedAuthorName}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                <TextBox Grid.Column="2" Text="{Binding EmbedAuthorIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding EmbedAuthorURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBox Grid.Column="4" Text="{Binding EmbedAuthorIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
 
             <Grid Grid.Row="10">

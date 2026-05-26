@@ -11521,4 +11521,7 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="Other" xml:space="preserve">
     <value>Andere</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL auteur (optioneel)</value>
+  </data>
 </root>

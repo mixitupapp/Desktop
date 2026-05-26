@@ -11525,4 +11525,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="Other" xml:space="preserve">
     <value>Другие</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL-адрес автора (необязательно)</value>
+  </data>
 </root>

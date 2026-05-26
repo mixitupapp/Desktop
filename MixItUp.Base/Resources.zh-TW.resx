@@ -11520,4 +11520,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="Other" xml:space="preserve">
     <value>其他</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>作者 URL（可选）</value>
+  </data>
 </root>

@@ -250,6 +250,7 @@ namespace MixItUp.Base.Services.External
         public string ThumbnailURL { get; set; }
         public string ImageURL { get; set; }
         public string AuthorName { get; set; }
+        public string AuthorURL { get; set; }
         public string AuthorIconURL { get; set; }
         public string FooterText { get; set; }
         public string FooterIconURL { get; set; }
@@ -308,6 +309,10 @@ namespace MixItUp.Base.Services.External
             if (!string.IsNullOrEmpty(this.AuthorName))
             {
                 JObject author = new JObject { { "name", this.AuthorName } };
+                if (!string.IsNullOrEmpty(this.AuthorURL))
+                {
+                    author["url"] = this.AuthorURL;
+                }
                 if (!string.IsNullOrEmpty(this.AuthorIconURL))
                 {
                     author["icon_url"] = this.AuthorIconURL;

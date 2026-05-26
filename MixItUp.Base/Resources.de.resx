@@ -11526,4 +11526,7 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="Other" xml:space="preserve">
     <value>Andere</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>Autor-URL (optional)</value>
+  </data>
 </root>

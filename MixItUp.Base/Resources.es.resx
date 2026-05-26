@@ -11522,4 +11522,7 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="Other" xml:space="preserve">
     <value>Otros</value>
   </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL del autor (opcional)</value>
+  </data>
 </root>
