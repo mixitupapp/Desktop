@@ -1,10 +1,42 @@
 using System;
+using System.Reflection;
 
 namespace MixItUp.Base.Util
 {
     public static class VersionHelper
     {
         private static readonly char[] SemVersionMetadataSeparators = new[] { '-', '+' };
+
+        public static string GetFullVersionString()
+        {
+            try
+            {
+                var assembly = Assembly.GetEntryAssembly();
+                if (assembly == null)
+                {
+                    return "0.0.0";
+                }
+
+                var versionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
+                if (versionAttribute != null && !string.IsNullOrWhiteSpace(versionAttribute.Version))
+                {
+                    string versionStr = versionAttribute.Version.Trim();
+                    string[] parts = versionStr.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (parts.Length >= 3)
+                    {
+                        return $"{parts[0]}.{parts[1]}.{parts[2]}";
+                    }
+                    else if (parts.Length == 2)
+                    {
+                        return $"{parts[0]}.{parts[1]}.0";
+                    }
+                }
+            }
+            catch { }
+
+            return "0.0.0";
+        }
 
         public static string NormalizeSemVerString(string version)
         {

@@ -44,8 +44,7 @@ namespace MixItUp.WPF
             _ = this.TryLoadPatreonMemberShoutout();
 
             this.NewVersionTextBlock.Text = this.update.Version;
-            Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-            this.CurrentVersionTextBlock.Text = VersionHelper.NormalizeSemVerString(entryVersion);
+            this.CurrentVersionTextBlock.Text = VersionHelper.GetFullVersionString();
 
             if (this.update.IsPreview)
             {
