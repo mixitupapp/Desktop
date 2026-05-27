@@ -23,6 +23,7 @@ namespace MixItUp.WPF
     {
         private MixItUpUpdateModel update;
         private readonly bool isMandatory;
+        private bool _shuttingDown = false;
 
         public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
         {
@@ -30,7 +31,6 @@ namespace MixItUp.WPF
 
             if (!BuildChannelHelper.BYPASS_UPDATE_CHECK)
             {
-
                 this.isMandatory = isMandatory;
             }
 
@@ -174,6 +174,12 @@ namespace MixItUp.WPF
         private void UpdateWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             TaskbarFlashHelper.Flash(this, stop: true);
+            if (this.isMandatory && !_shuttingDown)
+            {
+                e.Cancel = true;
+                _shuttingDown = true;
+                Application.Current.Shutdown();
+            }
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
