@@ -52,7 +52,7 @@
                     FontSize="13"
                     Foreground="White"
                     TextWrapping="Wrap"
-                    Text="We're switching our Webhooks API domain from api.mixitupapp.com to desktop.api.mixitupapp.com. Please ensure that you update your webhook URLs in any external services that use them. You can press the Copy URL button to get the updated link." />
+                    Text="We have switched our Webhooks API domain from api.mixitupapp.com to desktop.api.mixitupapp.com. Please ensure that you update your webhook URLs in any external services that use them. You can press the Copy URL button to get the updated link." />
 
                 <Button
                     Grid.Column="2"
