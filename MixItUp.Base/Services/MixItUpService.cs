@@ -32,6 +32,7 @@ namespace MixItUp.Base.Services
     {
         bool IsWebhookHubConnected { get; }
         bool IsWebhookHubAllowed { get; }
+        event EventHandler<bool> OnWebhooksHubAllowed;
         void BackgroundConnect();
         Task<Result> Connect();
         Task Disconnect();
@@ -513,6 +514,7 @@ namespace MixItUp.Base.Services
         private CancellationTokenSource webhookReconnectCancellationTokenSource = null;
         public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
         public bool IsWebhookHubAllowed { get; private set; } = false;
+        public event EventHandler<bool> OnWebhooksHubAllowed = delegate { };
 
         public void BackgroundConnect()
         {
@@ -551,6 +553,7 @@ namespace MixItUp.Base.Services
 
                         this.IsWebhookHubAllowed = approved;
                         this.webhookAuthenticationCompletionSource?.TrySetResult(approved);
+                        this.OnWebhooksHubAllowed(this, approved);
                         if (!this.IsWebhookHubAllowed)
                         {
                             Logger.Log(LogLevel.Error, $"Webhook Authentication Failed");
