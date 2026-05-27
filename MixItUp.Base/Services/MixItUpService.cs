@@ -510,6 +510,7 @@ namespace MixItUp.Base.Services
         private WebhookHubConnection webhookHubConnection = null;
         private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
         private readonly SemaphoreSlim webhookConnectLock = new SemaphoreSlim(1, 1);
+        private CancellationTokenSource webhookReconnectCancellationTokenSource = null;
         public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
         public bool IsWebhookHubAllowed { get; private set; } = false;
 
@@ -587,7 +588,7 @@ namespace MixItUp.Base.Services
                     this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
                     TaskCompletionSource<bool> tcs = this.webhookAuthenticationCompletionSource;
 
-                    Task completedTask = await Task.WhenAny(tcs.Task, Task.Delay(TimeSpan.FromSeconds(15)));
+                    Task completedTask = await Task.WhenAny(tcs.Task, Task.Delay(TimeSpan.FromSeconds(5)));
                     bool authenticated = completedTask == tcs.Task && tcs.Task.Result;
                     this.webhookAuthenticationCompletionSource = null;
 
@@ -611,6 +612,9 @@ namespace MixItUp.Base.Services
 
         public async Task Disconnect()
         {
+            webhookReconnectCancellationTokenSource?.Cancel();
+            webhookReconnectCancellationTokenSource = null;
+
             if (this.webhookHubConnection != null)
             {
                 this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
@@ -633,6 +637,9 @@ namespace MixItUp.Base.Services
             await this.Authenticate(this.GetLoginToken());
         }
 
+        private const int WebhookReconnectBaseDelayMs = 5000;
+        private const int WebhookReconnectMaxDelayMs = 30000;
+
         private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
             if (e.Message.Contains("4426"))
@@ -644,16 +651,28 @@ namespace MixItUp.Base.Services
 
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
-            Result result;
-            do
+            webhookReconnectCancellationTokenSource = new CancellationTokenSource();
+            CancellationToken reconnectToken = webhookReconnectCancellationTokenSource.Token;
+            try
             {
-                await this.Disconnect();
-                await Task.Delay(5000 + RandomHelper.GenerateRandomNumber(5000));
-                result = await this.Connect();
-            }
-            while (!result.Success && !isUpdateRequired);
+                Result result;
+                int attempt = 0;
+                do
+                {
+                    await Disconnect();
 
-            ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+                    int baseDelay = Math.Min(WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
+                    int jitter = RandomHelper.GenerateRandomNumber(-(baseDelay / 2), baseDelay / 2);
+                    await Task.Delay(baseDelay + jitter, reconnectToken);
+
+                    result = await Connect();
+                    attempt++;
+                }
+                while (!result.Success && !isUpdateRequired);
+
+                ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+            }
+            catch (OperationCanceledException) { }
         }
 
         public async Task Authenticate(CommunityCommandLoginModel login)
