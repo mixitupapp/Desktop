@@ -173,11 +173,12 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="40" />
                         <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
+                    </Grid.ColumnDefinitions> 
                     <GroupBox Grid.Column="0" Header="{x:Static resx:Resources.RoleBonuses}">
                         <Grid Margin="10">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="10" />
                                 <ColumnDefinition Width="Auto" />
@@ -187,31 +188,38 @@
 
                             <TextBox
                                 Grid.Column="0"
-                                Width="85"
+                                Width="75"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RegularBonus}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Text="{Binding RegularBonus}" />
-
+                            
                             <TextBox
                                 Grid.Column="2"
-                                Width="85"
+                                Width="75"
+                                MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FollowerBonus}"
+                                IsEnabled="{Binding IsOnlineRateTimeBased}"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                Text="{Binding FollowerBonus}" />
+                            
+                            <TextBox
+                                Grid.Column="4"
+                                Width="75"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubBonus}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Text="{Binding SubscriberBonus}" />
 
                             <TextBox
-                                Grid.Column="4"
-                                Width="85"
+                                Grid.Column="6"
+                                Width="75"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModBonus}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Text="{Binding ModeratorBonus}" />
 
                         </Grid>
-                    </GroupBox>
-
+                    </GroupBox> 
                     <GroupBox Grid.Column="2" Header="{x:Static resx:Resources.EventBonuses}">
                         <Grid Margin="10">
                             <Grid.ColumnDefinitions>
@@ -224,7 +232,7 @@
 
                             <TextBox
                                 Grid.Column="0"
-                                Width="85"
+                                Width="75"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OnFollow}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -232,7 +240,7 @@
 
                             <TextBox
                                 Grid.Column="2"
-                                Width="85"
+                                Width="75"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OnHost}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -240,13 +248,13 @@
 
                             <TextBox
                                 Grid.Column="4"
-                                Width="85"
+                                Width="75"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OnSubscribe}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 Text="{Binding OnSubscribeBonus}" />
                         </Grid>
-                    </GroupBox>
+                    </GroupBox> 
                 </Grid>
 
                 <Grid
@@ -287,7 +295,7 @@
                                             Binding="{Binding Amount}"
                                             Header="{x:Static resx:Resources.MinPoints}"
                                             IsReadOnly="True" />
-                                        <DataGridTemplateColumn Width="80">
+                                        <DataGridTemplateColumn Width="75">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Controls:IconButton
@@ -329,7 +337,7 @@
 
                                     <TextBox
                                         Grid.Column="2"
-                                        Width="80"
+                                        Width="75"
                                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinPoints}"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                         Text="{Binding NewRankAmount}" />
@@ -481,7 +489,7 @@
                 <Controls:IconButton
                     x:Name="SaveButton"
                     Grid.Row="10"
-                    Width="80"
+                    Width="75"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
                     Icon="ContentSave" />

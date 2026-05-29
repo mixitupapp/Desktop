@@ -1604,6 +1604,9 @@
   <data name="PerPerson" xml:space="preserve">
     <value>Par personne</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Par personne Groupe</value>
+  </data>
   <data name="Pink" xml:space="preserve">
     <value>Rose</value>
     <comment>Manual</comment>
@@ -3390,6 +3393,57 @@ Par exemple, si cette option est activée et que le montant est défini sur 5, a
   <data name="DiscordActionMissingChatMessage" xml:space="preserve">
     <value>Action Discord : message de discussion manquant</value>
     <comment>Manual</comment>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Action Discord : Un embed doit comporter au moins un titre, une description, une vignette ou une image.</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Message (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Intégrer le titre</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Titre URL (Facultatif)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Embed Description</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Inclure l'horodatage</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Auteur (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Pied de page (optionnel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Nom de l'auteur (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL de l'auteur (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL de l'icône de l'auteur (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL de la vignette (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL de l'image (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Texte du pied de page (facultatif)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL de l'icône de bas de page (facultatif)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Envoyer l'intégration</value>
   </data>
   <data name="ExternalProgramActionMissingFilePath" xml:space="preserve">
     <value>Action de programme externe : chemin de fichier manquant</value>
@@ -6706,6 +6760,9 @@ assurez-vous que cette option est désactivée après tous les tests que vous ef
   <data name="Choice4" xml:space="preserve">
     <value>Choix 4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Choix 5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>Créer un sondage</value>
   </data>
@@ -7306,6 +7363,12 @@ Le fait de ne pas effectuer l’une des actions suivantes pourrait affecter la f
   </data>
   <data name="ShowTwitchChannelPoints" xml:space="preserve">
     <value>Afficher les points de la chaîne Twitch</value>
+  </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Afficher les points de chaîne Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Afficher les Kicks de Kick</value>
   </data>
   <data name="ShowTwitchHypeTrain" xml:space="preserve">
     <value>Montrer le train de battage médiatique Twitch</value>
@@ -8233,6 +8296,12 @@ Les devis importés dont les ID correspondent aux devis existants seront modifi�
     <comment>{0} is the name of the user
 {1} is the name of the channel point reward</comment>
   </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} a échangé {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} a offert {1} Kicks</value>
+  </data>
   <data name="AverageViewers" xml:space="preserve">
     <value>Téléspectateurs moyens</value>
   </data>
@@ -8906,6 +8975,9 @@ via Twitch, c'est une situation "votre kilométrage peut varier".</value>
   <data name="YouTubeChannelSuperChat" xml:space="preserve">
     <value>Super Chat de la chaîne YouTube</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Cadeau pour les bijoux de la chaîne YouTube</value>
+  </data>
   <data name="YouTubeChannelSuperSticker" xml:space="preserve">
     <value>Super autocollant de chaîne YouTube</value>
   </data>
@@ -8913,6 +8985,9 @@ via Twitch, c'est une situation "votre kilométrage peut varier".</value>
     <value>{0} Super Chat – {1}</value>
     <comment>{0} is the name of the user
 {1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} Cadeau YouTube Jewels - {1} ({2} Jewels)</value>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0} Super autocollant – {1} - {2}</value>
@@ -8922,6 +8997,9 @@ via Twitch, c'est une situation "votre kilométrage peut varier".</value>
   </data>
   <data name="ShowYouTubeSuperChat" xml:space="preserve">
     <value>Afficher le Super Chat YouTube</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Voir YouTube Jewels Gift</value>
   </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Connexion simulée</value>
@@ -9792,6 +9870,12 @@ imprimer (exécuter ())</value>
     <value>Annonce Twitch lancée – Durée {0} secondes</value>
     <comment>{0} = The amount of seconds of the ad</comment>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Afficher les flux de visionnage sur Twitch</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} a une série de montres de {1}</value>
+  </data>
   <data name="SnoozeNextAd" xml:space="preserve">
     <value>Mettre en attente la prochaine annonce</value>
   </data>
@@ -10304,6 +10388,14 @@ imprimer (exécuter ())</value>
   </data>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>Les numéros de port pour l'overlay doivent être compris entre 0 et 65353</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Désactiver la suppression des iframes (solution de contournement du gel de l'OBS CEF)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Avertissement : Test de solution de contournement. Il n'est pas recommandé de l'activer à moins que cela ne soit nécessaire pour le gel des vidéos OBS CEF. Cela peut augmenter l'utilisation de la mémoire ou introduire d'autres problèmes.
+
+Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>Masquer les messages utilisateur spécifiques (espaces séparés)</value>
@@ -11158,12 +11250,6 @@ Pour utiliser Mix It Up, vous devez connecter au moins un compte de plateforme d
 
 Allez à la page Comptes dans le menu principal pour connecter votre compte de streaming, puis redémarrez Mix It Up.</value>
   </data>
-  <data name="ResetWindowPosition" xml:space="preserve">
-    <value>Réinitialiser la position de la fenêtre</value>
-  </data>
-  <data name="ResetWindowPositionDialog" xml:space="preserve">
-    <value>Les positions des fenêtres ont été réinitialisées</value>
-  </data>
   <data name="DisableHardwareAcceleration" xml:space="preserve">
     <value>Désactiver l'accélération matérielle</value>
   </data>
@@ -11173,53 +11259,11 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>Désactive l'accélération matérielle du GPU et utilise le rendu logiciel à la place. Activez cette option si vous rencontrez des pannes liées aux graphiques (UCEERRRENDERTHREADFAILURE). Nécessite un redémarrage.</value>
   </data>
-  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
-    <value>Action Discord : Un embed doit comporter au moins un titre, une description, une vignette ou une image.</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Réinitialiser la position de la fenêtre</value>
   </data>
-  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
-    <value>Message (facultatif)</value>
-  </data>
-  <data name="DiscordEmbedTitle" xml:space="preserve">
-    <value>Intégrer le titre</value>
-  </data>
-  <data name="DiscordEmbedTitleURL" xml:space="preserve">
-    <value>Titre URL (Facultatif)</value>
-  </data>
-  <data name="DiscordEmbedDescription" xml:space="preserve">
-    <value>Embed Description</value>
-  </data>
-  <data name="DiscordEmbedColor" xml:space="preserve">
-    <value>Couleur</value>
-  </data>
-  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
-    <value>Inclure l'horodatage</value>
-  </data>
-  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
-    <value>Auteur (facultatif)</value>
-  </data>
-  <data name="DiscordEmbedFooterSection" xml:space="preserve">
-    <value>Pied de page (optionnel)</value>
-  </data>
-  <data name="DiscordEmbedAuthorName" xml:space="preserve">
-    <value>Nom de l'auteur (facultatif)</value>
-  </data>
-  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
-    <value>URL de l'icône de l'auteur (facultatif)</value>
-  </data>
-  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
-    <value>URL de la vignette (facultatif)</value>
-  </data>
-  <data name="DiscordEmbedImageURL" xml:space="preserve">
-    <value>URL de l'image (facultatif)</value>
-  </data>
-  <data name="DiscordEmbedFooterText" xml:space="preserve">
-    <value>Texte du pied de page (facultatif)</value>
-  </data>
-  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
-    <value>URL de l'icône de bas de page (facultatif)</value>
-  </data>
-  <data name="SendEmbed" xml:space="preserve">
-    <value>Envoyer l'intégration</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Les positions des fenêtres ont été réinitialisées</value>
   </data>
   <data name="BackupsReminder" xml:space="preserve">
     <value>Rappel : Les sauvegardes automatiques sont désactivées. Activez-les dans Paramètres → Avancés pour protéger vos paramètres contre toute perte de données inattendue.</value>
@@ -11257,17 +11301,8 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Cette mise à jour est nécessaire pour continuer à utiliser Mix It Up</value>
   </data>
-  <data name="ShowTwitchWatchStreak" xml:space="preserve">
-    <value>Afficher les flux de visionnage sur Twitch</value>
-  </data>
-  <data name="AlertTwitchWatchStreak" xml:space="preserve">
-    <value>{0} a une série de montres de {1}</value>
-  </data>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Arrêt à l'achèvement</value>
-  </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>{0} Utilisé {1}</value>
   </data>
   <data name="CustomPowerUp" xml:space="preserve">
     <value>Puissance personnalisée</value>
@@ -11290,25 +11325,8 @@ Allez à la page Comptes dans le menu principal pour connecter votre compte de s
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Show Twitch Custom Power-Ups</value>
   </data>
-  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
-    <value>Cadeau pour les bijoux de la chaîne YouTube</value>
-  </data>
-  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
-    <value>{0} Cadeau YouTube Jewels - {1} ({2} Jewels)</value>
-  </data>
-  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
-    <value>Voir YouTube Jewels Gift</value>
-  </data>
-  <data name="Choice5" xml:space="preserve">
-    <value>Choix 5</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
-    <value>Désactiver la suppression des iframes (solution de contournement du gel de l'OBS CEF)</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
-    <value>Avertissement : Test de solution de contournement. Il n'est pas recommandé de l'activer à moins que cela ne soit nécessaire pour le gel des vidéos OBS CEF. Cela peut augmenter l'utilisation de la mémoire ou introduire d'autres problèmes.
-
-Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Utilisé {1}</value>
   </data>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Réinitialiser les grèves de modération pour tous les utilisateurs</value>
@@ -11355,20 +11373,20 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Channel Kicks Gifted</value>
   </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>Un compte Kick doit être connecté pour utiliser cette fonctionnalité.</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>Commande de points de chaîne Kick</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>Il existe déjà une autre commande Kick Kicks avec le même montant/plage que cette commande.</value>
-  </data>
   <data name="KickChannelPoints" xml:space="preserve">
     <value>Points de chaîne Kick</value>
   </data>
   <data name="KickKicks" xml:space="preserve">
     <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Il existe déjà une autre commande Kick Kicks avec le même montant/plage que cette commande.</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Un compte Kick doit être connecté pour utiliser cette fonctionnalité.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Commande de points de chaîne Kick</value>
   </data>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Commande Kick Kicks</value>
@@ -11388,18 +11406,6 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   </data>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Récompense en points de chaîne créée avec succès ! Vous pouvez maintenant mettre à jour dynamiquement cette récompense en utilisant l'action Kick à l'intérieur d'une commande. Veuillez utiliser le lien sur la page principale des points de chaîne pour visiter l'éditeur sur Kick afin de personnaliser votre récompense.</value>
-  </data>
-  <data name="ShowKickChannelPoints" xml:space="preserve">
-    <value>Afficher les points de chaîne Kick</value>
-  </data>
-  <data name="ShowKickKicks" xml:space="preserve">
-    <value>Afficher les Kicks de Kick</value>
-  </data>
-  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
-    <value>{0} a échangé {1}</value>
-  </data>
-  <data name="AlertKickKicksGifted" xml:space="preserve">
-    <value>{0} a offert {1} Kicks</value>
   </data>
   <data name="WarnUser" xml:space="preserve">
     <value>Avertir l'utilisateur</value>
@@ -11500,9 +11506,6 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Show Twitch Goal Terminé</value>
   </data>
-  <data name="PerPersonGroup" xml:space="preserve">
-    <value>Par personne Groupe</value>
-  </data>
   <data name="BlockUser" xml:space="preserve">
     <value>Bloquer l'utilisateur</value>
   </data>
@@ -11521,7 +11524,10 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="Other" xml:space="preserve">
     <value>Autres</value>
   </data>
-  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
-    <value>URL de l'auteur (facultatif)</value>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>Bonus d’abonné</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>Le bonus d’abonné doit être supérieur ou égal à 0.</value>
   </data>
 </root>

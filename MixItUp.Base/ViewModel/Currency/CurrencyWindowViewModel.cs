@@ -113,6 +113,7 @@ namespace MixItUp.Base.ViewModel.Currency
                     this.RegularBonus = 0;
                     this.SubscriberBonus = 0;
                     this.ModeratorBonus = 0;
+                    this.FollowerBonus = 0;
                     this.OnFollowBonus = 0;
                     this.OnHostBonus = 0;
                     this.OnSubscribeBonus = 0;
@@ -181,6 +182,16 @@ namespace MixItUp.Base.ViewModel.Currency
             }
         }
         private int moderatorBonus = 0;
+        public int FollowerBonus
+        {
+            get { return this.followerBonus; }
+            set
+            {
+                this.followerBonus = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private int followerBonus = 0;
 
         public int OnFollowBonus
         {
@@ -365,6 +376,7 @@ namespace MixItUp.Base.ViewModel.Currency
             this.RegularBonus = this.Currency.RegularBonus;
             this.SubscriberBonus = this.Currency.SubscriberBonus;
             this.ModeratorBonus = this.Currency.ModeratorBonus;
+            this.FollowerBonus = this.Currency.FollowerBonus;
 
             this.OnFollowBonus = this.Currency.OnFollowBonus;
             this.OnHostBonus = this.Currency.OnHostBonus;
@@ -690,6 +702,12 @@ namespace MixItUp.Base.ViewModel.Currency
                 return false;
             }
 
+            if (this.FollowerBonus < 0)
+            {
+                await DialogHelper.ShowMessage(Resources.FollowerBonusZeroOrMore);
+                return false;
+            }
+
             if (this.OnFollowBonus < 0)
             {
                 await DialogHelper.ShowMessage(Resources.OnFollowBonusZeroOrMore);
@@ -747,6 +765,7 @@ namespace MixItUp.Base.ViewModel.Currency
             this.Currency.RegularBonus = this.RegularBonus;
             this.Currency.SubscriberBonus = this.SubscriberBonus;
             this.Currency.ModeratorBonus = this.ModeratorBonus;
+            this.Currency.FollowerBonus = this.FollowerBonus;
             this.Currency.OnFollowBonus = this.OnFollowBonus;
             this.Currency.OnHostBonus = this.OnHostBonus;
             this.Currency.OnSubscribeBonus = this.OnSubscribeBonus;

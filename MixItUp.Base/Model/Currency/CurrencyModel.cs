@@ -118,6 +118,8 @@ namespace MixItUp.Base.Model.Currency
         public int SubscriberBonus { get; set; }
         [DataMember]
         public int ModeratorBonus { get; set; }
+        [DataMember]
+        public int FollowerBonus { get; set; }
 
         [DataMember]
         public int OnFollowBonus { get; set; }
@@ -427,6 +429,10 @@ namespace MixItUp.Base.Model.Currency
                                     if (this.RegularBonus > 0 && user.HasRole(UserRoleEnum.Regular))
                                     {
                                         bonus = Math.Max(this.RegularBonus, bonus);
+                                    }
+                                    if (this.FollowerBonus > 0 && user.IsFollower)
+                                    {
+                                        bonus = Math.Max(this.FollowerBonus, bonus);
                                     }
                                     if (this.SubscriberBonus > 0 && user.IsSubscriber)
                                     {

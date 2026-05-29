@@ -8378,6 +8378,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Follower Bonus.
+        /// </summary>
+        public static string FollowerBonus {
+            get {
+                return ResourceManager.GetString("FollowerBonus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Follower Bonus must be greater than or equal to 0..
+        /// </summary>
+        public static string FollowerBonusZeroOrMore {
+            get {
+                return ResourceManager.GetString("FollowerBonusZeroOrMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Follower Mode.
         /// </summary>
         public static string FollowerMode {

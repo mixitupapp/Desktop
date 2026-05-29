@@ -11,7 +11,7 @@ namespace MixItUp.Base.Util
 
         // Skip the version check in debug so a local build can launch without being current
 #if DEBUG_BUILD
-        public const bool BYPASS_UPDATE_CHECK = false;
+        public const bool BYPASS_UPDATE_CHECK = true;
 #else
         public const bool BYPASS_UPDATE_CHECK = false;
 #endif

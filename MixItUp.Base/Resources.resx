@@ -11272,7 +11272,7 @@ Please go to the Accounts page in the main menu to connect your streaming accoun
   </data>
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>Disables GPU hardware acceleration and uses software rendering instead. Enable this if you experience graphics-related crashes (UCEERR_RENDERTHREADFAILURE). Requires restart.</value>
- </data>
+  </data>
   <data name="ResetWindowPosition" xml:space="preserve">
     <value>Reset Window Position</value>
   </data>
@@ -11546,5 +11546,13 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>Follower Bonus</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>The Follower Bonus must be greater than or equal to 0.</value>
+    <comment>Manual</comment>
   </data>
 </root>

@@ -1604,6 +1604,9 @@
   <data name="PerPerson" xml:space="preserve">
     <value>一人当たり</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>お一人様グループ</value>
+  </data>
   <data name="Pink" xml:space="preserve">
     <value>ピンク</value>
     <comment>Manual</comment>
@@ -3390,6 +3393,57 @@
   <data name="DiscordActionMissingChatMessage" xml:space="preserve">
     <value>Discord アクション: チャット メッセージが見つかりません</value>
     <comment>Manual</comment>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discordアクション：埋め込みには、少なくともタイトル、説明、サムネイル、画像が必要です。</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>メッセージ（オプション）</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>埋め込みタイトル</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>タイトルURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>埋め込み説明</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>色</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>タイムスタンプを含む</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>著者（オプション）</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>フッター（オプション）</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>著者名（オプション）</value>
+  </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>著者URL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>著者アイコンURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>サムネイルURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>画像のURL（オプション）</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>フッターテキスト（オプション）</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>フッターアイコンURL（オプション）</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>埋め込み送信</value>
   </data>
   <data name="ExternalProgramActionMissingFilePath" xml:space="preserve">
     <value>外部プログラムのアクション: ファイル パスがありません</value>
@@ -6706,6 +6760,9 @@
   <data name="Choice4" xml:space="preserve">
     <value>選択肢 4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選択肢 5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>投票の作成</value>
   </data>
@@ -7306,6 +7363,12 @@
   </data>
   <data name="ShowTwitchChannelPoints" xml:space="preserve">
     <value>Twitchチャンネルポイントを表示</value>
+  </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Kick チャンネルポイントを表示</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Kick の Kicks を表示</value>
   </data>
   <data name="ShowTwitchHypeTrain" xml:space="preserve">
     <value>Twitch ハイプ トレインを表示する</value>
@@ -8233,6 +8296,12 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <comment>{0} is the name of the user
 {1} is the name of the channel point reward</comment>
   </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} が {1} を交換しました</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} が {1} Kicks をギフトしました</value>
+  </data>
   <data name="AverageViewers" xml:space="preserve">
     <value>平均視聴者数</value>
   </data>
@@ -8906,6 +8975,9 @@ Twitch経由では、「マイレージは異なる場合があります」状�
   <data name="YouTubeChannelSuperChat" xml:space="preserve">
     <value>YouTube チャンネルのスーパーチャット</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTubeチャンネル ジュエルギフト</value>
+  </data>
   <data name="YouTubeChannelSuperSticker" xml:space="preserve">
     <value>YouTubeチャンネルスーパーステッカー</value>
   </data>
@@ -8913,6 +8985,9 @@ Twitch経由では、「マイレージは異なる場合があります」状�
     <value>{0} スーパー チャット - {1}</value>
     <comment>{0} is the name of the user
 {1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube ジュエルギフト - {1} ({2} ジュエル)</value>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0} スーパー ステッカー - {1} - {2}</value>
@@ -8922,6 +8997,9 @@ Twitch経由では、「マイレージは異なる場合があります」状�
   </data>
   <data name="ShowYouTubeSuperChat" xml:space="preserve">
     <value>YouTube スーパーチャットを表示する</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTubeのジュエル・ギフトを表示</value>
   </data>
   <data name="MockConnection" xml:space="preserve">
     <value>模擬接続</value>
@@ -9791,6 +9869,12 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
     <value>Twitch 広告が開始されました - 期間 {0} 秒</value>
     <comment>{0} = The amount of seconds of the ad</comment>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Twitchウォッチストリークの表示</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0}は{1}のウォッチストリークを持っている。</value>
+  </data>
   <data name="SnoozeNextAd" xml:space="preserve">
     <value>次の広告をスヌーズする</value>
   </data>
@@ -10303,6 +10387,14 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   </data>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>オーバーレイのポート番号は 0 ～ 65353 でなければなりません</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>iframeの削除を無効にする（OBS CEF凍結の回避策）</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>警告回避策をテストしています。OBS CEFビデオフリーズのために必要でない限り、有効にすることはお勧めしません。メモリ使用量が増えたり、他の問題が発生する可能性があります。
+
+何をやっているかわかっている場合のみ有効にしてください。続行しますか？</value>
   </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>特定のユーザーメッセージを非表示にする (スペース区切り)</value>
@@ -11157,12 +11249,6 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
 
 メインメニューのアカウントページでストリーミングアカウントを接続し、ミックスイットアップを再起動してください。</value>
   </data>
-  <data name="ResetWindowPosition" xml:space="preserve">
-    <value>ウィンドウ位置をリセット</value>
-  </data>
-  <data name="ResetWindowPositionDialog" xml:space="preserve">
-    <value>窓の位置がリセットされた</value>
-  </data>
   <data name="DisableHardwareAcceleration" xml:space="preserve">
     <value>ハードウェアアクセラレーションを無効にする</value>
   </data>
@@ -11172,53 +11258,11 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>GPUハードウェアアクセラレーションを無効にし、代わりにソフトウェアレンダリングを使用します。グラフィックス関連のクラッシュ (UCEERRRENDERTHREADFAILURE) が発生する場合は、これを有効にしてください。再起動が必要です。</value>
   </data>
-  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
-    <value>Discordアクション：埋め込みには、少なくともタイトル、説明、サムネイル、画像が必要です。</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>ウィンドウ位置をリセット</value>
   </data>
-  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
-    <value>メッセージ（オプション）</value>
-  </data>
-  <data name="DiscordEmbedTitle" xml:space="preserve">
-    <value>埋め込みタイトル</value>
-  </data>
-  <data name="DiscordEmbedTitleURL" xml:space="preserve">
-    <value>タイトルURL（オプション）</value>
-  </data>
-  <data name="DiscordEmbedDescription" xml:space="preserve">
-    <value>埋め込み説明</value>
-  </data>
-  <data name="DiscordEmbedColor" xml:space="preserve">
-    <value>色</value>
-  </data>
-  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
-    <value>タイムスタンプを含む</value>
-  </data>
-  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
-    <value>著者（オプション）</value>
-  </data>
-  <data name="DiscordEmbedFooterSection" xml:space="preserve">
-    <value>フッター（オプション）</value>
-  </data>
-  <data name="DiscordEmbedAuthorName" xml:space="preserve">
-    <value>著者名（オプション）</value>
-  </data>
-  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
-    <value>著者アイコンURL（オプション）</value>
-  </data>
-  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
-    <value>サムネイルURL（オプション）</value>
-  </data>
-  <data name="DiscordEmbedImageURL" xml:space="preserve">
-    <value>画像のURL（オプション）</value>
-  </data>
-  <data name="DiscordEmbedFooterText" xml:space="preserve">
-    <value>フッターテキスト（オプション）</value>
-  </data>
-  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
-    <value>フッターアイコンURL（オプション）</value>
-  </data>
-  <data name="SendEmbed" xml:space="preserve">
-    <value>埋め込み送信</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>窓の位置がリセットされた</value>
   </data>
   <data name="BackupsReminder" xml:space="preserve">
     <value>リマインダー自動バックアップは無効になっています。予期せぬデータ損失から設定を保護するために、設定 → 詳細設定から有効にしてください。</value>
@@ -11256,17 +11300,8 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>このアップデートは、Mix It Upを使用し続けるために必要です。</value>
   </data>
-  <data name="ShowTwitchWatchStreak" xml:space="preserve">
-    <value>Twitchウォッチストリークの表示</value>
-  </data>
-  <data name="AlertTwitchWatchStreak" xml:space="preserve">
-    <value>{0}は{1}のウォッチストリークを持っている。</value>
-  </data>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>完了時に停止</value>
-  </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>{0} を引き換えました {1}</value>
   </data>
   <data name="CustomPowerUp" xml:space="preserve">
     <value>カスタム・パワーアップ</value>
@@ -11288,26 +11323,9 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Twitchカスタムパワーアップを表示する</value>
- </data>
-  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
-    <value>YouTubeチャンネル ジュエルギフト</value>
   </data>
-  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
-    <value>{0} YouTube ジュエルギフト - {1} ({2} ジュエル)</value>
-  </data>
-  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
-    <value>YouTubeのジュエル・ギフトを表示</value>
-  </data>
-  <data name="Choice5" xml:space="preserve">
-    <value>選択肢 5</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
-    <value>iframeの削除を無効にする（OBS CEF凍結の回避策）</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
-    <value>警告回避策をテストしています。OBS CEFビデオフリーズのために必要でない限り、有効にすることはお勧めしません。メモリ使用量が増えたり、他の問題が発生する可能性があります。
-
-何をやっているかわかっている場合のみ有効にしてください。続行しますか？</value>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} を引き換えました {1}</value>
   </data>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>全ユーザーのモデレーションストライクをリセットする</value>
@@ -11354,20 +11372,20 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>キック・チャンネル キック・ギフテッド</value>
   </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>この機能を使用するには Kick アカウントを接続する必要があります。</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>Kick チャンネルポイントコマンド</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>このコマンドと同じ量/範囲を持つ別の Kick Kicks コマンドがすでに存在します。</value>
-  </data>
   <data name="KickChannelPoints" xml:space="preserve">
     <value>Kick チャンネルポイント</value>
   </data>
   <data name="KickKicks" xml:space="preserve">
     <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>このコマンドと同じ量/範囲を持つ別の Kick Kicks コマンドがすでに存在します。</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>この機能を使用するには Kick アカウントを接続する必要があります。</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick チャンネルポイントコマンド</value>
   </data>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Kick Kicks コマンド</value>
@@ -11387,18 +11405,6 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>チャンネル・ポイント特典の作成に成功！このチャンネルポイント報酬は、コマンドのKickアクションを使って動的に更新することができます。リワードをカスタマイズするには、メイン・チャンネル・ポイント・ページのリンクからKickのエディターにアクセスしてください。</value>
-  </data>
-  <data name="ShowKickChannelPoints" xml:space="preserve">
-    <value>Kick チャンネルポイントを表示</value>
-  </data>
-  <data name="ShowKickKicks" xml:space="preserve">
-    <value>Kick の Kicks を表示</value>
-  </data>
-  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
-    <value>{0} が {1} を交換しました</value>
-  </data>
-  <data name="AlertKickKicksGifted" xml:space="preserve">
-    <value>{0} が {1} Kicks をギフトしました</value>
   </data>
   <data name="WarnUser" xml:space="preserve">
     <value>ユーザーへの警告</value>
@@ -11499,9 +11505,6 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ShowTwitchGoalEnded" xml:space="preserve">
     <value>Twitchのゴールを表示する 終了</value>
   </data>
-  <data name="PerPersonGroup" xml:space="preserve">
-    <value>お一人様グループ</value>
-  </data>
   <data name="BlockUser" xml:space="preserve">
     <value>ブロックユーザー</value>
   </data>
@@ -11520,7 +11523,10 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="Other" xml:space="preserve">
     <value>その他</value>
   </data>
-  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
-    <value>著者URL（オプション）</value>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>フォロワーボーナス</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>フォロワーボーナスは0以上である必要があります。</value>
   </data>
 </root>
