@@ -77,6 +77,16 @@ namespace MixItUp.Base.Util
             return string.Equals(NormalizeSemVerString(left), NormalizeSemVerString(right), StringComparison.OrdinalIgnoreCase);
         }
 
+        public static Version GetCurrentVersion()
+        {
+            string versionStr = GetFullVersionString();
+            string[] parts = versionStr.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            int major = parts.Length > 0 && int.TryParse(parts[0], out int majorValue) ? majorValue : 0;
+            int minor = parts.Length > 1 && int.TryParse(parts[1], out int minorValue) ? minorValue : 0;
+            int patch = parts.Length > 2 && int.TryParse(parts[2], out int patchValue) ? patchValue : 0;
+            return new Version(major, minor, patch, 0);
+        }
+
         public static bool SemVerEquals(Version version, string semver)
         {
             return string.Equals(NormalizeSemVerString(version), NormalizeSemVerString(semver), StringComparison.OrdinalIgnoreCase);

@@ -252,14 +252,14 @@ namespace MixItUp.WPF
             this.currentUpdate = await mixItUpService.GetLatestUpdate();
             if (this.currentUpdate != null)
             {
-                Version currentVersion = Assembly.GetEntryAssembly()?.GetName().Version ?? new Version(0, 0, 0, 0);
+                Version currentVersion = VersionHelper.GetCurrentVersion();
                 Version updateVersion = this.currentUpdate.GetNormalizedVersion();
 
                 bool hasNewerVersion = updateVersion > currentVersion;
                 bool semverMatches = VersionHelper.SemVerEquals(currentVersion, this.currentUpdate.Version);
                 bool isMandatory = this.currentUpdate.Mandatory;
 
-                if (hasNewerVersion || (isMandatory && !semverMatches))
+                if (hasNewerVersion || (isMandatory && !semverMatches && updateVersion >= currentVersion))
                 {
                     updateFound = true;
 
