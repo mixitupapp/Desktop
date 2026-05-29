@@ -378,12 +378,16 @@ namespace MixItUp.Base.Services.Kick.New
             parameters.SpecialIdentifiers["rewardcost"] = redemptionEvent.Reward.Cost.ToString();
             if (!string.IsNullOrWhiteSpace(redemptionEvent.UserInput))
             {
+                KickChatMessageViewModel message = new KickChatMessageViewModel(user, redemptionEvent.UserInput);
                 parameters.SpecialIdentifiers["message"] = redemptionEvent.UserInput;
+                parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                 arguments = new List<string>(redemptionEvent.UserInput.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
                 parameters.Arguments.AddRange(arguments);
             }
 
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelPointsRedeemed, parameters);
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertKickChannelPointRedeemed, user.FullDisplayName, redemptionEvent.Reward.Title), ChannelSession.Settings.AlertKickChannelPointsColor));
 
             KickChannelPointsCommandModel command = ServiceManager.Get<CommandService>().KickChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID, redemptionEvent.Reward.ID, StringComparison.OrdinalIgnoreCase));
             if (command == null)
@@ -525,14 +529,19 @@ namespace MixItUp.Base.Services.Kick.New
                 return;
             }
 
+            KickChatMessageViewModel message = new KickChatMessageViewModel(sender, kicksEvent.Gift.Message);
+
             CommandParametersModel parameters = new CommandParametersModel(sender, StreamingPlatformTypeEnum.Kick);
             parameters.SpecialIdentifiers["kicksamount"] = kicksEvent.Gift.Amount.ToString();
             parameters.SpecialIdentifiers["giftname"] = kicksEvent.Gift.Name;
             parameters.SpecialIdentifiers["gifttype"] = kicksEvent.Gift.Type;
             parameters.SpecialIdentifiers["gifttier"] = kicksEvent.Gift.Tier;
             parameters.SpecialIdentifiers["message"] = kicksEvent.Gift.Message;
+            parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+            parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
             parameters.SpecialIdentifiers["giftpinnedseconds"] = kicksEvent.Gift.PinnedTimeSeconds.ToString();
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelKicksGifted, parameters);
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(sender, string.Format(MixItUp.Base.Resources.AlertKickKicksGifted, sender.FullDisplayName, kicksEvent.Gift.Amount), ChannelSession.Settings.AlertKickKicksColor));
 
             int kicksAmount = kicksEvent.Gift.Amount;
             KickKicksCommandModel command = ServiceManager.Get<CommandService>().KickKicksCommands.FirstOrDefault(c => c.IsEnabled && c.IsSingle && c.StartingAmount == kicksAmount);

@@ -1604,6 +1604,9 @@
   <data name="PerPerson" xml:space="preserve">
     <value>Per Persoon</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Per persoon Groep</value>
+  </data>
   <data name="Pink" xml:space="preserve">
     <value>Roze</value>
     <comment>Manual</comment>
@@ -3391,6 +3394,57 @@ Als deze optie bijvoorbeeld is ingeschakeld en het bedrag is ingesteld op 5, wor
   <data name="DiscordActionMissingChatMessage" xml:space="preserve">
     <value>Onenigheidsactie: ontbrekend chatbericht</value>
     <comment>Manual</comment>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord actie: Een embed moet ten minste een titel, beschrijving, miniatuur of afbeelding hebben.</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Bericht (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Titel insluiten</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>Titel URL (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Beschrijving insluiten</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Kleur</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Tijdstempel opnemen</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Auteur (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Voettekst (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Naam auteur (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL auteur (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL auteurspictogram (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL thumbnail (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL afbeelding (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Tekst voettekst (optioneel)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL voettekstpictogram (optioneel)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Embed verzenden</value>
   </data>
   <data name="ExternalProgramActionMissingFilePath" xml:space="preserve">
     <value>Externe programmaactie: ontbrekend bestandspad</value>
@@ -6707,6 +6761,9 @@ Zorg ervoor dat deze optie is uitgeschakeld nadat u een test hebt uitgevoerd doo
   <data name="Choice4" xml:space="preserve">
     <value>Keuze 4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Keuze 5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>Poll maken</value>
   </data>
@@ -7307,6 +7364,12 @@ Als u een van de volgende handelingen niet uitvoert, kan dit van invloed zijn op
   </data>
   <data name="ShowTwitchChannelPoints" xml:space="preserve">
     <value>Toon Twitch-kanaalpunten</value>
+  </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Kick kanaalpunten tonen</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Kick Kicks tonen</value>
   </data>
   <data name="ShowTwitchHypeTrain" xml:space="preserve">
     <value>Toon Twitch-hypetrein</value>
@@ -8234,6 +8297,12 @@ Geïmporteerde offertes met ID's die overeenkomen met bestaande offertes worden 
     <comment>{0} is the name of the user
 {1} is the name of the channel point reward</comment>
   </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} heeft {1} ingewisseld</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} heeft {1} Kicks cadeau gedaan</value>
+  </data>
   <data name="AverageViewers" xml:space="preserve">
     <value>Gemiddelde kijkers</value>
   </data>
@@ -8907,6 +8976,9 @@ via Twitch is het een situatie van ‘uw kilometerstand kan variëren’.</value
   <data name="YouTubeChannelSuperChat" xml:space="preserve">
     <value>YouTube-kanaal Super Chat</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube-kanaal juwelen cadeau</value>
+  </data>
   <data name="YouTubeChannelSuperSticker" xml:space="preserve">
     <value>Supersticker voor YouTube-kanaal</value>
   </data>
@@ -8914,6 +8986,9 @@ via Twitch is het een situatie van ‘uw kilometerstand kan variëren’.</value
     <value>{0} SuperChat - {1}</value>
     <comment>{0} is the name of the user
 {1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0} YouTube Juwelen Cadeau - {1} ({2} Juwelen)</value>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0} Supersticker - {1} - {2}</value>
@@ -8923,6 +8998,9 @@ via Twitch is het een situatie van ‘uw kilometerstand kan variëren’.</value
   </data>
   <data name="ShowYouTubeSuperChat" xml:space="preserve">
     <value>YouTube SuperChat weergeven</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>YouTube juwelen cadeau tonen</value>
   </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Mock-verbinding</value>
@@ -9792,6 +9870,12 @@ afdrukken(uitvoeren())</value>
     <value>Twitch-advertentie gestart - duur {0} seconden</value>
     <comment>{0} = The amount of seconds of the ad</comment>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Twitch-wachtreeksen tonen</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} heeft een Watch Streak van {1}</value>
+  </data>
   <data name="SnoozeNextAd" xml:space="preserve">
     <value>Volgende advertentie snoozen</value>
   </data>
@@ -10304,6 +10388,14 @@ afdrukken(uitvoeren())</value>
   </data>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>Poortnummers voor de overlay moeten tussen 0 en 65353 liggen</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Verwijdering iframe uitschakelen (OBS CEF bevriezing workaround)</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Waarschuwing: Workaround testen. Niet aanbevolen om in te schakelen tenzij het nodig is voor OBS CEF video bevriezing. Dit kan het geheugengebruik verhogen of andere problemen veroorzaken.
+
+Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>Specifieke gebruikersberichten verbergen (gescheiden door spaties)</value>
@@ -11158,12 +11250,6 @@ Om Mix It Up te gebruiken, moet je ten minste één streamingplatformaccount ver
 
 Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluiten en start Mix It Up vervolgens opnieuw.</value>
   </data>
-  <data name="ResetWindowPosition" xml:space="preserve">
-    <value>Vensterpositie resetten</value>
-  </data>
-  <data name="ResetWindowPositionDialog" xml:space="preserve">
-    <value>Vensterposities zijn opnieuw ingesteld</value>
-  </data>
   <data name="DisableHardwareAcceleration" xml:space="preserve">
     <value>Hardwareversnelling uitschakelen</value>
   </data>
@@ -11173,53 +11259,11 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>Schakelt GPU hardwareversnelling uit en gebruikt in plaats daarvan software rendering. Schakel dit in als je last hebt van grafische-gerelateerde crashes (UCEERRRENDERTHREADFAILURE). Vereist opnieuw opstarten.</value>
   </data>
-  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
-    <value>Discord actie: Een embed moet ten minste een titel, beschrijving, miniatuur of afbeelding hebben.</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Vensterpositie resetten</value>
   </data>
-  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
-    <value>Bericht (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedTitle" xml:space="preserve">
-    <value>Titel insluiten</value>
-  </data>
-  <data name="DiscordEmbedTitleURL" xml:space="preserve">
-    <value>Titel URL (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedDescription" xml:space="preserve">
-    <value>Beschrijving insluiten</value>
-  </data>
-  <data name="DiscordEmbedColor" xml:space="preserve">
-    <value>Kleur</value>
-  </data>
-  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
-    <value>Tijdstempel opnemen</value>
-  </data>
-  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
-    <value>Auteur (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedFooterSection" xml:space="preserve">
-    <value>Voettekst (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedAuthorName" xml:space="preserve">
-    <value>Naam auteur (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
-    <value>URL auteurspictogram (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
-    <value>URL thumbnail (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedImageURL" xml:space="preserve">
-    <value>URL afbeelding (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedFooterText" xml:space="preserve">
-    <value>Tekst voettekst (optioneel)</value>
-  </data>
-  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
-    <value>URL voettekstpictogram (optioneel)</value>
-  </data>
-  <data name="SendEmbed" xml:space="preserve">
-    <value>Embed verzenden</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Vensterposities zijn opnieuw ingesteld</value>
   </data>
   <data name="BackupsReminder" xml:space="preserve">
     <value>Herinnering: Automatische back-ups zijn uitgeschakeld. Schakel ze in bij Instellingen → Geavanceerd om je instellingen te beschermen tegen onverwacht gegevensverlies.</value>
@@ -11257,17 +11301,8 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Deze update is vereist om Mix It Up te kunnen blijven gebruiken</value>
   </data>
-  <data name="ShowTwitchWatchStreak" xml:space="preserve">
-    <value>Twitch-wachtreeksen tonen</value>
-  </data>
-  <data name="AlertTwitchWatchStreak" xml:space="preserve">
-    <value>{0} heeft een Watch Streak van {1}</value>
-  </data>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Stoppen na voltooiing</value>
-  </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>{0} Ingewisseld {1}</value>
   </data>
   <data name="CustomPowerUp" xml:space="preserve">
     <value>Aangepaste Power-Up</value>
@@ -11290,25 +11325,8 @@ Ga naar de pagina Accounts in het hoofdmenu om je streamingaccount aan te sluite
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Toon Twitch aangepaste power-ups</value>
   </data>
-  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
-    <value>YouTube-kanaal juwelen cadeau</value>
-  </data>
-  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
-    <value>{0} YouTube Juwelen Cadeau - {1} ({2} Juwelen)</value>
-  </data>
-  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
-    <value>YouTube juwelen cadeau tonen</value>
-  </data>
-  <data name="Choice5" xml:space="preserve">
-    <value>Keuze 5</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
-    <value>Verwijdering iframe uitschakelen (OBS CEF bevriezing workaround)</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
-    <value>Waarschuwing: Workaround testen. Niet aanbevolen om in te schakelen tenzij het nodig is voor OBS CEF video bevriezing. Dit kan het geheugengebruik verhogen of andere problemen veroorzaken.
-
-Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} Ingewisseld {1}</value>
   </data>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Moderatiestrikes resetten voor alle gebruikers</value>
@@ -11355,20 +11373,20 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Kanaal Kicks Geschonken</value>
   </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>Om deze functie te kunnen gebruiken, moet er een Kick-account zijn aangesloten.</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>Kick Channel-punten commando</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>Er bestaat al een ander Kick Kicks-commando met hetzelfde aantal/bereik als dit commando.</value>
-  </data>
   <data name="KickChannelPoints" xml:space="preserve">
     <value>Kick Channel-punten</value>
   </data>
   <data name="KickKicks" xml:space="preserve">
     <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Er bestaat al een ander Kick Kicks-commando met hetzelfde aantal/bereik als dit commando.</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Om deze functie te kunnen gebruiken, moet er een Kick-account zijn aangesloten.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick Channel-punten commando</value>
   </data>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Kick Kicks-commando</value>
@@ -11388,5 +11406,128 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   </data>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Beloning voor kanaalpunten succesvol aangemaakt! Je kunt deze Kanaalpuntbeloning nu dynamisch bijwerken met de Kick-actie in een opdracht. Gebruik de link op de hoofdpagina met kanaalpunten om naar de editor op Kick te gaan om je beloning aan te passen.</value>
+  </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Gebruiker waarschuwen</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Schermmodus Aan</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Schermmodus Uit</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Speldbericht</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Bericht verwijderen</value>
+  </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>Status verdachte gebruiker instellen</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>Status verdachte gebruiker verwijderen</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>Actieve bewaking</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>Beperkt</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Gebruiker van Twitch-kanaal gewaarschuwd</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>Twitch Channel Shoutout ontvangen</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitch-kanaal verdachte gebruiker bericht</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Twitch-kanaal verdachte gebruiker bijgewerkt</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0} werd gewaarschuwd</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} Stuurde een Shoutout met {1} Kijkers</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Verdachte gebruiker {0} heeft een bericht gestuurd</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0} Verdachte status ingesteld op {1}</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>Waarschuwingen voor Twitch-gebruikers tonen</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>Toon ontvangen Twitch Shoutouts</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitch verdachte gebruikersberichten tonen</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>Toon Twitch verdachte gebruiker updates</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Twitch Channel Shield Mode gestart</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Twitch-kanaal schildmodus Ended</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} Geactiveerde Schildmodus</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} Uitgeschakelde Schildmodus</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>Toon Twitch Shield Mode gestart</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>Toon Twitch Shield Mode Voltooid</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Twitch-kanaal doel gestart</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Twitch-kanaal doel Ended</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0} Doel begonnen op {1} van {2}</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0} Doel geëindigd op {1} van {2}</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>Toon Twitch-doel gestart</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>Twitch doel tonen Voltooid</value>
+  </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Gebruiker blokkeren</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Gebruiker deblokkeren</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reden</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Intimidatie</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andere</value>
+  </data>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>Volgersbonus</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>De volgersbonus moet 0 of hoger zijn.</value>
   </data>
 </root>

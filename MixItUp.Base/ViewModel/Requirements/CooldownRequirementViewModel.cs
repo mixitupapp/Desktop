@@ -77,7 +77,7 @@ namespace MixItUp.Base.ViewModel.Requirements
         }
         private CooldownTypeEnum selectedType = CooldownTypeEnum.Standard;
 
-        public bool IsGroupSelected { get { return this.SelectedType == CooldownTypeEnum.Group; } }
+        public bool IsGroupSelected { get { return this.SelectedType == CooldownTypeEnum.Group || this.SelectedType == CooldownTypeEnum.PerPersonGroup; } }
 
         public IEnumerable<string> GroupNames { get { return ChannelSession.Settings.CooldownGroupAmounts.Keys.ToList(); } }
 
@@ -149,7 +149,7 @@ namespace MixItUp.Base.ViewModel.Requirements
                 return Task.FromResult(new Result(MixItUp.Base.Resources.ValidCooldownAmountMustBeSpecified));
             }
 
-            if (this.SelectedType == CooldownTypeEnum.Group && string.IsNullOrEmpty(this.SelectedGroupName))
+            if ((this.SelectedType == CooldownTypeEnum.Group || this.SelectedType == CooldownTypeEnum.PerPersonGroup) && string.IsNullOrEmpty(this.SelectedGroupName))
             {
                 return Task.FromResult(new Result(MixItUp.Base.Resources.ValidCooldownGroupMustBeSpecified));
             }
@@ -159,7 +159,7 @@ namespace MixItUp.Base.ViewModel.Requirements
 
         public override RequirementModelBase GetRequirement()
         {
-            if (this.SelectedType == CooldownTypeEnum.Group)
+            if (this.SelectedType == CooldownTypeEnum.Group || this.SelectedType == CooldownTypeEnum.PerPersonGroup)
             {
                 ChannelSession.Settings.CooldownGroupAmounts[this.SelectedGroupName] = this.Amount;
             }

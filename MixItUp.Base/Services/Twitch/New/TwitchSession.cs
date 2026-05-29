@@ -66,6 +66,8 @@ namespace MixItUp.Base.Services.Twitch.New
             "moderator:read:chatters",
             "moderator:read:chat_settings",
             "moderator:read:followers",
+            "moderator:read:shoutouts",
+            "moderator:read:suspicious_users",
             "moderator:read:vips",
             "moderator:read:moderators",
 
@@ -74,7 +76,9 @@ namespace MixItUp.Base.Services.Twitch.New
             "moderator:manage:blocked_terms",
             "moderator:manage:chat_messages",
             "moderator:manage:chat_settings",
+            "moderator:manage:shield_mode",
             "moderator:manage:shoutouts",
+            "moderator:manage:suspicious_users",
             "moderator:manage:unban_requests",
             "moderator:manage:warnings",
 

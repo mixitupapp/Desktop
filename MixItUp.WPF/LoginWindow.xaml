@@ -329,6 +329,9 @@
 
                         <Controls:LoadingStatusBar
                         x:Name="StatusBar"
+                        BarColor="{StaticResource MIU.Brush.Dark.OnSecondaryContainer}"
+                        BarBackground ="{StaticResource MIU.Brush.Dark.SecondaryContainer}"
+                        BarHeight="8"
                         Grid.Row="4"
                         Margin="-28,0,-28,0" />
 

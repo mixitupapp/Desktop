@@ -213,7 +213,7 @@ namespace MixItUp.Base.Services.Twitch.New
             return false;
         }
 
-        public async Task<SendChatMessageResponseModel> SendChatMessage(UserModel channel, UserModel sender, string message, string replyMessageID = null)
+        public async Task<SendChatMessageResponseModel> SendChatMessage(UserModel channel, UserModel sender, string message, string replyMessageID = null, bool pin = false)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
@@ -221,7 +221,11 @@ namespace MixItUp.Base.Services.Twitch.New
                 jobj["broadcaster_id"] = channel.id;
                 jobj["sender_id"] = sender.id;
                 jobj["message"] = message;
-                if (!string.IsNullOrEmpty(replyMessageID))
+                if (pin)
+                {
+                    jobj["pin"] = true;
+                }
+                else if (!string.IsNullOrEmpty(replyMessageID))
                 {
                     jobj["reply_parent_message_id"] = replyMessageID;
                 }
@@ -235,6 +239,23 @@ namespace MixItUp.Base.Services.Twitch.New
             await AsyncRunner.RunAsync(async () =>
             {
                 await this.HttpClient.DeleteAsync("moderation/chat?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id + "&message_id=" + messageID);
+            });
+        }
+
+        public async Task<PinnedChatMessageModel> GetPinnedChatMessage(UserModel channel)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                IEnumerable<PinnedChatMessageModel> pins = await this.GetDataResultAsync<PinnedChatMessageModel>("chat/pins?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id);
+                return pins?.FirstOrDefault();
+            });
+        }
+
+        public async Task UnpinChatMessage(UserModel channel, string messageID)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.DeleteAsync("chat/pins?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id + "&message_id=" + messageID);
             });
         }
 
@@ -339,6 +360,67 @@ namespace MixItUp.Base.Services.Twitch.New
             await AsyncRunner.RunAsync(async () =>
             {
                 await this.HttpClient.DeleteAsync("moderation/bans?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id + "&user_id=" + user_id);
+            });
+        }
+
+        public async Task WarnUser(UserModel channel, string user_id, string reason)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jdata = new JObject();
+                JObject jobj = new JObject();
+                jobj["user_id"] = user_id;
+                jobj["reason"] = reason;
+                jdata["data"] = jobj;
+
+                await this.HttpClient.PostAsync("moderation/warnings?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id, AdvancedHttpClient.CreateContentFromObject(jdata));
+            });
+        }
+
+        public async Task UpdateShieldMode(UserModel channel, bool active)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["is_active"] = active;
+
+                await this.HttpClient.PutAsync("moderation/shield_mode?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id, AdvancedHttpClient.CreateContentFromObject(jobj));
+            });
+        }
+
+        public async Task SetSuspiciousUserStatus(UserModel channel, string user_id, string status)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["user_id"] = user_id;
+                jobj["status"] = status;
+
+                await this.HttpClient.PostAsync("moderation/suspicious_users?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id, AdvancedHttpClient.CreateContentFromObject(jobj));
+            });
+        }
+
+        public async Task RemoveSuspiciousUserStatus(UserModel channel, string user_id)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.DeleteAsync("moderation/suspicious_users?broadcaster_id=" + channel.id + "&moderator_id=" + channel.id + "&user_id=" + user_id);
+            });
+        }
+
+        public async Task BlockUser(UserModel channel, string target_user_id, string reason = null)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.PutAsync("users/blocks?target_user_id=" + target_user_id + (!string.IsNullOrEmpty(reason) ? "&reason=" + reason : string.Empty), AdvancedHttpClient.CreateContentFromString(string.Empty));
+            });
+        }
+
+        public async Task UnblockUser(UserModel channel, string target_user_id)
+        {
+            await AsyncRunner.RunAsync(async () =>
+            {
+                await this.HttpClient.DeleteAsync("users/blocks?target_user_id=" + target_user_id);
             });
         }
 

@@ -29,7 +29,7 @@ namespace MixItUp.Base.Model.Actions
 
         public static DiscordActionModel CreateForEmbed(DiscordChannel channel, string messageText, string filePath,
             string embedTitle, string embedDescription, string embedColor, string embedURL,
-            string embedThumbnailURL, string embedImageURL, string embedAuthorName, string embedAuthorIconURL,
+            string embedThumbnailURL, string embedImageURL, string embedAuthorName, string embedAuthorURL, string embedAuthorIconURL,
             string embedFooterText, string embedFooterIconURL, bool embedIncludeTimestamp)
         {
             return new DiscordActionModel(DiscordActionTypeEnum.SendEmbed)
@@ -44,6 +44,7 @@ namespace MixItUp.Base.Model.Actions
                 EmbedThumbnailURL = embedThumbnailURL,
                 EmbedImageURL = embedImageURL,
                 EmbedAuthorName = embedAuthorName,
+                EmbedAuthorURL = embedAuthorURL,
                 EmbedAuthorIconURL = embedAuthorIconURL,
                 EmbedFooterText = embedFooterText,
                 EmbedFooterIconURL = embedFooterIconURL,
@@ -79,6 +80,8 @@ namespace MixItUp.Base.Model.Actions
         public string EmbedImageURL { get; set; }
         [DataMember]
         public string EmbedAuthorName { get; set; }
+        [DataMember]
+        public string EmbedAuthorURL { get; set; }
         [DataMember]
         public string EmbedAuthorIconURL { get; set; }
         [DataMember]
@@ -147,6 +150,7 @@ namespace MixItUp.Base.Model.Actions
                     string embedThumbnailURL = await ReplaceStringWithSpecialModifiers(this.EmbedThumbnailURL, parameters);
                     string embedImageURL = await ReplaceStringWithSpecialModifiers(this.EmbedImageURL, parameters);
                     string embedAuthorName = await ReplaceStringWithSpecialModifiers(this.EmbedAuthorName, parameters);
+                    string embedAuthorURL = await ReplaceStringWithSpecialModifiers(this.EmbedAuthorURL, parameters);
                     string embedAuthorIconURL = await ReplaceStringWithSpecialModifiers(this.EmbedAuthorIconURL, parameters);
                     string embedFooterText = await ReplaceStringWithSpecialModifiers(this.EmbedFooterText, parameters);
                     string embedFooterIconURL = await ReplaceStringWithSpecialModifiers(this.EmbedFooterIconURL, parameters);
@@ -160,6 +164,7 @@ namespace MixItUp.Base.Model.Actions
                         ThumbnailURL = embedThumbnailURL,
                         ImageURL = embedImageURL,
                         AuthorName = embedAuthorName,
+                        AuthorURL = embedAuthorURL,
                         AuthorIconURL = embedAuthorIconURL,
                         FooterText = embedFooterText,
                         FooterIconURL = embedFooterIconURL,

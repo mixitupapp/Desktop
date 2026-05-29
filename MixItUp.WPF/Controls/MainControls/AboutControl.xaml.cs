@@ -1,8 +1,6 @@
 ﻿using MixItUp.Base;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
-using MixItUp.WPF.Util;
-using System.Reflection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,7 +19,7 @@ namespace MixItUp.WPF.Controls.MainControls
 
         protected override Task InitializeInternal()
         {
-            this.VersionTextBlock.Text = Assembly.GetEntryAssembly().GetName().Version.ToString() + BuildChannelHelper.GetChannelSuffix();
+            this.VersionTextBlock.Text = VersionHelper.GetFullVersionString() + BuildChannelHelper.BUILD_CHANNEL_SUFFIX;
             _ = this.LoadPatreonMembers();
 
             return base.InitializeInternal();

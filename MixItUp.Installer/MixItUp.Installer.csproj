@@ -37,6 +37,7 @@
 
 	<ItemGroup>
 		<Compile Include="..\MixItUp.Base\Model\API\MixItUpUpdateModel.cs" Link="MixItUpUpdateModel.cs" />
+		<Compile Include="..\MixItUp.Base\Util\BuildChannelHelper.cs" Link="BuildChannelHelper.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

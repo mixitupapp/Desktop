@@ -151,6 +151,35 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["hypetraintotalpoints"] = "1234";
                     break;
 
+                case EventTypeEnum.TwitchChannelUserWarned:
+                    specialIdentifiers["warnreason"] = "Be nice in chat";
+                    break;
+                case EventTypeEnum.TwitchChannelShoutoutReceived:
+                    specialIdentifiers["shoutoutviewercount"] = "50";
+                    break;
+                case EventTypeEnum.TwitchChannelSuspiciousUserMessage:
+                    specialIdentifiers["message"] = "Test Message";
+                    specialIdentifiers["suspicioususertypes"] = "ban_evader";
+                    specialIdentifiers["suspicioususerstatus"] = "active_monitoring";
+                    specialIdentifiers["suspicioususerbanevasion"] = "likely";
+                    break;
+                case EventTypeEnum.TwitchChannelSuspiciousUserUpdated:
+                    specialIdentifiers["suspicioususerstatus"] = "restricted";
+                    break;
+                case EventTypeEnum.TwitchChannelGoalStarted:
+                    specialIdentifiers["goaltype"] = "follower";
+                    specialIdentifiers["goaldescription"] = "Follow goal for the stream";
+                    specialIdentifiers["goalcurrentamount"] = "50";
+                    specialIdentifiers["goaltargetamount"] = "100";
+                    break;
+                case EventTypeEnum.TwitchChannelGoalEnded:
+                    specialIdentifiers["goaltype"] = "follower";
+                    specialIdentifiers["goaldescription"] = "Follow goal for the stream";
+                    specialIdentifiers["goalcurrentamount"] = "100";
+                    specialIdentifiers["goaltargetamount"] = "100";
+                    specialIdentifiers["goalachieved"] = "True";
+                    break;
+
                 // YouTube
                 case EventTypeEnum.YouTubeChannelNewMember:
                     specialIdentifiers["usersubplan"] = "Plan Name";

@@ -344,6 +344,15 @@ namespace MixItUp.Base.Services
             if (commandInstance.State == CommandInstanceStateEnum.Pending || commandInstance.State == CommandInstanceStateEnum.Running)
             {
                 commandInstance.State = CommandInstanceStateEnum.Canceled;
+
+                if (commandInstance.Parameters != null)
+                {
+                    commandInstance.Parameters.ExitCommand = true;
+                }
+                foreach (CommandParametersModel parameters in commandInstance.RunnerParameters)
+                {
+                    parameters.ExitCommand = true;
+                }
             }
         }
 

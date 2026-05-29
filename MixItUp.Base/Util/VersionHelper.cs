@@ -1,10 +1,42 @@
 using System;
+using System.Reflection;
 
 namespace MixItUp.Base.Util
 {
     public static class VersionHelper
     {
         private static readonly char[] SemVersionMetadataSeparators = new[] { '-', '+' };
+
+        public static string GetFullVersionString()
+        {
+            try
+            {
+                var assembly = Assembly.GetEntryAssembly();
+                if (assembly == null)
+                {
+                    return "0.0.0";
+                }
+
+                var versionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
+                if (versionAttribute != null && !string.IsNullOrWhiteSpace(versionAttribute.Version))
+                {
+                    string versionStr = versionAttribute.Version.Trim();
+                    string[] parts = versionStr.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (parts.Length >= 3)
+                    {
+                        return $"{parts[0]}.{parts[1]}.{parts[2]}";
+                    }
+                    else if (parts.Length == 2)
+                    {
+                        return $"{parts[0]}.{parts[1]}.0";
+                    }
+                }
+            }
+            catch { }
+
+            return "0.0.0";
+        }
 
         public static string NormalizeSemVerString(string version)
         {
@@ -43,6 +75,16 @@ namespace MixItUp.Base.Util
         public static bool SemVerEquals(string left, string right)
         {
             return string.Equals(NormalizeSemVerString(left), NormalizeSemVerString(right), StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static Version GetCurrentVersion()
+        {
+            string versionStr = GetFullVersionString();
+            string[] parts = versionStr.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            int major = parts.Length > 0 && int.TryParse(parts[0], out int majorValue) ? majorValue : 0;
+            int minor = parts.Length > 1 && int.TryParse(parts[1], out int minorValue) ? minorValue : 0;
+            int patch = parts.Length > 2 && int.TryParse(parts[2], out int patchValue) ? patchValue : 0;
+            return new Version(major, minor, patch, 0);
         }
 
         public static bool SemVerEquals(Version version, string semver)

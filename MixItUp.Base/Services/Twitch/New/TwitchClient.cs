@@ -100,6 +100,17 @@ namespace MixItUp.Base.Services.Twitch.New
             { "channel.cheer", null },
 
             { "channel.moderate", "2" },
+
+            { "channel.shoutout.receive", null },
+
+            { "channel.suspicious_user.message", null },
+            { "channel.suspicious_user.update", null },
+
+            { "channel.shield_mode.begin", null },
+            { "channel.shield_mode.end", null },
+
+            { "channel.goal.begin", null },
+            { "channel.goal.end", null },
         };
 
         public override bool IsConnected { get { return this.webSocket != null && this.webSocket.IsOpen() && this.eventSubSubscriptionsConnected; } }
@@ -201,6 +212,11 @@ namespace MixItUp.Base.Services.Twitch.New
                         {
                             case "channel.follow":
                             case "channel.moderate":
+                            case "channel.shoutout.receive":
+                            case "channel.suspicious_user.message":
+                            case "channel.suspicious_user.update":
+                            case "channel.shield_mode.begin":
+                            case "channel.shield_mode.end":
                                 conditions["moderator_user_id"] = ServiceManager.Get<TwitchSession>().StreamerID;
                                 break;
 
@@ -401,6 +417,31 @@ namespace MixItUp.Base.Services.Twitch.New
 
                     case "channel.moderate":
                         await HandleModeration(message.Payload.Event);
+                        break;
+
+                    case "channel.shoutout.receive":
+                        await HandleShoutoutReceived(message.Payload.Event);
+                        break;
+
+                    case "channel.suspicious_user.message":
+                        await HandleSuspiciousUserMessage(message.Payload.Event);
+                        break;
+                    case "channel.suspicious_user.update":
+                        await HandleSuspiciousUserUpdate(message.Payload.Event);
+                        break;
+
+                    case "channel.shield_mode.begin":
+                        await HandleShieldModeBegin(message.Payload.Event);
+                        break;
+                    case "channel.shield_mode.end":
+                        await HandleShieldModeEnd(message.Payload.Event);
+                        break;
+
+                    case "channel.goal.begin":
+                        await HandleGoalBegin(message.Payload.Event);
+                        break;
+                    case "channel.goal.end":
+                        await HandleGoalEnd(message.Payload.Event);
                         break;
                 }
             }
@@ -810,7 +851,10 @@ namespace MixItUp.Base.Services.Twitch.New
             eventCommandSpecialIdentifiers["rewardcost"] = redemption.reward.cost.ToString();
             if (!string.IsNullOrEmpty(redemption.user_input))
             {
+                TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(user, redemption.user_input);
                 eventCommandSpecialIdentifiers["message"] = redemption.user_input;
+                eventCommandSpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                eventCommandSpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                 arguments = new List<string>(redemption.user_input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
             }
 
@@ -818,10 +862,10 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPointsRedeemed, new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, arguments, eventCommandSpecialIdentifiers));
 
-                TwitchChannelPointsCommandModel command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID.ToString(), redemption.reward.id, StringComparison.CurrentCultureIgnoreCase));
+                TwitchChannelPointsCommandModel command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.ChannelPointRewardID.ToString(), redemption.reward.id, StringComparison.CurrentCultureIgnoreCase));
                 if (command == null)
                 {
-                    command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => string.Equals(c.Name, redemption.reward.title, StringComparison.CurrentCultureIgnoreCase));
+                    command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.Name, redemption.reward.title, StringComparison.CurrentCultureIgnoreCase));
                 }
 
                 if (command != null)
@@ -859,7 +903,10 @@ namespace MixItUp.Base.Services.Twitch.New
 
             if (!string.IsNullOrEmpty(redemption.user_input))
             {
+                TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(user, redemption.user_input);
                 eventCommandSpecialIdentifiers["message"] = redemption.user_input;
+                eventCommandSpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                eventCommandSpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                 arguments = new List<string>(redemption.user_input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
             }
 
@@ -867,10 +914,10 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelCustomPowerUpRedeemed, new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, arguments, eventCommandSpecialIdentifiers));
 
-                TwitchCustomPowerUpCommandModel command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => string.Equals(c.CustomPowerUpID, redemption.custom_power_up.id, StringComparison.CurrentCultureIgnoreCase));
+                TwitchCustomPowerUpCommandModel command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.CustomPowerUpID, redemption.custom_power_up.id, StringComparison.CurrentCultureIgnoreCase));
                 if (command == null)
                 {
-                    command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => string.Equals(c.Name, redemption.custom_power_up.title, StringComparison.CurrentCultureIgnoreCase));
+                    command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.Name, redemption.custom_power_up.title, StringComparison.CurrentCultureIgnoreCase));
                 }
 
                 if (command != null)
@@ -929,6 +976,8 @@ namespace MixItUp.Base.Services.Twitch.New
                     parameters.SpecialIdentifiers["bitsamount"] = bits.ToString();
                     parameters.SpecialIdentifiers["messagenocheermotes"] = message.PlainTextMessageNoCheermotes;
                     parameters.SpecialIdentifiers["message"] = message.PlainTextMessage;
+                    parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                    parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelBitsCheered, parameters);
 
                     TwitchBitsCommandModel command = ServiceManager.Get<CommandService>().TwitchBitsCommands.FirstOrDefault(c => c.IsEnabled && c.IsSingle && c.StartingAmount == bits);
@@ -951,6 +1000,8 @@ namespace MixItUp.Base.Services.Twitch.New
                 CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, message.ToArguments());
                 parameters.SpecialIdentifiers["messagenocheermotes"] = message.PlainTextMessageNoCheermotes;
                 parameters.SpecialIdentifiers["message"] = message.PlainTextMessage;
+                parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
 
                 if (messageNotification.MessageType == ChatNotificationMessageType.user_intro)
                 {
@@ -993,10 +1044,14 @@ namespace MixItUp.Base.Services.Twitch.New
 
         private async Task HandleWatchStreak(UserV2ViewModel user, ChatNotification notification)
         {
+            TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(notification, user);
+
             CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
             parameters.SpecialIdentifiers["userwatchstreak"] = notification.watch_streak.streak_count.GetValueOrDefault().ToString();
             parameters.SpecialIdentifiers["watchstreakchannelpointsawarded"] = notification.watch_streak.channel_points_awarded.GetValueOrDefault().ToString();
             parameters.SpecialIdentifiers["message"] = notification.message?.text;
+            parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+            parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelWatchStreak, parameters);
 
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchWatchStreak, user.FullDisplayName, notification.watch_streak.streak_count.GetValueOrDefault()), ChannelSession.Settings.AlertTwitchWatchStreakColor));
@@ -1243,6 +1298,22 @@ namespace MixItUp.Base.Services.Twitch.New
 
                 ChatService.ChatUserTimedOut(user);
             }
+            else if (moderation.ActionType == ModerationNotificationActionType.warn)
+            {
+                UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: moderation.warn.user_id);
+                if (user == null)
+                {
+                    user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(moderation.warn));
+                }
+
+                CommandParametersModel parameters = new CommandParametersModel(moderator, StreamingPlatformTypeEnum.Twitch);
+                parameters.Arguments.Add("@" + user.Username);
+                parameters.TargetUser = user;
+                parameters.SpecialIdentifiers["warnreason"] = moderation.warn.reason ?? string.Empty;
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelUserWarned, parameters);
+
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchUserWarned, user.FullDisplayName), ChannelSession.Settings.AlertTwitchUserWarnedColor));
+            }
             else if (moderation.ActionType == ModerationNotificationActionType.mod)
             {
 
@@ -1273,6 +1344,129 @@ namespace MixItUp.Base.Services.Twitch.New
             }
         }
 
+        private async Task HandleShoutoutReceived(JObject payload)
+        {
+            ShoutoutReceiveNotification shoutout = payload.ToObject<ShoutoutReceiveNotification>();
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: shoutout.from_broadcaster_user_id);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(shoutout));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["shoutoutviewercount"] = shoutout.viewer_count.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelShoutoutReceived, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchShoutoutReceived, user.FullDisplayName, shoutout.viewer_count), ChannelSession.Settings.AlertTwitchShoutoutReceivedColor));
+        }
+
+        private async Task HandleSuspiciousUserMessage(JObject payload)
+        {
+            SuspiciousUserMessageNotification suspicious = payload.ToObject<SuspiciousUserMessageNotification>();
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: suspicious.user_id);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(suspicious));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["message"] = suspicious.message?.text ?? string.Empty;
+            parameters.SpecialIdentifiers["suspicioususertypes"] = string.Join(", ", suspicious.types ?? new List<string>());
+            parameters.SpecialIdentifiers["suspicioususerstatus"] = suspicious.low_trust_status ?? string.Empty;
+            parameters.SpecialIdentifiers["suspicioususerbanevasion"] = suspicious.ban_evasion_evaluation ?? string.Empty;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelSuspiciousUserMessage, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchSuspiciousUserMessage, user.FullDisplayName), ChannelSession.Settings.AlertTwitchSuspiciousUserMessageColor));
+        }
+
+        private async Task HandleSuspiciousUserUpdate(JObject payload)
+        {
+            SuspiciousUserUpdateNotification suspicious = payload.ToObject<SuspiciousUserUpdateNotification>();
+
+            UserV2ViewModel moderator = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: suspicious.moderator_user_id);
+            if (moderator == null)
+            {
+                moderator = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(suspicious));
+            }
+
+            UserV2ViewModel targetUser = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: suspicious.user_id);
+            if (targetUser == null)
+            {
+                targetUser = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(suspicious.user_id, suspicious.user_login, suspicious.user_name));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(moderator, StreamingPlatformTypeEnum.Twitch);
+            parameters.Arguments.Add("@" + targetUser.Username);
+            parameters.TargetUser = targetUser;
+            parameters.SpecialIdentifiers["suspicioususerstatus"] = suspicious.low_trust_status ?? string.Empty;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelSuspiciousUserUpdated, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(targetUser, string.Format(MixItUp.Base.Resources.AlertTwitchSuspiciousUserUpdated, targetUser.FullDisplayName, suspicious.low_trust_status), ChannelSession.Settings.AlertTwitchSuspiciousUserUpdatedColor));
+        }
+
+        private async Task HandleShieldModeBegin(JObject payload)
+        {
+            ShieldModeNotification shieldMode = payload.ToObject<ShieldModeNotification>();
+
+            UserV2ViewModel moderator = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: shieldMode.moderator_user_id);
+            if (moderator == null)
+            {
+                moderator = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(shieldMode));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(moderator, StreamingPlatformTypeEnum.Twitch);
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelShieldModeStarted, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(moderator, string.Format(MixItUp.Base.Resources.AlertTwitchShieldModeStarted, moderator.FullDisplayName), ChannelSession.Settings.AlertTwitchShieldModeStartedColor));
+        }
+
+        private async Task HandleShieldModeEnd(JObject payload)
+        {
+            ShieldModeNotification shieldMode = payload.ToObject<ShieldModeNotification>();
+
+            UserV2ViewModel moderator = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: shieldMode.moderator_user_id);
+            if (moderator == null)
+            {
+                moderator = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(shieldMode));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(moderator, StreamingPlatformTypeEnum.Twitch);
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelShieldModeEnded, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(moderator, string.Format(MixItUp.Base.Resources.AlertTwitchShieldModeEnded, moderator.FullDisplayName), ChannelSession.Settings.AlertTwitchShieldModeEndedColor));
+        }
+
+        private async Task HandleGoalBegin(JObject payload)
+        {
+            GoalNotification goal = payload.ToObject<GoalNotification>();
+
+            CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["goaltype"] = goal.type ?? string.Empty;
+            parameters.SpecialIdentifiers["goaldescription"] = goal.description ?? string.Empty;
+            parameters.SpecialIdentifiers["goalcurrentamount"] = goal.current_amount.ToString();
+            parameters.SpecialIdentifiers["goaltargetamount"] = goal.target_amount.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelGoalStarted, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Twitch, string.Format(MixItUp.Base.Resources.AlertTwitchGoalStarted, goal.type, goal.current_amount, goal.target_amount), ChannelSession.Settings.AlertTwitchGoalStartedColor));
+        }
+
+        private async Task HandleGoalEnd(JObject payload)
+        {
+            GoalNotification goal = payload.ToObject<GoalNotification>();
+
+            CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["goaltype"] = goal.type ?? string.Empty;
+            parameters.SpecialIdentifiers["goaldescription"] = goal.description ?? string.Empty;
+            parameters.SpecialIdentifiers["goalcurrentamount"] = goal.current_amount.ToString();
+            parameters.SpecialIdentifiers["goaltargetamount"] = goal.target_amount.ToString();
+            parameters.SpecialIdentifiers["goalachieved"] = goal.is_achieved.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelGoalEnded, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Twitch, string.Format(MixItUp.Base.Resources.AlertTwitchGoalEnded, goal.type, goal.current_amount, goal.target_amount), ChannelSession.Settings.AlertTwitchGoalEndedColor));
+        }
+
         private async Task ProcessSub(TwitchSubcriptionEventModel subscription)
         {
             if (subscription.Duration > 0)
@@ -1283,6 +1477,8 @@ namespace MixItUp.Base.Services.Twitch.New
 
                 CommandParametersModel parameters = new CommandParametersModel(subscription.User, subscription.Message.ToArguments());
                 parameters.SpecialIdentifiers["message"] = subscription.Message.PlainTextMessage;
+                parameters.SpecialIdentifiers["messagenoemotes"] = subscription.Message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = subscription.Message.EmotesOnlyContents.Count().ToString();
                 parameters.SpecialIdentifiers["usersubmonths"] = subscription.Cumulative.ToString();
                 parameters.SpecialIdentifiers["usersubplanname"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
@@ -1344,6 +1540,8 @@ namespace MixItUp.Base.Services.Twitch.New
                 subscription.User.SubscriberTier = subscription.Tier;
 
                 parameters.SpecialIdentifiers["message"] = subscription.Message.PlainTextMessage;
+                parameters.SpecialIdentifiers["messagenoemotes"] = subscription.Message.TextOnlyMessageContents;
+                parameters.SpecialIdentifiers["messageemotecount"] = subscription.Message.EmotesOnlyContents.Count().ToString();
                 parameters.SpecialIdentifiers["usersubplanname"] = subscription.PlanName;
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubpoints"] = subscription.SubPoints.ToString();

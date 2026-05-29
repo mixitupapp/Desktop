@@ -23,15 +23,17 @@ namespace MixItUp.WPF
     {
         private MixItUpUpdateModel update;
         private readonly bool isMandatory;
+        private bool _shuttingDown = false;
 
         public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
         {
             this.update = update;
-            #if DEBUG
-            this.isMandatory = false;
-            #else
-            this.isMandatory = isMandatory;
-            #endif
+
+            if (!BuildChannelHelper.BYPASS_UPDATE_CHECK)
+            {
+                this.isMandatory = isMandatory;
+            }
+
             InitializeComponent();
 
             this.Initialize(this.StatusBar);
@@ -44,8 +46,7 @@ namespace MixItUp.WPF
             _ = this.TryLoadPatreonMemberShoutout();
 
             this.NewVersionTextBlock.Text = this.update.Version;
-            Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-            this.CurrentVersionTextBlock.Text = VersionHelper.NormalizeSemVerString(entryVersion);
+            this.CurrentVersionTextBlock.Text = VersionHelper.GetFullVersionString();
 
             if (this.update.IsPreview)
             {
@@ -173,6 +174,12 @@ namespace MixItUp.WPF
         private void UpdateWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             TaskbarFlashHelper.Flash(this, stop: true);
+            if (this.isMandatory && !_shuttingDown)
+            {
+                e.Cancel = true;
+                _shuttingDown = true;
+                Application.Current.Shutdown();
+            }
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -249,7 +256,7 @@ namespace MixItUp.WPF
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
                 {
-                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl,56,56, member.DisplayName);
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 56, 56, member.DisplayName);
                 }
             }
             catch (Exception ex)

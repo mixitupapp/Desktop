@@ -44,9 +44,8 @@ namespace MixItUp.WPF
 
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
-            Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-            string versionString = "v" + VersionHelper.NormalizeSemVerString(entryVersion);
-            versionString += BuildChannelHelper.GetChannelSuffix();
+            string versionString = "v" + VersionHelper.GetFullVersionString();
+            versionString += BuildChannelHelper.BUILD_CHANNEL_SUFFIX;
 
             this.Title += " - " + versionString;
 
@@ -146,7 +145,7 @@ namespace MixItUp.WPF
                     "No ads. No investors. No board of directors. Just amazing **Patreon** members.",
                     "Every launch, every update, every feature, made possible by **Patreon** members.",
                     "Mix It Up only exists because of our **Patreon** supporters.",
-                    "No corporate overloards. Just community belief and **Patreon** supporters.", 
+                    "No corporate overlords. Just community belief and **Patreon** supporters.", 
                     "No venture capital. No compromises. Just **Patreon** love.",
                     "Built for the community, sustained by **Patreon** members.",
                     "Creator-driven. Community-funded.",
@@ -248,17 +247,19 @@ namespace MixItUp.WPF
 
         private async Task CheckForUpdates()
         {
-            this.currentUpdate = await ServiceManager.Get<MixItUpService>().GetLatestUpdate();
+            MixItUpService mixItUpService = ServiceManager.Get<MixItUpService>();
+            if (mixItUpService == null) { return; }
+            this.currentUpdate = await mixItUpService.GetLatestUpdate();
             if (this.currentUpdate != null)
             {
-                Version currentVersion = Assembly.GetEntryAssembly()?.GetName().Version ?? new Version(0, 0, 0, 0);
+                Version currentVersion = VersionHelper.GetCurrentVersion();
                 Version updateVersion = this.currentUpdate.GetNormalizedVersion();
 
                 bool hasNewerVersion = updateVersion > currentVersion;
                 bool semverMatches = VersionHelper.SemVerEquals(currentVersion, this.currentUpdate.Version);
                 bool isMandatory = this.currentUpdate.Mandatory;
 
-                if (hasNewerVersion || (isMandatory && !semverMatches))
+                if (hasNewerVersion || (isMandatory && !semverMatches && updateVersion >= currentVersion))
                 {
                     updateFound = true;
 

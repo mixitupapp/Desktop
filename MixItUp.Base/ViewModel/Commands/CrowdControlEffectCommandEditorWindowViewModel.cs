@@ -29,7 +29,7 @@ namespace MixItUp.Base.ViewModel.Commands
                         this.Packs.ClearAndAddRange(await ServiceManager.Get<CrowdControlService>().GetGamePacks(this.SelectedGame));
                         if (this.existingPackID != null)
                         {
-                            this.SelectedPack = this.Packs.FirstOrDefault(p => string.Equals(p.gamePackID, this.existingPackID));
+                            this.SelectedPack = this.Packs.FirstOrDefault(p => string.Equals(p.gamePackID, this.existingPackID) || string.Equals(p.Name, this.existingPackID));
                             this.existingPackID = null;
                         }
 
@@ -114,8 +114,8 @@ namespace MixItUp.Base.ViewModel.Commands
             await base.UpdateExistingCommand(command);
             ((CrowdControlEffectCommandModel)command).GameID = this.SelectedGame.gameID;
             ((CrowdControlEffectCommandModel)command).GameName = this.SelectedGame.Name;
-            ((CrowdControlEffectCommandModel)command).PackID = this.SelectedPack.Name;
-            ((CrowdControlEffectCommandModel)command).PackName = this.SelectedPack.gamePackID;
+            ((CrowdControlEffectCommandModel)command).PackID = this.SelectedPack.gamePackID;
+            ((CrowdControlEffectCommandModel)command).PackName = this.SelectedPack.Name;
             ((CrowdControlEffectCommandModel)command).EffectID = this.SelectedEffect.id;
             ((CrowdControlEffectCommandModel)command).EffectName = this.SelectedEffect.Name;
         }

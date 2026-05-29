@@ -11,6 +11,7 @@
     mc:Ignorable="d">
     <ProgressBar
         x:Name="StatusBar"
-        IsIndeterminate="True"
+        Height="{Binding BarHeight, RelativeSource={RelativeSource AncestorType=UserControl}}"
+IsIndeterminate="True"
         Visibility="Hidden" />
 </UserControl>

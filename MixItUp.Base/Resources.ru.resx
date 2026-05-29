@@ -1605,6 +1605,9 @@ Fuzzy</comment>
   <data name="PerPerson" xml:space="preserve">
     <value>На человека</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Группа на человека</value>
+  </data>
   <data name="Pink" xml:space="preserve">
     <value>Розовая</value>
     <comment>Manual</comment>
@@ -3393,6 +3396,57 @@ Fuzzy</comment>
   <data name="DiscordActionMissingChatMessage" xml:space="preserve">
     <value>Discord Action: отсутствует сообщение в чате</value>
     <comment>Manual</comment>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord Action: Встраивание должно иметь как минимум заголовок, описание, миниатюру или изображение</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>Сообщение (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>Встроить название</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>URL-адрес заголовка (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>Описание встраивания</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>Включить временную метку</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>Автор (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>Нижний колонтитул (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>Имя автора (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>URL-адрес автора (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>URL-адрес значка автора (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>URL-адрес миниатюры (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>URL-адрес изображения (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>Текст нижнего колонтитула (необязательно)</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>URL-адрес значка нижнего колонтитула (необязательно)</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>Отправить Embed</value>
   </data>
   <data name="ExternalProgramActionMissingFilePath" xml:space="preserve">
     <value>Действие внешней программы: отсутствует путь к файлу</value>
@@ -6711,6 +6765,9 @@ Fuzzy</comment>
   <data name="Choice4" xml:space="preserve">
     <value>Выбор 4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>Выбор 5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>Создать опрос</value>
   </data>
@@ -7311,6 +7368,12 @@ Fuzzy</comment>
   </data>
   <data name="ShowTwitchChannelPoints" xml:space="preserve">
     <value>Показать баллы канала Twitch</value>
+  </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Показать очки канала Kick</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Показать Kicks на Kick</value>
   </data>
   <data name="ShowTwitchHypeTrain" xml:space="preserve">
     <value>Показать Twitch Hype Train</value>
@@ -8238,6 +8301,12 @@ Fuzzy</comment>
     <comment>{0} is the name of the user
 {1} is the name of the channel point reward</comment>
   </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} использовал(а) {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} подарил(а) {1} Kicks</value>
+  </data>
   <data name="AverageViewers" xml:space="preserve">
     <value>Среднее количество зрителей</value>
   </data>
@@ -8911,6 +8980,9 @@ Fuzzy</comment>
   <data name="YouTubeChannelSuperChat" xml:space="preserve">
     <value>Суперчат на канале YouTube</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>Подарок для канала YouTube Jewels</value>
+  </data>
   <data name="YouTubeChannelSuperSticker" xml:space="preserve">
     <value>Суперстикер канала YouTube</value>
   </data>
@@ -8918,6 +8990,9 @@ Fuzzy</comment>
     <value>{0} Суперчат – {1}</value>
     <comment>{0} is the name of the user
 {1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>Подарок {0} Драгоценности YouTube - {1} ({2} Драгоценности)</value>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0} Суперстикер – {1} – {2}</value>
@@ -8927,6 +9002,9 @@ Fuzzy</comment>
   </data>
   <data name="ShowYouTubeSuperChat" xml:space="preserve">
     <value>Показать Суперчат YouTube</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>Показать подарок YouTube Jewels</value>
   </data>
   <data name="MockConnection" xml:space="preserve">
     <value>Ложное соединение</value>
@@ -9796,6 +9874,12 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
     <value>Реклама Twitch запущена — продолжительность {0} секунд</value>
     <comment>{0} = The amount of seconds of the ad</comment>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>Показывать стримы Twitch</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0} имеет полосу наблюдений {1}.</value>
+  </data>
   <data name="SnoozeNextAd" xml:space="preserve">
     <value>Отложить следующее объявление</value>
   </data>
@@ -10308,6 +10392,14 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>Номера портов для наложения должны находиться в диапазоне от 0 до 65353.</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>Отключите удаление iframe (обходное решение для заморозки OBS CEF).</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>Предупреждение: Тестирование обходного пути. Не рекомендуется включать, если это не требуется для заморозки видео OBS CEF. Это может увеличить потребление памяти или вызвать другие проблемы.
+
+Включайте только в том случае, если вы знаете, что делаете. Продолжить?</value>
   </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>Скрыть определенные сообщения пользователя (разделенные пробелами)</value>
@@ -11162,12 +11254,6 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
 
 Пожалуйста, перейдите на страницу "Аккаунты" в главном меню, чтобы подключить аккаунт стриминговой платформы, а затем перезапустите Mix It Up.</value>
   </data>
-  <data name="ResetWindowPosition" xml:space="preserve">
-    <value>Сброс положения окна</value>
-  </data>
-  <data name="ResetWindowPositionDialog" xml:space="preserve">
-    <value>Положение окон было изменено</value>
-  </data>
   <data name="DisableHardwareAcceleration" xml:space="preserve">
     <value>Отключить аппаратное ускорение</value>
   </data>
@@ -11177,53 +11263,11 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>Отключите аппаратное ускорение GPU и используйте вместо него программный рендеринг. Включите эту функцию, если у вас возникают сбои, связанные с графикой (UCEERRRENDERTHREADFAILURE). Требуется перезагрузка.</value>
   </data>
-  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
-    <value>Discord Action: Встраивание должно иметь как минимум заголовок, описание, миниатюру или изображение</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>Сброс положения окна</value>
   </data>
-  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
-    <value>Сообщение (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedTitle" xml:space="preserve">
-    <value>Встроить название</value>
-  </data>
-  <data name="DiscordEmbedTitleURL" xml:space="preserve">
-    <value>URL-адрес заголовка (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedDescription" xml:space="preserve">
-    <value>Описание встраивания</value>
-  </data>
-  <data name="DiscordEmbedColor" xml:space="preserve">
-    <value>Цвет</value>
-  </data>
-  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
-    <value>Включить временную метку</value>
-  </data>
-  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
-    <value>Автор (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedFooterSection" xml:space="preserve">
-    <value>Нижний колонтитул (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedAuthorName" xml:space="preserve">
-    <value>Имя автора (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
-    <value>URL-адрес значка автора (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
-    <value>URL-адрес миниатюры (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedImageURL" xml:space="preserve">
-    <value>URL-адрес изображения (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedFooterText" xml:space="preserve">
-    <value>Текст нижнего колонтитула (необязательно)</value>
-  </data>
-  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
-    <value>URL-адрес значка нижнего колонтитула (необязательно)</value>
-  </data>
-  <data name="SendEmbed" xml:space="preserve">
-    <value>Отправить Embed</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>Положение окон было изменено</value>
   </data>
   <data name="BackupsReminder" xml:space="preserve">
     <value>Напоминание: Автоматическое резервное копирование отключено. Включите их в разделе Настройки → Дополнительно, чтобы защитить свои настройки от непредвиденной потери данных.</value>
@@ -11261,17 +11305,8 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>Это обновление необходимо для продолжения использования Mix It Up</value>
   </data>
-  <data name="ShowTwitchWatchStreak" xml:space="preserve">
-    <value>Показывать стримы Twitch</value>
-  </data>
-  <data name="AlertTwitchWatchStreak" xml:space="preserve">
-    <value>{0} имеет полосу наблюдений {1}.</value>
-  </data>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>Остановка по завершении</value>
-  </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>{0} погашен {1}</value>
   </data>
   <data name="CustomPowerUp" xml:space="preserve">
     <value>Пользовательское усиление</value>
@@ -11293,26 +11328,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>Показать Twitch Пользовательские бонусы</value>
-	</data>
-  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
-    <value>Подарок для канала YouTube Jewels</value>
   </data>
-  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
-    <value>Подарок {0} Драгоценности YouTube - {1} ({2} Драгоценности)</value>
-  </data>
-  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
-    <value>Показать подарок YouTube Jewels</value>
-  </data>
-  <data name="Choice5" xml:space="preserve">
-    <value>Выбор 5</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
-    <value>Отключите удаление iframe (обходное решение для заморозки OBS CEF).</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
-    <value>Предупреждение: Тестирование обходного пути. Не рекомендуется включать, если это не требуется для заморозки видео OBS CEF. Это может увеличить потребление памяти или вызвать другие проблемы.
-
-Включайте только в том случае, если вы знаете, что делаете. Продолжить?</value>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0} погашен {1}</value>
   </data>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>Сброс ударов модерации для всех пользователей</value>
@@ -11359,20 +11377,20 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Channel Kicks Gifted</value>
   </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>Для использования этой функции необходимо подключить аккаунт Kick.</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>Команда очков канала Kick</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>Уже существует другая команда Kick Kicks с таким же количеством/диапазоном, что и эта команда.</value>
-  </data>
   <data name="KickChannelPoints" xml:space="preserve">
     <value>Очки канала Kick</value>
   </data>
   <data name="KickKicks" xml:space="preserve">
     <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>Уже существует другая команда Kick Kicks с таким же количеством/диапазоном, что и эта команда.</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>Для использования этой функции необходимо подключить аккаунт Kick.</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Команда очков канала Kick</value>
   </data>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Команда Kick Kicks</value>
@@ -11392,5 +11410,128 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Награда за очки канала успешно создана! Теперь вы можете динамически обновлять это вознаграждение за очки канала с помощью действия Kick внутри команды. Пожалуйста, воспользуйтесь ссылкой на главной странице "Очки канала", чтобы перейти в редактор на Kick для настройки награды.</value>
+  </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Предупредить пользователя</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Режим щита Вкл.</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Режим щита Выкл.</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Сообщение о булавке</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Открепить сообщение</value>
+  </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>Установка статуса подозрительного пользователя</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>Удаление статуса подозрительного пользователя</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>Активный мониторинг</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>Ограниченный</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Пользователю канала Twitch вынесено предупреждение</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>Получено сообщение о канале Twitch</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Сообщение подозрительного пользователя на канале Twitch</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Обновлен канал Twitch Подозрительный пользователь</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0} было предупреждено</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} Отправил крик с {1} Зрители</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Подозрительный пользователь {0} отправил сообщение</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0} Подозрительный статус Установите значение {1}</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>Показать предупреждения для пользователей Twitch</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>Показать полученные Twitch Shoutouts</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Показать сообщения Twitch о подозрительных пользователях</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>Показать обновления подозрительных пользователей Twitch</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Запущен режим щита канала Twitch</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Режим щита для канала Twitch Закончен</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} Активирован режим щита</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} Деактивирован режим щита</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>Показать запуск режима щита Twitch</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>Показать режим щита Twitch Завершено</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Запуск Twitch-канала</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Цель канала Twitch Закончена</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0} Гол начался в {1} из {2}</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0} Гол завершился в {1} из {2}</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>Шоу Twitch Goal Started</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>Показать цель на Twitch Завершено</value>
+  </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Пользователь блока</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Разблокировать пользователя</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Домогательства</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Спам</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другие</value>
+  </data>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>Бонус подписчика</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>Бонус подписчика должен быть не меньше 0.</value>
   </data>
 </root>
