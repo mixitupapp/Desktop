@@ -1,5 +1,39 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.010
+
+### Features
+
+- Add Twitch Channel User Warned event
+- Add Twitch Channel Shoutout Received event
+- Add Twitch Channel Suspicious User Message and Twitch Channel Suspicious User Updated events
+- Add Twitch Channel Shield Mode Started and Twitch Channel Shield Mode Ended events
+- Add Twitch Channel Goal Started and Twitch Channel Goal Ended events
+- Add new Twitch action options: Pin Message, Unpin Message, Warn User, Shield Mode On, Shield Mode Off, Set Suspicious User Status, Remove Suspicious User Status, Block User, and Unblock User
+- Add Kick channel points and kicks alerts to dashboard
+- Add author url field to Discord embeds
+- Add Per Person Group Cooldown
+- Add Follower Role Bonus for Currencies and Ranks
+
+### Fixes
+
+- Cancel Wait action when Exit Command or Cancel Command is triggered
+- Adjust status loading bar in login window
+- Add progressive backoff for webhook reconnections
+- SemVer parsing for leading zeros in patch
+- Typo in login screen
+
+## 1.7.001 (HOTFIX)
+
+### FIXES
+
+- $messagenoemotes and $messageemotecount not working in some command types
+- Crash on app launch when app fails to check for updates
+- Crash when the webhook service disconnected and attempted to reconnect
+- Crowd Control commands not triggering after editing and saving
+- Kick channel information special identifiers
+- Run enabled commands when matching Twitch channel point and custom power-up redeems to avoid disabled duplicates blocking enabled ones
+
 ## 1.7.000
 
 ### ***BREAKING CHANGES***
