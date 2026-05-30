@@ -53,7 +53,10 @@ namespace MixItUp.Base.Model.Actions
                 {
                     if (string.IsNullOrWhiteSpace(ChannelSession.Settings.PythonExecutablePath))
                     {
-                        await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ScriptActionPythonExecutablePathNotSet, parameters.Platform);
+                        if (!ChannelSession.Settings.HideScriptActionChatErrors)
+                        {
+                            await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ScriptActionPythonExecutablePathNotSet, parameters.Platform);
+                        }
                         return;
                     }
 
@@ -104,14 +107,20 @@ namespace MixItUp.Base.Model.Actions
                 {
                     if (!ServiceManager.Get<OverlayV3Service>().IsConnected)
                     {
-                        await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ScriptActionOverlayNotEnableOrConnected, parameters.Platform);
+                        if (!ChannelSession.Settings.HideScriptActionChatErrors)
+                        {
+                            await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ScriptActionOverlayNotEnableOrConnected, parameters.Platform);
+                        }
                         return;
                     }
 
                     OverlayEndpointV3Service overlayEndpoint = ServiceManager.Get<OverlayV3Service>().GetDefaultOverlayEndpointService();
                     if (overlayEndpoint == null || overlayEndpoint.ConnectedClients == 0)
                     {
-                        await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ScriptActionOverlayNotEnableOrConnected, parameters.Platform);
+                        if (!ChannelSession.Settings.HideScriptActionChatErrors)
+                        {
+                            await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ScriptActionOverlayNotEnableOrConnected, parameters.Platform);
+                        }
                         return;
                     }
 

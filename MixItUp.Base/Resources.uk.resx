@@ -11529,4 +11529,7 @@ print(run())</value>
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Бонус підписника має бути не менше 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Приховати повідомлення про помилки скриптової дії з чату</value>
+  </data>
 </root>

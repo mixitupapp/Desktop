@@ -11529,4 +11529,7 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>フォロワーボーナスは0以上である必要があります。</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>スクリプトアクションのエラーメッセージをチャットから隠す</value>
+  </data>
 </root>

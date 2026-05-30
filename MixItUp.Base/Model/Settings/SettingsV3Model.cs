@@ -254,6 +254,9 @@ namespace MixItUp.Base.Model.Settings
         public string PythonExecutablePath { get; set; }
 
         [DataMember]
+        public bool HideScriptActionChatErrors { get; set; }
+
+        [DataMember]
         public HashSet<ActionTypeEnum> ActionsToHide { get; set; } = new HashSet<ActionTypeEnum>();
 
         [DataMember]

@@ -37,6 +37,7 @@
             <Separator Margin="10" />
 
             <GenericSettingsControls:GenericTextSettingsOptionControl DataContext="{Binding PythonExecutablePath}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding HideScriptActionChatErrors}" />
 
             <Separator Margin="10" />
 

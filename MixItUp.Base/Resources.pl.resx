@@ -11529,4 +11529,7 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Bonus obserwującego musi być równy lub większy od 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Ukryj komunikaty o błędach akcji skryptu na czacie</value>
+  </data>
 </root>

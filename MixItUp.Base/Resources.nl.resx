@@ -11530,4 +11530,7 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>De volgersbonus moet 0 of hoger zijn.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Script Action foutmeldingen verbergen in chat</value>
+  </data>
 </root>

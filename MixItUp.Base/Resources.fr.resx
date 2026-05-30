@@ -11530,4 +11530,7 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Le bonus d’abonné doit être supérieur ou égal à 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Masquer les messages d'erreur de Script Action dans le chat</value>
+  </data>
 </root>

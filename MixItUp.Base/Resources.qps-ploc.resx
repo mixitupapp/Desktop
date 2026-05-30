@@ -11523,4 +11523,13 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="DiscordEmbedAuthorURL" xml:space="preserve">
     <value>Author URL (Optional)</value>
   </data>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>Follower Bonus</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>The Follower Bonus must be greater than or equal to 0.</value>
+  </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Hide Script Action error messages from chat</value>
+  </data>
 </root>

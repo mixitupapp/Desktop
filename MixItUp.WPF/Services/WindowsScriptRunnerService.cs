@@ -1,4 +1,5 @@
-﻿using MixItUp.Base.Model.Commands;
+﻿using MixItUp.Base;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using Microsoft.CodeAnalysis;
@@ -39,7 +40,10 @@ namespace MixItUp.WPF.Services
                 catch (Exception ex)
                 {
                     Logger.Log(ex);
-                    await ServiceManager.Get<ChatService>().SendMessage(string.Format(MixItUp.Base.Resources.ScriptActionFailedCompile, ex.ToString()), parameters.Platform);
+                    if (!ChannelSession.Settings.HideScriptActionChatErrors)
+                    {
+                        await ServiceManager.Get<ChatService>().SendMessage(string.Format(MixItUp.Base.Resources.ScriptActionFailedCompile, ex.ToString()), parameters.Platform);
+                    }
                 }
                 return null;
             }, cancellationTokenSource.Token);
@@ -83,9 +87,12 @@ namespace MixItUp.WPF.Services
                         string fullError = string.Join(Environment.NewLine, errors);
                         Logger.Log(LogLevel.Error, $"Script compilation failed: {fullError}");
 
-                        await ServiceManager.Get<ChatService>().SendMessage(
-                            string.Format(MixItUp.Base.Resources.ScriptActionFailedCompile, errors.First()),
-                            parameters.Platform);
+                        if (!ChannelSession.Settings.HideScriptActionChatErrors)
+                        {
+                            await ServiceManager.Get<ChatService>().SendMessage(
+                                string.Format(MixItUp.Base.Resources.ScriptActionFailedCompile, errors.First()),
+                                parameters.Platform);
+                        }
                         return null;
                     }
 

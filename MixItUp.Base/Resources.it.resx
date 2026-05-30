@@ -11529,4 +11529,7 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Il bonus follower deve essere pari o superiore a 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Nascondere i messaggi di errore dell'azione script dalla chat</value>
+  </data>
 </root>

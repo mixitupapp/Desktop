@@ -11531,4 +11531,7 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>La bonificación por seguir debe ser 0 o mayor.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Ocultar los mensajes de error de las acciones de script del chat</value>
+  </data>
 </root>

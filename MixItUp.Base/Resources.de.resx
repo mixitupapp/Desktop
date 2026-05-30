@@ -11535,4 +11535,7 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Der Follower-Bonus muss 0 oder höher sein.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Script Action-Fehlermeldungen aus dem Chat ausblenden</value>
+  </data>
 </root>

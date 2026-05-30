@@ -11555,4 +11555,7 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>The Follower Bonus must be greater than or equal to 0.</value>
     <comment>Manual</comment>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Hide Script Action error messages from chat</value>
+  </data>
 </root>

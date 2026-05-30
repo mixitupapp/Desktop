@@ -11534,4 +11534,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Бонус подписчика должен быть не меньше 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Скрыть сообщения об ошибках Script Action в чате</value>
+  </data>
 </root>

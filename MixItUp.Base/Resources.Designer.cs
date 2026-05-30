@@ -11550,6 +11550,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide Script Action error messages from chat.
+        /// </summary>
+        public static string HideScriptActionChatErrors {
+            get {
+                return ResourceManager.GetString("HideScriptActionChatErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide Specific User Messages (Space Separated).
         /// </summary>
         public static string HideSpecificUserMessagesSpaceSeparated {

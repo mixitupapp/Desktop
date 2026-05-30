@@ -33,6 +33,8 @@ namespace MixItUp.Base.ViewModel.Settings
 
         public GenericTextSettingsOptionControlViewModel PythonExecutablePath { get; set; }
 
+        public GenericToggleSettingsOptionControlViewModel HideScriptActionChatErrors { get; set; }
+
         public ObservableCollection<GenericToggleSettingsOptionControlViewModel> HideActionsList { get; set; } = new ObservableCollection<GenericToggleSettingsOptionControlViewModel>();
 
         public CommandsSettingsControlViewModel()
@@ -72,6 +74,8 @@ namespace MixItUp.Base.ViewModel.Settings
 
             this.PythonExecutablePath = new GenericTextSettingsOptionControlViewModel(MixItUp.Base.Resources.PythonExecutablePath, ChannelSession.Settings.PythonExecutablePath,
                 (value) => { ChannelSession.Settings.PythonExecutablePath = value; });
+            this.HideScriptActionChatErrors = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.HideScriptActionChatErrors, ChannelSession.Settings.HideScriptActionChatErrors,
+                (value) => { ChannelSession.Settings.HideScriptActionChatErrors = value; });
 
             List<ActionTypeEnum> actions = new List<ActionTypeEnum>(EnumHelper.GetEnumList<ActionTypeEnum>());
             actions.Remove(ActionTypeEnum.Custom);

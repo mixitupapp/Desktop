@@ -11530,4 +11530,7 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>O bônus de seguidor deve ser 0 ou maior.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Ocultar mensagens de erro da Ação de Script do chat</value>
+  </data>
 </root>
