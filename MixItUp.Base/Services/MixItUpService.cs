@@ -150,9 +150,9 @@ namespace MixItUp.Base.Services
         private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
         private static readonly TimeSpan[] FileServiceRetryDelays = new[]
         {
-            TimeSpan.FromSeconds(2),
-            TimeSpan.FromSeconds(4),
-            TimeSpan.FromSeconds(8),
+            TimeSpan.FromSeconds(3),
+            TimeSpan.FromSeconds(6),
+            TimeSpan.FromSeconds(9),
         };
 
         private string accessToken = null;
@@ -223,7 +223,7 @@ namespace MixItUp.Base.Services
                 {
                     using (AdvancedHttpClient client = new AdvancedHttpClient())
                     {
-                        client.Timeout = TimeSpan.FromSeconds(10 + (attempt * 5));
+                        client.Timeout = TimeSpan.FromSeconds(5);
                         MixItUpUpdateModel update = await client.GetAsync<MixItUpUpdateModel>(url);
                         if (update != null)
                         {
