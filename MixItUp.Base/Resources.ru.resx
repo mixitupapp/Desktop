@@ -11537,4 +11537,16 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>Скрыть сообщения об ошибках Script Action в чате</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Это действие должно быть вызвано из команды Channel Points вознаграждения, которое вы хотите обновить.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Обновить статус выкупа</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
 </root>

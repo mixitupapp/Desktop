@@ -11532,4 +11532,16 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>Ukryj komunikaty o błędach akcji skryptu na czacie</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Ta akcja musi zostać uruchomiona z polecenia Channel Points nagrody, którą chcesz zaktualizować.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Aktualizacja statusu wykupu</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Spełnione</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Anulowane</value>
+  </data>
 </root>

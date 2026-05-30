@@ -11532,4 +11532,16 @@ print(run())</value>
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>Приховати повідомлення про помилки скриптової дії з чату</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Ця дія має бути запущена з команди Channel Points тієї винагороди, яку ви хочете оновити.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Оновити статус погашення</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Виконано</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Скасовано</value>
+  </data>
 </root>

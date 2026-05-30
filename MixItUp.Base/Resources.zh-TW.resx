@@ -11532,4 +11532,16 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>隐藏聊天中的脚本操作错误信息</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>该操作必须从要更新的奖励的通道积分命令中触发。</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>更新兑换状态</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
 </root>

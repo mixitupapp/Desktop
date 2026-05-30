@@ -11534,4 +11534,16 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>Ocultar los mensajes de error de las acciones de script del chat</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Esta acción debe activarse desde el comando Puntos de canal de la recompensa que desea actualizar.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Actualizar el estado del canje</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Cumplido</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
 </root>

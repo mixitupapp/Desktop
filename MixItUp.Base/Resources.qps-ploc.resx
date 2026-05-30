@@ -11532,4 +11532,16 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>Hide Script Action error messages from chat</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>This action must be triggered from the Channel Points command of the reward you want to update.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Update Redemption Status</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Fulfilled</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
 </root>

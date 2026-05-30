@@ -11533,4 +11533,16 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>Masquer les messages d'erreur de Script Action dans le chat</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Cette action doit être déclenchée à partir de la commande Channel Points de la récompense que vous souhaitez mettre à jour.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Mise à jour du statut de rachat</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Réalisé</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Annulé</value>
+  </data>
 </root>

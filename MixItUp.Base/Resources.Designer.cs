@@ -2492,6 +2492,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Canceled.
+        /// </summary>
+        public static string Canceled {
+            get {
+                return ResourceManager.GetString("Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel Giveaway.
         /// </summary>
         public static string CancelGiveaway {
@@ -8590,6 +8599,15 @@ namespace MixItUp.Base {
         public static string Friday {
             get {
                 return ResourceManager.GetString("Friday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fulfilled.
+        /// </summary>
+        public static string Fulfilled {
+            get {
+                return ResourceManager.GetString("Fulfilled", resourceCulture);
             }
         }
         
@@ -26386,6 +26404,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action must be triggered from the Channel Points command of the reward you want to update..
+        /// </summary>
+        public static string TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands {
+            get {
+                return ResourceManager.GetString("TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitch Action: A valid username must be specified.
         /// </summary>
         public static string TwitchActionUsernameMissing {
@@ -27655,6 +27682,15 @@ namespace MixItUp.Base {
         public static string UpdatePreviewProgramTooltip {
             get {
                 return ResourceManager.GetString("UpdatePreviewProgramTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Redemption Status.
+        /// </summary>
+        public static string UpdateRedemptionStatus {
+            get {
+                return ResourceManager.GetString("UpdateRedemptionStatus", resourceCulture);
             }
         }
         

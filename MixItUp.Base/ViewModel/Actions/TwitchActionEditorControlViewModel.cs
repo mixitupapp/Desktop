@@ -79,6 +79,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged(nameof(this.ShowPinMessageGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowSetSuspiciousUserStatusGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowBlockUserGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowUpdateRedemptionStatusGrid));
             }
         }
         private TwitchActionType selectedActionType;
@@ -751,6 +752,21 @@ namespace MixItUp.Base.ViewModel.Actions
 
         public IEnumerable<TwitchBlockUserReason> BlockUserReasons { get { return EnumHelper.GetEnumList<TwitchBlockUserReason>(); } }
 
+        public bool ShowUpdateRedemptionStatusGrid { get { return this.SelectedActionType == TwitchActionType.UpdateRedemptionStatus; } }
+
+        public IEnumerable<TwitchRedemptionStatusType> RedemptionStatusTypes { get { return EnumHelper.GetEnumList<TwitchRedemptionStatusType>(); } }
+
+        public TwitchRedemptionStatusType SelectedRedemptionStatus
+        {
+            get { return this.selectedRedemptionStatus; }
+            set
+            {
+                this.selectedRedemptionStatus = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private TwitchRedemptionStatusType selectedRedemptionStatus = TwitchRedemptionStatusType.Fulfilled;
+
         public TwitchBlockUserReason SelectedBlockUserReason
         {
             get { return this.selectedBlockUserReason; }
@@ -930,6 +946,10 @@ namespace MixItUp.Base.ViewModel.Actions
             else if (this.ShowPinMessageGrid)
             {
                 this.PinMessageText = action.PinMessageText;
+            }
+            else if (this.ShowUpdateRedemptionStatusGrid)
+            {
+                this.SelectedRedemptionStatus = action.RedemptionStatus;
             }
         }
 
@@ -1249,6 +1269,10 @@ namespace MixItUp.Base.ViewModel.Actions
             else if (this.ShowPinMessageGrid)
             {
                 return TwitchActionModel.CreatePinMessageAction(this.PinMessageText);
+            }
+            else if (this.ShowUpdateRedemptionStatusGrid)
+            {
+                return TwitchActionModel.CreateUpdateRedemptionStatusAction(this.SelectedRedemptionStatus);
             }
             else
             {

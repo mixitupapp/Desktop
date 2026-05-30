@@ -11532,4 +11532,16 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>スクリプトアクションのエラーメッセージをチャットから隠す</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>このアクションは、更新したいリワードのチャンネルポイントコマンドからトリガーされなければならない。</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>交換ステータスの更新</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>満たされた</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
 </root>

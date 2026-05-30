@@ -11533,4 +11533,16 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="HideScriptActionChatErrors" xml:space="preserve">
     <value>Script Action foutmeldingen verbergen in chat</value>
   </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Deze actie moet worden gestart vanuit het Kanaalpuntencommando van de beloning die je wilt bijwerken.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Aflossingsstatus bijwerken</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Vervuld</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Geannuleerd</value>
+  </data>
 </root>
