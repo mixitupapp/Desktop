@@ -237,6 +237,7 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(counter.Name + "display", counter.Amount.ToNumberDisplayString());
             }
 
+            this.ReplaceSpecialIdentifier("dayoftheweekname", DateTimeOffset.Now.ToString("dddd"));
             this.ReplaceSpecialIdentifier("dayoftheweek", DateTimeOffset.Now.DayOfWeek.ToString());
             this.ReplaceSpecialIdentifier("datetime", DateTimeOffset.Now.ToString("g"));
             this.ReplaceSpecialIdentifier("dateyear", DateTimeOffset.Now.ToString("yyyy"));
