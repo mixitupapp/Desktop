@@ -11545,4 +11545,19 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="Canceled" xml:space="preserve">
     <value>Cancelado</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Ordem de pesquisa de comandos de jogos pré-fabricados</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox e depois Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam e depois Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Apenas Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Apenas Steam</value>
+  </data>
 </root>

@@ -11544,4 +11544,19 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="Canceled" xml:space="preserve">
     <value>Annullato</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Ordine di ricerca dei comandi di gioco predefiniti</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox e poi Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam e poi Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Solo Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Solo Steam</value>
+  </data>
 </root>

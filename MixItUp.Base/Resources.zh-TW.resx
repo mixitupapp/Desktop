@@ -11544,4 +11544,19 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="Canceled" xml:space="preserve">
     <value>已取消</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>预制游戏命令查找顺序</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>先 Xbox 后 Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>先是 Steam，然后是 Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>仅限 Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>仅 Steam</value>
+  </data>
 </root>

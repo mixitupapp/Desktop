@@ -11544,4 +11544,19 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="Canceled" xml:space="preserve">
     <value>Canceled</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Pre-Made Game Command Lookup Order</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox then Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam then Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Xbox Only</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Steam Only</value>
+  </data>
 </root>

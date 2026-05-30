@@ -10263,4 +10263,19 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="Canceled" xml:space="preserve">
     <value>Abgesagt</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Vorgefertigte Spielbefehle Nachschlageordnung</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Erst Xbox, dann Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam dann Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Nur Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Nur Steam</value>
+  </data>
 </root>

@@ -10578,6 +10578,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pre-Made Game Command Lookup Order.
+        /// </summary>
+        public static string GameInfoLookupOrder {
+            get {
+                return ResourceManager.GetString("GameInfoLookupOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game Name.
         /// </summary>
         public static string GameName {
@@ -23298,6 +23307,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Steam Only.
+        /// </summary>
+        public static string SteamOnly {
+            get {
+                return ResourceManager.GetString("SteamOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam then Xbox.
+        /// </summary>
+        public static string SteamThenXbox {
+            get {
+                return ResourceManager.GetString("SteamThenXbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop.
         /// </summary>
         public static string Stop {
@@ -29645,6 +29672,24 @@ namespace MixItUp.Base {
         public static string XboxGame {
             get {
                 return ResourceManager.GetString("XboxGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xbox Only.
+        /// </summary>
+        public static string XboxOnly {
+            get {
+                return ResourceManager.GetString("XboxOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xbox then Steam.
+        /// </summary>
+        public static string XboxThenSteam {
+            get {
+                return ResourceManager.GetString("XboxThenSteam", resourceCulture);
             }
         }
         

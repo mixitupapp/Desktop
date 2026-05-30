@@ -11544,4 +11544,19 @@ print(run())</value>
   <data name="Canceled" xml:space="preserve">
     <value>Скасовано</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Порядок пошуку готових ігрових команд</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox, потім Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam, потім Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Тільки для Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Тільки Steam</value>
+  </data>
 </root>

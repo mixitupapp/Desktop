@@ -195,8 +195,29 @@ namespace MixItUp.Base.Model.Commands
             string gameName = await GamePreMadeChatCommandModel.GetCurrentGameName(parameters.Platform);
             if (!string.IsNullOrEmpty(gameName))
             {
-                GameInformation details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
-                if (details == null)
+                GameInformation details = null;
+
+                if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.XboxThenSteam)
+                {
+                    details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
+                    if (details == null)
+                    {
+                        details = await SteamGamePreMadeChatCommandModel.GetSteamGameInfo(gameName);
+                    }
+                }
+                else if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.SteamThenXbox)
+                {
+                    details = await SteamGamePreMadeChatCommandModel.GetSteamGameInfo(gameName);
+                    if (details == null)
+                    {
+                        details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
+                    }
+                }
+                else if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.XboxOnly)
+                {
+                    details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
+                }
+                else if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.SteamOnly)
                 {
                     details = await SteamGamePreMadeChatCommandModel.GetSteamGameInfo(gameName);
                 }
@@ -530,6 +551,15 @@ namespace MixItUp.Base.Model.Commands
             int index = RandomHelper.GenerateRandomNumber(this.responses.Count);
             await ServiceManager.Get<ChatService>().SendMessage(string.Format("The Magic 8-Ball says: \"{0}\"", this.responses[index]), parameters);
         }
+    }
+
+    public enum GameInfoLookupOrderEnum
+    {
+        XboxThenSteam,
+        SteamThenXbox,
+        XboxOnly,
+        SteamOnly,
+        None,
     }
 
     public class GameInformation

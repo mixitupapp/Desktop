@@ -11544,4 +11544,19 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="Canceled" xml:space="preserve">
     <value>Anulowane</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Wstępnie przygotowana kolejność wyszukiwania poleceń w grze</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox, a następnie Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam, a następnie Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Tylko Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Tylko Steam</value>
+  </data>
 </root>

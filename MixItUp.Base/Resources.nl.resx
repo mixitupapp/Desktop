@@ -11545,4 +11545,19 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="Canceled" xml:space="preserve">
     <value>Geannuleerd</value>
   </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Voorgemaakte volgorde voor het opzoeken van spelopdrachten</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox dan Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam dan Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Alleen Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Alleen Steam</value>
+  </data>
 </root>
