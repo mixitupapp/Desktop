@@ -83,7 +83,7 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.channel_points_automatic_reward_redemption.add", null },
             { "channel.channel_points_custom_reward_redemption.add", null },
-            { "channel.custom_power_up_redemption.add", "beta" },
+            { "channel.custom_power_up_redemption.add", null },
 
             { "channel.chat.message", null },
             { "channel.chat.message_delete", null },
