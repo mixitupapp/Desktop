@@ -32,6 +32,7 @@ namespace MixItUp.Base.Services
     {
         bool IsWebhookHubConnected { get; }
         bool IsWebhookHubAllowed { get; }
+        event EventHandler<bool> OnWebhooksHubAllowed;
         void BackgroundConnect();
         Task<Result> Connect();
         Task Disconnect();
@@ -509,8 +510,13 @@ namespace MixItUp.Base.Services
         public const string AuthenticateMethodName = "AuthenticateMany";
         private WebhookHubConnection webhookHubConnection = null;
         private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
+        private readonly SemaphoreSlim webhookConnectLock = new SemaphoreSlim(1, 1);
+        private CancellationTokenSource webhookReconnectCancellationTokenSource = null;
+        private const int WebhookReconnectBaseDelayMs = 5000;
+        private const int WebhookReconnectMaxDelayMs = 30000;
         public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
         public bool IsWebhookHubAllowed { get; private set; } = false;
+        public event EventHandler<bool> OnWebhooksHubAllowed = delegate { };
 
         public void BackgroundConnect()
         {
@@ -527,78 +533,100 @@ namespace MixItUp.Base.Services
         public async Task<Result> Connect()
         {
             if (isUpdateRequired) return new Result("Update Required");
-            if (!this.IsWebhookHubConnected)
+
+            await this.webhookConnectLock.WaitAsync();
+            try
             {
-                if (this.webhookHubConnection == null)
+                if (!this.IsWebhookHubConnected)
                 {
-                    this.webhookHubConnection = new WebhookHubConnection(this.GetWebhookHubAddress());
-
-                    this.webhookHubConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
+                    if (this.webhookHubConnection == null)
                     {
-                        Logger.Log($"Webhook Event - Generic Webhook - {id} - {payload}");
-                        var _ = this.TriggerGenericWebhook(id, payload);
-                    });
+                        this.webhookHubConnection = new WebhookHubConnection(this.GetWebhookHubAddress());
 
-                    this.webhookHubConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
-                    {
-                        Logger.Log($"Webhook Authentication - {approved}");
-
-                        this.IsWebhookHubAllowed = approved;
-                        this.webhookAuthenticationCompletionSource?.TrySetResult(approved);
-                        if (!this.IsWebhookHubAllowed)
+                        this.webhookHubConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
                         {
-                            Logger.Log(LogLevel.Error, $"Webhook Authentication Failed");
+                            Logger.Log($"Webhook Event - Generic Webhook - {id} - {payload}");
+                            var _ = this.TriggerGenericWebhook(id, payload);
+                        });
 
-                            // Force disconnect is it doesn't retry
-                            var _ = this.Disconnect();
-                        }
-                    });
-
-                    this.webhookHubConnection.Listen<string, JObject, JObject>("KickWebhookEvent", (eventType, payload, metadataObject) =>
-                    {
-                        try
+                        this.webhookHubConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
                         {
-                            Logger.Log(LogLevel.Debug, $"Kick Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
+                            Logger.Log($"Webhook Authentication - {approved}");
 
-                            WebhookEventModel metadata = metadataObject?.ToObject<WebhookEventModel>();
-                            var _ = ServiceManager.Get<KickSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
-                        }
-                        catch (Exception ex)
+                            this.IsWebhookHubAllowed = approved;
+                            this.webhookAuthenticationCompletionSource?.TrySetResult(approved);
+                            this.OnWebhooksHubAllowed(this, approved);
+                            if (!this.IsWebhookHubAllowed)
+                            {
+                                Logger.Log(LogLevel.Error, $"Webhook Authentication Failed");
+
+                                // Force disconnect so it doesn't retry
+                                var _ = this.Disconnect();
+                            }
+                        });
+
+                        this.webhookHubConnection.Listen<string, JObject, JObject>("KickWebhookEvent", (eventType, payload, metadataObject) =>
                         {
-                            Logger.Log(ex);
-                        }
-                    });
-                }
+                            try
+                            {
+                                Logger.Log(LogLevel.Debug, $"Kick Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
 
-                this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
-                this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
-
-                this.webhookHubConnection.Connected += WebhookHubConnection_Connected;
-                this.webhookHubConnection.Disconnected += WebhookHubConnection_Disconnected;
-
-                if (await this.webhookHubConnection.Connect())
-                {
-                    this.IsWebhookHubAllowed = false;
-                    this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
-
-                    Task completedTask = await Task.WhenAny(this.webhookAuthenticationCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(15)));
-                    bool authenticated = completedTask == this.webhookAuthenticationCompletionSource.Task && this.webhookAuthenticationCompletionSource.Task.Result;
-                    this.webhookAuthenticationCompletionSource = null;
-
-                    if (!authenticated)
-                    {
-                        await this.Disconnect();
+                                WebhookEventModel metadata = metadataObject?.ToObject<WebhookEventModel>();
+                                var _ = ServiceManager.Get<KickSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(ex);
+                            }
+                        });
                     }
 
-                    return new Result(authenticated);
-                }
+                    this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
+                    this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
 
-                return new Result(MixItUp.Base.Resources.WebhooksServiceFailedConnection);
+                    this.webhookHubConnection.Connected += WebhookHubConnection_Connected;
+                    this.webhookHubConnection.Disconnected += WebhookHubConnection_Disconnected;
+
+                    if (!await this.webhookHubConnection.Connect())
+                    {
+                        return new Result(MixItUp.Base.Resources.WebhooksServiceFailedConnection);
+                    }
+                }
+                else
+                {
+                    return new Result(MixItUp.Base.Resources.WebhookServiceAlreadyConnected);
+                }
             }
-            return new Result(MixItUp.Base.Resources.WebhookServiceAlreadyConnected);
+            finally
+            {
+                this.webhookConnectLock.Release();
+            }
+
+            this.IsWebhookHubAllowed = false;
+            this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
+            TaskCompletionSource<bool> tcs = this.webhookAuthenticationCompletionSource;
+
+            Task completedTask = await Task.WhenAny(tcs.Task, Task.Delay(TimeSpan.FromSeconds(15)));
+            bool authenticated = completedTask == tcs.Task && tcs.Task.Result;
+            this.webhookAuthenticationCompletionSource = null;
+
+            if (!authenticated)
+            {
+                await this.Disconnect();
+            }
+
+            return new Result(authenticated);
         }
 
         public async Task Disconnect()
+        {
+            webhookReconnectCancellationTokenSource?.Cancel();
+            webhookReconnectCancellationTokenSource = null;
+
+            await DisconnectHubConnection();
+        }
+
+        private async Task DisconnectHubConnection()
         {
             if (this.webhookHubConnection != null)
             {
@@ -633,16 +661,32 @@ namespace MixItUp.Base.Services
 
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
-            Result result;
-            do
+            var reconnectCts = new CancellationTokenSource();
+            webhookReconnectCancellationTokenSource = reconnectCts;
+            CancellationToken reconnectToken = reconnectCts.Token;
+            try
             {
-                await this.Disconnect();
-                await Task.Delay(5000 + RandomHelper.GenerateRandomNumber(5000));
-                result = await this.Connect();
-            }
-            while (!result.Success && !isUpdateRequired);
+                Result result;
+                int attempt = 0;
+                do
+                {
+                    await DisconnectHubConnection();
 
-            ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+                    int baseDelay = Math.Min(WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
+                    int jitter = RandomHelper.GenerateRandomNumber(-(baseDelay / 2), baseDelay / 2);
+                    await Task.Delay(baseDelay + jitter, reconnectToken);
+
+                    result = await this.Connect();
+                    attempt++;
+                }
+                while (!result.Success && !isUpdateRequired && !reconnectToken.IsCancellationRequested);
+
+                if (result.Success)
+                {
+                    ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+                }
+            }
+            catch (OperationCanceledException) { }
         }
 
         public async Task Authenticate(CommunityCommandLoginModel login)
