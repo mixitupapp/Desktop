@@ -29,8 +29,6 @@ namespace MixItUp.Base.ViewModel.MainControls
 
     public class WebhooksMainControlViewModel : WindowControlViewModelBase
     {
-        private IMixItUpService? mixItUpService;
-
         public ObservableCollection<WebhookCommandItemViewModel> WebhookCommands { get; set; } = new ObservableCollection<WebhookCommandItemViewModel>();
 
         public bool ShowApiMigrationBanner
@@ -68,34 +66,7 @@ namespace MixItUp.Base.ViewModel.MainControls
         protected override async Task OnOpenInternal()
         {
             await base.OnOpenInternal();
-            this.mixItUpService = ServiceManager.Get<IMixItUpService>();
-            if (this.mixItUpService != null)
-            {
-                this.mixItUpService.OnWebhooksHubAllowed += MixItUpService_OnWebhooksHubAllowed;
-                if (this.mixItUpService.IsWebhookHubAllowed)
-                {
-                    await RefreshCommands();
-                }
-            }
-
-        }
-
-        protected override async Task OnClosedInternal()
-        {
-            if (this.mixItUpService != null)
-            {
-                this.mixItUpService.OnWebhooksHubAllowed -= MixItUpService_OnWebhooksHubAllowed;
-                this.mixItUpService = null;
-            }
-            await base.OnClosedInternal();
-        }
-
-        private async void MixItUpService_OnWebhooksHubAllowed(object sender, bool allowed)
-        {
-            if (allowed && this.mixItUpService != null)
-            {
-                await RefreshCommands();
-            }
+            await RefreshCommands();
         }
 
         public async Task RefreshCommands()
