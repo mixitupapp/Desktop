@@ -3,6 +3,7 @@ using MixItUp.Base;
 using MixItUp.Base.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,44 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V2
             }
 
             return Ok(currencies);
+        }
+
+        [Route("{currencyId:guid}/top")]
+        [HttpGet]
+        public async Task<IActionResult> GetTopCurrencyUsers(Guid currencyId, [FromQuery] int count = 10)
+        {
+            if (!ChannelSession.Settings.Currency.TryGetValue(currencyId, out var currency) || currency == null)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Status = 404,
+                    Title = "Not Found",
+                    Detail = $"Currency with ID '{currencyId}' not found"
+                });
+            }
+
+            if (count <= 0) { count = 10; }
+
+            await ServiceManager.Get<UserService>().LoadAllUserData();
+
+            var topUsers = ChannelSession.Settings.Users.Values
+                .Where(u => u.CurrencyAmounts.ContainsKey(currencyId) && u.CurrencyAmounts[currencyId] > 0)
+                .OrderByDescending(u => u.CurrencyAmounts[currencyId])
+                .Take(count)
+                .Select(u => new CurrencyUserAmount
+                {
+                    UserID = u.ID,
+                    Username = u.GetAllPlatformUsernames().FirstOrDefault() ?? string.Empty,
+                    Amount = u.CurrencyAmounts[currencyId]
+                })
+                .ToList();
+
+            return Ok(new GetTopCurrencyUsersResponse
+            {
+                CurrencyID = currencyId,
+                CurrencyName = currency.Name,
+                Users = topUsers
+            });
         }
 
         [Route("{currencyId:guid}/{userId:guid}")]
