@@ -50,10 +50,17 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private async void DeleteWebhookCommandButton_Click(object sender, RoutedEventArgs e)
         {
-            WebhookCommandItemViewModel commandItem = ((Button)sender).DataContext as WebhookCommandItemViewModel;
-            await ServiceManager.Get<MixItUpService>().DeleteWebhook(commandItem.Webhook.Id);
-            await this.viewModel.RefreshCommands();
-            await ChannelSession.SaveSettings();
+            try
+            {
+                WebhookCommandItemViewModel commandItem = ((Button)sender).DataContext as WebhookCommandItemViewModel;
+                await ServiceManager.Get<MixItUpService>().DeleteWebhook(commandItem.Webhook.Id);
+                await this.viewModel.RefreshCommands();
+                await ChannelSession.SaveSettings();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         private void CommandButtons_EditClicked(object sender, RoutedEventArgs e)
@@ -92,24 +99,31 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private async void AddWebhookButton_Click(object sender, RoutedEventArgs e)
         {
-            await this.Window.RunAsyncOperation(async () =>
+            try
             {
-                try
+                await this.Window.RunAsyncOperation(async () =>
                 {
                     await ServiceManager.Get<MixItUpService>().CreateWebhook();
                     await this.viewModel.RefreshCommands();
                     await ChannelSession.SaveSettings();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex);
-                }
-            });
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         private async void Window_Closed(object sender, System.EventArgs e)
         {
-            await this.viewModel.RefreshCommands();
+            try
+            {
+                await this.viewModel.RefreshCommands();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         private void CloseApiMigrationBanner_Click(object sender, RoutedEventArgs e)
