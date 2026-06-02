@@ -11529,4 +11529,34 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>關注獎金必須大於或等於 0。</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>隐藏聊天中的脚本操作错误信息</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>该操作必须从要更新的奖励的通道积分命令中触发。</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>更新兑换状态</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>预制游戏命令查找顺序</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>先 Xbox 后 Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>先是 Steam，然后是 Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>仅限 Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>仅 Steam</value>
+  </data>
 </root>

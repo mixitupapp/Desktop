@@ -10,6 +10,12 @@ using System.Threading.Tasks;
 
 namespace MixItUp.Base.Model.Commands
 {
+    public class TwitchRedemptionContext
+    {
+        public string RedemptionID { get; set; }
+        public string RewardID { get; set; }
+    }
+
     [DataContract]
     public class CommandParametersModel
     {
@@ -49,6 +55,8 @@ namespace MixItUp.Base.Model.Commands
 
         [DataMember]
         public Guid InitialCommandID { get; set; } = Guid.Empty;
+
+        public TwitchRedemptionContext TwitchRedemption { get; set; }
 
         public CommandParametersModel() : this(ChannelSession.User) { }
 
@@ -138,6 +146,7 @@ namespace MixItUp.Base.Model.Commands
         {
             CommandParametersModel result = new CommandParametersModel(this.User, this.Platform, (arguments != null) ? arguments : this.Arguments, this.SpecialIdentifiers);
             result.TargetUser = this.TargetUser;
+            result.TwitchRedemption = this.TwitchRedemption;
             return result;
         }
 

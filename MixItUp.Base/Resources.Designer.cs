@@ -2492,6 +2492,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Canceled.
+        /// </summary>
+        public static string Canceled {
+            get {
+                return ResourceManager.GetString("Canceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel Giveaway.
         /// </summary>
         public static string CancelGiveaway {
@@ -8594,6 +8603,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fulfilled.
+        /// </summary>
+        public static string Fulfilled {
+            get {
+                return ResourceManager.GetString("Fulfilled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full Theme.
         /// </summary>
         public static string FullTheme {
@@ -10560,6 +10578,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pre-Made Game Command Lookup Order.
+        /// </summary>
+        public static string GameInfoLookupOrder {
+            get {
+                return ResourceManager.GetString("GameInfoLookupOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game Name.
         /// </summary>
         public static string GameName {
@@ -11546,6 +11573,15 @@ namespace MixItUp.Base {
         public static string HideExclamationMessages {
             get {
                 return ResourceManager.GetString("HideExclamationMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Script Action error messages from chat.
+        /// </summary>
+        public static string HideScriptActionChatErrors {
+            get {
+                return ResourceManager.GetString("HideScriptActionChatErrors", resourceCulture);
             }
         }
         
@@ -23271,6 +23307,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Steam Only.
+        /// </summary>
+        public static string SteamOnly {
+            get {
+                return ResourceManager.GetString("SteamOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam then Xbox.
+        /// </summary>
+        public static string SteamThenXbox {
+            get {
+                return ResourceManager.GetString("SteamThenXbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop.
         /// </summary>
         public static string Stop {
@@ -26377,6 +26431,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action must be triggered from the Channel Points command of the reward you want to update..
+        /// </summary>
+        public static string TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands {
+            get {
+                return ResourceManager.GetString("TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitch Action: A valid username must be specified.
         /// </summary>
         public static string TwitchActionUsernameMissing {
@@ -27646,6 +27709,15 @@ namespace MixItUp.Base {
         public static string UpdatePreviewProgramTooltip {
             get {
                 return ResourceManager.GetString("UpdatePreviewProgramTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Redemption Status.
+        /// </summary>
+        public static string UpdateRedemptionStatus {
+            get {
+                return ResourceManager.GetString("UpdateRedemptionStatus", resourceCulture);
             }
         }
         
@@ -29600,6 +29672,24 @@ namespace MixItUp.Base {
         public static string XboxGame {
             get {
                 return ResourceManager.GetString("XboxGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xbox Only.
+        /// </summary>
+        public static string XboxOnly {
+            get {
+                return ResourceManager.GetString("XboxOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xbox then Steam.
+        /// </summary>
+        public static string XboxThenSteam {
+            get {
+                return ResourceManager.GetString("XboxThenSteam", resourceCulture);
             }
         }
         

@@ -11523,4 +11523,40 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="DiscordEmbedAuthorURL" xml:space="preserve">
     <value>Author URL (Optional)</value>
   </data>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>Follower Bonus</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>The Follower Bonus must be greater than or equal to 0.</value>
+  </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Hide Script Action error messages from chat</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>This action must be triggered from the Channel Points command of the reward you want to update.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Update Redemption Status</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Fulfilled</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Pre-Made Game Command Lookup Order</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox then Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam then Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Xbox Only</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Steam Only</value>
+  </data>
 </root>

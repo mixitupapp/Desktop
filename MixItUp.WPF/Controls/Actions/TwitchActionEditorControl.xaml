@@ -448,6 +448,28 @@
             <TextBox Text="{Binding PinMessageText}" Height="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextWrapping="Wrap" />
         </Grid>
 
+        <Grid Grid.Row="2" Visibility="{Binding ShowUpdateRedemptionStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Static resx:Resources.TwitchActionChannelPointRewardMustBeCreatedInMixItUp}" TextAlignment="Center" TextWrapping="Wrap" />
+
+            <TextBlock Grid.Row="2" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Static resx:Resources.TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands}" TextAlignment="Center" TextWrapping="Wrap" />
+
+            <ComboBox Grid.Row="4" ItemsSource="{Binding RedemptionStatusTypes}" SelectedItem="{Binding SelectedRedemptionStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+
         <ActionControls:SubActionContainerControl Grid.Row="3" Visibility="{Binding ShowSubActions, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,20,0,0" />
     </Grid>
 </local:ActionEditorControlBase>

@@ -11529,4 +11529,34 @@ print(run())</value>
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Бонус підписника має бути не менше 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Приховати повідомлення про помилки скриптової дії з чату</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Ця дія має бути запущена з команди Channel Points тієї винагороди, яку ви хочете оновити.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Оновити статус погашення</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Виконано</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Скасовано</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Порядок пошуку готових ігрових команд</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox, потім Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam, потім Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Тільки для Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Тільки Steam</value>
+  </data>
 </root>

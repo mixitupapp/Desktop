@@ -70,6 +70,13 @@ namespace MixItUp.Base.Model.Actions
         RemoveSuspiciousUserStatus,
         BlockUser,
         UnblockUser,
+        UpdateRedemptionStatus,
+    }
+
+    public enum TwitchRedemptionStatusType
+    {
+        Fulfilled = 0,
+        Canceled,
     }
 
     public enum TwitchSuspiciousUserStatus
@@ -301,6 +308,13 @@ namespace MixItUp.Base.Model.Actions
             return actionModel;
         }
 
+        public static TwitchActionModel CreateUpdateRedemptionStatusAction(TwitchRedemptionStatusType status)
+        {
+            TwitchActionModel action = new TwitchActionModel(TwitchActionType.UpdateRedemptionStatus);
+            action.RedemptionStatus = status;
+            return action;
+        }
+
         public static TwitchActionModel CreateAction(TwitchActionType type)
         {
             return new TwitchActionModel(type);
@@ -426,6 +440,9 @@ namespace MixItUp.Base.Model.Actions
 
         [DataMember]
         public TwitchBlockUserReason BlockUserReason { get; set; }
+
+        [DataMember]
+        public TwitchRedemptionStatusType RedemptionStatus { get; set; }
 
         private TwitchActionModel(TwitchActionType type)
             : base(ActionTypeEnum.Twitch)
@@ -1018,6 +1035,17 @@ namespace MixItUp.Base.Model.Actions
                         else
                         {
                             await ServiceManager.Get<TwitchSession>().StreamerService.UnblockUser(ServiceManager.Get<TwitchSession>().StreamerModel, twitchUser.ID);
+                        }
+                    }
+                }
+                else if (this.ActionType == TwitchActionType.UpdateRedemptionStatus)
+                {
+                    if (parameters.TwitchRedemption != null)
+                    {
+                        CustomChannelPointRewardRedemptionModel redemption = await ServiceManager.Get<TwitchSession>().StreamerService.UpdateRedemptionStatus(ServiceManager.Get<TwitchSession>().StreamerModel, parameters.TwitchRedemption.RewardID, parameters.TwitchRedemption.RedemptionID, this.RedemptionStatus == TwitchRedemptionStatusType.Fulfilled);
+                        if (redemption == null)
+                        {
+                            await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.TwitchActionChannelPointRewardCouldNotBeUpdated, parameters);
                         }
                     }
                 }

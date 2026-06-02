@@ -11530,4 +11530,34 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Le bonus d’abonné doit être supérieur ou égal à 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Masquer les messages d'erreur de Script Action dans le chat</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Cette action doit être déclenchée à partir de la commande Channel Points de la récompense que vous souhaitez mettre à jour.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Mise à jour du statut de rachat</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Réalisé</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Annulé</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Ordre de consultation des commandes des jeux pré-fabriqués</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox puis Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam puis Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Xbox uniquement</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Steam uniquement</value>
+  </data>
 </root>

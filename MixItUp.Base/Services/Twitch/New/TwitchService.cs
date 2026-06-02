@@ -921,6 +921,20 @@ namespace MixItUp.Base.Services.Twitch.New
             });
         }
 
+        public async Task<CustomChannelPointRewardRedemptionModel> UpdateRedemptionStatus(UserModel broadcaster, string rewardId, string redemptionId, bool fulfilled)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["status"] = fulfilled ? "FULFILLED" : "CANCELED";
+
+                NewTwitchAPIDataRestResult<CustomChannelPointRewardRedemptionModel> result = await this.HttpClient.PatchAsync<NewTwitchAPIDataRestResult<CustomChannelPointRewardRedemptionModel>>(
+                    $"channel_points/custom_rewards/redemptions?broadcaster_id={broadcaster.id}&reward_id={rewardId}&id={redemptionId}",
+                    AdvancedHttpClient.CreateContentFromObject(jobj));
+                return result?.data?.FirstOrDefault();
+            });
+        }
+
         public async Task DeleteEventSubSubscription(string subscriptionId)
         {
             await AsyncRunner.RunAsync(async () =>

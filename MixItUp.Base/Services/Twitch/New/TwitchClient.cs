@@ -83,7 +83,7 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.channel_points_automatic_reward_redemption.add", null },
             { "channel.channel_points_custom_reward_redemption.add", null },
-            { "channel.custom_power_up_redemption.add", "beta" },
+            { "channel.custom_power_up_redemption.add", null },
 
             { "channel.chat.message", null },
             { "channel.chat.message_delete", null },
@@ -871,7 +871,13 @@ namespace MixItUp.Base.Services.Twitch.New
                 if (command != null)
                 {
                     Dictionary<string, string> channelPointSpecialIdentifiers = new Dictionary<string, string>(eventCommandSpecialIdentifiers);
-                    await ServiceManager.Get<CommandService>().Queue(command, new CommandParametersModel(user, platform: StreamingPlatformTypeEnum.Twitch, arguments: arguments, specialIdentifiers: channelPointSpecialIdentifiers));
+                    CommandParametersModel commandParameters = new CommandParametersModel(user, platform: StreamingPlatformTypeEnum.Twitch, arguments: arguments, specialIdentifiers: channelPointSpecialIdentifiers);
+                    commandParameters.TwitchRedemption = new TwitchRedemptionContext
+                    {
+                        RedemptionID = redemption.id,
+                        RewardID = redemption.reward.id
+                    };
+                    await ServiceManager.Get<CommandService>().Queue(command, commandParameters);
                 }
             }
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchChannelPointRedeemed, user.FullDisplayName, redemption.reward.title), ChannelSession.Settings.AlertTwitchChannelPointsColor));

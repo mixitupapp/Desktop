@@ -1,4 +1,5 @@
 ﻿using MixItUp.Base.Model.API;
+using MixItUp.Base.Model.API.Files.V2;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.WPF.Util;
@@ -21,13 +22,17 @@ namespace MixItUp.WPF
     /// </summary>
     public partial class UpdateWindow : LoadingWindowBase
     {
-        private MixItUpUpdateModel update;
+        private UpdateVersionManifestModel manifest;
+        private string channel;
+        private string minimumVersion;
         private readonly bool isMandatory;
         private bool _shuttingDown = false;
 
-        public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
+        public UpdateWindow(UpdateVersionManifestModel manifest, string channel, bool isMandatory = false, string minimumVersion = null)
         {
-            this.update = update;
+            this.manifest = manifest;
+            this.channel = channel;
+            this.minimumVersion = minimumVersion;
 
             if (!BuildChannelHelper.BYPASS_UPDATE_CHECK)
             {
@@ -45,10 +50,10 @@ namespace MixItUp.WPF
         {
             _ = this.TryLoadPatreonMemberShoutout();
 
-            this.NewVersionTextBlock.Text = this.update.Version;
+            this.NewVersionTextBlock.Text = this.manifest.version;
             this.CurrentVersionTextBlock.Text = VersionHelper.GetFullVersionString();
 
-            if (this.update.IsPreview)
+            if (string.Equals(this.channel, "preview", StringComparison.OrdinalIgnoreCase))
             {
                 this.PreviewUpdateGrid.Visibility = Visibility.Visible;
             }
@@ -65,7 +70,8 @@ namespace MixItUp.WPF
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    HttpResponseMessage response = await client.GetAsync(this.update.ChangelogLink);
+                    string changelogUrl = manifest.GetChangelogUrl(BuildChannelHelper.API_FILES_UPDATE_ROOT, this.channel);
+                    HttpResponseMessage response = await client.GetAsync(changelogUrl);
                     if (response.IsSuccessStatusCode)
                     {
                         string markdown = await response.Content.ReadAsStringAsync();
@@ -73,7 +79,7 @@ namespace MixItUp.WPF
                     }
                     else
                     {
-                        Logger.Log(LogLevel.Warning, $"Failed to retrieve changelog from {this.update.ChangelogLink}: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        Logger.Log(LogLevel.Warning, $"Failed to retrieve changelog from {changelogUrl}: {(int)response.StatusCode} {response.ReasonPhrase}");
                         this.UpdateChangelogViewer.Markdown = "Unable to load changelog.";
                     }
                 }
@@ -92,18 +98,19 @@ namespace MixItUp.WPF
         {
             await this.RunAsyncOperation(async () =>
             {
-                await DownloadAndInstallUpdate(this.update);
+                string targetVersion = this.isMandatory ? this.minimumVersion : null;
+                await DownloadAndInstallUpdate(this.manifest, targetVersion, this.channel);
             });
         }
 
-        internal static async Task<bool> DownloadAndInstallUpdate(MixItUpUpdateModel update)
+        internal static async Task<bool> DownloadAndInstallUpdate(UpdateVersionManifestModel manifest, string targetVersion = null, string targetChannel = null)
         {
-            if (update == null)
+            if (manifest == null)
             {
                 return false;
             }
 
-            if (string.IsNullOrEmpty(update.InstallerLink))
+            if (string.IsNullOrEmpty(manifest.installer))
             {
                 await DialogHelper.ShowMessage("Installer URL missing from the update manifest.");
                 return false;
@@ -114,11 +121,11 @@ namespace MixItUp.WPF
             try
             {
                 using (HttpClient client = new HttpClient())
-                using (HttpResponseMessage response = await client.GetAsync(update.InstallerLink, HttpCompletionOption.ResponseHeadersRead))
+                using (HttpResponseMessage response = await client.GetAsync(manifest.installer, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (!response.IsSuccessStatusCode)
                     {
-                        Logger.Log(LogLevel.Warning, $"Failed to download installer from {update.InstallerLink}: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        Logger.Log(LogLevel.Warning, $"Failed to download installer from {manifest.installer}: {(int)response.StatusCode} {response.ReasonPhrase}");
                         await DialogHelper.ShowMessage("Unable to download the installer. Please try again later.");
                         return false;
                     }
@@ -144,7 +151,16 @@ namespace MixItUp.WPF
             }
 
             string installDirectory = Path.GetFullPath(AppContext.BaseDirectory);
-            ServiceManager.Get<IProcessService>().LaunchProgram(setupFilePath, QuoteArgument(installDirectory));
+            string launchArgs = QuoteArgument(installDirectory);
+            if (!string.IsNullOrEmpty(targetVersion))
+            {
+                launchArgs += $" --target-version={targetVersion}";
+            }
+            if (!string.IsNullOrEmpty(targetChannel))
+            {
+                launchArgs += $" --target-channel={targetChannel}";
+            }
+            ServiceManager.Get<IProcessService>().LaunchProgram(setupFilePath, launchArgs);
             Application.Current.Shutdown();
             return true;
         }

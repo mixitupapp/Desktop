@@ -11529,4 +11529,34 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>Il bonus follower deve essere pari o superiore a 0.</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Nascondere i messaggi di errore dell'azione script dalla chat</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>Questa azione deve essere attivata dal comando Punti canale del premio che si desidera aggiornare.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Aggiornare lo stato del riscatto</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Realizzato</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Annullato</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Ordine di ricerca dei comandi di gioco predefiniti</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox e poi Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam e poi Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Solo Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Solo Steam</value>
+  </data>
 </root>

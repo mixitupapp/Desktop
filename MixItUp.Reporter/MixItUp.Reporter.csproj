@@ -12,6 +12,7 @@
     <ApplicationIcon>..\MixItUp.WPF\Logo.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<NoWarn>CA1416</NoWarn>
+	<Configurations>Debug;Test;Public;Preview</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

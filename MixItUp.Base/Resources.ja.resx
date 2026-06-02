@@ -11529,4 +11529,34 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="FollowerBonusZeroOrMore" xml:space="preserve">
     <value>フォロワーボーナスは0以上である必要があります。</value>
   </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>スクリプトアクションのエラーメッセージをチャットから隠す</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>このアクションは、更新したいリワードのチャンネルポイントコマンドからトリガーされなければならない。</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>交換ステータスの更新</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>満たされた</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>ゲーム・コマンドのルックアップ順序</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xboxの次にSteam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steamの次にXbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Xboxのみ</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Steamのみ</value>
+  </data>
 </root>

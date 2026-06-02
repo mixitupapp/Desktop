@@ -38,15 +38,20 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Grid Grid.Column="2" Visibility="{Binding ShowPlainTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
                 <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$scriptresult" Style="{StaticResource TextBoxReadOnlySelectable}" />
+                <TextBlock Grid.Column="4" VerticalAlignment="Center">
+                    <Hyperlink Click="LogsHyperlink_Click">Open Logs Folder</Hyperlink>
+                </TextBlock>
             </Grid>
         </Grid>
 

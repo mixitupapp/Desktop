@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Webhooks;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -29,8 +29,6 @@ namespace MixItUp.Base.ViewModel.MainControls
 
     public class WebhooksMainControlViewModel : WindowControlViewModelBase
     {
-        private IMixItUpService? mixItUpService;
-
         public ObservableCollection<WebhookCommandItemViewModel> WebhookCommands { get; set; } = new ObservableCollection<WebhookCommandItemViewModel>();
 
         public bool ShowApiMigrationBanner
@@ -68,31 +66,22 @@ namespace MixItUp.Base.ViewModel.MainControls
         protected override async Task OnOpenInternal()
         {
             await base.OnOpenInternal();
-            this.mixItUpService = ServiceManager.Get<IMixItUpService>();
-            if (this.mixItUpService != null)
+            ServiceManager.Get<MixItUpService>().OnWebhooksHubAllowed += MixItUpService_OnWebhooksHubAllowed;
+            if (ServiceManager.Get<MixItUpService>().IsWebhookHubAllowed)
             {
-                this.mixItUpService.OnWebhooksHubAllowed += MixItUpService_OnWebhooksHubAllowed;
-                if (this.mixItUpService.IsWebhookHubAllowed)
-                {
-                    await RefreshCommands();
-                }
+                await RefreshCommands();
             }
-
         }
 
         protected override async Task OnClosedInternal()
         {
-            if (this.mixItUpService != null)
-            {
-                this.mixItUpService.OnWebhooksHubAllowed -= MixItUpService_OnWebhooksHubAllowed;
-                this.mixItUpService = null;
-            }
+            ServiceManager.Get<MixItUpService>().OnWebhooksHubAllowed -= MixItUpService_OnWebhooksHubAllowed;
             await base.OnClosedInternal();
         }
 
         private async void MixItUpService_OnWebhooksHubAllowed(object sender, bool allowed)
         {
-            if (allowed && this.mixItUpService != null)
+            if (allowed)
             {
                 await RefreshCommands();
             }
@@ -104,17 +93,14 @@ namespace MixItUp.Base.ViewModel.MainControls
             {
                 GetWebhooksResponseModel response = await ServiceManager.Get<MixItUpService>().GetWebhooks();
 
-                lock (this.WebhookCommands)
+                this.WebhookCommands.Clear();
+                foreach (var webhook in response.Webhooks)
                 {
-                    this.WebhookCommands.Clear();
-                    foreach (var webhook in response.Webhooks)
-                    {
-                        var command = ServiceManager.Get<CommandService>().WebhookCommands.FirstOrDefault(c => c.ID == webhook.Id);
-                        this.WebhookCommands.Add(new WebhookCommandItemViewModel(webhook, command));
-                    }
-
-                    MaxNumberOfWebhooks = response.MaxNumberOfWebhooks;
+                    var command = ServiceManager.Get<CommandService>().WebhookCommands.FirstOrDefault(c => c.ID == webhook.Id);
+                    this.WebhookCommands.Add(new WebhookCommandItemViewModel(webhook, command));
                 }
+
+                MaxNumberOfWebhooks = response.MaxNumberOfWebhooks;
             }
             catch (Exception ex)
             {

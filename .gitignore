@@ -215,3 +215,4 @@ MixItUp.WPF/Counters
 # SignTool - ignore everything except zip files
 Util/SignTool/*
 !Util/SignTool/*.zip
+/ResXManager.config.xml
