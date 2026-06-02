@@ -145,7 +145,6 @@ namespace MixItUp.Base.Services
         public const string DevMixItUpAPIEndpoint = "http://localhost:3000/api/";                // Dev Endpoint
         public const string DevMixItUpWebhookHubEndpoint = "ws://localhost:3000/webhookhub";      // Dev Endpoint
 
-        private const string UtilApiEndpoint = "https://util.mixitupapp.com/";
 
         private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
         private static readonly TimeSpan[] FileServiceRetryDelays = new[]
@@ -1091,39 +1090,30 @@ namespace MixItUp.Base.Services
             return new List<string>();
         }
 
-        public async Task UtilServiceLogin()
+        public async Task RecordClientSession()
         {
             try
             {
-                string clientKey = UtilServiceHelper.GenerateClientKey();
-                string version = VersionHelper.GetFullVersionString();
-                string release = "unknown";
-                if (ChannelSession.AppSettings != null)
+                await EnsureLogin();
+
+                JObject body = new JObject();
+                body["telemetryId"] = ChannelSession.Settings.TelemetryUserID;
+                body["hasTwitch"] = ServiceManager.Get<TwitchSession>().IsConnected;
+                body["hasYouTube"] = ServiceManager.Get<YouTubeSession>().IsConnected;
+                body["hasKick"] = ServiceManager.Get<KickSession>().IsConnected;
+                body["version"] = VersionHelper.GetFullVersionString();
+                body["release"] = BuildChannelHelper.GetReleaseChannel();
+
+                HttpResponseMessage response = await this.PostAsync("v2/client/session", AdvancedHttpClient.CreateContentFromObject(body));
+                if (!response.IsSuccessStatusCode)
                 {
-                    release = ChannelSession.AppSettings.PreviewProgram ? "preview" : "public";
-                }
-
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
-                {
-                    client.Timeout = new TimeSpan(0, 0, 5);
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{VersionHelper.GetFullVersionString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", clientKey);
-
-                    JObject body = new JObject();
-                    body["version"] = version;
-                    body["release"] = release;
-
-                    HttpResponseMessage response = await client.PostAsync("api/user/login", AdvancedHttpClient.CreateContentFromObject(body));
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        string content = await response.Content.ReadAsStringAsync();
-                        Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {(int)response.StatusCode} - {content}");
-                    }
+                    string content = await response.Content.ReadAsStringAsync();
+                    Logger.Log(LogLevel.Warning, $"Failed to record client session: {(int)response.StatusCode} - {content}");
                 }
             }
             catch (Exception ex)
             {
-                Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {ex.Message}");
+                Logger.Log(LogLevel.Warning, $"Failed to record client session: {ex.Message}");
             }
         }
 

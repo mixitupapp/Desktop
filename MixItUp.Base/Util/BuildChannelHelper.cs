@@ -26,5 +26,18 @@ namespace MixItUp.Base.Util
 #else
         public const string BUILD_CHANNEL_SUFFIX = "";
 #endif
+
+        public static string GetReleaseChannel()
+        {
+#if DEBUG_BUILD
+            return "debug";
+#elif TEST_BUILD
+            return "test";
+#elif PREVIEW_BUILD
+            return "preview";
+#else
+            return "public";
+#endif
+        }
     }
 }
