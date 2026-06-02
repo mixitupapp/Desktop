@@ -56,4 +56,19 @@
 			</EmbeddedResource>
 		</ItemGroup>
 	</Target>
+
+	<Target Name="CleanupOutputDlls" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Public'">
+		<ItemGroup>
+			<DllFiles Include="$(OutputPath)*.dll" />
+		</ItemGroup>
+		<Delete Files="@(DllFiles)" />
+		<Message Text="Removed DLL files from output" Importance="High" />
+	</Target>
+		<Target Name="CleanupOutputDlls" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Preview'">
+		<ItemGroup>
+			<DllFiles Include="$(OutputPath)*.dll" />
+		</ItemGroup>
+		<Delete Files="@(DllFiles)" />
+		<Message Text="Removed DLL files from output" Importance="High" />
+	</Target>
 </Project>

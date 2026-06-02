@@ -16,6 +16,18 @@
 		<NoWarn>1701;1702;CS8603;CS8618;CS8625</NoWarn>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Public|AnyCPU'">
+		<NoWarn>1701;1702;CS8603;CS8618;CS8625</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Preview|AnyCPU'">
+		<NoWarn>1701;1702;CS8603;CS8618;CS8625</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|AnyCPU'">
+		<NoWarn>1701;1702;CS8603;CS8618;CS8625</NoWarn>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	</ItemGroup>
