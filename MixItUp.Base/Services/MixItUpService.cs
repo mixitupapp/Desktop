@@ -21,7 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -808,7 +807,7 @@ namespace MixItUp.Base.Services
         private CommunityCommandLoginModel GetLoginToken()
         {
             var login = new CommunityCommandLoginModel();
-            login.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
+            login.Version = VersionHelper.GetFullVersionString();
 
             if (ServiceManager.Get<TwitchSession>().IsConnected)
             {
@@ -1097,7 +1096,7 @@ namespace MixItUp.Base.Services
             try
             {
                 string clientKey = UtilServiceHelper.GenerateClientKey();
-                string version = VersionHelper.NormalizeSemVerString(Assembly.GetEntryAssembly()?.GetName().Version);
+                string version = VersionHelper.GetFullVersionString();
                 string release = "unknown";
                 if (ChannelSession.AppSettings != null)
                 {
@@ -1107,7 +1106,7 @@ namespace MixItUp.Base.Services
                 using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
                 {
                     client.Timeout = new TimeSpan(0, 0, 5);
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
+                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{VersionHelper.GetFullVersionString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
                     client.DefaultRequestHeaders.Add("Client-Key", clientKey);
 
                     JObject body = new JObject();
