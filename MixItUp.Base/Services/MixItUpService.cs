@@ -194,7 +194,8 @@ namespace MixItUp.Base.Services
                     return null;
                 }
 
-                UpdateVersionManifestModel manifest = await this.FetchVersionManifestAsync(channel, check.latestVersion);
+                string targetVersion = currentVersion < minimumVersion ? check.minimumVersion : check.latestVersion;
+                UpdateVersionManifestModel manifest = await this.FetchVersionManifestAsync(channel, targetVersion);
                 if (manifest == null)
                 {
                     return null;
