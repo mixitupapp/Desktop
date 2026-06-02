@@ -1,8 +1,30 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.020
+
+### FEATURES
+
+- Add $dayoftheweekname special identifier (similar to $dayoftheweek but this is localized to your PC language settings)
+- Add setting to hide Script action errors from being posted in chat and add "Open Logs" button to the action
+- Add setting for pre-made !game command to choose between Steam or Xbox/Microsoft lookup
+- Add Update Redemption Status to Twitch Action
+
+### FIXES
+
+- Add backoff progression for webhook reconnections
+- Fix Mix it Up webhooks not loading after latest preview release
+- Fix crashes when adding or removing webhooks
+- Changeover to new v2 update server
+
+### IMPROVEMENTS
+
+- Update Twitch Custom Power-Ups event subscription from beta to generally available
+- Adjust update check timeout and backoff progression to speed up the login process
+- Let pre-made !linkaccount command link more than 2 platforms
+
 ## 1.7.010
 
-### Features
+### FEATURES
 
 - Add Twitch Channel User Warned event
 - Add Twitch Channel Shoutout Received event
@@ -15,7 +37,7 @@
 - Add Per Person Group Cooldown
 - Add Follower Role Bonus for Currencies and Ranks
 
-### Fixes
+### FIXES
 
 - Cancel Wait action when Exit Command or Cancel Command is triggered
 - Adjust status loading bar in login window
