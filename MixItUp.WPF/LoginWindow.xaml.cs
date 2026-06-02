@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base;
 using MixItUp.Base.Model.API;
+using MixItUp.Base.Model.API.Files.V2;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -24,7 +25,6 @@ namespace MixItUp.WPF
     /// </summary>
     public partial class LoginWindow : LoadingWindowBase
     {
-        private MixItUpUpdateModel currentUpdate;
         private bool updateFound = false;
         private OutageModel currentOutage;
 
@@ -249,33 +249,18 @@ namespace MixItUp.WPF
         {
             MixItUpService mixItUpService = ServiceManager.Get<MixItUpService>();
             if (mixItUpService == null) { return; }
-            this.currentUpdate = await mixItUpService.GetLatestUpdate();
-            if (this.currentUpdate != null)
-            {
-                Version currentVersion = VersionHelper.GetCurrentVersion();
-                Version updateVersion = this.currentUpdate.GetNormalizedVersion();
 
-                bool hasNewerVersion = updateVersion > currentVersion;
-                bool semverMatches = VersionHelper.SemVerEquals(currentVersion, this.currentUpdate.Version);
-                bool isMandatory = this.currentUpdate.Mandatory;
+            var result = await mixItUpService.GetLatestUpdate();
+            if (result == null) { return; }
 
-                if (hasNewerVersion || (isMandatory && !semverMatches && updateVersion >= currentVersion))
-                {
-                    updateFound = true;
+            var (check, manifest) = result.Value;
+            Version currentVersion = VersionHelper.GetCurrentVersion();
+            bool isMandatory = currentVersion < check.GetNormalizedMinimumVersion();
 
-                    UpdateWindow window = new UpdateWindow(this.currentUpdate, isMandatory);
-                    if (isMandatory)
-                    {
-                        window.Owner = this;
-                        window.ShowDialog();
-                    }
-                    else
-                    {
-                        window.Owner = this;
-                        window.ShowDialog();
-                    }
-                }
-            }
+            updateFound = true;
+            UpdateWindow window = new UpdateWindow(manifest, check.channel, isMandatory, check.minimumVersion);
+            window.Owner = this;
+            window.ShowDialog();
         }
 
         private async Task CheckForOutages()

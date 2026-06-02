@@ -1,6 +1,7 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.API;
+using MixItUp.Base.Model.API.Files.V2;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Model.Web;
@@ -171,30 +172,35 @@ namespace MixItUp.Base.Services
         public event EventHandler<bool> NotificationStatusChanged;
         public bool HasUnreadNotifications { get; private set; }
 
-        // IMixItUpService
-        public async Task<MixItUpUpdateModel> GetLatestUpdate()
+        public async Task<(UpdateVersionCheckModel, UpdateVersionManifestModel)?> GetLatestUpdate()
         {
             try
             {
-                MixItUpUpdateModel update = await this.GetLatestPublicUpdate();
-                bool requestPreview = ChannelSession.AppSettings.PreviewProgram || ChannelSession.AppSettings.TestBuild;
+                string channel = (ChannelSession.AppSettings.PreviewProgram || ChannelSession.AppSettings.TestBuild) ? "preview" : "public";
                 ChannelSession.AppSettings.TestBuild = false;
 
-                if (requestPreview)
+                UpdateVersionCheckModel check = await this.FetchVersionCheckAsync(channel);
+                if (check == null || check.updatePaused)
                 {
-                    MixItUpUpdateModel previewUpdate = await this.GetLatestPreviewUpdate();
-                    if (previewUpdate != null)
-                    {
-                        Version updateVersion = update?.GetNormalizedVersion();
-                        Version previewVersion = previewUpdate.GetNormalizedVersion();
-                        if (update == null || previewVersion >= updateVersion)
-                        {
-                            update = previewUpdate;
-                        }
-                    }
+                    return null;
                 }
 
-                return update;
+                Version currentVersion = VersionHelper.GetCurrentVersion();
+                Version latestVersion = check.GetNormalizedLatestVersion();
+                Version minimumVersion = check.GetNormalizedMinimumVersion();
+
+                if (currentVersion >= latestVersion && currentVersion >= minimumVersion)
+                {
+                    return null;
+                }
+
+                UpdateVersionManifestModel manifest = await this.FetchVersionManifestAsync(channel, check.latestVersion);
+                if (manifest == null)
+                {
+                    return null;
+                }
+
+                return (check, manifest);
             }
             catch (Exception ex)
             {
@@ -203,16 +209,7 @@ namespace MixItUp.Base.Services
             return null;
         }
 
-        public async Task<MixItUpUpdateModel> GetLatestPublicUpdate()
-        {
-            return await this.FetchLatestUpdateFromFileService("public", CancellationToken.None);
-        }
-        public async Task<MixItUpUpdateModel> GetLatestPreviewUpdate()
-        {
-            return await this.FetchLatestUpdateFromFileService("preview", CancellationToken.None);
-        }
-
-        private async Task<MixItUpUpdateModel> FetchLatestUpdateFromFileService(string channel, CancellationToken cancellationToken)
+        private async Task<UpdateVersionCheckModel> FetchVersionCheckAsync(string channel)
         {
             string url = $"{FileServiceBaseUrl}/{channel}/latest";
             Exception lastError = null;
@@ -224,35 +221,24 @@ namespace MixItUp.Base.Services
                     using (AdvancedHttpClient client = new AdvancedHttpClient())
                     {
                         client.Timeout = TimeSpan.FromSeconds(5);
-                        MixItUpUpdateModel update = await client.GetAsync<MixItUpUpdateModel>(url);
-                        if (update != null)
+                        UpdateVersionCheckModel check = await client.GetAsync<UpdateVersionCheckModel>(url);
+                        if (check != null)
                         {
-                            if (!update.Active)
-                            {
-                                Logger.Log(LogLevel.Warning, $"File Service returned inactive manifest for channel {channel}: {url}");
-                                return null;
-                            }
-
-                            if (string.IsNullOrEmpty(update.Channel))
-                            {
-                                update.Channel = channel;
-                            }
-
-                            return update;
+                            return check;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     lastError = ex;
-                    Logger.Log(LogLevel.Warning, $"Attempt {attempt + 1} to fetch update manifest from {url} failed: {ex.Message}");
+                    Logger.Log(LogLevel.Warning, $"Attempt {attempt + 1} to fetch version check from {url} failed: {ex.Message}");
                 }
 
                 if (attempt < FileServiceRetryDelays.Length)
                 {
                     try
                     {
-                        await Task.Delay(FileServiceRetryDelays[attempt], cancellationToken).ConfigureAwait(false);
+                        await Task.Delay(FileServiceRetryDelays[attempt], CancellationToken.None).ConfigureAwait(false);
                     }
                     catch (TaskCanceledException)
                     {
@@ -266,7 +252,54 @@ namespace MixItUp.Base.Services
                 Logger.Log(lastError);
             }
 
-            Logger.Log(LogLevel.Warning, $"Unable to retrieve update manifest from {url} after retries.");
+            Logger.Log(LogLevel.Warning, $"Unable to retrieve version check from {url} after retries.");
+            return null;
+        }
+
+        private async Task<UpdateVersionManifestModel> FetchVersionManifestAsync(string channel, string version)
+        {
+            string url = $"{FileServiceBaseUrl}/{channel}/{version}";
+            Exception lastError = null;
+
+            for (int attempt = 0; attempt <= FileServiceRetryDelays.Length; attempt++)
+            {
+                try
+                {
+                    using (AdvancedHttpClient client = new AdvancedHttpClient())
+                    {
+                        client.Timeout = TimeSpan.FromSeconds(5);
+                        UpdateVersionManifestModel manifest = await client.GetAsync<UpdateVersionManifestModel>(url);
+                        if (manifest != null)
+                        {
+                            return manifest;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lastError = ex;
+                    Logger.Log(LogLevel.Warning, $"Attempt {attempt + 1} to fetch version manifest from {url} failed: {ex.Message}");
+                }
+
+                if (attempt < FileServiceRetryDelays.Length)
+                {
+                    try
+                    {
+                        await Task.Delay(FileServiceRetryDelays[attempt], CancellationToken.None).ConfigureAwait(false);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (lastError != null)
+            {
+                Logger.Log(lastError);
+            }
+
+            Logger.Log(LogLevel.Warning, $"Unable to retrieve version manifest from {url} after retries.");
             return null;
         }
 
