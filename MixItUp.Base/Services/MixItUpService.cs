@@ -170,6 +170,7 @@ namespace MixItUp.Base.Services
         public event EventHandler<bool> NotificationStatusChanged;
         public bool HasUnreadNotifications { get; private set; }
 
+        public static ClientOptionsModel Options { get; private set; } = new ClientOptionsModel();
         public async Task<(UpdateVersionCheckModel, UpdateVersionManifestModel)?> GetLatestUpdate()
         {
             try
@@ -1105,7 +1106,13 @@ namespace MixItUp.Base.Services
                 body["release"] = BuildChannelHelper.GetReleaseChannel();
 
                 HttpResponseMessage response = await this.PostAsync("v2/client/session", AdvancedHttpClient.CreateContentFromObject(body));
-                if (!response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    JObject result = JObject.Parse(content);
+                    Options = result?["options"]?.ToObject<ClientOptionsModel>() ?? new ClientOptionsModel();
+                }
+                else
                 {
                     string content = await response.Content.ReadAsStringAsync();
                     Logger.Log(LogLevel.Warning, $"Failed to record client session: {(int)response.StatusCode} - {content}");

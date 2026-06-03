@@ -1,3 +1,4 @@
+using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.Settings.Generic;
 using MixItUp.Base.ViewModels;
 
@@ -22,6 +23,7 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchAds { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchWatchStreak { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchModiversary { get; set; }
+        public bool ShowTwitchModiversary { get { return MixItUpService.Options.TwitchModiversaryEnabled; } }
         public GenericColorComboBoxSettingsOptionControlViewModel YouTubeSuperChat { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel YouTubeJewelsGift { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel Donation { get; set; }

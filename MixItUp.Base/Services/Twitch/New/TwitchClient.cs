@@ -1107,7 +1107,7 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 await this.HandleWatchStreak(user, notification);
             }
-            else if (notification.NoticeType == ChatNotificationType.modiversary)
+            else if (notification.NoticeType == ChatNotificationType.modiversary && MixItUpService.Options.TwitchModiversaryEnabled)
             {
                 await this.HandleModiversary(user, notification);
             }
