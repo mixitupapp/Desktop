@@ -11559,4 +11559,13 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="SteamOnly" xml:space="preserve">
     <value>Steam Only</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Show Twitch Modiversary</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} is celebrating their {1} month Modiversary!</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch Channel Modiversary</value>
+  </data>
 </root>

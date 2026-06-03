@@ -22512,7 +22512,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Twitch Modiversaries.
+        ///   Looks up a localized string similar to Show Twitch Modiversary.
         /// </summary>
         public static string ShowTwitchModiversary {
             get {

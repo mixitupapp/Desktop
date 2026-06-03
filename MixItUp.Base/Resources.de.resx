@@ -11565,4 +11565,13 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="SteamOnly" xml:space="preserve">
     <value>Nur Steam</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Twitch Modiversary anzeigen</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} feiert seinen {1} Monat Modiversary!</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch-Kanal Modiversary</value>
+  </data>
 </root>

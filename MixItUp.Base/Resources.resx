@@ -9899,7 +9899,7 @@ print(run())</value>
 {1} is the watch streak count</comment>
   </data>
   <data name="ShowTwitchModiversary" xml:space="preserve">
-    <value>Show Twitch Modiversaries</value>
+    <value>Show Twitch Modiversary</value>
   </data>
   <data name="AlertTwitchModiversary" xml:space="preserve">
     <value>{0} is celebrating their {1} month Modiversary!</value>

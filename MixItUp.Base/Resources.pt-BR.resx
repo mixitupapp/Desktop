@@ -11560,4 +11560,13 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="SteamOnly" xml:space="preserve">
     <value>Apenas Steam</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Mostrar Modiversários do Twitch</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>A {0} está a celebrar o seu {1} mês de Modiversary!</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Canal do Twitch Modiversary</value>
+  </data>
 </root>

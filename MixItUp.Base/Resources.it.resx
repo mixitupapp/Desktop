@@ -11559,4 +11559,13 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="SteamOnly" xml:space="preserve">
     <value>Solo Steam</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Mostra i Modiversari di Twitch</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} festeggia il suo {1} mese di Modiversary!</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Canale Twitch Modiversary</value>
+  </data>
 </root>

@@ -11559,4 +11559,13 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="SteamOnly" xml:space="preserve">
     <value>仅 Steam</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>显示 Twitch Modiversary</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} 正在庆祝他们的 {1} 个月修改纪念日！</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch 频道 Modiversary</value>
+  </data>
 </root>
