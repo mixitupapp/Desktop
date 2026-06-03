@@ -29,6 +29,7 @@
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchHypeTrain}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchAds}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchWatchStreak}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchModiversary}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchUserWarned}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchShoutoutReceived}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding TwitchSuspiciousUserMessage}" />

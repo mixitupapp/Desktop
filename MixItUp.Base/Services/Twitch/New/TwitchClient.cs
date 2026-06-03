@@ -1063,6 +1063,20 @@ namespace MixItUp.Base.Services.Twitch.New
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchWatchStreak, user.FullDisplayName, notification.watch_streak.streak_count.GetValueOrDefault()), ChannelSession.Settings.AlertTwitchWatchStreakColor));
         }
 
+        private async Task HandleModiversary(UserV2ViewModel user, ChatNotification notification)
+        {
+            TwitchChatMessageViewModel message = new TwitchChatMessageViewModel(notification, user);
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["usermodiversarymonths"] = notification.modiversary.months.GetValueOrDefault().ToString();
+            parameters.SpecialIdentifiers["message"] = notification.message?.text;
+            parameters.SpecialIdentifiers["messagenoemotes"] = message.TextOnlyMessageContents;
+            parameters.SpecialIdentifiers["messageemotecount"] = message.EmotesOnlyContents.Count().ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelModiversary, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchModiversary, user.FullDisplayName, notification.modiversary.months.GetValueOrDefault()), ChannelSession.Settings.AlertTwitchModiversaryColor));
+        }
+
         private async Task HandleChatNotification(JObject payload)
         {
             ChatNotification notification = payload.ToObject<ChatNotification>();
@@ -1092,6 +1106,10 @@ namespace MixItUp.Base.Services.Twitch.New
             else if (notification.NoticeType == ChatNotificationType.watch_streak)
             {
                 await this.HandleWatchStreak(user, notification);
+            }
+            else if (notification.NoticeType == ChatNotificationType.modiversary)
+            {
+                await this.HandleModiversary(user, notification);
             }
 
             // Subs

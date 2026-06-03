@@ -9898,6 +9898,14 @@ print(run())</value>
     <comment>{0} is the name of the user
 {1} is the watch streak count</comment>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Show Twitch Modiversaries</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} is celebrating their {1} month Modiversary!</value>
+    <comment>{0} is the name of the user
+{1} is the number of months</comment>
+  </data>
   <data name="SnoozeNextAd" xml:space="preserve">
     <value>Snooze Next Ad</value>
   </data>
@@ -10188,6 +10196,9 @@ print(run())</value>
   </data>
   <data name="TwitchChannelWatchStreak" xml:space="preserve">
     <value>Twitch Channel Watch Streak</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch Channel Modiversary</value>
   </data>
   <data name="AllSubscriptions" xml:space="preserve">
     <value>All Subscriptions</value>
