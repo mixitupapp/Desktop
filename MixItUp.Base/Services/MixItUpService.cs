@@ -1109,6 +1109,7 @@ namespace MixItUp.Base.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
+                    Logger.Log(LogLevel.Debug, $"Client session response: {content}");
                     JObject result = JObject.Parse(content);
                     Options = result?["options"]?.ToObject<ClientOptionsModel>() ?? new ClientOptionsModel();
                 }
