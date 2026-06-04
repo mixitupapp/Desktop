@@ -727,6 +727,7 @@ namespace MixItUp.Base.Services
 
             try
             {
+                if (this.webhookHubConnection == null) { return; }
                 await this.AsyncWrapper(this.webhookHubConnection.Send(AuthenticateMethodName, login));
             }
             catch (Exception ex)
