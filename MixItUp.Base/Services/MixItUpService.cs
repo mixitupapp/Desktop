@@ -684,7 +684,7 @@ namespace MixItUp.Base.Services
 
         private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
-            if (e.Message.Contains("4426"))
+            if (e?.Message?.Contains("4426") == true)
             {
                 isUpdateRequired = true;
                 Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up WebhookHub services.");
