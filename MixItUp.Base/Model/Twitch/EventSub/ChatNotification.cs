@@ -29,6 +29,7 @@ namespace MixItUp.Base.Model.Twitch.EventSub
         shared_chat_raid,
         shared_chat_pay_it_forward,
         shared_chat_announcement,
+        modiversary,
     }
 
     public class ChatNotification
@@ -58,6 +59,7 @@ namespace MixItUp.Base.Model.Twitch.EventSub
         public ChatNotificationBitsBadgeTier bits_badge_tier { get; set; }
         public ChatNotificationCharityDonation charity_donation { get; set; }
         public ChatNotificationWatchStreak watch_streak { get; set; }
+        public ChatNotificationModiversary modiversary { get; set; }
         public ChatNotificationSub shared_chat_sub { get; set; }
         public ChatNotificationResub shared_chat_resub { get; set; }
         public ChatNotificationSubGift shared_chat_sub_gift { get; set; }
@@ -187,6 +189,11 @@ namespace MixItUp.Base.Model.Twitch.EventSub
     {
         public int? streak_count { get; set; }
         public int? channel_points_awarded { get; set; }
+    }
+
+    public class ChatNotificationModiversary
+    {
+        public int? months { get; set; }
     }
 
     public class ChatNotificationCharityDonationAmount

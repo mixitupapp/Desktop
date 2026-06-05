@@ -1087,6 +1087,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is celebrating their {1} month Modiversary!.
+        /// </summary>
+        public static string AlertTwitchModiversary {
+            get {
+                return ResourceManager.GetString("AlertTwitchModiversary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Deactivated Shield Mode.
         /// </summary>
         public static string AlertTwitchShieldModeEnded {
@@ -22503,6 +22512,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Twitch Modiversary.
+        /// </summary>
+        public static string ShowTwitchModiversary {
+            get {
+                return ResourceManager.GetString("ShowTwitchModiversary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Twitch Prediction Channel Points.
         /// </summary>
         public static string ShowTwitchPredictionChannelPoints {
@@ -26670,6 +26688,15 @@ namespace MixItUp.Base {
         public static string TwitchChannelMassSubscriptionsGifted {
             get {
                 return ResourceManager.GetString("TwitchChannelMassSubscriptionsGifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Modiversary.
+        /// </summary>
+        public static string TwitchChannelModiversary {
+            get {
+                return ResourceManager.GetString("TwitchChannelModiversary", resourceCulture);
             }
         }
         

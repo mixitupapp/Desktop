@@ -303,6 +303,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertTwitchWatchStreakColor { get; set; }
         [DataMember]
+        public string AlertTwitchModiversaryColor { get; set; }
+        [DataMember]
         public string AlertYouTubeSuperChatColor { get; set; }
         [DataMember]
         public string AlertYouTubeJewelsGiftColor { get; set; }

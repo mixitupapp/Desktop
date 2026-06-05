@@ -11559,4 +11559,13 @@ print(run())</value>
   <data name="SteamOnly" xml:space="preserve">
     <value>Тільки Steam</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Показати Twitch Modiversary</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} святкує свій {1}-місячний Modiversary!</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch Channel Modiversary</value>
+  </data>
 </root>
