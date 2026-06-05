@@ -138,6 +138,18 @@ namespace MixItUp.Base.Model.API
         }
     }
 
+    public class PatreonMemberV2Model
+    {
+        [JsonProperty("display_name")]
+        public string DisplayName { get; set; }
+        [JsonProperty("social_media_link")]
+        public string SocialMediaLink { get; set; }
+        [JsonProperty("platform")]
+        public string Platform { get; set; }
+        [JsonProperty("platform_username")]
+        public string PlatformUsername { get; set; }
+    }
+
     public class PatreonMemberShoutoutModel
     {
         public string DisplayName { get; set; }

@@ -111,11 +111,9 @@
             <ScrollViewer
                 Margin="6,4,6,6"
                 VerticalScrollBarVisibility="Auto">
-                <TextBlock
-                    x:Name="PatreonMembersTextBlock"
-                    FontSize="12"
-                    Opacity="0.9"
-                    TextWrapping="Wrap" />
+                <WrapPanel
+                    x:Name="PatreonMembersWrapPanel"
+                    Orientation="Horizontal" />
             </ScrollViewer>
         </GroupBox>
 
