@@ -172,7 +172,7 @@ namespace MixItUp.WPF
 
         private void PatreonButton_Click(object sender, RoutedEventArgs e)
         {
-            ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupapp");
+            ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupbot");
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

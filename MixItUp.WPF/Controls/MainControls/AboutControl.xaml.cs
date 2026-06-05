@@ -43,13 +43,13 @@ namespace MixItUp.WPF.Controls.MainControls
             ServiceManager.Get<IProcessService>().LaunchProgram("MixItUp.Reporter.exe", $"{FileLoggerHandler.CurrentLogFilePath} {ChannelSession.Settings?.Name ?? "NONE"}");
         }
 
-        private void TwitterButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://twitter.com/MixItUpApp"); }
+        private void TwitterButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://x.com/MixItUpBot"); }
 
         private void DiscordButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord"); }
 
         private void YouTubeButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://www.youtube.com/c/MixItUpApp"); }
 
-        private void Patreon_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupapp"); }
+        private void Patreon_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupbot"); }
 
         private void WikiButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/"); }
 
