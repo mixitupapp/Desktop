@@ -1020,7 +1020,7 @@ namespace MixItUp.Base.Services
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
 
-                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random/v2");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -1035,6 +1035,9 @@ namespace MixItUp.Base.Services
                                 {
                                     DisplayName = displayName,
                                     AvatarUrl = member?["avatar_url"]?.ToString(),
+                                    SocialMediaLink = member?["social_media_link"]?.ToString(),
+                                    Platform = member?["platform"]?.ToString(),
+                                    PlatformUsername = member?["platform_username"]?.ToString(),
                                 };
                             }
                         }

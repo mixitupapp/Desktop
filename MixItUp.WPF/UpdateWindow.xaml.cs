@@ -175,6 +175,14 @@ namespace MixItUp.WPF
             ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupbot");
         }
 
+        private void PatreonSocialButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(_patreonSocialLink))
+            {
+                ServiceManager.Get<IProcessService>().LaunchLink(_patreonSocialLink);
+            }
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.isMandatory)
@@ -226,6 +234,8 @@ namespace MixItUp.WPF
             }
         }
 
+        private string _patreonSocialLink;
+
         private async Task TryLoadPatreonMemberShoutout()
         {
             string[] supporterLeadInMessages = new string[]
@@ -273,6 +283,26 @@ namespace MixItUp.WPF
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
                 {
                     ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 56, 56, member.DisplayName);
+                }
+
+                if (!string.IsNullOrWhiteSpace(member.SocialMediaLink) && !string.IsNullOrWhiteSpace(member.Platform) && !string.IsNullOrWhiteSpace(member.PlatformUsername))
+                {
+                    _patreonSocialLink = member.SocialMediaLink;
+
+                    string platformImage = member.Platform switch
+                    {
+                        "twitch" => "/Assets/Images/twitch-color_sm.png",
+                        "kick" => "/Assets/Images/kick-color_sm.png",
+                        "youtube" => "/Assets/Images/youtube-color_sm.png",
+                        _ => null,
+                    };
+
+                    if (platformImage != null)
+                    {
+                        this.PatreonSocialPlatformImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(platformImage, UriKind.Relative));
+                        this.PatreonSocialUsernameTextBlock.Text = member.PlatformUsername;
+                        this.PatreonSocialButton.Visibility = Visibility.Visible;
+                    }
                 }
             }
             catch (Exception ex)

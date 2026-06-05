@@ -142,5 +142,8 @@ namespace MixItUp.Base.Model.API
     {
         public string DisplayName { get; set; }
         public string AvatarUrl { get; set; }
+        public string SocialMediaLink { get; set; }
+        public string Platform { get; set; }
+        public string PlatformUsername { get; set; }
     }
 }
