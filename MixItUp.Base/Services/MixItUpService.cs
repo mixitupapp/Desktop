@@ -705,9 +705,9 @@ namespace MixItUp.Base.Services
                 {
                     await DisconnectHubConnection();
 
-                    int baseDelay = Math.Min(WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
+                    int baseDelay = (int)Math.Min((long)WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
                     int jitter = RandomHelper.GenerateRandomNumber(-(baseDelay / 2), baseDelay / 2);
-                    await Task.Delay(baseDelay + jitter, reconnectToken);
+                    await Task.Delay(Math.Max(baseDelay + jitter,0), reconnectToken);
 
                     result = await this.Connect();
                     attempt++;
