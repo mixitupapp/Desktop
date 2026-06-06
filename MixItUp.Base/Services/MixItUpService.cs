@@ -51,7 +51,7 @@ namespace MixItUp.Base.Services
         void MarkNotificationsAsRead();
         Task<OutageModel> CheckOutageStatus();
         Task<PatreonMemberShoutoutModel> GetRandomPatreonMemberShoutout();
-        Task<List<string>> GetAllPatreonMemberNames();
+        Task<List<PatreonMemberV2Model>> GetAllPatreonMembersV2();
     }
 
     public interface IWebhookService
@@ -165,11 +165,12 @@ namespace MixItUp.Base.Services
         private readonly TimeSpan notificationCacheExpiry = TimeSpan.FromMinutes(5);
         private readonly object patreonShoutoutFetchLock = new object();
         private Task<PatreonMemberShoutoutModel> patreonShoutoutFetchTask = null;
-        private Task<List<string>> patreonMembersFetchTask = null;
+        private Task<List<PatreonMemberV2Model>> patreonMembersFetchTask = null;
 
         public event EventHandler<bool> NotificationStatusChanged;
         public bool HasUnreadNotifications { get; private set; }
 
+        public static ClientOptionsModel Options { get; private set; } = new ClientOptionsModel();
         public async Task<(UpdateVersionCheckModel, UpdateVersionManifestModel)?> GetLatestUpdate()
         {
             try
@@ -684,7 +685,7 @@ namespace MixItUp.Base.Services
 
         private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
-            if (e.Message.Contains("4426"))
+            if (e?.Message?.Contains("4426") == true)
             {
                 isUpdateRequired = true;
                 Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up WebhookHub services.");
@@ -727,6 +728,7 @@ namespace MixItUp.Base.Services
 
             try
             {
+                if (this.webhookHubConnection == null) { return; }
                 await this.AsyncWrapper(this.webhookHubConnection.Send(AuthenticateMethodName, login));
             }
             catch (Exception ex)
@@ -1018,7 +1020,7 @@ namespace MixItUp.Base.Services
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
 
-                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random/v2");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -1033,6 +1035,9 @@ namespace MixItUp.Base.Services
                                 {
                                     DisplayName = displayName,
                                     AvatarUrl = member?["avatar_url"]?.ToString(),
+                                    SocialMediaLink = member?["social_media_link"]?.ToString(),
+                                    Platform = member?["platform"]?.ToString(),
+                                    PlatformUsername = member?["platform_username"]?.ToString(),
                                 };
                             }
                         }
@@ -1046,16 +1051,16 @@ namespace MixItUp.Base.Services
             return null;
         }
 
-        public Task<List<string>> GetAllPatreonMemberNames()
+        public Task<List<PatreonMemberV2Model>> GetAllPatreonMembersV2()
         {
             if (this.patreonMembersFetchTask == null)
             {
-                this.patreonMembersFetchTask = this.FetchAllPatreonMemberNames();
+                this.patreonMembersFetchTask = this.FetchAllPatreonMembersV2();
             }
             return this.patreonMembersFetchTask;
         }
 
-        private async Task<List<string>> FetchAllPatreonMemberNames()
+        private async Task<List<PatreonMemberV2Model>> FetchAllPatreonMembersV2()
         {
             try
             {
@@ -1063,20 +1068,27 @@ namespace MixItUp.Base.Services
                 {
                     client.Timeout = TimeSpan.FromSeconds(10);
 
-                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/all");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/all/v2");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
                         JObject data = JObject.Parse(json);
                         if (data["success"]?.Value<bool>() == true)
                         {
-                            JArray namesArray = data["names"] as JArray;
-                            if (namesArray != null)
+                            JArray membersArray = data["members"] as JArray;
+                            if (membersArray != null)
                             {
-                                return namesArray.Values<string>()
-                                    .Where(n => !string.IsNullOrWhiteSpace(n))
-                                    .Select(n => n.Trim())
-                                    .OrderBy(n => n, StringComparer.OrdinalIgnoreCase)
+                                return membersArray
+                                    .OfType<JObject>()
+                                    .Select(m => new PatreonMemberV2Model
+                                    {
+                                        DisplayName = m["display_name"]?.ToString()?.Trim(),
+                                        SocialMediaLink = m["social_media_link"]?.ToString(),
+                                        Platform = m["platform"]?.ToString(),
+                                        PlatformUsername = m["platform_username"]?.ToString()?.TrimStart('@'),
+                                    })
+                                    .Where(m => !string.IsNullOrWhiteSpace(m.DisplayName))
+                                    .OrderBy(m => m.DisplayName, StringComparer.OrdinalIgnoreCase)
                                     .ToList();
                             }
                         }
@@ -1087,7 +1099,7 @@ namespace MixItUp.Base.Services
             {
                 Logger.Log(ex);
             }
-            return new List<string>();
+            return new List<PatreonMemberV2Model>();
         }
 
         public async Task RecordClientSession()
@@ -1105,7 +1117,14 @@ namespace MixItUp.Base.Services
                 body["release"] = BuildChannelHelper.GetReleaseChannel();
 
                 HttpResponseMessage response = await this.PostAsync("v2/client/session", AdvancedHttpClient.CreateContentFromObject(body));
-                if (!response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    Logger.Log(LogLevel.Debug, $"Client session response: {content}");
+                    JObject result = JObject.Parse(content);
+                    Options = result?["options"]?.ToObject<ClientOptionsModel>() ?? new ClientOptionsModel();
+                }
+                else
                 {
                     string content = await response.Content.ReadAsStringAsync();
                     Logger.Log(LogLevel.Warning, $"Failed to record client session: {(int)response.StatusCode} - {content}");

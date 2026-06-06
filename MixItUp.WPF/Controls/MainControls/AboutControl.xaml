@@ -51,7 +51,7 @@
                 </Grid>
 
                 <TextBlock Grid.Row="2" HorizontalAlignment="Center">
-                        <Hyperlink NavigateUri="https://github.com/mixitupapp/Desktop" RequestNavigate="Hyperlink_RequestNavigate">
+                        <Hyperlink NavigateUri="https://github.com/mixitupbot/Desktop" RequestNavigate="Hyperlink_RequestNavigate">
                             <TextBlock Text="{x:Static resx:Resources.LatestRelease}"/>
                         </Hyperlink>
                     </TextBlock>
@@ -111,11 +111,9 @@
             <ScrollViewer
                 Margin="6,4,6,6"
                 VerticalScrollBarVisibility="Auto">
-                <TextBlock
-                    x:Name="PatreonMembersTextBlock"
-                    FontSize="12"
-                    Opacity="0.9"
-                    TextWrapping="Wrap" />
+                <WrapPanel
+                    x:Name="PatreonMembersWrapPanel"
+                    Orientation="Horizontal" />
             </ScrollViewer>
         </GroupBox>
 

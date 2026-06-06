@@ -11560,4 +11560,13 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="SteamOnly" xml:space="preserve">
     <value>Steam uniquement</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Afficher Twitch Modiversary</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} fête son Modiversary de {1} mois !</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Chaîne Twitch Modiversary</value>
+  </data>
 </root>

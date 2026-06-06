@@ -72,6 +72,7 @@ namespace MixItUp.Base.Services
 
         TwitchChannelWatchStreak = 230,
         TwitchChannelShoutoutReceived = 231,
+        TwitchChannelModiversary = 232,
 
         TwitchChannelHighlightedMessage = 240,
         TwitchChannelUserIntro = 241,

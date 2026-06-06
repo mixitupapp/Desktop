@@ -11559,4 +11559,13 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="SteamOnly" xml:space="preserve">
     <value>Tylko Steam</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Wyświetlanie modyfikacji Twitcha</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} świętuje swoje {1} miesięczne Modiversary!</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Modiversary na kanale Twitch</value>
+  </data>
 </root>

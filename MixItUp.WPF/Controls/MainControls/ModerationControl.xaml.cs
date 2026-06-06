@@ -81,22 +81,28 @@ namespace MixItUp.WPF.Controls.MainControls
 
                     this.ConvertFilteredTextToWordList(this.FilteredWordsTextBox.Text, ChannelSession.Settings.FilteredWords);
                     this.ConvertFilteredTextToWordList(this.BannedWordsTextBox.Text, ChannelSession.Settings.BannedWords);
-                    ChannelSession.Settings.ModerationFilteredWordsExcemptUserRole = (UserRoleEnum)this.FilteredWordsExemptComboBox.SelectedItem;
+                    if (this.FilteredWordsExemptComboBox.SelectedItem != null) { ChannelSession.Settings.ModerationFilteredWordsExcemptUserRole = (UserRoleEnum)this.FilteredWordsExemptComboBox.SelectedItem; }
                     ChannelSession.Settings.ModerationFilteredWordsApplyStrikes = this.FilteredWordsApplyStrikesToggleButton.IsChecked.GetValueOrDefault();
 
                     ChannelSession.Settings.ModerationCapsBlockCount = (int)this.MaxCapsSlider.Value;
                     ChannelSession.Settings.ModerationCapsBlockIsPercentage = (this.MaxCapsTypeComboBox.SelectedIndex == 0);
                     ChannelSession.Settings.ModerationPunctuationBlockCount = (int)this.MaxPunctuationSymbolsEmotesSlider.Value;
                     ChannelSession.Settings.ModerationPunctuationBlockIsPercentage = (this.MaxPunctuationSymbolsEmotesTypeComboBox.SelectedIndex == 0);
-                    ChannelSession.Settings.ModerationChatTextExcemptUserRole = (UserRoleEnum)this.ChatTextModerationExemptComboBox.SelectedItem;
+                    if (this.ChatTextModerationExemptComboBox.SelectedItem != null) { ChannelSession.Settings.ModerationChatTextExcemptUserRole = (UserRoleEnum)this.ChatTextModerationExemptComboBox.SelectedItem; }
                     ChannelSession.Settings.ModerationChatTextApplyStrikes = this.ChatTextApplyStrikesToggleButton.IsChecked.GetValueOrDefault();
 
                     ChannelSession.Settings.ModerationBlockLinks = this.BlockLinksToggleButton.IsChecked.GetValueOrDefault();
-                    ChannelSession.Settings.ModerationBlockLinksExcemptUserRole = (UserRoleEnum)this.BlockLinksExemptComboBox.SelectedItem;
+                    if (this.BlockLinksExemptComboBox.SelectedItem != null) { ChannelSession.Settings.ModerationBlockLinksExcemptUserRole = (UserRoleEnum)this.BlockLinksExemptComboBox.SelectedItem; }
                     ChannelSession.Settings.ModerationBlockLinksApplyStrikes = this.BlockLinksApplyStrikesToggleButton.IsChecked.GetValueOrDefault();
 
-                    ChannelSession.Settings.ModerationChatInteractiveParticipation = (ModerationChatInteractiveParticipationEnum)this.ChatInteractiveParticipationComboBox.SelectedItem;
-                    ChannelSession.Settings.ModerationChatInteractiveParticipationExcemptUserRole = (UserRoleEnum)this.ChatParticipationExemptComboBox.SelectedItem;
+                    if (this.ChatInteractiveParticipationComboBox.SelectedItem != null)
+                    {
+                        ChannelSession.Settings.ModerationChatInteractiveParticipation = (ModerationChatInteractiveParticipationEnum)this.ChatInteractiveParticipationComboBox.SelectedItem;
+                    }
+                    if (this.ChatParticipationExemptComboBox.SelectedItem != null)
+                    {
+                        ChannelSession.Settings.ModerationChatInteractiveParticipationExcemptUserRole = (UserRoleEnum)this.ChatParticipationExemptComboBox.SelectedItem;
+                    }
 
                     if (ChannelSession.Settings.ModerationFollowEvent != this.FollowEventModerationToggleButton.IsChecked.GetValueOrDefault())
                     {

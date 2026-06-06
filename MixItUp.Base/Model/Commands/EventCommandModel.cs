@@ -92,6 +92,10 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["watchstreakchannelpointsawarded"] = "100";
                     specialIdentifiers["message"] = "Test Message";
                     break;
+                case EventTypeEnum.TwitchChannelModiversary:
+                    specialIdentifiers["usermodiversarymonths"] = "6";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
 
                 case EventTypeEnum.TwitchChannelHighlightedMessage:
                     specialIdentifiers["message"] = "Test Message";

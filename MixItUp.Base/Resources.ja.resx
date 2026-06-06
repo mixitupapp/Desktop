@@ -11559,4 +11559,13 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="SteamOnly" xml:space="preserve">
     <value>Steamのみ</value>
   </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Twitch Modiversary を表示する</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} が {1} ヶ月の Modiversary を祝っています！</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch チャンネル Modiversary</value>
+  </data>
 </root>
