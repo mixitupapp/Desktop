@@ -13,6 +13,7 @@ namespace MixItUp.Base.Model.Requirements
         Standard,
         PerPerson,
         Group,
+        PerPersonGroup,
     }
 
     [DataContract]
@@ -23,6 +24,8 @@ namespace MixItUp.Base.Model.Requirements
         private static DateTimeOffset requirementErrorCooldown = DateTimeOffset.MinValue;
 
         private static Dictionary<string, DateTimeOffset> groupCooldowns = new Dictionary<string, DateTimeOffset>();
+
+        private static Dictionary<string, Dictionary<Guid, DateTimeOffset>> perPersonGroupCooldowns = new Dictionary<string, Dictionary<Guid, DateTimeOffset>>();
 
         [DataMember]
         public CooldownTypeEnum Type { get; set; }
@@ -77,7 +80,7 @@ namespace MixItUp.Base.Model.Requirements
         protected override DateTimeOffset RequirementErrorCooldown { get { return CooldownRequirementModel.requirementErrorCooldown; } set { CooldownRequirementModel.requirementErrorCooldown = value; } }
 
         [JsonIgnore]
-        public bool IsGroup { get { return this.Type == CooldownTypeEnum.Group && !string.IsNullOrEmpty(this.GroupName); } }
+        public bool IsGroup { get { return (this.Type == CooldownTypeEnum.Group || this.Type == CooldownTypeEnum.PerPersonGroup) && !string.IsNullOrEmpty(this.GroupName); } }
 
         [JsonIgnore]
         public int Amount
@@ -121,6 +124,13 @@ namespace MixItUp.Base.Model.Requirements
                     cooldownTime = this.individualCooldowns[parameters.User.ID];
                 }
             }
+            else if (this.Type == CooldownTypeEnum.PerPersonGroup)
+            {
+                if (!string.IsNullOrEmpty(this.GroupName) && CooldownRequirementModel.perPersonGroupCooldowns.ContainsKey(this.GroupName) && CooldownRequirementModel.perPersonGroupCooldowns[this.GroupName].ContainsKey(parameters.User.ID))
+                {
+                    cooldownTime = CooldownRequirementModel.perPersonGroupCooldowns[this.GroupName][parameters.User.ID];
+                }
+            }
 
             return Task.FromResult(CooldownRequirementModel.GetCooldownAmountMessage(cooldownTime));
         }
@@ -152,6 +162,17 @@ namespace MixItUp.Base.Model.Requirements
                 {
                     this.individualCooldowns[parameters.User.ID] = DateTimeOffset.Now.AddSeconds(amount);
                 }
+                else if (this.Type == CooldownTypeEnum.PerPersonGroup)
+                {
+                    if (!string.IsNullOrEmpty(this.GroupName))
+                    {
+                        if (!CooldownRequirementModel.perPersonGroupCooldowns.ContainsKey(this.GroupName))
+                        {
+                            CooldownRequirementModel.perPersonGroupCooldowns[this.GroupName] = new Dictionary<Guid, DateTimeOffset>();
+                        }
+                        CooldownRequirementModel.perPersonGroupCooldowns[this.GroupName][parameters.User.ID] = DateTimeOffset.Now.AddSeconds(amount);
+                    }
+                }
             }
         }
 
@@ -172,6 +193,13 @@ namespace MixItUp.Base.Model.Requirements
             {
                 this.individualCooldowns[parameters.User.ID] = DateTimeOffset.MinValue;
             }
+            else if (this.Type == CooldownTypeEnum.PerPersonGroup)
+            {
+                if (!string.IsNullOrEmpty(this.GroupName) && CooldownRequirementModel.perPersonGroupCooldowns.ContainsKey(this.GroupName))
+                {
+                    CooldownRequirementModel.perPersonGroupCooldowns[this.GroupName][parameters.User.ID] = DateTimeOffset.MinValue;
+                }
+            }
             return Task.CompletedTask;
         }
 
@@ -181,6 +209,10 @@ namespace MixItUp.Base.Model.Requirements
             if (!string.IsNullOrEmpty(this.GroupName) && CooldownRequirementModel.groupCooldowns.ContainsKey(this.GroupName))
             {
                 CooldownRequirementModel.groupCooldowns[this.GroupName] = DateTimeOffset.MinValue;
+            }
+            if (!string.IsNullOrEmpty(this.GroupName) && CooldownRequirementModel.perPersonGroupCooldowns.ContainsKey(this.GroupName))
+            {
+                CooldownRequirementModel.perPersonGroupCooldowns[this.GroupName].Clear();
             }
             this.individualCooldowns.Clear();
         }

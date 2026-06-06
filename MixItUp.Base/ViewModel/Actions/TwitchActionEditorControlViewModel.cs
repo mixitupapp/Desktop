@@ -75,6 +75,11 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged(nameof(this.ShowSetContentClassificationLabelsGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowSetChatSettingsGrid));
                 this.NotifyPropertyChanged(nameof(this.ShowVIPUserSettingsGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowWarnUserGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowPinMessageGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowSetSuspiciousUserStatusGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowBlockUserGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowUpdateRedemptionStatusGrid));
             }
         }
         private TwitchActionType selectedActionType;
@@ -98,7 +103,11 @@ namespace MixItUp.Base.ViewModel.Actions
             {
                 return this.SelectedActionType == TwitchActionType.Raid ||
                     this.SelectedActionType == TwitchActionType.UnVIPUser ||
-                    this.SelectedActionType == TwitchActionType.SendShoutout;
+                    this.SelectedActionType == TwitchActionType.SendShoutout ||
+                    this.SelectedActionType == TwitchActionType.SetSuspiciousUserStatus ||
+                    this.SelectedActionType == TwitchActionType.RemoveSuspiciousUserStatus ||
+                    this.SelectedActionType == TwitchActionType.BlockUser ||
+                    this.SelectedActionType == TwitchActionType.UnblockUser;
             }
         }
 
@@ -698,6 +707,77 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private DurationSpanTypeEnum selectedVIPUserAutomaticRemovalDuration = DurationSpanTypeEnum.Days;
 
+        public bool ShowWarnUserGrid { get { return this.SelectedActionType == TwitchActionType.WarnUser; } }
+
+        public string WarnReason
+        {
+            get { return this.warnReason; }
+            set
+            {
+                this.warnReason = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string warnReason;
+
+        public bool ShowPinMessageGrid { get { return this.SelectedActionType == TwitchActionType.PinMessage; } }
+
+        public string PinMessageText
+        {
+            get { return this.pinMessageText; }
+            set
+            {
+                this.pinMessageText = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string pinMessageText;
+
+        public bool ShowSetSuspiciousUserStatusGrid { get { return this.SelectedActionType == TwitchActionType.SetSuspiciousUserStatus; } }
+
+        public IEnumerable<TwitchSuspiciousUserStatus> SuspiciousUserStatuses { get { return EnumHelper.GetEnumList<TwitchSuspiciousUserStatus>(); } }
+
+        public TwitchSuspiciousUserStatus SelectedSuspiciousUserStatus
+        {
+            get { return this.selectedSuspiciousUserStatus; }
+            set
+            {
+                this.selectedSuspiciousUserStatus = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private TwitchSuspiciousUserStatus selectedSuspiciousUserStatus = TwitchSuspiciousUserStatus.ActiveMonitoring;
+
+        public bool ShowBlockUserGrid { get { return this.SelectedActionType == TwitchActionType.BlockUser; } }
+
+        public IEnumerable<TwitchBlockUserReason> BlockUserReasons { get { return EnumHelper.GetEnumList<TwitchBlockUserReason>(); } }
+
+        public bool ShowUpdateRedemptionStatusGrid { get { return this.SelectedActionType == TwitchActionType.UpdateRedemptionStatus; } }
+
+        public IEnumerable<TwitchRedemptionStatusType> RedemptionStatusTypes { get { return EnumHelper.GetEnumList<TwitchRedemptionStatusType>(); } }
+
+        public TwitchRedemptionStatusType SelectedRedemptionStatus
+        {
+            get { return this.selectedRedemptionStatus; }
+            set
+            {
+                this.selectedRedemptionStatus = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private TwitchRedemptionStatusType selectedRedemptionStatus = TwitchRedemptionStatusType.Fulfilled;
+
+        public TwitchBlockUserReason SelectedBlockUserReason
+        {
+            get { return this.selectedBlockUserReason; }
+            set
+            {
+                this.selectedBlockUserReason = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private TwitchBlockUserReason selectedBlockUserReason = TwitchBlockUserReason.None;
+
         private IEnumerable<string> existingTags = null;
         private IEnumerable<string> existingContentClassificationLabelIDs = null;
 
@@ -712,6 +792,14 @@ namespace MixItUp.Base.ViewModel.Actions
             if (this.ShowUsernameGrid)
             {
                 this.Username = action.Username;
+                if (this.ShowSetSuspiciousUserStatusGrid)
+                {
+                    this.SelectedSuspiciousUserStatus = action.SuspiciousUserStatus;
+                }
+                if (this.ShowBlockUserGrid)
+                {
+                    this.SelectedBlockUserReason = action.BlockUserReason;
+                }
             }
             else if (this.ShowTextGrid)
             {
@@ -849,6 +937,19 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.SelectedVIPUserAutomaticRemovalDuration = action.VIPUserAutomaticRemovalDurationSpan.Type;
                     this.VIPUserAutomaticRemovalAmount = action.VIPUserAutomaticRemovalDurationSpan.Amount;
                 }
+            }
+            else if (this.ShowWarnUserGrid)
+            {
+                this.Username = action.Username;
+                this.WarnReason = action.WarnReason;
+            }
+            else if (this.ShowPinMessageGrid)
+            {
+                this.PinMessageText = action.PinMessageText;
+            }
+            else if (this.ShowUpdateRedemptionStatusGrid)
+            {
+                this.SelectedRedemptionStatus = action.RedemptionStatus;
             }
         }
 
@@ -997,6 +1098,20 @@ namespace MixItUp.Base.ViewModel.Actions
                     return new Result(MixItUp.Base.Resources.TwitchActionUsernameMissing);
                 }
             }
+            else if (this.ShowWarnUserGrid)
+            {
+                if (string.IsNullOrEmpty(this.Username))
+                {
+                    return new Result(MixItUp.Base.Resources.TwitchActionUsernameMissing);
+                }
+            }
+            else if (this.ShowPinMessageGrid)
+            {
+                if (string.IsNullOrEmpty(this.PinMessageText))
+                {
+                    return new Result(MixItUp.Base.Resources.TwitchActionMessageMissing);
+                }
+            }
             return await base.Validate();
         }
 
@@ -1051,6 +1166,22 @@ namespace MixItUp.Base.ViewModel.Actions
         {
             if (this.ShowUsernameGrid)
             {
+                if (this.SelectedActionType == TwitchActionType.SetSuspiciousUserStatus)
+                {
+                    return TwitchActionModel.CreateSetSuspiciousUserStatusAction(this.Username, this.SelectedSuspiciousUserStatus);
+                }
+                else if (this.SelectedActionType == TwitchActionType.RemoveSuspiciousUserStatus)
+                {
+                    return TwitchActionModel.CreateRemoveSuspiciousUserStatusAction(this.Username);
+                }
+                else if (this.SelectedActionType == TwitchActionType.BlockUser)
+                {
+                    return TwitchActionModel.CreateBlockUserAction(this.Username, this.SelectedBlockUserReason);
+                }
+                else if (this.SelectedActionType == TwitchActionType.UnblockUser)
+                {
+                    return TwitchActionModel.CreateUnblockUserAction(this.Username);
+                }
                 return TwitchActionModel.CreateUserAction(this.SelectedActionType, this.Username);
             }
             else if (this.ShowTextGrid)
@@ -1130,6 +1261,18 @@ namespace MixItUp.Base.ViewModel.Actions
                     duration = new DurationSpan(this.SelectedVIPUserAutomaticRemovalDuration, this.VIPUserAutomaticRemovalAmount);
                 }
                 return TwitchActionModel.CreateVIPUserAction(this.Username, duration);
+            }
+            else if (this.ShowWarnUserGrid)
+            {
+                return TwitchActionModel.CreateWarnUserAction(this.Username, this.WarnReason);
+            }
+            else if (this.ShowPinMessageGrid)
+            {
+                return TwitchActionModel.CreatePinMessageAction(this.PinMessageText);
+            }
+            else if (this.ShowUpdateRedemptionStatusGrid)
+            {
+                return TwitchActionModel.CreateUpdateRedemptionStatusAction(this.SelectedRedemptionStatus);
             }
             else
             {

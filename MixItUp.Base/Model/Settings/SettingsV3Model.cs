@@ -254,6 +254,12 @@ namespace MixItUp.Base.Model.Settings
         public string PythonExecutablePath { get; set; }
 
         [DataMember]
+        public bool HideScriptActionChatErrors { get; set; }
+
+        [DataMember]
+        public GameInfoLookupOrderEnum GameInfoLookupOrder { get; set; } = GameInfoLookupOrderEnum.XboxThenSteam;
+
+        [DataMember]
         public HashSet<ActionTypeEnum> ActionsToHide { get; set; } = new HashSet<ActionTypeEnum>();
 
         [DataMember]
@@ -297,6 +303,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertTwitchWatchStreakColor { get; set; }
         [DataMember]
+        public string AlertTwitchModiversaryColor { get; set; }
+        [DataMember]
         public string AlertYouTubeSuperChatColor { get; set; }
         [DataMember]
         public string AlertYouTubeJewelsGiftColor { get; set; }
@@ -306,6 +314,26 @@ namespace MixItUp.Base.Model.Settings
         public string AlertModerationColor { get; set; }
         [DataMember]
         public string AlertStreamlootsColor { get; set; }
+        [DataMember]
+        public string AlertKickChannelPointsColor { get; set; }
+        [DataMember]
+        public string AlertKickKicksColor { get; set; }
+        [DataMember]
+        public string AlertTwitchUserWarnedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchShoutoutReceivedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchSuspiciousUserMessageColor { get; set; }
+        [DataMember]
+        public string AlertTwitchSuspiciousUserUpdatedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchShieldModeStartedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchShieldModeEndedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchGoalStartedColor { get; set; }
+        [DataMember]
+        public string AlertTwitchGoalEndedColor { get; set; }
 
         [Obsolete]
         [DataMember]

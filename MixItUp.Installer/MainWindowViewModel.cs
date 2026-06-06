@@ -1,4 +1,6 @@
 ﻿using MixItUp.Base.Model.API;
+using MixItUp.Base.Model.API.Files.V2;
+using MixItUp.Base.Util;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -34,19 +36,19 @@ namespace MixItUp.Installer
 
         public static string InstallSettingsDirectory { get { return Path.Combine(MainWindowViewModel.DefaultInstallDirectory, "Settings"); } }
 
-        private const string FileServiceBaseUrl = "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; //"https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
         private const string TempDirectoryName = ".tmp";
         private const string EulaAcceptedFileName = "eula-accepted";
         private static readonly TimeSpan[] ManifestRetryDelays = new[] { TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(4), TimeSpan.FromSeconds(8) };
         private static readonly TimeSpan[] DownloadRetryDelays = new[] { TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(4), TimeSpan.FromSeconds(8) };
         private static readonly HttpClient HttpClient = new HttpClient();
 
-        private MixItUpUpdateModel latestUpdate;
+        private UpdateVersionCheckModel versionCheck;
+        private UpdateVersionManifestModel versionManifest;
         private string manifestChannel;
         private string manifestUrl;
-        private string packageUrl;
-        private string installerUrl;
-        private string expectedSha256;
+        private string targetVersionOverride;
+        private string targetChannelOverride;
         private string downloadedPackagePath;
         private string tempDirectoryPath;
         private readonly string installDirectoryArgument;
@@ -195,6 +197,20 @@ namespace MixItUp.Installer
             this.installDirectoryResolutionNote = null;
 
             string[] args = Environment.GetCommandLineArgs();
+
+            for (int i = 2; i < args.Length; i++)
+            {
+                string arg = args[i].Trim('"');
+                if (arg.StartsWith("--target-version=", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.targetVersionOverride = arg.Substring("--target-version=".Length).Trim();
+                }
+                else if (arg.StartsWith("--target-channel=", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.targetChannelOverride = arg.Substring("--target-channel=".Length).Trim();
+                }
+            }
+
             if (args.Length >= 2)
             {
                 string rawArgument = args[1];
@@ -256,6 +272,7 @@ namespace MixItUp.Installer
                         }
                     }
                 }
+
             }
 
             if (this.IsTest)
@@ -304,48 +321,55 @@ namespace MixItUp.Installer
 
                     if (!this.IsUpdate || await this.WaitForMixItUpToClose())
                     {
-                        MixItUpUpdateModel update = await this.FetchManifestAsync();
-
-                        if (update == null)
+                        UpdateVersionManifestModel manifest = await this.FetchManifestAsync();
+                        if (manifest == null)
                         {
-                            this.ShowNetworkRetryError("We were unable to retrieve update information from the Mix It Up file service. Please check your network connection and try again.");
+                            if (!this.ErrorOccurred)
+                            {
+                                this.ShowNetworkRetryError("We were unable to retrieve update information from the Mix It Up file service. Please check your network connection and try again.");
+                            }
                             return;
                         }
 
-                        if (!update.Active)
+                        UpdateStepModel downloadStep = this.versionManifest.GetDownloadStep();
+                        if (downloadStep == null || string.IsNullOrEmpty(downloadStep.target))
                         {
-                            this.WriteToLogFile("Manifest inactive for channel: " + (this.manifestChannel ?? "<unknown>"));
-                            this.SpecificErrorMessage = "There are currently no active builds for this update channel. Please try again later or contact support@mixitupapp.com.";
-                            this.ShowError("No active updates available.", this.SpecificErrorMessage);
-                            return;
-                        }
-
-                        this.latestUpdate = update;
-                        this.packageUrl = update.Package;
-                        this.installerUrl = update.Installer;
-                        this.expectedSha256 = update.Sha256;
-
-                        this.WriteToLogFile(string.Format("Manifest summary:{0}- Channel: {1}{0}- Manifest URL: {2}{0}- Package URL: {3}{0}- Installer URL: {4}{0}- Expected SHA-256: {5}",
-                            Environment.NewLine,
-                            this.manifestChannel ?? "<unknown>",
-                            this.manifestUrl ?? "<unknown>",
-                            this.packageUrl ?? "<missing>",
-                            this.installerUrl ?? "<missing>",
-                            string.IsNullOrEmpty(this.expectedSha256) ? "<missing>" : this.expectedSha256));
-
-                        if (string.IsNullOrEmpty(this.packageUrl))
-                        {
-                            this.SpecificErrorMessage = "The update manifest did not include a package download link. Please try again later.";
+                            this.SpecificErrorMessage = "The update manifest did not include a package download step.";
                             this.ShowError("Invalid update manifest.", this.SpecificErrorMessage);
                             return;
                         }
 
-                        if (!await this.EnsureEulaAcceptedAsync(update))
+                        string constructedPackageUrl;
+                        if (downloadStep.target.StartsWith("https://", StringComparison.OrdinalIgnoreCase) ||
+                            downloadStep.target.StartsWith("http://", StringComparison.OrdinalIgnoreCase))
+                        {
+                            constructedPackageUrl = downloadStep.target;
+                        }
+                        else
+                        {
+                            constructedPackageUrl = string.Format("{0}/{1}/{2}/{3}", FileServiceBaseUrl, this.manifestChannel, this.versionManifest.version, downloadStep.target);
+                        }
+
+                        UpdateStepModel verifyStep = this.versionManifest.GetVerifyStep();
+
+                        this.WriteToLogFile(string.Format("Manifest summary:{0}- Channel: {1}{0}- Version check URL: {2}{0}- Manifest URL: {3}{0}- Latest version: {4}{0}- Minimum version: {5}{0}- Update paused: {6}{0}- Package URL: {7}{0}- Expected SHA-256: {8}{0}- Installer URL: {9}",
+                            Environment.NewLine,
+                            this.manifestChannel ?? "<unknown>",
+                            string.Format("{0}/{1}/latest", FileServiceBaseUrl, this.manifestChannel),
+                            this.manifestUrl ?? "<unknown>",
+                            this.versionCheck?.latestVersion ?? "<unknown>",
+                            this.versionCheck?.minimumVersion ?? "<unknown>",
+                            this.versionCheck?.updatePaused.ToString() ?? "<unknown>",
+                            constructedPackageUrl,
+                            verifyStep?.value ?? "<missing>",
+                            this.versionManifest.installer ?? "<missing>"));
+
+                        if (!await this.EnsureEulaAcceptedAsync())
                         {
                             return;
                         }
 
-                        if (await this.DownloadPackageAsync(update))
+                        if (await this.DownloadPackageAsync())
                         {
                             if (this.InstallMixItUp())
                             {
@@ -443,22 +467,113 @@ namespace MixItUp.Installer
             return false;
         }
 
-        private async Task<MixItUpUpdateModel> FetchManifestAsync()
+        private async Task<UpdateVersionManifestModel> FetchManifestAsync()
         {
-            string channel = (this.IsPreview || this.IsTest) ? "preview" : "public";
-            string url = string.Format("{0}/{1}/latest", FileServiceBaseUrl, channel);
+            string channel = !string.IsNullOrEmpty(this.targetChannelOverride)
+                ? this.targetChannelOverride
+                : (this.IsPreview || this.IsTest) ? "preview" : "public";
+            string versionCheckUrl = string.Format("{0}/{1}/latest", FileServiceBaseUrl, channel);
 
             this.manifestChannel = channel;
-            this.manifestUrl = url;
 
-            this.WriteToLogFile("Requesting update manifest: " + url);
+            this.WriteToLogFile("Requesting version check: " + versionCheckUrl);
 
             int maxAttempts = ManifestRetryDelays.Length + 1;
+
+            UpdateVersionCheckModel versionCheck = null;
             for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
                 try
                 {
-                    using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url))
+                    using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, versionCheckUrl))
+                    {
+                        request.Headers.Accept.Clear();
+                        request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                        using (HttpResponseMessage response = await HttpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
+                        {
+                            if (response.IsSuccessStatusCode)
+                            {
+                                string json = await response.Content.ReadAsStringAsync();
+                                if (string.IsNullOrEmpty(json))
+                                {
+                                    this.WriteToLogFile("Version check response empty");
+                                }
+                                else
+                                {
+                                    try
+                                    {
+                                        versionCheck = JsonConvert.DeserializeObject<UpdateVersionCheckModel>(json);
+                                        if (versionCheck != null)
+                                        {
+                                            break;
+                                        }
+                                        this.WriteToLogFile("Version check deserialized to null");
+                                    }
+                                    catch (JsonException jex)
+                                    {
+                                        this.WriteToLogFile("Version check parse error: " + jex);
+                                        return null;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                string body = await response.Content.ReadAsStringAsync();
+                                this.WriteToLogFile(string.Format("Version check request failed (attempt {0}): {1} {2}{3}{4}", attempt + 1, (int)response.StatusCode, response.ReasonPhrase, Environment.NewLine, body));
+                            }
+                        }
+                    }
+                }
+                catch (HttpRequestException hre)
+                {
+                    this.WriteToLogFile(string.Format("Version check request error (attempt {0}): {1}", attempt + 1, hre));
+                }
+                catch (TaskCanceledException tce)
+                {
+                    this.WriteToLogFile(string.Format("Version check request timeout (attempt {0}): {1}", attempt + 1, tce));
+                }
+
+                if (attempt < ManifestRetryDelays.Length)
+                {
+                    await Task.Delay(ManifestRetryDelays[attempt]);
+                }
+            }
+
+            if (versionCheck == null)
+            {
+                return null;
+            }
+
+            if (versionCheck.updatePaused)
+            {
+                this.WriteToLogFile("Updates paused for channel: " + channel);
+                this.SpecificErrorMessage = "There are currently no active updates for this channel. Please try again later.";
+                this.ShowError("No active updates available.", this.SpecificErrorMessage);
+                return null;
+            }
+
+            this.versionCheck = versionCheck;
+
+            string targetVersion = !string.IsNullOrEmpty(this.targetVersionOverride)
+                ? this.targetVersionOverride
+                : versionCheck.latestVersion;
+
+            this.WriteToLogFile(string.Format("Version check: channel={0}, url={1}, latestVersion={2}, minimumVersion={3}, updatePaused={4}, targetVersion={5}",
+                channel, versionCheckUrl, versionCheck.latestVersion, versionCheck.minimumVersion, versionCheck.updatePaused,
+                targetVersion));
+
+            string manifestUrl = string.Format("{0}/{1}/{2}", FileServiceBaseUrl, channel, targetVersion);
+            this.manifestUrl = manifestUrl;
+
+            this.WriteToLogFile("Requesting version manifest: " + manifestUrl);
+
+            UpdateVersionManifestModel versionManifest = null;
+            for (int attempt = 0; attempt < maxAttempts; attempt++)
+            {
+                try
+                {
+                    using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, manifestUrl))
                     {
                         request.Headers.Accept.Clear();
                         request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -476,13 +591,11 @@ namespace MixItUp.Installer
                                 {
                                     try
                                     {
-                                        MixItUpUpdateModel update = JsonConvert.DeserializeObject<MixItUpUpdateModel>(json);
-                                        if (update != null)
+                                        versionManifest = JsonConvert.DeserializeObject<UpdateVersionManifestModel>(json);
+                                        if (versionManifest != null)
                                         {
-                                            this.latestUpdate = update;
-                                            return update;
+                                            break;
                                         }
-
                                         this.WriteToLogFile("Manifest deserialized to null");
                                     }
                                     catch (JsonException jex)
@@ -515,17 +628,46 @@ namespace MixItUp.Installer
                 }
             }
 
-            return null;
+            if (versionManifest == null)
+            {
+                return null;
+            }
+
+            this.versionManifest = versionManifest;
+            return versionManifest;
         }
 
-        private async Task<bool> DownloadPackageAsync(MixItUpUpdateModel update)
+        private async Task<bool> DownloadPackageAsync()
         {
-            if (string.IsNullOrEmpty(this.packageUrl))
+            UpdateStepModel downloadStep = versionManifest.GetDownloadStep();
+            UpdateStepModel verifyStep   = versionManifest.GetVerifyStep();
+            UpdateStepModel extractStep  = versionManifest.GetExtractStep();
+
+            if (downloadStep == null || string.IsNullOrEmpty(downloadStep.target))
             {
-                this.WriteToLogFile("Package URL missing from manifest; cannot download.");
-                this.ShowError("Invalid update manifest.", "The update manifest did not include a package download link.");
+                WriteToLogFile("Package download step missing from manifest; cannot download.");
+                ShowError("Invalid update manifest.", "The update manifest did not include a package download step.");
                 return false;
             }
+
+            // target interpretation rule: treat as absolute URL if it begins with a URI scheme; otherwise construct from base
+            string packageUrl;
+            string packageFileName;
+            if (downloadStep.target.StartsWith("https://", StringComparison.OrdinalIgnoreCase) ||
+                downloadStep.target.StartsWith("http://", StringComparison.OrdinalIgnoreCase))
+            {
+                packageUrl = downloadStep.target;
+                packageFileName = Uri.TryCreate(downloadStep.target, UriKind.Absolute, out Uri parsed)
+                                      ? Path.GetFileName(parsed.LocalPath)
+                                      : "package.zip";
+            }
+            else
+            {
+                packageUrl = $"{FileServiceBaseUrl}/{this.manifestChannel}/{versionManifest.version}/{downloadStep.target}";
+                packageFileName = downloadStep.target;
+            }
+
+            string expectedSha256 = verifyStep?.value;
 
             bool encounteredChecksumMismatch = false;
             string lastExpectedHash = null;
@@ -534,13 +676,7 @@ namespace MixItUp.Installer
             this.tempDirectoryPath = Path.Combine(this.installDirectory, TempDirectoryName);
             Directory.CreateDirectory(this.tempDirectoryPath);
 
-            string versionSegment = string.IsNullOrEmpty(update?.Version) ? "latest" : update.Version;
-            foreach (char invalidChar in Path.GetInvalidFileNameChars())
-            {
-                versionSegment = versionSegment.Replace(invalidChar, '-');
-            }
-
-            string filePath = Path.Combine(this.tempDirectoryPath, string.Format("MixItUp-{0}.zip", versionSegment));
+            string filePath = Path.Combine(this.tempDirectoryPath, packageFileName);
             int maxAttempts = DownloadRetryDelays.Length + 1;
 
             for (int attempt = 0; attempt < maxAttempts; attempt++)
@@ -552,14 +688,14 @@ namespace MixItUp.Installer
                     this.IsOperationIndeterminate = true;
                     this.OperationProgress = 0;
 
-                    this.WriteToLogFile(string.Format("Downloading package (attempt {0}): {1}", attempt + 1, this.packageUrl));
+                    this.WriteToLogFile(string.Format("Downloading package (attempt {0}): {1}", attempt + 1, packageUrl));
 
                     if (File.Exists(filePath))
                     {
                         File.Delete(filePath);
                     }
 
-                    using (HttpResponseMessage response = await HttpClient.GetAsync(this.packageUrl, HttpCompletionOption.ResponseHeadersRead))
+                    using (HttpResponseMessage response = await HttpClient.GetAsync(packageUrl, HttpCompletionOption.ResponseHeadersRead))
                     {
                         if (!response.IsSuccessStatusCode)
                         {
@@ -594,10 +730,13 @@ namespace MixItUp.Installer
 
                             this.DisplayText1 = "Verifying download package...";
 
-                            string expectedHash = string.IsNullOrWhiteSpace(this.expectedSha256) ? null : this.expectedSha256.Trim();
+                            string expectedHash = string.IsNullOrWhiteSpace(expectedSha256) ? null : expectedSha256.Trim();
                             if (!string.IsNullOrEmpty(expectedHash))
                             {
-                                string actualHash = ComputeSha256(filePath);
+                                string verifyFilePath = (verifyStep != null && !string.IsNullOrEmpty(verifyStep.target))
+                                    ? Path.Combine(this.tempDirectoryPath, verifyStep.target)
+                                    : filePath;
+                                string actualHash = ComputeSha256(verifyFilePath);
 
                                 if (!string.Equals(expectedHash, actualHash, StringComparison.OrdinalIgnoreCase))
                                 {
@@ -626,7 +765,10 @@ namespace MixItUp.Installer
 
                             if (!checksumMismatchThisAttempt)
                             {
-                                this.downloadedPackagePath = filePath;
+                                string extractFilePath = (extractStep != null && !string.IsNullOrEmpty(extractStep.target))
+                                    ? Path.Combine(this.tempDirectoryPath, extractStep.target)
+                                    : filePath;
+                                this.downloadedPackagePath = extractFilePath;
                                 this.OperationProgress = 100;
                                 this.IsOperationIndeterminate = false;
                                 this.DisplayText1 = "Download complete.";
@@ -670,7 +812,7 @@ namespace MixItUp.Installer
             if (encounteredChecksumMismatch)
             {
                 this.WriteToLogFile(string.Format("Package download failed after {0} attempts due to checksum mismatches.", maxAttempts));
-                this.ShowChecksumMismatchError(lastExpectedHash ?? this.expectedSha256 ?? "<unknown>", lastActualHash ?? "<missing>");
+                this.ShowChecksumMismatchError(lastExpectedHash ?? expectedSha256 ?? "<unknown>", lastActualHash ?? "<missing>");
             }
             else
             {
@@ -759,13 +901,15 @@ namespace MixItUp.Installer
             return false;
         }
 
-        private async Task<bool> EnsureEulaAcceptedAsync(MixItUpUpdateModel update)
+        private async Task<bool> EnsureEulaAcceptedAsync()
         {
-            if (update == null || string.IsNullOrEmpty(update.EulaVersion) || string.IsNullOrEmpty(update.Eula))
+            if (string.IsNullOrEmpty(versionManifest.eulaVersion))
             {
                 this.WriteToLogFile("EULA not required for this update.");
                 return true;
             }
+
+            string eulaUrl = versionManifest.GetEulaUrl(FileServiceBaseUrl, this.manifestChannel);
 
             string eulaAcceptedPath = Path.Combine(this.installDirectory, EulaAcceptedFileName);
             try
@@ -776,7 +920,7 @@ namespace MixItUp.Installer
                     if (lines.Length > 0)
                     {
                         string recordedVersion = (lines[0] ?? string.Empty).Trim();
-                        if (!string.IsNullOrEmpty(recordedVersion) && string.Equals(recordedVersion, update.EulaVersion, StringComparison.OrdinalIgnoreCase))
+                        if (!string.IsNullOrEmpty(recordedVersion) && string.Equals(recordedVersion, versionManifest.eulaVersion, StringComparison.OrdinalIgnoreCase))
                         {
                             this.WriteToLogFile("EULA already accepted for version " + recordedVersion);
                             return true;
@@ -799,8 +943,8 @@ namespace MixItUp.Installer
             string eulaMarkdown;
             try
             {
-                this.WriteToLogFile("Downloading EULA markdown: " + update.Eula);
-                using (HttpResponseMessage response = await HttpClient.GetAsync(update.Eula, HttpCompletionOption.ResponseHeadersRead))
+                this.WriteToLogFile("Downloading EULA markdown: " + eulaUrl);
+                using (HttpResponseMessage response = await HttpClient.GetAsync(eulaUrl, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (!response.IsSuccessStatusCode)
                     {
@@ -825,12 +969,12 @@ namespace MixItUp.Installer
             this.IsOperationIndeterminate = true;
             this.OperationProgress = 0;
 
-            this.WriteToLogFile("Displaying EULA version " + update.EulaVersion);
+            this.WriteToLogFile("Displaying EULA version " + versionManifest.eulaVersion);
 
             bool accepted;
             try
             {
-                accepted = await this.ShowEulaDialogAsync(eulaMarkdown, update.Eula);
+                accepted = await this.ShowEulaDialogAsync(eulaMarkdown, eulaUrl);
             }
             catch (Exception ex)
             {
@@ -841,13 +985,13 @@ namespace MixItUp.Installer
 
             if (!accepted)
             {
-                this.WriteToLogFile("User declined EULA version " + update.EulaVersion);
+                this.WriteToLogFile("User declined EULA version " + versionManifest.eulaVersion);
                 this.ShowEulaDeclinedError();
                 return false;
             }
 
-            this.WriteToLogFile("User accepted EULA version " + update.EulaVersion);
-            this.PersistEulaAcceptance(update.EulaVersion);
+            this.WriteToLogFile("User accepted EULA version " + versionManifest.eulaVersion);
+            this.PersistEulaAcceptance(versionManifest.eulaVersion);
             return true;
         }
 

@@ -33,7 +33,13 @@ namespace MixItUp.Base.Model.Actions
                     Logger.Log(LogLevel.Error, $"Command: {parameters.InitialCommandID} - Wait Action - Wait for longer than 30 seconds detected.");
                 }
 
-                await Task.Delay((int)(1000 * amount));
+                double remaining = amount;
+                while (remaining > 0.0 && !parameters.ExitCommand)
+                {
+                    double chunk = Math.Min(remaining, 1.0);
+                    await Task.Delay((int)(1000 * chunk));
+                    remaining -= chunk;
+                }
             }
         }
     }

@@ -102,7 +102,7 @@ namespace MixItUp.WPF
                 Logger.Log(ex);
             }
 
-            Logger.ForceLog(LogLevel.Information, "Application Version: " + ServiceManager.Get<IFileService>().GetApplicationVersion());
+            Logger.ForceLog(LogLevel.Information, "Application Version: " + ServiceManager.Get<IFileService>().GetApplicationVersion() + " [" + VersionHelper.GetFullVersionString() + BuildChannelHelper.BUILD_CHANNEL_SUFFIX + "]");
             Logger.AlwaysLogFullStackTraceWithExceptions = true;
             if (ChannelSession.IsDebug() || (ChannelSession.AppSettings != null && ChannelSession.AppSettings.DiagnosticLogging))
             {

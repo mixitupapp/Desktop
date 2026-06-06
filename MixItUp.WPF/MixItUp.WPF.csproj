@@ -9,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-    <AssemblyVersion>1.7.000.0</AssemblyVersion>
-    <FileVersion>1.7.000.0</FileVersion>
+    <AssemblyVersion>1.7.100.0</AssemblyVersion>
+    <FileVersion>1.7.100.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -49,23 +49,15 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <DefineConstants>$(DefineConstants);DEBUG_BUILD</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Preview|AnyCPU'">
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>$(DefineConstants);PREVIEW_BUILD</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>$(DefineConstants);TEST_BUILD</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(BuildChannel)' != ''">
-    <DefineConstants>$(DefineConstants);$(BuildChannel)</DefineConstants>
   </PropertyGroup>
   <ItemGroup Label="Framework References">
     		<FrameworkReference Include="Microsoft.AspNetCore.App" />

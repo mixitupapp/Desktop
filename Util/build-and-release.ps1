@@ -179,6 +179,13 @@ function Prompt-YesNo {
     }
 }
 
+function NormalizeVersion([string]$ver) {
+    $clean = ($ver -split '[-+]', 2)[0]
+    $parts = $clean -split '\.' | ForEach-Object { [int]$_ }
+    while ($parts.Count -lt 4) { $parts += 0 }
+    [System.Version]::new($parts[0], $parts[1], $parts[2], $parts[3])
+}
+
 try {
     & tar --version 2>$null | Out-Null
     if ($LASTEXITCODE -ne 0) {
@@ -202,12 +209,11 @@ Push-Location (Join-Path $desktopDir "..") | Out-Null
 $repoRoot = (Get-Location).Path
 Pop-Location | Out-Null
 
-$publishingDir = Join-Path $repoRoot "Publishing"
+$publishingDir = Join-Path $repoRoot ".publishing"
 if (-not (Test-Path -LiteralPath $publishingDir)) {
     New-Item -ItemType Directory -Path $publishingDir -ErrorAction Stop | Out-Null
 }
-
-$publishOutputDir = Join-Path $publishingDir "Published"
+# $publishOutputDir is deferred — depends on product/channel/version collected below
 
 $eulaSource = Join-Path $repoRoot "Docs\Legal\Desktop\Embedded\End-User-License-Agreement.md"
 if (-not (Test-Path -LiteralPath $eulaSource)) {
@@ -215,11 +221,14 @@ if (-not (Test-Path -LiteralPath $eulaSource)) {
     Fail
 }
 
-$artifactRoot = Join-Path $repoRoot "FileService\artifacts"
+$artifactRoot = Join-Path $repoRoot ".artifacts"
 if (-not (Test-Path -LiteralPath $artifactRoot)) {
-    Write-Host "Artifact root not found at \"$artifactRoot\"."
-    Fail
+    New-Item -ItemType Directory -Path $artifactRoot -Force -ErrorAction Stop | Out-Null
 }
+
+$v2PackagesRoot  = Join-Path $artifactRoot "packages"
+$v2ManifestsRoot = Join-Path $artifactRoot "manifests"
+$v2BaseUrl       = "https://files.mixitupapp.com/api/v2/apps"
 
 try {
     $now = Get-Date
@@ -304,6 +313,18 @@ while (-not $releaseVersion) {
 
 $assemblyVersion = "$releaseVersion.0"
 
+# Output directory per-build: .publishing/{app}-{channel}-{version}
+$publishOutputDir = Join-Path $publishingDir "$productSlug-$releaseChannel-$releaseVersion"
+
+# Zip uses the final release name directly
+if ($productKey -eq "desktop") {
+    $zipName = "MixItUp-Desktop_$releaseVersion.zip"
+}
+
+# V2 package directory name: {app}_{version}_{platform}_{channel}
+$v2PkgDirName = "${productSlug}_${releaseVersion}_windows-x64_${releaseChannel}"
+$v2PkgDir     = Join-Path $v2PackagesRoot $v2PkgDirName
+
 $artifactDir = Join-Path $artifactRoot "$productSlug\windows-x64\$releaseChannel\$releaseVersion"
 $cleanArtifactDir = $false
 if (Test-Path -LiteralPath $artifactDir) {
@@ -319,6 +340,7 @@ if (Test-Path -LiteralPath $artifactDir) {
 
 $installerVersion = $null
 $installerUrl = $null
+$v2InstallerUrl = $null
 if ($productKey -eq "desktop" -and $releaseChannel -ne "test") {
     while (-not $installerVersion) {
         $installerVersion = Read-Host "Enter installer version to reference in manifest (e.g. 0.5.0): "
@@ -328,7 +350,8 @@ if ($productKey -eq "desktop" -and $releaseChannel -ne "test") {
             $installerVersion = $null
         }
     }
-    $installerUrl = "https://files.mixitupapp.com/apps/mixitup-desktop-installer/windows-x64/public/$installerVersion/MixItUp-Setup.exe"
+    $installerUrl   = "https://files.mixitupapp.com/apps/mixitup-desktop-installer/windows-x64/public/$installerVersion/MixItUp-Setup.exe"
+    $v2InstallerUrl = "$v2BaseUrl/mixitup-desktop-installer/windows-x64/public/$installerVersion/MixItUp-Setup.exe"
 
     if (-not (Prompt-YesNo "Has the CHANGELOG.md been updated for the Desktop app? (Y/n): " $true)) {
         Write-Host "Please update the CHANGELOG.md before proceeding with the release."
@@ -365,6 +388,9 @@ if ($cleanArtifactDir) {
         Write-Host "Failed to remove existing artifact directory."
         Fail
     }
+    if (Test-Path -LiteralPath $v2PkgDir) {
+        Remove-Item -LiteralPath $v2PkgDir -Recurse -Force -ErrorAction SilentlyContinue
+    }
 }
 
 try {
@@ -391,6 +417,17 @@ if ($doSign) {
     if (-not (Test-Path -LiteralPath $signTool)) {
         Write-Host "signtool.exe not found at: $signTool"
         Fail
+    }
+}
+
+Write-Host "Removing stale bin and obj directories..."
+foreach ($projName in @("MixItUp.Base", "MixItUp.Installer", "MixItUp.Reporter", "MixItUp.SignalR.Client", "MixItUp.Uninstaller", "MixItUp.WPF")) {
+    foreach ($subDir in @("bin", "obj")) {
+        $dirToRemove = Join-Path $desktopDir "$projName\$subDir"
+        if (Test-Path -LiteralPath $dirToRemove) {
+            Remove-Item -LiteralPath $dirToRemove -Recurse -Force -ErrorAction SilentlyContinue
+            Write-Host "  Removed: $projName\$subDir"
+        }
     }
 }
 
@@ -452,8 +489,8 @@ if ($doSign) {
 }
 
 if ($productKey -eq "desktop") {
-    Write-Host "Creating MixItUp.zip..."
-    $zipPath = Join-Path $publishingDir "MixItUp.zip"
+    Write-Host "Creating $zipName..."
+    $zipPath = Join-Path $publishingDir $zipName
     if (Test-Path -LiteralPath $zipPath) {
         Remove-Item -LiteralPath $zipPath -Force -ErrorAction SilentlyContinue
     }
@@ -488,24 +525,15 @@ Write-Host "====================================================================
 Write-Host "Step 2: Packaging Artifacts..."
 Write-Host "==============================================================================="
 
-$publishingDir = Join-Path $repoRoot "Publishing"
-if (-not (Test-Path -LiteralPath $publishingDir)) {
-    $fallbackPublishing = Join-Path $scriptDir "..\..\..\Publishing"
-    if (Test-Path -LiteralPath $fallbackPublishing) {
-        $publishingDir = (Resolve-Path -LiteralPath $fallbackPublishing).Path
-    }
-}
-
 if (-not (Test-Path -LiteralPath $publishingDir)) {
     Write-Host "Publishing directory not found at \"$publishingDir\"."
-    Write-Host "Please run BuildAndSignRelease.ps1 first."
     Fail
 }
 
 Write-Host "Packaging build output..."
 if ($productKey -eq "desktop") {
     $packageFilename = "MixItUp-Desktop_$releaseVersion.zip"
-    $packageSourceFile = Join-Path $publishingDir "MixItUp.zip"
+    $packageSourceFile = Join-Path $publishingDir $zipName
     if (-not (Test-Path -LiteralPath $packageSourceFile)) {
         Write-Host "Pre-built package not found at \"$packageSourceFile\"."
         Fail
@@ -587,7 +615,8 @@ $changelogUrl = "$baseUrl/changelog.md"
 $packageUrl = "$baseUrl/$packageFilename"
 
 if ($productKey -ne "desktop") {
-    $installerUrl = $packageUrl
+    $installerUrl   = $packageUrl
+    $v2InstallerUrl = "$v2BaseUrl/$productSlug/windows-x64/$releaseChannel/$releaseVersion/$packageFilename"
 }
 
 Write-Host ""
@@ -632,11 +661,106 @@ if ($releaseChannel -ne "test") {
     }
 }
 
+if ($releaseChannel -ne "test") {
+    Write-Host ""
+    Write-Host "==============================================================================="
+    Write-Host "Step 3: Creating V2 Artifacts..."
+    Write-Host "==============================================================================="
+
+    New-Item -ItemType Directory -Force -Path $v2ManifestsRoot | Out-Null
+
+    $v2DocsDir  = Join-Path $v2PkgDir "docs"
+    $v2FilesDir = Join-Path $v2PkgDir "files"
+    New-Item -ItemType Directory -Force -Path $v2DocsDir  | Out-Null
+    New-Item -ItemType Directory -Force -Path $v2FilesDir | Out-Null
+
+    Copy-Item -LiteralPath $packagePath                        -Destination (Join-Path $v2FilesDir $packageFilename) -Force
+    Copy-Item -LiteralPath (Join-Path $artifactDir "eula.md") -Destination (Join-Path $v2DocsDir  "eula.md")        -Force
+    # changelog is empty at this point — copied so V2 structure is complete;
+    # user must populate both V1 and V2 changelog paths after the script finishes
+    Copy-Item -LiteralPath (Join-Path $artifactDir "changelog.md") -Destination (Join-Path $v2DocsDir "changelog.md") -Force
+
+    $v2Steps = [System.Collections.Generic.List[object]]::new()
+    $v2Steps.Add([ordered]@{ action = "download"; target = $packageFilename })
+    if (-not [string]::IsNullOrWhiteSpace($packageSha)) {
+        $v2Steps.Add([ordered]@{ action = "verify"; target = $packageFilename; value = $packageSha })
+    }
+    if ($packageFilename.EndsWith(".zip")) {
+        $v2Steps.Add([ordered]@{ action = "extract"; target = $packageFilename; value = "/" })
+    }
+
+    $v2Pkg = [ordered]@{
+        schemaVersion = "2.0.0"
+        version       = $releaseVersion
+        eulaVersion   = $eulaVersion
+        releasedAt    = $releasedAt
+        installer     = $v2InstallerUrl
+        steps         = [object[]]($v2Steps.ToArray())
+    }
+    Set-Content (Join-Path $v2PkgDir "package.json") ($v2Pkg | ConvertTo-Json -Depth 5) -Encoding UTF8
+    Write-Host "  Written:  $v2PkgDirName\package.json"
+
+    # Channel version-check manifest
+    $channelManifestPath = Join-Path $v2ManifestsRoot "${productSlug}_windows-x64_${releaseChannel}.json"
+    $existingChannel = $null
+    if (Test-Path -LiteralPath $channelManifestPath) {
+        try { $existingChannel = Get-Content $channelManifestPath -Raw | ConvertFrom-Json } catch { }
+    }
+
+    $currentLatest = if ($existingChannel -and $existingChannel.PSObject.Properties['latestVersion']) { $existingChannel.latestVersion } else { $null }
+    $newLatest = $releaseVersion
+    if ($currentLatest) {
+        try {
+            if ((NormalizeVersion $releaseVersion) -lt (NormalizeVersion $currentLatest)) {
+                $newLatest = $currentLatest
+            }
+        } catch { }
+    }
+
+    $minVer  = if ($existingChannel -and $existingChannel.PSObject.Properties['minimumVersion'])    { $existingChannel.minimumVersion         } else { $releaseVersion }
+    $rollout = if ($existingChannel -and $existingChannel.PSObject.Properties['rolloutPercentage']) { [int]$existingChannel.rolloutPercentage  } else { 100 }
+    $paused  = if ($existingChannel -and $existingChannel.PSObject.Properties['updatePaused'])      { [bool]$existingChannel.updatePaused      } else { $false }
+
+    $newChannelManifest = [ordered]@{
+        schemaVersion     = "2.0.0"
+        app               = $productSlug
+        channel           = $releaseChannel
+        os                = "windows"
+        arch              = "x64"
+        minimumVersion    = $minVer
+        latestVersion     = $newLatest
+        rolloutPercentage = $rollout
+        updatePaused      = $paused
+    }
+    Set-Content $channelManifestPath ($newChannelManifest | ConvertTo-Json -Depth 3) -Encoding UTF8
+    Write-Host "  Updated:  $(Split-Path $channelManifestPath -Leaf)  (latestVersion = $newLatest)"
+
+    # Versions list
+    $versionsListPath = Join-Path $v2ManifestsRoot "${productSlug}_windows-x64_${releaseChannel}_versions.json"
+    $existingVersions = @()
+    if (Test-Path -LiteralPath $versionsListPath) {
+        try { $existingVersions = @(Get-Content $versionsListPath -Raw | ConvertFrom-Json) } catch { }
+    }
+    $versionsSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($v in $existingVersions) { [void]$versionsSet.Add($v) }
+    [void]$versionsSet.Add($releaseVersion)
+    $sortedVersions = @($versionsSet | Sort-Object -Descending { NormalizeVersion $_ })
+    Set-Content $versionsListPath (ConvertTo-Json -InputObject @($sortedVersions) -Depth 2) -Encoding UTF8
+    Write-Host "  Updated:  $(Split-Path $versionsListPath -Leaf)  ($($sortedVersions.Count) version(s))"
+}
+
 Write-Host ""
-Write-Host "Artifact prepared at: $artifactDir"
-Write-Host "Package: $packagePath"
-Write-Host "SHA256: $packageSha"
-if ($releaseChannel -ne "test") { Write-Host "Populate changelog at: $artifactDir\changelog.md" }
+Write-Host "V1 artifact: $artifactDir"
+if ($releaseChannel -ne "test") {
+    Write-Host "V2 artifact: $v2PkgDir"
+}
+Write-Host "Package:     $packagePath"
+Write-Host "SHA256:      $packageSha"
+if ($releaseChannel -ne "test") {
+    Write-Host "Populate changelog:"
+    Write-Host "  V1: $artifactDir\changelog.md"
+    Write-Host "  V2: $v2PkgDir\docs\changelog.md"
+}
 
 if ($script:LocationPushed) {
     Pop-Location | Out-Null

@@ -1,5 +1,52 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.100
+
+### FEATURES
+
+- Add Twitch Channel User Warned event
+- Add Twitch Channel Shoutout Received event
+- Add Twitch Channel Suspicious User Message and Twitch Channel Suspicious User Updated events
+- Add Twitch Channel Shield Mode Started and Twitch Channel Shield Mode Ended events
+- Add Twitch Channel Goal Started and Twitch Channel Goal Ended events
+- Add new Twitch action options: Pin Message, Unpin Message, Warn User, Shield Mode On, Shield Mode Off, Set Suspicious User Status, Remove Suspicious User Status, Block User, Unblock User, and Update Redemption Status
+- Add Kick channel points and kicks alerts to dashboard
+- Add author URL field to Discord embeds
+- Add Per Person Group Cooldown
+- Add Follower Role Bonus for Currencies and Ranks
+- Add $dayoftheweekname special identifier (similar to $dayoftheweek but this is localized to your PC language settings)
+- Add setting to hide Script action errors from being posted in chat and add "Open Logs" button to the action
+- Add setting for pre-made !game command to choose between Steam or Xbox/Microsoft lookup
+
+### FIXES
+
+- Cancel Wait action when Exit Command or Cancel Command is triggered
+- SemVer parsing for leading zeros in patch
+- Typo in login screen
+- Fix crashes when adding or removing webhooks
+- Fix crashes in moderation page
+- Changeover to new v2 update server
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Update Twitch Custom Power-Ups event subscription from beta to generally available
+- Adjust update check timeout and backoff progression to speed up the login process
+- Add backoff progression for webhook reconnections
+- Improve webhooks connection and reconnection code
+- Adjust status loading bar in the login window
+- Adjust version logging on app launch
+
+## 1.7.001 (HOTFIX)
+
+### FIXES
+
+- $messagenoemotes and $messageemotecount not working in some command types
+- Crash on app launch when app fails to check for updates
+- Crash when the webhook service disconnected and attempted to reconnect
+- Crowd Control commands not triggering after editing and saving
+- Kick channel information special identifiers
+- Run enabled commands when matching Twitch channel point and custom power-up redeems to avoid disabled duplicates blocking enabled ones
+
 ## 1.7.000
 
 ### ***BREAKING CHANGES***

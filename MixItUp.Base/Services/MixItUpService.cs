@@ -1,6 +1,7 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.API;
+using MixItUp.Base.Model.API.Files.V2;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Model.Web;
@@ -20,7 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +32,7 @@ namespace MixItUp.Base.Services
     {
         bool IsWebhookHubConnected { get; }
         bool IsWebhookHubAllowed { get; }
+        event EventHandler<bool> OnWebhooksHubAllowed;
         void BackgroundConnect();
         Task<Result> Connect();
         Task Disconnect();
@@ -50,7 +51,7 @@ namespace MixItUp.Base.Services
         void MarkNotificationsAsRead();
         Task<OutageModel> CheckOutageStatus();
         Task<PatreonMemberShoutoutModel> GetRandomPatreonMemberShoutout();
-        Task<List<string>> GetAllPatreonMemberNames();
+        Task<List<PatreonMemberV2Model>> GetAllPatreonMembersV2();
     }
 
     public interface IWebhookService
@@ -144,14 +145,13 @@ namespace MixItUp.Base.Services
         public const string DevMixItUpAPIEndpoint = "http://localhost:3000/api/";                // Dev Endpoint
         public const string DevMixItUpWebhookHubEndpoint = "ws://localhost:3000/webhookhub";      // Dev Endpoint
 
-        private const string UtilApiEndpoint = "https://util.mixitupapp.com/";
 
-        private const string FileServiceBaseUrl = "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
         private static readonly TimeSpan[] FileServiceRetryDelays = new[]
         {
-            TimeSpan.FromSeconds(2),
-            TimeSpan.FromSeconds(4),
-            TimeSpan.FromSeconds(8),
+            TimeSpan.FromSeconds(3),
+            TimeSpan.FromSeconds(6),
+            TimeSpan.FromSeconds(9),
         };
 
         private string accessToken = null;
@@ -165,35 +165,42 @@ namespace MixItUp.Base.Services
         private readonly TimeSpan notificationCacheExpiry = TimeSpan.FromMinutes(5);
         private readonly object patreonShoutoutFetchLock = new object();
         private Task<PatreonMemberShoutoutModel> patreonShoutoutFetchTask = null;
-        private Task<List<string>> patreonMembersFetchTask = null;
+        private Task<List<PatreonMemberV2Model>> patreonMembersFetchTask = null;
 
         public event EventHandler<bool> NotificationStatusChanged;
         public bool HasUnreadNotifications { get; private set; }
 
-        // IMixItUpService
-        public async Task<MixItUpUpdateModel> GetLatestUpdate()
+        public static ClientOptionsModel Options { get; private set; } = new ClientOptionsModel();
+        public async Task<(UpdateVersionCheckModel, UpdateVersionManifestModel)?> GetLatestUpdate()
         {
             try
             {
-                MixItUpUpdateModel update = await this.GetLatestPublicUpdate();
-                bool requestPreview = ChannelSession.AppSettings.PreviewProgram || ChannelSession.AppSettings.TestBuild;
+                string channel = (ChannelSession.AppSettings.PreviewProgram || ChannelSession.AppSettings.TestBuild) ? "preview" : "public";
                 ChannelSession.AppSettings.TestBuild = false;
 
-                if (requestPreview)
+                UpdateVersionCheckModel check = await this.FetchVersionCheckAsync(channel);
+                if (check == null || check.updatePaused)
                 {
-                    MixItUpUpdateModel previewUpdate = await this.GetLatestPreviewUpdate();
-                    if (previewUpdate != null)
-                    {
-                        Version updateVersion = update?.GetNormalizedVersion();
-                        Version previewVersion = previewUpdate.GetNormalizedVersion();
-                        if (update == null || previewVersion >= updateVersion)
-                        {
-                            update = previewUpdate;
-                        }
-                    }
+                    return null;
                 }
 
-                return update;
+                Version currentVersion = VersionHelper.GetCurrentVersion();
+                Version latestVersion = check.GetNormalizedLatestVersion();
+                Version minimumVersion = check.GetNormalizedMinimumVersion();
+
+                if (currentVersion >= latestVersion && currentVersion >= minimumVersion)
+                {
+                    return null;
+                }
+
+                string targetVersion = currentVersion < minimumVersion ? check.minimumVersion : check.latestVersion;
+                UpdateVersionManifestModel manifest = await this.FetchVersionManifestAsync(channel, targetVersion);
+                if (manifest == null)
+                {
+                    return null;
+                }
+
+                return (check, manifest);
             }
             catch (Exception ex)
             {
@@ -202,16 +209,7 @@ namespace MixItUp.Base.Services
             return null;
         }
 
-        public async Task<MixItUpUpdateModel> GetLatestPublicUpdate()
-        {
-            return await this.FetchLatestUpdateFromFileService("public", CancellationToken.None);
-        }
-        public async Task<MixItUpUpdateModel> GetLatestPreviewUpdate()
-        {
-            return await this.FetchLatestUpdateFromFileService("preview", CancellationToken.None);
-        }
-
-        private async Task<MixItUpUpdateModel> FetchLatestUpdateFromFileService(string channel, CancellationToken cancellationToken)
+        private async Task<UpdateVersionCheckModel> FetchVersionCheckAsync(string channel)
         {
             string url = $"{FileServiceBaseUrl}/{channel}/latest";
             Exception lastError = null;
@@ -222,36 +220,25 @@ namespace MixItUp.Base.Services
                 {
                     using (AdvancedHttpClient client = new AdvancedHttpClient())
                     {
-                        client.Timeout = TimeSpan.FromSeconds(10 + (attempt * 5));
-                        MixItUpUpdateModel update = await client.GetAsync<MixItUpUpdateModel>(url);
-                        if (update != null)
+                        client.Timeout = TimeSpan.FromSeconds(5);
+                        UpdateVersionCheckModel check = await client.GetAsync<UpdateVersionCheckModel>(url);
+                        if (check != null)
                         {
-                            if (!update.Active)
-                            {
-                                Logger.Log(LogLevel.Warning, $"File Service returned inactive manifest for channel {channel}: {url}");
-                                return null;
-                            }
-
-                            if (string.IsNullOrEmpty(update.Channel))
-                            {
-                                update.Channel = channel;
-                            }
-
-                            return update;
+                            return check;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     lastError = ex;
-                    Logger.Log(LogLevel.Warning, $"Attempt {attempt + 1} to fetch update manifest from {url} failed: {ex.Message}");
+                    Logger.Log(LogLevel.Warning, $"Attempt {attempt + 1} to fetch version check from {url} failed: {ex.Message}");
                 }
 
                 if (attempt < FileServiceRetryDelays.Length)
                 {
                     try
                     {
-                        await Task.Delay(FileServiceRetryDelays[attempt], cancellationToken).ConfigureAwait(false);
+                        await Task.Delay(FileServiceRetryDelays[attempt], CancellationToken.None).ConfigureAwait(false);
                     }
                     catch (TaskCanceledException)
                     {
@@ -265,7 +252,54 @@ namespace MixItUp.Base.Services
                 Logger.Log(lastError);
             }
 
-            Logger.Log(LogLevel.Warning, $"Unable to retrieve update manifest from {url} after retries.");
+            Logger.Log(LogLevel.Warning, $"Unable to retrieve version check from {url} after retries.");
+            return null;
+        }
+
+        private async Task<UpdateVersionManifestModel> FetchVersionManifestAsync(string channel, string version)
+        {
+            string url = $"{FileServiceBaseUrl}/{channel}/{version}";
+            Exception lastError = null;
+
+            for (int attempt = 0; attempt <= FileServiceRetryDelays.Length; attempt++)
+            {
+                try
+                {
+                    using (AdvancedHttpClient client = new AdvancedHttpClient())
+                    {
+                        client.Timeout = TimeSpan.FromSeconds(5);
+                        UpdateVersionManifestModel manifest = await client.GetAsync<UpdateVersionManifestModel>(url);
+                        if (manifest != null)
+                        {
+                            return manifest;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lastError = ex;
+                    Logger.Log(LogLevel.Warning, $"Attempt {attempt + 1} to fetch version manifest from {url} failed: {ex.Message}");
+                }
+
+                if (attempt < FileServiceRetryDelays.Length)
+                {
+                    try
+                    {
+                        await Task.Delay(FileServiceRetryDelays[attempt], CancellationToken.None).ConfigureAwait(false);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (lastError != null)
+            {
+                Logger.Log(lastError);
+            }
+
+            Logger.Log(LogLevel.Warning, $"Unable to retrieve version manifest from {url} after retries.");
             return null;
         }
 
@@ -509,8 +543,13 @@ namespace MixItUp.Base.Services
         public const string AuthenticateMethodName = "AuthenticateMany";
         private WebhookHubConnection webhookHubConnection = null;
         private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
+        private readonly SemaphoreSlim webhookConnectLock = new SemaphoreSlim(1, 1);
+        private CancellationTokenSource webhookReconnectCancellationTokenSource = null;
+        private const int WebhookReconnectBaseDelayMs = 5000;
+        private const int WebhookReconnectMaxDelayMs = 30000;
         public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
         public bool IsWebhookHubAllowed { get; private set; } = false;
+        public event EventHandler<bool> OnWebhooksHubAllowed = delegate { };
 
         public void BackgroundConnect()
         {
@@ -527,78 +566,100 @@ namespace MixItUp.Base.Services
         public async Task<Result> Connect()
         {
             if (isUpdateRequired) return new Result("Update Required");
-            if (!this.IsWebhookHubConnected)
+
+            await this.webhookConnectLock.WaitAsync();
+            try
             {
-                if (this.webhookHubConnection == null)
+                if (!this.IsWebhookHubConnected)
                 {
-                    this.webhookHubConnection = new WebhookHubConnection(this.GetWebhookHubAddress());
-
-                    this.webhookHubConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
+                    if (this.webhookHubConnection == null)
                     {
-                        Logger.Log($"Webhook Event - Generic Webhook - {id} - {payload}");
-                        var _ = this.TriggerGenericWebhook(id, payload);
-                    });
+                        this.webhookHubConnection = new WebhookHubConnection(this.GetWebhookHubAddress());
 
-                    this.webhookHubConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
-                    {
-                        Logger.Log($"Webhook Authentication - {approved}");
-
-                        this.IsWebhookHubAllowed = approved;
-                        this.webhookAuthenticationCompletionSource?.TrySetResult(approved);
-                        if (!this.IsWebhookHubAllowed)
+                        this.webhookHubConnection.Listen("TriggerWebhook", (Guid id, string payload) =>
                         {
-                            Logger.Log(LogLevel.Error, $"Webhook Authentication Failed");
+                            Logger.Log($"Webhook Event - Generic Webhook - {id} - {payload}");
+                            var _ = this.TriggerGenericWebhook(id, payload);
+                        });
 
-                            // Force disconnect is it doesn't retry
-                            var _ = this.Disconnect();
-                        }
-                    });
-
-                    this.webhookHubConnection.Listen<string, JObject, JObject>("KickWebhookEvent", (eventType, payload, metadataObject) =>
-                    {
-                        try
+                        this.webhookHubConnection.Listen("AuthenticationCompleteEvent", (bool approved) =>
                         {
-                            Logger.Log(LogLevel.Debug, $"Kick Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
+                            Logger.Log($"Webhook Authentication - {approved}");
 
-                            WebhookEventModel metadata = metadataObject?.ToObject<WebhookEventModel>();
-                            var _ = ServiceManager.Get<KickSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
-                        }
-                        catch (Exception ex)
+                            this.IsWebhookHubAllowed = approved;
+                            this.webhookAuthenticationCompletionSource?.TrySetResult(approved);
+                            this.OnWebhooksHubAllowed(this, approved);
+                            if (!this.IsWebhookHubAllowed)
+                            {
+                                Logger.Log(LogLevel.Error, $"Webhook Authentication Failed");
+
+                                // Force disconnect so it doesn't retry
+                                var _ = this.Disconnect();
+                            }
+                        });
+
+                        this.webhookHubConnection.Listen<string, JObject, JObject>("KickWebhookEvent", (eventType, payload, metadataObject) =>
                         {
-                            Logger.Log(ex);
-                        }
-                    });
-                }
+                            try
+                            {
+                                Logger.Log(LogLevel.Debug, $"Kick Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
 
-                this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
-                this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
-
-                this.webhookHubConnection.Connected += WebhookHubConnection_Connected;
-                this.webhookHubConnection.Disconnected += WebhookHubConnection_Disconnected;
-
-                if (await this.webhookHubConnection.Connect())
-                {
-                    this.IsWebhookHubAllowed = false;
-                    this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
-
-                    Task completedTask = await Task.WhenAny(this.webhookAuthenticationCompletionSource.Task, Task.Delay(TimeSpan.FromSeconds(15)));
-                    bool authenticated = completedTask == this.webhookAuthenticationCompletionSource.Task && this.webhookAuthenticationCompletionSource.Task.Result;
-                    this.webhookAuthenticationCompletionSource = null;
-
-                    if (!authenticated)
-                    {
-                        await this.Disconnect();
+                                WebhookEventModel metadata = metadataObject?.ToObject<WebhookEventModel>();
+                                var _ = ServiceManager.Get<KickSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(ex);
+                            }
+                        });
                     }
 
-                    return new Result(authenticated);
-                }
+                    this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
+                    this.webhookHubConnection.Disconnected -= WebhookHubConnection_Disconnected;
 
-                return new Result(MixItUp.Base.Resources.WebhooksServiceFailedConnection);
+                    this.webhookHubConnection.Connected += WebhookHubConnection_Connected;
+                    this.webhookHubConnection.Disconnected += WebhookHubConnection_Disconnected;
+
+                    if (!await this.webhookHubConnection.Connect())
+                    {
+                        return new Result(MixItUp.Base.Resources.WebhooksServiceFailedConnection);
+                    }
+                }
+                else
+                {
+                    return new Result(MixItUp.Base.Resources.WebhookServiceAlreadyConnected);
+                }
             }
-            return new Result(MixItUp.Base.Resources.WebhookServiceAlreadyConnected);
+            finally
+            {
+                this.webhookConnectLock.Release();
+            }
+
+            this.IsWebhookHubAllowed = false;
+            this.webhookAuthenticationCompletionSource = new TaskCompletionSource<bool>();
+            TaskCompletionSource<bool> tcs = this.webhookAuthenticationCompletionSource;
+
+            Task completedTask = await Task.WhenAny(tcs.Task, Task.Delay(TimeSpan.FromSeconds(15)));
+            bool authenticated = completedTask == tcs.Task && tcs.Task.Result;
+            this.webhookAuthenticationCompletionSource = null;
+
+            if (!authenticated)
+            {
+                await this.Disconnect();
+            }
+
+            return new Result(authenticated);
         }
 
         public async Task Disconnect()
+        {
+            webhookReconnectCancellationTokenSource?.Cancel();
+            webhookReconnectCancellationTokenSource = null;
+
+            await DisconnectHubConnection();
+        }
+
+        private async Task DisconnectHubConnection()
         {
             if (this.webhookHubConnection != null)
             {
@@ -624,7 +685,7 @@ namespace MixItUp.Base.Services
 
         private async void WebhookHubConnection_Disconnected(object sender, Exception e)
         {
-            if (e.Message.Contains("4426"))
+            if (e?.Message?.Contains("4426") == true)
             {
                 isUpdateRequired = true;
                 Logger.Log(LogLevel.Error, "A Desktop update is required to use Mix It Up WebhookHub services.");
@@ -633,16 +694,32 @@ namespace MixItUp.Base.Services
 
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
-            Result result;
-            do
+            var reconnectCts = new CancellationTokenSource();
+            webhookReconnectCancellationTokenSource = reconnectCts;
+            CancellationToken reconnectToken = reconnectCts.Token;
+            try
             {
-                await this.Disconnect();
-                await Task.Delay(5000 + RandomHelper.GenerateRandomNumber(5000));
-                result = await this.Connect();
-            }
-            while (!result.Success && !isUpdateRequired);
+                Result result;
+                int attempt = 0;
+                do
+                {
+                    await DisconnectHubConnection();
 
-            ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+                    int baseDelay = Math.Min(WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
+                    int jitter = RandomHelper.GenerateRandomNumber(-(baseDelay / 2), baseDelay / 2);
+                    await Task.Delay(baseDelay + jitter, reconnectToken);
+
+                    result = await this.Connect();
+                    attempt++;
+                }
+                while (!result.Success && !isUpdateRequired && !reconnectToken.IsCancellationRequested);
+
+                if (result.Success)
+                {
+                    ChannelSession.ReconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
+                }
+            }
+            catch (OperationCanceledException) { }
         }
 
         public async Task Authenticate(CommunityCommandLoginModel login)
@@ -651,6 +728,7 @@ namespace MixItUp.Base.Services
 
             try
             {
+                if (this.webhookHubConnection == null) { return; }
                 await this.AsyncWrapper(this.webhookHubConnection.Send(AuthenticateMethodName, login));
             }
             catch (Exception ex)
@@ -730,7 +808,7 @@ namespace MixItUp.Base.Services
         private CommunityCommandLoginModel GetLoginToken()
         {
             var login = new CommunityCommandLoginModel();
-            login.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
+            login.Version = VersionHelper.GetFullVersionString();
 
             if (ServiceManager.Get<TwitchSession>().IsConnected)
             {
@@ -942,7 +1020,7 @@ namespace MixItUp.Base.Services
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
 
-                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/random/v2");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -957,6 +1035,9 @@ namespace MixItUp.Base.Services
                                 {
                                     DisplayName = displayName,
                                     AvatarUrl = member?["avatar_url"]?.ToString(),
+                                    SocialMediaLink = member?["social_media_link"]?.ToString(),
+                                    Platform = member?["platform"]?.ToString(),
+                                    PlatformUsername = member?["platform_username"]?.ToString(),
                                 };
                             }
                         }
@@ -970,16 +1051,16 @@ namespace MixItUp.Base.Services
             return null;
         }
 
-        public Task<List<string>> GetAllPatreonMemberNames()
+        public Task<List<PatreonMemberV2Model>> GetAllPatreonMembersV2()
         {
             if (this.patreonMembersFetchTask == null)
             {
-                this.patreonMembersFetchTask = this.FetchAllPatreonMemberNames();
+                this.patreonMembersFetchTask = this.FetchAllPatreonMembersV2();
             }
             return this.patreonMembersFetchTask;
         }
 
-        private async Task<List<string>> FetchAllPatreonMemberNames()
+        private async Task<List<PatreonMemberV2Model>> FetchAllPatreonMembersV2()
         {
             try
             {
@@ -987,20 +1068,27 @@ namespace MixItUp.Base.Services
                 {
                     client.Timeout = TimeSpan.FromSeconds(10);
 
-                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/all");
+                    HttpResponseMessage response = await client.GetAsync("services/patreon/members/all/v2");
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         string json = await response.Content.ReadAsStringAsync();
                         JObject data = JObject.Parse(json);
                         if (data["success"]?.Value<bool>() == true)
                         {
-                            JArray namesArray = data["names"] as JArray;
-                            if (namesArray != null)
+                            JArray membersArray = data["members"] as JArray;
+                            if (membersArray != null)
                             {
-                                return namesArray.Values<string>()
-                                    .Where(n => !string.IsNullOrWhiteSpace(n))
-                                    .Select(n => n.Trim())
-                                    .OrderBy(n => n, StringComparer.OrdinalIgnoreCase)
+                                return membersArray
+                                    .OfType<JObject>()
+                                    .Select(m => new PatreonMemberV2Model
+                                    {
+                                        DisplayName = m["display_name"]?.ToString()?.Trim(),
+                                        SocialMediaLink = m["social_media_link"]?.ToString(),
+                                        Platform = m["platform"]?.ToString(),
+                                        PlatformUsername = m["platform_username"]?.ToString()?.TrimStart('@'),
+                                    })
+                                    .Where(m => !string.IsNullOrWhiteSpace(m.DisplayName))
+                                    .OrderBy(m => m.DisplayName, StringComparer.OrdinalIgnoreCase)
                                     .ToList();
                             }
                         }
@@ -1011,42 +1099,40 @@ namespace MixItUp.Base.Services
             {
                 Logger.Log(ex);
             }
-            return new List<string>();
+            return new List<PatreonMemberV2Model>();
         }
 
-        public async Task UtilServiceLogin()
+        public async Task RecordClientSession()
         {
             try
             {
-                string clientKey = UtilServiceHelper.GenerateClientKey();
-                string version = VersionHelper.NormalizeSemVerString(Assembly.GetEntryAssembly()?.GetName().Version);
-                string release = "unknown";
-                if (ChannelSession.AppSettings != null)
+                await EnsureLogin();
+
+                JObject body = new JObject();
+                body["telemetryId"] = ChannelSession.Settings.TelemetryUserID;
+                body["hasTwitch"] = ServiceManager.Get<TwitchSession>().IsConnected;
+                body["hasYouTube"] = ServiceManager.Get<YouTubeSession>().IsConnected;
+                body["hasKick"] = ServiceManager.Get<KickSession>().IsConnected;
+                body["version"] = VersionHelper.GetFullVersionString();
+                body["release"] = BuildChannelHelper.GetReleaseChannel();
+
+                HttpResponseMessage response = await this.PostAsync("v2/client/session", AdvancedHttpClient.CreateContentFromObject(body));
+                if (response.IsSuccessStatusCode)
                 {
-                    release = ChannelSession.AppSettings.PreviewProgram ? "preview" : "public";
+                    string content = await response.Content.ReadAsStringAsync();
+                    Logger.Log(LogLevel.Debug, $"Client session response: {content}");
+                    JObject result = JObject.Parse(content);
+                    Options = result?["options"]?.ToObject<ClientOptionsModel>() ?? new ClientOptionsModel();
                 }
-
-                using (AdvancedHttpClient client = new AdvancedHttpClient(UtilApiEndpoint))
+                else
                 {
-                    client.Timeout = new TimeSpan(0, 0, 5);
-                    client.DefaultRequestHeaders.Add("User-Agent", $"MixItUp/{Assembly.GetEntryAssembly().GetName().Version.ToString()} (Web call from Mix It Up; https://mixitupapp.com; support@mixitupapp.com)");
-                    client.DefaultRequestHeaders.Add("Client-Key", clientKey);
-
-                    JObject body = new JObject();
-                    body["version"] = version;
-                    body["release"] = release;
-
-                    HttpResponseMessage response = await client.PostAsync("api/user/login", AdvancedHttpClient.CreateContentFromObject(body));
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        string content = await response.Content.ReadAsStringAsync();
-                        Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {(int)response.StatusCode} - {content}");
-                    }
+                    string content = await response.Content.ReadAsStringAsync();
+                    Logger.Log(LogLevel.Warning, $"Failed to record client session: {(int)response.StatusCode} - {content}");
                 }
             }
             catch (Exception ex)
             {
-                Logger.Log(LogLevel.Warning, $"Failed to login to UtilService: {ex.Message}");
+                Logger.Log(LogLevel.Warning, $"Failed to record client session: {ex.Message}");
             }
         }
 

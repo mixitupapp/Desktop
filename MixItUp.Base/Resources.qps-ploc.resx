@@ -11388,4 +11388,184 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>Channel Point Reward successfully created! You can now dynamically update this Channel Point Reward using the Kick action inside of a command. Please use the link on the main Channel Points page to visit the editor on Kick to customize your reward.</value>
   </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>Show Kick Channel Points</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>Show Kick Kicks</value>
+  </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>[{0} Ŕéðééɱéðẋẋẋ {1}]</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} Gifted {1} Kicks</value>
+  </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>Warn User</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>Shield Mode On</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>Shield Mode Off</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>Pin Message</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>Unpin Message</value>
+  </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>Set Suspicious User Status</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>Remove Suspicious User Status</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>Active Monitoring</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>Restricted</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Twitch Channel User Warned</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>Twitch Channel Shoutout Received</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitch Channel Suspicious User Message</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Twitch Channel Suspicious User Updated</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0} was Warned</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} Sent a Shoutout with {1} Viewers</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Suspicious User {0} Sent a Message</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0} Suspicious Status Set to {1}</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>Show Twitch User Warnings</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>Show Twitch Shoutouts Received</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>Show Twitch Suspicious User Messages</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>Show Twitch Suspicious User Updates</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Twitch Channel Shield Mode Started</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Twitch Channel Shield Mode Ended</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} Activated Shield Mode</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} Deactivated Shield Mode</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>Show Twitch Shield Mode Started</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>Show Twitch Shield Mode Ended</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Twitch Channel Goal Started</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Twitch Channel Goal Ended</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0} Goal Started at {1} of {2}</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0} Goal Ended at {1} of {2}</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>Show Twitch Goal Started</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>Show Twitch Goal Ended</value>
+  </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>Per Person Group</value>
+  </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>Block User</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>Unblock User</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>Harassment</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>Author URL (Optional)</value>
+  </data>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>Follower Bonus</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>The Follower Bonus must be greater than or equal to 0.</value>
+  </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>Hide Script Action error messages from chat</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>This action must be triggered from the Channel Points command of the reward you want to update.</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>Update Redemption Status</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>Fulfilled</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>Pre-Made Game Command Lookup Order</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>Xbox then Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>Steam then Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>Xbox Only</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>Steam Only</value>
+  </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>Show Twitch Modiversary</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} is celebrating their {1} month Modiversary!</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch Channel Modiversary</value>
+  </data>
 </root>

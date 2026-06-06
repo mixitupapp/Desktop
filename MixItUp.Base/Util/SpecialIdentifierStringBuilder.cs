@@ -237,6 +237,7 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(counter.Name + "display", counter.Amount.ToNumberDisplayString());
             }
 
+            this.ReplaceSpecialIdentifier("dayoftheweekname", DateTimeOffset.Now.ToString("dddd"));
             this.ReplaceSpecialIdentifier("dayoftheweek", DateTimeOffset.Now.DayOfWeek.ToString());
             this.ReplaceSpecialIdentifier("datetime", DateTimeOffset.Now.ToString("g"));
             this.ReplaceSpecialIdentifier("dateyear", DateTimeOffset.Now.ToString("yyyy"));
@@ -1385,6 +1386,22 @@ namespace MixItUp.Base.Util
                             if (yChannel != null)
                             {
 
+                            }
+                        }
+                    }
+                    else if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
+                    {
+                        KickUserPlatformV2Model kickUser = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
+                        if (kickUser != null)
+                        {
+                            MixItUp.Base.Model.Kick.Channels.ChannelModel kChannel = await ServiceManager.Get<KickSession>().StreamerService.GetChannelByUserID(kickUser.ID);
+                            if (kChannel != null)
+                            {
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "title", kChannel.StreamTitle);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", kChannel.Category?.Name);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "game", kChannel.Category?.Name);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage", kChannel.Category?.Thumbnail);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "islive", (kChannel.Stream?.IsLive ?? false).ToString());
                             }
                         }
                     }

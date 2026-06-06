@@ -71,12 +71,17 @@ namespace MixItUp.Base.Services
         TwitchChannelMassSubscriptionsGifted = 223,
 
         TwitchChannelWatchStreak = 230,
+        TwitchChannelShoutoutReceived = 231,
+        TwitchChannelModiversary = 232,
 
         TwitchChannelHighlightedMessage = 240,
         TwitchChannelUserIntro = 241,
         TwitchChannelPowerUpMessageEffect = 242,
         TwitchChannelPowerUpGigantifiedEmote = 243,
         TwitchChannelPowerUpCelebration = 244,
+
+        TwitchChannelGoalStarted = 245,
+        TwitchChannelGoalEnded = 246,
 
         TwitchChannelAdUpcoming = 250,
         TwitchChannelAdStarted = 251,
@@ -94,6 +99,12 @@ namespace MixItUp.Base.Services
         TwitchChannelHypeTrainProgress = 281,
         TwitchChannelHypeTrainEnd = 282,
         TwitchChannelHypeTrainLevelUp = 283,
+
+        TwitchChannelUserWarned = 290,
+        TwitchChannelSuspiciousUserMessage = 291,
+        TwitchChannelSuspiciousUserUpdated = 292,
+        TwitchChannelShieldModeStarted = 293,
+        TwitchChannelShieldModeEnded = 294,
 
         // 300 = YouTube
 

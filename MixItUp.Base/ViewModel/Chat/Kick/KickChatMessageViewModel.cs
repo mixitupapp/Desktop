@@ -26,6 +26,12 @@ namespace MixItUp.Base.ViewModel.Chat.Kick
             this.ProcessMessageContents(message?.Content);
         }
 
+        public KickChatMessageViewModel(UserV2ViewModel user, string message)
+            : base(string.Empty, StreamingPlatformTypeEnum.Kick, user)
+        {
+            this.ProcessMessageContents(message);
+        }
+
         private void ProcessMessageContents(string message)
         {
             if (string.IsNullOrWhiteSpace(message))

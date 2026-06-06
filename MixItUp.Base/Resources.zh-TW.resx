@@ -1604,6 +1604,9 @@
   <data name="PerPerson" xml:space="preserve">
     <value>每人</value>
   </data>
+  <data name="PerPersonGroup" xml:space="preserve">
+    <value>每人团体</value>
+  </data>
   <data name="Pink" xml:space="preserve">
     <value>粉紅色的</value>
     <comment>Manual</comment>
@@ -3390,6 +3393,57 @@
   <data name="DiscordActionMissingChatMessage" xml:space="preserve">
     <value>Discord 操作：缺少聊天訊息</value>
     <comment>Manual</comment>
+  </data>
+  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
+    <value>Discord 行动：嵌入必须至少有标题、描述、缩略图或图片</value>
+  </data>
+  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
+    <value>信息（可选）</value>
+  </data>
+  <data name="DiscordEmbedTitle" xml:space="preserve">
+    <value>嵌入标题</value>
+  </data>
+  <data name="DiscordEmbedTitleURL" xml:space="preserve">
+    <value>标题 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedDescription" xml:space="preserve">
+    <value>嵌入说明</value>
+  </data>
+  <data name="DiscordEmbedColor" xml:space="preserve">
+    <value>顏色</value>
+  </data>
+  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
+    <value>包含时间戳</value>
+  </data>
+  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
+    <value>作者（可选）</value>
+  </data>
+  <data name="DiscordEmbedFooterSection" xml:space="preserve">
+    <value>页脚（可选）</value>
+  </data>
+  <data name="DiscordEmbedAuthorName" xml:space="preserve">
+    <value>作者姓名（可选）</value>
+  </data>
+  <data name="DiscordEmbedAuthorURL" xml:space="preserve">
+    <value>作者 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
+    <value>作者图标 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
+    <value>缩略图 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedImageURL" xml:space="preserve">
+    <value>图片 URL（可选）</value>
+  </data>
+  <data name="DiscordEmbedFooterText" xml:space="preserve">
+    <value>页脚文本（可选）</value>
+  </data>
+  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
+    <value>页脚图标 URL（可选）</value>
+  </data>
+  <data name="SendEmbed" xml:space="preserve">
+    <value>发送嵌入</value>
   </data>
   <data name="ExternalProgramActionMissingFilePath" xml:space="preserve">
     <value>外部程式操作：缺少檔案路徑</value>
@@ -6706,6 +6760,9 @@
   <data name="Choice4" xml:space="preserve">
     <value>選擇4</value>
   </data>
+  <data name="Choice5" xml:space="preserve">
+    <value>選擇5</value>
+  </data>
   <data name="CreatePoll" xml:space="preserve">
     <value>創建投票</value>
   </data>
@@ -7306,6 +7363,12 @@
   </data>
   <data name="ShowTwitchChannelPoints" xml:space="preserve">
     <value>顯示 Twitch 頻道點</value>
+  </data>
+  <data name="ShowKickChannelPoints" xml:space="preserve">
+    <value>顯示 Kick 頻道點數</value>
+  </data>
+  <data name="ShowKickKicks" xml:space="preserve">
+    <value>顯示 Kick 的 Kicks</value>
   </data>
   <data name="ShowTwitchHypeTrain" xml:space="preserve">
     <value>顯示 Twitch 炒作列車</value>
@@ -8233,6 +8296,12 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <comment>{0} is the name of the user
 {1} is the name of the channel point reward</comment>
   </data>
+  <data name="AlertKickChannelPointRedeemed" xml:space="preserve">
+    <value>{0} 已兌換 {1}</value>
+  </data>
+  <data name="AlertKickKicksGifted" xml:space="preserve">
+    <value>{0} 贈送了 {1} 個 Kicks</value>
+  </data>
   <data name="AverageViewers" xml:space="preserve">
     <value>平均觀眾人數</value>
   </data>
@@ -8906,6 +8975,9 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
   <data name="YouTubeChannelSuperChat" xml:space="preserve">
     <value>YouTube 頻道超留言</value>
   </data>
+  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
+    <value>YouTube 频道珠宝礼品</value>
+  </data>
   <data name="YouTubeChannelSuperSticker" xml:space="preserve">
     <value>YouTube 頻道超貼紙</value>
   </data>
@@ -8913,6 +8985,9 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>{0}超級留言 - {1}</value>
     <comment>{0} is the name of the user
 {1} is the amount of the super chat</comment>
+  </data>
+  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
+    <value>{0}YouTube宝石礼物 - {1}（{2}宝石）</value>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0}超級貼紙 - {1} - {2}</value>
@@ -8922,6 +8997,9 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
   </data>
   <data name="ShowYouTubeSuperChat" xml:space="preserve">
     <value>顯示 YouTube 超級留言</value>
+  </data>
+  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
+    <value>显示 YouTube 珠宝礼品</value>
   </data>
   <data name="MockConnection" xml:space="preserve">
     <value>類比連接</value>
@@ -9791,6 +9869,12 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>Twitch 廣告已開始 - 持續時間 {0} 秒</value>
     <comment>{0} = The amount of seconds of the ad</comment>
   </data>
+  <data name="ShowTwitchWatchStreak" xml:space="preserve">
+    <value>显示 Twitch 观看记录</value>
+  </data>
+  <data name="AlertTwitchWatchStreak" xml:space="preserve">
+    <value>{0}的连续观察次数为{1}。</value>
+  </data>
   <data name="SnoozeNextAd" xml:space="preserve">
     <value>暫停下一個廣告</value>
   </data>
@@ -10303,6 +10387,14 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="OverlayPortNumberValidRange" xml:space="preserve">
     <value>Overlay 的連接埠號碼必須介於 0 到 65353 之間</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
+    <value>禁用 iframe 移除（OBS CEF 冻结解决方法）</value>
+  </data>
+  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
+    <value>警告：测试解决方法。除非 OBS CEF 视频冻结需要，否则不建议启用。这可能会增加内存使用量或引发其他问题。
+
+只有在知道自己在做什么的情况下才能启用。继续？</value>
   </data>
   <data name="HideSpecificUserMessagesSpaceSeparated" xml:space="preserve">
     <value>隱藏特定用戶訊息（空格分隔）</value>
@@ -11157,12 +11249,6 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
 
 请前往主菜单的 "账户 "页面连接流媒体账户，然后重新启动 Mix It Up。</value>
   </data>
-  <data name="ResetWindowPosition" xml:space="preserve">
-    <value>重置窗口位置</value>
-  </data>
-  <data name="ResetWindowPositionDialog" xml:space="preserve">
-    <value>窗口位置已重置</value>
-  </data>
   <data name="DisableHardwareAcceleration" xml:space="preserve">
     <value>禁用硬件加速</value>
   </data>
@@ -11172,53 +11258,11 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="DisableHardwareAccelerationTooltip" xml:space="preserve">
     <value>禁用 GPU 硬件加速，改用软件渲染。如果遇到与图形相关的崩溃（UCEERRRENDERTHREADFAILURE），请启用此功能。需要重新启动。</value>
   </data>
-  <data name="DiscordActionMissingEmbedContent" xml:space="preserve">
-    <value>Discord 行动：嵌入必须至少有标题、描述、缩略图或图片</value>
+  <data name="ResetWindowPosition" xml:space="preserve">
+    <value>重置窗口位置</value>
   </data>
-  <data name="DiscordEmbedOptionalMessage" xml:space="preserve">
-    <value>信息（可选）</value>
-  </data>
-  <data name="DiscordEmbedTitle" xml:space="preserve">
-    <value>嵌入标题</value>
-  </data>
-  <data name="DiscordEmbedTitleURL" xml:space="preserve">
-    <value>标题 URL（可选）</value>
-  </data>
-  <data name="DiscordEmbedDescription" xml:space="preserve">
-    <value>嵌入说明</value>
-  </data>
-  <data name="DiscordEmbedColor" xml:space="preserve">
-    <value>顏色</value>
-  </data>
-  <data name="DiscordEmbedIncludeTimestamp" xml:space="preserve">
-    <value>包含时间戳</value>
-  </data>
-  <data name="DiscordEmbedAuthorSection" xml:space="preserve">
-    <value>作者（可选）</value>
-  </data>
-  <data name="DiscordEmbedFooterSection" xml:space="preserve">
-    <value>页脚（可选）</value>
-  </data>
-  <data name="DiscordEmbedAuthorName" xml:space="preserve">
-    <value>作者姓名（可选）</value>
-  </data>
-  <data name="DiscordEmbedAuthorIconURL" xml:space="preserve">
-    <value>作者图标 URL（可选）</value>
-  </data>
-  <data name="DiscordEmbedThumbnailURL" xml:space="preserve">
-    <value>缩略图 URL（可选）</value>
-  </data>
-  <data name="DiscordEmbedImageURL" xml:space="preserve">
-    <value>图片 URL（可选）</value>
-  </data>
-  <data name="DiscordEmbedFooterText" xml:space="preserve">
-    <value>页脚文本（可选）</value>
-  </data>
-  <data name="DiscordEmbedFooterIconURL" xml:space="preserve">
-    <value>页脚图标 URL（可选）</value>
-  </data>
-  <data name="SendEmbed" xml:space="preserve">
-    <value>发送嵌入</value>
+  <data name="ResetWindowPositionDialog" xml:space="preserve">
+    <value>窗口位置已重置</value>
   </data>
   <data name="BackupsReminder" xml:space="preserve">
     <value>提醒：自动备份已禁用。请在 "设置" → "高级 "中启用自动备份，以保护您的设置，防止意外数据丢失。</value>
@@ -11256,17 +11300,8 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ThisUpdateIsRequired" xml:space="preserve">
     <value>要继续使用 Mix It Up，必须进行此更新</value>
   </data>
-  <data name="ShowTwitchWatchStreak" xml:space="preserve">
-    <value>显示 Twitch 观看记录</value>
-  </data>
-  <data name="AlertTwitchWatchStreak" xml:space="preserve">
-    <value>{0}的连续观察次数为{1}。</value>
-  </data>
   <data name="StopOnCompletion" xml:space="preserve">
     <value>完成时停止</value>
-  </data>
-  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
-    <value>{0}已兌換{1}</value>
   </data>
   <data name="CustomPowerUp" xml:space="preserve">
     <value>自定义启动</value>
@@ -11288,26 +11323,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="ShowTwitchCustomPowerUps" xml:space="preserve">
     <value>显示 Twitch 自定义功能</value>
-	</data>
-  <data name="YouTubeChannelJewelsGift" xml:space="preserve">
-    <value>YouTube 频道珠宝礼品</value>
   </data>
-  <data name="AlertYouTubeJewelsGift" xml:space="preserve">
-    <value>{0}YouTube宝石礼物 - {1}（{2}宝石）</value>
-  </data>
-  <data name="ShowYouTubeJewelsGift" xml:space="preserve">
-    <value>显示 YouTube 珠宝礼品</value>
-  </data>
-  <data name="Choice5" xml:space="preserve">
-    <value>選擇5</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalToggleText" xml:space="preserve">
-    <value>禁用 iframe 移除（OBS CEF 冻结解决方法）</value>
-  </data>
-  <data name="OverlayDisableIFrameRemovalConfirmationMessage" xml:space="preserve">
-    <value>警告：测试解决方法。除非 OBS CEF 视频冻结需要，否则不建议启用。这可能会增加内存使用量或引发其他问题。
-
-只有在知道自己在做什么的情况下才能启用。继续？</value>
+  <data name="AlertTwitchCustomPowerUpRedeemed" xml:space="preserve">
+    <value>{0}已兌換{1}</value>
   </data>
   <data name="ResetModerationStrikes" xml:space="preserve">
     <value>重置所有用户的审核罢工</value>
@@ -11354,20 +11372,20 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="KickChannelKicksGifted" xml:space="preserve">
     <value>Kick Channel Kicks Gifted</value>
   </data>
-  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
-    <value>必須連接 Kick 帳號才能使用此功能。</value>
-  </data>
-  <data name="KickChannelPointsCommand" xml:space="preserve">
-    <value>Kick 頻道點數命令</value>
-  </data>
-  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
-    <value>已經存在另一個具有相同數量/範圍的 Kick Kicks 命令。</value>
-  </data>
   <data name="KickChannelPoints" xml:space="preserve">
     <value>Kick 頻道點數</value>
   </data>
   <data name="KickKicks" xml:space="preserve">
     <value>Kick Kicks</value>
+  </data>
+  <data name="KickKicksCommandsAlreadyExistsDuplicateAmount" xml:space="preserve">
+    <value>已經存在另一個具有相同數量/範圍的 Kick Kicks 命令。</value>
+  </data>
+  <data name="KickAccountMustBeConnectedToUseThisFeature" xml:space="preserve">
+    <value>必須連接 Kick 帳號才能使用此功能。</value>
+  </data>
+  <data name="KickChannelPointsCommand" xml:space="preserve">
+    <value>Kick 頻道點數命令</value>
   </data>
   <data name="KickKicksCommand" xml:space="preserve">
     <value>Kick Kicks 命令</value>
@@ -11387,5 +11405,167 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="KickCreateChannelPointRewardSuccess" xml:space="preserve">
     <value>成功创建通道积分奖励！现在，您可以使用命令中的 Kick 操作动态更新此频道积分奖励。请使用 "频道积分 "主页面上的链接访问 Kick 上的编辑器，自定义您的奖励。</value>
+  </data>
+  <data name="WarnUser" xml:space="preserve">
+    <value>警告用户</value>
+  </data>
+  <data name="ShieldModeOn" xml:space="preserve">
+    <value>开启屏蔽模式</value>
+  </data>
+  <data name="ShieldModeOff" xml:space="preserve">
+    <value>屏蔽模式关闭</value>
+  </data>
+  <data name="PinMessage" xml:space="preserve">
+    <value>图钉信息</value>
+  </data>
+  <data name="UnpinMessage" xml:space="preserve">
+    <value>取消留言</value>
+  </data>
+  <data name="SetSuspiciousUserStatus" xml:space="preserve">
+    <value>设置可疑用户状态</value>
+  </data>
+  <data name="RemoveSuspiciousUserStatus" xml:space="preserve">
+    <value>删除可疑用户状态</value>
+  </data>
+  <data name="ActiveMonitoring" xml:space="preserve">
+    <value>主动监测</value>
+  </data>
+  <data name="Restricted" xml:space="preserve">
+    <value>受限制</value>
+  </data>
+  <data name="TwitchChannelUserWarned" xml:space="preserve">
+    <value>Twitch 频道用户受到警告</value>
+  </data>
+  <data name="TwitchChannelShoutoutReceived" xml:space="preserve">
+    <value>收到 Twitch 频道呐喊</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserMessage" xml:space="preserve">
+    <value>Twitch 频道可疑用户信息</value>
+  </data>
+  <data name="TwitchChannelSuspiciousUserUpdated" xml:space="preserve">
+    <value>Twitch 频道可疑用户已更新</value>
+  </data>
+  <data name="AlertTwitchUserWarned" xml:space="preserve">
+    <value>{0}收到警告</value>
+  </data>
+  <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
+    <value>{0} 与 {1} 一起呐喊观众</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>可疑用户 {0} 发送了一条信息</value>
+  </data>
+  <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>{0}可疑状态 设置为 {1｝</value>
+  </data>
+  <data name="ShowTwitchUserWarned" xml:space="preserve">
+    <value>显示 Twitch 用户警告</value>
+  </data>
+  <data name="ShowTwitchShoutoutReceived" xml:space="preserve">
+    <value>显示收到的 Twitch 喊声</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserMessage" xml:space="preserve">
+    <value>显示 Twitch 可疑用户信息</value>
+  </data>
+  <data name="ShowTwitchSuspiciousUserUpdated" xml:space="preserve">
+    <value>显示 Twitch 可疑用户更新</value>
+  </data>
+  <data name="TwitchChannelShieldModeStarted" xml:space="preserve">
+    <value>Twitch 频道屏蔽模式启动</value>
+  </data>
+  <data name="TwitchChannelShieldModeEnded" xml:space="preserve">
+    <value>Twitch 频道屏蔽模式</value>
+  </data>
+  <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
+    <value>{0} 激活屏蔽模式</value>
+  </data>
+  <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
+    <value>{0} 关闭屏蔽模式</value>
+  </data>
+  <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
+    <value>显示已启动的 Twitch 屏蔽模式</value>
+  </data>
+  <data name="ShowTwitchShieldModeEnded" xml:space="preserve">
+    <value>显示 Twitch 屏蔽模式 Ended</value>
+  </data>
+  <data name="TwitchChannelGoalStarted" xml:space="preserve">
+    <value>Twitch 频道目标启动</value>
+  </data>
+  <data name="TwitchChannelGoalEnded" xml:space="preserve">
+    <value>Twitch 频道目标</value>
+  </data>
+  <data name="AlertTwitchGoalStarted" xml:space="preserve">
+    <value>{0}目标从{2}的{1}开始</value>
+  </data>
+  <data name="AlertTwitchGoalEnded" xml:space="preserve">
+    <value>{0}目标在{2}的{1}处结束</value>
+  </data>
+  <data name="ShowTwitchGoalStarted" xml:space="preserve">
+    <value>开始显示 Twitch 目标</value>
+  </data>
+  <data name="ShowTwitchGoalEnded" xml:space="preserve">
+    <value>显示 Twitch 目标 已结束</value>
+  </data>
+  <data name="BlockUser" xml:space="preserve">
+    <value>阻止用户</value>
+  </data>
+  <data name="UnblockUser" xml:space="preserve">
+    <value>解封用户</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Harassment" xml:space="preserve">
+    <value>骚扰</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>垃圾邮件</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="FollowerBonus" xml:space="preserve">
+    <value>追隨者獎勵</value>
+  </data>
+  <data name="FollowerBonusZeroOrMore" xml:space="preserve">
+    <value>關注獎金必須大於或等於 0。</value>
+  </data>
+  <data name="HideScriptActionChatErrors" xml:space="preserve">
+    <value>隐藏聊天中的脚本操作错误信息</value>
+  </data>
+  <data name="TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands" xml:space="preserve">
+    <value>该操作必须从要更新的奖励的通道积分命令中触发。</value>
+  </data>
+  <data name="UpdateRedemptionStatus" xml:space="preserve">
+    <value>更新兑换状态</value>
+  </data>
+  <data name="Fulfilled" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="GameInfoLookupOrder" xml:space="preserve">
+    <value>预制游戏命令查找顺序</value>
+  </data>
+  <data name="XboxThenSteam" xml:space="preserve">
+    <value>先 Xbox 后 Steam</value>
+  </data>
+  <data name="SteamThenXbox" xml:space="preserve">
+    <value>先是 Steam，然后是 Xbox</value>
+  </data>
+  <data name="XboxOnly" xml:space="preserve">
+    <value>仅限 Xbox</value>
+  </data>
+  <data name="SteamOnly" xml:space="preserve">
+    <value>仅 Steam</value>
+  </data>
+  <data name="ShowTwitchModiversary" xml:space="preserve">
+    <value>显示 Twitch Modiversary</value>
+  </data>
+  <data name="AlertTwitchModiversary" xml:space="preserve">
+    <value>{0} 正在庆祝他们的 {1} 个月修改纪念日！</value>
+  </data>
+  <data name="TwitchChannelModiversary" xml:space="preserve">
+    <value>Twitch 频道 Modiversary</value>
   </data>
 </root>

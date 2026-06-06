@@ -1,4 +1,5 @@
 ﻿using MixItUp.Base.Model.API;
+using MixItUp.Base.Model.API.Files.V2;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.WPF.Util;
@@ -21,17 +22,23 @@ namespace MixItUp.WPF
     /// </summary>
     public partial class UpdateWindow : LoadingWindowBase
     {
-        private MixItUpUpdateModel update;
+        private UpdateVersionManifestModel manifest;
+        private string channel;
+        private string minimumVersion;
         private readonly bool isMandatory;
+        private bool _shuttingDown = false;
 
-        public UpdateWindow(MixItUpUpdateModel update, bool isMandatory = false)
+        public UpdateWindow(UpdateVersionManifestModel manifest, string channel, bool isMandatory = false, string minimumVersion = null)
         {
-            this.update = update;
-            #if DEBUG
-            this.isMandatory = false;
-            #else
-            this.isMandatory = isMandatory;
-            #endif
+            this.manifest = manifest;
+            this.channel = channel;
+            this.minimumVersion = minimumVersion;
+
+            if (!BuildChannelHelper.BYPASS_UPDATE_CHECK)
+            {
+                this.isMandatory = isMandatory;
+            }
+
             InitializeComponent();
 
             this.Initialize(this.StatusBar);
@@ -43,11 +50,10 @@ namespace MixItUp.WPF
         {
             _ = this.TryLoadPatreonMemberShoutout();
 
-            this.NewVersionTextBlock.Text = this.update.Version;
-            Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-            this.CurrentVersionTextBlock.Text = VersionHelper.NormalizeSemVerString(entryVersion);
+            this.NewVersionTextBlock.Text = this.manifest.version;
+            this.CurrentVersionTextBlock.Text = VersionHelper.GetFullVersionString();
 
-            if (this.update.IsPreview)
+            if (string.Equals(this.channel, "preview", StringComparison.OrdinalIgnoreCase))
             {
                 this.PreviewUpdateGrid.Visibility = Visibility.Visible;
             }
@@ -64,7 +70,8 @@ namespace MixItUp.WPF
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    HttpResponseMessage response = await client.GetAsync(this.update.ChangelogLink);
+                    string changelogUrl = manifest.GetChangelogUrl(BuildChannelHelper.API_FILES_UPDATE_ROOT, this.channel);
+                    HttpResponseMessage response = await client.GetAsync(changelogUrl);
                     if (response.IsSuccessStatusCode)
                     {
                         string markdown = await response.Content.ReadAsStringAsync();
@@ -72,7 +79,7 @@ namespace MixItUp.WPF
                     }
                     else
                     {
-                        Logger.Log(LogLevel.Warning, $"Failed to retrieve changelog from {this.update.ChangelogLink}: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        Logger.Log(LogLevel.Warning, $"Failed to retrieve changelog from {changelogUrl}: {(int)response.StatusCode} {response.ReasonPhrase}");
                         this.UpdateChangelogViewer.Markdown = "Unable to load changelog.";
                     }
                 }
@@ -91,18 +98,19 @@ namespace MixItUp.WPF
         {
             await this.RunAsyncOperation(async () =>
             {
-                await DownloadAndInstallUpdate(this.update);
+                string targetVersion = this.isMandatory ? this.minimumVersion : null;
+                await DownloadAndInstallUpdate(this.manifest, targetVersion, this.channel);
             });
         }
 
-        internal static async Task<bool> DownloadAndInstallUpdate(MixItUpUpdateModel update)
+        internal static async Task<bool> DownloadAndInstallUpdate(UpdateVersionManifestModel manifest, string targetVersion = null, string targetChannel = null)
         {
-            if (update == null)
+            if (manifest == null)
             {
                 return false;
             }
 
-            if (string.IsNullOrEmpty(update.InstallerLink))
+            if (string.IsNullOrEmpty(manifest.installer))
             {
                 await DialogHelper.ShowMessage("Installer URL missing from the update manifest.");
                 return false;
@@ -113,11 +121,11 @@ namespace MixItUp.WPF
             try
             {
                 using (HttpClient client = new HttpClient())
-                using (HttpResponseMessage response = await client.GetAsync(update.InstallerLink, HttpCompletionOption.ResponseHeadersRead))
+                using (HttpResponseMessage response = await client.GetAsync(manifest.installer, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (!response.IsSuccessStatusCode)
                     {
-                        Logger.Log(LogLevel.Warning, $"Failed to download installer from {update.InstallerLink}: {(int)response.StatusCode} {response.ReasonPhrase}");
+                        Logger.Log(LogLevel.Warning, $"Failed to download installer from {manifest.installer}: {(int)response.StatusCode} {response.ReasonPhrase}");
                         await DialogHelper.ShowMessage("Unable to download the installer. Please try again later.");
                         return false;
                     }
@@ -143,7 +151,16 @@ namespace MixItUp.WPF
             }
 
             string installDirectory = Path.GetFullPath(AppContext.BaseDirectory);
-            ServiceManager.Get<IProcessService>().LaunchProgram(setupFilePath, QuoteArgument(installDirectory));
+            string launchArgs = QuoteArgument(installDirectory);
+            if (!string.IsNullOrEmpty(targetVersion))
+            {
+                launchArgs += $" --target-version={targetVersion}";
+            }
+            if (!string.IsNullOrEmpty(targetChannel))
+            {
+                launchArgs += $" --target-channel={targetChannel}";
+            }
+            ServiceManager.Get<IProcessService>().LaunchProgram(setupFilePath, launchArgs);
             Application.Current.Shutdown();
             return true;
         }
@@ -155,7 +172,15 @@ namespace MixItUp.WPF
 
         private void PatreonButton_Click(object sender, RoutedEventArgs e)
         {
-            ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupapp");
+            ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupbot");
+        }
+
+        private void PatreonSocialButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(_patreonSocialLink))
+            {
+                ServiceManager.Get<IProcessService>().LaunchLink(_patreonSocialLink);
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -173,6 +198,12 @@ namespace MixItUp.WPF
         private void UpdateWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             TaskbarFlashHelper.Flash(this, stop: true);
+            if (this.isMandatory && !_shuttingDown)
+            {
+                e.Cancel = true;
+                _shuttingDown = true;
+                Application.Current.Shutdown();
+            }
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -202,6 +233,8 @@ namespace MixItUp.WPF
                 // Ignore navigation failures.
             }
         }
+
+        private string _patreonSocialLink;
 
         private async Task TryLoadPatreonMemberShoutout()
         {
@@ -249,7 +282,27 @@ namespace MixItUp.WPF
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
                 {
-                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl,56,56, member.DisplayName);
+                    ImageHelper.SetImageSource(this.PatreonMemberAvatarImage, member.AvatarUrl, 56, 56, member.DisplayName);
+                }
+
+                if (!string.IsNullOrWhiteSpace(member.SocialMediaLink) && !string.IsNullOrWhiteSpace(member.Platform) && !string.IsNullOrWhiteSpace(member.PlatformUsername))
+                {
+                    _patreonSocialLink = member.SocialMediaLink;
+
+                    string platformImage = member.Platform switch
+                    {
+                        "twitch" => "/Assets/Images/twitch-color_sm.png",
+                        "kick" => "/Assets/Images/kick-color_sm.png",
+                        "youtube" => "/Assets/Images/youtube-color_sm.png",
+                        _ => null,
+                    };
+
+                    if (platformImage != null)
+                    {
+                        this.PatreonSocialPlatformImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(platformImage, UriKind.Relative));
+                        this.PatreonSocialUsernameTextBlock.Text = member.PlatformUsername;
+                        this.PatreonSocialButton.Visibility = Visibility.Visible;
+                    }
                 }
             }
             catch (Exception ex)

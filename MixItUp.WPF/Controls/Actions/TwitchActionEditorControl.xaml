@@ -35,7 +35,29 @@
         </ComboBox>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowUsernameGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <ComboBox Grid.Row="2" Visibility="{Binding ShowSetSuspiciousUserStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding SuspiciousUserStatuses}" SelectedItem="{Binding SelectedSuspiciousUserStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <ComboBox Grid.Row="2" Visibility="{Binding ShowBlockUserGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding BlockUserReasons}" SelectedItem="{Binding SelectedBlockUserReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -402,6 +424,44 @@
             <TextBox Grid.Column="4" Width="80" Text="{Binding VIPUserAutomaticRemovalAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
             <ComboBox Grid.Column="6" Width="100" ItemsSource="{Binding VIPUserAutomaticRemovalDurations}" SelectedItem="{Binding SelectedVIPUserAutomaticRemovalDuration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Duration}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+
+        <Grid Grid.Row="2" Visibility="{Binding ShowWarnUserGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox Grid.Column="2" Text="{Binding WarnReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModerationReasonOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        </Grid>
+
+        <Grid Grid.Row="2" Visibility="{Binding ShowPinMessageGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBox Text="{Binding PinMessageText}" Height="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextWrapping="Wrap" />
+        </Grid>
+
+        <Grid Grid.Row="2" Visibility="{Binding ShowUpdateRedemptionStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Static resx:Resources.TwitchActionChannelPointRewardMustBeCreatedInMixItUp}" TextAlignment="Center" TextWrapping="Wrap" />
+
+            <TextBlock Grid.Row="2" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Static resx:Resources.TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands}" TextAlignment="Center" TextWrapping="Wrap" />
+
+            <ComboBox Grid.Row="4" ItemsSource="{Binding RedemptionStatusTypes}" SelectedItem="{Binding SelectedRedemptionStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>

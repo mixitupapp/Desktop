@@ -195,8 +195,29 @@ namespace MixItUp.Base.Model.Commands
             string gameName = await GamePreMadeChatCommandModel.GetCurrentGameName(parameters.Platform);
             if (!string.IsNullOrEmpty(gameName))
             {
-                GameInformation details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
-                if (details == null)
+                GameInformation details = null;
+
+                if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.XboxThenSteam)
+                {
+                    details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
+                    if (details == null)
+                    {
+                        details = await SteamGamePreMadeChatCommandModel.GetSteamGameInfo(gameName);
+                    }
+                }
+                else if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.SteamThenXbox)
+                {
+                    details = await SteamGamePreMadeChatCommandModel.GetSteamGameInfo(gameName);
+                    if (details == null)
+                    {
+                        details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
+                    }
+                }
+                else if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.XboxOnly)
+                {
+                    details = await XboxGamePreMadeChatCommandModel.GetXboxGameInfo(gameName);
+                }
+                else if (ChannelSession.Settings.GameInfoLookupOrder == GameInfoLookupOrderEnum.SteamOnly)
                 {
                     details = await SteamGamePreMadeChatCommandModel.GetSteamGameInfo(gameName);
                 }
@@ -530,6 +551,15 @@ namespace MixItUp.Base.Model.Commands
             int index = RandomHelper.GenerateRandomNumber(this.responses.Count);
             await ServiceManager.Get<ChatService>().SendMessage(string.Format("The Magic 8-Ball says: \"{0}\"", this.responses[index]), parameters);
         }
+    }
+
+    public enum GameInfoLookupOrderEnum
+    {
+        XboxThenSteam,
+        SteamThenXbox,
+        XboxOnly,
+        SteamOnly,
+        None,
     }
 
     public class GameInformation
@@ -957,7 +987,7 @@ namespace MixItUp.Base.Model.Commands
 
     public class LinkAccountPreMadeChatCommandModel : PreMadeChatCommandModelBase
     {
-        public static Dictionary<Guid, Guid> LinkedAccounts = new Dictionary<Guid, Guid>();
+        public static Dictionary<Guid, HashSet<Guid>> LinkedAccounts = new Dictionary<Guid, HashSet<Guid>>();
 
         public LinkAccountPreMadeChatCommandModel() : base("Link Account", "linkaccount", 0, UserRoleEnum.User) { }
 
@@ -982,15 +1012,17 @@ namespace MixItUp.Base.Model.Commands
                     return;
                 }
 
-                if (LinkedAccounts.ContainsKey(user.ID) && LinkedAccounts[user.ID] == parameters.User.ID)
+                if (LinkedAccounts.TryGetValue(user.ID, out HashSet<Guid> pendingForUser) && pendingForUser.Contains(parameters.User.ID))
                 {
-                    LinkedAccounts.Remove(user.ID);
+                    pendingForUser.Remove(parameters.User.ID);
+                    if (pendingForUser.Count == 0) { LinkedAccounts.Remove(user.ID); }
                     UserV2ViewModel.MergeUserData(user, parameters.User);
                     await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.LinkAccountCommandAccountsLinkedSuccessfully, parameters);
                 }
                 else
                 {
-                    LinkedAccounts[parameters.User.ID] = user.ID;
+                    if (!LinkedAccounts.ContainsKey(parameters.User.ID)) { LinkedAccounts[parameters.User.ID] = new HashSet<Guid>(); }
+                    LinkedAccounts[parameters.User.ID].Add(user.ID);
                     await ServiceManager.Get<ChatService>().SendMessage(string.Format(MixItUp.Base.Resources.LinkAccountCommandPleaseConfirmLink, parameters.Platform, parameters.User.Username), parameters);
                 }
             }

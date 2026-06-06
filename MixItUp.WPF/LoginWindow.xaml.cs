@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base;
 using MixItUp.Base.Model.API;
+using MixItUp.Base.Model.API.Files.V2;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -24,7 +25,6 @@ namespace MixItUp.WPF
     /// </summary>
     public partial class LoginWindow : LoadingWindowBase
     {
-        private MixItUpUpdateModel currentUpdate;
         private bool updateFound = false;
         private OutageModel currentOutage;
 
@@ -44,9 +44,8 @@ namespace MixItUp.WPF
 
             ChannelSession.OnRestartRequested += ChannelSession_OnRestartRequested;
 
-            Version entryVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-            string versionString = "v" + VersionHelper.NormalizeSemVerString(entryVersion);
-            versionString += BuildChannelHelper.GetChannelSuffix();
+            string versionString = "v" + VersionHelper.GetFullVersionString();
+            versionString += BuildChannelHelper.BUILD_CHANNEL_SUFFIX;
 
             this.Title += " - " + versionString;
 
@@ -146,7 +145,7 @@ namespace MixItUp.WPF
                     "No ads. No investors. No board of directors. Just amazing **Patreon** members.",
                     "Every launch, every update, every feature, made possible by **Patreon** members.",
                     "Mix It Up only exists because of our **Patreon** supporters.",
-                    "No corporate overloards. Just community belief and **Patreon** supporters.", 
+                    "No corporate overlords. Just community belief and **Patreon** supporters.", 
                     "No venture capital. No compromises. Just **Patreon** love.",
                     "Built for the community, sustained by **Patreon** members.",
                     "Creator-driven. Community-funded.",
@@ -248,33 +247,20 @@ namespace MixItUp.WPF
 
         private async Task CheckForUpdates()
         {
-            this.currentUpdate = await ServiceManager.Get<MixItUpService>().GetLatestUpdate();
-            if (this.currentUpdate != null)
-            {
-                Version currentVersion = Assembly.GetEntryAssembly()?.GetName().Version ?? new Version(0, 0, 0, 0);
-                Version updateVersion = this.currentUpdate.GetNormalizedVersion();
+            MixItUpService mixItUpService = ServiceManager.Get<MixItUpService>();
+            if (mixItUpService == null) { return; }
 
-                bool hasNewerVersion = updateVersion > currentVersion;
-                bool semverMatches = VersionHelper.SemVerEquals(currentVersion, this.currentUpdate.Version);
-                bool isMandatory = this.currentUpdate.Mandatory;
+            var result = await mixItUpService.GetLatestUpdate();
+            if (result == null) { return; }
 
-                if (hasNewerVersion || (isMandatory && !semverMatches))
-                {
-                    updateFound = true;
+            var (check, manifest) = result.Value;
+            Version currentVersion = VersionHelper.GetCurrentVersion();
+            bool isMandatory = currentVersion < check.GetNormalizedMinimumVersion();
 
-                    UpdateWindow window = new UpdateWindow(this.currentUpdate, isMandatory);
-                    if (isMandatory)
-                    {
-                        window.Owner = this;
-                        window.ShowDialog();
-                    }
-                    else
-                    {
-                        window.Owner = this;
-                        window.ShowDialog();
-                    }
-                }
-            }
+            updateFound = true;
+            UpdateWindow window = new UpdateWindow(manifest, check.channel, isMandatory, check.minimumVersion);
+            window.Owner = this;
+            window.ShowDialog();
         }
 
         private async Task CheckForOutages()

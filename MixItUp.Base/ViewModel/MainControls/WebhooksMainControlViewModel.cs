@@ -1,4 +1,4 @@
-﻿using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Webhooks;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -66,7 +66,25 @@ namespace MixItUp.Base.ViewModel.MainControls
         protected override async Task OnOpenInternal()
         {
             await base.OnOpenInternal();
-            await RefreshCommands();
+            ServiceManager.Get<MixItUpService>().OnWebhooksHubAllowed += MixItUpService_OnWebhooksHubAllowed;
+            if (ServiceManager.Get<MixItUpService>().IsWebhookHubAllowed)
+            {
+                await RefreshCommands();
+            }
+        }
+
+        protected override async Task OnClosedInternal()
+        {
+            ServiceManager.Get<MixItUpService>().OnWebhooksHubAllowed -= MixItUpService_OnWebhooksHubAllowed;
+            await base.OnClosedInternal();
+        }
+
+        private async void MixItUpService_OnWebhooksHubAllowed(object sender, bool allowed)
+        {
+            if (allowed)
+            {
+                await RefreshCommands();
+            }
         }
 
         public async Task RefreshCommands()
@@ -75,17 +93,14 @@ namespace MixItUp.Base.ViewModel.MainControls
             {
                 GetWebhooksResponseModel response = await ServiceManager.Get<MixItUpService>().GetWebhooks();
 
-                lock (this.WebhookCommands)
+                this.WebhookCommands.Clear();
+                foreach (var webhook in response.Webhooks)
                 {
-                    this.WebhookCommands.Clear();
-                    foreach (var webhook in response.Webhooks)
-                    {
-                        var command = ServiceManager.Get<CommandService>().WebhookCommands.FirstOrDefault(c => c.ID == webhook.Id);
-                        this.WebhookCommands.Add(new WebhookCommandItemViewModel(webhook, command));
-                    }
-
-                    MaxNumberOfWebhooks = response.MaxNumberOfWebhooks;
+                    var command = ServiceManager.Get<CommandService>().WebhookCommands.FirstOrDefault(c => c.ID == webhook.Id);
+                    this.WebhookCommands.Add(new WebhookCommandItemViewModel(webhook, command));
                 }
+
+                MaxNumberOfWebhooks = response.MaxNumberOfWebhooks;
             }
             catch (Exception ex)
             {

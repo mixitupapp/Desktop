@@ -518,7 +518,7 @@ namespace MixItUp.Base
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
                 ServiceManager.Get<ITelemetryService>().TrackLogin(ChannelSession.Settings.TelemetryUserID, StreamingPlatforms.GetConnectedPlatforms());
-                await ServiceManager.Get<MixItUpService>().UtilServiceLogin();
+                await ServiceManager.Get<MixItUpService>().RecordClientSession();
 
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.ApplicationLaunch, new CommandParametersModel());
 

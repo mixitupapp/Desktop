@@ -1,5 +1,6 @@
 using ICSharpCode.AvalonEdit.Highlighting;
 using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.Actions;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,6 +58,11 @@ namespace MixItUp.WPF.Controls.Actions
             }
 
             this.ScriptEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(extension);
+        }
+
+        private void LogsHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchFolder("Logs");
         }
     }
 }
