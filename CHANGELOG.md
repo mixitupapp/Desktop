@@ -1,5 +1,11 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.101 (HOTFIX)
+
+### FIXES
+
+- Fixed websocket reconnect timeout error
+
 ## 1.7.100
 
 ### FEATURES
