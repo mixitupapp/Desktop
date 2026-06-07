@@ -545,6 +545,7 @@ namespace MixItUp.Base.Services
         private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
         private readonly SemaphoreSlim webhookConnectLock = new SemaphoreSlim(1, 1);
         private CancellationTokenSource webhookReconnectCancellationTokenSource = null;
+        private int webhookReconnectInProgress = 0;
         private const int WebhookReconnectBaseDelayMs = 5000;
         private const int WebhookReconnectMaxDelayMs = 30000;
         public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
@@ -692,6 +693,11 @@ namespace MixItUp.Base.Services
                 return;
             }
 
+            if (Interlocked.CompareExchange(ref webhookReconnectInProgress, 1, 0) != 0)
+            {
+                return;
+            }
+
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
             var reconnectCts = new CancellationTokenSource();
@@ -707,12 +713,17 @@ namespace MixItUp.Base.Services
 
                     int baseDelay = (int)Math.Min((long)WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
                     int jitter = RandomHelper.GenerateRandomNumber(-(baseDelay / 2), baseDelay / 2);
-                    await Task.Delay(Math.Max(baseDelay + jitter,0), reconnectToken);
+                    await Task.Delay(Math.Max(baseDelay + jitter, 0), reconnectToken);
 
                     result = await this.Connect();
                     attempt++;
                 }
-                while (!result.Success && !isUpdateRequired && !reconnectToken.IsCancellationRequested);
+                while (!result.Success && !isUpdateRequired && !reconnectToken.IsCancellationRequested && attempt < 100);
+
+                if (!result.Success && attempt >= 100)
+                {
+                    Logger.Log(LogLevel.Error, "Webhook reconnection paused after 100 attempts.");
+                }
 
                 if (result.Success)
                 {
@@ -720,6 +731,10 @@ namespace MixItUp.Base.Services
                 }
             }
             catch (OperationCanceledException) { }
+            finally
+            {
+                Interlocked.Exchange(ref webhookReconnectInProgress, 0);
+            }
         }
 
         public async Task Authenticate(CommunityCommandLoginModel login)
