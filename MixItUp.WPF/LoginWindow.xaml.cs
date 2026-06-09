@@ -27,6 +27,7 @@ namespace MixItUp.WPF
     {
         private bool updateFound = false;
         private OutageModel currentOutage;
+        private string _patreonMemberSocialLink;
 
         private ThreadSafeObservableCollection<SettingsV3Model> streamerSettings = new ThreadSafeObservableCollection<SettingsV3Model>();
         private bool isBackupOnlyMode = false;
@@ -163,6 +164,7 @@ namespace MixItUp.WPF
 
                 SetBoldInlineText(this.PatreonCTAHyperlink, ctaMessages[RandomHelper.GenerateRandomNumber(ctaMessages.Length)]);
                 SetBoldInlineText(this.PatreonShoutOutHyperlink, string.Format(shoutOutMessages[RandomHelper.GenerateRandomNumber(shoutOutMessages.Length)], member.DisplayName));
+                _patreonMemberSocialLink = !string.IsNullOrWhiteSpace(member.SocialMediaLink) ? member.SocialMediaLink : "https://mixitupapp.com/patreon";
                 this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
@@ -356,6 +358,11 @@ namespace MixItUp.WPF
         {
             ServiceManager.Get<IProcessService>().LaunchLink(e.Uri.AbsoluteUri);
             e.Handled = true;
+        }
+
+        private void PatreonShoutOutHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchLink(_patreonMemberSocialLink);
         }
 
         private void OpenInstallFolder_Click(object sender, RoutedEventArgs e)

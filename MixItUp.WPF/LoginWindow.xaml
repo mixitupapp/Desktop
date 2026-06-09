@@ -191,7 +191,7 @@
    <Hyperlink x:Name="PatreonCTAHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitupapp.com/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
                                 </TextBlock>
                                 <TextBlock Margin="4,0,0,0" Style="{StaticResource LabelMedium}">
-                                <Hyperlink x:Name="PatreonShoutOutHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitupapp.com/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
+                                <Hyperlink x:Name="PatreonShoutOutHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" Click="PatreonShoutOutHyperlink_Click" TextDecorations="{x:Null}"></Hyperlink>
                                 </TextBlock>
                             </StackPanel>
                         </StackPanel>
