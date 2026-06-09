@@ -11568,4 +11568,10 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch Channel Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots Pack Community Gifted</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} Is Gifting {1} Community Pack(s)!</value>
+  </data>
 </root>

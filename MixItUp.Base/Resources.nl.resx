@@ -11569,4 +11569,10 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch-kanaal Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots-pakket: een cadeau voor de community</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} geeft {1} Community Pack(s) cadeau!</value>
+  </data>
 </root>

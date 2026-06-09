@@ -225,6 +225,9 @@ namespace MixItUp.Base.Services.External
                                                         case "redemption":
                                                             await ProcessCardRedemption(jobj);
                                                             break;
+                                                        case "random-community-gift":
+                                                            await ProcessCommunityGift(jobj);
+                                                            break;
                                                         default:
                                                             Logger.Log(LogLevel.Debug, $"Unknown Streamloots packet type: {type}");
                                                             break;
@@ -288,6 +291,24 @@ namespace MixItUp.Base.Services.External
                 {
                     await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.StreamlootsPurchasedPacksAlert, user.FullDisplayName, purchase.Quantity), ChannelSession.Settings.AlertStreamlootsColor));
                 }
+            }
+        }
+
+        private async Task ProcessCommunityGift(JObject jobj)
+        {
+            var purchase = jobj["data"].ToObject<StreamlootsPurchaseDataModel>();
+            if (purchase != null)
+            {
+                UserV2ViewModel user = this.GetUser(purchase.Username);
+
+                CommandParametersModel parameters = new CommandParametersModel(user);
+                parameters.SpecialIdentifiers["streamlootspurchasequantity"] = purchase.Quantity.ToString();
+
+                await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.StreamlootsPackCommunityGifted, parameters);
+
+                StreamlootsService.StreamlootsPurchaseOccurred(user, purchase.Quantity);
+
+                await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.StreamlootsCommunityGiftedPacksAlert, user.FullDisplayName, purchase.Quantity), ChannelSession.Settings.AlertStreamlootsColor));
             }
         }
 

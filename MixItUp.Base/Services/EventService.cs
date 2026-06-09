@@ -203,6 +203,7 @@ namespace MixItUp.Base.Services
         StreamlootsCardRedeemed = 1090,
         StreamlootsPackPurchased = 1091,
         StreamlootsPackGifted = 1092,
+        StreamlootsPackCommunityGifted = 1093,
 
         StreamElementsDonation = 1100,
         [Obsolete]

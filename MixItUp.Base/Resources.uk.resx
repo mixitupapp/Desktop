@@ -11568,4 +11568,10 @@ print(run())</value>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch Channel Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Набір Streamloots від спільноти</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} дарує {1} набір(и) для спільноти!</value>
+  </data>
 </root>

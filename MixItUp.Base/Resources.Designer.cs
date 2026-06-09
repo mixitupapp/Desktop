@@ -23973,6 +23973,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Is Gifting {1} Community Pack(s)!.
+        /// </summary>
+        public static string StreamlootsCommunityGiftedPacksAlert {
+            get {
+                return ResourceManager.GetString("StreamlootsCommunityGiftedPacksAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Gifted {1} Pack(s) to {2}.
         /// </summary>
         public static string StreamlootsGiftedPacksAlert {
@@ -24014,6 +24023,15 @@ namespace MixItUp.Base {
         public static string StreamlootsManageCollection {
             get {
                 return ResourceManager.GetString("StreamlootsManageCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Streamloots Pack Community Gifted.
+        /// </summary>
+        public static string StreamlootsPackCommunityGifted {
+            get {
+                return ResourceManager.GetString("StreamlootsPackCommunityGifted", resourceCulture);
             }
         }
         

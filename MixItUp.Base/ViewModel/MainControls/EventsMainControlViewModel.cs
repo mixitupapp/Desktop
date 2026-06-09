@@ -82,7 +82,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.JustGiving;
                 }
-                else if (this.EventType == EventTypeEnum.StreamlootsCardRedeemed || this.EventType == EventTypeEnum.StreamlootsPackGifted || this.EventType == EventTypeEnum.StreamlootsPackPurchased)
+                else if (this.EventType == EventTypeEnum.StreamlootsCardRedeemed || this.EventType == EventTypeEnum.StreamlootsPackGifted || this.EventType == EventTypeEnum.StreamlootsPackPurchased || this.EventType == EventTypeEnum.StreamlootsPackCommunityGifted)
                 {
                     return Resources.Streamloots;
                 }
@@ -249,6 +249,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsCardRedeemed));
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackPurchased));
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackGifted));
+            streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackCommunityGifted));
             commandGroups.Add(streamlootsCommands);
 
             EventCommandGroupViewModel crowdControlCommands = new EventCommandGroupViewModel(Resources.CrowdControl, packIconName: "ControllerClassic");

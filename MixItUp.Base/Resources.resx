@@ -11596,4 +11596,13 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="SteamOnly" xml:space="preserve">
     <value>Steam Only</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots Pack Community Gifted</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} Is Gifting {1} Community Pack(s)!</value>
+    <comment>{0} is the gifter
+{1} is the amount of packs</comment>
+  </data>
 </root>

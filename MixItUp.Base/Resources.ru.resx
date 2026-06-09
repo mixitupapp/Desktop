@@ -11573,4 +11573,10 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch-канал Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Набор «Streamloots» — подарок сообществу</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} дарит {1} набор(ы) для сообщества!</value>
+  </data>
 </root>

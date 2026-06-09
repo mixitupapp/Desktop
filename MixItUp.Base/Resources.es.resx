@@ -11570,4 +11570,10 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Canal de Twitch Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Paquete Streamloots: Regalo de la comunidad</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>¡{0} regala {1} paquete(s) comunitario(s)!</value>
+  </data>
 </root>

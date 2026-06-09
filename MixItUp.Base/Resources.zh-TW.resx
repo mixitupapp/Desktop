@@ -11568,4 +11568,10 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch 频道 Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots 礼包 社区馈赠</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} 正在赠送 {1} 个社区礼包！</value>
+  </data>
 </root>

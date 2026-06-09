@@ -11568,4 +11568,10 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Modiversary na kanale Twitch</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Pakiet Streamloots – prezent od społeczności</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} rozdaje {1} pakiet(y) społecznościowe!</value>
+  </data>
 </root>

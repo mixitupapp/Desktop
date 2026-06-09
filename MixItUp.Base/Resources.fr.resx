@@ -11569,4 +11569,10 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Chaîne Twitch Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Pack Streamloots offert par la communauté</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} offre {1} pack(s) communautaire(s) !</value>
+  </data>
 </root>

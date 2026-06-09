@@ -11574,4 +11574,10 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch-Kanal Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots-Paket – Geschenk der Community</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} verschenkt {1} Community-Paket(e)!</value>
+  </data>
 </root>

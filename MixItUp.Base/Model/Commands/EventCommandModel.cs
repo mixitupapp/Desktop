@@ -342,6 +342,7 @@ namespace MixItUp.Base.Model.Commands
                     break;
                 case EventTypeEnum.StreamlootsPackPurchased:
                 case EventTypeEnum.StreamlootsPackGifted:
+                case EventTypeEnum.StreamlootsPackCommunityGifted:
                     specialIdentifiers["streamlootspurchasequantity"] = "1";
                     break;
                 case EventTypeEnum.CrowdControlEffectRedeemed:

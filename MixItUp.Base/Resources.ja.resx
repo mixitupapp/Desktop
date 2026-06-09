@@ -11568,4 +11568,10 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch チャンネル Modiversary</value>
   </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots Pack コミュニティ限定</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0}さんが{1}コミュニティパックをプレゼントしています！</value>
+  </data>
 </root>
