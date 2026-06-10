@@ -1293,6 +1293,8 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "accountage", user.AccountAgeString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "accountdate", user.AccountDateString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followdays", user.FollowDays.ToString());
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followmonths", user.FollowMonths.ToString());
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followyears", user.FollowYears.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followage", user.FollowAgeString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followdate", user.FollowDateString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "lastseendays", user.LastActivityDays.ToString());
