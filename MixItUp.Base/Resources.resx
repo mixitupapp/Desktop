@@ -153,6 +153,14 @@
     <value>Account Is 1 Month Old</value>
     <comment>Manual</comment>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Account Is 6 Months Old</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Account Is 1 Year Old</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Accounts" xml:space="preserve">
     <value>Accounts</value>
     <comment>Manual</comment>
@@ -8392,6 +8400,12 @@ Imported quotes with IDs that match existing quotes will altered to the next max
   </data>
   <data name="ModerationAccountsOlderThanOneMonth" xml:space="preserve">
     <value>accounts older than 1 month</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>accounts older than 6 months</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>accounts older than 1 year</value>
   </data>
   <data name="ModerationAccountsOlderThanOneWeek" xml:space="preserve">
     <value>accounts older than 1 week</value>

@@ -11574,4 +11574,16 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} rozdaje {1} pakiet(y) społecznościowe!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Konto istnieje od 6 miesięcy</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Konto istnieje od roku</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>konta starsze niż 6 miesięcy</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>konta starsze niż 1 rok</value>
+  </data>
 </root>

@@ -11574,4 +11574,16 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} 正在赠送 {1} 个社区礼包！</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>该账户已开通6个月</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>该账户已开通一年</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>超过6个月的账户</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>超过1年的账户</value>
+  </data>
 </root>

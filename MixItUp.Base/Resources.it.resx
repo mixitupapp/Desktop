@@ -11574,4 +11574,16 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} regala {1} pacchetto/i Community!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>L'account è stato creato da 6 mesi</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>L'account ha un anno</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>account risalenti a più di 6 mesi fa</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>account con più di un anno di anzianità</value>
+  </data>
 </root>

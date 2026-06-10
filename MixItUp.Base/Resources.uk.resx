@@ -11574,4 +11574,16 @@ print(run())</value>
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} дарує {1} набір(и) для спільноти!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Обліковому запису виповнилося 6 місяців</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Обліковому запису виповнився 1 рік</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>рахунки, відкриті більше 6 місяців тому</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>рахунки, відкриті більше року тому</value>
+  </data>
 </root>

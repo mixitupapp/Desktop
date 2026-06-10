@@ -11575,4 +11575,16 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} geeft {1} Community Pack(s) cadeau!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Het account bestaat al 6 maanden</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Het account bestaat 1 jaar</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>accounts die ouder zijn dan 6 maanden</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>accounts die ouder zijn dan 1 jaar</value>
+  </data>
 </root>

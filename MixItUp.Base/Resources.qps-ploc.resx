@@ -11574,4 +11574,16 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} Is Gifting {1} Community Pack(s)!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Account Is 6 Months Old</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Account Is 1 Year Old</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>accounts older than 6 months</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>accounts older than 1 year</value>
+  </data>
 </root>

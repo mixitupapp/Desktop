@@ -11576,4 +11576,16 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>¡{0} regala {1} paquete(s) comunitario(s)!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>La cuenta tiene seis meses</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>La cuenta tiene un año</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>cuentas con más de seis meses de antigüedad</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>cuentas con más de un año de antigüedad</value>
+  </data>
 </root>

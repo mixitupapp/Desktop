@@ -11574,4 +11574,16 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0}さんが{1}コミュニティパックをプレゼントしています！</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>アカウント開設から6ヶ月が経過しています</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>アカウント開設から1年が経過しました</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>6ヶ月以上経過したアカウント</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>1年以上経過したアカウント</value>
+  </data>
 </root>

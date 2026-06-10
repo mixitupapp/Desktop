@@ -10293,4 +10293,16 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} verschenkt {1} Community-Paket(e)!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Das Konto ist 6 Monate alt</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Das Konto ist ein Jahr alt</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>Konten, die älter als 6 Monate sind</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>Konten, die älter als ein Jahr sind</value>
+  </data>
 </root>

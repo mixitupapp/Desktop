@@ -11579,4 +11579,16 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
     <value>{0} дарит {1} набор(ы) для сообщества!</value>
   </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Учетной записи уже 6 месяцев</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Учетной записи исполнился 1 год</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>счета, открытые более 6 месяцев назад</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>учетные записи, созданные более года назад</value>
+  </data>
 </root>

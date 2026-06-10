@@ -241,6 +241,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Is 6 Months Old.
+        /// </summary>
+        public static string AccountSixMonths {
+            get {
+                return ResourceManager.GetString("AccountSixMonths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Let&apos;s get started by signing in to the accounts you use on each Streaming Platform. Select the options below for each account you want to log in. You can revisit these options later by going to the Accounts page..
         /// </summary>
         public static string AccountsWizardInstructions {
@@ -255,6 +264,15 @@ namespace MixItUp.Base {
         public static string AccountWeek {
             get {
                 return ResourceManager.GetString("AccountWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Is 1 Year Old.
+        /// </summary>
+        public static string AccountYear {
+            get {
+                return ResourceManager.GetString("AccountYear", resourceCulture);
             }
         }
         
@@ -15014,6 +15032,24 @@ namespace MixItUp.Base {
         public static string ModerationAccountsOlderThanOneWeek {
             get {
                 return ResourceManager.GetString("ModerationAccountsOlderThanOneWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to accounts older than 1 year.
+        /// </summary>
+        public static string ModerationAccountsOlderThanOneYear {
+            get {
+                return ResourceManager.GetString("ModerationAccountsOlderThanOneYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to accounts older than 6 months.
+        /// </summary>
+        public static string ModerationAccountsOlderThanSixMonths {
+            get {
+                return ResourceManager.GetString("ModerationAccountsOlderThanSixMonths", resourceCulture);
             }
         }
         
