@@ -8143,7 +8143,7 @@ Zaimportowane cytaty z identyfikatorami pasującymi do istniejących cytatów zo
     <value>Dostępne gry:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Ten kanał korzysta z aplikacji Mix It Up, aby ulepszyć transmisję. Sprawdź http://mixitupapp.com, aby uzyskać więcej informacji!</value>
+    <value>Ten kanał korzysta z aplikacji Mix It Up, aby ulepszyć transmisję. Sprawdź http://mixitup.bot, aby uzyskać więcej informacji!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Wszystkie gotowe polecenia czatu Mix It Up można znaleźć tutaj: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Aby uzyskać polecenia specyficzne dla tego strumienia, zapytaj swojego streamera/moderatora.</value>

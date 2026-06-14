@@ -8157,7 +8157,7 @@ Imported quotes with IDs that match existing quotes will altered to the next max
     <value>Available Games: </value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>This channel uses the Mix It Up app to improve their stream. Check out http://mixitupapp.com for more information!</value>
+    <value>This channel uses the Mix It Up app to improve their stream. Check out http://mixitup.bot for more information!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>All pre-made Mix It Up chat commands can be found here: https://wiki.mixitup.bot/commands/pre-made-chat-commands. For commands specific to this stream, ask your streamer/moderator.</value>

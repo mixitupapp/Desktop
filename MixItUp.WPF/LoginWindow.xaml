@@ -188,10 +188,10 @@
                             </Border>
                             <StackPanel VerticalAlignment="Center">
                                 <TextBlock Margin="4,0,0,0" Style="{StaticResource LabelMedium}">
-   <Hyperlink x:Name="PatreonCTAHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitupapp.com/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
+   <Hyperlink x:Name="PatreonCTAHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitup.bot/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
                                 </TextBlock>
                                 <TextBlock Margin="4,0,0,0" Style="{StaticResource LabelMedium}">
-                                <Hyperlink x:Name="PatreonShoutOutHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitupapp.com/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
+                                <Hyperlink x:Name="PatreonShoutOutHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitup.bot/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
                                 </TextBlock>
                             </StackPanel>
                         </StackPanel>
@@ -230,7 +230,7 @@
                                     <TextBlock Style="{StaticResource LabelSmall}">
                                     <Hyperlink
                                         Foreground="{StaticResource MIU.Brush.Dark.OnBackground}"
-                                        NavigateUri="https://mixitupapp.com/TermsOfService"
+                                        NavigateUri="https://mixitup.bot/TermsOfService"
                                         RequestNavigate="Hyperlink_RequestNavigate">
                                         <Run Text="{x:Static resx:Resources.TermsOfService}" />
                                     </Hyperlink>
@@ -243,7 +243,7 @@
                                     <TextBlock Style="{StaticResource LabelSmall}">
                                         <Hyperlink
                                             Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" 
-                                            NavigateUri="https://mixitupapp.com/Privacy" 
+                                            NavigateUri="https://mixitup.bot/Privacy" 
                                             RequestNavigate="Hyperlink_RequestNavigate">
                                         <Run Text="{x:Static resx:Resources.PrivacyPolicy}" />
                                     </Hyperlink>

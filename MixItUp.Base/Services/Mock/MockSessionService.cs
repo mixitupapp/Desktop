@@ -23,7 +23,7 @@ namespace MixItUp.Base.Services.Mock
         public string BotID { get { return "1"; } }
         public string Botname { get { return "Test Bot"; } }
         public string ChannelID { get { return "2"; } }
-        public string ChannelLink { get { return "https://mixitupapp.com"; } }
+        public string ChannelLink { get { return "https://mixitup.bot"; } }
 
         public StreamingPlatformAccountModel UserAccount
         {

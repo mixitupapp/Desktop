@@ -8144,7 +8144,7 @@ Las cotizaciones importadas con ID que coincidan con las cotizaciones existentes
     <value>Juegos disponibles:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Este canal utiliza la aplicación Mix It Up para mejorar su transmisión. ¡Visite http://mixitupapp.com para obtener más información!</value>
+    <value>Este canal utiliza la aplicación Mix It Up para mejorar su transmisión. ¡Visite http://mixitup.bot para obtener más información!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Todos los comandos de chat prediseñados de Mix It Up se pueden encontrar aquí: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Para comandos específicos de esta transmisión, pregúntale a tu transmisor/moderador.</value>

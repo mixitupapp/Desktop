@@ -365,7 +365,7 @@ namespace MixItUp.WPF
 
         private void OpenDiscord_Click(object sender, RoutedEventArgs e)
         {
-            ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord");
+            ServiceManager.Get<IProcessService>().LaunchLink("https://mixitup.bot/discord");
         }
 
         private async void ResetWindowPosition_Click(object sender, RoutedEventArgs e)

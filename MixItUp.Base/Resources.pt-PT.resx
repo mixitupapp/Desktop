@@ -8145,7 +8145,7 @@ As citações importadas com IDs que correspondam às citações existentes ser�
     <value>Jogos disponíveis:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Este canal utiliza a aplicação Mix It Up para melhorar a sua transmissão. Consulte http://mixitupapp.com para mais informações!</value>
+    <value>Este canal utiliza a aplicação Mix It Up para melhorar a sua transmissão. Consulte http://mixitup.bot para mais informações!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Todos os comandos de chat padrão do Mix It Up podem ser encontrados aqui: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Para comandos específicos deste stream, pergunte ao seu streamer/moderador.</value>

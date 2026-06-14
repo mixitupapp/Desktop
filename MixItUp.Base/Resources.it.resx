@@ -8143,7 +8143,7 @@ I preventivi importati con ID che corrispondono ai preventivi esistenti verranno
     <value>Giochi disponibili:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Questo canale utilizza l'app Mix It Up per migliorare il proprio streaming. Controlla http://mixitupapp.com per ulteriori informazioni!</value>
+    <value>Questo canale utilizza l'app Mix It Up per migliorare il proprio streaming. Controlla http://mixitup.bot per ulteriori informazioni!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Tutti i comandi di chat Mix It Up predefiniti possono essere trovati qui: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Per comandi specifici per questo streaming, chiedi al tuo streamer/moderatore.</value>

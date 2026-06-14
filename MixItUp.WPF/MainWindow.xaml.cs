@@ -124,7 +124,7 @@ namespace MixItUp.WPF
 
             await this.MainMenu.Initialize(this);
 
-            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitupapp.com/alpha");
+            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitup.bot/alpha");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Channel, new ChannelControl(), "https://wiki.mixitup.bot/channel");
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Chat, new ChatControl(), "https://wiki.mixitup.bot/chat", canHide: false);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Commands, new ChatCommandsControl(), "https://wiki.mixitup.bot/commands/chat-commands");

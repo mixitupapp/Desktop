@@ -8146,7 +8146,7 @@ Importierte Angebote mit IDs, die mit vorhandenen Angeboten übereinstimmen, wer
     <value>Verfügbare Spiele:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Weitere Informationen finden Sie unter http://mixitupapp.com!</value>
+    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Weitere Informationen finden Sie unter http://mixitup.bot!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Alle vorgefertigten Mix It Up-Chat-Befehle finden Sie hier: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Fragen Sie Ihren Streamer/Moderator nach Befehlen, die speziell für diesen Stream gelten.</value>

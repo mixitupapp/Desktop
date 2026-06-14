@@ -8143,7 +8143,7 @@ Les devis importés dont les ID correspondent aux devis existants seront modifi�
     <value>Jeux disponibles :</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Cette chaîne utilise l'application Mix It Up pour améliorer son flux. Consultez http://mixitupapp.com pour plus d'informations !</value>
+    <value>Cette chaîne utilise l'application Mix It Up pour améliorer son flux. Consultez http://mixitup.bot pour plus d'informations !</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Toutes les commandes de chat Mix It Up prédéfinies peuvent être trouvées ici : https://wiki.mixitup.bot/commands/pre-made-chat-commands. Pour les commandes spécifiques à ce flux, demandez à votre streamer/modérateur.</value>

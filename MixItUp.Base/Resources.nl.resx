@@ -8144,7 +8144,7 @@ Geïmporteerde offertes met ID's die overeenkomen met bestaande offertes worden 
     <value>Beschikbare spellen:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Dit kanaal gebruikt de Mix It Up-app om hun stream te verbeteren. Kijk op http://mixitupapp.com voor meer informatie!</value>
+    <value>Dit kanaal gebruikt de Mix It Up-app om hun stream te verbeteren. Kijk op http://mixitup.bot voor meer informatie!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Alle vooraf gemaakte Mix It Up-chatopdrachten zijn hier te vinden: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Vraag uw streamer/moderator naar opdrachten die specifiek zijn voor deze stream.</value>

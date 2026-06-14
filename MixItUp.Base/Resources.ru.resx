@@ -8148,7 +8148,7 @@ Fuzzy</comment>
     <value>Доступные игры:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Этот канал использует приложение Mix It Up для улучшения своей трансляции. Посетите http://mixitupapp.com для получения дополнительной информации!</value>
+    <value>Этот канал использует приложение Mix It Up для улучшения своей трансляции. Посетите http://mixitup.bot для получения дополнительной информации!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Все готовые команды чата Mix It Up можно найти здесь: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Чтобы получить команды, специфичные для этого потока, обратитесь к своему стримеру/модератору.</value>

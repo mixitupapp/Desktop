@@ -8143,7 +8143,7 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>可用遊戲：</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>該頻道使用 Mix It Up 應用程式來改進他們的直播。查看 http://mixitupapp.com 以了解更多資訊！</value>
+    <value>該頻道使用 Mix It Up 應用程式來改進他們的直播。查看 http://mixitup.bot 以了解更多資訊！</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>所有預製的 Mix It Up 聊天命令都可以在這裡找到：https://wiki.mixitup.bot/commands/pre-made-chat-c​​ommanmands。有關此直播的特定命令，請詢問您的主播/主持人。</value>

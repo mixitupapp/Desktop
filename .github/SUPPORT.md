@@ -10,7 +10,7 @@ Thanks for using Mix It Up. This page explains where to get help and what we sup
 ## Where to get help
 
 - **Wiki:** <https://wiki.mixitup.bot>
-- **Q&A / How-to / Feature Requests / Bugs:** Join our community Discord at <https://mixitupapp.com/discord>
+- **Q&A / How-to / Feature Requests / Bugs:** Join our community Discord at <https://mixitup.bot/discord>
 - **Security issues:** Do **not** open an issue. See `SECURITY.md`.
 
 ## What we support

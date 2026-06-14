@@ -6934,7 +6934,7 @@ Importierte Quotes mit IDs, die mit bestehenden Quoten übereinstimmen, werden a
     <value>Verfügbare Spiele:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Schau dir http://mixitupapp.com für weitere Informationen an!</value>
+    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Schau dir http://mixitup.bot für weitere Informationen an!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>Alle vorgefertigten Mix It Up-Chat-Befehle finden Sie hier: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Für Befehle, die speziell für diesen Stream sind, frag deinen Streamer/Moderator.</value>

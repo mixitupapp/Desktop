@@ -8143,7 +8143,7 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <value>利用可能なゲーム:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>このチャンネルでは、Mix It Up アプリを使用してストリームを改善しています。詳細については、http://mixitupapp.com をチェックしてください。</value>
+    <value>このチャンネルでは、Mix It Up アプリを使用してストリームを改善しています。詳細については、http://mixitup.bot をチェックしてください。</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
     <value>事前に作成されたすべての Mix It Up チャット コマンドは、https://wiki.mixitup.bot/commands/pre-made-chat-c​​ommands にあります。このストリームに固有のコマンドについては、ストリーマー/モデレーターに問い合わせてください。</value>

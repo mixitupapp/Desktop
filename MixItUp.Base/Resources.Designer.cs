@@ -18448,7 +18448,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This channel uses the Mix It Up app to improve their stream. Check out http://mixitupapp.com for more information!.
+        ///   Looks up a localized string similar to This channel uses the Mix It Up app to improve their stream. Check out http://mixitup.bot for more information!.
         /// </summary>
         public static string PreMadeChatCommandMixItUp {
             get {

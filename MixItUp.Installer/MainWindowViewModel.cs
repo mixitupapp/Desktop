@@ -291,7 +291,7 @@ namespace MixItUp.Installer
             {
                 this.ShowError(
                     $"Mix It Up only runs on Windows 10 & higher.\nDetected Version: {Environment.OSVersion.Version}",
-                    $"If incorrect, please contact support@mixitupapp.com\nDiscord: https://mixitupapp.com/discord");
+                    $"If incorrect, please contact support@mixitupapp.com\nDiscord: https://mixitup.bot/discord");
                 return false;
             }
             return true;
