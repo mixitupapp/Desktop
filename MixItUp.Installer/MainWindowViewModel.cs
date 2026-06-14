@@ -36,7 +36,7 @@ namespace MixItUp.Installer
 
         public static string InstallSettingsDirectory { get { return Path.Combine(MainWindowViewModel.DefaultInstallDirectory, "Settings"); } }
 
-        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; //"https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; //"https://files.mixitup.bot/apps/mixitup-desktop/windows-x64";
         private const string TempDirectoryName = ".tmp";
         private const string EulaAcceptedFileName = "eula-accepted";
         private static readonly TimeSpan[] ManifestRetryDelays = new[] { TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(4), TimeSpan.FromSeconds(8) };

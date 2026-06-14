@@ -29,7 +29,7 @@ namespace MixItUp.Base.Services.External
                 <meta charset=""utf-8"">
                 <meta name=""viewport"" content=""width=device-width,initial-scale=1"">
                 <title>Mix It Up - Logged In</title>
-                <link rel=""shortcut icon"" href=""https://files.mixitupapp.com/static/branding/mixitup.ico"">
+                <link rel=""shortcut icon"" href=""https://files.mixitup.bot/static/branding/mixitup.ico"">
                 <style>
                 *{margin:0;padding:0;box-sizing:border-box}
                 body{font-family:system-ui,-apple-system,sans-serif;background:#12053a;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden;position:relative}
@@ -60,7 +60,7 @@ namespace MixItUp.Base.Services.External
                 </div>
                 </div>
                 <script>
-                (function(){var done=false;function show(){if(done)return;done=true;document.getElementById('loader').classList.add('hidden');document.getElementById('content').classList.add('visible')}var img=new Image();img.onload=function(){document.getElementById('bg').style.backgroundImage='url('+img.src+')';document.getElementById('bg').classList.add('loaded');show()};img.onerror=function(){show()};setTimeout(show,5000);img.src='https://files.mixitupapp.com/static/branding/mixitup_wallpaper-color_1080.png'})();
+                (function(){var done=false;function show(){if(done)return;done=true;document.getElementById('loader').classList.add('hidden');document.getElementById('content').classList.add('visible')}var img=new Image();img.onload=function(){document.getElementById('bg').style.backgroundImage='url('+img.src+')';document.getElementById('bg').classList.add('loaded');show()};img.onerror=function(){show()};setTimeout(show,5000);img.src='https://files.mixitup.bot/static/branding/mixitup_wallpaper-color_1080.png'})();
                 </script>
                 </body>
                 </html>";
