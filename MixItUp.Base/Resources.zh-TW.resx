@@ -8146,7 +8146,7 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>該頻道使用 Mix It Up 應用程式來改進他們的直播。查看 http://mixitupapp.com 以了解更多資訊！</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>所有預製的 Mix It Up 聊天命令都可以在這裡找到：https://wiki.mixitupapp.com/commands/pre-made-chat-c​​ommanmands。有關此直播的特定命令，請詢問您的主播/主持人。</value>
+    <value>所有預製的 Mix It Up 聊天命令都可以在這裡找到：https://wiki.mixitup.bot/commands/pre-made-chat-c​​ommanmands。有關此直播的特定命令，請詢問您的主播/主持人。</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>必須啟用報價並且必須添加至少一個報價才能使此功能發揮作用。</value>
@@ -8531,7 +8531,7 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>無法連接到 YouTube 聊天伺服器</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>無法取得 YouTube 機器人資料。對於 YouTube 機器人帳戶，請確保您已在 YouTube 上為您要登入的帳戶建立頻道。有關更多信息，請參閱以下 Wiki 頁面：https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>無法取得 YouTube 機器人資料。對於 YouTube 機器人帳戶，請確保您已在 YouTube 上為您要登入的帳戶建立頻道。有關更多信息，請參閱以下 Wiki 頁面：https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>無法取得 YouTube 用戶數據</value>

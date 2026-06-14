@@ -8147,7 +8147,7 @@ As citações importadas com IDs que correspondam às citações existentes ser�
     <value>Este canal utiliza a aplicação Mix It Up para melhorar a sua transmissão. Consulte http://mixitupapp.com para mais informações!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Todos os comandos de chat padrão do Mix It Up podem ser encontrados aqui: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Para comandos específicos deste stream, pergunte ao seu streamer/moderador.</value>
+    <value>Todos os comandos de chat padrão do Mix It Up podem ser encontrados aqui: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Para comandos específicos deste stream, pergunte ao seu streamer/moderador.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>As citações devem estar ativadas e pelo menos uma citação deve ser adicionada para que esta funcionalidade funcione.</value>
@@ -8532,7 +8532,7 @@ NOTA: Isto pode exigir que opte pela versão de pré-visualização no separador
     <value>Falha ao ligar aos servidores de chat do YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Falha ao obter dados do bot do YouTube. Para contas de bot do YouTube, certifique-se de que criou um canal no YouTube para a conta na qual está a iniciar sessão. Consulte a seguinte página Wiki para mais informações: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Falha ao obter dados do bot do YouTube. Para contas de bot do YouTube, certifique-se de que criou um canal no YouTube para a conta na qual está a iniciar sessão. Consulte a seguinte página Wiki para mais informações: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Falha ao obter dados do usuário do YouTube</value>

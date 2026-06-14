@@ -8146,7 +8146,7 @@ I preventivi importati con ID che corrispondono ai preventivi esistenti verranno
     <value>Questo canale utilizza l'app Mix It Up per migliorare il proprio streaming. Controlla http://mixitupapp.com per ulteriori informazioni!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Tutti i comandi di chat Mix It Up predefiniti possono essere trovati qui: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Per comandi specifici per questo streaming, chiedi al tuo streamer/moderatore.</value>
+    <value>Tutti i comandi di chat Mix It Up predefiniti possono essere trovati qui: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Per comandi specifici per questo streaming, chiedi al tuo streamer/moderatore.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Le virgolette devono essere abilitate e deve essere aggiunta almeno una citazione affinché questa funzionalità funzioni.</value>
@@ -8531,7 +8531,7 @@ NOTA: ciò potrebbe richiedere l'attivazione della build di anteprima dalla sche
     <value>Impossibile connettersi ai server di chat di YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Impossibile ottenere i dati del bot di YouTube. Per gli account bot di YouTube, assicurati di aver creato un canale su YouTube per l'account a cui stai accedendo. Per ulteriori informazioni, consultare la seguente pagina Wiki: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Impossibile ottenere i dati del bot di YouTube. Per gli account bot di YouTube, assicurati di aver creato un canale su YouTube per l'account a cui stai accedendo. Per ulteriori informazioni, consultare la seguente pagina Wiki: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Impossibile ottenere i dati utente di YouTube</value>

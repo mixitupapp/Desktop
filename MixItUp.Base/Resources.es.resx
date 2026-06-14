@@ -8147,7 +8147,7 @@ Las cotizaciones importadas con ID que coincidan con las cotizaciones existentes
     <value>Este canal utiliza la aplicación Mix It Up para mejorar su transmisión. ¡Visite http://mixitupapp.com para obtener más información!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Todos los comandos de chat prediseñados de Mix It Up se pueden encontrar aquí: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Para comandos específicos de esta transmisión, pregúntale a tu transmisor/moderador.</value>
+    <value>Todos los comandos de chat prediseñados de Mix It Up se pueden encontrar aquí: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Para comandos específicos de esta transmisión, pregúntale a tu transmisor/moderador.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Las cotizaciones deben estar habilitadas y se debe agregar al menos una cotización para que esta función funcione.</value>
@@ -8532,7 +8532,7 @@ NOTA: Esto puede requerir que usted opte por la compilación de Vista previa des
     <value>No se pudo conectar a los servidores de chat de YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>No se pudieron obtener los datos del bot de YouTube. Para las cuentas de bots de YouTube, asegúrese de haber creado un canal en YouTube para la cuenta en la que está iniciando sesión. Consulte la siguiente página Wiki para obtener más información: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>No se pudieron obtener los datos del bot de YouTube. Para las cuentas de bots de YouTube, asegúrese de haber creado un canal en YouTube para la cuenta en la que está iniciando sesión. Consulte la siguiente página Wiki para obtener más información: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>No se pudieron obtener los datos del usuario de YouTube</value>

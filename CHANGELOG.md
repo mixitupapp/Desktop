@@ -717,7 +717,7 @@
 
 ## v1.0.0.36
 
-- Removing Twitter integration due to restrictions imposed by Twitter APIs. Information about the removal and alternative solutions can be found on our wiki: <https://wiki.mixitupapp.com/en/services/twitter>
+- Removing Twitter integration due to restrictions imposed by Twitter APIs. Information about the removal and alternative solutions can be found on our wiki: <https://wiki.mixitup.bot/en/services/twitter>
 - Various quality of life & bug fixes
 
 ## v1.0.0.35

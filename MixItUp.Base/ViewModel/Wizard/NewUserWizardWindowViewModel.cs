@@ -154,7 +154,7 @@ namespace MixItUp.Base.ViewModel.Wizard
             this.DiscordCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord"); });
             this.TwitterCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://x.com/MixItUpBot"); });
             this.YouTubeCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://www.youtube.com/c/MixItUpApp"); });
-            this.WikiCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/"); });
+            this.WikiCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/"); });
 
             this.Twitch.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
             this.Twitch.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };

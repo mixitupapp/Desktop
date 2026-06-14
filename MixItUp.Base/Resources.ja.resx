@@ -8146,7 +8146,7 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <value>このチャンネルでは、Mix It Up アプリを使用してストリームを改善しています。詳細については、http://mixitupapp.com をチェックしてください。</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>事前に作成されたすべての Mix It Up チャット コマンドは、https://wiki.mixitupapp.com/commands/pre-made-chat-c​​ommands にあります。このストリームに固有のコマンドについては、ストリーマー/モデレーターに問い合わせてください。</value>
+    <value>事前に作成されたすべての Mix It Up チャット コマンドは、https://wiki.mixitup.bot/commands/pre-made-chat-c​​ommands にあります。このストリームに固有のコマンドについては、ストリーマー/モデレーターに問い合わせてください。</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>この機能を動作させるには、引用符を有効にし、少なくとも 1 つの引用符を追加する必要があります。</value>
@@ -8531,7 +8531,7 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <value>YouTube チャット サーバーに接続できませんでした</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>YouTube ボット データの取得に失敗しました。 YouTube ボット アカウントの場合は、サインインしているアカウントのチャンネルが YouTube 上に作成されていることを確認してください。詳細については、次の Wiki ページを参照してください: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>YouTube ボット データの取得に失敗しました。 YouTube ボット アカウントの場合は、サインインしているアカウントのチャンネルが YouTube 上に作成されていることを確認してください。詳細については、次の Wiki ページを参照してください: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>YouTube ユーザーデータの取得に失敗しました</value>

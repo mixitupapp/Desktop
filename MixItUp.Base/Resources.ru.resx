@@ -8151,7 +8151,7 @@ Fuzzy</comment>
     <value>Этот канал использует приложение Mix It Up для улучшения своей трансляции. Посетите http://mixitupapp.com для получения дополнительной информации!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Все готовые команды чата Mix It Up можно найти здесь: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Чтобы получить команды, специфичные для этого потока, обратитесь к своему стримеру/модератору.</value>
+    <value>Все готовые команды чата Mix It Up можно найти здесь: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Чтобы получить команды, специфичные для этого потока, обратитесь к своему стримеру/модератору.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Для работы этой функции необходимо включить кавычки и добавить хотя бы одну кавычку.</value>
@@ -8536,7 +8536,7 @@ Fuzzy</comment>
     <value>Не удалось подключиться к серверам чата YouTube.</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Не удалось получить данные бота YouTube. Для учетных записей ботов YouTube убедитесь, что вы создали канал на YouTube для учетной записи, в которую входите. Дополнительную информацию см. на следующей странице Wiki: https://wiki.mixitupapp.com/accounts#bot-accounts.</value>
+    <value>Не удалось получить данные бота YouTube. Для учетных записей ботов YouTube убедитесь, что вы создали канал на YouTube для учетной записи, в которую входите. Дополнительную информацию см. на следующей странице Wiki: https://wiki.mixitup.bot/accounts#bot-accounts.</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Не удалось получить данные пользователя YouTube.</value>

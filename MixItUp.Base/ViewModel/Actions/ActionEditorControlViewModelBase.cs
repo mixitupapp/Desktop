@@ -269,7 +269,7 @@ namespace MixItUp.Base.ViewModel.Actions
                             break;
                     }
 
-                    ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/actions/" + actionPageName);
+                    ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/actions/" + actionPageName);
                 });
             }
 

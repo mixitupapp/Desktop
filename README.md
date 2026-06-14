@@ -8,7 +8,7 @@ Mix It Up is an all‑in‑one toolkit that keeps your stream running smoothly. 
 
 ## How do I get started?
 
-Grab the latest release at <https://mixitupapp.com> and visit <https://wiki.mixitupapp.com/> for quick starts and deep‑dive guides.
+Grab the latest release at <https://mixitupapp.com> and visit <https://wiki.mixitup.bot/> for quick starts and deep‑dive guides.
 
 ## Found a bug or want something?
 

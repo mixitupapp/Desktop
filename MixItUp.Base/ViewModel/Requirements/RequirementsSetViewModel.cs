@@ -49,7 +49,7 @@ namespace MixItUp.Base.ViewModel.Requirements
         {
             this.HelpCommand = this.CreateCommand(() =>
             {
-                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/usage-requirements");
+                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/usage-requirements");
             });
         }
 

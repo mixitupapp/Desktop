@@ -139,7 +139,7 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private void Patreon_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupbot"); }
 
-        private void WikiButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/"); }
+        private void WikiButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/"); }
 
         private void GithubButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://github.com/mixitupbot/Desktop"); }
 
