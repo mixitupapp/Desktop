@@ -244,6 +244,17 @@ namespace MixItUp.Installer
                 }
             }
 
+            //Portable instal check
+            if (args.Length < 2 || this.installDirectory == DefaultInstallDirectory)
+            {
+                string selfDirectory = Path.GetFullPath(AppContext.BaseDirectory);
+                if (!string.Equals(selfDirectory, DefaultInstallDirectory, StringComparison.OrdinalIgnoreCase)
+                        && DoesDirectoryContainExistingInstall(selfDirectory))
+                {
+                    this.installDirectory = selfDirectory;
+                }
+            }
+
             if (Directory.Exists(this.installDirectory))
             {
                 this.IsUpdate = true;
@@ -640,8 +651,8 @@ namespace MixItUp.Installer
         private async Task<bool> DownloadPackageAsync()
         {
             UpdateStepModel downloadStep = versionManifest.GetDownloadStep();
-            UpdateStepModel verifyStep   = versionManifest.GetVerifyStep();
-            UpdateStepModel extractStep  = versionManifest.GetExtractStep();
+            UpdateStepModel verifyStep = versionManifest.GetVerifyStep();
+            UpdateStepModel extractStep = versionManifest.GetExtractStep();
 
             if (downloadStep == null || string.IsNullOrEmpty(downloadStep.target))
             {
