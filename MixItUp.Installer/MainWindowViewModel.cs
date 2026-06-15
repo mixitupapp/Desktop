@@ -244,7 +244,7 @@ namespace MixItUp.Installer
                 }
             }
 
-            //Portable instal check
+            //Portable install check
             if (args.Length < 2 || this.installDirectory == DefaultInstallDirectory)
             {
                 string selfDirectory = Path.GetFullPath(AppContext.BaseDirectory);
