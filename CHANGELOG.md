@@ -1,5 +1,11 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.102 (HOTFIX)
+
+### FIXES
+
+- Redirect all routes to new Mix It Up domain due to ongoing DNSSEC error
+
 ## 1.7.101 (HOTFIX)
 
 ### FIXES
