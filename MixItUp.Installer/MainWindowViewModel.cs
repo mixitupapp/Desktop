@@ -244,17 +244,6 @@ namespace MixItUp.Installer
                 }
             }
 
-            //Portable install check
-            if (args.Length < 2 || this.installDirectory == DefaultInstallDirectory)
-            {
-                string selfDirectory = Path.GetFullPath(AppContext.BaseDirectory);
-                if (!string.Equals(selfDirectory, DefaultInstallDirectory, StringComparison.OrdinalIgnoreCase)
-                        && DoesDirectoryContainExistingInstall(selfDirectory))
-                {
-                    this.installDirectory = selfDirectory;
-                }
-            }
-
             if (Directory.Exists(this.installDirectory))
             {
                 this.IsUpdate = true;
