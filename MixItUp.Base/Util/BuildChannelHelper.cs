@@ -4,9 +4,9 @@ namespace MixItUp.Base.Util
     {
         // Dev CDN root for update manifest/packages; production uses the public CDN
 #if DEBUG_BUILD
-        public const string API_FILES_UPDATE_ROOT = "https://dev.files.mixitupapp.com/api/v2/apps/mixitup-desktop/windows-x64";
+        public const string API_FILES_UPDATE_ROOT = "https://dev.files.mixitup.bot/api/v2/apps/mixitup-desktop/windows-x64";
 #else
-        public const string API_FILES_UPDATE_ROOT = "https://files.mixitupapp.com/api/v2/apps/mixitup-desktop/windows-x64";
+        public const string API_FILES_UPDATE_ROOT = "https://files.mixitup.bot/api/v2/apps/mixitup-desktop/windows-x64";
 #endif
 
         // Skip the version check in debug so a local build can launch without being current

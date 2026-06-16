@@ -33,7 +33,7 @@
             <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{x:Static resx:Resources.AmazonPollyInfo2}"/>
 
             <TextBlock Grid.Row="4" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://wiki.mixitupapp.com/en/services/amazon-polly" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/en/services/amazon-polly" RequestNavigate="Hyperlink_RequestNavigate">
                     <TextBlock Text="{x:Static resx:Resources.AmazonPolly}"/>
                 </Hyperlink>
             </TextBlock>

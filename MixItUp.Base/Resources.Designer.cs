@@ -18448,7 +18448,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This channel uses the Mix It Up app to improve their stream. Check out http://mixitupapp.com for more information!.
+        ///   Looks up a localized string similar to This channel uses the Mix It Up app to improve their stream. Check out http://mixitup.bot for more information!.
         /// </summary>
         public static string PreMadeChatCommandMixItUp {
             get {
@@ -18457,7 +18457,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All pre-made Mix It Up chat commands can be found here: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. For commands specific to this stream, ask your streamer/moderator..
+        ///   Looks up a localized string similar to All pre-made Mix It Up chat commands can be found here: https://wiki.mixitup.bot/commands/pre-made-chat-commands. For commands specific to this stream, ask your streamer/moderator..
         /// </summary>
         public static string PreMadeChatCommandMixItUpCommands {
             get {
@@ -30072,7 +30072,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to get YouTube bot data. For YouTube bot accounts, ensure that you have created a channel on YouTube for the account you are signing in to. See the following Wiki page for more information: https://wiki.mixitupapp.com/accounts#bot-accounts.
+        ///   Looks up a localized string similar to Failed to get YouTube bot data. For YouTube bot accounts, ensure that you have created a channel on YouTube for the account you are signing in to. See the following Wiki page for more information: https://wiki.mixitup.bot/accounts#bot-accounts.
         /// </summary>
         public static string YouTubeFailedToGetBotData {
             get {

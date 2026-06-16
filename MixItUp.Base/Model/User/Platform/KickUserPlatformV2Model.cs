@@ -14,7 +14,7 @@ namespace MixItUp.Base.Model.User.Platform
     [DataContract]
     public class KickUserPlatformV2Model : UserPlatformV2ModelBase
     {
-        private const string BadgeBaseURL = "https://files.mixitupapp.com/static/platforms/kick/badges/";
+        private const string BadgeBaseURL = "https://files.mixitup.bot/static/platforms/kick/badges/";
         private const string BroadcasterBadgeURL = BadgeBaseURL + "broadcaster.png";
         private const string ModeratorBadgeURL = BadgeBaseURL + "moderator.png";
         private const string VIPBadgeURL = BadgeBaseURL + "vip.png";

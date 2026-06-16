@@ -124,43 +124,43 @@ namespace MixItUp.WPF
 
             await this.MainMenu.Initialize(this);
 
-            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitupapp.com/alpha");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Channel, new ChannelControl(), "https://wiki.mixitupapp.com/channel");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Chat, new ChatControl(), "https://wiki.mixitupapp.com/chat", canHide: false);
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Commands, new ChatCommandsControl(), "https://wiki.mixitupapp.com/commands/chat-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Events, new EventsControl(), "https://wiki.mixitupapp.com/commands/event-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Timers, new TimerControl(), "https://wiki.mixitupapp.com/commands/timer-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.ActionGroups, new ActionGroupControl(), "https://wiki.mixitupapp.com/commands/action-groups");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CommunityCommands, new CommunityCommandsControl(), "https://wiki.mixitupapp.com/commands/community-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Users, new UsersControl(), "https://wiki.mixitupapp.com/users");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MusicPlayer, new MusicPlayerControl(), "https://wiki.mixitupapp.com/music-player");
-            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Statistics, new StatisticsControl(), "https://wiki.mixitupapp.com/statistics");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CurrencyRankInventory, new CurrencyRankInventoryControl(), "https://wiki.mixitupapp.com/consumables");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.TwitchChannelPoints, new TwitchChannelPointsControl(), "https://wiki.mixitupapp.com/commands/twitch-channel-point-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.TwitchCustomPowerUps, new TwitchCustomPowerUpsControl(), "https://wiki.mixitupapp.com/commands/twitch-custom-power-up-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.TwitchBits, new TwitchBitsControl(), "https://wiki.mixitupapp.com/commands/twitch-bits-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.KickChannelPoints, new KickChannelPointsControl(), "https://wiki.mixitupapp.com/commands/kick-channel-point-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.KickKicks, new KickKicksControl(), "https://wiki.mixitupapp.com/commands/kick-kicks-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.StreamlootsCards, new StreamlootsCardsControl(), "https://wiki.mixitupapp.com/commands/streamloots-card-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CrowdControl, new CrowdControlControl(), "https://wiki.mixitupapp.com/commands/crowd-control-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.StreamPass, new StreamPassControl(), "https://wiki.mixitupapp.com/consumables/stream-pass");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.RedemptionStore, new RedemptionStoreControl(), "https://wiki.mixitupapp.com/redemption-store");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.OverlayWidgets, new OverlayWidgetsControl(), "https://wiki.mixitupapp.com/overlay-widgets");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Games, new GamesControl(), "https://wiki.mixitupapp.com/commands/game-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Giveaway, new GiveawayControl(), "https://wiki.mixitupapp.com/giveaways");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.GameQueue, new GameQueueControl(), "https://wiki.mixitupapp.com/game-queue");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Quotes, new QuoteControl(), "https://wiki.mixitupapp.com/quotes");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Moderation, new ModerationControl(), "https://wiki.mixitupapp.com/moderation");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CommandHistory, new CommandHistoryControl(), "https://wiki.mixitupapp.com/commands/command-history");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Services, new ServicesControl(), "https://wiki.mixitupapp.com/services", canHide: false);
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Webhooks, new WebhooksControl(), "https://wiki.mixitupapp.com/commands/webhook-commands");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Accounts, new AccountsControl(), "https://wiki.mixitupapp.com/accounts", canHide: false);
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Changelog, new ChangelogControl(), "https://wiki.mixitupapp.com/");
-            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.About, new AboutControl(), "https://wiki.mixitupapp.com/", canHide: false);
+            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MixItUpOnline, new MixItUpOnlineControl(), "https://online.mixitup.bot/alpha");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Channel, new ChannelControl(), "https://wiki.mixitup.bot/channel");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Chat, new ChatControl(), "https://wiki.mixitup.bot/chat", canHide: false);
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Commands, new ChatCommandsControl(), "https://wiki.mixitup.bot/commands/chat-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Events, new EventsControl(), "https://wiki.mixitup.bot/commands/event-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Timers, new TimerControl(), "https://wiki.mixitup.bot/commands/timer-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.ActionGroups, new ActionGroupControl(), "https://wiki.mixitup.bot/commands/action-groups");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CommunityCommands, new CommunityCommandsControl(), "https://wiki.mixitup.bot/commands/community-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Users, new UsersControl(), "https://wiki.mixitup.bot/users");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.MusicPlayer, new MusicPlayerControl(), "https://wiki.mixitup.bot/music-player");
+            //await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Statistics, new StatisticsControl(), "https://wiki.mixitup.bot/statistics");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CurrencyRankInventory, new CurrencyRankInventoryControl(), "https://wiki.mixitup.bot/consumables");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.TwitchChannelPoints, new TwitchChannelPointsControl(), "https://wiki.mixitup.bot/commands/twitch-channel-point-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.TwitchCustomPowerUps, new TwitchCustomPowerUpsControl(), "https://wiki.mixitup.bot/commands/twitch-custom-power-up-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.TwitchBits, new TwitchBitsControl(), "https://wiki.mixitup.bot/commands/twitch-bits-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.KickChannelPoints, new KickChannelPointsControl(), "https://wiki.mixitup.bot/commands/kick-channel-point-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.KickKicks, new KickKicksControl(), "https://wiki.mixitup.bot/commands/kick-kicks-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.StreamlootsCards, new StreamlootsCardsControl(), "https://wiki.mixitup.bot/commands/streamloots-card-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CrowdControl, new CrowdControlControl(), "https://wiki.mixitup.bot/commands/crowd-control-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.StreamPass, new StreamPassControl(), "https://wiki.mixitup.bot/consumables/stream-pass");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.RedemptionStore, new RedemptionStoreControl(), "https://wiki.mixitup.bot/redemption-store");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.OverlayWidgets, new OverlayWidgetsControl(), "https://wiki.mixitup.bot/overlay-widgets");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Games, new GamesControl(), "https://wiki.mixitup.bot/commands/game-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Giveaway, new GiveawayControl(), "https://wiki.mixitup.bot/giveaways");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.GameQueue, new GameQueueControl(), "https://wiki.mixitup.bot/game-queue");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Quotes, new QuoteControl(), "https://wiki.mixitup.bot/quotes");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Moderation, new ModerationControl(), "https://wiki.mixitup.bot/moderation");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CommandHistory, new CommandHistoryControl(), "https://wiki.mixitup.bot/commands/command-history");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Services, new ServicesControl(), "https://wiki.mixitup.bot/services", canHide: false);
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Webhooks, new WebhooksControl(), "https://wiki.mixitup.bot/commands/webhook-commands");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Accounts, new AccountsControl(), "https://wiki.mixitup.bot/accounts", canHide: false);
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Changelog, new ChangelogControl(), "https://wiki.mixitup.bot/");
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.About, new AboutControl(), "https://wiki.mixitup.bot/", canHide: false);
 
             if (ChannelSession.IsDebug())
             {
-                await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Debug, new DebugControl(), "https://wiki.mixitupapp.com/");
+                await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Debug, new DebugControl(), "https://wiki.mixitup.bot/");
             }
 
             this.MainMenu.LoadMenuOrder();

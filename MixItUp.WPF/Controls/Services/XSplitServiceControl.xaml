@@ -40,7 +40,7 @@
             </TextBlock>
 
             <TextBlock Grid.Row="6" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/xsplit" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/xsplit" RequestNavigate="Hyperlink_RequestNavigate">
                     <TextBlock Text="{x:Static resx:Resources.XSplitServicePage}"/>
                 </Hyperlink>
             </TextBlock>

@@ -17,7 +17,7 @@ namespace MixItUp.Base.ViewModel.Services
 
             this.HelpCommand = this.CreateCommand(() =>
             {
-                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/services/" + this.WikiPageName);
+                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/services/" + this.WikiPageName);
             });
         }
 

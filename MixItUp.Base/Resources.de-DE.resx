@@ -6934,10 +6934,10 @@ Importierte Quotes mit IDs, die mit bestehenden Quoten übereinstimmen, werden a
     <value>Verfügbare Spiele:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Schau dir http://mixitupapp.com für weitere Informationen an!</value>
+    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Schau dir http://mixitup.bot für weitere Informationen an!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Alle vorgefertigten Mix It Up-Chat-Befehle finden Sie hier: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Für Befehle, die speziell für diesen Stream sind, frag deinen Streamer/Moderator.</value>
+    <value>Alle vorgefertigten Mix It Up-Chat-Befehle finden Sie hier: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Für Befehle, die speziell für diesen Stream sind, frag deinen Streamer/Moderator.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Angebote müssen aktiviert und mindestens ein Angebot hinzugefügt werden, damit diese Funktion funktioniert.</value>
@@ -7287,7 +7287,7 @@ HINWEIS: Es kann erforderlich sein, dass Sie sich über den Reiter "Vorschau" in
     <value>Keine Verbindung zu den YouTube-Chatservern gelang</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Ich habe keine YouTube-Bot-Daten bekommen. Für YouTube-Bot-Konten stellen Sie sicher, dass Sie einen YouTube-Kanal für das Konto erstellt haben, bei dem Sie sich anmelden. Weitere Informationen finden Sie auf der folgenden Wiki-Seite: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Ich habe keine YouTube-Bot-Daten bekommen. Für YouTube-Bot-Konten stellen Sie sicher, dass Sie einen YouTube-Kanal für das Konto erstellt haben, bei dem Sie sich anmelden. Weitere Informationen finden Sie auf der folgenden Wiki-Seite: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>YouTube-Nutzerdaten wurden nicht erhalten</value>
