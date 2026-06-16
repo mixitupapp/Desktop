@@ -8144,10 +8144,10 @@ Geïmporteerde offertes met ID's die overeenkomen met bestaande offertes worden 
     <value>Beschikbare spellen:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Dit kanaal gebruikt de Mix It Up-app om hun stream te verbeteren. Kijk op http://mixitupapp.com voor meer informatie!</value>
+    <value>Dit kanaal gebruikt de Mix It Up-app om hun stream te verbeteren. Kijk op http://mixitup.bot voor meer informatie!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Alle vooraf gemaakte Mix It Up-chatopdrachten zijn hier te vinden: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Vraag uw streamer/moderator naar opdrachten die specifiek zijn voor deze stream.</value>
+    <value>Alle vooraf gemaakte Mix It Up-chatopdrachten zijn hier te vinden: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Vraag uw streamer/moderator naar opdrachten die specifiek zijn voor deze stream.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Om deze functie te laten werken, moeten offertes zijn ingeschakeld en moet er ten minste één offerte worden toegevoegd.</value>
@@ -8532,7 +8532,7 @@ OPMERKING: Mogelijk moet u zich hiervoor aanmelden voor de Preview-build via het
     <value>Kan geen verbinding maken met de YouTube-chatservers</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Kan YouTube-botgegevens niet ophalen. Zorg er voor YouTube-botaccounts voor dat je een kanaal op YouTube hebt gemaakt voor het account waarbij je inlogt. Zie de volgende Wiki-pagina voor meer informatie: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Kan YouTube-botgegevens niet ophalen. Zorg er voor YouTube-botaccounts voor dat je een kanaal op YouTube hebt gemaakt voor het account waarbij je inlogt. Zie de volgende Wiki-pagina voor meer informatie: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Kan YouTube-gebruikersgegevens niet ophalen</value>

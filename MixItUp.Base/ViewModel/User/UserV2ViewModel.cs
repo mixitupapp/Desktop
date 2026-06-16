@@ -207,7 +207,7 @@ namespace MixItUp.Base.ViewModel.User
                 return null;
             }
         }
-        public string PlatformBadgeFullLink { get { return $"https://files.mixitupapp.com/static/logos/{this.PlatformBadgeLink}"; } }
+        public string PlatformBadgeFullLink { get { return $"https://files.mixitup.bot/static/logos/{this.PlatformBadgeLink}"; } }
         public bool ShowPlatformBadge { get { return true; } }
 
         public DateTimeOffset? AccountDate { get { return this.PlatformModel.AccountDate; } set { this.PlatformModel.AccountDate = value; } }

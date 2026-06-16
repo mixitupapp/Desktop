@@ -41,7 +41,7 @@
             <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="{x:Static resx:Resources.PolyPopInfo2}"/>
 
             <TextBlock Grid.Row="6" TextWrapping="Wrap" HorizontalAlignment="Center">
-                <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/polypop" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/polypop" RequestNavigate="Hyperlink_RequestNavigate">
                     <TextBlock Text="{x:Static resx:Resources.WikiPage}"/>
                 </Hyperlink>
             </TextBlock>

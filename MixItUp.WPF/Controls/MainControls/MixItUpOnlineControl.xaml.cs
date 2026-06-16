@@ -30,7 +30,7 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ServiceManager.Get<IProcessService>().LaunchLink("https://online.mixitupapp.com/alpha");
+            ServiceManager.Get<IProcessService>().LaunchLink("https://online.mixitup.bot/alpha");
         }
     }
 }

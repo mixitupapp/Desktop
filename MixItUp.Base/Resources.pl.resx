@@ -8143,10 +8143,10 @@ Zaimportowane cytaty z identyfikatorami pasującymi do istniejących cytatów zo
     <value>Dostępne gry:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Ten kanał korzysta z aplikacji Mix It Up, aby ulepszyć transmisję. Sprawdź http://mixitupapp.com, aby uzyskać więcej informacji!</value>
+    <value>Ten kanał korzysta z aplikacji Mix It Up, aby ulepszyć transmisję. Sprawdź http://mixitup.bot, aby uzyskać więcej informacji!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Wszystkie gotowe polecenia czatu Mix It Up można znaleźć tutaj: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Aby uzyskać polecenia specyficzne dla tego strumienia, zapytaj swojego streamera/moderatora.</value>
+    <value>Wszystkie gotowe polecenia czatu Mix It Up można znaleźć tutaj: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Aby uzyskać polecenia specyficzne dla tego strumienia, zapytaj swojego streamera/moderatora.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Aby ta funkcja działała, należy włączyć cytaty i dodać co najmniej jeden cytat.</value>
@@ -8531,7 +8531,7 @@ UWAGA: może to wymagać wyrażenia zgody na kompilację podglądu na karcie Og�
     <value>Nie udało się połączyć z serwerami czatu YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Nie udało się pobrać danych bota YouTube. W przypadku kont botów YouTube upewnij się, że utworzyłeś kanał w YouTube dla konta, na które się logujesz. Więcej informacji można znaleźć na następującej stronie Wiki: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Nie udało się pobrać danych bota YouTube. W przypadku kont botów YouTube upewnij się, że utworzyłeś kanał w YouTube dla konta, na które się logujesz. Więcej informacji można znaleźć na następującej stronie Wiki: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Nie udało się pobrać danych użytkownika YouTube</value>

@@ -228,7 +228,7 @@ if (-not (Test-Path -LiteralPath $artifactRoot)) {
 
 $v2PackagesRoot  = Join-Path $artifactRoot "packages"
 $v2ManifestsRoot = Join-Path $artifactRoot "manifests"
-$v2BaseUrl       = "https://files.mixitupapp.com/api/v2/apps"
+$v2BaseUrl       = "https://files.mixitup.bot/api/v2/apps"
 
 try {
     $now = Get-Date
@@ -350,7 +350,7 @@ if ($productKey -eq "desktop" -and $releaseChannel -ne "test") {
             $installerVersion = $null
         }
     }
-    $installerUrl   = "https://files.mixitupapp.com/apps/mixitup-desktop-installer/windows-x64/public/$installerVersion/MixItUp-Setup.exe"
+    $installerUrl   = "https://files.mixitup.bot/apps/mixitup-desktop-installer/windows-x64/public/$installerVersion/MixItUp-Setup.exe"
     $v2InstallerUrl = "$v2BaseUrl/mixitup-desktop-installer/windows-x64/public/$installerVersion/MixItUp-Setup.exe"
 
     if (-not (Prompt-YesNo "Has the CHANGELOG.md been updated for the Desktop app? (Y/n): " $true)) {
@@ -609,7 +609,7 @@ foreach ($line in $certOutput) {
     }
 }
 
-$baseUrl = "https://files.mixitupapp.com/apps/$productSlug/windows-x64/$releaseChannel/$releaseVersion"
+$baseUrl = "https://files.mixitup.bot/apps/$productSlug/windows-x64/$releaseChannel/$releaseVersion"
 $eulaUrl = "$baseUrl/eula.md"
 $changelogUrl = "$baseUrl/changelog.md"
 $packageUrl = "$baseUrl/$packageFilename"

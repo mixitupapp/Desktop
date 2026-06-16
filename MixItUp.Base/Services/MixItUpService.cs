@@ -139,14 +139,14 @@ namespace MixItUp.Base.Services
 
     public class MixItUpService : OAuthRestServiceBase, ICommunityCommandsService, IMixItUpService, IWebhookService, IDisposable
     {
-        public const string MixItUpAPIEndpoint = "https://desktop.api.mixitupapp.com/api/";
-        public const string MixItUpWebhookHubEndpoint = "wss://desktop.api.mixitupapp.com/webhookhub";
+        public const string MixItUpAPIEndpoint = "https://desktop.api.mixitup.bot/api/";
+        public const string MixItUpWebhookHubEndpoint = "wss://desktop.api.mixitup.bot/webhookhub";
 
         public const string DevMixItUpAPIEndpoint = "http://localhost:3000/api/";                // Dev Endpoint
         public const string DevMixItUpWebhookHubEndpoint = "ws://localhost:3000/webhookhub";      // Dev Endpoint
 
 
-        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitup.bot/apps/mixitup-desktop/windows-x64";
         private static readonly TimeSpan[] FileServiceRetryDelays = new[]
         {
             TimeSpan.FromSeconds(3),

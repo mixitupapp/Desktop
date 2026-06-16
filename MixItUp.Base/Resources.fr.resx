@@ -8143,10 +8143,10 @@ Les devis importés dont les ID correspondent aux devis existants seront modifi�
     <value>Jeux disponibles :</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Cette chaîne utilise l'application Mix It Up pour améliorer son flux. Consultez http://mixitupapp.com pour plus d'informations !</value>
+    <value>Cette chaîne utilise l'application Mix It Up pour améliorer son flux. Consultez http://mixitup.bot pour plus d'informations !</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Toutes les commandes de chat Mix It Up prédéfinies peuvent être trouvées ici : https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Pour les commandes spécifiques à ce flux, demandez à votre streamer/modérateur.</value>
+    <value>Toutes les commandes de chat Mix It Up prédéfinies peuvent être trouvées ici : https://wiki.mixitup.bot/commands/pre-made-chat-commands. Pour les commandes spécifiques à ce flux, demandez à votre streamer/modérateur.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Les devis doivent être activés et au moins un devis doit être ajouté pour que cette fonctionnalité fonctionne.</value>
@@ -8531,7 +8531,7 @@ REMARQUE : Cela peut nécessiter que vous vous inscriviez à la version d'aper�
     <value>Échec de la connexion aux serveurs de chat YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Échec de l'obtention des données du robot YouTube. Pour les comptes de robot YouTube, assurez-vous d'avoir créé une chaîne sur YouTube pour le compte auquel vous vous connectez. Consultez la page Wiki suivante pour plus d'informations : https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Échec de l'obtention des données du robot YouTube. Pour les comptes de robot YouTube, assurez-vous d'avoir créé une chaîne sur YouTube pour le compte auquel vous vous connectez. Consultez la page Wiki suivante pour plus d'informations : https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Échec de l'obtention des données utilisateur YouTube</value>

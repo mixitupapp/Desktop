@@ -1,5 +1,17 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.102 (HOTFIX)
+
+### FIXES
+
+- Redirect all routes to new Mix It Up domain due to ongoing DNSSEC error
+
+## 1.7.101 (HOTFIX)
+
+### FIXES
+
+- Fixed websocket reconnect timeout error
+
 ## 1.7.100
 
 ### FEATURES
@@ -711,7 +723,7 @@
 
 ## v1.0.0.36
 
-- Removing Twitter integration due to restrictions imposed by Twitter APIs. Information about the removal and alternative solutions can be found on our wiki: <https://wiki.mixitupapp.com/en/services/twitter>
+- Removing Twitter integration due to restrictions imposed by Twitter APIs. Information about the removal and alternative solutions can be found on our wiki: <https://wiki.mixitup.bot/en/services/twitter>
 - Various quality of life & bug fixes
 
 ## v1.0.0.35

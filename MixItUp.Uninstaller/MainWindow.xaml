@@ -250,7 +250,7 @@
                 FontSize="11"
                 Opacity="0.5"
                 TextAlignment="Center">
-                <Run Text="For support: mixitupapp.com/discord | support@mixitupapp.com" />
+                <Run Text="For support: mixitup.bot/discord | support@mixitupapp.com" />
             </TextBlock>
         </Grid>
     </MaterialDesign:Card>

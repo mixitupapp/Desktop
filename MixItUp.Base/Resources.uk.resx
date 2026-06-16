@@ -8143,10 +8143,10 @@
     <value>Доступні ігри:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Цей канал використовує додаток Mix It Up, щоб покращити свою трансляцію. Перегляньте http://mixitupapp.com для отримання додаткової інформації!</value>
+    <value>Цей канал використовує додаток Mix It Up, щоб покращити свою трансляцію. Перегляньте http://mixitup.bot для отримання додаткової інформації!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Усі готові команди чату Mix It Up можна знайти тут: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Щоб дізнатися про команди, характерні для цього потоку, запитайте свого стримера/модератора.</value>
+    <value>Усі готові команди чату Mix It Up можна знайти тут: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Щоб дізнатися про команди, характерні для цього потоку, запитайте свого стримера/модератора.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Щоб ця функція працювала, потрібно ввімкнути котирування та додати принаймні одну цитату.</value>
@@ -8531,7 +8531,7 @@
     <value>Не вдалося підключитися до серверів чату YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Не вдалося отримати дані бота YouTube. Для облікових записів ботів YouTube переконайтеся, що ви створили канал на YouTube для облікового запису, у який ви входите. Перегляньте наступну сторінку Wiki для отримання додаткової інформації: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Не вдалося отримати дані бота YouTube. Для облікових записів ботів YouTube переконайтеся, що ви створили канал на YouTube для облікового запису, у який ви входите. Перегляньте наступну сторінку Wiki для отримання додаткової інформації: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Не вдалося отримати дані користувача YouTube</value>
