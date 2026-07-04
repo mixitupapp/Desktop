@@ -416,7 +416,7 @@ namespace MixItUp.Base.Services.External
                                 rewardSpecialIdentifiers["tiltifyrewardid"] = reward.id;
                                 rewardSpecialIdentifiers["tiltifyrewardname"] = reward.name;
                                 rewardSpecialIdentifiers["tiltifyrewarddescription"] = reward.description;
-                                rewardSpecialIdentifiers["tiltifyrewardamount"] = reward.Amount.ToString();
+                                rewardSpecialIdentifiers["tiltifyrewardamount"] = reward.Amount.ToString(CultureInfo.InvariantCulture);
                             }
 
                             await EventService.ProcessDonationEvent(EventTypeEnum.TiltifyDonation, tDonation.ToGenericDonation(), additionalSpecialIdentifiers: rewardSpecialIdentifiers);
