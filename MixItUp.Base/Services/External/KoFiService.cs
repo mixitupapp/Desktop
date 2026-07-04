@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.External
@@ -58,6 +59,18 @@ namespace MixItUp.Base.Services.External
         [JsonProperty("tier_name")]
         public string TierName { get; set; }
 
+        [JsonProperty("shop_items")]
+        public List<KoFiShopItem> ShopItems { get; set; }
+
+        public string GetShopItemsText()
+        {
+            if (this.ShopItems == null || this.ShopItems.Count == 0)
+            {
+                return string.Empty;
+            }
+            return string.Join(", ", this.ShopItems.Select(i => $"{i.VariationName} x{i.Quantity ?? 1}"));
+        }
+
         public UserDonationModel ToGenericDonation()
         {
             bool isAnonymous = string.IsNullOrEmpty(this.FromName);
@@ -85,6 +98,18 @@ namespace MixItUp.Base.Services.External
                 DateTime = DateTimeOffset.Now,
             };
         }
+    }
+
+    public class KoFiShopItem
+    {
+        [JsonProperty("direct_link_code")]
+        public string DirectLinkCode { get; set; }
+
+        [JsonProperty("variation_name")]
+        public string VariationName { get; set; }
+
+        [JsonProperty("quantity")]
+        public int? Quantity { get; set; }
     }
 
     public class KoFiService
@@ -138,6 +163,7 @@ namespace MixItUp.Base.Services.External
 
                 Dictionary<string, string> additionalSpecialIdentifiers = new Dictionary<string, string>();
                 additionalSpecialIdentifiers["kofitiername"] = koFiPayload.TierName ?? string.Empty;
+                additionalSpecialIdentifiers["kofishopitemname"] = koFiPayload.GetShopItemsText();
 
                 await EventService.ProcessDonationEvent(eventType, donation, additionalSpecialIdentifiers: additionalSpecialIdentifiers);
             }
