@@ -723,14 +723,22 @@ namespace MixItUp.Base.Services.Twitch.New
         private async Task HandleHypeTrainProgress(JObject payload)
         {
             int level = payload["level"].Value<int>();
+            int totalPoints = payload["total"].Value<int>();
+            int levelPoints = payload["progress"].Value<int>();
+            int levelGoal = payload["goal"].Value<int>();
+
+            Dictionary<string, string> eventCommandSpecialIdentifiers = new Dictionary<string, string>();
+            eventCommandSpecialIdentifiers["hypetraintotalpoints"] = totalPoints.ToString();
+            eventCommandSpecialIdentifiers["hypetrainlevelpoints"] = levelPoints.ToString();
+            eventCommandSpecialIdentifiers["hypetrainlevelgoal"] = levelGoal.ToString();
+            eventCommandSpecialIdentifiers["hypetrainlevel"] = level.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelHypeTrainProgress, new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch, eventCommandSpecialIdentifiers));
+
             if (level > this.lastHypeTrainLevel)
             {
                 this.lastHypeTrainLevel = level;
-                int totalPoints = payload["total"].Value<int>();
-                int levelPoints = payload["progress"].Value<int>();
-                int levelGoal = payload["goal"].Value<int>();
 
-                Dictionary<string, string> eventCommandSpecialIdentifiers = new Dictionary<string, string>();
+                eventCommandSpecialIdentifiers = new Dictionary<string, string>();
                 eventCommandSpecialIdentifiers["hypetraintotalpoints"] = totalPoints.ToString();
                 eventCommandSpecialIdentifiers["hypetrainlevelpoints"] = levelPoints.ToString();
                 eventCommandSpecialIdentifiers["hypetrainlevelgoal"] = levelGoal.ToString();

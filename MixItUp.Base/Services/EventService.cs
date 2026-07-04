@@ -95,7 +95,6 @@ namespace MixItUp.Base.Services
         TwitchChannelCustomPowerUpRedeemed = 274,
 
         TwitchChannelHypeTrainBegin = 280,
-        [Obsolete]
         TwitchChannelHypeTrainProgress = 281,
         TwitchChannelHypeTrainEnd = 282,
         TwitchChannelHypeTrainLevelUp = 283,
