@@ -216,6 +216,10 @@ namespace MixItUp.Base.Services
         ThroneGiftPurchased = 1130,
         ThroneContribution = 1131,
         ThroneGiftCrowdfunded = 1132,
+
+        FourthwallDonation = 1140,
+        FourthwallOrderPlaced = 1141,
+        FourthwallGiftPurchase = 1142,
     }
 
     public class SubscriptionDetailsModel

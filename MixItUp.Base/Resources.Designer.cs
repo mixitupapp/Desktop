@@ -8576,6 +8576,69 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fourthwall.
+        /// </summary>
+        public static string Fourthwall {
+            get {
+                return ResourceManager.GetString("Fourthwall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fourthwall Donation.
+        /// </summary>
+        public static string FourthwallDonation {
+            get {
+                return ResourceManager.GetString("FourthwallDonation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fourthwall Gift Purchase.
+        /// </summary>
+        public static string FourthwallGiftPurchase {
+            get {
+                return ResourceManager.GetString("FourthwallGiftPurchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fourthwall is a merch and shop platform for creators. Connecting it to Mix It Up generates a unique webhook URL that lets Fourthwall send order, donation, and gift alerts directly to the app.
+        /// </summary>
+        public static string FourthwallInfo1 {
+            get {
+                return ResourceManager.GetString("FourthwallInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After connecting, copy your webhook URL and paste it into your Fourthwall shop admin dashboard under Settings, For developers, Webhooks. Fourthwall events can then be customized on the Events page.
+        /// </summary>
+        public static string FourthwallInfo2 {
+            get {
+                return ResourceManager.GetString("FourthwallInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fourthwall Order Placed.
+        /// </summary>
+        public static string FourthwallOrderPlaced {
+            get {
+                return ResourceManager.GetString("FourthwallOrderPlaced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fourthwall Webhook URL.
+        /// </summary>
+        public static string FourthwallWebhookURL {
+            get {
+                return ResourceManager.GetString("FourthwallWebhookURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Free Form HTML 1.
         /// </summary>
         public static string FreeFormHTML {

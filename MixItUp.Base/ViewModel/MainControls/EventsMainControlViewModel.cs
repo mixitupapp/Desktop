@@ -94,6 +94,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Throne;
                 }
+                else if (this.EventType == EventTypeEnum.FourthwallDonation || this.EventType == EventTypeEnum.FourthwallOrderPlaced || this.EventType == EventTypeEnum.FourthwallGiftPurchase)
+                {
+                    return Resources.Fourthwall;
+                }
                 else if (eventNumber >= 200 && eventNumber < 300)
                 {
                     return Resources.Twitch;
@@ -273,6 +277,12 @@ namespace MixItUp.Base.ViewModel.MainControls
             throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneContribution));
             throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftCrowdfunded));
             commandGroups.Add(throneCommands);
+
+            EventCommandGroupViewModel fourthwallCommands = new EventCommandGroupViewModel(Resources.Fourthwall, packIconName: "Storefront");
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallDonation));
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallOrderPlaced));
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallGiftPurchase));
+            commandGroups.Add(fourthwallCommands);
 
             this.EventCommandGroups.AddRange(commandGroups);
 

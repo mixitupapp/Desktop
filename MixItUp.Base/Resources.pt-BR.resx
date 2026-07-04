@@ -11608,4 +11608,25 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="ThroneWebhookURL" xml:space="preserve">
     <value>URL do webhook do Throne</value>
   </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Doação do Fourthwall</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Compra de presente do Fourthwall</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>O Fourthwall é uma plataforma de produtos e lojas para criadores. Ao conectá-lo ao Mix It Up, é gerada uma URL de webhook exclusiva que permite ao Fourthwall enviar alertas de pedidos, doações e presentes diretamente para o aplicativo.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Após conectar, copie a URL do seu webhook e cole-a no painel de administração da sua loja Fourthwall em Configurações &gt; Para desenvolvedores &gt; Webhooks. Os eventos do Fourthwall podem então ser personalizados na página de Eventos.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Pedido do Fourthwall realizado</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>URL do webhook do Fourthwall</value>
+  </data>
 </root>
