@@ -119,6 +119,7 @@ namespace MixItUp.Base.Services.External
                 Message = this.message,
 
                 Amount = amount,
+                CurrencyCode = this.donorLocalCurrencyCode,
 
                 DateTime = this.DateTime,
             };
