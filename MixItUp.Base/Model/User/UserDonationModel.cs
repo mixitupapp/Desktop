@@ -112,6 +112,7 @@ namespace MixItUp.Base.Model.User
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountNumberDigitsSpecialIdentifier] = (this.Amount * 100).ToString(CultureInfo.InvariantCulture);
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountNumberSpecialIdentifier] = this.Amount.ToString(CultureInfo.InvariantCulture);
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountSpecialIdentifier] = this.AmountText;
+            specialIdentifiers[SpecialIdentifierStringBuilder.DonationCurrencySpecialIdentifier] = this.CurrencyCode ?? string.Empty;
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationMessageSpecialIdentifier] = this.Message;
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationImageSpecialIdentifier] = this.ImageLink;
             return specialIdentifiers;
