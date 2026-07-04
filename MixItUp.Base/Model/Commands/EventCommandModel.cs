@@ -266,6 +266,18 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.JustGivingDonation:
                 case EventTypeEnum.StreamElementsDonation:
                 case EventTypeEnum.TwitchChannelCharityDonation:
+                case EventTypeEnum.FourthwallDonation:
+                case EventTypeEnum.FourthwallOrderPlaced:
+                case EventTypeEnum.FourthwallGiftPurchase:
+                case EventTypeEnum.ThroneGiftPurchased:
+                case EventTypeEnum.ThroneContribution:
+                case EventTypeEnum.ThroneGiftCrowdfunded:
+                case EventTypeEnum.KoFiTip:
+                case EventTypeEnum.KoFiCommission:
+                case EventTypeEnum.KoFiMembership:
+                case EventTypeEnum.KoFiFirstMembership:
+                case EventTypeEnum.KoFiShopOrder:
+                case EventTypeEnum.PallyDonation:
                     UserDonationModel donation = new UserDonationModel()
                     {
                         Amount = 12.34,
@@ -287,6 +299,22 @@ namespace MixItUp.Base.Model.Commands
                         case EventTypeEnum.JustGivingDonation: donation.Source = UserDonationSourceEnum.JustGiving; break;
                         case EventTypeEnum.StreamElementsDonation: donation.Source = UserDonationSourceEnum.StreamElements; break;
                         case EventTypeEnum.TwitchChannelCharityDonation: donation.Source = UserDonationSourceEnum.Twitch; break;
+                        case EventTypeEnum.FourthwallDonation:
+                        case EventTypeEnum.FourthwallOrderPlaced:
+                        case EventTypeEnum.FourthwallGiftPurchase:
+                            donation.Source = UserDonationSourceEnum.Fourthwall; break;
+                        case EventTypeEnum.ThroneGiftPurchased:
+                        case EventTypeEnum.ThroneContribution:
+                        case EventTypeEnum.ThroneGiftCrowdfunded:
+                            donation.Source = UserDonationSourceEnum.Throne; break;
+                        case EventTypeEnum.KoFiTip:
+                        case EventTypeEnum.KoFiCommission:
+                        case EventTypeEnum.KoFiMembership:
+                        case EventTypeEnum.KoFiFirstMembership:
+                        case EventTypeEnum.KoFiShopOrder:
+                            donation.Source = UserDonationSourceEnum.KoFi; break;
+                        case EventTypeEnum.PallyDonation:
+                            donation.Source = UserDonationSourceEnum.Pally; break;
                     }
 
                     foreach (var kvp in donation.GetSpecialIdentifiers())
@@ -316,6 +344,70 @@ namespace MixItUp.Base.Model.Commands
                         specialIdentifiers["tiltifyrewardname"] = "Reward Name";
                         specialIdentifiers["tiltifyrewarddescription"] = "Reward Description";
                         specialIdentifiers["tiltifyrewardamount"] = "12.34";
+                    }
+
+                    if (eventType == EventTypeEnum.FourthwallDonation)
+                    {
+                        specialIdentifiers["donationtype"] = "DONATION";
+                        specialIdentifiers["fourthwallitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.FourthwallOrderPlaced)
+                    {
+                        specialIdentifiers["donationtype"] = "ORDER_PLACED";
+                        specialIdentifiers["fourthwallitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.FourthwallGiftPurchase)
+                    {
+                        specialIdentifiers["donationtype"] = "GIFT_PURCHASE";
+                        specialIdentifiers["fourthwallitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.ThroneGiftPurchased)
+                    {
+                        specialIdentifiers["donationtype"] = "gift_purchased";
+                        specialIdentifiers["throneitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.ThroneContribution)
+                    {
+                        specialIdentifiers["donationtype"] = "contribution_purchased";
+                        specialIdentifiers["throneitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.ThroneGiftCrowdfunded)
+                    {
+                        specialIdentifiers["donationtype"] = "gift_crowdfunded";
+                        specialIdentifiers["throneitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiTip)
+                    {
+                        specialIdentifiers["donationtype"] = "Tip";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiCommission)
+                    {
+                        specialIdentifiers["donationtype"] = "Commission";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiMembership || eventType == EventTypeEnum.KoFiFirstMembership)
+                    {
+                        specialIdentifiers["donationtype"] = "Subscription";
+                        specialIdentifiers["kofitiername"] = "Test Tier";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiShopOrder)
+                    {
+                        specialIdentifiers["donationtype"] = "Shop Order";
+                        specialIdentifiers["kofishopitemname"] = "Test Item x1";
+                    }
+
+                    if (eventType == EventTypeEnum.PallyDonation)
+                    {
+                        specialIdentifiers["pallypageslug"] = "test-page";
+                        specialIdentifiers["pallypagetitle"] = "Test Page";
                     }
                     break;
                 case EventTypeEnum.DonorDriveDonationMilestone:

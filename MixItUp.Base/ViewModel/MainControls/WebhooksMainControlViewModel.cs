@@ -96,6 +96,12 @@ namespace MixItUp.Base.ViewModel.MainControls
                 this.WebhookCommands.Clear();
                 foreach (var webhook in response.Webhooks)
                 {
+                    // Service-bound webhooks (Throne, Fourthwall, etc.) are managed from the Services page, not here.
+                    if (!WebhookServices.IsGeneral(webhook.Service))
+                    {
+                        continue;
+                    }
+
                     var command = ServiceManager.Get<CommandService>().WebhookCommands.FirstOrDefault(c => c.ID == webhook.Id);
                     this.WebhookCommands.Add(new WebhookCommandItemViewModel(webhook, command));
                 }

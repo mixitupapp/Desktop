@@ -11587,4 +11587,97 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>accounts die ouder zijn dan 1 jaar</value>
   </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne-bijdrage</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne-cadeau gecrowdfund</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne-cadeau gekocht</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne is een cadeau- en verlanglijstplatform voor creators. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Throne cadeau- en bijdragemeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in de webhook-integratie-instellingen van je Throne-creatordashboard. Throne-gebeurtenissen kunnen daarna worden aangepast op de pagina Gebeurtenissen.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne-webhook-URL</value>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall-donatie</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall-cadeauaankoop</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall is een merch- en shopplatform voor creators. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Fourthwall bestel-, donatie- en cadeaumeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in het beheerdashboard van je Fourthwall-shop onder Instellingen &gt; Voor ontwikkelaars &gt; Webhooks. Fourthwall-gebeurtenissen kunnen daarna worden aangepast op de pagina Gebeurtenissen.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall-bestelling geplaatst</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall-webhook-URL</value>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi-opdracht</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi-lidmaatschap (eerste keer)</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Met Ko-fi kunnen supporters je fooien, lidmaatschappen en shopbestellingen sturen. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Ko-fi betalingsmeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in het Webhook URL-veld op je Ko-fi Webhooks-pagina. Vanaf die pagina kun je testbetalingen sturen om het uit te proberen; Ko-fi probeert leveringen opnieuw totdat ze slagen.</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fi-lidmaatschap (terugkerend)</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fi-shopbestelling</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi-fooi</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fi-webhook-URL</value>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API-sleutel</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg API-sleutelpagina</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg-donatie</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Kan geen verbinding maken met de Pally.gg-gebeurtenissenfeed. Controleer of je API-sleutel geldig is.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg is een teamfooienplatform waarmee kijkers iedereen op de stream tegelijk kunnen steunen. Door verbinding te maken met Mix It Up komen fooimeldingen in realtime rechtstreeks in de app binnen.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Maak om te verbinden een API-sleutel aan in je Pally.gg-dashboard onder Instellingen > API-sleutels en plak deze hier.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Er moet een geldige Pally.gg API-sleutel worden opgegeven.</value>
+  </data>
 </root>

@@ -16,6 +16,7 @@ using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace MixItUp.Base.Services
         Task Authenticate(CommunityCommandLoginModel login);
 
         Task<GetWebhooksResponseModel> GetWebhooks();
-        Task<Webhook> CreateWebhook();
+        Task<Webhook> CreateWebhook(string service = null);
         Task DeleteWebhook(Guid id);
 
         event EventHandler<bool> NotificationStatusChanged;
@@ -65,7 +66,7 @@ namespace MixItUp.Base.Services
         Task Authenticate(CommunityCommandLoginModel login);
 
         Task<GetWebhooksResponseModel> GetWebhooks();
-        Task<Webhook> CreateWebhook();
+        Task<Webhook> CreateWebhook(string service = null);
         Task DeleteWebhook(Guid id);
     }
 
@@ -541,6 +542,8 @@ namespace MixItUp.Base.Services
 
         // IWebhookService
         public const string AuthenticateMethodName = "AuthenticateMany";
+        private static readonly ConcurrentDictionary<string, Func<string, Task>> webhookServiceHandlers = new ConcurrentDictionary<string, Func<string, Task>>(StringComparer.OrdinalIgnoreCase);
+        private readonly ConcurrentDictionary<Guid, string> webhookServiceById = new ConcurrentDictionary<Guid, string>();
         private WebhookHubConnection webhookHubConnection = null;
         private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
         private readonly SemaphoreSlim webhookConnectLock = new SemaphoreSlim(1, 1);
@@ -752,22 +755,49 @@ namespace MixItUp.Base.Services
             }
         }
 
+        public static void RegisterWebhookServiceHandler(string service, Func<string, Task> handler)
+        {
+            if (!string.IsNullOrEmpty(service) && handler != null)
+            {
+                webhookServiceHandlers[service] = handler;
+            }
+        }
+
         public async Task<GetWebhooksResponseModel> GetWebhooks()
         {
-            return await this.AuthorizedDesktopApiRequest(async () =>
+            GetWebhooksResponseModel response = await this.AuthorizedDesktopApiRequest(async () =>
             {
                 await EnsureLogin();
                 return await GetAsync<GetWebhooksResponseModel>($"webhook");
             });
+
+            if (response?.Webhooks != null)
+            {
+                this.webhookServiceById.Clear();
+                foreach (Webhook webhook in response.Webhooks)
+                {
+                    this.webhookServiceById[webhook.Id] = webhook.Service;
+                }
+            }
+
+            return response;
         }
 
-        public async Task<Webhook> CreateWebhook()
+        public async Task<Webhook> CreateWebhook(string service = null)
         {
-            return await this.AuthorizedDesktopApiRequest(async () =>
+            Webhook webhook = await this.AuthorizedDesktopApiRequest(async () =>
             {
                 await EnsureLogin();
-                return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new { }));
+                object content = WebhookServices.IsGeneral(service) ? new { } : (object)new { service = service.ToLowerInvariant() };
+                return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(content));
             });
+
+            if (webhook != null)
+            {
+                this.webhookServiceById[webhook.Id] = webhook.Service;
+            }
+
+            return webhook;
         }
 
         public async Task DeleteWebhook(Guid id)
@@ -792,6 +822,19 @@ namespace MixItUp.Base.Services
         {
             try
             {
+                if (this.webhookServiceById.TryGetValue(id, out string service) && !WebhookServices.IsGeneral(service))
+                {
+                    if (webhookServiceHandlers.TryGetValue(service, out Func<string, Task> handler))
+                    {
+                        await handler(payload);
+                    }
+                    else
+                    {
+                        Logger.Log($"Webhook Event - No handler registered for webhook service - {service} - {id}");
+                    }
+                    return;
+                }
+
                 var command = ServiceManager.Get<CommandService>().WebhookCommands.FirstOrDefault(c => c.ID == id);
                 if (command != null && command.IsEnabled)
                 {

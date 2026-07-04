@@ -120,6 +120,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public OAuthTokenModel PulsoidOAuthToken { get; set; }
         [DataMember]
+        public OAuthTokenModel PallyOAuthToken { get; set; }
+        [DataMember]
         public bool EnableVoicemodStudio { get; set; }
         [DataMember]
         public bool EnableCrowdControl { get; set; }
@@ -1029,6 +1031,10 @@ namespace MixItUp.Base.Model.Settings
             if (ServiceManager.Get<PulsoidService>().IsConnected)
             {
                 this.PulsoidOAuthToken = ServiceManager.Get<PulsoidService>().GetOAuthTokenCopy();
+            }
+            if (ServiceManager.Get<PallyService>().IsConnected)
+            {
+                this.PallyOAuthToken = ServiceManager.Get<PallyService>().GetOAuthTokenCopy();
             }
             if (ServiceManager.Get<ITTSMonsterService>().IsConnected)
             {

@@ -90,6 +90,22 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.StreamElements;
                 }
+                else if (this.EventType == EventTypeEnum.ThroneGiftPurchased || this.EventType == EventTypeEnum.ThroneContribution || this.EventType == EventTypeEnum.ThroneGiftCrowdfunded)
+                {
+                    return Resources.Throne;
+                }
+                else if (this.EventType == EventTypeEnum.FourthwallDonation || this.EventType == EventTypeEnum.FourthwallOrderPlaced || this.EventType == EventTypeEnum.FourthwallGiftPurchase)
+                {
+                    return Resources.Fourthwall;
+                }
+                else if (this.EventType == EventTypeEnum.KoFiTip || this.EventType == EventTypeEnum.KoFiMembership || this.EventType == EventTypeEnum.KoFiShopOrder || this.EventType == EventTypeEnum.KoFiFirstMembership || this.EventType == EventTypeEnum.KoFiCommission)
+                {
+                    return Resources.KoFi;
+                }
+                else if (this.EventType == EventTypeEnum.PallyDonation)
+                {
+                    return Resources.Pally;
+                }
                 else if (eventNumber >= 200 && eventNumber < 300)
                 {
                     return Resources.Twitch;
@@ -263,6 +279,30 @@ namespace MixItUp.Base.ViewModel.MainControls
             EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, packIconName: "Patreon");
             patreonCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PatreonSubscribed));
             commandGroups.Add(patreonCommands);
+
+            EventCommandGroupViewModel throneCommands = new EventCommandGroupViewModel(Resources.Throne, packIconName: "Gift");
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftPurchased));
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneContribution));
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftCrowdfunded));
+            commandGroups.Add(throneCommands);
+
+            EventCommandGroupViewModel fourthwallCommands = new EventCommandGroupViewModel(Resources.Fourthwall, packIconName: "Storefront");
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallDonation));
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallOrderPlaced));
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallGiftPurchase));
+            commandGroups.Add(fourthwallCommands);
+
+            EventCommandGroupViewModel koFiCommands = new EventCommandGroupViewModel(Resources.KoFi, packIconName: "Coffee");
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiTip));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiCommission));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiFirstMembership));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiMembership));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiShopOrder));
+            commandGroups.Add(koFiCommands);
+
+            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, packIconName: "HandCoin");
+            pallyCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PallyDonation));
+            commandGroups.Add(pallyCommands);
 
             this.EventCommandGroups.AddRange(commandGroups);
 

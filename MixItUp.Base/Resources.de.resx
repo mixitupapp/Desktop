@@ -11592,4 +11592,97 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>Konten, die älter als ein Jahr sind</value>
   </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne-Beitrag</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne-Geschenk per Crowdfunding</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne-Geschenk gekauft</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne ist eine Geschenk- und Wunschlisten-Plattform für Creator. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Throne Geschenk- und Beitragsbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie in die Webhook-Integrationseinstellungen deines Throne-Creator-Dashboards ein. Throne-Ereignisse können anschließend auf der Ereignisse-Seite angepasst werden.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne-Webhook-URL</value>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall-Spende</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall-Geschenkkauf</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall ist eine Merch- und Shop-Plattform für Creator. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Fourthwall Bestell-, Spenden- und Geschenkbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie im Admin-Dashboard deines Fourthwall-Shops unter Einstellungen &gt; Für Entwickler &gt; Webhooks ein. Fourthwall-Ereignisse können anschließend auf der Ereignisse-Seite angepasst werden.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall-Bestellung aufgegeben</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall-Webhook-URL</value>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi-Auftragsarbeit</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi-Mitgliedschaft (Erstmalig)</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Mit Ko-fi können dir Unterstützer Trinkgelder, Mitgliedschaften und Shop-Bestellungen senden. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Ko-fi Zahlungsbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie in das Webhook-URL-Feld auf deiner Ko-fi-Webhooks-Seite ein. Von dort kannst du Testzahlungen senden, um alles auszuprobieren; Ko-fi wiederholt Zustellungen, bis sie erfolgreich sind.</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fi-Mitgliedschaft (Wiederkehrend)</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fi-Shop-Bestellung</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi-Trinkgeld</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fi-Webhook-URL</value>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API-Schlüssel</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg-Seite für API-Schlüssel</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg-Spende</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Verbindung zum Pally.gg-Ereignis-Feed fehlgeschlagen. Bitte überprüfe, ob dein API-Schlüssel gültig ist.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg ist eine Team-Trinkgeld-Plattform, mit der Zuschauer alle im Stream gleichzeitig unterstützen können. Durch die Verbindung mit Mix It Up werden Trinkgeld-Benachrichtigungen in Echtzeit direkt an die App geliefert.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Erstelle zum Verbinden einen API-Schlüssel in deinem Pally.gg-Dashboard unter Einstellungen > API-Schlüssel und füge ihn hier ein.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Es muss ein gültiger Pally.gg-API-Schlüssel angegeben werden.</value>
+  </data>
 </root>
