@@ -11679,8 +11679,12 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>Ko-fi</value>
     <comment>Manual</comment>
   </data>
-  <data name="KoFiDonation" xml:space="preserve">
-    <value>Ko-fi Donation</value>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi Commission</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi Membership (First Time)</value>
     <comment>Manual</comment>
   </data>
   <data name="KoFiInfo1" xml:space="preserve">
@@ -11692,11 +11696,15 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <comment>Manual</comment>
   </data>
   <data name="KoFiMembership" xml:space="preserve">
-    <value>Ko-fi Membership</value>
+    <value>Ko-fi Membership (Recurring)</value>
     <comment>Manual</comment>
   </data>
   <data name="KoFiShopOrder" xml:space="preserve">
     <value>Ko-fi Shop Order</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi Tip</value>
     <comment>Manual</comment>
   </data>
   <data name="KoFiWebhookURL" xml:space="preserve">

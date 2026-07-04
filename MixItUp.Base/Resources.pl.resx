@@ -11631,8 +11631,11 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="KoFi" xml:space="preserve">
     <value>Ko-fi</value>
   </data>
-  <data name="KoFiDonation" xml:space="preserve">
-    <value>Darowizna Ko-fi</value>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Zlecenie Ko-fi</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Członkostwo Ko-fi (pierwsze)</value>
   </data>
   <data name="KoFiInfo1" xml:space="preserve">
     <value>Ko-fi pozwala wspierającym wysyłać napiwki, członkostwa i zamówienia ze sklepu. Połączenie z Mix It Up generuje unikalny adres URL webhooka, dzięki któremu Ko-fi może wysyłać powiadomienia o płatnościach bezpośrednio do aplikacji.</value>
@@ -11641,10 +11644,13 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
     <value>Po połączeniu skopiuj adres URL webhooka i wklej go w polu Webhook URL na stronie Webhooks w Ko-fi. Z tej strony możesz wysyłać płatności testowe; Ko-fi ponawia dostarczanie, dopóki się nie powiedzie.</value>
   </data>
   <data name="KoFiMembership" xml:space="preserve">
-    <value>Członkostwo Ko-fi</value>
+    <value>Członkostwo Ko-fi (cykliczne)</value>
   </data>
   <data name="KoFiShopOrder" xml:space="preserve">
     <value>Zamówienie ze sklepu Ko-fi</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Napiwek Ko-fi</value>
   </data>
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>Adres URL webhooka Ko-fi</value>

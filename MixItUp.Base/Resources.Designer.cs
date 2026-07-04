@@ -13360,14 +13360,23 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ko-fi Donation.
+        ///   Looks up a localized string similar to Ko-fi Commission.
         /// </summary>
-        public static string KoFiDonation {
+        public static string KoFiCommission {
             get {
-                return ResourceManager.GetString("KoFiDonation", resourceCulture);
+                return ResourceManager.GetString("KoFiCommission", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi Membership (First Time).
+        /// </summary>
+        public static string KoFiFirstMembership {
+            get {
+                return ResourceManager.GetString("KoFiFirstMembership", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Ko-fi lets supporters send you tips, memberships, and shop orders. Connecting it to Mix It Up generates a unique webhook URL that lets Ko-fi send payment alerts directly to the app.
         /// </summary>
@@ -13387,7 +13396,7 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ko-fi Membership.
+        ///   Looks up a localized string similar to Ko-fi Membership (Recurring).
         /// </summary>
         public static string KoFiMembership {
             get {
@@ -13404,6 +13413,15 @@ namespace MixItUp.Base {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi Tip.
+        /// </summary>
+        public static string KoFiTip {
+            get {
+                return ResourceManager.GetString("KoFiTip", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Ko-fi Webhook URL.
         /// </summary>

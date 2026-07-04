@@ -11632,8 +11632,11 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="KoFi" xml:space="preserve">
     <value>Ko-fi</value>
   </data>
-  <data name="KoFiDonation" xml:space="preserve">
-    <value>Ko-fi-donatie</value>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi-opdracht</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi-lidmaatschap (eerste keer)</value>
   </data>
   <data name="KoFiInfo1" xml:space="preserve">
     <value>Met Ko-fi kunnen supporters je fooien, lidmaatschappen en shopbestellingen sturen. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Ko-fi betalingsmeldingen rechtstreeks naar de app kan sturen.</value>
@@ -11642,10 +11645,13 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
     <value>Kopieer na het verbinden je webhook-URL en plak deze in het Webhook URL-veld op je Ko-fi Webhooks-pagina. Vanaf die pagina kun je testbetalingen sturen om het uit te proberen; Ko-fi probeert leveringen opnieuw totdat ze slagen.</value>
   </data>
   <data name="KoFiMembership" xml:space="preserve">
-    <value>Ko-fi-lidmaatschap</value>
+    <value>Ko-fi-lidmaatschap (terugkerend)</value>
   </data>
   <data name="KoFiShopOrder" xml:space="preserve">
     <value>Ko-fi-shopbestelling</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi-fooi</value>
   </data>
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>Ko-fi-webhook-URL</value>

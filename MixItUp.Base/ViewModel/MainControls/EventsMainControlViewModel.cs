@@ -98,7 +98,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Fourthwall;
                 }
-                else if (this.EventType == EventTypeEnum.KoFiDonation || this.EventType == EventTypeEnum.KoFiMembership || this.EventType == EventTypeEnum.KoFiShopOrder)
+                else if (this.EventType == EventTypeEnum.KoFiTip || this.EventType == EventTypeEnum.KoFiMembership || this.EventType == EventTypeEnum.KoFiShopOrder || this.EventType == EventTypeEnum.KoFiFirstMembership || this.EventType == EventTypeEnum.KoFiCommission)
                 {
                     return Resources.KoFi;
                 }
@@ -293,7 +293,9 @@ namespace MixItUp.Base.ViewModel.MainControls
             commandGroups.Add(fourthwallCommands);
 
             EventCommandGroupViewModel koFiCommands = new EventCommandGroupViewModel(Resources.KoFi, packIconName: "Coffee");
-            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiDonation));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiTip));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiCommission));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiFirstMembership));
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiMembership));
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiShopOrder));
             commandGroups.Add(koFiCommands);

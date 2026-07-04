@@ -11631,8 +11631,11 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="KoFi" xml:space="preserve">
     <value>Ko-fi</value>
   </data>
-  <data name="KoFiDonation" xml:space="preserve">
-    <value>Ko-fi寄付</value>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fiコミッション</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fiメンバーシップ(初回)</value>
   </data>
   <data name="KoFiInfo1" xml:space="preserve">
     <value>Ko-fiでは、サポーターからチップ、メンバーシップ、ショップ注文を受け取れます。Mix It Upと連携すると一意のWebhook URLが生成され、Ko-fiから支払い通知をアプリに直接送信できます。</value>
@@ -11641,10 +11644,13 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
     <value>接続後、Webhook URLをコピーして、Ko-fiのWebhooksページのWebhook URL欄に貼り付けてください。そのページからテスト支払いを送信して動作を確認できます。Ko-fiは配信が成功するまで再試行します。</value>
   </data>
   <data name="KoFiMembership" xml:space="preserve">
-    <value>Ko-fiメンバーシップ</value>
+    <value>Ko-fiメンバーシップ(継続)</value>
   </data>
   <data name="KoFiShopOrder" xml:space="preserve">
     <value>Ko-fiショップ注文</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fiチップ</value>
   </data>
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>Ko-fiのWebhook URL</value>

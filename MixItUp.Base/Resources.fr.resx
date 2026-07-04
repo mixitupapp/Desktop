@@ -11632,8 +11632,11 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="KoFi" xml:space="preserve">
     <value>Ko-fi</value>
   </data>
-  <data name="KoFiDonation" xml:space="preserve">
-    <value>Don Ko-fi</value>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Commission Ko-fi</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Adhésion Ko-fi (première fois)</value>
   </data>
   <data name="KoFiInfo1" xml:space="preserve">
     <value>Ko-fi permet à vos soutiens de vous envoyer des pourboires, des adhésions et des commandes de boutique. La connexion à Mix It Up génère une URL de webhook unique qui permet à Ko-fi d'envoyer des alertes de paiement directement à l'application.</value>
@@ -11642,10 +11645,13 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
     <value>Après la connexion, copiez l'URL de votre webhook et collez-la dans le champ Webhook URL de votre page Webhooks Ko-fi. Vous pouvez envoyer des paiements de test depuis cette page ; Ko-fi réessaie les livraisons jusqu'à ce qu'elles réussissent.</value>
   </data>
   <data name="KoFiMembership" xml:space="preserve">
-    <value>Adhésion Ko-fi</value>
+    <value>Adhésion Ko-fi (récurrente)</value>
   </data>
   <data name="KoFiShopOrder" xml:space="preserve">
     <value>Commande de la boutique Ko-fi</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Pourboire Ko-fi</value>
   </data>
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>URL du webhook Ko-fi</value>

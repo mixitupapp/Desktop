@@ -221,9 +221,11 @@ namespace MixItUp.Base.Services
         FourthwallOrderPlaced = 1141,
         FourthwallGiftPurchase = 1142,
 
-        KoFiDonation = 1150,
+        KoFiTip = 1150,
         KoFiMembership = 1151,
         KoFiShopOrder = 1152,
+        KoFiFirstMembership = 1153,
+        KoFiCommission = 1154,
 
         PallyDonation = 1160,
     }
