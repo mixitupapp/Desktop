@@ -188,7 +188,8 @@ namespace MixItUp.Base.Services.External
 
         public static double GetValueFromTiltifyJObject(JObject jobj)
         {
-            if (jobj != null && jobj.ContainsKey("value") && double.TryParse(jobj["value"].ToString(), out double value))
+            // Tiltify Money values are always invariant-formatted strings (e.g. "50.00"), regardless of currency
+            if (jobj != null && jobj.ContainsKey("value") && double.TryParse(jobj["value"].ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out double value))
             {
                 return value;
             }
