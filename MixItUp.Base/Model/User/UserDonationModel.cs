@@ -45,6 +45,8 @@ namespace MixItUp.Base.Model.User
 
         [DataMember]
         public double Amount { get; set; }
+        [DataMember]
+        public string CurrencyCode { get; set; }
 
         [DataMember]
         public DateTimeOffset DateTime { get; set; }

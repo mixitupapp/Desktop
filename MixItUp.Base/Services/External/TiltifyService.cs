@@ -144,6 +144,7 @@ namespace MixItUp.Base.Services.External
                 Message = this.donor_comment,
 
                 Amount = Math.Round(this.Amount, 2),
+                CurrencyCode = TiltifyService.GetCurrencyFromTiltifyJObject(this.amount),
 
                 DateTime = this.Timestamp,
             };
@@ -194,6 +195,15 @@ namespace MixItUp.Base.Services.External
                 return value;
             }
             return 0;
+        }
+
+        public static string GetCurrencyFromTiltifyJObject(JObject jobj)
+        {
+            if (jobj != null && jobj.ContainsKey("currency"))
+            {
+                return jobj["currency"].ToString();
+            }
+            return null;
         }
 
         public override async Task<Result> Connect()
