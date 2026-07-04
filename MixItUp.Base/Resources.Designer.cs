@@ -13288,6 +13288,69 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ko-fi.
+        /// </summary>
+        public static string KoFi {
+            get {
+                return ResourceManager.GetString("KoFi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi Donation.
+        /// </summary>
+        public static string KoFiDonation {
+            get {
+                return ResourceManager.GetString("KoFiDonation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi lets supporters send you tips, memberships, and shop orders. Connecting it to Mix It Up generates a unique webhook URL that lets Ko-fi send payment alerts directly to the app.
+        /// </summary>
+        public static string KoFiInfo1 {
+            get {
+                return ResourceManager.GetString("KoFiInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After connecting, copy your webhook URL and paste it into the Webhook URL field on your Ko-fi Webhooks page. You can send test payments from that page to try it out; Ko-fi retries deliveries until they succeed.
+        /// </summary>
+        public static string KoFiInfo2 {
+            get {
+                return ResourceManager.GetString("KoFiInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi Membership.
+        /// </summary>
+        public static string KoFiMembership {
+            get {
+                return ResourceManager.GetString("KoFiMembership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi Shop Order.
+        /// </summary>
+        public static string KoFiShopOrder {
+            get {
+                return ResourceManager.GetString("KoFiShopOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ko-fi Webhook URL.
+        /// </summary>
+        public static string KoFiWebhookURL {
+            get {
+                return ResourceManager.GetString("KoFiWebhookURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Label.
         /// </summary>
         public static string Label {

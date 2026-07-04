@@ -212,6 +212,10 @@ namespace MixItUp.Base.Services
         CrowdControlEffectRedeemed = 1110,
 
         PulsoidHeartRateChanged = 1120,
+
+        KoFiDonation = 1150,
+        KoFiMembership = 1151,
+        KoFiShopOrder = 1152,
     }
 
     public class SubscriptionDetailsModel

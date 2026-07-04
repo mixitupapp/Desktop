@@ -11587,4 +11587,25 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>contas com mais de um ano</value>
   </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiDonation" xml:space="preserve">
+    <value>Doação do Ko-fi</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>O Ko-fi permite que apoiadores enviem gorjetas, assinaturas e pedidos da loja. Ao conectá-lo ao Mix It Up, é gerada uma URL de webhook exclusiva que permite ao Ko-fi enviar alertas de pagamento diretamente para o aplicativo.</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Após conectar, copie a URL do seu webhook e cole-a no campo Webhook URL da sua página de Webhooks do Ko-fi. Você pode enviar pagamentos de teste a partir dessa página; o Ko-fi tenta novamente as entregas até que tenham sucesso.</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Assinatura do Ko-fi</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Pedido da loja do Ko-fi</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>URL do webhook do Ko-fi</value>
+  </data>
 </root>
