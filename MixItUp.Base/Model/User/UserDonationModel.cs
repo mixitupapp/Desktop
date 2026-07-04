@@ -81,7 +81,7 @@ namespace MixItUp.Base.Model.User
         public UserV2ViewModel User { get; set; }
 
         [JsonIgnore]
-        public string AmountText { get { return CurrencyHelper.ToCurrencyString(this.Amount); } }
+        public string AmountText { get { return CurrencyHelper.ToCurrencyString(this.CurrencyCode, this.Amount); } }
 
         public void AssignUser()
         {
