@@ -11487,6 +11487,9 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch Channel Goal Ended</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch Channel Goal Progress</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Goal Started at {1} of {2}</value>
   </data>

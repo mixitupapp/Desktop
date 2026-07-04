@@ -182,6 +182,12 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["goalcurrentamount"] = "50";
                     specialIdentifiers["goaltargetamount"] = "100";
                     break;
+                case EventTypeEnum.TwitchChannelGoalProgress:
+                    specialIdentifiers["goaltype"] = "follower";
+                    specialIdentifiers["goaldescription"] = "Follow goal for the stream";
+                    specialIdentifiers["goalcurrentamount"] = "75";
+                    specialIdentifiers["goaltargetamount"] = "100";
+                    break;
                 case EventTypeEnum.TwitchChannelGoalEnded:
                     specialIdentifiers["goaltype"] = "follower";
                     specialIdentifiers["goaldescription"] = "Follow goal for the stream";

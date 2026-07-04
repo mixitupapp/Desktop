@@ -110,6 +110,7 @@ namespace MixItUp.Base.Services.Twitch.New
             { "channel.shield_mode.end", null },
 
             { "channel.goal.begin", null },
+            { "channel.goal.progress", null },
             { "channel.goal.end", null },
         };
 
@@ -439,6 +440,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
                     case "channel.goal.begin":
                         await HandleGoalBegin(message.Payload.Event);
+                        break;
+                    case "channel.goal.progress":
+                        await HandleGoalProgress(message.Payload.Event);
                         break;
                     case "channel.goal.end":
                         await HandleGoalEnd(message.Payload.Event);
@@ -1482,6 +1486,18 @@ namespace MixItUp.Base.Services.Twitch.New
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelGoalStarted, parameters);
 
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Twitch, string.Format(MixItUp.Base.Resources.AlertTwitchGoalStarted, goal.type, goal.current_amount, goal.target_amount), ChannelSession.Settings.AlertTwitchGoalStartedColor));
+        }
+
+        private async Task HandleGoalProgress(JObject payload)
+        {
+            GoalNotification goal = payload.ToObject<GoalNotification>();
+
+            CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["goaltype"] = goal.type ?? string.Empty;
+            parameters.SpecialIdentifiers["goaldescription"] = goal.description ?? string.Empty;
+            parameters.SpecialIdentifiers["goalcurrentamount"] = goal.current_amount.ToString();
+            parameters.SpecialIdentifiers["goaltargetamount"] = goal.target_amount.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelGoalProgress, parameters);
         }
 
         private async Task HandleGoalEnd(JObject payload)

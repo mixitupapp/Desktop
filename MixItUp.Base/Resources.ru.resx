@@ -11498,6 +11498,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Цель канала Twitch Закончена</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Прогресс цели канала Twitch</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Гол начался в {1} из {2}</value>
   </data>

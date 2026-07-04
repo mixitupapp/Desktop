@@ -11493,6 +11493,9 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Cel kanału Twitch zakończony</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Postęp celu kanału Twitch</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Cel rozpoczęty w {1} z {2}.</value>
   </data>

@@ -11493,6 +11493,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch 频道目标</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch 頻道目標進度</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0}目标从{2}的{1}开始</value>
   </data>

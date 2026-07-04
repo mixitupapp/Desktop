@@ -11494,6 +11494,9 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Objectif de la chaîne Twitch Ended</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Progression de l'objectif de la chaîne Twitch</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Objectif commencé à {1} de {2}</value>
   </data>

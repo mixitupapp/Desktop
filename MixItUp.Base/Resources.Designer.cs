@@ -26944,6 +26944,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Goal Progress.
+        /// </summary>
+        public static string TwitchChannelGoalProgress {
+            get {
+                return ResourceManager.GetString("TwitchChannelGoalProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Twitch Channel Goal Started.
         /// </summary>
         public static string TwitchChannelGoalStarted {

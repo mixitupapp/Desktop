@@ -10212,6 +10212,9 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch-Kanal-Ziel Ended</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch-Kanal-Ziel Fortschritt</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Ziel Begonnen am {1} von {2}</value>
   </data>

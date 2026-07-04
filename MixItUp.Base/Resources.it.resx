@@ -11493,6 +11493,9 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Obiettivo del canale Twitch Ended</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Progresso dell'obiettivo del canale Twitch</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Obiettivo iniziato a {1} di {2}</value>
   </data>

@@ -11495,6 +11495,9 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Objetivo canal de Twitch Ended</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Progreso del objetivo del canal de Twitch</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Gol iniciado en {1} de {2}</value>
   </data>

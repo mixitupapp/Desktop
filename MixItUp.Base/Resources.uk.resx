@@ -11493,6 +11493,9 @@ print(run())</value>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Мета каналу Twitch завершена</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Прогрес цілі каналу Twitch</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Ціль розпочато в {1} з {2}.</value>
   </data>

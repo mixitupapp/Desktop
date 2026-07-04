@@ -82,6 +82,7 @@ namespace MixItUp.Base.Services
 
         TwitchChannelGoalStarted = 245,
         TwitchChannelGoalEnded = 246,
+        TwitchChannelGoalProgress = 247,
 
         TwitchChannelAdUpcoming = 250,
         TwitchChannelAdStarted = 251,

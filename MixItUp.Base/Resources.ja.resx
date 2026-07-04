@@ -11493,6 +11493,9 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch チャンネル ゴール 終了</value>
   </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitchチャンネル目標進行</value>
+  </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0}ゴール {2}の{1}でスタート</value>
   </data>
