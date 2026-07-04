@@ -11649,4 +11649,28 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>Ko-fiのWebhook URL</value>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>APIキー</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.ggのAPIキーページ</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg寄付</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Pally.ggイベントフィードへの接続に失敗しました。APIキーが有効か確認してください。</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.ggは、視聴者がストリームの全員を一度に支援できるチームチッププラットフォームです。Mix It Upと連携すると、チップ通知がリアルタイムでアプリに直接届きます。</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>接続するには、Pally.ggダッシュボードの「設定 > APIキー」でAPIキーを作成し、ここに貼り付けてください。</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>有効なPally.ggのAPIキーを指定してください。</value>
+  </data>
 </root>

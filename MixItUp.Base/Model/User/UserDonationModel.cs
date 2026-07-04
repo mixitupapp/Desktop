@@ -23,6 +23,7 @@ namespace MixItUp.Base.Model.User
         Throne,
         Fourthwall,
         KoFi,
+        Pally,
     }
 
     [DataContract]

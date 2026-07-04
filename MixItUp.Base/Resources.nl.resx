@@ -11650,4 +11650,28 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>Ko-fi-webhook-URL</value>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API-sleutel</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg API-sleutelpagina</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg-donatie</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Kan geen verbinding maken met de Pally.gg-gebeurtenissenfeed. Controleer of je API-sleutel geldig is.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg is een teamfooienplatform waarmee kijkers iedereen op de stream tegelijk kunnen steunen. Door verbinding te maken met Mix It Up komen fooimeldingen in realtime rechtstreeks in de app binnen.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Maak om te verbinden een API-sleutel aan in je Pally.gg-dashboard onder Instellingen > API-sleutels en plak deze hier.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Er moet een geldige Pally.gg API-sleutel worden opgegeven.</value>
+  </data>
 </root>

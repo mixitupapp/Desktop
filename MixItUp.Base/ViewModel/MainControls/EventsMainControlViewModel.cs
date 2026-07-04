@@ -102,6 +102,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.KoFi;
                 }
+                else if (this.EventType == EventTypeEnum.PallyDonation)
+                {
+                    return Resources.Pally;
+                }
                 else if (eventNumber >= 200 && eventNumber < 300)
                 {
                     return Resources.Twitch;
@@ -293,6 +297,10 @@ namespace MixItUp.Base.ViewModel.MainControls
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiMembership));
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiShopOrder));
             commandGroups.Add(koFiCommands);
+
+            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, packIconName: "HandCoin");
+            pallyCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PallyDonation));
+            commandGroups.Add(pallyCommands);
 
             this.EventCommandGroups.AddRange(commandGroups);
 

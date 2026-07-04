@@ -11651,4 +11651,28 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>URL del webhook de Ko-fi</value>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>Clave de API</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Página de claves de API de Pally.gg</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Donación de Pally.gg</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>No se pudo conectar al feed de eventos de Pally.gg. Comprueba que tu clave de API sea válida.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg es una plataforma de propinas en equipo que permite a los espectadores apoyar a todos en el stream a la vez. Al conectarla con Mix It Up, las alertas de propinas llegan directamente a la aplicación en tiempo real.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Para conectar, crea una clave de API en tu panel de Pally.gg en Configuración > Claves de API y pégala aquí.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Se debe especificar una clave de API de Pally.gg válida.</value>
+  </data>
 </root>

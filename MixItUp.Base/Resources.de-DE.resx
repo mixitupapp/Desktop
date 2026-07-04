@@ -10368,4 +10368,28 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="KoFiWebhookURL" xml:space="preserve">
     <value>Ko-fi-Webhook-URL</value>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API-Schlüssel</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg-Seite für API-Schlüssel</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg-Spende</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Verbindung zum Pally.gg-Ereignis-Feed fehlgeschlagen. Bitte überprüfe, ob dein API-Schlüssel gültig ist.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg ist eine Team-Trinkgeld-Plattform, mit der Zuschauer alle im Stream gleichzeitig unterstützen können. Durch die Verbindung mit Mix It Up werden Trinkgeld-Benachrichtigungen in Echtzeit direkt an die App geliefert.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Erstelle zum Verbinden einen API-Schlüssel in deinem Pally.gg-Dashboard unter Einstellungen > API-Schlüssel und füge ihn hier ein.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Es muss ein gültiger Pally.gg-API-Schlüssel angegeben werden.</value>
+  </data>
 </root>

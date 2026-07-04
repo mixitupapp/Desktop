@@ -224,6 +224,8 @@ namespace MixItUp.Base.Services
         KoFiDonation = 1150,
         KoFiMembership = 1151,
         KoFiShopOrder = 1152,
+
+        PallyDonation = 1160,
     }
 
     public class SubscriptionDetailsModel
