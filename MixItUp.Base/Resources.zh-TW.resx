@@ -9340,6 +9340,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TwitchBits" xml:space="preserve">
     <value>抽搐位</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch 強化道具</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>期末金額</value>
   </data>

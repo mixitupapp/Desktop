@@ -8067,6 +8067,9 @@ Druck(Lauf())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch Bits</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Endbetrag</value>
   </data>

@@ -9340,6 +9340,9 @@ imprimer (exécuter ())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Bits Twitch</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Power-Ups Twitch</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Montant final</value>
   </data>

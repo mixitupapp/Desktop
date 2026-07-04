@@ -9345,6 +9345,9 @@ print(run())</value>
     <value>Twitch Bits</value>
     <comment>name of the website does not need a translation</comment>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Endbetrag</value>
   </data>

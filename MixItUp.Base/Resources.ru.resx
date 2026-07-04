@@ -9345,6 +9345,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="TwitchBits" xml:space="preserve">
     <value>Биты Твича</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Усиления Twitch</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Конечная сумма</value>
   </data>

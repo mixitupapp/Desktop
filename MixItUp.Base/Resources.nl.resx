@@ -9341,6 +9341,9 @@ afdrukken(uitvoeren())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch-bits</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Eindbedrag</value>
   </data>

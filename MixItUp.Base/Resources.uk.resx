@@ -9340,6 +9340,9 @@ print(run())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch Bits</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Підсилення Twitch</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Кінцева сума</value>
   </data>

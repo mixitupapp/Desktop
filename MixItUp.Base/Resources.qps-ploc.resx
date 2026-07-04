@@ -9250,6 +9250,9 @@
   <data name="TwitchBits" xml:space="preserve">
     <value>[Ţŵîţçĥẋẋ Ɓîţšẋẋ]</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>[Ţŵîţçĥẋẋ Þöŵéŕ-Ûþšẋẋẋ]</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>[Éñðîñĝẋẋ Åɱöûñţẋẋ]</value>
   </data>

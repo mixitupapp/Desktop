@@ -27601,6 +27601,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Twitch Power-Ups.
+        /// </summary>
+        public static string TwitchPowerUps {
+            get {
+                return ResourceManager.GetString("TwitchPowerUps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ERROR: Failed to create prediction, please try again later. If this issue persists, please visit the Mix It Up support Discord server..
         /// </summary>
         public static string TwitchPredictionFailedToCreate {

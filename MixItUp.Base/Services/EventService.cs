@@ -294,6 +294,9 @@ namespace MixItUp.Base.Services
         public static event EventHandler<TwitchBitsCheeredEventModel> OnTwitchBitsCheeredOccurred = delegate { };
         public static void TwitchBitsCheeredOccurred(TwitchBitsCheeredEventModel bitsCheer) { OnTwitchBitsCheeredOccurred(null, bitsCheer); }
 
+        public static event EventHandler<UserV2ViewModel> OnTwitchPowerUpOccurred = delegate { };
+        public static void TwitchPowerUpOccurred(UserV2ViewModel user) { OnTwitchPowerUpOccurred(null, user); }
+
         public static event EventHandler<YouTubeSuperChatViewModel> OnYouTubeSuperChatOccurred = delegate { };
         public static void YouTubeSuperChatOccurred(YouTubeSuperChatViewModel superchat) { OnYouTubeSuperChatOccurred(null, superchat); }
 

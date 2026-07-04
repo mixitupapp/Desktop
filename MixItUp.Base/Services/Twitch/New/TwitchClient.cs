@@ -850,6 +850,8 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPowerUpCelebration, parameters);
+
+                EventService.TwitchPowerUpOccurred(user);
             }
         }
 
@@ -1040,6 +1042,8 @@ namespace MixItUp.Base.Services.Twitch.New
                 else if (messageNotification.MessageType == ChatNotificationMessageType.power_ups_message_effect)
                 {
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPowerUpMessageEffect, parameters);
+
+                    EventService.TwitchPowerUpOccurred(user);
                 }
                 else if (messageNotification.MessageType == ChatNotificationMessageType.power_ups_gigantified_emote)
                 {
@@ -1050,6 +1054,8 @@ namespace MixItUp.Base.Services.Twitch.New
                         parameters.SpecialIdentifiers["emoteurl"] = emote.OverlayAnimatedOrStaticImageURL;
 
                         await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPowerUpGigantifiedEmote, parameters);
+
+                        EventService.TwitchPowerUpOccurred(user);
                     }
                 }
                 else if (messageNotification.MessageType == ChatNotificationMessageType.channel_points_highlighted)

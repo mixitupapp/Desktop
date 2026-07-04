@@ -9340,6 +9340,9 @@ stampa(esegui())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Bit di contrazione</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Power-Up di Twitch</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Importo finale</value>
   </data>
