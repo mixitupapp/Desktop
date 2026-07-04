@@ -220,6 +220,10 @@ namespace MixItUp.Base.Services
         FourthwallDonation = 1140,
         FourthwallOrderPlaced = 1141,
         FourthwallGiftPurchase = 1142,
+
+        KoFiDonation = 1150,
+        KoFiMembership = 1151,
+        KoFiShopOrder = 1152,
     }
 
     public class SubscriptionDetailsModel

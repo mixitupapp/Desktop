@@ -11630,4 +11630,25 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="FourthwallWebhookURL" xml:space="preserve">
     <value>URL do webhook do Fourthwall</value>
   </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiDonation" xml:space="preserve">
+    <value>Doação do Ko-fi</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>O Ko-fi permite que apoiantes enviem gorjetas, subscrições e encomendas da loja. Ao ligá-lo ao Mix It Up, é gerado um URL de webhook exclusivo que permite ao Ko-fi enviar alertas de pagamento diretamente para a aplicação.</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Depois de ligar, copie o URL do seu webhook e cole-o no campo Webhook URL na sua página de Webhooks do Ko-fi. Pode enviar pagamentos de teste a partir dessa página; o Ko-fi repete as entregas até serem bem-sucedidas.</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Subscrição do Ko-fi</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Encomenda da loja do Ko-fi</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>URL do webhook do Ko-fi</value>
+  </data>
 </root>

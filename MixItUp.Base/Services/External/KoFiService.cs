@@ -1,0 +1,174 @@
+﻿using MixItUp.Base.Model.User;
+using MixItUp.Base.Model.Webhooks;
+using MixItUp.Base.Util;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading.Tasks;
+
+namespace MixItUp.Base.Services.External
+{
+    // Ko-fi POSTs x-www-form-urlencoded with a "data" field of JSON; DesktopAPI unwraps
+    // the form field, so this payload is the flat JSON Ko-fi documents on its Webhooks page.
+    public class KoFiWebhookPayload
+    {
+        [JsonProperty("verification_token")]
+        public string VerificationToken { get; set; }
+
+        [JsonProperty("message_id")]
+        public string MessageId { get; set; }
+
+        [JsonProperty("timestamp")]
+        public string Timestamp { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("is_public")]
+        public bool? IsPublic { get; set; }
+
+        [JsonProperty("from_name")]
+        public string FromName { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
+
+        [JsonProperty("amount")]
+        public string Amount { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
+        [JsonProperty("is_subscription_payment")]
+        public bool? IsSubscriptionPayment { get; set; }
+
+        [JsonProperty("is_first_subscription_payment")]
+        public bool? IsFirstSubscriptionPayment { get; set; }
+
+        [JsonProperty("kofi_transaction_id")]
+        public string KoFiTransactionId { get; set; }
+
+        [JsonProperty("tier_name")]
+        public string TierName { get; set; }
+
+        public UserDonationModel ToGenericDonation()
+        {
+            bool isAnonymous = string.IsNullOrEmpty(this.FromName);
+
+            double amount = 0;
+            if (!string.IsNullOrEmpty(this.Amount))
+            {
+                double.TryParse(this.Amount, NumberStyles.Number, CultureInfo.InvariantCulture, out amount);
+            }
+
+            return new UserDonationModel()
+            {
+                Source = UserDonationSourceEnum.KoFi,
+
+                ID = this.MessageId,
+                Username = isAnonymous ? null : this.FromName,
+                IsAnonymous = isAnonymous,
+
+                Type = this.Type,
+                // Private supporter messages must not surface in stream alerts.
+                Message = (this.IsPublic == false) ? null : this.Message,
+
+                Amount = Math.Round(amount, 2),
+
+                DateTime = DateTimeOffset.Now,
+            };
+        }
+    }
+
+    public class KoFiService
+    {
+        public const string DonationEventType = "Donation";
+        public const string SubscriptionEventType = "Subscription";
+        public const string ShopOrderEventType = "Shop Order";
+        public const string CommissionEventType = "Commission";
+
+        private const int MaxTrackedMessageIds = 500;
+
+        private readonly object messageIdLock = new object();
+        private readonly HashSet<string> seenMessageIds = new HashSet<string>();
+        private readonly Queue<string> seenMessageIdOrder = new Queue<string>();
+
+        public KoFiService()
+        {
+            MixItUpService.RegisterWebhookServiceHandler(WebhookServices.Kofi, this.ProcessWebhookEvent);
+        }
+
+        public async Task ProcessWebhookEvent(string payload)
+        {
+            try
+            {
+                KoFiWebhookPayload koFiPayload = JsonConvert.DeserializeObject<KoFiWebhookPayload>(payload);
+                if (koFiPayload == null || string.IsNullOrEmpty(koFiPayload.Type))
+                {
+                    Logger.Log($"Ko-fi - Invalid webhook payload - {payload}");
+                    return;
+                }
+
+                if (!this.TryMarkMessageProcessed(koFiPayload.MessageId))
+                {
+                    return;
+                }
+
+                EventTypeEnum eventType;
+                switch (koFiPayload.Type)
+                {
+                    case DonationEventType: eventType = EventTypeEnum.KoFiDonation; break;
+                    // Commissions are one-off payments, closest to a donation.
+                    case CommissionEventType: eventType = EventTypeEnum.KoFiDonation; break;
+                    case SubscriptionEventType: eventType = EventTypeEnum.KoFiMembership; break;
+                    case ShopOrderEventType: eventType = EventTypeEnum.KoFiShopOrder; break;
+                    default:
+                        Logger.Log($"Ko-fi - Unknown webhook payload type - {koFiPayload.Type}");
+                        return;
+                }
+
+                UserDonationModel donation = koFiPayload.ToGenericDonation();
+
+                Dictionary<string, string> additionalSpecialIdentifiers = new Dictionary<string, string>();
+                additionalSpecialIdentifiers["kofitiername"] = koFiPayload.TierName ?? string.Empty;
+
+                await EventService.ProcessDonationEvent(eventType, donation, additionalSpecialIdentifiers: additionalSpecialIdentifiers);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        private bool TryMarkMessageProcessed(string messageId)
+        {
+            if (string.IsNullOrEmpty(messageId))
+            {
+                return true;
+            }
+
+            lock (this.messageIdLock)
+            {
+                if (!this.seenMessageIds.Add(messageId))
+                {
+                    return false;
+                }
+
+                this.seenMessageIdOrder.Enqueue(messageId);
+                while (this.seenMessageIdOrder.Count > MaxTrackedMessageIds)
+                {
+                    this.seenMessageIds.Remove(this.seenMessageIdOrder.Dequeue());
+                }
+
+                return true;
+            }
+        }
+    }
+}

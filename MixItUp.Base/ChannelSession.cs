@@ -120,6 +120,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new StreamlootsService());
             ServiceManager.Add(new ThroneService());
             ServiceManager.Add(new FourthwallService());
+            ServiceManager.Add(new KoFiService());
             ServiceManager.Add(new JustGivingService());
             ServiceManager.Add(new TiltifyService());
             ServiceManager.Add(new DonorDriveService());

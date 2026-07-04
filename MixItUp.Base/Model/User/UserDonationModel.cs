@@ -22,6 +22,7 @@ namespace MixItUp.Base.Model.User
         DonorDrive,
         Throne,
         Fourthwall,
+        KoFi,
     }
 
     [DataContract]
