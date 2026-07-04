@@ -212,6 +212,8 @@ namespace MixItUp.Base.Services
         CrowdControlEffectRedeemed = 1110,
 
         PulsoidHeartRateChanged = 1120,
+
+        PallyDonation = 1160,
     }
 
     public class SubscriptionDetailsModel

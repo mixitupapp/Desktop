@@ -17629,6 +17629,78 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pally.gg.
+        /// </summary>
+        public static string Pally {
+            get {
+                return ResourceManager.GetString("Pally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to API Key.
+        /// </summary>
+        public static string PallyAPIKey {
+            get {
+                return ResourceManager.GetString("PallyAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pally.gg API Keys Page.
+        /// </summary>
+        public static string PallyAPIKeysPage {
+            get {
+                return ResourceManager.GetString("PallyAPIKeysPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pally.gg Donation.
+        /// </summary>
+        public static string PallyDonation {
+            get {
+                return ResourceManager.GetString("PallyDonation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to connect to the Pally.gg event feed. Please check that your API key is valid.
+        /// </summary>
+        public static string PallyFailedToConnect {
+            get {
+                return ResourceManager.GetString("PallyFailedToConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pally.gg is a team tipping platform that lets viewers support everyone on the stream at once. Connecting it to Mix It Up delivers tip alerts directly to the app in real time.
+        /// </summary>
+        public static string PallyInfo1 {
+            get {
+                return ResourceManager.GetString("PallyInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To connect, create an API key in your Pally.gg dashboard under Settings, API Keys, then paste it here.
+        /// </summary>
+        public static string PallyInfo2 {
+            get {
+                return ResourceManager.GetString("PallyInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A valid Pally.gg API key must be specified.
+        /// </summary>
+        public static string PallyInvalidAPIKey {
+            get {
+                return ResourceManager.GetString("PallyInvalidAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Participant ID.
         /// </summary>
         public static string ParticipantID {

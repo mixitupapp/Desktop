@@ -11587,4 +11587,28 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>comptes datant de plus d'un an</value>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>Clé API</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Page des clés API Pally.gg</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Don Pally.gg</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Échec de la connexion au flux d'événements Pally.gg. Vérifiez que votre clé API est valide.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg est une plateforme de pourboires d'équipe qui permet aux spectateurs de soutenir tout le monde sur le stream en même temps. La connexion à Mix It Up transmet les alertes de pourboires directement à l'application en temps réel.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Pour vous connecter, créez une clé API dans votre tableau de bord Pally.gg sous Paramètres > Clés API, puis collez-la ici.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Une clé API Pally.gg valide doit être spécifiée.</value>
+  </data>
 </root>

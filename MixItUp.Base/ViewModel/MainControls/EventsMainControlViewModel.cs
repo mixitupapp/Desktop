@@ -90,6 +90,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.StreamElements;
                 }
+                else if (this.EventType == EventTypeEnum.PallyDonation)
+                {
+                    return Resources.Pally;
+                }
                 else if (eventNumber >= 200 && eventNumber < 300)
                 {
                     return Resources.Twitch;
@@ -263,6 +267,10 @@ namespace MixItUp.Base.ViewModel.MainControls
             EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, packIconName: "Patreon");
             patreonCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PatreonSubscribed));
             commandGroups.Add(patreonCommands);
+
+            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, packIconName: "HandCoin");
+            pallyCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PallyDonation));
+            commandGroups.Add(pallyCommands);
 
             this.EventCommandGroups.AddRange(commandGroups);
 

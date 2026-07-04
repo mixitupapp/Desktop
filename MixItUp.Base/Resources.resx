@@ -11619,4 +11619,36 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <comment>{0} is the gifter
 {1} is the amount of packs</comment>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API Key</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg API Keys Page</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg Donation</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Failed to connect to the Pally.gg event feed. Please check that your API key is valid.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg is a team tipping platform that lets viewers support everyone on the stream at once. Connecting it to Mix It Up delivers tip alerts directly to the app in real time.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>To connect, create an API key in your Pally.gg dashboard under Settings > API Keys, then paste it here.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>A valid Pally.gg API key must be specified.</value>
+    <comment>Manual</comment>
+  </data>
 </root>

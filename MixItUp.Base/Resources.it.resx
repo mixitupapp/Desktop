@@ -11586,4 +11586,28 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>account con più di un anno di anzianità</value>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>Chiave API</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pagina delle chiavi API di Pally.gg</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Donazione Pally.gg</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Impossibile connettersi al feed eventi di Pally.gg. Verifica che la tua chiave API sia valida.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg è una piattaforma di mance di squadra che consente agli spettatori di supportare tutti nello stream contemporaneamente. Collegandola a Mix It Up gli avvisi di mancia arrivano direttamente all'app in tempo reale.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Per connetterti, crea una chiave API nella tua dashboard Pally.gg in Impostazioni > Chiavi API, quindi incollala qui.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>È necessario specificare una chiave API Pally.gg valida.</value>
+  </data>
 </root>

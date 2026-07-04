@@ -11586,4 +11586,28 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>konta starsze niż 1 rok</value>
   </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>Klucz API</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Strona kluczy API Pally.gg</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Darowizna Pally.gg</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Nie udało się połączyć z kanałem zdarzeń Pally.gg. Sprawdź, czy Twój klucz API jest prawidłowy.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg to platforma napiwków zespołowych, dzięki której widzowie mogą jednocześnie wesprzeć wszystkich na streamie. Połączenie z Mix It Up dostarcza powiadomienia o napiwkach bezpośrednio do aplikacji w czasie rzeczywistym.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Aby się połączyć, utwórz klucz API w panelu Pally.gg w sekcji Ustawienia > Klucze API, a następnie wklej go tutaj.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Należy podać prawidłowy klucz API Pally.gg.</value>
+  </data>
 </root>
