@@ -214,6 +214,13 @@ namespace MixItUp.Base.Services.External
 
         private async void Socket_OnCampaignTipReceived(object sender, PallyCampaignTipNotifyPayload payload)
         {
+            await this.ProcessCampaignTip(payload);
+        }
+
+        // Split out from Socket_OnCampaignTipReceived so it can be fed a synthetic payload for testing
+        // (e.g. from DebugControl) without requiring a live, authenticated WebSocket connection.
+        public async Task ProcessCampaignTip(PallyCampaignTipNotifyPayload payload)
+        {
             try
             {
                 // Pally re-sends campaigntip.notify when a tip is replayed from the activity feed;
