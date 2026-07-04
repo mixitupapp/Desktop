@@ -11586,4 +11586,25 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>konta starsze niż 1 rok</value>
   </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Darowizna Fourthwall</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Zakup prezentu Fourthwall</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall to platforma z gadżetami i sklepami dla twórców. Połączenie z Mix It Up generuje unikalny adres URL webhooka, dzięki któremu Fourthwall może wysyłać powiadomienia o zamówieniach, darowiznach i prezentach bezpośrednio do aplikacji.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Po połączeniu skopiuj adres URL webhooka i wklej go w panelu administracyjnym sklepu Fourthwall w sekcji Ustawienia &gt; Dla deweloperów &gt; Webhooks. Zdarzenia Fourthwall można następnie dostosować na stronie Zdarzenia.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Złożono zamówienie Fourthwall</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Adres URL webhooka Fourthwall</value>
+  </data>
 </root>

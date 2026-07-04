@@ -11587,4 +11587,25 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>comptes datant de plus d'un an</value>
   </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Don Fourthwall</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Achat de cadeau Fourthwall</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall est une plateforme de merch et de boutiques pour les créateurs. La connexion à Mix It Up génère une URL de webhook unique qui permet à Fourthwall d'envoyer des alertes de commandes, de dons et de cadeaux directement à l'application.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Après la connexion, copiez l'URL de votre webhook et collez-la dans le tableau de bord d'administration de votre boutique Fourthwall sous Paramètres &gt; Pour les développeurs &gt; Webhooks. Les événements Fourthwall peuvent ensuite être personnalisés sur la page Événements.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Commande Fourthwall passée</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>URL du webhook Fourthwall</value>
+  </data>
 </root>

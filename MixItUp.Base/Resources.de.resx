@@ -11592,4 +11592,25 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>Konten, die älter als ein Jahr sind</value>
   </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall-Spende</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall-Geschenkkauf</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall ist eine Merch- und Shop-Plattform für Creator. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Fourthwall Bestell-, Spenden- und Geschenkbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie im Admin-Dashboard deines Fourthwall-Shops unter Einstellungen &gt; Für Entwickler &gt; Webhooks ein. Fourthwall-Ereignisse können anschließend auf der Ereignisse-Seite angepasst werden.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall-Bestellung aufgegeben</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall-Webhook-URL</value>
+  </data>
 </root>

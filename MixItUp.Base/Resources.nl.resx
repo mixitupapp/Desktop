@@ -11587,4 +11587,25 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>accounts die ouder zijn dan 1 jaar</value>
   </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall-donatie</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall-cadeauaankoop</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall is een merch- en shopplatform voor creators. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Fourthwall bestel-, donatie- en cadeaumeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in het beheerdashboard van je Fourthwall-shop onder Instellingen &gt; Voor ontwikkelaars &gt; Webhooks. Fourthwall-gebeurtenissen kunnen daarna worden aangepast op de pagina Gebeurtenissen.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall-bestelling geplaatst</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall-webhook-URL</value>
+  </data>
 </root>

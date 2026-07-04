@@ -212,6 +212,10 @@ namespace MixItUp.Base.Services
         CrowdControlEffectRedeemed = 1110,
 
         PulsoidHeartRateChanged = 1120,
+
+        FourthwallDonation = 1140,
+        FourthwallOrderPlaced = 1141,
+        FourthwallGiftPurchase = 1142,
     }
 
     public class SubscriptionDetailsModel
