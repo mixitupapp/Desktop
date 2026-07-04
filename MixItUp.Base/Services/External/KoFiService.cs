@@ -115,6 +115,9 @@ namespace MixItUp.Base.Services.External
     public class KoFiService
     {
         public const string TipEventType = "Tip";
+        // Ko-fi's webhook docs say "Tip", but live testing (2026-07-04) confirmed the API still
+        // sends "Donation" for a plain one-time payment; accept both in case that ever changes.
+        public const string LegacyTipEventType = "Donation";
         public const string SubscriptionEventType = "Subscription";
         public const string ShopOrderEventType = "Shop Order";
         public const string CommissionEventType = "Commission";
@@ -149,7 +152,9 @@ namespace MixItUp.Base.Services.External
                 EventTypeEnum eventType;
                 switch (koFiPayload.Type)
                 {
-                    case TipEventType: eventType = EventTypeEnum.KoFiTip; break;
+                    case TipEventType:
+                    case LegacyTipEventType:
+                        eventType = EventTypeEnum.KoFiTip; break;
                     case CommissionEventType: eventType = EventTypeEnum.KoFiCommission; break;
                     case SubscriptionEventType:
                         eventType = (koFiPayload.IsFirstSubscriptionPayment == true) ? EventTypeEnum.KoFiFirstMembership : EventTypeEnum.KoFiMembership;

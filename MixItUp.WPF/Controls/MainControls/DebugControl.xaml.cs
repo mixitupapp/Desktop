@@ -647,7 +647,9 @@ namespace MixItUp.WPF.Controls.MainControls
             await ServiceManager.Get<KoFiService>().ProcessWebhookEvent(payload.ToString());
         }
 
-        private async void TriggerKoFiTip_Click(object sender, System.Windows.RoutedEventArgs e) { await this.TriggerKoFiEvent("Tip"); }
+        // Ko-fi's live payload for a one-time payment actually sends "Donation" (confirmed via
+        // testing), not the "Tip" their webhook docs describe - mirror that here for fidelity.
+        private async void TriggerKoFiTip_Click(object sender, System.Windows.RoutedEventArgs e) { await this.TriggerKoFiEvent("Donation"); }
 
         private async void TriggerKoFiCommission_Click(object sender, System.Windows.RoutedEventArgs e) { await this.TriggerKoFiEvent("Commission"); }
 
