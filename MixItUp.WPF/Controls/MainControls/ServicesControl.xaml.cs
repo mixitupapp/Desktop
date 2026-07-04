@@ -58,6 +58,7 @@ namespace MixItUp.WPF.Controls.MainControls
             ttsCategory.AddService(new TTSMonsterServiceControl());
             services.Add(ttsCategory);
 
+            services.Add(new ServiceContainerControl(this.Window, new ThroneServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TiltifyServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TipeeeStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TITSServiceControl()));

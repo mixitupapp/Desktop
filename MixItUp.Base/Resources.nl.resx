@@ -11587,4 +11587,25 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>accounts die ouder zijn dan 1 jaar</value>
   </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne-bijdrage</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne-cadeau gecrowdfund</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne-cadeau gekocht</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne is een cadeau- en verlanglijstplatform voor creators. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Throne cadeau- en bijdragemeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in de webhook-integratie-instellingen van je Throne-creatordashboard. Throne-gebeurtenissen kunnen daarna worden aangepast op de pagina Gebeurtenissen.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne-webhook-URL</value>
+  </data>
 </root>

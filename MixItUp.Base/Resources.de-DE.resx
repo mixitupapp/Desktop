@@ -10305,4 +10305,25 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>Konten, die älter als ein Jahr sind</value>
   </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne-Beitrag</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne-Geschenk per Crowdfunding</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne-Geschenk gekauft</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne ist eine Geschenk- und Wunschlisten-Plattform für Creator. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Throne Geschenk- und Beitragsbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie in die Webhook-Integrationseinstellungen deines Throne-Creator-Dashboards ein. Throne-Ereignisse können anschließend auf der Ereignisse-Seite angepasst werden.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne-Webhook-URL</value>
+  </data>
 </root>

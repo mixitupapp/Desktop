@@ -24972,6 +24972,69 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Throne.
+        /// </summary>
+        public static string Throne {
+            get {
+                return ResourceManager.GetString("Throne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Throne Contribution.
+        /// </summary>
+        public static string ThroneContribution {
+            get {
+                return ResourceManager.GetString("ThroneContribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Throne Gift Crowdfunded.
+        /// </summary>
+        public static string ThroneGiftCrowdfunded {
+            get {
+                return ResourceManager.GetString("ThroneGiftCrowdfunded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Throne Gift Purchased.
+        /// </summary>
+        public static string ThroneGiftPurchased {
+            get {
+                return ResourceManager.GetString("ThroneGiftPurchased", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Throne is a gifting &amp; wishlist platform for creators. Connecting it to Mix It Up generates a unique webhook URL that lets Throne send gift and contribution alerts directly to the app..
+        /// </summary>
+        public static string ThroneInfo1 {
+            get {
+                return ResourceManager.GetString("ThroneInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to After connecting, copy your webhook URL and paste it into the Webhook integration settings on your Throne creator dashboard. Throne events can then be customized on the Events page..
+        /// </summary>
+        public static string ThroneInfo2 {
+            get {
+                return ResourceManager.GetString("ThroneInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Throne Webhook URL.
+        /// </summary>
+        public static string ThroneWebhookURL {
+            get {
+                return ResourceManager.GetString("ThroneWebhookURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Throw Item.
         /// </summary>
         public static string ThrowItem {

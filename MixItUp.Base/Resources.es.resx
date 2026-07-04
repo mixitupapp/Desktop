@@ -11588,4 +11588,25 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>cuentas con más de un año de antigüedad</value>
   </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Contribución de Throne</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Regalo de Throne financiado colectivamente</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Regalo de Throne comprado</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne es una plataforma de regalos y listas de deseos para creadores. Al conectarla con Mix It Up se genera una URL de webhook única que permite a Throne enviar alertas de regalos y contribuciones directamente a la aplicación.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Después de conectar, copia la URL de tu webhook y pégala en la configuración de integración de webhooks de tu panel de creador de Throne. Los eventos de Throne se pueden personalizar luego en la página de Eventos.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>URL del webhook de Throne</value>
+  </data>
 </root>

@@ -20,6 +20,7 @@ namespace MixItUp.Base.Model.User
         StreamElements,
         Twitch,
         DonorDrive,
+        Throne,
     }
 
     [DataContract]

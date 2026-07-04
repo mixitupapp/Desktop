@@ -11619,4 +11619,32 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <comment>{0} is the gifter
 {1} is the amount of packs</comment>
   </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne Contribution</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne Gift Crowdfunded</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne Gift Purchased</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne is a gifting &amp; wishlist platform for creators. Connecting it to Mix It Up generates a unique webhook URL that lets Throne send gift and contribution alerts directly to the app.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>After connecting, copy your webhook URL and paste it into the Webhook integration settings on your Throne creator dashboard. Throne events can then be customized on the Events page.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne Webhook URL</value>
+    <comment>Manual</comment>
+  </data>
 </root>

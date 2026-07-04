@@ -11586,4 +11586,25 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>1年以上経過したアカウント</value>
   </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throneコントリビューション</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throneギフト（クラウドファンディング）</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throneギフト購入</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throneはクリエイター向けのギフト・ウィッシュリストプラットフォームです。Mix It Upと連携すると一意のWebhook URLが生成され、Throneからギフトやコントリビューションの通知をアプリに直接送信できます。</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>接続後、Webhook URLをコピーして、ThroneのクリエイターダッシュボードのWebhook連携設定に貼り付けてください。Throneのイベントはイベントページでカスタマイズできます。</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>ThroneのWebhook URL</value>
+  </data>
 </root>

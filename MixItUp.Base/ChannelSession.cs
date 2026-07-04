@@ -118,6 +118,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new BetterTTVService());
             ServiceManager.Add(new FrankerFaceZService());
             ServiceManager.Add(new StreamlootsService());
+            ServiceManager.Add(new ThroneService());
             ServiceManager.Add(new JustGivingService());
             ServiceManager.Add(new TiltifyService());
             ServiceManager.Add(new DonorDriveService());

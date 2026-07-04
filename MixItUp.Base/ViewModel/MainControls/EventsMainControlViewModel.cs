@@ -90,6 +90,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.StreamElements;
                 }
+                else if (this.EventType == EventTypeEnum.ThroneGiftPurchased || this.EventType == EventTypeEnum.ThroneContribution || this.EventType == EventTypeEnum.ThroneGiftCrowdfunded)
+                {
+                    return Resources.Throne;
+                }
                 else if (eventNumber >= 200 && eventNumber < 300)
                 {
                     return Resources.Twitch;
@@ -263,6 +267,12 @@ namespace MixItUp.Base.ViewModel.MainControls
             EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, packIconName: "Patreon");
             patreonCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PatreonSubscribed));
             commandGroups.Add(patreonCommands);
+
+            EventCommandGroupViewModel throneCommands = new EventCommandGroupViewModel(Resources.Throne, packIconName: "Gift");
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftPurchased));
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneContribution));
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftCrowdfunded));
+            commandGroups.Add(throneCommands);
 
             this.EventCommandGroups.AddRange(commandGroups);
 
