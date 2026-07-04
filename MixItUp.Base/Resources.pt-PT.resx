@@ -11450,6 +11450,12 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} foi avisado</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} pediu um desbanimento</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>O pedido de desbanimento de {0} foi {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Enviou um Shoutout com {1} Espectadores</value>
   </data>
@@ -11497,6 +11503,12 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   </data>
   <data name="TwitchChannelGoalProgress" xml:space="preserve">
     <value>Progresso do objetivo do canal Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Pedido de desbanimento do canal Twitch criado</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Pedido de desbanimento do canal Twitch resolvido</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Objetivo Iniciado em {1} de {2}</value>

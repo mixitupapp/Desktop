@@ -1159,6 +1159,24 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Requested An Unban.
+        /// </summary>
+        public static string AlertTwitchUnbanRequestCreated {
+            get {
+                return ResourceManager.GetString("AlertTwitchUnbanRequestCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}&apos;s Unban Request Was {1}.
+        /// </summary>
+        public static string AlertTwitchUnbanRequestResolved {
+            get {
+                return ResourceManager.GetString("AlertTwitchUnbanRequestResolved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} was Warned.
         /// </summary>
         public static string AlertTwitchUserWarned {
@@ -27219,6 +27237,24 @@ namespace MixItUp.Base {
         public static string TwitchChannelSuspiciousUserUpdated {
             get {
                 return ResourceManager.GetString("TwitchChannelSuspiciousUserUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Unban Request Created.
+        /// </summary>
+        public static string TwitchChannelUnbanRequestCreated {
+            get {
+                return ResourceManager.GetString("TwitchChannelUnbanRequestCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Twitch Channel Unban Request Resolved.
+        /// </summary>
+        public static string TwitchChannelUnbanRequestResolved {
+            get {
+                return ResourceManager.GetString("TwitchChannelUnbanRequestResolved", resourceCulture);
             }
         }
         

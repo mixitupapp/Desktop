@@ -11448,6 +11448,12 @@ print(run())</value>
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} було попереджено</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} надіслав запит на розбан</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Запит на розбан від {0}: {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Відправив крик з {1} Глядачі</value>
   </data>
@@ -11495,6 +11501,12 @@ print(run())</value>
   </data>
   <data name="TwitchChannelGoalProgress" xml:space="preserve">
     <value>Прогрес цілі каналу Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Створено запит на розбан каналу Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Запит на розбан каналу Twitch розглянуто</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Ціль розпочато в {1} з {2}.</value>

@@ -176,6 +176,13 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.TwitchChannelSuspiciousUserUpdated:
                     specialIdentifiers["suspicioususerstatus"] = "restricted";
                     break;
+                case EventTypeEnum.TwitchChannelUnbanRequestCreated:
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.TwitchChannelUnbanRequestResolved:
+                    specialIdentifiers["unbanrequeststatus"] = "approved";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
                 case EventTypeEnum.TwitchChannelGoalStarted:
                     specialIdentifiers["goaltype"] = "follower";
                     specialIdentifiers["goaldescription"] = "Follow goal for the stream";

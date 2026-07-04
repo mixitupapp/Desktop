@@ -101,6 +101,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.moderate", "2" },
 
+            { "channel.unban_request.create", null },
+            { "channel.unban_request.resolve", null },
+
             { "channel.shoutout.receive", null },
 
             { "channel.suspicious_user.message", null },
@@ -213,6 +216,8 @@ namespace MixItUp.Base.Services.Twitch.New
                         {
                             case "channel.follow":
                             case "channel.moderate":
+                            case "channel.unban_request.create":
+                            case "channel.unban_request.resolve":
                             case "channel.shoutout.receive":
                             case "channel.suspicious_user.message":
                             case "channel.suspicious_user.update":
@@ -418,6 +423,13 @@ namespace MixItUp.Base.Services.Twitch.New
 
                     case "channel.moderate":
                         await HandleModeration(message.Payload.Event);
+                        break;
+
+                    case "channel.unban_request.create":
+                        await HandleUnbanRequestCreate(message.Payload.Event);
+                        break;
+                    case "channel.unban_request.resolve":
+                        await HandleUnbanRequestResolve(message.Payload.Event);
                         break;
 
                     case "channel.shoutout.receive":
@@ -1378,6 +1390,41 @@ namespace MixItUp.Base.Services.Twitch.New
             {
 
             }
+        }
+
+        private async Task HandleUnbanRequestCreate(JObject payload)
+        {
+            UnbanRequestNotification unbanRequest = payload.ToObject<UnbanRequestNotification>();
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: unbanRequest.user_id);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(unbanRequest.user_id, unbanRequest.user_login, unbanRequest.user_name));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["message"] = unbanRequest.text ?? string.Empty;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelUnbanRequestCreated, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchUnbanRequestCreated, user.FullDisplayName), ChannelSession.Settings.AlertModerationColor));
+        }
+
+        private async Task HandleUnbanRequestResolve(JObject payload)
+        {
+            UnbanRequestNotification unbanRequest = payload.ToObject<UnbanRequestNotification>();
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: unbanRequest.user_id);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(unbanRequest.user_id, unbanRequest.user_login, unbanRequest.user_name));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["unbanrequeststatus"] = unbanRequest.status ?? string.Empty;
+            parameters.SpecialIdentifiers["message"] = unbanRequest.resolution_text ?? string.Empty;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelUnbanRequestResolved, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchUnbanRequestResolved, user.FullDisplayName, unbanRequest.status), ChannelSession.Settings.AlertModerationColor));
         }
 
         private async Task HandleShoutoutReceived(JObject payload)

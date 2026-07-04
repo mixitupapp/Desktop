@@ -11453,6 +11453,12 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} было предупреждено</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} запросил разбан</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Запрос на разбан от {0}: {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Отправил крик с {1} Зрители</value>
   </data>
@@ -11500,6 +11506,12 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="TwitchChannelGoalProgress" xml:space="preserve">
     <value>Прогресс цели канала Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Запрос на разбан на канале Twitch создан</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Запрос на разбан на канале Twitch рассмотрен</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Гол начался в {1} из {2}</value>

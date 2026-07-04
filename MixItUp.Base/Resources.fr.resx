@@ -11449,6 +11449,12 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} a été averti</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} a demandé un débannissement</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>La demande de débannissement de {0} a été {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} a envoyé un message à {1} Les téléspectateurs</value>
   </data>
@@ -11496,6 +11502,12 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   </data>
   <data name="TwitchChannelGoalProgress" xml:space="preserve">
     <value>Progression de l'objectif de la chaîne Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Demande de débannissement de la chaîne Twitch créée</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Demande de débannissement de la chaîne Twitch résolue</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Objectif commencé à {1} de {2}</value>

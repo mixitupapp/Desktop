@@ -11448,6 +11448,12 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0}が警告された</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} がバン解除をリクエストしました</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>{0} のバン解除リクエスト: {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0}が{1}にシャウトを送った視聴者</value>
   </data>
@@ -11495,6 +11501,12 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="TwitchChannelGoalProgress" xml:space="preserve">
     <value>Twitchチャンネル目標進行</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitchチャンネルのバン解除リクエスト作成</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitchチャンネルのバン解除リクエスト解決</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0}ゴール {2}の{1}でスタート</value>
