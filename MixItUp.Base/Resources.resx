@@ -9375,6 +9375,9 @@ print(run())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch Bits</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Ending Amount</value>
   </data>
@@ -11506,6 +11509,12 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} was Warned</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} Requested An Unban</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>{0}'s Unban Request Was {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Sent a Shoutout with {1} Viewers</value>
   </data>
@@ -11550,6 +11559,15 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch Channel Goal Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch Channel Goal Progress</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch Channel Unban Request Created</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch Channel Unban Request Resolved</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Goal Started at {1} of {2}</value>

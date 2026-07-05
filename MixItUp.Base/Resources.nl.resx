@@ -9341,6 +9341,9 @@ afdrukken(uitvoeren())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch-bits</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Eindbedrag</value>
   </data>
@@ -11449,6 +11452,12 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} werd gewaarschuwd</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} heeft een unban aangevraagd</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Unban-verzoek van {0} is {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Stuurde een Shoutout met {1} Kijkers</value>
   </data>
@@ -11493,6 +11502,15 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch-kanaal doel Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch-kanaal doel voortgang</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch-kanaal unban-verzoek aangemaakt</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch-kanaal unban-verzoek afgehandeld</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Doel begonnen op {1} van {2}</value>

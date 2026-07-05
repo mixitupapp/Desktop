@@ -9345,6 +9345,9 @@ print(run())</value>
     <value>Twitch Bits</value>
     <comment>name of the website does not need a translation</comment>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Endbetrag</value>
   </data>
@@ -11454,6 +11457,12 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} wurde gewarnt</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} hat einen Entbannungsantrag gestellt</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Entbannungsantrag von {0} wurde {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} schickte einen Ausruf mit {1} Betrachter</value>
   </data>
@@ -11498,6 +11507,15 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch-Kanal-Ziel Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch-Kanal-Ziel Fortschritt</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch-Kanal Entbannungsantrag erstellt</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch-Kanal Entbannungsantrag abgeschlossen</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Ziel Begonnen am {1} von {2}</value>

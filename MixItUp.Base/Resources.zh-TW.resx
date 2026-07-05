@@ -9340,6 +9340,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TwitchBits" xml:space="preserve">
     <value>抽搐位</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch 強化道具</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>期末金額</value>
   </data>
@@ -11448,6 +11451,12 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0}收到警告</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} 請求解除封鎖</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>{0} 的解除封鎖請求已{1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} 与 {1} 一起呐喊观众</value>
   </data>
@@ -11492,6 +11501,15 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch 频道目标</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch 頻道目標進度</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch 頻道解除封鎖請求已建立</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch 頻道解除封鎖請求已處理</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0}目标从{2}的{1}开始</value>

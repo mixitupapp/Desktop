@@ -33,6 +33,8 @@ namespace MixItUp.Base.Model.Overlay
         public virtual bool TwitchSubscriptions { get; set; }
         [DataMember]
         public virtual bool TwitchBits { get; set; }
+        [DataMember]
+        public virtual bool TwitchPowerUps { get; set; }
 
         [DataMember]
         public virtual bool YouTubeMemberships { get; set; }
@@ -97,6 +99,11 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnTwitchBitsCheeredOccurred += OnTwitchBits;
             }
 
+            if (this.TwitchPowerUps)
+            {
+                EventService.OnTwitchPowerUpOccurred += OnTwitchPowerUp;
+            }
+
             if (this.YouTubeSuperChats)
             {
                 EventService.OnYouTubeSuperChatOccurred += OnYouTubeSuperChat;
@@ -138,6 +145,8 @@ namespace MixItUp.Base.Model.Overlay
 
         public virtual void OnTwitchBits(object sender, TwitchBitsCheeredEventModel bitsCheered) { }
 
+        public virtual void OnTwitchPowerUp(object sender, UserV2ViewModel user) { }
+
         public virtual void OnYouTubeSuperChat(object sender, YouTubeSuperChatViewModel superChat) { }
 
         public virtual void OnKickKicksGifted(object sender, KickKicksGiftedEventModel kicksGifted) { }
@@ -157,6 +166,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnMassSubscriptionsGiftedOccurred -= OnMassSubscription;
             EventService.OnDonationOccurred -= OnDonation;
             EventService.OnTwitchBitsCheeredOccurred -= OnTwitchBits;
+            EventService.OnTwitchPowerUpOccurred -= OnTwitchPowerUp;
             EventService.OnYouTubeSuperChatOccurred -= OnYouTubeSuperChat;
             EventService.OnKickKicksGiftedOccurred -= OnKickKicksGifted;
         }

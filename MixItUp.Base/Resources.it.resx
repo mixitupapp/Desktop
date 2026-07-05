@@ -9340,6 +9340,9 @@ stampa(esegui())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Bit di contrazione</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Power-Up di Twitch</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Importo finale</value>
   </data>
@@ -11448,6 +11451,12 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} è stato avvertito</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} ha richiesto uno sban</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>La richiesta di sban di {0} è stata {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} ha inviato un messaggio di ringraziamento a {1} Spettatori</value>
   </data>
@@ -11492,6 +11501,15 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Obiettivo del canale Twitch Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Progresso dell'obiettivo del canale Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Richiesta di sban del canale Twitch creata</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Richiesta di sban del canale Twitch risolta</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Obiettivo iniziato a {1} di {2}</value>

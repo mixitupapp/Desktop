@@ -144,6 +144,12 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["hypetrainlevelpoints"] = "123";
                     specialIdentifiers["hypetrainlevelgoal"] = "500";
                     break;
+                case EventTypeEnum.TwitchChannelHypeTrainProgress:
+                    specialIdentifiers["hypetraintotalpoints"] = "1";
+                    specialIdentifiers["hypetrainlevelpoints"] = "123";
+                    specialIdentifiers["hypetrainlevelgoal"] = "500";
+                    specialIdentifiers["hypetrainlevel"] = "2";
+                    break;
                 case EventTypeEnum.TwitchChannelHypeTrainLevelUp:
                     specialIdentifiers["hypetraintotalpoints"] = "1";
                     specialIdentifiers["hypetrainlevelpoints"] = "123";
@@ -170,10 +176,23 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.TwitchChannelSuspiciousUserUpdated:
                     specialIdentifiers["suspicioususerstatus"] = "restricted";
                     break;
+                case EventTypeEnum.TwitchChannelUnbanRequestCreated:
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.TwitchChannelUnbanRequestResolved:
+                    specialIdentifiers["unbanrequeststatus"] = "approved";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
                 case EventTypeEnum.TwitchChannelGoalStarted:
                     specialIdentifiers["goaltype"] = "follower";
                     specialIdentifiers["goaldescription"] = "Follow goal for the stream";
                     specialIdentifiers["goalcurrentamount"] = "50";
+                    specialIdentifiers["goaltargetamount"] = "100";
+                    break;
+                case EventTypeEnum.TwitchChannelGoalProgress:
+                    specialIdentifiers["goaltype"] = "follower";
+                    specialIdentifiers["goaldescription"] = "Follow goal for the stream";
+                    specialIdentifiers["goalcurrentamount"] = "75";
                     specialIdentifiers["goaltargetamount"] = "100";
                     break;
                 case EventTypeEnum.TwitchChannelGoalEnded:

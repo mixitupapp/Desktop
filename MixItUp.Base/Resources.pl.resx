@@ -9340,6 +9340,9 @@ drukuj(uruchom())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitchowe bity</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Power-Upy Twitch</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Kwota końcowa</value>
   </data>
@@ -11448,6 +11451,12 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} został ostrzeżony</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} poprosił o odbanowanie</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Prośba o odbanowanie od {0} została {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} wysłał wiadomość do {1} widzów</value>
   </data>
@@ -11492,6 +11501,15 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Cel kanału Twitch zakończony</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Postęp celu kanału Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Utworzono prośbę o odbanowanie na kanale Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Rozpatrzono prośbę o odbanowanie na kanale Twitch</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Cel rozpoczęty w {1} z {2}.</value>

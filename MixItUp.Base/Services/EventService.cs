@@ -82,6 +82,7 @@ namespace MixItUp.Base.Services
 
         TwitchChannelGoalStarted = 245,
         TwitchChannelGoalEnded = 246,
+        TwitchChannelGoalProgress = 247,
 
         TwitchChannelAdUpcoming = 250,
         TwitchChannelAdStarted = 251,
@@ -95,7 +96,6 @@ namespace MixItUp.Base.Services
         TwitchChannelCustomPowerUpRedeemed = 274,
 
         TwitchChannelHypeTrainBegin = 280,
-        [Obsolete]
         TwitchChannelHypeTrainProgress = 281,
         TwitchChannelHypeTrainEnd = 282,
         TwitchChannelHypeTrainLevelUp = 283,
@@ -105,6 +105,8 @@ namespace MixItUp.Base.Services
         TwitchChannelSuspiciousUserUpdated = 292,
         TwitchChannelShieldModeStarted = 293,
         TwitchChannelShieldModeEnded = 294,
+        TwitchChannelUnbanRequestCreated = 295,
+        TwitchChannelUnbanRequestResolved = 296,
 
         // 300 = YouTube
 
@@ -291,6 +293,9 @@ namespace MixItUp.Base.Services
 
         public static event EventHandler<TwitchBitsCheeredEventModel> OnTwitchBitsCheeredOccurred = delegate { };
         public static void TwitchBitsCheeredOccurred(TwitchBitsCheeredEventModel bitsCheer) { OnTwitchBitsCheeredOccurred(null, bitsCheer); }
+
+        public static event EventHandler<UserV2ViewModel> OnTwitchPowerUpOccurred = delegate { };
+        public static void TwitchPowerUpOccurred(UserV2ViewModel user) { OnTwitchPowerUpOccurred(null, user); }
 
         public static event EventHandler<YouTubeSuperChatViewModel> OnYouTubeSuperChatOccurred = delegate { };
         public static void YouTubeSuperChatOccurred(YouTubeSuperChatViewModel superchat) { OnYouTubeSuperChatOccurred(null, superchat); }
