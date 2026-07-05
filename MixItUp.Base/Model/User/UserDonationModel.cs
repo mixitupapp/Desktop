@@ -4,6 +4,7 @@ using MixItUp.Base.ViewModel.User;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace MixItUp.Base.Model.User
@@ -48,6 +49,8 @@ namespace MixItUp.Base.Model.User
 
         [DataMember]
         public double Amount { get; set; }
+        [DataMember]
+        public string CurrencyCode { get; set; }
 
         [DataMember]
         public DateTimeOffset DateTime { get; set; }
@@ -82,7 +85,7 @@ namespace MixItUp.Base.Model.User
         public UserV2ViewModel User { get; set; }
 
         [JsonIgnore]
-        public string AmountText { get { return CurrencyHelper.ToCurrencyString(this.Amount); } }
+        public string AmountText { get { return CurrencyHelper.ToCurrencyString(this.CurrencyCode, this.Amount); } }
 
         public void AssignUser()
         {
@@ -109,9 +112,11 @@ namespace MixItUp.Base.Model.User
             Dictionary<string, string> specialIdentifiers = new Dictionary<string, string>();
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationSourceSpecialIdentifier] = EnumHelper.GetEnumName(this.Source);
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationTypeSpecialIdentifier] = this.Type;
-            specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountNumberDigitsSpecialIdentifier] = (this.Amount * 100).ToString();
-            specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountNumberSpecialIdentifier] = this.Amount.ToString();
+            // Invariant so math on these identifiers works the same on every machine culture
+            specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountNumberDigitsSpecialIdentifier] = (this.Amount * 100).ToString(CultureInfo.InvariantCulture);
+            specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountNumberSpecialIdentifier] = this.Amount.ToString(CultureInfo.InvariantCulture);
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationAmountSpecialIdentifier] = this.AmountText;
+            specialIdentifiers[SpecialIdentifierStringBuilder.DonationCurrencySpecialIdentifier] = this.CurrencyCode ?? string.Empty;
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationMessageSpecialIdentifier] = this.Message;
             specialIdentifiers[SpecialIdentifierStringBuilder.DonationImageSpecialIdentifier] = this.ImageLink;
             return specialIdentifiers;
