@@ -62,6 +62,7 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["usersubplanname"] = "Plan Name";
                     specialIdentifiers["usersubplan"] = "Tier 1";
                     specialIdentifiers["usersubpoints"] = "1";
+                    specialIdentifiers["usersubdurationmonths"] = "3";
                     specialIdentifiers["isprimeupgrade"] = "False";
                     specialIdentifiers["isgiftupgrade"] = "False";
                     break;
@@ -72,6 +73,7 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["usersubpoints"] = "1";
                     specialIdentifiers["usersubmonths"] = "5";
                     specialIdentifiers["usersubstreak"] = "3";
+                    specialIdentifiers["usersubdurationmonths"] = "3";
                     break;
                 case EventTypeEnum.TwitchChannelSubscriptionGifted:
                     specialIdentifiers["usersubplanname"] = "Plan Name";

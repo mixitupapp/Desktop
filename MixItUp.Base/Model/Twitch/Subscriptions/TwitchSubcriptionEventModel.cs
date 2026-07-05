@@ -13,6 +13,8 @@ namespace MixItUp.Base.Model.Twitch.Subscriptions
         public UserV2ViewModel User { get; set; }
         public UserV2ViewModel Gifter { get; set; }
 
+        public ChatNotificationType NoticeType { get; set; }
+
         public int Tier { get; set; } = 1;
         public string TierName { get; set; }
 
@@ -41,11 +43,14 @@ namespace MixItUp.Base.Model.Twitch.Subscriptions
             this.User = user;
             this.Gifter = gifter;
 
+            this.NoticeType = notification.NoticeType;
+
             this.Message = new TwitchChatMessageViewModel(notification, user);
 
             if (notification.NoticeType == ChatNotificationType.sub)
             {
                 this.Tier = notification.sub.TierNumber;
+                this.Duration = notification.sub.duration_months;
                 this.SubPoints = notification.sub.SubPoints;
                 this.IsPrime = notification.sub.is_prime;
             }
@@ -81,6 +86,7 @@ namespace MixItUp.Base.Model.Twitch.Subscriptions
             else if (notification.NoticeType == ChatNotificationType.shared_chat_sub)
             {
                 this.Tier = notification.shared_chat_sub.TierNumber;
+                this.Duration = notification.shared_chat_sub.duration_months;
                 this.SubPoints = notification.shared_chat_sub.SubPoints;
                 this.IsPrime = notification.shared_chat_sub.is_prime;
             }

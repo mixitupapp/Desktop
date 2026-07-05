@@ -1570,7 +1570,7 @@ namespace MixItUp.Base.Services.Twitch.New
 
         private async Task ProcessSub(TwitchSubcriptionEventModel subscription)
         {
-            if (subscription.Duration > 0)
+            if (subscription.Duration > 0 && subscription.NoticeType != ChatNotificationType.sub && subscription.NoticeType != ChatNotificationType.shared_chat_sub)
             {
                 subscription.User.Roles.Add(UserRoleEnum.Subscriber);
                 subscription.User.SubscribeDate = DateTimeOffset.Now.SubtractMonths(subscription.Cumulative - 1);
@@ -1585,6 +1585,7 @@ namespace MixItUp.Base.Services.Twitch.New
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubpoints"] = subscription.SubPoints.ToString();
                 parameters.SpecialIdentifiers["usersubstreak"] = subscription.Streak.ToString();
+                parameters.SpecialIdentifiers["usersubdurationmonths"] = Math.Max(subscription.Duration, 1).ToString();
 
                 string moderation = await ServiceManager.Get<ModerationService>().ShouldTextBeModerated(subscription.User, subscription.Message.PlainTextMessage);
                 if (!string.IsNullOrEmpty(moderation))
@@ -1646,6 +1647,7 @@ namespace MixItUp.Base.Services.Twitch.New
                 parameters.SpecialIdentifiers["usersubplanname"] = subscription.PlanName;
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubpoints"] = subscription.SubPoints.ToString();
+                parameters.SpecialIdentifiers["usersubdurationmonths"] = Math.Max(subscription.Duration, 1).ToString();
                 parameters.SpecialIdentifiers["isprimeupgrade"] = subscription.IsPrimeUpgrade.ToString();
                 parameters.SpecialIdentifiers["isgiftupgrade"] = subscription.IsGiftedUpgrade.ToString();
 
