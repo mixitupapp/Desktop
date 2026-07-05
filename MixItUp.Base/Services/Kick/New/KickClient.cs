@@ -1,5 +1,6 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Kick.Webhooks;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
@@ -554,6 +555,8 @@ namespace MixItUp.Base.Services.Kick.New
             {
                 await ServiceManager.Get<CommandService>().Queue(command, parameters);
             }
+
+            EventService.KickKicksGiftedOccurred(new KickKicksGiftedEventModel(sender, kicksAmount, kicksEvent.Gift.Message));
         }
 
         private bool ShouldProcessEvent(string eventType, WebhookEventModel metadata)
