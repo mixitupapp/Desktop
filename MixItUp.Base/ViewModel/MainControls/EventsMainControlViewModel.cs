@@ -82,13 +82,29 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.JustGiving;
                 }
-                else if (this.EventType == EventTypeEnum.StreamlootsCardRedeemed || this.EventType == EventTypeEnum.StreamlootsPackGifted || this.EventType == EventTypeEnum.StreamlootsPackPurchased)
+                else if (this.EventType == EventTypeEnum.StreamlootsCardRedeemed || this.EventType == EventTypeEnum.StreamlootsPackGifted || this.EventType == EventTypeEnum.StreamlootsPackPurchased || this.EventType == EventTypeEnum.StreamlootsPackCommunityGifted)
                 {
                     return Resources.Streamloots;
                 }
                 else if (this.EventType == EventTypeEnum.StreamElementsDonation)
                 {
                     return Resources.StreamElements;
+                }
+                else if (this.EventType == EventTypeEnum.ThroneGiftPurchased || this.EventType == EventTypeEnum.ThroneContribution || this.EventType == EventTypeEnum.ThroneGiftCrowdfunded)
+                {
+                    return Resources.Throne;
+                }
+                else if (this.EventType == EventTypeEnum.FourthwallDonation || this.EventType == EventTypeEnum.FourthwallOrderPlaced || this.EventType == EventTypeEnum.FourthwallGiftPurchase)
+                {
+                    return Resources.Fourthwall;
+                }
+                else if (this.EventType == EventTypeEnum.KoFiTip || this.EventType == EventTypeEnum.KoFiMembership || this.EventType == EventTypeEnum.KoFiShopOrder || this.EventType == EventTypeEnum.KoFiFirstMembership || this.EventType == EventTypeEnum.KoFiCommission)
+                {
+                    return Resources.KoFi;
+                }
+                else if (this.EventType == EventTypeEnum.PallyDonation)
+                {
+                    return Resources.Pally;
                 }
                 else if (eventNumber >= 200 && eventNumber < 300)
                 {
@@ -181,6 +197,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelAdStarted));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelAdEnded));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelHypeTrainBegin));
+            twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelHypeTrainProgress));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelHypeTrainLevelUp));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelHypeTrainEnd));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelUserWarned));
@@ -189,7 +206,10 @@ namespace MixItUp.Base.ViewModel.MainControls
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelSuspiciousUserUpdated));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelShieldModeStarted));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelShieldModeEnded));
+            twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelUnbanRequestCreated));
+            twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelUnbanRequestResolved));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelGoalStarted));
+            twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelGoalProgress));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelGoalEnded));
             commandGroups.Add(twitchCommands);
 
@@ -249,6 +269,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsCardRedeemed));
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackPurchased));
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackGifted));
+            streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackCommunityGifted));
             commandGroups.Add(streamlootsCommands);
 
             EventCommandGroupViewModel crowdControlCommands = new EventCommandGroupViewModel(Resources.CrowdControl, packIconName: "ControllerClassic");
@@ -262,6 +283,30 @@ namespace MixItUp.Base.ViewModel.MainControls
             EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, packIconName: "Patreon");
             patreonCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PatreonSubscribed));
             commandGroups.Add(patreonCommands);
+
+            EventCommandGroupViewModel throneCommands = new EventCommandGroupViewModel(Resources.Throne, packIconName: "Gift");
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftPurchased));
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneContribution));
+            throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftCrowdfunded));
+            commandGroups.Add(throneCommands);
+
+            EventCommandGroupViewModel fourthwallCommands = new EventCommandGroupViewModel(Resources.Fourthwall, packIconName: "Storefront");
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallDonation));
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallOrderPlaced));
+            fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallGiftPurchase));
+            commandGroups.Add(fourthwallCommands);
+
+            EventCommandGroupViewModel koFiCommands = new EventCommandGroupViewModel(Resources.KoFi, packIconName: "Coffee");
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiTip));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiCommission));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiFirstMembership));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiMembership));
+            koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiShopOrder));
+            commandGroups.Add(koFiCommands);
+
+            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, packIconName: "HandCoin");
+            pallyCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PallyDonation));
+            commandGroups.Add(pallyCommands);
 
             this.EventCommandGroups.AddRange(commandGroups);
 

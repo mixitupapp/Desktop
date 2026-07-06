@@ -4,6 +4,7 @@ using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -107,6 +108,8 @@ namespace MixItUp.Base.Services.External
 
         public UserDonationModel ToGenericDonation()
         {
+            // API amounts are invariant-formatted strings; parsing with the machine culture corrupts them
+            double.TryParse(this.donorLocalAmount, NumberStyles.Float, CultureInfo.InvariantCulture, out double amount);
             return new UserDonationModel()
             {
                 Source = UserDonationSourceEnum.JustGiving,
@@ -115,7 +118,8 @@ namespace MixItUp.Base.Services.External
                 Username = this.donorDisplayName,
                 Message = this.message,
 
-                Amount = double.Parse(this.donorLocalAmount),
+                Amount = amount,
+                CurrencyCode = this.donorLocalCurrencyCode,
 
                 DateTime = this.DateTime,
             };

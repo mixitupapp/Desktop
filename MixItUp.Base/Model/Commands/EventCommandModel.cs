@@ -62,6 +62,7 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["usersubplanname"] = "Plan Name";
                     specialIdentifiers["usersubplan"] = "Tier 1";
                     specialIdentifiers["usersubpoints"] = "1";
+                    specialIdentifiers["usersubdurationmonths"] = "3";
                     specialIdentifiers["isprimeupgrade"] = "False";
                     specialIdentifiers["isgiftupgrade"] = "False";
                     break;
@@ -72,6 +73,7 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["usersubpoints"] = "1";
                     specialIdentifiers["usersubmonths"] = "5";
                     specialIdentifiers["usersubstreak"] = "3";
+                    specialIdentifiers["usersubdurationmonths"] = "3";
                     break;
                 case EventTypeEnum.TwitchChannelSubscriptionGifted:
                     specialIdentifiers["usersubplanname"] = "Plan Name";
@@ -144,6 +146,12 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["hypetrainlevelpoints"] = "123";
                     specialIdentifiers["hypetrainlevelgoal"] = "500";
                     break;
+                case EventTypeEnum.TwitchChannelHypeTrainProgress:
+                    specialIdentifiers["hypetraintotalpoints"] = "1";
+                    specialIdentifiers["hypetrainlevelpoints"] = "123";
+                    specialIdentifiers["hypetrainlevelgoal"] = "500";
+                    specialIdentifiers["hypetrainlevel"] = "2";
+                    break;
                 case EventTypeEnum.TwitchChannelHypeTrainLevelUp:
                     specialIdentifiers["hypetraintotalpoints"] = "1";
                     specialIdentifiers["hypetrainlevelpoints"] = "123";
@@ -170,10 +178,23 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.TwitchChannelSuspiciousUserUpdated:
                     specialIdentifiers["suspicioususerstatus"] = "restricted";
                     break;
+                case EventTypeEnum.TwitchChannelUnbanRequestCreated:
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.TwitchChannelUnbanRequestResolved:
+                    specialIdentifiers["unbanrequeststatus"] = "approved";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
                 case EventTypeEnum.TwitchChannelGoalStarted:
                     specialIdentifiers["goaltype"] = "follower";
                     specialIdentifiers["goaldescription"] = "Follow goal for the stream";
                     specialIdentifiers["goalcurrentamount"] = "50";
+                    specialIdentifiers["goaltargetamount"] = "100";
+                    break;
+                case EventTypeEnum.TwitchChannelGoalProgress:
+                    specialIdentifiers["goaltype"] = "follower";
+                    specialIdentifiers["goaldescription"] = "Follow goal for the stream";
+                    specialIdentifiers["goalcurrentamount"] = "75";
                     specialIdentifiers["goaltargetamount"] = "100";
                     break;
                 case EventTypeEnum.TwitchChannelGoalEnded:
@@ -266,6 +287,18 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.JustGivingDonation:
                 case EventTypeEnum.StreamElementsDonation:
                 case EventTypeEnum.TwitchChannelCharityDonation:
+                case EventTypeEnum.FourthwallDonation:
+                case EventTypeEnum.FourthwallOrderPlaced:
+                case EventTypeEnum.FourthwallGiftPurchase:
+                case EventTypeEnum.ThroneGiftPurchased:
+                case EventTypeEnum.ThroneContribution:
+                case EventTypeEnum.ThroneGiftCrowdfunded:
+                case EventTypeEnum.KoFiTip:
+                case EventTypeEnum.KoFiCommission:
+                case EventTypeEnum.KoFiMembership:
+                case EventTypeEnum.KoFiFirstMembership:
+                case EventTypeEnum.KoFiShopOrder:
+                case EventTypeEnum.PallyDonation:
                     UserDonationModel donation = new UserDonationModel()
                     {
                         Amount = 12.34,
@@ -287,6 +320,22 @@ namespace MixItUp.Base.Model.Commands
                         case EventTypeEnum.JustGivingDonation: donation.Source = UserDonationSourceEnum.JustGiving; break;
                         case EventTypeEnum.StreamElementsDonation: donation.Source = UserDonationSourceEnum.StreamElements; break;
                         case EventTypeEnum.TwitchChannelCharityDonation: donation.Source = UserDonationSourceEnum.Twitch; break;
+                        case EventTypeEnum.FourthwallDonation:
+                        case EventTypeEnum.FourthwallOrderPlaced:
+                        case EventTypeEnum.FourthwallGiftPurchase:
+                            donation.Source = UserDonationSourceEnum.Fourthwall; break;
+                        case EventTypeEnum.ThroneGiftPurchased:
+                        case EventTypeEnum.ThroneContribution:
+                        case EventTypeEnum.ThroneGiftCrowdfunded:
+                            donation.Source = UserDonationSourceEnum.Throne; break;
+                        case EventTypeEnum.KoFiTip:
+                        case EventTypeEnum.KoFiCommission:
+                        case EventTypeEnum.KoFiMembership:
+                        case EventTypeEnum.KoFiFirstMembership:
+                        case EventTypeEnum.KoFiShopOrder:
+                            donation.Source = UserDonationSourceEnum.KoFi; break;
+                        case EventTypeEnum.PallyDonation:
+                            donation.Source = UserDonationSourceEnum.Pally; break;
                     }
 
                     foreach (var kvp in donation.GetSpecialIdentifiers())
@@ -317,6 +366,70 @@ namespace MixItUp.Base.Model.Commands
                         specialIdentifiers["tiltifyrewarddescription"] = "Reward Description";
                         specialIdentifiers["tiltifyrewardamount"] = "12.34";
                     }
+
+                    if (eventType == EventTypeEnum.FourthwallDonation)
+                    {
+                        specialIdentifiers["donationtype"] = "DONATION";
+                        specialIdentifiers["fourthwallitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.FourthwallOrderPlaced)
+                    {
+                        specialIdentifiers["donationtype"] = "ORDER_PLACED";
+                        specialIdentifiers["fourthwallitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.FourthwallGiftPurchase)
+                    {
+                        specialIdentifiers["donationtype"] = "GIFT_PURCHASE";
+                        specialIdentifiers["fourthwallitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.ThroneGiftPurchased)
+                    {
+                        specialIdentifiers["donationtype"] = "gift_purchased";
+                        specialIdentifiers["throneitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.ThroneContribution)
+                    {
+                        specialIdentifiers["donationtype"] = "contribution_purchased";
+                        specialIdentifiers["throneitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.ThroneGiftCrowdfunded)
+                    {
+                        specialIdentifiers["donationtype"] = "gift_crowdfunded";
+                        specialIdentifiers["throneitemname"] = "Test Item";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiTip)
+                    {
+                        specialIdentifiers["donationtype"] = "Tip";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiCommission)
+                    {
+                        specialIdentifiers["donationtype"] = "Commission";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiMembership || eventType == EventTypeEnum.KoFiFirstMembership)
+                    {
+                        specialIdentifiers["donationtype"] = "Subscription";
+                        specialIdentifiers["kofitiername"] = "Test Tier";
+                    }
+
+                    if (eventType == EventTypeEnum.KoFiShopOrder)
+                    {
+                        specialIdentifiers["donationtype"] = "Shop Order";
+                        specialIdentifiers["kofishopitemname"] = "Test Item x1";
+                    }
+
+                    if (eventType == EventTypeEnum.PallyDonation)
+                    {
+                        specialIdentifiers["pallypageslug"] = "test-page";
+                        specialIdentifiers["pallypagetitle"] = "Test Page";
+                    }
                     break;
                 case EventTypeEnum.DonorDriveDonationMilestone:
                 case EventTypeEnum.DonorDriveDonationTeamMilestone:
@@ -342,6 +455,7 @@ namespace MixItUp.Base.Model.Commands
                     break;
                 case EventTypeEnum.StreamlootsPackPurchased:
                 case EventTypeEnum.StreamlootsPackGifted:
+                case EventTypeEnum.StreamlootsPackCommunityGifted:
                     specialIdentifiers["streamlootspurchasequantity"] = "1";
                     break;
                 case EventTypeEnum.CrowdControlEffectRedeemed:

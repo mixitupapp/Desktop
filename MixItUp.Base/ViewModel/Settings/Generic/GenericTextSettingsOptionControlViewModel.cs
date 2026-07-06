@@ -9,7 +9,7 @@ namespace MixItUp.Base.ViewModel.Settings.Generic
             get { return this.value; }
             set
             {
-                if (!string.IsNullOrEmpty(value))
+                if (this.allowEmpty || !string.IsNullOrEmpty(value))
                 {
                     this.value = value;
                     this.valueSetter(value);
@@ -19,12 +19,14 @@ namespace MixItUp.Base.ViewModel.Settings.Generic
         }
         private string value;
         private Action<string> valueSetter;
+        private bool allowEmpty;
 
-        public GenericTextSettingsOptionControlViewModel(string name, string initialValue, Action<string> valueSetter, string tooltip = null)
+        public GenericTextSettingsOptionControlViewModel(string name, string initialValue, Action<string> valueSetter, string tooltip = null, bool allowEmpty = false)
             : base(name, tooltip)
         {
             this.value = initialValue;
             this.valueSetter = valueSetter;
+            this.allowEmpty = allowEmpty;
         }
     }
 }

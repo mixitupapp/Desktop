@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base.Util;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services
@@ -29,6 +30,18 @@ namespace MixItUp.Base.Services
             }
         }
 
+        public string QueueDetailsString
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this.Artist))
+                {
+                    return $"{this.LengthString} / {this.Artist}";
+                }
+                return this.LengthString;
+            }
+        }
+
         public override string ToString()
         {
             if (!string.IsNullOrEmpty(this.Artist))
@@ -46,6 +59,8 @@ namespace MixItUp.Base.Services
     {
         event EventHandler SongChanged;
 
+        event EventHandler QueueChanged;
+
         MusicPlayerState State { get; }
 
         int Volume { get; }
@@ -53,6 +68,14 @@ namespace MixItUp.Base.Services
         MusicPlayerSong CurrentSong { get; }
 
         ThreadSafeObservableCollection<MusicPlayerSong> Songs { get; }
+
+        bool Shuffle { get; }
+
+        bool Repeat { get; }
+
+        TimeSpan CurrentPosition { get; }
+
+        TimeSpan CurrentDuration { get; }
 
         Task Play();
 
@@ -66,9 +89,31 @@ namespace MixItUp.Base.Services
 
         Task ChangeVolume(int amount);
 
+        Task SetShuffle(bool enabled);
+
+        Task SetRepeat(bool enabled);
+
+        Task Seek(TimeSpan position);
+
         Task ChangeFolder(string folderPath);
 
+        Task AddFilesToQueue(IEnumerable<string> filePaths);
+
+        Task AddFolderToQueue(string folderPath);
+
+        Task AddPlaylistToQueue(string playlistFilePath);
+
+        Task<bool> ExportQueueToPlaylist(string filePath);
+
+        Task RemoveFromQueue(MusicPlayerSong song);
+
+        Task MoveInQueue(int oldIndex, int newIndex);
+
+        Task ClearQueue();
+
         Task LoadSongs();
+
+        Task PlaySong(MusicPlayerSong song);
 
         Task<MusicPlayerSong> SearchAndPlaySong(string searchText, bool stopOnCompletion);
     }

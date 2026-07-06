@@ -19,7 +19,7 @@
 	},
 	"channel": {
 		"mature": false,
-		"status": "Twitch Public Release - mixitupapp.com/ournextsteps",
+		"status": "Twitch Public Release - mixitup.bot/ournextsteps",
 		"broadcaster_language": "en",
 		"broadcaster_software": "",
 		"display_name": "MixItUpApp",
@@ -38,7 +38,7 @@
 		"views": 3600,
 		"followers": 1264,
 		"broadcaster_type": "",
-		"description": "Mix It Up is a streaming software for Chat, Events, and other awesome features! Our goal is to be your one-stop shop for all of your streaming bot needs, come check it out! https://mixitupapp.com/",
+		"description": "Mix It Up is a streaming software for Chat, Events, and other awesome features! Our goal is to be your one-stop shop for all of your streaming bot needs, come check it out! https://mixitup.bot/",
 		"private_video": false,
 		"privacy_options_enabled": false
 	}

@@ -16,7 +16,7 @@ namespace MixItUp.WPF.Services
         public string DefaultAudioDevice { get { return MixItUp.Base.Resources.DefaultOutput; } }
         public string MixItUpOverlay { get { return MixItUp.Base.Resources.MixItUpOverlay; } }
 
-        public ISet<string> ApplicableAudioFileExtensions => new HashSet<string>() { ".mp3", ".wav", ".flac", ".mp4", ".m4a", ".aac" };
+        public ISet<string> ApplicableAudioFileExtensions => new HashSet<string>() { ".mp3", ".wav", ".flac", ".mp4", ".m4a", ".aac", ".wma" };
 
         private Dictionary<CancellationToken, CancellationTokenSource> audioTasks = new Dictionary<CancellationToken, CancellationTokenSource>();
 

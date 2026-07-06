@@ -335,7 +335,7 @@ namespace MixItUp.Base.ViewModel.Currency
 
             this.HelpCommand = this.CreateCommand(() =>
             {
-                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/consumables/inventory");
+                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/consumables/inventory");
             });
         }
 

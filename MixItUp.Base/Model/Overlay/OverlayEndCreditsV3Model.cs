@@ -34,6 +34,7 @@ namespace MixItUp.Base.Model.Overlay
         AllSubscriptions,
 
         TwitchBits = 40,
+        TwitchPowerUps = 41,
 
         YouTubeSuperChats = 50,
 
@@ -186,6 +187,7 @@ namespace MixItUp.Base.Model.Overlay
                     case OverlayEndCreditsSectionV3Type.Resubscribers:
                     case OverlayEndCreditsSectionV3Type.GiftedSubscriptions:
                     case OverlayEndCreditsSectionV3Type.TwitchBits:
+                    case OverlayEndCreditsSectionV3Type.TwitchPowerUps:
                     case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                     case OverlayEndCreditsSectionV3Type.KickKicks:
                     case OverlayEndCreditsSectionV3Type.Donations:
@@ -272,6 +274,8 @@ namespace MixItUp.Base.Model.Overlay
         public override bool TwitchSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
         [DataMember]
         public override bool TwitchBits { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.TwitchBits); } set { } }
+        [DataMember]
+        public override bool TwitchPowerUps { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.TwitchPowerUps); } set { } }
 
         [DataMember]
         public override bool YouTubeMemberships { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
@@ -478,6 +482,19 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     case OverlayEndCreditsSectionV3Type.TwitchBits:
                         section.Track(bitsCheered.User, bitsCheered.Amount);
+                        break;
+                }
+            }
+        }
+
+        public override void OnTwitchPowerUp(object sender, UserV2ViewModel user)
+        {
+            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
+            {
+                switch (section.Type)
+                {
+                    case OverlayEndCreditsSectionV3Type.TwitchPowerUps:
+                        section.Track(user, 1);
                         break;
                 }
             }

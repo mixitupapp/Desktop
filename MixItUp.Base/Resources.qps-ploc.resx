@@ -9250,6 +9250,9 @@
   <data name="TwitchBits" xml:space="preserve">
     <value>[Ţŵîţçĥẋẋ Ɓîţšẋẋ]</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>[Ţŵîţçĥẋẋ Þöŵéŕ-Ûþšẋẋẋ]</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>[Éñðîñĝẋẋ Åɱöûñţẋẋ]</value>
   </data>
@@ -11442,6 +11445,12 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} was Warned</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} Requested An Unban</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>{0}'s Unban Request Was {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Sent a Shoutout with {1} Viewers</value>
   </data>
@@ -11486,6 +11495,15 @@ Only enable if you know what you are doing. Continue?</value>
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch Channel Goal Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch Channel Goal Progress</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch Channel Unban Request Created</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch Channel Unban Request Resolved</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Goal Started at {1} of {2}</value>
@@ -11567,5 +11585,23 @@ Only enable if you know what you are doing. Continue?</value>
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch Channel Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots Pack Community Gifted</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} Is Gifting {1} Community Pack(s)!</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Account Is 6 Months Old</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Account Is 1 Year Old</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>accounts older than 6 months</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>accounts older than 1 year</value>
   </data>
 </root>

@@ -19,7 +19,7 @@
         <StackPanel Orientation="Vertical" Grid.Column="0">
             <TextBlock TextWrapping="Wrap" Text="{x:Static resx:Resources.DeveloperAPIInfo}"/>
             <TextBlock TextWrapping="Wrap" Margin="0,10,0,0">
-                <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/developer-api" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/developer-api" RequestNavigate="Hyperlink_RequestNavigate">
                     <TextBlock Text="{x:Static resx:Resources.DeveloperAPI}"/>
                 </Hyperlink>
             </TextBlock>

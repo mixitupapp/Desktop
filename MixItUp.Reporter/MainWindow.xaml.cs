@@ -57,7 +57,7 @@ namespace MixItUp.Reporter
                 this.IsEnabled = true;
                 this.StatusBar.Visibility = Visibility.Hidden;
 
-                await this.ShowMessageDialog("Thank you for reporting this issue! Bug reports typically take at least a day or two to respond to." + Environment.NewLine + Environment.NewLine + "If you need more immediate assistance, please visit our Discord server: https://mixitupapp.com/discord");
+                await this.ShowMessageDialog("Thank you for reporting this issue! Bug reports typically take at least a day or two to respond to." + Environment.NewLine + Environment.NewLine + "If you need more immediate assistance, please visit our Discord server: https://mixitup.bot/discord");
             }
             catch (Exception ex) { Console.WriteLine(ex); }
 
@@ -77,7 +77,7 @@ namespace MixItUp.Reporter
         {
             try
             {
-                ProcessStartInfo processInfo = new ProcessStartInfo("https://mixitupapp.com/discord")
+                ProcessStartInfo processInfo = new ProcessStartInfo("https://mixitup.bot/discord")
                 {
                     UseShellExecute = true
                 };

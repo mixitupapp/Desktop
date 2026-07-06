@@ -8143,10 +8143,10 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <value>利用可能なゲーム:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>このチャンネルでは、Mix It Up アプリを使用してストリームを改善しています。詳細については、http://mixitupapp.com をチェックしてください。</value>
+    <value>このチャンネルでは、Mix It Up アプリを使用してストリームを改善しています。詳細については、http://mixitup.bot をチェックしてください。</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>事前に作成されたすべての Mix It Up チャット コマンドは、https://wiki.mixitupapp.com/commands/pre-made-chat-c​​ommands にあります。このストリームに固有のコマンドについては、ストリーマー/モデレーターに問い合わせてください。</value>
+    <value>事前に作成されたすべての Mix It Up チャット コマンドは、https://wiki.mixitup.bot/commands/pre-made-chat-c​​ommands にあります。このストリームに固有のコマンドについては、ストリーマー/モデレーターに問い合わせてください。</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>この機能を動作させるには、引用符を有効にし、少なくとも 1 つの引用符を追加する必要があります。</value>
@@ -8531,7 +8531,7 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <value>YouTube チャット サーバーに接続できませんでした</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>YouTube ボット データの取得に失敗しました。 YouTube ボット アカウントの場合は、サインインしているアカウントのチャンネルが YouTube 上に作成されていることを確認してください。詳細については、次の Wiki ページを参照してください: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>YouTube ボット データの取得に失敗しました。 YouTube ボット アカウントの場合は、サインインしているアカウントのチャンネルが YouTube 上に作成されていることを確認してください。詳細については、次の Wiki ページを参照してください: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>YouTube ユーザーデータの取得に失敗しました</value>
@@ -8837,7 +8837,7 @@ Twitch経由では、「マイレージは異なる場合があります」状�
     <value>Mix It Up コマンド|*.miucommand|すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>サウンド ファイル|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|すべてのファイル (*.*)|*.*</value>
+    <value>サウンド ファイル|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>テキスト ファイル|*.txt|すべてのファイル (*.*)|*.*</value>
@@ -9339,6 +9339,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   </data>
   <data name="TwitchBits" xml:space="preserve">
     <value>トゥイッチビット</value>
+  </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitchパワーアップ</value>
   </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>終了金額</value>
@@ -11448,6 +11451,12 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0}が警告された</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} がバン解除をリクエストしました</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>{0} のバン解除リクエスト: {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0}が{1}にシャウトを送った視聴者</value>
   </data>
@@ -11492,6 +11501,15 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch チャンネル ゴール 終了</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitchチャンネル目標進行</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitchチャンネルのバン解除リクエスト作成</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitchチャンネルのバン解除リクエスト解決</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0}ゴール {2}の{1}でスタート</value>
@@ -11567,5 +11585,116 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch チャンネル Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots Pack コミュニティ限定</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0}さんが{1}コミュニティパックをプレゼントしています！</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>アカウント開設から6ヶ月が経過しています</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>アカウント開設から1年が経過しました</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>6ヶ月以上経過したアカウント</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>1年以上経過したアカウント</value>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throneコントリビューション</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throneギフト（クラウドファンディング）</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throneギフト購入</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throneはクリエイター向けのギフト・ウィッシュリストプラットフォームです。Mix It Upと連携すると一意のWebhook URLが生成され、Throneからギフトやコントリビューションの通知をアプリに直接送信できます。</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>接続後、Webhook URLをコピーして、ThroneのクリエイターダッシュボードのWebhook連携設定に貼り付けてください。Throneのイベントはイベントページでカスタマイズできます。</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>ThroneのWebhook URL</value>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall寄付</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwallギフト購入</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwallはクリエイター向けのグッズ・ショッププラットフォームです。Mix It Upと連携すると一意のWebhook URLが生成され、Fourthwallから注文・寄付・ギフトの通知をアプリに直接送信できます。</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>接続後、Webhook URLをコピーして、Fourthwallショップ管理ダッシュボードの「設定 &gt; 開発者向け &gt; Webhooks」に貼り付けてください。Fourthwallのイベントはイベントページでカスタマイズできます。</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall注文確定</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>FourthwallのWebhook URL</value>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fiコミッション</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fiメンバーシップ(初回)</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Ko-fiでは、サポーターからチップ、メンバーシップ、ショップ注文を受け取れます。Mix It Upと連携すると一意のWebhook URLが生成され、Ko-fiから支払い通知をアプリに直接送信できます。</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>接続後、Webhook URLをコピーして、Ko-fiのWebhooksページのWebhook URL欄に貼り付けてください。そのページからテスト支払いを送信して動作を確認できます。Ko-fiは配信が成功するまで再試行します。</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fiメンバーシップ(継続)</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fiショップ注文</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fiチップ</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fiのWebhook URL</value>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>APIキー</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.ggのAPIキーページ</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg寄付</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Pally.ggイベントフィードへの接続に失敗しました。APIキーが有効か確認してください。</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.ggは、視聴者がストリームの全員を一度に支援できるチームチッププラットフォームです。Mix It Upと連携すると、チップ通知がリアルタイムでアプリに直接届きます。</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>接続するには、Pally.ggダッシュボードの「設定 > APIキー」でAPIキーを作成し、ここに貼り付けてください。</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>有効なPally.ggのAPIキーを指定してください。</value>
   </data>
 </root>

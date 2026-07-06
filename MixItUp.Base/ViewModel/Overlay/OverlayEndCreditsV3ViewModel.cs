@@ -45,6 +45,7 @@ namespace MixItUp.Base.ViewModel.Overlay
                     case OverlayEndCreditsSectionV3Type.Resubscribers:
                     case OverlayEndCreditsSectionV3Type.GiftedSubscriptions:
                     case OverlayEndCreditsSectionV3Type.TwitchBits:
+                    case OverlayEndCreditsSectionV3Type.TwitchPowerUps:
                     case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                     case OverlayEndCreditsSectionV3Type.KickKicks:
                     case OverlayEndCreditsSectionV3Type.Donations:
@@ -223,6 +224,7 @@ namespace MixItUp.Base.ViewModel.Overlay
                         case OverlayEndCreditsSectionV3Type.Resubscribers:
                         case OverlayEndCreditsSectionV3Type.GiftedSubscriptions:
                         case OverlayEndCreditsSectionV3Type.TwitchBits:
+                        case OverlayEndCreditsSectionV3Type.TwitchPowerUps:
                         case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                         case OverlayEndCreditsSectionV3Type.KickKicks:
                         case OverlayEndCreditsSectionV3Type.Donations:

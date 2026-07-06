@@ -8148,10 +8148,10 @@ Fuzzy</comment>
     <value>Доступные игры:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Этот канал использует приложение Mix It Up для улучшения своей трансляции. Посетите http://mixitupapp.com для получения дополнительной информации!</value>
+    <value>Этот канал использует приложение Mix It Up для улучшения своей трансляции. Посетите http://mixitup.bot для получения дополнительной информации!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Все готовые команды чата Mix It Up можно найти здесь: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Чтобы получить команды, специфичные для этого потока, обратитесь к своему стримеру/модератору.</value>
+    <value>Все готовые команды чата Mix It Up можно найти здесь: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Чтобы получить команды, специфичные для этого потока, обратитесь к своему стримеру/модератору.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Для работы этой функции необходимо включить кавычки и добавить хотя бы одну кавычку.</value>
@@ -8536,7 +8536,7 @@ Fuzzy</comment>
     <value>Не удалось подключиться к серверам чата YouTube.</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Не удалось получить данные бота YouTube. Для учетных записей ботов YouTube убедитесь, что вы создали канал на YouTube для учетной записи, в которую входите. Дополнительную информацию см. на следующей странице Wiki: https://wiki.mixitupapp.com/accounts#bot-accounts.</value>
+    <value>Не удалось получить данные бота YouTube. Для учетных записей ботов YouTube убедитесь, что вы создали канал на YouTube для учетной записи, в которую входите. Дополнительную информацию см. на следующей странице Wiki: https://wiki.mixitup.bot/accounts#bot-accounts.</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Не удалось получить данные пользователя YouTube.</value>
@@ -8842,7 +8842,7 @@ Fuzzy</comment>
     <value>Команда «Смешать»|*.miucommand|Все файлы (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Звуковые файлы|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Все файлы (*.*)|*.*</value>
+    <value>Звуковые файлы|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Все файлы (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Текстовые файлы|*.txt|Все файлы (*.*)|*.*</value>
@@ -9344,6 +9344,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="TwitchBits" xml:space="preserve">
     <value>Биты Твича</value>
+  </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Усиления Twitch</value>
   </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Конечная сумма</value>
@@ -11453,6 +11456,12 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} было предупреждено</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} запросил разбан</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Запрос на разбан от {0}: {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Отправил крик с {1} Зрители</value>
   </data>
@@ -11497,6 +11506,15 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Цель канала Twitch Закончена</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Прогресс цели канала Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Запрос на разбан на канале Twitch создан</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Запрос на разбан на канале Twitch рассмотрен</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Гол начался в {1} из {2}</value>
@@ -11572,5 +11590,23 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch-канал Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Набор «Streamloots» — подарок сообществу</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} дарит {1} набор(ы) для сообщества!</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Учетной записи уже 6 месяцев</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Учетной записи исполнился 1 год</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>счета, открытые более 6 месяцев назад</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>учетные записи, созданные более года назад</value>
   </data>
 </root>

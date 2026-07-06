@@ -1,5 +1,44 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.110
+
+### FEATURES
+
+- Add Throne integration with Gift Purchased, Contribution, and Gift Crowdfunded events
+- Add Fourthwall integration with Donation, Order Placed, and Gift Purchase events
+- Add Ko-fi integration with Tip, Commission, Membership (First Time), Membership (Recurring), and Shop Order events
+- Add Pally.gg integration with Donation event
+- Music Player Overhaul: new Now Playing & Queue interface with album art, WMA file support, track scrubber, add files/folders/playlists to the queue, drag-and-drop queue reordering, remove from queue, clear queue, export queue as M3U playlist, and Shuffle & Repeat modes that persist between sessions
+- Add new Music Player action options: Shuffle On, Shuffle Off, Shuffle Toggle, Repeat On, Repeat Off, Repeat Toggle, and Clear Queue
+- Add Twitch Channel Hype Train Progress, Twitch Channel Goal Progress, Twitch Channel Unban Request Created, and Twitch Channel Unban Request Resolved events
+- Add Twitch Power-Ups section to the End Credits overlay widget
+- Add Streamloots Pack Community Gifted event
+- Add $usersubdurationmonths special identifier for multi-month subscriptions and resubscriptions
+- Add $userfollowmonths and $userfollowyears special identifiers
+- Add $donationcurrency special identifier and show donation amounts with their actual currency's symbol and decimals
+- Add chat participation moderation options for accounts older than 6 months and 1 year
+- Patreon member shoutout on the login screen now links to the featured member's social media page
+
+### FIXES
+
+- Fix Kick Kicks gifted events not firing in overlay widgets
+- Fix donation amount parsing and special identifier math on PCs with non-English number formats
+- Fix $timersecondsadjusted special identifier for the Persistent Timer widget's Timer Adjusted command
+- Prevent saving empty values in required text fields
+- Harden webhook reconnection against a rare concurrent-reconnect crash and cap retries at 100 attempts
+
+## 1.7.102 (HOTFIX)
+
+### FIXES
+
+- Redirect all routes to new Mix It Up domain due to ongoing DNSSEC error
+
+## 1.7.101 (HOTFIX)
+
+### FIXES
+
+- Fixed websocket reconnect timeout error
+
 ## 1.7.100
 
 ### FEATURES
@@ -711,7 +750,7 @@
 
 ## v1.0.0.36
 
-- Removing Twitter integration due to restrictions imposed by Twitter APIs. Information about the removal and alternative solutions can be found on our wiki: <https://wiki.mixitupapp.com/en/services/twitter>
+- Removing Twitter integration due to restrictions imposed by Twitter APIs. Information about the removal and alternative solutions can be found on our wiki: <https://wiki.mixitup.bot/en/services/twitter>
 - Various quality of life & bug fixes
 
 ## v1.0.0.35

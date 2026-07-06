@@ -9,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-    <AssemblyVersion>1.7.100.0</AssemblyVersion>
-    <FileVersion>1.7.100.0</FileVersion>
+    <AssemblyVersion>1.7.102.0</AssemblyVersion>
+    <FileVersion>1.7.102.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -78,7 +78,6 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="Google.Apis.YouTube.v3" Version="1.74.0.4137" />
 		<PackageReference Include="Google.Apis.YouTubePartner.v1" Version="1.35.1.1334" />
 		<PackageReference Include="H.Socket.IO" Version="1.1.7.1" />
-		<PackageReference Include="ID3" Version="0.6.0" />
 		<PackageReference Include="Jace" Version="1.0.0" />
 		<PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
 		<PackageReference Include="MdXaml" Version="1.27.0" />
@@ -98,6 +97,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="System.Management" Version="10.0.8" />
 		<PackageReference Include="System.Speech" Version="10.0.8" />
 		<PackageReference Include="WriteableBitmapEx" Version="1.6.11" />
+		<PackageReference Include="z440.atl.core" Version="7.15.3" />
 	</ItemGroup>
 	<ItemGroup>
     <AppDesigner Include="Properties\" />

@@ -8143,10 +8143,10 @@
     <value>Доступні ігри:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Цей канал використовує додаток Mix It Up, щоб покращити свою трансляцію. Перегляньте http://mixitupapp.com для отримання додаткової інформації!</value>
+    <value>Цей канал використовує додаток Mix It Up, щоб покращити свою трансляцію. Перегляньте http://mixitup.bot для отримання додаткової інформації!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Усі готові команди чату Mix It Up можна знайти тут: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Щоб дізнатися про команди, характерні для цього потоку, запитайте свого стримера/модератора.</value>
+    <value>Усі готові команди чату Mix It Up можна знайти тут: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Щоб дізнатися про команди, характерні для цього потоку, запитайте свого стримера/модератора.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Щоб ця функція працювала, потрібно ввімкнути котирування та додати принаймні одну цитату.</value>
@@ -8531,7 +8531,7 @@
     <value>Не вдалося підключитися до серверів чату YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Не вдалося отримати дані бота YouTube. Для облікових записів ботів YouTube переконайтеся, що ви створили канал на YouTube для облікового запису, у який ви входите. Перегляньте наступну сторінку Wiki для отримання додаткової інформації: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Не вдалося отримати дані бота YouTube. Для облікових записів ботів YouTube переконайтеся, що ви створили канал на YouTube для облікового запису, у який ви входите. Перегляньте наступну сторінку Wiki для отримання додаткової інформації: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Не вдалося отримати дані користувача YouTube</value>
@@ -8837,7 +8837,7 @@
     <value>Команда Mix It Up|*.miucommand|Усі файли (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Звукові файли|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Усі файли (*.*)|*.*</value>
+    <value>Звукові файли|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Усі файли (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Текстові файли|*.txt|Усі файли (*.*)|*.*</value>
@@ -9339,6 +9339,9 @@ print(run())</value>
   </data>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch Bits</value>
+  </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Підсилення Twitch</value>
   </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Кінцева сума</value>
@@ -11448,6 +11451,12 @@ print(run())</value>
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} було попереджено</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} надіслав запит на розбан</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Запит на розбан від {0}: {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Відправив крик з {1} Глядачі</value>
   </data>
@@ -11492,6 +11501,15 @@ print(run())</value>
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Мета каналу Twitch завершена</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Прогрес цілі каналу Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Створено запит на розбан каналу Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Запит на розбан каналу Twitch розглянуто</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Ціль розпочато в {1} з {2}.</value>
@@ -11567,5 +11585,23 @@ print(run())</value>
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch Channel Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Набір Streamloots від спільноти</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} дарує {1} набір(и) для спільноти!</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Обліковому запису виповнилося 6 місяців</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Обліковому запису виповнився 1 рік</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>рахунки, відкриті більше 6 місяців тому</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>рахунки, відкриті більше року тому</value>
   </data>
 </root>

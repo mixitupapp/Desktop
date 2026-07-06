@@ -153,7 +153,7 @@
                                         Foreground="Red"
                                         Text="{x:Static resx:Resources.OverlayWarning2}" />
                                     <TextBlock HorizontalAlignment="Center">
-                                        <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
                                             <TextBlock Text="{x:Static resx:Resources.OverlayWarning3}" />
                                         </Hyperlink>
                                     </TextBlock>

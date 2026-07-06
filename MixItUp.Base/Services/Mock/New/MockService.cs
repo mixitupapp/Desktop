@@ -17,11 +17,11 @@ namespace MixItUp.Base.Services.Mock.New
 
         public override bool IsConnected { get; protected set; }
 
-        public MockService(bool isBotService = false) : base("https://mixitupapp.com", new List<string>(), isBotService) { }
+        public MockService(bool isBotService = false) : base("https://mixitup.bot", new List<string>(), isBotService) { }
 
         protected override Task<string> GetAuthorizationCodeURL(IEnumerable<string> scopes, string state, bool forceApprovalPrompt = false)
         {
-            return Task.FromResult("https://mixitupapp.com");
+            return Task.FromResult("https://mixitup.bot");
         }
 
         protected override Task RefreshOAuthToken()

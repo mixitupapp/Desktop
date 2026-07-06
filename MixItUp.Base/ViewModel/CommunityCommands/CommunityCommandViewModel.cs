@@ -64,7 +64,7 @@ namespace MixItUp.Base.ViewModel.CommunityCommands
             }
         }
 
-        public string WebsiteURL { get { return $"https://mixitupapp.com/community/command/{this.ID}"; } }
+        public string WebsiteURL { get { return $"https://mixitup.bot/community/command/{this.ID}"; } }
         public string DownloadURL { get { return $"mixitup://community/command/{this.ID}"; } }
     }
 

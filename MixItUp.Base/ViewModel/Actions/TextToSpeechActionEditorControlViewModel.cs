@@ -264,7 +264,7 @@ namespace MixItUp.Base.ViewModel.Actions
 
             this.OpenRateLimitLinkCommand = this.CreateCommand(() =>
             {
-                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/actions/text-to-speech-action");
+                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/actions/text-to-speech-action");
             });
         }
 
@@ -282,7 +282,7 @@ namespace MixItUp.Base.ViewModel.Actions
 
             this.OpenRateLimitLinkCommand = this.CreateCommand(() =>
             {
-                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/actions/text-to-speech-action");
+                ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/actions/text-to-speech-action");
             });
         }
 

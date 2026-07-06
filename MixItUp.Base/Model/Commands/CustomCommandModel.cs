@@ -42,6 +42,10 @@ namespace MixItUp.Base.Model.Commands
                 specialIdentifiers[OverlayStreamBossV3Model.StreamBossHealthSpecialIdentifier] = "500";
                 specialIdentifiers[OverlayStreamBossV3Model.StreamBossHealingSpecialIdentifier] = "100";
             }
+            else if (name.Equals(Resources.TimerAdjusted))
+            {
+                specialIdentifiers[OverlayPersistentTimerV3Model.TimerSecondsAdjustedSpecialIdentifierPrefix] = "10";
+            }
             return specialIdentifiers;
         }
 

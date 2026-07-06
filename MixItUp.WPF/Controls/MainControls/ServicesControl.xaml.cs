@@ -29,14 +29,17 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new DeveloperAPIServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new DiscordServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new DonorDriveServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new FourthwallServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new IFTTTServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new JustGivingServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new KoFiServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LoupeDeckServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LumiaStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MeldStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MtionStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OBSStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OverlayServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new PallyServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PatreonServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PixelChatServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PolyPopServiceControl()));
@@ -58,6 +61,7 @@ namespace MixItUp.WPF.Controls.MainControls
             ttsCategory.AddService(new TTSMonsterServiceControl());
             services.Add(ttsCategory);
 
+            services.Add(new ServiceContainerControl(this.Window, new ThroneServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TiltifyServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TipeeeStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TITSServiceControl()));

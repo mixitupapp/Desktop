@@ -132,7 +132,8 @@ namespace MixItUp.Base.ViewModel.Settings
                             }
                         }
                     }
-                });
+                },
+                allowEmpty: true);
 
             this.UseCustomUsernameColors = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.UseCustomUsernameColors, ChannelSession.Settings.UseCustomUsernameColors,
                 (value) =>

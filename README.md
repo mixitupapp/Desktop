@@ -8,12 +8,12 @@ Mix It Up is an all‑in‑one toolkit that keeps your stream running smoothly. 
 
 ## How do I get started?
 
-Grab the latest release at <https://mixitupapp.com> and visit <https://wiki.mixitupapp.com/> for quick starts and deep‑dive guides.
+Grab the latest release at <https://mixitup.bot> and visit <https://wiki.mixitup.bot/> for quick starts and deep‑dive guides.
 
 ## Found a bug or want something?
 
-Hop into our Discord for support and feature requests: <https://mixitupapp.com/discord>
+Hop into our Discord for support and feature requests: <https://mixitup.bot/discord>
 
 ## Can I contribute code?
 
-We’re not accepting open contributions at this time. We plan work from an internal backlog and group features by area. If you’d like to see what’s on deck, check out our public project board: <https://github.com/orgs/mixitupapp/projects/13>
+We’re not accepting open contributions at this time. We plan work from an internal backlog and group features by area. If you’d like to see what’s on deck, check out our public project board: <https://github.com/orgs/mixitupbot/projects/13>

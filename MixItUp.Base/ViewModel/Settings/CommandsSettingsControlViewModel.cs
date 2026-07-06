@@ -76,7 +76,7 @@ namespace MixItUp.Base.ViewModel.Settings
                 (value) => { ChannelSession.Settings.TwitchAllowSharedChatEvents = value; });
 
             this.PythonExecutablePath = new GenericTextSettingsOptionControlViewModel(MixItUp.Base.Resources.PythonExecutablePath, ChannelSession.Settings.PythonExecutablePath,
-                (value) => { ChannelSession.Settings.PythonExecutablePath = value; });
+                (value) => { ChannelSession.Settings.PythonExecutablePath = value; }, allowEmpty: true);
             this.HideScriptActionChatErrors = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.HideScriptActionChatErrors, ChannelSession.Settings.HideScriptActionChatErrors,
                 (value) => { ChannelSession.Settings.HideScriptActionChatErrors = value; });
             this.GameInfoLookupOrder = new GenericComboBoxSettingsOptionControlViewModel<GameInfoLookupOrderEnum>(MixItUp.Base.Resources.GameInfoLookupOrder, EnumHelper.GetEnumList<GameInfoLookupOrderEnum>(),

@@ -8146,10 +8146,10 @@ Importierte Angebote mit IDs, die mit vorhandenen Angeboten übereinstimmen, wer
     <value>Verfügbare Spiele:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Weitere Informationen finden Sie unter http://mixitupapp.com!</value>
+    <value>Dieser Kanal nutzt die Mix It Up-App, um seinen Stream zu verbessern. Weitere Informationen finden Sie unter http://mixitup.bot!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Alle vorgefertigten Mix It Up-Chat-Befehle finden Sie hier: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Fragen Sie Ihren Streamer/Moderator nach Befehlen, die speziell für diesen Stream gelten.</value>
+    <value>Alle vorgefertigten Mix It Up-Chat-Befehle finden Sie hier: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Fragen Sie Ihren Streamer/Moderator nach Befehlen, die speziell für diesen Stream gelten.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Damit diese Funktion funktioniert, müssen Angebote aktiviert und mindestens ein Angebot hinzugefügt werden.</value>
@@ -8534,7 +8534,7 @@ HINWEIS: Dies erfordert möglicherweise, dass Sie sich über die Registerkarte �
     <value>Es konnte keine Verbindung zu den YouTube-Chatservern hergestellt werden</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>YouTube-Bot-Daten konnten nicht abgerufen werden. Stellen Sie bei YouTube-Bot-Konten sicher, dass Sie für das Konto, bei dem Sie sich anmelden, einen Kanal auf YouTube erstellt haben. Weitere Informationen finden Sie auf der folgenden Wiki-Seite: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>YouTube-Bot-Daten konnten nicht abgerufen werden. Stellen Sie bei YouTube-Bot-Konten sicher, dass Sie für das Konto, bei dem Sie sich anmelden, einen Kanal auf YouTube erstellt haben. Weitere Informationen finden Sie auf der folgenden Wiki-Seite: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>YouTube-Benutzerdaten konnten nicht abgerufen werden</value>
@@ -8841,7 +8841,7 @@ vorbeugende Maßnahmen, wenn der Benutzer nicht auf Ihrer Freundesliste auf Twit
     <value>Mix It Up Command|*.miucommand|Alle Dateien (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Sounddateien|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Alle Dateien (*.*)|*.*</value>
+    <value>Sounddateien|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Alle Dateien (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Textdateien|*.txt|Alle Dateien (*.*)|*.*</value>
@@ -9344,6 +9344,9 @@ print(run())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch Bits</value>
     <comment>name of the website does not need a translation</comment>
+  </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
   </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Endbetrag</value>
@@ -11454,6 +11457,12 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} wurde gewarnt</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} hat einen Entbannungsantrag gestellt</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Entbannungsantrag von {0} wurde {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} schickte einen Ausruf mit {1} Betrachter</value>
   </data>
@@ -11498,6 +11507,15 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch-Kanal-Ziel Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch-Kanal-Ziel Fortschritt</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch-Kanal Entbannungsantrag erstellt</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch-Kanal Entbannungsantrag abgeschlossen</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Ziel Begonnen am {1} von {2}</value>
@@ -11573,5 +11591,116 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch-Kanal Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots-Paket – Geschenk der Community</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} verschenkt {1} Community-Paket(e)!</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Das Konto ist 6 Monate alt</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Das Konto ist ein Jahr alt</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>Konten, die älter als 6 Monate sind</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>Konten, die älter als ein Jahr sind</value>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne-Beitrag</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne-Geschenk per Crowdfunding</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne-Geschenk gekauft</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne ist eine Geschenk- und Wunschlisten-Plattform für Creator. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Throne Geschenk- und Beitragsbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie in die Webhook-Integrationseinstellungen deines Throne-Creator-Dashboards ein. Throne-Ereignisse können anschließend auf der Ereignisse-Seite angepasst werden.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne-Webhook-URL</value>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall-Spende</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall-Geschenkkauf</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall ist eine Merch- und Shop-Plattform für Creator. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Fourthwall Bestell-, Spenden- und Geschenkbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie im Admin-Dashboard deines Fourthwall-Shops unter Einstellungen &gt; Für Entwickler &gt; Webhooks ein. Fourthwall-Ereignisse können anschließend auf der Ereignisse-Seite angepasst werden.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall-Bestellung aufgegeben</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall-Webhook-URL</value>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi-Auftragsarbeit</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi-Mitgliedschaft (Erstmalig)</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Mit Ko-fi können dir Unterstützer Trinkgelder, Mitgliedschaften und Shop-Bestellungen senden. Durch die Verbindung mit Mix It Up wird eine eindeutige Webhook-URL erstellt, über die Ko-fi Zahlungsbenachrichtigungen direkt an die App senden kann.</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Kopiere nach der Verbindung deine Webhook-URL und füge sie in das Webhook-URL-Feld auf deiner Ko-fi-Webhooks-Seite ein. Von dort kannst du Testzahlungen senden, um alles auszuprobieren; Ko-fi wiederholt Zustellungen, bis sie erfolgreich sind.</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fi-Mitgliedschaft (Wiederkehrend)</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fi-Shop-Bestellung</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi-Trinkgeld</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fi-Webhook-URL</value>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API-Schlüssel</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg-Seite für API-Schlüssel</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg-Spende</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Verbindung zum Pally.gg-Ereignis-Feed fehlgeschlagen. Bitte überprüfe, ob dein API-Schlüssel gültig ist.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg ist eine Team-Trinkgeld-Plattform, mit der Zuschauer alle im Stream gleichzeitig unterstützen können. Durch die Verbindung mit Mix It Up werden Trinkgeld-Benachrichtigungen in Echtzeit direkt an die App geliefert.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Erstelle zum Verbinden einen API-Schlüssel in deinem Pally.gg-Dashboard unter Einstellungen > API-Schlüssel und füge ihn hier ein.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Es muss ein gültiger Pally.gg-API-Schlüssel angegeben werden.</value>
   </data>
 </root>
