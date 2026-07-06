@@ -6,7 +6,6 @@ using MixItUp.WPF.Util;
 using MixItUp.WPF.Windows.Commands;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MixItUp.WPF.Controls.MainControls
@@ -52,11 +51,11 @@ namespace MixItUp.WPF.Controls.MainControls
             window.ForceShow();
         }
 
-        private async void QueueListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void QueueSongBody_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ListBoxItem item = ItemsControl.ContainerFromElement(this.QueueListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
-            if (item != null && item.DataContext is MusicPlayerSong song)
+            if (e.ClickCount == 2 && sender is FrameworkElement element && element.DataContext is MusicPlayerSong song)
             {
+                e.Handled = true;
                 await ServiceManager.Get<IMusicPlayerService>().PlaySong(song);
             }
         }

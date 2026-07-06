@@ -30,6 +30,18 @@ namespace MixItUp.Base.Services
             }
         }
 
+        public string QueueDetailsString
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(this.Artist))
+                {
+                    return $"{this.LengthString} / {this.Artist}";
+                }
+                return this.LengthString;
+            }
+        }
+
         public override string ToString()
         {
             if (!string.IsNullOrEmpty(this.Artist))
