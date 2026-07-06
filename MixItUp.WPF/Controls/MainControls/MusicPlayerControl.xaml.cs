@@ -1,10 +1,12 @@
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel;
 using MixItUp.Base.ViewModel.MainControls;
 using MixItUp.WPF.Util;
 using MixItUp.WPF.Windows.Commands;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MixItUp.WPF.Controls.MainControls
@@ -15,8 +17,6 @@ namespace MixItUp.WPF.Controls.MainControls
     public partial class MusicPlayerControl : MainControlBase
     {
         private MusicPlayerMainControlViewModel viewModel;
-
-        private bool isScrubbing = false;
 
         public MusicPlayerControl()
         {
@@ -33,6 +33,7 @@ namespace MixItUp.WPF.Controls.MainControls
 
             this.TrackScrubber.PreviewMouseDown += TrackScrubber_PreviewMouseDown;
             this.TrackScrubber.PreviewMouseUp += TrackScrubber_PreviewMouseUp;
+            this.TrackScrubber.ValueChanged += TrackScrubber_ValueChanged;
             this.viewModel.PropertyChanged += ViewModel_PropertyChanged;
 
             await this.viewModel.OnOpen();
@@ -51,18 +52,39 @@ namespace MixItUp.WPF.Controls.MainControls
             window.ForceShow();
         }
 
+        private async void QueueListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxItem item = ItemsControl.ContainerFromElement(this.QueueListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
+            if (item != null && item.DataContext is MusicPlayerSong song)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().PlaySong(song);
+            }
+        }
+
         private void TrackScrubber_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.isScrubbing = true;
+            if (this.viewModel != null)
+            {
+                this.viewModel.IsScrubbing = true;
+                this.viewModel.ScrubPosition = (int)this.TrackScrubber.Value;
+            }
         }
 
         private async void TrackScrubber_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (this.isScrubbing && this.viewModel != null)
+            if (this.viewModel != null && this.viewModel.IsScrubbing)
             {
                 await this.viewModel.SeekTo((int)this.TrackScrubber.Value);
+                this.viewModel.IsScrubbing = false;
             }
-            this.isScrubbing = false;
+        }
+
+        private void TrackScrubber_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (this.viewModel != null && this.viewModel.IsScrubbing)
+            {
+                this.viewModel.ScrubPosition = (int)e.NewValue;
+            }
         }
 
         private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -71,7 +93,7 @@ namespace MixItUp.WPF.Controls.MainControls
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    if (!this.isScrubbing)
+                    if (this.viewModel != null && !this.viewModel.IsScrubbing)
                     {
                         this.TrackScrubber.Value = this.viewModel.TrackPosition;
                     }

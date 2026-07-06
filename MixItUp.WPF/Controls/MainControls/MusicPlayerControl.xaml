@@ -89,7 +89,7 @@
                         VerticalAlignment="Center"
                         Maximum="{Binding TrackDuration, Mode=OneWay}"
                         Minimum="0"
-                        Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" />
+                        Style="{StaticResource MaterialDesign3.MaterialDesignSlider}" />
 
                     <Grid Grid.Row="5" Margin="5,0">
                         <TextBlock
@@ -246,13 +246,14 @@
                     x:Name="QueueListBox"
                     HorizontalContentAlignment="Stretch"
                     ItemsSource="{Binding Songs}"
+                    MouseDoubleClick="QueueListBox_MouseDoubleClick"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     VirtualizingPanel.IsVirtualizing="True"
                     VirtualizingPanel.VirtualizationMode="Recycling"
                     Visibility="{Binding MusicLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid Margin="0,1">
+                            <Grid Margin="0,1" Background="Transparent">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="8" />

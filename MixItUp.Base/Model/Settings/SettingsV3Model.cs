@@ -676,7 +676,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool MusicPlayerShuffle { get; set; } = false;
         [DataMember]
-        public bool MusicPlayerRepeat { get; set; } = true;
+        public bool MusicPlayerRepeat { get; set; } = false;
 
         #endregion
 

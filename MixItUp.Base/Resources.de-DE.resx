@@ -7571,7 +7571,7 @@ Vorbeugende Maßnahmen, falls der Nutzer nicht auf deiner Freundesliste auf Twit
     <value>Mix It Up Command|*.miucommand|Alle Dateien (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Sounddateien|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Alle Dateien (*.*)|*.*</value>
+    <value>Sounddateien|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Alle Dateien (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Textdateien|*.txt|Alle Dateien (*.*)|*.*</value>

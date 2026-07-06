@@ -8837,7 +8837,7 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>混合命令|*.miucommand|所有檔案 (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>聲音檔案|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|所有檔案 (*.*)|*.*</value>
+    <value>聲音檔案|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|所有檔案 (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>文字檔案|*.txt|所有檔案 (*.*)|*.*</value>

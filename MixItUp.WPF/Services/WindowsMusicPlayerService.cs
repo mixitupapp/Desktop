@@ -100,6 +100,7 @@ namespace MixItUp.WPF.Services
 
         private HashSet<MusicPlayerSong> playedSongs = new HashSet<MusicPlayerSong>();
         private List<MusicPlayerSong> playbackHistory = new List<MusicPlayerSong>();
+        private bool playbackSessionActive = false;
 
         private CancellationTokenSource backgroundPlayThreadTokenSource = new CancellationTokenSource();
         private WaveOutEvent currentWaveOutEvent;
@@ -145,6 +146,7 @@ namespace MixItUp.WPF.Services
 
                         this.State = MusicPlayerState.Playing;
                         this.PlayInternal(this.CurrentSong);
+                        this.playbackSessionActive = true;
                         if (this.Shuffle && this.CurrentSong != null)
                         {
                             this.playedSongs.Add(this.CurrentSong);
@@ -596,14 +598,21 @@ namespace MixItUp.WPF.Services
                     this.playedSongs.Remove(song);
                     this.playbackHistory.RemoveAll(s => s == song);
 
-                    if (index < this.currentSongIndex)
-                    {
-                        this.currentSongIndex--;
-                    }
-
-                    if (this.currentSongIndex >= this.songs.Count)
+                    if (!this.playbackSessionActive && this.State == MusicPlayerState.Stopped)
                     {
                         this.currentSongIndex = 0;
+                    }
+                    else
+                    {
+                        if (index < this.currentSongIndex)
+                        {
+                            this.currentSongIndex--;
+                        }
+
+                        if (this.currentSongIndex >= this.songs.Count)
+                        {
+                            this.currentSongIndex = 0;
+                        }
                     }
 
                     this.SaveQueueToSettings();
@@ -636,7 +645,11 @@ namespace MixItUp.WPF.Services
                 {
                     this.songs.Move(oldIndex, newIndex);
 
-                    if (oldIndex == this.currentSongIndex)
+                    if (!this.playbackSessionActive && this.State == MusicPlayerState.Stopped)
+                    {
+                        this.currentSongIndex = 0;
+                    }
+                    else if (oldIndex == this.currentSongIndex)
                     {
                         this.currentSongIndex = newIndex;
                     }
@@ -729,6 +742,7 @@ namespace MixItUp.WPF.Services
                     }
 
                     this.currentSongIndex = MathHelper.Clamp(ChannelSession.Settings.MusicPlayerQueueCurrentIndex, 0, Math.Max(this.songs.Count - 1, 0));
+                    this.playbackSessionActive = (this.currentSongIndex > 0);
 
                     this.SaveQueueToSettings();
                 }
@@ -743,6 +757,30 @@ namespace MixItUp.WPF.Services
 
                 this.OnQueueChanged();
             });
+        }
+
+        public async Task PlaySong(MusicPlayerSong song)
+        {
+            if (song == null)
+            {
+                return;
+            }
+
+            MusicPlayerSong previousSong = this.CurrentSong;
+
+            await this.Stop();
+
+            int index = this.songs.IndexOf(song);
+            if (index >= 0)
+            {
+                if (previousSong != null && previousSong != song)
+                {
+                    this.AddToPlaybackHistory(previousSong);
+                }
+
+                this.currentSongIndex = index;
+                await this.Play();
+            }
         }
 
         public async Task<MusicPlayerSong> SearchAndPlaySong(string searchText, bool stopOnCompletion)
@@ -897,6 +935,7 @@ namespace MixItUp.WPF.Services
             this.playedSongs.Clear();
             this.playbackHistory.Clear();
             this.currentSongIndex = 0;
+            this.playbackSessionActive = false;
             this.SaveQueueToSettings();
         }
 

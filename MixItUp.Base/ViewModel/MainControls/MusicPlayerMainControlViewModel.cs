@@ -47,9 +47,33 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public int TrackPosition { get { return Math.Max((int)ServiceManager.Get<IMusicPlayerService>().CurrentPosition.TotalSeconds, 0); } }
 
-        public string TrackPositionString { get { return this.FormatSeconds(this.TrackPosition); } }
+        public string TrackPositionString { get { return this.FormatSeconds(this.IsScrubbing ? this.ScrubPosition : this.TrackPosition); } }
 
         public string TrackDurationString { get { return this.FormatSeconds(this.TrackDuration); } }
+
+        public bool IsScrubbing
+        {
+            get { return this.isScrubbing; }
+            set
+            {
+                this.isScrubbing = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.TrackPositionString));
+            }
+        }
+        private bool isScrubbing;
+
+        public int ScrubPosition
+        {
+            get { return this.scrubPosition; }
+            set
+            {
+                this.scrubPosition = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.TrackPositionString));
+            }
+        }
+        private int scrubPosition;
 
         public ICommand PreviousCommand { get; private set; }
         public ICommand PlayPauseCommand { get; private set; }
@@ -64,6 +88,7 @@ namespace MixItUp.Base.ViewModel.MainControls
         public ICommand ExportQueueCommand { get; private set; }
         public ICommand ClearQueueCommand { get; private set; }
         public ICommand RemoveSongCommand { get; private set; }
+        public ICommand PlaySongCommand { get; private set; }
 
         public int Volume
         {
@@ -203,6 +228,14 @@ namespace MixItUp.Base.ViewModel.MainControls
                 if (parameter is MusicPlayerSong song)
                 {
                     await ServiceManager.Get<IMusicPlayerService>().RemoveFromQueue(song);
+                }
+            });
+
+            this.PlaySongCommand = this.CreateCommand(async (parameter) =>
+            {
+                if (parameter is MusicPlayerSong song)
+                {
+                    await ServiceManager.Get<IMusicPlayerService>().PlaySong(song);
                 }
             });
 

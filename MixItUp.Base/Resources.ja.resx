@@ -8837,7 +8837,7 @@ Twitch経由では、「マイレージは異なる場合があります」状�
     <value>Mix It Up コマンド|*.miucommand|すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>サウンド ファイル|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|すべてのファイル (*.*)|*.*</value>
+    <value>サウンド ファイル|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>テキスト ファイル|*.txt|すべてのファイル (*.*)|*.*</value>

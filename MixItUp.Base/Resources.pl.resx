@@ -8837,7 +8837,7 @@ za pośrednictwem Twitcha jest to sytuacja „Twój przebieg może się różni�
     <value>Polecenie Mix It Up|*.miucommand|Wszystkie pliki (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Pliki dźwiękowe|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Wszystkie pliki (*.*)|*.*</value>
+    <value>Pliki dźwiękowe|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Wszystkie pliki (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Pliki tekstowe|*.txt|Wszystkie pliki (*.*)|*.*</value>
