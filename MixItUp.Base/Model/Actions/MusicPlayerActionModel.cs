@@ -18,6 +18,13 @@ namespace MixItUp.Base.Model.Actions
         Previous,
         ChangeVolume,
         ChangeFolder,
+        ShuffleOn,
+        ShuffleOff,
+        ShuffleToggle,
+        RepeatOn,
+        RepeatOff,
+        RepeatToggle,
+        ClearQueue,
     }
 
     [DataContract]
@@ -100,6 +107,34 @@ namespace MixItUp.Base.Model.Actions
                 {
                     await ServiceManager.Get<IMusicPlayerService>().ChangeFolder(folderPath);
                 }
+            }
+            else if (this.ActionType == MusicPlayerActionTypeEnum.ShuffleOn)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().SetShuffle(true);
+            }
+            else if (this.ActionType == MusicPlayerActionTypeEnum.ShuffleOff)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().SetShuffle(false);
+            }
+            else if (this.ActionType == MusicPlayerActionTypeEnum.ShuffleToggle)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().SetShuffle(!ServiceManager.Get<IMusicPlayerService>().Shuffle);
+            }
+            else if (this.ActionType == MusicPlayerActionTypeEnum.RepeatOn)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().SetRepeat(true);
+            }
+            else if (this.ActionType == MusicPlayerActionTypeEnum.RepeatOff)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().SetRepeat(false);
+            }
+            else if (this.ActionType == MusicPlayerActionTypeEnum.RepeatToggle)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().SetRepeat(!ServiceManager.Get<IMusicPlayerService>().Repeat);
+            }
+            else if (this.ActionType == MusicPlayerActionTypeEnum.ClearQueue)
+            {
+                await ServiceManager.Get<IMusicPlayerService>().ClearQueue();
             }
         }
     }

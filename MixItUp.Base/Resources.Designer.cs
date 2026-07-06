@@ -30700,5 +30700,185 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("ZoomOutUp", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add File To Queue.
+        /// </summary>
+        public static string MusicPlayerAddFileToQueue {
+            get {
+                return ResourceManager.GetString("MusicPlayerAddFileToQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Folder To Queue.
+        /// </summary>
+        public static string MusicPlayerAddFolderToQueue {
+            get {
+                return ResourceManager.GetString("MusicPlayerAddFolderToQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Playlist To Queue.
+        /// </summary>
+        public static string MusicPlayerAddPlaylistToQueue {
+            get {
+                return ResourceManager.GetString("MusicPlayerAddPlaylistToQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to clear the music queue?.
+        /// </summary>
+        public static string MusicPlayerClearQueueConfirmation {
+            get {
+                return ResourceManager.GetString("MusicPlayerClearQueueConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Queue As M3U Playlist.
+        /// </summary>
+        public static string MusicPlayerExportQueueAsPlaylist {
+            get {
+                return ResourceManager.GetString("MusicPlayerExportQueueAsPlaylist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to M3U Playlist|*.m3u.
+        /// </summary>
+        public static string MusicPlayerM3UPlaylistFileFormatFilter {
+            get {
+                return ResourceManager.GetString("MusicPlayerM3UPlaylistFileFormatFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist Files|*.m3u;*.m3u8|All files (*.*)|*.*.
+        /// </summary>
+        public static string MusicPlayerPlaylistFileFormatFilter {
+            get {
+                return ResourceManager.GetString("MusicPlayerPlaylistFileFormatFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the buttons below to add files, folders, or playlists to the queue.
+        /// </summary>
+        public static string MusicPlayerQueueEmptyHint {
+            get {
+                return ResourceManager.GetString("MusicPlayerQueueEmptyHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove From Queue.
+        /// </summary>
+        public static string MusicPlayerRemoveFromQueue {
+            get {
+                return ResourceManager.GetString("MusicPlayerRemoveFromQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Now Playing.
+        /// </summary>
+        public static string NowPlaying {
+            get {
+                return ResourceManager.GetString("NowPlaying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output &amp; Commands.
+        /// </summary>
+        public static string OutputAndCommands {
+            get {
+                return ResourceManager.GetString("OutputAndCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queue.
+        /// </summary>
+        public static string Queue {
+            get {
+                return ResourceManager.GetString("Queue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat.
+        /// </summary>
+        public static string Repeat {
+            get {
+                return ResourceManager.GetString("Repeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat Off.
+        /// </summary>
+        public static string RepeatOff {
+            get {
+                return ResourceManager.GetString("RepeatOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat On.
+        /// </summary>
+        public static string RepeatOn {
+            get {
+                return ResourceManager.GetString("RepeatOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat Toggle.
+        /// </summary>
+        public static string RepeatToggle {
+            get {
+                return ResourceManager.GetString("RepeatToggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shuffle.
+        /// </summary>
+        public static string Shuffle {
+            get {
+                return ResourceManager.GetString("Shuffle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shuffle Off.
+        /// </summary>
+        public static string ShuffleOff {
+            get {
+                return ResourceManager.GetString("ShuffleOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shuffle On.
+        /// </summary>
+        public static string ShuffleOn {
+            get {
+                return ResourceManager.GetString("ShuffleOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shuffle Toggle.
+        /// </summary>
+        public static string ShuffleToggle {
+            get {
+                return ResourceManager.GetString("ShuffleToggle", resourceCulture);
+            }
+        }
     }
 }

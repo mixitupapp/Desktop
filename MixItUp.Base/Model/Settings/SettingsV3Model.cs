@@ -669,6 +669,14 @@ namespace MixItUp.Base.Model.Settings
         public List<string> MusicPlayerFolders { get; set; } = new List<string>();
         [DataMember]
         public Guid MusicPlayerOnSongChangedCommandID { get; set; }
+        [DataMember]
+        public List<string> MusicPlayerQueue { get; set; } = new List<string>();
+        [DataMember]
+        public int MusicPlayerQueueCurrentIndex { get; set; } = 0;
+        [DataMember]
+        public bool MusicPlayerShuffle { get; set; } = false;
+        [DataMember]
+        public bool MusicPlayerRepeat { get; set; } = true;
 
         #endregion
 
