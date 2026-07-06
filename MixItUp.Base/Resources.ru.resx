@@ -8842,7 +8842,7 @@ Fuzzy</comment>
     <value>Команда «Смешать»|*.miucommand|Все файлы (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Звуковые файлы|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Все файлы (*.*)|*.*</value>
+    <value>Звуковые файлы|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Все файлы (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Текстовые файлы|*.txt|Все файлы (*.*)|*.*</value>

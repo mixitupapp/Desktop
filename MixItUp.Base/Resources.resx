@@ -8869,7 +8869,7 @@ via Twitch, it's a "your mileage may vary" situation.</value>
     <value>Mix It Up Command|*.miucommand|All files (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Sound Files|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|All files (*.*)|*.*</value>
+    <value>Sound Files|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|All files (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Text Files|*.txt|All files (*.*)|*.*</value>
@@ -11760,5 +11760,65 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="PallyInvalidAPIKey" xml:space="preserve">
     <value>A valid Pally.gg API key must be specified.</value>
     <comment>Manual</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Add File To Queue</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Add Folder To Queue</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Add Playlist To Queue</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Are you sure you want to clear the music queue?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Export Queue As M3U Playlist</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>M3U Playlist|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Playlist Files|*.m3u;*.m3u8|All files (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Use the buttons below to add files, folders, or playlists to the queue</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Remove From Queue</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Now Playing</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Output &amp; Commands</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Queue</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repeat</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Repeat Off</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Repeat On</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Repeat Toggle</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Shuffle</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Shuffle Off</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Shuffle On</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Shuffle Toggle</value>
   </data>
 </root>

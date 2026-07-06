@@ -8838,7 +8838,7 @@ a través de Twitch, es una situación en la que "su kilometraje puede variar".<
     <value>Comando Mezclar|*.miucommand|Todos los archivos (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Archivos de sonido|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Todos los archivos (*.*)|*.*</value>
+    <value>Archivos de sonido|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Todos los archivos (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Archivos de texto|*.txt|Todos los archivos (*.*)|*.*</value>

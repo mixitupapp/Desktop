@@ -8837,7 +8837,7 @@
     <value>Команда Mix It Up|*.miucommand|Усі файли (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Звукові файли|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Усі файли (*.*)|*.*</value>
+    <value>Звукові файли|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Усі файли (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Текстові файли|*.txt|Усі файли (*.*)|*.*</value>

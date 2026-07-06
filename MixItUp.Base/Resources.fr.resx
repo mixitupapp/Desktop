@@ -8837,7 +8837,7 @@ via Twitch, c'est une situation "votre kilométrage peut varier".</value>
     <value>Commande Mix It Up|*.miucommand|Tous les fichiers (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Fichiers son|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Tous les fichiers (*.*)|*.*</value>
+    <value>Fichiers son|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Tous les fichiers (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Fichiers texte|*.txt|Tous les fichiers (*.*)|*.*</value>
