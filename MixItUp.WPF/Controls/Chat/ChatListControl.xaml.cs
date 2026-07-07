@@ -83,7 +83,7 @@ namespace MixItUp.WPF.Controls.Chat
 
         private void ViewModel_ScrollingLockChanged(object sender, System.EventArgs e)
         {
-            this.ChatLockButtonIcon.Kind = (this.viewModel.IsScrollingLocked) ? MaterialDesignThemes.Wpf.PackIconKind.LockOutline : MaterialDesignThemes.Wpf.PackIconKind.LockOpenOutline;
+            this.ChatLockButtonIcon.IconName = (this.viewModel.IsScrollingLocked) ? "lock" : "lock_open";
             if (this.chatListScrollViewer != null)
             {
                 this.chatListScrollViewer.VerticalScrollBarVisibility = (this.viewModel.IsScrollingLocked) ? ScrollBarVisibility.Hidden : ScrollBarVisibility.Visible;

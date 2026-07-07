@@ -14,7 +14,7 @@
     Title="{x:Static resx:Resources.CustomizeStreamPass}"
     Width="800"
     Height="600"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
@@ -163,7 +163,7 @@
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
                                 Click="StartDateButton_Click"
-                                Icon="Calendar" />
+                                Icon="calendar_month" />
 
                             <TextBlock
                                 Grid.Row="0"
@@ -186,7 +186,7 @@
                                 Grid.Column="0"
                                 HorizontalAlignment="Center"
                                 Click="EndDateButton_Click"
-                                Icon="Calendar" />
+                                Icon="calendar_month" />
 
                             <TextBlock
                                 Grid.Row="2"
@@ -412,7 +412,7 @@
                     Width="80"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
-                    Icon="ContentSave" />
+                    Icon="save" />
             </Grid>
         </ScrollViewer>
 

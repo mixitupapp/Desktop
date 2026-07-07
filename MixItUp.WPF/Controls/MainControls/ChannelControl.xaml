@@ -1,4 +1,4 @@
-<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.ChannelControl"
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.ChannelControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -115,9 +115,9 @@
                                                                 <ColumnDefinition Width="Auto" />
                                                             </Grid.ColumnDefinitions>
 
-                                                            <Controls:IconButton Grid.Column="0" Command="{Binding OpenChannelCommand}" Icon="Television" ToolTip="{x:Static resx:Resources.OpenChannel}" />
+                                                            <Controls:IconButton Grid.Column="0" Command="{Binding OpenChannelCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.OpenChannel}" />
 
-                                                            <Controls:IconButton Grid.Column="2" Command="{Binding RaidChannelCommand}" Icon="SatelliteUplink" ToolTip="{x:Static resx:Resources.RaidChannel}" />
+                                                            <Controls:IconButton Grid.Column="2" Command="{Binding RaidChannelCommand}" Icon="broadcast_on_personal" ToolTip="{x:Static resx:Resources.RaidChannel}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -170,7 +170,7 @@
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Grid>
-                                                            <Controls:IconButton Command="{Binding OpenStreamCommand}" Icon="Television" ToolTip="{x:Static resx:Resources.Link}" />
+                                                            <Controls:IconButton Command="{Binding OpenStreamCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.Link}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>

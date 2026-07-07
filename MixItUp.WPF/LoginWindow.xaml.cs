@@ -280,17 +280,17 @@ namespace MixItUp.WPF
                     {
                         case "info":
                             OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1976D2"));
-                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Information;
+                            OutageIcon.IconName = "info";
                             break;
 
                         case "warning":
                             OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00"));
-                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Warning;
+                            OutageIcon.IconName = "warning";
                             break;
 
                         case "critical":
                             OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F"));
-                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.AlertCircle;
+                            OutageIcon.IconName = "error";
                             break;
                     }
                 }

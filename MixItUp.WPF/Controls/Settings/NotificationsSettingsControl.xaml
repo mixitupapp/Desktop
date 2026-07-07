@@ -42,7 +42,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                        <Controls:IconButton Grid.Column="2" Command="{Binding PlayCommand}" HorizontalAlignment="Center" Icon="Play" ToolTip="{x:Static resx:Resources.Play}" />
+                        <Controls:IconButton Grid.Column="2" Command="{Binding PlayCommand}" HorizontalAlignment="Center" Icon="play_arrow" ToolTip="{x:Static resx:Resources.Play}" />
                         <ComboBox Grid.Column="4" ItemsSource="{Binding Sounds}" SelectedItem="{Binding Sound}" Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Center" />
                         <Slider Grid.Column="6" Value="{Binding Volume}" Minimum="0" Maximum="100" Width="100" VerticalAlignment="Center" />
                     </Grid>

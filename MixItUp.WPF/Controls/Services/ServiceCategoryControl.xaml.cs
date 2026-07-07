@@ -1,4 +1,5 @@
-﻿using MixItUp.WPF.Windows;
+﻿using MixItUp.WPF.Branding;
+using MixItUp.WPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace MixItUp.WPF.Controls.Services
         private LoadingWindowBase window;
         private List<ServiceContainerControl> services;
 
-        public ServiceCategoryControl(LoadingWindowBase window, string categoryName)
+        public ServiceCategoryControl(LoadingWindowBase window, string categoryName, Feature feature = null)
         {
             this.window = window;
             this.CategoryName = categoryName;
@@ -26,6 +27,12 @@ namespace MixItUp.WPF.Controls.Services
             this.DataContext = this;
 
             InitializeComponent();
+
+            if (feature != null)
+            {
+                this.CategoryIcon.IconName = feature.IconName;
+                this.CategoryIcon.Visibility = Visibility.Visible;
+            }
         }
 
         public void AddService(ServiceControlBase serviceControl)
@@ -44,13 +51,13 @@ namespace MixItUp.WPF.Controls.Services
         public void Minimize()
         {
             this.CategoryGroupBox.Height = MinimizedGroupBoxHeight;
-            this.ExpandIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ChevronRight;
+            this.ExpandIcon.IconName = "chevron_right";
         }
 
         public void Expand()
         {
             this.CategoryGroupBox.Height = Double.NaN;
-            this.ExpandIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.ChevronDown;
+            this.ExpandIcon.IconName = "expand_more";
         }
 
         public void CategoryGroupBoxHeader_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

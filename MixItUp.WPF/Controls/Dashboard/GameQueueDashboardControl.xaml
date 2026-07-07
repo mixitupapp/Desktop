@@ -31,11 +31,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton x:Name="MoveUpButton" Grid.Column="0" Click="MoveUpButton_Click" HorizontalAlignment="Center" Icon="ArrowUp" />
+                                <Controls:IconButton x:Name="MoveUpButton" Grid.Column="0" Click="MoveUpButton_Click" HorizontalAlignment="Center" Icon="arrow_upward" />
 
-                                <Controls:IconButton x:Name="MoveDownButton" Grid.Column="2" Click="MoveDownButton_Click" HorizontalAlignment="Center" Icon="ArrowDown" />
+                                <Controls:IconButton x:Name="MoveDownButton" Grid.Column="2" Click="MoveDownButton_Click" HorizontalAlignment="Center" Icon="arrow_downward" />
 
-                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="Delete" />
+                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

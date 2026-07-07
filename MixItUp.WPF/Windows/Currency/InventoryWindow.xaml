@@ -14,7 +14,7 @@
     Title="{x:Static resx:Resources.CustomizeInventory}"
     Width="1000"
     Height="600"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
@@ -46,7 +46,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Command="{Binding HelpCommand}"
-                    Icon="Help"
+                    Icon="help"
                     ToolTip="{x:Static resx:Resources.Help}" />
 
                 <Grid Grid.Row="0" HorizontalAlignment="Center">
@@ -153,7 +153,7 @@
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Click="EditItemButton_Click"
-                                                            Icon="TooltipEdit" />
+                                                            Icon="rate_review" />
 
                                                         <Controls:IconButton
                                                             x:Name="DeleteItemButton"
@@ -161,7 +161,7 @@
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Click="DeleteItemButton_Click"
-                                                            Icon="Delete" />
+                                                            Icon="delete" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -357,7 +357,7 @@
                     Width="80"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
-                    Icon="ContentSave" />
+                    Icon="save" />
             </Grid>
         </ScrollViewer>
 

@@ -2,6 +2,7 @@
 using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.Services;
 using MixItUp.WPF.Util;
+using MixItUp.WPF.Branding;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class OverlayServiceControl : ServiceControlBase
     {
+        public override Feature Feature { get { return Features.OverlayWidgets; } }
+
         private OverlayServiceControlViewModel viewModel;
 
         public OverlayServiceControl()

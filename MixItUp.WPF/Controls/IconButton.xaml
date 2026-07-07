@@ -12,5 +12,5 @@
              HorizontalContentAlignment="Center"
              VerticalContentAlignment="Center"
              Width="40">
-    <MaterialDesign:PackIcon x:Name="ButtonIcon" Style="{StaticResource ButtonIcon}" Kind="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <local:MaterialSymbolIcon x:Name="ButtonIcon" IconName="delete" FontSize="24" Margin="-7,-10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 </Button>

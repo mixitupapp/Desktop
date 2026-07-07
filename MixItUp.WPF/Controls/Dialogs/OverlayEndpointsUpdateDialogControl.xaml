@@ -37,9 +37,9 @@
 
                             <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" />
 
-                            <Controls:IconButton Grid.Column="2" x:Name="LaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="Launch" ToolTip="{x:Static resx:Resources.Link}" />
+                            <Controls:IconButton Grid.Column="2" x:Name="LaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="launch" ToolTip="{x:Static resx:Resources.Link}" />
 
-                            <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="ContentCopy" ToolTip="{x:Static resx:Resources.Copy}" />
+                            <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

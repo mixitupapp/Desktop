@@ -217,23 +217,23 @@ namespace MixItUp.WPF.Windows.Overlay
             {
                 if (button.Command == SearchCommands.FindNext)
                 {
-                    this.SetSearchButtonIcon(button, PackIconKind.ChevronRight);
+                    this.SetSearchButtonIcon(button, "chevron_right");
                 }
                 else if (button.Command == SearchCommands.FindPrevious)
                 {
-                    this.SetSearchButtonIcon(button, PackIconKind.ChevronLeft);
+                    this.SetSearchButtonIcon(button, "chevron_left");
                 }
                 else if (button.Command == SearchCommands.CloseSearchPanel)
                 {
-                    this.SetSearchButtonIcon(button, PackIconKind.Close);
+                    this.SetSearchButtonIcon(button, "close");
                 }
             }
         }
 
-        private void SetSearchButtonIcon(ButtonBase button, PackIconKind kind)
+        private void SetSearchButtonIcon(ButtonBase button, string iconName)
         {
             Brush foregroundBrush = button.Foreground;
-            button.Content = new PackIcon() { Kind = kind, Width = 16, Height = 16, Foreground = foregroundBrush };
+            button.Content = new Controls.MaterialSymbolIcon() { IconName = iconName, FontSize = 16, Foreground = foregroundBrush };
             button.Padding = new Thickness(2);
             button.MinWidth = 30;
             button.MinHeight = 26;
