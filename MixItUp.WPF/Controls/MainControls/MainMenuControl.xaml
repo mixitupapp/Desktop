@@ -6,6 +6,7 @@
     xmlns:DragDrop="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
     xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:SettingsControls="clr-namespace:MixItUp.WPF.Controls.Settings"
+    xmlns:Util="clr-namespace:MixItUp.WPF.Util"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,6 +16,7 @@
     mc:Ignorable="d">
     <local:MainControlBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Util:BrandImageConverter x:Key="BrandImageConverter" />
 
         <DataTemplate x:Key="DragAdornerTemplate">
             <Border
@@ -47,7 +49,7 @@
             SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
             <MaterialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
                 <MaterialDesign:DrawerHost.LeftDrawerContent>
-                    <DockPanel MinWidth="220">
+                    <DockPanel MinWidth="264">
                         <ToggleButton
                             Margin="16"
                             HorizontalAlignment="Right"
@@ -132,6 +134,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
@@ -154,9 +157,25 @@
                                             IsEnabled="{Binding CanHide}"
                                             Visibility="Collapsed" />
 
-                                        <TextBlock
+                                        <Grid
                                             Grid.Column="2"
-                                            Margin="8,0,0,0"
+                                            Width="24"
+                                            Height="24"
+                                            VerticalAlignment="Center">
+                                            <Image
+                                                Source="{Binding Brand, Converter={StaticResource BrandImageConverter}, TargetNullValue={x:Null}}"
+                                                Visibility="{Binding ShowBrandImage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            <Controls:MaterialSymbolIcon
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="22"
+                                                IconName="{Binding IconName}"
+                                                Visibility="{Binding ShowIcon, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        </Grid>
+
+                                        <TextBlock
+                                            Grid.Column="3"
+                                            Margin="12,0,0,0"
                                             VerticalAlignment="Center"
                                             Text="{Binding Name}"
                                             ToolTip="{Binding Name}" />

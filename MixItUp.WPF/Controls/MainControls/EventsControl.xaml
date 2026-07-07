@@ -8,10 +8,12 @@
              xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:CommandsControls="clr-namespace:MixItUp.WPF.Controls.Commands"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             xmlns:Util="clr-namespace:MixItUp.WPF.Util"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <local:MainControlBase.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Util:BrandImageConverter x:Key="BrandImageConverter" />
     </local:MainControlBase.Resources>
 
     <Grid Margin="10">
@@ -28,8 +30,8 @@
                                             <ColumnDefinition Width="20" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="{Binding Image, TargetNullValue={x:Null}}" Visibility="{Binding ShowImage, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" />
-                                        <MaterialDesign:PackIcon Grid.Column="0" Kind="{Binding PackIconName, TargetNullValue=Delete}" Visibility="{Binding ShowPackIcon, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" Style="{StaticResource ColoredBackgroundPackIcon}" />
+                                        <Image Grid.Column="0" Source="{Binding BrandId, Converter={StaticResource BrandImageConverter}, TargetNullValue={x:Null}}" Visibility="{Binding ShowBrandImage, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" />
+                                        <Controls:MaterialSymbolIcon Grid.Column="0" IconName="{Binding IconName}" Visibility="{Binding ShowIcon, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="24" Height="24" Width="24" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 
                                         <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                     </Grid>
