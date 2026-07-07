@@ -7,8 +7,9 @@ namespace MixItUp.WPF.Util
 {
     /// <summary>
     /// Converts a Brand (or brand ID string) to the theme-appropriate brand mark ImageSource.
-    /// Defaults to the full-color symbol at small (64px) size; pass a converter parameter
-    /// containing "Mono" and/or "Medium" to select the monochrome set or medium (128px) size.
+    /// Defaults to the full-color symbol at small (64px) size; the converter parameter may combine
+    /// "Mono" (monochrome set), "Medium" (128px size), and "OnPrimary" (resolve dark/light against
+    /// the primary surface foreground instead of the theme mode), e.g. "Mono|OnPrimary".
     /// </summary>
     public class BrandImageConverter : IValueConverter
     {
@@ -22,7 +23,7 @@ namespace MixItUp.WPF.Util
 
             string options = parameter as string ?? string.Empty;
             BrandImageSet set = options.IndexOf("Mono", StringComparison.OrdinalIgnoreCase) >= 0 ? brand.Mono : brand.Symbol;
-            BrandImageVariant variant = set.Current;
+            BrandImageVariant variant = options.IndexOf("OnPrimary", StringComparison.OrdinalIgnoreCase) >= 0 ? set.OnPrimary : set.Current;
             return options.IndexOf("Medium", StringComparison.OrdinalIgnoreCase) >= 0 ? variant.Medium : variant.Small;
         }
 

@@ -128,6 +128,12 @@
                             <ListBox.Resources>
                                 <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
                             </ListBox.Resources>
+                            <ListBox.ItemContainerStyle>
+                                <Style BasedOn="{StaticResource MaterialDesignNavigationListBoxItem}" TargetType="ListBoxItem">
+                                    <Setter Property="Margin" Value="4,0" />
+                                    <Setter Property="Padding" Value="8,6" />
+                                </Style>
+                            </ListBox.ItemContainerStyle>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -163,7 +169,7 @@
                                             Height="24"
                                             VerticalAlignment="Center">
                                             <Image
-                                                Source="{Binding Brand, Converter={StaticResource BrandImageConverter}, TargetNullValue={x:Null}}"
+                                                Source="{Binding Brand, Converter={StaticResource BrandImageConverter}, ConverterParameter=Mono, TargetNullValue={x:Null}}"
                                                 Visibility="{Binding ShowBrandImage, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                             <Controls:MaterialSymbolIcon
                                                 HorizontalAlignment="Center"

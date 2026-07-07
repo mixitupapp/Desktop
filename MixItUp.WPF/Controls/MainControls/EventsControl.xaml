@@ -30,7 +30,7 @@
                                             <ColumnDefinition Width="20" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="{Binding BrandId, Converter={StaticResource BrandImageConverter}, TargetNullValue={x:Null}}" Visibility="{Binding ShowBrandImage, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" />
+                                        <Image Grid.Column="0" Source="{Binding BrandId, Converter={StaticResource BrandImageConverter}, ConverterParameter=Mono|OnPrimary, TargetNullValue={x:Null}}" Visibility="{Binding ShowBrandImage, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" />
                                         <Controls:MaterialSymbolIcon Grid.Column="0" IconName="{Binding IconName}" Visibility="{Binding ShowIcon, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="24" Height="24" Width="24" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 
                                         <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />

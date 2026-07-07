@@ -1,6 +1,7 @@
 using MixItUp.Base.Services;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -78,6 +79,12 @@ namespace MixItUp.WPF.Branding
         }
 
         public BrandImageVariant Current { get { return Brands.IsDarkTheme ? this.OnDark : this.OnLight; } }
+
+        /// <summary>
+        /// Resolves the variant for primary-colored surfaces (e.g. GroupBox/Expander headers), where the
+        /// effective foreground comes from the primary palette rather than the light/dark theme mode.
+        /// </summary>
+        public BrandImageVariant OnPrimary { get { return Brands.IsPrimarySurfaceDark ? this.OnDark : this.OnLight; } }
     }
 
     /// <summary>
@@ -261,6 +268,20 @@ namespace MixItUp.WPF.Branding
             {
                 IThemeService themeService = ServiceManager.Get<IThemeService>();
                 return themeService == null || themeService.IsDarkTheme;
+            }
+        }
+
+        internal static bool IsPrimarySurfaceDark
+        {
+            get
+            {
+                if (Application.Current?.TryFindResource("MaterialDesign.Brush.Primary.Foreground") is SolidColorBrush brush)
+                {
+                    // A light foreground on the primary surface implies the surface reads as dark
+                    Color color = brush.Color;
+                    return ((0.299 * color.R) + (0.587 * color.G) + (0.114 * color.B)) / 255.0 > 0.5;
+                }
+                return IsDarkTheme;
             }
         }
     }

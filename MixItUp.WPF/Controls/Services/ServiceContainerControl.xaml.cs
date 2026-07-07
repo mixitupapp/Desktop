@@ -29,7 +29,7 @@ namespace MixItUp.WPF.Controls.Services
             // brand mark is resolved once at construction rather than tracking theme changes.
             if (this.serviceControl.Brand != null)
             {
-                this.BrandImage.Source = this.serviceControl.Brand.Symbol.Current.Small;
+                this.BrandImage.Source = this.serviceControl.Brand.Mono.OnPrimary.Small;
                 this.BrandImage.Visibility = Visibility.Visible;
                 this.BrandIconContainer.Visibility = Visibility.Visible;
             }
