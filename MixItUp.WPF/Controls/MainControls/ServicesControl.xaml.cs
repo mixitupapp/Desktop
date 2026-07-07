@@ -1,4 +1,5 @@
 ﻿using MixItUp.Base.Util;
+using MixItUp.WPF.Branding;
 using MixItUp.WPF.Controls.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -53,7 +54,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new StreamlabsDesktopServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new StreamlootsServiceControl()));
 
-            ServiceCategoryControl ttsCategory = new ServiceCategoryControl(this.Window, MixItUp.Base.Resources.TextToSpeech);
+            ServiceCategoryControl ttsCategory = new ServiceCategoryControl(this.Window, MixItUp.Base.Resources.TextToSpeech, Features.TextToSpeech);
             ttsCategory.AddService(new AmazonPollyServiceControl());
             ttsCategory.AddService(new GoogleCloudTTSServiceControl());
             ttsCategory.AddService(new MicrosoftAzureSpeechServiceControl());
