@@ -54,7 +54,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Command="{Binding HelpCommand}"
-                    Icon="Help"
+                    Icon="help"
                     ToolTip="{x:Static resx:Resources.Help}" />
 
                 <Grid Grid.Row="0" HorizontalAlignment="Center">
@@ -302,7 +302,7 @@
                                                         x:Name="DeleteRankButton"
                                                         HorizontalAlignment="Center"
                                                         Click="DeleteRankButton_Click"
-                                                        Icon="Delete" />
+                                                        Icon="delete" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -443,7 +443,7 @@
                                     Grid.Column="4"
                                     HorizontalAlignment="Center"
                                     Click="DateButton_Click"
-                                    Icon="Calendar"
+                                    Icon="calendar_month"
                                     IsEnabled="{Binding AutomaticResetStartTimeSelectable}"
                                     ToolTip="{x:Static resx:Resources.ResetDate}" />
 
@@ -492,7 +492,7 @@
                     Width="75"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
-                    Icon="ContentSave" />
+                    Icon="save" />
             </Grid>
         </ScrollViewer>
 

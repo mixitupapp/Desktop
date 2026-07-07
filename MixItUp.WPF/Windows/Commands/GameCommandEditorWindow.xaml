@@ -54,7 +54,7 @@
                     Width="80"
                     HorizontalAlignment="Center"
                     Command="{Binding SaveCommand}"
-                    Icon="ContentSave" />
+                    Icon="save" />
             </Grid>
         </ScrollViewer>
 

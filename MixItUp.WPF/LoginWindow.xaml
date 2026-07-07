@@ -56,12 +56,9 @@
                         Click="CloseButton_Click"
                         Style="{StaticResource MaterialDesignIconButton}"
                         ToolTip="Close">
-                            <MaterialDesign:PackIcon
+                            <Controls:MaterialSymbolIcon
                                 Foreground="{StaticResource MIU.Brush.Dark.Primary}"
-                            
-                            Width="20"
-                            Height="20"
-                            Kind="Close" />
+                            IconName="close" FontSize="20" />
                         </Button>
 
                         <Grid Grid.Row="1" Margin="0,8,0,0">
@@ -260,11 +257,9 @@
                                 StaysOpen="False"
                                 ToolTip="{x:Static resx:Resources.Help}">
                                     <MaterialDesign:PopupBox.ToggleContent>
-                                        <MaterialDesign:PackIcon
+                                        <Controls:MaterialSymbolIcon
                                         Foreground="{StaticResource MIU.Brush.Dark.Primary}"
-                                        Width="20"
-                                        Height="20"
-                                        Kind="HelpCircle" />
+                                        IconName="help" FontSize="20" />
                                     </MaterialDesign:PopupBox.ToggleContent>
                                     <StackPanel>
                                         <Button
@@ -272,13 +267,11 @@
                                         Click="OpenInstallFolder_Click"
                                         Style="{StaticResource MaterialDesignFlatButton}">
                                             <StackPanel Orientation="Horizontal">
-                                                <MaterialDesign:PackIcon
-                                                Width="18"
-                                                Height="18"
+                                                <Controls:MaterialSymbolIcon
                                                 Margin="0,0,8,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                Kind="Folder" />
+                                                IconName="folder" FontSize="18" />
                                                 <TextBlock
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -291,13 +284,11 @@
                                         Click="ResetWindowPosition_Click"
                                         Style="{StaticResource MaterialDesignFlatButton}">
                                             <StackPanel Orientation="Horizontal">
-                                                <MaterialDesign:PackIcon
-                                                Width="18"
-                                                Height="18"
+                                                <Controls:MaterialSymbolIcon
                                                 Margin="0,0,8,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                Kind="WindowRestore" />
+                                                IconName="select_window" FontSize="18" />
                                                 <TextBlock
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -351,15 +342,13 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <MaterialDesign:PackIcon
+                                <Controls:MaterialSymbolIcon
                                 x:Name="OutageIcon"
                                 Grid.Column="0"
-                                Width="24"
-                                Height="24"
                                 Margin="0,0,12,0"
                                 VerticalAlignment="Center"
                                 Foreground="White"
-                                Kind="Information" />
+                                IconName="info" FontSize="24" />
 
                                 <TextBlock
                                 x:Name="OutageMessage"
@@ -379,11 +368,9 @@
                                 Click="CloseOutageBannerButton_Click"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="Close">
-                                    <MaterialDesign:PackIcon
-                                    Width="18"
-                                    Height="18"
+                                    <Controls:MaterialSymbolIcon
                                     Foreground="White"
-                                    Kind="Close" />
+                                    IconName="close" FontSize="18" />
                                 </Button>
                             </Grid>
                         </MaterialDesign:Card>

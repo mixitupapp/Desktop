@@ -76,11 +76,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton x:Name="MoveUpButton" Grid.Column="0" Click="MoveUpButton_Click" Icon="ArrowUp" HorizontalAlignment="Center" />
+                                <Controls:IconButton x:Name="MoveUpButton" Grid.Column="0" Click="MoveUpButton_Click" Icon="arrow_upward" HorizontalAlignment="Center" />
 
-                                <Controls:IconButton x:Name="MoveDownButton" Grid.Column="2" Click="MoveDownButton_Click" Icon="ArrowDown" HorizontalAlignment="Center" />
+                                <Controls:IconButton x:Name="MoveDownButton" Grid.Column="2" Click="MoveDownButton_Click" Icon="arrow_downward" HorizontalAlignment="Center" />
 
-                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4"  Click="DeleteButton_Click" Icon="Delete" HorizontalAlignment="Center" />
+                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4"  Click="DeleteButton_Click" Icon="delete" HorizontalAlignment="Center" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

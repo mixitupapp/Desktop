@@ -50,9 +50,9 @@
                     </Hyperlink>
                 </TextBlock>
 
-                <Controls:IconButton Grid.Column="2" x:Name="OpenEndpointURLButton" Click="OpenEndpointURLButton_Click" Icon="Launch" ToolTip="{x:Static resx:Resources.GoToLink}" />
+                <Controls:IconButton Grid.Column="2" x:Name="OpenEndpointURLButton" Click="OpenEndpointURLButton_Click" Icon="launch" ToolTip="{x:Static resx:Resources.GoToLink}" />
 
-                <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="ContentCopy" ToolTip="{x:Static resx:Resources.Copy}" />
+                <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" />
             </Grid>
 
             <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="{x:Static resx:Resources.OverlayInfo2}"/>

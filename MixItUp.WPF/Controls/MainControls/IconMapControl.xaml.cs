@@ -30,9 +30,10 @@ namespace MixItUp.WPF.Controls.MainControls
     /// </summary>
     public partial class IconMapControl : MainControlBase
     {
-        private static readonly List<IconMapEntry> entries = new List<IconMapEntry>()
+        /// <summary>The blessed PackIcon (mdi) → Material Symbols mapping; also used to translate legacy mdi icon names at runtime.</summary>
+        internal static readonly List<IconMapEntry> Entries = new List<IconMapEntry>()
         {
-            new IconMapEntry(nameof(PackIconKind.AccessPoint), PackIconKind.AccessPoint, "wifi_tethering", "sensors", "cell_tower"),
+            new IconMapEntry(nameof(PackIconKind.AccessPoint), PackIconKind.AccessPoint, "sensors", "wifi_tethering", "cell_tower"),
             new IconMapEntry(nameof(PackIconKind.AccountEdit), PackIconKind.AccountEdit, "manage_accounts", "edit_note"),
             new IconMapEntry(nameof(PackIconKind.AccountKey), PackIconKind.AccountKey, "key", "passkey", "admin_panel_settings"),
             new IconMapEntry(nameof(PackIconKind.AccountMultiple), PackIconKind.AccountMultiple, "group", "people", "groups"),
@@ -53,7 +54,7 @@ namespace MixItUp.WPF.Controls.MainControls
             new IconMapEntry(nameof(PackIconKind.Bell), PackIconKind.Bell, "notifications"),
             new IconMapEntry(nameof(PackIconKind.Biohazard), PackIconKind.Biohazard, "dangerous", "skull", "coronavirus"),
             new IconMapEntry(nameof(PackIconKind.BlockHelper), PackIconKind.BlockHelper, "block"),
-            new IconMapEntry(nameof(PackIconKind.Broom), PackIconKind.Broom, "cleaning_services", "mop"),
+            new IconMapEntry(nameof(PackIconKind.Broom), PackIconKind.Broom, "mop", "cleaning_services"),
             new IconMapEntry(nameof(PackIconKind.Calendar), PackIconKind.Calendar, "calendar_month", "event"),
             new IconMapEntry(nameof(PackIconKind.Cancel), PackIconKind.Cancel, "cancel", "block"),
             new IconMapEntry(nameof(PackIconKind.Cash100), PackIconKind.Cash100, "payments", "paid", "attach_money"),
@@ -93,7 +94,7 @@ namespace MixItUp.WPF.Controls.MainControls
             new IconMapEntry(nameof(PackIconKind.FormatItalic), PackIconKind.FormatItalic, "format_italic"),
             new IconMapEntry(nameof(PackIconKind.FormatListNumbered), PackIconKind.FormatListNumbered, "format_list_numbered"),
             new IconMapEntry(nameof(PackIconKind.FormatUnderline), PackIconKind.FormatUnderline, "format_underlined"),
-            new IconMapEntry(nameof(PackIconKind.FormTextbox), PackIconKind.FormTextbox, "text_fields", "edit_note", "input"),
+            new IconMapEntry(nameof(PackIconKind.FormTextbox), PackIconKind.FormTextbox, "terminal", "text_fields", "input"),
             new IconMapEntry(nameof(PackIconKind.Help), PackIconKind.Help, "help"),
             new IconMapEntry(nameof(PackIconKind.HelpCircle), PackIconKind.HelpCircle, "help", "contact_support"),
             new IconMapEntry(nameof(PackIconKind.History), PackIconKind.History, "history"),
@@ -102,14 +103,14 @@ namespace MixItUp.WPF.Controls.MainControls
             new IconMapEntry(nameof(PackIconKind.Import), PackIconKind.Import, "input", "download", "exit_to_app"),
             new IconMapEntry(nameof(PackIconKind.Information), PackIconKind.Information, "info"),
             new IconMapEntry(nameof(PackIconKind.KeyVariant), PackIconKind.KeyVariant, "key", "vpn_key"),
-            new IconMapEntry(nameof(PackIconKind.LanDisconnect), PackIconKind.LanDisconnect, "link_off", "cloud_off", "signal_disconnected"),
+            new IconMapEntry(nameof(PackIconKind.LanDisconnect), PackIconKind.LanDisconnect, "cloud_off", "link_off", "signal_disconnected"),
             new IconMapEntry(nameof(PackIconKind.Launch), PackIconKind.Launch, "launch", "open_in_new"),
             new IconMapEntry(nameof(PackIconKind.Link), PackIconKind.Link, "link"),
             new IconMapEntry(nameof(PackIconKind.LockOpenOutline), PackIconKind.LockOpenOutline, "lock_open"),
             new IconMapEntry(nameof(PackIconKind.LockOutline), PackIconKind.LockOutline, "lock"),
             new IconMapEntry(nameof(PackIconKind.MessageText), PackIconKind.MessageText, "chat", "sms", "forum"),
             new IconMapEntry(nameof(PackIconKind.MusicNote), PackIconKind.MusicNote, "music_note"),
-            new IconMapEntry(nameof(PackIconKind.MusicNotePlus), PackIconKind.MusicNotePlus, "playlist_add", "library_add"),
+            new IconMapEntry(nameof(PackIconKind.MusicNotePlus), PackIconKind.MusicNotePlus, "music_note_add", "playlist_add"),
             new IconMapEntry(nameof(PackIconKind.OpenInNew), PackIconKind.OpenInNew, "open_in_new"),
             new IconMapEntry(nameof(PackIconKind.Pencil), PackIconKind.Pencil, "edit"),
             new IconMapEntry(nameof(PackIconKind.Pin), PackIconKind.Pin, "push_pin", "keep"),
@@ -124,14 +125,14 @@ namespace MixItUp.WPF.Controls.MainControls
             new IconMapEntry(nameof(PackIconKind.RepeatOff), PackIconKind.RepeatOff, "repeat", "repeat_on"),
             new IconMapEntry(nameof(PackIconKind.RepeatVariant), PackIconKind.RepeatVariant, "repeat_on", "repeat"),
             new IconMapEntry(nameof(PackIconKind.Replay), PackIconKind.Replay, "replay"),
-            new IconMapEntry(nameof(PackIconKind.SatelliteUplink), PackIconKind.SatelliteUplink, "satellite_alt", "cell_tower", "settings_input_antenna"),
+            new IconMapEntry(nameof(PackIconKind.SatelliteUplink), PackIconKind.SatelliteUplink, "broadcast_on_personal", "satellite_alt", "cell_tower"),
             new IconMapEntry(nameof(PackIconKind.Search), PackIconKind.Search, "search"),
             new IconMapEntry(nameof(PackIconKind.SecurityAccount), PackIconKind.SecurityAccount, "admin_panel_settings", "shield_person", "verified_user"),
             new IconMapEntry(nameof(PackIconKind.Settings), PackIconKind.Settings, "settings"),
             new IconMapEntry(nameof(PackIconKind.ShieldOff), PackIconKind.ShieldOff, "remove_moderator", "gpp_bad", "shield"),
             new IconMapEntry(nameof(PackIconKind.ShieldStar), PackIconKind.ShieldStar, "local_police", "verified_user", "add_moderator"),
-            new IconMapEntry(nameof(PackIconKind.Shuffle), PackIconKind.Shuffle, "shuffle", "shuffle_on"),
-            new IconMapEntry(nameof(PackIconKind.ShuffleDisabled), PackIconKind.ShuffleDisabled, "trending_flat", "shuffle"),
+            new IconMapEntry(nameof(PackIconKind.Shuffle), PackIconKind.Shuffle, "shuffle_on", "shuffle"),
+            new IconMapEntry(nameof(PackIconKind.ShuffleDisabled), PackIconKind.ShuffleDisabled, "shuffle", "trending_flat"),
             new IconMapEntry(nameof(PackIconKind.SkipNext), PackIconKind.SkipNext, "skip_next"),
             new IconMapEntry(nameof(PackIconKind.SkipPrevious), PackIconKind.SkipPrevious, "skip_previous"),
             new IconMapEntry(nameof(PackIconKind.Star), PackIconKind.Star, "star"),
@@ -139,8 +140,8 @@ namespace MixItUp.WPF.Controls.MainControls
             new IconMapEntry(nameof(PackIconKind.Sync), PackIconKind.Sync, "sync"),
             new IconMapEntry(nameof(PackIconKind.Television), PackIconKind.Television, "tv"),
             new IconMapEntry(nameof(PackIconKind.Timer), PackIconKind.Timer, "timer"),
-            new IconMapEntry(nameof(PackIconKind.TooltipEdit), PackIconKind.TooltipEdit, "edit_note", "rate_review"),
-            new IconMapEntry(nameof(PackIconKind.TreasureChest), PackIconKind.TreasureChest, "redeem", "inventory_2", "savings"),
+            new IconMapEntry(nameof(PackIconKind.TooltipEdit), PackIconKind.TooltipEdit, "rate_review", "edit_note"),
+            new IconMapEntry(nameof(PackIconKind.TreasureChest), PackIconKind.TreasureChest, "inventory_2", "redeem", "savings"),
             new IconMapEntry(nameof(PackIconKind.Warning), PackIconKind.Warning, "warning"),
             new IconMapEntry(nameof(PackIconKind.WindowRestore), PackIconKind.WindowRestore, "select_window", "open_in_full", "aspect_ratio"),
         };
@@ -265,13 +266,13 @@ namespace MixItUp.WPF.Controls.MainControls
         {
             InitializeComponent();
 
-            foreach (IconMapEntry entry in entries)
+            foreach (IconMapEntry entry in Entries)
             {
                 usages.TryGetValue(entry.KindName, out string usage);
                 entry.Usage = usage;
             }
 
-            this.MapItemsControl.ItemsSource = entries;
+            this.MapItemsControl.ItemsSource = Entries;
         }
     }
 }

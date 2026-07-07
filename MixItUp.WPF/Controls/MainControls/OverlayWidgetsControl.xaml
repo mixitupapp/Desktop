@@ -62,7 +62,7 @@
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Center"
                                         Click="LinkButton_Click"
-                                        Icon="Link"
+                                        Icon="link"
                                         ToolTip="{x:Static resx:Resources.Link}"
                                         Visibility="{Binding IsSingleWidgetURL, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" />
 
@@ -71,7 +71,7 @@
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Center"
                                         Click="ResetButton_Click"
-                                        Icon="Sync"
+                                        Icon="sync"
                                         ToolTip="{x:Static resx:Resources.Reset}"
                                         Visibility="{Binding IsResettable, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" />
 
@@ -80,7 +80,7 @@
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Center"
                                         Click="EditButton_Click"
-                                        Icon="TooltipEdit"
+                                        Icon="rate_review"
                                         ToolTip="{x:Static resx:Resources.EditCommand}" />
 
                                     <Controls:IconButton
@@ -88,7 +88,7 @@
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Center"
                                         Click="DeleteButton_Click"
-                                        Icon="Delete"
+                                        Icon="delete"
                                         ToolTip="{x:Static resx:Resources.DeleteCommand}" />
 
                                     <ToggleButton

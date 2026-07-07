@@ -169,12 +169,9 @@
                 Command="{Binding ChannelPointsEditorCommand}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Static resx:Resources.ChannelPointsEditor}" />
-                    <MaterialDesign:PackIcon
-                        Width="20"
-                        Height="20"
+                    <Controls:MaterialSymbolIcon
                         Margin="5,-2,0,0"
-                        Kind="OpenInNew"
-                        Style="{StaticResource ColoredBackgroundPackIcon}" />
+                        IconName="open_in_new" FontSize="20" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                 </StackPanel>
             </Button>
         </Grid>

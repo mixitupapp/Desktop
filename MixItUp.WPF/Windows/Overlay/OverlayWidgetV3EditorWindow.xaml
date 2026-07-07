@@ -85,7 +85,7 @@
                         Grid.Column="5"
                         Margin="10,0,0,0"
                         Click="OldHTMLButton_Click"
-                        Icon="History"
+                        Icon="history"
                         ToolTip="{x:Static resx:Resources.OldHTML}"
                         Visibility="{Binding ShowOldCustomHTML, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </Grid>
@@ -181,7 +181,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -198,7 +198,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -215,7 +215,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -243,20 +243,20 @@
                 <Controls:IconButton
                     Grid.Column="0"
                     Command="{Binding SaveCommand}"
-                    Icon="ContentSave"
+                    Icon="save"
                     ToolTip="{x:Static resx:Resources.Save}" />
 
                 <Controls:IconButton
                     Grid.Column="2"
                     Command="{Binding TestCommand}"
-                    Icon="Play"
+                    Icon="play_arrow"
                     IsEnabled="{Binding IsTestable}"
                     ToolTip="{x:Static resx:Resources.TestCommand}" />
 
                 <Controls:IconButton
                     Grid.Column="4"
                     Command="{Binding ExportCommand}"
-                    Icon="Export"
+                    Icon="output"
                     ToolTip="{x:Static resx:Resources.ExportData}" />
             </Grid>
 

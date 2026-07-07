@@ -35,11 +35,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton Grid.Column="0" Command="{Binding ManualRedeemCommand}" IsEnabled="{Binding CanManualRedeem}" HorizontalAlignment="Center" Icon="CheckboxMarkedCircle" ToolTip="{x:Static resx:Resources.ManualRedeem}" />
+                                <Controls:IconButton Grid.Column="0" Command="{Binding ManualRedeemCommand}" IsEnabled="{Binding CanManualRedeem}" HorizontalAlignment="Center" Icon="check_circle" ToolTip="{x:Static resx:Resources.ManualRedeem}" />
 
-                                <Controls:IconButton Grid.Column="2" Command="{Binding RefundCommand}" HorizontalAlignment="Center" Icon="Cash100" ToolTip="{x:Static resx:Resources.Refund}" />
+                                <Controls:IconButton Grid.Column="2" Command="{Binding RefundCommand}" HorizontalAlignment="Center" Icon="payments" ToolTip="{x:Static resx:Resources.Refund}" />
 
-                                <Controls:IconButton Grid.Column="4" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanManualRedeem}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="4" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanManualRedeem}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

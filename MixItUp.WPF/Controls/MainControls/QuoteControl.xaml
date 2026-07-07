@@ -44,37 +44,37 @@
             <Button Grid.Column="6" Content="{x:Static resx:Resources.AddQuote}" Command="{Binding AddQuoteCommand}" />
 
             <Button Grid.Column="8" Width="40" Height="40" MinWidth="40" Padding="4" Command="{Binding ToggleLatestQuotesAtTopCommand}" Style="{StaticResource MaterialDesignIconButton}">
-                <MaterialDesign:PackIcon Width="28" Height="28" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="{Binding QuotesOrderIcon}" />
+                <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="{Binding QuotesOrderIcon}" FontSize="28" />
             </Button>
 
             <MaterialDesign:PopupBox Grid.Column="10" PlacementMode="BottomAndAlignCentres" StaysOpen="False" ToolTip="{x:Static resx:Resources.Settings}">
                 <MaterialDesign:PopupBox.ToggleContent>
-                    <MaterialDesign:PackIcon Width="32" Height="32" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="Cog" />
+                    <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="settings" FontSize="32" />
                 </MaterialDesign:PopupBox.ToggleContent>
                 <StackPanel>
                     <Button x:Name="ImportQuotesButton" HorizontalContentAlignment="Left" Click="ImportQuotesButton_Click" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <MaterialDesign:PackIcon Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="Import" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="input" FontSize="18" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.ImportQuotes}" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalContentAlignment="Left" Command="{Binding ExportQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <MaterialDesign:PackIcon Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="Export" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="output" FontSize="18" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.ExportQuotes}" />
                         </StackPanel>
                     </Button>
                     <Separator Margin="0,2" />
                     <Button HorizontalContentAlignment="Left" Command="{Binding RenumberQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <MaterialDesign:PackIcon Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="FormatListNumbered" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="format_list_numbered" FontSize="18" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.RenumberQuotes}" />
                         </StackPanel>
                     </Button>
                     <Separator Margin="0,2" />
                     <Button HorizontalContentAlignment="Left" Command="{Binding DeleteAllQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <MaterialDesign:PackIcon Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="DeleteForever" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="delete_forever" FontSize="18" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.DeleteAllQuotes}" />
                         </StackPanel>
                     </Button>
@@ -117,11 +117,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton x:Name="DateButton" Grid.Column="0" Click="DateButton_Click" HorizontalAlignment="Center" Icon="Calendar" ToolTip="{x:Static resx:Resources.Date}" />
+                                <Controls:IconButton x:Name="DateButton" Grid.Column="0" Click="DateButton_Click" HorizontalAlignment="Center" Icon="calendar_month" ToolTip="{x:Static resx:Resources.Date}" />
 
-                                <Controls:IconButton x:Name="TimeButton" Grid.Column="2" Click="TimeButton_Click" HorizontalAlignment="Center" Icon="Clock" ToolTip="{x:Static resx:Resources.Time}" />
+                                <Controls:IconButton x:Name="TimeButton" Grid.Column="2" Click="TimeButton_Click" HorizontalAlignment="Center" Icon="schedule" ToolTip="{x:Static resx:Resources.Time}" />
 
-                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

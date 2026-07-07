@@ -70,16 +70,12 @@
                                 Checked="EditMenuButton_Checked"
                                 Unchecked="EditMenuButton_Unchecked">
                                 <ToggleButton.Content>
-                                    <MaterialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        Kind="Pencil" />
+                                    <Controls:MaterialSymbolIcon
+                                        IconName="edit" FontSize="24" />
                                 </ToggleButton.Content>
                                 <MaterialDesign:ToggleButtonAssist.OnContent>
-                                    <MaterialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        Kind="ContentSave" />
+                                    <Controls:MaterialSymbolIcon
+                                        IconName="save" FontSize="24" />
                                 </MaterialDesign:ToggleButtonAssist.OnContent>
                                 <ToggleButton.Style>
                                     <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton">
@@ -101,11 +97,9 @@
                                 StaysOpen="False"
                                 ToolTip="{x:Static resx:Resources.Options}">
                                 <MaterialDesign:PopupBox.ToggleContent>
-                                    <MaterialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
+                                    <Controls:MaterialSymbolIcon
                                         Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                        Kind="DotsVertical" />
+                                        IconName="more_vert" FontSize="24" />
                                 </MaterialDesign:PopupBox.ToggleContent>
                                 <StackPanel MinWidth="150">
                                 </StackPanel>
@@ -144,14 +138,12 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <MaterialDesign:PackIcon
+                                        <Controls:MaterialSymbolIcon
                                             x:Name="DragHandle"
                                             Grid.Column="0"
-                                            Width="16"
-                                            Height="16"
                                             Margin="0,0,2,0"
                                             VerticalAlignment="Center"
-                                            Kind="DotsGrid"
+                                            IconName="drag_indicator" FontSize="16"
                                             Visibility="Collapsed" />
 
                                         <CheckBox
@@ -230,7 +222,7 @@
                                         <Controls:IconButton
                                             x:Name="DisconnectionAlertButton"
                                             Margin="0,0,5,0"
-                                            Icon="LanDisconnect"
+                                            Icon="cloud_off"
                                             Visibility="Collapsed" />
 
                                         <Grid Margin="5,0,0,0">
@@ -238,7 +230,7 @@
                                                 x:Name="NotificationButton"
                                                 HorizontalAlignment="Center"
                                                 Click="NotificationButton_Click"
-                                                Icon="Bell"
+                                                Icon="notifications"
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                                 ToolTip="{x:Static resx:Resources.Notifications}" />
 
@@ -268,7 +260,7 @@
                                             Margin="5,0,0,0"
                                             HorizontalAlignment="Center"
                                             Click="SectionHelpButton_Click"
-                                            Icon="Help"
+                                            Icon="help"
                                             Style="{StaticResource MaterialDesignRaisedButton}"
                                             ToolTip="{x:Static resx:Resources.Help}"
                                             Visibility="{Binding HelpLinkVisibility}" />
@@ -278,7 +270,7 @@
                                             Margin="5,0,0,0"
                                             HorizontalAlignment="Center"
                                             Click="SettingsButton_Click"
-                                            Icon="Settings"
+                                            Icon="settings"
                                             Style="{StaticResource MaterialDesignRaisedButton}"
                                             ToolTip="{x:Static resx:Resources.Settings}" />
 
@@ -318,7 +310,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Click="CloseSettingsButton_Click"
-                            Icon="CloseCircleOutline"
+                            Icon="cancel"
                             Style="{StaticResource MaterialDesignFlatButton}"
                             ToolTip="{x:Static resx:Resources.Close}" />
                     </Grid>

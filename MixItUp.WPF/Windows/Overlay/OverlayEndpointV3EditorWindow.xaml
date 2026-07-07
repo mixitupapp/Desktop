@@ -108,7 +108,7 @@
                 <Controls:IconButton
                     Grid.Column="0"
                     Command="{Binding SaveCommand}"
-                    Icon="ContentSave"
+                    Icon="save"
                     ToolTip="{x:Static resx:Resources.Delete}" />
             </Grid>
 

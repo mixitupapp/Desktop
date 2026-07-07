@@ -119,6 +119,7 @@ namespace MixItUp.WPF.Branding
             { "attach_money", "\uE227" },
             { "audio_file", "\uEB82" },
             { "block", "\uF08C" },
+            { "broadcast_on_personal", "\uF8F9" },
             { "calendar_month", "\uEBCC" },
             { "cancel", "\uE888" },
             { "cell_tower", "\uEBBA" },
@@ -185,6 +186,7 @@ namespace MixItUp.WPF.Branding
             { "manage_search", "\uF02F" },
             { "mop", "\uE28D" },
             { "more_vert", "\uE5D4" },
+            { "music_note_add", "\uF391" },
             { "north", "\uF1E0" },
             { "notifications", "\uE7F5" },
             { "open_in_full", "\uF1CE" },
@@ -228,6 +230,9 @@ namespace MixItUp.WPF.Branding
             { "swap_horiz", "\uE8D4" },
             { "sync", "\uE627" },
             { "task_alt", "\uE2E6" },
+            // Supplementary-plane codepoints (e.g. terminal_2 at U+FFF8E) fail to render through WPF's
+            // composite font lookup even though the glyph exists in the font; stick to BMP icons.
+            { "terminal", "\uEB8E" },
             { "text_fields", "\uE262" },
             { "trending_flat", "\uE8E4" },
             { "upload", "\uF09B" },

@@ -53,9 +53,9 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Controls:IconButton x:Name="EditButton" Grid.Column="0" Click="EditButton_Click" HorizontalAlignment="Center" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.Edit}" />
+                                        <Controls:IconButton x:Name="EditButton" Grid.Column="0" Click="EditButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
 
-                                        <Controls:IconButton x:Name="DeleteButton" Grid.Column="2" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                        <Controls:IconButton x:Name="DeleteButton" Grid.Column="2" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>

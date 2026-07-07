@@ -1,6 +1,7 @@
 ﻿<local:ServiceControlBase x:Class="MixItUp.WPF.Controls.Services.OBSStudioServiceControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Services"
@@ -47,7 +48,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <MaterialDesign:PackIcon Kind="AccessPoint" Style="{StaticResource DarkLightBackgroundPackIcon}" Grid.Column="0" VerticalAlignment="Center" Margin="0,10,0,0" />
+                <Controls:MaterialSymbolIcon IconName="sensors" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" Margin="0,10,0,0" />
                 <TextBox Grid.Column="2" Text="{Binding IPAddress}" Width="130" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IPAddress}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
 
@@ -58,7 +59,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <MaterialDesign:PackIcon Kind="KeyVariant" Style="{StaticResource DarkLightBackgroundPackIcon}" Grid.Column="0" VerticalAlignment="Center" />
+                <Controls:MaterialSymbolIcon IconName="key" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" />
                 <PasswordBox Grid.Column="2" x:Name="PasswordBox" Style="{StaticResource MaterialDesignPasswordBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Password}" />
             </Grid>
 

@@ -75,7 +75,7 @@
                             <StackPanel Orientation="Horizontal" ToolTip="{Binding ErrorMessage}">
                                 <TextBlock Text="{Binding State, Converter={StaticResource LocalizationConverter}}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                                <MaterialDesign:PackIcon Visibility="{Binding HasErrorMessage, Converter={StaticResource BooleanToVisibilityConverter}}" Kind="MessageText" Height="24" Width="24" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                <Controls:MaterialSymbolIcon Visibility="{Binding HasErrorMessage, Converter={StaticResource BooleanToVisibilityConverter}}" IconName="chat" FontSize="24" Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -86,11 +86,11 @@
                         <DataTemplate>
                             <Grid Visibility="{Binding ShowActionButtons, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Button Visibility="{Binding ShowCancelButton, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding CancelCommand}" Height="25" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.Cancel}">
-                                    <MaterialDesign:PackIcon Style="{StaticResource ButtonIcon}" Kind="Cancel" Height="14" Width="14"/>
+                                    <Controls:MaterialSymbolIcon IconName="cancel" FontSize="14" Margin="-7,-10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                 </Button>
 
                                 <Button Visibility="{Binding ShowReplayButton, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding ReplayCommand}" Height="25" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.Replay}">
-                                    <MaterialDesign:PackIcon Style="{StaticResource ButtonIcon}" Kind="Replay" Height="14" Width="14"  />
+                                    <Controls:MaterialSymbolIcon IconName="replay" FontSize="14" Margin="-7,-10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                 </Button>
                             </Grid>
                         </DataTemplate>

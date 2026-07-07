@@ -118,14 +118,14 @@
                                                             Grid.Column="0"
                                                             HorizontalAlignment="Center"
                                                             Command="{Binding EditProductCommand}"
-                                                            Icon="TooltipEdit"
+                                                            Icon="rate_review"
                                                             ToolTip="{x:Static resx:Resources.Edit}" />
 
                                                         <Controls:IconButton
                                                             Grid.Column="2"
                                                             HorizontalAlignment="Center"
                                                             Command="{Binding DeleteProductCommand}"
-                                                            Icon="Delete"
+                                                            Icon="delete"
                                                             ToolTip="{x:Static resx:Resources.Delete}" />
                                                     </Grid>
                                                 </DataTemplate>
@@ -296,7 +296,7 @@
                     Width="80"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
-                    Icon="ContentSave" />
+                    Icon="save" />
             </Grid>
         </ScrollViewer>
 

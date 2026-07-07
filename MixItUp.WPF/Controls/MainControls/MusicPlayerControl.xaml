@@ -63,12 +63,10 @@
                         Background="{DynamicResource MaterialDesign.Brush.Background.Light}"
                         CornerRadius="4">
                         <Grid>
-                            <MaterialDesign:PackIcon
-                                Width="80"
-                                Height="80"
+                            <Controls:MaterialSymbolIcon
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Kind="MusicNote"
+                                IconName="music_note" FontSize="80"
                                 Opacity="0.3" />
                             <Image Source="{Binding CurrentSong, Converter={StaticResource AlbumArtConverter}, ConverterParameter=400}" Stretch="Uniform" />
                         </Grid>
@@ -122,29 +120,29 @@
                         <Controls:IconButton
                             Grid.Column="0"
                             Command="{Binding PreviousCommand}"
-                            Icon="SkipPrevious" />
+                            Icon="skip_previous" />
                         <Controls:IconButton
                             Grid.Column="2"
                             Command="{Binding PlayPauseCommand}"
-                            Icon="PlayPause" />
+                            Icon="play_pause" />
                         <Controls:IconButton
                             Grid.Column="4"
                             Command="{Binding StopCommand}"
-                            Icon="Stop" />
+                            Icon="stop" />
                         <Controls:IconButton
                             Grid.Column="6"
                             Command="{Binding NextCommand}"
-                            Icon="SkipNext" />
+                            Icon="skip_next" />
 
                         <Grid Grid.Column="8">
                             <Controls:IconButton
                                 Command="{Binding ToggleShuffleCommand}"
-                                Icon="Shuffle"
+                                Icon="shuffle_on"
                                 ToolTip="{x:Static resx:Resources.Shuffle}"
                                 Visibility="{Binding IsShuffleOn, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <Controls:IconButton
                                 Command="{Binding ToggleShuffleCommand}"
-                                Icon="ShuffleDisabled"
+                                Icon="shuffle"
                                 Opacity="0.55"
                                 ToolTip="{x:Static resx:Resources.Shuffle}"
                                 Visibility="{Binding IsShuffleOff, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -153,12 +151,12 @@
                         <Grid Grid.Column="10">
                             <Controls:IconButton
                                 Command="{Binding ToggleRepeatCommand}"
-                                Icon="RepeatVariant"
+                                Icon="repeat_on"
                                 ToolTip="{x:Static resx:Resources.Repeat}"
                                 Visibility="{Binding IsRepeatOn, Converter={StaticResource BooleanToVisibilityConverter}}" />
                             <Controls:IconButton
                                 Command="{Binding ToggleRepeatCommand}"
-                                Icon="RepeatOff"
+                                Icon="repeat"
                                 Opacity="0.55"
                                 ToolTip="{x:Static resx:Resources.Repeat}"
                                 Visibility="{Binding IsRepeatOff, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -263,12 +261,10 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <MaterialDesign:PackIcon
+                                <Controls:MaterialSymbolIcon
                                     Grid.Column="0"
-                                    Width="20"
-                                    Height="20"
                                     VerticalAlignment="Center"
-                                    Kind="ReorderHorizontal"
+                                    IconName="drag_handle" FontSize="20"
                                     Opacity="0.6" />
 
                                 <Grid
@@ -278,12 +274,10 @@
                                     VerticalAlignment="Center"
                                     Background="Transparent"
                                     MouseLeftButtonDown="QueueSongBody_MouseLeftButtonDown">
-                                    <MaterialDesign:PackIcon
-                                        Width="20"
-                                        Height="20"
+                                    <Controls:MaterialSymbolIcon
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Kind="MusicNote"
+                                        IconName="music_note" FontSize="20"
                                         Opacity="0.3" />
                                     <Image Source="{Binding Converter={StaticResource AlbumArtConverter}, ConverterParameter=64}" Stretch="Uniform" />
                                 </Grid>
@@ -315,10 +309,8 @@
                                     CommandParameter="{Binding}"
                                     Style="{StaticResource MaterialDesignIconButton}"
                                     ToolTip="{x:Static resx:Resources.MusicPlayerRemoveFromQueue}">
-                                    <MaterialDesign:PackIcon
-                                        Width="20"
-                                        Height="20"
-                                        Kind="CloseCircleOutline" />
+                                    <Controls:MaterialSymbolIcon
+                                        IconName="cancel" FontSize="20" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -333,29 +325,29 @@
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                 <Controls:IconButton
                     Command="{Binding AddFileToQueueCommand}"
-                    Icon="MusicNotePlus"
+                    Icon="music_note_add"
                     ToolTip="{x:Static resx:Resources.MusicPlayerAddFileToQueue}" />
                 <Controls:IconButton
                     Margin="10,0,0,0"
                     Command="{Binding AddFolderToQueueCommand}"
-                    Icon="FolderMusic"
+                    Icon="library_music"
                     ToolTip="{x:Static resx:Resources.MusicPlayerAddFolderToQueue}" />
                 <Controls:IconButton
                     Margin="10,0,0,0"
                     Command="{Binding AddPlaylistToQueueCommand}"
-                    Icon="PlaylistMusic"
+                    Icon="queue_music"
                     ToolTip="{x:Static resx:Resources.MusicPlayerAddPlaylistToQueue}" />
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Controls:IconButton
                     Command="{Binding ExportQueueCommand}"
-                    Icon="FileExportOutline"
+                    Icon="upload_file"
                     ToolTip="{x:Static resx:Resources.MusicPlayerExportQueueAsPlaylist}" />
                 <Controls:IconButton
                     Margin="10,0,0,0"
                     Command="{Binding ClearQueueCommand}"
-                    Icon="DeleteSweep"
+                    Icon="delete_sweep"
                     ToolTip="{x:Static resx:Resources.ClearQueue}" />
             </StackPanel>
         </Grid>

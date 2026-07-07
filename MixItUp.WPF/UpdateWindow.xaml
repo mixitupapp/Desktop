@@ -190,10 +190,8 @@
                                 Click="CloseButton_Click"
                                 Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="{x:Static resx:Resources.Close}">
-                                <MaterialDesign:PackIcon
-                                    Width="20"
-                                    Height="20"
-                                    Kind="Close" />
+                                <Controls:MaterialSymbolIcon
+                                    IconName="close" FontSize="20" />
                             </Button>
 
                             <Grid
@@ -207,14 +205,12 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <MaterialDesign:PackIcon
+                                <Controls:MaterialSymbolIcon
                                     Grid.Column="0"
-                                    Width="20"
-                                    Height="20"
                                     Margin="0,0,8,0"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                    Kind="AlertCircle" />
+                                    IconName="error" FontSize="20" />
                                 <TextBlock
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
@@ -260,13 +256,11 @@
                                             FontWeight="SemiBold" />
                                     </StackPanel>
                                 </Border>
-                                <MaterialDesign:PackIcon
-                                    Width="24"
-                                    Height="24"
+                                <Controls:MaterialSymbolIcon
                                     Margin="12,0"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                    Kind="ArrowRight" />
+                                    IconName="arrow_forward" FontSize="24" />
                                 <Border
                                     Padding="12,6"
                                     Background="{DynamicResource MaterialDesign.Brush.Primary}"
@@ -301,14 +295,12 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <MaterialDesign:PackIcon
+                                        <Controls:MaterialSymbolIcon
                                             Grid.Column="0"
-                                            Width="20"
-                                            Height="20"
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Top"
                                             Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                            Kind="AlertOutline" />
+                                            IconName="warning" FontSize="20" />
                                         <TextBlock
                                             Grid.Column="1"
                                             Text="{x:Static resx:Resources.PreviewUpdateWarning1}"

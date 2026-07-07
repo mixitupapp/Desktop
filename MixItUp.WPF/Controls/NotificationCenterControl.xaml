@@ -65,24 +65,20 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <MaterialDesign:PackIcon
+                                    <Controls:MaterialSymbolIcon
                                         Grid.Column="0"
-                                        Width="24"
-                                        Height="24"
                                         Margin="0,0,12,0"
                                         VerticalAlignment="Center"
                                         Foreground="{Binding IconColor}"
-                                        Kind="{Binding Icon}" />
+                                        IconName="{Binding Icon}" FontSize="24" />
 
                                     <StackPanel Grid.Column="1">
                                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                            <MaterialDesign:PackIcon
-                                                Width="14"
-                                                Height="14"
+                                            <Controls:MaterialSymbolIcon
                                                 Margin="0,1,1,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="#DAA520"
-                                                Kind="Pin"
+                                                IconName="push_pin" FontSize="14"
                                                 Visibility="{Binding PinVisibility}" />
 
                                             <TextBlock
@@ -114,13 +110,11 @@
                                                 MouseLeftButtonUp="LinkText_Click"
                                                 Orientation="Horizontal"
                                                 Visibility="{Binding LinkVisibility}">
-                                                <MaterialDesign:PackIcon
-                                                    Width="11"
-                                                    Height="11"
+                                                <Controls:MaterialSymbolIcon
                                                     Margin="0,0,4,0"
                                                     VerticalAlignment="Center"
                                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                    Kind="OpenInNew" />
+                                                    IconName="open_in_new" FontSize="11" />
                                                 <TextBlock
                                                     FontSize="11"
                                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
