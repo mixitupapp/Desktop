@@ -14,7 +14,7 @@
     Title="{x:Static resx:Resources.CustomizeInventory}"
     Width="1000"
     Height="600"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"

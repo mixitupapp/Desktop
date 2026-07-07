@@ -1,4 +1,4 @@
-<Window
+﻿<Window
     x:Class="MixItUp.WPF.Windows.Overlay.OverlayEditorPopoutWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,7 +9,7 @@
     Title="{x:Static resx:Resources.CodeEditor}"
     Width="1000"
     Height="700"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium">

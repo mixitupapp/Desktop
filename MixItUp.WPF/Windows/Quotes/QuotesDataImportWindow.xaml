@@ -13,7 +13,7 @@
     Title="{x:Static resx:Resources.QuotesDataImport}"
     Width="600"
     Height="650"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"

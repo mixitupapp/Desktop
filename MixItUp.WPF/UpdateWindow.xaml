@@ -15,7 +15,7 @@
     Height="700"
     AllowsTransparency="True"
     Background="Transparent"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     ResizeMode="NoResize"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"

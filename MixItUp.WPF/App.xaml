@@ -20,7 +20,10 @@
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <FontFamily x:Key="BebasNeue">pack://application:,,,/Assets/Fonts/BebasNeue.otf#Bebas Neue</FontFamily>
-            <FontFamily x:Key="NotoSans">pack://application:,,,/Assets/Fonts/NotoSans-Regular.ttf#Noto Sans</FontFamily>
+            <!--  Folder-based reference composes all embedded Noto Sans faces (Regular/Medium/Bold) into one family  -->
+            <FontFamily x:Key="NotoSans">pack://application:,,,/Assets/Fonts/#Noto Sans</FontFamily>
+            <!--  Shadow the MaterialDesignThemes font key so DynamicResource lookups resolve to Noto Sans instead of Roboto  -->
+            <FontFamily x:Key="MaterialDesignFont">pack://application:,,,/Assets/Fonts/#Noto Sans</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

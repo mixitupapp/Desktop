@@ -14,7 +14,7 @@
     Title="{x:Static resx:Resources.CustomizeStreamPass}"
     Width="800"
     Height="600"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"

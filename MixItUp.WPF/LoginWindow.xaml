@@ -13,7 +13,7 @@
     Height="500"
     AllowsTransparency="True"
     Background="Transparent"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./Logo.ico"
     ResizeMode="NoResize"
     TextElement.FontSize="14"

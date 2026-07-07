@@ -1,4 +1,4 @@
-<Window
+﻿<Window
     x:Class="MixItUp.WPF.Windows.MissingFilesCheck.MissingFilesCheckWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,7 +14,7 @@
     Height="700"
     MinWidth="900"
     MinHeight="600"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
