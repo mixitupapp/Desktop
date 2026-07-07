@@ -9,7 +9,7 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class PallyServiceControl : ServiceControlBase
     {
-        public override Feature Feature { get { return Features.Tips; } }
+        public override Brand Brand { get { return Brands.Pally; } }
 
         private PallyServiceControlViewModel viewModel;
 

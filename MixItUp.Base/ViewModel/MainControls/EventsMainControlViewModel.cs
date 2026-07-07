@@ -311,7 +311,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiShopOrder));
             commandGroups.Add(koFiCommands);
 
-            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, iconName: "volunteer_activism");
+            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, brandId: "pally");
             pallyCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PallyDonation));
             commandGroups.Add(pallyCommands);
 

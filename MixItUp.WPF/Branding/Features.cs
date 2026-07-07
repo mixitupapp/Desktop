@@ -56,7 +56,6 @@ namespace MixItUp.WPF.Branding
         public static readonly Feature Quotes = new Feature("quotes", "format_quote");
         public static readonly Feature Moderation = new Feature("moderation", "security");
         public static readonly Feature Donations = new Feature("donations", "paid");
-        public static readonly Feature Tips = new Feature("tips", "volunteer_activism");
         public static readonly Feature TextToSpeech = new Feature("text-to-speech", "record_voice_over");
         public static readonly Feature StreamTools = new Feature("stream-tools", "construction");
         public static readonly Feature Statistics = new Feature("statistics", "bar_chart");

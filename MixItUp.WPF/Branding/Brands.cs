@@ -199,6 +199,7 @@ namespace MixItUp.WPF.Branding
         public static readonly Brand KoFi = new Brand("kofi", "Ko-fi", "https://ko-fi.com");
         public static readonly Brand Fourthwall = new Brand("fourthwall", "Fourthwall", "https://fourthwall.com");
         public static readonly Brand Throne = new Brand("throne", "Throne", "https://throne.com");
+        public static readonly Brand Pally = new Brand("pally", "Pally", "https://pally.gg");
 
         // Interactive & hardware
         public static readonly Brand Streamloots = new Brand("streamloots", "Streamloots", "https://www.streamloots.com", "#FF4747", "#D32F2F", "#1A1A1A");
