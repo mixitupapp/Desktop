@@ -162,6 +162,7 @@ namespace MixItUp.WPF
             if (ChannelSession.IsDebug())
             {
                 await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.Debug, new DebugControl(), "https://wiki.mixitup.bot/", feature: Features.Debug);
+                await this.MainMenu.AddMenuItem("Icon Map", new IconMapControl(), feature: Features.IconMap);
             }
 
             this.MainMenu.LoadMenuOrder();

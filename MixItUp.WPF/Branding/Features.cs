@@ -67,6 +67,7 @@ namespace MixItUp.WPF.Branding
         public static readonly Feature Changelog = new Feature("changelog", "new_releases");
         public static readonly Feature About = new Feature("about", "info");
         public static readonly Feature Debug = new Feature("debug", "bug_report");
+        public static readonly Feature IconMap = new Feature("icon-map", "swap_horiz");
 
         private static readonly Dictionary<string, Feature> lookup = new Dictionary<string, Feature>(StringComparer.OrdinalIgnoreCase);
 
