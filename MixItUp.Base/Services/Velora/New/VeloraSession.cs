@@ -17,6 +17,9 @@ namespace MixItUp.Base.Services.Velora.New
 {
     public class VeloraSession : StreamingPlatformSessionBase
     {
+        // Only scopes present in Velora's live scope list (GET /api/developer/oauth/scopes). Reading
+        // channel-point rewards and emotes needs no scope (those endpoints are public), and follows
+        // arrive via webhooks, so no channel:*/emotes:read/followers:read scopes are requested.
         public static readonly IEnumerable<string> StreamerScopes = new List<string>()
         {
             "user:read",
@@ -25,10 +28,6 @@ namespace MixItUp.Base.Services.Velora.New
             "chat:read",
             "chat:write",
             "chat:moderate",
-            "channel:read",
-            "channel:points:read",
-            "emotes:read",
-            "followers:read",
             "subscriptions:read",
         };
 

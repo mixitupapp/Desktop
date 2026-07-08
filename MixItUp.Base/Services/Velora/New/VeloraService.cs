@@ -143,7 +143,10 @@ namespace MixItUp.Base.Services.Velora.New
         {
             return await AsyncRunner.RunAsync(async () =>
             {
-                ChannelPointRewardsResponseModel response = await this.HttpClient.GetAsync<ChannelPointRewardsResponseModel>($"channel-points/{AdvancedHttpClient.URLEncodeString(channelID)}/items/with-built-in");
+                // includeDisabled is a required query parameter on this endpoint; include disabled
+                // rewards so the channel points command editor can still map to a temporarily
+                // disabled reward.
+                ChannelPointRewardsResponseModel response = await this.HttpClient.GetAsync<ChannelPointRewardsResponseModel>($"channel-points/{AdvancedHttpClient.URLEncodeString(channelID)}/items/with-built-in?includeDisabled=true");
                 return response?.AllRewards ?? new List<ChannelPointRewardModel>();
             });
         }

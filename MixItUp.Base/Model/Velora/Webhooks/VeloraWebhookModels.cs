@@ -103,8 +103,15 @@ namespace MixItUp.Base.Model.Velora.Webhooks
 
     public class WebhookChatMessageEventModel : WebhookEventPayloadModelBase
     {
+        // The chat.message webhook identifies the message with "id"; older docs/samples used "messageId".
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
         [JsonProperty("messageId")]
-        public string MessageID { get; set; }
+        public string MessageIdLegacy { get; set; }
+
+        [JsonIgnore]
+        public string MessageID { get { return Users.UserModel.FirstNonEmpty(this.Id, this.MessageIdLegacy); } }
 
         [JsonProperty("message")]
         public string Message { get; set; }
@@ -112,8 +119,15 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("badges")]
         public List<string> Badges { get; set; } = new List<string>();
 
+        // The chat.message webhook uses "isModerator"; older samples used "isMod".
         [JsonProperty("isMod")]
-        public bool IsMod { get; set; }
+        public bool IsModLegacy { get; set; }
+
+        [JsonProperty("isModerator")]
+        public bool IsModerator { get; set; }
+
+        [JsonIgnore]
+        public bool IsMod { get { return this.IsModLegacy || this.IsModerator; } }
 
         [JsonProperty("isVip")]
         public bool IsVip { get; set; }
@@ -124,8 +138,18 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("subscriberMonths")]
         public int? SubscriberMonths { get; set; }
 
+        // The chat.message webhook uses "accentColor"; older samples used "color".
         [JsonProperty("color")]
-        public string Color { get; set; }
+        public string ColorLegacy { get; set; }
+
+        [JsonProperty("accentColor")]
+        public string AccentColor { get; set; }
+
+        [JsonIgnore]
+        public string Color { get { return Users.UserModel.FirstNonEmpty(this.ColorLegacy, this.AccentColor); } }
+
+        [JsonProperty("avatarUrl")]
+        public string AvatarUrl { get; set; }
 
         [JsonProperty("isSystem")]
         public bool? IsSystem { get; set; }
@@ -150,10 +174,17 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         {
             get
             {
-                WebhookUserModel user = WebhookUserModel.FirstValid(this.Sender, this.User, this.FlatUser);
-                if (user != null && string.IsNullOrWhiteSpace(user.Color))
+                WebhookUserModel user = WebhookUserModel.FirstValid(this.Sender, this.User);
+                if (user == null)
                 {
-                    user.Color = this.Color;
+                    // chat.message delivers the sender as flat fields (id/username/avatarUrl/accentColor),
+                    // not a nested object, so build the reference from those.
+                    user = WebhookUserModel.FromFlatFields(this.UserId, this.Username, this.DisplayName, this.AvatarUrl, this.Color);
+                }
+                if (user != null)
+                {
+                    if (string.IsNullOrWhiteSpace(user.Color)) { user.Color = this.Color; }
+                    if (string.IsNullOrWhiteSpace(user.AvatarUrl)) { user.AvatarUrl = this.AvatarUrl; }
                 }
                 return user;
             }
@@ -202,13 +233,24 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         public int? Months { get; set; }
 
         [JsonProperty("streak")]
-        public int? Streak { get; set; }
+        public int? StreakLegacy { get; set; }
+
+        [JsonProperty("streakMonths")]
+        public int? StreakMonths { get; set; }
+
+        [JsonIgnore]
+        public int? Streak { get { return this.StreakMonths ?? this.StreakLegacy; } }
 
         [JsonProperty("tier")]
         public string Tier { get; set; }
 
         [JsonProperty("isRenewal")]
         public bool? IsRenewal { get; set; }
+
+        // Gifted subs also arrive as channel.subscribe with isGift=true (alongside
+        // channel.subscription.gift); HandleSubscribe skips those to avoid double-processing.
+        [JsonProperty("isGift")]
+        public bool? IsGift { get; set; }
 
         [JsonProperty("message")]
         public string Message { get; set; }
@@ -244,9 +286,15 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("gifter")]
         public WebhookUserModel Gifter { get; set; }
 
+        [JsonProperty("giftCount")]
+        public int? GiftCount { get; set; }
+
+        // Legacy/fallback count field; superseded by "giftCount".
         [JsonProperty("quantity")]
         public int? Quantity { get; set; }
 
+        // Deserialized for completeness only. For gift events "amount" is NOT the sub count (see
+        // ResolvedQuantity) — the count comes from "giftCount"/"quantity" or the recipient list.
         [JsonProperty("amount")]
         public int? Amount { get; set; }
 
@@ -286,7 +334,10 @@ namespace MixItUp.Base.Model.Velora.Webhooks
             get
             {
                 int recipients = this.ResolvedRecipients.Count;
-                return System.Math.Max(this.Quantity ?? this.Amount ?? recipients, System.Math.Max(recipients, 1));
+                // "giftCount" is the authoritative number of gifted subs; the recipient list can be
+                // partial. Do NOT fall back to "amount" — for gift events that is a separate value whose
+                // unit is undefined (it carries a monetary value elsewhere) and would over-count.
+                return System.Math.Max(this.GiftCount ?? this.Quantity ?? recipients, System.Math.Max(recipients, 1));
             }
         }
 
@@ -368,8 +419,22 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("durationSeconds")]
         public int? DurationSeconds { get; set; }
 
+        // channel.ban carries "duration" (seconds; null for a permanent ban) and "isPermanent".
+        [JsonProperty("duration")]
+        public int? Duration { get; set; }
+
+        [JsonProperty("isPermanent")]
+        public bool? IsPermanent { get; set; }
+
+        [JsonIgnore]
+        public int? ResolvedDurationSeconds { get { return this.Duration ?? this.DurationSeconds; } }
+
         [JsonIgnore]
         public WebhookUserModel ResolvedUser { get { return WebhookUserModel.FirstValid(this.Target, this.User, this.FlatUser); } }
+
+        // moderator.add/remove carry the affected user under "moderator" only.
+        [JsonIgnore]
+        public WebhookUserModel ResolvedModerator { get { return WebhookUserModel.FirstValid(this.Moderator, this.Target, this.User, this.FlatUser); } }
     }
 
     public class WebhookChannelPointsRedemptionEventModel : WebhookEventPayloadModelBase
@@ -377,17 +442,37 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("redemptionId")]
         public string RedemptionID { get; set; }
 
+        // The redemption webhook nests reward details under "reward" and puts the viewer's text in
+        // "userMessage"; older samples used flat rewardId/rewardTitle/rewardCost/userInput.
+        [JsonProperty("reward")]
+        public WebhookChannelPointRewardModel Reward { get; set; }
+
         [JsonProperty("rewardId")]
-        public string RewardID { get; set; }
+        public string RewardIdLegacy { get; set; }
 
         [JsonProperty("rewardTitle")]
-        public string RewardTitle { get; set; }
+        public string RewardTitleLegacy { get; set; }
 
         [JsonProperty("rewardCost")]
-        public int RewardCost { get; set; }
+        public int? RewardCostLegacy { get; set; }
 
         [JsonProperty("userInput")]
-        public string UserInput { get; set; }
+        public string UserInputLegacy { get; set; }
+
+        [JsonProperty("userMessage")]
+        public string UserMessage { get; set; }
+
+        [JsonIgnore]
+        public string RewardID { get { return Users.UserModel.FirstNonEmpty(this.Reward?.ID, this.RewardIdLegacy); } }
+
+        [JsonIgnore]
+        public string RewardTitle { get { return Users.UserModel.FirstNonEmpty(this.Reward?.Name, this.RewardTitleLegacy); } }
+
+        [JsonIgnore]
+        public int RewardCost { get { return this.Reward?.Cost ?? this.RewardCostLegacy ?? 0; } }
+
+        [JsonIgnore]
+        public string UserInput { get { return Users.UserModel.FirstNonEmpty(this.UserMessage, this.UserInputLegacy); } }
 
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -402,19 +487,72 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         public WebhookUserModel ResolvedUser { get { return WebhookUserModel.FirstValid(this.Redeemer, this.User, this.FlatUser); } }
     }
 
+    public class WebhookChannelPointRewardModel
+    {
+        [JsonProperty("id")]
+        public string ID { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("cost")]
+        public int? Cost { get; set; }
+    }
+
     public class WebhookStreamEventModel : WebhookEventPayloadModelBase
     {
+        // stream.* events nest the stream details under "stream" (category under "stream.category");
+        // the flat fields below are retained as fallbacks for older payloads / test events.
+        [JsonProperty("stream")]
+        public WebhookStreamDetailsModel Stream { get; set; }
+
         [JsonProperty("streamId")]
-        public string StreamID { get; set; }
+        public string StreamIdLegacy { get; set; }
+
+        [JsonProperty("title")]
+        public string TitleLegacy { get; set; }
+
+        [JsonProperty("categoryName")]
+        public string CategoryNameLegacy { get; set; }
+
+        [JsonProperty("categorySlug")]
+        public string CategorySlugLegacy { get; set; }
+
+        [JsonProperty("category")]
+        public WebhookStreamCategoryModel CategoryLegacy { get; set; }
+
+        [JsonProperty("startedAt")]
+        public string StartedAtLegacy { get; set; }
+
+        [JsonProperty("endedAt")]
+        public string EndedAtLegacy { get; set; }
+
+        [JsonProperty("viewerCount")]
+        public int? ViewerCount { get; set; }
+
+        [JsonIgnore]
+        public string StreamID { get { return Users.UserModel.FirstNonEmpty(this.Stream?.ID, this.StreamIdLegacy); } }
+
+        [JsonIgnore]
+        public string Title { get { return Users.UserModel.FirstNonEmpty(this.Stream?.Title, this.TitleLegacy); } }
+
+        [JsonIgnore]
+        public string StartedAt { get { return Users.UserModel.FirstNonEmpty(this.Stream?.StartedAt, this.StartedAtLegacy); } }
+
+        [JsonIgnore]
+        public string ResolvedCategoryName { get { return Users.UserModel.FirstNonEmpty(this.Stream?.Category?.Name, this.CategoryLegacy?.Name, this.CategoryNameLegacy); } }
+
+        [JsonIgnore]
+        public string ResolvedCategorySlug { get { return Users.UserModel.FirstNonEmpty(this.Stream?.Category?.Slug, this.CategoryLegacy?.Slug, this.CategorySlugLegacy); } }
+    }
+
+    public class WebhookStreamDetailsModel
+    {
+        [JsonProperty("id")]
+        public string ID { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
-
-        [JsonProperty("categoryName")]
-        public string CategoryName { get; set; }
-
-        [JsonProperty("categorySlug")]
-        public string CategorySlug { get; set; }
 
         [JsonProperty("category")]
         public WebhookStreamCategoryModel Category { get; set; }
@@ -425,14 +563,8 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("endedAt")]
         public string EndedAt { get; set; }
 
-        [JsonProperty("viewerCount")]
-        public int? ViewerCount { get; set; }
-
-        [JsonIgnore]
-        public string ResolvedCategoryName { get { return Users.UserModel.FirstNonEmpty(this.CategoryName, this.Category?.Name); } }
-
-        [JsonIgnore]
-        public string ResolvedCategorySlug { get { return Users.UserModel.FirstNonEmpty(this.CategorySlug, this.Category?.Slug); } }
+        [JsonProperty("updatedAt")]
+        public string UpdatedAt { get; set; }
     }
 
     public class WebhookStreamCategoryModel

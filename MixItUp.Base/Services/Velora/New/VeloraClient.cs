@@ -188,6 +188,13 @@ namespace MixItUp.Base.Services.Velora.New
         private async Task HandleSubscribe(JObject payload)
         {
             WebhookSubscribeEventModel subEvent = payload.ToObject<WebhookSubscribeEventModel>();
+            if (subEvent == null || (subEvent.IsGift ?? false))
+            {
+                // Gifted subs also arrive here tagged isGift=true; they are handled by
+                // HandleSubscriptionGift, so skip them here to avoid firing a duplicate subscribe event.
+                return;
+            }
+
             UserV2ViewModel user = await this.GetOrCreateUser(subEvent?.ResolvedUser);
             if (user == null)
             {
@@ -408,9 +415,13 @@ namespace MixItUp.Base.Services.Velora.New
             }
 
             int timeoutLength = 0;
-            if (moderationEvent.DurationSeconds.HasValue)
+            if (moderationEvent.IsPermanent ?? false)
             {
-                timeoutLength = Math.Max(0, moderationEvent.DurationSeconds.Value);
+                // Permanent ban: keep timeoutLength at 0 so the ban branch below is taken.
+            }
+            else if (moderationEvent.ResolvedDurationSeconds.HasValue)
+            {
+                timeoutLength = Math.Max(0, moderationEvent.ResolvedDurationSeconds.Value);
             }
             else if (!string.IsNullOrWhiteSpace(moderationEvent.ExpiresAt))
             {
@@ -463,7 +474,8 @@ namespace MixItUp.Base.Services.Velora.New
         private async Task HandleModerator(JObject payload, bool added)
         {
             WebhookModerationEventModel moderationEvent = payload.ToObject<WebhookModerationEventModel>();
-            UserV2ViewModel user = await this.GetOrCreateUser(moderationEvent?.ResolvedUser);
+            // moderator.add/remove carry the affected user under "moderator", not "user"/"target".
+            UserV2ViewModel user = await this.GetOrCreateUser(moderationEvent?.ResolvedModerator);
             if (user == null)
             {
                 return;
