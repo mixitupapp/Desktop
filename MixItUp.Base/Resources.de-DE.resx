@@ -10416,4 +10416,72 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="PallyInvalidAPIKey" xml:space="preserve">
     <value>Es muss ein gültiger Pally.gg-API-Schlüssel angegeben werden.</value>
   </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Anmelden mit Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Von Velora abmelden</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora Channel Stream Start</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Channel Stream Stop</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora Channel aktualisiert</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Gefolgt</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora Channel abonniert</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Channel erneut abonniert</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel-Abonnement verschenkt</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Massenabonnement verschenkt</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Velora Channel Raided</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Eingelöste Velora-Channel-Punkte</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora Channel jubelten</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora Channel-Punkte</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora Channel-Punkte Befehl</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Velora Kanalpunkte anzeigen</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Velora Jubel anzeigen</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Jubel</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} hat {1} eingelöst</value>
+    <comment>{0} ist der Name des Benutzers, {1} ist der Name der Belohnung</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} Jubelte {1} Volts</value>
+    <comment>{0} ist der Name des Benutzers, {1} ist die Anzahl der Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora-Abonnements</value>
+  </data>
 </root>

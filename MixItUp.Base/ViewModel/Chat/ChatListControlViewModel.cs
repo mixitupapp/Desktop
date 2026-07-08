@@ -3,6 +3,7 @@ using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
@@ -43,7 +44,8 @@ namespace MixItUp.Base.ViewModel.Chat
                 List<string> results = new List<string>() { MixItUp.Base.Resources.Streamer };
                 if (ServiceManager.Get<TwitchSession>().IsBotConnected ||
                     ServiceManager.Get<YouTubeSession>().IsBotConnected ||
-                    ServiceManager.Get<KickSession>().IsBotConnected)
+                    ServiceManager.Get<KickSession>().IsBotConnected ||
+                    ServiceManager.Get<VeloraSession>().IsBotConnected)
                 {
                     results.Add(MixItUp.Base.Resources.Bot);
                 }

@@ -8,6 +8,7 @@ using MixItUp.Base.ViewModel.Chat;
 using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.Chat.Kick;
+using MixItUp.Base.ViewModel.Chat.Velora;
 using MixItUp.Base.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Services.Kick.New;
+using MixItUp.Base.Services.Velora.New;
 
 namespace MixItUp.Base.ViewModel.Overlay
 {
@@ -319,6 +321,17 @@ namespace MixItUp.Base.ViewModel.Overlay
                     }
 
                     KickChatMessageViewModel message = new KickChatMessageViewModel(new Model.Kick.Webhooks.WebhookChatMessageEventModel() { Content = "Hello World! This is a test message from Kick so you can see how chat looks" }, user);
+                    await chat.AddMessage(message);
+                }
+                else if (platform == StreamingPlatformTypeEnum.Velora)
+                {
+                    UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Velora, platformID: ServiceManager.Get<VeloraSession>().StreamerID);
+                    if (user == null)
+                    {
+                        user = ChannelSession.User;
+                    }
+
+                    VeloraChatMessageViewModel message = new VeloraChatMessageViewModel(user, "Hello World! This is a test message from Velora so you can see how chat looks");
                     await chat.AddMessage(message);
                 }
                 else

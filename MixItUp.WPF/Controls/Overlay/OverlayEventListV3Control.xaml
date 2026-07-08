@@ -170,6 +170,8 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Follows}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
@@ -244,9 +246,29 @@
                 <CheckBox Grid.Row="14" Grid.Column="1" IsChecked="{Binding KickKicks}" VerticalAlignment="Center" Margin="5,0,0,0" />
                 <TextBox Grid.Row="14" Grid.Column="3" Text="{Binding KickKicksDetailsTemplate}" IsEnabled="{Binding KickKicks}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                <TextBlock Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Donations}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="16" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" />
-                <TextBox Grid.Row="16" Grid.Column="3" Text="{Binding DonationsDetailsTemplate}" IsEnabled="{Binding Donations}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBlock Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraSubscriptions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="16" Grid.Column="1" IsChecked="{Binding VeloraSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <Grid Grid.Row="16" Grid.Column="3" IsEnabled="{Binding VeloraSubscriptions}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding VeloraSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="1" Text="{Binding VeloraResubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="2" Text="{Binding VeloraGiftedSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="3" Text="{Binding VeloraMassGiftedSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </Grid>
+
+                <TextBlock Grid.Row="18" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Donations}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="18" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox Grid.Row="18" Grid.Column="3" Text="{Binding DonationsDetailsTemplate}" IsEnabled="{Binding Donations}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBlock Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraCheered}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="20" Grid.Column="1" IsChecked="{Binding VeloraCheered}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox Grid.Row="20" Grid.Column="3" Text="{Binding VeloraCheeredDetailsTemplate}" IsEnabled="{Binding VeloraCheered}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
         </GroupBox>
     </Grid>

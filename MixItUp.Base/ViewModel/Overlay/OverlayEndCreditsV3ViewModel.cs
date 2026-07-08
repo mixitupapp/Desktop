@@ -48,6 +48,7 @@ namespace MixItUp.Base.ViewModel.Overlay
                     case OverlayEndCreditsSectionV3Type.TwitchPowerUps:
                     case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                     case OverlayEndCreditsSectionV3Type.KickKicks:
+                    case OverlayEndCreditsSectionV3Type.VeloraCheered:
                     case OverlayEndCreditsSectionV3Type.Donations:
                         this.ItemTemplate = OverlayEndCreditsSectionV3Model.UsernameAmountItemTemplate;
                         break;
@@ -227,6 +228,7 @@ namespace MixItUp.Base.ViewModel.Overlay
                         case OverlayEndCreditsSectionV3Type.TwitchPowerUps:
                         case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                         case OverlayEndCreditsSectionV3Type.KickKicks:
+                        case OverlayEndCreditsSectionV3Type.VeloraCheered:
                         case OverlayEndCreditsSectionV3Type.Donations:
                             section.Track(user, RandomHelper.GenerateRandomNumber(1, 100));
                             break;

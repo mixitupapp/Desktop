@@ -11697,4 +11697,72 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="PallyInvalidAPIKey" xml:space="preserve">
     <value>有効なPally.ggのAPIキーを指定してください。</value>
   </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Veloraでログイン</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Veloraからログアウトする</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora・チャンネル・ストリーム・スタート</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora・チャンネル・ストリーム・ストップ</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora・チャンネル更新</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora チャンネルをフォローした</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora・チャンネル登録</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora・チャンネル再登録</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora・チャンネル購読プレゼント</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora・チャンネル大量購読プレゼント</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Veloraチャンネルが襲撃されました</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora チャンネルポイント引き換え</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora チャンネルの応援</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora チャンネルポイント</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora チャンネルポイントコマンド</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Velora チャンネルポイントを表示</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Velora の応援を表示</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora 応援</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} が {1} を交換しました</value>
+    <comment>{0} はユーザー名、{1} は報酬の名前です</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} が {1} Volts を応援しました</value>
+    <comment>{0} はユーザー名、{1} は Volts の量です</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora のサブスクリプション</value>
+  </data>
 </root>

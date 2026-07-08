@@ -60,6 +60,7 @@ namespace MixItUp.Base.Model.Store
         Random,
         Script,
         Kick,
+        Velora,
 
         // Command Tags
         ChatCommand = 1000,
@@ -77,6 +78,7 @@ namespace MixItUp.Base.Model.Store
         KickChannelPoints,
         KickKicks,
         TwitchCustomPowerUpCommand,
+        VeloraChannelPoints,
 
         // Extra Tags
         [Obsolete]

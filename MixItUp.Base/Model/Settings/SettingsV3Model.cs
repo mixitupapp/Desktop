@@ -321,6 +321,10 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public string AlertKickKicksColor { get; set; }
         [DataMember]
+        public string AlertVeloraChannelPointsColor { get; set; }
+        [DataMember]
+        public string AlertVeloraCheeredColor { get; set; }
+        [DataMember]
         public string AlertTwitchUserWarnedColor { get; set; }
         [DataMember]
         public string AlertTwitchShoutoutReceivedColor { get; set; }
@@ -891,6 +895,10 @@ namespace MixItUp.Base.Model.Settings
                         }
                         command = kkCommand;
                     }
+                    else if (type == CommandTypeEnum.VeloraChannelPoints)
+                    {
+                        command = JSONSerializerHelper.DeserializeFromString<VeloraChannelPointsCommandModel>(commandData);
+                    }
 
                     if (command != null)
                     {
@@ -1090,8 +1098,8 @@ namespace MixItUp.Base.Model.Settings
 
             IEnumerable<UserV2Model> changedUsers = this.Users.GetAddedChangedValues();
             await ServiceManager.Get<IDatabaseService>().BulkWrite(this.DatabaseFilePath,
-                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername) " +
-                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername)",
+                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername, VeloraID, VeloraUsername) " +
+                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername, $VeloraID, $VeloraUsername)",
                 changedUsers.Select(u => new Dictionary<string, object>()
                 {
                     { "$ID", u.ID.ToString() },
@@ -1102,7 +1110,8 @@ namespace MixItUp.Base.Model.Settings
                     { "$TrovoID", u.GetPlatformID(StreamingPlatformTypeEnum.Trovo) }, { "$TrovoUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Trovo) },
 #pragma warning restore CS0612 // Type or member is obsolete                    
                     { "$Data", JSONSerializerHelper.SerializeToString(u) },
-                    { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) }
+                    { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) },
+                    { "$VeloraID", u.GetPlatformID(StreamingPlatformTypeEnum.Velora) }, { "$VeloraUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Velora) }
                 }));
 
             List<Guid> removedCommands = new List<Guid>();
@@ -1296,6 +1305,35 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        public async Task AddMissingUsersTableVeloraColumns()
+        {
+            bool hasVeloraID = false;
+            bool hasVeloraUsername = false;
+
+            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (row) =>
+            {
+                string columnName = row["name"]?.ToString();
+                if (string.Equals(columnName, "VeloraID", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasVeloraID = true;
+                }
+                else if (string.Equals(columnName, "VeloraUsername", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasVeloraUsername = true;
+                }
+            });
+
+            if (!hasVeloraID)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN VeloraID TEXT");
+            }
+
+            if (!hasVeloraUsername)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN VeloraUsername TEXT");
+            }
+        }
+
         public async Task<IEnumerable<StatisticModel>> LoadSpecificStatisticType(StatisticItemTypeEnum type)
         {
             List<StatisticModel> statistics = new List<StatisticModel>();
@@ -1391,6 +1429,7 @@ namespace MixItUp.Base.Model.Settings
         {
             await this.CreateUserImportTable();
             await this.AddMissingUsersTableKickColumns();
+            await this.AddMissingUsersTableVeloraColumns();
             //await this.CreateStatisticsTable();
 
             StreamingPlatforms.ForEachPlatform(p =>

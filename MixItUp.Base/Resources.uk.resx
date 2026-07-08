@@ -11604,4 +11604,72 @@ print(run())</value>
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>рахунки, відкриті більше року тому</value>
   </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Увійдіть за допомогою Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Вийдіть з Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Початок трансляції Velora Channel</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Зупинка потоку каналу Velora Channel</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Оновлений канал Velora</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Підписка</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Підписався на канал Velora</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Channel Перепідписався на канал</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Підписка на канал Velora Подаровано</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Масова підписка подарована</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Рейд на канал Velora</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora Channel Бали погашено</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora Channel Cheered</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Бали каналу Velora</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Команда балів каналу Velora</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Показати очки каналу Velora</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Показати Velora Cheered</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Cheered</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} використав(ла) {1}</value>
+    <comment>{0} — ім'я користувача, {1} — назва нагороди</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} підтримав(ла) {1} Volts</value>
+    <comment>{0} — ім'я користувача, {1} — кількість Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Підписки Velora</value>
+  </data>
 </root>

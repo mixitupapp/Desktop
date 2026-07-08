@@ -12,6 +12,8 @@ using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Services.Kick.New;
+using MixItUp.Base.Services.Velora.New;
+using VeloraWebhooks = MixItUp.Base.Model.Velora.Webhooks;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
@@ -616,6 +618,21 @@ namespace MixItUp.Base.Services
                                 Logger.Log(ex);
                             }
                         });
+
+                        this.webhookHubConnection.Listen<string, JObject, JObject>("VeloraWebhookEvent", (eventType, payload, metadataObject) =>
+                        {
+                            try
+                            {
+                                Logger.Log(LogLevel.Debug, $"Velora Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
+
+                                VeloraWebhooks.WebhookEventModel metadata = metadataObject?.ToObject<VeloraWebhooks.WebhookEventModel>();
+                                var _ = ServiceManager.Get<VeloraSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(ex);
+                            }
+                        });
                     }
 
                     this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
@@ -890,6 +907,10 @@ namespace MixItUp.Base.Services
             if (ServiceManager.Get<KickSession>().IsConnected)
             {
                 login.KickAccessToken = ServiceManager.Get<KickSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
+            }
+            if (ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                login.VeloraAccessToken = ServiceManager.Get<VeloraSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
             }
             return login;
         }
@@ -1171,6 +1192,7 @@ namespace MixItUp.Base.Services
                 body["hasTwitch"] = ServiceManager.Get<TwitchSession>().IsConnected;
                 body["hasYouTube"] = ServiceManager.Get<YouTubeSession>().IsConnected;
                 body["hasKick"] = ServiceManager.Get<KickSession>().IsConnected;
+                body["hasVelora"] = ServiceManager.Get<VeloraSession>().IsConnected;
                 body["version"] = VersionHelper.GetFullVersionString();
                 body["release"] = BuildChannelHelper.GetReleaseChannel();
 

@@ -11604,4 +11604,72 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>超过1年的账户</value>
   </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>用 Velora 登录</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>退出 Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora 頻道直播開始</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora 頻道直播結束</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora 頻道已更新</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora 頻道已追蹤</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora 頻道已訂閱</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora 頻道已重新訂閱</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel 订阅赠品</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Velora 頻道突襲</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora 頻道點數已兌換</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora 頻道歡呼</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora 頻道點數</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora 頻道點數命令</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>顯示 Velora 頻道點數</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>顯示 Velora 歡呼</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora 歡呼</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} 已兌換 {1}</value>
+    <comment>{0} 是使用者名稱，{1} 是獎勵名稱</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} 歡呼了 {1} Volts</value>
+    <comment>{0} 是使用者名稱，{1} 是 Volts 的數量</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora訂閱</value>
+  </data>
 </root>

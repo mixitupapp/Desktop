@@ -11,6 +11,8 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public StreamingPlatformAccountControlViewModel Kick { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.Kick);
 
+        public StreamingPlatformAccountControlViewModel Velora { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.Velora);
+
         public AccountsMainControlViewModel(MainWindowViewModel windowViewModel)
             : base(windowViewModel)
         {
@@ -20,6 +22,8 @@ namespace MixItUp.Base.ViewModel.MainControls
             this.YouTube.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
             this.Kick.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
             this.Kick.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
+            this.Velora.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
+            this.Velora.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
         }
     }
 }

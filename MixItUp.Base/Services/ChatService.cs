@@ -6,6 +6,7 @@ using MixItUp.Base.Model.User;
 using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
@@ -118,6 +119,10 @@ namespace MixItUp.Base.Services
             {
                 viewerCount += ServiceManager.Get<KickSession>().StreamViewerCount;
             }
+            if (ServiceManager.Get<VeloraSession>().IsConnected && ServiceManager.Get<VeloraSession>().IsLive)
+            {
+                viewerCount += ServiceManager.Get<VeloraSession>().StreamViewerCount;
+            }
             return viewerCount;
         }
 
@@ -165,6 +170,10 @@ namespace MixItUp.Base.Services
                     else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                     {
                         await ServiceManager.Get<KickSession>().SendMessage(message, sendAsStreamer);
+                    }
+                    else if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+                    {
+                        await ServiceManager.Get<VeloraSession>().SendMessage(message, sendAsStreamer);
                     }
                     else if (platform == StreamingPlatformTypeEnum.Mock)
                     {
@@ -232,6 +241,10 @@ namespace MixItUp.Base.Services
                 else if (message.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                 {
                     await ServiceManager.Get<KickSession>().DeleteMessage(message);
+                }
+                else if (message.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+                {
+                    await ServiceManager.Get<VeloraSession>().DeleteMessage(message);
                 }
                 else if (message.Platform == StreamingPlatformTypeEnum.Mock)
                 {
@@ -317,6 +330,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<KickSession>().TimeoutUser(user, durationInSeconds, reason);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().TimeoutUser(user, durationInSeconds, reason);
+            }
 
             ChatService.ChatUserTimedOut(user);
         }
@@ -336,6 +353,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<KickSession>().ModUser(user);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().ModUser(user);
+            }
 
         }
 
@@ -353,6 +374,10 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
                 await ServiceManager.Get<KickSession>().UnmodUser(user);
+            }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().UnmodUser(user);
             }
 
         }
@@ -372,6 +397,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<KickSession>().BanUser(user, reason);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().BanUser(user, reason);
+            }
 
             ChatService.ChatUserBanned(user);
         }
@@ -390,6 +419,10 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
                 await ServiceManager.Get<KickSession>().UnbanUser(user);
+            }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().UnbanUser(user);
             }
 
         }

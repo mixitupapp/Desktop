@@ -20,6 +20,8 @@ namespace MixItUp.Base.Model.Store
         public StreamingClient.Base.Model.OAuth.OAuthTokenModel YouTubeOAuthToken { get; set; }
         [DataMember]
         public string KickAccessToken { get; set; }
+        [DataMember]
+        public string VeloraAccessToken { get; set; }
 
     }
 

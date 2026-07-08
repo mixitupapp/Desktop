@@ -11609,4 +11609,72 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>учетные записи, созданные более года назад</value>
   </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Войдите в систему с помощью Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Выход из системы Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Начало потока канала Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Channel Остановка потока</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Обновление канала Velora</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Отслеживается</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Подпишись на канал Velora</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Channel Повторная подписка</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel Подаренная подписка</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Массовая подписка на канал Velora Channel в подарок</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Канал Velora подвергся нападению</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Использованные баллы канала Velora</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Канал Velora приветствуется</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Очки канала Velora</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Команда очков канала Velora</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Показать очки канала Velora</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Показать Velora Cheered</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Cheered</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} использовал(а) {1}</value>
+    <comment>{0} — имя пользователя, {1} — название награды</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} приветствовал(а) {1} Volts</value>
+    <comment>{0} — имя пользователя, {1} — количество Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Подписки Velora</value>
+  </data>
 </root>

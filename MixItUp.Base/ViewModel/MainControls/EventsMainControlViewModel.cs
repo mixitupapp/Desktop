@@ -125,6 +125,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Kick;
                 }
+                else if (eventNumber >= 700 && eventNumber < 800)
+                {
+                    return Resources.Velora;
+                }
                 else
                 {
                     return Resources.Generic;
@@ -243,6 +247,20 @@ namespace MixItUp.Base.ViewModel.MainControls
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelPointsRedeemed));
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelKicksGifted));
             commandGroups.Add(kickCommands);
+
+            EventCommandGroupViewModel veloraCommands = new EventCommandGroupViewModel(Resources.Velora, brandId: "velora");
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelStreamStart));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelStreamStop));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelUpdated));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelFollowed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelRaided));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelSubscribed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelResubscribed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelSubscriptionGifted));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelMassSubscriptionsGifted));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelPointsRedeemed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelCheered));
+            commandGroups.Add(veloraCommands);
 
             EventCommandGroupViewModel chatCommands = new EventCommandGroupViewModel(Resources.Chat, iconName: "forum");
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatUserEntranceCommand));

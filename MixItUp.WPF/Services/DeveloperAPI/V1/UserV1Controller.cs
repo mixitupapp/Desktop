@@ -117,6 +117,21 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
             return Ok(UserFromUserDataViewModel(user));
         }
 
+        [Route("velora/{usernameOrID}")]
+        [HttpGet]
+        public async Task<IActionResult> GetVelora(string usernameOrID)
+        {
+            await ServiceManager.Get<UserService>().LoadAllUserData();
+
+            UserV2ViewModel user = await UserV1Controller.GetUserData(StreamingPlatformTypeEnum.Velora, usernameOrID);
+            if (user == null)
+            {
+                return NotFound(new Error { Message = $"Unable to find user: {usernameOrID}." });
+            }
+
+            return Ok(UserFromUserDataViewModel(user));
+        }
+
         [Route("{usernameOrID}")]
         [HttpPut, HttpPatch]
         public async Task<IActionResult> Update(string usernameOrID, [FromBody] User updatedUserData)
@@ -218,6 +233,7 @@ namespace MixItUp.WPF.Services.DeveloperAPI.V1
                 TwitchID = userData.Model.GetPlatformID(StreamingPlatformTypeEnum.Twitch),
                 YouTubeID = userData.Model.GetPlatformID(StreamingPlatformTypeEnum.YouTube),
                 KickID = userData.Model.GetPlatformID(StreamingPlatformTypeEnum.Kick),
+                VeloraID = userData.Model.GetPlatformID(StreamingPlatformTypeEnum.Velora),
                 Username = userData.Model.GetPlatformUsername(ChannelSession.Settings.DefaultStreamingPlatform),
                 ViewingMinutes = userData.OnlineViewingMinutes
             };
