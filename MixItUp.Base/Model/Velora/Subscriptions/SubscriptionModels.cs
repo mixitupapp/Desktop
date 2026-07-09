@@ -1,9 +1,75 @@
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
 namespace MixItUp.Base.Model.Velora.Subscriptions
 {
+    /// <summary>
+    /// GET developer/subscriptions - paginated subscriber roster. Envelope confirmed live:
+    /// { data[], total, page, perPage, hasMore }. The per-item shape could not be confirmed (the test
+    /// account's roster was empty), so <see cref="VeloraSubscriberModel"/> unions the documented variants.
+    /// </summary>
+    public class VeloraSubscriberRosterModel
+    {
+        [JsonProperty("data")]
+        public List<VeloraSubscriberModel> Data { get; set; } = new List<VeloraSubscriberModel>();
+
+        [JsonProperty("total")]
+        public int Total { get; set; }
+
+        [JsonProperty("page")]
+        public int Page { get; set; }
+
+        [JsonProperty("perPage")]
+        public int PerPage { get; set; }
+
+        [JsonProperty("hasMore")]
+        public bool HasMore { get; set; }
+    }
+
+    public class VeloraSubscriberModel
+    {
+        [JsonProperty("userId")]
+        public string UserId { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("username")]
+        public string Username { get; set; }
+
+        [JsonProperty("displayName")]
+        public string DisplayName { get; set; }
+
+        [JsonProperty("tier")]
+        public string Tier { get; set; }
+
+        [JsonProperty("isGift")]
+        public bool? IsGift { get; set; }
+
+        [JsonProperty("gifter")]
+        public string Gifter { get; set; }
+
+        [JsonProperty("gifterUsername")]
+        public string GifterUsername { get; set; }
+
+        [JsonProperty("expiresAt")]
+        public string ExpiresAt { get; set; }
+
+        [JsonProperty("expiry")]
+        public string Expiry { get; set; }
+
+        [JsonIgnore]
+        public string UserID { get { return Users.UserModel.FirstNonEmpty(this.UserId, this.Id); } }
+
+        [JsonIgnore]
+        public string GifterName { get { return Users.UserModel.FirstNonEmpty(this.Gifter, this.GifterUsername); } }
+
+        [JsonIgnore]
+        public string ExpiresAtResolved { get { return Users.UserModel.FirstNonEmpty(this.ExpiresAt, this.Expiry); } }
+    }
+
     /// <summary>
     /// Parses the response of GET /api/developer/subscriptions/count. Velora's docs describe this
     /// only as an "authoritative count of active subscribers" without pinning the JSON shape, so we

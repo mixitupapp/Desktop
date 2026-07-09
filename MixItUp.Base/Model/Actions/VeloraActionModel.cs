@@ -2,6 +2,7 @@ using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Util;
+using MixItUp.Base.ViewModel.User;
 using System;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
@@ -12,6 +13,31 @@ namespace MixItUp.Base.Model.Actions
     {
         SetTitle,
         SetGame,
+        Announce,
+        ClearChat,
+        ModUser,
+        UnmodUser,
+        VIPUser,
+        UnVIPUser,
+        BanUser,
+        UnbanUser,
+        TimeoutUser,
+        UntimeoutUser,
+        Raid,
+        Shoutout,
+        GrantChannelPoints,
+        DeductChannelPoints,
+    }
+
+    public enum VeloraAnnounceColor
+    {
+        Default,
+        Blue,
+        Gold,
+        Green,
+        Red,
+        Orange,
+        Coral,
     }
 
     [DataContract]
@@ -19,9 +45,7 @@ namespace MixItUp.Base.Model.Actions
     {
         public static VeloraActionModel CreateTextAction(VeloraActionType type, string text)
         {
-            VeloraActionModel action = new VeloraActionModel(type);
-            action.Text = text;
-            return action;
+            return new VeloraActionModel(type) { Text = text };
         }
 
         public static VeloraActionModel CreateAction(VeloraActionType type)
@@ -32,8 +56,25 @@ namespace MixItUp.Base.Model.Actions
         [DataMember]
         public VeloraActionType ActionType { get; set; }
 
+        // Multi-purpose text field: stream title / game / announcement message / raid target channel.
         [DataMember]
         public string Text { get; set; }
+
+        // Target user (mod/vip/ban/timeout/unban/untimeout/shoutout) or channel-points target (@user/@all/...).
+        [DataMember]
+        public string TargetUsername { get; set; }
+
+        // Timeout duration (seconds) or channel-points amount.
+        [DataMember]
+        public string Amount { get; set; }
+
+        // Optional reason for ban / timeout (REST moderate supports it).
+        [DataMember]
+        public string Reason { get; set; }
+
+        // Announcement accent color (maps to /announce vs /announceblue|gold|green|red|orange|coral).
+        [DataMember]
+        public VeloraAnnounceColor AnnounceColor { get; set; }
 
         private VeloraActionModel(VeloraActionType type)
             : base(ActionTypeEnum.Velora)
@@ -46,26 +87,115 @@ namespace MixItUp.Base.Model.Actions
 
         protected override async Task PerformInternal(CommandParametersModel parameters)
         {
-            if (ServiceManager.Get<VeloraSession>().IsConnected)
+            VeloraSession session = ServiceManager.Get<VeloraSession>();
+            if (!session.IsConnected)
             {
-                if (this.ActionType == VeloraActionType.SetTitle)
-                {
-                    string text = await ReplaceStringWithSpecialModifiers(this.Text, parameters);
-                    Result result = await ServiceManager.Get<VeloraSession>().SetStreamTitle(text);
-                    if (!result.Success)
+                return;
+            }
+
+            switch (this.ActionType)
+            {
+                case VeloraActionType.SetTitle:
                     {
-                        await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.FailedToUpdateChannelInformation, parameters);
+                        string text = await ReplaceStringWithSpecialModifiers(this.Text, parameters);
+                        Result result = await session.SetStreamTitle(text);
+                        if (!result.Success)
+                        {
+                            await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.FailedToUpdateChannelInformation, parameters);
+                        }
                     }
-                }
-                else if (this.ActionType == VeloraActionType.SetGame)
-                {
-                    string text = await ReplaceStringWithSpecialModifiers(this.Text, parameters);
-                    Result result = await ServiceManager.Get<VeloraSession>().SetStreamCategory(text);
-                    if (!result.Success)
+                    break;
+                case VeloraActionType.SetGame:
                     {
-                        await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ErrorFailedToUpdateCategory, parameters);
+                        string text = await ReplaceStringWithSpecialModifiers(this.Text, parameters);
+                        Result result = await session.SetStreamCategory(text);
+                        if (!result.Success)
+                        {
+                            await ServiceManager.Get<ChatService>().SendMessage(MixItUp.Base.Resources.ErrorFailedToUpdateCategory, parameters);
+                        }
                     }
-                }
+                    break;
+                case VeloraActionType.Announce:
+                    {
+                        string message = await ReplaceStringWithSpecialModifiers(this.Text, parameters);
+                        if (!string.IsNullOrWhiteSpace(message))
+                        {
+                            string color = this.AnnounceColor == VeloraAnnounceColor.Default ? null : this.AnnounceColor.ToString().ToLowerInvariant();
+                            await session.SendAnnouncement(message, color);
+                        }
+                    }
+                    break;
+                case VeloraActionType.ClearChat:
+                    await session.ClearMessages();
+                    break;
+                case VeloraActionType.Raid:
+                    {
+                        string channel = await ReplaceStringWithSpecialModifiers(this.Text, parameters);
+                        await session.Raid(channel);
+                    }
+                    break;
+                case VeloraActionType.GrantChannelPoints:
+                case VeloraActionType.DeductChannelPoints:
+                    {
+                        string amount = await ReplaceStringWithSpecialModifiers(this.Amount, parameters);
+                        string target = await ReplaceStringWithSpecialModifiers(this.TargetUsername, parameters);
+                        if (string.IsNullOrWhiteSpace(target))
+                        {
+                            target = parameters.User?.Username;
+                        }
+                        string direction = this.ActionType == VeloraActionType.GrantChannelPoints ? "add" : "remove";
+                        await session.AdjustChannelPoints(direction, amount, target);
+                    }
+                    break;
+                default:
+                    await this.PerformUserAction(session, parameters);
+                    break;
+            }
+        }
+
+        private async Task PerformUserAction(VeloraSession session, CommandParametersModel parameters)
+        {
+            // Resolve the target on the Velora platform: an explicit username (special identifiers allowed),
+            // else the command's user. No-op if it cannot be resolved (matches the Moderation action).
+            UserV2ViewModel targetUser;
+            if (!string.IsNullOrEmpty(this.TargetUsername))
+            {
+                string username = await ReplaceStringWithSpecialModifiers(this.TargetUsername, parameters);
+                targetUser = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Velora, platformUsername: username, performPlatformSearch: true);
+            }
+            else
+            {
+                targetUser = parameters.User;
+            }
+
+            if (targetUser == null)
+            {
+                return;
+            }
+
+            string reason = string.IsNullOrEmpty(this.Reason) ? null : await ReplaceStringWithSpecialModifiers(this.Reason, parameters);
+
+            switch (this.ActionType)
+            {
+                case VeloraActionType.ModUser: await session.ModUser(targetUser); break;
+                case VeloraActionType.UnmodUser: await session.UnmodUser(targetUser); break;
+                case VeloraActionType.VIPUser: await session.VIPUser(targetUser); break;
+                case VeloraActionType.UnVIPUser: await session.UnVIPUser(targetUser); break;
+                case VeloraActionType.UnbanUser: await session.UnbanUser(targetUser); break;
+                case VeloraActionType.UntimeoutUser: await session.UntimeoutUser(targetUser); break;
+                case VeloraActionType.Shoutout: await session.Shoutout(targetUser); break;
+                case VeloraActionType.BanUser: await session.BanUser(targetUser, reason); break;
+                case VeloraActionType.TimeoutUser:
+                    {
+                        int duration = 300;
+                        string amountString = await ReplaceStringWithSpecialModifiers(this.Amount, parameters);
+                        if (!string.IsNullOrWhiteSpace(amountString) && int.TryParse(amountString, out int parsed) && parsed > 0)
+                        {
+                            duration = parsed;
+                        }
+                        await session.TimeoutUser(targetUser, duration, reason);
+                    }
+                    break;
             }
         }
     }

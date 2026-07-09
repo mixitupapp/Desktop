@@ -56,6 +56,47 @@ namespace MixItUp.Base.Model.Velora.Streams
     }
 
     /// <summary>
+    /// Result of POST streams/:username/clips. The request body is documented
+    /// ({ title, durationMs 15000-120000, startOffsetMs?, highlight? }); the response shape is not
+    /// pinned, so the clip id / share URL are resolved defensively.
+    /// </summary>
+    public class VeloraClipModel
+    {
+        public string ID { get; set; }
+        public string Url { get; set; }
+
+        private static readonly string[] IdKeys = { "id", "clipId", "clipID", "slug" };
+        private static readonly string[] UrlKeys = { "url", "shareUrl", "clipUrl", "link", "embedUrl" };
+
+        public static VeloraClipModel Parse(JToken token)
+        {
+            if (token == null || token.Type != JTokenType.Object)
+            {
+                return null;
+            }
+
+            JObject root = (JObject)token;
+            JObject clip = (root["clip"] as JObject) ?? (root["data"] as JObject) ?? root;
+
+            string First(JObject obj, string[] keys)
+            {
+                foreach (string key in keys)
+                {
+                    string value = obj?.Value<string>(key);
+                    if (!string.IsNullOrWhiteSpace(value)) { return value; }
+                }
+                return null;
+            }
+
+            return new VeloraClipModel()
+            {
+                ID = First(clip, IdKeys) ?? First(root, IdKeys),
+                Url = First(clip, UrlKeys) ?? First(root, UrlKeys),
+            };
+        }
+    }
+
+    /// <summary>
     /// Parses GET /api/streams/user/:username (public). The exact JSON shape is not pinned by the
     /// docs, so this resolves title/category/live/thumbnail from either a flat object or one that
     /// nests the stream under "stream" and/or the category under "category".

@@ -298,6 +298,10 @@ namespace MixItUp.Base.Services
                 {
                     await ServiceManager.Get<TwitchSession>().ClearMessages();
                 }
+                if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+                {
+                    await ServiceManager.Get<VeloraSession>().ClearMessages();
+                }
                 this.messagesLookup.Clear();
                 this.Messages.Clear();
             }

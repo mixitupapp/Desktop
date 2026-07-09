@@ -101,6 +101,10 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         public WebhookUserModel FlatUser { get { return WebhookUserModel.FromFlatFields(this.UserId, this.Username, this.DisplayName); } }
     }
 
+    // Carries chat.message (Events WS / legacy webhook) AND the Chat WS "newMessage" shape. The three
+    // delivery channels name fields differently, so every accessor unions the known variants (see the
+    // migration spec 3.6): id/messageId, message/content, isMod/isModerator, isVip/channelRole,
+    // color/accentColor, nested sender{} vs flat sender fields.
     public class WebhookChatMessageEventModel : WebhookEventPayloadModelBase
     {
         // The chat.message webhook identifies the message with "id"; older docs/samples used "messageId".
@@ -113,11 +117,23 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonIgnore]
         public string MessageID { get { return Users.UserModel.FirstNonEmpty(this.Id, this.MessageIdLegacy); } }
 
+        // Webhook / Events WS chat.message uses "message"; the Chat WS newMessage uses "content".
         [JsonProperty("message")]
-        public string Message { get; set; }
+        public string MessageText { get; set; }
+
+        [JsonProperty("content")]
+        public string Content { get; set; }
+
+        [JsonIgnore]
+        public string Message { get { return Users.UserModel.FirstNonEmpty(this.MessageText, this.Content); } }
 
         [JsonProperty("badges")]
         public List<string> Badges { get; set; } = new List<string>();
+
+        // The Chat WS newMessage carries the sender's role in this channel as "channelRole"
+        // (broadcaster/moderator/vip/subscriber/viewer/...); chat.message uses isMod/isVip/isSubscriber.
+        [JsonProperty("channelRole")]
+        public string ChannelRole { get; set; }
 
         // The chat.message webhook uses "isModerator"; older samples used "isMod".
         [JsonProperty("isMod")]
@@ -127,13 +143,27 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         public bool IsModerator { get; set; }
 
         [JsonIgnore]
-        public bool IsMod { get { return this.IsModLegacy || this.IsModerator; } }
+        public bool IsMod { get { return this.IsModLegacy || this.IsModerator || this.ChannelRoleIs("moderator") || this.ChannelRoleIs("mod"); } }
 
         [JsonProperty("isVip")]
-        public bool IsVip { get; set; }
+        public bool IsVipFlag { get; set; }
+
+        [JsonIgnore]
+        public bool IsVip { get { return this.IsVipFlag || this.ChannelRoleIs("vip"); } }
 
         [JsonProperty("isSubscriber")]
-        public bool IsSubscriber { get; set; }
+        public bool IsSubscriberFlag { get; set; }
+
+        [JsonIgnore]
+        public bool IsSubscriber { get { return this.IsSubscriberFlag || this.ChannelRoleIs("subscriber") || this.ChannelRoleIs("sub"); } }
+
+        [JsonIgnore]
+        public bool IsBroadcasterRole { get { return this.ChannelRoleIs("broadcaster") || this.ChannelRoleIs("streamer") || this.ChannelRoleIs("owner"); } }
+
+        private bool ChannelRoleIs(string role)
+        {
+            return !string.IsNullOrWhiteSpace(this.ChannelRole) && string.Equals(this.ChannelRole, role, System.StringComparison.OrdinalIgnoreCase);
+        }
 
         [JsonProperty("subscriberMonths")]
         public int? SubscriberMonths { get; set; }

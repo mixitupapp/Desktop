@@ -11,6 +11,8 @@ namespace MixItUp.Base.ViewModel.Actions
 
         public IEnumerable<VeloraActionType> ActionTypes { get { return EnumHelper.GetEnumList<VeloraActionType>(); } }
 
+        public IEnumerable<VeloraAnnounceColor> AnnounceColors { get { return EnumHelper.GetEnumList<VeloraAnnounceColor>(); } }
+
         public VeloraActionType SelectedActionType
         {
             get { return this.selectedActionType; }
@@ -18,59 +20,164 @@ namespace MixItUp.Base.ViewModel.Actions
             {
                 this.selectedActionType = value;
                 this.NotifyPropertyChanged();
-                this.NotifyPropertyChanged(nameof(this.ShowTextGrid));
+                this.NotifyPropertyChanged(nameof(this.ShowText));
+                this.NotifyPropertyChanged(nameof(this.TextHint));
+                this.NotifyPropertyChanged(nameof(this.ShowTargetUser));
+                this.NotifyPropertyChanged(nameof(this.ShowAmount));
+                this.NotifyPropertyChanged(nameof(this.AmountHint));
+                this.NotifyPropertyChanged(nameof(this.ShowReason));
+                this.NotifyPropertyChanged(nameof(this.ShowColor));
             }
         }
         private VeloraActionType selectedActionType;
 
-        public bool ShowTextGrid { get { return this.SelectedActionType == VeloraActionType.SetTitle || this.SelectedActionType == VeloraActionType.SetGame; } }
-
         public string Text
         {
             get { return this.text; }
-            set
-            {
-                this.text = value;
-                this.NotifyPropertyChanged();
-            }
+            set { this.text = value; this.NotifyPropertyChanged(); }
         }
         private string text;
+
+        public string TargetUsername
+        {
+            get { return this.targetUsername; }
+            set { this.targetUsername = value; this.NotifyPropertyChanged(); }
+        }
+        private string targetUsername;
+
+        public string Amount
+        {
+            get { return this.amount; }
+            set { this.amount = value; this.NotifyPropertyChanged(); }
+        }
+        private string amount;
+
+        public string Reason
+        {
+            get { return this.reason; }
+            set { this.reason = value; this.NotifyPropertyChanged(); }
+        }
+        private string reason;
+
+        public VeloraAnnounceColor SelectedAnnounceColor
+        {
+            get { return this.selectedAnnounceColor; }
+            set { this.selectedAnnounceColor = value; this.NotifyPropertyChanged(); }
+        }
+        private VeloraAnnounceColor selectedAnnounceColor;
+
+        // Field visibility per action type.
+        public bool ShowText
+        {
+            get
+            {
+                return this.SelectedActionType == VeloraActionType.SetTitle
+                    || this.SelectedActionType == VeloraActionType.SetGame
+                    || this.SelectedActionType == VeloraActionType.Announce
+                    || this.SelectedActionType == VeloraActionType.Raid;
+            }
+        }
+
+        public bool ShowTargetUser
+        {
+            get
+            {
+                switch (this.SelectedActionType)
+                {
+                    case VeloraActionType.ModUser:
+                    case VeloraActionType.UnmodUser:
+                    case VeloraActionType.VIPUser:
+                    case VeloraActionType.UnVIPUser:
+                    case VeloraActionType.BanUser:
+                    case VeloraActionType.UnbanUser:
+                    case VeloraActionType.TimeoutUser:
+                    case VeloraActionType.UntimeoutUser:
+                    case VeloraActionType.Shoutout:
+                    case VeloraActionType.GrantChannelPoints:
+                    case VeloraActionType.DeductChannelPoints:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        public bool ShowAmount
+        {
+            get
+            {
+                return this.SelectedActionType == VeloraActionType.TimeoutUser
+                    || this.SelectedActionType == VeloraActionType.GrantChannelPoints
+                    || this.SelectedActionType == VeloraActionType.DeductChannelPoints;
+            }
+        }
+
+        public bool ShowReason
+        {
+            get { return this.SelectedActionType == VeloraActionType.BanUser || this.SelectedActionType == VeloraActionType.TimeoutUser; }
+        }
+
+        public bool ShowColor { get { return this.SelectedActionType == VeloraActionType.Announce; } }
+
+        // Context-sensitive hints for the shared text / amount fields.
+        public string TextHint
+        {
+            get
+            {
+                switch (this.SelectedActionType)
+                {
+                    case VeloraActionType.SetTitle: return MixItUp.Base.Resources.Title;
+                    case VeloraActionType.SetGame: return MixItUp.Base.Resources.Game;
+                    case VeloraActionType.Announce: return MixItUp.Base.Resources.Message;
+                    case VeloraActionType.Raid: return MixItUp.Base.Resources.ChannelName;
+                    default: return MixItUp.Base.Resources.Name;
+                }
+            }
+        }
+
+        public string AmountHint
+        {
+            get { return this.SelectedActionType == VeloraActionType.TimeoutUser ? MixItUp.Base.Resources.Duration : MixItUp.Base.Resources.Amount; }
+        }
 
         public VeloraActionEditorControlViewModel(VeloraActionModel action)
             : base(action)
         {
             this.SelectedActionType = action.ActionType;
-
-            if (this.ShowTextGrid)
-            {
-                this.Text = action.Text;
-            }
+            this.Text = action.Text;
+            this.TargetUsername = action.TargetUsername;
+            this.Amount = action.Amount;
+            this.Reason = action.Reason;
+            this.SelectedAnnounceColor = action.AnnounceColor;
         }
 
         public VeloraActionEditorControlViewModel() : base() { }
 
         public override async Task<Result> Validate()
         {
-            if (this.ShowTextGrid)
+            if (this.ShowText && string.IsNullOrEmpty(this.Text))
             {
-                if (string.IsNullOrEmpty(this.Text))
-                {
-                    return new Result(MixItUp.Base.Resources.ValidValueMustBeSpecified);
-                }
+                return new Result(MixItUp.Base.Resources.ValidValueMustBeSpecified);
             }
+
+            if ((this.SelectedActionType == VeloraActionType.GrantChannelPoints || this.SelectedActionType == VeloraActionType.DeductChannelPoints)
+                && string.IsNullOrEmpty(this.Amount))
+            {
+                return new Result(MixItUp.Base.Resources.ValidValueMustBeSpecified);
+            }
+
             return await base.Validate();
         }
 
         protected override Task<ActionModelBase> GetActionInternal()
         {
-            if (this.ShowTextGrid)
-            {
-                return Task.FromResult<ActionModelBase>(VeloraActionModel.CreateTextAction(this.SelectedActionType, this.Text));
-            }
-            else
-            {
-                return Task.FromResult<ActionModelBase>(VeloraActionModel.CreateAction(this.SelectedActionType));
-            }
+            VeloraActionModel action = VeloraActionModel.CreateAction(this.SelectedActionType);
+            action.Text = this.Text;
+            action.TargetUsername = this.TargetUsername;
+            action.Amount = this.Amount;
+            action.Reason = this.Reason;
+            action.AnnounceColor = this.SelectedAnnounceColor;
+            return Task.FromResult<ActionModelBase>(action);
         }
     }
 }

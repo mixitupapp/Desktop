@@ -14,14 +14,8 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </local:ActionEditorControlBase.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+    <StackPanel>
+        <ComboBox ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,0,0,10">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -29,8 +23,14 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Grid Grid.Row="2" Visibility="{Binding ShowTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-        </Grid>
-    </Grid>
+        <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{Binding TextHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowText, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+
+        <TextBox Text="{Binding TargetUsername}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowTargetUser, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+
+        <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{Binding AmountHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowAmount, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+
+        <TextBox Text="{Binding Reason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowReason, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+
+        <ComboBox ItemsSource="{Binding AnnounceColors}" SelectedItem="{Binding SelectedAnnounceColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Color}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Visibility="{Binding ShowColor, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+    </StackPanel>
 </local:ActionEditorControlBase>

@@ -11889,4 +11889,24 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="VeloraSubscriptions" xml:space="preserve">
     <value>Velora Subscriptions</value>
   </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Announce</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shoutout</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Untimeout User</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Grant Channel Points</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Deduct Channel Points</value>
+    <comment>Velora action type</comment>
+  </data>
 </root>

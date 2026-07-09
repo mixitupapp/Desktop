@@ -24,6 +24,11 @@ namespace MixItUp.Base.Services.Velora.New
         public override bool IsConnected { get { return this.isConnected; } }
         private bool isConnected;
 
+        // Chat flows over the Chat WS (newMessage); everything else over the Events WS. This flag lets the
+        // Events WS skip its own chat.message copy while the Chat WS stream is live (see HandleEventSocketEvent),
+        // since both channels carry chat and consuming both would double every message.
+        public bool ChatSocketActive { get; set; }
+
         private readonly object processedEventIDsLock = new object();
         private readonly Queue<string> processedEventIDsQueue = new Queue<string>();
         private readonly HashSet<string> processedEventIDs = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -42,81 +47,104 @@ namespace MixItUp.Base.Services.Velora.New
             return Task.CompletedTask;
         }
 
-        public async Task HandleWebhookEvent(string eventType, JObject payload, WebhookEventModel metadata = null)
+        // ===== Events WebSocket (wss://api.velora.tv/ws/events) callback =====
+        // The event socket delivers the { event, timestamp, data } envelope; route the data through the
+        // same handlers as the webhook path. Because you only receive your own channel's events,
+        // broadcaster routing is implicit - no readBroadcasterVeloraUserId step is needed.
+        public async Task HandleEventSocketEvent(string eventType, JObject data)
         {
             try
             {
-                if (!this.IsConnected || string.IsNullOrWhiteSpace(eventType) || payload == null)
+                if (!this.IsConnected || string.IsNullOrWhiteSpace(eventType) || data == null)
                 {
                     return;
                 }
 
-                if (!this.ShouldProcessEvent(eventType, metadata))
+                // Chat is consumed from the Chat WS newMessage when it is up; skip the Events WS copy.
+                if (string.Equals(eventType, "chat.message", StringComparison.OrdinalIgnoreCase) && this.ChatSocketActive)
                 {
                     return;
                 }
 
-                // Velora's docs and dashboard use a couple of naming variants for some events, so
-                // several cases carry an alias to stay compatible with whichever form is delivered.
-                switch (eventType.ToLowerInvariant())
+                // The Events WS envelope carries no relay MessageID, so dedup on any natural ID the payload
+                // carries (a reconnect can redeliver). Handlers with their own caches (redemption) and the
+                // cross-socket ban/timeout dedup cover the rest.
+                string naturalID = data.GetValueOrDefault<string>("redemptionId", null)
+                    ?? data.GetValueOrDefault<string>("messageId", null)
+                    ?? data.GetValueOrDefault<string>("id", null)
+                    ?? data.GetValueOrDefault<string>("eventId", null);
+                if (!string.IsNullOrWhiteSpace(naturalID) && !this.ShouldProcessSocketEvent($"velora.evt:{eventType}:{naturalID}"))
                 {
-                    case "chat.message":
-                        await this.HandleChatMessage(payload);
-                        break;
-                    case "user.follow":
-                    case "channel.follow":
-                        await this.HandleFollow(payload);
-                        break;
-                    case "user.unfollow":
-                        break;
-                    case "channel.subscribe":
-                        await this.HandleSubscribe(payload);
-                        break;
-                    case "channel.subscription.gift":
-                    case "channel.gift":
-                        await this.HandleSubscriptionGift(payload);
-                        break;
-                    case "channel.subscription.end":
-                        await this.HandleSubscriptionEnd(payload);
-                        break;
-                    case "channel.cheer":
-                    case "channel.volts":
-                        await this.HandleCheer(payload);
-                        break;
-                    case "channel.raid":
-                        await this.HandleRaid(payload);
-                        break;
-                    case "channel.ban":
-                        await this.HandleBan(payload);
-                        break;
-                    case "channel.unban":
-                        await this.HandleUnban(payload);
-                        break;
-                    case "channel.moderator.add":
-                        await this.HandleModerator(payload, added: true);
-                        break;
-                    case "channel.moderator.remove":
-                        await this.HandleModerator(payload, added: false);
-                        break;
-                    case "channel.channel_points_redemption":
-                    case "channel.points.redeem":
-                        await this.HandleChannelPointsRedemption(payload);
-                        break;
-                    case "stream.online":
-                        await this.HandleStreamOnline(payload);
-                        break;
-                    case "stream.offline":
-                        await this.HandleStreamOffline(payload);
-                        break;
-                    case "stream.update":
-                    case "channel.update":
-                        await this.HandleStreamUpdate(payload);
-                        break;
+                    return;
                 }
+
+                await this.DispatchEvent(eventType, data);
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
+            }
+        }
+
+        // Shared event dispatch used by both the webhook relay (HandleWebhookEvent) and the Events WS
+        // (HandleEventSocketEvent). Velora's docs and dashboard use a couple of naming variants for some
+        // events, so several cases carry an alias to stay compatible with whichever form is delivered.
+        private async Task DispatchEvent(string eventType, JObject payload)
+        {
+            switch (eventType.ToLowerInvariant())
+            {
+                case "chat.message":
+                    await this.HandleChatMessage(payload);
+                    break;
+                case "user.follow":
+                case "channel.follow":
+                    await this.HandleFollow(payload);
+                    break;
+                case "user.unfollow":
+                    break;
+                case "channel.subscribe":
+                    await this.HandleSubscribe(payload);
+                    break;
+                case "channel.subscription.gift":
+                case "channel.gift":
+                    await this.HandleSubscriptionGift(payload);
+                    break;
+                case "channel.subscription.end":
+                    await this.HandleSubscriptionEnd(payload);
+                    break;
+                case "channel.cheer":
+                case "channel.volts":
+                    await this.HandleCheer(payload);
+                    break;
+                case "channel.raid":
+                    await this.HandleRaid(payload);
+                    break;
+                case "channel.ban":
+                    await this.HandleBan(payload);
+                    break;
+                case "channel.unban":
+                    await this.HandleUnban(payload);
+                    break;
+                case "channel.moderator.add":
+                    await this.HandleModerator(payload, added: true);
+                    break;
+                case "channel.moderator.remove":
+                    await this.HandleModerator(payload, added: false);
+                    break;
+                case "channel.channel_points_redemption":
+                case "channel.points.redeem":
+                    await this.HandleChannelPointsRedemption(payload);
+                    break;
+                case "stream.online":
+                    await this.HandleStreamOnline(payload);
+                    break;
+                case "stream.offline":
+                    await this.HandleStreamOffline(payload);
+                    break;
+                case "stream.update":
+                case "channel.update":
+                    await this.HandleStreamUpdate(payload);
+                    break;
             }
         }
 
@@ -143,6 +171,93 @@ namespace MixItUp.Base.Services.Velora.New
         private async Task HandleChatMessage(JObject payload)
         {
             WebhookChatMessageEventModel messageEvent = payload.ToObject<WebhookChatMessageEventModel>();
+            await this.ProcessChatMessage(messageEvent);
+        }
+
+        // ===== Chat WebSocket (wss://api.velora.tv/chat) callbacks =====
+        // The chat socket forwards each received frame here as a Newtonsoft JObject; these reuse the same
+        // defensive models and handlers as the webhook path, adding message-ID / moderation dedup because
+        // a reconnect can redeliver and ban/timeout also arrive on the Events WS.
+
+        /// <summary>Chat WS <c>newMessage</c> (replaces the webhook <c>chat.message</c> chat path).</summary>
+        public async Task HandleChatSocketNewMessage(JObject payload)
+        {
+            if (!this.IsConnected || payload == null)
+            {
+                return;
+            }
+
+            WebhookChatMessageEventModel messageEvent = payload.ToObject<WebhookChatMessageEventModel>();
+            if (messageEvent == null)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(messageEvent.MessageID) && !this.ShouldProcessSocketEvent("velora.chat.msg:" + messageEvent.MessageID))
+            {
+                return;
+            }
+
+            await this.ProcessChatMessage(messageEvent);
+        }
+
+        /// <summary>Chat WS <c>userTimedOut</c> (durationSeconds + expiresAt). Deduped vs the Events WS.</summary>
+        public async Task HandleChatSocketUserTimedOut(JObject payload)
+        {
+            if (!this.IsConnected || payload == null)
+            {
+                return;
+            }
+            await this.HandleBan(payload);
+        }
+
+        /// <summary>Chat WS <c>userBanned</c>. Deduped vs the Events WS <c>channel.ban</c>.</summary>
+        public async Task HandleChatSocketUserBanned(JObject payload)
+        {
+            if (!this.IsConnected || payload == null)
+            {
+                return;
+            }
+            await this.HandleBan(payload);
+        }
+
+        /// <summary>Chat WS <c>chatCleared</c> - a moderator cleared chat; drop the local buffer.</summary>
+        public async Task HandleChatSocketChatCleared(JObject payload)
+        {
+            if (!this.IsConnected)
+            {
+                return;
+            }
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Velora, MixItUp.Base.Resources.ChatCleared, ChannelSession.Settings.AlertModerationColor));
+            ChatService.ChatCleared();
+        }
+
+        /// <summary>Chat WS <c>moderationNotice</c> - targeted ban/timeout notice to the affected user.</summary>
+        public Task HandleChatSocketModerationNotice(JObject payload)
+        {
+            Logger.Log(LogLevel.Debug, $"Velora moderation notice: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
+            return Task.CompletedTask;
+        }
+
+        /// <summary>Chat WS <c>viewer_count_update</c> - live viewer count for the channel.</summary>
+        public Task HandleChatSocketViewerCountUpdate(JObject payload)
+        {
+            if (this.IsConnected && payload != null)
+            {
+                int? count = payload.GetValueOrDefault<int?>("count", null)
+                    ?? payload.GetValueOrDefault<int?>("viewers", null)
+                    ?? payload.GetValueOrDefault<int?>("viewerCount", null);
+                if (count.HasValue && count.Value >= 0)
+                {
+                    ServiceManager.Get<VeloraSession>().ApplyViewerCount(count.Value);
+                }
+            }
+            return Task.CompletedTask;
+        }
+
+        private async Task ProcessChatMessage(WebhookChatMessageEventModel messageEvent)
+        {
             if (messageEvent == null || string.IsNullOrWhiteSpace(messageEvent.Message))
             {
                 return;
@@ -437,6 +552,16 @@ namespace MixItUp.Base.Services.Velora.New
                 }
             }
 
+            // channel.ban (Events WS) and userBanned / userTimedOut (Chat WS) can both fire for one
+            // moderation action, so dedupe across the sockets on the resolved user + timeout/ban + expiry.
+            string moderationDedupKey = (timeoutLength > 0)
+                ? $"velora.mod.timeout:{bannedUser.PlatformID}:{moderationEvent.ExpiresAt ?? moderationEvent.ResolvedDurationSeconds?.ToString() ?? string.Empty}"
+                : $"velora.mod.ban:{bannedUser.PlatformID}";
+            if (!this.ShouldProcessSocketEvent(moderationDedupKey))
+            {
+                return;
+            }
+
             if (timeoutLength > 0)
             {
                 CommandParametersModel parameters = new CommandParametersModel(StreamingPlatformTypeEnum.Velora);
@@ -458,6 +583,9 @@ namespace MixItUp.Base.Services.Velora.New
 
                 await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(bannedUser, string.Format(MixItUp.Base.Resources.AlertBanned, bannedUser.FullDisplayName), ChannelSession.Settings.AlertModerationColor));
                 ChatService.ChatUserBanned(bannedUser);
+
+                // A ban should purge the banned user's visible messages (the Chat WS userBanned contract).
+                await ServiceManager.Get<ChatService>().MarkUserMessagesAsDeleted(bannedUser, reason: moderationEvent.Reason);
             }
         }
 
@@ -589,23 +717,23 @@ namespace MixItUp.Base.Services.Velora.New
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.VeloraChannelUpdated, parameters);
         }
 
-        private bool ShouldProcessEvent(string eventType, WebhookEventModel metadata)
+        // Dedup for socket-sourced events, which carry no per-event ID from the transport: chat message
+        // IDs and the ban/timeout composite keys that collapse the Chat-WS + Events-WS duplicates.
+        private bool ShouldProcessSocketEvent(string key)
         {
-            string eventID = metadata?.MessageID;
-            if (string.IsNullOrWhiteSpace(eventID))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 return true;
             }
 
             lock (this.processedEventIDsLock)
             {
-                if (!this.processedEventIDs.Add(eventID))
+                if (!this.processedEventIDs.Add(key))
                 {
-                    Logger.Log(LogLevel.Debug, $"Skipping duplicate Velora webhook event: {eventType} ({eventID})");
                     return false;
                 }
 
-                this.processedEventIDsQueue.Enqueue(eventID);
+                this.processedEventIDsQueue.Enqueue(key);
                 while (this.processedEventIDsQueue.Count > MaxProcessedEventsCacheSize)
                 {
                     this.processedEventIDs.Remove(this.processedEventIDsQueue.Dequeue());

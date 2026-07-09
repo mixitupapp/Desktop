@@ -112,6 +112,13 @@ namespace MixItUp.Base.Model.User.Platform
                 }
             }
 
+            // The Chat WS newMessage carries the sender's role as channelRole rather than badge slugs;
+            // fold it in so the broadcaster/moderator/vip/subscriber role + badge logic below sees it.
+            if (!string.IsNullOrWhiteSpace(message.ChannelRole))
+            {
+                badgeTypes.Add(message.ChannelRole);
+            }
+
             if (message.IsMod || badgeTypes.Contains("moderator")) { this.Roles.Add(UserRoleEnum.Moderator); } else { this.Roles.Remove(UserRoleEnum.Moderator); }
             if (message.IsVip || badgeTypes.Contains("vip")) { this.Roles.Add(UserRoleEnum.VeloraVIP); } else { this.Roles.Remove(UserRoleEnum.VeloraVIP); }
             if (message.IsSubscriber || badgeTypes.Contains("subscriber")) { this.Roles.Add(UserRoleEnum.Subscriber); } else { this.Roles.Remove(UserRoleEnum.Subscriber); }

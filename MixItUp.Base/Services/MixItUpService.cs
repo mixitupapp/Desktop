@@ -13,7 +13,6 @@ using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Velora.New;
-using VeloraWebhooks = MixItUp.Base.Model.Velora.Webhooks;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
@@ -619,20 +618,9 @@ namespace MixItUp.Base.Services
                             }
                         });
 
-                        this.webhookHubConnection.Listen<string, JObject, JObject>("VeloraWebhookEvent", (eventType, payload, metadataObject) =>
-                        {
-                            try
-                            {
-                                Logger.Log(LogLevel.Debug, $"Velora Webhook Event Received - EventType: {eventType} - Metadata: {metadataObject?.ToString(Newtonsoft.Json.Formatting.None)} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
-
-                                VeloraWebhooks.WebhookEventModel metadata = metadataObject?.ToObject<VeloraWebhooks.WebhookEventModel>();
-                                var _ = ServiceManager.Get<VeloraSession>().Client.HandleWebhookEvent(eventType, payload, metadata);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.Log(ex);
-                            }
-                        });
+                        // Velora inbound events are handled client-direct over the Chat + Events WebSockets
+                        // (VeloraChatSocketClient / VeloraEventSocketClient), so there is no "VeloraWebhookEvent"
+                        // relay listener here. The DesktopAPI relay route still exists but is no longer consumed.
                     }
 
                     this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;

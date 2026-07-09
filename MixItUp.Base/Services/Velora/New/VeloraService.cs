@@ -24,9 +24,15 @@ namespace MixItUp.Base.Services.Velora.New
         private const string OAuthBaseAddress = "https://velora.tv/oauth/authorize";
         private const string OAuthTokenAddress = "https://api.velora.tv/api/developer/oauth/token";
 
-        // Velora can not register http://localhost:8919/ as a valid redirect URI, so the Mix It Up
-        // Desktop API catches the OAuth redirect and relays it down to the local OAuth server.
-        public const string OAuthRedirectAddress = "https://desktop.api.mixitup.bot/api/v2/user/velora/callback";
+        // Velora now accepts http://localhost:8919/ as a registered redirect URI, so the desktop
+        // client catches the OAuth redirect on its own local listener (LocalOAuthKestrelServer,
+        // REDIRECT_URL) exactly like the other streaming platforms - no Desktop API relay in the path.
+        public const string OAuthRedirectAddress = "http://localhost:8919/";
+
+        // Retained as a still-registered fallback: the Mix It Up Desktop API callback that catches the
+        // OAuth redirect and relays it down to the local OAuth server. Kept so the vNext server-side
+        // single-socket model stays open; not used by the local redirect flow above.
+        public const string OAuthRedirectFallbackAddress = "https://desktop.api.mixitup.bot/api/v2/user/velora/callback";
 
         private const string BaseAddressFormat = "https://api.velora.tv/api/";
 
@@ -204,6 +210,207 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 JToken response = await this.HttpClient.GetAsync<JToken>("badges/channel/" + AdvancedHttpClient.URLEncodeString(username));
                 return ChannelSubscriptionBadgeModel.ParseList(response);
+            });
+        }
+
+        // ===== Phase 3: slim REST management / config (features with no socket equivalent) =====
+
+        // GET chat settings - slow/followers-only/subscribers-only/emote-only modes. Shape confirmed live.
+        public async Task<VeloraChatSettingsModel> GetChatSettings()
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.HttpClient.GetAsync<VeloraChatSettingsModel>("integrations/oauth/chat/settings");
+            });
+        }
+
+        // PATCH chat settings - only the supplied fields are sent (partial update).
+        public async Task<Result> UpdateChatSettings(bool? slowMode = null, int? slowModeSeconds = null, bool? followersOnly = null, bool? subscribersOnly = null, bool? emoteOnly = null)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                if (slowMode.HasValue) { jobj["slowMode"] = slowMode.Value; }
+                if (slowModeSeconds.HasValue) { jobj["slowModeSeconds"] = slowModeSeconds.Value; }
+                if (followersOnly.HasValue) { jobj["followersOnly"] = followersOnly.Value; }
+                if (subscribersOnly.HasValue) { jobj["subscribersOnly"] = subscribersOnly.Value; }
+                if (emoteOnly.HasValue) { jobj["emoteOnly"] = emoteOnly.Value; }
+                if (jobj.Count == 0) { return new Result(); }
+
+                HttpResponseMessage response = await this.HttpClient.PatchAsync("integrations/oauth/chat/settings", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        // GET paginated subscriber roster. Envelope confirmed live: { data[], total, page, perPage, hasMore }.
+        public async Task<VeloraSubscriberRosterModel> GetSubscribers(int? page = null, int? perPage = null)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                string requestUri = "developer/subscriptions";
+                List<string> query = new List<string>();
+                if (page.HasValue) { query.Add("page=" + page.Value); }
+                if (perPage.HasValue) { query.Add("limit=" + perPage.Value); }
+                if (query.Count > 0) { requestUri += "?" + string.Join("&", query); }
+                return await this.HttpClient.GetAsync<VeloraSubscriberRosterModel>(requestUri);
+            });
+        }
+
+        // POST create a clip. Body documented: { title, durationMs (15000-120000), startOffsetMs?, highlight? }.
+        public async Task<VeloraClipModel> CreateClip(string username, string title = null, int durationMs = 30000, int? startOffsetMs = null, bool highlight = false)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return null;
+            }
+
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                if (!string.IsNullOrEmpty(title)) { jobj["title"] = title; }
+                jobj["durationMs"] = Math.Min(Math.Max(durationMs, 15000), 120000);
+                if (startOffsetMs.HasValue) { jobj["startOffsetMs"] = startOffsetMs.Value; }
+                if (highlight) { jobj["highlight"] = true; }
+
+                JToken response = await this.HttpClient.PostAsync<JToken>($"streams/{AdvancedHttpClient.URLEncodeString(username)}/clips", AdvancedHttpClient.CreateContentFromObject(jobj));
+                return VeloraClipModel.Parse(response);
+            });
+        }
+
+        // POST refund a channel-point redemption. Velora supports ONLY refund (no fulfill/cancel/approve/reject).
+        public async Task<Result> RefundRedemption(string channelID, string redemptionID)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                HttpResponseMessage response = await this.HttpClient.PostAsync($"channel-points/{AdvancedHttpClient.URLEncodeString(channelID)}/redemptions/{AdvancedHttpClient.URLEncodeString(redemptionID)}/refund", AdvancedHttpClient.CreateContentFromObject(new JObject()));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        // DELETE a channel-point item.
+        public async Task<Result> DeleteChannelPointItem(string channelID, string itemID)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                bool success = await this.HttpClient.DeleteAsync($"channel-points/{AdvancedHttpClient.URLEncodeString(channelID)}/items/{AdvancedHttpClient.URLEncodeString(itemID)}");
+                return success ? new Result() : new Result("Failed to delete the Velora channel-point item");
+            });
+        }
+
+        // ⚠️ VERIFY-LIVE: the channel-point item create/update REQUEST DTOs are undocumented. The caller
+        // supplies the body; field names should mirror the documented item response shape
+        // (name/cost/description/iconUrl/enabled/builtInType/...). Confirm from Velora web-client DevTools.
+        public async Task<JToken> CreateChannelPointItem(string channelID, JObject item)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.HttpClient.PostAsync<JToken>($"channel-points/{AdvancedHttpClient.URLEncodeString(channelID)}/items", AdvancedHttpClient.CreateContentFromObject(item ?? new JObject()));
+            });
+        }
+
+        public async Task<Result> UpdateChannelPointItem(string channelID, string itemID, JObject changes)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                HttpResponseMessage response = await this.HttpClient.PatchAsync($"channel-points/{AdvancedHttpClient.URLEncodeString(channelID)}/items/{AdvancedHttpClient.URLEncodeString(itemID)}", AdvancedHttpClient.CreateContentFromObject(changes ?? new JObject()));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        // ⚠️ VERIFY-LIVE: Velora-unique grant/deduct channel-points admin DTO is undocumented (best-effort
+        // { userId/username, amount }). action is "grant" or "deduct".
+        public async Task<Result> AdjustChannelPoints(string channelID, string action, string userID = null, string username = null, int amount = 0)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                if (!string.IsNullOrEmpty(userID)) { jobj["userId"] = userID; }
+                if (!string.IsNullOrEmpty(username)) { jobj["username"] = username; }
+                jobj["amount"] = amount;
+
+                string endpoint = string.Equals(action, "deduct", StringComparison.OrdinalIgnoreCase) ? "deduct" : "grant";
+                HttpResponseMessage response = await this.HttpClient.PostAsync($"channel-points/{AdvancedHttpClient.URLEncodeString(channelID)}/admin/{endpoint}", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        // ⚠️ VERIFY-LIVE: the /creator/roles roleType vocabulary (moderator/vip/...) is undocumented; the
+        // Chat WS slash command is the alternative once its grammar is confirmed.
+        public async Task<Result> GrantCreatorRole(string memberID, string roleType)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                if (!string.IsNullOrEmpty(memberID)) { jobj["memberId"] = memberID; }
+                if (!string.IsNullOrEmpty(roleType)) { jobj["roleType"] = roleType; }
+
+                HttpResponseMessage response = await this.HttpClient.PostAsync("creator/roles", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        public async Task<Result> RevokeCreatorRole(string memberID, string roleType)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                bool success = await this.HttpClient.DeleteAsync($"creator/roles/{AdvancedHttpClient.URLEncodeString(memberID)}/{AdvancedHttpClient.URLEncodeString(roleType)}");
+                return success ? new Result() : new Result("Failed to revoke the Velora creator role");
+            });
+        }
+
+        // Polls. GET active polls is read-only; poll results also arrive on the Events WS.
+        public async Task<JToken> GetActivePolls(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return null;
+            }
+
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.HttpClient.GetAsync<JToken>($"streams/{AdvancedHttpClient.URLEncodeString(username)}/polls/active");
+            });
+        }
+
+        // ⚠️ VERIFY-LIVE: the poll create/vote request DTOs are undocumented; the caller supplies the body.
+        public async Task<JToken> CreatePoll(string username, JObject poll)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.HttpClient.PostAsync<JToken>($"streams/{AdvancedHttpClient.URLEncodeString(username)}/polls", AdvancedHttpClient.CreateContentFromObject(poll ?? new JObject()));
+            });
+        }
+
+        public async Task<Result> EndPoll(string username, string pollID)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                HttpResponseMessage response = await this.HttpClient.PostAsync($"streams/{AdvancedHttpClient.URLEncodeString(username)}/polls/{AdvancedHttpClient.URLEncodeString(pollID)}/end", AdvancedHttpClient.CreateContentFromObject(new JObject()));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
             });
         }
 
