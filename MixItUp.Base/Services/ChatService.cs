@@ -265,11 +265,14 @@ namespace MixItUp.Base.Services
             }
         }
 
-        public async Task MarkUserMessagesAsDeleted(UserV2ViewModel user, UserV2ViewModel moderator = null, string reason = null)
+        // Returns the number of messages newly marked; already-deleted messages are skipped so a purge that
+        // fires both locally and from the platform's ban/timeout echo does not re-process the same messages.
+        public async Task<int> MarkUserMessagesAsDeleted(UserV2ViewModel user, UserV2ViewModel moderator = null, string reason = null)
         {
+            int deleted = 0;
             foreach (ChatMessageViewModel message in this.Messages.ToList())
             {
-                if (message.User != null && message.User.ID == user.ID)
+                if (message.User != null && message.User.ID == user.ID && !message.IsDeleted)
                 {
                     await message.Delete(moderator, reason, triggerEventCommand: false);
 
@@ -279,8 +282,10 @@ namespace MixItUp.Base.Services
                     }
 
                     ChatService.ChatMessageDeleted(message.ID);
+                    deleted++;
                 }
             }
+            return deleted;
         }
 
         public async Task ClearMessages(StreamingPlatformTypeEnum platform)
@@ -311,7 +316,16 @@ namespace MixItUp.Base.Services
 
         public async Task PurgeUser(UserV2ViewModel user)
         {
-            // A purge is a one-second timeout, which every platform session implements.
+            // On Velora a timeout has no effect on existing messages (the platform never clears them) and
+            // announces itself in the channel's chat, so a purge is purely deleting the user's messages.
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().PurgeUser(user);
+                return;
+            }
+
+            // Everywhere else a purge is a one-second timeout, which the platform answers by clearing the
+            // user's messages; every platform session implements it.
             await this.TimeoutUser(user, 1);
         }
 

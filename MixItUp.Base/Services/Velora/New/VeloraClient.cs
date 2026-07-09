@@ -209,10 +209,10 @@ namespace MixItUp.Base.Services.Velora.New
                 return;
             }
 
-            // Log the duration Velora actually applied. The /timeout slash-command fallback has to assume a
-            // unit for its bare duration argument, and this is the only place the platform reports it back.
-            WebhookModerationEventModel timeoutEvent = payload.ToObject<WebhookModerationEventModel>();
-            Logger.Log(LogLevel.Debug, $"Velora userTimedOut: durationSeconds={timeoutEvent?.ResolvedDurationSeconds}, expiresAt={timeoutEvent?.ExpiresAt}, createdAt={timeoutEvent?.CreatedAt}");
+            // Log the raw payload: the live shape is unverified, and the duration Velora actually applied
+            // matters because the /timeout slash-command fallback has to assume a unit for its bare duration
+            // argument - this is the only place the platform reports it back.
+            Logger.Log(LogLevel.Debug, $"Velora userTimedOut: {payload.ToString(Newtonsoft.Json.Formatting.None)}");
 
             await this.HandleBan(payload);
         }
@@ -224,6 +224,10 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 return;
             }
+
+            // Log the raw payload: the live shape is unverified (VERIFY-LIVE in the migration spec).
+            Logger.Log(LogLevel.Debug, $"Velora userBanned: {payload.ToString(Newtonsoft.Json.Formatting.None)}");
+
             await this.HandleBan(payload);
         }
 
@@ -532,6 +536,9 @@ namespace MixItUp.Base.Services.Velora.New
             UserV2ViewModel bannedUser = await this.GetOrCreateUser(moderationEvent?.ResolvedUser);
             if (bannedUser == null)
             {
+                // The live ban/timeout payload shapes are unverified (VERIFY-LIVE in the migration spec), so a
+                // shape the model cannot resolve a user from must be surfaced, not dropped silently.
+                Logger.Log(LogLevel.Error, $"Velora ban/timeout event carried no resolvable user: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
                 return;
             }
 
@@ -579,6 +586,11 @@ namespace MixItUp.Base.Services.Velora.New
 
                 await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(bannedUser, string.Format(MixItUp.Base.Resources.AlertTimedOut, bannedUser.FullDisplayName, timeoutLength), ChannelSession.Settings.AlertModerationColor));
                 ChatService.ChatUserTimedOut(bannedUser);
+
+                // A timeout clears the user's visible messages just as a ban does - Twitch's clear_user_messages
+                // fires for both - and a purge is a one-second timeout, so without this it appears to do nothing.
+                int purged = await ServiceManager.Get<ChatService>().MarkUserMessagesAsDeleted(bannedUser, reason: moderationEvent.Reason);
+                Logger.Log(LogLevel.Debug, $"Velora timeout echo purge: {purged} message(s) marked deleted for {bannedUser.Username}");
             }
             else
             {
@@ -591,7 +603,8 @@ namespace MixItUp.Base.Services.Velora.New
                 ChatService.ChatUserBanned(bannedUser);
 
                 // A ban should purge the banned user's visible messages (the Chat WS userBanned contract).
-                await ServiceManager.Get<ChatService>().MarkUserMessagesAsDeleted(bannedUser, reason: moderationEvent.Reason);
+                int purged = await ServiceManager.Get<ChatService>().MarkUserMessagesAsDeleted(bannedUser, reason: moderationEvent.Reason);
+                Logger.Log(LogLevel.Debug, $"Velora ban echo purge: {purged} message(s) marked deleted for {bannedUser.Username}");
             }
         }
 

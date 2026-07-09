@@ -350,14 +350,13 @@ namespace MixItUp.Base.Services.Velora.New
             }
         }
 
-        // Message deletion is the one moderation action Velora's own web client performs over REST, and it
-        // posts exactly { messageId, action } to the moderate endpoint - no user identifier. Sending a userId
-        // as well is what made this call fail. Velora's ModerateChatDto is undocumented in their OpenAPI
-        // schema (GET https://api.velora.tv/docs-json exposes it with no properties), so the body is matched
-        // to the web client rather than guessed. There is no /delete slash command, so there is no fallback.
+        // The OAuth moderate endpoint requires a target user for every action, deletion included ("targetUserId
+        // or targetUsername is required"), even though the website's session-authenticated route accepts just
+        // messageId + action. There is no /delete slash command, so this has no fallback.
         public override async Task DeleteMessage(ChatMessageViewModel message)
         {
-            VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "delete", messageID: message.ID);
+            VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "delete",
+                targetUserID: message.User?.PlatformID, targetUsername: message.User?.Username, messageID: message.ID);
             if (result == null || !result.Success)
             {
                 await this.ReportModerationFailure("delete", result?.Message);
@@ -373,12 +372,15 @@ namespace MixItUp.Base.Services.Velora.New
 
         public override async Task TimeoutUser(UserV2ViewModel user, int durationInSeconds, string reason = null)
         {
+            IReadOnlyList<ChatMessageViewModel> messagesToPurge = this.GetUserMessagesToPurge(user);
+
             int duration = Math.Max(durationInSeconds, 1);
             if (!this.restUserModerationUnavailable)
             {
-                VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "timeout", userID: user.PlatformID, username: user.Username, durationSeconds: duration, reason: reason);
+                VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "timeout", targetUserID: user.PlatformID, targetUsername: user.Username, durationSeconds: duration, reason: reason);
                 if (result != null && result.Success)
                 {
+                    await this.PurgeUserMessages(user, messagesToPurge, reason);
                     return;
                 }
                 this.RecordRestModerationFailure("timeout", result);
@@ -391,15 +393,22 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 await this.ReportModerationFailure("timeout", SocketUnavailableMessage);
             }
+            else
+            {
+                await this.PurgeUserMessages(user, messagesToPurge, reason);
+            }
         }
 
         public override async Task BanUser(UserV2ViewModel user, string reason = null)
         {
+            IReadOnlyList<ChatMessageViewModel> messagesToPurge = this.GetUserMessagesToPurge(user);
+
             if (!this.restUserModerationUnavailable)
             {
-                VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "ban", userID: user.PlatformID, username: user.Username, reason: reason);
+                VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "ban", targetUserID: user.PlatformID, targetUsername: user.Username, reason: reason);
                 if (result != null && result.Success)
                 {
+                    await this.PurgeUserMessages(user, messagesToPurge, reason);
                     return;
                 }
                 this.RecordRestModerationFailure("ban", result);
@@ -410,6 +419,46 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 await this.ReportModerationFailure("ban", SocketUnavailableMessage);
             }
+            else
+            {
+                await this.PurgeUserMessages(user, messagesToPurge, reason);
+            }
+        }
+
+        // Velora does not remove a banned or timed-out user's messages platform-side (confirmed live: a REST
+        // moderate ban/timeout succeeds and the website keeps showing the messages - userBanned only tells
+        // chat clients to purge their own views), and its API has no bulk purge (the OAuth moderate endpoint
+        // is exactly timeout/ban/delete-one-message). A Twitch-style purge therefore deletes each of the
+        // user's visible messages individually, then marks the local copies deleted.
+        //
+        // The candidate list MUST be snapshotted before the timeout/ban is issued: Velora echoes the action
+        // back over the chat socket (userTimedOut/userBanned) while the delete loop is still running, and
+        // that echo marks all of the user's messages deleted locally - filtering on IsDeleted mid-loop then
+        // skips everything after the first delete.
+        private IReadOnlyList<ChatMessageViewModel> GetUserMessagesToPurge(UserV2ViewModel user)
+        {
+            return ServiceManager.Get<ChatService>().Messages.ToList().Where(message =>
+                message.Platform == StreamingPlatformTypeEnum.Velora && message.User != null && message.User.ID == user.ID &&
+                !message.IsDeleted && !string.IsNullOrEmpty(message.ID)).ToList();
+        }
+
+        private async Task PurgeUserMessages(UserV2ViewModel user, IReadOnlyList<ChatMessageViewModel> messagesToPurge, string reason)
+        {
+            foreach (ChatMessageViewModel message in messagesToPurge)
+            {
+                await this.DeleteMessage(message);
+            }
+
+            int purged = await ServiceManager.Get<ChatService>().MarkUserMessagesAsDeleted(user, reason: reason);
+            Logger.Log(LogLevel.Debug, $"Velora purge: {messagesToPurge.Count} platform deletion(s), {purged} marked deleted locally for {user?.Username}");
+        }
+
+        // A purge on Velora is not a timeout (ChatService.PurgeUser routes here instead): a timeout does not
+        // touch existing messages and announces itself in the channel's chat, so purging is purely deleting
+        // the user's visible messages.
+        public async Task PurgeUser(UserV2ViewModel user)
+        {
+            await this.PurgeUserMessages(user, this.GetUserMessagesToPurge(user), reason: null);
         }
 
         // Only a 4xx means Velora rejected the request shape; a transient failure must not permanently downgrade

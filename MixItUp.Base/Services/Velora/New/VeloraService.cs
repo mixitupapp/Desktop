@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.Velora.New
@@ -137,29 +138,95 @@ namespace MixItUp.Base.Services.Velora.New
             });
         }
 
+        // Velora publishes ModerateChatDto with no properties, so the request shape is pinned to what the
+        // endpoint itself reports. It whitelists "targetUserId" / "targetUsername" (NOT "userId" / "username")
+        // and requires one of them for every action, including "delete" - unlike the session-authenticated
+        // /api/chat/channels/{id}/moderate route the Velora website uses, which takes only messageId + action.
+        private static readonly HashSet<string> RequiredModerationProperties = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "action", "targetUserId", "targetUsername",
+        };
+
+        // The endpoint validates against a property whitelist and names each rejected property in the 400 body:
+        // {"message":["property userId should not exist"],"error":"Bad Request","statusCode":400}
+        private static readonly Regex DisallowedModerationPropertyRegex = new Regex(@"property (\w+) should not exist", RegexOptions.IgnoreCase);
+
+        private readonly HashSet<string> unsupportedModerationProperties = new HashSet<string>(StringComparer.Ordinal);
+
         /// <summary>Returns null when the request could not be made at all (AsyncRunner swallows the exception).</summary>
-        public async Task<VeloraModerationResult> ModerateUser(string channelID, string action, string userID = null, string username = null, int? durationSeconds = null, string reason = null, string messageID = null)
+        public async Task<VeloraModerationResult> ModerateUser(string channelID, string action, string targetUserID = null, string targetUsername = null, int? durationSeconds = null, string reason = null, string messageID = null)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
-                JObject jobj = new JObject();
-                jobj["action"] = action;
-                if (!string.IsNullOrEmpty(userID)) { jobj["userId"] = userID; }
-                if (!string.IsNullOrEmpty(username)) { jobj["username"] = username; }
-                if (durationSeconds.HasValue) { jobj["durationSeconds"] = durationSeconds.Value; }
-                if (!string.IsNullOrEmpty(reason)) { jobj["reason"] = reason; }
-                if (!string.IsNullOrEmpty(messageID)) { jobj["messageId"] = messageID; }
-
-                HttpResponseMessage response = await this.HttpClient.PostAsync($"integrations/oauth/chat/channels/{AdvancedHttpClient.URLEncodeString(channelID)}/moderate", AdvancedHttpClient.CreateContentFromObject(jobj));
-                if (!response.IsSuccessStatusCode)
+                if (string.IsNullOrEmpty(targetUserID) && string.IsNullOrEmpty(targetUsername))
                 {
-                    // Velora documents this endpoint with an empty ModerateChatDto, so surface the status and
-                    // body: a 4xx means the request shape was rejected, anything else is likely transient.
-                    string body = await response.Content.ReadAsStringAsync();
-                    return new VeloraModerationResult($"HTTP {(int)response.StatusCode} {response.ReasonPhrase} on chat moderate '{action}': {body}") { StatusCode = (int)response.StatusCode };
+                    return new VeloraModerationResult($"chat moderate '{action}' requires a target user");
                 }
-                return new VeloraModerationResult();
+
+                VeloraModerationResult result = await this.PostModeration(channelID, action, targetUserID, targetUsername, durationSeconds, reason, messageID);
+                if (result.Success || result.StatusCode != 400)
+                {
+                    return result;
+                }
+
+                // An optional property Velora does not accept (a reason, say) should not fail the whole
+                // moderation action: drop whatever it named and retry once, then remember it for this session.
+                if (this.RecordUnsupportedModerationProperties(result.Message))
+                {
+                    result = await this.PostModeration(channelID, action, targetUserID, targetUsername, durationSeconds, reason, messageID);
+                }
+                return result;
             });
+        }
+
+        private async Task<VeloraModerationResult> PostModeration(string channelID, string action, string targetUserID, string targetUsername, int? durationSeconds, string reason, string messageID)
+        {
+            JObject jobj = new JObject();
+            this.AddModerationProperty(jobj, "action", action);
+
+            // Prefer the ID; the username is only a fallback for a user whose platform ID was never resolved.
+            if (!string.IsNullOrEmpty(targetUserID)) { this.AddModerationProperty(jobj, "targetUserId", targetUserID); }
+            else { this.AddModerationProperty(jobj, "targetUsername", targetUsername); }
+
+            if (durationSeconds.HasValue) { this.AddModerationProperty(jobj, "durationSeconds", durationSeconds.Value); }
+            if (!string.IsNullOrEmpty(reason)) { this.AddModerationProperty(jobj, "reason", reason); }
+            if (!string.IsNullOrEmpty(messageID)) { this.AddModerationProperty(jobj, "messageId", messageID); }
+
+            HttpResponseMessage response = await this.HttpClient.PostAsync($"integrations/oauth/chat/channels/{AdvancedHttpClient.URLEncodeString(channelID)}/moderate", AdvancedHttpClient.CreateContentFromObject(jobj));
+            if (!response.IsSuccessStatusCode)
+            {
+                string body = await response.Content.ReadAsStringAsync();
+                return new VeloraModerationResult($"HTTP {(int)response.StatusCode} {response.ReasonPhrase} on chat moderate '{action}': {body}") { StatusCode = (int)response.StatusCode };
+            }
+            return new VeloraModerationResult();
+        }
+
+        private void AddModerationProperty(JObject jobj, string name, JToken value)
+        {
+            if (!this.unsupportedModerationProperties.Contains(name))
+            {
+                jobj[name] = value;
+            }
+        }
+
+        private bool RecordUnsupportedModerationProperties(string responseBody)
+        {
+            bool discovered = false;
+            foreach (Match match in DisallowedModerationPropertyRegex.Matches(responseBody ?? string.Empty))
+            {
+                string name = match.Groups[1].Value;
+                if (RequiredModerationProperties.Contains(name))
+                {
+                    continue;
+                }
+
+                if (this.unsupportedModerationProperties.Add(name))
+                {
+                    Logger.Log(LogLevel.Error, $"Velora rejected the chat moderate property '{name}'; omitting it from subsequent requests.");
+                    discovered = true;
+                }
+            }
+            return discovered;
         }
 
         public async Task<IEnumerable<ChannelPointRewardModel>> GetChannelPointRewards(string channelID)
