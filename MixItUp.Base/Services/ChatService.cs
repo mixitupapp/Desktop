@@ -311,12 +311,8 @@ namespace MixItUp.Base.Services
 
         public async Task PurgeUser(UserV2ViewModel user)
         {
-            if (user.Platform == StreamingPlatformTypeEnum.Twitch && ServiceManager.Get<TwitchSession>().IsConnected)
-            {
-                await ServiceManager.Get<TwitchSession>().TimeoutUser(user, 1);
-            }
-
-            ChatService.ChatUserTimedOut(user);
+            // A purge is a one-second timeout, which every platform session implements.
+            await this.TimeoutUser(user, 1);
         }
 
         public async Task TimeoutUser(UserV2ViewModel user, int durationInSeconds, string reason = null)

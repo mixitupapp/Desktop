@@ -19,6 +19,19 @@ using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.Velora.New
 {
+    /// <summary>Result of a chat moderation call, carrying the HTTP status so callers can tell a rejected
+    /// request shape (4xx) apart from a transient failure.</summary>
+    public class VeloraModerationResult : Result
+    {
+        public VeloraModerationResult() : base() { }
+
+        public VeloraModerationResult(string message) : base(message) { }
+
+        public int? StatusCode { get; set; }
+
+        public bool IsRequestRejected { get { return this.StatusCode.HasValue && this.StatusCode.Value >= 400 && this.StatusCode.Value < 500; } }
+    }
+
     public class VeloraService : StreamingPlatformServiceBaseNew
     {
         private const string OAuthBaseAddress = "https://velora.tv/oauth/authorize";
@@ -124,7 +137,8 @@ namespace MixItUp.Base.Services.Velora.New
             });
         }
 
-        public async Task<Result> ModerateUser(string channelID, string action, string userID = null, string username = null, int? durationSeconds = null, string reason = null, string messageID = null)
+        /// <summary>Returns null when the request could not be made at all (AsyncRunner swallows the exception).</summary>
+        public async Task<VeloraModerationResult> ModerateUser(string channelID, string action, string userID = null, string username = null, int? durationSeconds = null, string reason = null, string messageID = null)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
@@ -139,9 +153,12 @@ namespace MixItUp.Base.Services.Velora.New
                 HttpResponseMessage response = await this.HttpClient.PostAsync($"integrations/oauth/chat/channels/{AdvancedHttpClient.URLEncodeString(channelID)}/moderate", AdvancedHttpClient.CreateContentFromObject(jobj));
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Result(await response.Content.ReadAsStringAsync());
+                    // Velora documents this endpoint with an empty ModerateChatDto, so surface the status and
+                    // body: a 4xx means the request shape was rejected, anything else is likely transient.
+                    string body = await response.Content.ReadAsStringAsync();
+                    return new VeloraModerationResult($"HTTP {(int)response.StatusCode} {response.ReasonPhrase} on chat moderate '{action}': {body}") { StatusCode = (int)response.StatusCode };
                 }
-                return new Result();
+                return new VeloraModerationResult();
             });
         }
 

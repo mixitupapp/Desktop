@@ -74,6 +74,9 @@ namespace MixItUp.Base.Services.Velora.New
 
         protected override async Task<Result> InitializeStreamerInternal()
         {
+            // Re-probe the REST moderation endpoint on every (re)connect: a fresh token may carry chat:moderate.
+            this.restUserModerationUnavailable = false;
+
             this.StreamerModel = await this.StreamerService.GetCurrentUser();
             if (this.StreamerModel == null || string.IsNullOrWhiteSpace(this.StreamerModel.UserID))
             {
@@ -347,23 +350,87 @@ namespace MixItUp.Base.Services.Velora.New
             }
         }
 
-        // Delete / timeout / ban stay on the REST moderate endpoint: it takes an explicit durationSeconds
-        // and a reason (the slash /timeout is only "<username> [duration]" - no reason, ambiguous unit),
-        // and there is no /delete slash command at all. The slash grammar is otherwise confirmed live
-        // (GET /api/chat/slash-commands) and drives the mod/unmod/clear/unban paths below.
+        // Message deletion is the one moderation action Velora's own web client performs over REST, and it
+        // posts exactly { messageId, action } to the moderate endpoint - no user identifier. Sending a userId
+        // as well is what made this call fail. Velora's ModerateChatDto is undocumented in their OpenAPI
+        // schema (GET https://api.velora.tv/docs-json exposes it with no properties), so the body is matched
+        // to the web client rather than guessed. There is no /delete slash command, so there is no fallback.
         public override async Task DeleteMessage(ChatMessageViewModel message)
         {
-            await this.StreamerService.ModerateUser(this.ChannelID, "delete", userID: message.User?.PlatformID, messageID: message.ID);
+            VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "delete", messageID: message.ID);
+            if (result == null || !result.Success)
+            {
+                await this.ReportModerationFailure("delete", result?.Message);
+            }
         }
+
+        // Ban / timeout try REST first because it is the only path that carries an explicit durationSeconds and
+        // a reason, then fall back to the Chat WS slash command, which is confirmed working. Velora's own web
+        // client never bans or times out over REST - it uses the socket - so the REST field names for those two
+        // actions are unverified. After the first client-side rejection the REST attempt is skipped for the rest
+        // of the session rather than failing on every action. The slash fallback carries no reason.
+        private bool restUserModerationUnavailable;
 
         public override async Task TimeoutUser(UserV2ViewModel user, int durationInSeconds, string reason = null)
         {
-            await this.StreamerService.ModerateUser(this.ChannelID, "timeout", userID: user.PlatformID, username: user.Username, durationSeconds: Math.Max(durationInSeconds, 1), reason: reason);
+            int duration = Math.Max(durationInSeconds, 1);
+            if (!this.restUserModerationUnavailable)
+            {
+                VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "timeout", userID: user.PlatformID, username: user.Username, durationSeconds: duration, reason: reason);
+                if (result != null && result.Success)
+                {
+                    return;
+                }
+                this.RecordRestModerationFailure("timeout", result);
+            }
+
+            // The slash grammar is "/timeout <username> [duration]". Velora reports timeouts back over the chat
+            // socket as durationSeconds, so the duration is passed through as seconds.
+            Logger.Log(LogLevel.Debug, $"Velora '/timeout {user?.Username} {duration}' (seconds){ReasonDropped(reason)}");
+            if (!await this.SendModerationSlashCommand($"/timeout {user?.Username} {duration}", user))
+            {
+                await this.ReportModerationFailure("timeout", SocketUnavailableMessage);
+            }
         }
 
         public override async Task BanUser(UserV2ViewModel user, string reason = null)
         {
-            await this.StreamerService.ModerateUser(this.ChannelID, "ban", userID: user.PlatformID, username: user.Username, reason: reason);
+            if (!this.restUserModerationUnavailable)
+            {
+                VeloraModerationResult result = await this.StreamerService.ModerateUser(this.ChannelID, "ban", userID: user.PlatformID, username: user.Username, reason: reason);
+                if (result != null && result.Success)
+                {
+                    return;
+                }
+                this.RecordRestModerationFailure("ban", result);
+            }
+
+            Logger.Log(LogLevel.Debug, $"Velora '/ban {user?.Username}'{ReasonDropped(reason)}");
+            if (!await this.SendModerationSlashCommand($"/ban {user?.Username}", user))
+            {
+                await this.ReportModerationFailure("ban", SocketUnavailableMessage);
+            }
+        }
+
+        // Only a 4xx means Velora rejected the request shape; a transient failure must not permanently downgrade
+        // this session to the slash command, which cannot carry a ban/timeout reason.
+        private void RecordRestModerationFailure(string action, VeloraModerationResult result)
+        {
+            if (result != null && result.IsRequestRejected)
+            {
+                this.restUserModerationUnavailable = true;
+                Logger.Log(LogLevel.Error, $"Velora rejected the REST '{action}' request; using the slash command for the rest of this session: {result.Message}");
+            }
+            else
+            {
+                Logger.Log(LogLevel.Error, $"Velora REST '{action}' failed, falling back to the slash command: {result?.Message ?? "the request could not be sent"}");
+            }
+        }
+
+        /// <summary>The slash-command fallbacks take no reason argument, so note when one is being discarded.</summary>
+        private static string ReasonDropped(string reason)
+        {
+            return string.IsNullOrWhiteSpace(reason) ? string.Empty : $" (reason '{reason}' dropped: the slash command takes no reason)";
         }
 
         // mod / unmod / clear / unban have no REST equivalent, so they run as Chat WS slash commands
@@ -435,24 +502,47 @@ namespace MixItUp.Base.Services.Velora.New
         }
 
         // Velora slash commands execute with the channel owner's permissions, so they are sent from the
-        // streamer's chat socket. These have no REST fallback: if the socket is down, they cannot run.
-        private async Task SendModerationSlashCommand(string command, UserV2ViewModel user)
+        // streamer's chat socket. Returns false when the command could not be emitted, which lets the callers
+        // that have a REST equivalent decide what to do about it.
+        private async Task<bool> SendModerationSlashCommand(string command, UserV2ViewModel user)
         {
             if (user != null && string.IsNullOrWhiteSpace(user.Username))
             {
                 Logger.Log(LogLevel.Error, "Cannot send Velora slash command: the target username is empty.");
-                return;
+                return false;
             }
 
             if (this.StreamerChatClient != null && this.StreamerChatClient.IsConnected)
             {
                 await this.StreamerChatClient.SendSlashCommand(command);
+                return true;
             }
-            else
+
+            string name = command.Split(' ')[0];
+            Logger.Log(LogLevel.Error, $"Cannot run Velora '{name}': the streamer chat socket is not connected.");
+            return false;
+        }
+
+        // A failed moderation call used to be discarded silently, which is why a dead REST endpoint looked
+        // like a Mix It Up bug. Every failure is logged; the in-chat alert is throttled because "Disable Chat"
+        // deletes every incoming message and would otherwise raise one alert per message.
+        private const string SocketUnavailableMessage = "the streamer chat socket is not connected";
+
+        private static readonly TimeSpan ModerationAlertInterval = TimeSpan.FromSeconds(30);
+        private DateTimeOffset lastModerationAlert = DateTimeOffset.MinValue;
+
+        private async Task ReportModerationFailure(string action, string message)
+        {
+            Logger.Log(LogLevel.Error, $"Velora moderation action '{action}' failed: {message ?? "the request could not be sent"}");
+
+            if (DateTimeOffset.Now - this.lastModerationAlert < ModerationAlertInterval)
             {
-                string name = command.Split(' ')[0];
-                Logger.Log(LogLevel.Error, $"Cannot run Velora '{name}': the streamer chat socket is not connected (this command has no REST equivalent).");
+                return;
             }
+            this.lastModerationAlert = DateTimeOffset.Now;
+
+            await ServiceManager.Get<ChatService>().AddMessage(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Velora,
+                string.Format(MixItUp.Base.Resources.VeloraModerationActionFailed, action), ChannelSession.Settings.AlertModerationColor));
         }
 
         public async Task RefreshEmotes()

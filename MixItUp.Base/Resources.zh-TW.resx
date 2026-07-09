@@ -11464,7 +11464,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>可疑用户 {0} 发送了一条信息</value>
   </data>
   <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
-    <value>{0}可疑状态 设置为 {1｝</value>
+    <value>{0} 可疑狀態設定為 {1}</value>
   </data>
   <data name="ShowTwitchUserWarned" xml:space="preserve">
     <value>显示 Twitch 用户警告</value>
@@ -11671,5 +11671,225 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="VeloraSubscriptions" xml:space="preserve">
     <value>Velora訂閱</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>指令用法無效。預期格式：{0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>所選平台不支援 /{0} 指令</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} 不在聊天室中，且存在於多個已連線的平台。請選擇特定平台以指定該使用者。</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>Velora 的 {0} 動作失敗。詳情請查看記錄檔。</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne 貢獻</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne 禮物已群眾募資完成</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne 禮物已購買</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne 是為創作者打造的送禮與願望清單平台。將它連接到 Mix It Up 會產生一個專屬的 webhook URL，讓 Throne 直接將禮物與貢獻通知傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>連接後，複製您的 webhook URL，並貼到 Throne 創作者後台的 Webhook 整合設定中。接著即可在「事件」頁面自訂 Throne 事件。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne Webhook URL</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall 贊助</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall 禮物購買</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall 是為創作者打造的周邊商品與商店平台。將它連接到 Mix It Up 會產生一個專屬的 webhook URL，讓 Fourthwall 直接將訂單、贊助與禮物通知傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>連接後，複製您的 webhook URL，並貼到 Fourthwall 商店管理後台的 Settings &gt; For developers &gt; Webhooks 中。接著即可在「事件」頁面自訂 Fourthwall 事件。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall 訂單成立</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall Webhook URL</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi 委託</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi 會員（首次）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Ko-fi 讓支持者能夠給您小費、訂閱會員及購買商店商品。將它連接到 Mix It Up 會產生一個專屬的 webhook URL，讓 Ko-fi 直接將付款通知傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>連接後，複製您的 webhook URL，並貼到 Ko-fi Webhooks 頁面的 Webhook URL 欄位。您可以從該頁面傳送測試付款來試用；Ko-fi 會持續重試傳送，直到成功為止。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fi 會員（定期）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fi 商店訂單</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi 小費</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fi Webhook URL</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API 金鑰</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg API 金鑰頁面</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg 贊助</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>無法連接到 Pally.gg 事件來源。請確認您的 API 金鑰是否有效。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg 是一個團隊小費平台，讓觀眾一次支持直播中的所有成員。將它連接到 Mix It Up 可即時將小費通知直接傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>若要連接，請在 Pally.gg 主控台的 Settings &gt; API Keys 中建立 API 金鑰，然後貼到這裡。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>必須指定有效的 Pally.gg API 金鑰。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>將檔案加入佇列</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>將資料夾加入佇列</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>將播放清單加入佇列</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>您確定要清除音樂佇列嗎？</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>將佇列匯出為 M3U 播放清單</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>M3U 播放清單|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>播放清單檔案|*.m3u;*.m3u8|所有檔案 (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>使用下方的按鈕將檔案、資料夾或播放清單加入佇列</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>從佇列移除</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>正在播放</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>輸出與指令</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>佇列</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>重複播放</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>重複播放關閉</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>重複播放開啟</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>切換重複播放</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>隨機播放</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>隨機播放關閉</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>隨機播放開啟</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>切換隨機播放</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>公告</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>喊話</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>解除使用者逾時</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>給予頻道點數</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>扣除頻道點數</value>
+    <comment>Velora action type</comment>
   </data>
 </root>

@@ -27,11 +27,8 @@ namespace MixItUp.Base.ViewModel.Chat
 
     public class ChatListControlViewModel : WindowControlViewModelBase
     {
+        // Slash commands are parsed by ChatSlashCommandProcessor; this remains for ModerationService.
         public static readonly Regex UserNameTagRegex = new Regex(@"@\w+");
-        public static readonly Regex WhisperRegex = new Regex(@"^/w(hisper)? @\w+ ", RegexOptions.IgnoreCase);
-        public static readonly Regex ClearRegex = new Regex(@"^/clear$", RegexOptions.IgnoreCase);
-        public static readonly Regex TimeoutRegex = new Regex(@"^/timeout @\w+ \d+$", RegexOptions.IgnoreCase);
-        public static readonly Regex BanRegex = new Regex(@"^/ban @\w+$", RegexOptions.IgnoreCase);
 
         public ThreadSafeObservableCollection<ChatMessageViewModel> Messages { get; private set; }
 
@@ -127,63 +124,11 @@ namespace MixItUp.Base.ViewModel.Chat
                 {
                     StreamingPlatformTypeEnum platformType = SelectedPlatform?.Platform ?? StreamingPlatformTypeEnum.All;
 
-                    if (ChatListControlViewModel.WhisperRegex.IsMatch(this.SendMessageText))
-                    {
-                        Match whisperRegexMatch = ChatListControlViewModel.WhisperRegex.Match(this.SendMessageText);
-
-                        string message = this.SendMessageText.Substring(whisperRegexMatch.Value.Length);
-
-                        Match userNameMatch = ChatListControlViewModel.UserNameTagRegex.Match(whisperRegexMatch.Value);
-                        string username = UserService.SanitizeUsername(userNameMatch.Value);
-
-                        await ServiceManager.Get<ChatService>().Whisper(username, platformType, message, this.SendAsStreamer);
-                    }
-                    else if (ChatListControlViewModel.ClearRegex.IsMatch(this.SendMessageText))
-                    {
-                        await ServiceManager.Get<ChatService>().ClearMessages(platformType);
-                    }
-                    else if (ChatListControlViewModel.TimeoutRegex.IsMatch(this.SendMessageText))
-                    {
-                        string[] splits = this.SendMessageText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                        if (splits.Length == 3)
-                        {
-                            string username = UserService.SanitizeUsername(splits[1]);
-                            UserV2ViewModel user = ServiceManager.Get<UserService>().GetActiveUserByPlatform(platformType, platformUsername: username);
-                            if (user != null)
-                            {
-                                if (int.TryParse(splits[2], out int amount) && amount > 0)
-                                {
-                                    await ServiceManager.Get<ChatService>().TimeoutUser(user, amount);
-                                }
-                                else
-                                {
-                                    await ServiceManager.Get<ChatService>().AddMessage(new AlertChatMessageViewModel(MixItUp.Base.Resources.ChatTimeoutAmountMustBeGreaterThanZero));
-                                }
-                            }
-                            else
-                            {
-                                await ServiceManager.Get<ChatService>().AddMessage(new AlertChatMessageViewModel(MixItUp.Base.Resources.UserNotFound));
-                            }
-                        }
-                    }
-                    else if (ChatListControlViewModel.BanRegex.IsMatch(this.SendMessageText))
-                    {
-                        string[] splits = this.SendMessageText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                        if (splits.Length == 2)
-                        {
-                            string username = UserService.SanitizeUsername(splits[1]);
-                            UserV2ViewModel user = ServiceManager.Get<UserService>().GetActiveUserByPlatform(platformType, platformUsername: username);
-                            if (user != null)
-                            {
-                                await ServiceManager.Get<ChatService>().BanUser(user);
-                            }
-                        }
-                        else
-                        {
-                            await ServiceManager.Get<ChatService>().AddMessage(new AlertChatMessageViewModel(MixItUp.Base.Resources.UserNotFound));
-                        }
-                    }
-                    else
+                    // A slash command that any targeted platform implements is executed against that platform's
+                    // API and swallowed, so it is never broadcast as literal chat text to the platforms that do
+                    // not implement it. Anything else falls through and is sent as an ordinary chat message.
+                    SlashCommandResultEnum slashCommandResult = await ChatSlashCommandProcessor.Process(this.SendMessageText, platformType, this.SendAsStreamer);
+                    if (slashCommandResult == SlashCommandResultEnum.NotRecognized)
                     {
                         await ServiceManager.Get<ChatService>().SendMessage(this.SendMessageText, platformType, sendAsStreamer: this.SendAsStreamer);
                     }

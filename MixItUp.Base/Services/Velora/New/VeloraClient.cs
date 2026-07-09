@@ -208,6 +208,12 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 return;
             }
+
+            // Log the duration Velora actually applied. The /timeout slash-command fallback has to assume a
+            // unit for its bare duration argument, and this is the only place the platform reports it back.
+            WebhookModerationEventModel timeoutEvent = payload.ToObject<WebhookModerationEventModel>();
+            Logger.Log(LogLevel.Debug, $"Velora userTimedOut: durationSeconds={timeoutEvent?.ResolvedDurationSeconds}, expiresAt={timeoutEvent?.ExpiresAt}, createdAt={timeoutEvent?.CreatedAt}");
+
             await this.HandleBan(payload);
         }
 

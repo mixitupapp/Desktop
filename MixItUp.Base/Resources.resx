@@ -8334,6 +8334,22 @@ Imported quotes with IDs that match existing quotes will altered to the next max
   <data name="ChatTimeoutAmountMustBeGreaterThanZero" xml:space="preserve">
     <value>The timeout amount specified must be greater than 0</value>
   </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Invalid command usage. Expected: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>The /{0} command is not supported on the selected platform</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} is not in chat and exists on more than one connected platform. Select a specific platform to target them.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>The Velora {0} action failed. See the log for details.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
   <data name="ChatWhisperNumberResponse" xml:space="preserve">
     <value>You are whisperer #{0}</value>
     <comment>{0} is the number of the whisper</comment>

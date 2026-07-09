@@ -28662,6 +28662,42 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid command usage. Expected: {0}.
+        /// </summary>
+        public static string ChatCommandInvalidUsage {
+            get {
+                return ResourceManager.GetString("ChatCommandInvalidUsage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The /{0} command is not supported on the selected platform.
+        /// </summary>
+        public static string ChatCommandNotSupportedOnPlatform {
+            get {
+                return ResourceManager.GetString("ChatCommandNotSupportedOnPlatform", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is not in chat and exists on more than one connected platform. Select a specific platform to target them..
+        /// </summary>
+        public static string ChatCommandUserOnMultiplePlatforms {
+            get {
+                return ResourceManager.GetString("ChatCommandUserOnMultiplePlatforms", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Velora {0} action failed. See the log for details..
+        /// </summary>
+        public static string VeloraModerationActionFailed {
+            get {
+                return ResourceManager.GetString("VeloraModerationActionFailed", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to User Only Chat.

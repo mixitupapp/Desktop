@@ -11766,4 +11766,100 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="VeloraSubscriptions" xml:space="preserve">
     <value>Abonnements Velora</value>
   </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Utilisation de commande non valide. Attendu : {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>La commande /{0} n'est pas prise en charge sur la plateforme sélectionnée</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} n'est pas dans le chat et existe sur plusieurs plateformes connectées. Sélectionnez une plateforme spécifique pour le cibler.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>L'action Velora {0} a échoué. Consultez le journal pour plus de détails.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Ajouter un fichier à la file d'attente</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Ajouter un dossier à la file d'attente</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Ajouter une playlist à la file d'attente</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vider la file d'attente musicale ?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Exporter la file d'attente en playlist M3U</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Playlist M3U|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Fichiers de playlist|*.m3u;*.m3u8|Tous les fichiers (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Utilisez les boutons ci-dessous pour ajouter des fichiers, des dossiers ou des playlists à la file d'attente</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Retirer de la file d'attente</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Lecture en cours</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Sortie et commandes</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>File d'attente</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Répéter</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Répétition désactivée</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Répétition activée</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Basculer la répétition</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Lecture aléatoire</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Lecture aléatoire désactivée</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Lecture aléatoire activée</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Basculer la lecture aléatoire</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Annoncer</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shoutout</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Annuler l'exclusion temporaire</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Attribuer des points de chaîne</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Retirer des points de chaîne</value>
+    <comment>Velora action type</comment>
+  </data>
 </root>

@@ -11672,4 +11672,224 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="VeloraSubscriptions" xml:space="preserve">
     <value>[Velora Šûƀšçŕîþţîöñšẋẋẋẋẋ]</value>
   </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>[Îñṽåļîðẋẋẋ çöɱɱåñðẋẋẋ ûšåĝé·ẋẋ Éẋþéçţéð∶ẋẋẋ {0}]</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>[Ţĥéẋ ⁄ẋ{0} çöɱɱåñðẋẋẋ îšẋ ñöţẋ šûþþöŕţéðẋẋẋ öñẋ ţĥéẋ šéļéçţéðẋẋẋ þļåţƒöŕɱẋẋẋ]</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>[{0} îšẋ ñöţẋ îñẋ çĥåţẋẋ åñðẋ éẋîšţšẋẋ öñẋ ɱöŕéẋẋ ţĥåñẋẋ öñéẋ çöññéçţéðẋẋẋ þļåţƒöŕɱ·ẋẋẋ Šéļéçţẋẋ åẋ šþéçîƒîçẋẋẋ þļåţƒöŕɱẋẋẋ ţöẋ ţåŕĝéţẋẋ ţĥéɱ·ẋẋ]</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>[Ţĥéẋ Ṽéļöŕåẋẋ {0} åçţîöñẋẋ ƒåîļéð·ẋẋẋ Šééẋ ţĥéẋ ļöĝẋ ƒöŕẋ ðéţåîļš·ẋẋẋ]</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>[Ţĥŕöñéẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>[Ţĥŕöñéẋẋ Çöñţŕîƀûţîöñẋẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>[Ţĥŕöñéẋẋ Ĝîƒţẋẋ Çŕöŵðƒûñðéðẋẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>[Ţĥŕöñéẋẋ Ĝîƒţẋẋ Þûŕçĥåšéðẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>[Ţĥŕöñéẋẋ îšẋ åẋ ĝîƒţîñĝẋẋẋ ⅋ẋ ŵîšĥļîšţẋẋẋ þļåţƒöŕɱẋẋẋ ƒöŕẋ çŕéåţöŕš·ẋẋẋ Çöññéçţîñĝẋẋẋẋ îţẋ ţöẋ Ṁîẋẋ Îţẋ Ûþẋ ĝéñéŕåţéšẋẋẋ åẋ ûñîǫûéẋẋ ŵéƀĥööķẋẋẋ ÛŔĻẋ ţĥåţẋẋ ļéţšẋẋ Ţĥŕöñéẋẋ šéñðẋẋ ĝîƒţẋẋ åñðẋ çöñţŕîƀûţîöñẋẋẋẋ åļéŕţšẋẋ ðîŕéçţļýẋẋẋ ţöẋ ţĥéẋ åþþ·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>[Åƒţéŕẋẋ çöññéçţîñĝ،ẋẋẋẋ çöþýẋẋ ýöûŕẋẋ ŵéƀĥööķẋẋẋ ÛŔĻẋ åñðẋ þåšţéẋẋ îţẋ îñţöẋẋ ţĥéẋ Ŵéƀĥööķẋẋẋ îñţéĝŕåţîöñẋẋẋẋ šéţţîñĝšẋẋẋ öñẋ ýöûŕẋẋ Ţĥŕöñéẋẋ çŕéåţöŕẋẋẋ ðåšĥƀöåŕð·ẋẋẋẋ Ţĥŕöñéẋẋ éṽéñţšẋẋ çåñẋ ţĥéñẋẋ ƀéẋ çûšţöɱîžéðẋẋẋẋ öñẋ ţĥéẋ Éṽéñţšẋẋ þåĝé·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>[Ţĥŕöñéẋẋ Ŵéƀĥööķẋẋẋ ÛŔĻẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>[Ƒöûŕţĥŵåļļẋẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>[Ƒöûŕţĥŵåļļẋẋẋẋ Ðöñåţîöñẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>[Ƒöûŕţĥŵåļļẋẋẋẋ Ĝîƒţẋẋ Þûŕçĥåšéẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>[Ƒöûŕţĥŵåļļẋẋẋẋ îšẋ åẋ ɱéŕçĥẋẋ åñðẋ šĥöþẋẋ þļåţƒöŕɱẋẋẋ ƒöŕẋ çŕéåţöŕš·ẋẋẋ Çöññéçţîñĝẋẋẋẋ îţẋ ţöẋ Ṁîẋẋ Îţẋ Ûþẋ ĝéñéŕåţéšẋẋẋ åẋ ûñîǫûéẋẋ ŵéƀĥööķẋẋẋ ÛŔĻẋ ţĥåţẋẋ ļéţšẋẋ Ƒöûŕţĥŵåļļẋẋẋẋ šéñðẋẋ öŕðéŕ،ẋẋ ðöñåţîöñ،ẋẋẋ åñðẋ ĝîƒţẋẋ åļéŕţšẋẋ ðîŕéçţļýẋẋẋ ţöẋ ţĥéẋ åþþ·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>[Åƒţéŕẋẋ çöññéçţîñĝ،ẋẋẋẋ çöþýẋẋ ýöûŕẋẋ ŵéƀĥööķẋẋẋ ÛŔĻẋ åñðẋ þåšţéẋẋ îţẋ îñţöẋẋ ýöûŕẋẋ Ƒöûŕţĥŵåļļẋẋẋẋ šĥöþẋẋ åðɱîñẋẋ ðåšĥƀöåŕðẋẋẋ ûñðéŕẋẋ Šéţţîñĝšẋẋẋ ≥ẋ Ƒöŕẋ ðéṽéļöþéŕšẋẋẋẋ ≥ẋ Ŵéƀĥööķš·ẋẋẋ Ƒöûŕţĥŵåļļẋẋẋẋ éṽéñţšẋẋ çåñẋ ţĥéñẋẋ ƀéẋ çûšţöɱîžéðẋẋẋẋ öñẋ ţĥéẋ Éṽéñţšẋẋ þåĝé·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>[Ƒöûŕţĥŵåļļẋẋẋẋ Öŕðéŕẋẋ Þļåçéðẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>[Ƒöûŕţĥŵåļļẋẋẋẋ Ŵéƀĥööķẋẋẋ ÛŔĻẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ Çöɱɱîššîöñẋẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ Ṁéɱƀéŕšĥîþẋẋẋẋ (Ƒîŕšţẋẋ Ţîɱé)ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ ļéţšẋẋ šûþþöŕţéŕšẋẋẋẋ šéñðẋẋ ýöûẋ ţîþš،ẋẋ ɱéɱƀéŕšĥîþš،ẋẋẋẋ åñðẋ šĥöþẋẋ öŕðéŕš·ẋẋẋ Çöññéçţîñĝẋẋẋẋ îţẋ ţöẋ Ṁîẋẋ Îţẋ Ûþẋ ĝéñéŕåţéšẋẋẋ åẋ ûñîǫûéẋẋ ŵéƀĥööķẋẋẋ ÛŔĻẋ ţĥåţẋẋ ļéţšẋẋ Ķö‐ƒîẋẋ šéñðẋẋ þåýɱéñţẋẋẋ åļéŕţšẋẋ ðîŕéçţļýẋẋẋ ţöẋ ţĥéẋ åþþ·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>[Åƒţéŕẋẋ çöññéçţîñĝ،ẋẋẋẋ çöþýẋẋ ýöûŕẋẋ ŵéƀĥööķẋẋẋ ÛŔĻẋ åñðẋ þåšţéẋẋ îţẋ îñţöẋẋ ţĥéẋ Ŵéƀĥööķẋẋẋ ÛŔĻẋ ƒîéļðẋẋ öñẋ ýöûŕẋẋ Ķö‐ƒîẋẋ Ŵéƀĥööķšẋẋẋ þåĝé·ẋẋ Ýöûẋ çåñẋ šéñðẋẋ ţéšţẋẋ þåýɱéñţšẋẋẋ ƒŕöɱẋẋ ţĥåţẋẋ þåĝéẋẋ ţöẋ ţŕýẋ îţẋ öûţ⁏ẋẋ Ķö‐ƒîẋẋ ŕéţŕîéšẋẋẋ ðéļîṽéŕîéšẋẋẋẋ ûñţîļẋẋ ţĥéýẋẋ šûççééð·ẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ Ṁéɱƀéŕšĥîþẋẋẋẋ (Ŕéçûŕŕîñĝ)ẋẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ Šĥöþẋẋ Öŕðéŕẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ Ţîþẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>[Ķö‐ƒîẋẋ Ŵéƀĥööķẋẋẋ ÛŔĻẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>[Þåļļý·ĝĝẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>[ÅÞÎẋ Ķéýẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>[Þåļļý·ĝĝẋẋẋ ÅÞÎẋ Ķéýšẋẋ Þåĝéẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>[Þåļļý·ĝĝẋẋẋ Ðöñåţîöñẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ çöññéçţẋẋẋ ţöẋ ţĥéẋ Þåļļý·ĝĝẋẋẋ éṽéñţẋẋ ƒééð·ẋẋ Þļéåšéẋẋ çĥéçķẋẋ ţĥåţẋẋ ýöûŕẋẋ ÅÞÎẋ ķéýẋ îšẋ ṽåļîð·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>[Þåļļý·ĝĝẋẋẋ îšẋ åẋ ţéåɱẋẋ ţîþþîñĝẋẋẋ þļåţƒöŕɱẋẋẋ ţĥåţẋẋ ļéţšẋẋ ṽîéŵéŕšẋẋẋ šûþþöŕţẋẋẋ éṽéŕýöñéẋẋẋ öñẋ ţĥéẋ šţŕéåɱẋẋ åţẋ öñçé·ẋẋ Çöññéçţîñĝẋẋẋẋ îţẋ ţöẋ Ṁîẋẋ Îţẋ Ûþẋ ðéļîṽéŕšẋẋẋ ţîþẋ åļéŕţšẋẋ ðîŕéçţļýẋẋẋ ţöẋ ţĥéẋ åþþẋ îñẋ ŕéåļẋẋ ţîɱé·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>[Ţöẋ çöññéçţ،ẋẋẋ çŕéåţéẋẋ åñẋ ÅÞÎẋ ķéýẋ îñẋ ýöûŕẋẋ Þåļļý·ĝĝẋẋẋ ðåšĥƀöåŕðẋẋẋ ûñðéŕẋẋ Šéţţîñĝšẋẋẋ ≥ẋ ÅÞÎẋ Ķéýš،ẋẋ ţĥéñẋẋ þåšţéẋẋ îţẋ ĥéŕé·ẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>[Åẋ ṽåļîðẋẋ Þåļļý·ĝĝẋẋẋ ÅÞÎẋ ķéýẋ ɱûšţẋẋ ƀéẋ šþéçîƒîéð·ẋẋẋẋ]</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>[Åððẋ Ƒîļéẋẋ Ţöẋ Ǫûéûéẋẋ]</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>[Åððẋ Ƒöļðéŕẋẋ Ţöẋ Ǫûéûéẋẋ]</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>[Åððẋ Þļåýļîšţẋẋẋ Ţöẋ Ǫûéûéẋẋ]</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>[Åŕéẋ ýöûẋ šûŕéẋẋ ýöûẋ ŵåñţẋẋ ţöẋ çļéåŕẋẋ ţĥéẋ ɱûšîçẋẋ ǫûéûé¿ẋẋ]</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>[Éẋþöŕţẋẋ Ǫûéûéẋẋ Åšẋ Ṁ③Ûẋ Þļåýļîšţẋẋẋ]</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>[Ṁ③Ûẋ Þļåýļîšţ¦⁎·ɱ③ûẋẋẋẋẋ]</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>[Þļåýļîšţẋẋẋ Ƒîļéš¦⁎·ɱ③û⁏⁎·ɱ③û⑧¦Åļļẋẋẋẋẋẋẋẋ ƒîļéšẋẋ (⁎·⁎)¦⁎·⁎ẋẋẋ]</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>[Ûšéẋ ţĥéẋ ƀûţţöñšẋẋẋ ƀéļöŵẋẋ ţöẋ åððẋ ƒîļéš،ẋẋ ƒöļðéŕš،ẋẋẋ öŕẋ þļåýļîšţšẋẋẋ ţöẋ ţĥéẋ ǫûéûéẋẋ]</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>[Ŕéɱöṽéẋẋ Ƒŕöɱẋẋ Ǫûéûéẋẋ]</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>[Ñöŵẋ Þļåýîñĝẋẋẋ]</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>[Öûţþûţẋẋ ⅋ẋ Çöɱɱåñðšẋẋẋ]</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>[Ǫûéûéẋẋ]</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>[Ŕéþéåţẋẋ]</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>[Ŕéþéåţẋẋ Öƒƒẋ]</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>[Ŕéþéåţẋẋ Öñẋ]</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>[Ŕéþéåţẋẋ Ţöĝĝļéẋẋ]</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>[Šĥûƒƒļéẋẋẋ]</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>[Šĥûƒƒļéẋẋẋ Öƒƒẋ]</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>[Šĥûƒƒļéẋẋẋ Öñẋ]</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>[Šĥûƒƒļéẋẋẋ Ţöĝĝļéẋẋ]</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>[Åññöûñçéẋẋẋ]</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>[Šĥöûţöûţẋẋẋ]</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>[Ûñţîɱéöûţẋẋẋ Ûšéŕẋẋ]</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>[Ĝŕåñţẋẋ Çĥåññéļẋẋẋ Þöîñţšẋẋ]</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>[Ðéðûçţẋẋ Çĥåññéļẋẋẋ Þöîñţšẋẋ]</value>
+    <comment>Velora action type</comment>
+  </data>
 </root>
