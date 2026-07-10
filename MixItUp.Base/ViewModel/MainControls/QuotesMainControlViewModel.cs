@@ -49,7 +49,7 @@ namespace MixItUp.Base.ViewModel.MainControls
         }
         private bool latestQuotesAtTop;
 
-        public string QuotesOrderIcon { get { return this.LatestQuotesAtTop ? "SortDescending" : "SortAscending"; } }
+        public string QuotesOrderIcon { get { return this.LatestQuotesAtTop ? "arrow_downward" : "arrow_upward"; } }
 
         public string QuotesFormatText
         {

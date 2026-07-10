@@ -1,4 +1,4 @@
-<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.ChannelControl"
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.ChannelControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -115,9 +115,9 @@
                                                                 <ColumnDefinition Width="Auto" />
                                                             </Grid.ColumnDefinitions>
 
-                                                            <Controls:IconButton Grid.Column="0" Command="{Binding OpenChannelCommand}" Icon="Television" ToolTip="{x:Static resx:Resources.OpenChannel}" />
+                                                            <Controls:IconButton Grid.Column="0" Command="{Binding OpenChannelCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.OpenChannel}" />
 
-                                                            <Controls:IconButton Grid.Column="2" Command="{Binding RaidChannelCommand}" Icon="SatelliteUplink" ToolTip="{x:Static resx:Resources.RaidChannel}" />
+                                                            <Controls:IconButton Grid.Column="2" Command="{Binding RaidChannelCommand}" Icon="broadcast_on_personal" ToolTip="{x:Static resx:Resources.RaidChannel}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -170,7 +170,7 @@
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Grid>
-                                                            <Controls:IconButton Command="{Binding OpenStreamCommand}" Icon="Television" ToolTip="{x:Static resx:Resources.Link}" />
+                                                            <Controls:IconButton Command="{Binding OpenStreamCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.Link}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -258,6 +258,51 @@
                                     </Grid>
 
                                     <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                </Expander>
+            </Border>
+            <!-- Velora -->
+            <Border Visibility="{Binding IsVeloraConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                <Expander DataContext="{Binding Velora}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
+                    <Expander.Header>
+                        <Grid Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="/Assets/Images/velora-color_sm.png" Height="24" Width="24" VerticalAlignment="Center" />
+
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.Velora}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+                        </Grid>
+                    </Expander.Header>
+
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
+                        <Grid Margin="10">
+                            <GroupBox Header="{x:Static resx:Resources.ChannelInfo}">
+                                <Grid Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+
+                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                    </Grid>
+
+                                    <Button Grid.Row="2" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
                                 </Grid>
                             </GroupBox>
                         </Grid>

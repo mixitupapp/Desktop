@@ -9,7 +9,7 @@ namespace MixItUp.Base.Model.User
         [Obsolete]
         Banned = 0,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
         User = 100,
 
         [TwitchUserRole]
@@ -18,12 +18,12 @@ namespace MixItUp.Base.Model.User
         [TwitchUserRole]
         TwitchPartner = 250,
 
-        [GenericUserRole, TwitchUserRole, KickUserRole]
+        [GenericUserRole, TwitchUserRole, KickUserRole, VeloraUserRole]
         Follower = 300,
         [YouTubeUserRole]
         YouTubeSubscriber = 301,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
         Regular = 400,
 
         [TwitchUserRole]
@@ -32,8 +32,10 @@ namespace MixItUp.Base.Model.User
         KickVIP = 501,
         [KickUserRole]
         KickOG = 502,
+        [VeloraUserRole]
+        VeloraVIP = 503,
 
-        [GenericUserRole, TwitchUserRole, KickUserRole]
+        [GenericUserRole, TwitchUserRole, KickUserRole, VeloraUserRole]
         Subscriber = 600,
         [YouTubeUserRole]
         YouTubeMember = 601,
@@ -44,13 +46,13 @@ namespace MixItUp.Base.Model.User
         [TwitchUserRole]
         TwitchStaff = 751,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
         Moderator = 800,
 
         [TwitchUserRole]
         TwitchChannelEditor = 850,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
         Streamer = 900,
     }
 
@@ -70,6 +72,9 @@ namespace MixItUp.Base.Model.User
 
         public static IEnumerable<UserRoleEnum> Kick { get { return kick; } }
         private readonly static IEnumerable<UserRoleEnum> kick = GetSelectableRoles<KickUserRoleAttribute>();
+
+        public static IEnumerable<UserRoleEnum> Velora { get { return velora; } }
+        private readonly static IEnumerable<UserRoleEnum> velora = GetSelectableRoles<VeloraUserRoleAttribute>();
 
         private static IEnumerable<UserRoleEnum> GetSelectableRoles<T>() where T : UserRoleAttributeBase
         {
@@ -166,5 +171,25 @@ namespace MixItUp.Base.Model.User
         }
 
         public override bool IsDefaultAttribute() { return this.Equals(KickUserRoleAttribute.Default); }
+    }
+
+    [AttributeUsage(AttributeTargets.All)]
+    public class VeloraUserRoleAttribute : UserRoleAttributeBase
+    {
+        public static readonly VeloraUserRoleAttribute Default;
+
+        public VeloraUserRoleAttribute() { }
+
+        public override bool Equals(object obj) { return (obj is VeloraUserRoleAttribute); }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -86145682;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<object>.Default.GetHashCode(TypeId);
+            return hashCode;
+        }
+
+        public override bool IsDefaultAttribute() { return this.Equals(VeloraUserRoleAttribute.Default); }
     }
 }

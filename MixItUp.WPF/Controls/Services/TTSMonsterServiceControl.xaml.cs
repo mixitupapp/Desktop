@@ -1,4 +1,5 @@
 ﻿using MixItUp.Base.ViewModel.Services;
+using MixItUp.WPF.Branding;
 using System.Threading.Tasks;
 
 namespace MixItUp.WPF.Controls.Services
@@ -8,6 +9,8 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class TTSMonsterServiceControl : ServiceControlBase
     {
+        public override Brand Brand { get { return Brands.TTSMonster; } }
+
         private TTSMonsterServiceControlViewModel viewModel;
 
         public TTSMonsterServiceControl()

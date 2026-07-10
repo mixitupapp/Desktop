@@ -12,7 +12,7 @@
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     d:DesignHeight="700"
     d:DesignWidth="600"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
@@ -195,7 +195,7 @@
                 Margin="0,10,0,0"
                 VerticalAlignment="Center"
                 Click="FilterUsersButton_Click"
-                Icon="Search"
+                Icon="search"
                 ToolTip="{x:Static resx:Resources.Filter}" />
         </Grid>
 
@@ -227,11 +227,8 @@
                             IsReadOnly="True">
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
-                                    <MaterialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        Kind="AccountKey"
-                                        Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                    <Controls:MaterialSymbolIcon
+                                        IconName="key" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -241,11 +238,8 @@
                             IsReadOnly="True">
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
-                                    <MaterialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        Kind="Clock"
-                                        Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                    <Controls:MaterialSymbolIcon
+                                        IconName="schedule" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -255,11 +249,8 @@
                             IsReadOnly="True">
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
-                                    <MaterialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        Kind="Cash100"
-                                        Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                    <Controls:MaterialSymbolIcon
+                                        IconName="payments" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -269,11 +260,8 @@
                             IsReadOnly="True">
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
-                                    <MaterialDesign:PackIcon
-                                        Width="24"
-                                        Height="24"
-                                        Kind="ShieldStar"
-                                        Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                    <Controls:MaterialSymbolIcon
+                                        IconName="local_police" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -292,7 +280,7 @@
                                             Grid.Column="0"
                                             HorizontalAlignment="Center"
                                             Click="UserEditButton_Click"
-                                            Icon="TooltipEdit"
+                                            Icon="rate_review"
                                             ToolTip="{x:Static resx:Resources.Edit}" />
 
                                         <Controls:IconButton
@@ -300,7 +288,7 @@
                                             Grid.Column="2"
                                             HorizontalAlignment="Center"
                                             Click="UserDeleteButton_Click"
-                                            Icon="Delete"
+                                            Icon="delete"
                                             ToolTip="{x:Static resx:Resources.Delete}" />
                                     </Grid>
                                 </DataTemplate>

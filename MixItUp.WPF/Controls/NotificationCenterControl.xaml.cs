@@ -1,8 +1,8 @@
-﻿using MaterialDesignThemes.Wpf;
-using MixItUp.Base;
+﻿using MixItUp.Base;
 using MixItUp.Base.Model.API;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using MixItUp.WPF.Branding;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -106,24 +106,22 @@ namespace MixItUp.WPF.Controls
 
         private string ValidateIconName(string iconName)
         {
-            if (string.IsNullOrEmpty(iconName))
+            if (!string.IsNullOrEmpty(iconName))
             {
-                return "Bell";
-            }
-
-            try
-            {
-                if (Enum.TryParse<PackIconKind>(iconName, out _))
+                if (MaterialSymbols.GetGlyph(iconName) != null)
                 {
                     return iconName;
                 }
-            }
-            catch
-            {
-                // If parsing fails, return default Bell icon
+
+                // Translate legacy PackIcon (mdi) names that may still come from the notification service
+                MainControls.IconMapEntry entry = MainControls.IconMapControl.Entries.FirstOrDefault(e => string.Equals(e.KindName, iconName, StringComparison.OrdinalIgnoreCase));
+                if (entry != null)
+                {
+                    return entry.Primary;
+                }
             }
 
-            return "Bell";
+            return "notifications";
         }
 
         private void NotificationItem_MouseEnter(object sender, MouseEventArgs e)

@@ -103,6 +103,10 @@ namespace MixItUp.WPF.Windows.Commands
                     this.editorDetailsControl = new KickKicksCommandEditorDetailsControl();
                     this.viewModel = new KickKicksCommandEditorWindowViewModel((KickKicksCommandModel)existingCommand);
                     break;
+                case CommandTypeEnum.VeloraChannelPoints:
+                    this.editorDetailsControl = new VeloraChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new VeloraChannelPointsCommandEditorWindowViewModel((VeloraChannelPointsCommandModel)existingCommand);
+                    break;
             }
 
             this.importedActions = actions;
@@ -157,6 +161,10 @@ namespace MixItUp.WPF.Windows.Commands
                 case CommandTypeEnum.KickKicks:
                     this.editorDetailsControl = new KickKicksCommandEditorDetailsControl();
                     this.viewModel = new KickKicksCommandEditorWindowViewModel();
+                    break;
+                case CommandTypeEnum.VeloraChannelPoints:
+                    this.editorDetailsControl = new VeloraChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new VeloraChannelPointsCommandEditorWindowViewModel();
                     break;
                 case CommandTypeEnum.Custom:
                     this.editorDetailsControl = new CustomCommandEditorDetailsControl();

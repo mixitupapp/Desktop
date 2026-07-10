@@ -92,11 +92,14 @@
                 Opacity="0.3"
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                 ToolTip="{x:Static resx:Resources.LockChatScrolling}">
-                <MaterialDesign:PackIcon
+                <Controls:MaterialSymbolIcon
                     x:Name="ChatLockButtonIcon"
+                    Margin="-7,-10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="24"
                     Foreground="{Binding LockIconColor}"
-                    Kind="LockOutline"
-                    Style="{StaticResource ButtonIcon}" />
+                    IconName="lock" />
             </Button>
 
             <Grid Grid.Row="1" Margin="5">

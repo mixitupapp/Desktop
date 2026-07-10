@@ -91,6 +91,8 @@ namespace MixItUp.Base.Services
 
         public bool IsPaused { get; private set; }
 
+        public bool IsUserEntranceCommandsPaused { get; private set; }
+
         public event EventHandler<CommandInstanceModel> OnCommandInstanceAdded = delegate { };
 
         public List<PreMadeChatCommandModelBase> PreMadeChatCommands { get; private set; } = new List<PreMadeChatCommandModelBase>();
@@ -107,6 +109,7 @@ namespace MixItUp.Base.Services
         public List<TwitchCustomPowerUpCommandModel> TwitchCustomPowerUpCommands { get; set; } = new List<TwitchCustomPowerUpCommandModel>();
         public List<KickChannelPointsCommandModel> KickChannelPointsCommands { get; set; } = new List<KickChannelPointsCommandModel>();
         public List<KickKicksCommandModel> KickKicksCommands { get; set; } = new List<KickKicksCommandModel>();
+        public List<VeloraChannelPointsCommandModel> VeloraChannelPointsCommands { get; set; } = new List<VeloraChannelPointsCommandModel>();
 
         public IEnumerable<CommandModelBase> AllEnabledChatAccessibleCommands
         {
@@ -139,11 +142,13 @@ namespace MixItUp.Base.Services
                 commands.AddRange(this.TwitchCustomPowerUpCommands);
                 commands.AddRange(this.KickChannelPointsCommands);
                 commands.AddRange(this.KickKicksCommands);
+                commands.AddRange(this.VeloraChannelPointsCommands);
                 return commands;
             }
         }
 
         private List<CommandInstanceModel> pauseQueue = new List<CommandInstanceModel>();
+        private List<CommandInstanceModel> userEntranceCommandsPauseQueue = new List<CommandInstanceModel>();
 
         public IEnumerable<CommandInstanceModel> CommandInstances { get { return this.commandInstances.ToList(); } }
         private List<CommandInstanceModel> commandInstances = new List<CommandInstanceModel>();
@@ -189,6 +194,7 @@ namespace MixItUp.Base.Services
             this.TwitchCustomPowerUpCommands.Clear();
             this.KickChannelPointsCommands.Clear();
             this.KickKicksCommands.Clear();
+            this.VeloraChannelPointsCommands.Clear();
 
             foreach (CommandModelBase command in ChannelSession.Settings.Commands.Values.ToList())
             {
@@ -209,6 +215,7 @@ namespace MixItUp.Base.Services
                 else if (command is TwitchCustomPowerUpCommandModel) { this.TwitchCustomPowerUpCommands.Add((TwitchCustomPowerUpCommandModel)command); }
                 else if (command is KickChannelPointsCommandModel) { this.KickChannelPointsCommands.Add((KickChannelPointsCommandModel)command); }
                 else if (command is KickKicksCommandModel) { this.KickKicksCommands.Add((KickKicksCommandModel)command); }
+                else if (command is VeloraChannelPointsCommandModel) { this.VeloraChannelPointsCommands.Add((VeloraChannelPointsCommandModel)command); }
             }
 
             foreach (PreMadeChatCommandSettingsModel commandSetting in ChannelSession.Settings.PreMadeChatCommandSettings)
@@ -276,6 +283,10 @@ namespace MixItUp.Base.Services
                 if (this.IsPaused)
                 {
                     this.pauseQueue.Add(commandInstance);
+                }
+                else if (this.IsUserEntranceCommandsPaused && this.IsUserEntranceCommand(commandInstance))
+                {
+                    this.userEntranceCommandsPauseQueue.Add(commandInstance);
                 }
                 else
                 {
@@ -380,9 +391,64 @@ namespace MixItUp.Base.Services
 
             foreach (CommandInstanceModel commandInstance in this.pauseQueue)
             {
-                await this.QueueInternal(commandInstance);
+                if (this.IsUserEntranceCommandsPaused && this.IsUserEntranceCommand(commandInstance))
+                {
+                    this.userEntranceCommandsPauseQueue.Add(commandInstance);
+                }
+                else
+                {
+                    await this.QueueInternal(commandInstance);
+                }
             }
             this.pauseQueue.Clear();
+        }
+
+        public async Task PauseUserEntranceCommands()
+        {
+            await this.commandQueueLock.WaitAsync();
+
+            this.IsUserEntranceCommandsPaused = true;
+
+            this.commandQueueLock.Release();
+        }
+
+        public async Task UnpauseUserEntranceCommands()
+        {
+            await this.commandQueueLock.WaitAsync();
+
+            this.IsUserEntranceCommandsPaused = false;
+
+            this.commandQueueLock.Release();
+
+            foreach (CommandInstanceModel commandInstance in this.userEntranceCommandsPauseQueue)
+            {
+                if (this.IsPaused)
+                {
+                    this.pauseQueue.Add(commandInstance);
+                }
+                else
+                {
+                    await this.QueueInternal(commandInstance);
+                }
+            }
+            this.userEntranceCommandsPauseQueue.Clear();
+        }
+
+        private bool IsUserEntranceCommand(CommandInstanceModel commandInstance)
+        {
+            CommandModelBase command = commandInstance.Command;
+            if (command == null)
+            {
+                return false;
+            }
+
+            if (command is EventCommandModel && ((EventCommandModel)command).EventType == EventTypeEnum.ChatUserEntranceCommand)
+            {
+                return true;
+            }
+
+            return commandInstance.Parameters.User != null && commandInstance.Parameters.User.EntranceCommandID != Guid.Empty &&
+                commandInstance.Parameters.User.EntranceCommandID == command.ID;
         }
 
         private async Task<Result> ValidateCommand(CommandInstanceModel commandInstance)

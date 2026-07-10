@@ -34,11 +34,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton Grid.Column="0" x:Name="EditButton" Click="EditButton_Click" HorizontalAlignment="Center" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.Edit}" />
+                                <Controls:IconButton Grid.Column="0" x:Name="EditButton" Click="EditButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
 
-                                <Controls:IconButton Grid.Column="2" x:Name="CopyButton" Click="CopyButton_Click" HorizontalAlignment="Center" Icon="ContentCopy" ToolTip="{x:Static resx:Resources.Copy}" />
+                                <Controls:IconButton Grid.Column="2" x:Name="CopyButton" Click="CopyButton_Click" HorizontalAlignment="Center" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" />
 
-                                <Controls:IconButton Grid.Column="4" x:Name="DeleteButton" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="4" x:Name="DeleteButton" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

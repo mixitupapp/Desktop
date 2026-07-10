@@ -69,13 +69,13 @@
 
                                 <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignOutlinedTextBox}"  VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="2" x:Name="LaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="Launch" ToolTip="{x:Static resx:Resources.Link}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="2" x:Name="LaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="launch" ToolTip="{x:Static resx:Resources.Link}" VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="ContentCopy" ToolTip="{x:Static resx:Resources.Copy}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="6" x:Name="EditEndpointButton" Click="EditEndpointButton_Click" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.Edit}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="6" x:Name="EditEndpointButton" Click="EditEndpointButton_Click" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" VerticalAlignment="Center" />
 
-                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanDelete}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanDelete}" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

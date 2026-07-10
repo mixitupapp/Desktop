@@ -10,7 +10,7 @@
              xmlns:CCControls="clr-namespace:MixItUp.WPF.Controls.CommunityCommands"
              mc:Ignorable="d"
                           
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"  
 
@@ -68,7 +68,7 @@
                                     <TextBlock Grid.Row="2" Text="{Binding Name}" FontSize="24" TextDecorations="Underline" FontWeight="Bold" />
                                     <TextBlock Grid.Row="4" Text="{Binding Description}" VerticalAlignment="Center" />
 
-                                    <Controls:IconButton Grid.Row="2" Grid.RowSpan="3" x:Name="CategorySeeMoreButton" HorizontalAlignment="Right" Icon="ArrowRightBold" Visibility="{Binding ShouldShowSeeMoreButton, Converter={StaticResource BooleanToVisibilityConverter}}" Click="CategorySeeMoreButton_Click" />
+                                    <Controls:IconButton Grid.Row="2" Grid.RowSpan="3" x:Name="CategorySeeMoreButton" HorizontalAlignment="Right" Icon="arrow_forward" Visibility="{Binding ShouldShowSeeMoreButton, Converter={StaticResource BooleanToVisibilityConverter}}" Click="CategorySeeMoreButton_Click" />
 
                                     <ListView x:Name="CommandsList" Grid.Row="6" ItemsSource="{Binding Commands}" SelectionChanged="CommandsList_SelectionChanged" PreviewMouseWheel="CommandsList_PreviewMouseWheel">
                                         <ListView.ItemsPanel>
@@ -98,7 +98,7 @@
 
         <Grid Visibility="{Binding ShowSearch, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid Margin="15">
-                <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="ArrowBackCircle" ToolTip="{x:Static resx:Resources.Back}" />
+                <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="arrow_circle_left" ToolTip="{x:Static resx:Resources.Back}" />
             </Grid>
 
             <Grid Margin="0,10,0,0">
@@ -147,13 +147,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Controls:IconButton Grid.Column="0" Command="{Binding PreviousResultsCommand}" VerticalAlignment="Center" Icon="ArrowBack" ToolTip="{x:Static resx:Resources.Previous}" />
+                    <Controls:IconButton Grid.Column="0" Command="{Binding PreviousResultsCommand}" VerticalAlignment="Center" Icon="arrow_back" ToolTip="{x:Static resx:Resources.Previous}" />
 
                     <TextBlock Grid.Column="2" Text="{Binding CurrentResultsPage}" VerticalAlignment="Center" />
                     <TextBlock Grid.Column="3" Text="/" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock Grid.Column="4" Text="{Binding TotaResultsPages}" VerticalAlignment="Center" />
 
-                    <Controls:IconButton Grid.Column="6" Command="{Binding NextResultsCommand}" VerticalAlignment="Center" Icon="ArrowForward" ToolTip="{x:Static resx:Resources.Next}" />
+                    <Controls:IconButton Grid.Column="6" Command="{Binding NextResultsCommand}" VerticalAlignment="Center" Icon="arrow_forward" ToolTip="{x:Static resx:Resources.Next}" />
                 </Grid>
             </Grid>
         </Grid>
@@ -162,7 +162,7 @@
             <ScrollViewer>
                 <Grid>
                     <Grid Margin="20">
-                        <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="ArrowBackCircle" ToolTip="{x:Static resx:Resources.Back}" />
+                        <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="arrow_circle_left" ToolTip="{x:Static resx:Resources.Back}" />
                     </Grid>
                     
                     <Grid Margin="20">
@@ -234,7 +234,7 @@
                                     <Button Grid.Column="6" x:Name="ReportCommandButton" Visibility="{Binding CommandDetails.IsPublicCommand, Converter={StaticResource BooleanToVisibilityConverter}}" Content="{x:Static resx:Resources.Report}" Click="ReportCommandButton_Click" VerticalAlignment="Center" />
                                     <Button Grid.Column="6" Command="{Binding DeleteMyCommandCommand}" Visibility="{Binding CommandDetails.IsMyCommand, Converter={StaticResource BooleanToVisibilityConverter}}" Content="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" />
 
-                                    <Controls:IconButton Grid.Column="8" Command="{Binding WebsiteLinkCommand}" VerticalAlignment="Center" Icon="Link" ToolTip="{x:Static resx:Resources.Link}" />
+                                    <Controls:IconButton Grid.Column="8" Command="{Binding WebsiteLinkCommand}" VerticalAlignment="Center" Icon="link" ToolTip="{x:Static resx:Resources.Link}" />
 
                                 </Grid>
 
@@ -253,10 +253,10 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <MaterialDesign:PackIcon Grid.Column="0" Kind="Star" VerticalAlignment="Center" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                    <Controls:MaterialSymbolIcon Grid.Column="0" IconName="star" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                     <TextBlock Grid.Column="2" Text="{Binding CommandDetails.AverageRating}" VerticalAlignment="Center" />
 
-                                    <MaterialDesign:PackIcon Grid.Column="4" Kind="Download" VerticalAlignment="Center" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                    <Controls:MaterialSymbolIcon Grid.Column="4" IconName="download" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                     <TextBlock Grid.Column="6" Text="{Binding CommandDetails.Downloads}" VerticalAlignment="Center" />
 
                                     <TextBlock Grid.Column="8" Text="{Binding Source={x:Static resx:Resources.LastUpdated}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
@@ -305,7 +305,7 @@
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <MaterialDesign:PackIcon Kind="Star" VerticalAlignment="Center" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                                        <Controls:MaterialSymbolIcon IconName="star" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
@@ -327,7 +327,7 @@
 
         <Grid Visibility="{Binding ShowUserCommands, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid Margin="15">
-                <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="ArrowBackCircle" ToolTip="{x:Static resx:Resources.Back}" />
+                <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="arrow_circle_left" ToolTip="{x:Static resx:Resources.Back}" />
             </Grid>
 
             <Grid Margin="0,10,0,0">
@@ -360,20 +360,20 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Controls:IconButton Grid.Column="0" Command="{Binding PreviousResultsCommand}" VerticalAlignment="Center" Icon="ArrowBack" ToolTip="{x:Static resx:Resources.Previous}" />
+                    <Controls:IconButton Grid.Column="0" Command="{Binding PreviousResultsCommand}" VerticalAlignment="Center" Icon="arrow_back" ToolTip="{x:Static resx:Resources.Previous}" />
 
                     <TextBlock Grid.Column="2" Text="{Binding CurrentResultsPage}" VerticalAlignment="Center" />
                     <TextBlock Grid.Column="3" Text="/" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock Grid.Column="4" Text="{Binding TotaResultsPages}" VerticalAlignment="Center" />
 
-                    <Controls:IconButton Grid.Column="6" Command="{Binding NextResultsCommand}" VerticalAlignment="Center" Icon="ArrowForward" ToolTip="{x:Static resx:Resources.Next}" />
+                    <Controls:IconButton Grid.Column="6" Command="{Binding NextResultsCommand}" VerticalAlignment="Center" Icon="arrow_forward" ToolTip="{x:Static resx:Resources.Next}" />
                 </Grid>
             </Grid>
         </Grid>
 
         <Grid Visibility="{Binding ShowMyCommands, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid Margin="15">
-                <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="ArrowBackCircle" ToolTip="{x:Static resx:Resources.Back}" />
+                <Controls:IconButton Command="{Binding BackCommand}" VerticalAlignment="Top" HorizontalAlignment="Left" Icon="arrow_circle_left" ToolTip="{x:Static resx:Resources.Back}" />
             </Grid>
 
             <Grid Margin="0,10,0,0">
@@ -406,13 +406,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Controls:IconButton Grid.Column="0" Command="{Binding PreviousResultsCommand}" VerticalAlignment="Center" Icon="ArrowBack" ToolTip="{x:Static resx:Resources.Previous}" />
+                    <Controls:IconButton Grid.Column="0" Command="{Binding PreviousResultsCommand}" VerticalAlignment="Center" Icon="arrow_back" ToolTip="{x:Static resx:Resources.Previous}" />
 
                     <TextBlock Grid.Column="2" Text="{Binding CurrentResultsPage}" VerticalAlignment="Center" />
                     <TextBlock Grid.Column="3" Text="/" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock Grid.Column="4" Text="{Binding TotaResultsPages}" VerticalAlignment="Center" />
 
-                    <Controls:IconButton Grid.Column="6" Command="{Binding NextResultsCommand}" VerticalAlignment="Center" Icon="ArrowForward" ToolTip="{x:Static resx:Resources.Next}" />
+                    <Controls:IconButton Grid.Column="6" Command="{Binding NextResultsCommand}" VerticalAlignment="Center" Icon="arrow_forward" ToolTip="{x:Static resx:Resources.Next}" />
                 </Grid>
             </Grid>
         </Grid>

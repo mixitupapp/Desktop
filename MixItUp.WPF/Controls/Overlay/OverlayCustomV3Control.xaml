@@ -1,4 +1,4 @@
-<Controls:LoadingControlBase x:Class="MixItUp.WPF.Controls.Overlay.OverlayCustomV3Control"
+﻿<Controls:LoadingControlBase x:Class="MixItUp.WPF.Controls.Overlay.OverlayCustomV3Control"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -52,13 +52,13 @@
 
             <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                 <ListBoxItem IsSelected="{Binding Bold}">
-                    <MaterialDesign:PackIcon Kind="FormatBold" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                    <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
                 <ListBoxItem IsSelected="{Binding Italics}">
-                    <MaterialDesign:PackIcon Kind="FormatItalic" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                    <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
                 <ListBoxItem IsSelected="{Binding Underline}">
-                    <MaterialDesign:PackIcon Kind="FormatUnderline" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                    <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
         </Grid>
@@ -76,6 +76,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="Auto" />
@@ -119,8 +121,14 @@
                 <TextBlock Grid.Row="8" Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.KickKicks}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
                 <CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding KickKicks}" VerticalAlignment="Center" Margin="5,0,0,0" />
 
-                <TextBlock Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Donations}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBlock Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraSubscriptions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding VeloraSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+                <TextBlock Grid.Row="10" Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraCheered}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="10" Grid.Column="4" IsChecked="{Binding VeloraCheered}" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+                <TextBlock Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Donations}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" />
             </Grid>
         </GroupBox>
 
@@ -150,7 +158,7 @@
 
                                 <TextBox Grid.Column="2" Text="{Binding Value}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                                <Controls:IconButton Grid.Column="4" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="4" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

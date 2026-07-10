@@ -14,7 +14,7 @@
     <local:CommandEditorDetailsControlBase.Resources>
         <Util:LocalizationConverter x:Key="LocalizationConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <MaterialDesign:PackIcon Kind="CodeJson" x:Key="JSONPopupIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" Width="24" Height="24" x:Shared="False" ToolTip="{x:Static resx:Resources.JSONToSpecialIdentifiers}" />
+        <Controls:MaterialSymbolIcon IconName="data_object" FontSize="24" x:Key="JSONPopupIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.JSONToSpecialIdentifiers}" />
     </local:CommandEditorDetailsControlBase.Resources>
 
     <Grid>
@@ -63,7 +63,7 @@
 
                                     <TextBox Grid.Column="2" Text="{Binding SpecialIdentifierName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                                    <Controls:IconButton Grid.Column="4" Command="{Binding DeleteJSONParameterCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" Style="{StaticResource MaterialDesignRaisedButton}" />
+                                    <Controls:IconButton Grid.Column="4" Command="{Binding DeleteJSONParameterCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" Style="{StaticResource MaterialDesignRaisedButton}" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

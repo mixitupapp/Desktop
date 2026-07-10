@@ -6102,6 +6102,9 @@ Fuzzy</comment>
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Вы должны указать число, меньшее или равное максимальному уровню.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Цикл</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Петля:</value>
   </data>
@@ -7562,6 +7565,12 @@ Fuzzy</comment>
   </data>
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Снять с паузы все команды</value>
+  </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Приостановить все команды входа пользователя</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Снять с паузы все команды входа пользователя</value>
   </data>
   <data name="Platforms" xml:space="preserve">
     <value>Платформы</value>
@@ -10494,6 +10503,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>За каждую показанную эмоцию</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Анимация эмоций</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Эффект эмоции</value>
   </data>
@@ -11608,5 +11620,296 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>учетные записи, созданные более года назад</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Войдите в систему с помощью Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Выход из системы Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Начало потока канала Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Channel Остановка потока</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Обновление канала Velora</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Отслеживается</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Подпишись на канал Velora</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Channel Повторная подписка</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel Подаренная подписка</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Массовая подписка на канал Velora Channel в подарок</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Канал Velora подвергся нападению</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Использованные баллы канала Velora</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Канал Velora приветствуется</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Очки канала Velora</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Команда очков канала Velora</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Показать очки канала Velora</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Показать Velora Cheered</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Cheered</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} использовал(а) {1}</value>
+    <comment>{0} — имя пользователя, {1} — название награды</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} приветствовал(а) {1} Volts</value>
+    <comment>{0} — имя пользователя, {1} — количество Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Подписки Velora</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Неверное использование команды. Ожидается: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>Команда /{0} не поддерживается на выбранной платформе</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} отсутствует в чате и существует более чем на одной подключённой платформе. Выберите конкретную платформу для действия.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>Действие Velora «{0}» не выполнено. Подробности в журнале.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Взнос Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Подарок Throne профинансирован сообществом</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Подарок Throne куплен</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne — это платформа подарков и списков желаний для авторов. Подключение к Mix It Up создаёт уникальный URL вебхука, который позволяет Throne отправлять оповещения о подарках и взносах напрямую в приложение.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>После подключения скопируйте URL вебхука и вставьте его в настройки интеграции вебхуков в панели автора Throne. Затем события Throne можно настроить на странице «События».</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>URL вебхука Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Пожертвование Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Покупка подарка Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall — это платформа мерча и магазина для авторов. Подключение к Mix It Up создаёт уникальный URL вебхука, который позволяет Fourthwall отправлять оповещения о заказах, пожертвованиях и подарках напрямую в приложение.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>После подключения скопируйте URL вебхука и вставьте его в панель администратора магазина Fourthwall в разделе Settings &gt; For developers &gt; Webhooks. Затем события Fourthwall можно настроить на странице «События».</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Заказ оформлен в Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>URL вебхука Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Комиссия Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Подписка Ko-fi (впервые)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Ko-fi позволяет зрителям отправлять вам чаевые, оформлять подписки и покупки в магазине. Подключение к Mix It Up создаёт уникальный URL вебхука, который позволяет Ko-fi отправлять оповещения о платежах напрямую в приложение.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>После подключения скопируйте URL вебхука и вставьте его в поле Webhook URL на странице Webhooks в Ko-fi. С этой страницы можно отправить тестовые платежи для проверки; Ko-fi повторяет доставку, пока она не будет успешной.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Подписка Ko-fi (регулярная)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Заказ в магазине Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Чаевые Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>URL вебхука Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>Ключ API</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Страница ключей API Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Пожертвование Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Не удалось подключиться к ленте событий Pally.gg. Проверьте, что ваш ключ API действителен.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg — это платформа командных чаевых, позволяющая зрителям поддержать сразу всех участников стрима. Подключение к Mix It Up доставляет оповещения о чаевых напрямую в приложение в реальном времени.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Чтобы подключиться, создайте ключ API в панели Pally.gg в разделе Settings &gt; API Keys, затем вставьте его здесь.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Необходимо указать действительный ключ API Pally.gg.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Добавить файл в очередь</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Добавить папку в очередь</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Добавить плейлист в очередь</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Вы уверены, что хотите очистить очередь музыки?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Экспортировать очередь как плейлист M3U</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Плейлист M3U|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Файлы плейлистов|*.m3u;*.m3u8|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Используйте кнопки ниже, чтобы добавить файлы, папки или плейлисты в очередь</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Удалить из очереди</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Сейчас играет</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Вывод и команды</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Очередь</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Повтор</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Повтор выключен</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Повтор включён</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Переключить повтор</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Случайный порядок</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Случайный порядок выключен</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Случайный порядок включён</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Переключить случайный порядок</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Объявить</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Короткая</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Шаутаут</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Снять таймаут с пользователя</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Начислить очки канала</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Списать очки канала</value>
+    <comment>Velora action type</comment>
   </data>
 </root>

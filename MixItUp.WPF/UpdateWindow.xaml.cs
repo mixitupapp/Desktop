@@ -293,6 +293,7 @@ namespace MixItUp.WPF
                     {
                         "twitch" => "/Assets/Images/twitch-color_sm.png",
                         "kick" => "/Assets/Images/kick-color_sm.png",
+                        "velora" => "/Assets/Images/velora-color_sm.png",
                         "youtube" => "/Assets/Images/youtube-color_sm.png",
                         _ => null,
                     };

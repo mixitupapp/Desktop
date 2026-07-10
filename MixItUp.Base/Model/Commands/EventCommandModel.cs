@@ -269,6 +269,41 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["giftpinnedseconds"] = "0";
                     break;
 
+                // Velora
+                case EventTypeEnum.VeloraChannelSubscribed:
+                    specialIdentifiers["usersubmonths"] = "1";
+                    specialIdentifiers["usersubtier"] = "1";
+                    break;
+                case EventTypeEnum.VeloraChannelResubscribed:
+                    specialIdentifiers["usersubmonths"] = "5";
+                    specialIdentifiers["usersubstreak"] = "5";
+                    specialIdentifiers["usersubtier"] = "1";
+                    break;
+                case EventTypeEnum.VeloraChannelSubscriptionGifted:
+                    specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    break;
+                case EventTypeEnum.VeloraChannelMassSubscriptionsGifted:
+                    specialIdentifiers["subsgiftedamount"] = "5";
+                    specialIdentifiers["subsgiftedlifetimeamount"] = "100";
+                    specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    break;
+                case EventTypeEnum.VeloraChannelRaided:
+                    specialIdentifiers["hostviewercount"] = "123";
+                    specialIdentifiers["raidviewercount"] = "123";
+                    break;
+                case EventTypeEnum.VeloraChannelPointsRedeemed:
+                    specialIdentifiers["rewardname"] = "Hydrate";
+                    specialIdentifiers["rewardcost"] = "5";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.VeloraChannelCheered:
+                    specialIdentifiers["cheeramount"] = "100";
+                    specialIdentifiers["voltsamount"] = "100";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+
                 // Chat
                 case EventTypeEnum.ChatUserTimeout:
                     specialIdentifiers["timeoutlength"] = "300";
@@ -482,6 +517,10 @@ namespace MixItUp.Base.Model.Commands
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.Kick.ToString();
             }
+            else if (eventNumber >= 700 && eventNumber < 800)
+            {
+                specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.Velora.ToString();
+            }
             else
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = ChannelSession.Settings.DefaultStreamingPlatform.ToString();
@@ -543,6 +582,10 @@ namespace MixItUp.Base.Model.Commands
                     return true;
                 }
                 else if (this.EventType == EventTypeEnum.KickChannelFollowed)
+                {
+                    return true;
+                }
+                else if (this.EventType == EventTypeEnum.VeloraChannelFollowed)
                 {
                     return true;
                 }

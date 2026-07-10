@@ -6,6 +6,7 @@ using MixItUp.Base.Model.User;
 using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
@@ -118,6 +119,10 @@ namespace MixItUp.Base.Services
             {
                 viewerCount += ServiceManager.Get<KickSession>().StreamViewerCount;
             }
+            if (ServiceManager.Get<VeloraSession>().IsConnected && ServiceManager.Get<VeloraSession>().IsLive)
+            {
+                viewerCount += ServiceManager.Get<VeloraSession>().StreamViewerCount;
+            }
             return viewerCount;
         }
 
@@ -165,6 +170,10 @@ namespace MixItUp.Base.Services
                     else if (platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
                     {
                         await ServiceManager.Get<KickSession>().SendMessage(message, sendAsStreamer);
+                    }
+                    else if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+                    {
+                        await ServiceManager.Get<VeloraSession>().SendMessage(message, sendAsStreamer);
                     }
                     else if (platform == StreamingPlatformTypeEnum.Mock)
                     {
@@ -233,6 +242,10 @@ namespace MixItUp.Base.Services
                 {
                     await ServiceManager.Get<KickSession>().DeleteMessage(message);
                 }
+                else if (message.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+                {
+                    await ServiceManager.Get<VeloraSession>().DeleteMessage(message);
+                }
                 else if (message.Platform == StreamingPlatformTypeEnum.Mock)
                 {
                     await ServiceManager.Get<MockSession>().DeleteMessage(message);
@@ -252,11 +265,14 @@ namespace MixItUp.Base.Services
             }
         }
 
-        public async Task MarkUserMessagesAsDeleted(UserV2ViewModel user, UserV2ViewModel moderator = null, string reason = null)
+        // Returns the number of messages newly marked; already-deleted messages are skipped so a purge that
+        // fires both locally and from the platform's ban/timeout echo does not re-process the same messages.
+        public async Task<int> MarkUserMessagesAsDeleted(UserV2ViewModel user, UserV2ViewModel moderator = null, string reason = null)
         {
+            int deleted = 0;
             foreach (ChatMessageViewModel message in this.Messages.ToList())
             {
-                if (message.User != null && message.User.ID == user.ID)
+                if (message.User != null && message.User.ID == user.ID && !message.IsDeleted)
                 {
                     await message.Delete(moderator, reason, triggerEventCommand: false);
 
@@ -266,8 +282,10 @@ namespace MixItUp.Base.Services
                     }
 
                     ChatService.ChatMessageDeleted(message.ID);
+                    deleted++;
                 }
             }
+            return deleted;
         }
 
         public async Task ClearMessages(StreamingPlatformTypeEnum platform)
@@ -285,6 +303,10 @@ namespace MixItUp.Base.Services
                 {
                     await ServiceManager.Get<TwitchSession>().ClearMessages();
                 }
+                if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+                {
+                    await ServiceManager.Get<VeloraSession>().ClearMessages();
+                }
                 this.messagesLookup.Clear();
                 this.Messages.Clear();
             }
@@ -294,12 +316,17 @@ namespace MixItUp.Base.Services
 
         public async Task PurgeUser(UserV2ViewModel user)
         {
-            if (user.Platform == StreamingPlatformTypeEnum.Twitch && ServiceManager.Get<TwitchSession>().IsConnected)
+            // On Velora a timeout has no effect on existing messages (the platform never clears them) and
+            // announces itself in the channel's chat, so a purge is purely deleting the user's messages.
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
             {
-                await ServiceManager.Get<TwitchSession>().TimeoutUser(user, 1);
+                await ServiceManager.Get<VeloraSession>().PurgeUser(user);
+                return;
             }
 
-            ChatService.ChatUserTimedOut(user);
+            // Everywhere else a purge is a one-second timeout, which the platform answers by clearing the
+            // user's messages; every platform session implements it.
+            await this.TimeoutUser(user, 1);
         }
 
         public async Task TimeoutUser(UserV2ViewModel user, int durationInSeconds, string reason = null)
@@ -316,6 +343,10 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
                 await ServiceManager.Get<KickSession>().TimeoutUser(user, durationInSeconds, reason);
+            }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().TimeoutUser(user, durationInSeconds, reason);
             }
 
             ChatService.ChatUserTimedOut(user);
@@ -336,6 +367,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<KickSession>().ModUser(user);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().ModUser(user);
+            }
 
         }
 
@@ -353,6 +388,10 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
                 await ServiceManager.Get<KickSession>().UnmodUser(user);
+            }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().UnmodUser(user);
             }
 
         }
@@ -372,6 +411,10 @@ namespace MixItUp.Base.Services
             {
                 await ServiceManager.Get<KickSession>().BanUser(user, reason);
             }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().BanUser(user, reason);
+            }
 
             ChatService.ChatUserBanned(user);
         }
@@ -390,6 +433,10 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Kick && ServiceManager.Get<KickSession>().IsConnected)
             {
                 await ServiceManager.Get<KickSession>().UnbanUser(user);
+            }
+            if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().UnbanUser(user);
             }
 
         }

@@ -6099,6 +6099,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>最大レベル以下の数値を指定する必要があります。</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>ループ</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>ループ：</value>
   </data>
@@ -7557,6 +7560,12 @@
   </data>
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>すべてのコマンドの一時停止を解除する</value>
+  </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>すべてのユーザー入口コマンドを一時停止する</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>すべてのユーザー入口コマンドの一時停止を解除する</value>
   </data>
   <data name="Platforms" xml:space="preserve">
     <value>プラットフォーム</value>
@@ -10489,6 +10498,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>表示されるエモートごと</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>エモートアニメーション</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>エモートエフェクト</value>
   </data>
@@ -11696,5 +11708,172 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="PallyInvalidAPIKey" xml:space="preserve">
     <value>有効なPally.ggのAPIキーを指定してください。</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Veloraでログイン</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Veloraからログアウトする</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora・チャンネル・ストリーム・スタート</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora・チャンネル・ストリーム・ストップ</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora・チャンネル更新</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora チャンネルをフォローした</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora・チャンネル登録</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora・チャンネル再登録</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora・チャンネル購読プレゼント</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora・チャンネル大量購読プレゼント</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Veloraチャンネルが襲撃されました</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora チャンネルポイント引き換え</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora チャンネルの応援</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora チャンネルポイント</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora チャンネルポイントコマンド</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Velora チャンネルポイントを表示</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Velora の応援を表示</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora 応援</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} が {1} を交換しました</value>
+    <comment>{0} はユーザー名、{1} は報酬の名前です</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} が {1} Volts を応援しました</value>
+    <comment>{0} はユーザー名、{1} は Volts の量です</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora のサブスクリプション</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>コマンドの使い方が正しくありません。正しい形式: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>/{0} コマンドは選択したプラットフォームではサポートされていません</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} はチャットにおらず、接続中の複数のプラットフォームに存在します。対象とするプラットフォームを指定してください。</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>Veloraの{0}アクションに失敗しました。詳細はログを確認してください。</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>ファイルをキューに追加</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>フォルダーをキューに追加</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>プレイリストをキューに追加</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>音楽キューをクリアしてもよろしいですか?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>キューをM3Uプレイリストとしてエクスポート</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>M3Uプレイリスト|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>プレイリスト ファイル|*.m3u;*.m3u8|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>下のボタンを使って、ファイル・フォルダー・プレイリストをキューに追加してください</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>キューから削除</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>再生中</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>出力とコマンド</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>キュー</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>リピート</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>リピート オフ</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>リピート オン</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>リピート切り替え</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>シャッフル</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>シャッフル オフ</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>シャッフル オン</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>シャッフル切り替え</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>アナウンス</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>短い</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>シャウトアウト</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>タイムアウトを解除</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>チャネルポイントを付与する</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>チャネルポイントを減らす</value>
+    <comment>Velora action type</comment>
   </data>
 </root>

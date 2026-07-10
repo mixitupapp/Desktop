@@ -59,7 +59,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Controls:IconButton Grid.Column="0" x:Name="AddCommandButton" ToolTip="{x:Static resx:Resources.CreateNewCommand}" Icon="AddBox" Click="AddCommandButton_Click" />
+                <Controls:IconButton Grid.Column="0" x:Name="AddCommandButton" ToolTip="{x:Static resx:Resources.CreateNewCommand}" Icon="add_box" Click="AddCommandButton_Click" />
 
                 <ComboBox Grid.Column="2" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                     <ComboBox.ItemTemplate>
@@ -81,7 +81,7 @@
                     </ComboBox.GroupStyle>
                 </ComboBox>
 
-                <Controls:IconButton Grid.Column="6" x:Name="EditCommandButton" Icon="Edit" ToolTip="{x:Static resx:Resources.EditCommand}" Click="EditCommandButton_Click" />
+                <Controls:IconButton Grid.Column="6" x:Name="EditCommandButton" Icon="edit" ToolTip="{x:Static resx:Resources.EditCommand}" Click="EditCommandButton_Click" />
             </Grid>
 
             <Grid Grid.Row="1" Visibility="{Binding ShowCommandRunSection, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,20,0,0">

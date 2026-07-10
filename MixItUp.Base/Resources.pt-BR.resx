@@ -6099,6 +6099,9 @@ habilitado. Pode pensar nisto como algo semelhante a alternar a opção “Desbl
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Deve especificar um número inferior ou igual ao Nível máximo.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Em loop</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Laço:</value>
   </data>
@@ -7559,6 +7562,12 @@ O não cumprimento de uma das seguintes opções pode afetar a forma como os usu
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Retomar todos os comandos</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pausar todos os comandos de entrada do usuário</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Retomar todos os comandos de entrada do usuário</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Plataformas</value>
   </data>
@@ -8988,7 +8997,7 @@ via Twitch, é uma situação “a sua milhagem pode variar”.</value>
 {1} is the amount of the super chat</comment>
   </data>
   <data name="AlertYouTubeJewelsGift" xml:space="preserve">
-    <value>{Oferta de Jóias do YouTube - {1} ({2} Jóias)</value>
+    <value>{0} Oferta de Jóias do YouTube - {1} ({2} Jóias)</value>
   </data>
   <data name="AlertYouTubeSuperSticker" xml:space="preserve">
     <value>{0} Superadesivo - {1} - {2}</value>
@@ -10490,6 +10499,9 @@ Só ative se souber o que está fazendo. Continuar?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Por Emote Mostrado</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animação de Emotes</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Efeito de emoção</value>
   </data>
@@ -11486,10 +11498,10 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
     <value>Modo escudo do canal Twitch Terminado</value>
   </data>
   <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
-    <value>{Modo de proteção ativado</value>
+    <value>{0} Modo de proteção ativado</value>
   </data>
   <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
-    <value>{Modo de proteção desativado</value>
+    <value>{0} Modo de proteção desativado</value>
   </data>
   <data name="ShowTwitchShieldModeStarted" xml:space="preserve">
     <value>Mostrar o modo Twitch Shield iniciado</value>
@@ -11697,5 +11709,172 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   </data>
   <data name="PallyInvalidAPIKey" xml:space="preserve">
     <value>Uma chave de API válida do Pally.gg deve ser especificada.</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Iniciar sessão com o Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Sair do Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora Channel Stream Start</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Channel Stream Stop</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Canal Velora Atualizado</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Seguido</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Canal Velora Inscrito</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Canal Velora Inscrito novamente</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Oferta de uma subscrição do Velora Channel</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Canal Velora Invadido</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Pontos do canal Velora resgatados</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Canal Velora aplaudido</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Pontos do canal Velora</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Comando de pontos do canal Velora</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Mostrar pontos de canal do Velora</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Mostrar Velora Cheered</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Cheered</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} resgatou {1}</value>
+    <comment>{0} é o nome do usuário, {1} é o nome da recompensa</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} aplaudiu com {1} Volts</value>
+    <comment>{0} é o nome do usuário, {1} é a quantidade de Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Assinaturas Velora</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Uso de comando inválido. Esperado: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>O comando /{0} não é suportado na plataforma selecionada</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} não está no chat e existe em mais de uma plataforma conectada. Selecione uma plataforma específica para aplicar a ação.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>A ação {0} do Velora falhou. Consulte o registro para mais detalhes.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Adicionar ficheiro à fila</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Adicionar pasta à fila</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Adicionar lista de reprodução à fila</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Tem a certeza de que pretende limpar a fila de música?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Exportar fila como lista de reprodução M3U</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Lista de reprodução M3U|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Ficheiros de lista de reprodução|*.m3u;*.m3u8|Todos os ficheiros (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Utilize os botões abaixo para adicionar ficheiros, pastas ou listas de reprodução à fila</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Remover da fila</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Reproduzindo agora</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Saída e comandos</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Fila</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repetir</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Repetição desativada</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Repetição ativada</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Alternar repetição</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Reprodução aleatória</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Reprodução aleatória desativada</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Reprodução aleatória ativada</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Alternar reprodução aleatória</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Anunciar</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Curta</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shoutout</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Remover tempo limite do usuário</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Conceder Pontos do Canal</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Subtrair Pontos do Canal</value>
+    <comment>Velora action type</comment>
   </data>
 </root>

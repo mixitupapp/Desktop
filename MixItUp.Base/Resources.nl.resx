@@ -6100,6 +6100,9 @@ ingeschakeld. Je kunt het zien als vergelijkbaar met het omschakelen van de opti
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>U moet een getal opgeven dat kleiner is dan of gelijk is aan het Max. Niveau.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Herhalen</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Lus:</value>
   </data>
@@ -7558,6 +7561,12 @@ Als u een van de volgende handelingen niet uitvoert, kan dit van invloed zijn op
   </data>
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Hervat alle opdrachten</value>
+  </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pauzeer alle gebruikersentree-opdrachten</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Hervat alle gebruikersentree-opdrachten</value>
   </data>
   <data name="Platforms" xml:space="preserve">
     <value>Platformen</value>
@@ -10490,6 +10499,9 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Per getoonde emote</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Emote-animatie</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Emote-effect</value>
   </data>
@@ -11697,5 +11709,172 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   </data>
   <data name="PallyInvalidAPIKey" xml:space="preserve">
     <value>Er moet een geldige Pally.gg API-sleutel worden opgegeven.</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Log in met Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Afmelden bij Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora Kanaal Stream Start</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Kanaal Stroom Stop</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora-kanaal bijgewerkt</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Kanaal Gevolgd</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora-kanaal geabonneerd</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora-kanaal opnieuw ingeschreven</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel Abonnement Geschonken</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Massabonnement Gifted</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Velora-kanaal overvallen</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora Kanaal Punten Ingewisseld</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora-kanaal gejuicht</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora Channel-punten</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora Channel-punten commando</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Velora kanaalpunten tonen</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Velora Juichen tonen</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Juichen</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} heeft {1} ingewisseld</value>
+    <comment>{0} is de naam van de gebruiker, {1} is de naam van de beloning</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} Juichte {1} Volts toe</value>
+    <comment>{0} is de naam van de gebruiker, {1} is het aantal Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora-abonnementen</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Ongeldig gebruik van de opdracht. Verwacht: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>De opdracht /{0} wordt niet ondersteund op het geselecteerde platform</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} zit niet in de chat en bestaat op meer dan één verbonden platform. Selecteer een specifiek platform om deze gebruiker te targeten.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>De Velora-actie {0} is mislukt. Bekijk het logboek voor details.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Bestand aan wachtrij toevoegen</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Map aan wachtrij toevoegen</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Afspeellijst aan wachtrij toevoegen</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Weet je zeker dat je de muziekwachtrij wilt wissen?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Wachtrij exporteren als M3U-afspeellijst</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>M3U-afspeellijst|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Afspeellijstbestanden|*.m3u;*.m3u8|Alle bestanden (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Gebruik de knoppen hieronder om bestanden, mappen of afspeellijsten aan de wachtrij toe te voegen</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Uit wachtrij verwijderen</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Nu afgespeeld</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Uitvoer en opdrachten</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Wachtrij</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Herhalen</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Herhalen uit</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Herhalen aan</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Herhalen omschakelen</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Willekeurig afspelen</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Willekeurig afspelen uit</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Willekeurig afspelen aan</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Willekeurig afspelen omschakelen</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Aankondigen</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Kort</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shout-out</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Time-out van gebruiker opheffen</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Kanaalpunten toekennen</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Kanaalpunten aftrekken</value>
+    <comment>Velora action type</comment>
   </data>
 </root>

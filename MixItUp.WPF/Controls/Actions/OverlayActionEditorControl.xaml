@@ -113,7 +113,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -130,7 +130,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -147,7 +147,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -311,7 +311,7 @@
 
                             <TextBox Text="{Binding Value}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                            <Controls:IconButton Grid.Column="4" Icon="Delete" Command="{Binding DeleteCommand}" />
+                            <Controls:IconButton Grid.Column="4" Icon="delete" Command="{Binding DeleteCommand}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

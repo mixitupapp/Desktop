@@ -127,28 +127,28 @@
 
                     <ListBox Grid.Column="2" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                         <ListBoxItem IsSelected="{Binding Bold}">
-                            <MaterialDesign:PackIcon Kind="FormatBold" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                         <ListBoxItem IsSelected="{Binding Italics}">
-                            <MaterialDesign:PackIcon Kind="FormatItalic" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                         <ListBoxItem IsSelected="{Binding Underline}">
-                            <MaterialDesign:PackIcon Kind="FormatUnderline" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                     </ListBox>
 
                     <ListBox Grid.Column="4" SelectionMode="Single" Style="{StaticResource MaterialDesignToolToggleFlatListBox}">
                         <ListBoxItem IsSelected="{Binding LeftAlignment}">
-                            <MaterialDesign:PackIcon Kind="FormatAlignLeft" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_align_left" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                         <ListBoxItem IsSelected="{Binding CenterAlignment}">
-                            <MaterialDesign:PackIcon Kind="FormatAlignCenter" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_align_center" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                         <ListBoxItem IsSelected="{Binding RightAlignment}">
-                            <MaterialDesign:PackIcon Kind="FormatAlignRight" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_align_right" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                         <ListBoxItem IsSelected="{Binding JustifyAlignment}">
-                            <MaterialDesign:PackIcon Kind="FormatAlignJustify" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_align_justify" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                     </ListBox>
                 </Grid>
@@ -202,7 +202,7 @@
                                     <TextBox Text="{Binding CustomWidth}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                                     <TextBox Text="{Binding CustomHeight}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                                    <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" VerticalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                    <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" VerticalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
                                 </Grid>
 
                                 <Grid Grid.Row="2">

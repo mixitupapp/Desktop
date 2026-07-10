@@ -8,25 +8,32 @@ using System.Collections.ObjectModel;
 
 namespace MixItUp.Base.ViewModel.MainControls
 {
-    public class EventCommandGroupViewModel
+    public class EventCommandGroupViewModel : NotifyPropertyChangedBase
     {
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        public string BrandId { get; set; }
 
-        public string PackIconName { get; set; }
+        public string IconName { get; set; }
 
         public ObservableCollection<EventCommandItemViewModel> Commands { get; set; } = new ObservableCollection<EventCommandItemViewModel>();
 
-        public bool ShowImage { get { return !string.IsNullOrEmpty(this.Image); } }
+        public bool ShowBrandImage { get { return !string.IsNullOrEmpty(this.BrandId); } }
 
-        public bool ShowPackIcon { get { return !this.ShowImage; } }
+        public bool ShowIcon { get { return !this.ShowBrandImage; } }
 
-        public EventCommandGroupViewModel(string name, string image = null, string packIconName = null)
+        public EventCommandGroupViewModel(string name, string brandId = null, string iconName = null)
         {
             this.Name = name;
-            this.Image = image;
-            this.PackIconName = packIconName;
+            this.BrandId = brandId;
+            this.IconName = iconName;
+
+            IThemeService themeService = ServiceManager.Get<IThemeService>();
+            if (themeService != null)
+            {
+                // Brand marks are theme-specific; re-resolve the bound image when the theme changes
+                themeService.ThemeChanged += (sender, e) => this.NotifyPropertyChanged(nameof(this.BrandId));
+            }
         }
     }
 
@@ -118,6 +125,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Kick;
                 }
+                else if (eventNumber >= 700 && eventNumber < 800)
+                {
+                    return Resources.Velora;
+                }
                 else
                 {
                     return Resources.Generic;
@@ -153,7 +164,7 @@ namespace MixItUp.Base.ViewModel.MainControls
 
             List<EventCommandGroupViewModel> commandGroups = new List<EventCommandGroupViewModel>();
 
-            EventCommandGroupViewModel genericCommands = new EventCommandGroupViewModel(Resources.Generic, packIconName: "AlarmLight");
+            EventCommandGroupViewModel genericCommands = new EventCommandGroupViewModel(Resources.Generic, iconName: "flash_on");
             genericCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ApplicationLaunch));
             genericCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ApplicationExit));
             genericCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChannelStreamStart));
@@ -168,7 +179,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             genericCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.GenericDonation));
             commandGroups.Add(genericCommands);
 
-            EventCommandGroupViewModel twitchCommands = new EventCommandGroupViewModel(Resources.Twitch, image: StreamingPlatforms.TwitchLogoImageAssetFilePath);
+            EventCommandGroupViewModel twitchCommands = new EventCommandGroupViewModel(Resources.Twitch, brandId: "twitch");
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelStreamStart));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelStreamStop));
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelUpdated));
@@ -213,7 +224,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             twitchCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.TwitchChannelGoalEnded));
             commandGroups.Add(twitchCommands);
 
-            EventCommandGroupViewModel youtubeCommands = new EventCommandGroupViewModel(Resources.YouTube, image: StreamingPlatforms.YouTubeLogoImageAssetFilePath);
+            EventCommandGroupViewModel youtubeCommands = new EventCommandGroupViewModel(Resources.YouTube, brandId: "youtube");
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelStreamStart));
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelStreamStop));
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelNewMember));
@@ -224,7 +235,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             youtubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.YouTubeChannelJewelsGift));
             commandGroups.Add(youtubeCommands);
 
-            EventCommandGroupViewModel kickCommands = new EventCommandGroupViewModel(Resources.Kick, image: StreamingPlatforms.KickLogoImageAssetFilePath);
+            EventCommandGroupViewModel kickCommands = new EventCommandGroupViewModel(Resources.Kick, brandId: "kick");
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStart));
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelStreamStop));
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelUpdated));
@@ -237,7 +248,21 @@ namespace MixItUp.Base.ViewModel.MainControls
             kickCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KickChannelKicksGifted));
             commandGroups.Add(kickCommands);
 
-            EventCommandGroupViewModel chatCommands = new EventCommandGroupViewModel(Resources.Chat, packIconName: "Chat");
+            EventCommandGroupViewModel veloraCommands = new EventCommandGroupViewModel(Resources.Velora, brandId: "velora");
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelStreamStart));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelStreamStop));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelUpdated));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelFollowed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelRaided));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelSubscribed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelResubscribed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelSubscriptionGifted));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelMassSubscriptionsGifted));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelPointsRedeemed));
+            veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelCheered));
+            commandGroups.Add(veloraCommands);
+
+            EventCommandGroupViewModel chatCommands = new EventCommandGroupViewModel(Resources.Chat, iconName: "forum");
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatUserEntranceCommand));
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatUserFirstMessage));
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatMessageReceived));
@@ -250,7 +275,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatUserLeft));
             commandGroups.Add(chatCommands);
 
-            EventCommandGroupViewModel donationCommands = new EventCommandGroupViewModel(Resources.Donations, packIconName: "Cash");
+            EventCommandGroupViewModel donationCommands = new EventCommandGroupViewModel(Resources.Donations, iconName: "paid");
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.DonorDriveDonation));
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.DonorDriveDonationIncentive));
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.DonorDriveDonationMilestone));
@@ -265,38 +290,38 @@ namespace MixItUp.Base.ViewModel.MainControls
             donationCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.JustGivingDonation));
             commandGroups.Add(donationCommands);
 
-            EventCommandGroupViewModel streamlootsCommands = new EventCommandGroupViewModel(Resources.Streamloots, packIconName: "CardsOutline");
+            EventCommandGroupViewModel streamlootsCommands = new EventCommandGroupViewModel(Resources.Streamloots, brandId: "streamloots");
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsCardRedeemed));
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackPurchased));
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackGifted));
             streamlootsCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.StreamlootsPackCommunityGifted));
             commandGroups.Add(streamlootsCommands);
 
-            EventCommandGroupViewModel crowdControlCommands = new EventCommandGroupViewModel(Resources.CrowdControl, packIconName: "ControllerClassic");
+            EventCommandGroupViewModel crowdControlCommands = new EventCommandGroupViewModel(Resources.CrowdControl, brandId: "crowd-control");
             crowdControlCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.CrowdControlEffectRedeemed));
             commandGroups.Add(crowdControlCommands);
 
-            EventCommandGroupViewModel pulsoidCommands = new EventCommandGroupViewModel(Resources.Pulsoid, packIconName: "HeartPulse");
+            EventCommandGroupViewModel pulsoidCommands = new EventCommandGroupViewModel(Resources.Pulsoid, brandId: "pulsoid");
             pulsoidCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PulsoidHeartRateChanged));
             commandGroups.Add(pulsoidCommands);
 
-            EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, packIconName: "Patreon");
+            EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, brandId: "patreon");
             patreonCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PatreonSubscribed));
             commandGroups.Add(patreonCommands);
 
-            EventCommandGroupViewModel throneCommands = new EventCommandGroupViewModel(Resources.Throne, packIconName: "Gift");
+            EventCommandGroupViewModel throneCommands = new EventCommandGroupViewModel(Resources.Throne, brandId: "throne");
             throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftPurchased));
             throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneContribution));
             throneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ThroneGiftCrowdfunded));
             commandGroups.Add(throneCommands);
 
-            EventCommandGroupViewModel fourthwallCommands = new EventCommandGroupViewModel(Resources.Fourthwall, packIconName: "Storefront");
+            EventCommandGroupViewModel fourthwallCommands = new EventCommandGroupViewModel(Resources.Fourthwall, brandId: "fourthwall");
             fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallDonation));
             fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallOrderPlaced));
             fourthwallCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.FourthwallGiftPurchase));
             commandGroups.Add(fourthwallCommands);
 
-            EventCommandGroupViewModel koFiCommands = new EventCommandGroupViewModel(Resources.KoFi, packIconName: "Coffee");
+            EventCommandGroupViewModel koFiCommands = new EventCommandGroupViewModel(Resources.KoFi, brandId: "kofi");
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiTip));
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiCommission));
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiFirstMembership));
@@ -304,7 +329,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             koFiCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.KoFiShopOrder));
             commandGroups.Add(koFiCommands);
 
-            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, packIconName: "HandCoin");
+            EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, brandId: "pally");
             pallyCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PallyDonation));
             commandGroups.Add(pallyCommands);
 

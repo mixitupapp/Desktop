@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.Services;
+using MixItUp.WPF.Branding;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 
@@ -10,6 +11,8 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class OBSStudioServiceControl : ServiceControlBase
     {
+        public override Brand Brand { get { return Brands.OBSStudio; } }
+
         private OBSStudioServiceControlViewModel viewModel;
 
         public OBSStudioServiceControl()

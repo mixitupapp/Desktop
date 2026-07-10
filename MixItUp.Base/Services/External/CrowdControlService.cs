@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services.Kick.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.Twitch;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
@@ -194,6 +195,10 @@ namespace MixItUp.Base.Services.External
                             {
                                 requester = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Kick, platformID: effect.requester.originID, platformUsername: effect.requester.name);
                             }
+                            else if (string.Equals(effect.requester.profile, StreamingPlatformTypeEnum.Velora.ToString(), StringComparison.OrdinalIgnoreCase))
+                            {
+                                requester = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Velora, platformID: effect.requester.originID, platformUsername: effect.requester.name);
+                            }
 
                             if (requester == null)
                             {
@@ -281,6 +286,10 @@ namespace MixItUp.Base.Services.External
                 else if (ServiceManager.Get<KickSession>().IsConnected)
                 {
                     this.id = await this.GetCrowdControlID(StreamingPlatformTypeEnum.Kick.ToString(), ServiceManager.Get<KickSession>().StreamerID);
+                }
+                else if (ServiceManager.Get<VeloraSession>().IsConnected)
+                {
+                    this.id = await this.GetCrowdControlID(StreamingPlatformTypeEnum.Velora.ToString(), ServiceManager.Get<VeloraSession>().StreamerID);
                 }
 
                 if (string.IsNullOrEmpty(this.id))

@@ -1,5 +1,6 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Kick.Kicks;
+using MixItUp.Base.Model.Velora;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Model.Twitch.Bits;
@@ -46,6 +47,7 @@ namespace MixItUp.Base.ViewModel.Overlay
         YouTubeSuperChat,
 
         KickKicksGifted,
+        VeloraCheered,
 
     }
 
@@ -208,6 +210,28 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private bool kickKicks;
 
+        public bool VeloraCheered
+        {
+            get { return this.veloraCheered; }
+            set
+            {
+                this.veloraCheered = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool veloraCheered;
+
+        public bool VeloraSubscriptions
+        {
+            get { return this.veloraSubscriptions; }
+            set
+            {
+                this.veloraSubscriptions = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool veloraSubscriptions;
+
         public bool Donations
         {
             get { return this.donations; }
@@ -243,6 +267,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.YouTubeSuperChats = item.YouTubeSuperChats;
             this.KickSubscriptions = item.KickSubscriptions;
             this.KickKicks = item.KickKicks;
+            this.VeloraCheered = item.VeloraCheered;
+            this.VeloraSubscriptions = item.VeloraSubscriptions;
             this.Donations = item.Donations;
 
             foreach (var property in item.Properties)
@@ -360,6 +386,10 @@ namespace MixItUp.Base.ViewModel.Overlay
                 {
                     custom.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
                 }
+                else if (type == OverlayCustomV3TestTypeEnum.VeloraCheered)
+                {
+                    custom.OnVeloraCheered(this, new VeloraCheeredEventModel(ChannelSession.User, 100, "Great stream!"));
+                }
             }
 
             await base.TestWidget(widget);
@@ -383,6 +413,8 @@ namespace MixItUp.Base.ViewModel.Overlay
                 YouTubeSuperChats = this.YouTubeSuperChats,
                 KickSubscriptions = this.KickSubscriptions,
                 KickKicks = this.KickKicks,
+                VeloraCheered = this.VeloraCheered,
+                VeloraSubscriptions = this.VeloraSubscriptions,
                 Donations = this.Donations,
             };
 

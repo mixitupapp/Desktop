@@ -1,4 +1,3 @@
-﻿using MaterialDesignThemes.Wpf;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,10 +11,10 @@ namespace MixItUp.WPF.Controls
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register(
                 "Icon",
-                typeof(PackIconKind),
+                typeof(string),
                 typeof(IconButton),
                 new FrameworkPropertyMetadata(
-                    PackIconKind.Delete,
+                    "delete",
                     FrameworkPropertyMetadataOptions.AffectsRender,
                     new PropertyChangedCallback(OnIconChanged)
                 ));
@@ -25,9 +24,10 @@ namespace MixItUp.WPF.Controls
             InitializeComponent();
         }
 
-        public PackIconKind Icon
+        /// <summary>The Material Symbols icon name (e.g. "help") shown in the button.</summary>
+        public string Icon
         {
-            get { return (PackIconKind)GetValue(IconProperty); }
+            get { return (string)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
 
@@ -36,7 +36,7 @@ namespace MixItUp.WPF.Controls
             IconButton iconButton = (IconButton)d;
             if (iconButton != null && iconButton.ButtonIcon != null)
             {
-                iconButton.ButtonIcon.Kind = iconButton.Icon;
+                iconButton.ButtonIcon.IconName = iconButton.Icon;
             }
         }
     }

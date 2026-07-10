@@ -48,6 +48,8 @@
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding Moderation}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding KickChannelPoints}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding KickKicks}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding VeloraChannelPoints}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding VeloraCheered}" />
         </StackPanel>
     </Grid>
 </local:SettingsControlBase>

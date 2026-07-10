@@ -8,7 +8,7 @@ namespace MixItUp.WPF.Util
     {
         private static readonly bool ENABLED = false;  // Set to true to enable build expiration checking
 
-        private static readonly DateTime EXPIRATION_DATE = new DateTime(2026, 7, 6); // (year, month, day) - Set expiration date here
+        private static readonly DateTime EXPIRATION_DATE = new DateTime(2026, 7, 9); // (year, month, day) - Set expiration date here
 
         public static bool IsEnabled()
         {

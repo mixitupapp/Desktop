@@ -9,8 +9,8 @@
     <AssemblyTitle>MixItUp.Client</AssemblyTitle>
     <Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved.</Copyright>
-    <AssemblyVersion>1.7.110.0</AssemblyVersion>
-    <FileVersion>1.7.110.0</FileVersion>
+    <AssemblyVersion>1.7.120.0</AssemblyVersion>
+    <FileVersion>1.7.120.0</FileVersion>
 		<Version>1.6.0</Version>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -68,6 +68,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <ProjectReference Include="..\MixItUp.Reporter\MixItUp.Reporter.csproj" />
   </ItemGroup>
 	<ItemGroup Label="Package References">
+		<PackageReference Include="AnimatedImage.Wpf" Version="2.1.4" />
 		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
 		<PackageReference Include="AWSSDK.Polly" Version="3.7.107.6" />
 		<PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
@@ -129,6 +130,10 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 	<Resource Include="Assets\Images\kick-color_sm.png" />
 	<Resource Include="Assets\Images\kick-dark_lg.png" />
 	<Resource Include="Assets\Images\kick-light_lg.png" />
+	<Resource Include="Assets\Images\velora-color_lg.png" />
+	<Resource Include="Assets\Images\velora-color_sm.png" />
+	<Resource Include="Assets\Images\velora-dark_lg.png" />
+	<Resource Include="Assets\Images\velora-light_lg.png" />
     <Resource Include="Assets\Images\twitter-color_sm.png" /> 
     <Resource Include="Assets\Images\wiki-color_sm.png" />  
     <Resource Include="Assets\Images\youtube-color_lg.png" />
@@ -137,6 +142,10 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <Resource Include="Assets\Images\youtube-light_sm.png" />
     <Resource Include="Assets\Fonts\BebasNeue.otf" />
     <Resource Include="Assets\Fonts\NotoSans-Regular.ttf" />
+    <Resource Include="Assets\Fonts\NotoSans-Medium.ttf" />
+    <Resource Include="Assets\Fonts\NotoSans-Bold.ttf" />
+    <Resource Include="Assets\Fonts\MaterialSymbolsSharp-Filled.ttf" />
+    <Resource Include="Assets\Images\Brands\*.png" />
     <Resource Include="Assets\Images\MixItUp_Background-Starfield.png" />
     <Resource Include="Assets\Images\MixItUp_Logo-Stacked_Dark.png" />
   </ItemGroup>

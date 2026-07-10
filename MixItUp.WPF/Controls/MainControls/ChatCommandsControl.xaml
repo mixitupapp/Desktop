@@ -13,7 +13,7 @@
              xmlns:util="clr-namespace:MixItUp.WPF.Util"
              mc:Ignorable="d"
                           
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
 
@@ -74,7 +74,7 @@
                 <TextBlock Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center" Margin="-50,0,0,0" Text="{x:Static resx:Resources.Commands}"/>
                 <TextBlock Grid.Column="2" FontWeight="Bold" HorizontalAlignment="Center" Margin="-55,0,0,0" Text="{x:Static resx:Resources.Permissions}"/>
                 <Grid Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-40,-4,0,0">
-                    <MaterialDesign:PackIcon Kind="Timer" Height="24" Width="24" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                    <Controls:MaterialSymbolIcon IconName="timer" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </Grid>
             </Grid>
 
@@ -106,7 +106,7 @@
 
                                 <TextBox Grid.Column="3" Text="{Binding CooldownString}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Margin="5,0,0,0" />
 
-                                <Controls:IconButton Grid.Column="4" Command="{Binding TestCommand}" HorizontalAlignment="Center" Icon="Play" ToolTip="{x:Static resx:Resources.TestCommand}" />
+                                <Controls:IconButton Grid.Column="4" Command="{Binding TestCommand}" HorizontalAlignment="Center" Icon="play_arrow" ToolTip="{x:Static resx:Resources.TestCommand}" />
 
                                 <ToggleButton Grid.Column="5" IsChecked="{Binding IsEnabled}" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.EnableDisableCommand}" />
                             </Grid>
@@ -133,7 +133,7 @@
                         <DataGridTextColumn Binding="{Binding Requirements.Cooldown.IndividualAmount}" IsReadOnly="True" MinWidth="60" Width="60">
                             <DataGridTextColumn.Header>
                                 <Grid HorizontalAlignment="Center" Background="Transparent">
-                                    <MaterialDesign:PackIcon Kind="Timer" Height="24" Width="24" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                    <Controls:MaterialSymbolIcon IconName="timer" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -170,7 +170,7 @@
                                             <DataGridTextColumn Binding="{Binding Requirements.Cooldown.IndividualAmount}" IsReadOnly="True" MinWidth="60" Width="60">
                                                 <DataGridTextColumn.Header>
                                                     <Grid HorizontalAlignment="Center" Background="Transparent">
-                                                        <MaterialDesign:PackIcon Kind="Timer" Height="24" Width="24" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                                                        <Controls:MaterialSymbolIcon IconName="timer" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                                     </Grid>
                                                 </DataGridTextColumn.Header>
                                             </DataGridTextColumn>

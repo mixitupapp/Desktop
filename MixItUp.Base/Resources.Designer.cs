@@ -6783,6 +6783,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emote Animation.
+        /// </summary>
+        public static string EmoteAnimation {
+            get {
+                return ResourceManager.GetString("EmoteAnimation", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Emote Effect.
         /// </summary>
         public static string EmoteEffect {
@@ -13358,7 +13367,205 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("KickSubscriptions", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora.
+        /// </summary>
+        public static string Velora {
+            get {
+                return ResourceManager.GetString("Velora", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Log in with Velora.
+        /// </summary>
+        public static string LogInWithVelora {
+            get {
+                return ResourceManager.GetString("LogInWithVelora", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Log out of Velora.
+        /// </summary>
+        public static string LogOutOfVelora {
+            get {
+                return ResourceManager.GetString("LogOutOfVelora", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Stream Start.
+        /// </summary>
+        public static string VeloraChannelStreamStart {
+            get {
+                return ResourceManager.GetString("VeloraChannelStreamStart", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Stream Stop.
+        /// </summary>
+        public static string VeloraChannelStreamStop {
+            get {
+                return ResourceManager.GetString("VeloraChannelStreamStop", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Updated.
+        /// </summary>
+        public static string VeloraChannelUpdated {
+            get {
+                return ResourceManager.GetString("VeloraChannelUpdated", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Followed.
+        /// </summary>
+        public static string VeloraChannelFollowed {
+            get {
+                return ResourceManager.GetString("VeloraChannelFollowed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Subscribed.
+        /// </summary>
+        public static string VeloraChannelSubscribed {
+            get {
+                return ResourceManager.GetString("VeloraChannelSubscribed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Resubscribed.
+        /// </summary>
+        public static string VeloraChannelResubscribed {
+            get {
+                return ResourceManager.GetString("VeloraChannelResubscribed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Subscription Gifted.
+        /// </summary>
+        public static string VeloraChannelSubscriptionGifted {
+            get {
+                return ResourceManager.GetString("VeloraChannelSubscriptionGifted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Mass Subscription Gifted.
+        /// </summary>
+        public static string VeloraChannelMassSubscriptionsGifted {
+            get {
+                return ResourceManager.GetString("VeloraChannelMassSubscriptionsGifted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Raided.
+        /// </summary>
+        public static string VeloraChannelRaided {
+            get {
+                return ResourceManager.GetString("VeloraChannelRaided", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Points Redeemed.
+        /// </summary>
+        public static string VeloraChannelPointsRedeemed {
+            get {
+                return ResourceManager.GetString("VeloraChannelPointsRedeemed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Cheered.
+        /// </summary>
+        public static string VeloraChannelCheered {
+            get {
+                return ResourceManager.GetString("VeloraChannelCheered", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Points.
+        /// </summary>
+        public static string VeloraChannelPoints {
+            get {
+                return ResourceManager.GetString("VeloraChannelPoints", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Channel Points Command.
+        /// </summary>
+        public static string VeloraChannelPointsCommand {
+            get {
+                return ResourceManager.GetString("VeloraChannelPointsCommand", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show Velora Channel Points.
+        /// </summary>
+        public static string ShowVeloraChannelPoints {
+            get {
+                return ResourceManager.GetString("ShowVeloraChannelPoints", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show Velora Cheered.
+        /// </summary>
+        public static string ShowVeloraCheered {
+            get {
+                return ResourceManager.GetString("ShowVeloraCheered", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Cheered.
+        /// </summary>
+        public static string VeloraCheered {
+            get {
+                return ResourceManager.GetString("VeloraCheered", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Redeemed {1}.
+        /// </summary>
+        public static string AlertVeloraChannelPointRedeemed {
+            get {
+                return ResourceManager.GetString("AlertVeloraChannelPointRedeemed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Cheered {1} Volts.
+        /// </summary>
+        public static string AlertVeloraCheered {
+            get {
+                return ResourceManager.GetString("AlertVeloraCheered", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora Subscriptions.
+        /// </summary>
+        public static string VeloraSubscriptions {
+            get {
+                return ResourceManager.GetString("VeloraSubscriptions", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Kill Bonus Health.
         /// </summary>
@@ -17994,6 +18201,15 @@ namespace MixItUp.Base {
         public static string PauseAllCommands {
             get {
                 return ResourceManager.GetString("PauseAllCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause All User Entrance Commands.
+        /// </summary>
+        public static string PauseAllUserEntranceCommands {
+            get {
+                return ResourceManager.GetString("PauseAllUserEntranceCommands", resourceCulture);
             }
         }
         
@@ -28010,6 +28226,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unpause All User Entrance Commands.
+        /// </summary>
+        public static string UnpauseAllUserEntranceCommands {
+            get {
+                return ResourceManager.GetString("UnpauseAllUserEntranceCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unpause Commands.
         /// </summary>
         public static string UnpauseCommands {
@@ -28462,6 +28687,42 @@ namespace MixItUp.Base {
         public static string UserNotFound {
             get {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid command usage. Expected: {0}.
+        /// </summary>
+        public static string ChatCommandInvalidUsage {
+            get {
+                return ResourceManager.GetString("ChatCommandInvalidUsage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The /{0} command is not supported on the selected platform.
+        /// </summary>
+        public static string ChatCommandNotSupportedOnPlatform {
+            get {
+                return ResourceManager.GetString("ChatCommandNotSupportedOnPlatform", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is not in chat and exists on more than one connected platform. Select a specific platform to target them..
+        /// </summary>
+        public static string ChatCommandUserOnMultiplePlatforms {
+            get {
+                return ResourceManager.GetString("ChatCommandUserOnMultiplePlatforms", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Velora {0} action failed. See the log for details..
+        /// </summary>
+        public static string VeloraModerationActionFailed {
+            get {
+                return ResourceManager.GetString("VeloraModerationActionFailed", resourceCulture);
             }
         }
         

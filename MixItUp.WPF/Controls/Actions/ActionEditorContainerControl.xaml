@@ -48,16 +48,16 @@
 
                     <Rectangle Grid.Column="1" Fill="{DynamicResource MaterialDesign.Brush.Primary}" Margin="0,-9" />
 
-                    <Controls:IconButton Grid.Column="2" Margin="-10" Command="{Binding PlayCommand}" Icon="Play" ToolTip="{x:Static resx:Resources.TestCommand}" />
+                    <Controls:IconButton Grid.Column="2" Margin="-10" Command="{Binding PlayCommand}" Icon="play_arrow" ToolTip="{x:Static resx:Resources.TestCommand}" />
 
-                    <Controls:IconButton Grid.Column="4" Margin="-10" Command="{Binding MoveUpCommand}" Icon="ArrowUpBold" ToolTip="{x:Static resx:Resources.MoveUp}" />
-                    <Controls:IconButton Grid.Column="6" Margin="-10" Command="{Binding MoveDownCommand}" Icon="ArrowDownBold" ToolTip="{x:Static resx:Resources.MoveDown}" />
+                    <Controls:IconButton Grid.Column="4" Margin="-10" Command="{Binding MoveUpCommand}" Icon="arrow_upward" ToolTip="{x:Static resx:Resources.MoveUp}" />
+                    <Controls:IconButton Grid.Column="6" Margin="-10" Command="{Binding MoveDownCommand}" Icon="arrow_downward" ToolTip="{x:Static resx:Resources.MoveDown}" />
 
-                    <Controls:IconButton Grid.Column="8" Margin="-10" Command="{Binding CopyCommand}" Icon="ContentCopy" ToolTip="{x:Static resx:Resources.Duplicate}" />
+                    <Controls:IconButton Grid.Column="8" Margin="-10" Command="{Binding CopyCommand}" Icon="content_copy" ToolTip="{x:Static resx:Resources.Duplicate}" />
 
-                    <Controls:IconButton Grid.Column="10" Margin="-10" Command="{Binding HelpCommand}" Icon="Help" ToolTip="{x:Static resx:Resources.Help}" />
+                    <Controls:IconButton Grid.Column="10" Margin="-10" Command="{Binding HelpCommand}" Icon="help" ToolTip="{x:Static resx:Resources.Help}" />
 
-                    <Controls:IconButton Grid.Column="12" Margin="-10" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                    <Controls:IconButton Grid.Column="12" Margin="-10" Command="{Binding DeleteCommand}" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
 
                     <ToggleButton Grid.Column="14" Margin="-10" IsChecked="{Binding Enabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}" />
                 </Grid>

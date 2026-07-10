@@ -19,15 +19,21 @@
             <Grid MouseLeftButtonUp="GroupBoxHeader_MouseLeftButtonUp">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="20" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Name}" />
-                <Rectangle Grid.Column="1" Fill="{DynamicResource MaterialDesign.Brush.Primary}" />
-                <MaterialDesign:PackIcon Grid.Column="2" Kind="CheckboxMarkedCircle" Foreground="White" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource ColoredBackgroundPackIcon}" />
-                <Controls:IconButton Grid.Column="4" Margin="-10" Command="{Binding HelpCommand}" Icon="Help" ToolTip="{x:Static resx:Resources.Help}" />
+                <!--  16px fits the minimized GroupBox header (35px total less 9px ColorZone padding per side)  -->
+                <Grid x:Name="BrandIconContainer" Grid.Column="0" Width="16" Height="16" Margin="0,0,8,0" VerticalAlignment="Center" Visibility="Collapsed">
+                    <Image x:Name="BrandImage" Visibility="Collapsed" />
+                    <Controls:MaterialSymbolIcon x:Name="FeatureIcon" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Visibility="Collapsed" />
+                </Grid>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Name}" />
+                <Rectangle Grid.Column="2" Fill="{DynamicResource MaterialDesign.Brush.Primary}" />
+                <Controls:MaterialSymbolIcon Grid.Column="3" IconName="check_circle" FontSize="16" Foreground="White" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Controls:IconButton Grid.Column="5" Margin="-10" Command="{Binding HelpCommand}" Icon="help" ToolTip="{x:Static resx:Resources.Help}" />
             </Grid>
         </GroupBox.Header>
         <ContentControl x:Name="InnerContentControl" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />

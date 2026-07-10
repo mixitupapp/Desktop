@@ -22,6 +22,8 @@ namespace MixItUp.Base.Model.Actions
         ToggleCommand,
         ExitCurrentCommand,
         SetCommandCooldown,
+        PauseAllUserEntranceCommands,
+        UnpauseAllUserEntranceCommands,
     }
 
     [DataContract]
@@ -208,6 +210,14 @@ namespace MixItUp.Base.Model.Actions
             else if (this.ActionType == CommandActionTypeEnum.UnpauseAllCommands)
             {
                 await ServiceManager.Get<CommandService>().Unpause();
+            }
+            else if (this.ActionType == CommandActionTypeEnum.PauseAllUserEntranceCommands)
+            {
+                await ServiceManager.Get<CommandService>().PauseUserEntranceCommands();
+            }
+            else if (this.ActionType == CommandActionTypeEnum.UnpauseAllUserEntranceCommands)
+            {
+                await ServiceManager.Get<CommandService>().UnpauseUserEntranceCommands();
             }
             else if (this.ActionType == CommandActionTypeEnum.ExitCurrentCommand)
             {

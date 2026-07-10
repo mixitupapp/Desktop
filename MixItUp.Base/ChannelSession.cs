@@ -8,6 +8,7 @@ using MixItUp.Base.Services.External;
 using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
@@ -94,6 +95,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new TwitchSession());
             ServiceManager.Add(new YouTubeSession());
             ServiceManager.Add(new KickSession());
+            ServiceManager.Add(new VeloraSession());
             ServiceManager.Add(new MockSession());
 
             ServiceManager.Add(new CommandService());

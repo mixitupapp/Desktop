@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -6112,6 +6112,9 @@ enabled. You can think of it as similar to toggling the "Unlock Command" option,
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>You must specify a number less than or equal to the Max Level.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Loop</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Loop:</value>
   </data>
@@ -7580,6 +7583,12 @@ Failure to do one of the following could effect how users rate &amp; review your
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Unpause All Commands</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pause All User Entrance Commands</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Unpause All User Entrance Commands</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Platforms</value>
   </data>
@@ -8333,6 +8342,22 @@ Imported quotes with IDs that match existing quotes will altered to the next max
   </data>
   <data name="ChatTimeoutAmountMustBeGreaterThanZero" xml:space="preserve">
     <value>The timeout amount specified must be greater than 0</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Invalid command usage. Expected: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>The /{0} command is not supported on the selected platform</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} is not in chat and exists on more than one connected platform. Select a specific platform to target them.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>The Velora {0} action failed. See the log for details.</value>
+    <comment>{0} is the name of the moderation action</comment>
   </data>
   <data name="ChatWhisperNumberResponse" xml:space="preserve">
     <value>You are whisperer #{0}</value>
@@ -10537,6 +10562,9 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Per Emote Shown</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Emote Animation</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Emote Effect</value>
   </data>
@@ -11820,5 +11848,96 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   </data>
   <data name="ShuffleToggle" xml:space="preserve">
     <value>Shuffle Toggle</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Log in with Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Log out of Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora Channel Stream Start</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Channel Stream Stop</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora Channel Updated</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Followed</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora Channel Subscribed</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Channel Resubscribed</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel Subscription Gifted</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Velora Channel Raided</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora Channel Points Redeemed</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora Channel Cheered</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora Channel Points</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora Channel Points Command</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Show Velora Channel Points</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Show Velora Cheered</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Cheered</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} Redeemed {1}</value>
+    <comment>{0} is the name of the user, {1} is the name of the reward</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} Cheered {1} Volts</value>
+    <comment>{0} is the name of the user, {1} is the amount of volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora Subscriptions</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Announce</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Short</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shoutout</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Untimeout User</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Grant Channel Points</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Deduct Channel Points</value>
+    <comment>Velora action type</comment>
   </data>
 </root>
