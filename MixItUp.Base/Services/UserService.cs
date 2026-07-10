@@ -4,6 +4,7 @@ using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
@@ -181,6 +182,14 @@ namespace MixItUp.Base.Services
                             platformModel = new KickUserPlatformV2Model(kickUser);
                         }
                     }
+                    else if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected && !string.IsNullOrEmpty(platformUsername))
+                    {
+                        var veloraUser = await ServiceManager.Get<VeloraSession>().StreamerService.GetUserByUsername(platformUsername);
+                        if (veloraUser != null && string.Equals(veloraUser.UserID, platformID, StringComparison.OrdinalIgnoreCase))
+                        {
+                            platformModel = new VeloraUserPlatformV2Model(veloraUser);
+                        }
+                    }
                 }
 
                 if (platformModel == null && !string.IsNullOrEmpty(platformUsername))
@@ -213,6 +222,14 @@ namespace MixItUp.Base.Services
                         if (kickUser != null)
                         {
                             platformModel = new KickUserPlatformV2Model(kickUser);
+                        }
+                    }
+                    else if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+                    {
+                        var veloraUser = await ServiceManager.Get<VeloraSession>().StreamerService.GetUserByUsername(platformUsername);
+                        if (veloraUser != null)
+                        {
+                            platformModel = new VeloraUserPlatformV2Model(veloraUser);
                         }
                     }
                 }

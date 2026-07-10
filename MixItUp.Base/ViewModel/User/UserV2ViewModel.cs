@@ -189,6 +189,7 @@ namespace MixItUp.Base.ViewModel.User
                     channelName = !string.IsNullOrWhiteSpace(channelName) ? channelName : this.Username;
                     return $"https://kick.com/{channelName}";
                 }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return $"https://velora.tv/{this.Username}"; }
                 return string.Empty;
             }
         }
@@ -204,6 +205,7 @@ namespace MixItUp.Base.ViewModel.User
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "twitch-color_sm.png"; }
                 else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "youtube-color_sm.png"; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "kick-color_sm.png"; }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "velora-color_sm.png"; }
                 return null;
             }
         }
@@ -763,6 +765,10 @@ namespace MixItUp.Base.ViewModel.User
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick)
                 {
                     this.Color = ((KickUserPlatformV2Model)this.PlatformModel).Color;
+                }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora)
+                {
+                    this.Color = ((VeloraUserPlatformV2Model)this.PlatformModel).Color;
                 }
             }
 

@@ -1,5 +1,6 @@
 ﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model.Kick.Kicks;
+using MixItUp.Base.Model.Velora;
 using MixItUp.Base.Model.Overlay;
 using MixItUp.Base.Model.Overlay.Widgets;
 using MixItUp.Base.Model.Twitch.Bits;
@@ -35,6 +36,7 @@ namespace MixItUp.Base.ViewModel.Overlay
         YouTubeSuperChat,
 
         KickKicksGifted,
+        VeloraCheered,
 
     }
 
@@ -401,6 +403,83 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private string kickKicksDetailsTemplate;
 
+        public bool VeloraCheered
+        {
+            get { return this.veloraCheered; }
+            set
+            {
+                this.veloraCheered = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool veloraCheered;
+
+        public string VeloraCheeredDetailsTemplate
+        {
+            get { return this.veloraCheeredDetailsTemplate; }
+            set
+            {
+                this.veloraCheeredDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string veloraCheeredDetailsTemplate;
+
+        public bool VeloraSubscriptions
+        {
+            get { return this.veloraSubscriptions; }
+            set
+            {
+                this.veloraSubscriptions = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool veloraSubscriptions;
+
+        public string VeloraSubscriptionsDetailsTemplate
+        {
+            get { return this.veloraSubscriptionsDetailsTemplate; }
+            set
+            {
+                this.veloraSubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string veloraSubscriptionsDetailsTemplate;
+
+        public string VeloraResubscriptionsDetailsTemplate
+        {
+            get { return this.veloraResubscriptionsDetailsTemplate; }
+            set
+            {
+                this.veloraResubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string veloraResubscriptionsDetailsTemplate;
+
+        public string VeloraGiftedSubscriptionsDetailsTemplate
+        {
+            get { return this.veloraGiftedSubscriptionsDetailsTemplate; }
+            set
+            {
+                this.veloraGiftedSubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string veloraGiftedSubscriptionsDetailsTemplate;
+
+        public string VeloraMassGiftedSubscriptionsDetailsTemplate
+        {
+            get { return this.veloraMassGiftedSubscriptionsDetailsTemplate; }
+            set
+            {
+                this.veloraMassGiftedSubscriptionsDetailsTemplate = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string veloraMassGiftedSubscriptionsDetailsTemplate;
+
         public bool Donations
         {
             get { return this.donations; }
@@ -465,6 +544,12 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.KickMassGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}} x{{Amount}}";
 
             this.KickKicksDetailsTemplate = $"{{Amount}} {Resources.KickKicks}";
+            this.VeloraCheeredDetailsTemplate = $"{{Amount}} {Resources.VeloraCheered}";
+
+            this.VeloraSubscriptionsDetailsTemplate = $"{Resources.Subscribed} - {Resources.Tier} {{Tier}}";
+            this.VeloraResubscriptionsDetailsTemplate = $"{Resources.Resubscribed} - {Resources.Tier} {{Tier}} - {{Amount}} Months";
+            this.VeloraGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}}";
+            this.VeloraMassGiftedSubscriptionsDetailsTemplate = $"{Resources.GiftedSubscription} - {Resources.Tier} {{Tier}} x{{Amount}}";
 
             this.DonationsDetailsTemplate = $"{Resources.Donation} - {{Amount}}";
 
@@ -519,6 +604,15 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             this.KickKicks = item.KickKicks;
             this.KickKicksDetailsTemplate = item.KickKicksDetailsTemplate;
+
+            this.VeloraCheered = item.VeloraCheered;
+            this.VeloraCheeredDetailsTemplate = item.VeloraCheeredDetailsTemplate;
+
+            this.VeloraSubscriptions = item.VeloraSubscriptions;
+            this.VeloraSubscriptionsDetailsTemplate = item.VeloraSubscriptionsDetailsTemplate;
+            this.VeloraResubscriptionsDetailsTemplate = item.VeloraResubscriptionsDetailsTemplate;
+            this.VeloraGiftedSubscriptionsDetailsTemplate = item.VeloraGiftedSubscriptionsDetailsTemplate;
+            this.VeloraMassGiftedSubscriptionsDetailsTemplate = item.VeloraMassGiftedSubscriptionsDetailsTemplate;
 
             this.Donations = item.Donations;
             this.DonationsDetailsTemplate = item.DonationsDetailsTemplate;
@@ -598,6 +692,10 @@ namespace MixItUp.Base.ViewModel.Overlay
                 {
                     eventList.OnKickKicksGifted(this, new KickKicksGiftedEventModel(ChannelSession.User, 100, "Great stream!"));
                 }
+                else if (type == OverlayEventListV3TestTypeEnum.VeloraCheered)
+                {
+                    eventList.OnVeloraCheered(this, new VeloraCheeredEventModel(ChannelSession.User, 100, "Great stream!"));
+                }
             }
 
             await base.TestWidget(widget);
@@ -647,6 +745,15 @@ namespace MixItUp.Base.ViewModel.Overlay
 
                 KickKicks = this.KickKicks,
                 KickKicksDetailsTemplate = this.KickKicksDetailsTemplate,
+
+                VeloraCheered = this.VeloraCheered,
+                VeloraCheeredDetailsTemplate = this.VeloraCheeredDetailsTemplate,
+
+                VeloraSubscriptions = this.VeloraSubscriptions,
+                VeloraSubscriptionsDetailsTemplate = this.VeloraSubscriptionsDetailsTemplate,
+                VeloraResubscriptionsDetailsTemplate = this.VeloraResubscriptionsDetailsTemplate,
+                VeloraGiftedSubscriptionsDetailsTemplate = this.VeloraGiftedSubscriptionsDetailsTemplate,
+                VeloraMassGiftedSubscriptionsDetailsTemplate = this.VeloraMassGiftedSubscriptionsDetailsTemplate,
 
                 Donations = this.Donations,
                 DonationsDetailsTemplate = this.DonationsDetailsTemplate,

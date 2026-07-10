@@ -6099,6 +6099,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Ви повинні вказати число, менше або дорівнює максимальному рівню.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Цикл</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>цикл:</value>
   </data>
@@ -10489,6 +10492,9 @@ print(run())</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Показана емоція</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Анімація емоцій</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Ефект емоції</value>
   </data>
@@ -11603,5 +11609,296 @@ print(run())</value>
   </data>
   <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
     <value>рахунки, відкриті більше року тому</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Увійдіть за допомогою Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Вийдіть з Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Початок трансляції Velora Channel</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Зупинка потоку каналу Velora Channel</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Оновлений канал Velora</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Підписка</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Підписався на канал Velora</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Channel Перепідписався на канал</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Підписка на канал Velora Подаровано</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Масова підписка подарована</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Рейд на канал Velora</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora Channel Бали погашено</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora Channel Cheered</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Бали каналу Velora</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Команда балів каналу Velora</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Показати очки каналу Velora</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Показати Velora Cheered</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Cheered</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} використав(ла) {1}</value>
+    <comment>{0} — ім'я користувача, {1} — назва нагороди</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} підтримав(ла) {1} Volts</value>
+    <comment>{0} — ім'я користувача, {1} — кількість Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Підписки Velora</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Неправильне використання команди. Очікується: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>Команда /{0} не підтримується на вибраній платформі</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} відсутній у чаті та існує більш ніж на одній підключеній платформі. Виберіть конкретну платформу для дії.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>Дію Velora «{0}» не виконано. Подробиці в журналі.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Внесок Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Подарунок Throne профінансовано спільнотою</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Подарунок Throne придбано</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne — це платформа подарунків і списків бажань для авторів. Підключення до Mix It Up створює унікальний URL вебхука, який дозволяє Throne надсилати сповіщення про подарунки та внески безпосередньо в застосунок.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Після підключення скопіюйте URL вебхука та вставте його в налаштування інтеграції вебхуків у панелі автора Throne. Потім події Throne можна налаштувати на сторінці «Події».</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>URL вебхука Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Пожертва Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Купівля подарунка Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall — це платформа мерчу та магазину для авторів. Підключення до Mix It Up створює унікальний URL вебхука, який дозволяє Fourthwall надсилати сповіщення про замовлення, пожертви та подарунки безпосередньо в застосунок.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Після підключення скопіюйте URL вебхука та вставте його в панель адміністратора магазину Fourthwall у розділі Settings &gt; For developers &gt; Webhooks. Потім події Fourthwall можна налаштувати на сторінці «Події».</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Замовлення оформлено у Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>URL вебхука Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Комісія Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Підписка Ko-fi (вперше)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Ko-fi дозволяє глядачам надсилати вам чайові, оформлювати підписки та замовлення в магазині. Підключення до Mix It Up створює унікальний URL вебхука, який дозволяє Ko-fi надсилати сповіщення про платежі безпосередньо в застосунок.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Після підключення скопіюйте URL вебхука та вставте його в поле Webhook URL на сторінці Webhooks у Ko-fi. З цієї сторінки можна надіслати тестові платежі для перевірки; Ko-fi повторює доставку, доки вона не буде успішною.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Підписка Ko-fi (регулярна)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Замовлення в магазині Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Чайові Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>URL вебхука Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>Ключ API</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Сторінка ключів API Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Пожертва Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Не вдалося підключитися до стрічки подій Pally.gg. Перевірте, чи дійсний ваш ключ API.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg — це платформа командних чайових, яка дозволяє глядачам підтримати одразу всіх учасників стріму. Підключення до Mix It Up доставляє сповіщення про чайові безпосередньо в застосунок у реальному часі.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Щоб підключитися, створіть ключ API в панелі Pally.gg у розділі Settings &gt; API Keys, а потім вставте його тут.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Потрібно вказати дійсний ключ API Pally.gg.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Додати файл до черги</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Додати папку до черги</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Додати список відтворення до черги</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Ви впевнені, що бажаєте очистити чергу музики?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Експортувати чергу як список відтворення M3U</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Список відтворення M3U|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Файли списків відтворення|*.m3u;*.m3u8|Усі файли (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Використовуйте кнопки нижче, щоб додати файли, папки або списки відтворення до черги</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Видалити з черги</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Зараз відтворюється</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Виведення та команди</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Черга</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Повтор</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Повтор вимкнено</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Повтор увімкнено</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Перемкнути повтор</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Випадковий порядок</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Випадковий порядок вимкнено</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Випадковий порядок увімкнено</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Перемкнути випадковий порядок</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Оголосити</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Коротка</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Шаутаут</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Зняти тайм-аут з користувача</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Нарахувати очки каналу</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Списати очки каналу</value>
+    <comment>Velora action type</comment>
   </data>
 </root>

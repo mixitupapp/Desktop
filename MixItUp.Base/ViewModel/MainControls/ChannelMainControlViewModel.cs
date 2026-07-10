@@ -6,9 +6,11 @@ using MixItUp.Base.Model.Twitch.Games;
 using MixItUp.Base.Model.Twitch.Streams;
 using MixItUp.Base.Model.Twitch.Teams;
 using MixItUp.Base.Model.Twitch.User;
+using MixItUp.Base.Model.Velora.Streams;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Kick;
@@ -402,6 +404,36 @@ namespace MixItUp.Base.ViewModel.MainControls
         protected override Task SearchChannelsToRaid() { return Task.CompletedTask; }
     }
 
+    public class VeloraChannelControlViewModel : PlatformChannelControlViewModelBase
+    {
+        public VeloraChannelControlViewModel() { this.Platform = StreamingPlatformTypeEnum.Velora; }
+
+        protected override async Task<Result> UpdateChannelInformation()
+        {
+            string categorySlug = null;
+            if (!string.IsNullOrWhiteSpace(this.Category))
+            {
+                IEnumerable<CategoryModel> categories = await ServiceManager.Get<VeloraSession>().StreamerService.GetStreamCategories();
+                if (categories != null && categories.Count() > 0)
+                {
+                    CategoryModel selectedCategory = categories.FirstOrDefault(c => string.Equals(c.Name, this.Category, StringComparison.OrdinalIgnoreCase));
+                    if (selectedCategory == null)
+                    {
+                        selectedCategory = categories.FirstOrDefault(c => !string.IsNullOrWhiteSpace(c.Name) && c.Name.StartsWith(this.Category, StringComparison.OrdinalIgnoreCase));
+                    }
+                    if (selectedCategory != null)
+                    {
+                        categorySlug = selectedCategory.Slug;
+                    }
+                }
+            }
+
+            return await ServiceManager.Get<VeloraSession>().StreamerService.UpdateStreamInfo(title: this.Title, categorySlug: categorySlug);
+        }
+
+        protected override Task SearchChannelsToRaid() { return Task.CompletedTask; }
+    }
+
     public abstract class PlatformChannelControlViewModelBase : UIViewModelBase
     {
         public class ChannelToRaidItemViewModel : UIViewModelBase
@@ -589,11 +621,15 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public KickChannelControlViewModel Kick { get; set; } = new KickChannelControlViewModel();
 
+        public VeloraChannelControlViewModel Velora { get; set; } = new VeloraChannelControlViewModel();
+
         public bool IsTwitchConnected { get { return ServiceManager.Get<TwitchSession>().IsConnected; } }
 
         public bool IsYouTubeConnected { get { return ServiceManager.Get<YouTubeSession>().IsConnected; } }
 
         public bool IsKickConnected { get { return ServiceManager.Get<KickSession>().IsConnected; } }
+
+        public bool IsVeloraConnected { get { return ServiceManager.Get<VeloraSession>().IsConnected; } }
 
         public ChannelMainControlViewModel(MainWindowViewModel windowViewModel) : base(windowViewModel) { }
 
@@ -614,6 +650,11 @@ namespace MixItUp.Base.ViewModel.MainControls
                 await this.Kick.OnOpen();
             }
 
+            if (this.IsVeloraConnected)
+            {
+                await this.Velora.OnOpen();
+            }
+
             await base.OnOpenInternal();
         }
 
@@ -632,6 +673,11 @@ namespace MixItUp.Base.ViewModel.MainControls
             if (this.IsKickConnected)
             {
                 await this.Kick.OnVisible();
+            }
+
+            if (this.IsVeloraConnected)
+            {
+                await this.Velora.OnVisible();
             }
 
             await base.OnVisibleInternal();

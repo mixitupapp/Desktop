@@ -107,6 +107,7 @@ namespace MixItUp.Base.Services
         public List<TwitchCustomPowerUpCommandModel> TwitchCustomPowerUpCommands { get; set; } = new List<TwitchCustomPowerUpCommandModel>();
         public List<KickChannelPointsCommandModel> KickChannelPointsCommands { get; set; } = new List<KickChannelPointsCommandModel>();
         public List<KickKicksCommandModel> KickKicksCommands { get; set; } = new List<KickKicksCommandModel>();
+        public List<VeloraChannelPointsCommandModel> VeloraChannelPointsCommands { get; set; } = new List<VeloraChannelPointsCommandModel>();
 
         public IEnumerable<CommandModelBase> AllEnabledChatAccessibleCommands
         {
@@ -139,6 +140,7 @@ namespace MixItUp.Base.Services
                 commands.AddRange(this.TwitchCustomPowerUpCommands);
                 commands.AddRange(this.KickChannelPointsCommands);
                 commands.AddRange(this.KickKicksCommands);
+                commands.AddRange(this.VeloraChannelPointsCommands);
                 return commands;
             }
         }
@@ -189,6 +191,7 @@ namespace MixItUp.Base.Services
             this.TwitchCustomPowerUpCommands.Clear();
             this.KickChannelPointsCommands.Clear();
             this.KickKicksCommands.Clear();
+            this.VeloraChannelPointsCommands.Clear();
 
             foreach (CommandModelBase command in ChannelSession.Settings.Commands.Values.ToList())
             {
@@ -209,6 +212,7 @@ namespace MixItUp.Base.Services
                 else if (command is TwitchCustomPowerUpCommandModel) { this.TwitchCustomPowerUpCommands.Add((TwitchCustomPowerUpCommandModel)command); }
                 else if (command is KickChannelPointsCommandModel) { this.KickChannelPointsCommands.Add((KickChannelPointsCommandModel)command); }
                 else if (command is KickKicksCommandModel) { this.KickKicksCommands.Add((KickKicksCommandModel)command); }
+                else if (command is VeloraChannelPointsCommandModel) { this.VeloraChannelPointsCommands.Add((VeloraChannelPointsCommandModel)command); }
             }
 
             foreach (PreMadeChatCommandSettingsModel commandSetting in ChannelSession.Settings.PreMadeChatCommandSettings)

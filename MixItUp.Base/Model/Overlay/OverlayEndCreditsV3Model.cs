@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Kick.Kicks;
+using MixItUp.Base.Model.Velora;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
@@ -39,6 +40,8 @@ namespace MixItUp.Base.Model.Overlay
         YouTubeSuperChats = 50,
 
         KickKicks = 60,
+
+        VeloraCheered = 70,
 
         Donations = 200,
 
@@ -190,6 +193,7 @@ namespace MixItUp.Base.Model.Overlay
                     case OverlayEndCreditsSectionV3Type.TwitchPowerUps:
                     case OverlayEndCreditsSectionV3Type.YouTubeSuperChats:
                     case OverlayEndCreditsSectionV3Type.KickKicks:
+                    case OverlayEndCreditsSectionV3Type.VeloraCheered:
                     case OverlayEndCreditsSectionV3Type.Donations:
                         text = OverlayV3Service.ReplaceProperty(text, AmountPropertyName, item.Value.ToNumberDisplayString());
                         break;
@@ -286,6 +290,11 @@ namespace MixItUp.Base.Model.Overlay
         public override bool KickSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
         [DataMember]
         public override bool KickKicks { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.KickKicks); } set { } }
+
+        [DataMember]
+        public override bool VeloraSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
+        [DataMember]
+        public override bool VeloraCheered { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.VeloraCheered); } set { } }
 
         [DataMember]
         public override bool Donations { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.Donations); } set { } }
@@ -521,6 +530,19 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     case OverlayEndCreditsSectionV3Type.KickKicks:
                         section.Track(kicksGifted.User, kicksGifted.Amount);
+                        break;
+                }
+            }
+        }
+
+        public override void OnVeloraCheered(object sender, VeloraCheeredEventModel cheered)
+        {
+            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
+            {
+                switch (section.Type)
+                {
+                    case OverlayEndCreditsSectionV3Type.VeloraCheered:
+                        section.Track(cheered.User, cheered.Amount);
                         break;
                 }
             }

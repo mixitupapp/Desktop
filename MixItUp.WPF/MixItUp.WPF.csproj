@@ -68,6 +68,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <ProjectReference Include="..\MixItUp.Reporter\MixItUp.Reporter.csproj" />
   </ItemGroup>
 	<ItemGroup Label="Package References">
+		<PackageReference Include="AnimatedImage.Wpf" Version="2.1.4" />
 		<PackageReference Include="AvalonEdit" Version="6.3.1.120" />
 		<PackageReference Include="AWSSDK.Polly" Version="3.7.107.6" />
 		<PackageReference Include="CacheManager.SystemRuntimeCaching" Version="2.0.0" />
@@ -129,6 +130,10 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 	<Resource Include="Assets\Images\kick-color_sm.png" />
 	<Resource Include="Assets\Images\kick-dark_lg.png" />
 	<Resource Include="Assets\Images\kick-light_lg.png" />
+	<Resource Include="Assets\Images\velora-color_lg.png" />
+	<Resource Include="Assets\Images\velora-color_sm.png" />
+	<Resource Include="Assets\Images\velora-dark_lg.png" />
+	<Resource Include="Assets\Images\velora-light_lg.png" />
     <Resource Include="Assets\Images\twitter-color_sm.png" /> 
     <Resource Include="Assets\Images\wiki-color_sm.png" />  
     <Resource Include="Assets\Images\youtube-color_lg.png" />

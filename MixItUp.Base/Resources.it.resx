@@ -6099,6 +6099,9 @@ abilitato. Puoi considerarlo simile all'attivazione dell'opzione "Sblocca comand
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>È necessario specificare un numero inferiore o uguale al Livello massimo.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>In loop</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Ciclo continuo:</value>
   </data>
@@ -10489,6 +10492,9 @@ Attivare solo se si sa cosa si sta facendo. Continuare?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Per emote mostrata</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animazione delle emote</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Effetto emote</value>
   </data>
@@ -11485,7 +11491,7 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
     <value>Canale Twitch Modalità Shield Terminato</value>
   </data>
   <data name="AlertTwitchShieldModeStarted" xml:space="preserve">
-    <value>{Modalità Scudo attivata</value>
+    <value>{0} Modalità Scudo attivata</value>
   </data>
   <data name="AlertTwitchShieldModeEnded" xml:space="preserve">
     <value>{0} Modalità Scudo disattivata</value>
@@ -11696,5 +11702,172 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   </data>
   <data name="PallyInvalidAPIKey" xml:space="preserve">
     <value>È necessario specificare una chiave API Pally.gg valida.</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Accedere con Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Disconnettersi da Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora Channel Stream Start</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Channel Stream Stop</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora Channel aggiornato</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Channel Seguito</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Canale Velora Abbonati</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Channel Reiscritto</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Abbonamento a Velora Channel Regalato</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Canale Velora Abbonamento di massa Regalato</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Raid del canale Velora</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Punti Velora Channel riscattati</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Applausi del canale Velora</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Punti del canale Velora</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Comando punti del canale Velora</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Mostra i punti canale di Velora</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Mostra gli Applausi di Velora</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Applausi</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} ha riscattato {1}</value>
+    <comment>{0} è il nome dell'utente, {1} è il nome della ricompensa</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} Applausi per {1} Volts</value>
+    <comment>{0} è il nome dell'utente, {1} è la quantità di Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Abbonamenti Velora</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Uso del comando non valido. Previsto: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>Il comando /{0} non è supportato sulla piattaforma selezionata</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} non è in chat ed esiste su più di una piattaforma collegata. Seleziona una piattaforma specifica per applicare l'azione.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>L'azione Velora {0} non è riuscita. Consulta il registro per i dettagli.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Aggiungi file alla coda</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Aggiungi cartella alla coda</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Aggiungi playlist alla coda</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Vuoi davvero svuotare la coda musicale?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Esporta la coda come playlist M3U</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Playlist M3U|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>File di playlist|*.m3u;*.m3u8|Tutti i file (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Usa i pulsanti qui sotto per aggiungere file, cartelle o playlist alla coda</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Rimuovi dalla coda</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>In riproduzione</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Output e comandi</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Coda</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Ripeti</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Ripetizione disattivata</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Ripetizione attivata</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Attiva/disattiva ripetizione</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Riproduzione casuale</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Riproduzione casuale disattivata</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Riproduzione casuale attivata</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Attiva/disattiva riproduzione casuale</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Annuncia</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Breve</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shoutout</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Rimuovi timeout utente</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Assegna punti canale</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Sottrai punti canale</value>
+    <comment>Velora action type</comment>
   </data>
 </root>

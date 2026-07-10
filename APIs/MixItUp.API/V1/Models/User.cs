@@ -16,6 +16,8 @@ namespace MixItUp.API.V1.Models
         public string YouTubeID { get; set; }
         [DataMember]
         public string KickID { get; set; }
+        [DataMember]
+        public string VeloraID { get; set; }
 
         [DataMember]
         public string Username { get; set; }

@@ -543,6 +543,78 @@ namespace MixItUp.Base.Services.Twitch.New
             }
         }
 
+        // Announce / VIP / raid / shoutout have no StreamingPlatformSessionBase hook, so they are surfaced here
+        // - mirroring VeloraSession - to give the chat-box slash commands the same reach the Twitch action has.
+
+        /// <summary>Twitch's announcement colors are primary (the default), blue, green, orange and purple.</summary>
+        public async Task SendAnnouncement(string message, string color = null, bool sendAsStreamer = true)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
+            string resolvedColor = string.IsNullOrWhiteSpace(color) ? "primary" : color.Trim().ToLowerInvariant();
+            if (!sendAsStreamer && this.IsBotConnected && this.BotModel != null)
+            {
+                await this.BotService.SendChatAnnouncement(this.StreamerModel, this.BotModel, message, resolvedColor);
+            }
+            else
+            {
+                await this.StreamerService.SendChatAnnouncement(this.StreamerModel, this.StreamerModel, message, resolvedColor);
+            }
+        }
+
+        public async Task VIPUser(UserV2ViewModel user)
+        {
+            if (!string.IsNullOrEmpty(user?.PlatformID))
+            {
+                await this.StreamerService.VIPUser(this.StreamerModel, user.PlatformID);
+            }
+        }
+
+        public async Task UnVIPUser(UserV2ViewModel user)
+        {
+            if (!string.IsNullOrEmpty(user?.PlatformID))
+            {
+                await this.StreamerService.UnVIPUser(this.StreamerModel, user.PlatformID);
+            }
+        }
+
+        public async Task Raid(string targetChannel)
+        {
+            UserModel target = await this.GetChannelByLogin(targetChannel);
+            if (target != null)
+            {
+                await this.StreamerService.RaidChannel(this.StreamerModel, target);
+            }
+        }
+
+        public async Task Shoutout(UserV2ViewModel user)
+        {
+            UserModel target = await this.GetChannelByLogin(user?.Username);
+            if (target != null)
+            {
+                await this.StreamerService.SendShoutout(this.StreamerModel, target);
+            }
+        }
+
+        // Raid and shoutout address the target by Twitch user ID, not by name, so the login has to be resolved.
+        private async Task<UserModel> GetChannelByLogin(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return null;
+            }
+
+            UserModel target = await this.StreamerService.GetNewAPIUserByLogin(username);
+            if (target == null)
+            {
+                Logger.Log(LogLevel.Error, $"Twitch channel not found: {username}");
+            }
+            return target;
+        }
+
         public async Task StreamOnline()
         {
             this.IsLive = true;

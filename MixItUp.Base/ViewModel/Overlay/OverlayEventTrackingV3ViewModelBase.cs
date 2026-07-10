@@ -135,6 +135,17 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private double kickSubscriptionAmount;
 
+        public double VeloraSubscriptionAmount
+        {
+            get { return this.veloraSubscriptionAmount; }
+            set
+            {
+                this.veloraSubscriptionAmount = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private double veloraSubscriptionAmount;
+
         public ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel> YouTubeMemberships { get; set; } = new ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel>();
 
         public double TwitchBitsAmount
@@ -200,6 +211,27 @@ namespace MixItUp.Base.ViewModel.Overlay
             }
         }
 
+        public double VeloraCheeredAmount
+        {
+            get { return this.veloraCheeredAmount; }
+            set
+            {
+                this.veloraCheeredAmount = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.VeloraCheeredEquation));
+            }
+        }
+        private double veloraCheeredAmount;
+
+        public string VeloraCheeredEquation
+        {
+            get
+            {
+                double total = this.VeloraCheeredAmount * SampleIntegerAmount;
+                return $"{this.VeloraCheeredAmount} * {SampleIntegerAmount} {Resources.VeloraCheered} = {total} {this.EquationUnits}";
+            }
+        }
+
         public double DonationAmount
         {
             get { return this.donationAmount; }
@@ -251,6 +283,9 @@ namespace MixItUp.Base.ViewModel.Overlay
             item.KickSubscriptionsAmount.TryGetValue(1, out double kickTier1);
             this.KickSubscriptionAmount = kickTier1;
 
+            item.VeloraSubscriptionsAmount.TryGetValue(1, out double veloraTier1);
+            this.VeloraSubscriptionAmount = veloraTier1;
+
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {
                 foreach (MembershipsLevel membershipsLevel in ServiceManager.Get<YouTubeSession>().MembershipLevels)
@@ -268,6 +303,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.YouTubeSuperChatAmount = item.YouTubeSuperChatAmount;
 
             this.KickKicksAmount = item.KickKicksAmount;
+
+            this.VeloraCheeredAmount = item.VeloraCheeredAmount;
 
             this.DonationAmount = item.DonationAmount;
 
@@ -295,6 +332,8 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             result.KickSubscriptionsAmount[1] = this.KickSubscriptionAmount;
 
+            result.VeloraSubscriptionsAmount[1] = this.VeloraSubscriptionAmount;
+
             result.YouTubeMembershipsAmount.Clear();
             foreach (OverlayEventTrackingYouTubeMembershipViewModel membership in this.YouTubeMemberships)
             {
@@ -303,6 +342,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             result.YouTubeSuperChatAmount = this.YouTubeSuperChatAmount;
 
             result.KickKicksAmount = this.KickKicksAmount;
+
+            result.VeloraCheeredAmount = this.VeloraCheeredAmount;
 
             result.DonationAmount = this.DonationAmount;
         }

@@ -168,6 +168,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <GroupBox Header="{x:Static resx:Resources.Follows}" Grid.Row="0" Grid.Column="0">
@@ -267,7 +271,19 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="{x:Static resx:Resources.TwitchBits}" Grid.Row="8" Grid.Column="0">
+            <GroupBox Header="{x:Static resx:Resources.VeloraSubscriptions}" Grid.Row="8" Grid.ColumnSpan="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
+                    <TextBox Grid.Column="1" Text="{Binding VeloraSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.TwitchBits}" Grid.Row="10" Grid.Column="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -284,7 +300,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="{x:Static resx:Resources.YouTubeSuperChat}" Grid.Row="8" Grid.Column="2">
+            <GroupBox Header="{x:Static resx:Resources.YouTubeSuperChat}" Grid.Row="10" Grid.Column="2">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -301,7 +317,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="{x:Static resx:Resources.KickKicks}" Grid.Row="10" Grid.Column="0">
+            <GroupBox Header="{x:Static resx:Resources.KickKicks}" Grid.Row="12" Grid.Column="0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -318,7 +334,24 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="{x:Static resx:Resources.Donations}" Grid.Row="10" Grid.Column="2">
+            <GroupBox Header="{x:Static resx:Resources.VeloraCheered}" Grid.Row="14" Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding VeloraCheeredAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                    <TextBlock Grid.Row="2" Text="{Binding VeloraCheeredEquation}" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.Donations}" Grid.Row="12" Grid.Column="2">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

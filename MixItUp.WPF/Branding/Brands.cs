@@ -180,6 +180,7 @@ namespace MixItUp.WPF.Branding
         public static readonly Brand Twitch = new Brand("twitch", "Twitch", "https://twitch.tv", "#9146FF", "#772CE8", "#392E5C");
         public static readonly Brand YouTube = new Brand("youtube", "YouTube", "https://youtube.com", "#FF0000", "#CC0000", "#282828");
         public static readonly Brand Kick = new Brand("kick", "Kick", "https://kick.com", "#53FC18", "#3DB30F", "#0E0E10");
+        public static readonly Brand Velora = new Brand("velora", "Velora", "https://velora.tv", "#FDCB16", "#D18829", "#581012");
 
         // Streaming software
         public static readonly Brand OBSStudio = new Brand("obs", "OBS Studio", "https://obsproject.com", "#302E31", "#1F1E1F", "#000000");
