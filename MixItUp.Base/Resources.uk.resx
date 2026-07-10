@@ -7561,6 +7561,12 @@
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Відновити всі команди</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Призупинити всі команди входу користувача</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Відновити всі команди входу користувача</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Платформи</value>
   </data>

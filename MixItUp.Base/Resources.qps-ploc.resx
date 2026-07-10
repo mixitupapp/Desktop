@@ -7486,6 +7486,12 @@
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>[Ûñþåûšéẋẋẋ Åļļẋ Çöɱɱåñðšẋẋẋ]</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>[Þåûšéẋẋ Åļļẋ Ûšéŕẋẋ Éñţŕåñçéẋẋẋ Çöɱɱåñðšẋẋẋ]</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>[Ûñþåûšéẋẋẋ Åļļẋ Ûšéŕẋẋ Éñţŕåñçéẋẋẋ Çöɱɱåñðšẋẋẋ]</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>[Þļåţƒöŕɱšẋẋẋ]</value>
   </data>

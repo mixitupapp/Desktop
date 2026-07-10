@@ -7563,6 +7563,12 @@ Wenn Sie eine der folgenden Maßnahmen nicht ausführen, kann dies Auswirkungen 
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Alle Befehle pausieren</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Alle Benutzereintrittsbefehle anhalten</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Alle Benutzereintrittsbefehle fortsetzen</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Plattformen</value>
   </data>

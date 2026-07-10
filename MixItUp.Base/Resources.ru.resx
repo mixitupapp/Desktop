@@ -7566,6 +7566,12 @@ Fuzzy</comment>
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Снять с паузы все команды</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Приостановить все команды входа пользователя</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Снять с паузы все команды входа пользователя</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Платформы</value>
   </data>

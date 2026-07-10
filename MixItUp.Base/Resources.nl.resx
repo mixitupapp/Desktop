@@ -7562,6 +7562,12 @@ Als u een van de volgende handelingen niet uitvoert, kan dit van invloed zijn op
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Hervat alle opdrachten</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pauzeer alle gebruikersentree-opdrachten</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Hervat alle gebruikersentree-opdrachten</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Platformen</value>
   </data>

@@ -7562,6 +7562,12 @@ No realizar una de las siguientes acciones podría afectar la forma en que los u
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Reanudar todos los comandos</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pausar todos los comandos de entrada de usuario</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Reanudar todos los comandos de entrada de usuario</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Plataformas</value>
   </data>

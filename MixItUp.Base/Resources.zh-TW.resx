@@ -7561,6 +7561,12 @@
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>取消暫停所有命令</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>暫停所有用戶入口命令</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>取消暫停所有用戶入口命令</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>平台</value>
   </data>

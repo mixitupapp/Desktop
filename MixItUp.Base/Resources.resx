@@ -7583,6 +7583,12 @@ Failure to do one of the following could effect how users rate &amp; review your
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Unpause All Commands</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pause All User Entrance Commands</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Unpause All User Entrance Commands</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Platforms</value>
   </data>

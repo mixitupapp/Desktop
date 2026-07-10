@@ -7561,6 +7561,12 @@ Niewykonanie jednej z poniższych czynności może mieć wpływ na sposób, w ja
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Wznów wszystkie polecenia</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Wstrzymaj wszystkie polecenia wejścia użytkownika</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Wznów wszystkie polecenia wejścia użytkownika</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Platformy</value>
   </data>

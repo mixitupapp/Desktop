@@ -7561,6 +7561,12 @@
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>すべてのコマンドの一時停止を解除する</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>すべてのユーザー入口コマンドを一時停止する</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>すべてのユーザー入口コマンドの一時停止を解除する</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>プラットフォーム</value>
   </data>

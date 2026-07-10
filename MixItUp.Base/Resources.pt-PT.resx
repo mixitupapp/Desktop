@@ -7563,6 +7563,12 @@ O não cumprimento de uma das seguintes opções pode afetar a forma como os usu
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Retomar todos os comandos</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pausar todos os comandos de entrada do usuário</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Retomar todos os comandos de entrada do usuário</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Plataformas</value>
   </data>

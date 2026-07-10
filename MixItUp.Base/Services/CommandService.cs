@@ -91,6 +91,8 @@ namespace MixItUp.Base.Services
 
         public bool IsPaused { get; private set; }
 
+        public bool IsUserEntranceCommandsPaused { get; private set; }
+
         public event EventHandler<CommandInstanceModel> OnCommandInstanceAdded = delegate { };
 
         public List<PreMadeChatCommandModelBase> PreMadeChatCommands { get; private set; } = new List<PreMadeChatCommandModelBase>();
@@ -146,6 +148,7 @@ namespace MixItUp.Base.Services
         }
 
         private List<CommandInstanceModel> pauseQueue = new List<CommandInstanceModel>();
+        private List<CommandInstanceModel> userEntranceCommandsPauseQueue = new List<CommandInstanceModel>();
 
         public IEnumerable<CommandInstanceModel> CommandInstances { get { return this.commandInstances.ToList(); } }
         private List<CommandInstanceModel> commandInstances = new List<CommandInstanceModel>();
@@ -281,6 +284,10 @@ namespace MixItUp.Base.Services
                 {
                     this.pauseQueue.Add(commandInstance);
                 }
+                else if (this.IsUserEntranceCommandsPaused && this.IsUserEntranceCommand(commandInstance))
+                {
+                    this.userEntranceCommandsPauseQueue.Add(commandInstance);
+                }
                 else
                 {
                     await this.QueueInternal(commandInstance);
@@ -384,9 +391,64 @@ namespace MixItUp.Base.Services
 
             foreach (CommandInstanceModel commandInstance in this.pauseQueue)
             {
-                await this.QueueInternal(commandInstance);
+                if (this.IsUserEntranceCommandsPaused && this.IsUserEntranceCommand(commandInstance))
+                {
+                    this.userEntranceCommandsPauseQueue.Add(commandInstance);
+                }
+                else
+                {
+                    await this.QueueInternal(commandInstance);
+                }
             }
             this.pauseQueue.Clear();
+        }
+
+        public async Task PauseUserEntranceCommands()
+        {
+            await this.commandQueueLock.WaitAsync();
+
+            this.IsUserEntranceCommandsPaused = true;
+
+            this.commandQueueLock.Release();
+        }
+
+        public async Task UnpauseUserEntranceCommands()
+        {
+            await this.commandQueueLock.WaitAsync();
+
+            this.IsUserEntranceCommandsPaused = false;
+
+            this.commandQueueLock.Release();
+
+            foreach (CommandInstanceModel commandInstance in this.userEntranceCommandsPauseQueue)
+            {
+                if (this.IsPaused)
+                {
+                    this.pauseQueue.Add(commandInstance);
+                }
+                else
+                {
+                    await this.QueueInternal(commandInstance);
+                }
+            }
+            this.userEntranceCommandsPauseQueue.Clear();
+        }
+
+        private bool IsUserEntranceCommand(CommandInstanceModel commandInstance)
+        {
+            CommandModelBase command = commandInstance.Command;
+            if (command == null)
+            {
+                return false;
+            }
+
+            if (command is EventCommandModel && ((EventCommandModel)command).EventType == EventTypeEnum.ChatUserEntranceCommand)
+            {
+                return true;
+            }
+
+            return commandInstance.Parameters.User != null && commandInstance.Parameters.User.EntranceCommandID != Guid.Empty &&
+                commandInstance.Parameters.User.EntranceCommandID == command.ID;
         }
 
         private async Task<Result> ValidateCommand(CommandInstanceModel commandInstance)

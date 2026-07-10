@@ -7561,6 +7561,12 @@ Le fait de ne pas effectuer l’une des actions suivantes pourrait affecter la f
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Réactiver toutes les commandes</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Suspendre toutes les commandes d'entrée utilisateur</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Réactiver toutes les commandes d'entrée utilisateur</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Plateformes</value>
   </data>

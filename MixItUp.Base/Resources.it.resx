@@ -7561,6 +7561,12 @@ La mancata esecuzione di una delle seguenti operazioni potrebbe influire sul mod
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Riattiva tutti i comandi</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Metti in pausa tutti i comandi di ingresso utente</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Riattiva tutti i comandi di ingresso utente</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Piattaforme</value>
   </data>

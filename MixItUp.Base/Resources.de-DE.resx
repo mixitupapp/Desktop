@@ -6396,6 +6396,12 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Alle Befehle aufheben</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Alle Benutzereingangsbefehle pausieren</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Alle Benutzereingangsbefehle fortsetzen</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Bahnsteige</value>
   </data>
