@@ -187,6 +187,10 @@ namespace MixItUp.Base.Services.Velora.New
                 return;
             }
 
+            // Log the raw frame at Debug: the live newMessage shape is unverified (role/badge fields
+            // vary across Velora's delivery channels) and this is the only capture point for it.
+            Logger.Log(LogLevel.Debug, $"Velora newMessage: {payload.ToString(Newtonsoft.Json.Formatting.None)}");
+
             WebhookChatMessageEventModel messageEvent = payload.ToObject<WebhookChatMessageEventModel>();
             if (messageEvent == null)
             {
@@ -282,9 +286,9 @@ namespace MixItUp.Base.Services.Velora.New
             VeloraUserPlatformV2Model platformData = user.GetPlatformData<VeloraUserPlatformV2Model>(StreamingPlatformTypeEnum.Velora);
             platformData?.SetChatMessageProperties(messageEvent);
 
-            if (messageEvent.SubscriberMonths.HasValue)
+            if (messageEvent.BestSubscriberMonths.HasValue)
             {
-                user.TotalMonthsSubbed = Math.Max(user.TotalMonthsSubbed, (uint)Math.Max(messageEvent.SubscriberMonths.Value, 0));
+                user.TotalMonthsSubbed = Math.Max(user.TotalMonthsSubbed, (uint)Math.Max(messageEvent.BestSubscriberMonths.Value, 0));
             }
 
             await ServiceManager.Get<ChatService>().AddMessage(new VeloraChatMessageViewModel(messageEvent, user));

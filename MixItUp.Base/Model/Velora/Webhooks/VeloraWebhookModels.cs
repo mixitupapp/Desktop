@@ -53,6 +53,32 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("isAnonymous")]
         public bool IsAnonymous { get; set; }
 
+        // The Chat WS newMessage nests the sender, and Velora's shapes drift, so any role/badge
+        // fields that may ride on the sender are parsed here and unioned by the message model.
+        [JsonProperty("role")]
+        public string Role { get; set; }
+
+        [JsonProperty("channelRole")]
+        public string ChannelRole { get; set; }
+
+        [JsonProperty("badges")]
+        public List<string> Badges { get; set; } = new List<string>();
+
+        [JsonProperty("isModerator")]
+        public bool? IsModerator { get; set; }
+
+        [JsonProperty("isMod")]
+        public bool? IsMod { get; set; }
+
+        [JsonProperty("isVip")]
+        public bool? IsVip { get; set; }
+
+        [JsonProperty("isSubscriber")]
+        public bool? IsSubscriber { get; set; }
+
+        [JsonProperty("subscriberMonths")]
+        public int? SubscriberMonths { get; set; }
+
         [JsonIgnore]
         public string UserID { get { return Users.UserModel.FirstNonEmpty(this.ID, this.UserId); } }
 
@@ -132,8 +158,21 @@ namespace MixItUp.Base.Model.Velora.Webhooks
 
         // The Chat WS newMessage carries the sender's role in this channel as "channelRole"
         // (broadcaster/moderator/vip/subscriber/viewer/...); chat.message uses isMod/isVip/isSubscriber.
+        // The chat history route (live-confirmed) instead carries "role" + "userRoles[]" - those are
+        // PLATFORM-wide ("creator" was observed on a non-broadcaster, meaning owns-a-channel), so they
+        // feed moderator/vip/subscriber detection but never broadcaster detection.
         [JsonProperty("channelRole")]
         public string ChannelRole { get; set; }
+
+        [JsonProperty("role")]
+        public string Role { get; set; }
+
+        [JsonProperty("userRoles")]
+        public List<string> UserRoles { get; set; } = new List<string>();
+
+        // The legacy chat.message webhook sample carried structured "badgeDetails" alongside badges[].
+        [JsonProperty("badgeDetails")]
+        public List<WebhookBadgeDetailModel> BadgeDetails { get; set; } = new List<WebhookBadgeDetailModel>();
 
         // The chat.message webhook uses "isModerator"; older samples used "isMod".
         [JsonProperty("isMod")]
@@ -143,30 +182,47 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         public bool IsModerator { get; set; }
 
         [JsonIgnore]
-        public bool IsMod { get { return this.IsModLegacy || this.IsModerator || this.ChannelRoleIs("moderator") || this.ChannelRoleIs("mod"); } }
+        public bool IsMod { get { return this.IsModLegacy || this.IsModerator || (this.Sender?.IsModerator ?? false) || (this.Sender?.IsMod ?? false) || this.HasRole("moderator") || this.HasRole("mod"); } }
 
         [JsonProperty("isVip")]
         public bool IsVipFlag { get; set; }
 
         [JsonIgnore]
-        public bool IsVip { get { return this.IsVipFlag || this.ChannelRoleIs("vip"); } }
+        public bool IsVip { get { return this.IsVipFlag || (this.Sender?.IsVip ?? false) || this.HasRole("vip"); } }
 
         [JsonProperty("isSubscriber")]
         public bool IsSubscriberFlag { get; set; }
 
         [JsonIgnore]
-        public bool IsSubscriber { get { return this.IsSubscriberFlag || this.ChannelRoleIs("subscriber") || this.ChannelRoleIs("sub"); } }
+        public bool IsSubscriber { get { return this.IsSubscriberFlag || (this.Sender?.IsSubscriber ?? false) || this.HasRole("subscriber") || this.HasRole("sub"); } }
 
+        // Broadcaster detection stays CHANNEL-scoped (channelRole only): the platform-wide role and
+        // userRoles fields would wrongly flag every channel-owning viewer ("creator"/"streamer").
         [JsonIgnore]
         public bool IsBroadcasterRole { get { return this.ChannelRoleIs("broadcaster") || this.ChannelRoleIs("streamer") || this.ChannelRoleIs("owner"); } }
 
         private bool ChannelRoleIs(string role)
         {
-            return !string.IsNullOrWhiteSpace(this.ChannelRole) && string.Equals(this.ChannelRole, role, System.StringComparison.OrdinalIgnoreCase);
+            return RoleMatches(this.ChannelRole, role) || RoleMatches(this.Sender?.ChannelRole, role);
+        }
+
+        /// <summary>Checks every role-shaped field (channel-scoped and platform-wide, top-level and sender-nested).</summary>
+        private bool HasRole(string role)
+        {
+            return this.ChannelRoleIs(role) || RoleMatches(this.Role, role) || RoleMatches(this.Sender?.Role, role)
+                || (this.UserRoles != null && this.UserRoles.Any(r => RoleMatches(r, role)));
+        }
+
+        private static bool RoleMatches(string value, string role)
+        {
+            return !string.IsNullOrWhiteSpace(value) && string.Equals(value, role, System.StringComparison.OrdinalIgnoreCase);
         }
 
         [JsonProperty("subscriberMonths")]
         public int? SubscriberMonths { get; set; }
+
+        [JsonIgnore]
+        public int? BestSubscriberMonths { get { return this.SubscriberMonths ?? this.Sender?.SubscriberMonths; } }
 
         // The chat.message webhook uses "accentColor"; older samples used "color".
         [JsonProperty("color")]
@@ -240,6 +296,37 @@ namespace MixItUp.Base.Model.Velora.Webhooks
     {
         [JsonProperty("type")]
         public string Type { get; set; }
+    }
+
+    /// <summary>
+    /// A structured badge reference from the legacy chat.message webhook's "badgeDetails" (badges[]
+    /// carries bare slugs). The live field names are unverified, so the getters union likely variants.
+    /// </summary>
+    public class WebhookBadgeDetailModel
+    {
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("slug")]
+        public string Slug { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
+
+        [JsonProperty("staticAssetUrl")]
+        public string StaticAssetUrl { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonIgnore]
+        public string BestSlug { get { return Users.UserModel.FirstNonEmpty(this.Slug, this.Type, this.Name); } }
+
+        [JsonIgnore]
+        public string BestImageUrl { get { return Users.UserModel.FirstNonEmpty(this.StaticAssetUrl, this.ImageUrl, this.Url); } }
     }
 
     public class WebhookFollowEventModel : WebhookEventPayloadModelBase

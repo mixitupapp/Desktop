@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -6112,6 +6112,9 @@ enabled. You can think of it as similar to toggling the "Unlock Command" option,
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>You must specify a number less than or equal to the Max Level.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Loop</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Loop:</value>
   </data>
@@ -10553,6 +10556,9 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Per Emote Shown</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Emote Animation</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Emote Effect</value>
   </data>
@@ -11908,6 +11914,9 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="Announce" xml:space="preserve">
     <value>Announce</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Short</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

@@ -11,8 +11,8 @@ namespace MixItUp.Base.ViewModel.Chat.Velora
             this.ID = emote.ID;
             this.Name = emote.BestCode;
             this.ImageURL = emote.BestImageUrl;
-            this.IsAnimated = emote.Animated ?? false;
-            this.AnimatedImageURL = emote.AnimatedUrl;
+            this.IsAnimated = emote.IsAnimated;
+            this.AnimatedImageURL = emote.BestAnimatedUrl;
         }
     }
 }

@@ -6099,6 +6099,9 @@ activé. Vous pouvez considérer cela comme similaire à l'activation de l'optio
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Vous devez spécifier un nombre inférieur ou égal au niveau maximum.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>En boucle</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Boucle:</value>
   </data>
@@ -10490,6 +10493,9 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Par emote affichée</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animation des émoticônes</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Effet d'émote</value>
   </data>
@@ -11845,6 +11851,9 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="Announce" xml:space="preserve">
     <value>Annoncer</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Courte</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

@@ -1,4 +1,5 @@
 using MixItUp.Base.Model;
+using MixItUp.Base.Model.Velora.Badges;
 using MixItUp.Base.Model.Velora.ChannelPoints;
 using MixItUp.Base.Model.Velora.Chat;
 using MixItUp.Base.Model.Velora.Emotes;
@@ -294,6 +295,17 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 JToken response = await this.HttpClient.GetAsync<JToken>("badges/channel/" + AdvancedHttpClient.URLEncodeString(username));
                 return ChannelSubscriptionBadgeModel.ParseList(response);
+            });
+        }
+
+        // GET the global/platform badge catalog (public, no auth). Chat messages reference these
+        // badges by slug in their badges[] list.
+        public async Task<IEnumerable<CatalogBadgeModel>> GetBadgeCatalog()
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JToken response = await this.HttpClient.GetAsync<JToken>("badges/catalog");
+                return CatalogBadgeModel.ParseList(response);
             });
         }
 

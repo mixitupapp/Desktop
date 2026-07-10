@@ -6099,6 +6099,9 @@ włączony. Można to porównać do przełączania opcji „Polecenie odblokowan
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Należy określić liczbę mniejszą lub równą poziomowi maksymalnemu.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Pętla</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Pętla:</value>
   </data>
@@ -10489,6 +10492,9 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Według pokazanej emotki</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animacja emotek</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Efekt emotki</value>
   </data>
@@ -11844,6 +11850,9 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="Announce" xml:space="preserve">
     <value>Ogłoś</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Krótka</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

@@ -6099,6 +6099,9 @@ abilitato. Puoi considerarlo simile all'attivazione dell'opzione "Sblocca comand
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>È necessario specificare un numero inferiore o uguale al Livello massimo.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>In loop</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Ciclo continuo:</value>
   </data>
@@ -10489,6 +10492,9 @@ Attivare solo se si sa cosa si sta facendo. Continuare?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Per emote mostrata</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animazione delle emote</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Effetto emote</value>
   </data>
@@ -11844,6 +11850,9 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="Announce" xml:space="preserve">
     <value>Annuncia</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Breve</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

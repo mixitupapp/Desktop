@@ -1,5 +1,6 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.User.Platform;
+using MixItUp.Base.Model.Velora.Badges;
 using MixItUp.Base.Model.Velora.Emotes;
 using MixItUp.Base.Model.Velora.Streams;
 using MixItUp.Base.Model.Velora.Subscriptions;
@@ -72,6 +73,10 @@ namespace MixItUp.Base.Services.Velora.New
 
         public Dictionary<string, VeloraChatEmoteViewModel> Emotes { get; private set; } = new Dictionary<string, VeloraChatEmoteViewModel>(StringComparer.Ordinal);
 
+        // Global/platform badge catalog (event/promo/etc. badges), keyed by the slug that chat
+        // messages carry in their badges[] list; fetched once at session init.
+        private Dictionary<string, CatalogBadgeModel> badgeCatalog = new Dictionary<string, CatalogBadgeModel>(StringComparer.OrdinalIgnoreCase);
+
         protected override async Task<Result> InitializeStreamerInternal()
         {
             // Re-probe the REST moderation endpoint on every (re)connect: a fresh token may carry chat:moderate.
@@ -99,6 +104,7 @@ namespace MixItUp.Base.Services.Velora.New
 
             await this.RefreshEmotes();
             await this.RefreshSubscriptionBadges();
+            await this.RefreshBadgeCatalog();
 
             Result result = await this.Client.Connect();
             if (!result.Success)
@@ -632,6 +638,40 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 Logger.Log(ex);
             }
+        }
+
+        public async Task RefreshBadgeCatalog()
+        {
+            try
+            {
+                IEnumerable<CatalogBadgeModel> badges = await this.StreamerService.GetBadgeCatalog();
+                if (badges != null)
+                {
+                    Dictionary<string, CatalogBadgeModel> newCatalog = new Dictionary<string, CatalogBadgeModel>(StringComparer.OrdinalIgnoreCase);
+                    foreach (CatalogBadgeModel badge in badges)
+                    {
+                        if (!string.IsNullOrWhiteSpace(badge.Slug) && !string.IsNullOrWhiteSpace(badge.BestImageUrl))
+                        {
+                            newCatalog[badge.Slug] = badge;
+                        }
+                    }
+                    this.badgeCatalog = newCatalog;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        /// <summary>Resolves a chat badge slug (e.g. "christmas-2025") against the global badge catalog.</summary>
+        public string GetCatalogBadgeUrl(string badgeSlug)
+        {
+            if (!string.IsNullOrWhiteSpace(badgeSlug) && this.badgeCatalog.TryGetValue(badgeSlug, out CatalogBadgeModel badge))
+            {
+                return badge.BestImageUrl;
+            }
+            return null;
         }
 
         public string GetSubscriberBadgeUrl(int months)

@@ -6099,6 +6099,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Ви повинні вказати число, менше або дорівнює максимальному рівню.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Цикл</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>цикл:</value>
   </data>
@@ -10489,6 +10492,9 @@ print(run())</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Показана емоція</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Анімація емоцій</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Ефект емоції</value>
   </data>
@@ -11875,6 +11881,9 @@ print(run())</value>
   <data name="Announce" xml:space="preserve">
     <value>Оголосити</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Коротка</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Шаутаут</value>

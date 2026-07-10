@@ -6033,6 +6033,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>[Ýöûẋ ɱûšţẋẋ šþéçîƒýẋẋẋ åẋ ñûɱƀéŕẋẋ ļéššẋẋ ţĥåñẋẋ öŕẋ éǫûåļẋẋ ţöẋ ţĥéẋ Ṁåẋẋ Ļéṽéļ·ẋẋ]</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>[Ļööþẋ]</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>[Ļööþ∶ẋẋ]</value>
   </data>
@@ -10385,6 +10388,9 @@
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>[Þéŕẋ Éɱöţéẋẋ Šĥöŵñẋẋ]</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>[Éɱöţéẋẋ Åñîɱåţîöñẋẋẋ]</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>[Éɱöţéẋẋ Éƒƒéçţẋẋ]</value>
   </data>
@@ -11875,6 +11881,9 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="Announce" xml:space="preserve">
     <value>[Åññöûñçéẋẋẋ]</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>[Šĥöŕţẋẋ]</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>[Šĥöûţöûţẋẋẋ]</value>

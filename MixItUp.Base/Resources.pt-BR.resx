@@ -6099,6 +6099,9 @@ habilitado. Pode pensar nisto como algo semelhante a alternar a opção “Desbl
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Deve especificar um número inferior ou igual ao Nível máximo.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Em loop</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Laço:</value>
   </data>
@@ -10490,6 +10493,9 @@ Só ative se souber o que está fazendo. Continuar?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Por Emote Mostrado</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animação de Emotes</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Efeito de emoção</value>
   </data>
@@ -11845,6 +11851,9 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="Announce" xml:space="preserve">
     <value>Anunciar</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Curta</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

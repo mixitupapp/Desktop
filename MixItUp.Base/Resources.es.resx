@@ -6100,6 +6100,9 @@ activado. Puede considerarlo similar a alternar la opción "Desbloquear comando"
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Debe especificar un número menor o igual que el nivel máximo.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Bucle</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Bucle:</value>
   </data>
@@ -10491,6 +10494,9 @@ Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Por gesto mostrado</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animación de gestos</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Efecto de gesto</value>
   </data>
@@ -11846,6 +11852,9 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="Announce" xml:space="preserve">
     <value>Anunciar</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Corta</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

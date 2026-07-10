@@ -6100,6 +6100,9 @@ ermöglicht. Sie können es sich so vorstellen, als würden Sie die Option „Be
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Sie müssen eine Zahl angeben, die kleiner oder gleich der Höchststufe ist.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Schleife</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Schleife:</value>
   </data>
@@ -10495,6 +10498,9 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Pro angezeigtem Emote</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Emote-Animation</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Emote-Effekt</value>
   </data>
@@ -11850,6 +11856,9 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="Announce" xml:space="preserve">
     <value>Ankündigen</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Kurz</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

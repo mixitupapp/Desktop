@@ -15,10 +15,19 @@ namespace MixItUp.Base.Model.User.Platform
     public class VeloraUserPlatformV2Model : UserPlatformV2ModelBase
     {
         private const string BadgeBaseURL = "https://files.mixitup.bot/static/platforms/velora/badges/";
-        private const string BroadcasterBadgeURL = BadgeBaseURL + "broadcaster.png";
+        // The uploaded asset (and its source in Media/Platforms/Velora/Badges) is named broadcast.png,
+        // unlike Kick's broadcaster.png.
+        private const string BroadcasterBadgeURL = BadgeBaseURL + "broadcast.png";
         private const string ModeratorBadgeURL = BadgeBaseURL + "moderator.png";
         private const string VIPBadgeURL = BadgeBaseURL + "vip.png";
         private const string BotBadgeURL = BadgeBaseURL + "bot.png";
+
+        // Slugs in a message's badges[] that describe roles rather than global catalog badges
+        // ("creator" is Velora's platform-wide has-a-channel status, not a per-channel role).
+        private static readonly HashSet<string> RoleBadgeTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "broadcaster", "streamer", "owner", "creator", "moderator", "mod", "vip", "subscriber", "sub", "bot", "system", "verified",
+        };
 
         [DataMember]
         public string Color { get; set; }
@@ -101,23 +110,25 @@ namespace MixItUp.Base.Model.User.Platform
             }
 
             HashSet<string> badgeTypes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            if (message.Badges != null)
+            AddBadgeTypes(badgeTypes, message.Badges);
+            AddBadgeTypes(badgeTypes, message.Sender?.Badges);
+            if (message.BadgeDetails != null)
             {
-                foreach (string badge in message.Badges)
+                foreach (WebhookBadgeDetailModel detail in message.BadgeDetails)
                 {
-                    if (!string.IsNullOrWhiteSpace(badge))
+                    if (!string.IsNullOrWhiteSpace(detail?.BestSlug))
                     {
-                        badgeTypes.Add(badge);
+                        badgeTypes.Add(detail.BestSlug);
                     }
                 }
             }
 
-            // The Chat WS newMessage carries the sender's role as channelRole rather than badge slugs;
-            // fold it in so the broadcaster/moderator/vip/subscriber role + badge logic below sees it.
-            if (!string.IsNullOrWhiteSpace(message.ChannelRole))
-            {
-                badgeTypes.Add(message.ChannelRole);
-            }
+            // Fold the CHANNEL-scoped role (top-level or sender-nested) in as a slug so the
+            // broadcaster/moderator/vip/subscriber logic below sees it. The platform-wide role and
+            // userRoles fields ("creator" = owns a channel, observed on non-broadcasters) reach the
+            // logic only through the message's IsMod/IsVip/IsSubscriber getters, never as slugs that
+            // could satisfy the broadcaster check.
+            AddBadgeTypes(badgeTypes, new List<string>() { message.ChannelRole, message.Sender?.ChannelRole });
 
             if (message.IsMod || badgeTypes.Contains("moderator")) { this.Roles.Add(UserRoleEnum.Moderator); } else { this.Roles.Remove(UserRoleEnum.Moderator); }
             if (message.IsVip || badgeTypes.Contains("vip")) { this.Roles.Add(UserRoleEnum.VeloraVIP); } else { this.Roles.Remove(UserRoleEnum.VeloraVIP); }
@@ -159,25 +170,76 @@ namespace MixItUp.Base.Model.User.Platform
 
         private void SetBadgeLinksFromTypes(HashSet<string> badgeTypes, WebhookChatMessageEventModel message)
         {
+            VeloraSession session = ServiceManager.Get<VeloraSession>();
+
             // Velora's chat payload carries no broadcaster boolean/slug, but Velora does have a
             // broadcaster badge, so treat the channel owner (message author == streamer) as the
             // broadcaster.
             bool isStreamer =
                 !string.IsNullOrWhiteSpace(this.ID) &&
-                string.Equals(this.ID, ServiceManager.Get<VeloraSession>().StreamerID, StringComparison.OrdinalIgnoreCase);
+                string.Equals(this.ID, session.StreamerID, StringComparison.OrdinalIgnoreCase);
 
-            if (isStreamer || badgeTypes.Contains("broadcaster") || badgeTypes.Contains("streamer")) { this.RoleBadgeLink = BroadcasterBadgeURL; }
-            else if (message.IsMod || badgeTypes.Contains("moderator")) { this.RoleBadgeLink = ModeratorBadgeURL; }
-            else if (message.IsVip || badgeTypes.Contains("vip")) { this.RoleBadgeLink = VIPBadgeURL; }
-            else if (badgeTypes.Contains("bot") || (message.IsBot ?? false)) { this.RoleBadgeLink = BotBadgeURL; }
+            // The catalog carries no system/role badges today (its "system" category is empty), so
+            // role badges fall back to Mix It Up's own hosted icons; the catalog is checked first so
+            // Velora-published role badges win if they ever appear.
+            if (isStreamer || badgeTypes.Contains("broadcaster") || badgeTypes.Contains("streamer")) { this.RoleBadgeLink = session.GetCatalogBadgeUrl("broadcaster") ?? BroadcasterBadgeURL; }
+            else if (message.IsMod || badgeTypes.Contains("moderator")) { this.RoleBadgeLink = session.GetCatalogBadgeUrl("moderator") ?? ModeratorBadgeURL; }
+            else if (message.IsVip || badgeTypes.Contains("vip")) { this.RoleBadgeLink = session.GetCatalogBadgeUrl("vip") ?? VIPBadgeURL; }
+            else if (badgeTypes.Contains("bot") || (message.IsBot ?? false)) { this.RoleBadgeLink = session.GetCatalogBadgeUrl("bot") ?? BotBadgeURL; }
             else { this.RoleBadgeLink = null; }
 
             // Velora subscriber badges are per-channel milestone badges keyed by months subscribed
-            // (fetched from /api/badges/channel/:username and cached on the session).
+            // (fetched from /api/badges/channel/:username and cached on the session). The Chat WS
+            // newMessage carries no subscriberMonths, so a subscriber of unknown tenure counts as
+            // 1 month and still receives the channel's first milestone badge.
             bool isSubscriber = message.IsSubscriber || badgeTypes.Contains("subscriber");
             this.SubscriberBadgeLink = isSubscriber
-                ? ServiceManager.Get<VeloraSession>().GetSubscriberBadgeUrl(message.SubscriberMonths ?? 0)
+                ? session.GetSubscriberBadgeUrl(Math.Max(message.BestSubscriberMonths ?? 1, 1))
                 : null;
+
+            // Global catalog badges (event/promo, e.g. "christmas-2025") arrive as slugs in badges[];
+            // the first one that resolves against the catalog shows as the specialty badge.
+            this.SpecialtyBadgeLink = null;
+            foreach (string badgeType in badgeTypes)
+            {
+                if (!RoleBadgeTypes.Contains(badgeType))
+                {
+                    string catalogBadgeUrl = session.GetCatalogBadgeUrl(badgeType);
+                    if (!string.IsNullOrEmpty(catalogBadgeUrl))
+                    {
+                        this.SpecialtyBadgeLink = catalogBadgeUrl;
+                        break;
+                    }
+                }
+            }
+
+            // A structured badgeDetails entry may carry its own image URL for a badge that is
+            // missing from the global catalog.
+            if (string.IsNullOrEmpty(this.SpecialtyBadgeLink) && message.BadgeDetails != null)
+            {
+                foreach (WebhookBadgeDetailModel detail in message.BadgeDetails)
+                {
+                    if (detail != null && !string.IsNullOrEmpty(detail.BestImageUrl) && !RoleBadgeTypes.Contains(detail.BestSlug ?? string.Empty))
+                    {
+                        this.SpecialtyBadgeLink = detail.BestImageUrl;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private static void AddBadgeTypes(HashSet<string> badgeTypes, IEnumerable<string> values)
+        {
+            if (values != null)
+            {
+                foreach (string value in values)
+                {
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        badgeTypes.Add(value);
+                    }
+                }
+            }
         }
 
         private static string FirstNonEmpty(params string[] values)

@@ -6100,6 +6100,9 @@ ingeschakeld. Je kunt het zien als vergelijkbaar met het omschakelen van de opti
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>U moet een getal opgeven dat kleiner is dan of gelijk is aan het Max. Niveau.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Herhalen</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Lus:</value>
   </data>
@@ -10490,6 +10493,9 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Per getoonde emote</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Emote-animatie</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Emote-effect</value>
   </data>
@@ -11845,6 +11851,9 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="Announce" xml:space="preserve">
     <value>Aankondigen</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Kort</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shout-out</value>

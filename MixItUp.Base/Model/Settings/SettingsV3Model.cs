@@ -23,6 +23,13 @@ using System.Threading.Tasks;
 
 namespace MixItUp.Base.Model.Settings
 {
+    public enum ChatEmoteAnimationEnum
+    {
+        None = 0,
+        Short = 1,
+        Loop = 2,
+    }
+
     [DataContract]
     public class SettingsV3Model
     {
@@ -166,7 +173,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool UseAlternatingBackgroundColors { get; set; }
         [DataMember]
-        public bool DisableAnimatedEmotes { get; set; }
+        public ChatEmoteAnimationEnum ChatEmoteAnimation { get; set; } = ChatEmoteAnimationEnum.None;
 
         [DataMember]
         public bool OnlyShowAlertsInDashboard { get; set; }

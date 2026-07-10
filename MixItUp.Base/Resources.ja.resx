@@ -6099,6 +6099,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>最大レベル以下の数値を指定する必要があります。</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>ループ</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>ループ：</value>
   </data>
@@ -10489,6 +10492,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>表示されるエモートごと</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>エモートアニメーション</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>エモートエフェクト</value>
   </data>
@@ -11844,6 +11850,9 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="Announce" xml:space="preserve">
     <value>アナウンス</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>短い</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>シャウトアウト</value>

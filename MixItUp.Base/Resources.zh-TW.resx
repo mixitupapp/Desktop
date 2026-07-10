@@ -6099,6 +6099,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>您必須指定小於或等於最大的數字。</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>循環</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>環形：</value>
   </data>
@@ -10489,6 +10492,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>每個顯示的表情</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>表情動畫</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>表情效果</value>
   </data>
@@ -11875,6 +11881,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="Announce" xml:space="preserve">
     <value>公告</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>短暫</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>喊話</value>

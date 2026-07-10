@@ -4958,6 +4958,9 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Du musst eine Zahl angeben, die kleiner oder gleich dem Maximallevel ist.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Schleife</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Schleife:</value>
   </data>
@@ -9209,6 +9212,9 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Laut gezeigtem Emote</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Emote-Animation</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Emote-Effekt</value>
   </data>
@@ -10558,6 +10564,9 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   </data>
   <data name="Announce" xml:space="preserve">
     <value>Ankündigen</value>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Kurz</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Shoutout</value>

@@ -6783,6 +6783,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emote Animation.
+        /// </summary>
+        public static string EmoteAnimation {
+            get {
+                return ResourceManager.GetString("EmoteAnimation", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Emote Effect.
         /// </summary>
         public static string EmoteEffect {

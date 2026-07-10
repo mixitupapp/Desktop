@@ -6102,6 +6102,9 @@ Fuzzy</comment>
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Вы должны указать число, меньшее или равное максимальному уровню.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Цикл</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Петля:</value>
   </data>
@@ -10494,6 +10497,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>За каждую показанную эмоцию</value>
   </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Анимация эмоций</value>
+  </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Эффект эмоции</value>
   </data>
@@ -11880,6 +11886,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="Announce" xml:space="preserve">
     <value>Объявить</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Короткая</value>
   </data>
   <data name="Shoutout" xml:space="preserve">
     <value>Шаутаут</value>
