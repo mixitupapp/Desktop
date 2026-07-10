@@ -17,6 +17,10 @@ namespace MixItUp.Base.Util
 
         Task<string> ShowDropDown(IEnumerable<string> options, string description = null);
 
+        /// <summary>Shows a Browse-button image file picker with client-side extension + size validation.
+        /// Returns the selected file path, or null if dismissed via the cancel/skip button.</summary>
+        Task<string> ShowImageFileBrowser(string description, IEnumerable<string> validExtensions, long maxFileSizeBytes, string cancelText = null);
+
         Task<object> ShowCustom(object dialog);
 
         Task<object> ShowCustomTimed(object dialog, int timeout);
@@ -42,6 +46,8 @@ namespace MixItUp.Base.Util
         public static async Task<string> ShowTextEntry(string message, string defaultValue = null, string description = null) { return await DialogHelper.dialogShower.ShowTextEntry(message, defaultValue, description); }
 
         public static async Task<string> ShowDropDown(IEnumerable<string> options, string description = null) { return await DialogHelper.dialogShower.ShowDropDown(options, description); }
+
+        public static async Task<string> ShowImageFileBrowser(string description, IEnumerable<string> validExtensions, long maxFileSizeBytes, string cancelText = null) { return await DialogHelper.dialogShower.ShowImageFileBrowser(description, validExtensions, maxFileSizeBytes, cancelText); }
 
         public static async Task<object> ShowEnumDropDown<T>(IEnumerable<T> options, string description = null)
         {

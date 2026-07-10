@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 namespace MixItUp.Base.Services.Velora.New
 {
     /// <summary>
-    /// Client-direct Socket.IO connection to Velora's Chat WebSocket (namespace <c>/chat</c>). One
-    /// instance per account: the streamer's instance receives + sends, the bot's instance only sends.
-    /// Replaces the chat (and chat-moderation) portion of the old webhook-relay path.
+    /// Client-direct Socket.IO connection to Velora's Chat WebSocket (namespace <c>/chat</c>), owned by
+    /// the streamer account (the bot has no token to authenticate a socket of its own; bot messages go
+    /// over REST with sendAsBot). Replaces the chat (and chat-moderation) portion of the old
+    /// webhook-relay path.
     /// </summary>
     public class VeloraChatSocketClient
     {

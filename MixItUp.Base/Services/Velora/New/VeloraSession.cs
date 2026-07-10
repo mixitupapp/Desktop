@@ -1,6 +1,8 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Model.Velora.Badges;
+using MixItUp.Base.Model.Velora.Bots;
+using MixItUp.Base.Model.Velora.Chat;
 using MixItUp.Base.Model.Velora.Emotes;
 using MixItUp.Base.Model.Velora.Streams;
 using MixItUp.Base.Model.Velora.Subscriptions;
@@ -12,6 +14,7 @@ using MixItUp.Base.ViewModel.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Services.Velora.New
@@ -30,13 +33,14 @@ namespace MixItUp.Base.Services.Velora.New
             "chat:write",
             "chat:moderate",
             "subscriptions:read",
-        };
-
-        public static readonly IEnumerable<string> BotScopes = new List<string>()
-        {
-            "user:read",
-            "chat:read",
-            "chat:write",
+            // The bot is a Velora-side entity managed and spoken-as entirely through the streamer's
+            // token (see VeloraBotService), so the bot scopes ride the streamer authorization.
+            // NOTE: the app's per-app grant table (developer dashboard / the OAuth consent page) is the
+            // authority on scope names - the generic GET /api/developer/oauth/scopes catalog lists a
+            // stale "bot:read" that the consent page rejects. The granted pair is bot:connect (connect
+            // to + speak as a bot on your channel) and bot:write (send chat as the connected bot).
+            "bot:connect",
+            "bot:write",
         };
 
         public override int MaxMessageLength { get { return 500; } }
@@ -46,20 +50,28 @@ namespace MixItUp.Base.Services.Velora.New
         public override OAuthServiceBase BotOAuthService { get { return this.BotService; } }
 
         public VeloraService StreamerService { get; private set; } = new VeloraService(StreamerScopes);
-        public VeloraService BotService { get; private set; } = new VeloraService(BotScopes, isBotService: true);
+
+        // Velora bots have no OAuth login of their own: the bot service manages the app's server-side
+        // bot connection through the streamer's service and never authenticates anything itself.
+        public VeloraBotService BotService { get; private set; }
+
         public VeloraClient Client { get; private set; } = new VeloraClient();
 
-        // Client-direct Chat WebSocket connections (namespace /chat). The streamer socket receives + sends;
-        // the bot socket is send-only. Created + owned here across the session lifecycle.
+        // Client-direct Chat WebSocket connection (namespace /chat) for the streamer, which receives +
+        // sends. The bot has no socket - bot messages go over REST with sendAsBot on the streamer's token.
         public VeloraChatSocketClient StreamerChatClient { get; private set; }
-        public VeloraChatSocketClient BotChatClient { get; private set; }
+
+        public VeloraSession()
+        {
+            this.BotService = new VeloraBotService(this.StreamerService);
+        }
 
         // Client-direct Events WebSocket (wss://api.velora.tv/ws/events) for the streamer's own channel.
         // Auto-subscribed on connect; replaces the webhook relay path for non-chat real-time events.
         public VeloraEventSocketClient EventSocketClient { get; private set; }
 
         public UserModel StreamerModel { get; private set; }
-        public UserModel BotModel { get; private set; }
+        public VeloraBotModel BotModel { get; private set; }
 
         // Velora has no single "channel" object (like Kick), so subscriber count / description / tags
         // are gathered from separate endpoints and cached here for the special identifier builders.
@@ -151,47 +163,87 @@ namespace MixItUp.Base.Services.Velora.New
 
         protected override async Task<Result> InitializeBotInternal()
         {
-            this.BotModel = await this.BotService.GetCurrentUser();
-            if (this.BotModel == null || string.IsNullOrWhiteSpace(this.BotModel.UserID))
+            // The bot service adopted Velora's stored connection during connect; it is the bot identity.
+            this.BotModel = this.BotService.ConnectedBot;
+            if (this.BotModel == null || string.IsNullOrWhiteSpace(this.BotModel.BestID))
             {
                 return new Result("Failed to get Velora bot data");
             }
 
-            this.BotID = this.BotModel.UserID;
-            this.BotUsername = this.BotModel.Username;
+            this.BotID = this.BotModel.BestID;
+            this.BotUsername = this.BotModel.BestUsername;
             this.BotAvatarURL = this.BotModel.BestAvatarUrl;
 
             this.Bot = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Velora, platformID: this.BotID);
             if (this.Bot == null)
             {
-                this.Bot = await ServiceManager.Get<UserService>().CreateUser(new VeloraUserPlatformV2Model(this.BotModel));
+                this.Bot = await ServiceManager.Get<UserService>().CreateUser(new VeloraUserPlatformV2Model(this.BotID, this.BotUsername, this.BotModel.BestDisplayName, this.BotAvatarURL));
             }
 
-            // Connect the bot's own send-only Chat WS (the bot sends on its own OAuth token). Non-fatal:
-            // if it can't connect, SendMessage falls back to REST for the bot account.
-            this.BotChatClient = new VeloraChatSocketClient(this.Client, () => this.BotService.GetOAuthTokenCopy()?.accessToken, () => this.ChannelID, processIncomingEvents: false);
-            Result botChatResult = await this.BotChatClient.Connect();
-            if (!botChatResult.Success)
-            {
-                Logger.Log(LogLevel.Error, "Velora bot chat socket did not connect during init; retrying in background: " + botChatResult.Message);
-            }
-
+            // No bot chat socket: a Velora bot has no token to authenticate one. Bot messages are sent
+            // over REST with sendAsBot on the streamer's token (see SendMessage).
             return new Result();
         }
 
-        protected override async Task DisconnectBotInternal()
+        protected override Task DisconnectBotInternal()
         {
-            if (this.BotChatClient != null)
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Edit Bot on the Accounts page: change the connected bot's profile image or rename it. Both are
+        /// in-place edits of the same bot entity (its ID and app connection survive; renames are limited
+        /// by Velora to one per 90 days). Dialog dismissals return quiet successes with nothing to show.
+        /// </summary>
+        public async Task<Result> EditBot()
+        {
+            if (!this.IsBotConnected || this.BotService.ConnectedBot == null)
             {
-                await this.BotChatClient.Disconnect();
-                this.BotChatClient = null;
+                return new Result(Resources.VeloraBotNotConnected);
+            }
+
+            string changeAvatarOption = Resources.VeloraBotEditChangeAvatar;
+            string renameOption = Resources.VeloraBotEditRenameBot;
+            string choice = await DialogHelper.ShowDropDown(new List<string>() { changeAvatarOption, renameOption }, Resources.VeloraBotEditPrompt);
+            if (string.IsNullOrEmpty(choice))
+            {
+                return new Result();
+            }
+
+            Result result;
+            if (string.Equals(choice, changeAvatarOption, StringComparison.Ordinal))
+            {
+                result = await this.BotService.PromptForAvatar(offerSkip: false, CancellationToken.None);
+            }
+            else
+            {
+                result = await this.BotService.PromptRenameBot(CancellationToken.None);
+            }
+
+            this.ApplyBotIdentity();
+            return result;
+        }
+
+        // Re-adopts the bot service's (re-fetched) view of the connected bot into the session identity
+        // fields after an edit, so the Accounts page and special identifiers reflect the change.
+        private void ApplyBotIdentity()
+        {
+            VeloraBotModel bot = this.BotService.ConnectedBot;
+            if (bot != null && !string.IsNullOrWhiteSpace(bot.BestID))
+            {
+                this.BotModel = bot;
+                this.BotID = bot.BestID;
+                this.BotUsername = bot.BestUsername;
+                this.BotAvatarURL = bot.BestAvatarUrl;
             }
         }
 
         public override async Task RefreshOAuthTokenIfCloseToExpiring()
         {
             // Velora authenticates the sockets at handshake only, so when a refresh actually rotates the
-            // access token, re-handshake the affected socket(s) with the new token.
+            // access token, re-handshake the affected socket(s) with the new token. The bot holds no
+            // OAuth token of its own (its "credential" is Velora's server-side app connection), so only
+            // the streamer's token ever refreshes.
             string streamerTokenBefore = this.StreamerService.GetOAuthTokenCopy()?.accessToken;
             await this.StreamerService.RefreshOAuthTokenIfCloseToExpiring();
             string streamerTokenAfter = this.StreamerService.GetOAuthTokenCopy()?.accessToken;
@@ -206,14 +258,6 @@ namespace MixItUp.Base.Services.Velora.New
                 {
                     await this.EventSocketClient.ReconnectWithFreshToken();
                 }
-            }
-
-            string botTokenBefore = this.BotService.GetOAuthTokenCopy()?.accessToken;
-            await this.BotService.RefreshOAuthTokenIfCloseToExpiring();
-            string botTokenAfter = this.BotService.GetOAuthTokenCopy()?.accessToken;
-            if (this.BotChatClient != null && !string.IsNullOrEmpty(botTokenAfter) && !string.Equals(botTokenBefore, botTokenAfter, StringComparison.Ordinal))
-            {
-                await this.BotChatClient.ReconnectWithFreshToken();
             }
         }
 
@@ -311,30 +355,40 @@ namespace MixItUp.Base.Services.Velora.New
             await this.SendMessage(message, effect: null, effectColor: null, sendAsStreamer: sendAsStreamer);
         }
 
-        // Chat WS send with optional Velora message effects (glow/galaxy/rainbow/gigantify) - a new
-        // capability the migration unlocks. Falls back to the REST send when the socket is down (the
-        // REST path cannot carry effects).
+        // Send with optional Velora message effects (glow/galaxy/rainbow/gigantify). Bot messages go
+        // over REST with sendAsBot on the streamer's token - a Velora bot has no token of its own, and
+        // the Chat WS has no documented as-the-bot send. Streamer messages prefer the Chat WS and fall
+        // back to REST; both REST paths carry effects (documented on the messages endpoint).
         public async Task SendMessage(string message, string effect, string effectColor, bool sendAsStreamer = false)
         {
             foreach (string m in this.SplitLargeMessage(message))
             {
                 bool useBot = !sendAsStreamer && this.IsBotConnected;
-
-                VeloraChatSocketClient chatClient = useBot ? this.BotChatClient : this.StreamerChatClient;
-                if (chatClient != null && chatClient.IsConnected)
+                if (useBot)
                 {
-                    await chatClient.SendMessage(m, effect: effect, effectColor: effectColor);
+                    SendChatMessageResponseModel response = await this.StreamerService.SendChatMessage(this.ChannelID, m, sendAsBot: true, effect: effect, effectColor: effectColor);
+                    if (response == null)
+                    {
+                        // Surface the failure rather than silently re-sending as the streamer: the user
+                        // configured these messages to come from the bot identity.
+                        Logger.Log(LogLevel.Error, "Velora sendAsBot chat message failed; see prior log entries for the request error.");
+                    }
+                }
+                else if (this.StreamerChatClient != null && this.StreamerChatClient.IsConnected)
+                {
+                    await this.StreamerChatClient.SendMessage(m, effect: effect, effectColor: effectColor);
                 }
                 else
                 {
-                    VeloraService service = (useBot && this.BotService.IsConnected) ? this.BotService : this.StreamerService;
-                    await service.SendChatMessage(this.ChannelID, m);
+                    await this.StreamerService.SendChatMessage(this.ChannelID, m, effect: effect, effectColor: effectColor);
                 }
             }
         }
 
         // Chat announcement (newly unlocked via the Chat WS slash command). /announce and its colored
-        // variants have documented grammar; sent from the channel-owner (streamer) account by default.
+        // variants have documented grammar; slash commands execute with the channel owner's permissions
+        // and only the streamer has a chat socket, so announcements always go out on the streamer's
+        // socket regardless of the bot connection.
         public async Task SendAnnouncement(string message, string color = null, bool sendAsStreamer = true)
         {
             if (string.IsNullOrWhiteSpace(message))
@@ -345,10 +399,9 @@ namespace MixItUp.Base.Services.Velora.New
             string prefix = string.IsNullOrWhiteSpace(color) ? "/announce" : "/announce" + color.Trim().ToLowerInvariant();
             string command = prefix + " " + message;
 
-            VeloraChatSocketClient chatClient = (!sendAsStreamer && this.IsBotConnected) ? this.BotChatClient : this.StreamerChatClient;
-            if (chatClient != null && chatClient.IsConnected)
+            if (this.StreamerChatClient != null && this.StreamerChatClient.IsConnected)
             {
-                await chatClient.SendSlashCommand(command);
+                await this.StreamerChatClient.SendSlashCommand(command);
             }
             else
             {

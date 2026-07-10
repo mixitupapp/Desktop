@@ -11876,4 +11876,95 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
     <value>チャネルポイントを減らす</value>
     <comment>Velora action type</comment>
   </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>ボットを設定</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>ボットを削除</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>ボットを設定する前に、Veloraの配信者アカウントを接続してください。</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Mix It Upがチャットに使用するVeloraボットを選択してください</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>新しいボットを作成...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>新しいVeloraボットの名前を入力してください</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Veloraのボット名は3～20文字で、使用できるのは英字・数字・アンダースコアのみです。</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>ボット名「{0}」はVeloraでは使用できません。</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Veloraボットの設定はキャンセルされました。</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>VeloraボットはMix It Upに接続されていません。アカウントページからもう一度設定してください。</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It UpはVeloraボットを接続できませんでした。もう一度お試しください。</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Veloraボットの接続に失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Veloraボットの作成に失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Veloraのボットの仕組みは他のプラットフォームとは異なり、ログインする別のボットアカウントはありません。「ボットを設定」では、Veloraの配信者アカウントに属するボットを作成または選択します。</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>ボットを編集</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>ボットのプロフィール画像を選択してください。Veloraは512x512ピクセル以上の正方形の画像を推奨しています (JPEG、PNG、GIF、WebP、5 MB未満)。</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>ボットのプロフィール画像のアップロードに失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>何を編集しますか?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>プロフィール画像を変更...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>ボットの名前を変更...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Veloraでボットの名前を変更できるのは90日に1回のみで、このボットの名前は最近変更されたばかりです。</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Veloraボットの名前変更に失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>ファイルが選択されていません</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>このファイル形式はサポートされていません。サポートされる形式: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>このファイルは{0} MBの上限を超えています。</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>ファイルの読み取りに失敗しました: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
 </root>
