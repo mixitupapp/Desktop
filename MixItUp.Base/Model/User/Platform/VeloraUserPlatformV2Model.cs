@@ -44,12 +44,16 @@ namespace MixItUp.Base.Model.User.Platform
             this.SetUserProperties(user);
         }
 
-        public VeloraUserPlatformV2Model(string id, string username, string displayName)
+        public VeloraUserPlatformV2Model(string id, string username, string displayName, string avatarLink = null)
         {
             this.Platform = StreamingPlatformTypeEnum.Velora;
             this.ID = id;
             this.Username = username;
             this.DisplayName = displayName;
+            if (!string.IsNullOrWhiteSpace(avatarLink))
+            {
+                this.AvatarLink = avatarLink;
+            }
         }
 
         [JsonConstructor]

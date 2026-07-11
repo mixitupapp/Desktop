@@ -8359,6 +8359,97 @@ Imported quotes with IDs that match existing quotes will altered to the next max
     <value>The Velora {0} action failed. See the log for details.</value>
     <comment>{0} is the name of the moderation action</comment>
   </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>Set Up Bot</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>Remove Bot</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>Connect your Velora streamer account before setting up the bot.</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Select the Velora bot for Mix It Up to chat as</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>Create a new bot...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>Enter a name for your new Velora bot</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Velora bot names must be 3-20 characters and can only contain letters, numbers, and underscores.</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>The bot name '{0}' is not available on Velora.</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Velora bot setup was canceled.</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>The Velora bot is no longer connected to Mix It Up. Please set it up again from the Accounts page.</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up was unable to connect the Velora bot. Please try again.</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Failed to connect the Velora bot: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Failed to create the Velora bot: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora handles bots differently than other platforms: there is no separate bot account to log in with. Set Up Bot creates or selects a bot that lives under your Velora streamer account.</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>Edit Bot</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>Choose a profile image for your bot. Velora recommends a square image, 512x512 pixels or larger - JPEG, PNG, GIF, or WebP under 5 MB.</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>Failed to upload the bot profile image: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>What would you like to edit?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>Change profile image...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>Rename bot...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora only allows a bot to be renamed once every 90 days, and this bot's name was changed too recently.</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Failed to rename the Velora bot: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>No file selected</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>This file type is not supported. Supported types: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>This file is larger than the {0} MB limit.</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>Failed to read the file: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
   <data name="ChatWhisperNumberResponse" xml:space="preserve">
     <value>You are whisperer #{0}</value>
     <comment>{0} is the number of the whisper</comment>

@@ -1,5 +1,6 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Velora.Badges;
+using MixItUp.Base.Model.Velora.Bots;
 using MixItUp.Base.Model.Velora.ChannelPoints;
 using MixItUp.Base.Model.Velora.Chat;
 using MixItUp.Base.Model.Velora.Emotes;
@@ -12,8 +13,10 @@ using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -119,12 +122,20 @@ namespace MixItUp.Base.Services.Velora.New
             });
         }
 
-        public async Task<SendChatMessageResponseModel> SendChatMessage(string channelID, string message, string replyToMessageID = null, string replyToUsername = null, string replyToSnippet = null)
+        public async Task<SendChatMessageResponseModel> SendChatMessage(string channelID, string message, string replyToMessageID = null, string replyToUsername = null, string replyToSnippet = null, bool sendAsBot = false, string effect = null, string effectColor = null)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
                 JObject jobj = new JObject();
                 jobj["message"] = message;
+
+                // sendAsBot posts as the app's connected bot (POST /integrations/oauth/bot/select|create)
+                // on the streamer's own token - Velora bots have no credentials of their own. Confirmed
+                // whitelisted live; omitted entirely when false to stay clear of the DTO whitelist.
+                if (sendAsBot) { jobj["sendAsBot"] = true; }
+
+                if (!string.IsNullOrEmpty(effect)) { jobj["effect"] = effect; }
+                if (!string.IsNullOrEmpty(effectColor)) { jobj["effectColor"] = effectColor; }
 
                 if (!string.IsNullOrEmpty(replyToMessageID))
                 {
@@ -136,6 +147,218 @@ namespace MixItUp.Base.Services.Velora.New
                 }
 
                 return await this.HttpClient.PostAsync<SendChatMessageResponseModel>($"integrations/oauth/chat/channels/{AdvancedHttpClient.URLEncodeString(channelID)}/messages", AdvancedHttpClient.CreateContentFromObject(jobj));
+            });
+        }
+
+        // ===== Bot management (streamer-token; Velora bots are entities under the streamer's account) =====
+        //
+        // The app's chat-bot identity on Velora is a server-side connection between this OAuth app and a
+        // bot owned by the authenticated user - there is no bot OAuth login. All of these endpoints run on
+        // the STREAMER's token. Request shapes confirmed live (the published DTOs are empty):
+        //   select -> { botId }, create -> { botName } (3-20 chars, letters/numbers/underscores).
+
+        /// <summary>GET the app's current bot connection: { connected, bot } (confirmed live with bot null
+        /// when disconnected). The connected-state payload is parsed defensively since its exact bot key is
+        /// not published.</summary>
+        public async Task<VeloraBotCurrentResponseModel> GetCurrentBot()
+        {
+            JToken response = await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.HttpClient.GetAsync<JToken>("integrations/oauth/bot/current");
+            });
+
+            JObject jobj = response as JObject;
+            if (jobj == null)
+            {
+                return null;
+            }
+
+            VeloraBotCurrentResponseModel result = new VeloraBotCurrentResponseModel();
+            result.Bot = VeloraBotModel.ParseSingle(jobj["bot"] ?? jobj["currentBot"] ?? jobj["botInstance"]);
+
+            JToken connected = jobj["connected"];
+            result.Connected = (connected != null && connected.Type == JTokenType.Boolean)
+                ? connected.Value<bool>()
+                : result.Bot != null;
+
+            return result;
+        }
+
+        /// <summary>GET the bots owned by the authenticated user that the app can connect to.</summary>
+        public async Task<IEnumerable<VeloraBotModel>> GetAvailableBots()
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JToken response = await this.HttpClient.GetAsync<JToken>("integrations/oauth/bot/available");
+                return (IEnumerable<VeloraBotModel>)VeloraBotModel.ParseList(response);
+            });
+        }
+
+        /// <summary>GET whether a bot name is free: { available, name }. Defaults to available when the
+        /// check itself fails so creation still reaches the server (which enforces the 409 anyway).</summary>
+        public async Task<bool> CheckBotNameAvailability(string botName)
+        {
+            JToken response = await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.HttpClient.GetAsync<JToken>("integrations/oauth/bot/check-name/" + AdvancedHttpClient.URLEncodeString(botName));
+            });
+
+            JToken available = (response as JObject)?["available"];
+            return available == null || available.Type != JTokenType.Boolean || available.Value<bool>();
+        }
+
+        /// <summary>POST create a bot owned by the user AND connect it to this app (Velora auto-connects
+        /// on create). 403 = not an affiliate / bot limit reached; 409 = name taken.</summary>
+        public async Task<Result> CreateBot(string botName)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["botName"] = botName;
+
+                HttpResponseMessage response = await this.HttpClient.PostAsync("integrations/oauth/bot/create", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        /// <summary>POST connect an existing bot (by ID) to this app. 404 = "Bot not found or not owned by you".</summary>
+        public async Task<Result> SelectBot(string botID)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["botId"] = botID;
+
+                HttpResponseMessage response = await this.HttpClient.PostAsync("integrations/oauth/bot/select", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        /// <summary>DELETE the app's bot connection. The bot itself survives (it belongs to the user).</summary>
+        public async Task<Result> DisconnectBot()
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                bool success = await this.HttpClient.DeleteAsync("integrations/oauth/bot/disconnect");
+                return success ? new Result() : new Result("Failed to disconnect the Velora bot");
+            });
+        }
+
+        /// <summary>Whether the current OAuth token was authorized with the given scope. Lets callers
+        /// skip endpoints a pre-upgrade token cannot reach (e.g. bot:commands) instead of collecting 403s.</summary>
+        public bool HasScope(string scope)
+        {
+            string scopeList = this.GetOAuthTokenCopy()?.ScopeList;
+            return !string.IsNullOrEmpty(scopeList) && scopeList.Split(',').Contains(scope, StringComparer.OrdinalIgnoreCase);
+        }
+
+        /// <summary>POST the app's complete command list to Velora for the bot profile page / the
+        /// channel's available-commands list. Full replacement per call; requires bot:commands and a
+        /// connected bot (404 otherwise); rate limited at 10 req/min; max 500 commands. Body confirmed
+        /// live: { botId, commands: [{ trigger, description?, aliases? }] }.</summary>
+        public async Task<Result> SyncBotCommands(string botID, IEnumerable<VeloraBotSyncCommandModel> commands)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["botId"] = botID;
+                jobj["commands"] = JArray.FromObject((commands ?? Enumerable.Empty<VeloraBotSyncCommandModel>()).Take(500).ToArray());
+
+                HttpResponseMessage response = await this.HttpClient.PostAsync("integrations/oauth/bot/commands/sync", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
+        // Velora's documented avatar constraints: JPEG, PNG, GIF, or WebP up to 5MB.
+        public static readonly IReadOnlyCollection<string> BotAvatarValidExtensions = new List<string>() { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+        public const long BotAvatarMaxFileSizeBytes = 5 * 1024 * 1024;
+
+        private static readonly Dictionary<string, string> BotAvatarContentTypes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { ".jpg", "image/jpeg" },
+            { ".jpeg", "image/jpeg" },
+            { ".png", "image/png" },
+            { ".gif", "image/gif" },
+            { ".webp", "image/webp" },
+        };
+
+        /// <summary>POST a multipart avatar upload for a bot the user owns (field name "file";
+        /// JPEG/PNG/GIF/WebP up to 5MB per the endpoint description).</summary>
+        public async Task<Result> UploadBotAvatar(string botID, string filePath)
+        {
+            string extension = Path.GetExtension(filePath) ?? string.Empty;
+            if (!BotAvatarContentTypes.TryGetValue(extension, out string contentType))
+            {
+                return new Result(string.Format(Resources.ImageFileBrowserUnsupportedType, string.Join(", ", BotAvatarValidExtensions)));
+            }
+
+            byte[] bytes = await ServiceManager.Get<IFileService>().ReadFileAsBytes(filePath);
+            if (bytes == null || bytes.Length == 0)
+            {
+                return new Result(string.Format(Resources.FailedToReadFile, filePath));
+            }
+            if (bytes.Length > BotAvatarMaxFileSizeBytes)
+            {
+                return new Result(string.Format(Resources.ImageFileBrowserFileTooLarge, BotAvatarMaxFileSizeBytes / (1024 * 1024)));
+            }
+
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                using (MultipartFormDataContent content = new MultipartFormDataContent())
+                {
+                    ByteArrayContent fileContent = new ByteArrayContent(bytes);
+                    fileContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    content.Add(fileContent, "file", Path.GetFileName(filePath));
+
+                    HttpResponseMessage response = await this.HttpClient.PostAsync($"integrations/oauth/bot/{AdvancedHttpClient.URLEncodeString(botID)}/avatar", content);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return new Result(await response.Content.ReadAsStringAsync());
+                    }
+                    return new Result();
+                }
+            });
+        }
+
+        /// <summary>GET the bot's rename-cooldown status (Velora allows one username change per 90 days).
+        /// The response shape is unpublished, so the caller interprets it defensively.</summary>
+        public async Task<JToken> GetBotUsernameCooldown(string botID)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                return await this.HttpClient.GetAsync<JToken>($"bots/{AdvancedHttpClient.URLEncodeString(botID)}/username-cooldown");
+            });
+        }
+
+        /// <summary>PATCH a bot the user owns (Bot Studio surface; UpdateBotDto). Only the supplied
+        /// fields are sent. 409 = username taken.</summary>
+        public async Task<Result> UpdateBot(string botID, string username = null, string displayName = null)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                if (!string.IsNullOrEmpty(username)) { jobj["username"] = username; }
+                if (!string.IsNullOrEmpty(displayName)) { jobj["displayName"] = displayName; }
+                if (jobj.Count == 0) { return new Result(); }
+
+                HttpResponseMessage response = await this.HttpClient.PatchAsync($"bots/{AdvancedHttpClient.URLEncodeString(botID)}", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
             });
         }
 

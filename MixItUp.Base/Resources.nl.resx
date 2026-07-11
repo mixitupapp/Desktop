@@ -11877,4 +11877,95 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
     <value>Kanaalpunten aftrekken</value>
     <comment>Velora action type</comment>
   </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>Bot instellen</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>Bot verwijderen</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>Verbind uw Velora-streameraccount voordat u de bot instelt.</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Selecteer de Velora-bot waarmee Mix It Up chat</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>Nieuwe bot maken...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>Voer een naam in voor uw nieuwe Velora-bot</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Velora-botnamen moeten 3-20 tekens lang zijn en mogen alleen letters, cijfers en underscores bevatten.</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>De botnaam '{0}' is niet beschikbaar op Velora.</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Het instellen van de Velora-bot is geannuleerd.</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>De Velora-bot is niet meer verbonden met Mix It Up. Stel de bot opnieuw in via de pagina Accounts.</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up kon de Velora-bot niet verbinden. Probeer het opnieuw.</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Verbinden van de Velora-bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Aanmaken van de Velora-bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora gaat anders met bots om dan andere platforms: er is geen apart botaccount om mee in te loggen. Bot instellen maakt of selecteert een bot die onder uw Velora-streameraccount valt.</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>Bot bewerken</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>Kies een profielafbeelding voor uw bot. Velora raadt een vierkante afbeelding aan van 512x512 pixels of groter - JPEG, PNG, GIF of WebP onder 5 MB.</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>Uploaden van de profielafbeelding van de bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>Wat wilt u bewerken?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>Profielafbeelding wijzigen...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>Bot hernoemen...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora staat het hernoemen van een bot slechts eens per 90 dagen toe, en de naam van deze bot is te recent gewijzigd.</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Hernoemen van de Velora-bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>Geen bestand geselecteerd</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>Dit bestandstype wordt niet ondersteund. Ondersteunde typen: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>Dit bestand is groter dan de limiet van {0} MB.</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>Lezen van het bestand is mislukt: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
 </root>
