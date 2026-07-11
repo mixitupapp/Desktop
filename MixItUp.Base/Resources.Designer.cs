@@ -7080,6 +7080,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enable TTS.Monster (API) on the Services page!.
+        /// </summary>
+        public static string EnableTTSMonsterAPI {
+            get {
+                return ResourceManager.GetString("EnableTTSMonsterAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enable XSplit connection on the Services page!.
         /// </summary>
         public static string EnableXSplit {
@@ -26970,6 +26979,42 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster (API).
+        /// </summary>
+        public static string TTSMonsterAPI {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get available voices. Please ensure you correctly copied over your TTS.Monster API Token.
+        /// </summary>
+        public static string TTSMonsterAPIFailedToGetVoices {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPIFailedToGetVoices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster API connectivity allows you to trigger Text to Speech audio in commands using voices provided by TTS.Monster&apos;s service, including any custom voices you have cloned. To connect to TTS.Monster, log in to your TTS.Monster Console, click your profile icon in the bottom-left corner of the page, open the API Token section, copy your API Token into the text box, and click Log In..
+        /// </summary>
+        public static string TTSMonsterAPIInfo1 {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPIInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster API Token.
+        /// </summary>
+        public static string TTSMonsterAPIToken {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPIToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to get available voices. Please ensure you correctly copied over your TTS.Monster Overlay URL.
         /// </summary>
         public static string TTSMonsterFailedToGetVoices {
@@ -26997,6 +27042,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid TTS.Monster API Token..
+        /// </summary>
+        public static string TTSMonsterInvalidAPIToken {
+            get {
+                return ResourceManager.GetString("TTSMonsterInvalidAPIToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a valid TTS.Monster URL ({0})..
         /// </summary>
         public static string TTSMonsterInvalidURL {
@@ -27011,6 +27065,15 @@ namespace MixItUp.Base {
         public static string TTSMonsterOverlayURL {
             get {
                 return ResourceManager.GetString("TTSMonsterOverlayURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster (Overlay URL Method).
+        /// </summary>
+        public static string TTSMonsterOverlayURLMethod {
+            get {
+                return ResourceManager.GetString("TTSMonsterOverlayURLMethod", resourceCulture);
             }
         }
         

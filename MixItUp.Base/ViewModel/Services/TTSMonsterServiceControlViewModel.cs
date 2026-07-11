@@ -28,7 +28,7 @@ namespace MixItUp.Base.ViewModel.Services
         public override string WikiPageName { get { return "ttsmonster"; } }
 
         public TTSMonsterServiceControlViewModel()
-            : base(Resources.TTSMonster)
+            : base(Resources.TTSMonsterOverlayURLMethod)
         {
             this.LogInCommand = this.CreateCommand(async () =>
             {

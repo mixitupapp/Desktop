@@ -60,6 +60,7 @@ namespace MixItUp.WPF.Controls.MainControls
             ttsCategory.AddService(new MicrosoftAzureSpeechServiceControl());
             ttsCategory.AddService(new ResponsiveVoiceServiceControl());
             ttsCategory.AddService(new TTSMonsterServiceControl());
+            ttsCategory.AddService(new TTSMonsterAPIServiceControl());
             services.Add(ttsCategory);
 
             services.Add(new ServiceContainerControl(this.Window, new ThroneServiceControl()));

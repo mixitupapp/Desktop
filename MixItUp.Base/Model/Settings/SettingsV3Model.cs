@@ -138,6 +138,8 @@ namespace MixItUp.Base.Model.Settings
         public int SAMMIPortNumber { get; set; } = 9450;
         [DataMember]
         public OAuthTokenModel TTSMonsterOAuthToken { get; set; }
+        [DataMember]
+        public OAuthTokenModel TTSMonsterAPIOAuthToken { get; set; }
 
         #endregion Authentication
 
@@ -1062,6 +1064,10 @@ namespace MixItUp.Base.Model.Settings
             if (ServiceManager.Get<ITTSMonsterService>().IsConnected)
             {
                 this.TTSMonsterOAuthToken = ServiceManager.Get<ITTSMonsterService>().GetOAuthTokenCopy();
+            }
+            if (ServiceManager.Get<ITTSMonsterAPIService>().IsConnected)
+            {
+                this.TTSMonsterAPIOAuthToken = ServiceManager.Get<ITTSMonsterAPIService>().GetOAuthTokenCopy();
             }
         }
 

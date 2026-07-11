@@ -9793,8 +9793,29 @@ afdrukken(uitvoeren())</value>
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster-overlay-URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (Overlay-URL-methode)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster API-token</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Voer een geldige TTS.Monster API-token in.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>Kan geen beschikbare stemmen ophalen. Zorg ervoor dat u uw TTS.Monster API-token correct heeft gekopieerd</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>Met de TTS.Monster API-connectiviteit kunt u tekst-naar-spraak-audio activeren in opdrachten met behulp van stemmen die worden geleverd door de service van TTS.Monster, inclusief aangepaste stemmen die u heeft gekloond. Om verbinding te maken met TTS.Monster, logt u in op uw TTS.Monster-console, klikt u op uw profielpictogram in de linkerbenedenhoek van de pagina, opent u de sectie API Token, kopieert u uw API-token naar het tekstvak en klikt u op Inloggen.</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>Schakel TTS.Monster in op de Services-pagina!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>Schakel TTS.Monster (API) in op de Services-pagina!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Chattertelling</value>

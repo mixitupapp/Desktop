@@ -9702,8 +9702,29 @@
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ Öṽéŕļåýẋẋẋ ÛŔĻẋ]</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ (Öṽéŕļåýẋẋẋ ÛŔĻẋ Ṁéţĥöð)ẋẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ (ÅÞÎ)ẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ Ţöķéñẋẋ]</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>[Þļéåšéẋẋ éñţéŕẋẋ åẋ ṽåļîðẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ Ţöķéñ·ẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ ĝéţẋ åṽåîļåƀļéẋẋẋ ṽöîçéš·ẋẋẋ Þļéåšéẋẋ éñšûŕéẋẋ ýöûẋ çöŕŕéçţļýẋẋẋ çöþîéðẋẋ öṽéŕẋẋ ýöûŕẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ Ţöķéñẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ çöññéçţîṽîţýẋẋẋẋ åļļöŵšẋẋ ýöûẋ ţöẋ ţŕîĝĝéŕẋẋẋ Ţéẋţẋẋ ţöẋ Šþééçĥẋẋ åûðîöẋẋ îñẋ çöɱɱåñðšẋẋẋ ûšîñĝẋẋ ṽöîçéšẋẋ þŕöṽîðéðẋẋẋ ƀýẋ ŢŢŠ·Ṁöñšţéŕ´šẋẋẋẋẋ šéŕṽîçé،ẋẋẋ îñçļûðîñĝẋẋẋ åñýẋ çûšţöɱẋẋ ṽöîçéšẋẋ ýöûẋ ĥåṽéẋẋ çļöñéð·ẋẋẋ Ţöẋ çöññéçţẋẋẋ ţöẋ ŢŢŠ·Ṁöñšţéŕ،ẋẋẋẋ ļöĝẋ îñẋ ţöẋ ýöûŕẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ Çöñšöļé،ẋẋẋ çļîçķẋẋ ýöûŕẋẋ þŕöƒîļéẋẋẋ îçöñẋẋ îñẋ ţĥéẋ ƀöţţöɱ‐ļéƒţẋẋẋẋ çöŕñéŕẋẋ öƒẋ ţĥéẋ þåĝé،ẋẋ öþéñẋẋ ţĥéẋ ÅÞÎẋ Ţöķéñẋẋ šéçţîöñ،ẋẋẋ çöþýẋẋ ýöûŕẋẋ ÅÞÎẋ Ţöķéñẋẋ îñţöẋẋ ţĥéẋ ţéẋţẋẋ ƀöẋ،ẋẋ åñðẋ çļîçķẋẋ Ļöĝẋ Îñ·ẋ]</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>[Þļéåšéẋẋ éñåƀļéẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ öñẋ ţĥéẋ Šéŕṽîçéšẋẋẋ þåĝé¡ẋẋ]</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>[Þļéåšéẋẋ éñåƀļéẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ (ÅÞÎ)ẋẋ öñẋ ţĥéẋ Šéŕṽîçéšẋẋẋ þåĝé¡ẋẋ]</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>[Çĥåţţéŕẋẋẋ Çöûñţẋẋ]</value>

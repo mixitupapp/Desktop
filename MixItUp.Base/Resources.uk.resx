@@ -9792,8 +9792,29 @@ print(run())</value>
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster Overlay URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (метод Overlay URL)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>API-токен TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Введіть дійсний API-токен TTS.Monster.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>Не вдалося отримати доступні голоси. Переконайтеся, що ви правильно скопіювали свій API-токен TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>Підключення до API TTS.Monster дозволяє запускати аудіосинтез мовлення в командах за допомогою голосів, наданих службою TTS.Monster, включно з вашими клонованими користувацькими голосами. Щоб підключитися до TTS.Monster, увійдіть у свою консоль TTS.Monster, натисніть на значок свого профілю в нижньому лівому куті сторінки, відкрийте розділ «API Token», скопіюйте свій API-токен у текстове поле та натисніть «Увійти».</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>Увімкніть TTS.Monster на сторінці Послуг!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>Увімкніть TTS.Monster (API) на сторінці Послуг!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Балачки Граф</value>

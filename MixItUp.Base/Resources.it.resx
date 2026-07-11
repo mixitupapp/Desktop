@@ -9792,8 +9792,29 @@ stampa(esegui())</value>
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>URL di sovrapposizione TTS.Monster</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (metodo URL overlay)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>Token API TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Inserisci un token API TTS.Monster valido.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>Impossibile ottenere le voci disponibili. Assicurati di aver copiato correttamente il tuo token API TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>La connettività API di TTS.Monster consente di attivare l'audio di sintesi vocale nei comandi utilizzando le voci fornite dal servizio TTS.Monster, incluse le voci personalizzate che hai clonato. Per connetterti a TTS.Monster, accedi alla tua console TTS.Monster, fai clic sull'icona del tuo profilo nell'angolo in basso a sinistra della pagina, apri la sezione API Token, copia il tuo token API nella casella di testo e fai clic su Accedi.</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>Abilita TTS.Monster nella pagina Servizi!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>Abilita TTS.Monster (API) nella pagina Servizi!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Conteggio delle chiacchiere</value>

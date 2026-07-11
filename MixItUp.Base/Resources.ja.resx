@@ -9792,8 +9792,29 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster オーバーレイ URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster（オーバーレイ URL 方式）</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster（API）</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster API トークン</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>有効な TTS.Monster API トークンを入力してください。</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>利用可能な音声を取得できませんでした。 TTS.Monster API トークンを正しくコピーしたことを確認してください。</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>TTS.Monster API 接続により、TTS.Monster のサービスによって提供される音声 (クローンを作成したカスタム音声を含む) を使用して、コマンドで Text to Speech オーディオをトリガーできます。 TTS.Monster に接続するには、TTS.Monster コンソールにログインし、ページの左下隅にあるプロフィール アイコンをクリックし、[API Token] セクションを開き、API トークンをテキスト ボックスにコピーして、[ログイン] をクリックします。</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>[サービス] ページで TTS.Monster を有効にしてください。</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>[サービス] ページで TTS.Monster（API）を有効にしてください。</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>チャタリング数</value>

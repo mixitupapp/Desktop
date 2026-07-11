@@ -9792,8 +9792,29 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster 疊加 URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster（Overlay URL 方式）</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster（API）</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster API 權杖</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>請輸入有效的 TTS.Monster API 權杖。</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>無法取得可用的語音。請確保您正確複製了 TTS.Monster API 權杖</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>TTS.Monster API 連線可讓您使用 TTS.Monster 服務提供的語音（包括您建立的任何自訂語音）在指令中觸發文字轉語音音訊。若要連線至 TTS.Monster，請登入您的 TTS.Monster 主控台，按一下頁面左下角的個人資料圖示，開啟 API Token 區段，將您的 API 權杖複製到文字方塊中，然後按一下登入。</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>請在服務頁面啟用TTS.Monster！</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>請在服務頁面啟用TTS.Monster（API）！</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>喋喋不休計數</value>

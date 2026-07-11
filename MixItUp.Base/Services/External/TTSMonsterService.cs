@@ -59,6 +59,30 @@ namespace MixItUp.Base.Services.External
                 return new List<string>();
             }
         }
+
+        public IEnumerable<string> CustomVoices
+        {
+            get
+            {
+                List<string> results = new List<string>();
+                if (this.message != null && this.message.TryGetValue("customVoices", out JToken value) && value is JArray)
+                {
+                    foreach (JToken voice in (JArray)value)
+                    {
+                        // Custom voices are objects with a "name" property, but handle plain strings as well
+                        if (voice is JObject && ((JObject)voice).TryGetValue("name", out JToken name))
+                        {
+                            results.Add(name.ToString());
+                        }
+                        else if (voice.Type == JTokenType.String)
+                        {
+                            results.Add(voice.ToString());
+                        }
+                    }
+                }
+                return results;
+            }
+        }
     }
 
     [DataContract]
@@ -125,7 +149,7 @@ namespace MixItUp.Base.Services.External
         public int RateMaximum { get { return 0; } }
         public int RateDefault { get { return 0; } }
 
-        public override string Name { get { return Resources.TTSMonster; } }
+        public override string Name { get { return Resources.TTSMonsterOverlayURLMethod; } }
 
         private List<TextToSpeechVoice> voicesCache = new List<TextToSpeechVoice>();
 
@@ -148,9 +172,17 @@ namespace MixItUp.Base.Services.External
                     GetVoicesResponseModel response = await client.PostAsync<GetVoicesResponseModel>(string.Empty, AdvancedHttpClient.CreateContentFromObject(new GetVoicesRequestModel(this.token.clientID, this.token.accessToken)));
                     if (response != null)
                     {
+                        foreach (string voice in response.CustomVoices)
+                        {
+                            if (!string.IsNullOrWhiteSpace(voice))
+                            {
+                                this.voicesCache.Add(new TextToSpeechVoice(voice));
+                            }
+                        }
+
                         foreach (string voice in response.Voices)
                         {
-                            if (!TTSMonsterService.BlockedVoices.Contains(voice))
+                            if (!TTSMonsterService.BlockedVoices.Contains(voice) && !this.voicesCache.Any(v => string.Equals(v.ID, voice, StringComparison.OrdinalIgnoreCase)))
                             {
                                 this.voicesCache.Add(new TextToSpeechVoice(voice));
                             }

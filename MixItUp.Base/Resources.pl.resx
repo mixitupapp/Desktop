@@ -9792,8 +9792,29 @@ drukuj(uruchom())</value>
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>Adres URL nakładki TTS.Monster</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (metoda adresu URL nakładki)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>Token API TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Wprowadź prawidłowy token API TTS.Monster.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>Nie udało się pobrać dostępnych głosów. Upewnij się, że token API TTS.Monster został poprawnie skopiowany</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>Łączność z API TTS.Monster umożliwia uruchamianie dźwięku zamiany tekstu na mowę w poleceniach przy użyciu głosów udostępnianych przez usługę TTS.Monster, w tym sklonowanych głosów niestandardowych. Aby połączyć się z TTS.Monster, zaloguj się do konsoli TTS.Monster, kliknij ikonę swojego profilu w lewym dolnym rogu strony, otwórz sekcję API Token, skopiuj swój token API do pola tekstowego i kliknij Zaloguj się.</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>Włącz TTS.Monster na stronie Usługi!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>Włącz TTS.Monster (API) na stronie Usługi!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Liczba rozmów</value>
