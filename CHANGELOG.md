@@ -1,5 +1,25 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.130
+
+### FEATURES
+
+- Overhaul Velora bot support to use Velora's native bot system:
+  - Set Up Bot on the Accounts page creates a new bot or selects one you already own, no separate bot login
+  - Bot messages send under your bot's name and avatar
+  - Edit Bot changes its profile image or renames it (Velora allows one rename every 90 days)
+  - Enabled chat commands auto-sync to your bot's Velora profile page (role-restricted commands excluded)
+  - Reconnect your Velora account if connected on an earlier version to grant the new bot permissions
+- Add TTS.Monster (API) provider to the Text To Speech action: connect with your API Token and use any TTS.Monster voice, including custom cloned voices
+- Add custom voice support to the existing TTS.Monster provider (now labeled "Overlay URL Method")
+- Add Title column to the Users page showing each user's custom title (used by $usertitle)
+- Add Has Title search filter to the Users page
+
+### FIXES
+
+- Fix user edits (custom title, notes, entrance command, user-only commands, viewing time, Patreon link) not saving while the user was offline
+- Fix settings database creation failing silently; errors are now logged
+
 ## 1.7.120
 
 ### FEATURES
