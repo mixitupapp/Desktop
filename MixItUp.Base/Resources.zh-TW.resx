@@ -9792,8 +9792,29 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster 疊加 URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster（Overlay URL 方式）</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster（API）</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster API 權杖</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>請輸入有效的 TTS.Monster API 權杖。</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>無法取得可用的語音。請確保您正確複製了 TTS.Monster API 權杖</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>TTS.Monster API 連線可讓您使用 TTS.Monster 服務提供的語音（包括您建立的任何自訂語音）在指令中觸發文字轉語音音訊。若要連線至 TTS.Monster，請登入您的 TTS.Monster 主控台，按一下頁面左下角的個人資料圖示，開啟 API Token 區段，將您的 API 權杖複製到文字方塊中，然後按一下登入。</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>請在服務頁面啟用TTS.Monster！</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>請在服務頁面啟用TTS.Monster（API）！</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>喋喋不休計數</value>
@@ -11906,5 +11927,100 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="DeductChannelPoints" xml:space="preserve">
     <value>扣除頻道點數</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>設定機器人</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>移除機器人</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>請先連結您的 Velora 實況主帳戶，再設定機器人。</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>選擇 Mix It Up 用來聊天的 Velora 機器人</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>建立新機器人...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>輸入新 Velora 機器人的名稱</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Velora 機器人名稱必須為 3-20 個字元，且只能包含字母、數字和底線。</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>機器人名稱「{0}」在 Velora 上無法使用。</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>已取消 Velora 機器人設定。</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>Velora 機器人已不再連結到 Mix It Up。請在帳戶頁面重新設定。</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up 無法連結 Velora 機器人。請再試一次。</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>連結 Velora 機器人失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>建立 Velora 機器人失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora 處理機器人的方式與其他平台不同：不需要登入獨立的機器人帳戶。「設定機器人」會建立或選擇隸屬於您 Velora 實況主帳戶的機器人。</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>編輯機器人</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>為您的機器人選擇個人資料圖片。Velora 建議使用 512x512 像素以上的正方形圖片 - JPEG、PNG、GIF 或 WebP，且小於 5 MB。</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>上傳機器人個人資料圖片失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>您想編輯什麼？</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>變更個人資料圖片...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>重新命名機器人...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora 每 90 天僅允許重新命名機器人一次，而這個機器人的名稱最近才變更過。</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>重新命名 Velora 機器人失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>未選擇檔案</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>不支援此檔案類型。支援的類型：{0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>此檔案超過 {0} MB 的限制。</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>讀取檔案失敗：{0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>有標題</value>
+    <comment>User search filter type on the Users page</comment>
   </data>
 </root>

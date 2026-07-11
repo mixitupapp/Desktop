@@ -152,6 +152,9 @@ namespace MixItUp.Base
 
                 Type ttsMonsterServiceType = Type.GetType("MixItUp.Base.Services.External.TTSMonsterService");
                 if (ttsMonsterServiceType != null) { ServiceManager.Add((ITTSMonsterService)Activator.CreateInstance(ttsMonsterServiceType)); }
+
+                Type ttsMonsterAPIServiceType = Type.GetType("MixItUp.Base.Services.External.TTSMonsterAPIService");
+                if (ttsMonsterAPIServiceType != null) { ServiceManager.Add((ITTSMonsterAPIService)Activator.CreateInstance(ttsMonsterAPIServiceType)); }
             }
             catch (Exception ex) { Logger.Log(ex); }
 
@@ -379,6 +382,7 @@ namespace MixItUp.Base
                 if (ServiceManager.Get<XSplitService>().IsEnabled) { externalServiceToConnect[ServiceManager.Get<XSplitService>()] = null; }
                 if (ChannelSession.Settings.PolyPopPortNumber > 0) { externalServiceToConnect[ServiceManager.Get<PolyPopService>()] = null; }
                 if (ChannelSession.Settings.TTSMonsterOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<ITTSMonsterService>()] = ChannelSession.Settings.TTSMonsterOAuthToken; }
+                if (ChannelSession.Settings.TTSMonsterAPIOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<ITTSMonsterAPIService>()] = ChannelSession.Settings.TTSMonsterAPIOAuthToken; }
                 if (ChannelSession.Settings.VTSPogEnabled) { externalServiceToConnect[ServiceManager.Get<VTSPogService>()] = null; }
                 if (ChannelSession.Settings.EnableOverlay) { externalServiceToConnect[ServiceManager.Get<OverlayV3Service>()] = null; }
                 if (ChannelSession.Settings.MtionStudioEnabled) { externalServiceToConnect[ServiceManager.Get<MtionStudioService>()] = null; }

@@ -138,6 +138,8 @@ namespace MixItUp.Base.Model.Settings
         public int SAMMIPortNumber { get; set; } = 9450;
         [DataMember]
         public OAuthTokenModel TTSMonsterOAuthToken { get; set; }
+        [DataMember]
+        public OAuthTokenModel TTSMonsterAPIOAuthToken { get; set; }
 
         #endregion Authentication
 
@@ -797,7 +799,11 @@ namespace MixItUp.Base.Model.Settings
         {
             if (!ServiceManager.Get<IFileService>().FileExists(this.DatabaseFilePath))
             {
-                await ServiceManager.Get<IFileService>().CopyFile(SettingsV3Model.SettingsTemplateDatabaseFileName, this.DatabaseFilePath);
+                await ServiceManager.Get<IFileService>().CopyFile(Path.Combine(AppContext.BaseDirectory, SettingsV3Model.SettingsTemplateDatabaseFileName), this.DatabaseFilePath);
+                if (!ServiceManager.Get<IFileService>().FileExists(this.DatabaseFilePath))
+                {
+                    Logger.Log(LogLevel.Error, $"Failed to create settings database from template: {this.DatabaseFilePath}");
+                }
             }
 
             await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "SELECT * FROM Quotes", (Dictionary<string, object> data) =>
@@ -1062,6 +1068,10 @@ namespace MixItUp.Base.Model.Settings
             if (ServiceManager.Get<ITTSMonsterService>().IsConnected)
             {
                 this.TTSMonsterOAuthToken = ServiceManager.Get<ITTSMonsterService>().GetOAuthTokenCopy();
+            }
+            if (ServiceManager.Get<ITTSMonsterAPIService>().IsConnected)
+            {
+                this.TTSMonsterAPIOAuthToken = ServiceManager.Get<ITTSMonsterAPIService>().GetOAuthTokenCopy();
             }
         }
 

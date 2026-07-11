@@ -9797,8 +9797,29 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>URL-адрес наложения TTS.Monster</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (метод URL-адреса наложения)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>API-токен TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Введите действительный API-токен TTS.Monster.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>Не удалось получить доступные голоса. Убедитесь, что вы правильно скопировали свой API-токен TTS.Monster.</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>Возможность подключения к API TTS.Monster позволяет запускать преобразование текста в речь в командах, используя голоса, предоставляемые сервисом TTS.Monster, включая клонированные вами пользовательские голоса. Чтобы подключиться к TTS.Monster, войдите в консоль TTS.Monster, нажмите на значок своего профиля в левом нижнем углу страницы, откройте раздел «API Token», скопируйте свой API-токен в текстовое поле и нажмите «Войти».</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>Пожалуйста, включите TTS.Monster на странице «Услуги»!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>Пожалуйста, включите TTS.Monster (API) на странице «Услуги»!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Количество болтовни</value>
@@ -11911,5 +11932,100 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="DeductChannelPoints" xml:space="preserve">
     <value>Списать очки канала</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>Настроить бота</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>Удалить бота</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>Подключите свой аккаунт стримера Velora, прежде чем настраивать бота.</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Выберите бота Velora, от имени которого Mix It Up будет писать в чате</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>Создать нового бота...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>Введите имя для вашего нового бота Velora</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Имена ботов Velora должны содержать от 3 до 20 символов и могут включать только буквы, цифры и подчёркивания.</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>Имя бота «{0}» недоступно на Velora.</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Настройка бота Velora была отменена.</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>Бот Velora больше не подключён к Mix It Up. Настройте его заново на странице «Аккаунты».</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up не удалось подключить бота Velora. Попробуйте ещё раз.</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Не удалось подключить бота Velora: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Не удалось создать бота Velora: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora работает с ботами иначе, чем другие платформы: отдельного аккаунта бота для входа нет. «Настроить бота» создаёт или выбирает бота, привязанного к вашему аккаунту стримера Velora.</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>Редактировать бота</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>Выберите изображение профиля для вашего бота. Velora рекомендует квадратное изображение размером 512x512 пикселей или больше - JPEG, PNG, GIF или WebP размером до 5 МБ.</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>Не удалось загрузить изображение профиля бота: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>Что вы хотите изменить?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>Изменить изображение профиля...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>Переименовать бота...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora позволяет переименовывать бота только раз в 90 дней, а имя этого бота менялось совсем недавно.</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Не удалось переименовать бота Velora: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>Файл не выбран</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>Этот тип файла не поддерживается. Поддерживаемые типы: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>Этот файл превышает лимит в {0} МБ.</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>Не удалось прочитать файл: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Есть название</value>
+    <comment>User search filter type on the Users page</comment>
   </data>
 </root>

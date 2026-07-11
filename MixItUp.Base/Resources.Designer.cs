@@ -7080,6 +7080,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enable TTS.Monster (API) on the Services page!.
+        /// </summary>
+        public static string EnableTTSMonsterAPI {
+            get {
+                return ResourceManager.GetString("EnableTTSMonsterAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enable XSplit connection on the Services page!.
         /// </summary>
         public static string EnableXSplit {
@@ -11514,6 +11523,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Has Title.
+        /// </summary>
+        public static string HasTitle {
+            get {
+                return ResourceManager.GetString("HasTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Head.
         /// </summary>
         public static string Head {
@@ -13392,6 +13410,240 @@ namespace MixItUp.Base {
         public static string LogOutOfVelora {
             get {
                 return ResourceManager.GetString("LogOutOfVelora", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Set Up Bot.
+        /// </summary>
+        public static string VeloraSetUpBot {
+            get {
+                return ResourceManager.GetString("VeloraSetUpBot", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Bot.
+        /// </summary>
+        public static string VeloraRemoveBot {
+            get {
+                return ResourceManager.GetString("VeloraRemoveBot", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Connect your Velora streamer account before setting up the bot..
+        /// </summary>
+        public static string VeloraBotStreamerAccountRequired {
+            get {
+                return ResourceManager.GetString("VeloraBotStreamerAccountRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Select the Velora bot for Mix It Up to chat as.
+        /// </summary>
+        public static string VeloraBotSelectBotPrompt {
+            get {
+                return ResourceManager.GetString("VeloraBotSelectBotPrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new bot....
+        /// </summary>
+        public static string VeloraBotCreateNewBotOption {
+            get {
+                return ResourceManager.GetString("VeloraBotCreateNewBotOption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a name for your new Velora bot.
+        /// </summary>
+        public static string VeloraBotEnterBotName {
+            get {
+                return ResourceManager.GetString("VeloraBotEnterBotName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora bot names must be 3-20 characters and can only contain letters, numbers, and underscores..
+        /// </summary>
+        public static string VeloraBotNameRequirements {
+            get {
+                return ResourceManager.GetString("VeloraBotNameRequirements", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The bot name &apos;{0}&apos; is not available on Velora..
+        /// </summary>
+        public static string VeloraBotNameUnavailable {
+            get {
+                return ResourceManager.GetString("VeloraBotNameUnavailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora bot setup was canceled..
+        /// </summary>
+        public static string VeloraBotSetupCanceled {
+            get {
+                return ResourceManager.GetString("VeloraBotSetupCanceled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The Velora bot is no longer connected to Mix It Up. Please set it up again from the Accounts page..
+        /// </summary>
+        public static string VeloraBotNotConnected {
+            get {
+                return ResourceManager.GetString("VeloraBotNotConnected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up was unable to connect the Velora bot. Please try again..
+        /// </summary>
+        public static string VeloraBotFailedToConnect {
+            get {
+                return ResourceManager.GetString("VeloraBotFailedToConnect", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to connect the Velora bot: {0}.
+        /// </summary>
+        public static string VeloraBotConnectFailed {
+            get {
+                return ResourceManager.GetString("VeloraBotConnectFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create the Velora bot: {0}.
+        /// </summary>
+        public static string VeloraBotCreateFailed {
+            get {
+                return ResourceManager.GetString("VeloraBotCreateFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora handles bots differently than other platforms: there is no separate bot account to log in with. Set Up Bot creates or selects a bot that lives under your Velora streamer account..
+        /// </summary>
+        public static string VeloraBotSetupNote {
+            get {
+                return ResourceManager.GetString("VeloraBotSetupNote", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Bot.
+        /// </summary>
+        public static string VeloraEditBot {
+            get {
+                return ResourceManager.GetString("VeloraEditBot", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a profile image for your bot. Velora recommends a square image, 512x512 pixels or larger - JPEG, PNG, GIF, or WebP under 5 MB..
+        /// </summary>
+        public static string VeloraBotAvatarPrompt {
+            get {
+                return ResourceManager.GetString("VeloraBotAvatarPrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to upload the bot profile image: {0}.
+        /// </summary>
+        public static string VeloraBotAvatarUploadFailed {
+            get {
+                return ResourceManager.GetString("VeloraBotAvatarUploadFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to What would you like to edit?.
+        /// </summary>
+        public static string VeloraBotEditPrompt {
+            get {
+                return ResourceManager.GetString("VeloraBotEditPrompt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Change profile image....
+        /// </summary>
+        public static string VeloraBotEditChangeAvatar {
+            get {
+                return ResourceManager.GetString("VeloraBotEditChangeAvatar", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rename bot....
+        /// </summary>
+        public static string VeloraBotEditRenameBot {
+            get {
+                return ResourceManager.GetString("VeloraBotEditRenameBot", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Velora only allows a bot to be renamed once every 90 days, and this bot&apos;s name was changed too recently..
+        /// </summary>
+        public static string VeloraBotRenameOnCooldown {
+            get {
+                return ResourceManager.GetString("VeloraBotRenameOnCooldown", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to rename the Velora bot: {0}.
+        /// </summary>
+        public static string VeloraBotRenameFailed {
+            get {
+                return ResourceManager.GetString("VeloraBotRenameFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to No file selected.
+        /// </summary>
+        public static string ImageFileBrowserNoFileSelected {
+            get {
+                return ResourceManager.GetString("ImageFileBrowserNoFileSelected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This file type is not supported. Supported types: {0}.
+        /// </summary>
+        public static string ImageFileBrowserUnsupportedType {
+            get {
+                return ResourceManager.GetString("ImageFileBrowserUnsupportedType", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This file is larger than the {0} MB limit..
+        /// </summary>
+        public static string ImageFileBrowserFileTooLarge {
+            get {
+                return ResourceManager.GetString("ImageFileBrowserFileTooLarge", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to read the file: {0}.
+        /// </summary>
+        public static string FailedToReadFile {
+            get {
+                return ResourceManager.GetString("FailedToReadFile", resourceCulture);
             }
         }
 
@@ -26736,6 +26988,42 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster (API).
+        /// </summary>
+        public static string TTSMonsterAPI {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get available voices. Please ensure you correctly copied over your TTS.Monster API Token.
+        /// </summary>
+        public static string TTSMonsterAPIFailedToGetVoices {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPIFailedToGetVoices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster API connectivity allows you to trigger Text to Speech audio in commands using voices provided by TTS.Monster&apos;s service, including any custom voices you have cloned. To connect to TTS.Monster, log in to your TTS.Monster Console, click your profile icon in the bottom-left corner of the page, open the API Token section, copy your API Token into the text box, and click Log In..
+        /// </summary>
+        public static string TTSMonsterAPIInfo1 {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPIInfo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster API Token.
+        /// </summary>
+        public static string TTSMonsterAPIToken {
+            get {
+                return ResourceManager.GetString("TTSMonsterAPIToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to get available voices. Please ensure you correctly copied over your TTS.Monster Overlay URL.
         /// </summary>
         public static string TTSMonsterFailedToGetVoices {
@@ -26763,6 +27051,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid TTS.Monster API Token..
+        /// </summary>
+        public static string TTSMonsterInvalidAPIToken {
+            get {
+                return ResourceManager.GetString("TTSMonsterInvalidAPIToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a valid TTS.Monster URL ({0})..
         /// </summary>
         public static string TTSMonsterInvalidURL {
@@ -26777,6 +27074,15 @@ namespace MixItUp.Base {
         public static string TTSMonsterOverlayURL {
             get {
                 return ResourceManager.GetString("TTSMonsterOverlayURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TTS.Monster (Overlay URL Method).
+        /// </summary>
+        public static string TTSMonsterOverlayURLMethod {
+            get {
+                return ResourceManager.GetString("TTSMonsterOverlayURLMethod", resourceCulture);
             }
         }
         

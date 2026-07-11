@@ -47,6 +47,7 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.SelectedProviderType == TextToSpeechProviderType.AmazonPolly ||
                     this.SelectedProviderType == TextToSpeechProviderType.MicrosoftAzureSpeech ||
                     this.SelectedProviderType == TextToSpeechProviderType.TTSMonster ||
+                    this.SelectedProviderType == TextToSpeechProviderType.TTSMonsterAPI ||
                     this.SelectedProviderType == TextToSpeechProviderType.TikTokTTS ||
                     this.SelectedProviderType == TextToSpeechProviderType.EdgeTTS ||
                     this.SelectedProviderType == TextToSpeechProviderType.GoogleCloudTTS;
@@ -59,6 +60,10 @@ namespace MixItUp.Base.ViewModel.Actions
                 if (this.SelectedProviderType == TextToSpeechProviderType.TTSMonster)
                 {
                     return !this.TTSMonsterNotEnabled;
+                }
+                if (this.SelectedProviderType == TextToSpeechProviderType.TTSMonsterAPI)
+                {
+                    return !this.TTSMonsterAPINotEnabled;
                 }
                 return true;
             }
@@ -101,6 +106,8 @@ namespace MixItUp.Base.ViewModel.Actions
         private OverlayEndpointV3Model selectedOverlayEndpoint;
 
         public bool TTSMonsterNotEnabled { get { return this.SelectedProviderType == TextToSpeechProviderType.TTSMonster && !ServiceManager.Get<ITTSMonsterService>().IsConnected; } }
+
+        public bool TTSMonsterAPINotEnabled { get { return this.SelectedProviderType == TextToSpeechProviderType.TTSMonsterAPI && !ServiceManager.Get<ITTSMonsterAPIService>().IsConnected; } }
 
         public ThreadSafeObservableCollection<TextToSpeechVoice> Voices { get; private set; } = new ThreadSafeObservableCollection<TextToSpeechVoice>();
 
@@ -342,6 +349,7 @@ namespace MixItUp.Base.ViewModel.Actions
                     this.NotifyPropertyChanged(nameof(this.OverlayNotEnabled));
 
                     this.NotifyPropertyChanged(nameof(this.TTSMonsterNotEnabled));
+                    this.NotifyPropertyChanged(nameof(this.TTSMonsterAPINotEnabled));
 
                     string voiceID = (this.SelectedVoice != null) ? this.SelectedVoice.ID : null;
                     List<TextToSpeechVoice> voices = new List<TextToSpeechVoice>();

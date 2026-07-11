@@ -9797,8 +9797,29 @@ print(run())</value>
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster-Overlay-URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (Overlay-URL-Methode)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster-API-Token</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Bitte geben Sie einen gültigen TTS.Monster-API-Token ein.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>Es konnten keine verfügbaren Stimmen abgerufen werden. Bitte stellen Sie sicher, dass Sie Ihren TTS.Monster-API-Token korrekt kopiert haben</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>Mit der TTS.Monster-API-Konnektivität können Sie Text-to-Speech-Audio in Befehlen mithilfe von Stimmen auslösen, die vom TTS.Monster-Dienst bereitgestellt werden, einschließlich Ihrer eigenen geklonten Stimmen. Um eine Verbindung zu TTS.Monster herzustellen, melden Sie sich in Ihrer TTS.Monster-Konsole an, klicken Sie auf Ihr Profilsymbol in der unteren linken Ecke der Seite, öffnen Sie den Bereich „API Token“, kopieren Sie Ihren API-Token in das Textfeld und klicken Sie auf „Anmelden“.</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>Bitte aktivieren Sie TTS.Monster auf der Seite Dienste!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>Bitte aktivieren Sie TTS.Monster (API) auf der Seite Dienste!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Chatter-Anzahl</value>
@@ -11881,5 +11902,100 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="DeductChannelPoints" xml:space="preserve">
     <value>Kanalpunkte abziehen</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>Bot einrichten</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>Bot entfernen</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>Verbinden Sie Ihr Velora-Streamer-Konto, bevor Sie den Bot einrichten.</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Wählen Sie den Velora-Bot, über den Mix It Up chatten soll</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>Neuen Bot erstellen...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>Geben Sie einen Namen für Ihren neuen Velora-Bot ein</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Velora-Bot-Namen müssen 3-20 Zeichen lang sein und dürfen nur Buchstaben, Zahlen und Unterstriche enthalten.</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>Der Bot-Name '{0}' ist auf Velora nicht verfügbar.</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Die Einrichtung des Velora-Bots wurde abgebrochen.</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>Der Velora-Bot ist nicht mehr mit Mix It Up verbunden. Bitte richten Sie ihn auf der Konten-Seite erneut ein.</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up konnte den Velora-Bot nicht verbinden. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Verbinden des Velora-Bots fehlgeschlagen: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Erstellen des Velora-Bots fehlgeschlagen: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora behandelt Bots anders als andere Plattformen: Es gibt kein separates Bot-Konto zum Anmelden. „Bot einrichten“ erstellt oder wählt einen Bot, der zu Ihrem Velora-Streamer-Konto gehört.</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>Bot bearbeiten</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>Wählen Sie ein Profilbild für Ihren Bot. Velora empfiehlt ein quadratisches Bild mit 512x512 Pixeln oder mehr - JPEG, PNG, GIF oder WebP unter 5 MB.</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>Hochladen des Bot-Profilbilds fehlgeschlagen: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>Was möchten Sie bearbeiten?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>Profilbild ändern...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>Bot umbenennen...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora erlaubt das Umbenennen eines Bots nur einmal alle 90 Tage, und der Name dieses Bots wurde erst vor Kurzem geändert.</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Umbenennen des Velora-Bots fehlgeschlagen: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>Keine Datei ausgewählt</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>Dieser Dateityp wird nicht unterstützt. Unterstützte Typen: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>Diese Datei ist größer als das Limit von {0} MB.</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>Datei konnte nicht gelesen werden: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Hat Titel</value>
+    <comment>User search filter type on the Users page</comment>
   </data>
 </root>

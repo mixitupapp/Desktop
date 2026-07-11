@@ -9702,8 +9702,29 @@
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ Öṽéŕļåýẋẋẋ ÛŔĻẋ]</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ (Öṽéŕļåýẋẋẋ ÛŔĻẋ Ṁéţĥöð)ẋẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ (ÅÞÎ)ẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ Ţöķéñẋẋ]</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>[Þļéåšéẋẋ éñţéŕẋẋ åẋ ṽåļîðẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ Ţöķéñ·ẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ ĝéţẋ åṽåîļåƀļéẋẋẋ ṽöîçéš·ẋẋẋ Þļéåšéẋẋ éñšûŕéẋẋ ýöûẋ çöŕŕéçţļýẋẋẋ çöþîéðẋẋ öṽéŕẋẋ ýöûŕẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ Ţöķéñẋẋ]</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>[ŢŢŠ·Ṁöñšţéŕẋẋẋẋ ÅÞÎẋ çöññéçţîṽîţýẋẋẋẋ åļļöŵšẋẋ ýöûẋ ţöẋ ţŕîĝĝéŕẋẋẋ Ţéẋţẋẋ ţöẋ Šþééçĥẋẋ åûðîöẋẋ îñẋ çöɱɱåñðšẋẋẋ ûšîñĝẋẋ ṽöîçéšẋẋ þŕöṽîðéðẋẋẋ ƀýẋ ŢŢŠ·Ṁöñšţéŕ´šẋẋẋẋẋ šéŕṽîçé،ẋẋẋ îñçļûðîñĝẋẋẋ åñýẋ çûšţöɱẋẋ ṽöîçéšẋẋ ýöûẋ ĥåṽéẋẋ çļöñéð·ẋẋẋ Ţöẋ çöññéçţẋẋẋ ţöẋ ŢŢŠ·Ṁöñšţéŕ،ẋẋẋẋ ļöĝẋ îñẋ ţöẋ ýöûŕẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ Çöñšöļé،ẋẋẋ çļîçķẋẋ ýöûŕẋẋ þŕöƒîļéẋẋẋ îçöñẋẋ îñẋ ţĥéẋ ƀöţţöɱ‐ļéƒţẋẋẋẋ çöŕñéŕẋẋ öƒẋ ţĥéẋ þåĝé،ẋẋ öþéñẋẋ ţĥéẋ ÅÞÎẋ Ţöķéñẋẋ šéçţîöñ،ẋẋẋ çöþýẋẋ ýöûŕẋẋ ÅÞÎẋ Ţöķéñẋẋ îñţöẋẋ ţĥéẋ ţéẋţẋẋ ƀöẋ،ẋẋ åñðẋ çļîçķẋẋ Ļöĝẋ Îñ·ẋ]</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>[Þļéåšéẋẋ éñåƀļéẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ öñẋ ţĥéẋ Šéŕṽîçéšẋẋẋ þåĝé¡ẋẋ]</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>[Þļéåšéẋẋ éñåƀļéẋẋ ŢŢŠ·Ṁöñšţéŕẋẋẋẋ (ÅÞÎ)ẋẋ öñẋ ţĥéẋ Šéŕṽîçéšẋẋẋ þåĝé¡ẋẋ]</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>[Çĥåţţéŕẋẋẋ Çöûñţẋẋ]</value>
@@ -11906,5 +11927,96 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="DeductChannelPoints" xml:space="preserve">
     <value>[Ðéðûçţẋẋ Çĥåññéļẋẋẋ Þöîñţšẋẋ]</value>
     <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>[Šéţẋ Ûþẋ Ɓöţẋ]</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>[Ŕéɱöṽéẋẋ Ɓöţẋ]</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>[Çöññéçţẋẋẋ ýöûŕẋẋ Ṽéļöŕåẋẋ šţŕéåɱéŕẋẋẋ åççöûñţẋẋẋ ƀéƒöŕéẋẋ šéţţîñĝẋẋẋ ûþẋ ţĥéẋ ƀöţ·ẋẋ]</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>[Šéļéçţẋẋ ţĥéẋ Ṽéļöŕåẋẋ ƀöţẋ ƒöŕẋ Ṁîẋẋ Îţẋ Ûþẋ ţöẋ çĥåţẋẋ åšẋ]</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>[Çŕéåţéẋẋ åẋ ñéŵẋ ƀöţ···ẋẋ]</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>[Éñţéŕẋẋ åẋ ñåɱéẋẋ ƒöŕẋ ýöûŕẋẋ ñéŵẋ Ṽéļöŕåẋẋ ƀöţẋ]</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>[Ṽéļöŕåẋẋ ƀöţẋ ñåɱéšẋẋ ɱûšţẋẋ ƀéẋ ③‐②0ẋẋ çĥåŕåçţéŕšẋẋẋẋ åñðẋ çåñẋ öñļýẋẋ çöñţåîñẋẋẋ ļéţţéŕš،ẋẋẋ ñûɱƀéŕš،ẋẋẋ åñðẋ ûñðéŕšçöŕéš·ẋẋẋẋ]</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>[Ţĥéẋ ƀöţẋ ñåɱéẋẋ ´{0}´ẋ îšẋ ñöţẋ åṽåîļåƀļéẋẋẋ öñẋ Ṽéļöŕå·ẋẋẋ]</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>[Ṽéļöŕåẋẋ ƀöţẋ šéţûþẋẋ ŵåšẋ çåñçéļéð·ẋẋẋ]</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>[Ţĥéẋ Ṽéļöŕåẋẋ ƀöţẋ îšẋ ñöẋ ļöñĝéŕẋẋ çöññéçţéðẋẋẋ ţöẋ Ṁîẋẋ Îţẋ Ûþ·ẋ Þļéåšéẋẋ šéţẋ îţẋ ûþẋ åĝåîñẋẋ ƒŕöɱẋẋ ţĥéẋ Åççöûñţšẋẋẋ þåĝé·ẋẋ]</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>[Ṁîẋẋ Îţẋ Ûþẋ ŵåšẋ ûñåƀļéẋẋ ţöẋ çöññéçţẋẋẋ ţĥéẋ Ṽéļöŕåẋẋ ƀöţ·ẋẋ Þļéåšéẋẋ ţŕýẋ åĝåîñ·ẋẋ]</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ çöññéçţẋẋẋ ţĥéẋ Ṽéļöŕåẋẋ ƀöţ∶ẋẋ {0}]</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ çŕéåţéẋẋ ţĥéẋ Ṽéļöŕåẋẋ ƀöţ∶ẋẋ {0}]</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>[Ṽéļöŕåẋẋ ĥåñðļéšẋẋẋ ƀöţšẋẋ ðîƒƒéŕéñţļýẋẋẋẋ ţĥåñẋẋ öţĥéŕẋẋ þļåţƒöŕɱš∶ẋẋẋẋ ţĥéŕéẋẋ îšẋ ñöẋ šéþåŕåţéẋẋẋ ƀöţẋ åççöûñţẋẋẋ ţöẋ ļöĝẋ îñẋ ŵîţĥ·ẋẋ Šéţẋ Ûþẋ Ɓöţẋ çŕéåţéšẋẋẋ öŕẋ šéļéçţšẋẋẋ åẋ ƀöţẋ ţĥåţẋẋ ļîṽéšẋẋ ûñðéŕẋẋ ýöûŕẋẋ Ṽéļöŕåẋẋ šţŕéåɱéŕẋẋẋ åççöûñţ·ẋẋẋ]</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>[Éðîţẋẋ Ɓöţẋ]</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>[Çĥööšéẋẋ åẋ þŕöƒîļéẋẋẋ îɱåĝéẋẋ ƒöŕẋ ýöûŕẋẋ ƀöţ·ẋẋ Ṽéļöŕåẋẋ ŕéçöɱɱéñðšẋẋẋẋ åẋ šǫûåŕéẋẋ îɱåĝé،ẋẋ ⑤①②ẋ⑤①②ẋẋẋ þîẋéļšẋẋ öŕẋ ļåŕĝéŕẋẋ ‐ẋ ĴÞÉĜ،ẋẋ ÞÑĜ،ẋẋ ĜÎƑ،ẋẋ öŕẋ ŴéƀÞẋẋ ûñðéŕẋẋ ⑤ẋ ṀƁ·ẋ]</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ ûþļöåðẋẋ ţĥéẋ ƀöţẋ þŕöƒîļéẋẋẋ îɱåĝé∶ẋẋ {0}]</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>[Ŵĥåţẋẋ ŵöûļðẋẋ ýöûẋ ļîķéẋẋ ţöẋ éðîţ¿ẋẋ]</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>[Çĥåñĝéẋẋ þŕöƒîļéẋẋẋ îɱåĝé···ẋẋẋ]</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>[Ŕéñåɱéẋẋ ƀöţ···ẋẋ]</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>[Ṽéļöŕåẋẋ öñļýẋẋ åļļöŵšẋẋ åẋ ƀöţẋ ţöẋ ƀéẋ ŕéñåɱéðẋẋẋ öñçéẋẋ éṽéŕýẋẋ ⑨0ẋ ðåýš،ẋẋ åñðẋ ţĥîšẋẋ ƀöţ´šẋẋ ñåɱéẋẋ ŵåšẋ çĥåñĝéðẋẋẋ ţööẋ ŕéçéñţļý·ẋẋẋ]</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ ŕéñåɱéẋẋ ţĥéẋ Ṽéļöŕåẋẋ ƀöţ∶ẋẋ {0}]</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>[Ñöẋ ƒîļéẋẋ šéļéçţéðẋẋẋ]</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>[Ţĥîšẋẋ ƒîļéẋẋ ţýþéẋẋ îšẋ ñöţẋ šûþþöŕţéð·ẋẋẋẋ Šûþþöŕţéðẋẋẋ ţýþéš∶ẋẋ {0}]</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>[Ţĥîšẋẋ ƒîļéẋẋ îšẋ ļåŕĝéŕẋẋ ţĥåñẋẋ ţĥéẋ {0} ṀƁẋ ļîɱîţ·ẋẋ]</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>[Ƒåîļéðẋẋ ţöẋ ŕéåðẋẋ ţĥéẋ ƒîļé∶ẋẋ {0}]</value>
+    <comment>{0} is the file path</comment>
   </data>
 </root>
