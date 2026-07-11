@@ -8557,6 +8557,12 @@ NOTA: ciò potrebbe richiedere l'attivazione della build di anteprima dalla sche
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Aggiunge l'importo all'utente specificato</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Il tuo accesso salvato per {0} non è più valido ed è stato rifiutato dal servizio.
+
+Seleziona Sì per accedere di nuovo oppure No per disconnetterti e rimuovere l'accesso salvato.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Non è stato possibile connettere i seguenti servizi:
 

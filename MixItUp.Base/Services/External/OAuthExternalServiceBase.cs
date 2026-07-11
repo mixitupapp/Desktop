@@ -3,6 +3,7 @@ using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +15,17 @@ namespace MixItUp.Base.Services.External
         Task<Result> Connect(OAuthTokenModel token);
 
         OAuthTokenModel GetOAuthTokenCopy();
+
+        /// <summary>
+        /// Whether the most recent connection attempt failed because the service definitively rejected the
+        /// stored credentials (e.g. a 400 invalid_grant / 401 / 403), as opposed to a transient or network failure.
+        /// </summary>
+        bool LastConnectionAuthRejected { get; }
+
+        /// <summary>
+        /// Disconnects the service and clears any persisted credentials so that it will not attempt to reconnect.
+        /// </summary>
+        Task LogOut();
     }
 
     public abstract class OAuthExternalServiceBase : OAuthRestServiceBase, IOAuthExternalService, IDisposable
@@ -69,11 +81,15 @@ namespace MixItUp.Base.Services.External
 
         protected string baseAddress;
 
+        private HttpStatusCode? lastTokenRequestStatusCode;
+
         protected OAuthExternalServiceBase(string baseAddress) { this.baseAddress = baseAddress; }
 
         public abstract string Name { get; }
 
         public virtual bool IsConnected { get { return this.token != null; } }
+
+        public bool LastConnectionAuthRejected { get; protected set; }
 
         public abstract Task<Result> Connect();
 
@@ -81,6 +97,9 @@ namespace MixItUp.Base.Services.External
         {
             try
             {
+                this.LastConnectionAuthRejected = false;
+                this.lastTokenRequestStatusCode = null;
+
                 this.token = token;
                 await this.RefreshOAuthToken();
 
@@ -88,6 +107,7 @@ namespace MixItUp.Base.Services.External
                 if (!result.Success)
                 {
                     this.token = null;
+                    this.LastConnectionAuthRejected = OAuthExternalServiceBase.IsAuthRejectionStatusCode(this.lastTokenRequestStatusCode);
                 }
                 return result;
             }
@@ -99,6 +119,18 @@ namespace MixItUp.Base.Services.External
         }
 
         public abstract Task Disconnect();
+
+        public virtual async Task LogOut()
+        {
+            await this.Disconnect();
+            this.ClearPersistedCredentials();
+        }
+
+        /// <summary>
+        /// Clears any credentials this service persists to settings. The base implementation is a no-op;
+        /// services that store an OAuth token (or related settings) in the channel settings override this.
+        /// </summary>
+        protected virtual void ClearPersistedCredentials() { }
 
         public virtual OAuthTokenModel GetOAuthTokenCopy()
         {
@@ -158,6 +190,7 @@ namespace MixItUp.Base.Services.External
                         content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
 
                         HttpResponseMessage response = await client.PostAsync(endpoint, content);
+                        this.lastTokenRequestStatusCode = response.StatusCode;
                         return await response.ProcessResponse<OAuthTokenModel>();
                     }
                 }
@@ -167,6 +200,29 @@ namespace MixItUp.Base.Services.External
         }
 
         protected abstract Task RefreshOAuthToken();
+
+        /// <summary>
+        /// Classifies an OAuth token-request HTTP status code as a definitive credential rejection (as opposed
+        /// to a transient/network failure). A null status means no HTTP response was captured (network error,
+        /// timeout, or a 429 that threw before capture) and is treated as transient so a good token is not wiped.
+        /// </summary>
+        private static bool IsAuthRejectionStatusCode(HttpStatusCode? statusCode)
+        {
+            if (statusCode == null)
+            {
+                return false;
+            }
+
+            switch (statusCode.Value)
+            {
+                case HttpStatusCode.BadRequest:     // 400 - OAuth invalid_grant / revoked or invalid refresh token
+                case HttpStatusCode.Unauthorized:   // 401 - invalid client or token
+                case HttpStatusCode.Forbidden:      // 403 - access revoked
+                    return true;
+                default:
+                    return false;
+            }
+        }
 
         protected void TrackServiceTelemetry(string name) { ServiceManager.Get<ITelemetryService>().TrackService(name); }
 

@@ -428,12 +428,32 @@ namespace MixItUp.Base
                     {
                         try
                         {
-                            if (kvp.Value.Result != null && !kvp.Value.Result.Success && kvp.Key is IOAuthExternalService)
+                            if (kvp.Value.Result != null && !kvp.Value.Result.Success && kvp.Key is IOAuthExternalService oauthService)
                             {
-                                Logger.Log(LogLevel.Debug, "Automatic OAuth token connection failed, trying manual connection: " + kvp.Key.GetType().ToString());
-                                Result result = await kvp.Key.Connect();
-                                if (!result.Success)
+                                if (oauthService.LastConnectionAuthRejected)
                                 {
+                                    // The stored credentials were definitively rejected by the service (e.g. the account was
+                                    // deleted or access was revoked). Ask the user whether to log in again or log out, rather
+                                    // than silently launching an interactive browser login they did not request.
+                                    Logger.Log(LogLevel.Debug, "Automatic OAuth token connection was rejected as invalid, prompting user to reconnect or log out: " + kvp.Key.GetType().ToString());
+                                    if (await DialogHelper.ShowConfirmation(string.Format(MixItUp.Base.Resources.ServiceConnectionInvalidPrompt, kvp.Key.Name)))
+                                    {
+                                        Result result = await kvp.Key.Connect();
+                                        if (!result.Success)
+                                        {
+                                            failedServices.Add(kvp.Key);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        await oauthService.LogOut();
+                                    }
+                                }
+                                else
+                                {
+                                    // The connection failed without a definitive rejection (transient or network failure).
+                                    // Leave the stored credentials in place so the service can retry on a future launch.
+                                    Logger.Log(LogLevel.Debug, "Automatic OAuth token connection failed without a definitive rejection; leaving stored credentials for a future retry: " + kvp.Key.GetType().ToString());
                                     failedServices.Add(kvp.Key);
                                 }
                             }

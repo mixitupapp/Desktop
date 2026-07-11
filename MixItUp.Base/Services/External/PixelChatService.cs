@@ -284,6 +284,14 @@ namespace MixItUp.Base.Services.External
             return new Result(MixItUp.Base.Resources.PixelChatFailedToGetUserData);
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.PixelChatOAuthToken = null;
+            }
+        }
+
         protected override Task RefreshOAuthToken()
         {
             return Task.CompletedTask;

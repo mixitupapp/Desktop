@@ -1395,6 +1395,14 @@ namespace MixItUp.Base.Services.External
             }
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.DiscordOAuthToken = null;
+            }
+        }
+
         protected override async Task RefreshOAuthToken()
         {
             if (this.token != null)

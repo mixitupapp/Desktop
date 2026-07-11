@@ -161,6 +161,14 @@ namespace MixItUp.Base.Services.External
             return new Result(Resources.PallyFailedToConnect);
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.PallyOAuthToken = null;
+            }
+        }
+
         protected override Task RefreshOAuthToken()
         {
             // Pally uses a static API key; there is nothing to refresh.

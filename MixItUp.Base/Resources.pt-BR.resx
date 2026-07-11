@@ -8558,6 +8558,12 @@ NOTA: Isto pode exigir que opte pela versão de pré-visualização no separador
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Adiciona valor ao usuário especificado</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>O seu login salvo para {0} não é mais válido e foi rejeitado pelo serviço.
+
+Selecione Sim para fazer login novamente ou Não para sair e remover o login salvo.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Os seguintes serviços não puderam ser ligados:
 

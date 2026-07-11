@@ -158,6 +158,14 @@ namespace MixItUp.Base.Services.External
             return await this.GetAsync<StreamElementsChannel>("channels/me");
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.StreamElementsOAuthToken = null;
+            }
+        }
+
         protected override async Task RefreshOAuthToken()
         {
             if (this.token != null)

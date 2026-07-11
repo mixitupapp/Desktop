@@ -8557,6 +8557,12 @@ UWAGA: może to wymagać wyrażenia zgody na kompilację podglądu na karcie Og�
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Dodaje kwotę do określonego użytkownika</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Twoje zapisane logowanie do {0} nie jest już ważne i zostało odrzucone przez usługę.
+
+Wybierz Tak, aby zalogować się ponownie, lub Nie, aby wylogować się i usunąć zapisane logowanie.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Nie można połączyć następujących usług:
 

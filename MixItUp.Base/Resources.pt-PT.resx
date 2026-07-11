@@ -8559,6 +8559,12 @@ NOTA: Isto pode exigir que opte pela versão de pré-visualização no separador
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Adiciona valor ao usuário especificado</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>O seu início de sessão guardado para {0} já não é válido e foi rejeitado pelo serviço.
+
+Selecione Sim para iniciar sessão novamente ou Não para terminar sessão e remover o início de sessão guardado.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Os seguintes serviços não puderam ser ligados:
 

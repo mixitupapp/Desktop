@@ -8557,6 +8557,12 @@
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Додає суму до вказаного користувача</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Ваш збережений вхід для {0} більше недійсний і був відхилений службою.
+
+Виберіть «Так», щоб знову увійти, або «Ні», щоб вийти та видалити збережений вхід.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Не вдалося підключити такі служби:
 

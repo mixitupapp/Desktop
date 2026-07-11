@@ -7313,6 +7313,12 @@ HINWEIS: Es kann erforderlich sein, dass Sie sich über den Reiter "Vorschau" in
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Erhöht den Betrag auf den angegebenen Nutzer</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Ihre gespeicherte Anmeldung für {0} ist nicht mehr gültig und wurde vom Dienst abgelehnt.
+
+Wählen Sie Ja, um sich erneut anzumelden, oder Nein, um sich abzumelden und die gespeicherte Anmeldung zu entfernen.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Die folgenden Dienste konnten nicht angeschlossen werden:
 

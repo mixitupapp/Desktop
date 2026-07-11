@@ -57,10 +57,7 @@ namespace MixItUp.Base.ViewModel.Services
 
             this.LogOutCommand = this.CreateCommand(async () =>
             {
-                await ServiceManager.Get<PatreonService>().Disconnect();
-
-                ChannelSession.Settings.PatreonOAuthToken = null;
-                ChannelSession.Settings.PatreonTierSubscriberEquivalent = null;
+                await ServiceManager.Get<PatreonService>().LogOut();
 
                 this.IsConnected = false;
             });

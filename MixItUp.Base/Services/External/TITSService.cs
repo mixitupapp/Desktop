@@ -283,6 +283,14 @@ namespace MixItUp.Base.Services.External
             return Task.FromResult(new Result());
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.TITSOAuthToken = null;
+            }
+        }
+
         protected override Task RefreshOAuthToken() { return Task.CompletedTask; }
 
         private async Task<bool> ConnectWebSocket()
