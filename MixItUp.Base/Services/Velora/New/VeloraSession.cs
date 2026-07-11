@@ -1,5 +1,7 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
+using MixItUp.Base.Model.Requirements;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Model.Velora.Badges;
 using MixItUp.Base.Model.Velora.Bots;
@@ -297,14 +299,16 @@ namespace MixItUp.Base.Services.Velora.New
 
         /// <summary>The sync counterpart of the "!commands" premade: enabled, non-wildcard chat-accessible
         /// commands (premade + chat + game). The first full trigger is the command, the remaining
-        /// triggers ride along as aliases, and the command's name becomes its description. Role
-        /// requirements are per-viewer and so not applied to the channel-wide list.</summary>
+        /// triggers ride along as aliases, and the command's name becomes its description. Velora's list
+        /// is channel-wide with no per-role visibility (every synced command shows as minimumRole
+        /// "everyone"), so only commands everyone can actually run are published - role-gated commands
+        /// (mod/VIP/sub/etc.) are left off entirely.</summary>
         private static List<VeloraBotSyncCommandModel> BuildBotCommandSyncList()
         {
             List<VeloraBotSyncCommandModel> commands = new List<VeloraBotSyncCommandModel>();
             foreach (CommandModelBase command in ServiceManager.Get<CommandService>().AllEnabledChatAccessibleCommands)
             {
-                if (command is ChatCommandModel chatCommand && !chatCommand.Wildcards)
+                if (command is ChatCommandModel chatCommand && !chatCommand.Wildcards && IsRunnableByEveryone(chatCommand))
                 {
                     List<string> triggers = chatCommand.GetFullTriggers()
                         .Where(t => !string.IsNullOrWhiteSpace(t) && t.Length <= VeloraBotSyncCommandModel.MaxTriggerLength)
@@ -322,6 +326,30 @@ namespace MixItUp.Base.Services.Velora.New
                 }
             }
             return commands.OrderBy(c => c.Trigger, StringComparer.OrdinalIgnoreCase).ToList();
+        }
+
+        /// <summary>Whether a command's role requirement is the open "everyone" baseline. The advanced
+        /// role-list mode counts only when it includes the base User role (every viewer carries it), and
+        /// Patreon-benefit / YouTube-membership gates always exclude the command.</summary>
+        private static bool IsRunnableByEveryone(ChatCommandModel command)
+        {
+            RoleRequirementModel role = command.Requirements?.Role;
+            if (role == null)
+            {
+                return true;
+            }
+
+            if (!string.IsNullOrEmpty(role.PatreonBenefitID) || !string.IsNullOrEmpty(role.YouTubeMembershipLevelID))
+            {
+                return false;
+            }
+
+            if (role.UserRoleList != null && role.UserRoleList.Count > 0)
+            {
+                return role.UserRoleList.Contains(UserRoleEnum.User);
+            }
+
+            return role.UserRole == UserRoleEnum.User;
         }
 
         public override async Task RefreshOAuthTokenIfCloseToExpiring()
