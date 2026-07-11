@@ -12019,4 +12019,8 @@ print(run())</value>
     <value>Не вдалося прочитати файл: {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Має заголовок</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

@@ -12052,4 +12052,8 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>Deduct Channel Points</value>
     <comment>Velora action type</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Has Title</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

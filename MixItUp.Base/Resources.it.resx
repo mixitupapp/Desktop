@@ -11988,4 +11988,8 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
     <value>Lettura del file non riuscita: {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Con titolo</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

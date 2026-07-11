@@ -12019,4 +12019,8 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>讀取檔案失敗：{0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>有標題</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

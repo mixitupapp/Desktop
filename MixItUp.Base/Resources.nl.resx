@@ -11989,4 +11989,8 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
     <value>Lezen van het bestand is mislukt: {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Heeft titel</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

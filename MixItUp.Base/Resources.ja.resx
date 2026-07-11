@@ -11988,4 +11988,8 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
     <value>ファイルの読み取りに失敗しました: {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>タイトルあり</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

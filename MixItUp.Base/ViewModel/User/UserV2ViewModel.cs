@@ -259,6 +259,7 @@ namespace MixItUp.Base.ViewModel.User
             set
             {
                 this.Model.OnlineViewingMinutes = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
                 this.NotifyPropertyChanged("OnlineViewingMinutes");
                 this.NotifyPropertyChanged("OnlineViewingMinutesOnly");
                 this.NotifyPropertyChanged("OnlineViewingHoursOnly");
@@ -395,7 +396,11 @@ namespace MixItUp.Base.ViewModel.User
         public CommandModelBase EntranceCommand
         {
             get { return ChannelSession.Settings.GetCommand(this.Model.EntranceCommandID); }
-            set { this.Model.EntranceCommandID = (value != null) ? value.ID : Guid.Empty; }
+            set
+            {
+                this.Model.EntranceCommandID = (value != null) ? value.ID : Guid.Empty;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public string Title
@@ -420,13 +425,21 @@ namespace MixItUp.Base.ViewModel.User
         public string CustomTitle
         {
             get { return this.Model.CustomTitle; }
-            set { this.Model.CustomTitle = value; }
+            set
+            {
+                this.Model.CustomTitle = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public Guid EntranceCommandID
         {
             get { return this.Model.EntranceCommandID; }
-            set { this.Model.EntranceCommandID = value; }
+            set
+            {
+                this.Model.EntranceCommandID = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public List<Guid> CustomCommandIDs { get { return this.Model.CustomCommandIDs; } }
@@ -434,7 +447,11 @@ namespace MixItUp.Base.ViewModel.User
         public string Notes
         {
             get { return this.Model.Notes; }
-            set { this.Model.Notes = value; }
+            set
+            {
+                this.Model.Notes = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public DateTimeOffset LastActivity { get { return this.Model.LastActivity; } }
@@ -491,6 +508,7 @@ namespace MixItUp.Base.ViewModel.User
                 {
                     this.model.PatreonUserID = null;
                 }
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
             }
         }
         private PatreonCampaignMember patreonUser;

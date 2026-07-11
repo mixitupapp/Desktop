@@ -11994,4 +11994,8 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
     <value>Datei konnte nicht gelesen werden: {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Hat Titel</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

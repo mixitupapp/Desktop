@@ -11989,4 +11989,8 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
     <value>Échec de la lecture du fichier : {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Avec titre</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

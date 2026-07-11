@@ -799,7 +799,11 @@ namespace MixItUp.Base.Model.Settings
         {
             if (!ServiceManager.Get<IFileService>().FileExists(this.DatabaseFilePath))
             {
-                await ServiceManager.Get<IFileService>().CopyFile(SettingsV3Model.SettingsTemplateDatabaseFileName, this.DatabaseFilePath);
+                await ServiceManager.Get<IFileService>().CopyFile(Path.Combine(AppContext.BaseDirectory, SettingsV3Model.SettingsTemplateDatabaseFileName), this.DatabaseFilePath);
+                if (!ServiceManager.Get<IFileService>().FileExists(this.DatabaseFilePath))
+                {
+                    Logger.Log(LogLevel.Error, $"Failed to create settings database from template: {this.DatabaseFilePath}");
+                }
             }
 
             await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "SELECT * FROM Quotes", (Dictionary<string, object> data) =>

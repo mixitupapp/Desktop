@@ -217,6 +217,11 @@
                             Header="{x:Static resx:Resources.Username}"
                             IsReadOnly="True" />
                         <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding CustomTitle}"
+                            Header="{x:Static resx:Resources.Title}"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
                             Width="100"
                             Binding="{Binding Platform, Converter={StaticResource LocalizationConverter}}"
                             Header="{x:Static resx:Resources.Platform}"

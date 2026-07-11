@@ -11990,4 +11990,8 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
     <value>Falha ao ler o ficheiro: {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Tem título</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

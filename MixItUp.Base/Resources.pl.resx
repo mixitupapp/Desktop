@@ -11988,4 +11988,8 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
     <value>Nie udało się odczytać pliku: {0}</value>
     <comment>{0} is the file path</comment>
   </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Ma tytuł</value>
+    <comment>User search filter type on the Users page</comment>
+  </data>
 </root>

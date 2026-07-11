@@ -11523,6 +11523,15 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Has Title.
+        /// </summary>
+        public static string HasTitle {
+            get {
+                return ResourceManager.GetString("HasTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Head.
         /// </summary>
         public static string Head {
