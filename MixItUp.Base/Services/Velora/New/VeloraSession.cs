@@ -1,4 +1,5 @@
 using MixItUp.Base.Model;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Model.Velora.Badges;
 using MixItUp.Base.Model.Velora.Bots;
@@ -37,10 +38,13 @@ namespace MixItUp.Base.Services.Velora.New
             // token (see VeloraBotService), so the bot scopes ride the streamer authorization.
             // NOTE: the app's per-app grant table (developer dashboard / the OAuth consent page) is the
             // authority on scope names - the generic GET /api/developer/oauth/scopes catalog lists a
-            // stale "bot:read" that the consent page rejects. The granted pair is bot:connect (connect
-            // to + speak as a bot on your channel) and bot:write (send chat as the connected bot).
+            // stale "bot:read" that the consent page rejects. The granted set is bot:connect (connect
+            // to + speak as a bot on your channel), bot:write (send chat as the connected bot), and
+            // bot:commands (publish the command list to the bot profile page; enforced live with a 403,
+            // unlike the other bot routes).
             "bot:connect",
             "bot:write",
+            "bot:commands",
         };
 
         public override int MaxMessageLength { get { return 500; } }
@@ -180,6 +184,10 @@ namespace MixItUp.Base.Services.Velora.New
                 this.Bot = await ServiceManager.Get<UserService>().CreateUser(new VeloraUserPlatformV2Model(this.BotID, this.BotUsername, this.BotModel.BestDisplayName, this.BotAvatarURL));
             }
 
+            // Publish the command list to the bot's Velora profile page right away; RefreshDetails keeps
+            // it current from here. Non-fatal: a sync problem must not fail the bot connection.
+            await this.SyncBotCommandsIfChanged();
+
             // No bot chat socket: a Velora bot has no token to authenticate one. Bot messages are sent
             // over REST with sendAsBot on the streamer's token (see SendMessage).
             return new Result();
@@ -187,6 +195,9 @@ namespace MixItUp.Base.Services.Velora.New
 
         protected override Task DisconnectBotInternal()
         {
+            // A future reconnect must re-publish the command list (Velora clears synced commands on
+            // disconnect), so forget what was last synced.
+            this.lastSyncedBotCommandsFingerprint = null;
             return Task.CompletedTask;
         }
 
@@ -236,6 +247,81 @@ namespace MixItUp.Base.Services.Velora.New
                 this.BotUsername = bot.BestUsername;
                 this.BotAvatarURL = bot.BestAvatarUrl;
             }
+        }
+
+        // ===== Bot command sync (POST /integrations/oauth/bot/commands/sync) =====
+        //
+        // Publishes the same list the "!commands" premade prints - enabled, non-wildcard chat-accessible
+        // commands - to the bot's Velora profile page / the channel's available-commands list
+        // (GET /api/chat/bot-commands). Command edits have no single mutation hook in MIU, so the list is
+        // fingerprinted and re-synced from the session's periodic RefreshDetails whenever it changes;
+        // each sync is a full replacement on Velora's side and the rate limit is 10 req/min.
+
+        private string lastSyncedBotCommandsFingerprint;
+
+        public async Task SyncBotCommandsIfChanged()
+        {
+            try
+            {
+                // bot:commands is enforced live (403), so a pre-upgrade token skips quietly until re-auth.
+                if (!this.IsBotConnected || !this.StreamerService.HasScope("bot:commands"))
+                {
+                    return;
+                }
+
+                List<VeloraBotSyncCommandModel> commands = BuildBotCommandSyncList();
+                string fingerprint = string.Join("\n", commands.Select(c => c.Trigger + "|" + c.Description + "|" + string.Join(",", c.Aliases ?? new List<string>())));
+                if (string.Equals(fingerprint, this.lastSyncedBotCommandsFingerprint, StringComparison.Ordinal))
+                {
+                    return;
+                }
+
+                Result result = await this.StreamerService.SyncBotCommands(this.BotID, commands);
+                if (result.Success)
+                {
+                    this.lastSyncedBotCommandsFingerprint = fingerprint;
+                    Logger.Log(LogLevel.Debug, $"Synced {commands.Count} command(s) to the Velora bot profile");
+                }
+                else
+                {
+                    // Left un-fingerprinted so the next RefreshDetails retries; the body names any DTO
+                    // property Velora rejected, which is the diagnostic for shape drift.
+                    Logger.Log(LogLevel.Error, "Velora bot command sync failed: " + result.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        /// <summary>The sync counterpart of the "!commands" premade: enabled, non-wildcard chat-accessible
+        /// commands (premade + chat + game). The first full trigger is the command, the remaining
+        /// triggers ride along as aliases, and the command's name becomes its description. Role
+        /// requirements are per-viewer and so not applied to the channel-wide list.</summary>
+        private static List<VeloraBotSyncCommandModel> BuildBotCommandSyncList()
+        {
+            List<VeloraBotSyncCommandModel> commands = new List<VeloraBotSyncCommandModel>();
+            foreach (CommandModelBase command in ServiceManager.Get<CommandService>().AllEnabledChatAccessibleCommands)
+            {
+                if (command is ChatCommandModel chatCommand && !chatCommand.Wildcards)
+                {
+                    List<string> triggers = chatCommand.GetFullTriggers()
+                        .Where(t => !string.IsNullOrWhiteSpace(t) && t.Length <= VeloraBotSyncCommandModel.MaxTriggerLength)
+                        .ToList();
+                    if (triggers.Count > 0)
+                    {
+                        string description = chatCommand.Name ?? string.Empty;
+                        commands.Add(new VeloraBotSyncCommandModel()
+                        {
+                            Trigger = triggers[0],
+                            Description = description.Length > 200 ? description.Substring(0, 200) : description,
+                            Aliases = (triggers.Count > 1) ? triggers.Skip(1).ToList() : null,
+                        });
+                    }
+                }
+            }
+            return commands.OrderBy(c => c.Trigger, StringComparer.OrdinalIgnoreCase).ToList();
         }
 
         public override async Task RefreshOAuthTokenIfCloseToExpiring()
@@ -290,6 +376,10 @@ namespace MixItUp.Base.Services.Velora.New
             {
                 this.StreamStart = DateTimeOffset.MinValue;
             }
+
+            // RefreshDetails runs on the session background cadence, which doubles as the change-detection
+            // pass for the bot-profile command list (see SyncBotCommandsIfChanged).
+            await this.SyncBotCommandsIfChanged();
 
             return new Result();
         }

@@ -252,6 +252,35 @@ namespace MixItUp.Base.Services.Velora.New
             });
         }
 
+        /// <summary>Whether the current OAuth token was authorized with the given scope. Lets callers
+        /// skip endpoints a pre-upgrade token cannot reach (e.g. bot:commands) instead of collecting 403s.</summary>
+        public bool HasScope(string scope)
+        {
+            string scopeList = this.GetOAuthTokenCopy()?.ScopeList;
+            return !string.IsNullOrEmpty(scopeList) && scopeList.Split(',').Contains(scope, StringComparer.OrdinalIgnoreCase);
+        }
+
+        /// <summary>POST the app's complete command list to Velora for the bot profile page / the
+        /// channel's available-commands list. Full replacement per call; requires bot:commands and a
+        /// connected bot (404 otherwise); rate limited at 10 req/min; max 500 commands. Body confirmed
+        /// live: { botId, commands: [{ trigger, description?, aliases? }] }.</summary>
+        public async Task<Result> SyncBotCommands(string botID, IEnumerable<VeloraBotSyncCommandModel> commands)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["botId"] = botID;
+                jobj["commands"] = JArray.FromObject((commands ?? Enumerable.Empty<VeloraBotSyncCommandModel>()).Take(500).ToArray());
+
+                HttpResponseMessage response = await this.HttpClient.PostAsync("integrations/oauth/bot/commands/sync", AdvancedHttpClient.CreateContentFromObject(jobj));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Result(await response.Content.ReadAsStringAsync());
+                }
+                return new Result();
+            });
+        }
+
         // Velora's documented avatar constraints: JPEG, PNG, GIF, or WebP up to 5MB.
         public static readonly IReadOnlyCollection<string> BotAvatarValidExtensions = new List<string>() { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
         public const long BotAvatarMaxFileSizeBytes = 5 * 1024 * 1024;

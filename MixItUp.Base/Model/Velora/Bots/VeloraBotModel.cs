@@ -101,6 +101,27 @@ namespace MixItUp.Base.Model.Velora.Bots
     }
 
     /// <summary>
+    /// One command entry for POST /api/integrations/oauth/bot/commands/sync, which publishes the app's
+    /// command list to the bot's Velora profile page / the channel's available-commands list
+    /// (GET /api/chat/bot-commands). Shape confirmed live from the endpoint's validation whitelist:
+    /// trigger (required, max 50 chars), description, aliases[], and a nested cooldown object are
+    /// accepted; command/usage/moderatorOnly/subscriberOnly/enabled/category are rejected.
+    /// </summary>
+    public class VeloraBotSyncCommandModel
+    {
+        public const int MaxTriggerLength = 50;
+
+        [JsonProperty("trigger")]
+        public string Trigger { get; set; }
+
+        [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [JsonProperty("aliases", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string> Aliases { get; set; }
+    }
+
+    /// <summary>
     /// GET /api/integrations/oauth/bot/current - confirmed live as { connected: false, bot: null } when
     /// no bot is connected; when connected the bot object is the app's effective chat identity.
     /// </summary>
