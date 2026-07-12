@@ -76,6 +76,10 @@ namespace MixItUp.Base.Model.Actions
         [DataMember]
         public VeloraAnnounceColor AnnounceColor { get; set; }
 
+        // Announce: post as the streamer instead of the connected bot (the bot is the default when connected).
+        [DataMember]
+        public bool SendAsStreamer { get; set; }
+
         private VeloraActionModel(VeloraActionType type)
             : base(ActionTypeEnum.Velora)
         {
@@ -121,7 +125,7 @@ namespace MixItUp.Base.Model.Actions
                         if (!string.IsNullOrWhiteSpace(message))
                         {
                             string color = this.AnnounceColor == VeloraAnnounceColor.Default ? null : this.AnnounceColor.ToString().ToLowerInvariant();
-                            await session.SendAnnouncement(message, color);
+                            await session.SendAnnouncement(message, color, this.SendAsStreamer);
                         }
                     }
                     break;

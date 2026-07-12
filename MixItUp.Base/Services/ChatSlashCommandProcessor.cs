@@ -282,10 +282,10 @@ namespace MixItUp.Base.Services
                         string color = string.IsNullOrEmpty(colorSuffix) ? null : colorSuffix;
                         string announcement = TextAfter(trimmed, 1);
 
-                        // Velora slash commands run with channel-owner permissions, so its announcement always
-                        // goes out as the streamer; Twitch's honours the chat box's "send as" selection.
+                        // Both platforms honour the chat box's "send as" selection; Velora falls back to the
+                        // streamer socket when no bot is connected.
                         return await ForEachPlatformAction(targets, (p) => p == StreamingPlatformTypeEnum.Velora
-                            ? ServiceManager.Get<VeloraSession>().SendAnnouncement(announcement, color)
+                            ? ServiceManager.Get<VeloraSession>().SendAnnouncement(announcement, color, sendAsStreamer)
                             : ServiceManager.Get<TwitchSession>().SendAnnouncement(announcement, color, sendAsStreamer));
                     }
                     return SlashCommandResultEnum.NotRecognized;
