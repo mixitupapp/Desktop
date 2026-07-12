@@ -175,6 +175,14 @@ namespace MixItUp.Base.Services.External
             return new Result(Resources.PulsoidUnableToGetHeartRateData);
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.PulsoidOAuthToken = null;
+            }
+        }
+
         protected override async Task RefreshOAuthToken()
         {
             if (this.token != null)

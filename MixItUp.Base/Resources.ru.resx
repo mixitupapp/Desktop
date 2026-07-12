@@ -8562,6 +8562,12 @@ Fuzzy</comment>
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Добавляет сумму указанному пользователю</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Ваш сохранённый вход для {0} больше недействителен и был отклонён службой.
+
+Выберите «Да», чтобы войти снова, или «Нет», чтобы выйти и удалить сохранённый вход.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Не удалось подключить следующие услуги:
 

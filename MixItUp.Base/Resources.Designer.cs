@@ -22481,7 +22481,18 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("ServiceConnectSound", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Your saved login for {0} is no longer valid and was rejected by the service.
+        ///
+        ///Select Yes to log in again, or No to log out and remove the saved login..
+        /// </summary>
+        public static string ServiceConnectionInvalidPrompt {
+            get {
+                return ResourceManager.GetString("ServiceConnectionInvalidPrompt", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to These services have disconnected.
         /// </summary>

@@ -32,5 +32,16 @@
         <TextBox Text="{Binding Reason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowReason, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
 
         <ComboBox ItemsSource="{Binding AnnounceColors}" SelectedItem="{Binding SelectedAnnounceColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Color}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Visibility="{Binding ShowColor, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+
+        <Grid Visibility="{Binding ShowSendAsStreamer, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.SendAsStreamer}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding SendAsStreamer}" VerticalAlignment="Center" />
+        </Grid>
     </StackPanel>
 </local:ActionEditorControlBase>

@@ -27,6 +27,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 this.NotifyPropertyChanged(nameof(this.AmountHint));
                 this.NotifyPropertyChanged(nameof(this.ShowReason));
                 this.NotifyPropertyChanged(nameof(this.ShowColor));
+                this.NotifyPropertyChanged(nameof(this.ShowSendAsStreamer));
             }
         }
         private VeloraActionType selectedActionType;
@@ -65,6 +66,13 @@ namespace MixItUp.Base.ViewModel.Actions
             set { this.selectedAnnounceColor = value; this.NotifyPropertyChanged(); }
         }
         private VeloraAnnounceColor selectedAnnounceColor;
+
+        public bool SendAsStreamer
+        {
+            get { return this.sendAsStreamer; }
+            set { this.sendAsStreamer = value; this.NotifyPropertyChanged(); }
+        }
+        private bool sendAsStreamer;
 
         // Field visibility per action type.
         public bool ShowText
@@ -119,6 +127,8 @@ namespace MixItUp.Base.ViewModel.Actions
 
         public bool ShowColor { get { return this.SelectedActionType == VeloraActionType.Announce; } }
 
+        public bool ShowSendAsStreamer { get { return this.SelectedActionType == VeloraActionType.Announce; } }
+
         // Context-sensitive hints for the shared text / amount fields.
         public string TextHint
         {
@@ -149,6 +159,7 @@ namespace MixItUp.Base.ViewModel.Actions
             this.Amount = action.Amount;
             this.Reason = action.Reason;
             this.SelectedAnnounceColor = action.AnnounceColor;
+            this.SendAsStreamer = action.SendAsStreamer;
         }
 
         public VeloraActionEditorControlViewModel() : base() { }
@@ -177,6 +188,7 @@ namespace MixItUp.Base.ViewModel.Actions
             action.Amount = this.Amount;
             action.Reason = this.Reason;
             action.AnnounceColor = this.SelectedAnnounceColor;
+            action.SendAsStreamer = this.SendAsStreamer;
             return Task.FromResult<ActionModelBase>(action);
         }
     }

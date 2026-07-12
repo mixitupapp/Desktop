@@ -11,8 +11,6 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class ServiceContainerControl : LoadingControlBase
     {
-        private const int MinimizedGroupBoxHeight = 35;
-
         public LoadingWindowBase window { get; private set; }
         private ServiceControlBase serviceControl;
 
@@ -43,18 +41,9 @@ namespace MixItUp.WPF.Controls.Services
             this.InnerContentControl.Content = serviceControl;
         }
 
-        public void Minimize() { this.GroupBox.Height = MinimizedGroupBoxHeight; }
-
-        public void GroupBoxHeader_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        public void Minimize()
         {
-            if (this.GroupBox.Height == MinimizedGroupBoxHeight)
-            {
-                this.GroupBox.Height = Double.NaN;
-            }
-            else
-            {
-                this.Minimize();
-            }
+            this.GroupBox.Minimize();
         }
 
         protected override Task OnLoaded()

@@ -454,6 +454,14 @@ namespace MixItUp.Base.Services.External
             return new Result(MixItUp.Base.Resources.VTubeStudioConnectionFailed);
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.VTubeStudioOAuthToken = null;
+            }
+        }
+
         protected override Task RefreshOAuthToken() { return Task.CompletedTask; }
 
         private async Task<bool> ConnectWebSocket()

@@ -202,6 +202,14 @@ namespace MixItUp.Base.Services.External
             return new Result(Resources.TTSMonsterFailedToGetVoices);
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.TTSMonsterOAuthToken = null;
+            }
+        }
+
         protected override Task RefreshOAuthToken() { return Task.CompletedTask; }
 
         public override OAuthTokenModel GetOAuthTokenCopy()

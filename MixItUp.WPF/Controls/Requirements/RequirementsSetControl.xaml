@@ -15,6 +15,7 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
              
              Style="{StaticResource MaterialDesignGroupBox}"
+             MaterialDesign:GroupBoxAssist.HeaderPadding="9,2"
              Width="250"
              d:DesignHeight="300" d:DesignWidth="300">
     <GroupBox.Resources>
@@ -47,7 +48,7 @@
 
             <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.UsageRequirements}" VerticalAlignment="Center" />
 
-            <Controls:IconButton Grid.Column="2" Command="{Binding HelpCommand}" Icon="help" Margin="-10" />
+            <Controls:IconButton Grid.Column="2" Command="{Binding HelpCommand}" Icon="help" Style="{StaticResource GroupBoxHeaderIconButton}" />
         </Grid>
     </GroupBox.Header>
 

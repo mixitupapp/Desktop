@@ -8557,6 +8557,12 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>指定したユーザーに金額を追加します</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>{0} の保存されたログイン情報は無効になり、サービスによって拒否されました。
+
+「はい」を選択すると再度ログインし、「いいえ」を選択するとログアウトして保存されたログイン情報を削除します。</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>次のサービスに接続できませんでした:
 

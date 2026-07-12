@@ -8557,6 +8557,12 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>向指定用戶新增金額</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>您為 {0} 儲存的登入資訊已失效，並遭服務拒絕。
+
+選擇「是的」可重新登入，或選擇「不」可登出並移除已儲存的登入資訊。</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>無法連線以下服務：
 

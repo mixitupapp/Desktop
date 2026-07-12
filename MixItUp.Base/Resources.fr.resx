@@ -8557,6 +8557,12 @@ REMARQUE : Cela peut nécessiter que vous vous inscriviez à la version d'aper�
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Ajoute un montant à l'utilisateur spécifié</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Votre connexion enregistrée pour {0} n'est plus valide et a été refusée par le service.
+
+Sélectionnez Oui pour vous reconnecter, ou Non pour vous déconnecter et supprimer la connexion enregistrée.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>Les services suivants n'ont pas pu être connectés :
 

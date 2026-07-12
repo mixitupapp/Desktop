@@ -8558,6 +8558,12 @@ OPMERKING: Mogelijk moet u zich hiervoor aanmelden voor de Preview-build via het
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Voegt bedrag toe aan opgegeven gebruiker</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Je opgeslagen aanmelding voor {0} is niet meer geldig en is geweigerd door de service.
+
+Selecteer Ja om opnieuw aan te melden, of Nee om af te melden en de opgeslagen aanmelding te verwijderen.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>De volgende services kunnen niet worden verbonden:
 

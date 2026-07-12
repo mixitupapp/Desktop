@@ -8696,6 +8696,12 @@ NOTE: This may require you to opt-in to the Preview build from the General tab i
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Adds Amount To Specified User</value>
   </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Your saved login for {0} is no longer valid and was rejected by the service.
+
+Select Yes to log in again, or No to log out and remove the saved login.</value>
+    <comment>{0} is the name of the service</comment>
+  </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>The following services could not be connected:
 

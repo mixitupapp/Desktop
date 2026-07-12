@@ -503,11 +503,11 @@ namespace MixItUp.Base.Services.Velora.New
             }
         }
 
-        // Chat announcement (newly unlocked via the Chat WS slash command). /announce and its colored
-        // variants have documented grammar; slash commands execute with the channel owner's permissions
-        // and only the streamer has a chat socket, so announcements always go out on the streamer's
-        // socket regardless of the bot connection.
-        public async Task SendAnnouncement(string message, string color = null, bool sendAsStreamer = true)
+        // Chat announcement. /announce and its colored variants have documented grammar; slash commands
+        // execute with the channel owner's permissions. Two paths, both confirmed live: as the bot, REST
+        // with sendAsBot parses the slash command; as the streamer, only the chat socket works - REST
+        // without sendAsBot posts the literal "/announce ..." text as a plain message.
+        public async Task SendAnnouncement(string message, string color = null, bool sendAsStreamer = false)
         {
             if (string.IsNullOrWhiteSpace(message))
             {
@@ -517,13 +517,23 @@ namespace MixItUp.Base.Services.Velora.New
             string prefix = string.IsNullOrWhiteSpace(color) ? "/announce" : "/announce" + color.Trim().ToLowerInvariant();
             string command = prefix + " " + message;
 
-            if (this.StreamerChatClient != null && this.StreamerChatClient.IsConnected)
+            if (!sendAsStreamer && this.IsBotConnected)
+            {
+                SendChatMessageResponseModel response = await this.StreamerService.SendChatMessage(this.ChannelID, command, sendAsBot: true);
+                if (response == null)
+                {
+                    // Surface the failure rather than silently re-sending as the streamer: the user
+                    // configured these announcements to come from the bot identity.
+                    Logger.Log(LogLevel.Error, "Velora sendAsBot announcement failed; see prior log entries for the request error.");
+                }
+            }
+            else if (this.StreamerChatClient != null && this.StreamerChatClient.IsConnected)
             {
                 await this.StreamerChatClient.SendSlashCommand(command);
             }
             else
             {
-                Logger.Log(LogLevel.Error, "Cannot send Velora announcement: the chat socket is not connected (announce is a Chat WS slash command with no REST equivalent).");
+                Logger.Log(LogLevel.Error, "Cannot send Velora announcement as the streamer: the chat socket is not connected (REST only parses slash commands when sending as the bot).");
             }
         }
 
