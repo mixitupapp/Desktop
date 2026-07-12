@@ -1,4 +1,3 @@
-﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -6,12 +5,12 @@ using System.Windows.Input;
 namespace MixItUp.WPF.Controls
 {
     /// <summary>
-    /// Interaction logic for AccordianGroupBoxControl.xaml
+    /// A GroupBox that collapses down to just its header when minimized. Its template lives in
+    /// MixItUpTheme.Common.xaml as an implicit style; the control is deliberately code-only so it
+    /// carries no XAML name scope, letting consuming XAML put x:Name on header/content children.
     /// </summary>
-    public partial class AccordianGroupBoxControl : GroupBox
+    public class AccordianGroupBoxControl : GroupBox
     {
-        private const int MinimizedGroupBoxHeight = 34;
-
         public event RoutedEventHandler Maximized;
         public event RoutedEventHandler Minimized;
 
@@ -21,8 +20,6 @@ namespace MixItUp.WPF.Controls
 
         public AccordianGroupBoxControl()
         {
-            InitializeComponent();
-
             this.Loaded += AccordianGroupBoxControl_Loaded;
         }
 
@@ -32,18 +29,16 @@ namespace MixItUp.WPF.Controls
             set { SetValue(IsMinimizedProperty, value); }
         }
 
-        public bool IsUIMinimized { get { return this.Height == MinimizedGroupBoxHeight; } }
+        public bool IsUIMinimized { get { return this.IsMinimized; } }
 
         public void Minimize()
         {
-            this.Height = MinimizedGroupBoxHeight;
             this.IsMinimized = true;
             this.Minimized?.Invoke(this, new RoutedEventArgs());
         }
 
         public void Maximize()
         {
-            this.Height = Double.NaN;
             this.IsMinimized = false;
             this.Maximized?.Invoke(this, new RoutedEventArgs());
         }

@@ -7,9 +7,10 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <GroupBox x:Name="CategoryGroupBox">
+    <!--  No full-height controls in this header, so restore taller padding for the category rows  -->
+    <Controls:AccordianGroupBoxControl x:Name="CategoryGroupBox" MaterialDesign:GroupBoxAssist.HeaderPadding="9,7" Minimized="CategoryGroupBox_Minimized" Maximized="CategoryGroupBox_Maximized">
         <GroupBox.Header>
-            <Grid MouseLeftButtonUp="CategoryGroupBoxHeader_MouseLeftButtonUp">
+            <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -23,5 +24,5 @@
             </Grid>
         </GroupBox.Header>
         <StackPanel x:Name="ServicesPanel" />
-    </GroupBox>
+    </Controls:AccordianGroupBoxControl>
 </Controls:LoadingControlBase>

@@ -13,8 +13,6 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class ServiceCategoryControl : LoadingControlBase
     {
-        private const int MinimizedGroupBoxHeight = 35;
-
         public string CategoryName { get; private set; }
         private LoadingWindowBase window;
         private List<ServiceContainerControl> services;
@@ -50,26 +48,22 @@ namespace MixItUp.WPF.Controls.Services
 
         public void Minimize()
         {
-            this.CategoryGroupBox.Height = MinimizedGroupBoxHeight;
-            this.ExpandIcon.IconName = "chevron_right";
+            this.CategoryGroupBox.Minimize();
         }
 
         public void Expand()
         {
-            this.CategoryGroupBox.Height = Double.NaN;
-            this.ExpandIcon.IconName = "expand_more";
+            this.CategoryGroupBox.Maximize();
         }
 
-        public void CategoryGroupBoxHeader_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void CategoryGroupBox_Minimized(object sender, RoutedEventArgs e)
         {
-            if (this.CategoryGroupBox.Height == MinimizedGroupBoxHeight)
-            {
-                this.Expand();
-            }
-            else
-            {
-                this.Minimize();
-            }
+            this.ExpandIcon.IconName = "chevron_right";
+        }
+
+        private void CategoryGroupBox_Maximized(object sender, RoutedEventArgs e)
+        {
+            this.ExpandIcon.IconName = "expand_more";
         }
 
         protected override Task OnLoaded()
