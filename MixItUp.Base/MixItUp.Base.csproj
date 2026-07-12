@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Web\MixItUpSecrets.cs" Link="MixItUpSecrets.cs" />
+    <Compile Include="..\..\.workspace\.secrets\MixItUpSecrets.cs" Link="MixItUpSecrets.cs" />
   </ItemGroup>
 
 	<ItemGroup>
