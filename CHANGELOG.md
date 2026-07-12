@@ -1,5 +1,19 @@
 # Mix It Up Desktop Changelog
 
+## 1.7.140
+
+### FEATURES
+
+- Velora Announce action sends as bot by default, includes Send As Streamer option as well
+
+### FIXES
+
+- Fixed collapsible headers (Command Editor actions, Services page, End Credits sections) text and control clipping after branding overhaul
+- Fix header buttons blending invisibly into the header bar
+- Fix the Auto-Include "!" / Wildcards / Unlock Command row clipping at the default Command Editor window size
+- Fix counter display special identifiers (e.g. $counternamedisplay) outputting the raw amount with a stray "display" instead of the formatted number
+- Rejected (revoked/expired) authorizations on previously connected services (Discord, IFTTT, Streamlabs, Patreon, etc.) now prompt at startup to log in again or log out
+
 ## 1.7.130
 
 ### FEATURES
