@@ -1,5 +1,105 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.000
+
+### FEATURES
+
+- Add Throne integration with Gift Purchased, Contribution, and Gift Crowdfunded events
+- Add Fourthwall integration with Donation, Order Placed, and Gift Purchase events
+- Add Ko-fi integration with Tip, Commission, Membership (First Time), Membership (Recurring), and Shop Order events
+- Add Pally.gg integration with Donation event
+- All four new integrations support the donation special identifiers: $donationsource, $donationtype, $donationamount, $donationamountnumber, donationamountnumberdigits, $donationcurrency, $donationmessage, and $donationimage
+- Add $throneitemname (the Throne item purchased or crowdfunded)
+- Add $fourthwallitemname (the Fourthwall product name)
+- Add $kofitiername (the Ko-fi membership tier) and $kofishopitemname (the ordered Ko-fi shop items)
+- Add $pallypageslug / $pallypagetitle (the Pally.gg page the donation came through)
+- Music Player Overhaul: new Now Playing & Queue interface with album art, WMA file support, track scrubber, add files/folders/playlists to the queue, drag-and-drop queue reordering, remove from queue, clear queue, export queue as M3U playlist, and Shuffle & Repeat modes that persist between sessions
+- Add new Music Player action options: Shuffle On, Shuffle Off, Shuffle Toggle, Repeat On, Repeat Off, Repeat Toggle, and Clear Queue
+- Add Twitch Channel Unban Request Created event ($message for the requester's appeal text) and Twitch Channel Unban Request Resolved event ($unbanrequeststatus for the approved/denied outcome, $message for the moderator's resolution text), with chat alerts for both
+- Add Twitch Channel Hype Train Progress event ($hypetraintotalpoints, $hypetrainlevelpoints, $hypetrainlevelgoal, $hypetrainlevel)
+- Add Twitch Channel Goal Progress event ($goaltype, $goaldescription, $goalcurrentamount, $goaltargetamount)
+- Add Twitch Power-Ups section to the End Credits overlay widget
+- Add Streamloots Pack Community Gifted event ($streamlootspurchasequantity)
+- Add $usersubdurationmonths special identifier for the number of months purchased in a multi-month subscription or resubscription
+- Add $userfollowmonths and $userfollowyears special identifiers for how long a user has  followed the channel
+- Add $donationcurrency special identifier for a donation's currency code, and show donation amounts with the actual currency's symbol and decimal places (e.g. ¥ with no decimals for JPY)
+- Add chat participation moderation options for accounts older than 6 months and 1 year
+- Patreon member shoutout on the login screen now links to the featured member's social media page
+- Add Velora platform integration:
+  - Support for Streamer and Bot accounts
+  - Chat with emotes and badges
+  - Channel Points,
+  - Volts Cheering
+  - Raids,
+  - Moderation
+  - Channel Management
+
+- Add Velora events with their special identifiers:
+  - Stream Start / Stop
+  - Channel Updated ($streamtitle, $streamgame, $streamgamename, $streamgameid)
+  - Followed
+  - Raided ($raidviewercount, $hostviewercount)
+  - Subscribed ($usersubmonths, $usersubtier)
+  - Resubscribed ($usersubmonths, $usersubstreak, $usersubtier, $message)
+  - Subscription Gifted ($isanonymous, $usersubtier)
+  - Mass Subscription Gifted ($subsgiftedamount, $subsgiftedlifetimeamount, $isanonymous, $usersubtier)
+  - Channel Points Redeemed ($rewardname, $rewardcost, $message, $messagenoemotes, $messageemotecount)
+  - Cheered ($cheeramount, $voltsamount, $message, $messagenoemotes)
+
+- Add Velora Command Actions for the following:
+  - Set Title
+  - Set Game
+  - Announce (Blue, Gold, Green, Red, Orange, or Coral)
+  - Clear Chat
+  - Mod/Unmod User
+  - VIP/UnVIP User,
+  - Ban/Unban User
+  - Timeout/Untimeout User
+  - Raid
+  - Shoutout
+  - Grant/Deduct Channel Points
+
+- Add Velora Channel Points commands page to run commands when specific channel point rewards are redeemed  
+- Add $streamveloratags special identifier for a comma-separated list of your Velora stream tags
+- Add $userveloraid and $userveloracolor special identifiers for a user's Velora account ID and username color
+- Existing special identifiers compatible with Velora: $streamsubscribercount, $streamdescription, $userstreamtitle / $userstreamgame / $userstreamgameimage / $userstreamislive, and $userisvip includes Velora VIPs
+- Add Chat Slash Commands: /ban, /unban, /timeout, /untimeout, /purge, /mod, /unmod, /vip, /unvip, /clear, /title, /game, /raid, /shoutout, /announce (with color variants), /w (Twitch), and /cp (Velora channel points) typed in the chat box now run on every connected platform that supports them instead of being sent as chat text
+- Add animated emote support in chat for GIF and animated WebP emotes, with a new Emote Animation setting: None, Short, or Loop
+- Add Pause All User Entrance Commands and Unpause All User Entrance Commands options to the Command action; entrance commands triggered while paused queue up and run on unpause
+- Overhaul Velora bot support to use Velora's native bot system:
+  - Set Up Bot on the Accounts page creates a new bot or selects one you already own, no separate bot login
+  - Bot messages send under your bot's name and avatar
+  - Edit Bot changes its profile image or renames it (Velora allows one rename every 90 days)
+  - Enabled chat commands auto-sync to your bot's Velora profile page (role-restricted commands excluded)
+  - Reconnect your Velora account if connected on an earlier version to grant the new bot permissions
+- Add TTS.Monster (API) provider to the Text To Speech action: connect with your API Token and use any TTS.Monster voice, including custom cloned voices
+- Add custom voice support to the existing TTS.Monster provider (now labeled "Overlay URL Method")
+- Add Title column to the Users page showing each user's custom title (used by $usertitle)
+- Add Has Title search filter to the Users page
+- Velora Announce action sends as bot by default, includes Send As Streamer option as well
+
+### FIXES
+
+- Fix Kick Kicks gifted events not firing in overlay widgets
+- Fix donation amount parsing and special identifier math on PCs with non-English number formats
+- Fix $timersecondsadjusted special identifier for the Persistent Timer widget's Timer Adjusted command
+- Prevent saving empty values in required text fields
+- Harden webhook reconnection against a rare concurrent-reconnect crash and cap retries at 100 attempts
+- Fix ResponsiveVoice text-to-speech ignoring the configured volume
+- Fix user edits (custom title, notes, entrance command, user-only commands, viewing time, Patreon link) not saving while the user was offline
+- Fix settings database creation failing silently; errors are now logged
+- Fixed collapsible headers (Command Editor actions, Services page, End Credits sections) text and control clipping after branding overhaul
+- Fix header buttons blending invisibly into the header bar
+- Fix the Auto-Include "!" / Wildcards / Unlock Command row clipping at the default Command Editor window size
+- Fix counter display special identifiers (e.g. $counternamedisplay) outputting the raw amount with a stray "display" instead of the formatted number
+- Rejected (revoked/expired) authorizations on previously connected services (Discord, IFTTT, Streamlabs, Patreon, etc.) now prompt at startup to log in again or log out
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Overhaul iconography and brand imagery app-wide with Material Symbols icons and
+  theme-aware platform logos
+- Reduce duplicate downloads and decoding when the same emote appears many times in chat
+
 ## 1.7.140
 
 ### FEATURES
