@@ -23,6 +23,13 @@ using System.Threading.Tasks;
 
 namespace MixItUp.Base.Model.Settings
 {
+    public enum ChatEmoteAnimationEnum
+    {
+        None = 0,
+        Short = 1,
+        Loop = 2,
+    }
+
     [DataContract]
     public class SettingsV3Model
     {
@@ -120,6 +127,8 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public OAuthTokenModel PulsoidOAuthToken { get; set; }
         [DataMember]
+        public OAuthTokenModel PallyOAuthToken { get; set; }
+        [DataMember]
         public bool EnableVoicemodStudio { get; set; }
         [DataMember]
         public bool EnableCrowdControl { get; set; }
@@ -129,6 +138,8 @@ namespace MixItUp.Base.Model.Settings
         public int SAMMIPortNumber { get; set; } = 9450;
         [DataMember]
         public OAuthTokenModel TTSMonsterOAuthToken { get; set; }
+        [DataMember]
+        public OAuthTokenModel TTSMonsterAPIOAuthToken { get; set; }
 
         #endregion Authentication
 
@@ -164,7 +175,7 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool UseAlternatingBackgroundColors { get; set; }
         [DataMember]
-        public bool DisableAnimatedEmotes { get; set; }
+        public ChatEmoteAnimationEnum ChatEmoteAnimation { get; set; } = ChatEmoteAnimationEnum.None;
 
         [DataMember]
         public bool OnlyShowAlertsInDashboard { get; set; }
@@ -318,6 +329,10 @@ namespace MixItUp.Base.Model.Settings
         public string AlertKickChannelPointsColor { get; set; }
         [DataMember]
         public string AlertKickKicksColor { get; set; }
+        [DataMember]
+        public string AlertVeloraChannelPointsColor { get; set; }
+        [DataMember]
+        public string AlertVeloraCheeredColor { get; set; }
         [DataMember]
         public string AlertTwitchUserWarnedColor { get; set; }
         [DataMember]
@@ -667,6 +682,14 @@ namespace MixItUp.Base.Model.Settings
         public List<string> MusicPlayerFolders { get; set; } = new List<string>();
         [DataMember]
         public Guid MusicPlayerOnSongChangedCommandID { get; set; }
+        [DataMember]
+        public List<string> MusicPlayerQueue { get; set; } = new List<string>();
+        [DataMember]
+        public int MusicPlayerQueueCurrentIndex { get; set; } = 0;
+        [DataMember]
+        public bool MusicPlayerShuffle { get; set; } = false;
+        [DataMember]
+        public bool MusicPlayerRepeat { get; set; } = false;
 
         #endregion
 
@@ -776,7 +799,11 @@ namespace MixItUp.Base.Model.Settings
         {
             if (!ServiceManager.Get<IFileService>().FileExists(this.DatabaseFilePath))
             {
-                await ServiceManager.Get<IFileService>().CopyFile(SettingsV3Model.SettingsTemplateDatabaseFileName, this.DatabaseFilePath);
+                await ServiceManager.Get<IFileService>().CopyFile(Path.Combine(AppContext.BaseDirectory, SettingsV3Model.SettingsTemplateDatabaseFileName), this.DatabaseFilePath);
+                if (!ServiceManager.Get<IFileService>().FileExists(this.DatabaseFilePath))
+                {
+                    Logger.Log(LogLevel.Error, $"Failed to create settings database from template: {this.DatabaseFilePath}");
+                }
             }
 
             await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "SELECT * FROM Quotes", (Dictionary<string, object> data) =>
@@ -880,6 +907,10 @@ namespace MixItUp.Base.Model.Settings
                             kkCommand.Name = kkCommand.AmountDisplay;
                         }
                         command = kkCommand;
+                    }
+                    else if (type == CommandTypeEnum.VeloraChannelPoints)
+                    {
+                        command = JSONSerializerHelper.DeserializeFromString<VeloraChannelPointsCommandModel>(commandData);
                     }
 
                     if (command != null)
@@ -1030,9 +1061,17 @@ namespace MixItUp.Base.Model.Settings
             {
                 this.PulsoidOAuthToken = ServiceManager.Get<PulsoidService>().GetOAuthTokenCopy();
             }
+            if (ServiceManager.Get<PallyService>().IsConnected)
+            {
+                this.PallyOAuthToken = ServiceManager.Get<PallyService>().GetOAuthTokenCopy();
+            }
             if (ServiceManager.Get<ITTSMonsterService>().IsConnected)
             {
                 this.TTSMonsterOAuthToken = ServiceManager.Get<ITTSMonsterService>().GetOAuthTokenCopy();
+            }
+            if (ServiceManager.Get<ITTSMonsterAPIService>().IsConnected)
+            {
+                this.TTSMonsterAPIOAuthToken = ServiceManager.Get<ITTSMonsterAPIService>().GetOAuthTokenCopy();
             }
         }
 
@@ -1076,8 +1115,8 @@ namespace MixItUp.Base.Model.Settings
 
             IEnumerable<UserV2Model> changedUsers = this.Users.GetAddedChangedValues();
             await ServiceManager.Get<IDatabaseService>().BulkWrite(this.DatabaseFilePath,
-                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername) " +
-                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername)",
+                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername, VeloraID, VeloraUsername) " +
+                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername, $VeloraID, $VeloraUsername)",
                 changedUsers.Select(u => new Dictionary<string, object>()
                 {
                     { "$ID", u.ID.ToString() },
@@ -1088,7 +1127,8 @@ namespace MixItUp.Base.Model.Settings
                     { "$TrovoID", u.GetPlatformID(StreamingPlatformTypeEnum.Trovo) }, { "$TrovoUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Trovo) },
 #pragma warning restore CS0612 // Type or member is obsolete                    
                     { "$Data", JSONSerializerHelper.SerializeToString(u) },
-                    { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) }
+                    { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) },
+                    { "$VeloraID", u.GetPlatformID(StreamingPlatformTypeEnum.Velora) }, { "$VeloraUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Velora) }
                 }));
 
             List<Guid> removedCommands = new List<Guid>();
@@ -1282,6 +1322,35 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        public async Task AddMissingUsersTableVeloraColumns()
+        {
+            bool hasVeloraID = false;
+            bool hasVeloraUsername = false;
+
+            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (row) =>
+            {
+                string columnName = row["name"]?.ToString();
+                if (string.Equals(columnName, "VeloraID", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasVeloraID = true;
+                }
+                else if (string.Equals(columnName, "VeloraUsername", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasVeloraUsername = true;
+                }
+            });
+
+            if (!hasVeloraID)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN VeloraID TEXT");
+            }
+
+            if (!hasVeloraUsername)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN VeloraUsername TEXT");
+            }
+        }
+
         public async Task<IEnumerable<StatisticModel>> LoadSpecificStatisticType(StatisticItemTypeEnum type)
         {
             List<StatisticModel> statistics = new List<StatisticModel>();
@@ -1377,6 +1446,7 @@ namespace MixItUp.Base.Model.Settings
         {
             await this.CreateUserImportTable();
             await this.AddMissingUsersTableKickColumns();
+            await this.AddMissingUsersTableVeloraColumns();
             //await this.CreateStatisticsTable();
 
             StreamingPlatforms.ForEachPlatform(p =>

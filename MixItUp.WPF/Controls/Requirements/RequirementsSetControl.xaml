@@ -15,25 +15,26 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
              
              Style="{StaticResource MaterialDesignGroupBox}"
+             MaterialDesign:GroupBoxAssist.HeaderPadding="9,2"
              Width="250"
              d:DesignHeight="300" d:DesignWidth="300">
     <GroupBox.Resources>
 
-        <MaterialDesign:PackIcon Kind="AccountKey" x:Key="RolePopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.UserRole}" />
+        <Controls:MaterialSymbolIcon IconName="key" FontSize="24" x:Key="RolePopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.UserRole}" />
 
-        <MaterialDesign:PackIcon Kind="Timer" x:Key="CooldownPopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.Cooldown}" />
+        <Controls:MaterialSymbolIcon IconName="timer" FontSize="24" x:Key="CooldownPopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.Cooldown}" />
 
-        <MaterialDesign:PackIcon Kind="Cash100" x:Key="CurrencyPopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.Currency}" />
+        <Controls:MaterialSymbolIcon IconName="payments" FontSize="24" x:Key="CurrencyPopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.Currency}" />
 
-        <MaterialDesign:PackIcon Kind="ShieldStar" x:Key="RankPopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.Rank}" />
+        <Controls:MaterialSymbolIcon IconName="local_police" FontSize="24" x:Key="RankPopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.Rank}" />
 
-        <MaterialDesign:PackIcon Kind="TreasureChest" x:Key="InventoryPopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.Inventory}" />
+        <Controls:MaterialSymbolIcon IconName="inventory_2" FontSize="24" x:Key="InventoryPopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.Inventory}" />
 
-        <MaterialDesign:PackIcon Kind="FormTextbox" x:Key="ArgumentsPopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.Arguments}" />
+        <Controls:MaterialSymbolIcon IconName="terminal" FontSize="24" x:Key="ArgumentsPopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.Arguments}" />
 
-        <MaterialDesign:PackIcon Kind="AccountMultiple" x:Key="ThresholdPopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.UserThreshold}" />
+        <Controls:MaterialSymbolIcon IconName="group" FontSize="24" x:Key="ThresholdPopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.UserThreshold}" />
 
-        <MaterialDesign:PackIcon Kind="Settings" x:Key="SettingsPopupBoxIcon" Style="{StaticResource DarkLightBackgroundPackIcon}" x:Shared="False" Width="24" Height="24" ToolTip="{x:Static resx:Resources.Settings}" />
+        <Controls:MaterialSymbolIcon IconName="settings" FontSize="24" x:Key="SettingsPopupBoxIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.Settings}" />
 
     </GroupBox.Resources>
 
@@ -47,7 +48,7 @@
 
             <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.UsageRequirements}" VerticalAlignment="Center" />
 
-            <Controls:IconButton Grid.Column="2" Command="{Binding HelpCommand}" Icon="Help" Margin="-10" />
+            <Controls:IconButton Grid.Column="2" Command="{Binding HelpCommand}" Icon="help" Style="{StaticResource GroupBoxHeaderIconButton}" />
         </Grid>
     </GroupBox.Header>
 

@@ -8,6 +8,7 @@ using MixItUp.Base.Services.External;
 using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
@@ -94,6 +95,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new TwitchSession());
             ServiceManager.Add(new YouTubeSession());
             ServiceManager.Add(new KickSession());
+            ServiceManager.Add(new VeloraSession());
             ServiceManager.Add(new MockSession());
 
             ServiceManager.Add(new CommandService());
@@ -118,6 +120,9 @@ namespace MixItUp.Base
             ServiceManager.Add(new BetterTTVService());
             ServiceManager.Add(new FrankerFaceZService());
             ServiceManager.Add(new StreamlootsService());
+            ServiceManager.Add(new ThroneService());
+            ServiceManager.Add(new FourthwallService());
+            ServiceManager.Add(new KoFiService());
             ServiceManager.Add(new JustGivingService());
             ServiceManager.Add(new TiltifyService());
             ServiceManager.Add(new DonorDriveService());
@@ -131,6 +136,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new TITSService());
             ServiceManager.Add(new LumiaStreamService());
             ServiceManager.Add(new PulsoidService());
+            ServiceManager.Add(new PallyService());
             ServiceManager.Add(new ResponsiveVoiceService());
             ServiceManager.Add(new VTSPogService());
             ServiceManager.Add(new MtionStudioService());
@@ -146,6 +152,9 @@ namespace MixItUp.Base
 
                 Type ttsMonsterServiceType = Type.GetType("MixItUp.Base.Services.External.TTSMonsterService");
                 if (ttsMonsterServiceType != null) { ServiceManager.Add((ITTSMonsterService)Activator.CreateInstance(ttsMonsterServiceType)); }
+
+                Type ttsMonsterAPIServiceType = Type.GetType("MixItUp.Base.Services.External.TTSMonsterAPIService");
+                if (ttsMonsterAPIServiceType != null) { ServiceManager.Add((ITTSMonsterAPIService)Activator.CreateInstance(ttsMonsterAPIServiceType)); }
             }
             catch (Exception ex) { Logger.Log(ex); }
 
@@ -364,6 +373,7 @@ namespace MixItUp.Base
                 if (ChannelSession.Settings.TITSOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<TITSService>()] = ChannelSession.Settings.TITSOAuthToken; }
                 if (ChannelSession.Settings.LumiaStreamOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<LumiaStreamService>()] = ChannelSession.Settings.LumiaStreamOAuthToken; }
                 if (ChannelSession.Settings.PulsoidOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<PulsoidService>()] = ChannelSession.Settings.PulsoidOAuthToken; }
+                if (ChannelSession.Settings.PallyOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<PallyService>()] = ChannelSession.Settings.PallyOAuthToken; }
                 if (ChannelSession.Settings.EnableVoicemodStudio) { externalServiceToConnect[ServiceManager.Get<IVoicemodService>()] = null; }
                 if (ChannelSession.Settings.EnableCrowdControl) { externalServiceToConnect[ServiceManager.Get<CrowdControlService>()] = null; }
                 if (ChannelSession.Settings.EnableSAMMI) { externalServiceToConnect[ServiceManager.Get<SAMMIService>()] = null; }
@@ -372,6 +382,7 @@ namespace MixItUp.Base
                 if (ServiceManager.Get<XSplitService>().IsEnabled) { externalServiceToConnect[ServiceManager.Get<XSplitService>()] = null; }
                 if (ChannelSession.Settings.PolyPopPortNumber > 0) { externalServiceToConnect[ServiceManager.Get<PolyPopService>()] = null; }
                 if (ChannelSession.Settings.TTSMonsterOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<ITTSMonsterService>()] = ChannelSession.Settings.TTSMonsterOAuthToken; }
+                if (ChannelSession.Settings.TTSMonsterAPIOAuthToken != null) { externalServiceToConnect[ServiceManager.Get<ITTSMonsterAPIService>()] = ChannelSession.Settings.TTSMonsterAPIOAuthToken; }
                 if (ChannelSession.Settings.VTSPogEnabled) { externalServiceToConnect[ServiceManager.Get<VTSPogService>()] = null; }
                 if (ChannelSession.Settings.EnableOverlay) { externalServiceToConnect[ServiceManager.Get<OverlayV3Service>()] = null; }
                 if (ChannelSession.Settings.MtionStudioEnabled) { externalServiceToConnect[ServiceManager.Get<MtionStudioService>()] = null; }
@@ -417,12 +428,32 @@ namespace MixItUp.Base
                     {
                         try
                         {
-                            if (kvp.Value.Result != null && !kvp.Value.Result.Success && kvp.Key is IOAuthExternalService)
+                            if (kvp.Value.Result != null && !kvp.Value.Result.Success && kvp.Key is IOAuthExternalService oauthService)
                             {
-                                Logger.Log(LogLevel.Debug, "Automatic OAuth token connection failed, trying manual connection: " + kvp.Key.GetType().ToString());
-                                Result result = await kvp.Key.Connect();
-                                if (!result.Success)
+                                if (oauthService.LastConnectionAuthRejected)
                                 {
+                                    // The stored credentials were definitively rejected by the service (e.g. the account was
+                                    // deleted or access was revoked). Ask the user whether to log in again or log out, rather
+                                    // than silently launching an interactive browser login they did not request.
+                                    Logger.Log(LogLevel.Debug, "Automatic OAuth token connection was rejected as invalid, prompting user to reconnect or log out: " + kvp.Key.GetType().ToString());
+                                    if (await DialogHelper.ShowConfirmation(string.Format(MixItUp.Base.Resources.ServiceConnectionInvalidPrompt, kvp.Key.Name)))
+                                    {
+                                        Result result = await kvp.Key.Connect();
+                                        if (!result.Success)
+                                        {
+                                            failedServices.Add(kvp.Key);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        await oauthService.LogOut();
+                                    }
+                                }
+                                else
+                                {
+                                    // The connection failed without a definitive rejection (transient or network failure).
+                                    // Leave the stored credentials in place so the service can retry on a future launch.
+                                    Logger.Log(LogLevel.Debug, "Automatic OAuth token connection failed without a definitive rejection; leaving stored credentials for a future retry: " + kvp.Key.GetType().ToString());
                                     failedServices.Add(kvp.Key);
                                 }
                             }

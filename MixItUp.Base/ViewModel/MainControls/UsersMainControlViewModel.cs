@@ -24,6 +24,7 @@ namespace MixItUp.Base.ViewModel.MainControls
         Consumables,
         CustomSettings,
         LastSeen,
+        HasTitle,
     }
 
     public class ConsumableSearchFilterViewModel : UIViewModelBase
@@ -116,6 +117,7 @@ namespace MixItUp.Base.ViewModel.MainControls
                 this.NotifyPropertyChanged("IsConsumablesSearchFilterType");
                 this.NotifyPropertyChanged("IsCustomSettingsSearchFilterType");
                 this.NotifyPropertyChanged("IsLastSeenSearchFilterType");
+                this.NotifyPropertyChanged("IsHasTitleSearchFilterType");
             }
         }
         private UserSearchFilterTypeEnum selectedSearchFilterType = UserSearchFilterTypeEnum.None;
@@ -253,6 +255,8 @@ namespace MixItUp.Base.ViewModel.MainControls
             }
         }
         private int lastSeenAmountSearchFilter = 0;
+
+        public bool IsHasTitleSearchFilterType { get { return this.SelectedSearchFilterType == UserSearchFilterTypeEnum.HasTitle; } }
 
         public ThreadSafeObservableCollection<UserV2ViewModel> Users { get; private set; } = new ThreadSafeObservableCollection<UserV2ViewModel>();
 
@@ -475,6 +479,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                                     data = data.Where(u => u.LastActivity.Date == lastSeenDate);
 
                                 }
+                            }
+                            else if (this.IsHasTitleSearchFilterType)
+                            {
+                                data = data.Where(u => !string.IsNullOrEmpty(u.CustomTitle));
                             }
                         }
 

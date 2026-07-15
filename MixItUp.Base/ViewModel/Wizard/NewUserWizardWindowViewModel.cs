@@ -55,6 +55,8 @@ namespace MixItUp.Base.ViewModel.Wizard
 
         public StreamingPlatformAccountControlViewModel Kick { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.Kick);
 
+        public StreamingPlatformAccountControlViewModel Velora { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.Velora);
+
         #endregion Accounts Page
 
         #region Command & Actions Page
@@ -151,10 +153,10 @@ namespace MixItUp.Base.ViewModel.Wizard
 
         public NewUserWizardWindowViewModel()
         {
-            this.DiscordCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord"); });
+            this.DiscordCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://mixitup.bot/discord"); });
             this.TwitterCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://x.com/MixItUpBot"); });
             this.YouTubeCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://www.youtube.com/c/MixItUpApp"); });
-            this.WikiCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/"); });
+            this.WikiCommand = this.CreateCommand(() => { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/"); });
 
             this.Twitch.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
             this.Twitch.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
@@ -162,6 +164,8 @@ namespace MixItUp.Base.ViewModel.Wizard
             this.YouTube.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
             this.Kick.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
             this.Kick.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
+            this.Velora.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
+            this.Velora.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
 
             this.SetBackupLocationCommand = this.CreateCommand(() =>
             {
@@ -191,7 +195,7 @@ namespace MixItUp.Base.ViewModel.Wizard
                 }
                 else if (this.StreamerAccountsPageVisible)
                 {
-                    if (!this.Twitch.IsStreamerAccountConnected && !this.YouTube.IsStreamerAccountConnected && !this.Kick.IsStreamerAccountConnected)
+                    if (!this.Twitch.IsStreamerAccountConnected && !this.YouTube.IsStreamerAccountConnected && !this.Kick.IsStreamerAccountConnected && !this.Velora.IsStreamerAccountConnected)
                     {
                         this.StatusMessage = MixItUp.Base.Resources.NewUserWizardAtLeastOneAccountMustBeSignedIn;
                         return;

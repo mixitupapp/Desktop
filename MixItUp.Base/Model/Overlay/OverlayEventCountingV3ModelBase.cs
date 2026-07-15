@@ -1,5 +1,6 @@
 ﻿using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
+using MixItUp.Base.Model.Velora;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch.New;
@@ -41,6 +42,11 @@ namespace MixItUp.Base.Model.Overlay
         public double KickKicksAmount { get; set; }
 
         [DataMember]
+        public Dictionary<int, double> VeloraSubscriptionsAmount { get; set; } = new Dictionary<int, double>();
+        [DataMember]
+        public double VeloraCheeredAmount { get; set; }
+
+        [DataMember]
         public double DonationAmount { get; set; }
 
         public OverlayEventCountingV3ModelBase(OverlayItemV3Type type) : base(type) { }
@@ -63,7 +69,7 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnRaidOccurred += EventService_OnRaidOccurred;
             }
 
-            if (this.TwitchSubscriptionsAmount.Any(d => d.Value > 0) || this.YouTubeMembershipsAmount.Any(d => d.Value > 0) || this.KickSubscriptionsAmount.Any(d => d.Value > 0))
+            if (this.TwitchSubscriptionsAmount.Any(d => d.Value > 0) || this.YouTubeMembershipsAmount.Any(d => d.Value > 0) || this.KickSubscriptionsAmount.Any(d => d.Value > 0) || this.VeloraSubscriptionsAmount.Any(d => d.Value > 0))
             {
                 EventService.OnSubscribeOccurred += EventService_OnSubscribeOccurred;
                 EventService.OnResubscribeOccurred += EventService_OnSubscribeOccurred;
@@ -89,6 +95,11 @@ namespace MixItUp.Base.Model.Overlay
             if (this.KickKicksAmount > 0)
             {
                 EventService.OnKickKicksGiftedOccurred += EventService_OnKickKicksGiftedOccurred;
+            }
+
+            if (this.VeloraCheeredAmount > 0)
+            {
+                EventService.OnVeloraChannelCheeredOccurred += EventService_OnVeloraChannelCheeredOccurred;
             }
 
         }
@@ -133,6 +144,9 @@ namespace MixItUp.Base.Model.Overlay
             this.KickSubscriptionsAmount.Clear();
             this.KickKicksAmount = 0;
 
+            this.VeloraSubscriptionsAmount.Clear();
+            this.VeloraCheeredAmount = 0;
+
             this.DonationAmount = 0;
         }
 
@@ -172,6 +186,13 @@ namespace MixItUp.Base.Model.Overlay
                     await this.ProcessEvent(subscription.User, amount);
                 }
             }
+            else if (subscription.Platform == StreamingPlatformTypeEnum.Velora)
+            {
+                if (this.VeloraSubscriptionsAmount.TryGetValue(subscription.Tier, out double amount))
+                {
+                    await this.ProcessEvent(subscription.User, amount);
+                }
+            }
         }
 
         private async void EventService_OnMassSubscriptionsGiftedOccurred(object sender, IEnumerable<SubscriptionDetailsModel> subscriptions)
@@ -199,6 +220,13 @@ namespace MixItUp.Base.Model.Overlay
                     else if (subscription.Platform == StreamingPlatformTypeEnum.Kick)
                     {
                         if (this.KickSubscriptionsAmount.TryGetValue(subscription.Tier, out double amount))
+                        {
+                            total += amount;
+                        }
+                    }
+                    else if (subscription.Platform == StreamingPlatformTypeEnum.Velora)
+                    {
+                        if (this.VeloraSubscriptionsAmount.TryGetValue(subscription.Tier, out double amount))
                         {
                             total += amount;
                         }
@@ -233,6 +261,12 @@ namespace MixItUp.Base.Model.Overlay
             await this.ProcessEvent(kicksGifted.User, this.KickKicksAmount * kicksGifted.Amount);
         }
 
+        private async void EventService_OnVeloraChannelCheeredOccurred(object sender, VeloraCheeredEventModel cheered)
+        {
+            Logger.Log(LogLevel.Debug, $"Processing Velora Cheered of {cheered.Amount} for {this.ID} Overlay Widget");
+            await this.ProcessEvent(cheered.User, this.VeloraCheeredAmount * cheered.Amount);
+        }
+
         private void RemoveEventHandlers()
         {
             EventService.OnFollowOccurred -= EventService_OnFollowOccurred;
@@ -245,6 +279,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnTwitchBitsCheeredOccurred -= EventService_OnTwitchBitsCheeredOccurred;
             EventService.OnYouTubeSuperChatOccurred -= EventService_OnYouTubeSuperChatOccurred;
             EventService.OnKickKicksGiftedOccurred -= EventService_OnKickKicksGiftedOccurred;
+            EventService.OnVeloraChannelCheeredOccurred -= EventService_OnVeloraChannelCheeredOccurred;
         }
     }
 }

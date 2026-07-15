@@ -31,7 +31,7 @@ namespace MixItUp.Base.Services.Mock.New
             this.StreamerUsername = "Streamer";
 
             this.ChannelID = "0";
-            this.ChannelLink = "https://mixitupapp.com";
+            this.ChannelLink = "https://mixitup.bot";
 
             this.Streamer = UserV2ViewModel.CreateUnassociated(this.StreamerUsername);
 

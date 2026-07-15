@@ -155,6 +155,10 @@ namespace MixItUp.WPF.Services
                         }
                     });
                 }
+                else
+                {
+                    Logger.Log(LogLevel.Error, "Database file does not exist: " + databaseFilePath);
+                }
             }
             catch (Exception ex)
             {

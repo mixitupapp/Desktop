@@ -1,5 +1,6 @@
 using MixItUp.Base.Model;
 using MixItUp.Base.Services;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModels;
 using System;
@@ -34,6 +35,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "#9146FF"; }
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FF0033"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "#00E701"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "#FDCB16"; }
                 return "#3f51b5";
             }
         }
@@ -44,6 +46,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "/Assets/Images/twitch-dark_lg.png"; }
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/youtube-dark_lg.png"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "/Assets/Images/kick-light_lg.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "/Assets/Images/velora-light_lg.png"; }
                 return StreamingPlatforms.GetPlatformImage(this.Platform);
             }
         }
@@ -54,6 +57,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "#FFFFFF"; }
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FFFFFF"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "#000000"; }
+                if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "#000000"; }
                 return "#000000";
             }
         }
@@ -65,6 +69,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return MixItUp.Base.Resources.LogInWithTwitch; }
                 else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return MixItUp.Base.Resources.LogInWithYouTube; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick) { return MixItUp.Base.Resources.LogInWithKick; }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return MixItUp.Base.Resources.LogInWithVelora; }
                 return string.Empty;
             }
         }
@@ -76,6 +81,40 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return MixItUp.Base.Resources.LogOutOfTwitch; }
                 else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return MixItUp.Base.Resources.LogOutOfYouTube; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick) { return MixItUp.Base.Resources.LogOutOfKick; }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return MixItUp.Base.Resources.LogOutOfVelora; }
+                return string.Empty;
+            }
+        }
+
+        // A Velora bot is not a second login: it is created or picked in-app from the bots under the
+        // streamer's account, so its button reads "Set Up Bot" rather than "Log In With Velora".
+        public string BotButtonLoginText
+        {
+            get
+            {
+                if (this.Platform == StreamingPlatformTypeEnum.Velora) { return MixItUp.Base.Resources.VeloraSetUpBot; }
+                return this.ButtonLoginText;
+            }
+        }
+
+        public string BotButtonLogoutText
+        {
+            get
+            {
+                if (this.Platform == StreamingPlatformTypeEnum.Velora) { return MixItUp.Base.Resources.VeloraRemoveBot; }
+                return this.ButtonLogoutText;
+            }
+        }
+
+        // Velora is the one platform whose bot is not a separate login, so its accounts box carries an
+        // explanatory note under the buttons.
+        public bool IsPlatformBotNoteVisible { get { return this.Platform == StreamingPlatformTypeEnum.Velora; } }
+
+        public string PlatformBotNoteText
+        {
+            get
+            {
+                if (this.Platform == StreamingPlatformTypeEnum.Velora) { return MixItUp.Base.Resources.VeloraBotSetupNote; }
                 return string.Empty;
             }
         }
@@ -141,6 +180,10 @@ namespace MixItUp.Base.ViewModel.Accounts
         public ICommand BotAccountCancelCommand { get; set; }
         public bool IsBotAccountLogoutVisible { get { return this.IsBotAccountEnabled || this.IsBotAccountConnected; } }
         public ICommand BotAccountLogOutCommand { get; set; }
+
+        // Velora only: the connected bot can be edited in place (profile image / rename).
+        public bool IsBotAccountEditVisible { get { return this.Platform == StreamingPlatformTypeEnum.Velora && this.IsBotAccountConnected; } }
+        public ICommand BotAccountEditCommand { get; set; }
 
         private StreamingPlatformSessionBase session;
 
@@ -360,6 +403,30 @@ namespace MixItUp.Base.ViewModel.Accounts
 
                 this.NotifyAllProperties();
             });
+
+            this.BotAccountEditCommand = this.CreateCommand(async () =>
+            {
+                try
+                {
+                    if (this.Platform == StreamingPlatformTypeEnum.Velora)
+                    {
+                        Result result = await ServiceManager.Get<VeloraSession>().EditBot();
+                        if (!result.Success && !string.IsNullOrEmpty(result.Message))
+                        {
+                            await DialogHelper.ShowMessage(result.Message);
+                        }
+
+                        this.BotAccountUsername = this.session.BotUsername;
+                        this.BotAccountAvatar = this.session.BotAvatarURL;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+
+                this.NotifyAllProperties();
+            });
         }
 
         private void NotifyAllProperties()
@@ -373,6 +440,7 @@ namespace MixItUp.Base.ViewModel.Accounts
             this.NotifyPropertyChanged(nameof(IsBotAccountLogInVisible));
             this.NotifyPropertyChanged(nameof(IsBotAccountCancelVisible));
             this.NotifyPropertyChanged(nameof(IsBotAccountLogoutVisible));
+            this.NotifyPropertyChanged(nameof(IsBotAccountEditVisible));
         }
     }
 }

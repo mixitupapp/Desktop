@@ -106,7 +106,11 @@ namespace MixItUp.WPF.Controls.Chat
                             {
                                 ChatEmoteViewModelBase emote = (ChatEmoteViewModelBase)messagePart;
                                 Image image = new Image();
-                                ImageHelper.SetImageSource(image, emote.ImageURL, ChannelSession.Settings.ChatFontSize * 2, ChannelSession.Settings.ChatFontSize * 2, emote.Name);
+                                // Kick serves animated GIFs from the same fullsize URL as static emotes with
+                                // no animated flag in the payload, so every emote goes through the sniffing
+                                // animated path; genuinely static bytes fall back to the static pipeline.
+                                string emoteUrl = (emote.IsAnimated && !string.IsNullOrEmpty(emote.AnimatedImageURL)) ? emote.AnimatedImageURL : emote.ImageURL;
+                                ImageHelper.SetAnimatedImageSource(image, emoteUrl, ChannelSession.Settings.ChatFontSize * 2, ChannelSession.Settings.ChatFontSize * 2, emote.Name);
                                 this.MessageWrapPanel.Children.Add(image);
 
                                 if (emote is TwitchBitsCheerViewModel)

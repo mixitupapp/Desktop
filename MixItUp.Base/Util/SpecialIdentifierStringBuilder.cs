@@ -83,6 +83,7 @@ namespace MixItUp.Base.Util
         public const string DonationAmountNumberSpecialIdentifier = "donationamountnumber";
         public const string DonationAmountNumberDigitsSpecialIdentifier = "donationamountnumberdigits";
         public const string DonationAmountSpecialIdentifier = "donationamount";
+        public const string DonationCurrencySpecialIdentifier = "donationcurrency";
         public const string DonationMessageSpecialIdentifier = "donationmessage";
         public const string DonationImageSpecialIdentifier = "donationimage";
 
@@ -233,8 +234,8 @@ namespace MixItUp.Base.Util
 
             foreach (CounterModel counter in ChannelSession.Settings.Counters.Values.OrderByDescending(c => c.Name))
             {
-                this.ReplaceSpecialIdentifier(counter.Name, counter.Amount.ToString());
                 this.ReplaceSpecialIdentifier(counter.Name + "display", counter.Amount.ToNumberDisplayString());
+                this.ReplaceSpecialIdentifier(counter.Name, counter.Amount.ToString());
             }
 
             this.ReplaceSpecialIdentifier("dayoftheweekname", DateTimeOffset.Now.ToString("dddd"));
@@ -798,6 +799,16 @@ namespace MixItUp.Base.Util
                         }
                     }
                 }
+                else if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().IsConnected)
+                {
+                    var veloraSession = ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>();
+                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "subscribercount", veloraSession.SubscriberCount.ToString());
+                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "description", veloraSession.StreamDescription ?? string.Empty);
+                    if (veloraSession.StreamTags != null && veloraSession.StreamTags.Count > 0)
+                    {
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "veloratags", string.Join(", ", veloraSession.StreamTags));
+                    }
+                }
                 this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "chattercount", ServiceManager.Get<UserService>().ActiveUserCount.ToString());
             }
 
@@ -1293,6 +1304,8 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "accountage", user.AccountAgeString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "accountdate", user.AccountDateString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followdays", user.FollowDays.ToString());
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followmonths", user.FollowMonths.ToString());
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followyears", user.FollowYears.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followage", user.FollowAgeString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "followdate", user.FollowDateString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "lastseendays", user.LastActivityDays.ToString());
@@ -1307,7 +1320,7 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isfollower", user.IsFollower.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isregular", user.IsRegular.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "issubscriber", user.IsPlatformSubscriber.ToString());
-                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isvip", (user.HasRole(UserRoleEnum.TwitchVIP) || user.HasRole(UserRoleEnum.KickVIP)).ToString());
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isvip", (user.HasRole(UserRoleEnum.TwitchVIP) || user.HasRole(UserRoleEnum.KickVIP) || user.HasRole(UserRoleEnum.VeloraVIP)).ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "ismod", user.MeetsRole(UserRoleEnum.Moderator).ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "isspecialtyexcluded", user.IsSpecialtyExcluded.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "notes", user.Notes);
@@ -1346,6 +1359,13 @@ namespace MixItUp.Base.Util
                 {
                     KickUserPlatformV2Model pUser = user.GetPlatformData<KickUserPlatformV2Model>(StreamingPlatformTypeEnum.Kick);
                     this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "kickid", pUser?.ID);
+                }
+
+                if (user.HasPlatformData(StreamingPlatformTypeEnum.Velora))
+                {
+                    VeloraUserPlatformV2Model pUser = user.GetPlatformData<VeloraUserPlatformV2Model>(StreamingPlatformTypeEnum.Velora);
+                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "veloraid", pUser?.ID);
+                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "veloracolor", pUser?.Color);
                 }
 
                 string userStreamHeader = identifierHeader + UserSpecialIdentifierHeader + "stream";
@@ -1402,6 +1422,22 @@ namespace MixItUp.Base.Util
                                 this.ReplaceSpecialIdentifier(userStreamHeader + "game", kChannel.Category?.Name);
                                 this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage", kChannel.Category?.Thumbnail);
                                 this.ReplaceSpecialIdentifier(userStreamHeader + "islive", (kChannel.Stream?.IsLive ?? false).ToString());
+                            }
+                        }
+                    }
+                    else if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().IsConnected)
+                    {
+                        VeloraUserPlatformV2Model veloraUser = user.GetPlatformData<VeloraUserPlatformV2Model>(StreamingPlatformTypeEnum.Velora);
+                        if (veloraUser != null && !string.IsNullOrWhiteSpace(veloraUser.Username))
+                        {
+                            MixItUp.Base.Model.Velora.Streams.UserStreamModel vStream = await ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().StreamerService.GetUserStream(veloraUser.Username);
+                            if (vStream != null)
+                            {
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "title", vStream.Title);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", vStream.CategoryName);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "game", vStream.CategoryName);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage", vStream.CategoryImageUrl);
+                                this.ReplaceSpecialIdentifier(userStreamHeader + "islive", vStream.IsLive.ToString());
                             }
                         }
                     }

@@ -27,6 +27,7 @@ namespace MixItUp.WPF
     {
         private bool updateFound = false;
         private OutageModel currentOutage;
+        private string _patreonMemberSocialLink;
 
         private ThreadSafeObservableCollection<SettingsV3Model> streamerSettings = new ThreadSafeObservableCollection<SettingsV3Model>();
         private bool isBackupOnlyMode = false;
@@ -163,6 +164,7 @@ namespace MixItUp.WPF
 
                 SetBoldInlineText(this.PatreonCTAHyperlink, ctaMessages[RandomHelper.GenerateRandomNumber(ctaMessages.Length)]);
                 SetBoldInlineText(this.PatreonShoutOutHyperlink, string.Format(shoutOutMessages[RandomHelper.GenerateRandomNumber(shoutOutMessages.Length)], member.DisplayName));
+                _patreonMemberSocialLink = !string.IsNullOrWhiteSpace(member.SocialMediaLink) ? member.SocialMediaLink : "https://mixitup.bot/patreon";
                 this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
@@ -278,17 +280,17 @@ namespace MixItUp.WPF
                     {
                         case "info":
                             OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1976D2"));
-                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Information;
+                            OutageIcon.IconName = "info";
                             break;
 
                         case "warning":
                             OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F57C00"));
-                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Warning;
+                            OutageIcon.IconName = "warning";
                             break;
 
                         case "critical":
                             OutageBanner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D32F2F"));
-                            OutageIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.AlertCircle;
+                            OutageIcon.IconName = "error";
                             break;
                     }
                 }
@@ -358,6 +360,11 @@ namespace MixItUp.WPF
             e.Handled = true;
         }
 
+        private void PatreonShoutOutHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceManager.Get<IProcessService>().LaunchLink(_patreonMemberSocialLink);
+        }
+
         private void OpenInstallFolder_Click(object sender, RoutedEventArgs e)
         {
             ServiceManager.Get<IProcessService>().LaunchFolder(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
@@ -365,7 +372,7 @@ namespace MixItUp.WPF
 
         private void OpenDiscord_Click(object sender, RoutedEventArgs e)
         {
-            ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord");
+            ServiceManager.Get<IProcessService>().LaunchLink("https://mixitup.bot/discord");
         }
 
         private async void ResetWindowPosition_Click(object sender, RoutedEventArgs e)

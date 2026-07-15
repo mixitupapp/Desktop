@@ -107,13 +107,13 @@
 
                     <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                         <ListBoxItem IsSelected="{Binding Bold}">
-                            <MaterialDesign:PackIcon Kind="FormatBold" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                         <ListBoxItem IsSelected="{Binding Italics}">
-                            <MaterialDesign:PackIcon Kind="FormatItalic" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                         <ListBoxItem IsSelected="{Binding Underline}">
-                            <MaterialDesign:PackIcon Kind="FormatUnderline" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                     </ListBox>
 

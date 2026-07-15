@@ -144,6 +144,7 @@ namespace MixItUp.Base.Services.External
                 Message = this.donor_comment,
 
                 Amount = Math.Round(this.Amount, 2),
+                CurrencyCode = TiltifyService.GetCurrencyFromTiltifyJObject(this.amount),
 
                 DateTime = this.Timestamp,
             };
@@ -188,11 +189,21 @@ namespace MixItUp.Base.Services.External
 
         public static double GetValueFromTiltifyJObject(JObject jobj)
         {
-            if (jobj != null && jobj.ContainsKey("value") && double.TryParse(jobj["value"].ToString(), out double value))
+            // Tiltify Money values are always invariant-formatted strings (e.g. "50.00"), regardless of currency
+            if (jobj != null && jobj.ContainsKey("value") && double.TryParse(jobj["value"].ToString(), NumberStyles.Float, CultureInfo.InvariantCulture, out double value))
             {
                 return value;
             }
             return 0;
+        }
+
+        public static string GetCurrencyFromTiltifyJObject(JObject jobj)
+        {
+            if (jobj != null && jobj.ContainsKey("currency"))
+            {
+                return jobj["currency"].ToString();
+            }
+            return null;
         }
 
         public override async Task<Result> Connect()
@@ -307,6 +318,14 @@ namespace MixItUp.Base.Services.External
             }
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.TiltifyOAuthToken = null;
+            }
+        }
+
         protected override async Task RefreshOAuthToken()
         {
             if (this.token != null)
@@ -415,7 +434,7 @@ namespace MixItUp.Base.Services.External
                                 rewardSpecialIdentifiers["tiltifyrewardid"] = reward.id;
                                 rewardSpecialIdentifiers["tiltifyrewardname"] = reward.name;
                                 rewardSpecialIdentifiers["tiltifyrewarddescription"] = reward.description;
-                                rewardSpecialIdentifiers["tiltifyrewardamount"] = reward.Amount.ToString();
+                                rewardSpecialIdentifiers["tiltifyrewardamount"] = reward.Amount.ToString(CultureInfo.InvariantCulture);
                             }
 
                             await EventService.ProcessDonationEvent(EventTypeEnum.TiltifyDonation, tDonation.ToGenericDonation(), additionalSpecialIdentifiers: rewardSpecialIdentifiers);

@@ -31,6 +31,7 @@ namespace MixItUp.Base.Model.Commands
         KickChannelPoints = 14,
         KickKicks = 15,
         TwitchCustomPowerUp = 16,
+        VeloraChannelPoints = 17,
 
         // Specialty Command Types
         UserOnlyChat = 1000,

@@ -1,4 +1,4 @@
-<Controls:LoadingControlBase x:Class="MixItUp.WPF.Controls.Overlay.OverlayEventListV3Control"
+﻿<Controls:LoadingControlBase x:Class="MixItUp.WPF.Controls.Overlay.OverlayEventListV3Control"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -58,13 +58,13 @@
 
                 <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                     <ListBoxItem IsSelected="{Binding Bold}">
-                        <MaterialDesign:PackIcon Kind="FormatBold" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                        <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                     <ListBoxItem IsSelected="{Binding Italics}">
-                        <MaterialDesign:PackIcon Kind="FormatItalic" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                        <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                     <ListBoxItem IsSelected="{Binding Underline}">
-                        <MaterialDesign:PackIcon Kind="FormatUnderline" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                        <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                 </ListBox>
             </Grid>
@@ -100,13 +100,13 @@
 
                 <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
                     <ListBoxItem IsSelected="{Binding Bold}">
-                        <MaterialDesign:PackIcon Kind="FormatBold" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                        <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                     <ListBoxItem IsSelected="{Binding Italics}">
-                        <MaterialDesign:PackIcon Kind="FormatItalic" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                        <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                     <ListBoxItem IsSelected="{Binding Underline}">
-                        <MaterialDesign:PackIcon Kind="FormatUnderline" Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                        <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                 </ListBox>
             </Grid>
@@ -151,6 +151,8 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="Auto" />
@@ -244,9 +246,29 @@
                 <CheckBox Grid.Row="14" Grid.Column="1" IsChecked="{Binding KickKicks}" VerticalAlignment="Center" Margin="5,0,0,0" />
                 <TextBox Grid.Row="14" Grid.Column="3" Text="{Binding KickKicksDetailsTemplate}" IsEnabled="{Binding KickKicks}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                <TextBlock Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Donations}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="16" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" />
-                <TextBox Grid.Row="16" Grid.Column="3" Text="{Binding DonationsDetailsTemplate}" IsEnabled="{Binding Donations}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBlock Grid.Row="16" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraSubscriptions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="16" Grid.Column="1" IsChecked="{Binding VeloraSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <Grid Grid.Row="16" Grid.Column="3" IsEnabled="{Binding VeloraSubscriptions}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding VeloraSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="1" Text="{Binding VeloraResubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="2" Text="{Binding VeloraGiftedSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="3" Text="{Binding VeloraMassGiftedSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </Grid>
+
+                <TextBlock Grid.Row="18" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Donations}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="18" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox Grid.Row="18" Grid.Column="3" Text="{Binding DonationsDetailsTemplate}" IsEnabled="{Binding Donations}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+                <TextBlock Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraCheered}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="20" Grid.Column="1" IsChecked="{Binding VeloraCheered}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <TextBox Grid.Row="20" Grid.Column="3" Text="{Binding VeloraCheeredDetailsTemplate}" IsEnabled="{Binding VeloraCheered}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
         </GroupBox>
     </Grid>

@@ -66,6 +66,7 @@ namespace MixItUp.Base.Model.Actions
         MtionStudio = 42,
         MeldStudio,
         Kick,
+        Velora,
     }
 
     [DataContract]

@@ -132,7 +132,7 @@ namespace MixItUp.WPF.Util
                     key.SetValue("Publisher", "Blazing Cacti LLC");
                     key.SetValue("DisplayIcon", exe);
                     key.SetValue("DisplayVersion", v.ToString(4));
-                    key.SetValue("URLInfoAbout", "https://mixitupapp.com");
+                    key.SetValue("URLInfoAbout", "https://mixitup.bot");
                     key.SetValue("Contact", "support@mixitupapp.com");
                     key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
                     key.SetValue("UninstallString", uninstallerPath);

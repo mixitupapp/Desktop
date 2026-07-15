@@ -1,16 +1,17 @@
-<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.ChatControl"
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.ChatControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:ChatControls="clr-namespace:MixItUp.WPF.Controls.Chat"
              xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              xmlns:Util="clr-namespace:MixItUp.WPF.Util"
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"  
                           
@@ -113,21 +114,18 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <MaterialDesign:PackIcon Width="10"
-                                                 Height="10"
-                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
-                                                 Kind="ChevronUp">
-                            <MaterialDesign:PackIcon.Style>
-                                <Style TargetType="{x:Type MaterialDesign:PackIcon}">
-                                    <Setter Property="Kind" Value="ChevronUp" />
+                        <Controls:MaterialSymbolIcon FontSize="10" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
+                            <Controls:MaterialSymbolIcon.Style>
+                                <Style TargetType="{x:Type Controls:MaterialSymbolIcon}">
+                                    <Setter Property="IconName" Value="expand_less" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding ShowTopActionButtons}" Value="False">
-                                            <Setter Property="Kind" Value="ChevronDown" />
+                                            <Setter Property="IconName" Value="expand_more" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
-                            </MaterialDesign:PackIcon.Style>
-                        </MaterialDesign:PackIcon>
+                            </Controls:MaterialSymbolIcon.Style>
+                        </Controls:MaterialSymbolIcon>
                     </Button>
                 </Grid>
             </Grid>

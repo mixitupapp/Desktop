@@ -13,7 +13,7 @@
     Title="{x:Static resx:Resources.MixItUpNewUserWizard}"
     Width="800"
     Height="600"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"
@@ -222,6 +222,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="20" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <AccountControls:StreamingPlatformAccountControl Grid.Row="0" DataContext="{Binding Twitch}" />
@@ -229,6 +231,8 @@
                             <AccountControls:StreamingPlatformAccountControl Grid.Row="2" DataContext="{Binding YouTube}" />
 
                             <AccountControls:StreamingPlatformAccountControl Grid.Row="4" DataContext="{Binding Kick}" />
+
+                            <AccountControls:StreamingPlatformAccountControl Grid.Row="6" DataContext="{Binding Velora}" />
                         </Grid>
                     </ScrollViewer>
                 </Grid>

@@ -55,6 +55,16 @@ namespace MixItUp.WPF.Util
             return null;
         }
 
+        public async Task<string> ShowImageFileBrowser(string description, IEnumerable<string> validExtensions, long maxFileSizeBytes, string cancelText = null)
+        {
+            ImageFileBrowserDialogControl dialog = new ImageFileBrowserDialogControl(description, validExtensions, maxFileSizeBytes, cancelText);
+            if (bool.Equals(await this.ShowDialogWrapper(dialog), true) && !string.IsNullOrEmpty(dialog.SelectedFilePath))
+            {
+                return dialog.SelectedFilePath;
+            }
+            return null;
+        }
+
         public async Task<CommandParametersModel> ShowEditTestCommandParametersDialog(CommandParametersModel parameters)
         {
             EditTestCommandParametersDialogControl dialogControl = new EditTestCommandParametersDialogControl(parameters);

@@ -2,7 +2,7 @@
 
 SPDX-License-Identifier: LicenseRef-MixItUp-BSL-1.0.0
 
-License URL: <https://mixitupapp.com/legal/licenses/mixitup-bsl-1.0.0>
+License URL: <https://mixitup.bot/legal/licenses/mixitup-bsl-1.0.0>
 
 Copyright (c) Blazing Cacti LLC
 
@@ -46,7 +46,7 @@ Without a separate written license from Blazing Cacti LLC, you may not:
 
 **3.4 Trademarks and Brand Assets.** You may not use the Marks except for factual, non-prominent attribution. No rights to the Marks are granted by this license, including any rights to characters/mascots (for example, “Mixie”), merchandising, endorsements, or derivative character art.
 
-**3.5 Server-Side Access.** Access or interact with Blazing Cacti’s proprietary server-side services or APIs except via official clients under a valid account and subject to Blazing Cacti’s Terms of Service (the “API Terms”) available at <https://mixitupapp.com/legal/terms> (or successor URL). You may not probe, simulate, scrape, reverse engineer (to the extent permitted by law), or circumvent authentication, routing, or rate limits. We may suspend accounts and block traffic that violates this section. Unauthorized access or circumvention may violate applicable computer misuse, anti-circumvention (including 17 U.S.C. §1201), or similar laws, and we may pursue all available remedies.
+**3.5 Server-Side Access.** Access or interact with Blazing Cacti’s proprietary server-side services or APIs except via official clients under a valid account and subject to Blazing Cacti’s Terms of Service (the “API Terms”) available at <https://mixitup.bot/legal/terms> (or successor URL). You may not probe, simulate, scrape, reverse engineer (to the extent permitted by law), or circumvent authentication, routing, or rate limits. We may suspend accounts and block traffic that violates this section. Unauthorized access or circumvention may violate applicable computer misuse, anti-circumvention (including 17 U.S.C. §1201), or similar laws, and we may pursue all available remedies.
 
 **3.6 Circumvention.** Remove, bypass, or disable technical or licensing controls intended to enforce this Section or other license conditions.
 

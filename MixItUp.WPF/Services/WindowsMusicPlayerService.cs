@@ -1,4 +1,5 @@
-﻿using Id3;
+using ATL;
+using ATL.Playlist;
 using MixItUp.Base;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
@@ -16,7 +17,13 @@ namespace MixItUp.WPF.Services
 {
     public class WindowsMusicPlayerService : IMusicPlayerService
     {
+        public const string M3UPlaylistFileExtension = ".m3u";
+        public const string M3U8PlaylistFileExtension = ".m3u8";
+
+        private const int MaximumHistorySize = 100;
+
         public event EventHandler SongChanged = delegate { };
+        public event EventHandler QueueChanged = delegate { };
 
         public MusicPlayerState State { get; private set; }
 
@@ -40,16 +47,66 @@ namespace MixItUp.WPF.Services
 
         public ThreadSafeObservableCollection<MusicPlayerSong> Songs { get { return this.songs; } }
 
+        public bool Shuffle { get { return ChannelSession.Settings.MusicPlayerShuffle; } }
+
+        public bool Repeat { get { return ChannelSession.Settings.MusicPlayerRepeat; } }
+
+        public TimeSpan CurrentPosition
+        {
+            get
+            {
+                try
+                {
+                    WaveStream waveStream = this.currentWaveStream;
+                    if (waveStream != null && this.State != MusicPlayerState.Stopped)
+                    {
+                        return waveStream.CurrentTime;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+                return TimeSpan.Zero;
+            }
+        }
+
+        public TimeSpan CurrentDuration
+        {
+            get
+            {
+                try
+                {
+                    WaveStream waveStream = this.currentWaveStream;
+                    if (waveStream != null && this.State != MusicPlayerState.Stopped)
+                    {
+                        return waveStream.TotalTime;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+
+                MusicPlayerSong song = this.CurrentSong;
+                return (song != null) ? TimeSpan.FromSeconds(song.Length) : TimeSpan.Zero;
+            }
+        }
+
         private ThreadSafeObservableCollection<MusicPlayerSong> songs = new ThreadSafeObservableCollection<MusicPlayerSong>();
         private int currentSongIndex = 0;
         private bool stopOnSpecificSongCompletion = false;
-        private int stopOnSpecificSongIndex = -1;
+        private MusicPlayerSong stopOnSpecificSong = null;
+
+        private HashSet<MusicPlayerSong> playedSongs = new HashSet<MusicPlayerSong>();
+        private List<MusicPlayerSong> playbackHistory = new List<MusicPlayerSong>();
+        private bool playbackSessionActive = false;
 
         private CancellationTokenSource backgroundPlayThreadTokenSource = new CancellationTokenSource();
         private WaveOutEvent currentWaveOutEvent;
         private WaveStream currentWaveStream;
 
-        private SemaphoreSlim sempahore = new SemaphoreSlim(1); 
+        private SemaphoreSlim sempahore = new SemaphoreSlim(1);
 
         public async Task Play()
         {
@@ -88,7 +145,13 @@ namespace MixItUp.WPF.Services
                         await this.sempahore.WaitAsync();
 
                         this.State = MusicPlayerState.Playing;
-                        this.PlayInternal(this.CurrentSong.FilePath);
+                        this.PlayInternal(this.CurrentSong);
+                        this.playbackSessionActive = true;
+                        if (this.Shuffle && this.CurrentSong != null)
+                        {
+                            this.playedSongs.Add(this.CurrentSong);
+                        }
+                        this.PersistCurrentIndex();
                     }
                     catch (Exception ex)
                     {
@@ -144,6 +207,7 @@ namespace MixItUp.WPF.Services
                     this.currentWaveOutEvent.Stop();
                 }
                 this.currentWaveOutEvent = null;
+                this.currentWaveStream = null;
 
                 if (this.backgroundPlayThreadTokenSource != null)
                 {
@@ -151,7 +215,7 @@ namespace MixItUp.WPF.Services
                 }
                 this.backgroundPlayThreadTokenSource = null;
                 this.stopOnSpecificSongCompletion = false;
-                this.stopOnSpecificSongIndex = -1;
+                this.stopOnSpecificSong = null;
             }
             catch (Exception ex)
             {
@@ -165,16 +229,40 @@ namespace MixItUp.WPF.Services
 
         public async Task Next()
         {
+            MusicPlayerSong previousSong = this.CurrentSong;
+
             await this.Stop();
 
+            bool startPlaying = false;
             try
             {
                 await this.sempahore.WaitAsync();
 
-                this.currentSongIndex++;
-                if (this.currentSongIndex >= this.songs.Count)
+                if (this.songs.Count > 0)
                 {
-                    this.currentSongIndex = 0;
+                    if (previousSong != null)
+                    {
+                        this.AddToPlaybackHistory(previousSong);
+                    }
+
+                    if (this.Shuffle)
+                    {
+                        startPlaying = this.PickNextShuffleSong();
+                    }
+                    else
+                    {
+                        this.currentSongIndex++;
+                        if (this.currentSongIndex >= this.songs.Count)
+                        {
+                            this.currentSongIndex = 0;
+                            startPlaying = this.Repeat;
+                        }
+                        else
+                        {
+                            startPlaying = true;
+                        }
+                    }
+                    this.PersistCurrentIndex();
                 }
             }
             catch (Exception ex)
@@ -186,7 +274,14 @@ namespace MixItUp.WPF.Services
                 this.sempahore.Release();
             }
 
-            await this.Play();
+            if (startPlaying)
+            {
+                await this.Play();
+            }
+            else
+            {
+                DispatcherHelper.Dispatcher.Invoke(() => this.SongChanged.Invoke(this, new EventArgs()));
+            }
         }
 
         public async Task Previous()
@@ -197,10 +292,33 @@ namespace MixItUp.WPF.Services
             {
                 await this.sempahore.WaitAsync();
 
-                this.currentSongIndex--;
-                if (this.currentSongIndex < 0)
+                if (this.songs.Count > 0)
                 {
-                    this.currentSongIndex = Math.Max(this.songs.Count - 1, 0);
+                    if (this.Shuffle)
+                    {
+                        while (this.playbackHistory.Count > 0)
+                        {
+                            MusicPlayerSong song = this.playbackHistory[this.playbackHistory.Count - 1];
+                            this.playbackHistory.RemoveAt(this.playbackHistory.Count - 1);
+
+                            int index = this.songs.IndexOf(song);
+                            if (index >= 0)
+                            {
+                                this.currentSongIndex = index;
+                                this.playedSongs.Remove(song);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        this.currentSongIndex--;
+                        if (this.currentSongIndex < 0)
+                        {
+                            this.currentSongIndex = this.Repeat ? Math.Max(this.songs.Count - 1, 0) : 0;
+                        }
+                    }
+                    this.PersistCurrentIndex();
                 }
             }
             catch (Exception ex)
@@ -241,113 +359,374 @@ namespace MixItUp.WPF.Services
             }
         }
 
+        public async Task SetShuffle(bool enabled)
+        {
+            try
+            {
+                await this.sempahore.WaitAsync();
+
+                ChannelSession.Settings.MusicPlayerShuffle = enabled;
+                this.playedSongs.Clear();
+                this.playbackHistory.Clear();
+                if (enabled && this.CurrentSong != null && this.State != MusicPlayerState.Stopped)
+                {
+                    this.playedSongs.Add(this.CurrentSong);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sempahore.Release();
+            }
+        }
+
+        public Task SetRepeat(bool enabled)
+        {
+            ChannelSession.Settings.MusicPlayerRepeat = enabled;
+            return Task.CompletedTask;
+        }
+
+        public async Task Seek(TimeSpan position)
+        {
+            try
+            {
+                await this.sempahore.WaitAsync();
+
+                WaveStream waveStream = this.currentWaveStream;
+                if (waveStream != null && this.State != MusicPlayerState.Stopped)
+                {
+                    if (position < TimeSpan.Zero)
+                    {
+                        position = TimeSpan.Zero;
+                    }
+                    else if (position > waveStream.TotalTime)
+                    {
+                        position = waveStream.TotalTime;
+                    }
+                    waveStream.CurrentTime = position;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sempahore.Release();
+            }
+        }
+
         public async Task ChangeFolder(string folderPath)
         {
-            ChannelSession.Settings.MusicPlayerFolders.Clear();
-            ChannelSession.Settings.MusicPlayerFolders.Add(folderPath);
+            if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath))
+            {
+                return;
+            }
 
-            await ServiceManager.Get<IMusicPlayerService>().LoadSongs();
+            await this.Stop();
+
+            try
+            {
+                await this.sempahore.WaitAsync();
+
+                this.ClearQueueInternal();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sempahore.Release();
+            }
+
+            await this.AddFolderToQueue(folderPath);
+        }
+
+        public async Task AddFilesToQueue(IEnumerable<string> filePaths)
+        {
+            if (filePaths == null)
+            {
+                return;
+            }
+
+            await Task.Run(async () =>
+            {
+                ISet<string> allowedFileExtensions = ServiceManager.Get<IAudioService>().ApplicableAudioFileExtensions;
+
+                List<MusicPlayerSong> newSongs = new List<MusicPlayerSong>();
+                foreach (string filePath in filePaths)
+                {
+                    if (!string.IsNullOrWhiteSpace(filePath) && File.Exists(filePath) && allowedFileExtensions.Contains(Path.GetExtension(filePath).ToLower()))
+                    {
+                        newSongs.Add(this.CreateSongFromFile(filePath));
+                    }
+                }
+
+                if (newSongs.Count > 0)
+                {
+                    try
+                    {
+                        await this.sempahore.WaitAsync();
+
+                        foreach (MusicPlayerSong song in newSongs)
+                        {
+                            this.songs.Add(song);
+                        }
+                        this.SaveQueueToSettings();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex);
+                    }
+                    finally
+                    {
+                        this.sempahore.Release();
+                    }
+                }
+
+                this.OnQueueChanged();
+            });
+        }
+
+        public async Task AddFolderToQueue(string folderPath)
+        {
+            if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath))
+            {
+                return;
+            }
+
+            ISet<string> allowedFileExtensions = ServiceManager.Get<IAudioService>().ApplicableAudioFileExtensions;
+            WindowsFileService fileService = ServiceManager.Get<IFileService>() as WindowsFileService;
+
+            List<string> files = new List<string>();
+            await this.AddFilesFromDirectory(fileService, allowedFileExtensions, files, folderPath);
+
+            await this.AddFilesToQueue(files);
+        }
+
+        public async Task AddPlaylistToQueue(string playlistFilePath)
+        {
+            if (string.IsNullOrWhiteSpace(playlistFilePath) || !File.Exists(playlistFilePath))
+            {
+                return;
+            }
+
+            List<string> files = new List<string>();
+            try
+            {
+                IPlaylistIO playlist = PlaylistIOFactory.GetInstance().GetPlaylistIO(playlistFilePath);
+                if (playlist != null && playlist.FilePaths != null)
+                {
+                    files.AddRange(playlist.FilePaths);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+
+            await this.AddFilesToQueue(files);
+        }
+
+        public async Task<bool> ExportQueueToPlaylist(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath) || this.songs.Count == 0)
+            {
+                return false;
+            }
+
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    global::ATL.Settings.PlaylistWriteAbsolutePath = true;
+
+                    IPlaylistIO playlist = PlaylistIOFactory.GetInstance().GetPlaylistIO(filePath);
+                    if (playlist != null)
+                    {
+                        IList<Track> tracks = new List<Track>();
+                        foreach (MusicPlayerSong song in this.songs.ToList())
+                        {
+                            try
+                            {
+                                tracks.Add(new Track(song.FilePath));
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Log(ex);
+                            }
+                        }
+                        playlist.Tracks = tracks;
+                        return playlist.Save();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+                return false;
+            });
+        }
+
+        public async Task RemoveFromQueue(MusicPlayerSong song)
+        {
+            if (song == null)
+            {
+                return;
+            }
+
+            bool removingCurrent = (song == this.CurrentSong);
+            bool wasPlaying = (this.State == MusicPlayerState.Playing);
+
+            if (removingCurrent)
+            {
+                await this.Stop();
+            }
+
+            try
+            {
+                await this.sempahore.WaitAsync();
+
+                int index = this.songs.IndexOf(song);
+                if (index >= 0)
+                {
+                    this.songs.Remove(song);
+                    this.playedSongs.Remove(song);
+                    this.playbackHistory.RemoveAll(s => s == song);
+
+                    if (!this.playbackSessionActive && this.State == MusicPlayerState.Stopped)
+                    {
+                        this.currentSongIndex = 0;
+                    }
+                    else
+                    {
+                        if (index < this.currentSongIndex)
+                        {
+                            this.currentSongIndex--;
+                        }
+
+                        if (this.currentSongIndex >= this.songs.Count)
+                        {
+                            this.currentSongIndex = 0;
+                        }
+                    }
+
+                    this.SaveQueueToSettings();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sempahore.Release();
+            }
+
+            if (removingCurrent && wasPlaying && this.songs.Count > 0)
+            {
+                await this.Play();
+            }
+
+            this.OnQueueChanged();
+        }
+
+        public async Task MoveInQueue(int oldIndex, int newIndex)
+        {
+            try
+            {
+                await this.sempahore.WaitAsync();
+
+                if (oldIndex >= 0 && oldIndex < this.songs.Count && newIndex >= 0 && newIndex < this.songs.Count && oldIndex != newIndex)
+                {
+                    this.songs.Move(oldIndex, newIndex);
+
+                    if (!this.playbackSessionActive && this.State == MusicPlayerState.Stopped)
+                    {
+                        this.currentSongIndex = 0;
+                    }
+                    else if (oldIndex == this.currentSongIndex)
+                    {
+                        this.currentSongIndex = newIndex;
+                    }
+                    else if (oldIndex < this.currentSongIndex && newIndex >= this.currentSongIndex)
+                    {
+                        this.currentSongIndex--;
+                    }
+                    else if (oldIndex > this.currentSongIndex && newIndex <= this.currentSongIndex)
+                    {
+                        this.currentSongIndex++;
+                    }
+
+                    this.SaveQueueToSettings();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sempahore.Release();
+            }
+
+            this.OnQueueChanged();
+        }
+
+        public async Task ClearQueue()
+        {
+            await this.Stop();
+
+            try
+            {
+                await this.sempahore.WaitAsync();
+
+                this.ClearQueueInternal();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sempahore.Release();
+            }
+
+            this.OnQueueChanged();
         }
 
         public async Task LoadSongs()
         {
             await Task.Run(async () =>
             {
-                ISet<string> allowedFileExtensions = ServiceManager.Get<IAudioService>().ApplicableAudioFileExtensions;
-                WindowsFileService fileService = ServiceManager.Get<IFileService>() as WindowsFileService;
-                List<string> files = new List<string>();
-                foreach (string folder in ChannelSession.Settings.MusicPlayerFolders)
+                if (ChannelSession.Settings.MusicPlayerQueue.Count == 0 && ChannelSession.Settings.MusicPlayerFolders.Count > 0)
                 {
-                    await this.AddFilesFromDirectory(fileService, allowedFileExtensions, files, folder);
+                    ISet<string> allowedFileExtensions = ServiceManager.Get<IAudioService>().ApplicableAudioFileExtensions;
+                    WindowsFileService fileService = ServiceManager.Get<IFileService>() as WindowsFileService;
+
+                    List<string> files = new List<string>();
+                    foreach (string folder in ChannelSession.Settings.MusicPlayerFolders)
+                    {
+                        if (Directory.Exists(folder))
+                        {
+                            await this.AddFilesFromDirectory(fileService, allowedFileExtensions, files, folder);
+                        }
+                    }
+                    ChannelSession.Settings.MusicPlayerQueue.AddRange(files);
+                    ChannelSession.Settings.MusicPlayerFolders.Clear();
                 }
 
                 List<MusicPlayerSong> tempSongs = new List<MusicPlayerSong>();
-                foreach (string file in files)
+                foreach (string file in ChannelSession.Settings.MusicPlayerQueue.ToList())
                 {
-                    MusicPlayerSong song = null;
-                    int songLength = 0;
-
-                    try
+                    if (!string.IsNullOrWhiteSpace(file) && File.Exists(file))
                     {
-                        using (var audioFile = new AudioFileReader(file))
-                        {
-                            songLength = (int)audioFile.TotalTime.TotalSeconds;
-                        }
+                        tempSongs.Add(this.CreateSongFromFile(file));
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex);
-                    }
-
-                    try
-                    {
-                        using (var mp3 = new Mp3(file))
-                        {
-                            var v2Tags = mp3.GetTag(Id3TagFamily.Version2X);
-                            if (v2Tags != null)
-                            {
-                                song = new MusicPlayerSong()
-                                {
-                                    FilePath = file,
-                                    Title = v2Tags.Title.Value,
-                                    Length = songLength
-                                };
-
-                                if (v2Tags.Artists.IsAssigned && v2Tags.Artists.Value.Count > 0)
-                                {
-                                    song.Artist = string.Join(", ", v2Tags.Artists.Value);
-                                }
-                                else if (v2Tags.Band.IsAssigned)
-                                {
-                                    song.Artist = v2Tags.Band.Value;
-                                }
-                                else if (v2Tags.Composers.IsAssigned && v2Tags.Composers.Value.Count > 0)
-                                {
-                                    song.Artist = string.Join(", ", v2Tags.Artists.Value);
-                                }
-                            }
-                            else
-                            {
-                                var v1Tags = mp3.GetTag(Id3TagFamily.Version1X);
-                                if (v1Tags != null)
-                                {
-                                    song = new MusicPlayerSong()
-                                    {
-                                        FilePath = file,
-                                        Title = v1Tags.Title.Value,
-                                        Length = songLength
-                                    };
-
-                                    if (v1Tags.Artists.IsAssigned && v1Tags.Artists.Value.Count > 0)
-                                    {
-                                        song.Artist = string.Join(", ", v1Tags.Artists.Value);
-                                    }
-                                    else if (v1Tags.Band.IsAssigned)
-                                    {
-                                        song.Artist = v1Tags.Band.Value;
-                                    }
-                                    else if (v1Tags.Composers.IsAssigned && v1Tags.Composers.Value.Count > 0)
-                                    {
-                                        song.Artist = string.Join(", ", v1Tags.Artists.Value);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log(ex);
-                    }
-
-                    if (song == null)
-                    {
-                        song = new MusicPlayerSong() { FilePath = file, Title = Path.GetFileNameWithoutExtension(file), Length = songLength };
-                    }
-                    else if (string.IsNullOrWhiteSpace(song.Title))
-                    {
-                        song.Title = Path.GetFileNameWithoutExtension(file);
-                    }
-                    tempSongs.Add(song);
                 }
 
                 try
@@ -355,10 +734,17 @@ namespace MixItUp.WPF.Services
                     await this.sempahore.WaitAsync();
 
                     this.songs.Clear();
-                    foreach (MusicPlayerSong song in tempSongs.Shuffle())
+                    this.playedSongs.Clear();
+                    this.playbackHistory.Clear();
+                    foreach (MusicPlayerSong song in tempSongs)
                     {
                         this.songs.Add(song);
                     }
+
+                    this.currentSongIndex = MathHelper.Clamp(ChannelSession.Settings.MusicPlayerQueueCurrentIndex, 0, Math.Max(this.songs.Count - 1, 0));
+                    this.playbackSessionActive = (this.currentSongIndex > 0);
+
+                    this.SaveQueueToSettings();
                 }
                 catch (Exception ex)
                 {
@@ -368,7 +754,33 @@ namespace MixItUp.WPF.Services
                 {
                     this.sempahore.Release();
                 }
+
+                this.OnQueueChanged();
             });
+        }
+
+        public async Task PlaySong(MusicPlayerSong song)
+        {
+            if (song == null)
+            {
+                return;
+            }
+
+            MusicPlayerSong previousSong = this.CurrentSong;
+
+            await this.Stop();
+
+            int index = this.songs.IndexOf(song);
+            if (index >= 0)
+            {
+                if (previousSong != null && previousSong != song)
+                {
+                    this.AddToPlaybackHistory(previousSong);
+                }
+
+                this.currentSongIndex = index;
+                await this.Play();
+            }
         }
 
         public async Task<MusicPlayerSong> SearchAndPlaySong(string searchText, bool stopOnCompletion)
@@ -383,18 +795,32 @@ namespace MixItUp.WPF.Services
 
             if (song != null)
             {
+                MusicPlayerSong previousSong = this.CurrentSong;
+
                 await this.Stop();
+
+                if (previousSong != null)
+                {
+                    this.AddToPlaybackHistory(previousSong);
+                }
+
                 this.currentSongIndex = this.songs.IndexOf(song);
                 this.stopOnSpecificSongCompletion = stopOnCompletion;
-                this.stopOnSpecificSongIndex = this.currentSongIndex;
+                this.stopOnSpecificSong = song;
                 await this.Play();
             }
 
             return song;
         }
 
-        private void PlayInternal(string filePath)
+        private void PlayInternal(MusicPlayerSong song)
         {
+            if (song == null)
+            {
+                this.State = MusicPlayerState.Stopped;
+                return;
+            }
+
             if (this.backgroundPlayThreadTokenSource != null)
             {
                 this.backgroundPlayThreadTokenSource.Cancel();
@@ -402,13 +828,20 @@ namespace MixItUp.WPF.Services
             this.backgroundPlayThreadTokenSource = new CancellationTokenSource();
 
             WindowsAudioService audioService = ServiceManager.Get<IAudioService>() as WindowsAudioService;
-            Tuple<WaveOutEvent, WaveStream> output = audioService.PlayWithOutput(filePath, this.Volume, ChannelSession.Settings.MusicPlayerAudioOutput);
-            this.currentWaveOutEvent = output.Item1;
-            this.currentWaveStream = output.Item2;
-            Task backgroundPlayThreadTask = Task.Run(async () => await this.PlayBackground(this.currentWaveOutEvent, this.currentSongIndex), this.backgroundPlayThreadTokenSource.Token);
+            Tuple<WaveOutEvent, WaveStream> output = audioService.PlayWithOutput(song.FilePath, this.Volume, ChannelSession.Settings.MusicPlayerAudioOutput);
+            if (output != null)
+            {
+                this.currentWaveOutEvent = output.Item1;
+                this.currentWaveStream = output.Item2;
+                Task backgroundPlayThreadTask = Task.Run(async () => await this.PlayBackground(this.currentWaveOutEvent, song), this.backgroundPlayThreadTokenSource.Token);
+            }
+            else
+            {
+                this.State = MusicPlayerState.Stopped;
+            }
         }
 
-        private async Task PlayBackground(WaveOutEvent waveOutEvent, int songIndex)
+        private async Task PlayBackground(WaveOutEvent waveOutEvent, MusicPlayerSong song)
         {
             using (waveOutEvent)
             {
@@ -418,9 +851,9 @@ namespace MixItUp.WPF.Services
                 }
                 waveOutEvent.Dispose();
 
-                if (this.currentSongIndex == songIndex && this.State == MusicPlayerState.Playing)
+                if (this.CurrentSong == song && this.State == MusicPlayerState.Playing)
                 {
-                    if (this.stopOnSpecificSongCompletion && songIndex == this.stopOnSpecificSongIndex)
+                    if (this.stopOnSpecificSongCompletion && song == this.stopOnSpecificSong)
                     {
                         await this.Stop();
                     }
@@ -430,6 +863,106 @@ namespace MixItUp.WPF.Services
                     }
                 }
             }
+        }
+
+        private bool PickNextShuffleSong()
+        {
+            MusicPlayerSong current = this.CurrentSong;
+            if (current != null)
+            {
+                this.playedSongs.Add(current);
+            }
+
+            List<MusicPlayerSong> candidates = this.songs.Where(s => !this.playedSongs.Contains(s)).ToList();
+            if (candidates.Count == 0)
+            {
+                if (!this.Repeat)
+                {
+                    this.currentSongIndex = 0;
+                    return false;
+                }
+
+                this.playedSongs.Clear();
+                candidates = this.songs.Where(s => s != current).ToList();
+                if (candidates.Count == 0)
+                {
+                    candidates = this.songs.ToList();
+                }
+            }
+
+            if (candidates.Count == 0)
+            {
+                return false;
+            }
+
+            MusicPlayerSong next = candidates[RandomHelper.GenerateRandomNumber(candidates.Count)];
+            this.currentSongIndex = this.songs.IndexOf(next);
+            return true;
+        }
+
+        private MusicPlayerSong CreateSongFromFile(string filePath)
+        {
+            MusicPlayerSong song = new MusicPlayerSong()
+            {
+                FilePath = filePath,
+                Title = Path.GetFileNameWithoutExtension(filePath)
+            };
+
+            try
+            {
+                Track track = new Track(filePath);
+                if (!string.IsNullOrWhiteSpace(track.Title))
+                {
+                    song.Title = track.Title;
+                }
+                if (!string.IsNullOrWhiteSpace(track.Artist))
+                {
+                    song.Artist = track.Artist;
+                }
+                song.Length = track.Duration;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+
+            return song;
+        }
+
+        private void ClearQueueInternal()
+        {
+            this.songs.Clear();
+            this.playedSongs.Clear();
+            this.playbackHistory.Clear();
+            this.currentSongIndex = 0;
+            this.playbackSessionActive = false;
+            this.SaveQueueToSettings();
+        }
+
+        private void AddToPlaybackHistory(MusicPlayerSong song)
+        {
+            this.playbackHistory.Add(song);
+            if (this.playbackHistory.Count > MaximumHistorySize)
+            {
+                this.playbackHistory.RemoveAt(0);
+            }
+        }
+
+        private void SaveQueueToSettings()
+        {
+            ChannelSession.Settings.MusicPlayerQueue.Clear();
+            ChannelSession.Settings.MusicPlayerQueue.AddRange(this.songs.Select(s => s.FilePath));
+            this.PersistCurrentIndex();
+        }
+
+        private void PersistCurrentIndex()
+        {
+            ChannelSession.Settings.MusicPlayerQueueCurrentIndex = this.currentSongIndex;
+        }
+
+        private void OnQueueChanged()
+        {
+            DispatcherHelper.Dispatcher.Invoke(() => this.QueueChanged.Invoke(this, new EventArgs()));
         }
 
         private async Task AddFilesFromDirectory(WindowsFileService fileService, ISet<string> allowedFileExtensions, List<string> files, string path)

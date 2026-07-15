@@ -69,6 +69,7 @@ namespace MixItUp.WPF.Controls.MainControls
                         {
                             "twitch" => "/Assets/Images/twitch-color_sm.png",
                             "kick" => "/Assets/Images/kick-color_sm.png",
+                            "velora" => "/Assets/Images/velora-color_sm.png",
                             "youtube" => "/Assets/Images/youtube-color_sm.png",
                             _ => null,
                         };
@@ -133,13 +134,13 @@ namespace MixItUp.WPF.Controls.MainControls
 
         private void TwitterButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://x.com/MixItUpBot"); }
 
-        private void DiscordButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://mixitupapp.com/discord"); }
+        private void DiscordButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://mixitup.bot/discord"); }
 
         private void YouTubeButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://www.youtube.com/c/MixItUpApp"); }
 
         private void Patreon_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://www.patreon.com/mixitupbot"); }
 
-        private void WikiButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitupapp.com/"); }
+        private void WikiButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://wiki.mixitup.bot/"); }
 
         private void GithubButton_Click(object sender, RoutedEventArgs e) { ServiceManager.Get<IProcessService>().LaunchLink("https://github.com/mixitupbot/Desktop"); }
 

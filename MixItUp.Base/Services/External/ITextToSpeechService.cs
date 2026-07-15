@@ -9,6 +9,7 @@ namespace MixItUp.Base.Services.External
     {
         WindowsTextToSpeech,
         ResponsiveVoice,
+        [Name("TTSMonsterOverlayURLMethod")]
         TTSMonster,
         AmazonPolly,
         MicrosoftAzureSpeech,
@@ -19,6 +20,7 @@ namespace MixItUp.Base.Services.External
         Uberduck,
         [Obsolete]
         ElevenLabs,
+        TTSMonsterAPI,
     }
 
     public class TextToSpeechVoice

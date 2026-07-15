@@ -374,6 +374,7 @@ namespace MixItUp.Base.ViewModel.User
         public void AddUserOnlyChatCommand(UserOnlyChatCommandModel command)
         {
             this.User.CustomCommandIDs.Add(command.ID);
+            ChannelSession.Settings.Users.ManualValueChanged(this.User.ID);
             this.RefreshUserOnlyChatCommands();
         }
 
@@ -381,6 +382,7 @@ namespace MixItUp.Base.ViewModel.User
         {
             this.User.CustomCommandIDs.Remove(command.ID);
             ChannelSession.Settings.RemoveCommand(command.ID);
+            ChannelSession.Settings.Users.ManualValueChanged(this.User.ID);
             this.RefreshUserOnlyChatCommands();
         }
 

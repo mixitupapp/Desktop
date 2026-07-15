@@ -189,6 +189,7 @@ namespace MixItUp.Base.ViewModel.User
                     channelName = !string.IsNullOrWhiteSpace(channelName) ? channelName : this.Username;
                     return $"https://kick.com/{channelName}";
                 }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return $"https://velora.tv/{this.Username}"; }
                 return string.Empty;
             }
         }
@@ -204,10 +205,11 @@ namespace MixItUp.Base.ViewModel.User
                 if (this.Platform == StreamingPlatformTypeEnum.Twitch) { return "twitch-color_sm.png"; }
                 else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "youtube-color_sm.png"; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "kick-color_sm.png"; }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "velora-color_sm.png"; }
                 return null;
             }
         }
-        public string PlatformBadgeFullLink { get { return $"https://files.mixitupapp.com/static/logos/{this.PlatformBadgeLink}"; } }
+        public string PlatformBadgeFullLink { get { return $"https://files.mixitup.bot/static/logos/{this.PlatformBadgeLink}"; } }
         public bool ShowPlatformBadge { get { return true; } }
 
         public DateTimeOffset? AccountDate { get { return this.PlatformModel.AccountDate; } set { this.PlatformModel.AccountDate = value; } }
@@ -220,6 +222,7 @@ namespace MixItUp.Base.ViewModel.User
         public string FollowAgeString { get { return (this.FollowDate != null) ? this.FollowDate.GetValueOrDefault().GetAge() : MixItUp.Base.Resources.NotFollowing; } }
         public int FollowDays { get { return (this.FollowDate != null) ? this.FollowDate.GetValueOrDefault().TotalDaysFromNow() : 0; } }
         public int FollowMonths { get { return (this.FollowDate != null) ? this.FollowDate.GetValueOrDefault().TotalMonthsFromNow() : 0; } }
+        public int FollowYears { get { return (this.FollowDate != null) ? this.FollowDate.GetValueOrDefault().TotalYearsFromNow() : 0; } }
 
         public DateTimeOffset? SubscribeDate { get { return this.PlatformModel.SubscribeDate; } set { this.PlatformModel.SubscribeDate = value; } }
         public string SubscribeDateString { get { return (this.SubscribeDate != null) ? this.SubscribeDate.GetValueOrDefault().ToFriendlyDateString() : MixItUp.Base.Resources.NotSubscribed; } }
@@ -256,6 +259,7 @@ namespace MixItUp.Base.ViewModel.User
             set
             {
                 this.Model.OnlineViewingMinutes = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
                 this.NotifyPropertyChanged("OnlineViewingMinutes");
                 this.NotifyPropertyChanged("OnlineViewingMinutesOnly");
                 this.NotifyPropertyChanged("OnlineViewingHoursOnly");
@@ -392,7 +396,11 @@ namespace MixItUp.Base.ViewModel.User
         public CommandModelBase EntranceCommand
         {
             get { return ChannelSession.Settings.GetCommand(this.Model.EntranceCommandID); }
-            set { this.Model.EntranceCommandID = (value != null) ? value.ID : Guid.Empty; }
+            set
+            {
+                this.Model.EntranceCommandID = (value != null) ? value.ID : Guid.Empty;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public string Title
@@ -417,13 +425,21 @@ namespace MixItUp.Base.ViewModel.User
         public string CustomTitle
         {
             get { return this.Model.CustomTitle; }
-            set { this.Model.CustomTitle = value; }
+            set
+            {
+                this.Model.CustomTitle = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public Guid EntranceCommandID
         {
             get { return this.Model.EntranceCommandID; }
-            set { this.Model.EntranceCommandID = value; }
+            set
+            {
+                this.Model.EntranceCommandID = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public List<Guid> CustomCommandIDs { get { return this.Model.CustomCommandIDs; } }
@@ -431,7 +447,11 @@ namespace MixItUp.Base.ViewModel.User
         public string Notes
         {
             get { return this.Model.Notes; }
-            set { this.Model.Notes = value; }
+            set
+            {
+                this.Model.Notes = value;
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
+            }
         }
 
         public DateTimeOffset LastActivity { get { return this.Model.LastActivity; } }
@@ -488,6 +508,7 @@ namespace MixItUp.Base.ViewModel.User
                 {
                     this.model.PatreonUserID = null;
                 }
+                ChannelSession.Settings.Users.ManualValueChanged(this.ID);
             }
         }
         private PatreonCampaignMember patreonUser;
@@ -762,6 +783,10 @@ namespace MixItUp.Base.ViewModel.User
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick)
                 {
                     this.Color = ((KickUserPlatformV2Model)this.PlatformModel).Color;
+                }
+                else if (this.Platform == StreamingPlatformTypeEnum.Velora)
+                {
+                    this.Color = ((VeloraUserPlatformV2Model)this.PlatformModel).Color;
                 }
             }
 

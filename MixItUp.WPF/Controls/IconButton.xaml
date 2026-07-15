@@ -11,6 +11,9 @@
              Style="{StaticResource MaterialDesignRaisedButton}"
              HorizontalContentAlignment="Center"
              VerticalContentAlignment="Center"
-             Width="40">
-    <MaterialDesign:PackIcon x:Name="ButtonIcon" Style="{StaticResource ButtonIcon}" Kind="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" />
+             Width="40"
+             Padding="0">
+    <!--  Zero button padding gives the 24px icon a real slot inside the 40x32 button; negative margins
+          would overflow the content area and get layout-clipped at fractional DPI scaling  -->
+    <local:MaterialSymbolIcon x:Name="ButtonIcon" IconName="delete" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 </Button>

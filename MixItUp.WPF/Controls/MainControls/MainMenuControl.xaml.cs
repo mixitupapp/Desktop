@@ -3,6 +3,7 @@ using MixItUp.Base;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using MixItUp.WPF.Branding;
 using MixItUp.WPF.Util;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace MixItUp.WPF.Controls.MainControls
         public string Name { get; private set; }
         public MainControlBase Control { get; private set; }
         public string HelpLink { get; private set; }
+        public Brand Brand { get; private set; }
+        public Feature Feature { get; private set; }
 
         public bool Visible
         {
@@ -39,17 +42,35 @@ namespace MixItUp.WPF.Controls.MainControls
 
         public Visibility HelpLinkVisibility { get { return (!string.IsNullOrEmpty(this.HelpLink)) ? Visibility.Visible : Visibility.Collapsed; } }
 
-        public MainMenuItem(string id, string name, MainControlBase control, string helpLink = null, bool canHide = true)
+        public bool ShowBrandImage { get { return this.Brand != null; } }
+
+        public bool ShowIcon { get { return !this.ShowBrandImage; } }
+
+        public string IconName { get { return this.Feature?.IconName; } }
+
+        public MainMenuItem(string id, string name, MainControlBase control, string helpLink = null, bool canHide = true, Brand brand = null, Feature feature = null)
         {
             this.Id = id;
             this.Name = name;
             this.Control = control;
             this.HelpLink = helpLink;
             this.CanHide = canHide;
+            this.Brand = brand;
+            this.Feature = feature;
 
             if (!canHide)
             {
                 this.visible = true;
+            }
+
+            if (this.Brand != null)
+            {
+                IThemeService themeService = ServiceManager.Get<IThemeService>();
+                if (themeService != null)
+                {
+                    // Brand marks are theme-specific; re-resolve the bound image when the theme changes
+                    themeService.ThemeChanged += (sender, e) => this.NotifyPropertyChanged(nameof(this.Brand));
+                }
             }
         }
     }
@@ -79,13 +100,13 @@ namespace MixItUp.WPF.Controls.MainControls
             ServiceManager.OnServiceReconnect += ServiceManager_OnServiceReconnect;
         }
 
-        public async Task<MainMenuItem> AddMenuItem(string name, MainControlBase control, string helpLink = null, bool canHide = true)
+        public async Task<MainMenuItem> AddMenuItem(string name, MainControlBase control, string helpLink = null, bool canHide = true, Brand brand = null, Feature feature = null)
         {
             // Use the control type name as the ID (e.g., "ChatControl", "ChannelControl")
             string id = control.GetType().Name;
 
             await control.Initialize(this.Window);
-            MainMenuItem item = new MainMenuItem(id, name, control, helpLink, canHide);
+            MainMenuItem item = new MainMenuItem(id, name, control, helpLink, canHide, brand, feature);
 
             this.menuItemLookup[id] = item;
             this.orderedMenuItems.Add(item);

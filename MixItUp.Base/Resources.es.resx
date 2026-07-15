@@ -6100,6 +6100,9 @@ activado. Puede considerarlo similar a alternar la opción "Desbloquear comando"
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>Debe especificar un número menor o igual que el nivel máximo.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Bucle</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Bucle:</value>
   </data>
@@ -7559,6 +7562,12 @@ No realizar una de las siguientes acciones podría afectar la forma en que los u
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Reanudar todos los comandos</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pausar todos los comandos de entrada de usuario</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Reanudar todos los comandos de entrada de usuario</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Plataformas</value>
   </data>
@@ -8144,10 +8153,10 @@ Las cotizaciones importadas con ID que coincidan con las cotizaciones existentes
     <value>Juegos disponibles:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Este canal utiliza la aplicación Mix It Up para mejorar su transmisión. ¡Visite http://mixitupapp.com para obtener más información!</value>
+    <value>Este canal utiliza la aplicación Mix It Up para mejorar su transmisión. ¡Visite http://mixitup.bot para obtener más información!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Todos los comandos de chat prediseñados de Mix It Up se pueden encontrar aquí: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Para comandos específicos de esta transmisión, pregúntale a tu transmisor/moderador.</value>
+    <value>Todos los comandos de chat prediseñados de Mix It Up se pueden encontrar aquí: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Para comandos específicos de esta transmisión, pregúntale a tu transmisor/moderador.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Las cotizaciones deben estar habilitadas y se debe agregar al menos una cotización para que esta función funcione.</value>
@@ -8532,7 +8541,7 @@ NOTA: Esto puede requerir que usted opte por la compilación de Vista previa des
     <value>No se pudo conectar a los servidores de chat de YouTube</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>No se pudieron obtener los datos del bot de YouTube. Para las cuentas de bots de YouTube, asegúrese de haber creado un canal en YouTube para la cuenta en la que está iniciando sesión. Consulte la siguiente página Wiki para obtener más información: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>No se pudieron obtener los datos del bot de YouTube. Para las cuentas de bots de YouTube, asegúrese de haber creado un canal en YouTube para la cuenta en la que está iniciando sesión. Consulte la siguiente página Wiki para obtener más información: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>No se pudieron obtener los datos del usuario de YouTube</value>
@@ -8548,6 +8557,12 @@ NOTA: Esto puede requerir que usted opte por la compilación de Vista previa des
   </data>
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Agrega cantidad al usuario especificado</value>
+  </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Su inicio de sesión guardado para {0} ya no es válido y fue rechazado por el servicio.
+
+Seleccione Sí para volver a iniciar sesión o No para cerrar sesión y eliminar el inicio de sesión guardado.</value>
+    <comment>{0} is the name of the service</comment>
   </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>No se pudieron conectar los siguientes servicios:
@@ -8838,7 +8853,7 @@ a través de Twitch, es una situación en la que "su kilometraje puede variar".<
     <value>Comando Mezclar|*.miucommand|Todos los archivos (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Archivos de sonido|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Todos los archivos (*.*)|*.*</value>
+    <value>Archivos de sonido|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Todos los archivos (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Archivos de texto|*.txt|Todos los archivos (*.*)|*.*</value>
@@ -9341,6 +9356,9 @@ imprimir(ejecutar())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Bits de contracción</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Power-Ups de Twitch</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Monto final</value>
   </data>
@@ -9782,8 +9800,29 @@ imprimir(ejecutar())</value>
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>URL superpuesta de TTS.Monster</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (método de URL superpuesta)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>Token de API de TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Introduzca un Token de API de TTS.Monster válido.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>No se pudieron obtener voces disponibles. Asegúrese de haber copiado correctamente su Token de API de TTS.Monster</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>La conectividad de la API de TTS.Monster le permite activar audio de texto a voz en comandos utilizando voces proporcionadas por el servicio TTS.Monster, incluidas las voces personalizadas que haya clonado. Para conectarse a TTS.Monster, inicie sesión en su consola de TTS.Monster, haga clic en el icono de su perfil en la esquina inferior izquierda de la página, abra la sección API Token, copie su Token de API en el cuadro de texto y haga clic en Iniciar sesión.</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>¡Habilite TTS.Monster en la página de Servicios!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>¡Habilite TTS.Monster (API) en la página de Servicios!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Conteo de charlas</value>
@@ -10487,6 +10526,9 @@ Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   </data>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Por gesto mostrado</value>
+  </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Animación de gestos</value>
   </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Efecto de gesto</value>
@@ -11450,6 +11492,12 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} fue Avisado</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} solicitó un desbaneo</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>La solicitud de desbaneo de {0} fue {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Envió un Shoutout con {1} Visitantes</value>
   </data>
@@ -11494,6 +11542,15 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Objetivo canal de Twitch Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Progreso del objetivo del canal de Twitch</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Solicitud de desbaneo del canal de Twitch creada</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Solicitud de desbaneo del canal de Twitch resuelta</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Gol iniciado en {1} de {2}</value>
@@ -11569,5 +11626,378 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Canal de Twitch Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Paquete Streamloots: Regalo de la comunidad</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>¡{0} regala {1} paquete(s) comunitario(s)!</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>La cuenta tiene seis meses</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>La cuenta tiene un año</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>cuentas con más de seis meses de antigüedad</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>cuentas con más de un año de antigüedad</value>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Contribución de Throne</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Regalo de Throne financiado colectivamente</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Regalo de Throne comprado</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne es una plataforma de regalos y listas de deseos para creadores. Al conectarla con Mix It Up se genera una URL de webhook única que permite a Throne enviar alertas de regalos y contribuciones directamente a la aplicación.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Después de conectar, copia la URL de tu webhook y pégala en la configuración de integración de webhooks de tu panel de creador de Throne. Los eventos de Throne se pueden personalizar luego en la página de Eventos.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>URL del webhook de Throne</value>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Donación de Fourthwall</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Compra de regalo de Fourthwall</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall es una plataforma de merchandising y tiendas para creadores. Al conectarla con Mix It Up se genera una URL de webhook única que permite a Fourthwall enviar alertas de pedidos, donaciones y regalos directamente a la aplicación.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Después de conectar, copia la URL de tu webhook y pégala en el panel de administración de tu tienda de Fourthwall en Configuración &gt; Para desarrolladores &gt; Webhooks. Los eventos de Fourthwall se pueden personalizar luego en la página de Eventos.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Pedido de Fourthwall realizado</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>URL del webhook de Fourthwall</value>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Comisión de Ko-fi</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Membresía de Ko-fi (primera vez)</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Ko-fi permite a tus seguidores enviarte propinas, membresías y pedidos de la tienda. Al conectarlo con Mix It Up se genera una URL de webhook única que permite a Ko-fi enviar alertas de pagos directamente a la aplicación.</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Después de conectar, copia la URL de tu webhook y pégala en el campo Webhook URL de tu página de Webhooks de Ko-fi. Desde esa página puedes enviar pagos de prueba; Ko-fi reintenta las entregas hasta que tengan éxito.</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Membresía de Ko-fi (recurrente)</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Pedido de la tienda de Ko-fi</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Propina de Ko-fi</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>URL del webhook de Ko-fi</value>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>Clave de API</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Página de claves de API de Pally.gg</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Donación de Pally.gg</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>No se pudo conectar al feed de eventos de Pally.gg. Comprueba que tu clave de API sea válida.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg es una plataforma de propinas en equipo que permite a los espectadores apoyar a todos en el stream a la vez. Al conectarla con Mix It Up, las alertas de propinas llegan directamente a la aplicación en tiempo real.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Para conectar, crea una clave de API en tu panel de Pally.gg en Configuración > Claves de API y pégala aquí.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Se debe especificar una clave de API de Pally.gg válida.</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Iniciar sesión con Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Salir de Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora Channel Stream Start</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Channel Stream Stop</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Canal Velora actualizado</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Canal Seguido</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Canal Velora Suscrito</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora Canal Resuscrito</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Abono Velora Channel Regalado</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Suscripción masiva Gifted</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Canal Velora asaltado</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Puntos Velora Channel canjeados</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Canal Velora aplaudido</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Puntos de canal Velora</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Comando de puntos de canal Velora</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Mostrar puntos de canal de Velora</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Mostrar Velora aplaudido</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora aplaudido</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} canjeó {1}</value>
+    <comment>{0} es el nombre del usuario, {1} es el nombre de la recompensa</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} aplaudió {1} Volts</value>
+    <comment>{0} es el nombre del usuario, {1} es la cantidad de Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Suscripciones Velora</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Uso de comando no válido. Se esperaba: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>El comando /{0} no es compatible con la plataforma seleccionada</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} no está en el chat y existe en más de una plataforma conectada. Selecciona una plataforma específica para aplicar la acción.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>La acción {0} de Velora falló. Consulta el registro para más detalles.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Añadir archivo a la cola</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Añadir carpeta a la cola</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Añadir lista de reproducción a la cola</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>¿Estás seguro de que quieres vaciar la cola de música?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Exportar cola como lista de reproducción M3U</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Lista de reproducción M3U|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Archivos de lista de reproducción|*.m3u;*.m3u8|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Usa los botones de abajo para añadir archivos, carpetas o listas de reproducción a la cola</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Quitar de la cola</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Reproduciendo ahora</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Salida y comandos</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Cola</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Repetir</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Repetir desactivado</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Repetir activado</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Alternar repetición</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Aleatorio</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Aleatorio desactivado</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Aleatorio activado</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Alternar aleatorio</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Anunciar</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Corta</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shoutout</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Quitar tiempo de espera al usuario</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Otorgar puntos de canal</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Restar puntos de canal</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>Configurar bot</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>Quitar bot</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>Conecta tu cuenta de streamer de Velora antes de configurar el bot.</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Selecciona el bot de Velora con el que Mix It Up chateará</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>Crear un bot nuevo...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>Introduce un nombre para tu nuevo bot de Velora</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Los nombres de bot de Velora deben tener entre 3 y 20 caracteres y solo pueden contener letras, números y guiones bajos.</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>El nombre de bot '{0}' no está disponible en Velora.</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Se canceló la configuración del bot de Velora.</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>El bot de Velora ya no está conectado a Mix It Up. Configúralo de nuevo desde la página Cuentas.</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up no pudo conectar el bot de Velora. Inténtalo de nuevo.</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Error al conectar el bot de Velora: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Error al crear el bot de Velora: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora gestiona los bots de forma diferente a otras plataformas: no hay una cuenta de bot separada con la que iniciar sesión. Configurar bot crea o selecciona un bot que pertenece a tu cuenta de streamer de Velora.</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>Editar bot</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>Elige una imagen de perfil para tu bot. Velora recomienda una imagen cuadrada de 512x512 píxeles o más - JPEG, PNG, GIF o WebP de menos de 5 MB.</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>Error al subir la imagen de perfil del bot: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>¿Qué quieres editar?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>Cambiar imagen de perfil...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>Renombrar bot...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora solo permite renombrar un bot una vez cada 90 días, y el nombre de este bot se cambió hace muy poco.</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Error al renombrar el bot de Velora: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>Ningún archivo seleccionado</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>Este tipo de archivo no es compatible. Tipos compatibles: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>Este archivo supera el límite de {0} MB.</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>Error al leer el archivo: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Tiene título</value>
+    <comment>User search filter type on the Users page</comment>
   </data>
 </root>

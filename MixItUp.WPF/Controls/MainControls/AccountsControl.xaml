@@ -1,4 +1,4 @@
-<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.AccountsControl"
+﻿<local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.AccountsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,7 +10,7 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-             FontFamily="{MaterialDesign:MaterialDesignFont}"
+             FontFamily="{StaticResource NotoSans}"
              TextElement.FontSize="14"
              TextElement.FontWeight="Medium"
 
@@ -31,6 +31,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" TextWrapping="Wrap" FontWeight="Bold" TextDecorations="Underline" HorizontalAlignment="Center" Text="{x:Static resx:Resources.AccountsChangesRequireRestart}"/>
@@ -42,6 +44,8 @@
             <AccountControls:StreamingPlatformAccountControl Grid.Row="6" DataContext="{Binding YouTube}" />
 
             <AccountControls:StreamingPlatformAccountControl Grid.Row="8" DataContext="{Binding Kick}" />
+
+            <AccountControls:StreamingPlatformAccountControl Grid.Row="10" DataContext="{Binding Velora}" />
 
         </Grid>
     </ScrollViewer>

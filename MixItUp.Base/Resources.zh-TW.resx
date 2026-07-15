@@ -6099,6 +6099,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>您必須指定小於或等於最大的數字。</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>循環</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>環形：</value>
   </data>
@@ -7558,6 +7561,12 @@
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>取消暫停所有命令</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>暫停所有用戶入口命令</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>取消暫停所有用戶入口命令</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>平台</value>
   </data>
@@ -8143,10 +8152,10 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>可用遊戲：</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>該頻道使用 Mix It Up 應用程式來改進他們的直播。查看 http://mixitupapp.com 以了解更多資訊！</value>
+    <value>該頻道使用 Mix It Up 應用程式來改進他們的直播。查看 http://mixitup.bot 以了解更多資訊！</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>所有預製的 Mix It Up 聊天命令都可以在這裡找到：https://wiki.mixitupapp.com/commands/pre-made-chat-c​​ommanmands。有關此直播的特定命令，請詢問您的主播/主持人。</value>
+    <value>所有預製的 Mix It Up 聊天命令都可以在這裡找到：https://wiki.mixitup.bot/commands/pre-made-chat-c​​ommanmands。有關此直播的特定命令，請詢問您的主播/主持人。</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>必須啟用報價並且必須添加至少一個報價才能使此功能發揮作用。</value>
@@ -8531,7 +8540,7 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>無法連接到 YouTube 聊天伺服器</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>無法取得 YouTube 機器人資料。對於 YouTube 機器人帳戶，請確保您已在 YouTube 上為您要登入的帳戶建立頻道。有關更多信息，請參閱以下 Wiki 頁面：https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>無法取得 YouTube 機器人資料。對於 YouTube 機器人帳戶，請確保您已在 YouTube 上為您要登入的帳戶建立頻道。有關更多信息，請參閱以下 Wiki 頁面：https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>無法取得 YouTube 用戶數據</value>
@@ -8547,6 +8556,12 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
   </data>
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>向指定用戶新增金額</value>
+  </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>您為 {0} 儲存的登入資訊已失效，並遭服務拒絕。
+
+選擇「是的」可重新登入，或選擇「不」可登出並移除已儲存的登入資訊。</value>
+    <comment>{0} is the name of the service</comment>
   </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>無法連線以下服務：
@@ -8837,7 +8852,7 @@ ID 與現有報價相符的匯入報價將變更為下一個最大數量。匯�
     <value>混合命令|*.miucommand|所有檔案 (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>聲音檔案|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|所有檔案 (*.*)|*.*</value>
+    <value>聲音檔案|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|所有檔案 (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>文字檔案|*.txt|所有檔案 (*.*)|*.*</value>
@@ -9340,6 +9355,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TwitchBits" xml:space="preserve">
     <value>抽搐位</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch 強化道具</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>期末金額</value>
   </data>
@@ -9780,8 +9798,29 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster 疊加 URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster（Overlay URL 方式）</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster（API）</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster API 權杖</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>請輸入有效的 TTS.Monster API 權杖。</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>無法取得可用的語音。請確保您正確複製了 TTS.Monster API 權杖</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>TTS.Monster API 連線可讓您使用 TTS.Monster 服務提供的語音（包括您建立的任何自訂語音）在指令中觸發文字轉語音音訊。若要連線至 TTS.Monster，請登入您的 TTS.Monster 主控台，按一下頁面左下角的個人資料圖示，開啟 API Token 區段，將您的 API 權杖複製到文字方塊中，然後按一下登入。</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>請在服務頁面啟用TTS.Monster！</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>請在服務頁面啟用TTS.Monster（API）！</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>喋喋不休計數</value>
@@ -10485,6 +10524,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>每個顯示的表情</value>
+  </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>表情動畫</value>
   </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>表情效果</value>
@@ -11448,6 +11490,12 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0}收到警告</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} 請求解除封鎖</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>{0} 的解除封鎖請求已{1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} 与 {1} 一起呐喊观众</value>
   </data>
@@ -11455,7 +11503,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>可疑用户 {0} 发送了一条信息</value>
   </data>
   <data name="AlertTwitchSuspiciousUserUpdated" xml:space="preserve">
-    <value>{0}可疑状态 设置为 {1｝</value>
+    <value>{0} 可疑狀態設定為 {1}</value>
   </data>
   <data name="ShowTwitchUserWarned" xml:space="preserve">
     <value>显示 Twitch 用户警告</value>
@@ -11492,6 +11540,15 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch 频道目标</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch 頻道目標進度</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch 頻道解除封鎖請求已建立</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch 頻道解除封鎖請求已處理</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0}目标从{2}的{1}开始</value>
@@ -11567,5 +11624,409 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch 频道 Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots 礼包 社区馈赠</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} 正在赠送 {1} 个社区礼包！</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>该账户已开通6个月</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>该账户已开通一年</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>超过6个月的账户</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>超过1年的账户</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>用 Velora 登录</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>退出 Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora 頻道直播開始</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora 頻道直播結束</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora 頻道已更新</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora 頻道已追蹤</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora 頻道已訂閱</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora 頻道已重新訂閱</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel 订阅赠品</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Mass Subscription Gifted</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Velora 頻道突襲</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora 頻道點數已兌換</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora 頻道歡呼</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora 頻道點數</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora 頻道點數命令</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>顯示 Velora 頻道點數</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>顯示 Velora 歡呼</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora 歡呼</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} 已兌換 {1}</value>
+    <comment>{0} 是使用者名稱，{1} 是獎勵名稱</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} 歡呼了 {1} Volts</value>
+    <comment>{0} 是使用者名稱，{1} 是 Volts 的數量</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora訂閱</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>指令用法無效。預期格式：{0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>所選平台不支援 /{0} 指令</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} 不在聊天室中，且存在於多個已連線的平台。請選擇特定平台以指定該使用者。</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>Velora 的 {0} 動作失敗。詳情請查看記錄檔。</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne 貢獻</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne 禮物已群眾募資完成</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne 禮物已購買</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne 是為創作者打造的送禮與願望清單平台。將它連接到 Mix It Up 會產生一個專屬的 webhook URL，讓 Throne 直接將禮物與貢獻通知傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>連接後，複製您的 webhook URL，並貼到 Throne 創作者後台的 Webhook 整合設定中。接著即可在「事件」頁面自訂 Throne 事件。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne Webhook URL</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall 贊助</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall 禮物購買</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall 是為創作者打造的周邊商品與商店平台。將它連接到 Mix It Up 會產生一個專屬的 webhook URL，讓 Fourthwall 直接將訂單、贊助與禮物通知傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>連接後，複製您的 webhook URL，並貼到 Fourthwall 商店管理後台的 Settings &gt; For developers &gt; Webhooks 中。接著即可在「事件」頁面自訂 Fourthwall 事件。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall 訂單成立</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall Webhook URL</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi 委託</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi 會員（首次）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Ko-fi 讓支持者能夠給您小費、訂閱會員及購買商店商品。將它連接到 Mix It Up 會產生一個專屬的 webhook URL，讓 Ko-fi 直接將付款通知傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>連接後，複製您的 webhook URL，並貼到 Ko-fi Webhooks 頁面的 Webhook URL 欄位。您可以從該頁面傳送測試付款來試用；Ko-fi 會持續重試傳送，直到成功為止。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fi 會員（定期）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fi 商店訂單</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi 小費</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fi Webhook URL</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API 金鑰</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg API 金鑰頁面</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg 贊助</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>無法連接到 Pally.gg 事件來源。請確認您的 API 金鑰是否有效。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg 是一個團隊小費平台，讓觀眾一次支持直播中的所有成員。將它連接到 Mix It Up 可即時將小費通知直接傳送到應用程式。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>若要連接，請在 Pally.gg 主控台的 Settings &gt; API Keys 中建立 API 金鑰，然後貼到這裡。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>必須指定有效的 Pally.gg API 金鑰。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>將檔案加入佇列</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>將資料夾加入佇列</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>將播放清單加入佇列</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>您確定要清除音樂佇列嗎？</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>將佇列匯出為 M3U 播放清單</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>M3U 播放清單|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>播放清單檔案|*.m3u;*.m3u8|所有檔案 (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>使用下方的按鈕將檔案、資料夾或播放清單加入佇列</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>從佇列移除</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>正在播放</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>輸出與指令</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>佇列</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>重複播放</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>重複播放關閉</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>重複播放開啟</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>切換重複播放</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>隨機播放</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>隨機播放關閉</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>隨機播放開啟</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>切換隨機播放</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>公告</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>短暫</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>喊話</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>解除使用者逾時</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>給予頻道點數</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>扣除頻道點數</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>設定機器人</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>移除機器人</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>請先連結您的 Velora 實況主帳戶，再設定機器人。</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>選擇 Mix It Up 用來聊天的 Velora 機器人</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>建立新機器人...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>輸入新 Velora 機器人的名稱</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Velora 機器人名稱必須為 3-20 個字元，且只能包含字母、數字和底線。</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>機器人名稱「{0}」在 Velora 上無法使用。</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>已取消 Velora 機器人設定。</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>Velora 機器人已不再連結到 Mix It Up。請在帳戶頁面重新設定。</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up 無法連結 Velora 機器人。請再試一次。</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>連結 Velora 機器人失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>建立 Velora 機器人失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora 處理機器人的方式與其他平台不同：不需要登入獨立的機器人帳戶。「設定機器人」會建立或選擇隸屬於您 Velora 實況主帳戶的機器人。</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>編輯機器人</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>為您的機器人選擇個人資料圖片。Velora 建議使用 512x512 像素以上的正方形圖片 - JPEG、PNG、GIF 或 WebP，且小於 5 MB。</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>上傳機器人個人資料圖片失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>您想編輯什麼？</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>變更個人資料圖片...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>重新命名機器人...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora 每 90 天僅允許重新命名機器人一次，而這個機器人的名稱最近才變更過。</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>重新命名 Velora 機器人失敗：{0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>未選擇檔案</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>不支援此檔案類型。支援的類型：{0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>此檔案超過 {0} MB 的限制。</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>讀取檔案失敗：{0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>有標題</value>
+    <comment>User search filter type on the Users page</comment>
   </data>
 </root>

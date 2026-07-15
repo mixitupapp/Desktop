@@ -16,7 +16,7 @@
     Height="600"
     AllowDrop="True"
     Drop="CommandEditorWindow_Drop"
-    FontFamily="{MaterialDesign:MaterialDesignFont}"
+    FontFamily="{StaticResource NotoSans}"
     Icon="./../../Logo.ico"
     PreviewDragEnter="CommandEditorWindow_PreviewDragEnter"
     PreviewDragLeave="CommandEditorWindow_PreviewDragLeave"
@@ -60,14 +60,11 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <MaterialDesign:PackIcon
+                        <Controls:MaterialSymbolIcon
                             Grid.Row="0"
-                            Width="80"
-                            Height="80"
                             Margin="-7,-10"
                             HorizontalAlignment="Center"
-                            Kind="Import"
-                            Style="{StaticResource DarkLightBackgroundPackIcon}" />
+                            IconName="input" FontSize="80" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
 
                         <TextBlock
                             Grid.Row="2"
@@ -116,35 +113,35 @@
                 <Controls:IconButton
                     Grid.Column="2"
                     Command="{Binding AddCommand}"
-                    Icon="Plus"
+                    Icon="add"
                     ToolTip="{x:Static resx:Resources.Add}" />
 
                 <Controls:IconButton
                     Grid.Column="4"
                     Command="{Binding SaveCommand}"
-                    Icon="ContentSave"
+                    Icon="save"
                     ToolTip="{x:Static resx:Resources.Save}" />
 
                 <Controls:IconButton
                     Grid.Column="6"
                     Command="{Binding TestCommand}"
-                    Icon="Play"
+                    Icon="play_arrow"
                     ToolTip="{x:Static resx:Resources.TestCommand}" />
                 <Controls:IconButton
                     Grid.Column="6"
-                    Icon="Stop"
+                    Icon="stop"
                     ToolTip="{x:Static resx:Resources.StopCommand}"
                     Visibility="Collapsed" />
 
                 <Controls:IconButton
                     Grid.Column="8"
                     Command="{Binding ExportCommand}"
-                    Icon="Export"
+                    Icon="output"
                     ToolTip="{x:Static resx:Resources.ExportActions}" />
                 <Controls:IconButton
                     Grid.Column="10"
                     Command="{Binding ImportCommand}"
-                    Icon="Import"
+                    Icon="input"
                     ToolTip="{x:Static resx:Resources.ImportActions}" />
 
                 <Button

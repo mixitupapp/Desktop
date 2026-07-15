@@ -36,7 +36,7 @@ namespace MixItUp.Installer
 
         public static string InstallSettingsDirectory { get { return Path.Combine(MainWindowViewModel.DefaultInstallDirectory, "Settings"); } }
 
-        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; //"https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; //"https://files.mixitup.bot/apps/mixitup-desktop/windows-x64";
         private const string TempDirectoryName = ".tmp";
         private const string EulaAcceptedFileName = "eula-accepted";
         private static readonly TimeSpan[] ManifestRetryDelays = new[] { TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(4), TimeSpan.FromSeconds(8) };
@@ -291,7 +291,7 @@ namespace MixItUp.Installer
             {
                 this.ShowError(
                     $"Mix It Up only runs on Windows 10 & higher.\nDetected Version: {Environment.OSVersion.Version}",
-                    $"If incorrect, please contact support@mixitupapp.com\nDiscord: https://mixitupapp.com/discord");
+                    $"If incorrect, please contact support@mixitupapp.com\nDiscord: https://mixitup.bot/discord");
                 return false;
             }
             return true;
@@ -640,8 +640,8 @@ namespace MixItUp.Installer
         private async Task<bool> DownloadPackageAsync()
         {
             UpdateStepModel downloadStep = versionManifest.GetDownloadStep();
-            UpdateStepModel verifyStep   = versionManifest.GetVerifyStep();
-            UpdateStepModel extractStep  = versionManifest.GetExtractStep();
+            UpdateStepModel verifyStep = versionManifest.GetVerifyStep();
+            UpdateStepModel extractStep = versionManifest.GetExtractStep();
 
             if (downloadStep == null || string.IsNullOrEmpty(downloadStep.target))
             {

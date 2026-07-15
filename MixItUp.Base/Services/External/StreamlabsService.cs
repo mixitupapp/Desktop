@@ -124,6 +124,14 @@ namespace MixItUp.Base.Services.External
             await this.PostAsync("credits/roll", new StringContent($"access_token={this.token.accessToken}"));
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.StreamlabsOAuthToken = null;
+            }
+        }
+
         protected override async Task RefreshOAuthToken()
         {
             if (this.token != null)

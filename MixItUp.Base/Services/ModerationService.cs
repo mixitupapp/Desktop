@@ -17,6 +17,8 @@ namespace MixItUp.Base.Services
         AccountDay = 2,
         AccountWeek = 3,
         AccountMonth = 4,
+        AccountSixMonths = 5,
+        AccountYear = 6,
         ViewingTenMinutes = 10,
         ViewingThirtyMinutes = 11,
         ViewingOneHour = 12,
@@ -297,6 +299,14 @@ namespace MixItUp.Base.Services
                     {
                         return false;
                     }
+                    if (ChannelSession.Settings.ModerationChatInteractiveParticipation == ModerationChatInteractiveParticipationEnum.AccountSixMonths && accountLength.TotalDays < 180)
+                    {
+                        return false;
+                    }
+                    if (ChannelSession.Settings.ModerationChatInteractiveParticipation == ModerationChatInteractiveParticipationEnum.AccountYear && accountLength.TotalDays < 365)
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -360,6 +370,14 @@ namespace MixItUp.Base.Services
                 else if (ChannelSession.Settings.ModerationChatInteractiveParticipation == ModerationChatInteractiveParticipationEnum.AccountMonth)
                 {
                     reason = MixItUp.Base.Resources.ModerationAccountsOlderThanOneMonth;
+                }
+                else if (ChannelSession.Settings.ModerationChatInteractiveParticipation == ModerationChatInteractiveParticipationEnum.AccountSixMonths)
+                {
+                    reason = MixItUp.Base.Resources.ModerationAccountsOlderThanSixMonths;
+                }
+                else if (ChannelSession.Settings.ModerationChatInteractiveParticipation == ModerationChatInteractiveParticipationEnum.AccountYear)
+                {
+                    reason = MixItUp.Base.Resources.ModerationAccountsOlderThanOneYear;
                 }
                 else if (ChannelSession.Settings.ModerationChatInteractiveParticipation == ModerationChatInteractiveParticipationEnum.ViewingTenMinutes)
                 {

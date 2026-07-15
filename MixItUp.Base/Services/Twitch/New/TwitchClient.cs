@@ -101,6 +101,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
             { "channel.moderate", "2" },
 
+            { "channel.unban_request.create", null },
+            { "channel.unban_request.resolve", null },
+
             { "channel.shoutout.receive", null },
 
             { "channel.suspicious_user.message", null },
@@ -110,6 +113,7 @@ namespace MixItUp.Base.Services.Twitch.New
             { "channel.shield_mode.end", null },
 
             { "channel.goal.begin", null },
+            { "channel.goal.progress", null },
             { "channel.goal.end", null },
         };
 
@@ -212,6 +216,8 @@ namespace MixItUp.Base.Services.Twitch.New
                         {
                             case "channel.follow":
                             case "channel.moderate":
+                            case "channel.unban_request.create":
+                            case "channel.unban_request.resolve":
                             case "channel.shoutout.receive":
                             case "channel.suspicious_user.message":
                             case "channel.suspicious_user.update":
@@ -419,6 +425,13 @@ namespace MixItUp.Base.Services.Twitch.New
                         await HandleModeration(message.Payload.Event);
                         break;
 
+                    case "channel.unban_request.create":
+                        await HandleUnbanRequestCreate(message.Payload.Event);
+                        break;
+                    case "channel.unban_request.resolve":
+                        await HandleUnbanRequestResolve(message.Payload.Event);
+                        break;
+
                     case "channel.shoutout.receive":
                         await HandleShoutoutReceived(message.Payload.Event);
                         break;
@@ -439,6 +452,9 @@ namespace MixItUp.Base.Services.Twitch.New
 
                     case "channel.goal.begin":
                         await HandleGoalBegin(message.Payload.Event);
+                        break;
+                    case "channel.goal.progress":
+                        await HandleGoalProgress(message.Payload.Event);
                         break;
                     case "channel.goal.end":
                         await HandleGoalEnd(message.Payload.Event);
@@ -723,14 +739,22 @@ namespace MixItUp.Base.Services.Twitch.New
         private async Task HandleHypeTrainProgress(JObject payload)
         {
             int level = payload["level"].Value<int>();
+            int totalPoints = payload["total"].Value<int>();
+            int levelPoints = payload["progress"].Value<int>();
+            int levelGoal = payload["goal"].Value<int>();
+
+            Dictionary<string, string> eventCommandSpecialIdentifiers = new Dictionary<string, string>();
+            eventCommandSpecialIdentifiers["hypetraintotalpoints"] = totalPoints.ToString();
+            eventCommandSpecialIdentifiers["hypetrainlevelpoints"] = levelPoints.ToString();
+            eventCommandSpecialIdentifiers["hypetrainlevelgoal"] = levelGoal.ToString();
+            eventCommandSpecialIdentifiers["hypetrainlevel"] = level.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelHypeTrainProgress, new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch, eventCommandSpecialIdentifiers));
+
             if (level > this.lastHypeTrainLevel)
             {
                 this.lastHypeTrainLevel = level;
-                int totalPoints = payload["total"].Value<int>();
-                int levelPoints = payload["progress"].Value<int>();
-                int levelGoal = payload["goal"].Value<int>();
 
-                Dictionary<string, string> eventCommandSpecialIdentifiers = new Dictionary<string, string>();
+                eventCommandSpecialIdentifiers = new Dictionary<string, string>();
                 eventCommandSpecialIdentifiers["hypetraintotalpoints"] = totalPoints.ToString();
                 eventCommandSpecialIdentifiers["hypetrainlevelpoints"] = levelPoints.ToString();
                 eventCommandSpecialIdentifiers["hypetrainlevelgoal"] = levelGoal.ToString();
@@ -826,6 +850,8 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPowerUpCelebration, parameters);
+
+                EventService.TwitchPowerUpOccurred(user);
             }
         }
 
@@ -1016,6 +1042,8 @@ namespace MixItUp.Base.Services.Twitch.New
                 else if (messageNotification.MessageType == ChatNotificationMessageType.power_ups_message_effect)
                 {
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPowerUpMessageEffect, parameters);
+
+                    EventService.TwitchPowerUpOccurred(user);
                 }
                 else if (messageNotification.MessageType == ChatNotificationMessageType.power_ups_gigantified_emote)
                 {
@@ -1026,6 +1054,8 @@ namespace MixItUp.Base.Services.Twitch.New
                         parameters.SpecialIdentifiers["emoteurl"] = emote.OverlayAnimatedOrStaticImageURL;
 
                         await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPowerUpGigantifiedEmote, parameters);
+
+                        EventService.TwitchPowerUpOccurred(user);
                     }
                 }
                 else if (messageNotification.MessageType == ChatNotificationMessageType.channel_points_highlighted)
@@ -1368,6 +1398,41 @@ namespace MixItUp.Base.Services.Twitch.New
             }
         }
 
+        private async Task HandleUnbanRequestCreate(JObject payload)
+        {
+            UnbanRequestNotification unbanRequest = payload.ToObject<UnbanRequestNotification>();
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: unbanRequest.user_id);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(unbanRequest.user_id, unbanRequest.user_login, unbanRequest.user_name));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["message"] = unbanRequest.text ?? string.Empty;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelUnbanRequestCreated, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchUnbanRequestCreated, user.FullDisplayName), ChannelSession.Settings.AlertModerationColor));
+        }
+
+        private async Task HandleUnbanRequestResolve(JObject payload)
+        {
+            UnbanRequestNotification unbanRequest = payload.ToObject<UnbanRequestNotification>();
+
+            UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.Twitch, platformID: unbanRequest.user_id);
+            if (user == null)
+            {
+                user = await ServiceManager.Get<UserService>().CreateUser(new TwitchUserPlatformV2Model(unbanRequest.user_id, unbanRequest.user_login, unbanRequest.user_name));
+            }
+
+            CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["unbanrequeststatus"] = unbanRequest.status ?? string.Empty;
+            parameters.SpecialIdentifiers["message"] = unbanRequest.resolution_text ?? string.Empty;
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelUnbanRequestResolved, parameters);
+
+            await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertTwitchUnbanRequestResolved, user.FullDisplayName, unbanRequest.status), ChannelSession.Settings.AlertModerationColor));
+        }
+
         private async Task HandleShoutoutReceived(JObject payload)
         {
             ShoutoutReceiveNotification shoutout = payload.ToObject<ShoutoutReceiveNotification>();
@@ -1476,6 +1541,18 @@ namespace MixItUp.Base.Services.Twitch.New
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(StreamingPlatformTypeEnum.Twitch, string.Format(MixItUp.Base.Resources.AlertTwitchGoalStarted, goal.type, goal.current_amount, goal.target_amount), ChannelSession.Settings.AlertTwitchGoalStartedColor));
         }
 
+        private async Task HandleGoalProgress(JObject payload)
+        {
+            GoalNotification goal = payload.ToObject<GoalNotification>();
+
+            CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Twitch);
+            parameters.SpecialIdentifiers["goaltype"] = goal.type ?? string.Empty;
+            parameters.SpecialIdentifiers["goaldescription"] = goal.description ?? string.Empty;
+            parameters.SpecialIdentifiers["goalcurrentamount"] = goal.current_amount.ToString();
+            parameters.SpecialIdentifiers["goaltargetamount"] = goal.target_amount.ToString();
+            await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelGoalProgress, parameters);
+        }
+
         private async Task HandleGoalEnd(JObject payload)
         {
             GoalNotification goal = payload.ToObject<GoalNotification>();
@@ -1493,7 +1570,7 @@ namespace MixItUp.Base.Services.Twitch.New
 
         private async Task ProcessSub(TwitchSubcriptionEventModel subscription)
         {
-            if (subscription.Duration > 0)
+            if (subscription.Duration > 0 && subscription.NoticeType != ChatNotificationType.sub && subscription.NoticeType != ChatNotificationType.shared_chat_sub)
             {
                 subscription.User.Roles.Add(UserRoleEnum.Subscriber);
                 subscription.User.SubscribeDate = DateTimeOffset.Now.SubtractMonths(subscription.Cumulative - 1);
@@ -1508,6 +1585,7 @@ namespace MixItUp.Base.Services.Twitch.New
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubpoints"] = subscription.SubPoints.ToString();
                 parameters.SpecialIdentifiers["usersubstreak"] = subscription.Streak.ToString();
+                parameters.SpecialIdentifiers["usersubdurationmonths"] = Math.Max(subscription.Duration, 1).ToString();
 
                 string moderation = await ServiceManager.Get<ModerationService>().ShouldTextBeModerated(subscription.User, subscription.Message.PlainTextMessage);
                 if (!string.IsNullOrEmpty(moderation))
@@ -1569,6 +1647,7 @@ namespace MixItUp.Base.Services.Twitch.New
                 parameters.SpecialIdentifiers["usersubplanname"] = subscription.PlanName;
                 parameters.SpecialIdentifiers["usersubplan"] = subscription.TierName;
                 parameters.SpecialIdentifiers["usersubpoints"] = subscription.SubPoints.ToString();
+                parameters.SpecialIdentifiers["usersubdurationmonths"] = Math.Max(subscription.Duration, 1).ToString();
                 parameters.SpecialIdentifiers["isprimeupgrade"] = subscription.IsPrimeUpgrade.ToString();
                 parameters.SpecialIdentifiers["isgiftupgrade"] = subscription.IsGiftedUpgrade.ToString();
 

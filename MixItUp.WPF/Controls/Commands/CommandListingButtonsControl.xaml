@@ -11,10 +11,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Horizontal" Margin="5,0">
 
-        <Controls:IconButton x:Name="PlayButton" Click="PlayButton_Click" Icon="Play" ToolTip="{x:Static resx:Resources.TestCommand}" />
-        <Controls:IconButton x:Name="StopButton" Visibility="Collapsed" Click="StopButton_Click" HorizontalAlignment="Center" Icon="Stop" ToolTip="{x:Static resx:Resources.StopCommand}" />
-        <Controls:IconButton x:Name="EditButton" Click="EditButton_Click" Margin="10,0,0,0" HorizontalAlignment="Center" Icon="TooltipEdit" ToolTip="{x:Static resx:Resources.EditCommand}" />
-        <Controls:IconButton x:Name="DeleteButton" Click="DeleteButton_Click" Margin="10,0,0,0" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+        <Controls:IconButton x:Name="PlayButton" Click="PlayButton_Click" Icon="play_arrow" ToolTip="{x:Static resx:Resources.TestCommand}" />
+        <Controls:IconButton x:Name="StopButton" Visibility="Collapsed" Click="StopButton_Click" HorizontalAlignment="Center" Icon="stop" ToolTip="{x:Static resx:Resources.StopCommand}" />
+        <Controls:IconButton x:Name="EditButton" Click="EditButton_Click" Margin="10,0,0,0" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.EditCommand}" />
+        <Controls:IconButton x:Name="DeleteButton" Click="DeleteButton_Click" Margin="10,0,0,0" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
 
         <ToggleButton x:Name="EnableDisableToggleSwitch" Margin="10,0,0,0" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.EnableDisableCommand}" Checked="EnableDisableToggleSwitch_Checked" Unchecked="EnableDisableToggleSwitch_Checked" />
 

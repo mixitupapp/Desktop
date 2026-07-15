@@ -188,6 +188,14 @@ namespace MixItUp.Base.Services.External
             this.OnDonationOccurred(this, eventData);
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.TreatStreamOAuthToken = null;
+            }
+        }
+
         protected override async Task RefreshOAuthToken()
         {
             if (this.token != null)

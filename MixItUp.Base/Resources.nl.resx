@@ -6100,6 +6100,9 @@ ingeschakeld. Je kunt het zien als vergelijkbaar met het omschakelen van de opti
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>U moet een getal opgeven dat kleiner is dan of gelijk is aan het Max. Niveau.</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>Herhalen</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>Lus:</value>
   </data>
@@ -7559,6 +7562,12 @@ Als u een van de volgende handelingen niet uitvoert, kan dit van invloed zijn op
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>Hervat alle opdrachten</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Pauzeer alle gebruikersentree-opdrachten</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>Hervat alle gebruikersentree-opdrachten</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>Platformen</value>
   </data>
@@ -8144,10 +8153,10 @@ Geïmporteerde offertes met ID's die overeenkomen met bestaande offertes worden 
     <value>Beschikbare spellen:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>Dit kanaal gebruikt de Mix It Up-app om hun stream te verbeteren. Kijk op http://mixitupapp.com voor meer informatie!</value>
+    <value>Dit kanaal gebruikt de Mix It Up-app om hun stream te verbeteren. Kijk op http://mixitup.bot voor meer informatie!</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>Alle vooraf gemaakte Mix It Up-chatopdrachten zijn hier te vinden: https://wiki.mixitupapp.com/commands/pre-made-chat-commands. Vraag uw streamer/moderator naar opdrachten die specifiek zijn voor deze stream.</value>
+    <value>Alle vooraf gemaakte Mix It Up-chatopdrachten zijn hier te vinden: https://wiki.mixitup.bot/commands/pre-made-chat-commands. Vraag uw streamer/moderator naar opdrachten die specifiek zijn voor deze stream.</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>Om deze functie te laten werken, moeten offertes zijn ingeschakeld en moet er ten minste één offerte worden toegevoegd.</value>
@@ -8532,7 +8541,7 @@ OPMERKING: Mogelijk moet u zich hiervoor aanmelden voor de Preview-build via het
     <value>Kan geen verbinding maken met de YouTube-chatservers</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>Kan YouTube-botgegevens niet ophalen. Zorg er voor YouTube-botaccounts voor dat je een kanaal op YouTube hebt gemaakt voor het account waarbij je inlogt. Zie de volgende Wiki-pagina voor meer informatie: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>Kan YouTube-botgegevens niet ophalen. Zorg er voor YouTube-botaccounts voor dat je een kanaal op YouTube hebt gemaakt voor het account waarbij je inlogt. Zie de volgende Wiki-pagina voor meer informatie: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>Kan YouTube-gebruikersgegevens niet ophalen</value>
@@ -8548,6 +8557,12 @@ OPMERKING: Mogelijk moet u zich hiervoor aanmelden voor de Preview-build via het
   </data>
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>Voegt bedrag toe aan opgegeven gebruiker</value>
+  </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>Je opgeslagen aanmelding voor {0} is niet meer geldig en is geweigerd door de service.
+
+Selecteer Ja om opnieuw aan te melden, of Nee om af te melden en de opgeslagen aanmelding te verwijderen.</value>
+    <comment>{0} is the name of the service</comment>
   </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>De volgende services kunnen niet worden verbonden:
@@ -8838,7 +8853,7 @@ via Twitch is het een situatie van ‘uw kilometerstand kan variëren’.</value
     <value>Mix It Up Command|*.miucommand|Alle bestanden (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>Geluidsbestanden|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|Alle bestanden (*.*)|*.*</value>
+    <value>Geluidsbestanden|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|Alle bestanden (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>Tekstbestanden|*.txt|Alle bestanden (*.*)|*.*</value>
@@ -9341,6 +9356,9 @@ afdrukken(uitvoeren())</value>
   <data name="TwitchBits" xml:space="preserve">
     <value>Twitch-bits</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitch Power-Ups</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>Eindbedrag</value>
   </data>
@@ -9781,8 +9799,29 @@ afdrukken(uitvoeren())</value>
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster-overlay-URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster (Overlay-URL-methode)</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster (API)</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster API-token</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>Voer een geldige TTS.Monster API-token in.</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>Kan geen beschikbare stemmen ophalen. Zorg ervoor dat u uw TTS.Monster API-token correct heeft gekopieerd</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>Met de TTS.Monster API-connectiviteit kunt u tekst-naar-spraak-audio activeren in opdrachten met behulp van stemmen die worden geleverd door de service van TTS.Monster, inclusief aangepaste stemmen die u heeft gekloond. Om verbinding te maken met TTS.Monster, logt u in op uw TTS.Monster-console, klikt u op uw profielpictogram in de linkerbenedenhoek van de pagina, opent u de sectie API Token, kopieert u uw API-token naar het tekstvak en klikt u op Inloggen.</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>Schakel TTS.Monster in op de Services-pagina!</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>Schakel TTS.Monster (API) in op de Services-pagina!</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>Chattertelling</value>
@@ -10486,6 +10525,9 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   </data>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>Per getoonde emote</value>
+  </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>Emote-animatie</value>
   </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>Emote-effect</value>
@@ -11449,6 +11491,12 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0} werd gewaarschuwd</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} heeft een unban aangevraagd</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>Unban-verzoek van {0} is {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0} Stuurde een Shoutout met {1} Kijkers</value>
   </data>
@@ -11493,6 +11541,15 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch-kanaal doel Ended</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitch-kanaal doel voortgang</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitch-kanaal unban-verzoek aangemaakt</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitch-kanaal unban-verzoek afgehandeld</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0} Doel begonnen op {1} van {2}</value>
@@ -11568,5 +11625,378 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch-kanaal Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots-pakket: een cadeau voor de community</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0} geeft {1} Community Pack(s) cadeau!</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>Het account bestaat al 6 maanden</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>Het account bestaat 1 jaar</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>accounts die ouder zijn dan 6 maanden</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>accounts die ouder zijn dan 1 jaar</value>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throne-bijdrage</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throne-cadeau gecrowdfund</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throne-cadeau gekocht</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throne is een cadeau- en verlanglijstplatform voor creators. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Throne cadeau- en bijdragemeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in de webhook-integratie-instellingen van je Throne-creatordashboard. Throne-gebeurtenissen kunnen daarna worden aangepast op de pagina Gebeurtenissen.</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>Throne-webhook-URL</value>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall-donatie</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwall-cadeauaankoop</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwall is een merch- en shopplatform voor creators. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Fourthwall bestel-, donatie- en cadeaumeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in het beheerdashboard van je Fourthwall-shop onder Instellingen &gt; Voor ontwikkelaars &gt; Webhooks. Fourthwall-gebeurtenissen kunnen daarna worden aangepast op de pagina Gebeurtenissen.</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall-bestelling geplaatst</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>Fourthwall-webhook-URL</value>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fi-opdracht</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fi-lidmaatschap (eerste keer)</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Met Ko-fi kunnen supporters je fooien, lidmaatschappen en shopbestellingen sturen. Door verbinding te maken met Mix It Up wordt een unieke webhook-URL gegenereerd waarmee Ko-fi betalingsmeldingen rechtstreeks naar de app kan sturen.</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>Kopieer na het verbinden je webhook-URL en plak deze in het Webhook URL-veld op je Ko-fi Webhooks-pagina. Vanaf die pagina kun je testbetalingen sturen om het uit te proberen; Ko-fi probeert leveringen opnieuw totdat ze slagen.</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fi-lidmaatschap (terugkerend)</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fi-shopbestelling</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fi-fooi</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fi-webhook-URL</value>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>API-sleutel</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.gg API-sleutelpagina</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg-donatie</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Kan geen verbinding maken met de Pally.gg-gebeurtenissenfeed. Controleer of je API-sleutel geldig is.</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.gg is een teamfooienplatform waarmee kijkers iedereen op de stream tegelijk kunnen steunen. Door verbinding te maken met Mix It Up komen fooimeldingen in realtime rechtstreeks in de app binnen.</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>Maak om te verbinden een API-sleutel aan in je Pally.gg-dashboard onder Instellingen > API-sleutels en plak deze hier.</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>Er moet een geldige Pally.gg API-sleutel worden opgegeven.</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Log in met Velora</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Afmelden bij Velora</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora Kanaal Stream Start</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora Kanaal Stroom Stop</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora-kanaal bijgewerkt</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora Kanaal Gevolgd</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora-kanaal geabonneerd</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora-kanaal opnieuw ingeschreven</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora Channel Abonnement Geschonken</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora Channel Massabonnement Gifted</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Velora-kanaal overvallen</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora Kanaal Punten Ingewisseld</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora-kanaal gejuicht</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora Channel-punten</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora Channel-punten commando</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Velora kanaalpunten tonen</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Velora Juichen tonen</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora Juichen</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} heeft {1} ingewisseld</value>
+    <comment>{0} is de naam van de gebruiker, {1} is de naam van de beloning</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} Juichte {1} Volts toe</value>
+    <comment>{0} is de naam van de gebruiker, {1} is het aantal Volts</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora-abonnementen</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>Ongeldig gebruik van de opdracht. Verwacht: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>De opdracht /{0} wordt niet ondersteund op het geselecteerde platform</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} zit niet in de chat en bestaat op meer dan één verbonden platform. Selecteer een specifiek platform om deze gebruiker te targeten.</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>De Velora-actie {0} is mislukt. Bekijk het logboek voor details.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>Bestand aan wachtrij toevoegen</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>Map aan wachtrij toevoegen</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>Afspeellijst aan wachtrij toevoegen</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>Weet je zeker dat je de muziekwachtrij wilt wissen?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>Wachtrij exporteren als M3U-afspeellijst</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>M3U-afspeellijst|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>Afspeellijstbestanden|*.m3u;*.m3u8|Alle bestanden (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>Gebruik de knoppen hieronder om bestanden, mappen of afspeellijsten aan de wachtrij toe te voegen</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>Uit wachtrij verwijderen</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>Nu afgespeeld</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>Uitvoer en opdrachten</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>Wachtrij</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>Herhalen</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>Herhalen uit</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>Herhalen aan</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>Herhalen omschakelen</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>Willekeurig afspelen</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>Willekeurig afspelen uit</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>Willekeurig afspelen aan</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>Willekeurig afspelen omschakelen</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>Aankondigen</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>Kort</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>Shout-out</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>Time-out van gebruiker opheffen</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>Kanaalpunten toekennen</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>Kanaalpunten aftrekken</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>Bot instellen</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>Bot verwijderen</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>Verbind uw Velora-streameraccount voordat u de bot instelt.</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Selecteer de Velora-bot waarmee Mix It Up chat</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>Nieuwe bot maken...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>Voer een naam in voor uw nieuwe Velora-bot</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Velora-botnamen moeten 3-20 tekens lang zijn en mogen alleen letters, cijfers en underscores bevatten.</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>De botnaam '{0}' is niet beschikbaar op Velora.</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Het instellen van de Velora-bot is geannuleerd.</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>De Velora-bot is niet meer verbonden met Mix It Up. Stel de bot opnieuw in via de pagina Accounts.</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It Up kon de Velora-bot niet verbinden. Probeer het opnieuw.</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Verbinden van de Velora-bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Aanmaken van de Velora-bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Velora gaat anders met bots om dan andere platforms: er is geen apart botaccount om mee in te loggen. Bot instellen maakt of selecteert een bot die onder uw Velora-streameraccount valt.</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>Bot bewerken</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>Kies een profielafbeelding voor uw bot. Velora raadt een vierkante afbeelding aan van 512x512 pixels of groter - JPEG, PNG, GIF of WebP onder 5 MB.</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>Uploaden van de profielafbeelding van de bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>Wat wilt u bewerken?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>Profielafbeelding wijzigen...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>Bot hernoemen...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Velora staat het hernoemen van een bot slechts eens per 90 dagen toe, en de naam van deze bot is te recent gewijzigd.</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Hernoemen van de Velora-bot is mislukt: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>Geen bestand geselecteerd</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>Dit bestandstype wordt niet ondersteund. Ondersteunde typen: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>Dit bestand is groter dan de limiet van {0} MB.</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>Lezen van het bestand is mislukt: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>Heeft titel</value>
+    <comment>User search filter type on the Users page</comment>
   </data>
 </root>

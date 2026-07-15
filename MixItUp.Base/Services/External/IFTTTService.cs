@@ -80,6 +80,14 @@ namespace MixItUp.Base.Services.External
             return Task.FromResult(new Result());
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.IFTTTOAuthToken = null;
+            }
+        }
+
         protected override Task RefreshOAuthToken()
         {
             return Task.CompletedTask;

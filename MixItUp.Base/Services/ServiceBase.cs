@@ -51,7 +51,7 @@ namespace MixItUp.Base.Services
 
     public abstract class OAuthServiceBase : ServiceBase
     {
-        public const string HTTPS_OAUTH_REDIRECT_URL = "https://mixitupapp.com/oauthredirect/";
+        public const string HTTPS_OAUTH_REDIRECT_URL = "https://mixitup.bot/oauthredirect/";
 
         private const int MaxRefreshAttempts = 10;
 

@@ -30,5 +30,29 @@
 
         <Button x:Name="Twitch100BitsCheer" Click="Twitch100BitsCheer_Click">Twitch 100 Bits Cheer</Button>
 
+        <Button x:Name="FourthwallDonation" Click="TriggerFourthwallDonation_Click">Fourthwall Donation</Button>
+
+        <Button x:Name="FourthwallOrderPlaced" Click="TriggerFourthwallOrderPlaced_Click">Fourthwall Order Placed</Button>
+
+        <Button x:Name="FourthwallGiftPurchase" Click="TriggerFourthwallGiftPurchase_Click">Fourthwall Gift Purchase</Button>
+
+        <Button x:Name="ThroneGiftPurchased" Click="TriggerThroneGiftPurchased_Click">Throne Gift Purchased</Button>
+
+        <Button x:Name="ThroneContribution" Click="TriggerThroneContribution_Click">Throne Contribution</Button>
+
+        <Button x:Name="ThroneGiftCrowdfunded" Click="TriggerThroneGiftCrowdfunded_Click">Throne Gift Crowdfunded</Button>
+
+        <Button x:Name="KoFiTip" Click="TriggerKoFiTip_Click">Ko-fi Tip</Button>
+
+        <Button x:Name="KoFiCommission" Click="TriggerKoFiCommission_Click">Ko-fi Commission</Button>
+
+        <Button x:Name="KoFiMembership" Click="TriggerKoFiMembership_Click">Ko-fi Membership (Recurring)</Button>
+
+        <Button x:Name="KoFiFirstMembership" Click="TriggerKoFiFirstMembership_Click">Ko-fi Membership (First Time)</Button>
+
+        <Button x:Name="KoFiShopOrder" Click="TriggerKoFiShopOrder_Click">Ko-fi Shop Order</Button>
+
+        <Button x:Name="PallyDonation" Click="TriggerPallyDonation_Click">Pally.gg Donation</Button>
+
     </StackPanel>
 </local:MainControlBase>

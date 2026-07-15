@@ -1,6 +1,7 @@
 ﻿<local:ServiceControlBase x:Class="MixItUp.WPF.Controls.Services.PolyPopServiceControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MixItUp.WPF.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Services"
@@ -41,7 +42,7 @@
             <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="{x:Static resx:Resources.PolyPopInfo2}"/>
 
             <TextBlock Grid.Row="6" TextWrapping="Wrap" HorizontalAlignment="Center">
-                <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/polypop" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/polypop" RequestNavigate="Hyperlink_RequestNavigate">
                     <TextBlock Text="{x:Static resx:Resources.WikiPage}"/>
                 </Hyperlink>
             </TextBlock>
@@ -66,7 +67,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <MaterialDesign:PackIcon Kind="AccessPoint" Style="{StaticResource DarkLightBackgroundPackIcon}" Grid.Column="0" VerticalAlignment="Center" />
+                    <Controls:MaterialSymbolIcon IconName="sensors" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" />
                     <TextBox Grid.Column="2" Text="{Binding PolyPopPortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="130" VerticalAlignment="Center" />
                 </Grid>
 

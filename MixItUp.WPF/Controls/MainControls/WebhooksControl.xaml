@@ -37,14 +37,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <MaterialDesign:PackIcon
+                <Controls:MaterialSymbolIcon
                     Grid.Column="0"
-                    Width="24"
-                    Height="24"
                     Margin="0,0,12,0"
                     VerticalAlignment="Center"
                     Foreground="White"
-                    Kind="Information" />
+                    IconName="info" FontSize="24" />
 
                 <TextBlock
                     Grid.Column="1"
@@ -52,7 +50,7 @@
                     FontSize="13"
                     Foreground="White"
                     TextWrapping="Wrap"
-                    Text="We have switched our Webhooks API domain from api.mixitupapp.com to desktop.api.mixitupapp.com. Please ensure that you update your webhook URLs in any external services that use them. You can press the Copy URL button to get the updated link." />
+                    Text="We have switched our Webhooks API domain from api.mixitupapp.com and desktop.api.mixitupapp.com to desktop.api.mixitup.bot. Please ensure that you update your webhook URLs in any external services that use them. You can press the Copy URL button to get the updated link." />
 
                 <Button
                     Grid.Column="2"
@@ -63,11 +61,9 @@
                     Click="CloseApiMigrationBanner_Click"
                     Style="{StaticResource MaterialDesignIconButton}"
                     ToolTip="Close">
-                    <MaterialDesign:PackIcon
-                        Width="18"
-                        Height="18"
+                    <Controls:MaterialSymbolIcon
                         Foreground="White"
-                        Kind="Close" />
+                        IconName="close" FontSize="18" />
                 </Button>
             </Grid>
         </MaterialDesign:Card>

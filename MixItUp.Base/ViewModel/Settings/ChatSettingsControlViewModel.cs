@@ -1,8 +1,10 @@
-﻿using MixItUp.Base.Model.User;
+﻿using MixItUp.Base.Model.Settings;
+using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Settings.Generic;
 using MixItUp.Base.ViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -14,7 +16,7 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericSliderSettingsOptionControlViewModel FontSize { get; set; }
         public GenericToggleSettingsOptionControlViewModel AddSeparatorsBetweenMessages { get; set; }
         public GenericToggleSettingsOptionControlViewModel UseAlternatingBackgroundColors { get; set; }
-        public GenericToggleSettingsOptionControlViewModel DisableAnimatedEmotes { get; set; }
+        public GenericComboBoxSettingsOptionControlViewModel<ChatEmoteAnimationEnum> EmoteAnimation { get; set; }
 
         public GenericToggleSettingsOptionControlViewModel ShowLatestChatMessagesAtTop { get; set; }
         public GenericToggleSettingsOptionControlViewModel ShowMessageTimestamp { get; set; }
@@ -61,10 +63,12 @@ namespace MixItUp.Base.ViewModel.Settings
                     ChannelSession.Settings.UseAlternatingBackgroundColors = value;
                     ChatService.ChatVisualSettingsChanged();
                 });
-            this.DisableAnimatedEmotes = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.DisableAnimatedEmotes, ChannelSession.Settings.DisableAnimatedEmotes,
+            this.EmoteAnimation = new GenericComboBoxSettingsOptionControlViewModel<ChatEmoteAnimationEnum>(MixItUp.Base.Resources.EmoteAnimation,
+                new List<ChatEmoteAnimationEnum>() { ChatEmoteAnimationEnum.None, ChatEmoteAnimationEnum.Short, ChatEmoteAnimationEnum.Loop },
+                ChannelSession.Settings.ChatEmoteAnimation,
                 (value) =>
                 {
-                    ChannelSession.Settings.DisableAnimatedEmotes = value;
+                    ChannelSession.Settings.ChatEmoteAnimation = value;
                     ChatService.ChatVisualSettingsChanged();
                 });
 
@@ -132,7 +136,8 @@ namespace MixItUp.Base.ViewModel.Settings
                             }
                         }
                     }
-                });
+                },
+                allowEmpty: true);
 
             this.UseCustomUsernameColors = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.UseCustomUsernameColors, ChannelSession.Settings.UseCustomUsernameColors,
                 (value) =>

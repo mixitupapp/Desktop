@@ -6099,6 +6099,9 @@
   <data name="LessThanMaxLevel" xml:space="preserve">
     <value>最大レベル以下の数値を指定する必要があります。</value>
   </data>
+  <data name="Loop" xml:space="preserve">
+    <value>ループ</value>
+  </data>
   <data name="LoopHeader" xml:space="preserve">
     <value>ループ：</value>
   </data>
@@ -7558,6 +7561,12 @@
   <data name="UnpauseAllCommands" xml:space="preserve">
     <value>すべてのコマンドの一時停止を解除する</value>
   </data>
+  <data name="PauseAllUserEntranceCommands" xml:space="preserve">
+    <value>すべてのユーザー入口コマンドを一時停止する</value>
+  </data>
+  <data name="UnpauseAllUserEntranceCommands" xml:space="preserve">
+    <value>すべてのユーザー入口コマンドの一時停止を解除する</value>
+  </data>
   <data name="Platforms" xml:space="preserve">
     <value>プラットフォーム</value>
   </data>
@@ -8143,10 +8152,10 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <value>利用可能なゲーム:</value>
   </data>
   <data name="PreMadeChatCommandMixItUp" xml:space="preserve">
-    <value>このチャンネルでは、Mix It Up アプリを使用してストリームを改善しています。詳細については、http://mixitupapp.com をチェックしてください。</value>
+    <value>このチャンネルでは、Mix It Up アプリを使用してストリームを改善しています。詳細については、http://mixitup.bot をチェックしてください。</value>
   </data>
   <data name="PreMadeChatCommandMixItUpCommands" xml:space="preserve">
-    <value>事前に作成されたすべての Mix It Up チャット コマンドは、https://wiki.mixitupapp.com/commands/pre-made-chat-c​​ommands にあります。このストリームに固有のコマンドについては、ストリーマー/モデレーターに問い合わせてください。</value>
+    <value>事前に作成されたすべての Mix It Up チャット コマンドは、https://wiki.mixitup.bot/commands/pre-made-chat-c​​ommands にあります。このストリームに固有のコマンドについては、ストリーマー/モデレーターに問い合わせてください。</value>
   </data>
   <data name="PreMadeChatCommandQuotesNotEnabled" xml:space="preserve">
     <value>この機能を動作させるには、引用符を有効にし、少なくとも 1 つの引用符を追加する必要があります。</value>
@@ -8531,7 +8540,7 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
     <value>YouTube チャット サーバーに接続できませんでした</value>
   </data>
   <data name="YouTubeFailedToGetBotData" xml:space="preserve">
-    <value>YouTube ボット データの取得に失敗しました。 YouTube ボット アカウントの場合は、サインインしているアカウントのチャンネルが YouTube 上に作成されていることを確認してください。詳細については、次の Wiki ページを参照してください: https://wiki.mixitupapp.com/accounts#bot-accounts</value>
+    <value>YouTube ボット データの取得に失敗しました。 YouTube ボット アカウントの場合は、サインインしているアカウントのチャンネルが YouTube 上に作成されていることを確認してください。詳細については、次の Wiki ページを参照してください: https://wiki.mixitup.bot/accounts#bot-accounts</value>
   </data>
   <data name="YouTubeFailedToGetUserData" xml:space="preserve">
     <value>YouTube ユーザーデータの取得に失敗しました</value>
@@ -8547,6 +8556,12 @@ Mix It Up の実行中にまだチャンネルにアクセスしていないユ�
   </data>
   <data name="AddsAmountToSpecifiedUser" xml:space="preserve">
     <value>指定したユーザーに金額を追加します</value>
+  </data>
+  <data name="ServiceConnectionInvalidPrompt" xml:space="preserve">
+    <value>{0} の保存されたログイン情報は無効になり、サービスによって拒否されました。
+
+「はい」を選択すると再度ログインし、「いいえ」を選択するとログアウトして保存されたログイン情報を削除します。</value>
+    <comment>{0} is the name of the service</comment>
   </data>
   <data name="ConnectedServicesFailed" xml:space="preserve">
     <value>次のサービスに接続できませんでした:
@@ -8837,7 +8852,7 @@ Twitch経由では、「マイレージは異なる場合があります」状�
     <value>Mix It Up コマンド|*.miucommand|すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="SoundFileFormatFilter" xml:space="preserve">
-    <value>サウンド ファイル|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac|すべてのファイル (*.*)|*.*</value>
+    <value>サウンド ファイル|*.mp3;*.wav;*.flac;*.mp4;*.m4a;*.aac;*.wma|すべてのファイル (*.*)|*.*</value>
   </data>
   <data name="TextFileFormatFilter" xml:space="preserve">
     <value>テキスト ファイル|*.txt|すべてのファイル (*.*)|*.*</value>
@@ -9340,6 +9355,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="TwitchBits" xml:space="preserve">
     <value>トゥイッチビット</value>
   </data>
+  <data name="TwitchPowerUps" xml:space="preserve">
+    <value>Twitchパワーアップ</value>
+  </data>
   <data name="EndingAmount" xml:space="preserve">
     <value>終了金額</value>
   </data>
@@ -9780,8 +9798,29 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="TTSMonsterOverlayURL" xml:space="preserve">
     <value>TTS.Monster オーバーレイ URL</value>
   </data>
+  <data name="TTSMonsterOverlayURLMethod" xml:space="preserve">
+    <value>TTS.Monster（オーバーレイ URL 方式）</value>
+  </data>
+  <data name="TTSMonsterAPI" xml:space="preserve">
+    <value>TTS.Monster（API）</value>
+  </data>
+  <data name="TTSMonsterAPIToken" xml:space="preserve">
+    <value>TTS.Monster API トークン</value>
+  </data>
+  <data name="TTSMonsterInvalidAPIToken" xml:space="preserve">
+    <value>有効な TTS.Monster API トークンを入力してください。</value>
+  </data>
+  <data name="TTSMonsterAPIFailedToGetVoices" xml:space="preserve">
+    <value>利用可能な音声を取得できませんでした。 TTS.Monster API トークンを正しくコピーしたことを確認してください。</value>
+  </data>
+  <data name="TTSMonsterAPIInfo1" xml:space="preserve">
+    <value>TTS.Monster API 接続により、TTS.Monster のサービスによって提供される音声 (クローンを作成したカスタム音声を含む) を使用して、コマンドで Text to Speech オーディオをトリガーできます。 TTS.Monster に接続するには、TTS.Monster コンソールにログインし、ページの左下隅にあるプロフィール アイコンをクリックし、[API Token] セクションを開き、API トークンをテキスト ボックスにコピーして、[ログイン] をクリックします。</value>
+  </data>
   <data name="EnableTTSMonster" xml:space="preserve">
     <value>[サービス] ページで TTS.Monster を有効にしてください。</value>
+  </data>
+  <data name="EnableTTSMonsterAPI" xml:space="preserve">
+    <value>[サービス] ページで TTS.Monster（API）を有効にしてください。</value>
   </data>
   <data name="ChatterCount" xml:space="preserve">
     <value>チャタリング数</value>
@@ -10485,6 +10524,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   </data>
   <data name="OverlayEmoteEffectPerEmoteShown" xml:space="preserve">
     <value>表示されるエモートごと</value>
+  </data>
+  <data name="EmoteAnimation" xml:space="preserve">
+    <value>エモートアニメーション</value>
   </data>
   <data name="EmoteEffect" xml:space="preserve">
     <value>エモートエフェクト</value>
@@ -11448,6 +11490,12 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="AlertTwitchUserWarned" xml:space="preserve">
     <value>{0}が警告された</value>
   </data>
+  <data name="AlertTwitchUnbanRequestCreated" xml:space="preserve">
+    <value>{0} がバン解除をリクエストしました</value>
+  </data>
+  <data name="AlertTwitchUnbanRequestResolved" xml:space="preserve">
+    <value>{0} のバン解除リクエスト: {1}</value>
+  </data>
   <data name="AlertTwitchShoutoutReceived" xml:space="preserve">
     <value>{0}が{1}にシャウトを送った視聴者</value>
   </data>
@@ -11492,6 +11540,15 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="TwitchChannelGoalEnded" xml:space="preserve">
     <value>Twitch チャンネル ゴール 終了</value>
+  </data>
+  <data name="TwitchChannelGoalProgress" xml:space="preserve">
+    <value>Twitchチャンネル目標進行</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestCreated" xml:space="preserve">
+    <value>Twitchチャンネルのバン解除リクエスト作成</value>
+  </data>
+  <data name="TwitchChannelUnbanRequestResolved" xml:space="preserve">
+    <value>Twitchチャンネルのバン解除リクエスト解決</value>
   </data>
   <data name="AlertTwitchGoalStarted" xml:space="preserve">
     <value>{0}ゴール {2}の{1}でスタート</value>
@@ -11567,5 +11624,378 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="TwitchChannelModiversary" xml:space="preserve">
     <value>Twitch チャンネル Modiversary</value>
+  </data>
+  <data name="StreamlootsPackCommunityGifted" xml:space="preserve">
+    <value>Streamloots Pack コミュニティ限定</value>
+  </data>
+  <data name="StreamlootsCommunityGiftedPacksAlert" xml:space="preserve">
+    <value>{0}さんが{1}コミュニティパックをプレゼントしています！</value>
+  </data>
+  <data name="AccountSixMonths" xml:space="preserve">
+    <value>アカウント開設から6ヶ月が経過しています</value>
+  </data>
+  <data name="AccountYear" xml:space="preserve">
+    <value>アカウント開設から1年が経過しました</value>
+  </data>
+  <data name="ModerationAccountsOlderThanSixMonths" xml:space="preserve">
+    <value>6ヶ月以上経過したアカウント</value>
+  </data>
+  <data name="ModerationAccountsOlderThanOneYear" xml:space="preserve">
+    <value>1年以上経過したアカウント</value>
+  </data>
+  <data name="Throne" xml:space="preserve">
+    <value>Throne</value>
+  </data>
+  <data name="ThroneContribution" xml:space="preserve">
+    <value>Throneコントリビューション</value>
+  </data>
+  <data name="ThroneGiftCrowdfunded" xml:space="preserve">
+    <value>Throneギフト（クラウドファンディング）</value>
+  </data>
+  <data name="ThroneGiftPurchased" xml:space="preserve">
+    <value>Throneギフト購入</value>
+  </data>
+  <data name="ThroneInfo1" xml:space="preserve">
+    <value>Throneはクリエイター向けのギフト・ウィッシュリストプラットフォームです。Mix It Upと連携すると一意のWebhook URLが生成され、Throneからギフトやコントリビューションの通知をアプリに直接送信できます。</value>
+  </data>
+  <data name="ThroneInfo2" xml:space="preserve">
+    <value>接続後、Webhook URLをコピーして、ThroneのクリエイターダッシュボードのWebhook連携設定に貼り付けてください。Throneのイベントはイベントページでカスタマイズできます。</value>
+  </data>
+  <data name="ThroneWebhookURL" xml:space="preserve">
+    <value>ThroneのWebhook URL</value>
+  </data>
+  <data name="Fourthwall" xml:space="preserve">
+    <value>Fourthwall</value>
+  </data>
+  <data name="FourthwallDonation" xml:space="preserve">
+    <value>Fourthwall寄付</value>
+  </data>
+  <data name="FourthwallGiftPurchase" xml:space="preserve">
+    <value>Fourthwallギフト購入</value>
+  </data>
+  <data name="FourthwallInfo1" xml:space="preserve">
+    <value>Fourthwallはクリエイター向けのグッズ・ショッププラットフォームです。Mix It Upと連携すると一意のWebhook URLが生成され、Fourthwallから注文・寄付・ギフトの通知をアプリに直接送信できます。</value>
+  </data>
+  <data name="FourthwallInfo2" xml:space="preserve">
+    <value>接続後、Webhook URLをコピーして、Fourthwallショップ管理ダッシュボードの「設定 &gt; 開発者向け &gt; Webhooks」に貼り付けてください。Fourthwallのイベントはイベントページでカスタマイズできます。</value>
+  </data>
+  <data name="FourthwallOrderPlaced" xml:space="preserve">
+    <value>Fourthwall注文確定</value>
+  </data>
+  <data name="FourthwallWebhookURL" xml:space="preserve">
+    <value>FourthwallのWebhook URL</value>
+  </data>
+  <data name="KoFi" xml:space="preserve">
+    <value>Ko-fi</value>
+  </data>
+  <data name="KoFiCommission" xml:space="preserve">
+    <value>Ko-fiコミッション</value>
+  </data>
+  <data name="KoFiFirstMembership" xml:space="preserve">
+    <value>Ko-fiメンバーシップ(初回)</value>
+  </data>
+  <data name="KoFiInfo1" xml:space="preserve">
+    <value>Ko-fiでは、サポーターからチップ、メンバーシップ、ショップ注文を受け取れます。Mix It Upと連携すると一意のWebhook URLが生成され、Ko-fiから支払い通知をアプリに直接送信できます。</value>
+  </data>
+  <data name="KoFiInfo2" xml:space="preserve">
+    <value>接続後、Webhook URLをコピーして、Ko-fiのWebhooksページのWebhook URL欄に貼り付けてください。そのページからテスト支払いを送信して動作を確認できます。Ko-fiは配信が成功するまで再試行します。</value>
+  </data>
+  <data name="KoFiMembership" xml:space="preserve">
+    <value>Ko-fiメンバーシップ(継続)</value>
+  </data>
+  <data name="KoFiShopOrder" xml:space="preserve">
+    <value>Ko-fiショップ注文</value>
+  </data>
+  <data name="KoFiTip" xml:space="preserve">
+    <value>Ko-fiチップ</value>
+  </data>
+  <data name="KoFiWebhookURL" xml:space="preserve">
+    <value>Ko-fiのWebhook URL</value>
+  </data>
+  <data name="Pally" xml:space="preserve">
+    <value>Pally.gg</value>
+  </data>
+  <data name="PallyAPIKey" xml:space="preserve">
+    <value>APIキー</value>
+  </data>
+  <data name="PallyAPIKeysPage" xml:space="preserve">
+    <value>Pally.ggのAPIキーページ</value>
+  </data>
+  <data name="PallyDonation" xml:space="preserve">
+    <value>Pally.gg寄付</value>
+  </data>
+  <data name="PallyFailedToConnect" xml:space="preserve">
+    <value>Pally.ggイベントフィードへの接続に失敗しました。APIキーが有効か確認してください。</value>
+  </data>
+  <data name="PallyInfo1" xml:space="preserve">
+    <value>Pally.ggは、視聴者がストリームの全員を一度に支援できるチームチッププラットフォームです。Mix It Upと連携すると、チップ通知がリアルタイムでアプリに直接届きます。</value>
+  </data>
+  <data name="PallyInfo2" xml:space="preserve">
+    <value>接続するには、Pally.ggダッシュボードの「設定 > APIキー」でAPIキーを作成し、ここに貼り付けてください。</value>
+  </data>
+  <data name="PallyInvalidAPIKey" xml:space="preserve">
+    <value>有効なPally.ggのAPIキーを指定してください。</value>
+  </data>
+  <data name="Velora" xml:space="preserve">
+    <value>Velora</value>
+  </data>
+  <data name="LogInWithVelora" xml:space="preserve">
+    <value>Veloraでログイン</value>
+  </data>
+  <data name="LogOutOfVelora" xml:space="preserve">
+    <value>Veloraからログアウトする</value>
+  </data>
+  <data name="VeloraChannelStreamStart" xml:space="preserve">
+    <value>Velora・チャンネル・ストリーム・スタート</value>
+  </data>
+  <data name="VeloraChannelStreamStop" xml:space="preserve">
+    <value>Velora・チャンネル・ストリーム・ストップ</value>
+  </data>
+  <data name="VeloraChannelUpdated" xml:space="preserve">
+    <value>Velora・チャンネル更新</value>
+  </data>
+  <data name="VeloraChannelFollowed" xml:space="preserve">
+    <value>Velora チャンネルをフォローした</value>
+  </data>
+  <data name="VeloraChannelSubscribed" xml:space="preserve">
+    <value>Velora・チャンネル登録</value>
+  </data>
+  <data name="VeloraChannelResubscribed" xml:space="preserve">
+    <value>Velora・チャンネル再登録</value>
+  </data>
+  <data name="VeloraChannelSubscriptionGifted" xml:space="preserve">
+    <value>Velora・チャンネル購読プレゼント</value>
+  </data>
+  <data name="VeloraChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Velora・チャンネル大量購読プレゼント</value>
+  </data>
+  <data name="VeloraChannelRaided" xml:space="preserve">
+    <value>Veloraチャンネルが襲撃されました</value>
+  </data>
+  <data name="VeloraChannelPointsRedeemed" xml:space="preserve">
+    <value>Velora チャンネルポイント引き換え</value>
+  </data>
+  <data name="VeloraChannelCheered" xml:space="preserve">
+    <value>Velora チャンネルの応援</value>
+  </data>
+  <data name="VeloraChannelPoints" xml:space="preserve">
+    <value>Velora チャンネルポイント</value>
+  </data>
+  <data name="VeloraChannelPointsCommand" xml:space="preserve">
+    <value>Velora チャンネルポイントコマンド</value>
+  </data>
+  <data name="ShowVeloraChannelPoints" xml:space="preserve">
+    <value>Velora チャンネルポイントを表示</value>
+  </data>
+  <data name="ShowVeloraCheered" xml:space="preserve">
+    <value>Velora の応援を表示</value>
+  </data>
+  <data name="VeloraCheered" xml:space="preserve">
+    <value>Velora 応援</value>
+  </data>
+  <data name="AlertVeloraChannelPointRedeemed" xml:space="preserve">
+    <value>{0} が {1} を交換しました</value>
+    <comment>{0} はユーザー名、{1} は報酬の名前です</comment>
+  </data>
+  <data name="AlertVeloraCheered" xml:space="preserve">
+    <value>{0} が {1} Volts を応援しました</value>
+    <comment>{0} はユーザー名、{1} は Volts の量です</comment>
+  </data>
+  <data name="VeloraSubscriptions" xml:space="preserve">
+    <value>Velora のサブスクリプション</value>
+  </data>
+  <data name="ChatCommandInvalidUsage" xml:space="preserve">
+    <value>コマンドの使い方が正しくありません。正しい形式: {0}</value>
+    <comment>{0} is the expected usage of the command</comment>
+  </data>
+  <data name="ChatCommandNotSupportedOnPlatform" xml:space="preserve">
+    <value>/{0} コマンドは選択したプラットフォームではサポートされていません</value>
+    <comment>{0} is the name of the slash command</comment>
+  </data>
+  <data name="ChatCommandUserOnMultiplePlatforms" xml:space="preserve">
+    <value>{0} はチャットにおらず、接続中の複数のプラットフォームに存在します。対象とするプラットフォームを指定してください。</value>
+    <comment>{0} is the username</comment>
+  </data>
+  <data name="VeloraModerationActionFailed" xml:space="preserve">
+    <value>Veloraの{0}アクションに失敗しました。詳細はログを確認してください。</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="MusicPlayerAddFileToQueue" xml:space="preserve">
+    <value>ファイルをキューに追加</value>
+  </data>
+  <data name="MusicPlayerAddFolderToQueue" xml:space="preserve">
+    <value>フォルダーをキューに追加</value>
+  </data>
+  <data name="MusicPlayerAddPlaylistToQueue" xml:space="preserve">
+    <value>プレイリストをキューに追加</value>
+  </data>
+  <data name="MusicPlayerClearQueueConfirmation" xml:space="preserve">
+    <value>音楽キューをクリアしてもよろしいですか?</value>
+  </data>
+  <data name="MusicPlayerExportQueueAsPlaylist" xml:space="preserve">
+    <value>キューをM3Uプレイリストとしてエクスポート</value>
+  </data>
+  <data name="MusicPlayerM3UPlaylistFileFormatFilter" xml:space="preserve">
+    <value>M3Uプレイリスト|*.m3u</value>
+  </data>
+  <data name="MusicPlayerPlaylistFileFormatFilter" xml:space="preserve">
+    <value>プレイリスト ファイル|*.m3u;*.m3u8|すべてのファイル (*.*)|*.*</value>
+  </data>
+  <data name="MusicPlayerQueueEmptyHint" xml:space="preserve">
+    <value>下のボタンを使って、ファイル・フォルダー・プレイリストをキューに追加してください</value>
+  </data>
+  <data name="MusicPlayerRemoveFromQueue" xml:space="preserve">
+    <value>キューから削除</value>
+  </data>
+  <data name="NowPlaying" xml:space="preserve">
+    <value>再生中</value>
+  </data>
+  <data name="OutputAndCommands" xml:space="preserve">
+    <value>出力とコマンド</value>
+  </data>
+  <data name="Queue" xml:space="preserve">
+    <value>キュー</value>
+  </data>
+  <data name="Repeat" xml:space="preserve">
+    <value>リピート</value>
+  </data>
+  <data name="RepeatOff" xml:space="preserve">
+    <value>リピート オフ</value>
+  </data>
+  <data name="RepeatOn" xml:space="preserve">
+    <value>リピート オン</value>
+  </data>
+  <data name="RepeatToggle" xml:space="preserve">
+    <value>リピート切り替え</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>シャッフル</value>
+  </data>
+  <data name="ShuffleOff" xml:space="preserve">
+    <value>シャッフル オフ</value>
+  </data>
+  <data name="ShuffleOn" xml:space="preserve">
+    <value>シャッフル オン</value>
+  </data>
+  <data name="ShuffleToggle" xml:space="preserve">
+    <value>シャッフル切り替え</value>
+  </data>
+  <data name="Announce" xml:space="preserve">
+    <value>アナウンス</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="Short" xml:space="preserve">
+    <value>短い</value>
+  </data>
+  <data name="Shoutout" xml:space="preserve">
+    <value>シャウトアウト</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="UntimeoutUser" xml:space="preserve">
+    <value>タイムアウトを解除</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="GrantChannelPoints" xml:space="preserve">
+    <value>チャネルポイントを付与する</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="DeductChannelPoints" xml:space="preserve">
+    <value>チャネルポイントを減らす</value>
+    <comment>Velora action type</comment>
+  </data>
+  <data name="VeloraSetUpBot" xml:space="preserve">
+    <value>ボットを設定</value>
+    <comment>Button text; Velora bots are created/picked in-app rather than logged into</comment>
+  </data>
+  <data name="VeloraRemoveBot" xml:space="preserve">
+    <value>ボットを削除</value>
+    <comment>Button text; disconnects the Velora bot from Mix It Up</comment>
+  </data>
+  <data name="VeloraBotStreamerAccountRequired" xml:space="preserve">
+    <value>ボットを設定する前に、Veloraの配信者アカウントを接続してください。</value>
+  </data>
+  <data name="VeloraBotSelectBotPrompt" xml:space="preserve">
+    <value>Mix It Upがチャットに使用するVeloraボットを選択してください</value>
+  </data>
+  <data name="VeloraBotCreateNewBotOption" xml:space="preserve">
+    <value>新しいボットを作成...</value>
+    <comment>Drop-down option shown alongside the user's existing Velora bots</comment>
+  </data>
+  <data name="VeloraBotEnterBotName" xml:space="preserve">
+    <value>新しいVeloraボットの名前を入力してください</value>
+  </data>
+  <data name="VeloraBotNameRequirements" xml:space="preserve">
+    <value>Veloraのボット名は3～20文字で、使用できるのは英字・数字・アンダースコアのみです。</value>
+  </data>
+  <data name="VeloraBotNameUnavailable" xml:space="preserve">
+    <value>ボット名「{0}」はVeloraでは使用できません。</value>
+    <comment>{0} is the requested bot name</comment>
+  </data>
+  <data name="VeloraBotSetupCanceled" xml:space="preserve">
+    <value>Veloraボットの設定はキャンセルされました。</value>
+  </data>
+  <data name="VeloraBotNotConnected" xml:space="preserve">
+    <value>VeloraボットはMix It Upに接続されていません。アカウントページからもう一度設定してください。</value>
+  </data>
+  <data name="VeloraBotFailedToConnect" xml:space="preserve">
+    <value>Mix It UpはVeloraボットを接続できませんでした。もう一度お試しください。</value>
+  </data>
+  <data name="VeloraBotConnectFailed" xml:space="preserve">
+    <value>Veloraボットの接続に失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotCreateFailed" xml:space="preserve">
+    <value>Veloraボットの作成に失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotSetupNote" xml:space="preserve">
+    <value>Veloraのボットの仕組みは他のプラットフォームとは異なり、ログインする別のボットアカウントはありません。「ボットを設定」では、Veloraの配信者アカウントに属するボットを作成または選択します。</value>
+    <comment>Note shown under the Velora account buttons on the Accounts page</comment>
+  </data>
+  <data name="VeloraEditBot" xml:space="preserve">
+    <value>ボットを編集</value>
+    <comment>Button text; edits the connected Velora bot (profile image / rename)</comment>
+  </data>
+  <data name="VeloraBotAvatarPrompt" xml:space="preserve">
+    <value>ボットのプロフィール画像を選択してください。Veloraは512x512ピクセル以上の正方形の画像を推奨しています (JPEG、PNG、GIF、WebP、5 MB未満)。</value>
+  </data>
+  <data name="VeloraBotAvatarUploadFailed" xml:space="preserve">
+    <value>ボットのプロフィール画像のアップロードに失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="VeloraBotEditPrompt" xml:space="preserve">
+    <value>何を編集しますか?</value>
+  </data>
+  <data name="VeloraBotEditChangeAvatar" xml:space="preserve">
+    <value>プロフィール画像を変更...</value>
+  </data>
+  <data name="VeloraBotEditRenameBot" xml:space="preserve">
+    <value>ボットの名前を変更...</value>
+  </data>
+  <data name="VeloraBotRenameOnCooldown" xml:space="preserve">
+    <value>Veloraでボットの名前を変更できるのは90日に1回のみで、このボットの名前は最近変更されたばかりです。</value>
+  </data>
+  <data name="VeloraBotRenameFailed" xml:space="preserve">
+    <value>Veloraボットの名前変更に失敗しました: {0}</value>
+    <comment>{0} is the error returned by Velora</comment>
+  </data>
+  <data name="ImageFileBrowserNoFileSelected" xml:space="preserve">
+    <value>ファイルが選択されていません</value>
+  </data>
+  <data name="ImageFileBrowserUnsupportedType" xml:space="preserve">
+    <value>このファイル形式はサポートされていません。サポートされる形式: {0}</value>
+    <comment>{0} is the list of supported file extensions</comment>
+  </data>
+  <data name="ImageFileBrowserFileTooLarge" xml:space="preserve">
+    <value>このファイルは{0} MBの上限を超えています。</value>
+    <comment>{0} is the size limit in megabytes</comment>
+  </data>
+  <data name="FailedToReadFile" xml:space="preserve">
+    <value>ファイルの読み取りに失敗しました: {0}</value>
+    <comment>{0} is the file path</comment>
+  </data>
+  <data name="HasTitle" xml:space="preserve">
+    <value>タイトルあり</value>
+    <comment>User search filter type on the Users page</comment>
   </data>
 </root>

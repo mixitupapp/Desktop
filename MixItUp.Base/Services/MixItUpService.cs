@@ -12,10 +12,12 @@ using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Services.Kick.New;
+using MixItUp.Base.Services.Velora.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -40,7 +42,7 @@ namespace MixItUp.Base.Services
         Task Authenticate(CommunityCommandLoginModel login);
 
         Task<GetWebhooksResponseModel> GetWebhooks();
-        Task<Webhook> CreateWebhook();
+        Task<Webhook> CreateWebhook(string service = null);
         Task DeleteWebhook(Guid id);
 
         event EventHandler<bool> NotificationStatusChanged;
@@ -65,7 +67,7 @@ namespace MixItUp.Base.Services
         Task Authenticate(CommunityCommandLoginModel login);
 
         Task<GetWebhooksResponseModel> GetWebhooks();
-        Task<Webhook> CreateWebhook();
+        Task<Webhook> CreateWebhook(string service = null);
         Task DeleteWebhook(Guid id);
     }
 
@@ -139,14 +141,14 @@ namespace MixItUp.Base.Services
 
     public class MixItUpService : OAuthRestServiceBase, ICommunityCommandsService, IMixItUpService, IWebhookService, IDisposable
     {
-        public const string MixItUpAPIEndpoint = "https://desktop.api.mixitupapp.com/api/";
-        public const string MixItUpWebhookHubEndpoint = "wss://desktop.api.mixitupapp.com/webhookhub";
+        public const string MixItUpAPIEndpoint = "https://desktop.api.mixitup.bot/api/";
+        public const string MixItUpWebhookHubEndpoint = "wss://desktop.api.mixitup.bot/webhookhub";
 
         public const string DevMixItUpAPIEndpoint = "http://localhost:3000/api/";                // Dev Endpoint
         public const string DevMixItUpWebhookHubEndpoint = "ws://localhost:3000/webhookhub";      // Dev Endpoint
 
 
-        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitupapp.com/apps/mixitup-desktop/windows-x64";
+        private const string FileServiceBaseUrl = BuildChannelHelper.API_FILES_UPDATE_ROOT; // "https://files.mixitup.bot/apps/mixitup-desktop/windows-x64";
         private static readonly TimeSpan[] FileServiceRetryDelays = new[]
         {
             TimeSpan.FromSeconds(3),
@@ -541,10 +543,13 @@ namespace MixItUp.Base.Services
 
         // IWebhookService
         public const string AuthenticateMethodName = "AuthenticateMany";
+        private static readonly ConcurrentDictionary<string, Func<string, Task>> webhookServiceHandlers = new ConcurrentDictionary<string, Func<string, Task>>(StringComparer.OrdinalIgnoreCase);
+        private readonly ConcurrentDictionary<Guid, string> webhookServiceById = new ConcurrentDictionary<Guid, string>();
         private WebhookHubConnection webhookHubConnection = null;
         private TaskCompletionSource<bool> webhookAuthenticationCompletionSource = null;
         private readonly SemaphoreSlim webhookConnectLock = new SemaphoreSlim(1, 1);
         private CancellationTokenSource webhookReconnectCancellationTokenSource = null;
+        private int webhookReconnectInProgress = 0;
         private const int WebhookReconnectBaseDelayMs = 5000;
         private const int WebhookReconnectMaxDelayMs = 30000;
         public bool IsWebhookHubConnected { get { return this.webhookHubConnection?.IsConnected() ?? false; } }
@@ -612,6 +617,10 @@ namespace MixItUp.Base.Services
                                 Logger.Log(ex);
                             }
                         });
+
+                        // Velora inbound events are handled client-direct over the Chat + Events WebSockets
+                        // (VeloraChatSocketClient / VeloraEventSocketClient), so there is no "VeloraWebhookEvent"
+                        // relay listener here. The DesktopAPI relay route still exists but is no longer consumed.
                     }
 
                     this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
@@ -692,6 +701,11 @@ namespace MixItUp.Base.Services
                 return;
             }
 
+            if (Interlocked.CompareExchange(ref webhookReconnectInProgress, 1, 0) != 0)
+            {
+                return;
+            }
+
             ChannelSession.DisconnectionOccurred(MixItUp.Base.Resources.MixItUpServices);
 
             var reconnectCts = new CancellationTokenSource();
@@ -705,14 +719,19 @@ namespace MixItUp.Base.Services
                 {
                     await DisconnectHubConnection();
 
-                    int baseDelay = Math.Min(WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
+                    int baseDelay = (int)Math.Min((long)WebhookReconnectBaseDelayMs << attempt, WebhookReconnectMaxDelayMs);
                     int jitter = RandomHelper.GenerateRandomNumber(-(baseDelay / 2), baseDelay / 2);
-                    await Task.Delay(baseDelay + jitter, reconnectToken);
+                    await Task.Delay(Math.Max(baseDelay + jitter, 0), reconnectToken);
 
                     result = await this.Connect();
                     attempt++;
                 }
-                while (!result.Success && !isUpdateRequired && !reconnectToken.IsCancellationRequested);
+                while (!result.Success && !isUpdateRequired && !reconnectToken.IsCancellationRequested && attempt < 100);
+
+                if (!result.Success && attempt >= 100)
+                {
+                    Logger.Log(LogLevel.Error, "Webhook reconnection paused after 100 attempts.");
+                }
 
                 if (result.Success)
                 {
@@ -720,6 +739,10 @@ namespace MixItUp.Base.Services
                 }
             }
             catch (OperationCanceledException) { }
+            finally
+            {
+                Interlocked.Exchange(ref webhookReconnectInProgress, 0);
+            }
         }
 
         public async Task Authenticate(CommunityCommandLoginModel login)
@@ -737,22 +760,49 @@ namespace MixItUp.Base.Services
             }
         }
 
+        public static void RegisterWebhookServiceHandler(string service, Func<string, Task> handler)
+        {
+            if (!string.IsNullOrEmpty(service) && handler != null)
+            {
+                webhookServiceHandlers[service] = handler;
+            }
+        }
+
         public async Task<GetWebhooksResponseModel> GetWebhooks()
         {
-            return await this.AuthorizedDesktopApiRequest(async () =>
+            GetWebhooksResponseModel response = await this.AuthorizedDesktopApiRequest(async () =>
             {
                 await EnsureLogin();
                 return await GetAsync<GetWebhooksResponseModel>($"webhook");
             });
+
+            if (response?.Webhooks != null)
+            {
+                this.webhookServiceById.Clear();
+                foreach (Webhook webhook in response.Webhooks)
+                {
+                    this.webhookServiceById[webhook.Id] = webhook.Service;
+                }
+            }
+
+            return response;
         }
 
-        public async Task<Webhook> CreateWebhook()
+        public async Task<Webhook> CreateWebhook(string service = null)
         {
-            return await this.AuthorizedDesktopApiRequest(async () =>
+            Webhook webhook = await this.AuthorizedDesktopApiRequest(async () =>
             {
                 await EnsureLogin();
-                return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(new { }));
+                object content = WebhookServices.IsGeneral(service) ? new { } : (object)new { service = service.ToLowerInvariant() };
+                return await PostAsync<Webhook>($"webhook", AdvancedHttpClient.CreateContentFromObject(content));
             });
+
+            if (webhook != null)
+            {
+                this.webhookServiceById[webhook.Id] = webhook.Service;
+            }
+
+            return webhook;
         }
 
         public async Task DeleteWebhook(Guid id)
@@ -777,6 +827,19 @@ namespace MixItUp.Base.Services
         {
             try
             {
+                if (this.webhookServiceById.TryGetValue(id, out string service) && !WebhookServices.IsGeneral(service))
+                {
+                    if (webhookServiceHandlers.TryGetValue(service, out Func<string, Task> handler))
+                    {
+                        await handler(payload);
+                    }
+                    else
+                    {
+                        Logger.Log($"Webhook Event - No handler registered for webhook service - {service} - {id}");
+                    }
+                    return;
+                }
+
                 var command = ServiceManager.Get<CommandService>().WebhookCommands.FirstOrDefault(c => c.ID == id);
                 if (command != null && command.IsEnabled)
                 {
@@ -832,6 +895,10 @@ namespace MixItUp.Base.Services
             if (ServiceManager.Get<KickSession>().IsConnected)
             {
                 login.KickAccessToken = ServiceManager.Get<KickSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
+            }
+            if (ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                login.VeloraAccessToken = ServiceManager.Get<VeloraSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
             }
             return login;
         }
@@ -1113,6 +1180,7 @@ namespace MixItUp.Base.Services
                 body["hasTwitch"] = ServiceManager.Get<TwitchSession>().IsConnected;
                 body["hasYouTube"] = ServiceManager.Get<YouTubeSession>().IsConnected;
                 body["hasKick"] = ServiceManager.Get<KickSession>().IsConnected;
+                body["hasVelora"] = ServiceManager.Get<VeloraSession>().IsConnected;
                 body["version"] = VersionHelper.GetFullVersionString();
                 body["release"] = BuildChannelHelper.GetReleaseChannel();
 

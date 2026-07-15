@@ -83,7 +83,7 @@
                                     <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning1}"/>
                                     <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning2}"/>
                                     <TextBlock HorizontalAlignment="Center">
-                    <Hyperlink NavigateUri="https://wiki.mixitupapp.com/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
                                             <TextBlock Text="{x:Static resx:Resources.OverlayWarning3}"/>
                     </Hyperlink>
                 </TextBlock>
@@ -113,7 +113,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -130,7 +130,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -147,7 +147,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <MaterialDesign:PackIcon Kind="OpenInNew" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -311,7 +311,7 @@
 
                             <TextBox Text="{Binding Value}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                            <Controls:IconButton Grid.Column="4" Icon="Delete" Command="{Binding DeleteCommand}" />
+                            <Controls:IconButton Grid.Column="4" Icon="delete" Command="{Binding DeleteCommand}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

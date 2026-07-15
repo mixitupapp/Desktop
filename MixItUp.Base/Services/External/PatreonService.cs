@@ -409,6 +409,15 @@ namespace MixItUp.Base.Services.External
             return Task.CompletedTask;
         }
 
+        protected override void ClearPersistedCredentials()
+        {
+            if (ChannelSession.Settings != null)
+            {
+                ChannelSession.Settings.PatreonOAuthToken = null;
+                ChannelSession.Settings.PatreonTierSubscriberEquivalent = null;
+            }
+        }
+
         public async Task<PatreonUser> GetCurrentUser()
         {
             try
