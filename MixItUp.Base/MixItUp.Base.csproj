@@ -3,8 +3,8 @@
   	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<AssemblyTitle>MixItUp.Base</AssemblyTitle>
-    <AssemblyVersion>1.7.140.0</AssemblyVersion>
-    <FileVersion>1.7.140.0</FileVersion>
+    <AssemblyVersion>1.8.000.0</AssemblyVersion>
+    <FileVersion>1.8.000.0</FileVersion>
 		<Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
 		<Configurations>Debug;Test;Public;Preview</Configurations>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Web\MixItUpSecrets.cs" Link="MixItUpSecrets.cs" />
+    <Compile Include="..\..\.workspace\.secrets\MixItUpSecrets.cs" Link="MixItUpSecrets.cs" />
   </ItemGroup>
 
 	<ItemGroup>

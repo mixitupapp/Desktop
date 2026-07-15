@@ -164,7 +164,7 @@ namespace MixItUp.WPF
 
                 SetBoldInlineText(this.PatreonCTAHyperlink, ctaMessages[RandomHelper.GenerateRandomNumber(ctaMessages.Length)]);
                 SetBoldInlineText(this.PatreonShoutOutHyperlink, string.Format(shoutOutMessages[RandomHelper.GenerateRandomNumber(shoutOutMessages.Length)], member.DisplayName));
-                _patreonMemberSocialLink = !string.IsNullOrWhiteSpace(member.SocialMediaLink) ? member.SocialMediaLink : "https://mixitupapp.com/patreon";
+                _patreonMemberSocialLink = !string.IsNullOrWhiteSpace(member.SocialMediaLink) ? member.SocialMediaLink : "https://mixitup.bot/patreon";
                 this.PatreonShoutoutBorder.Visibility = Visibility.Visible;
 
                 if (!string.IsNullOrWhiteSpace(member.AvatarUrl))
