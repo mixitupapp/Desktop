@@ -277,6 +277,17 @@ namespace MixItUp.Base.Services.Velora.New
                 return;
             }
 
+            // System-generated posts (e.g. the "Velora Community Bot" channel-point celebration cards) are
+            // not real users. Their sender is a synthetic account that does not exist in Velora's user
+            // directory, so resolving it hits GET /users/{name}, which 404s and logs a full exception stack
+            // on every post, then persists a phantom user. The underlying events these cards echo (channel
+            // point redemptions, etc.) are handled through their own Events WS handlers, so drop the
+            // redundant system chat echo here rather than track a user for it.
+            if (messageEvent.IsSystem ?? false)
+            {
+                return;
+            }
+
             UserV2ViewModel user = await this.GetOrCreateUser(messageEvent.ResolvedSender);
             if (user == null)
             {
