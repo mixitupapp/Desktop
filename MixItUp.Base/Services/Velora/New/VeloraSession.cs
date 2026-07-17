@@ -306,12 +306,24 @@ namespace MixItUp.Base.Services.Velora.New
         private static List<VeloraBotSyncCommandModel> BuildBotCommandSyncList()
         {
             List<VeloraBotSyncCommandModel> commands = new List<VeloraBotSyncCommandModel>();
+
+            // Velora rejects the entire payload with a 400 ("Duplicate trigger in payload: ...") if any
+            // trigger repeats across the list, keyed on the trigger lowercased with a leading "!" stripped
+            // (the form it echoes in that error). MIU's editor blocks duplicate triggers, but imported or
+            // community-command data can slip a collision past it, so dedupe defensively here: the first
+            // occurrence of a trigger wins and any later repeat - whether it's another command's trigger or
+            // one command's own trigger/alias - is dropped. Dropping a duplicate only omits it from the
+            // profile list; letting one through would fail the whole sync, so over-dropping is the safe side.
+            HashSet<string> seenTriggers = new HashSet<string>(StringComparer.Ordinal);
+
             foreach (CommandModelBase command in ServiceManager.Get<CommandService>().AllEnabledChatAccessibleCommands)
             {
                 if (command is ChatCommandModel chatCommand && !chatCommand.Wildcards && IsRunnableByEveryone(chatCommand))
                 {
                     List<string> triggers = chatCommand.GetFullTriggers()
                         .Where(t => !string.IsNullOrWhiteSpace(t) && t.Length <= VeloraBotSyncCommandModel.MaxTriggerLength)
+                        // Add returns false for a trigger already seen, filtering the duplicate out.
+                        .Where(t => seenTriggers.Add(NormalizeTriggerForDedup(t)))
                         .ToList();
                     if (triggers.Count > 0)
                     {
@@ -326,6 +338,15 @@ namespace MixItUp.Base.Services.Velora.New
                 }
             }
             return commands.OrderBy(c => c.Trigger, StringComparer.OrdinalIgnoreCase).ToList();
+        }
+
+        /// <summary>The collision key used to dedupe the sync list, matching Velora's own: the trigger
+        /// lowercased with a single leading command-prefix "!" removed. Comparison only - the original
+        /// trigger string is what gets sent to Velora.</summary>
+        private static string NormalizeTriggerForDedup(string trigger)
+        {
+            string normalized = trigger.Trim().ToLowerInvariant();
+            return normalized.StartsWith("!") ? normalized.Substring(1) : normalized;
         }
 
         /// <summary>Whether a command's role requirement is the open "everyone" baseline. The advanced
