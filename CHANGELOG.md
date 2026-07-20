@@ -1,5 +1,12 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.001 (HOTFIX)
+
+- Added additional Velora debug logging entry points
+- Crash fixes for ungated webhook retrieval on Service page load
+- Fixed Velora command syncing bug related to duplicate command names
+- Removed gating on Twitch Modiversry event
+
 ## 1.8.000
 
 ### FEATURES
