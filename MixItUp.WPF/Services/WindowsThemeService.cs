@@ -1,8 +1,10 @@
 ﻿using MaterialDesignThemes.Wpf;
 using MaterialDesignColors;
+using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -100,6 +102,66 @@ namespace MixItUp.WPF.Services
                 Logger.Log(ex);
                 Logger.Log($"Failed to switch theme. ColorScheme: {colorScheme}, Background: {backgroundColor}, FullTheme: {fullThemeName}");
             }
+        }
+
+        public void ApplyFont(string fontName)
+        {
+            try
+            {
+                // Only the body font keys are swapped. The Material Symbols icon font lives under its own
+                // resource key (see MixItUp.WPF/Branding/MaterialSymbols.cs) and must never be included here,
+                // otherwise every icon in the application turns into fallback glyphs. The BebasNeue display
+                // font is intentionally left alone as well so headlines keep the Mix It Up branding.
+                FontFamily family = ResolveFontFamily(fontName);
+
+                Application.Current.Resources["NotoSans"] = family;
+                Application.Current.Resources["MaterialDesignFont"] = family;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                Logger.Log($"Failed to switch UI font. Font: {fontName}");
+            }
+        }
+
+        public IEnumerable<string> GetAvailableFonts()
+        {
+            try
+            {
+                // Enumerated through WPF rather than IFileService.GetInstalledFonts(), which is GDI+ based.
+                // The two disagree on family names for a lot of fonts - GDI+ reports "8BIT WONDER" where WPF
+                // needs "8BIT WONDER Nominal" - and a family name WPF can not resolve renders as a silent
+                // fallback face instead of the font the user picked. Only WPF's own names are safe here.
+                return Fonts.SystemFontFamilies
+                    .Select(f => f.Source)
+                    .Where(f => !string.IsNullOrWhiteSpace(f))
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .OrderBy(f => f, StringComparer.CurrentCultureIgnoreCase)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return new List<string>();
+            }
+        }
+
+        private FontFamily ResolveFontFamily(string fontName)
+        {
+            if (!string.IsNullOrWhiteSpace(fontName) && !string.Equals(fontName, ApplicationSettingsV2Model.DefaultUIFontFamily, StringComparison.OrdinalIgnoreCase))
+            {
+                // A font that is no longer installed would silently render as an arbitrary WPF fallback,
+                // so anything that can not be found resolves back to the packaged font instead.
+                if (Fonts.SystemFontFamilies.Any(f => string.Equals(f.Source, fontName, StringComparison.OrdinalIgnoreCase) ||
+                    f.FamilyNames.Values.Any(name => string.Equals(name, fontName, StringComparison.OrdinalIgnoreCase))))
+                {
+                    return new FontFamily(fontName);
+                }
+
+                Logger.Log($"UI font '{fontName}' is not installed, falling back to {ApplicationSettingsV2Model.DefaultUIFontFamily}.");
+            }
+
+            return new FontFamily(new Uri("pack://application:,,,/"), "./Assets/Fonts/#Noto Sans");
         }
 
         private void ReplaceResourceDictionary(string searchPattern, ResourceDictionary newDict)

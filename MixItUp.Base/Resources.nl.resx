@@ -10998,7 +10998,7 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
     <value>Selectievakje</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Doopvont</value>
+    <value>Lettertype</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>FOUT: Amazon Polly TTS kan niet uitvoeren vanwege een premium stem geselecteerd zonder een AWS-account verbonden</value>
@@ -11998,5 +11998,9 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="HasTitle" xml:space="preserve">
     <value>Heeft titel</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI-lettertype</value>
+    <comment>Font selector on the Theme settings page</comment>
   </data>
 </root>

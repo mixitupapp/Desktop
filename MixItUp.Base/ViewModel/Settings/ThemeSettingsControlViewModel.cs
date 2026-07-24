@@ -1,7 +1,9 @@
-﻿using MixItUp.Base.ViewModel.Settings.Generic;
+﻿using MixItUp.Base.Model.Settings;
+using MixItUp.Base.ViewModel.Settings.Generic;
 using MixItUp.Base.ViewModels;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,6 +55,7 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericComboBoxSettingsOptionControlViewModel<string> BackgroundColor { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<string> ForegroundColor { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<ThemeViewModel> FullTheme { get; set; }
+        public GenericComboBoxSettingsOptionControlViewModel<string> UIFont { get; set; }
 
         private bool isColorSchemeEnabled = true;
         public bool IsColorSchemeEnabled
@@ -153,6 +156,34 @@ namespace MixItUp.Base.ViewModel.Settings
                     }
                 });
 
+            // The packaged default is pinned to the top of the list so a user who picks an unreadable
+            // font can always get back to it. The list comes from IThemeService rather than
+            // IFileService.GetInstalledFonts() because only the names WPF itself uses can actually be
+            // rendered by the application chrome.
+            List<string> fonts = new List<string>() { ApplicationSettingsV2Model.DefaultUIFontFamily };
+            fonts.AddRange(ServiceManager.Get<IThemeService>().GetAvailableFonts()
+                .Where(f => !string.Equals(f, ApplicationSettingsV2Model.DefaultUIFontFamily, StringComparison.OrdinalIgnoreCase)));
+
+            // A saved font that is no longer installed falls back to the packaged default.
+            string selectedFont = fonts.FirstOrDefault(f => string.Equals(f, ChannelSession.AppSettings.UIFontFamily, StringComparison.OrdinalIgnoreCase)) ?? ApplicationSettingsV2Model.DefaultUIFontFamily;
+
+            this.UIFont = new GenericComboBoxSettingsOptionControlViewModel<string>(
+                MixItUp.Base.Resources.UIFont,
+                fonts,
+                selectedFont,
+                (value) =>
+                {
+                    if (!string.IsNullOrEmpty(value) && !string.Equals(ChannelSession.AppSettings.UIFontFamily, value))
+                    {
+                        ChannelSession.AppSettings.UIFontFamily = value;
+                        ApplyCurrentFont();
+                    }
+                });
+            // Font family names are proper nouns and must not be localized for display. Without this,
+            // a font whose name collides with a resource key renders translated, for example the
+            // "Symbol" font showing as "Simbolo" or "Symbole".
+            this.UIFont.LocalizeItems = false;
+
             bool hasFullTheme = !string.IsNullOrEmpty(ChannelSession.AppSettings.FullThemeName);
             this.IsColorSchemeEnabled = !hasFullTheme;
             this.IsBackgroundColorEnabled = !hasFullTheme;
@@ -169,6 +200,16 @@ namespace MixItUp.Base.ViewModel.Settings
                     ChannelSession.AppSettings.ForegroundColor ?? "Default",
                     ChannelSession.AppSettings.FullThemeName
                 );
+            });
+        }
+
+        // Matches the theme options: the value is only set in memory here and is written to
+        // ApplicationSettings.json on the shared save points (main window close & the login flow).
+        private void ApplyCurrentFont()
+        {
+            DispatcherHelper.Dispatcher.Invoke(() =>
+            {
+                ServiceManager.Get<IThemeService>().ApplyFont(ChannelSession.AppSettings.UIFontFamily);
             });
         }
     }

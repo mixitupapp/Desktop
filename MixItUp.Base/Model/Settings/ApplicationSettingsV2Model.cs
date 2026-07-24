@@ -23,6 +23,11 @@ namespace MixItUp.Base.Model.Settings
     {
         private const string ApplicationSettingsFileName = "ApplicationSettings.json";
 
+        /// <summary>
+        /// The packaged font that the application UI uses unless the user selects a different one.
+        /// </summary>
+        public const string DefaultUIFontFamily = "Noto Sans";
+
         public static async Task<ApplicationSettingsV2Model> Load()
         {
             ApplicationSettingsV2Model settings = null;
@@ -78,6 +83,9 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public string ForegroundColor { get; set; } = "Default";
+
+        [DataMember]
+        public string UIFontFamily { get; set; } = DefaultUIFontFamily;
 
         [DataMember]
         public bool DontSaveLastWindowPosition { get; set; }

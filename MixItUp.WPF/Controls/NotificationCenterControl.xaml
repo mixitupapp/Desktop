@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     Width="444"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     mc:Ignorable="d">
     <Border
         Background="{DynamicResource MaterialDesignPaper}"

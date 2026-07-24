@@ -14,7 +14,7 @@
     Height="700"
     MinWidth="900"
     MinHeight="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"

@@ -10997,7 +10997,7 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
     <value>Casella da spuntare</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Fonte</value>
+    <value>Carattere</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>ERRORE: Impossibile eseguire Amazon Polly TTS a causa di una voce premium selezionata senza un account AWS collegato</value>
@@ -11997,5 +11997,9 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="HasTitle" xml:space="preserve">
     <value>Con titolo</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Carattere dell'interfaccia</value>
+    <comment>Font selector on the Theme settings page</comment>
   </data>
 </root>

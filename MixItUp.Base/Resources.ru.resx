@@ -12034,4 +12034,8 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
     <value>Есть название</value>
     <comment>User search filter type on the Users page</comment>
   </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Шрифт интерфейса</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
 </root>

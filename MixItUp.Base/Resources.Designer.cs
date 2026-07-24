@@ -31458,5 +31458,14 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("ShuffleToggle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI Font.
+        /// </summary>
+        public static string UIFont {
+            get {
+                return ResourceManager.GetString("UIFont", resourceCulture);
+            }
+        }
     }
 }

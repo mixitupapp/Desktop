@@ -121,11 +121,14 @@ namespace MixItUp.WPF
                     ChannelSession.AppSettings.ForegroundColor ?? "Default",
                     ChannelSession.AppSettings.FullThemeName
                 );
+
+                ServiceManager.Get<IThemeService>().ApplyFont(ChannelSession.AppSettings.UIFontFamily);
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
                 ServiceManager.Get<IThemeService>().ApplyTheme("Indigo", "Light", "Default", null);
+                ServiceManager.Get<IThemeService>().ApplyFont(ApplicationSettingsV2Model.DefaultUIFontFamily);
             }
 
             base.OnStartup(e);

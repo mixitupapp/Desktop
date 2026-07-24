@@ -10997,7 +10997,7 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
     <value>チェックボックス</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>洗礼盤</value>
+    <value>フォント</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>エラー:AWSアカウント接続なしでプレミアムボイスを選択しているため、Amazon Polly TTSが実行できません</value>
@@ -11997,5 +11997,9 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="HasTitle" xml:space="preserve">
     <value>タイトルあり</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI フォント</value>
+    <comment>Font selector on the Theme settings page</comment>
   </data>
 </root>

@@ -10997,7 +10997,7 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
     <value>Pole do odhaczenia</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Chrzcielnica</value>
+    <value>Czcionka</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>BŁĄD: Nie mogę wykonać Amazon Polly TTS z powodu wybranego głosu premium bez połączenia z kontem AWS</value>
@@ -11997,5 +11997,9 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="HasTitle" xml:space="preserve">
     <value>Ma tytuł</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Czcionka interfejsu</value>
+    <comment>Font selector on the Theme settings page</comment>
   </data>
 </root>

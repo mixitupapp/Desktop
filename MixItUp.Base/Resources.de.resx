@@ -11003,7 +11003,7 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
     <value>Checkkästchen</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Taufbecken</value>
+    <value>Schriftart</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>FEHLER: Amazon Polly TTS kann nicht durchgeführt werden, da eine Premium-Stimme ohne verbundenes AWS-Konto ausgewählt ist</value>
@@ -12003,5 +12003,9 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="HasTitle" xml:space="preserve">
     <value>Hat Titel</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI-Schriftart</value>
+    <comment>Font selector on the Theme settings page</comment>
   </data>
 </root>

@@ -11,6 +11,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Util:LocalizationConverter x:Key="LocalizationConverter"/>
+
+        <DataTemplate x:Key="LocalizedItemTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+        </DataTemplate>
+
+        <!--  Used when LocalizeItems is false, for lists of proper nouns such as font family names  -->
+        <DataTemplate x:Key="RawItemTemplate">
+            <TextBlock Text="{Binding}"/>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid Margin="20, 10">
@@ -21,12 +30,18 @@
 
         <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
+        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}">
+            <ComboBox.Style>
+                <!--  ItemTemplate is set through the style rather than as a direct attribute, otherwise the local value would win over the trigger  -->
+                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <Setter Property="ItemTemplate" Value="{StaticResource LocalizedItemTemplate}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding LocalizeItems}" Value="False">
+                            <Setter Property="ItemTemplate" Value="{StaticResource RawItemTemplate}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ComboBox.Style>
         </ComboBox>
     </Grid>
 </UserControl>

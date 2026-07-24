@@ -11,7 +11,7 @@
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     d:DesignHeight="400"
     d:DesignWidth="500"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     TextElement.FontSize="14"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">

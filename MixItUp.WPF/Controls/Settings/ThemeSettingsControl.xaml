@@ -26,6 +26,9 @@
 
             <Separator Margin="10" />
             <GenericSettingsControls:GenericComboBoxSettingsOptionControl DataContext="{Binding FullTheme}" />
+
+            <Separator Margin="10" />
+            <GenericSettingsControls:GenericComboBoxSettingsOptionControl DataContext="{Binding UIFont}" />
         </StackPanel>
     </Grid>
 </local:SettingsControlBase>

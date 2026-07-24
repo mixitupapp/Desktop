@@ -12029,4 +12029,8 @@ print(run())</value>
     <value>Має заголовок</value>
     <comment>User search filter type on the Users page</comment>
   </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Шрифт інтерфейсу</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
 </root>

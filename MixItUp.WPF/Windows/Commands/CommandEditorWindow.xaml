@@ -16,7 +16,7 @@
     Height="600"
     AllowDrop="True"
     Drop="CommandEditorWindow_Drop"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     PreviewDragEnter="CommandEditorWindow_PreviewDragEnter"
     PreviewDragLeave="CommandEditorWindow_PreviewDragLeave"

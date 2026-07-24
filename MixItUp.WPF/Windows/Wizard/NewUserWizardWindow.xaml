@@ -13,7 +13,7 @@
     Title="{x:Static resx:Resources.MixItUpNewUserWizard}"
     Width="800"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="14"

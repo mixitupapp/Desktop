@@ -12062,4 +12062,8 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>Has Title</value>
     <comment>User search filter type on the Users page</comment>
   </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI Font</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
 </root>

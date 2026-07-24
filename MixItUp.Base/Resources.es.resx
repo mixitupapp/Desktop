@@ -12000,4 +12000,8 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
     <value>Tiene título</value>
     <comment>User search filter type on the Users page</comment>
   </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Fuente de la interfaz</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
 </root>

@@ -10997,7 +10997,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>复选框</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>字体</value>
+    <value>字體</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>错误：由于选择的高级语音未连接 AWS 帐户，因此无法执行 Amazon Polly TTS</value>
@@ -12028,5 +12028,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="HasTitle" xml:space="preserve">
     <value>有標題</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>介面字體</value>
+    <comment>Font selector on the Theme settings page</comment>
   </data>
 </root>
