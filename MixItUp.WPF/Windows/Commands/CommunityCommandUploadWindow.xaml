@@ -61,6 +61,7 @@
                 AcceptsReturn="True"
                 AcceptsTab="True"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                TextAlignment="Left"
                 TextWrapping="Wrap" />
 
             <Grid Grid.Row="6">

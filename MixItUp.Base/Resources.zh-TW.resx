@@ -12033,4 +12033,36 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>介面字體</value>
     <comment>Font selector on the Theme settings page</comment>
   </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>整體字型大小 (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>聊天視窗字型大小 (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* 部分字型不適用於所有控制項，字型過大時可能會被裁切。</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>支援模式</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>暫時以預設佈景主題、字型和文字大小顯示應用程式，不會變更您已儲存的設定。關閉後即可回到您自己的設定。</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>重設佈景主題與字型設定</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>重設為預設值</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>這會將色彩配置、背景、前景、完整佈景主題、介面字型、整體字型大小和聊天視窗字型大小重設為預設值。確定要繼續嗎?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
 </root>

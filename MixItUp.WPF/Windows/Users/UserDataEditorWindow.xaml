@@ -518,6 +518,7 @@
                         AcceptsTab="True"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="{Binding Notes}"
+                        TextAlignment="Left"
                         TextWrapping="Wrap"
                         VerticalScrollBarVisibility="Auto" />
                 </GroupBox>

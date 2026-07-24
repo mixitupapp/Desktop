@@ -32,6 +32,14 @@ namespace MixItUp.Base.ViewModel.Settings.Generic
         /// </summary>
         public bool LocalizeItems { get; set; } = true;
 
+        /// <summary>
+        /// Whether each entry renders in the font family it names, so the list previews the choice
+        /// rather than showing every option in the font that is currently applied. Only meaningful
+        /// for a list of font family names. Symbol fonts (Wingdings and the like) will render their
+        /// own names as glyphs, which is the same trade-off every font picker makes.
+        /// </summary>
+        public bool RenderItemsInOwnFont { get; set; } = false;
+
         public bool Enabled
         {
             get { return this.enabled; }

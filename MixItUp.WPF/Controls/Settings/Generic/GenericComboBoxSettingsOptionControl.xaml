@@ -20,6 +20,13 @@
         <DataTemplate x:Key="RawItemTemplate">
             <TextBlock Text="{Binding}"/>
         </DataTemplate>
+
+        <!--  Used when RenderItemsInOwnFont is true: each font name is drawn in the font it names, so
+              the list previews the choice instead of showing everything in the current UI font. The
+              string binds straight to FontFamily through the built-in type converter.  -->
+        <DataTemplate x:Key="OwnFontItemTemplate">
+            <TextBlock Text="{Binding}" FontFamily="{Binding}"/>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid Margin="20, 10">
@@ -38,6 +45,11 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding LocalizeItems}" Value="False">
                             <Setter Property="ItemTemplate" Value="{StaticResource RawItemTemplate}" />
+                        </DataTrigger>
+                        <!--  Declared last on purpose: the font list also sets LocalizeItems to false,
+                              and with equal specificity the later matching trigger is the one that wins  -->
+                        <DataTrigger Binding="{Binding RenderItemsInOwnFont}" Value="True">
+                            <Setter Property="ItemTemplate" Value="{StaticResource OwnFontItemTemplate}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

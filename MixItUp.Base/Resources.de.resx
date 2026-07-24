@@ -12008,4 +12008,36 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
     <value>UI-Schriftart</value>
     <comment>Font selector on the Theme settings page</comment>
   </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Gesamtschriftgröße (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Schriftgröße des Chatfensters (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Manche Schriftarten passen nicht in alle Steuerelemente, und größere Werte können abgeschnitten werden.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Support-Modus</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Zeigt die App vorübergehend mit Standarddesign, -schriftart und -textgröße an, ohne Ihre gespeicherten Einstellungen zu ändern. Zum Zurückkehren einfach ausschalten.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Design- und Schrifteinstellungen zurücksetzen</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Auf Standard zurücksetzen</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Dadurch werden Farbschema, Hintergrund, Vordergrund, vollständiges Design, UI-Schriftart, Gesamtschriftgröße und Chatfenster-Schriftgröße auf die Standardwerte zurückgesetzt. Sind Sie sicher?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
 </root>

@@ -10,6 +10,8 @@ namespace MixItUp.Base.Services
 
         void ApplyFont(string fontName);
 
+        void ApplyFontScale(double scale);
+
         System.Collections.Generic.IEnumerable<string> GetAvailableFonts();
     }
 }

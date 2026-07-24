@@ -73,7 +73,7 @@
             </ItemsControl>
         </Grid>
 
-        <TextBox Grid.Row="4" Text="{Binding RequestBody}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequestBody}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" MinLines="3" MaxLines="8" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Visibility="{Binding ShowRequestBody, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBox Grid.Row="4" Text="{Binding RequestBody}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequestBody}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" MinLines="3" MaxLines="8" TextAlignment="Left" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Visibility="{Binding ShowRequestBody, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
         <ComboBox Grid.Row="6" ItemsSource="{Binding ResponseParseTypes}" SelectedItem="{Binding SelectedResponseParseType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ResponseProcessingType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
             <ComboBox.ItemTemplate>

@@ -124,6 +124,70 @@ namespace MixItUp.WPF.Services
             }
         }
 
+        public void ApplyFontScale(double scale)
+        {
+            try
+            {
+                // Captured once, before anything has been scaled. Every apply recomputes from these
+                // originals rather than from the live resource value, otherwise repeated calls would
+                // compound on each other (1.5x applied twice would render at 2.25x).
+                if (this.baseFontSizes == null)
+                {
+                    this.baseFontSizes = CaptureBaseFontSizes();
+                }
+
+                double min = ApplicationSettingsV2Model.MinimumUIScale / 100.0;
+                double max = ApplicationSettingsV2Model.MaximumUIScale / 100.0;
+                scale = Math.Min(Math.Max(scale, min), max);
+
+                // Only the text scale moves. Icon sizes (MIU.IconSize.*) are deliberately excluded:
+                // too many icons sit inside fixed-size controls for scaling them to be safe, so they
+                // are left at their designed sizes. Keeping the two token sets separate is what makes
+                // that a one-line distinction here.
+                foreach (KeyValuePair<string, double> baseSize in this.baseFontSizes)
+                {
+                    Application.Current.Resources[baseSize.Key] = baseSize.Value * scale;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                Logger.Log($"Failed to apply UI font scale. Scale: {scale}");
+            }
+        }
+
+        private Dictionary<string, double> baseFontSizes;
+
+        private const string FontSizeTokenPrefix = "MIU.FontSize.";
+
+        private static Dictionary<string, double> CaptureBaseFontSizes()
+        {
+            Dictionary<string, double> baseSizes = new Dictionary<string, double>();
+            CaptureBaseFontSizes(Application.Current.Resources, baseSizes);
+            return baseSizes;
+        }
+
+        private static void CaptureBaseFontSizes(ResourceDictionary dictionary, Dictionary<string, double> baseSizes)
+        {
+            // A dictionary's own entries win over its merged ones, matching how WPF resolves a lookup,
+            // so the first value found for a key is the effective one.
+            foreach (object key in dictionary.Keys)
+            {
+                if (key is string name && name.StartsWith(FontSizeTokenPrefix) && !baseSizes.ContainsKey(name))
+                {
+                    if (dictionary[key] is double size)
+                    {
+                        baseSizes[name] = size;
+                    }
+                }
+            }
+
+            foreach (ResourceDictionary merged in dictionary.MergedDictionaries)
+            {
+                CaptureBaseFontSizes(merged, baseSizes);
+            }
+        }
+
         public IEnumerable<string> GetAvailableFonts()
         {
             try

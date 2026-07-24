@@ -56,6 +56,29 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericComboBoxSettingsOptionControlViewModel<string> ForegroundColor { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<ThemeViewModel> FullTheme { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<string> UIFont { get; set; }
+        public GenericSliderSettingsOptionControlViewModel UIScale { get; set; }
+        public GenericSliderSettingsOptionControlViewModel ChatWindowFontSize { get; set; }
+        public GenericToggleSettingsOptionControlViewModel SupportMode { get; set; }
+        public GenericButtonSettingsOptionControlViewModel ResetToDefaults { get; set; }
+
+        /// <summary>
+        /// False while support mode is active, so the rest of the page cannot be edited into a state
+        /// that the temporary defaults are silently overriding.
+        /// </summary>
+        public bool AreThemeControlsEnabled
+        {
+            get { return this.areThemeControlsEnabled; }
+            set
+            {
+                this.areThemeControlsEnabled = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private bool areThemeControlsEnabled = true;
+
+        // Deliberately not persisted: support mode is a troubleshooting aid, and a crash or restart
+        // should never be able to strand someone in it.
+        private bool isSupportModeActive = false;
 
         private bool isColorSchemeEnabled = true;
         public bool IsColorSchemeEnabled
@@ -147,10 +170,7 @@ namespace MixItUp.Base.ViewModel.Settings
                     {
                         ChannelSession.AppSettings.FullThemeName = value?.Key;
 
-                        bool hasFullTheme = !string.IsNullOrEmpty(value?.Key);
-                        this.IsColorSchemeEnabled = !hasFullTheme;
-                        this.IsBackgroundColorEnabled = !hasFullTheme;
-                        this.IsForegroundColorEnabled = !hasFullTheme;
+                        this.RefreshControlEnabledStates();
 
                         ApplyCurrentTheme();
                     }
@@ -183,11 +203,102 @@ namespace MixItUp.Base.ViewModel.Settings
             // a font whose name collides with a resource key renders translated, for example the
             // "Symbol" font showing as "Simbolo" or "Symbole".
             this.UIFont.LocalizeItems = false;
+            // Draw every entry in the font it names so the list previews the choice.
+            this.UIFont.RenderItemsInOwnFont = true;
 
+            this.UIScale = new GenericSliderSettingsOptionControlViewModel(
+                MixItUp.Base.Resources.OverallFontSize,
+                ChannelSession.AppSettings.UIScale,
+                ApplicationSettingsV2Model.MinimumUIScale,
+                ApplicationSettingsV2Model.MaximumUIScale,
+                (value) =>
+                {
+                    ChannelSession.AppSettings.UIScale = value;
+                    ApplyCurrentFontScale();
+                });
+
+            // The chat font size lives here rather than on the Chat settings page so that every font
+            // control sits in one place. Note it is per-channel (SettingsV3Model), unlike the UI font
+            // and scale above it which are per-installation, so it moves when the channel changes.
+            this.ChatWindowFontSize = new GenericSliderSettingsOptionControlViewModel(
+                MixItUp.Base.Resources.ChatWindowFontSize,
+                ChannelSession.Settings.ChatFontSize,
+                6,
+                100,
+                (value) =>
+                {
+                    ChannelSession.Settings.ChatFontSize = value;
+                    ChatService.ChatVisualSettingsChanged();
+                });
+
+            this.SupportMode = new GenericToggleSettingsOptionControlViewModel(
+                MixItUp.Base.Resources.SupportMode,
+                false,
+                (value) =>
+                {
+                    this.isSupportModeActive = value;
+                    this.RefreshControlEnabledStates();
+
+                    if (value)
+                    {
+                        // Applied to the live UI only. Nothing is written to settings, so whatever the
+                        // user had configured is still intact when the toggle goes back off.
+                        DispatcherHelper.Dispatcher.Invoke(() =>
+                        {
+                            ServiceManager.Get<IThemeService>().ApplyTheme(
+                                ApplicationSettingsV2Model.DefaultColorScheme,
+                                ApplicationSettingsV2Model.DefaultBackgroundColor,
+                                ApplicationSettingsV2Model.DefaultForegroundColor,
+                                ApplicationSettingsV2Model.DefaultFullThemeName);
+                            ServiceManager.Get<IThemeService>().ApplyFont(ApplicationSettingsV2Model.DefaultUIFontFamily);
+                            ServiceManager.Get<IThemeService>().ApplyFontScale(ApplicationSettingsV2Model.DefaultUIScale / 100.0);
+                        });
+                    }
+                    else
+                    {
+                        ApplyCurrentTheme();
+                        ApplyCurrentFont();
+                        ApplyCurrentFontScale();
+                    }
+                },
+                MixItUp.Base.Resources.SupportModeTooltip);
+
+            this.ResetToDefaults = new GenericButtonSettingsOptionControlViewModel(
+                MixItUp.Base.Resources.ResetThemeAndFontSettings,
+                MixItUp.Base.Resources.ResetToDefaults,
+                this.CreateCommand(async () =>
+                {
+                    if (await DialogHelper.ShowConfirmation(MixItUp.Base.Resources.ResetThemeAndFontSettingsConfirmation))
+                    {
+                        // Assigning through the option view models rather than the settings directly
+                        // keeps the on-screen controls in step and reuses each setter's apply logic.
+                        this.ColorScheme.Value = this.ColorScheme.Values.FirstOrDefault(c => c.Name.Equals(ApplicationSettingsV2Model.DefaultColorScheme));
+                        this.BackgroundColor.Value = ApplicationSettingsV2Model.DefaultBackgroundColor;
+                        this.ForegroundColor.Value = ApplicationSettingsV2Model.DefaultForegroundColor;
+                        this.FullTheme.Value = this.FullTheme.Values.FirstOrDefault(t => string.IsNullOrEmpty(t.Key));
+                        this.UIFont.Value = ApplicationSettingsV2Model.DefaultUIFontFamily;
+                        this.UIScale.Value = ApplicationSettingsV2Model.DefaultUIScale;
+                        this.ChatWindowFontSize.Value = SettingsV3Model.DefaultChatFontSize;
+
+                        // The theme and font live per-installation, the chat font size per-login, so
+                        // both stores have to be written for the reset to survive a restart.
+                        await ChannelSession.AppSettings.Save();
+                        await ChannelSession.SaveSettings();
+                    }
+                }));
+
+            this.RefreshControlEnabledStates();
+        }
+
+        private void RefreshControlEnabledStates()
+        {
             bool hasFullTheme = !string.IsNullOrEmpty(ChannelSession.AppSettings.FullThemeName);
-            this.IsColorSchemeEnabled = !hasFullTheme;
-            this.IsBackgroundColorEnabled = !hasFullTheme;
-            this.IsForegroundColorEnabled = !hasFullTheme;
+            bool editable = !this.isSupportModeActive;
+
+            this.IsColorSchemeEnabled = editable && !hasFullTheme;
+            this.IsBackgroundColorEnabled = editable && !hasFullTheme;
+            this.IsForegroundColorEnabled = editable && !hasFullTheme;
+            this.AreThemeControlsEnabled = editable;
         }
 
         private void ApplyCurrentTheme()
@@ -210,6 +321,14 @@ namespace MixItUp.Base.ViewModel.Settings
             DispatcherHelper.Dispatcher.Invoke(() =>
             {
                 ServiceManager.Get<IThemeService>().ApplyFont(ChannelSession.AppSettings.UIFontFamily);
+            });
+        }
+
+        private void ApplyCurrentFontScale()
+        {
+            DispatcherHelper.Dispatcher.Invoke(() =>
+            {
+                ServiceManager.Get<IThemeService>().ApplyFontScale(ChannelSession.AppSettings.UIScale / 100.0);
             });
         }
     }

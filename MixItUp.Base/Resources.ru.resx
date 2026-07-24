@@ -12038,4 +12038,36 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
     <value>Шрифт интерфейса</value>
     <comment>Font selector on the Theme settings page</comment>
   </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Общий размер шрифта (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Размер шрифта окна чата (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Некоторые шрифты подходят не для всех элементов управления, а при больших размерах текст может обрезаться.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Режим поддержки</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Временно показывает приложение с темой, шрифтом и размером текста по умолчанию, не изменяя сохранённые настройки. Выключите, чтобы вернуться к своим настройкам.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Сбросить настройки темы и шрифта</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Сбросить по умолчанию</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Цветовая схема, фон, передний план, полная тема, шрифт интерфейса, общий размер шрифта и размер шрифта окна чата будут сброшены к значениям по умолчанию. Вы уверены?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
 </root>

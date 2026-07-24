@@ -31467,5 +31467,77 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("UIFont", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Overall Font Size (%).
+        /// </summary>
+        public static string OverallFontSize {
+            get {
+                return ResourceManager.GetString("OverallFontSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Chat Window Font Size (px).
+        /// </summary>
+        public static string ChatWindowFontSize {
+            get {
+                return ResourceManager.GetString("ChatWindowFontSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to * Some fonts may not fit every control, and larger sizes can clip.
+        /// </summary>
+        public static string OverallFontSizeNote {
+            get {
+                return ResourceManager.GetString("OverallFontSizeNote", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Support Mode.
+        /// </summary>
+        public static string SupportMode {
+            get {
+                return ResourceManager.GetString("SupportMode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Temporarily shows the app with the default theme, font and text size without changing your saved settings.
+        /// </summary>
+        public static string SupportModeTooltip {
+            get {
+                return ResourceManager.GetString("SupportModeTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Theme &amp; Font Settings.
+        /// </summary>
+        public static string ResetThemeAndFontSettings {
+            get {
+                return ResourceManager.GetString("ResetThemeAndFontSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reset To Defaults.
+        /// </summary>
+        public static string ResetToDefaults {
+            get {
+                return ResourceManager.GetString("ResetToDefaults", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This will reset the color scheme, background, foreground, full theme, UI font, overall font size and chat window font size back to their defaults. Are you sure?.
+        /// </summary>
+        public static string ResetThemeAndFontSettingsConfirmation {
+            get {
+                return ResourceManager.GetString("ResetThemeAndFontSettingsConfirmation", resourceCulture);
+            }
+        }
     }
 }

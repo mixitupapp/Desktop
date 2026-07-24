@@ -107,7 +107,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaQuestion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Question}" VerticalAlignment="Center" Height="85" TextWrapping="Wrap" />
+                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaQuestion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Question}" VerticalAlignment="Center" Height="85" TextAlignment="Left" TextWrapping="Wrap" />
 
                             <Grid Grid.Column="2">
                                 <Grid.ColumnDefinitions>

@@ -12002,4 +12002,36 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
     <value>UI フォント</value>
     <comment>Font selector on the Theme settings page</comment>
   </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>全体のフォントサイズ (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>チャットウィンドウのフォントサイズ (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* 一部のフォントはすべてのコントロールに収まらず、大きいサイズでは表示が切れることがあります。</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>サポートモード</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>保存された設定を変更せずに、既定のテーマ・フォント・文字サイズでアプリを一時的に表示します。オフにすると自分の設定に戻ります。</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>テーマとフォントの設定をリセット</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>既定値にリセット</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>配色、背景、前景、フルテーマ、UI フォント、全体のフォントサイズ、チャットウィンドウのフォントサイズを既定値に戻します。よろしいですか?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
 </root>

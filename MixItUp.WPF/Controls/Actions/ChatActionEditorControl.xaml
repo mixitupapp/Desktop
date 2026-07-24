@@ -79,6 +79,7 @@
             MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Text="{Binding ChatText}"
+            TextAlignment="Left"
             TextWrapping="Wrap" />
 
     </Grid>

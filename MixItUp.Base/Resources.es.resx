@@ -12004,4 +12004,36 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
     <value>Fuente de la interfaz</value>
     <comment>Font selector on the Theme settings page</comment>
   </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Tamaño de fuente general (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Tamaño de fuente de la ventana de chat (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Algunas fuentes no encajan en todos los controles y los tamaños grandes pueden recortarse.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Modo de soporte</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Muestra temporalmente la aplicación con el tema, la fuente y el tamaño de texto predeterminados sin cambiar tu configuración guardada. Desactívalo para volver a tu configuración.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Restablecer ajustes de tema y fuente</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Restablecer valores predeterminados</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Esto restablecerá el esquema de color, el fondo, el primer plano, el tema completo, la fuente de la interfaz, el tamaño de fuente general y el tamaño de fuente de la ventana de chat a sus valores predeterminados. ¿Estás seguro?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
 </root>

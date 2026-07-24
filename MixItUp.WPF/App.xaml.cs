@@ -122,13 +122,17 @@ namespace MixItUp.WPF
                     ChannelSession.AppSettings.FullThemeName
                 );
 
-                ServiceManager.Get<IThemeService>().ApplyFont(ChannelSession.AppSettings.UIFontFamily);
+                // The login window is pinned to the packaged font at 100%. The user's own font and
+                // scale are applied once they are past login, in LoadingWindowBase.ShowMainWindow.
+                ServiceManager.Get<IThemeService>().ApplyFont(ApplicationSettingsV2Model.DefaultUIFontFamily);
+                ServiceManager.Get<IThemeService>().ApplyFontScale(ApplicationSettingsV2Model.DefaultUIScale / 100.0);
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
                 ServiceManager.Get<IThemeService>().ApplyTheme("Indigo", "Light", "Default", null);
                 ServiceManager.Get<IThemeService>().ApplyFont(ApplicationSettingsV2Model.DefaultUIFontFamily);
+                ServiceManager.Get<IThemeService>().ApplyFontScale(ApplicationSettingsV2Model.DefaultUIScale / 100.0);
             }
 
             base.OnStartup(e);

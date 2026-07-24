@@ -1,4 +1,6 @@
-﻿using MixItUp.Base.ViewModels;
+﻿using MixItUp.Base;
+using MixItUp.Base.Services;
+using MixItUp.Base.ViewModels;
 using MixItUp.WPF.Controls;
 using MixItUp.WPF.Util;
 using MixItUp.Base.Util;
@@ -99,6 +101,20 @@ namespace MixItUp.WPF.Windows
 
         protected void ShowMainWindow(Window window)
         {
+            // Every post-login path funnels through here, so this is where the user's own font and
+            // scale take effect. The login window itself deliberately stays on the packaged defaults
+            // (see App.OnStartup), which also means an unreadable font or an extreme scale can never
+            // leave someone unable to read the login screen well enough to fix it.
+            try
+            {
+                ServiceManager.Get<IThemeService>().ApplyFont(ChannelSession.AppSettings.UIFontFamily);
+                ServiceManager.Get<IThemeService>().ApplyFontScale(ChannelSession.AppSettings.UIScale / 100.0);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+
             Application.Current.MainWindow = window;
             window.Show();
         }

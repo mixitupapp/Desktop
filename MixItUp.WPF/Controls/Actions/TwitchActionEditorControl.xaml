@@ -445,7 +445,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowPinMessageGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding PinMessageText}" Height="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextWrapping="Wrap" />
+            <TextBox Text="{Binding PinMessageText}" Height="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextAlignment="Left" TextWrapping="Wrap" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowUpdateRedemptionStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
