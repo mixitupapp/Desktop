@@ -17,10 +17,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Controls:MaterialSymbolIcon x:Name="CategoryIcon" Grid.Column="0" Margin="0,0,8,0" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Visibility="Collapsed" />
+                <Controls:MaterialSymbolIcon x:Name="CategoryIcon" Grid.Column="0" Margin="0,0,8,0" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Visibility="Collapsed" />
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding CategoryName}" />
                 <Rectangle Grid.Column="2" Fill="{DynamicResource MaterialDesign.Brush.Primary}" />
-                <Controls:MaterialSymbolIcon Grid.Column="3" IconName="expand_more" FontSize="20" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" x:Name="ExpandIcon" />
+                <Controls:MaterialSymbolIcon Grid.Column="3" IconName="expand_more" FontSize="{DynamicResource MIU.IconSize.20}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" x:Name="ExpandIcon" />
             </Grid>
         </GroupBox.Header>
         <StackPanel x:Name="ServicesPanel" />

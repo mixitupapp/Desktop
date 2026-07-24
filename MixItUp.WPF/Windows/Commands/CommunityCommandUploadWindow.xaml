@@ -42,7 +42,7 @@
             <TextBlock
                 Grid.Row="0"
                 HorizontalAlignment="Center"
-                FontSize="24"
+                FontSize="{DynamicResource MIU.FontSize.HeadlineSmall}"
                 FontWeight="Bold"
                 Text="{x:Static resx:Resources.CommunityCommandsUploadCommunityCommand}"
                 TextDecorations="Underline" />

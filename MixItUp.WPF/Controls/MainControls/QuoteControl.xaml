@@ -44,37 +44,37 @@
             <Button Grid.Column="6" Content="{x:Static resx:Resources.AddQuote}" Command="{Binding AddQuoteCommand}" />
 
             <Button Grid.Column="8" Width="40" Height="40" MinWidth="40" Padding="4" Command="{Binding ToggleLatestQuotesAtTopCommand}" Style="{StaticResource MaterialDesignIconButton}">
-                <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="{Binding QuotesOrderIcon}" FontSize="28" />
+                <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="{Binding QuotesOrderIcon}" FontSize="{DynamicResource MIU.IconSize.28}" />
             </Button>
 
             <MaterialDesign:PopupBox Grid.Column="10" PlacementMode="BottomAndAlignCentres" StaysOpen="False" ToolTip="{x:Static resx:Resources.Settings}">
                 <MaterialDesign:PopupBox.ToggleContent>
-                    <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="settings" FontSize="32" />
+                    <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="settings" FontSize="{DynamicResource MIU.IconSize.32}" />
                 </MaterialDesign:PopupBox.ToggleContent>
                 <StackPanel>
                     <Button x:Name="ImportQuotesButton" HorizontalContentAlignment="Left" Click="ImportQuotesButton_Click" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="input" FontSize="18" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="input" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.ImportQuotes}" />
                         </StackPanel>
                     </Button>
                     <Button HorizontalContentAlignment="Left" Command="{Binding ExportQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="output" FontSize="18" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="output" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.ExportQuotes}" />
                         </StackPanel>
                     </Button>
                     <Separator Margin="0,2" />
                     <Button HorizontalContentAlignment="Left" Command="{Binding RenumberQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="format_list_numbered" FontSize="18" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="format_list_numbered" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.RenumberQuotes}" />
                         </StackPanel>
                     </Button>
                     <Separator Margin="0,2" />
                     <Button HorizontalContentAlignment="Left" Command="{Binding DeleteAllQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
                         <StackPanel Orientation="Horizontal">
-                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="delete_forever" FontSize="18" />
+                            <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="delete_forever" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.DeleteAllQuotes}" />
                         </StackPanel>
                     </Button>

@@ -38,7 +38,7 @@
                 BorderThickness="0,0,0,1"
                 CornerRadius="8,8,0,0">
                 <TextBlock
-                    FontSize="16"
+                    FontSize="{DynamicResource MIU.FontSize.TitleMedium}"
                     FontWeight="SemiBold"
                     Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
                     Text="Notifications" />
@@ -70,7 +70,7 @@
                                         Margin="0,0,12,0"
                                         VerticalAlignment="Center"
                                         Foreground="{Binding IconColor}"
-                                        IconName="{Binding Icon}" FontSize="24" />
+                                        IconName="{Binding Icon}" FontSize="{DynamicResource MIU.IconSize.24}" />
 
                                     <StackPanel Grid.Column="1">
                                         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
@@ -78,7 +78,7 @@
                                                 Margin="0,1,1,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="#DAA520"
-                                                IconName="push_pin" FontSize="14"
+                                                IconName="push_pin" FontSize="{DynamicResource MIU.IconSize.14}"
                                                 Visibility="{Binding PinVisibility}" />
 
                                             <TextBlock
@@ -100,7 +100,7 @@
 
                                             <TextBlock
                                                 Grid.Column="0"
-                                                FontSize="11"
+                                                FontSize="{DynamicResource MIU.FontSize.LabelSmall}"
                                                 Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                 Text="{Binding TimeAgo}" />
 
@@ -114,9 +114,9 @@
                                                     Margin="0,0,4,0"
                                                     VerticalAlignment="Center"
                                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                    IconName="open_in_new" FontSize="11" />
+                                                    IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.11}" />
                                                 <TextBlock
-                                                    FontSize="11"
+                                                    FontSize="{DynamicResource MIU.FontSize.LabelSmall}"
                                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
                                                     Text="{x:Static resx:Resources.GoToLink}"
                                                     TextDecorations="Underline" />

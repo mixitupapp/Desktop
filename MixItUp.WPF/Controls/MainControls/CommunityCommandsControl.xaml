@@ -65,7 +65,7 @@
 
                                     <Separator Grid.Row="0" x:Name="SeparatorDivider" />
 
-                                    <TextBlock Grid.Row="2" Text="{Binding Name}" FontSize="24" TextDecorations="Underline" FontWeight="Bold" />
+                                    <TextBlock Grid.Row="2" Text="{Binding Name}" FontSize="{DynamicResource MIU.FontSize.HeadlineSmall}" TextDecorations="Underline" FontWeight="Bold" />
                                     <TextBlock Grid.Row="4" Text="{Binding Description}" VerticalAlignment="Center" />
 
                                     <Controls:IconButton Grid.Row="2" Grid.RowSpan="3" x:Name="CategorySeeMoreButton" HorizontalAlignment="Right" Icon="arrow_forward" Visibility="{Binding ShouldShowSeeMoreButton, Converter={StaticResource BooleanToVisibilityConverter}}" Click="CategorySeeMoreButton_Click" />
@@ -180,7 +180,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Text="{Binding CommandDetails.Name}" FontSize="24" TextDecorations="Underline" FontWeight="Bold" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Text="{Binding CommandDetails.Name}" FontSize="{DynamicResource MIU.FontSize.HeadlineSmall}" TextDecorations="Underline" FontWeight="Bold" HorizontalAlignment="Center" />
 
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
@@ -253,10 +253,10 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Controls:MaterialSymbolIcon Grid.Column="0" IconName="star" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                    <Controls:MaterialSymbolIcon Grid.Column="0" IconName="star" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                     <TextBlock Grid.Column="2" Text="{Binding CommandDetails.AverageRating}" VerticalAlignment="Center" />
 
-                                    <Controls:MaterialSymbolIcon Grid.Column="4" IconName="download" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                    <Controls:MaterialSymbolIcon Grid.Column="4" IconName="download" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                     <TextBlock Grid.Column="6" Text="{Binding CommandDetails.Downloads}" VerticalAlignment="Center" />
 
                                     <TextBlock Grid.Column="8" Text="{Binding Source={x:Static resx:Resources.LastUpdated}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
@@ -305,7 +305,7 @@
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <Controls:MaterialSymbolIcon IconName="star" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                                        <Controls:MaterialSymbolIcon IconName="star" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
@@ -338,7 +338,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="{Binding CommandDetails.Username}" FontSize="24" TextDecorations="Underline" FontWeight="Bold" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="0" Text="{Binding CommandDetails.Username}" FontSize="{DynamicResource MIU.FontSize.HeadlineSmall}" TextDecorations="Underline" FontWeight="Bold" HorizontalAlignment="Center" />
 
                 <ListView x:Name="UserCommandsList" Grid.Row="2" ItemsSource="{Binding UserCommands}" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="UserCommandsList_SelectionChanged">
                     <ListView.ItemTemplate>
@@ -384,7 +384,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="{x:Static resx:Resources.CommunityCommandsMyCommands}" FontSize="24" TextDecorations="Underline" FontWeight="Bold" HorizontalAlignment="Center" />
+                <TextBlock Grid.Row="0" Text="{x:Static resx:Resources.CommunityCommandsMyCommands}" FontSize="{DynamicResource MIU.FontSize.HeadlineSmall}" TextDecorations="Underline" FontWeight="Bold" HorizontalAlignment="Center" />
 
                 <ListView x:Name="MyCommandsList" Grid.Row="2" ItemsSource="{Binding MyCommands}" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="MyCommandsList_SelectionChanged">
                     <ListView.ItemTemplate>

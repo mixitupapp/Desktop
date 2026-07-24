@@ -171,7 +171,7 @@
                     <TextBlock Text="{x:Static resx:Resources.ChannelPointsEditor}" />
                     <Controls:MaterialSymbolIcon
                         Margin="5,-2,0,0"
-                        IconName="open_in_new" FontSize="20" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+                        IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.20}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                 </StackPanel>
             </Button>
         </Grid>

@@ -206,6 +206,33 @@
     <sys:Double x:Key="MIU.FontSize.LabelMedium">12</sys:Double>
     <sys:Double x:Key="MIU.FontSize.LabelSmall">11</sys:Double>
 
+    <!-- ── Icon size tokens ─────────────────────────────────────────
+         Deliberately a SEPARATE set from the text scale above: icon sizing is its
+         own concern (see MaterialSymbolIcon), so it can be tuned or scaled on its
+         own rhythm without dragging text along, and vice versa.
+
+         One token per glyph size actually in use, so every icon can be reached by
+         the future scale factor without changing any size today. Snapping the
+         outliers (10, 28, 32) onto a shorter scale was rejected: it would visibly
+         distort those glyphs and break the pixel-identity guarantee.
+
+         The two 80px glyphs (MusicPlayerControl, CommandEditorWindow) are large
+         decorative art, deliberately left as literals so they do NOT scale.
+
+         Consumed via DynamicResource, same rule as the text tokens.
+         ────────────────────────────────────────────────────────────── -->
+
+    <sys:Double x:Key="MIU.IconSize.10">10</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.11">11</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.14">14</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.16">16</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.18">18</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.20">20</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.22">22</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.24">24</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.28">28</sys:Double>
+    <sys:Double x:Key="MIU.IconSize.32">32</sys:Double>
+
     <!-- ── Display ─────────────────────────────────────────────── -->
 
     <!-- h1.large  57px / 64px lh / Regular / tracking -0.0044em -->

@@ -75,7 +75,7 @@
                     <TextBlock
                         Grid.Row="2"
                         HorizontalAlignment="Center"
-                        FontSize="15"
+                        FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
                         Text="{Binding CurrentlyPlayingSong}"
                         TextAlignment="Center"
                         TextTrimming="CharacterEllipsis" />
@@ -92,12 +92,12 @@
                     <Grid Grid.Row="5" Margin="5,0">
                         <TextBlock
                             HorizontalAlignment="Left"
-                            FontSize="11"
+                            FontSize="{DynamicResource MIU.FontSize.LabelSmall}"
                             Opacity="0.8"
                             Text="{Binding TrackPositionString}" />
                         <TextBlock
                             HorizontalAlignment="Right"
-                            FontSize="11"
+                            FontSize="{DynamicResource MIU.FontSize.LabelSmall}"
                             Opacity="0.8"
                             Text="{Binding TrackDurationString}" />
                     </Grid>
@@ -264,7 +264,7 @@
                                 <Controls:MaterialSymbolIcon
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    IconName="drag_handle" FontSize="20"
+                                    IconName="drag_handle" FontSize="{DynamicResource MIU.IconSize.20}"
                                     Opacity="0.6" />
 
                                 <Grid
@@ -277,7 +277,7 @@
                                     <Controls:MaterialSymbolIcon
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        IconName="music_note" FontSize="20"
+                                        IconName="music_note" FontSize="{DynamicResource MIU.IconSize.20}"
                                         Opacity="0.3" />
                                     <Image Source="{Binding Converter={StaticResource AlbumArtConverter}, ConverterParameter=64}" Stretch="Uniform" />
                                 </Grid>
@@ -289,11 +289,11 @@
                                     MouseLeftButtonDown="QueueSongBody_MouseLeftButtonDown"
                                     Orientation="Vertical">
                                     <TextBlock
-                                        FontSize="13"
+                                        FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                         Text="{Binding Title}"
                                         TextTrimming="CharacterEllipsis" />
                                     <TextBlock
-                                        FontSize="11"
+                                        FontSize="{DynamicResource MIU.FontSize.LabelSmall}"
                                         Opacity="0.7"
                                         Text="{Binding QueueDetailsString}"
                                         TextTrimming="CharacterEllipsis" />
@@ -310,7 +310,7 @@
                                     Style="{StaticResource MaterialDesignIconButton}"
                                     ToolTip="{x:Static resx:Resources.MusicPlayerRemoveFromQueue}">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="cancel" FontSize="20" />
+                                        IconName="cancel" FontSize="{DynamicResource MIU.IconSize.20}" />
                                 </Button>
                             </Grid>
                         </DataTemplate>

@@ -48,7 +48,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Controls:MaterialSymbolIcon IconName="sensors" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" Margin="0,10,0,0" />
+                <Controls:MaterialSymbolIcon IconName="sensors" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" Margin="0,10,0,0" />
                 <TextBox Grid.Column="2" Text="{Binding IPAddress}" Width="130" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IPAddress}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             </Grid>
 
@@ -59,7 +59,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Controls:MaterialSymbolIcon IconName="key" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" />
+                <Controls:MaterialSymbolIcon IconName="key" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" />
                 <PasswordBox Grid.Column="2" x:Name="PasswordBox" Style="{StaticResource MaterialDesignPasswordBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Password}" />
             </Grid>
 

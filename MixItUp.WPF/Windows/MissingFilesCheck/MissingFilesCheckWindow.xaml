@@ -54,7 +54,7 @@
                             <Controls:MaterialSymbolIcon
                                 Margin="0,0,6,0"
                                 VerticalAlignment="Center"
-                                IconName="file_copy" FontSize="16"
+                                IconName="file_copy" FontSize="{DynamicResource MIU.IconSize.16}"
                                 Opacity="0.7" />
                             <TextBlock
                                 VerticalAlignment="Center"
@@ -70,7 +70,7 @@
                                 Margin="0,0,6,0"
                                 VerticalAlignment="Center"
                                 Foreground="#4CAF50"
-                                IconName="check_circle" FontSize="16" />
+                                IconName="check_circle" FontSize="{DynamicResource MIU.IconSize.16}" />
                             <TextBlock
                                 VerticalAlignment="Center"
                                 FontWeight="SemiBold"
@@ -85,7 +85,7 @@
                                 Margin="0,0,6,0"
                                 VerticalAlignment="Center"
                                 Foreground="#FFA500"
-                                IconName="error" FontSize="16" />
+                                IconName="error" FontSize="{DynamicResource MIU.IconSize.16}" />
                             <TextBlock
                                 VerticalAlignment="Center"
                                 FontWeight="SemiBold"
@@ -100,7 +100,7 @@
                                 Margin="0,0,6,0"
                                 VerticalAlignment="Center"
                                 Foreground="#F44336"
-                                IconName="cancel" FontSize="16" />
+                                IconName="cancel" FontSize="{DynamicResource MIU.IconSize.16}" />
                             <TextBlock
                                 VerticalAlignment="Center"
                                 FontWeight="SemiBold"
@@ -120,7 +120,7 @@
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,8,0"
                             VerticalAlignment="Center"
-                            IconName="refresh" FontSize="16" />
+                            IconName="refresh" FontSize="{DynamicResource MIU.IconSize.16}" />
                         <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.Rescan}" />
                     </StackPanel>
                 </Button>
@@ -155,7 +155,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Controls:MaterialSymbolIcon
-                                        FontSize="20"
+                                        FontSize="{DynamicResource MIU.IconSize.20}"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center">
                                         <Controls:MaterialSymbolIcon.Style>
@@ -245,7 +245,7 @@
                     Padding="8,6"
                     VerticalAlignment="Center"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SelectAPath}"
-                    FontSize="12"
+                    FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                     IsEnabled="{Binding HasSelectedItem}"
                     Text="{Binding SelectedItem.FilePath, Mode=TwoWay}" />
                 <Button
@@ -259,7 +259,7 @@
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,6,0"
                             VerticalAlignment="Center"
-                            IconName="folder_open" FontSize="18" />
+                            IconName="folder_open" FontSize="{DynamicResource MIU.IconSize.18}" />
                         <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.Browse}" />
                     </StackPanel>
                 </Button>
@@ -281,7 +281,7 @@
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,6,0"
                             VerticalAlignment="Center"
-                            IconName="manage_search" FontSize="18" />
+                            IconName="manage_search" FontSize="{DynamicResource MIU.IconSize.18}" />
                         <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.SearchFolder}" />
                     </StackPanel>
                 </Button>
@@ -310,7 +310,7 @@
                     Padding="8,6"
                     VerticalAlignment="Center"
                     MaterialDesign:HintAssist.Hint="C:\Users\OldName\Sounds"
-                    FontSize="12"
+                    FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -324,7 +324,7 @@
                     Padding="8,6"
                     VerticalAlignment="Center"
                     MaterialDesign:HintAssist.Hint="C:\Users\NewName\Sounds"
-                    FontSize="12"
+                    FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
                     Text="{Binding ReplaceText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
@@ -338,7 +338,7 @@
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,6,0"
                             VerticalAlignment="Center"
-                            IconName="find_replace" FontSize="18" />
+                            IconName="find_replace" FontSize="{DynamicResource MIU.IconSize.18}" />
                         <TextBlock VerticalAlignment="Center" Text="{x:Static resx:Resources.ReplaceAll}" />
                     </StackPanel>
                 </Button>

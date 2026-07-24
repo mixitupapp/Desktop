@@ -39,7 +39,7 @@
                     x:Name="HeaderTextBlock"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="22" />
+                    FontSize="{DynamicResource MIU.FontSize.TitleLarge}" />
             </DockPanel>
         </MaterialDesign:ColorZone>
 

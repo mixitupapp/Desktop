@@ -233,7 +233,9 @@ namespace MixItUp.WPF.Windows.Overlay
         private void SetSearchButtonIcon(ButtonBase button, string iconName)
         {
             Brush foregroundBrush = button.Foreground;
-            button.Content = new Controls.MaterialSymbolIcon() { IconName = iconName, FontSize = 16, Foreground = foregroundBrush };
+            Controls.MaterialSymbolIcon icon = new Controls.MaterialSymbolIcon() { IconName = iconName, Foreground = foregroundBrush };
+            icon.SetResourceReference(TextBlock.FontSizeProperty, "MIU.IconSize.16");
+            button.Content = icon;
             button.Padding = new Thickness(2);
             button.MinWidth = 30;
             button.MinHeight = 26;

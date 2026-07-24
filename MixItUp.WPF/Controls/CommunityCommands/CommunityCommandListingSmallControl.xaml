@@ -30,10 +30,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Controls:MaterialSymbolIcon Grid.Column="0" IconName="star" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,1" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+            <Controls:MaterialSymbolIcon Grid.Column="0" IconName="star" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Margin="0,0,0,1" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
             <TextBlock Grid.Column="2" Text="{Binding AverageRating}" VerticalAlignment="Center" />
 
-            <Controls:MaterialSymbolIcon Grid.Column="4" IconName="download" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+            <Controls:MaterialSymbolIcon Grid.Column="4" IconName="download" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
             <TextBlock Grid.Column="6" Text="{Binding DownloadsString}" VerticalAlignment="Center" />
         </Grid>
 

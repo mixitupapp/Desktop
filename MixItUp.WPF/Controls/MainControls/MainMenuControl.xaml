@@ -71,11 +71,11 @@
                                 Unchecked="EditMenuButton_Unchecked">
                                 <ToggleButton.Content>
                                     <Controls:MaterialSymbolIcon
-                                        IconName="edit" FontSize="24" />
+                                        IconName="edit" FontSize="{DynamicResource MIU.IconSize.24}" />
                                 </ToggleButton.Content>
                                 <MaterialDesign:ToggleButtonAssist.OnContent>
                                     <Controls:MaterialSymbolIcon
-                                        IconName="save" FontSize="24" />
+                                        IconName="save" FontSize="{DynamicResource MIU.IconSize.24}" />
                                 </MaterialDesign:ToggleButtonAssist.OnContent>
                                 <ToggleButton.Style>
                                     <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton">
@@ -143,7 +143,7 @@
                                             Grid.Column="0"
                                             Margin="0,0,2,0"
                                             VerticalAlignment="Center"
-                                            IconName="drag_indicator" FontSize="16"
+                                            IconName="drag_indicator" FontSize="{DynamicResource MIU.IconSize.16}"
                                             Visibility="Collapsed" />
 
                                         <CheckBox
@@ -166,7 +166,7 @@
                                             <Controls:MaterialSymbolIcon
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                FontSize="22"
+                                                FontSize="{DynamicResource MIU.IconSize.22}"
                                                 IconName="{Binding IconName}"
                                                 Visibility="{Binding ShowIcon, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                         </Grid>
@@ -214,7 +214,7 @@
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        FontSize="22"
+                                        FontSize="{DynamicResource MIU.FontSize.TitleLarge}"
                                         Text="{Binding Name}" />
 
                                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
@@ -301,7 +301,7 @@
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            FontSize="22">
+                            FontSize="{DynamicResource MIU.FontSize.TitleLarge}">
                             Settings
                         </TextBlock>
 

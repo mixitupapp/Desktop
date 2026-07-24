@@ -58,7 +58,7 @@
                         ToolTip="Close">
                             <Controls:MaterialSymbolIcon
                                 Foreground="{StaticResource MIU.Brush.Dark.Primary}"
-                            IconName="close" FontSize="20" />
+                            IconName="close" FontSize="{DynamicResource MIU.IconSize.20}" />
                         </Button>
 
                         <Grid Grid.Row="1" Margin="0,8,0,0">
@@ -109,7 +109,7 @@
                                 MaterialDesign:ButtonAssist.CornerRadius="20"
                                 Click="StreamerLoginButton_Click"
                               
-                                FontSize="14"
+                                FontSize="{DynamicResource MIU.FontSize.LabelLarge}"
                                 IsEnabled="False"
                                 Style="{StaticResource MaterialDesignRaisedButton}" >
                                     <TextBlock 
@@ -259,7 +259,7 @@
                                     <MaterialDesign:PopupBox.ToggleContent>
                                         <Controls:MaterialSymbolIcon
                                         Foreground="{StaticResource MIU.Brush.Dark.Primary}"
-                                        IconName="help" FontSize="20" />
+                                        IconName="help" FontSize="{DynamicResource MIU.IconSize.20}" />
                                     </MaterialDesign:PopupBox.ToggleContent>
                                     <StackPanel>
                                         <Button
@@ -271,7 +271,7 @@
                                                 Margin="0,0,8,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                IconName="folder" FontSize="18" />
+                                                IconName="folder" FontSize="{DynamicResource MIU.IconSize.18}" />
                                                 <TextBlock
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -288,7 +288,7 @@
                                                 Margin="0,0,8,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                IconName="select_window" FontSize="18" />
+                                                IconName="select_window" FontSize="{DynamicResource MIU.IconSize.18}" />
                                                 <TextBlock
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -348,13 +348,13 @@
                                 Margin="0,0,12,0"
                                 VerticalAlignment="Center"
                                 Foreground="White"
-                                IconName="info" FontSize="24" />
+                                IconName="info" FontSize="{DynamicResource MIU.IconSize.24}" />
 
                                 <TextBlock
                                 x:Name="OutageMessage"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
-                                FontSize="13"
+                                FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                 Foreground="White"
                                 TextWrapping="Wrap" />
 
@@ -370,7 +370,7 @@
                                 ToolTip="Close">
                                     <Controls:MaterialSymbolIcon
                                     Foreground="White"
-                                    IconName="close" FontSize="18" />
+                                    IconName="close" FontSize="{DynamicResource MIU.IconSize.18}" />
                                 </Button>
                             </Grid>
                         </MaterialDesign:Card>

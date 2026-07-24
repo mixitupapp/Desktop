@@ -299,7 +299,7 @@
                                         UniformCornerRadius="4"
                                         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                                         TextElement.FontWeight="Regular"
-                                        TextElement.FontSize="13"
+                                        TextElement.FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                         TextOptions.TextFormattingMode="Ideal"
                                         TextOptions.TextRenderingMode="Auto"                  
                                         FocusManager.IsFocusScope="False"

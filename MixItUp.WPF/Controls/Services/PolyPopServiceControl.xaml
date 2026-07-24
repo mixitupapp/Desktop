@@ -67,7 +67,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Controls:MaterialSymbolIcon IconName="sensors" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" />
+                    <Controls:MaterialSymbolIcon IconName="sensors" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" />
                     <TextBox Grid.Column="2" Text="{Binding PolyPopPortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="130" VerticalAlignment="Center" />
                 </Grid>
 
