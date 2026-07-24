@@ -65,7 +65,7 @@ namespace MixItUp.Base.ViewModel.Actions
         public SoundActionEditorControlViewModel(SoundActionModel action)
             : base(action)
         {
-            this.LoadSoundDevices();
+            this.LoadSoundDevices(action.OutputDevice);
 
             this.SelectedActionType = action.ActionType;
             if (this.ShowPlaySoundGrid)
@@ -114,9 +114,9 @@ namespace MixItUp.Base.ViewModel.Actions
             }
         }
 
-        private void LoadSoundDevices()
+        private void LoadSoundDevices(string retainedDevice = null)
         {
-            this.AudioDevices.AddRange(ServiceManager.Get<IAudioService>().GetSelectableAudioDevices(includeOverlay: true));
+            this.AudioDevices.AddRange(ServiceManager.Get<IAudioService>().GetSelectableAudioDevices(includeOverlay: true, retainedDevice: retainedDevice));
         }
     }
 }

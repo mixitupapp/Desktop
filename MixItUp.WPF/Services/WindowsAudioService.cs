@@ -180,12 +180,18 @@ namespace MixItUp.WPF.Services
             }
         }
 
-        public IEnumerable<string> GetSelectableAudioDevices(bool includeOverlay = false)
+        public IEnumerable<string> GetSelectableAudioDevices(bool includeOverlay = false, string retainedDevice = null)
         {
             List<string> audioOptions = new List<string>();
             audioOptions.Add(this.DefaultAudioDevice);
             audioOptions.Add(this.MixItUpOverlay);
             audioOptions.AddRange(ServiceManager.Get<IAudioService>().GetOutputDevices());
+
+            if (!string.IsNullOrEmpty(retainedDevice) && !audioOptions.Contains(retainedDevice))
+            {
+                audioOptions.Add(retainedDevice);
+            }
+
             return audioOptions;
         }
 
@@ -322,6 +328,13 @@ namespace MixItUp.WPF.Services
                         }
                     }
                     catch (Exception ex) { Logger.Log(ex); }
+                }
+
+                // The named device is gone and playback is about to fall back to the default output device.
+                // The two sentinel options never match a real device, so they are not a resolution failure.
+                if (!deviceName.Equals(this.DefaultAudioDevice) && !deviceName.Equals(this.MixItUpOverlay))
+                {
+                    Logger.Log(LogLevel.Warning, $"Audio output device \"{deviceName}\" could not be found, falling back to the default output device");
                 }
             }
             return -1;

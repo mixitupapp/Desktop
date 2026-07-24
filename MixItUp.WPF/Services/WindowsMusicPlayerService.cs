@@ -359,6 +359,33 @@ namespace MixItUp.WPF.Services
             }
         }
 
+        public async Task SetAudioOutputDevice(string deviceName)
+        {
+            if (string.Equals(ChannelSession.Settings.MusicPlayerAudioOutput, deviceName, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            // Assigned before the first await so that the settings value is already current when the
+            // view model raises its property change notification, otherwise the bound selection reverts.
+            ChannelSession.Settings.MusicPlayerAudioOutput = deviceName;
+
+            try
+            {
+                await this.sempahore.WaitAsync();
+
+                this.SwitchOutputDeviceInternal();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                this.sempahore.Release();
+            }
+        }
+
         public async Task SetShuffle(bool enabled)
         {
             try
@@ -841,6 +868,45 @@ namespace MixItUp.WPF.Services
             }
         }
 
+        private void SwitchOutputDeviceInternal()
+        {
+            MusicPlayerSong song = this.CurrentSong;
+            if (song == null || this.State == MusicPlayerState.Stopped)
+            {
+                return;
+            }
+
+            MusicPlayerState previousState = this.State;
+            TimeSpan previousPosition = TimeSpan.Zero;
+            if (this.currentWaveStream != null)
+            {
+                previousPosition = this.currentWaveStream.CurrentTime;
+            }
+
+            WaveOutEvent previousWaveOutEvent = this.currentWaveOutEvent;
+            this.currentWaveOutEvent = null;
+            this.currentWaveStream = null;
+            if (previousWaveOutEvent != null)
+            {
+                previousWaveOutEvent.Stop();
+            }
+
+            this.PlayInternal(song);
+
+            if (this.currentWaveOutEvent != null)
+            {
+                if (previousState == MusicPlayerState.Paused)
+                {
+                    this.currentWaveOutEvent.Pause();
+                }
+
+                if (this.currentWaveStream != null && previousPosition > TimeSpan.Zero && previousPosition < this.currentWaveStream.TotalTime)
+                {
+                    this.currentWaveStream.CurrentTime = previousPosition;
+                }
+            }
+        }
+
         private async Task PlayBackground(WaveOutEvent waveOutEvent, MusicPlayerSong song)
         {
             using (waveOutEvent)
@@ -851,7 +917,7 @@ namespace MixItUp.WPF.Services
                 }
                 waveOutEvent.Dispose();
 
-                if (this.CurrentSong == song && this.State == MusicPlayerState.Playing)
+                if (this.currentWaveOutEvent == waveOutEvent && this.CurrentSong == song && this.State == MusicPlayerState.Playing)
                 {
                     if (this.stopOnSpecificSongCompletion && song == this.stopOnSpecificSong)
                     {

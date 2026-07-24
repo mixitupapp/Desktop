@@ -62,9 +62,9 @@ namespace MixItUp.Base.ViewModel.Settings
             }
 
             this.DefaultAudioOutput = new GenericComboBoxSettingsOptionControlViewModel<string>(MixItUp.Base.Resources.DefaultAudioOutput,
-                ServiceManager.Get<IAudioService>().GetSelectableAudioDevices(includeOverlay: true), defaultAudioOption, (value) =>
+                ServiceManager.Get<IAudioService>().GetSelectableAudioDevices(includeOverlay: true, retainedDevice: defaultAudioOption), defaultAudioOption, (value) =>
                 {
-                    if (value.Equals(ServiceManager.Get<IAudioService>().DefaultAudioDevice))
+                    if (string.IsNullOrEmpty(value) || value.Equals(ServiceManager.Get<IAudioService>().DefaultAudioDevice))
                     {
                         ChannelSession.Settings.DefaultAudioOutput = null;
                     }
