@@ -1,6 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
     <!--
     ============================================================
@@ -171,12 +172,46 @@
          CharacterSpacing is in thousandths of an em (em × 1000).
          =========================================================== -->
 
+    <!-- ── Size tokens ──────────────────────────────────────────────
+         Naming: MIU.FontSize.<Tier><Step>, matching the MIU.Brush.* convention
+         and the app.css §3 scale step names.
+
+         One token per named style rather than one per distinct value: TitleSmall,
+         BodyMedium and LabelLarge all happen to be 14 today, but they are separate
+         steps in MD3 and collapsing them would make it impossible to tune one tier
+         without dragging the others along.
+
+         These MUST be consumed with DynamicResource everywhere. A StaticResource
+         reference resolves once at parse time, so it would keep working, keep
+         throwing no exception, and silently ignore any later reassignment.
+         ────────────────────────────────────────────────────────────── -->
+
+    <sys:Double x:Key="MIU.FontSize.DisplayLarge">57</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.DisplayMedium">45</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.DisplaySmall">36</sys:Double>
+
+    <sys:Double x:Key="MIU.FontSize.HeadlineLarge">32</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.HeadlineMedium">28</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.HeadlineSmall">24</sys:Double>
+
+    <sys:Double x:Key="MIU.FontSize.TitleLarge">22</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.TitleMedium">16</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.TitleSmall">14</sys:Double>
+
+    <sys:Double x:Key="MIU.FontSize.BodyLarge">16</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.BodyMedium">14</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.BodySmall">12</sys:Double>
+
+    <sys:Double x:Key="MIU.FontSize.LabelLarge">14</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.LabelMedium">12</sys:Double>
+    <sys:Double x:Key="MIU.FontSize.LabelSmall">11</sys:Double>
+
     <!-- ── Display ─────────────────────────────────────────────── -->
 
     <!-- h1.large  57px / 64px lh / Regular / tracking -0.0044em -->
     <Style x:Key="DisplayLarge" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="57" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.DisplayLarge}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="64" />
     </Style>
@@ -184,7 +219,7 @@
     <!-- h1       45px / 52px lh / Regular / tracking 0 -->
     <Style x:Key="DisplayMedium" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="45" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.DisplayMedium}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="52" />
     </Style>
@@ -192,7 +227,7 @@
     <!-- h1.small  36px / 44px lh / Regular / tracking 0 -->
     <Style x:Key="DisplaySmall" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="36" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.DisplaySmall}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="44" /> 
     </Style>
@@ -202,7 +237,7 @@
     <!-- h2.large  32px / 40px lh / Regular / tracking 0 -->
     <Style x:Key="HeadlineLarge" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="32" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.HeadlineLarge}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="40" /> 
     </Style>
@@ -210,7 +245,7 @@
     <!-- h2       28px / 36px lh / Regular / tracking 0 -->
     <Style x:Key="HeadlineMedium" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="28" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.HeadlineMedium}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="36" /> 
     </Style>
@@ -218,7 +253,7 @@
     <!-- h2.small  24px / 32px lh / Regular / tracking 0 -->
     <Style x:Key="HeadlineSmall" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="24" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.HeadlineSmall}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="32" /> 
     </Style>
@@ -228,7 +263,7 @@
     <!-- h3.large  22px / 28px lh / Regular / tracking 0 -->
     <Style x:Key="TitleLarge" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="22" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.TitleLarge}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="28" /> 
     </Style>
@@ -236,7 +271,7 @@
     <!-- h3       16px / 24px lh / Medium / tracking 0.0094em -->
     <Style x:Key="TitleMedium" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="16" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.TitleMedium}" />
         <Setter Property="FontWeight"                  Value="Medium" />
         <Setter Property="LineHeight"                  Value="24" /> 
     </Style>
@@ -244,7 +279,7 @@
     <!-- h3.small  14px / 20px lh / Medium / tracking 0.0071em -->
     <Style x:Key="TitleSmall" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource BebasNeue}" />
-        <Setter Property="FontSize"                    Value="14" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.TitleSmall}" />
         <Setter Property="FontWeight"                  Value="Medium" />
         <Setter Property="LineHeight"                  Value="20" /> 
     </Style>
@@ -254,7 +289,7 @@
     <!-- p.large  16px / 24px lh / Regular / tracking 0.0313em -->
     <Style x:Key="BodyLarge" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
-        <Setter Property="FontSize"                    Value="16" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.BodyLarge}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="24" /> 
     </Style>
@@ -262,7 +297,7 @@
     <!-- p        14px / 20px lh / Regular / tracking 0.0179em -->
     <Style x:Key="BodyMedium" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
-        <Setter Property="FontSize"                    Value="14" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.BodyMedium}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="20" /> 
     </Style>
@@ -270,7 +305,7 @@
     <!-- p.small  12px / 16px lh / Regular / tracking 0.0333em -->
     <Style x:Key="BodySmall" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
-        <Setter Property="FontSize"                    Value="12" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.BodySmall}" />
         <Setter Property="FontWeight"                  Value="Normal" />
         <Setter Property="LineHeight"                  Value="16" /> 
     </Style>
@@ -280,7 +315,7 @@
     <!-- label.large   14px / 20px lh / Medium / tracking 0.0071em -->
     <Style x:Key="LabelLarge" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
-        <Setter Property="FontSize"                    Value="14" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.LabelLarge}" />
         <Setter Property="FontWeight"                  Value="Medium" />
         <Setter Property="LineHeight"                  Value="20" /> 
     </Style>
@@ -288,7 +323,7 @@
     <!-- label.medium  12px / 16px lh / Medium / tracking 0.0417em -->
     <Style x:Key="LabelMedium" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
-        <Setter Property="FontSize"                    Value="12" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.LabelMedium}" />
         <Setter Property="FontWeight"                  Value="Medium" />
         <Setter Property="LineHeight"                  Value="16" /> 
     </Style>
@@ -296,7 +331,7 @@
     <!-- label.small   11px / 16px lh / Medium / tracking 0.0455em -->
     <Style x:Key="LabelSmall" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"                  Value="{DynamicResource NotoSans}" />
-        <Setter Property="FontSize"                    Value="11" />
+        <Setter Property="FontSize"                    Value="{DynamicResource MIU.FontSize.LabelSmall}" />
         <Setter Property="FontWeight"                  Value="Medium" />
         <Setter Property="LineHeight"                  Value="16" /> 
     </Style>

@@ -13,7 +13,7 @@
     d:DesignHeight="400"
     d:DesignWidth="500"
     FontFamily="{DynamicResource NotoSans}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <local:GroupedCommandsMainControlBase.Resources>

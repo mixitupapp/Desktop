@@ -14,7 +14,7 @@
              mc:Ignorable="d"
                           
     FontFamily="{DynamicResource NotoSans}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
 
              d:DesignHeight="600" d:DesignWidth="800">

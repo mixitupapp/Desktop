@@ -16,7 +16,7 @@
     FontFamily="{DynamicResource NotoSans}"
     Icon="./Logo.ico"
     ResizeMode="NoResize"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"

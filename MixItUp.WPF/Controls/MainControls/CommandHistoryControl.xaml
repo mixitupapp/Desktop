@@ -11,7 +11,7 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              FontFamily="{DynamicResource NotoSans}"
-            TextElement.FontSize="14"
+            TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
             TextElement.FontWeight="Medium"
 
              d:DesignHeight="300" d:DesignWidth="300">
