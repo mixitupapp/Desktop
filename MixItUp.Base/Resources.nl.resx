@@ -11138,6 +11138,24 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Als authenticatie niet voor service kan worden gestart, zorg er dan voor dat er niet al een actief authenticatieproces loopt bij een andere dienst.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up kon de lokale aanmeldlistener niet starten omdat poort {0} al door een ander programma wordt gebruikt. Sluit elk ander programma dat deze poort mogelijk gebruikt, inclusief een tweede exemplaar van Mix It Up, en probeer het opnieuw.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up kon de lokale aanmeldlistener niet starten omdat Windows poort {0} blokkeert. Dit wordt meestal veroorzaakt door een gereserveerd poortbereik van Hyper-V, WSL of Docker. Ga naar de Discord van Mix It Up voor hulp.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up kon je webbrowser niet openen om het aanmelden te voltooien. Kopieer het onderstaande adres, plak het in je browser en voltooi het aanmelden daar. Dit venster blijft op je wachten.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Het aanmelden is niet op tijd voltooid en is geannuleerd. Probeer het opnieuw.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Het aanmelden kon niet worden voltooid. Bekijk de map Logs in je Mix It Up-installatiemap voor details, of ga naar de Discord van Mix It Up voor hulp.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up heeft je aanmelding ontvangen, maar kon deze niet inwisselen voor een toegangstoken. Probeer het opnieuw of ga naar de Discord van Mix It Up voor hulp.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Gain</value>
   </data>

@@ -11293,6 +11293,24 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Unable to start authentication to service, please ensure you do not already have an active authentication process underway with another service.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up could not start the local login listener because port {0} is already in use by another program. Please close any other program that may be using this port, including a second copy of Mix It Up, and then try again.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up could not start the local login listener because Windows is blocking port {0}. This is usually caused by a reserved port range from Hyper-V, WSL, or Docker. Please visit the Mix It Up Discord for assistance.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up could not open your web browser to complete the login. Copy the address below, paste it into your browser, and finish signing in there. This window will continue waiting for you.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>The login was not completed in time and has been cancelled. Please try again.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>The login could not be completed. Check the Logs folder in your Mix It Up install directory for details, or visit the Mix It Up Discord for assistance.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up received your login but could not exchange it for an access token. Please try again, or visit the Mix It Up Discord for assistance.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Gain</value>
   </data>

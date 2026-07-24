@@ -2,6 +2,8 @@ using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,7 +12,14 @@ namespace MixItUp.Base.Web
 {
     public class LocalOAuthKestrelServer : KestrelServerBase
     {
+        public const int REDIRECT_PORT = 8919;
+
         public const string REDIRECT_URL = "http://localhost:8919/";
+
+        /// <summary>How long to wait for the platform to redirect back with an authorization code before
+        /// giving up. Without a bound, a login that never returns leaves the UI spinning forever. Generous
+        /// enough that a first-time user creating a platform account mid-flow is not cut off.</summary>
+        private const int AuthorizationTimeoutMinutes = 10;
 
         public const string AUTHORIZATION_CODE_URL_PARAMETER = "code";
 
@@ -89,14 +98,43 @@ namespace MixItUp.Base.Web
 
         public async Task<Result<string>> GetAuthorizationCode(string authorizationURL, CancellationToken cancellationToken)
         {
+            Result portAvailability = CheckRedirectPortAvailability();
+            if (!portAvailability.Success)
+            {
+                return new Result<string>(success: false, message: portAvailability.Message);
+            }
+
             try
             {
                 await this.Start(REDIRECT_URL);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                await this.Stop();
+                return new Result<string>(success: false, message: Resources.UnableToStartAuthenticationSession + Environment.NewLine + Environment.NewLine + ex.Message);
+            }
 
-                ServiceManager.Get<IProcessService>().LaunchLink(authorizationURL);
+            bool timedOut = false;
+            bool manualPromptShown = false;
+            try
+            {
+                if (!ServiceManager.Get<IProcessService>().TryLaunchLink(authorizationURL))
+                {
+                    // The listener is up and can still take the redirect, so keep waiting and give the user
+                    // the address to open themselves rather than failing the whole attempt here.
+                    Logger.Log(LogLevel.Error, $"Failed to launch browser for authorization URL: {authorizationURL}");
+                    manualPromptShown = this.ShowManualAuthorizationPrompt(authorizationURL);
+                }
 
+                DateTimeOffset timeout = DateTimeOffset.Now.AddMinutes(AuthorizationTimeoutMinutes);
                 while (!cancellationToken.IsCancellationRequested && string.IsNullOrWhiteSpace(this.authorizationCode))
                 {
+                    if (DateTimeOffset.Now >= timeout)
+                    {
+                        timedOut = true;
+                        break;
+                    }
                     await Task.Delay(1000);
                 }
             }
@@ -107,10 +145,98 @@ namespace MixItUp.Base.Web
 
             await this.Stop();
 
-            return new Result<string>(success: !string.IsNullOrWhiteSpace(this.authorizationCode), message: null)
+            if (manualPromptShown)
             {
-                Value = this.authorizationCode
-            };
+                this.CloseManualAuthorizationPrompt();
+            }
+
+            if (!string.IsNullOrWhiteSpace(this.authorizationCode))
+            {
+                return new Result<string>(success: true, message: null) { Value = this.authorizationCode };
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                // The user cancelled on purpose, so there is nothing to report back to them.
+                return new Result<string>(success: false, message: null);
+            }
+
+            return new Result<string>(success: false, message: timedOut ? Resources.AuthenticationTimedOut : Resources.AuthenticationFailedGeneric);
+        }
+
+        /// <summary>Test-binds the redirect port so a listener that cannot start reports why instead of
+        /// failing silently. The platforms only accept this exact redirect URI, so there is no alternate
+        /// port to fall back to.</summary>
+        private static Result CheckRedirectPortAvailability()
+        {
+            TcpListener listener = null;
+            try
+            {
+                listener = new TcpListener(IPAddress.Loopback, REDIRECT_PORT);
+                listener.Start();
+                return new Result();
+            }
+            catch (SocketException ex)
+            {
+                Logger.Log(ex);
+                if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
+                {
+                    return new Result(string.Format(Resources.AuthenticationPortInUse, REDIRECT_PORT));
+                }
+                if (ex.SocketErrorCode == SocketError.AccessDenied)
+                {
+                    return new Result(string.Format(Resources.AuthenticationPortBlocked, REDIRECT_PORT));
+                }
+                return new Result(Resources.UnableToStartAuthenticationSession + Environment.NewLine + Environment.NewLine + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return new Result(Resources.UnableToStartAuthenticationSession + Environment.NewLine + Environment.NewLine + ex.Message);
+            }
+            finally
+            {
+                try { listener?.Stop(); }
+                catch (Exception ex) { Logger.Log(ex); }
+            }
+        }
+
+        private bool ShowManualAuthorizationPrompt(string authorizationURL)
+        {
+            try
+            {
+                // Deliberately not awaited: the dialog stays up while the wait loop keeps polling for the
+                // redirect, and is closed from CloseManualAuthorizationPrompt once the login resolves.
+                _ = DispatcherHelper.Dispatcher.InvokeAsync(async () =>
+                {
+                    try
+                    {
+                        await DialogHelper.ShowTextEntry(Resources.AuthenticationBrowserLaunchFailed, authorizationURL);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex);
+                    }
+                });
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            return false;
+        }
+
+        private void CloseManualAuthorizationPrompt()
+        {
+            try
+            {
+                DispatcherHelper.Dispatcher.Invoke(() => DialogHelper.CloseCurrent());
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
         }
 
         protected virtual void ProcessRequestParameters(HttpContext context) { }

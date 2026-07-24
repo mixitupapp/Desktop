@@ -11137,6 +11137,24 @@ print(run())</value>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Якщо не вдається розпочати автентифікацію в сервісі, переконайтеся, що ви не виконуєте активний процес автентифікації в іншому сервісі.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up не вдалося запустити локальний приймач входу, оскільки порт {0} уже використовується іншою програмою. Закрийте всі інші програми, які можуть використовувати цей порт, зокрема другу копію Mix It Up, і повторіть спробу.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up не вдалося запустити локальний приймач входу, оскільки Windows блокує порт {0}. Зазвичай це спричинено діапазоном портів, зарезервованим Hyper-V, WSL або Docker. Зверніться по допомогу до Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up не вдалося відкрити веб-браузер для завершення входу. Скопіюйте адресу нижче, вставте її у браузер і завершіть вхід там. Це вікно продовжить чекати на вас.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Вхід не було завершено вчасно, тому його скасовано. Повторіть спробу.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Не вдалося завершити вхід. Подробиці див. у папці Logs у каталозі встановлення Mix It Up або зверніться по допомогу до Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up отримав дані вашого входу, але не зміг обміняти їх на токен доступу. Повторіть спробу або зверніться по допомогу до Discord Mix It Up.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Виграш</value>
   </data>

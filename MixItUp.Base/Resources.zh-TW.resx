@@ -11137,6 +11137,24 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>无法启动对服务的身份验证，请确保没有正在进行的其他服务身份验证过程。</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up 無法啟動本機登入接聽程式，因為連接埠 {0} 已被其他程式使用。請關閉任何可能正在使用此連接埠的程式（包括第二個 Mix It Up 執行個體），然後再試一次。</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up 無法啟動本機登入接聽程式，因為 Windows 封鎖了連接埠 {0}。這通常是由 Hyper-V、WSL 或 Docker 保留的連接埠範圍所造成。請前往 Mix It Up 的 Discord 尋求協助。</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up 無法開啟您的網頁瀏覽器來完成登入。請複製下方的網址，貼到瀏覽器中並在那裡完成登入。此視窗會繼續等候您。</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>登入未在時限內完成，已取消。請再試一次。</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>無法完成登入。請查看 Mix It Up 安裝目錄中的 Logs 資料夾以了解詳細資訊，或前往 Mix It Up 的 Discord 尋求協助。</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up 已收到您的登入資訊，但無法將其兌換為存取權杖。請再試一次，或前往 Mix It Up 的 Discord 尋求協助。</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>收益</value>
   </data>

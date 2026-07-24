@@ -28420,7 +28420,61 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("UnableToStartAuthenticationSession", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not start the local login listener because port {0} is already in use by another program. Please close any other program that may be using this port, including a second copy of Mix It Up, and then try again..
+        /// </summary>
+        public static string AuthenticationPortInUse {
+            get {
+                return ResourceManager.GetString("AuthenticationPortInUse", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not start the local login listener because Windows is blocking port {0}. This is usually caused by a reserved port range from Hyper-V, WSL, or Docker. Please visit the Mix It Up Discord for assistance..
+        /// </summary>
+        public static string AuthenticationPortBlocked {
+            get {
+                return ResourceManager.GetString("AuthenticationPortBlocked", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not open your web browser to complete the login. Copy the address below, paste it into your browser, and finish signing in there. This window will continue waiting for you..
+        /// </summary>
+        public static string AuthenticationBrowserLaunchFailed {
+            get {
+                return ResourceManager.GetString("AuthenticationBrowserLaunchFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The login was not completed in time and has been cancelled. Please try again..
+        /// </summary>
+        public static string AuthenticationTimedOut {
+            get {
+                return ResourceManager.GetString("AuthenticationTimedOut", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The login could not be completed. Check the Logs folder in your Mix It Up install directory for details, or visit the Mix It Up Discord for assistance..
+        /// </summary>
+        public static string AuthenticationFailedGeneric {
+            get {
+                return ResourceManager.GetString("AuthenticationFailedGeneric", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up received your login but could not exchange it for an access token. Please try again, or visit the Mix It Up Discord for assistance..
+        /// </summary>
+        public static string AuthenticationTokenExchangeFailed {
+            get {
+                return ResourceManager.GetString("AuthenticationTokenExchangeFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Unassigned.
         /// </summary>

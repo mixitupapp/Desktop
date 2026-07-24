@@ -11139,6 +11139,24 @@ Hemos detectado que tiene más de 1 punto final superpuesto creado, lo que signi
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Si no se puede iniciar la autenticación del servicio, asegúrese de no tener ya un proceso de autenticación activo en marcha con otro servicio.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up no pudo iniciar el receptor de inicio de sesión local porque el puerto {0} ya está siendo utilizado por otro programa. Cierre cualquier otro programa que pueda estar usando este puerto, incluida una segunda copia de Mix It Up, y vuelva a intentarlo.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up no pudo iniciar el receptor de inicio de sesión local porque Windows está bloqueando el puerto {0}. Esto suele deberse a un rango de puertos reservado por Hyper-V, WSL o Docker. Visite el Discord de Mix It Up para obtener ayuda.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up no pudo abrir su navegador web para completar el inicio de sesión. Copie la dirección de abajo, péguela en su navegador y termine de iniciar sesión allí. Esta ventana seguirá esperándole.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>El inicio de sesión no se completó a tiempo y se ha cancelado. Inténtelo de nuevo.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>No se pudo completar el inicio de sesión. Consulte la carpeta Logs del directorio de instalación de Mix It Up para obtener más detalles, o visite el Discord de Mix It Up para obtener ayuda.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up recibió su inicio de sesión, pero no pudo canjearlo por un token de acceso. Inténtelo de nuevo o visite el Discord de Mix It Up para obtener ayuda.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Ganancia</value>
   </data>

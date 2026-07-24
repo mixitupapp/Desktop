@@ -11138,6 +11138,24 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Impossível iniciar a autenticação do serviço, por favor, certifique-se de que você não tem um processo ativo de autenticação em andamento com outro serviço.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>O Mix It Up não conseguiu iniciar o receptor de login local porque a porta {0} já está sendo usada por outro programa. Feche qualquer outro programa que possa estar usando esta porta, incluindo uma segunda cópia do Mix It Up, e tente novamente.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>O Mix It Up não conseguiu iniciar o receptor de login local porque o Windows está bloqueando a porta {0}. Isso normalmente é causado por um intervalo de portas reservado pelo Hyper-V, WSL ou Docker. Acesse o Discord do Mix It Up para obter ajuda.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>O Mix It Up não conseguiu abrir seu navegador da web para concluir o login. Copie o endereço abaixo, cole-o no seu navegador e conclua o login por lá. Esta janela continuará aguardando por você.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>O login não foi concluído a tempo e foi cancelado. Tente novamente.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Não foi possível concluir o login. Verifique a pasta Logs no diretório de instalação do Mix It Up para obter detalhes ou acesse o Discord do Mix It Up para obter ajuda.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>O Mix It Up recebeu seu login, mas não conseguiu trocá-lo por um token de acesso. Tente novamente ou acesse o Discord do Mix It Up para obter ajuda.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Ganho</value>
   </data>

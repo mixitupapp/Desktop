@@ -11143,6 +11143,24 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Wenn die Authentifizierung für den Dienst nicht gestartet werden kann, stellen Sie bitte sicher, dass bei einem anderen Dienst kein aktiver Authentifizierungsprozess läuft.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Port {0} bereits von einem anderen Programm verwendet wird. Bitte schließen Sie alle anderen Programme, die diesen Port verwenden könnten, einschließlich einer zweiten Instanz von Mix It Up, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Windows den Port {0} blockiert. Dies wird normalerweise durch einen von Hyper-V, WSL oder Docker reservierten Portbereich verursacht. Bitte besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up konnte Ihren Webbrowser nicht öffnen, um die Anmeldung abzuschließen. Kopieren Sie die untenstehende Adresse, fügen Sie sie in Ihren Browser ein und schließen Sie die Anmeldung dort ab. Dieses Fenster wartet weiterhin auf Sie.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Die Anmeldung wurde nicht rechtzeitig abgeschlossen und wurde abgebrochen. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Die Anmeldung konnte nicht abgeschlossen werden. Einzelheiten finden Sie im Ordner Logs in Ihrem Mix It Up-Installationsverzeichnis, oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up hat Ihre Anmeldung erhalten, konnte sie aber nicht gegen ein Zugriffstoken eintauschen. Bitte versuchen Sie es erneut oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Gewinn</value>
   </data>

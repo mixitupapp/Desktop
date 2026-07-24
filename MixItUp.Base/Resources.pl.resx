@@ -11137,6 +11137,24 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Nie możesz rozpocząć uwierzytelniania do usługi, upewnij się, że nie masz już aktywnego procesu uwierzytelniania z inną usługą.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up nie mógł uruchomić lokalnego nasłuchiwania logowania, ponieważ port {0} jest już używany przez inny program. Zamknij wszystkie inne programy, które mogą używać tego portu, w tym drugą kopię Mix It Up, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up nie mógł uruchomić lokalnego nasłuchiwania logowania, ponieważ system Windows blokuje port {0}. Zwykle jest to spowodowane zarezerwowanym zakresem portów przez Hyper-V, WSL lub Docker. Odwiedź Discord Mix It Up, aby uzyskać pomoc.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up nie mógł otworzyć przeglądarki internetowej, aby dokończyć logowanie. Skopiuj poniższy adres, wklej go do przeglądarki i dokończ tam logowanie. To okno będzie nadal na Ciebie czekać.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Logowanie nie zostało ukończone na czas i zostało anulowane. Spróbuj ponownie.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Nie udało się ukończyć logowania. Sprawdź folder Logs w katalogu instalacyjnym Mix It Up, aby poznać szczegóły, lub odwiedź Discord Mix It Up, aby uzyskać pomoc.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up otrzymał Twoje logowanie, ale nie mógł wymienić go na token dostępu. Spróbuj ponownie lub odwiedź Discord Mix It Up, aby uzyskać pomoc.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Wzmocnienie</value>
   </data>

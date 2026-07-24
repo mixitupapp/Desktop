@@ -11137,6 +11137,24 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>サービス認証を開始しられない場合、他のサービスで既に有効な認証プロセスが進行中でないかご確認ください。</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>ポート {0} が他のプログラムによって既に使用されているため、Mix It Up はローカルのログイン受信を開始できませんでした。このポートを使用している可能性のある他のプログラム（Mix It Up の 2 つ目のインスタンスを含む）を終了してから、もう一度お試しください。</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Windows がポート {0} をブロックしているため、Mix It Up はローカルのログイン受信を開始できませんでした。これは通常、Hyper-V、WSL、Docker による予約済みポート範囲が原因です。サポートについては Mix It Up の Discord をご覧ください。</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up はログインを完了するためのウェブブラウザーを開けませんでした。以下のアドレスをコピーしてブラウザーに貼り付け、そちらでサインインを完了してください。このウィンドウは引き続きお待ちします。</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>ログインが時間内に完了しなかったため、キャンセルされました。もう一度お試しください。</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>ログインを完了できませんでした。詳細については Mix It Up のインストール先フォルダー内の Logs フォルダーをご確認いただくか、Mix It Up の Discord でサポートをご依頼ください。</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up はログイン情報を受け取りましたが、アクセストークンと交換できませんでした。もう一度お試しいただくか、Mix It Up の Discord でサポートをご依頼ください。</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>ゲイン</value>
   </data>

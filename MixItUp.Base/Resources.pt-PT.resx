@@ -11139,6 +11139,24 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Se não é possível iniciar a autenticação do serviço, por favor certifique-se de que não tem já um processo de autenticação ativo em curso com outro serviço.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>O Mix It Up não conseguiu iniciar o recetor de início de sessão local porque a porta {0} já está a ser utilizada por outro programa. Feche qualquer outro programa que possa estar a utilizar esta porta, incluindo uma segunda cópia do Mix It Up, e tente novamente.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>O Mix It Up não conseguiu iniciar o recetor de início de sessão local porque o Windows está a bloquear a porta {0}. Isto é normalmente causado por um intervalo de portas reservado pelo Hyper-V, WSL ou Docker. Visite o Discord do Mix It Up para obter ajuda.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>O Mix It Up não conseguiu abrir o seu navegador web para concluir o início de sessão. Copie o endereço abaixo, cole-o no seu navegador e conclua aí o início de sessão. Esta janela continuará à sua espera.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>O início de sessão não foi concluído a tempo e foi cancelado. Tente novamente.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Não foi possível concluir o início de sessão. Verifique a pasta Logs no diretório de instalação do Mix It Up para obter detalhes ou visite o Discord do Mix It Up para obter ajuda.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>O Mix It Up recebeu o seu início de sessão, mas não conseguiu trocá-lo por um token de acesso. Tente novamente ou visite o Discord do Mix It Up para obter ajuda.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Ganho</value>
   </data>

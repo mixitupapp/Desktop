@@ -11137,6 +11137,24 @@ Abbiamo rilevato che hai creato più di un endpoint overlay, il che significa ch
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Non è possibile avviare l'autenticazione al servizio, si prega di assicurarsi di non avere già un processo di autenticazione attivo in corso con un altro servizio.</value>
   </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up non è riuscito ad avviare il listener di accesso locale perché la porta {0} è già utilizzata da un altro programma. Chiudi qualsiasi altro programma che potrebbe utilizzare questa porta, inclusa una seconda copia di Mix It Up, quindi riprova.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up non è riuscito ad avviare il listener di accesso locale perché Windows sta bloccando la porta {0}. Questo è solitamente causato da un intervallo di porte riservato da Hyper-V, WSL o Docker. Visita il Discord di Mix It Up per ricevere assistenza.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up non è riuscito ad aprire il browser web per completare l'accesso. Copia l'indirizzo qui sotto, incollalo nel browser e completa l'accesso da lì. Questa finestra continuerà ad attenderti.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>L'accesso non è stato completato in tempo ed è stato annullato. Riprova.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Non è stato possibile completare l'accesso. Controlla la cartella Logs nella directory di installazione di Mix It Up per i dettagli, oppure visita il Discord di Mix It Up per ricevere assistenza.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up ha ricevuto il tuo accesso ma non è riuscito a scambiarlo con un token di accesso. Riprova oppure visita il Discord di Mix It Up per ricevere assistenza.</value>
+  </data>
   <data name="Gain" xml:space="preserve">
     <value>Guadagno</value>
   </data>
