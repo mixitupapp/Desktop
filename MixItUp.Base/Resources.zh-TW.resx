@@ -10790,6 +10790,18 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>必須指定檔案路徑</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>自訂文字</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>時區</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>代碼：YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (星期)、HH H (24 小時制)、hh h (12 小時制)、mm m (分)、ss s (秒)、A a (AM/PM)。若要原樣顯示文字，請用方括號括住，例如：h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>留空即使用執行覆蓋的電腦時區。時區以主要城市列出，因此 Europe/Berlin 也涵蓋阿姆斯特丹與羅馬。你也可以直接輸入任何 IANA 時區名稱，例如 Europe/Amsterdam。</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>個人資料名稱</value>
   </data>

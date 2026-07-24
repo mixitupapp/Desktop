@@ -10791,6 +10791,18 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Er moet een bestandspad worden opgegeven</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Aangepaste tekst</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Tijdzone</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Tokens: YYYY YY (jaar), MMMM MMM MM M (maand), DD D (dag), dddd ddd (weekdag), HH H (24-uurs), hh h (12-uurs), mm m (minuut), ss s (seconde), A a (AM/PM). Zet letterlijke tekst tussen vierkante haken zodat de letters ongewijzigd blijven, bijvoorbeeld: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Laat leeg om de tijdzone te gebruiken van de computer waarop de Overlay draait. Zones staan vermeld onder hun belangrijkste stad, dus Europe/Berlin dekt ook Amsterdam en Rome. Je kunt ook rechtstreeks een IANA-tijdzonenaam typen, zoals Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Profielnaam</value>
   </data>

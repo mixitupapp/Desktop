@@ -10790,6 +10790,18 @@ print(run())</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Потрібно вказати шлях до файлу</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Довільний текст</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Часовий пояс</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Токени: YYYY YY (рік), MMMM MMM MM M (місяць), DD D (день), dddd ddd (день тижня), HH H (24 години), hh h (12 годин), mm m (хвилини), ss s (секунди), A a (AM/PM). Беріть буквальний текст у квадратні дужки, щоб його літери залишалися незмінними, наприклад: h:mm A [в Ейндговені]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Залиште порожнім, щоб використовувати часовий пояс комп'ютера, на якому працює Накладка. Пояси наведено за головним містом, тому Europe/Berlin охоплює також Амстердам і Рим. Також можна ввести будь-яку назву часового поясу IANA напряму, наприклад Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Ім'я профілю</value>
   </data>

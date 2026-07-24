@@ -10790,6 +10790,18 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Należy określić ścieżkę pliku</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Tekst niestandardowy</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Strefa czasowa</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Tokeny: YYYY YY (rok), MMMM MMM MM M (miesiąc), DD D (dzień), dddd ddd (dzień tygodnia), HH H (24-godzinny), hh h (12-godzinny), mm m (minuta), ss s (sekunda), A a (AM/PM). Umieść tekst dosłowny w nawiasach kwadratowych, aby jego litery pozostały nienaruszone, na przykład: h:mm A [w Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Pozostaw puste, aby użyć strefy czasowej komputera, na którym działa nakładka. Strefy są wymienione według głównego miasta, więc Europe/Berlin obejmuje także Amsterdam i Rzym. Możesz też wpisać bezpośrednio dowolną nazwę strefy czasowej IANA, na przykład Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Nazwa profilu</value>
   </data>

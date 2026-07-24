@@ -10790,6 +10790,18 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>ファイルパスを指定する必要があります</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>カスタムテキスト</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>タイムゾーン</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>トークン: YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (曜日)、HH H (24時間制)、hh h (12時間制)、mm m (分)、ss s (秒)、A a (AM/PM)。文字をそのまま表示するには角かっこで囲みます。例: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>空欄にすると、オーバーレイを実行しているコンピューターのタイムゾーンを使用します。ゾーンは主要都市の名前で表示されるため、Europe/Berlin はアムステルダムやローマも対象になります。Europe/Amsterdam のように、IANA のタイムゾーン名を直接入力することもできます。</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>プロファイル名</value>
   </data>

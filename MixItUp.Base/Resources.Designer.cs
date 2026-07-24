@@ -17679,6 +17679,42 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("OverlayLabelFilePathMustBeSpecified", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Text.
+        /// </summary>
+        public static string CustomText {
+            get {
+                return ResourceManager.GetString("CustomText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Time Zone.
+        /// </summary>
+        public static string TimeZone {
+            get {
+                return ResourceManager.GetString("TimeZone", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Tokens: YYYY YY (year), MMMM MMM MM M (month), DD D (day), dddd ddd (weekday), HH H (24-hour), hh h (12-hour), mm m (minute), ss s (second), A a (AM/PM). Wrap literal wording in square brackets so its letters are left alone, for example: h:mm A [in Eindhoven]
+        /// </summary>
+        public static string OverlayLabelDateTimeFormatTooltip {
+            get {
+                return ResourceManager.GetString("OverlayLabelDateTimeFormatTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Leave blank to use the time zone of the computer running the overlay.
+        /// </summary>
+        public static string OverlayLabelTimeZoneTooltip {
+            get {
+                return ResourceManager.GetString("OverlayLabelTimeZoneTooltip", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to New Leader.

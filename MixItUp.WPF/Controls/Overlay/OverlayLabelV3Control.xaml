@@ -141,6 +141,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
                                     <ComboBox Grid.Column="0" ItemsSource="{Binding Counters}" SelectedItem="{Binding SelectedCounter}" Visibility="{Binding IsCounterType, Converter={StaticResource BooleanToVisibilityConverter}}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Counters}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,0,20,0">
@@ -151,9 +152,17 @@
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
 
-                                    <TextBox Text="{Binding Format}" Grid.Column="1" Visibility="{Binding ShowFormat, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Format}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    <TextBox Text="{Binding Format}" Grid.Column="1" Visibility="{Binding ShowFormat, Converter={StaticResource BooleanToVisibilityConverter}}" ToolTip="{Binding FormatToolTip}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Format}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
 
-                                    <Grid Visibility="{Binding IsFileType, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="2">
+                                    <ComboBox Text="{Binding TimeZoneID}" Grid.Column="2" ItemsSource="{Binding TimeZones}" IsEditable="True" Visibility="{Binding IsDateTimeType, Converter={StaticResource BooleanToVisibilityConverter}}" Width="250" Margin="20,0,0,0" ToolTip="{x:Static resx:Resources.OverlayLabelTimeZoneTooltip}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeZone}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+                                        <ComboBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel />
+                                            </ItemsPanelTemplate>
+                                        </ComboBox.ItemsPanel>
+                                    </ComboBox>
+
+                                    <Grid Visibility="{Binding IsFileType, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.ColumnSpan="3">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="10" />

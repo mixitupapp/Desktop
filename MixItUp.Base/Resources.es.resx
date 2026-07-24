@@ -10792,6 +10792,18 @@ Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Se debe especificar una ruta de archivo</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Texto personalizado</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Zona horaria</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Comodines: YYYY YY (año), MMMM MMM MM M (mes), DD D (día), dddd ddd (día de la semana), HH H (24 horas), hh h (12 horas), mm m (minuto), ss s (segundo), A a (AM/PM). Escribe el texto literal entre corchetes para que sus letras no se sustituyan, por ejemplo: h:mm A [en Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Déjalo en blanco para usar la zona horaria del equipo que ejecuta el Overlay. Las zonas aparecen bajo su ciudad principal, por lo que Europe/Berlin también cubre Ámsterdam y Roma. También puedes escribir directamente cualquier nombre de zona horaria IANA, como Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Nombre del perfil</value>
   </data>

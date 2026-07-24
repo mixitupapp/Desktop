@@ -10790,6 +10790,18 @@ Attivare solo se si sa cosa si sta facendo. Continuare?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>È necessario specificare un percorso file</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Testo personalizzato</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Fuso orario</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Token: YYYY YY (anno), MMMM MMM MM M (mese), DD D (giorno), dddd ddd (giorno della settimana), HH H (24 ore), hh h (12 ore), mm m (minuto), ss s (secondo), A a (AM/PM). Racchiudi il testo letterale tra parentesi quadre affinché le sue lettere restino invariate, ad esempio: h:mm A [a Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Lascia vuoto per usare il fuso orario del computer che esegue la Sovrapposizione. I fusi sono elencati sotto la città principale, quindi Europe/Berlin copre anche Amsterdam e Roma. Puoi anche digitare direttamente qualsiasi nome di fuso orario IANA, come Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Nome del profilo</value>
   </data>

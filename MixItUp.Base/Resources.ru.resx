@@ -10795,6 +10795,18 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Должен быть указан путь к файлу</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Произвольный текст</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Часовой пояс</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Токены: YYYY YY (год), MMMM MMM MM M (месяц), DD D (день), dddd ddd (день недели), HH H (24 часа), hh h (12 часов), mm m (минуты), ss s (секунды), A a (AM/PM). Заключайте буквальный текст в квадратные скобки, чтобы его буквы не заменялись, например: h:mm A [в Эйндховене]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Оставьте пустым, чтобы использовать часовой пояс компьютера, на котором работает Оверлей. Пояса перечислены по главному городу, поэтому Europe/Berlin охватывает также Амстердам и Рим. Можно также ввести любое название часового пояса IANA напрямую, например Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Имя профиля</value>
   </data>
