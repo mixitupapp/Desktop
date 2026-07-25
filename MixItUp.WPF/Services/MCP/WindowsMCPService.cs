@@ -57,7 +57,11 @@ namespace MixItUp.WPF.Services.MCP
                             Title = "Mix It Up",
                             Version = Assembly.GetEntryAssembly().GetName().Version.ToString(),
                         };
-                        options.ServerInstructions = "Tools for inspecting and driving a running Mix It Up instance. Commands are identified by GUID: call list_commands to discover IDs before calling get_command, run_command, or set_command_state.";
+                        options.ServerInstructions = "Tools for inspecting and driving a running Mix It Up instance. Commands are identified by GUID: call list_commands to discover IDs before calling get_command, run_command, or set_command_state."
+#if DEV_BRIDGE
+                            + " This is a Dev build, so the ui_* dev bridge tools are also present. They read the live WPF visual tree: call ui_list_windows first, then ui_dump_tree for structure, ui_find to locate an element, or ui_get_text to read what a window says. Handles from those tools are per-process and do not survive an app restart. Branch on the 'status' field rather than the message text."
+#endif
+                            ;
                     })
                     // Set explicitly rather than taking the SDK default, which flipped to stateless
                     // in the 2026-07-28 protocol revision (SEP-2567). Stateless exists so a server can
@@ -68,7 +72,16 @@ namespace MixItUp.WPF.Services.MCP
                     .WithTools<StatusTools>()
                     .WithTools<CommandTools>()
                     .WithTools<ChatTools>()
-                    .WithTools<UserTools>();
+                    .WithTools<UserTools>()
+#if DEV_BRIDGE
+                    // The dev bridge grants arbitrary inspection of the running UI, so it is gated at
+                    // compile time rather than behind a setting: in any other configuration these types
+                    // do not exist in the assembly at all. Directory.Build.props defines DEV_BRIDGE only
+                    // for the Dev configuration and fails the build if it is defined anywhere else.
+                    .WithTools<DevBridge.UITools>()
+                    .WithTools<DevBridge.ScreenshotTools>()
+#endif
+                    ;
 
                 this.app = builder.Build();
 

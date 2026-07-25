@@ -19,8 +19,8 @@ namespace MixItUp.Base.Util
         // Appended to window titles and version strings to identify non-public builds
 #if PREVIEW_BUILD
         public const string BUILD_CHANNEL_SUFFIX = " - Preview";
-#elif TEST_BUILD
-        public const string BUILD_CHANNEL_SUFFIX = " - Test";
+#elif DEV_BUILD
+        public const string BUILD_CHANNEL_SUFFIX = " - Dev";
 #elif DEBUG_BUILD
         public const string BUILD_CHANNEL_SUFFIX = " - Debug";
 #else
@@ -31,8 +31,8 @@ namespace MixItUp.Base.Util
         {
 #if DEBUG_BUILD
             return "debug";
-#elif TEST_BUILD
-            return "test";
+#elif DEV_BUILD
+            return "dev";
 #elif PREVIEW_BUILD
             return "preview";
 #else

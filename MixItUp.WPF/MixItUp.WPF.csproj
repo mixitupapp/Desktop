@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
@@ -29,7 +29,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
-    <Configurations>Debug;Preview;Public;Test</Configurations>
+    <Configurations>Debug;Preview;Public;Dev</Configurations>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <StartupObject>MixItUp.WPF.Program</StartupObject>
@@ -54,11 +54,19 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+  <!-- The MCP dev bridge exposes arbitrary inspection and control of the running UI, against an app
+       holding live OAuth tokens for four platforms. It is removed from the compilation entirely
+       outside the Dev configuration rather than compiled and disabled at runtime, so the types are
+       not in the assembly at all. Those files each also open with an #if !DEV_BRIDGE #error guard,
+       which is what fails the build if this exclusion is ever removed or bypassed. -->
+  <ItemGroup Condition="'$(Configuration)' != 'Dev'">
+    <Compile Remove="Services\MCP\DevBridge\**\*.cs" />
+  </ItemGroup>
   <ItemGroup Label="Framework References">
     		<FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
