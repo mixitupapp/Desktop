@@ -1,11 +1,39 @@
 # Mix It Up Desktop Changelog
 
-## 1.8.001 (HOTFIX)
+## 1.8.010
 
-- Added additional Velora debug logging entry points
-- Crash fixes for ungated webhook retrieval on Service page load
+### FEATURES
+
+- Add custom UI font selection, with each font previewed in its own typeface
+- Add overall UI font scaling from 50% to 150%, applied live app-wide
+- Add *Support Mode* toggle under Theme & Colors to apply default theme and fonts (for support screenshots) without changing saved settings
+- Add Reset To Defaults button (with confirmation) for all theme and font settings
+- Relocated chat font size slider to Themes & Colors as Chat Window Font Size
+- Add Date, Time, and Custom Text display types to the Label overlay widget
+  - Date and Time labels update live in the overlay and accept format tokens: YYYY YY (year), MMMM MMM MM M (month), DD D (day), dddd ddd (weekday), HH H (24-hour), hh h (12-hour), mm m (minute), ss s (second), A a (AM/PM)
+  - Wrap literal wording in square brackets to keep its letters out of date formatting, for example: `h:mm A [in Las Vegas]`
+  - Add an optional time zone to Date and Time labels, so a label can show the clock for somewhere other than the streaming PC, with localized daylight saving applied automatically
+- Add Entrance and Exit animations to the Label widget, played when the shown display changes in both Rotating Displays and Newest Only modes
+
+### FIXES
+
+- Fixed text stretching in multi-line entry boxes when a long word wraps
+- Fixed YouTube URL resolution that failed for Shorts and Live stream links
+- Login window now always uses the default font and size, staying readable
+- Fixed crash from ungated webhook retrieval when loading the Services page
 - Fixed Velora command syncing bug related to duplicate command names
-- Removed gating on Twitch Modiversry event
+- Removed gating that blocked the Twitch Modiversary event from firing
+- Fixed bug under which Velora bot account was not provisioning internal Moderator role
+- Fixed Viewer Count and Chatter Count labels taking over the visible display every minute in Newest Only mode even when the count had not changed
+- Fixed widget flickering caused by animation and translation fight over the same properties
+- Fix platform login (all) failing with a blank error dialog and a button that spins forever during New User Wizard
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Consolidated all text and icon sizing onto one shared, named size scale
+- Added additional Velora debug logging entry points
+- Updated the third-party license notices bundled with the application
+- Removed the unused pseudo-localization resource file from the project
 
 ## 1.8.000
 
