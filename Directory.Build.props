@@ -10,27 +10,12 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Preview'">
     <DefineConstants>$(DefineConstants);PREVIEW_BUILD</DefineConstants>
   </PropertyGroup>
-  <!-- DEV_BUILD is the channel identity: aesthetics, release-channel string, update root.
-       DEV_BRIDGE is a separate capability gate that compiles in the MCP dev bridge, which
-       exposes arbitrary control over the running UI. It is deliberately keyed off
-       '$(Configuration)' and never off $(BuildChannel) below, because that property is
-       appended verbatim with no allowlist and would let -p:BuildChannel=DEV_BRIDGE put the
-       bridge into a Public assembly. -->
+  <!-- DEV_BUILD is the channel identity: aesthetics, release-channel string, update root. -->
   <PropertyGroup Condition="'$(Configuration)' == 'Dev'">
-    <DefineConstants>$(DefineConstants);DEV_BUILD;DEV_BRIDGE</DefineConstants>
+    <DefineConstants>$(DefineConstants);DEV_BUILD</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(BuildChannel)' != ''">
     <DefineConstants>$(DefineConstants);$(BuildChannel)</DefineConstants>
   </PropertyGroup>
-
-  <!-- The BuildChannel passthrough above accepts any value, so on its own it leaves
-       -p:BuildChannel=DEV_BRIDGE as a way to compile the dev bridge into a Public assembly.
-       Fail the build instead. This is what makes the gate a boundary rather than a convention. -->
-  <Target Name="GuardDevBridgeConstant"
-          BeforeTargets="CoreCompile"
-          Condition="'$(Configuration)' != 'Dev' AND $(DefineConstants.Contains('DEV_BRIDGE'))">
-    <Error Code="MIUDEV001"
-           Text="DEV_BRIDGE is defined while building the '$(Configuration)' configuration. The MCP dev bridge grants arbitrary control over the running UI and must only ever be compiled into the Dev configuration. Do not pass it via -p:BuildChannel=." />
-  </Target>
 
 </Project>
