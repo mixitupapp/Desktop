@@ -17708,6 +17708,15 @@ namespace MixItUp.Base {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Each rendered part is wrapped in a span named after its token, so it can be styled on its own in the CSS section.
+        /// </summary>
+        public static string OverlayLabelDateTimeStylingTooltip {
+            get {
+                return ResourceManager.GetString("OverlayLabelDateTimeStylingTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Leave blank to use the time zone of the computer running the overlay.
         /// </summary>
         public static string OverlayLabelTimeZoneTooltip {

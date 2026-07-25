@@ -134,7 +134,8 @@ namespace MixItUp.Base.Model.Overlay
         public override async Task Initialize()
         {
             if (string.Equals(this.Javascript, OverlayResources.OverlayLabelDefaultJavascriptOld, System.StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(this.Javascript, OverlayResources.OverlayLabelDefaultJavascriptOld2, System.StringComparison.OrdinalIgnoreCase))
+                string.Equals(this.Javascript, OverlayResources.OverlayLabelDefaultJavascriptOld2, System.StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(this.Javascript, OverlayResources.OverlayLabelDefaultJavascriptOld3, System.StringComparison.OrdinalIgnoreCase))
             {
                 this.Javascript = OverlayResources.OverlayLabelDefaultJavascript;
             }

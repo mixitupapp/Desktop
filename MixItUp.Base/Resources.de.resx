@@ -10805,6 +10805,11 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Platzhalter: YYYY YY (Jahr), MMMM MMM MM M (Monat), DD D (Tag), dddd ddd (Wochentag), HH H (24-Stunden), hh h (12-Stunden), mm m (Minute), ss s (Sekunde), A a (AM/PM). Setze wörtlichen Text in eckige Klammern, damit dessen Buchstaben unverändert bleiben, zum Beispiel: h:mm A [in Eindhoven]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Jeder dargestellte Teil steht in einem eigenen span, der nach seinem Platzhalter benannt ist, damit er im CSS-Bereich einzeln gestaltet werden kann: .time-A für AM/PM, .date-MMMM für den Monatsnamen und so weiter, mit der Groß- und Kleinschreibung des Platzhalters, also ist .date-MM der Monat und .time-mm die Minute.
+Eine ganze Gruppe erfasst [class^="date-"] oder [class^="time-"].
+Beispiel: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Leer lassen, um die Zeitzone des Computers zu verwenden, auf dem das Overlay läuft. Zonen sind unter ihrer Hauptstadt aufgeführt, daher deckt Europe/Berlin auch Amsterdam und Rom ab. Du kannst auch direkt einen beliebigen IANA-Zeitzonennamen eingeben, zum Beispiel Europe/Amsterdam.</value>
   </data>

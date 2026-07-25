@@ -10799,6 +10799,11 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Tokeny: YYYY YY (rok), MMMM MMM MM M (miesiąc), DD D (dzień), dddd ddd (dzień tygodnia), HH H (24-godzinny), hh h (12-godzinny), mm m (minuta), ss s (sekunda), A a (AM/PM). Umieść tekst dosłowny w nawiasach kwadratowych, aby jego litery pozostały nienaruszone, na przykład: h:mm A [w Eindhoven]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Każda wyświetlana część jest umieszczana we własnym elemencie span nazwanym od swojego tokenu, dzięki czemu można ją stylizować osobno w sekcji CSS: .time-A dla AM/PM, .date-MMMM dla nazwy miesiąca i tak dalej, z zachowaniem wielkości liter tokenu, więc .date-MM to miesiąc, a .time-mm to minuta.
+Całą grupę obejmuje [class^="date-"] lub [class^="time-"].
+Przykład: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Pozostaw puste, aby użyć strefy czasowej komputera, na którym działa nakładka. Strefy są wymienione według głównego miasta, więc Europe/Berlin obejmuje także Amsterdam i Rzym. Możesz też wpisać bezpośrednio dowolną nazwę strefy czasowej IANA, na przykład Europe/Amsterdam.</value>
   </data>

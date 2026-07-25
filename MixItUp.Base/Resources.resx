@@ -10954,6 +10954,11 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Tokens: YYYY YY (year), MMMM MMM MM M (month), DD D (day), dddd ddd (weekday), HH H (24-hour), hh h (12-hour), mm m (minute), ss s (second), A a (AM/PM). Wrap literal wording in square brackets so its letters are left alone, for example: h:mm A [in Eindhoven]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Each rendered part is wrapped in a span named after its token, so it can be styled on its own in the CSS section: .time-A for the AM/PM, .date-MMMM for the month name, and so on with the case of the token, so .date-MM is the month and .time-mm is the minute.
+A whole group is covered by [class^="date-"] or [class^="time-"].
+Example: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Leave blank to use the time zone of the computer running the overlay. Zones are listed under their primary city, so Europe/Berlin also covers Amsterdam and Rome. You can also type any IANA time zone name directly, such as Europe/Amsterdam.</value>
   </data>

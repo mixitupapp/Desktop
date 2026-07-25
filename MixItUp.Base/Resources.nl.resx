@@ -10800,6 +10800,11 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Tokens: YYYY YY (jaar), MMMM MMM MM M (maand), DD D (dag), dddd ddd (weekdag), HH H (24-uurs), hh h (12-uurs), mm m (minuut), ss s (seconde), A a (AM/PM). Zet letterlijke tekst tussen vierkante haken zodat de letters ongewijzigd blijven, bijvoorbeeld: h:mm A [in Eindhoven]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Elk weergegeven onderdeel staat in een eigen span met de naam van het token, zodat het apart kan worden opgemaakt in het CSS-gedeelte: .time-A voor AM/PM, .date-MMMM voor de maandnaam, enzovoort, met dezelfde hoofdletters als het token, dus .date-MM is de maand en .time-mm de minuut.
+Een hele groep dek je af met [class^="date-"] of [class^="time-"].
+Voorbeeld: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Laat leeg om de tijdzone te gebruiken van de computer waarop de Overlay draait. Zones staan vermeld onder hun belangrijkste stad, dus Europe/Berlin dekt ook Amsterdam en Rome. Je kunt ook rechtstreeks een IANA-tijdzonenaam typen, zoals Europe/Amsterdam.</value>
   </data>

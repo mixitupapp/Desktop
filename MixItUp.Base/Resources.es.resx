@@ -10801,6 +10801,11 @@ Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Comodines: YYYY YY (año), MMMM MMM MM M (mes), DD D (día), dddd ddd (día de la semana), HH H (24 horas), hh h (12 horas), mm m (minuto), ss s (segundo), A a (AM/PM). Escribe el texto literal entre corchetes para que sus letras no se sustituyan, por ejemplo: h:mm A [en Eindhoven]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Cada parte mostrada se envuelve en un span con el nombre de su comodín, para poder darle estilo por separado en la sección CSS: .time-A para AM/PM, .date-MMMM para el nombre del mes, etc., respetando mayúsculas y minúsculas, así .date-MM es el mes y .time-mm es el minuto.
+Un grupo entero se cubre con [class^="date-"] o [class^="time-"].
+Ejemplo: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Déjalo en blanco para usar la zona horaria del equipo que ejecuta el Overlay. Las zonas aparecen bajo su ciudad principal, por lo que Europe/Berlin también cubre Ámsterdam y Roma. También puedes escribir directamente cualquier nombre de zona horaria IANA, como Europe/Amsterdam.</value>
   </data>

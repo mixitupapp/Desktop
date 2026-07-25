@@ -10799,6 +10799,11 @@ print(run())</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Токени: YYYY YY (рік), MMMM MMM MM M (місяць), DD D (день), dddd ddd (день тижня), HH H (24 години), hh h (12 годин), mm m (хвилини), ss s (секунди), A a (AM/PM). Беріть буквальний текст у квадратні дужки, щоб його літери залишалися незмінними, наприклад: h:mm A [в Ейндговені]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Кожна відображена частина розміщується у власному span, названому за її токеном, тож її можна оформити окремо в розділі CSS: .time-A для AM/PM, .date-MMMM для назви місяця тощо, з урахуванням регістру токена, тобто .date-MM — це місяць, а .time-mm — хвилини.
+Цілу групу охоплює [class^="date-"] або [class^="time-"].
+Приклад: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Залиште порожнім, щоб використовувати часовий пояс комп'ютера, на якому працює Накладка. Пояси наведено за головним містом, тому Europe/Berlin охоплює також Амстердам і Рим. Також можна ввести будь-яку назву часового поясу IANA напряму, наприклад Europe/Amsterdam.</value>
   </data>

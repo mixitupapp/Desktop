@@ -10800,6 +10800,11 @@ Ne l'activez que si vous savez ce que vous faites. Continuer ?</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Jetons : YYYY YY (année), MMMM MMM MM M (mois), DD D (jour), dddd ddd (jour de la semaine), HH H (24 heures), hh h (12 heures), mm m (minute), ss s (seconde), A a (AM/PM). Placez le texte littéral entre crochets pour que ses lettres soient conservées, par exemple : h:mm A [à Eindhoven]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Chaque partie affichée est placée dans un span nommé d'après son jeton, afin de pouvoir être mise en forme séparément dans la section CSS : .time-A pour AM/PM, .date-MMMM pour le nom du mois, etc., en respectant la casse du jeton, donc .date-MM est le mois et .time-mm la minute.
+Tout un groupe est couvert par [class^="date-"] ou [class^="time-"].
+Exemple : .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Laissez vide pour utiliser le fuseau horaire de l'ordinateur qui exécute l'Overlay. Les fuseaux sont listés sous leur ville principale, donc Europe/Berlin couvre aussi Amsterdam et Rome. Vous pouvez aussi saisir directement n'importe quel nom de fuseau horaire IANA, comme Europe/Amsterdam.</value>
   </data>

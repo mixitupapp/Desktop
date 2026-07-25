@@ -10804,6 +10804,11 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Токены: YYYY YY (год), MMMM MMM MM M (месяц), DD D (день), dddd ddd (день недели), HH H (24 часа), hh h (12 часов), mm m (минуты), ss s (секунды), A a (AM/PM). Заключайте буквальный текст в квадратные скобки, чтобы его буквы не заменялись, например: h:mm A [в Эйндховене]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Каждая отображаемая часть помещается в собственный span, названный по её токену, поэтому её можно оформить отдельно в разделе CSS: .time-A для AM/PM, .date-MMMM для названия месяца и так далее, с учётом регистра токена, то есть .date-MM — это месяц, а .time-mm — минуты.
+Целую группу охватывает [class^="date-"] или [class^="time-"].
+Пример: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Оставьте пустым, чтобы использовать часовой пояс компьютера, на котором работает Оверлей. Пояса перечислены по главному городу, поэтому Europe/Berlin охватывает также Амстердам и Рим. Можно также ввести любое название часового пояса IANA напрямую, например Europe/Amsterdam.</value>
   </data>

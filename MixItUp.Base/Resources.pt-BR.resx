@@ -10800,6 +10800,11 @@ Só ative se souber o que está fazendo. Continuar?</value>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Tokens: YYYY YY (ano), MMMM MMM MM M (mês), DD D (dia), dddd ddd (dia da semana), HH H (24 horas), hh h (12 horas), mm m (minuto), ss s (segundo), A a (AM/PM). Coloque o texto literal entre colchetes para que suas letras não sejam substituídas, por exemplo: h:mm A [em Eindhoven]</value>
   </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Cada parte exibida fica dentro de um span com o nome do seu token, para que possa ser estilizada separadamente na seção CSS: .time-A para AM/PM, .date-MMMM para o nome do mês e assim por diante, respeitando maiúsculas e minúsculas, então .date-MM é o mês e .time-mm é o minuto.
+Um grupo inteiro é coberto por [class^="date-"] ou [class^="time-"].
+Exemplo: .time-A { font-size: 50% }</value>
+  </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Deixe em branco para usar o fuso horário do computador que executa a Sobreposição. Os fusos são listados pela cidade principal, portanto Europe/Berlin também abrange Amsterdã e Roma. Você também pode digitar diretamente qualquer nome de fuso horário IANA, como Europe/Amsterdam.</value>
   </data>
