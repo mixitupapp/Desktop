@@ -126,7 +126,14 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         /// Runs <paramref name="uiWork"/> on the UI thread, one dev bridge call at a time, and converts
         /// every failure mode into a status on the result rather than an exception or a hang.
         /// </summary>
-        public static async Task<T> RunOnUI<T>(string toolName, Func<T> uiWork) where T : DevBridgeResult, new()
+        /// <param name="priority">
+        /// Leave at Normal unless the work has to run <i>after</i> something already queued. The one case
+        /// is observing what a UI Automation peer did: WPF's peers do not act inline, they post the real
+        /// click to the dispatcher at <see cref="DispatcherPriority.Input"/> and return, so an observation
+        /// posted at Normal would overtake it and see a screen where nothing had happened yet. Posting at
+        /// Input puts the observation behind the click in the same priority queue.
+        /// </param>
+        public static async Task<T> RunOnUI<T>(string toolName, Func<T> uiWork, DispatcherPriority priority = DispatcherPriority.Normal) where T : DevBridgeResult, new()
         {
             if (!await gate.WaitAsync(AcquireTimeout))
             {
@@ -148,13 +155,15 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
                 }
 
                 // Already on the UI thread would mean a re-entrant call through a nested pump. Run
-                // inline rather than deadlocking against ourselves.
+                // inline rather than deadlocking against ourselves. Priority is moot here: waiting for a
+                // lower-priority slot from the thread that would have to service it is the deadlock this
+                // branch exists to avoid.
                 if (dispatcher.CheckAccess())
                 {
                     return Invoke(toolName, uiWork);
                 }
 
-                DispatcherOperation<T> operation = dispatcher.InvokeAsync(() => Invoke(toolName, uiWork), DispatcherPriority.Normal);
+                DispatcherOperation<T> operation = dispatcher.InvokeAsync(() => Invoke(toolName, uiWork), priority);
 
                 using (CancellationTokenSource timeoutCancellation = new CancellationTokenSource())
                 {

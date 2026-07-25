@@ -56,6 +56,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
                         Height = Math.Round(window.ActualHeight),
                         DataContextType = dataContext?.GetType().Name,
                         DataContextHandle = dataContext != null ? HandleRegistry.Instance.GetOrCreate(dataContext, "d", null) : null,
+                        OpenDialog = SideEffects.DescribeOpenDialogIn(window),
                     });
                 }
 
@@ -192,6 +193,20 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         /// than growing a second one that drifts.
         /// </summary>
         internal static DependencyObject ResolveTargetForCapture(string element, DevBridgeResult result)
+        {
+            return ResolveTarget(element, result);
+        }
+
+        /// <summary>
+        /// The same again for pressing something, which needs an element for the same reason capture does:
+        /// an automation peer is built from a visual, and a view model does not have one.
+        /// </summary>
+        /// <remarks>
+        /// Not narrowed to <see cref="UIElement"/> even though nearly everything pressable is one. A
+        /// Hyperlink is a FrameworkContentElement, and it is a real navigation control in this app rather
+        /// than decoration, so the caller picks the right peer factory for what it got.
+        /// </remarks>
+        internal static DependencyObject ResolveTargetForInteraction(string element, DevBridgeResult result)
         {
             return ResolveTarget(element, result);
         }
@@ -438,6 +453,9 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
 
         [Description("Handle for the window's DataContext, for property work.")]
         public string DataContextHandle { get; set; }
+
+        [Description("The dialog overlay currently up inside this window, with a handle for its content, or null. This app's prompts and confirmations are content swapped into a host inside an existing window rather than real windows, so they add no entry of their own here and this field is the only place they show up. An overlay being present is the usual reason a press somewhere else does nothing.")]
+        public string OpenDialog { get; set; }
     }
 
     public class WindowListResult : DevBridgeResult

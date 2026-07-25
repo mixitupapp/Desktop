@@ -176,7 +176,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
                 return result;
             }
 
-            int windowsBefore = CountWindows();
+            UISnapshot before = SideEffects.Capture();
 
             ToolHelpers.LogToolAction("ui_invoke", $"{result.Target} command {result.Member}{DescribeArgs(args)}");
 
@@ -196,7 +196,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
             }
 
             result.IsRunning = ReadIsRunning(command);
-            result.WindowsOpened = NewWindowTitles(windowsBefore);
+            SideEffects.Observe(result, before);
 
             result.Hint = BuildHint(result);
             return result;
@@ -261,7 +261,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
             // caller reading the field uniformly is not misled into thinking it was blocked.
             result.CanExecute = true;
 
-            int windowsBefore = CountWindows();
+            UISnapshot before = SideEffects.Capture();
 
             ToolHelpers.LogToolAction("ui_invoke", $"{result.Target} method {result.Member}{DescribeArgs(args)}");
 
@@ -310,7 +310,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
                 }
             }
 
-            result.WindowsOpened = NewWindowTitles(windowsBefore);
+            SideEffects.Observe(result, before);
             result.Hint = BuildHint(result);
             return result;
         }
@@ -417,69 +417,14 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
             return false;
         }
 
-        private static int CountWindows()
-        {
-            try
-            {
-                return Application.Current?.Windows.Count ?? 0;
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// Titles of windows that appeared during the call.
-        /// </summary>
-        /// <remarks>
-        /// Worth reporting because 28 of this app's windows are opened with Show rather than ShowDialog, so
-        /// a command that opens an editor returns immediately and the new window is easy to miss. Show adds
-        /// to Application.Current.Windows synchronously, so any window opened before the command's first
-        /// await is caught here.
-        /// </remarks>
-        private static List<string> NewWindowTitles(int countBefore)
-        {
-            List<string> opened = new List<string>();
-
-            try
-            {
-                if (Application.Current == null || Application.Current.Windows.Count <= countBefore)
-                {
-                    return opened;
-                }
-
-                int index = 0;
-                foreach (Window window in Application.Current.Windows)
-                {
-                    if (window == null)
-                    {
-                        continue;
-                    }
-                    if (index++ < countBefore)
-                    {
-                        continue;
-                    }
-
-                    string handle = HandleRegistry.Instance.HandleFor(window, "e");
-                    opened.Add($"{window.GetType().Name} ({handle}) \"{window.Title}\"");
-                }
-            }
-            catch (Exception)
-            {
-                // Never let reporting a side effect be what fails the call that caused it.
-            }
-
-            return opened;
-        }
-
         private static string BuildHint(InvokeResult result)
         {
             List<string> hints = new List<string>();
 
-            if (result.WindowsOpened != null && result.WindowsOpened.Count > 0)
+            string opened = SideEffects.OpenedHint(result);
+            if (opened != null)
             {
-                hints.Add("A window opened. The read tools default to the active window, so a following ui_screenshot or ui_dump_tree with no element will read the new one.");
+                hints.Add(opened);
             }
 
             if (result.IsRunning == true)
@@ -516,7 +461,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         }
     }
 
-    public class InvokeResult : DevBridgeResult
+    public class InvokeResult : ActionResult
     {
         [Description("What the element reference resolved to.")]
         public string Target { get; set; }
@@ -550,11 +495,5 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
 
         [Description("Handle for the returned value, when it is an object worth reaching into.")]
         public string ReturnHandle { get; set; }
-
-        [Description("Windows that appeared during the call, with a handle for each. A command opening an editor window shows up here.")]
-        public List<string> WindowsOpened { get; set; }
-
-        [Description("What to do next to observe the effect.")]
-        public string Hint { get; set; }
     }
 }

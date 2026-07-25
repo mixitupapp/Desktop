@@ -60,8 +60,9 @@ namespace MixItUp.WPF.Services.MCP
                         options.ServerInstructions = "Tools for inspecting and driving a running Mix It Up instance. Commands are identified by GUID: call list_commands to discover IDs before calling get_command, run_command, or set_command_state."
 #if DEV_BRIDGE
                             + " This is a Dev build, so the ui_* dev bridge tools are also present."
-                            + " Start with ui_screenshot: looking at the screen is usually cheaper and more direct than enumerating it, and it is enough to decide what to press."
-                            + " To drive the app, read state with ui_get, then write it with ui_set or run a command with ui_invoke. Navigation here is a list selection, so setting a selector's SelectedIndex is how you change pages."
+                            + " Start with ui_screenshot: looking at the screen is usually cheaper and more direct than enumerating it, and it is enough to decide what to press. Its default mode cannot see popups or title bars, so pass mode='window' after opening a dropdown or menu."
+                            + " To drive the app, read state with ui_get, then write it with ui_set, run a command with ui_invoke, or press a control with ui_click. Navigation here is a list selection, so setting a selector's SelectedIndex is how you change pages, and ui_set is the tool for it because it works even while the nav list is disabled."
+                            + " Reach for ui_click when the control has no command behind it: opening an editor window or a dialog in this app always goes through a private Click handler, and pressing the control is the only way in. Dialogs here are overlays inside a window rather than new windows, so watch for dialogsOpened on a result and for openDialog in ui_list_windows."
                             + " Fall back to the tree tools for what a picture cannot answer: ui_dump_tree for structure, ui_find to locate an element, ui_get_text to read what a window says. Prefer a targeted read over a dump, and address elements by #x:Name or type name, which needs no discovery pass at all."
                             + " Handles are per-process and do not survive an app restart. Branch on the 'status' field rather than the message text."
 #endif
@@ -86,6 +87,7 @@ namespace MixItUp.WPF.Services.MCP
                     .WithTools<DevBridge.ScreenshotTools>()
                     .WithTools<DevBridge.PropertyTools>()
                     .WithTools<DevBridge.InvokeTools>()
+                    .WithTools<DevBridge.InteractionTools>()
 #endif
                     ;
 

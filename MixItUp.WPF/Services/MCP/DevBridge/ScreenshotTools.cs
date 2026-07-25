@@ -44,14 +44,19 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         private const int DefaultMaxWidth = 1400;
 
         [McpServerTool(Name = "ui_screenshot", ReadOnly = true)]
-        [Description("Render the app, or one control inside it, to a PNG from within the process and return it as an image. Use this first when the question is what the app looks like or where to click: reading a screen is usually cheaper and more direct than dumping its element tree. Captures what WPF draws, so it works while the window is behind others, but cannot see popups, dropdowns, or embedded browsers, which are separate windows. Optionally also writes the file to disk.")]
+        [Description("Render the app, or one control inside it, to a PNG and return it as an image. Use this first when the question is what the app looks like or where to click: reading a screen is usually cheaper and more direct than dumping its element tree. Both modes work while the window is unfocused or behind other windows. The default renders WPF's own visual tree, which cannot see popups or title bars; pass mode='window' when you need those. Optionally also writes the file to disk.")]
         public static async Task<CallToolResult> Screenshot(
             [Description("What to capture. Accepts a handle from a previous call (e12), an x:Name prefixed with # (#ChatMessageTextBox), or a type name (ChatControl). Omit to capture the active window, falling back to the main window. Capturing a single control is the cheap way to check one change.")] string element = null,
             [Description("Downscale so the image is at most this many pixels wide. Clamped to 64-4096, default 1400. Lower it when you only need to confirm layout, raise it to read small text.")] int maxWidth = DefaultMaxWidth,
             [Description("Where to also write the PNG. Give a full file path ending in .png, or a directory, in which case a timestamped filename is generated. The directory is created if needed. Omit to only return the image.")] string saveToPath = null,
-            [Description("Return the image in the tool result. Default true. Set false together with saveToPath when you only want the file on disk and do not want the image in context.")] bool includeImage = true)
+            [Description("Return the image in the tool result. Default true. Set false together with saveToPath when you only want the file on disk and do not want the image in context.")] bool includeImage = true,
+            [Description("'wpf' (default) renders WPF's visual tree, which is fast, can target a single control, and is in layout units. It structurally cannot show a popup, because an open dropdown or context menu is its own top-level window, nor the title bar, which the shell draws. 'window' asks the compositor to re-render the whole window in physical pixels and composites any open popups back into place, so use it after opening a dropdown or when you need real window chrome. 'window' always captures a whole window: name a control and it captures the window containing it.")] string mode = "wpf")
         {
-            ScreenshotResult result = await DevBridgeGate.RunOnUI("ui_screenshot", () => Capture(element, Clamp(maxWidth, 64, 4096)));
+            bool wholeWindow = ParseMode(mode);
+
+            ScreenshotResult result = wholeWindow
+                ? await DevBridgeGate.RunOnUI("ui_screenshot", () => CaptureWindow(element, Clamp(maxWidth, 64, 4096)))
+                : await DevBridgeGate.RunOnUI("ui_screenshot", () => Capture(element, Clamp(maxWidth, 64, 4096)));
 
             List<ContentBlock> content = new List<ContentBlock>();
 
@@ -110,10 +115,13 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         /// Renders the target to PNG bytes. Must run on the UI thread.
         /// </summary>
         /// <remarks>
-        /// Known blind spots, all following from capturing WPF's own drawing rather than the screen:
+        /// Known blind spots, all following from capturing WPF's own drawing rather than the screen. The
+        /// first two are answered by <see cref="WindowCapture"/>, which is what mode='window' reaches:
         /// <list type="bullet">
         /// <item>Popups are separate top-level windows, so an open ComboBox dropdown, a context menu, and
         /// this app's PopupBox intellisense do not appear in a window capture.</item>
+        /// <item>Non-client chrome is drawn by the shell, so the title bar and its buttons are never
+        /// here.</item>
         /// <item>Anything drawn by another technology in its own HWND, notably the WebView2 in the OAuth
         /// browser window, renders as a blank region. This is the airspace limitation and there is no way
         /// around it from inside WPF.</item>
@@ -204,6 +212,84 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
             result.Width = pixelWidth;
             result.Height = pixelHeight;
             return result;
+        }
+
+        /// <summary>
+        /// Captures the whole window containing the target, popups included. Must run on the UI thread.
+        /// </summary>
+        /// <remarks>
+        /// Deliberately widens to the containing window rather than refusing when given a control. The
+        /// compositor renders windows, not elements, and a caller who asked for this mode wants the popup
+        /// that the other mode was missing, which by definition is not inside the control they named.
+        /// </remarks>
+        private static ScreenshotResult CaptureWindow(string element, int maxWidth)
+        {
+            ScreenshotResult result = new ScreenshotResult();
+
+            DependencyObject target = UITools.ResolveTargetForCapture(element, result);
+            if (target == null)
+            {
+                return result;
+            }
+
+            Window window = target as Window ?? Window.GetWindow(target);
+            if (window == null)
+            {
+                result.Status = DevBridgeStatus.NotFound;
+                result.Message = $"'{element}' resolved to a {target.GetType().Name} that is not in any window, so there is no window to capture. It may have been removed from the tree. Use the default mode to render the element on its own.";
+                return result;
+            }
+
+            result.CapturedType = window.GetType().Name;
+            result.CapturedHandle = HandleRegistry.Instance.HandleFor(window, "e");
+
+            WindowCapture.CaptureOutcome outcome = WindowCapture.Capture(window, maxWidth);
+            if (outcome.Error != null)
+            {
+                result.Status = DevBridgeStatus.Error;
+                result.Message = outcome.Error;
+                return result;
+            }
+
+            result.Png = outcome.Png;
+            result.Width = outcome.Width;
+            result.Height = outcome.Height;
+
+            if (!ReferenceEquals(window, target))
+            {
+                result.Message = $"Widened from {target.GetType().Name} to its window, because this mode captures whole windows.";
+            }
+
+            if (outcome.Overlays.Count > 0)
+            {
+                string note = $"Composited {outcome.Overlays.Count} popup(s) that the default mode cannot see: {string.Join("; ", outcome.Overlays)}.";
+                if (outcome.ExtendedBeyondWindow)
+                {
+                    note += " A popup extended past the window edge, so the image is larger than the window and its origin is not the window's corner.";
+                }
+                result.Message = string.Join(" ", new string[] { result.Message, note }).Trim();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Whether the caller asked for the whole-window compositor path.
+        /// </summary>
+        private static bool ParseMode(string mode)
+        {
+            if (string.IsNullOrWhiteSpace(mode))
+            {
+                return false;
+            }
+
+            switch (mode.Trim().ToLowerInvariant())
+            {
+                case "wpf": return false;
+                case "window": return true;
+                default:
+                    throw new ModelContextProtocol.McpException($"'{mode}' is not a known capture mode. Use 'wpf' for the visual tree, or 'window' for the whole window including popups and title bar.");
+            }
         }
 
         private static string WritePng(string saveToPath, byte[] png, string capturedType)
