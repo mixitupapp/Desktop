@@ -25,23 +25,11 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         private const int MaxTextLength = 70;
 
         /// <summary>
-        /// Name fragments that mean a control's contents must never be echoed.
+        /// Any control whose name looks like it holds a secret reports this instead of its value. The
+        /// policy itself lives in <see cref="SecretGuard"/> so that the tree tools and the property tools
+        /// share one list rather than two that drift apart.
         /// </summary>
-        /// <remarks>
-        /// This app holds live OAuth access and refresh tokens for four platforms, and its own log file
-        /// already carries them when diagnostic logging is on. A tree dump is read straight into an
-        /// agent's context, so it is a worse place for a credential to surface than a local log. Any
-        /// control whose name or binding path looks like it holds a secret reports [REDACTED] instead of
-        /// its value. Matching on names is imprecise by nature, so it errs toward redacting.
-        /// </remarks>
-        private static readonly string[] SecretNameFragments = new string[]
-        {
-            "password", "passwd", "secret", "token", "apikey", "api_key", "clientid", "client_id",
-            "clientsecret", "credential", "bearer", "oauth", "authkey", "accesskey", "privatekey",
-            "webhook", "connectionstring",
-        };
-
-        public const string RedactedText = "[REDACTED]";
+        public const string RedactedText = SecretGuard.RedactedText;
 
         /// <summary>
         /// Above this many items, realized containers are not counted. See AppendItemsInfo.
@@ -141,20 +129,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
 
         private static bool LooksSecret(string name)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                return false;
-            }
-
-            string lowered = name.ToLowerInvariant();
-            foreach (string fragment in SecretNameFragments)
-            {
-                if (lowered.Contains(fragment))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return SecretGuard.LooksSecret(name);
         }
 
         private static string Shorten(string value)

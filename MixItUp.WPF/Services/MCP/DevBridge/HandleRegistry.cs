@@ -154,6 +154,40 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         }
 
         /// <summary>
+        /// The handle for an object the caller has already resolved, reusing the existing one when there
+        /// is one.
+        /// </summary>
+        /// <remarks>
+        /// This is what to call when you are not registering an object off a tree walk but simply need a
+        /// handle for something you already hold.
+        /// <para>
+        /// It exists because <see cref="GetOrCreate"/> reads a null <c>expectedDataContext</c> as an
+        /// assertion that the object is pinned to no DataContext, which is correct for a walker declaring
+        /// what it found but wrong for a caller that has no opinion. Passing null for a row already
+        /// registered under its item therefore looked like a recycle: the correctly pinned handle was
+        /// retired and a fresh unpinned one issued, so reading a property off a row both churned handles
+        /// and quietly dropped that row's recycling protection.
+        /// </para>
+        /// </remarks>
+        public string HandleFor(object target, string prefix)
+        {
+            if (target == null)
+            {
+                return null;
+            }
+
+            lock (this.sync)
+            {
+                if (this.entryByObject.TryGetValue(target, out Entry existing))
+                {
+                    return existing.Handle;
+                }
+            }
+
+            return this.GetOrCreate(target, prefix, null);
+        }
+
+        /// <summary>
         /// Resolves a handle back to its live object, or explains why it cannot.
         /// </summary>
         public HandleLookup Resolve(string handle)

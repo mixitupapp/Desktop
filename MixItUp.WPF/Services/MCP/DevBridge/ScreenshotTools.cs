@@ -139,7 +139,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
             }
 
             result.CapturedType = target.GetType().Name;
-            result.CapturedHandle = HandleRegistry.Instance.GetOrCreate(target, "e", null);
+            result.CapturedHandle = HandleRegistry.Instance.HandleFor(target, "e");
 
             if (target is UIElement uiElement && uiElement.Visibility != Visibility.Visible)
             {

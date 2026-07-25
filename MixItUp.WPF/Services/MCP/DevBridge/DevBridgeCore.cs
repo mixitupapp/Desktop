@@ -49,6 +49,28 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         /// <summary>There is no WPF application or it is shutting down. Nothing to inspect.</summary>
         public const string NoUI = "no_ui";
 
+        /// <summary>
+        /// The property exists but cannot be written. Distinct from not_found because the answer is to
+        /// find the property this one derives from, not to look somewhere else: a great many view model
+        /// properties here are computed getters over another property that is settable.
+        /// </summary>
+        public const string NotSettable = "not_settable";
+
+        /// <summary>
+        /// The property exists and is writable but the supplied text does not convert to its type. The
+        /// message carries what the type is, and for an enum what its legal values are, so the retry is
+        /// informed rather than a guess.
+        /// </summary>
+        public const string CoercionFailed = "coercion_failed";
+
+        /// <summary>
+        /// The command exists but refused to run, because CanExecute returned false. Reported separately
+        /// from an outright failure because it is the app declining rather than breaking, and it is the
+        /// answer to "why is that button greyed out" -- the question UI Automation structurally cannot
+        /// answer, since the reason lives in a view model UIA has no concept of.
+        /// </summary>
+        public const string CannotExecute = "cannot_execute";
+
         /// <summary>Something threw. The message carries the detail.</summary>
         public const string Error = "error";
     }
@@ -58,7 +80,7 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
     /// </summary>
     public abstract class DevBridgeResult
     {
-        [Description("Outcome discriminator. Branch on this, not on the message text. 'ok' means the payload is valid. 'stale_handle' means re-read the tree and use fresh handles. 'dispatcher_timeout' or 'busy' mean back off and retry. 'not_found' means give up. 'no_ui' means the window is gone. 'error' means something threw.")]
+        [Description("Outcome discriminator. Branch on this, not on the message text. 'ok' means the payload is valid. 'stale_handle' means re-read the tree and use fresh handles. 'dispatcher_timeout' or 'busy' mean back off and retry. 'not_found' means give up. 'not_settable' means the property is read-only, so set whatever it derives from instead. 'coercion_failed' means the value did not convert to the property's type, and the message says what that type is. 'cannot_execute' means the command refused because CanExecute is false, which is the app declining rather than breaking. 'no_ui' means the window is gone. 'error' means something threw.")]
         public string Status { get; set; } = DevBridgeStatus.Ok;
 
         [Description("Human-readable detail, and where applicable what to do about it. Null when status is 'ok'.")]

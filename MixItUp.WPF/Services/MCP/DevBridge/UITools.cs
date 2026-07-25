@@ -188,9 +188,19 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         }
 
         /// <summary>
-        /// Resolves an element reference, writing the failure onto the result and returning null when it
-        /// cannot. Returning the status on the result rather than throwing is what lets an agent tell a
-        /// stale handle from a missing one without parsing prose.
+        /// Same resolution the read tools use, exposed so capture shares one addressing model rather
+        /// than growing a second one that drifts.
+        /// </summary>
+        internal static DependencyObject ResolveTargetForCapture(string element, DevBridgeResult result)
+        {
+            return ResolveTarget(element, result);
+        }
+
+        /// <summary>
+        /// Resolves a reference to any object, including a view model behind a 'd' handle, writing the
+        /// failure onto the result and returning null when it cannot. Returning the status on the result
+        /// rather than throwing is what lets an agent tell a stale handle from a missing one without
+        /// parsing prose.
         /// </summary>
         /// <remarks>
         /// Three addressing forms, and the reason there is more than one is that they trade off against
@@ -206,17 +216,14 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
         /// #ChatMessageTextBox without dumping anything. What it cannot express is "the third row", since
         /// rows have no names, which is exactly where handles earn their cost.
         /// </para>
+        /// <para>
+        /// This is the looser form the property and invoke tools need. The tree and capture tools can only
+        /// work on something with a visual, so they layer the DependencyObject requirement on top in
+        /// <see cref="ResolveTarget"/>, but a view model is the most useful target there is for reading a
+        /// property or running a command and it is not an element at all.
+        /// </para>
         /// </remarks>
-        /// <summary>
-        /// Same resolution the read tools use, exposed so capture shares one addressing model rather
-        /// than growing a second one that drifts.
-        /// </summary>
-        internal static DependencyObject ResolveTargetForCapture(string element, DevBridgeResult result)
-        {
-            return ResolveTarget(element, result);
-        }
-
-        private static DependencyObject ResolveTarget(string element, DevBridgeResult result)
+        internal static object ResolveObjectTarget(string element, DevBridgeResult result)
         {
             if (string.IsNullOrWhiteSpace(element))
             {
@@ -243,16 +250,32 @@ namespace MixItUp.WPF.Services.MCP.DevBridge
                     return null;
                 }
 
-                if (!(lookup.Target is DependencyObject dependencyObject))
-                {
-                    result.Status = DevBridgeStatus.NotFound;
-                    result.Message = $"Handle '{target}' refers to a {lookup.Target.GetType().Name}, which is a DataContext rather than an element, so it has no visual tree. Handles beginning with 'd' are view models: use one with the property tools instead. For a tree dump, pass an element handle, an x:Name like #ChatMessageTextBox, or a type name.";
-                    return null;
-                }
-
-                return dependencyObject;
+                return lookup.Target;
             }
 
+            return ResolveByNameOrType(target, result);
+        }
+
+        private static DependencyObject ResolveTarget(string element, DevBridgeResult result)
+        {
+            object resolved = ResolveObjectTarget(element, result);
+            if (resolved == null)
+            {
+                return null;
+            }
+
+            if (!(resolved is DependencyObject dependencyObject))
+            {
+                result.Status = DevBridgeStatus.NotFound;
+                result.Message = $"'{element}' refers to a {resolved.GetType().Name}, which is a DataContext rather than an element, so it has no visual tree. Handles beginning with 'd' are view models: use one with ui_get, ui_set, or ui_invoke instead. For a tree dump or a screenshot, pass an element handle, an x:Name like #ChatMessageTextBox, or a type name.";
+                return null;
+            }
+
+            return dependencyObject;
+        }
+
+        private static DependencyObject ResolveByNameOrType(string target, DevBridgeResult result)
+        {
             bool byName = target.StartsWith("#", StringComparison.Ordinal);
             string lookupKey = byName ? target.Substring(1) : target;
 
