@@ -10945,6 +10945,18 @@ Only enable if you know what you are doing. Continue?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>A file path must be specified</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Custom Text</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Time Zone</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Tokens: YYYY YY (year), MMMM MMM MM M (month), DD D (day), dddd ddd (weekday), HH H (24-hour), hh h (12-hour), mm m (minute), ss s (second), A a (AM/PM). Wrap literal wording in square brackets so its letters are left alone, for example: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Leave blank to use the time zone of the computer running the overlay. Zones are listed under their primary city, so Europe/Berlin also covers Amsterdam and Rome. You can also type any IANA time zone name directly, such as Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Profile Name</value>
   </data>
@@ -11280,6 +11292,24 @@ We have detected that you have more than 1 Overlay Endpoint created, meaning the
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Unable to start authentication to service, please ensure you do not already have an active authentication process underway with another service.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up could not start the local login listener because port {0} is already in use by another program. Please close any other program that may be using this port, including a second copy of Mix It Up, and then try again.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up could not start the local login listener because Windows is blocking port {0}. This is usually caused by a reserved port range from Hyper-V, WSL, or Docker. Please visit the Mix It Up Discord for assistance.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up could not open your web browser to complete the login. Copy the address below, paste it into your browser, and finish signing in there. This window will continue waiting for you.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>The login was not completed in time and has been cancelled. Please try again.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>The login could not be completed. Check the Logs folder in your Mix It Up install directory for details, or visit the Mix It Up Discord for assistance.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up received your login but could not exchange it for an access token. Please try again, or visit the Mix It Up Discord for assistance.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Gain</value>
@@ -12061,5 +12091,41 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="HasTitle" xml:space="preserve">
     <value>Has Title</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI Font</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Overall Font Size (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Chat Window Font Size (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Some fonts may not fit every control, and larger sizes can clip.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Support Mode</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Temporarily shows the app with the default theme, font and text size without changing your saved settings. Turn it off to go straight back to your own settings.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Reset Theme &amp; Font Settings</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Reset To Defaults</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>This will reset the color scheme, background, foreground, full theme, UI font, overall font size and chat window font size back to their defaults. Are you sure?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

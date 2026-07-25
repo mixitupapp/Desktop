@@ -97,7 +97,7 @@
                     Margin="-7,-10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="24"
+                    FontSize="{DynamicResource MIU.IconSize.24}"
                     Foreground="{Binding LockIconColor}"
                     IconName="lock" />
             </Button>

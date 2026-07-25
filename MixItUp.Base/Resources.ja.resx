@@ -10790,6 +10790,18 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>ファイルパスを指定する必要があります</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>カスタムテキスト</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>タイムゾーン</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>トークン: YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (曜日)、HH H (24時間制)、hh h (12時間制)、mm m (分)、ss s (秒)、A a (AM/PM)。文字をそのまま表示するには角かっこで囲みます。例: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>空欄にすると、オーバーレイを実行しているコンピューターのタイムゾーンを使用します。ゾーンは主要都市の名前で表示されるため、Europe/Berlin はアムステルダムやローマも対象になります。Europe/Amsterdam のように、IANA のタイムゾーン名を直接入力することもできます。</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>プロファイル名</value>
   </data>
@@ -10997,7 +11009,7 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
     <value>チェックボックス</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>洗礼盤</value>
+    <value>フォント</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>エラー:AWSアカウント接続なしでプレミアムボイスを選択しているため、Amazon Polly TTSが実行できません</value>
@@ -11124,6 +11136,24 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>サービス認証を開始しられない場合、他のサービスで既に有効な認証プロセスが進行中でないかご確認ください。</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>ポート {0} が他のプログラムによって既に使用されているため、Mix It Up はローカルのログイン受信を開始できませんでした。このポートを使用している可能性のある他のプログラム（Mix It Up の 2 つ目のインスタンスを含む）を終了してから、もう一度お試しください。</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Windows がポート {0} をブロックしているため、Mix It Up はローカルのログイン受信を開始できませんでした。これは通常、Hyper-V、WSL、Docker による予約済みポート範囲が原因です。サポートについては Mix It Up の Discord をご覧ください。</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up はログインを完了するためのウェブブラウザーを開けませんでした。以下のアドレスをコピーしてブラウザーに貼り付け、そちらでサインインを完了してください。このウィンドウは引き続きお待ちします。</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>ログインが時間内に完了しなかったため、キャンセルされました。もう一度お試しください。</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>ログインを完了できませんでした。詳細については Mix It Up のインストール先フォルダー内の Logs フォルダーをご確認いただくか、Mix It Up の Discord でサポートをご依頼ください。</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up はログイン情報を受け取りましたが、アクセストークンと交換できませんでした。もう一度お試しいただくか、Mix It Up の Discord でサポートをご依頼ください。</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>ゲイン</value>
@@ -11997,5 +12027,41 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="HasTitle" xml:space="preserve">
     <value>タイトルあり</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI フォント</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>全体のフォントサイズ (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>チャットウィンドウのフォントサイズ (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* 一部のフォントはすべてのコントロールに収まらず、大きいサイズでは表示が切れることがあります。</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>サポートモード</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>保存された設定を変更せずに、既定のテーマ・フォント・文字サイズでアプリを一時的に表示します。オフにすると自分の設定に戻ります。</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>テーマとフォントの設定をリセット</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>既定値にリセット</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>配色、背景、前景、フルテーマ、UI フォント、全体のフォントサイズ、チャットウィンドウのフォントサイズを既定値に戻します。よろしいですか?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

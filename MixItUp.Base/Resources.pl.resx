@@ -10790,6 +10790,18 @@ Włączaj tylko wtedy, gdy wiesz, co robisz. Kontynuować?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Należy określić ścieżkę pliku</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Tekst niestandardowy</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Strefa czasowa</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Tokeny: YYYY YY (rok), MMMM MMM MM M (miesiąc), DD D (dzień), dddd ddd (dzień tygodnia), HH H (24-godzinny), hh h (12-godzinny), mm m (minuta), ss s (sekunda), A a (AM/PM). Umieść tekst dosłowny w nawiasach kwadratowych, aby jego litery pozostały nienaruszone, na przykład: h:mm A [w Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Pozostaw puste, aby użyć strefy czasowej komputera, na którym działa nakładka. Strefy są wymienione według głównego miasta, więc Europe/Berlin obejmuje także Amsterdam i Rzym. Możesz też wpisać bezpośrednio dowolną nazwę strefy czasowej IANA, na przykład Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Nazwa profilu</value>
   </data>
@@ -10997,7 +11009,7 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
     <value>Pole do odhaczenia</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Chrzcielnica</value>
+    <value>Czcionka</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>BŁĄD: Nie mogę wykonać Amazon Polly TTS z powodu wybranego głosu premium bez połączenia z kontem AWS</value>
@@ -11124,6 +11136,24 @@ Wykryliśmy, że masz utworzony więcej niż 1 punkt końcowy nakładki, co ozna
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Nie możesz rozpocząć uwierzytelniania do usługi, upewnij się, że nie masz już aktywnego procesu uwierzytelniania z inną usługą.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up nie mógł uruchomić lokalnego nasłuchiwania logowania, ponieważ port {0} jest już używany przez inny program. Zamknij wszystkie inne programy, które mogą używać tego portu, w tym drugą kopię Mix It Up, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up nie mógł uruchomić lokalnego nasłuchiwania logowania, ponieważ system Windows blokuje port {0}. Zwykle jest to spowodowane zarezerwowanym zakresem portów przez Hyper-V, WSL lub Docker. Odwiedź Discord Mix It Up, aby uzyskać pomoc.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up nie mógł otworzyć przeglądarki internetowej, aby dokończyć logowanie. Skopiuj poniższy adres, wklej go do przeglądarki i dokończ tam logowanie. To okno będzie nadal na Ciebie czekać.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Logowanie nie zostało ukończone na czas i zostało anulowane. Spróbuj ponownie.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Nie udało się ukończyć logowania. Sprawdź folder Logs w katalogu instalacyjnym Mix It Up, aby poznać szczegóły, lub odwiedź Discord Mix It Up, aby uzyskać pomoc.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up otrzymał Twoje logowanie, ale nie mógł wymienić go na token dostępu. Spróbuj ponownie lub odwiedź Discord Mix It Up, aby uzyskać pomoc.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Wzmocnienie</value>
@@ -11997,5 +12027,41 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="HasTitle" xml:space="preserve">
     <value>Ma tytuł</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Czcionka interfejsu</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Ogólny rozmiar czcionki (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Rozmiar czcionki okna czatu (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Niektóre czcionki nie pasują do wszystkich kontrolek, a większe rozmiary mogą zostać przycięte.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Tryb pomocy technicznej</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Tymczasowo wyświetla aplikację z domyślnym motywem, czcionką i rozmiarem tekstu bez zmiany zapisanych ustawień. Wyłącz, aby wrócić do własnych ustawień.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Resetuj ustawienia motywu i czcionki</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Przywróć domyślne</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Spowoduje to przywrócenie domyślnych wartości schematu kolorów, tła, pierwszego planu, pełnego motywu, czcionki interfejsu, ogólnego rozmiaru czcionki i rozmiaru czcionki okna czatu. Czy na pewno?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

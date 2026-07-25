@@ -11,9 +11,9 @@
     Title="{x:Static resx:Resources.CommunityCommandsUploadCommunityCommand}"
     Width="600"
     Height="560"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Grid>
@@ -42,7 +42,7 @@
             <TextBlock
                 Grid.Row="0"
                 HorizontalAlignment="Center"
-                FontSize="24"
+                FontSize="{DynamicResource MIU.FontSize.HeadlineSmall}"
                 FontWeight="Bold"
                 Text="{x:Static resx:Resources.CommunityCommandsUploadCommunityCommand}"
                 TextDecorations="Underline" />
@@ -61,6 +61,7 @@
                 AcceptsReturn="True"
                 AcceptsTab="True"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                TextAlignment="Left"
                 TextWrapping="Wrap" />
 
             <Grid Grid.Row="6">

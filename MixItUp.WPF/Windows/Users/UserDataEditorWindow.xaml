@@ -14,10 +14,10 @@
     Title="{x:Static resx:Resources.UserEditor}"
     Width="600"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -518,6 +518,7 @@
                         AcceptsTab="True"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="{Binding Notes}"
+                        TextAlignment="Left"
                         TextWrapping="Wrap"
                         VerticalScrollBarVisibility="Auto" />
                 </GroupBox>

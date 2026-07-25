@@ -26,7 +26,13 @@ namespace MixItUp.Base.Services
 
         void OverlaySoundFinished(Guid id);
 
-        IEnumerable<string> GetSelectableAudioDevices(bool includeOverlay = false);
+        /// <summary>
+        /// Gets the audio devices that can be picked in the UI. Pass the currently saved device as
+        /// <paramref name="retainedDevice"/> so that a device which is not present right now (unplugged,
+        /// disabled, or renamed) still appears in the list, otherwise the bound ComboBox drops the
+        /// selection and writes the resulting null back over the saved value.
+        /// </summary>
+        IEnumerable<string> GetSelectableAudioDevices(bool includeOverlay = false, string retainedDevice = null);
 
         IEnumerable<string> GetOutputDevices();
 

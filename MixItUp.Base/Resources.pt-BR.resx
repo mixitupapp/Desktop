@@ -10791,6 +10791,18 @@ Só ative se souber o que está fazendo. Continuar?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Um caminho de ficheiro deve ser especificado</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Texto personalizado</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Fuso horário</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Tokens: YYYY YY (ano), MMMM MMM MM M (mês), DD D (dia), dddd ddd (dia da semana), HH H (24 horas), hh h (12 horas), mm m (minuto), ss s (segundo), A a (AM/PM). Coloque o texto literal entre colchetes para que suas letras não sejam substituídas, por exemplo: h:mm A [em Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Deixe em branco para usar o fuso horário do computador que executa a Sobreposição. Os fusos são listados pela cidade principal, portanto Europe/Berlin também abrange Amsterdã e Roma. Você também pode digitar diretamente qualquer nome de fuso horário IANA, como Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Nome do perfil</value>
   </data>
@@ -11125,6 +11137,24 @@ Detetámos que tem mais do que um endpoint de sobreposição criado, o que signi
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Impossível iniciar a autenticação do serviço, por favor, certifique-se de que você não tem um processo ativo de autenticação em andamento com outro serviço.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>O Mix It Up não conseguiu iniciar o receptor de login local porque a porta {0} já está sendo usada por outro programa. Feche qualquer outro programa que possa estar usando esta porta, incluindo uma segunda cópia do Mix It Up, e tente novamente.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>O Mix It Up não conseguiu iniciar o receptor de login local porque o Windows está bloqueando a porta {0}. Isso normalmente é causado por um intervalo de portas reservado pelo Hyper-V, WSL ou Docker. Acesse o Discord do Mix It Up para obter ajuda.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>O Mix It Up não conseguiu abrir seu navegador da web para concluir o login. Copie o endereço abaixo, cole-o no seu navegador e conclua o login por lá. Esta janela continuará aguardando por você.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>O login não foi concluído a tempo e foi cancelado. Tente novamente.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Não foi possível concluir o login. Verifique a pasta Logs no diretório de instalação do Mix It Up para obter detalhes ou acesse o Discord do Mix It Up para obter ajuda.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>O Mix It Up recebeu seu login, mas não conseguiu trocá-lo por um token de acesso. Tente novamente ou acesse o Discord do Mix It Up para obter ajuda.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Ganho</value>
@@ -11998,5 +12028,41 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="HasTitle" xml:space="preserve">
     <value>Tem título</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Fonte da interface</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Tamanho geral da fonte (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Tamanho da fonte da janela de chat (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Algumas fontes não cabem em todos os controles e tamanhos maiores podem ser cortados.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Modo de suporte</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Mostra temporariamente o aplicativo com o tema, a fonte e o tamanho de texto padrão sem alterar suas configurações salvas. Desative para voltar às suas configurações.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Redefinir configurações de tema e fonte</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Redefinir para padrões</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Isso redefinirá o esquema de cores, o plano de fundo, o primeiro plano, o tema completo, a fonte da interface, o tamanho geral da fonte e o tamanho da fonte da janela de chat para os padrões. Tem certeza?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

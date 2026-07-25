@@ -11,6 +11,22 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Util:LocalizationConverter x:Key="LocalizationConverter"/>
+
+        <DataTemplate x:Key="LocalizedItemTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
+        </DataTemplate>
+
+        <!--  Used when LocalizeItems is false, for lists of proper nouns such as font family names  -->
+        <DataTemplate x:Key="RawItemTemplate">
+            <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+
+        <!--  Used when RenderItemsInOwnFont is true: each font name is drawn in the font it names, so
+              the list previews the choice instead of showing everything in the current UI font. The
+              string binds straight to FontFamily through the built-in type converter.  -->
+        <DataTemplate x:Key="OwnFontItemTemplate">
+            <TextBlock Text="{Binding}" FontFamily="{Binding}"/>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid Margin="20, 10">
@@ -21,12 +37,23 @@
 
         <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
+        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}">
+            <ComboBox.Style>
+                <!--  ItemTemplate is set through the style rather than as a direct attribute, otherwise the local value would win over the trigger  -->
+                <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                    <Setter Property="ItemTemplate" Value="{StaticResource LocalizedItemTemplate}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding LocalizeItems}" Value="False">
+                            <Setter Property="ItemTemplate" Value="{StaticResource RawItemTemplate}" />
+                        </DataTrigger>
+                        <!--  Declared last on purpose: the font list also sets LocalizeItems to false,
+                              and with equal specificity the later matching trigger is the one that wins  -->
+                        <DataTrigger Binding="{Binding RenderItemsInOwnFont}" Value="True">
+                            <Setter Property="ItemTemplate" Value="{StaticResource OwnFontItemTemplate}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ComboBox.Style>
         </ComboBox>
     </Grid>
 </UserControl>

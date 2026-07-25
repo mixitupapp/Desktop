@@ -124,7 +124,7 @@
                 <TextBlock Text="{x:Static resx:Resources.VeloraEditBot}" Foreground="{Binding ButtonTextForeground}" VerticalAlignment="Center" />
             </Button>
 
-            <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" Visibility="{Binding IsPlatformBotNoteVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding PlatformBotNoteText}" TextWrapping="Wrap" FontSize="12" FontStyle="Italic" Opacity="0.75" HorizontalAlignment="Center" TextAlignment="Center" Margin="20,10,20,5" />
+            <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" Visibility="{Binding IsPlatformBotNoteVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding PlatformBotNoteText}" TextWrapping="Wrap" FontSize="{DynamicResource MIU.FontSize.BodySmall}" FontStyle="Italic" Opacity="0.75" HorizontalAlignment="Center" TextAlignment="Center" Margin="20,10,20,5" />
         </Grid>
     </GroupBox>
 </Controls:LoadingControlBase>

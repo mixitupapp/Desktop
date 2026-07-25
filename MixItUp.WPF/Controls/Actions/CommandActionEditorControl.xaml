@@ -74,7 +74,7 @@
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" FontWeight="Light" FontSize="12" Padding="4,8,0,0"/>
+                                    <TextBlock Text="{Binding Name}" FontWeight="Light" FontSize="{DynamicResource MIU.FontSize.BodySmall}" Padding="4,8,0,0"/>
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>

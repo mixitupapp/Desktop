@@ -186,6 +186,17 @@ namespace MixItUp.Base.Services.Velora.New
                 this.Bot = await ServiceManager.Get<UserService>().CreateUser(new VeloraUserPlatformV2Model(this.BotID, this.BotUsername, this.BotModel.BestDisplayName, this.BotAvatarURL));
             }
 
+            // Neither branch above runs the role pass - the ID-only constructor skips it, and an already
+            // known bot is returned as-is - so the bot would otherwise show as a plain user until its
+            // first chat message. BotID is set just above, which is all RefreshRoleProperties needs; the
+            // cached PrimaryRole/DisplayRoles are recomputed after it because Roles changed out of band.
+            VeloraUserPlatformV2Model botPlatformData = this.Bot?.GetPlatformData<VeloraUserPlatformV2Model>(StreamingPlatformTypeEnum.Velora);
+            if (botPlatformData != null)
+            {
+                botPlatformData.RefreshRoleProperties();
+                this.Bot.RefreshCachedProperties();
+            }
+
             // Publish the command list to the bot's Velora profile page right away; RefreshDetails keeps
             // it current from here. Non-fatal: a sync problem must not fail the bot connection.
             await this.SyncBotCommandsIfChanged();

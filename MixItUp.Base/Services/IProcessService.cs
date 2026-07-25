@@ -7,6 +7,11 @@ namespace MixItUp.Base.Services
     {
         void LaunchLink(string url);
 
+        /// <summary>Opens the URL in the user's default browser, reporting whether the launch actually
+        /// succeeded. Needed by flows such as OAuth that are stuck waiting on the browser and must be able
+        /// to tell the user when it never opened.</summary>
+        bool TryLaunchLink(string url);
+
         void LaunchFolder(string folderPath);
 
         void LaunchProgram(string filePath, string arguments = "");

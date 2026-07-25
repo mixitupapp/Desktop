@@ -11,7 +11,7 @@
              
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
+             TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
              
              d:DesignHeight="300" d:DesignWidth="300">

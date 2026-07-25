@@ -427,9 +427,6 @@ namespace MixItUp.Base.Services.YouTube.New
 
         public async Task<IEnumerable<string>> GetLatestShortIDs(string channelID)
         {
-            channelID = "UCgLbxi89b8NvLevVp2ypbRA";
-
-
             return await AsyncRunner.RunAsync(async () =>
             {
                 List<string> results = new List<string>();

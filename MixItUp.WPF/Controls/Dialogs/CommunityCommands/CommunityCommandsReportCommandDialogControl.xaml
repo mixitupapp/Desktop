@@ -21,7 +21,7 @@
 
         <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.CommunityCommandsReportCommand}" />
 
-        <TextBox Grid.Row="2" x:Name="ReportTextBox" Width="400" Height="150" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" />
+        <TextBox Grid.Row="2" x:Name="ReportTextBox" Width="400" Height="150" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" />
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>

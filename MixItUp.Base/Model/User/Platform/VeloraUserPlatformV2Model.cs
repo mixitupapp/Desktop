@@ -159,16 +159,55 @@ namespace MixItUp.Base.Model.User.Platform
             }
         }
 
+        /// <summary>
+        /// Re-applies the identity-derived roles (streamer / connected bot). The session calls this once
+        /// the bot identity is known, because the bot's user is resolved before the role pass can see it.
+        /// </summary>
+        public void RefreshRoleProperties() { this.SetRoleProperties(); }
+
         private void SetRoleProperties()
         {
-            bool isStreamer =
-                !string.IsNullOrWhiteSpace(this.ID) &&
-                !string.IsNullOrWhiteSpace(ServiceManager.Get<VeloraSession>().StreamerID) &&
-                string.Equals(this.ID, ServiceManager.Get<VeloraSession>().StreamerID, StringComparison.OrdinalIgnoreCase);
-
-            if (isStreamer)
+            if (string.IsNullOrWhiteSpace(this.ID))
             {
-                this.Roles.Add(UserRoleEnum.Streamer);
+                return;
+            }
+
+            VeloraSession session = ServiceManager.Get<VeloraSession>();
+
+            // Reconciled rather than add-only (matching Kick) so the role does not outlive the account it
+            // was granted for - Roles is persisted, so a streamer who switches Velora accounts would
+            // otherwise leave the old one flagged as Streamer forever. Only reconciled once the streamer
+            // is actually known, so a not-yet-connected session never strips anything.
+            if (!string.IsNullOrWhiteSpace(session.StreamerID))
+            {
+                if (string.Equals(this.ID, session.StreamerID, StringComparison.OrdinalIgnoreCase))
+                {
+                    this.Roles.Add(UserRoleEnum.Streamer);
+                }
+                else
+                {
+                    this.Roles.Remove(UserRoleEnum.Streamer);
+                }
+            }
+
+            // A Velora bot is an alias of the streamer's own account rather than a separate channel
+            // member: it cannot be granted a channel role (it never appears in the channel's mod list),
+            // and everything sent "as the bot" rides the streamer's token with sendAsBot, which Velora
+            // executes with the channel owner's permissions. Its echoed messages therefore always carry
+            // userRoles ["bot"] and nothing else, which the badge pass above resolves to a plain User.
+            // Every other platform reaches a working state because the streamer mods a real, separate
+            // bot account; grant the role here so role-gated commands behave the same way on Velora.
+            // Add-only, and last in the chain, so it neither strips a genuine moderator nor gets undone
+            // by SetChatMessageProperties. Gated on BotID rather than IsBotConnected because the session
+            // only ever populates BotID from a successful bot init (it is never restored from settings),
+            // and IsBotConnected is not set until after that init returns.
+            bool isBot =
+                !string.IsNullOrWhiteSpace(session.BotID) &&
+                string.Equals(this.ID, session.BotID, StringComparison.OrdinalIgnoreCase);
+
+            if (isBot)
+            {
+                this.Roles.Add(UserRoleEnum.Moderator);
             }
         }
 

@@ -89,7 +89,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.GameCommandTriviaCustomQuestions}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" />
+                    <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.GameCommandTriviaCustomQuestions}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="{DynamicResource MIU.FontSize.TitleMedium}" />
 
                     <Button Grid.Column="2" Content="{x:Static resx:Resources.GameCommandTriviaAddQuestion}" Command="{Binding AddQuestionCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" />
                 </Grid>
@@ -107,7 +107,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaQuestion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Question}" VerticalAlignment="Center" Height="85" TextWrapping="Wrap" />
+                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaQuestion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Question}" VerticalAlignment="Center" Height="85" TextAlignment="Left" TextWrapping="Wrap" />
 
                             <Grid Grid.Column="2">
                                 <Grid.ColumnDefinitions>

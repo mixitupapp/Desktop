@@ -14,7 +14,7 @@
     <local:CommandEditorDetailsControlBase.Resources>
         <Util:LocalizationConverter x:Key="LocalizationConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <Controls:MaterialSymbolIcon IconName="data_object" FontSize="24" x:Key="JSONPopupIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.JSONToSpecialIdentifiers}" />
+        <Controls:MaterialSymbolIcon IconName="data_object" FontSize="{DynamicResource MIU.IconSize.24}" x:Key="JSONPopupIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.JSONToSpecialIdentifiers}" />
     </local:CommandEditorDetailsControlBase.Resources>
 
     <Grid>

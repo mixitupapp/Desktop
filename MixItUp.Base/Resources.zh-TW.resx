@@ -10790,6 +10790,18 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>必須指定檔案路徑</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>自訂文字</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>時區</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>代碼：YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (星期)、HH H (24 小時制)、hh h (12 小時制)、mm m (分)、ss s (秒)、A a (AM/PM)。若要原樣顯示文字，請用方括號括住，例如：h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>留空即使用執行覆蓋的電腦時區。時區以主要城市列出，因此 Europe/Berlin 也涵蓋阿姆斯特丹與羅馬。你也可以直接輸入任何 IANA 時區名稱，例如 Europe/Amsterdam。</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>個人資料名稱</value>
   </data>
@@ -10997,7 +11009,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>复选框</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>字体</value>
+    <value>字體</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>错误：由于选择的高级语音未连接 AWS 帐户，因此无法执行 Amazon Polly TTS</value>
@@ -11124,6 +11136,24 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>无法启动对服务的身份验证，请确保没有正在进行的其他服务身份验证过程。</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up 無法啟動本機登入接聽程式，因為連接埠 {0} 已被其他程式使用。請關閉任何可能正在使用此連接埠的程式（包括第二個 Mix It Up 執行個體），然後再試一次。</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up 無法啟動本機登入接聽程式，因為 Windows 封鎖了連接埠 {0}。這通常是由 Hyper-V、WSL 或 Docker 保留的連接埠範圍所造成。請前往 Mix It Up 的 Discord 尋求協助。</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up 無法開啟您的網頁瀏覽器來完成登入。請複製下方的網址，貼到瀏覽器中並在那裡完成登入。此視窗會繼續等候您。</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>登入未在時限內完成，已取消。請再試一次。</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>無法完成登入。請查看 Mix It Up 安裝目錄中的 Logs 資料夾以了解詳細資訊，或前往 Mix It Up 的 Discord 尋求協助。</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up 已收到您的登入資訊，但無法將其兌換為存取權杖。請再試一次，或前往 Mix It Up 的 Discord 尋求協助。</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>收益</value>
@@ -12028,5 +12058,41 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="HasTitle" xml:space="preserve">
     <value>有標題</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>介面字體</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>整體字型大小 (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>聊天視窗字型大小 (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* 部分字型不適用於所有控制項，字型過大時可能會被裁切。</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>支援模式</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>暫時以預設佈景主題、字型和文字大小顯示應用程式，不會變更您已儲存的設定。關閉後即可回到您自己的設定。</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>重設佈景主題與字型設定</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>重設為預設值</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>這會將色彩配置、背景、前景、完整佈景主題、介面字型、整體字型大小和聊天視窗字型大小重設為預設值。確定要繼續嗎?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

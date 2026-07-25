@@ -1,6 +1,7 @@
 # Mix It Up
 
-Level up your stream. Mix It Up is your command center for Twitch, YouTube, and Trovo—chat, commands, overlays, alerts, and deep automation in one sleek desktop app.
+Level up your stream. Mix It Up is your command center for Twitch, YouTube, Kick, and Velora
+Chat, commands, overlays, alerts, and deep automation in one sleek desktop app.
 
 ## What is this?
 

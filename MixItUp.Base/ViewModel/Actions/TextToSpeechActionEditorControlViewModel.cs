@@ -249,7 +249,7 @@ namespace MixItUp.Base.ViewModel.Actions
         public TextToSpeechActionEditorControlViewModel(TextToSpeechActionModel action)
             : base(action)
         {
-            this.AudioDevices.AddRange(ServiceManager.Get<IAudioService>().GetSelectableAudioDevices());
+            this.AudioDevices.AddRange(ServiceManager.Get<IAudioService>().GetSelectableAudioDevices(retainedDevice: action.OutputDevice));
             this.SelectedAudioDevice = (action.OutputDevice != null) ? action.OutputDevice : ServiceManager.Get<IAudioService>().DefaultAudioDevice;
 
             this.selectedProviderType = action.ProviderType;

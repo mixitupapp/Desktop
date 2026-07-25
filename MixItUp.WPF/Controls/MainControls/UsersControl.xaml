@@ -12,8 +12,8 @@
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     d:DesignHeight="700"
     d:DesignWidth="600"
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <local:MainControlBase.Resources>
@@ -233,7 +233,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="key" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="key" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -244,7 +244,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="schedule" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="schedule" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -255,7 +255,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="payments" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="payments" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -266,7 +266,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="local_police" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="local_police" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>

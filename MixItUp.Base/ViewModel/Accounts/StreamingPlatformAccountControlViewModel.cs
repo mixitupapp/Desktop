@@ -167,16 +167,16 @@ namespace MixItUp.Base.ViewModel.Accounts
         }
         private string botAccountAvatar;
 
-        public bool IsStreamerAccountLogInVisible { get { return !this.IsStreamerAccountEnabled && !this.IsStreamerAccountConnected && this.streamerConnectTask == null; } }
+        public bool IsStreamerAccountLogInVisible { get { return !this.IsStreamerAccountEnabled && !this.IsStreamerAccountConnected && !this.isStreamerConnecting; } }
         public ICommand StreamerAccountLogInCommand { get; set; }
-        public bool IsStreamerAccountCancelVisible { get { return !this.IsStreamerAccountEnabled && !this.IsStreamerAccountConnected && this.streamerConnectTask != null; } }
+        public bool IsStreamerAccountCancelVisible { get { return !this.IsStreamerAccountEnabled && !this.IsStreamerAccountConnected && this.isStreamerConnecting; } }
         public ICommand StreamerAccountCancelCommand { get; set; }
         public bool IsStreamerAccountLogoutVisible { get { return this.IsStreamerAccountEnabled || this.IsStreamerAccountConnected; } }
         public ICommand StreamerAccountLogOutCommand { get; set; }
 
-        public bool IsBotAccountLogInVisible { get { return !this.IsBotAccountEnabled && !this.IsBotAccountConnected && this.botConnectTask == null; } }
+        public bool IsBotAccountLogInVisible { get { return !this.IsBotAccountEnabled && !this.IsBotAccountConnected && !this.isBotConnecting; } }
         public ICommand BotAccountLogInCommand { get; set; }
-        public bool IsBotAccountCancelVisible { get { return !this.IsBotAccountEnabled && !this.IsBotAccountConnected && this.botConnectTask != null; } }
+        public bool IsBotAccountCancelVisible { get { return !this.IsBotAccountEnabled && !this.IsBotAccountConnected && this.isBotConnecting; } }
         public ICommand BotAccountCancelCommand { get; set; }
         public bool IsBotAccountLogoutVisible { get { return this.IsBotAccountEnabled || this.IsBotAccountConnected; } }
         public ICommand BotAccountLogOutCommand { get; set; }
@@ -187,10 +187,13 @@ namespace MixItUp.Base.ViewModel.Accounts
 
         private StreamingPlatformSessionBase session;
 
-        private Task streamerConnectTask = null;
+        // The connecting flags drive the log in / cancel button swap. They are set on the UI thread before the
+        // background attempt starts, so a fast-failing attempt cannot leave the cancel spinner running forever
+        // the way a task field assigned after the fact could.
+        private bool isStreamerConnecting = false;
         private CancellationTokenSource streamerConnectCancellationTokenSource = new CancellationTokenSource();
 
-        private Task botConnectTask = null;
+        private bool isBotConnecting = false;
         private CancellationTokenSource botConnectCancellationTokenSource = new CancellationTokenSource();
 
         public StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum platform)
@@ -229,14 +232,28 @@ namespace MixItUp.Base.ViewModel.Accounts
                 try
                 {
                     this.streamerConnectCancellationTokenSource.Cancel();
-                    this.streamerConnectCancellationTokenSource = new CancellationTokenSource();
 
-                    this.streamerConnectTask = AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
+                    // Held locally so this attempt always judges itself by its own token. Reading the field
+                    // instead let a superseded attempt mistake a newer attempt's fresh token for its own and
+                    // report a failure the user never caused.
+                    CancellationTokenSource attemptCancellationTokenSource = new CancellationTokenSource();
+                    this.streamerConnectCancellationTokenSource = attemptCancellationTokenSource;
+                    this.isStreamerConnecting = true;
+
+                    _ = AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
                     {
+                        string messageToShow = null;
                         try
                         {
-                            Result result = await this.session.ManualConnectStreamer(this.streamerConnectCancellationTokenSource.Token);
-                            if (result.Success && !this.streamerConnectCancellationTokenSource.IsCancellationRequested)
+                            Result result = await this.session.ManualConnectStreamer(attemptCancellationTokenSource.Token);
+                            if (attemptCancellationTokenSource.IsCancellationRequested)
+                            {
+                                // Cancelled by the user or superseded by a newer attempt. Either way this
+                                // attempt must not touch shared state or raise a dialog.
+                                return;
+                            }
+
+                            if (result.Success)
                             {
                                 if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.None)
                                 {
@@ -255,22 +272,31 @@ namespace MixItUp.Base.ViewModel.Accounts
                             {
                                 await this.session.DisableStreamer();
 
-                                if (!this.streamerConnectCancellationTokenSource.IsCancellationRequested)
-                                {
-                                    await DispatcherHelper.Dispatcher.InvokeAsync(async () => await DialogHelper.ShowMessage(result.Message));
-                                }
+                                messageToShow = GetConnectionFailureMessage(result);
                             }
                         }
                         catch (Exception ex)
                         {
                             Logger.Log(ex);
                         }
+                        finally
+                        {
+                            if (this.streamerConnectCancellationTokenSource == attemptCancellationTokenSource)
+                            {
+                                this.isStreamerConnecting = false;
+                            }
 
-                        this.streamerConnectTask = null;
+                            this.NotifyAllProperties();
+                        }
 
-                        this.NotifyAllProperties();
+                        // Shown only after the button has been put back, so the user is not left looking at a
+                        // progress spinner behind an error they have already been told about.
+                        if (messageToShow != null)
+                        {
+                            await DispatcherHelper.Dispatcher.InvokeAsync(async () => await DialogHelper.ShowMessage(messageToShow));
+                        }
 
-                    }, this.streamerConnectCancellationTokenSource.Token);
+                    }, attemptCancellationTokenSource.Token);
                 }
                 catch (Exception ex)
                 {
@@ -286,7 +312,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 {
                     this.streamerConnectCancellationTokenSource.Cancel();
 
-                    this.streamerConnectTask = null;
+                    this.isStreamerConnecting = false;
 
                     await this.session.DisableStreamer();
                 }
@@ -321,20 +347,29 @@ namespace MixItUp.Base.ViewModel.Accounts
                 try
                 {
                     this.botConnectCancellationTokenSource.Cancel();
-                    this.botConnectCancellationTokenSource = new CancellationTokenSource();
 
-                    this.botConnectTask = AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
+                    CancellationTokenSource attemptCancellationTokenSource = new CancellationTokenSource();
+                    this.botConnectCancellationTokenSource = attemptCancellationTokenSource;
+                    this.isBotConnecting = true;
+
+                    _ = AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
                     {
+                        string messageToShow = null;
                         try
                         {
-                            Result result = await this.session.ManualConnectBot(this.botConnectCancellationTokenSource.Token);
-                            if (result.Success && !this.botConnectCancellationTokenSource.IsCancellationRequested)
+                            Result result = await this.session.ManualConnectBot(attemptCancellationTokenSource.Token);
+                            if (attemptCancellationTokenSource.IsCancellationRequested)
+                            {
+                                return;
+                            }
+
+                            if (result.Success)
                             {
                                 if (string.Equals(this.session.StreamerID, this.session.BotID, StringComparison.CurrentCultureIgnoreCase))
                                 {
                                     await this.session.DisableBot();
 
-                                    await DispatcherHelper.Dispatcher.InvokeAsync(async () => await DialogHelper.ShowMessage(Resources.BotAccountMustBeDifferent));
+                                    messageToShow = Resources.BotAccountMustBeDifferent;
                                 }
 
                                 this.BotAccountUsername = this.session.BotUsername;
@@ -344,22 +379,29 @@ namespace MixItUp.Base.ViewModel.Accounts
                             {
                                 await this.session.DisableBot();
 
-                                if (!this.botConnectCancellationTokenSource.IsCancellationRequested)
-                                {
-                                    await DispatcherHelper.Dispatcher.InvokeAsync(async () => await DialogHelper.ShowMessage(result.Message));
-                                }
+                                messageToShow = GetConnectionFailureMessage(result);
                             }
                         }
                         catch (Exception ex)
                         {
                             Logger.Log(ex);
                         }
+                        finally
+                        {
+                            if (this.botConnectCancellationTokenSource == attemptCancellationTokenSource)
+                            {
+                                this.isBotConnecting = false;
+                            }
 
-                        this.botConnectTask = null;
+                            this.NotifyAllProperties();
+                        }
 
-                        this.NotifyAllProperties();
+                        if (messageToShow != null)
+                        {
+                            await DispatcherHelper.Dispatcher.InvokeAsync(async () => await DialogHelper.ShowMessage(messageToShow));
+                        }
 
-                    }, this.botConnectCancellationTokenSource.Token);
+                    }, attemptCancellationTokenSource.Token);
                 }
                 catch (Exception ex)
                 {
@@ -375,7 +417,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 {
                     this.botConnectCancellationTokenSource.Cancel();
 
-                    this.botConnectTask = null;
+                    this.isBotConnecting = false;
 
                     await this.session.DisableBot();
                 }
@@ -427,6 +469,17 @@ namespace MixItUp.Base.ViewModel.Accounts
 
                 this.NotifyAllProperties();
             });
+        }
+
+        /// <summary>Last line of defense against showing the user an empty dialog: a failed connection that
+        /// carries no message of its own still has to say something actionable.</summary>
+        private static string GetConnectionFailureMessage(Result result)
+        {
+            if (result != null && !string.IsNullOrWhiteSpace(result.Message))
+            {
+                return result.Message;
+            }
+            return Resources.AuthenticationFailedGeneric;
         }
 
         private void NotifyAllProperties()

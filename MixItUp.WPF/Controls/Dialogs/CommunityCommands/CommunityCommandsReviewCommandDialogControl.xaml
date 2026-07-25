@@ -21,7 +21,7 @@
 
         <MaterialDesign:RatingBar x:Name="RatingsBar" Min="1" Max="5" Value="1" />
 
-        <TextBox Grid.Row="2" x:Name="TextEntryTextBox" Width="400" Height="150" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" />
+        <TextBox Grid.Row="2" x:Name="TextEntryTextBox" Width="400" Height="150" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" />
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>

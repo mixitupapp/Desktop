@@ -12,8 +12,8 @@
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     d:DesignHeight="400"
     d:DesignWidth="500"
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <local:GroupedCommandsMainControlBase.Resources>
@@ -171,7 +171,7 @@
                     <TextBlock Text="{x:Static resx:Resources.ChannelPointsEditor}" />
                     <Controls:MaterialSymbolIcon
                         Margin="5,-2,0,0"
-                        IconName="open_in_new" FontSize="20" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+                        IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.20}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                 </StackPanel>
             </Button>
         </Grid>

@@ -79,7 +79,7 @@
                 </Border.Style>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Controls:MaterialSymbolIcon IconName="playlist_add" FontSize="24" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
+                    <Controls:MaterialSymbolIcon IconName="playlist_add" FontSize="{DynamicResource MIU.IconSize.24}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
                     <TextBlock Text="{x:Static resx:Resources.AddOrDropHere}" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
                 </StackPanel>
             </Border>

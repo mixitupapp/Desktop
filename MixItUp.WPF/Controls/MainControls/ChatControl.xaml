@@ -11,8 +11,8 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"  
                           
              d:DesignHeight="600" d:DesignWidth="800">
@@ -114,7 +114,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <Controls:MaterialSymbolIcon FontSize="10" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
+                        <Controls:MaterialSymbolIcon FontSize="{DynamicResource MIU.IconSize.10}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                             <Controls:MaterialSymbolIcon.Style>
                                 <Style TargetType="{x:Type Controls:MaterialSymbolIcon}">
                                     <Setter Property="IconName" Value="expand_less" />

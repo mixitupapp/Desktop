@@ -15,9 +15,9 @@
     Title="{x:Static resx:Resources.OverlayWidgetEditor}"
     Width="800"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -181,7 +181,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -198,7 +198,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -215,7 +215,7 @@
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                                         ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>

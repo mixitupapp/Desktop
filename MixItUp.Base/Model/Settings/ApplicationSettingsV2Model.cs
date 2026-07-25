@@ -23,6 +23,28 @@ namespace MixItUp.Base.Model.Settings
     {
         private const string ApplicationSettingsFileName = "ApplicationSettings.json";
 
+        /// <summary>
+        /// The packaged font that the application UI uses unless the user selects a different one.
+        /// </summary>
+        public const string DefaultUIFontFamily = "Noto Sans";
+
+        /// <summary>
+        /// The UI font scale, as a percentage of the MD3 type scale's designed sizes. 100 is unscaled.
+        /// Applies to the text scale only - icon sizes are deliberately not scaled.
+        /// </summary>
+        public const int DefaultUIScale = 100;
+        public const int MinimumUIScale = 50;
+        public const int MaximumUIScale = 150;
+
+        /// <summary>
+        /// Theme defaults, named so that the reset action and support mode resolve to exactly the
+        /// same values the properties below are initialised with.
+        /// </summary>
+        public const string DefaultColorScheme = "Indigo";
+        public const string DefaultBackgroundColor = "Light";
+        public const string DefaultForegroundColor = "Default";
+        public const string DefaultFullThemeName = "";
+
         public static async Task<ApplicationSettingsV2Model> Load()
         {
             ApplicationSettingsV2Model settings = null;
@@ -78,6 +100,12 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public string ForegroundColor { get; set; } = "Default";
+
+        [DataMember]
+        public string UIFontFamily { get; set; } = DefaultUIFontFamily;
+
+        [DataMember]
+        public int UIScale { get; set; } = DefaultUIScale;
 
         [DataMember]
         public bool DontSaveLastWindowPosition { get; set; }

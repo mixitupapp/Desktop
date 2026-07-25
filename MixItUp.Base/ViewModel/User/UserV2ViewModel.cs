@@ -712,6 +712,13 @@ namespace MixItUp.Base.ViewModel.User
             }
         }
 
+        /// <summary>
+        /// Recomputes the cached role and display properties (PrimaryRole, DisplayRoles, colors) after an
+        /// out-of-band change to <see cref="Roles"/>. Otherwise those only refresh on construction or when
+        /// a throttled <see cref="Refresh(bool)"/> actually runs.
+        /// </summary>
+        public void RefreshCachedProperties() { this.ClearCachedProperties(); }
+
         private void ClearCachedProperties()
         {
             if (!string.IsNullOrEmpty(this.PlatformModel.DisplayName))

@@ -10790,6 +10790,18 @@ print(run())</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Потрібно вказати шлях до файлу</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Довільний текст</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Часовий пояс</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Токени: YYYY YY (рік), MMMM MMM MM M (місяць), DD D (день), dddd ddd (день тижня), HH H (24 години), hh h (12 годин), mm m (хвилини), ss s (секунди), A a (AM/PM). Беріть буквальний текст у квадратні дужки, щоб його літери залишалися незмінними, наприклад: h:mm A [в Ейндговені]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Залиште порожнім, щоб використовувати часовий пояс комп'ютера, на якому працює Накладка. Пояси наведено за головним містом, тому Europe/Berlin охоплює також Амстердам і Рим. Також можна ввести будь-яку назву часового поясу IANA напряму, наприклад Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Ім'я профілю</value>
   </data>
@@ -11124,6 +11136,24 @@ print(run())</value>
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Якщо не вдається розпочати автентифікацію в сервісі, переконайтеся, що ви не виконуєте активний процес автентифікації в іншому сервісі.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up не вдалося запустити локальний приймач входу, оскільки порт {0} уже використовується іншою програмою. Закрийте всі інші програми, які можуть використовувати цей порт, зокрема другу копію Mix It Up, і повторіть спробу.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up не вдалося запустити локальний приймач входу, оскільки Windows блокує порт {0}. Зазвичай це спричинено діапазоном портів, зарезервованим Hyper-V, WSL або Docker. Зверніться по допомогу до Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up не вдалося відкрити веб-браузер для завершення входу. Скопіюйте адресу нижче, вставте її у браузер і завершіть вхід там. Це вікно продовжить чекати на вас.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Вхід не було завершено вчасно, тому його скасовано. Повторіть спробу.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Не вдалося завершити вхід. Подробиці див. у папці Logs у каталозі встановлення Mix It Up або зверніться по допомогу до Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up отримав дані вашого входу, але не зміг обміняти їх на токен доступу. Повторіть спробу або зверніться по допомогу до Discord Mix It Up.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Виграш</value>
@@ -12028,5 +12058,41 @@ print(run())</value>
   <data name="HasTitle" xml:space="preserve">
     <value>Має заголовок</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Шрифт інтерфейсу</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Загальний розмір шрифту (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Розмір шрифту вікна чату (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Деякі шрифти не підходять для всіх елементів керування, а за великих розмірів текст може обрізатися.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Режим підтримки</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Тимчасово показує застосунок із темою, шрифтом і розміром тексту за умовчанням, не змінюючи збережені налаштування. Вимкніть, щоб повернутися до власних налаштувань.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Скинути налаштування теми та шрифту</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Скинути до типових</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Колірну схему, тло, передній план, повну тему, шрифт інтерфейсу, загальний розмір шрифту та розмір шрифту вікна чату буде скинуто до типових значень. Ви впевнені?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

@@ -9,9 +9,9 @@
     Title="{x:Static resx:Resources.CodeEditor}"
     Width="1000"
     Height="700"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium">
     <Window.Resources>
         <Style x:Key="PopoutSearchPanelButtonStyle" TargetType="{x:Type Button}" BasedOn="{x:Null}">

@@ -168,8 +168,14 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool SaveChatEventLogs { get; set; }
 
+        /// <summary>
+        /// Chat message font size, in device-independent pixels. Named so the theme reset resolves
+        /// to the same value this property is initialised with.
+        /// </summary>
+        public const int DefaultChatFontSize = 13;
+
         [DataMember]
-        public int ChatFontSize { get; set; } = 13;
+        public int ChatFontSize { get; set; } = DefaultChatFontSize;
         [DataMember]
         public bool AddSeparatorsBetweenMessages { get; set; }
         [DataMember]

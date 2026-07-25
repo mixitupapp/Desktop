@@ -10791,6 +10791,18 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Er moet een bestandspad worden opgegeven</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Aangepaste tekst</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Tijdzone</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Tokens: YYYY YY (jaar), MMMM MMM MM M (maand), DD D (dag), dddd ddd (weekdag), HH H (24-uurs), hh h (12-uurs), mm m (minuut), ss s (seconde), A a (AM/PM). Zet letterlijke tekst tussen vierkante haken zodat de letters ongewijzigd blijven, bijvoorbeeld: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Laat leeg om de tijdzone te gebruiken van de computer waarop de Overlay draait. Zones staan vermeld onder hun belangrijkste stad, dus Europe/Berlin dekt ook Amsterdam en Rome. Je kunt ook rechtstreeks een IANA-tijdzonenaam typen, zoals Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Profielnaam</value>
   </data>
@@ -10998,7 +11010,7 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
     <value>Selectievakje</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Doopvont</value>
+    <value>Lettertype</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>FOUT: Amazon Polly TTS kan niet uitvoeren vanwege een premium stem geselecteerd zonder een AWS-account verbonden</value>
@@ -11125,6 +11137,24 @@ We hebben gedetecteerd dat u meer dan één overlay-eindpunt heeft gemaakt, wat 
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Als authenticatie niet voor service kan worden gestart, zorg er dan voor dat er niet al een actief authenticatieproces loopt bij een andere dienst.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up kon de lokale aanmeldlistener niet starten omdat poort {0} al door een ander programma wordt gebruikt. Sluit elk ander programma dat deze poort mogelijk gebruikt, inclusief een tweede exemplaar van Mix It Up, en probeer het opnieuw.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up kon de lokale aanmeldlistener niet starten omdat Windows poort {0} blokkeert. Dit wordt meestal veroorzaakt door een gereserveerd poortbereik van Hyper-V, WSL of Docker. Ga naar de Discord van Mix It Up voor hulp.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up kon je webbrowser niet openen om het aanmelden te voltooien. Kopieer het onderstaande adres, plak het in je browser en voltooi het aanmelden daar. Dit venster blijft op je wachten.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Het aanmelden is niet op tijd voltooid en is geannuleerd. Probeer het opnieuw.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Het aanmelden kon niet worden voltooid. Bekijk de map Logs in je Mix It Up-installatiemap voor details, of ga naar de Discord van Mix It Up voor hulp.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up heeft je aanmelding ontvangen, maar kon deze niet inwisselen voor een toegangstoken. Probeer het opnieuw of ga naar de Discord van Mix It Up voor hulp.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Gain</value>
@@ -11998,5 +12028,41 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="HasTitle" xml:space="preserve">
     <value>Heeft titel</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI-lettertype</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Algemene lettergrootte (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Lettergrootte chatvenster (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Sommige lettertypen passen niet in elk besturingselement en grote formaten kunnen worden afgekapt.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Ondersteuningsmodus</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Toont de app tijdelijk met het standaardthema, -lettertype en -tekstgrootte zonder je opgeslagen instellingen te wijzigen. Schakel uit om terug te gaan naar je eigen instellingen.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Thema- en lettertype-instellingen herstellen</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Standaardwaarden herstellen</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Hiermee worden het kleurenschema, de achtergrond, de voorgrond, het volledige thema, het UI-lettertype, de algemene lettergrootte en de lettergrootte van het chatvenster hersteld naar de standaardwaarden. Weet je het zeker?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

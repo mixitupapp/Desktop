@@ -10796,6 +10796,18 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Es muss ein Dateipfad angegeben werden</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Benutzerdefinierter Text</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Zeitzone</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Platzhalter: YYYY YY (Jahr), MMMM MMM MM M (Monat), DD D (Tag), dddd ddd (Wochentag), HH H (24-Stunden), hh h (12-Stunden), mm m (Minute), ss s (Sekunde), A a (AM/PM). Setze wörtlichen Text in eckige Klammern, damit dessen Buchstaben unverändert bleiben, zum Beispiel: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Leer lassen, um die Zeitzone des Computers zu verwenden, auf dem das Overlay läuft. Zonen sind unter ihrer Hauptstadt aufgeführt, daher deckt Europe/Berlin auch Amsterdam und Rom ab. Du kannst auch direkt einen beliebigen IANA-Zeitzonennamen eingeben, zum Beispiel Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Profilname</value>
   </data>
@@ -11003,7 +11015,7 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
     <value>Checkkästchen</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Taufbecken</value>
+    <value>Schriftart</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>FEHLER: Amazon Polly TTS kann nicht durchgeführt werden, da eine Premium-Stimme ohne verbundenes AWS-Konto ausgewählt ist</value>
@@ -11130,6 +11142,24 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Wenn die Authentifizierung für den Dienst nicht gestartet werden kann, stellen Sie bitte sicher, dass bei einem anderen Dienst kein aktiver Authentifizierungsprozess läuft.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Port {0} bereits von einem anderen Programm verwendet wird. Bitte schließen Sie alle anderen Programme, die diesen Port verwenden könnten, einschließlich einer zweiten Instanz von Mix It Up, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Windows den Port {0} blockiert. Dies wird normalerweise durch einen von Hyper-V, WSL oder Docker reservierten Portbereich verursacht. Bitte besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up konnte Ihren Webbrowser nicht öffnen, um die Anmeldung abzuschließen. Kopieren Sie die untenstehende Adresse, fügen Sie sie in Ihren Browser ein und schließen Sie die Anmeldung dort ab. Dieses Fenster wartet weiterhin auf Sie.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Die Anmeldung wurde nicht rechtzeitig abgeschlossen und wurde abgebrochen. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Die Anmeldung konnte nicht abgeschlossen werden. Einzelheiten finden Sie im Ordner Logs in Ihrem Mix It Up-Installationsverzeichnis, oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up hat Ihre Anmeldung erhalten, konnte sie aber nicht gegen ein Zugriffstoken eintauschen. Bitte versuchen Sie es erneut oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Gewinn</value>
@@ -12003,5 +12033,41 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="HasTitle" xml:space="preserve">
     <value>Hat Titel</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI-Schriftart</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Gesamtschriftgröße (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Schriftgröße des Chatfensters (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Manche Schriftarten passen nicht in alle Steuerelemente, und größere Werte können abgeschnitten werden.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Support-Modus</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Zeigt die App vorübergehend mit Standarddesign, -schriftart und -textgröße an, ohne Ihre gespeicherten Einstellungen zu ändern. Zum Zurückkehren einfach ausschalten.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Design- und Schrifteinstellungen zurücksetzen</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Auf Standard zurücksetzen</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Dadurch werden Farbschema, Hintergrund, Vordergrund, vollständiges Design, UI-Schriftart, Gesamtschriftgröße und Chatfenster-Schriftgröße auf die Standardwerte zurückgesetzt. Sind Sie sicher?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

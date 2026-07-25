@@ -17679,6 +17679,42 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("OverlayLabelFilePathMustBeSpecified", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Text.
+        /// </summary>
+        public static string CustomText {
+            get {
+                return ResourceManager.GetString("CustomText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Time Zone.
+        /// </summary>
+        public static string TimeZone {
+            get {
+                return ResourceManager.GetString("TimeZone", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Tokens: YYYY YY (year), MMMM MMM MM M (month), DD D (day), dddd ddd (weekday), HH H (24-hour), hh h (12-hour), mm m (minute), ss s (second), A a (AM/PM). Wrap literal wording in square brackets so its letters are left alone, for example: h:mm A [in Eindhoven]
+        /// </summary>
+        public static string OverlayLabelDateTimeFormatTooltip {
+            get {
+                return ResourceManager.GetString("OverlayLabelDateTimeFormatTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Leave blank to use the time zone of the computer running the overlay.
+        /// </summary>
+        public static string OverlayLabelTimeZoneTooltip {
+            get {
+                return ResourceManager.GetString("OverlayLabelTimeZoneTooltip", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to New Leader.
@@ -28384,7 +28420,61 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("UnableToStartAuthenticationSession", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not start the local login listener because port {0} is already in use by another program. Please close any other program that may be using this port, including a second copy of Mix It Up, and then try again..
+        /// </summary>
+        public static string AuthenticationPortInUse {
+            get {
+                return ResourceManager.GetString("AuthenticationPortInUse", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not start the local login listener because Windows is blocking port {0}. This is usually caused by a reserved port range from Hyper-V, WSL, or Docker. Please visit the Mix It Up Discord for assistance..
+        /// </summary>
+        public static string AuthenticationPortBlocked {
+            get {
+                return ResourceManager.GetString("AuthenticationPortBlocked", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not open your web browser to complete the login. Copy the address below, paste it into your browser, and finish signing in there. This window will continue waiting for you..
+        /// </summary>
+        public static string AuthenticationBrowserLaunchFailed {
+            get {
+                return ResourceManager.GetString("AuthenticationBrowserLaunchFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The login was not completed in time and has been cancelled. Please try again..
+        /// </summary>
+        public static string AuthenticationTimedOut {
+            get {
+                return ResourceManager.GetString("AuthenticationTimedOut", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The login could not be completed. Check the Logs folder in your Mix It Up install directory for details, or visit the Mix It Up Discord for assistance..
+        /// </summary>
+        public static string AuthenticationFailedGeneric {
+            get {
+                return ResourceManager.GetString("AuthenticationFailedGeneric", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up received your login but could not exchange it for an access token. Please try again, or visit the Mix It Up Discord for assistance..
+        /// </summary>
+        public static string AuthenticationTokenExchangeFailed {
+            get {
+                return ResourceManager.GetString("AuthenticationTokenExchangeFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Unassigned.
         /// </summary>
@@ -31456,6 +31546,87 @@ namespace MixItUp.Base {
         public static string ShuffleToggle {
             get {
                 return ResourceManager.GetString("ShuffleToggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UI Font.
+        /// </summary>
+        public static string UIFont {
+            get {
+                return ResourceManager.GetString("UIFont", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Overall Font Size (%).
+        /// </summary>
+        public static string OverallFontSize {
+            get {
+                return ResourceManager.GetString("OverallFontSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Chat Window Font Size (px).
+        /// </summary>
+        public static string ChatWindowFontSize {
+            get {
+                return ResourceManager.GetString("ChatWindowFontSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to * Some fonts may not fit every control, and larger sizes can clip.
+        /// </summary>
+        public static string OverallFontSizeNote {
+            get {
+                return ResourceManager.GetString("OverallFontSizeNote", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Support Mode.
+        /// </summary>
+        public static string SupportMode {
+            get {
+                return ResourceManager.GetString("SupportMode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Temporarily shows the app with the default theme, font and text size without changing your saved settings.
+        /// </summary>
+        public static string SupportModeTooltip {
+            get {
+                return ResourceManager.GetString("SupportModeTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Theme &amp; Font Settings.
+        /// </summary>
+        public static string ResetThemeAndFontSettings {
+            get {
+                return ResourceManager.GetString("ResetThemeAndFontSettings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reset To Defaults.
+        /// </summary>
+        public static string ResetToDefaults {
+            get {
+                return ResourceManager.GetString("ResetToDefaults", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This will reset the color scheme, background, foreground, full theme, UI font, overall font size and chat window font size back to their defaults. Are you sure?.
+        /// </summary>
+        public static string ResetThemeAndFontSettingsConfirmation {
+            get {
+                return ResourceManager.GetString("ResetThemeAndFontSettingsConfirmation", resourceCulture);
             }
         }
     }

@@ -16,12 +16,12 @@
     Height="600"
     AllowDrop="True"
     Drop="CommandEditorWindow_Drop"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     PreviewDragEnter="CommandEditorWindow_PreviewDragEnter"
     PreviewDragLeave="CommandEditorWindow_PreviewDragLeave"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -69,7 +69,7 @@
                         <TextBlock
                             Grid.Row="2"
                             HorizontalAlignment="Center"
-                            FontSize="40"
+                            FontSize="{DynamicResource MIU.FontSize.DisplaySmall}"
                             Text="{x:Static resx:Resources.ImportActions}" />
                     </Grid>
 

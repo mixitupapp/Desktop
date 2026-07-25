@@ -42,12 +42,12 @@
                     Margin="0,0,12,0"
                     VerticalAlignment="Center"
                     Foreground="White"
-                    IconName="info" FontSize="24" />
+                    IconName="info" FontSize="{DynamicResource MIU.IconSize.24}" />
 
                 <TextBlock
                     Grid.Column="1"
                     VerticalAlignment="Center"
-                    FontSize="13"
+                    FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                     Foreground="White"
                     TextWrapping="Wrap"
                     Text="We have switched our Webhooks API domain from api.mixitupapp.com and desktop.api.mixitupapp.com to desktop.api.mixitup.bot. Please ensure that you update your webhook URLs in any external services that use them. You can press the Copy URL button to get the updated link." />
@@ -63,7 +63,7 @@
                     ToolTip="Close">
                     <Controls:MaterialSymbolIcon
                         Foreground="White"
-                        IconName="close" FontSize="18" />
+                        IconName="close" FontSize="{DynamicResource MIU.IconSize.18}" />
                 </Button>
             </Grid>
         </MaterialDesign:Card>

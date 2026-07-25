@@ -10795,6 +10795,18 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Должен быть указан путь к файлу</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Произвольный текст</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Часовой пояс</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Токены: YYYY YY (год), MMMM MMM MM M (месяц), DD D (день), dddd ddd (день недели), HH H (24 часа), hh h (12 часов), mm m (минуты), ss s (секунды), A a (AM/PM). Заключайте буквальный текст в квадратные скобки, чтобы его буквы не заменялись, например: h:mm A [в Эйндховене]</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Оставьте пустым, чтобы использовать часовой пояс компьютера, на котором работает Оверлей. Пояса перечислены по главному городу, поэтому Europe/Berlin охватывает также Амстердам и Рим. Можно также ввести любое название часового пояса IANA напрямую, например Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Имя профиля</value>
   </data>
@@ -11129,6 +11141,24 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Невозможно начать аутентификацию в службе, пожалуйста, убедитесь, что у вас еще нет активного процесса аутентификации в другой службе.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up не удалось запустить локальный приёмник входа, так как порт {0} уже используется другой программой. Закройте все другие программы, которые могут использовать этот порт, включая вторую копию Mix It Up, и повторите попытку.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up не удалось запустить локальный приёмник входа, так как Windows блокирует порт {0}. Обычно это вызвано диапазоном портов, зарезервированным Hyper-V, WSL или Docker. Обратитесь за помощью в Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up не удалось открыть веб-браузер для завершения входа. Скопируйте адрес ниже, вставьте его в браузер и завершите вход там. Это окно продолжит вас ждать.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Вход не был завершён вовремя и был отменён. Повторите попытку.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Не удалось завершить вход. Подробности см. в папке Logs в каталоге установки Mix It Up или обратитесь за помощью в Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up получил данные вашего входа, но не смог обменять их на токен доступа. Повторите попытку или обратитесь за помощью в Discord Mix It Up.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Усиление</value>
@@ -12033,5 +12063,41 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="HasTitle" xml:space="preserve">
     <value>Есть название</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Шрифт интерфейса</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Общий размер шрифта (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Размер шрифта окна чата (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Некоторые шрифты подходят не для всех элементов управления, а при больших размерах текст может обрезаться.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Режим поддержки</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Временно показывает приложение с темой, шрифтом и размером текста по умолчанию, не изменяя сохранённые настройки. Выключите, чтобы вернуться к своим настройкам.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Сбросить настройки темы и шрифта</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Сбросить по умолчанию</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Цветовая схема, фон, передний план, полная тема, шрифт интерфейса, общий размер шрифта и размер шрифта окна чата будут сброшены к значениям по умолчанию. Вы уверены?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
   </data>
 </root>

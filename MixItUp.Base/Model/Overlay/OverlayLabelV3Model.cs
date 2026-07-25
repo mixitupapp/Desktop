@@ -12,6 +12,7 @@ using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.User;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -40,6 +41,10 @@ namespace MixItUp.Base.Model.Overlay
         Counter = 100,
 
         File = 200,
+
+        Date = 300,
+        Time = 301,
+        CustomText = 302,
     }
 
     public enum OverlayLabelDisplayV3SettingTypeEnum
@@ -76,6 +81,9 @@ namespace MixItUp.Base.Model.Overlay
         [DataMember]
         public string FilePath { get; set; }
 
+        [DataMember]
+        public string TimeZoneID { get; set; }
+
         public void ResetData()
         {
             this.UserID = Guid.Empty;
@@ -91,6 +99,8 @@ namespace MixItUp.Base.Model.Overlay
         public const string UsernamePropertyName = "Username";
         public const string AmountPropertyName = "Amount";
         public const string TypeNamePropertyName = "TypeName";
+        public const string DateTimeFormatPropertyName = "DateTimeFormat";
+        public const string TimeZonePropertyName = "TimeZone";
 
         public static readonly string DefaultHTML = OverlayResources.OverlayLabelDefaultHTML;
         public static readonly string DefaultCSS = OverlayResources.OverlayLabelDefaultCSS + Environment.NewLine + Environment.NewLine + OverlayResources.OverlayTextDefaultCSS;
@@ -105,15 +115,26 @@ namespace MixItUp.Base.Model.Overlay
         [DataMember]
         public Dictionary<OverlayLabelDisplayV3TypeEnum, OverlayLabelDisplayV3Model> Displays { get; set; } = new Dictionary<OverlayLabelDisplayV3TypeEnum, OverlayLabelDisplayV3Model>();
 
+        [DataMember]
+        public OverlayAnimationV3Model DisplayEntranceAnimation { get; set; } = new OverlayAnimationV3Model();
+        [DataMember]
+        public OverlayAnimationV3Model DisplayExitAnimation { get; set; } = new OverlayAnimationV3Model();
+
         private CancellationTokenSource refreshCancellationTokenSource;
 
         private FileSystemWatcher fileSystemWatcher = null;
+
+        // The last text pushed to the widget per display, so that polled displays can skip
+        // sending an update that would not change anything on screen. Seeded by Loaded() so
+        // a reconnected overlay is never compared against text from the previous session.
+        private readonly ConcurrentDictionary<OverlayLabelDisplayV3TypeEnum, string> lastSentFormats = new ConcurrentDictionary<OverlayLabelDisplayV3TypeEnum, string>();
 
         public OverlayLabelV3Model() : base(OverlayItemV3Type.Label) { }
 
         public override async Task Initialize()
         {
-            if (string.Equals(this.Javascript, OverlayResources.OverlayLabelDefaultJavascriptOld, System.StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(this.Javascript, OverlayResources.OverlayLabelDefaultJavascriptOld, System.StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(this.Javascript, OverlayResources.OverlayLabelDefaultJavascriptOld2, System.StringComparison.OrdinalIgnoreCase))
             {
                 this.Javascript = OverlayResources.OverlayLabelDefaultJavascript;
             }
@@ -127,7 +148,8 @@ namespace MixItUp.Base.Model.Overlay
                 return;
             }
 
-            if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.ViewerCount) || this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.ChatterCount))
+            if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.ViewerCount) || this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.ChatterCount) ||
+                this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.CustomText))
             {
                 if (this.refreshCancellationTokenSource != null)
                 {
@@ -140,16 +162,24 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     do
                     {
+                        // These are polled rather than event-driven, so they only send when the
+                        // resolved text actually changed. Otherwise a display with nothing new to
+                        // report would take over a NewestOnly label once a minute.
                         if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.ViewerCount))
                         {
                             this.Displays[OverlayLabelDisplayV3TypeEnum.ViewerCount].Amount = ServiceManager.Get<ChatService>().GetViewerCount();
-                            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.ViewerCount);
+                            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.ViewerCount, skipIfUnchanged: true);
                         }
 
                         if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.ChatterCount))
                         {
                             this.Displays[OverlayLabelDisplayV3TypeEnum.ChatterCount].Amount = ServiceManager.Get<UserService>().ActiveUserCount;
-                            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.ChatterCount);
+                            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.ChatterCount, skipIfUnchanged: true);
+                        }
+
+                        if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.CustomText))
+                        {
+                            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.CustomText, skipIfUnchanged: true);
                         }
 
                         await Task.Delay(60000);
@@ -319,6 +349,8 @@ namespace MixItUp.Base.Model.Overlay
         {
             await base.Uninitialize();
 
+            this.lastSentFormats.Clear();
+
             this.RemoveEventHandlers();
 
             if (this.fileSystemWatcher != null)
@@ -334,6 +366,10 @@ namespace MixItUp.Base.Model.Overlay
             Dictionary<string, object> properties = base.GetGenerationProperties();
             properties[nameof(this.DisplaySetting)] = this.DisplaySetting.ToString();
             properties[nameof(this.DisplayRotationSeconds)] = this.DisplayRotationSeconds;
+
+            this.DisplayEntranceAnimation.AddAnimationProperties(properties, nameof(this.DisplayEntranceAnimation));
+            this.DisplayExitAnimation.AddAnimationProperties(properties, nameof(this.DisplayExitAnimation));
+
             return properties;
         }
 
@@ -349,6 +385,8 @@ namespace MixItUp.Base.Model.Overlay
                     {
                         Dictionary<string, object> data = await this.GetLabelDisplayProperties(display.Value);
                         await this.CallFunction("add", data);
+
+                        this.lastSentFormats[display.Key] = data[nameof(display.Value.Format)] as string;
                     }
                     catch (Exception ex)
                     {
@@ -557,7 +595,7 @@ namespace MixItUp.Base.Model.Overlay
             }
         }
 
-        private async Task SendUpdate(OverlayLabelDisplayV3TypeEnum type)
+        private async Task SendUpdate(OverlayLabelDisplayV3TypeEnum type, bool skipIfUnchanged = false)
         {
             OverlayLabelDisplayV3Model display = this.Displays[type];
             if (display.IsEnabled)
@@ -565,6 +603,15 @@ namespace MixItUp.Base.Model.Overlay
                 try
                 {
                     Dictionary<string, object> data = await this.GetLabelDisplayProperties(display);
+
+                    string format = data[nameof(display.Format)] as string;
+                    if (skipIfUnchanged && this.lastSentFormats.TryGetValue(type, out string previous) &&
+                        string.Equals(previous, format, StringComparison.Ordinal))
+                    {
+                        return;
+                    }
+                    this.lastSentFormats[type] = format;
+
                     await this.CallFunction("update", data);
                 }
                 catch (Exception ex)
@@ -616,7 +663,20 @@ namespace MixItUp.Base.Model.Overlay
             data[nameof(display.Format)] = result;
             data["User"] = user;
 
+            if (OverlayLabelV3Model.IsDateTimeDisplay(display.Type))
+            {
+                // The format is handed to the widget unresolved so that the browser can
+                // re-render it every second, rather than pushing an update per tick.
+                data[OverlayLabelV3Model.DateTimeFormatPropertyName] = result;
+                data[OverlayLabelV3Model.TimeZonePropertyName] = display.TimeZoneID ?? string.Empty;
+            }
+
             return data;
+        }
+
+        public static bool IsDateTimeDisplay(OverlayLabelDisplayV3TypeEnum type)
+        {
+            return type == OverlayLabelDisplayV3TypeEnum.Date || type == OverlayLabelDisplayV3TypeEnum.Time;
         }
 
         private bool IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum type)
