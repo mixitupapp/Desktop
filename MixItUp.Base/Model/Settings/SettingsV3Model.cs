@@ -581,6 +581,9 @@ namespace MixItUp.Base.Model.Settings
         public bool EnableDeveloperAPIAdvancedMode { get; set; }
 
         [DataMember]
+        public bool EnableMCPServer { get; set; }
+
+        [DataMember]
         public string TiltifyCampaignV5 { get; set; }
         [DataMember]
         public bool TiltifyCampaignV5IsTeam { get; set; }

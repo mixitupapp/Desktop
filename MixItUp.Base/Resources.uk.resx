@@ -1308,6 +1308,22 @@
     <value>Максимальне значення</value>
     <comment>Manual</comment>
   </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP-сервер</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Адреса сервера:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCP-сервер дає змогу ШІ-агентам, запущеним на вашому комп'ютері, взаємодіяти з Mix It Up через Model Context Protocol. Спрямуйте клієнт, наприклад Claude Code, на вказану нижче адресу сервера. Докладніше про це див. на вікі-сторінці MCP-сервера.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>ПОПЕРЕДЖЕННЯ: Будь-який агент, підключений до цього сервера, може читати вашу конфігурацію та виконувати команди від вашого імені, зокрема надсилати повідомлення в чат. Увімкніть це лише тоді, коли ви активно працюєте з агентом, якому довіряєте.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="MeetTheTeam" xml:space="preserve">
     <value>Познайомтеся з командою</value>
     <comment>Manual</comment>

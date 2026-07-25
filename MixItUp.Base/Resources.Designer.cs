@@ -15054,6 +15054,42 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MCP Server.
+        /// </summary>
+        public static string MCPServer {
+            get {
+                return ResourceManager.GetString("MCPServer", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Server Address:.
+        /// </summary>
+        public static string MCPServerAddress {
+            get {
+                return ResourceManager.GetString("MCPServerAddress", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The MCP Server allows AI agents running on your computer to interact with Mix It Up through the Model Context Protocol. Point a client such as Claude Code at the server address below. For more information about this, please see the MCP Server Wiki page..
+        /// </summary>
+        public static string MCPServerInfo {
+            get {
+                return ResourceManager.GetString("MCPServerInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to WARNING: Any agent connected to this server can read your configuration and run commands on your behalf, including sending chat messages. Only enable this while you are actively working with an agent you trust..
+        /// </summary>
+        public static string MCPServerWarning {
+            get {
+                return ResourceManager.GetString("MCPServerWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Meet The Team.
         /// </summary>
         public static string MeetTheTeam {

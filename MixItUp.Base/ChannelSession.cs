@@ -387,6 +387,7 @@ namespace MixItUp.Base
                 if (ChannelSession.Settings.EnableOverlay) { externalServiceToConnect[ServiceManager.Get<OverlayV3Service>()] = null; }
                 if (ChannelSession.Settings.MtionStudioEnabled) { externalServiceToConnect[ServiceManager.Get<MtionStudioService>()] = null; }
                 if (ChannelSession.Settings.EnableDeveloperAPI) { externalServiceToConnect[ServiceManager.Get<IDeveloperAPIService>()] = null; }
+                if (ChannelSession.Settings.EnableMCPServer) { externalServiceToConnect[ServiceManager.Get<IMCPService>()] = null; }
 
                 if (externalServiceToConnect.Count > 0)
                 {

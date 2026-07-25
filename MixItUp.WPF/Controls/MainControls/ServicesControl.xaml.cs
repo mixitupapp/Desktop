@@ -36,6 +36,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new KoFiServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LoupeDeckServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LumiaStreamServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new MCPServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MeldStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MtionStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OBSStudioServiceControl()));
