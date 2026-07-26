@@ -1308,6 +1308,26 @@
     <value>Wartość maksymalna</value>
     <comment>Manual</comment>
   </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>Serwer MCP</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Otwórz w sieci lokalnej (należy uruchomić jako administrator):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Adres serwera:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>Serwer MCP umożliwia agentom AI działającym na Twoim komputerze interakcję z Mix It Up za pośrednictwem Model Context Protocol. Skieruj klienta, takiego jak Claude Code, na poniższy adres serwera. Więcej informacji na ten temat znajdziesz na stronie wiki serwera MCP.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>OSTRZEŻENIE: Każdy agent połączony z tym serwerem może odczytać Twoją konfigurację i wykonywać polecenia w Twoim imieniu, w tym wysyłać wiadomości na czacie. Włączaj tę opcję tylko wtedy, gdy aktywnie pracujesz z agentem, któremu ufasz.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="MeetTheTeam" xml:space="preserve">
     <value>Poznaj zespół</value>
     <comment>Manual</comment>

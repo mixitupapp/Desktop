@@ -1317,6 +1317,26 @@
     <value>Max Value</value>
     <comment>Manual</comment>
   </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP Server</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Server Address:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Open To Local Network (Must run as Administrator):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>The MCP Server allows AI agents running on your computer to interact with Mix It Up through the Model Context Protocol. Point a client such as Claude Code at the server address below. For more information about this, please see the MCP Server Wiki page.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>WARNING: Any agent connected to this server can read your configuration and run commands on your behalf, including sending chat messages. Only enable this while you are actively working with an agent you trust.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="MeetTheTeam" xml:space="preserve">
     <value>Meet The Team</value>
     <comment>Manual</comment>

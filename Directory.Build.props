@@ -10,8 +10,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Preview'">
     <DefineConstants>$(DefineConstants);PREVIEW_BUILD</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Test'">
-    <DefineConstants>$(DefineConstants);TEST_BUILD</DefineConstants>
+  <!-- DEV_BUILD is the channel identity: aesthetics, release-channel string, update root. -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Dev'">
+    <DefineConstants>$(DefineConstants);DEV_BUILD</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(BuildChannel)' != ''">
     <DefineConstants>$(DefineConstants);$(BuildChannel)</DefineConstants>

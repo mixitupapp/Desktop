@@ -64,6 +64,7 @@ namespace MixItUp.WPF.Branding
         public static readonly Feature Accounts = new Feature("accounts", "manage_accounts");
         public static readonly Feature Settings = new Feature("settings", "settings");
         public static readonly Feature DeveloperAPI = new Feature("developer-api", "api");
+        public static readonly Feature MCPServer = new Feature("mcp-server", "sdk");
         public static readonly Feature Changelog = new Feature("changelog", "new_releases");
         public static readonly Feature About = new Feature("about", "info");
         public static readonly Feature Debug = new Feature("debug", "bug_report");

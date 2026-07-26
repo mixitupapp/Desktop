@@ -5,6 +5,7 @@ using MixItUp.Base.Services.External;
 using MixItUp.Base.Util;
 using MixItUp.WPF.Services;
 using MixItUp.WPF.Services.DeveloperAPI;
+using MixItUp.WPF.Services.MCP;
 using MixItUp.WPF.Util;
 using System;
 using System.Diagnostics;
@@ -45,6 +46,7 @@ namespace MixItUp.WPF
                 ServiceManager.Add<IImageService>(new WindowsImageService());
                 ServiceManager.Add<IAudioService>(new WindowsAudioService());
                 ServiceManager.Add<IDeveloperAPIService>(new WindowsDeveloperAPIService());
+                ServiceManager.Add<IMCPService>(new WindowsMCPService());
                 ServiceManager.Add<ITelemetryService>(new WindowsTelemetryService());
                 ServiceManager.Add<IMusicPlayerService>(new WindowsMusicPlayerService());
                 ServiceManager.Add<IProcessService>(new WindowsProcessService());

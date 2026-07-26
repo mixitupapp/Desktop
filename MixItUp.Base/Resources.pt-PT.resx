@@ -1309,6 +1309,26 @@ Fuzzy</comment>
     <value>Valor máximo</value>
     <comment>Manual</comment>
   </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>Servidor MCP</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Aberto à rede local (deve ser executado como administrador):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Endereço do servidor:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>O servidor MCP permite que agentes de IA em execução no seu computador interajam com o Mix It Up através do Model Context Protocol. Aponte um cliente como o Claude Code para o endereço do servidor abaixo. Para mais informações sobre isto, consulte a página wiki do servidor MCP.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>AVISO: Qualquer agente ligado a este servidor pode ler a sua configuração e executar comandos em seu nome, incluindo o envio de mensagens no chat. Ative isto apenas enquanto estiver a trabalhar ativamente com um agente em que confie.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="MeetTheTeam" xml:space="preserve">
     <value>Conheça a equipe</value>
     <comment>Manual</comment>

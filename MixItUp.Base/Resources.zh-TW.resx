@@ -1308,6 +1308,26 @@
     <value>最大值</value>
     <comment>Manual</comment>
   </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP 伺服器</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>開啟到本機網路（必須以管理員身分執行）：</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>伺服器位址：</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCP 伺服器可讓在您電腦上執行的 AI 代理程式透過 Model Context Protocol 與 Mix It Up 互動。請將用戶端（例如 Claude Code）指向下方的伺服器位址。如需更多相關資訊，請參閱 MCP 伺服器的 Wiki 頁面。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>警告：任何連線至此伺服器的代理程式都能讀取您的設定並代表您執行命令，包括傳送聊天訊息。請僅在您正與信任的代理程式合作時啟用此功能。</value>
+    <comment>Manual</comment>
+  </data>
   <data name="MeetTheTeam" xml:space="preserve">
     <value>認識團隊</value>
     <comment>Manual</comment>

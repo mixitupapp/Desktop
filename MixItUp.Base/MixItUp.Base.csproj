@@ -7,7 +7,7 @@
     <FileVersion>1.8.010.0</FileVersion>
 		<Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
-		<Configurations>Debug;Test;Public;Preview</Configurations>
+		<Configurations>Debug;Dev;Public;Preview</Configurations>
 	</PropertyGroup>
 
   <ItemGroup>

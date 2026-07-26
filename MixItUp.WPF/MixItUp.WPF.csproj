@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
@@ -29,7 +29,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
-    <Configurations>Debug;Preview;Public;Test</Configurations>
+    <Configurations>Debug;Preview;Public;Dev</Configurations>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
     <StartupObject>MixItUp.WPF.Program</StartupObject>
@@ -54,7 +54,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -86,6 +86,7 @@ del $(TargetDir)MixItUp.zip</PostBuildEvent>
 		<PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.15.3" />
 		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
+		<PackageReference Include="ModelContextProtocol.AspNetCore" Version="2.0.0-rc.1" />
 		<PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.50.0" />
 		<PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.8" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />

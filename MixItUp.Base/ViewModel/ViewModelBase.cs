@@ -7,7 +7,9 @@ namespace MixItUp.Base.ViewModels
 {
     public class UIViewModelCommand : ViewModelBase, ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        // Initialized so NotifyCanExecuteChanged can invoke it before anything has subscribed,
+        // which is the normal state for a command whose CanExecute is never re-queried by WPF.
+        public event EventHandler CanExecuteChanged = delegate { };
 
         private Func<bool> canExecute;
 

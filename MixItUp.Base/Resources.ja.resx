@@ -1308,6 +1308,26 @@
     <value>最大値</value>
     <comment>Manual</comment>
   </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCPサーバー</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>ローカル ネットワークに開く (管理者として実行する必要があります):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>サーバーアドレス:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCPサーバーを使用すると、お使いのコンピューター上で実行されているAIエージェントが Model Context Protocol を介して Mix It Up と連携できます。Claude Code などのクライアントを以下のサーバーアドレスに接続してください。詳細については、MCPサーバーのWikiページをご覧ください。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>警告: このサーバーに接続されたエージェントは、設定を読み取り、チャットメッセージの送信を含むコマンドをあなたの代わりに実行できます。信頼できるエージェントで作業しているときのみ有効にしてください。</value>
+    <comment>Manual</comment>
+  </data>
   <data name="MeetTheTeam" xml:space="preserve">
     <value>チームに会う</value>
     <comment>Manual</comment>
