@@ -15072,6 +15072,15 @@ namespace MixItUp.Base {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Open To Local Network (Must run as Administrator):.
+        /// </summary>
+        public static string MCPServerAdvanced {
+            get {
+                return ResourceManager.GetString("MCPServerAdvanced", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to The MCP Server allows AI agents running on your computer to interact with Mix It Up through the Model Context Protocol. Point a client such as Claude Code at the server address below. For more information about this, please see the MCP Server Wiki page..
         /// </summary>
         public static string MCPServerInfo {

@@ -13,6 +13,17 @@ namespace MixItUp.Base.ViewModel.Services
 
         public string ServerAddress { get { return ServiceManager.Get<IMCPService>().ServerAddress; } }
 
+        public bool EnableMCPServerAdvancedMode
+        {
+            get { return ChannelSession.Settings.EnableMCPServerAdvancedMode; }
+            set
+            {
+                ChannelSession.Settings.EnableMCPServerAdvancedMode = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged("EnableMCPServerAdvancedMode");
+            }
+        }
+
         public MCPServiceControlViewModel()
             : base(Resources.MCPServer)
         {

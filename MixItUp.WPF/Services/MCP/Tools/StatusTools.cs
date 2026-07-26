@@ -13,7 +13,7 @@ namespace MixItUp.WPF.Services.MCP.Tools
     [McpServerToolType]
     public class StatusTools
     {
-        [McpServerTool(Name = "get_status", ReadOnly = true)]
+        [McpServerTool(Name = "get_status", ReadOnly = true, UseStructuredContent = true)]
         [Description("Get the running state of the Mix It Up instance: version, release channel, whether a settings profile is loaded, and which streaming platforms are currently connected. Call this first to confirm the app is ready before using other tools.")]
         public static Task<StatusResult> GetStatus()
         {

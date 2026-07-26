@@ -1312,6 +1312,10 @@
     <value>Serveur MCP</value>
     <comment>Manual</comment>
   </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Ouvrir sur le réseau local (doit être exécuté en tant qu'administrateur) :</value>
+    <comment>Manual</comment>
+  </data>
   <data name="MCPServerAddress" xml:space="preserve">
     <value>Adresse du serveur :</value>
     <comment>Manual</comment>

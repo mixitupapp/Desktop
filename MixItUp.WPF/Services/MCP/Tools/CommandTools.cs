@@ -15,8 +15,8 @@ namespace MixItUp.WPF.Services.MCP.Tools
     [McpServerToolType]
     public class CommandTools
     {
-        [McpServerTool(Name = "list_commands", ReadOnly = true)]
-        [Description("List the commands configured in Mix It Up, newest page first. Returns command IDs needed by get_command, run_command, and set_command_state. Use nameFilter to narrow the list instead of paging through everything.")]
+        [McpServerTool(Name = "list_commands", ReadOnly = true, UseStructuredContent = true)]
+        [Description("List the commands configured in Mix It Up, newest page first. Returns command IDs needed by get_command, run_command, enable_command, disable_command and toggle_command. Use nameFilter to narrow the list instead of paging through everything.")]
         public static Task<ListCommandsResult> ListCommands(
             [Description("Case-insensitive substring to match against the command name. Omit to list all commands.")] string nameFilter = null,
             [Description("Number of commands to skip, for paging. Defaults to 0.")] int skip = 0,
@@ -26,14 +26,8 @@ namespace MixItUp.WPF.Services.MCP.Tools
             {
                 ToolHelpers.RequireSettingsLoaded();
 
-                if (skip < 0)
-                {
-                    throw new McpException("skip must be zero or greater.");
-                }
-                if (pageSize < 1 || pageSize > 200)
-                {
-                    throw new McpException("pageSize must be between 1 and 200.");
-                }
+                ToolHelpers.RequireSkip(skip);
+                ToolHelpers.RequirePageSize(pageSize);
 
                 IEnumerable<CommandModelBase> commands = GetUserFacingCommands();
 
@@ -52,7 +46,7 @@ namespace MixItUp.WPF.Services.MCP.Tools
             });
         }
 
-        [McpServerTool(Name = "get_command", ReadOnly = true)]
+        [McpServerTool(Name = "get_command", ReadOnly = true, UseStructuredContent = true)]
         [Description("Get a single command by its ID. Use list_commands to find the ID.")]
         public static Task<CommandResult> GetCommand(
             [Description("The GUID of the command.")] string commandId)
@@ -64,9 +58,9 @@ namespace MixItUp.WPF.Services.MCP.Tools
             });
         }
 
-        [McpServerTool(Name = "run_command", Destructive = true, OpenWorld = true)]
-        [Description("Queue a command to run, exactly as if it had been triggered in chat. This produces real side effects such as chat messages, overlay changes, and currency updates. The command is queued onto a background runner, so this returns as soon as it is accepted rather than waiting for it to finish.")]
-        public static Task<string> RunCommand(
+        [McpServerTool(Name = "run_command", ReadOnly = false, Destructive = true, Idempotent = false, OpenWorld = true, UseStructuredContent = true)]
+        [Description("Queue a command to run, exactly as if it had been triggered in chat. WARNING: this produces the command's real side effects, which for most commands means publicly visible chat messages, overlay changes, or currency awards on a live channel. The command is queued onto a background runner, so this returns as soon as it is accepted rather than waiting for it to finish.")]
+        public static Task<ActionResult> RunCommand(
             [Description("The GUID of the command to run.")] string commandId,
             [Description("Arguments to pass to the command, as they would be typed after the trigger in chat.")] string arguments = null,
             [Description("Platform to run the command against, for example Twitch. Defaults to all connected platforms.")] string platform = null,
@@ -90,29 +84,46 @@ namespace MixItUp.WPF.Services.MCP.Tools
 
                 ToolHelpers.LogToolAction("run_command", $"queued '{command.Name}' ({command.ID}) on {platformType}, ignoreRequirements={ignoreRequirements}");
 
-                return $"Queued command '{command.Name}'.";
+                return new ActionResult($"Queued command '{command.Name}'.");
             });
         }
 
-        [McpServerTool(Name = "set_command_state", Destructive = true, Idempotent = true)]
-        [Description("Enable, disable, or toggle a command.")]
-        public static Task<CommandResult> SetCommandState(
-            [Description("The GUID of the command.")] string commandId,
-            [Description("One of: enable, disable, toggle.")] string state)
+        // Enable, disable and toggle are three tools rather than one tool with a state argument.
+        // An MCP client grants permission per tool, so a single combined tool would make "let the
+        // agent turn commands off but not on" impossible to express.
+        [McpServerTool(Name = "enable_command", ReadOnly = false, Destructive = true, Idempotent = true, UseStructuredContent = true)]
+        [Description("Enable a command so it can be triggered. If the command is already enabled this changes nothing. A re-enabled chat command becomes usable by viewers again immediately.")]
+        public static Task<CommandResult> EnableCommand(
+            [Description("The GUID of the command. Call list_commands to find it.")] string commandId)
         {
-            return ToolHelpers.RunWithTimeout("set_command_state", async () =>
+            return SetCommandEnabled("enable_command", commandId, command => true);
+        }
+
+        [McpServerTool(Name = "disable_command", ReadOnly = false, Destructive = true, Idempotent = true, UseStructuredContent = true)]
+        [Description("Disable a command so it can no longer be triggered. If the command is already disabled this changes nothing. WARNING: a disabled chat command stops working for viewers on the live channel until it is enabled again.")]
+        public static Task<CommandResult> DisableCommand(
+            [Description("The GUID of the command. Call list_commands to find it.")] string commandId)
+        {
+            return SetCommandEnabled("disable_command", commandId, command => false);
+        }
+
+        [McpServerTool(Name = "toggle_command", ReadOnly = false, Destructive = true, Idempotent = false, UseStructuredContent = true)]
+        [Description("Flip a command between enabled and disabled. WARNING: this changes whether viewers on the live channel can use the command. Call get_command first if you need to know which way it will go.")]
+        public static Task<CommandResult> ToggleCommand(
+            [Description("The GUID of the command. Call list_commands to find it.")] string commandId)
+        {
+            return SetCommandEnabled("toggle_command", commandId, command => !command.IsEnabled);
+        }
+
+        private static Task<CommandResult> SetCommandEnabled(string toolName, string commandId, Func<CommandModelBase, bool> newState)
+        {
+            return ToolHelpers.RunWithTimeout(toolName, async () =>
             {
                 ToolHelpers.RequireSettingsLoaded();
 
                 CommandModelBase command = GetCommandOrThrow(commandId);
 
-                switch ((state ?? string.Empty).Trim().ToLowerInvariant())
-                {
-                    case "enable": command.IsEnabled = true; break;
-                    case "disable": command.IsEnabled = false; break;
-                    case "toggle": command.IsEnabled = !command.IsEnabled; break;
-                    default: throw new McpException($"Unknown state '{state}'. Valid values are: enable, disable, toggle.");
-                }
+                command.IsEnabled = newState(command);
 
                 // Trigger tables and timer groups are built from the enabled set, so they have to be
                 // rebuilt for the change to actually take effect.
@@ -125,7 +136,7 @@ namespace MixItUp.WPF.Services.MCP.Tools
                     await ServiceManager.Get<TimerService>().RebuildTimerGroups();
                 }
 
-                ToolHelpers.LogToolAction("set_command_state", $"'{command.Name}' ({command.ID}) isEnabled={command.IsEnabled}");
+                ToolHelpers.LogToolAction(toolName, $"'{command.Name}' ({command.ID}) isEnabled={command.IsEnabled}");
 
                 return ToResult(command);
             });
