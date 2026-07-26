@@ -502,6 +502,15 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.PulsoidHeartRateChanged:
                     specialIdentifiers["pulsoidheartrate"] = "80";
                     break;
+                case EventTypeEnum.VeadotubeAvatarStateChanged:
+                    specialIdentifiers["veadotubestateid"] = "surprised";
+                    specialIdentifiers["veadotubestatename"] = "surprised";
+                    specialIdentifiers["veadotubepreviousstateid"] = "idle";
+                    specialIdentifiers["veadotubepreviousstatename"] = "idle";
+                    break;
+                case EventTypeEnum.VeadotubePushToTalkChanged:
+                    specialIdentifiers["veadotubepushtotalk"] = "True";
+                    break;
             }
 
             int eventNumber = (int)eventType;

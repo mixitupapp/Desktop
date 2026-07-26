@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12088,5 +12088,65 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
     <value>Questa operazione reimposterà combinazione colori, sfondo, primo piano, tema completo, carattere dell'interfaccia, dimensione carattere generale e dimensione carattere della finestra chat sui valori predefiniti. Sei sicuro?</value>
     <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube è un'applicazione PNGtuber che alterna immagini fisse del tuo personaggio mentre parli. Una volta collegata, i tuoi comandi possono cambiare lo stato dell'avatar e un cambio di stato può eseguire un comando. Mix It Up trova veadotube da solo, quindi non c'è nulla da digitare.</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>Attiva il server WebSocket nelle impostazioni del programma di veadotube prima di collegarti. Il suo indirizzo cambia a ogni avvio di veadotube, per questo Mix It Up lo legge per te.</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>L'azione push-to-talk richiede che «use websocket» sia attivo sotto push-to-talk nelle impostazioni del microfono di veadotube. Rimuovi anche qualsiasi scorciatoia da tastiera push-to-talk, perché una scorciatoia ha la precedenza su tutto ciò che Mix It Up invia.</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>Questa copia di veadotube è precedente alla versione 2.1. L'alternanza degli stati dell'avatar e tutte le azioni push-to-talk non avranno effetto finché non aggiorni.</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up non ha trovato una copia di veadotube in esecuzione. Apri veadotube, attiva il server WebSocket nelle impostazioni del programma e riprova a collegarti.</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>Impossibile collegarsi a veadotube. Assicurati che sia in esecuzione con il server WebSocket attivo.</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube non è connesso</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>Indirizzo (Opzionale)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>Stato dell'avatar</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>Push-to-Talk</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>È necessario selezionare uno stato dell'avatar</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>Stato dell'avatar modificato</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>Push-to-Talk modificato</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>Imposta stato dell'avatar</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>Aggiungi stato dell'avatar</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>Rimuovi stato dell'avatar</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>Alterna stato dell'avatar</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>Imposta stato dell'avatar casuale</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>Imposta Push-to-Talk</value>
   </data>
 </root>

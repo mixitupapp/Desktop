@@ -622,6 +622,14 @@ namespace MixItUp.Base.Model.Settings
         public string VTubeStudioIPAddress { get; set; } = VTubeStudioService.DefaultIPAddress;
 
         [DataMember]
+        public bool VeadotubeEnabled { get; set; }
+
+        // Empty in the normal case. veadotube's address is read from its instance file, so there is
+        // nothing to type unless the user is pointing at another machine, where no local file exists.
+        [DataMember]
+        public string VeadotubeManualAddress { get; set; }
+
+        [DataMember]
         public int TITSPortNumber { get; set; } = TITSService.DefaultPortNumber;
 
         [DataMember]

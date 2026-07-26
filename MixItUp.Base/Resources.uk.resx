@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12119,5 +12119,65 @@ print(run())</value>
   <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
     <value>Колірну схему, тло, передній план, повну тему, шрифт інтерфейсу, загальний розмір шрифту та розмір шрифту вікна чату буде скинуто до типових значень. Ви впевнені?</value>
     <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube — це застосунок PNGtuber, який перемикає статичні зображення вашого персонажа, поки ви говорите. Після підключення ваші команди можуть змінювати стан аватара, а зміна стану може запускати команду. Mix It Up знаходить veadotube самостійно, тому вводити нічого не потрібно.</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>Перед підключенням увімкніть сервер WebSocket у налаштуваннях програми veadotube. Його адреса змінюється щоразу під час запуску veadotube, тому Mix It Up зчитує її за вас.</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>Для дії push-to-talk потрібно увімкнути «use websocket» у розділі push-to-talk налаштувань мікрофона veadotube. Також видаліть будь-яке сполучення клавіш для push-to-talk, оскільки воно має пріоритет над тим, що надсилає Mix It Up.</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>Ця версія veadotube старіша за 2.1. Перемикання станів аватара та всі дії push-to-talk не працюватимуть до оновлення.</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up не знайшов запущену копію veadotube. Відкрийте veadotube, увімкніть сервер WebSocket у налаштуваннях програми та спробуйте підключитися знову.</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>Не вдалося підключитися до veadotube. Переконайтеся, що програму запущено та її сервер WebSocket увімкнено.</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube не підключено</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>Адреса (необов'язково)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>Стан аватара</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>Push-to-Talk</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>Потрібно вибрати стан аватара</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>Стан аватара змінено</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>Push-to-Talk змінено</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>Встановити стан аватара</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>Додати стан аватара</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>Прибрати стан аватара</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>Перемкнути стан аватара</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>Встановити випадковий стан аватара</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>Встановити Push-to-Talk</value>
   </data>
 </root>

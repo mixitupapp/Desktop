@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12119,5 +12119,65 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
     <value>這會將色彩配置、背景、前景、完整佈景主題、介面字型、整體字型大小和聊天視窗字型大小重設為預設值。確定要繼續嗎?</value>
     <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube 是一款 PNGtuber 應用程式，會在你說話時切換角色的靜態圖片。連接後，你的命令可以變更虛擬形象狀態，狀態變更也可以執行命令。Mix It Up 會自動找到 veadotube，因此不需要輸入任何內容。</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>連接前請在 veadotube 的程式設定中開啟 WebSocket 伺服器。每次啟動 veadotube 時位址都會變更，因此由 Mix It Up 自動讀取。</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>「按住說話」動作需要在 veadotube 麥克風設定的 push-to-talk 項目中開啟「use websocket」。另請移除所有 push-to-talk 鍵盤快速鍵，因為快速鍵會覆蓋 Mix It Up 傳送的內容。</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>此 veadotube 版本早於 2.1。在更新之前，切換虛擬形象狀態與所有「按住說話」動作都不會生效。</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up 找不到執行中的 veadotube。請開啟 veadotube，在程式設定中開啟 WebSocket 伺服器，然後再次嘗試連接。</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>無法連接到 veadotube。請確認它正在執行且已開啟 WebSocket 伺服器。</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube 未連接</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>位址（選填）</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>虛擬形象狀態</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>按住說話</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>必須選擇一個虛擬形象狀態</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>虛擬形象狀態已變更</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>按住說話已變更</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>設定虛擬形象狀態</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>推入虛擬形象狀態</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>彈出虛擬形象狀態</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>切換虛擬形象狀態</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>設定隨機虛擬形象狀態</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>設定按住說話</value>
   </data>
 </root>

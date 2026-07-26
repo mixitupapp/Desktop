@@ -69,6 +69,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new TipeeeStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TITSServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TreatStreamServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new VeadotubeServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VoicemodServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VTSPogServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VTubeStudioServiceControl()));

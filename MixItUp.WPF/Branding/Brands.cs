@@ -223,6 +223,7 @@ namespace MixItUp.WPF.Branding
         public static readonly Brand VTSPog = new Brand("vts-pog", "VTS Pog", "https://github.com/RurioFurry/VTSPog", "#FF6E40", "#DD2C00", "#1A1A1A");
         public static readonly Brand MtionStudio = new Brand("mtion", "mtion studio", "https://mtionstudio.com", "#7C4DFF", "#5E35B1", "#1A1A1A");
         public static readonly Brand StreamAvatars = new Brand("stream-avatars", "Stream Avatars", "https://www.streamavatars.com", "#FF9800", "#F57C00", "#1A1A1A");
+        public static readonly Brand Veadotube = new Brand("veadotube", "veadotube", "https://veado.tube", "#3F0000", "#FFFFFF", "#FFFFFF");
 
         // Text-to-speech
         public static readonly Brand AWS = new Brand("aws", "AWS", "https://aws.amazon.com/polly/", "#FF9900", "#EC7211", "#232F3E");
