@@ -9,7 +9,7 @@ namespace MixItUp.WPF.Controls.Dialogs.CommunityCommands
     {
         public int Rating { get { return (int)this.RatingsBar.Value; } }
 
-        public string Review { get { return this.TextEntryTextBox.Text; } }
+        public string Review { get { return this.CommunityCommandsReviewCommandDialogTextEntryTextBox.Text; } }
 
         public CommunityCommandsReviewCommandDialogControl()
         {

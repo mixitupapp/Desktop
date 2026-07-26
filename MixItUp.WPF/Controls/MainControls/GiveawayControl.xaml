@@ -52,7 +52,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding Item}" HorizontalAlignment="Center" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GiveawayItem}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding Item}" HorizontalAlignment="Center" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GiveawayItem}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Giveaway.ItemTextBox" AutomationProperties.Name="{x:Static resx:Resources.GiveawayItem}" />
 
                 <Grid Grid.Row="2" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
@@ -65,13 +65,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" Text="{Binding Command}" Width="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandNoBang}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="0" Text="{Binding Command}" Width="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandNoBang}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="Giveaway.CommandTextBox" AutomationProperties.Name="{x:Static resx:Resources.CommandNoBang}" />
 
-                    <TextBox Grid.Column="2" Text="{Binding TotalTime}" Width="90" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalTimeMins}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="2" Text="{Binding TotalTime}" Width="90" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalTimeMins}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Giveaway.TotalTimeTextBox" AutomationProperties.Name="{x:Static resx:Resources.TotalTimeMins}" />
 
-                    <TextBox Grid.Column="4" Text="{Binding ReminderTime}" Width="90" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ReminderMins}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="4" Text="{Binding ReminderTime}" Width="90" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ReminderMins}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Giveaway.ReminderTimeTextBox" AutomationProperties.Name="{x:Static resx:Resources.ReminderMins}" />
 
-                    <TextBox Grid.Column="6" Text="{Binding MaxEntries}" Width="70" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxEntries}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="6" Text="{Binding MaxEntries}" Width="70" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxEntries}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Giveaway.MaxEntriesTextBox" AutomationProperties.Name="{x:Static resx:Resources.MaxEntries}" />
                 </Grid>
 
                 <Grid Grid.Row="4" HorizontalAlignment="Center">
@@ -86,10 +86,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.RequireClaim}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="2" IsChecked="{Binding RequireClaim}" />
+                    <CheckBox Grid.Column="2" IsChecked="{Binding RequireClaim}" AutomationProperties.AutomationId="Giveaway.RequireClaimCheckBox" AutomationProperties.Name="{x:Static resx:Resources.GiveawayRequireClaim}" />
 
                     <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AllowPastWinners}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="6" IsChecked="{Binding AllowPastWinners}" />
+                    <CheckBox Grid.Column="6" IsChecked="{Binding AllowPastWinners}" AutomationProperties.AutomationId="Giveaway.AllowPastWinnersCheckBox" AutomationProperties.Name="{x:Static resx:Resources.GiveawayAllowPastWinners}" />
                 </Grid>
 
                 <RequirementsControls:RequirementsSetControl Grid.Row="6" DataContext="{Binding Requirements}" ShowArguments="False" ShowSettings="False" Width="300" />
@@ -118,8 +118,8 @@
             </Grid>
 
             <Grid Grid.Row="2" HorizontalAlignment="Center">
-                <Button Command="{Binding StartGiveawayCommand}" Visibility="{Binding IsNotRunning, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" MinWidth="150" Content="{x:Static resx:Resources.StartGiveaway}"/>
-                <Button Command="{Binding EndGiveawayCommand}" Visibility="{Binding IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" MinWidth="150" Content="{x:Static resx:Resources.CancelGiveaway}"/>
+                <Button Command="{Binding StartGiveawayCommand}" Visibility="{Binding IsNotRunning, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" MinWidth="150" Content="{x:Static resx:Resources.StartGiveaway}" AutomationProperties.AutomationId="Giveaway.StartGiveawayButton" />
+                <Button Command="{Binding EndGiveawayCommand}" Visibility="{Binding IsRunning, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" MinWidth="150" Content="{x:Static resx:Resources.CancelGiveaway}" AutomationProperties.AutomationId="Giveaway.CancelGiveawayButton" />
             </Grid>
 
             <Grid Grid.Row="4" HorizontalAlignment="Center">
@@ -156,7 +156,7 @@
 
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.EnteredUsers}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
-            <DataGrid ItemsSource="{Binding EnteredUsers}" Grid.Row="2" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+            <DataGrid ItemsSource="{Binding EnteredUsers}" Grid.Row="2" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="Giveaway.EnteredUsersDataGrid" AutomationProperties.Name="{x:Static resx:Resources.EnteredUsers}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="{x:Static resx:Resources.Name}" IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>

@@ -21,10 +21,10 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="0" Text="{Binding URL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebPageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+        <TextBox Grid.Column="0" Text="{Binding URL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebPageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayWebPageItem.WebPageURLTextBox" AutomationProperties.Name="{x:Static resx:Resources.WebPageURL}" />
 
-        <TextBox Grid.Column="2" Text="{Binding WidthString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" VerticalAlignment="Center" />
+        <TextBox Grid.Column="2" Text="{Binding WidthString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayWebPageItem.WidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.Width}" />
 
-        <TextBox Grid.Column="4" Text="{Binding HeightString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="95" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="4" Text="{Binding HeightString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="95" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayWebPageItem.HeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.Height}" />
     </Grid>
 </local:OverlayItemControl>

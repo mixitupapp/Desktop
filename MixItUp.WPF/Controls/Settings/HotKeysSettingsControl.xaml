@@ -30,14 +30,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox x:Name="CommandTypeComboBox" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="100" Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="CommandTypeComboBox_SelectionChanged">
+            <ComboBox x:Name="CommandTypeComboBox" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="100" Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="CommandTypeComboBox_SelectionChanged" AutomationProperties.AutomationId="HotKeysSettings.CommandTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox x:Name="CommandNameComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Width="200" Style="{StaticResource MaterialDesignOutlinedComboBox}" DisplayMemberPath="Name" />
+            <ComboBox x:Name="CommandNameComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Width="200" Style="{StaticResource MaterialDesignOutlinedComboBox}" DisplayMemberPath="Name" AutomationProperties.AutomationId="HotKeysSettings.CommandNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.Command}" />
 
         </Grid>
 
@@ -66,15 +66,15 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Margin="0,5,0,0" VerticalAlignment="Center">Shift:</TextBlock>
-                <CheckBox x:Name="ShiftCheckBox" Margin="0,5,0,0" Grid.Column="2" />
+                <CheckBox x:Name="ShiftCheckBox" Margin="0,5,0,0" Grid.Column="2" AutomationProperties.AutomationId="HotKeysSettings.ShiftCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ModifierShift}" />
 
                 <TextBlock Grid.Column="4" Margin="0,5,0,0" VerticalAlignment="Center">Ctrl:</TextBlock>
-                <CheckBox x:Name="ControlCheckBox" Margin="0,5,0,0" Grid.Column="6" />
+                <CheckBox x:Name="ControlCheckBox" Margin="0,5,0,0" Grid.Column="6" AutomationProperties.AutomationId="HotKeysSettings.ControlCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ModifierControl}" />
 
                 <TextBlock Grid.Column="8" Margin="0,5,0,0" VerticalAlignment="Center">Alt:</TextBlock>
-                <CheckBox x:Name="AltCheckBox" Margin="0,5,0,0" Grid.Column="10"  />
+                <CheckBox x:Name="AltCheckBox" Margin="0,5,0,0" Grid.Column="10" AutomationProperties.AutomationId="HotKeysSettings.AltCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ModifierAlt}" />
 
-                <ComboBox x:Name="KeyComboBox" Grid.Column="12" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.KeyboardKey}" Style="{StaticResource MaterialDesignOutlinedComboBox}" Width="150">
+                <ComboBox x:Name="KeyComboBox" Grid.Column="12" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.KeyboardKey}" Style="{StaticResource MaterialDesignOutlinedComboBox}" Width="150" AutomationProperties.AutomationId="HotKeysSettings.KeyComboBox" AutomationProperties.Name="{x:Static resx:Resources.KeyboardKey}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -83,18 +83,18 @@
                 </ComboBox>
             </Grid>
 
-            <Button x:Name="AddHotKeyButton" Grid.Column="2" MinWidth="60" Click="AddHotKeyButton_Click" Content="{x:Static resx:Resources.Add}" Style="{StaticResource MaterialDesignRaisedButton}"/>
+            <Button x:Name="AddHotKeyButton" Grid.Column="2" MinWidth="60" Click="AddHotKeyButton_Click" Content="{x:Static resx:Resources.Add}" Style="{StaticResource MaterialDesignRaisedButton}" AutomationProperties.AutomationId="HotKeysSettings.AddHotKeyButton" />
         </Grid>
 
         <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="4" BorderThickness="1" Margin="20">
-            <DataGrid x:Name="HotKeysDataGrid" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+            <DataGrid x:Name="HotKeysDataGrid" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="HotKeysSettings.HotKeysDataGrid" AutomationProperties.Name="{x:Static resx:Resources.HotKeys}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:Resources.HotKey}" Binding="{Binding HotKey}" IsReadOnly="True" Width="200" />
                     <DataGridTextColumn Header="{x:Static resx:Resources.Command}" Binding="{Binding CommandName}" IsReadOnly="True" Width="*" />
                     <DataGridTemplateColumn Width="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Controls:IconButton Grid.Column="6" x:Name="DeleteHotKeyButton" Icon="Delete" Click="DeleteHotKeyButton_Click" Width="50" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="6" x:Name="DeleteHotKeyButton" Icon="Delete" Click="DeleteHotKeyButton_Click" Width="50" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="HotKeyRow.DeleteHotKeyButton" AutomationProperties.Name="{Binding HotKey, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

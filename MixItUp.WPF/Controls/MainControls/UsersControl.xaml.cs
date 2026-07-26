@@ -44,14 +44,14 @@ namespace MixItUp.WPF.Controls.MainControls
             await this.viewModel.RefreshUsersAsync();
             await DispatcherHelper.Dispatcher.InvokeAsync(() =>
             {
-                this.UsernameFilterTextBox.Focus();
+                this.UsersUsernameFilterTextBox.Focus();
                 return Task.CompletedTask;
             });
         }
 
         private void UsernameFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.viewModel.UsernameFilter = this.UsernameFilterTextBox.Text;
+            this.viewModel.UsernameFilter = this.UsersUsernameFilterTextBox.Text;
             textChangedTimer.Change(500, Timeout.Infinite);
         }
 

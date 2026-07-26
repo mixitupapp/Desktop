@@ -16,6 +16,6 @@
     </local:ActionEditorControlBase.Resources>
 
     <Grid>
-        <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="WaitActionEditor.AmountSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.AmountSeconds}" />
     </Grid>
 </local:ActionEditorControlBase>

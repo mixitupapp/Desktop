@@ -48,7 +48,7 @@
                 Grid.Row="1"
                 MaxHeight="500"
                 VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="NotificationsItemsControl">
+                <ItemsControl x:Name="NotificationsItemsControl" AutomationProperties.AutomationId="NotificationCenter.NotificationsList" AutomationProperties.Name="{x:Static resx:Resources.Notifications}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border

@@ -39,13 +39,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" AutomationProperties.AutomationId="TreasureDefenseGameCommandEditorDetails.GameCommandMinimumParticipantsTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandMinimumParticipants}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" AutomationProperties.AutomationId="TreasureDefenseGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
 
-                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTreasureDefenseKingTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding KingTimeLimit}" Width="90" />
+                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTreasureDefenseKingTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding KingTimeLimit}" Width="90" AutomationProperties.AutomationId="TreasureDefenseGameCommandEditorDetails.KingTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTreasureDefenseKingTimeLimit}" />
 
-                    <TextBox Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTreasureDefenseThiefPlayerPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ThiefPlayerPercentage}" Width="80" />
+                    <TextBox Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTreasureDefenseThiefPlayerPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ThiefPlayerPercentage}" Width="80" AutomationProperties.AutomationId="TreasureDefenseGameCommandEditorDetails.ThiefPlayerPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTreasureDefenseThiefPlayerPercentage}" />
                 </Grid>
             </GroupBox>
 

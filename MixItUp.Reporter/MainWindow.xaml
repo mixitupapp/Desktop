@@ -22,7 +22,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <materialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <materialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Reporter.MDDialogHost" />
         <Grid
             Grid.Row="0"
             Margin="20,15,20,15"
@@ -55,14 +55,18 @@
                 AcceptsReturn="True"
                 MaxLength="500"
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                VerticalScrollBarVisibility="Auto" />
+                VerticalScrollBarVisibility="Auto"
+                AutomationProperties.AutomationId="Reporter.IssueDescriptionTextBox"
+                AutomationProperties.Name="{x:Static resx:Resources.IssueDescription}" />
             <TextBox
                 x:Name="ReplyEmailTextBox"
                 Grid.Row="4"
                 Width="440"
                 materialDesign:HintAssist.Hint="{x:Static resx:Resources.Email}"
                 MaxLength="300"
-                Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                AutomationProperties.AutomationId="Reporter.ReplyEmailTextBox"
+                AutomationProperties.Name="{x:Static resx:Resources.Email}" />
             <Grid Grid.Row="6" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -76,7 +80,8 @@
                     Padding="24,10"
                     Click="ReportIssueButton_Click"
                     Content="{x:Static resx:Resources.ReportIssue}"
-                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    AutomationProperties.AutomationId="Reporter.ReportIssueButton" />
                 <Button
                     x:Name="OpenLogFileButton"
                     Grid.Column="2"
@@ -84,7 +89,8 @@
                     Padding="24,10"
                     Click="OpenLogFileButton_Click"
                     Content="{x:Static resx:Resources.OpenLogFile}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="Reporter.OpenLogFileButton" />
             </Grid>
 
             <Grid Grid.Row="8" HorizontalAlignment="Center">
@@ -109,7 +115,8 @@
                     HorizontalAlignment="Center"
                     Click="JoinDiscordButton_Click"
                     Content="Join Discord"
-                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="Reporter.JoinDiscordButton" />
             </Grid>
         </Grid>
         <ProgressBar

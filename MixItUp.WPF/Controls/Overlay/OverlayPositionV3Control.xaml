@@ -30,7 +30,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
-            <ComboBox Grid.Row="0" Width="150" ItemsSource="{Binding PositionTypes}" SelectedItem="{Binding SelectedPositionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ScreenPosition}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="0" Width="150" ItemsSource="{Binding PositionTypes}" SelectedItem="{Binding SelectedPositionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ScreenPosition}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayPositionV3.ScreenPositionComboBox" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -38,7 +38,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Grid.Row="2" Text="{Binding Layer}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" />
+            <TextBox Grid.Row="2" Text="{Binding Layer}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" AutomationProperties.AutomationId="OverlayPositionV3.LayerPositionTextBox" AutomationProperties.Name="{x:Static resx:Resources.LayerPosition}" />
         </Grid>
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsSimplePosition, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -54,15 +54,15 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Controls:IconButton Grid.Column="0" Grid.Row="0" Icon="filter_center_focus" Command="{Binding TopLeftSimplePositionCommand}" IsEnabled="{Binding IsTopLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="1" Grid.Row="0" Icon="filter_center_focus" Command="{Binding TopMiddleSimplePositionCommand}" IsEnabled="{Binding IsTopMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="2" Grid.Row="0" Icon="filter_center_focus" Command="{Binding TopRightSimplePositionCommand}" IsEnabled="{Binding IsTopRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="0" Grid.Row="1" Icon="filter_center_focus" Command="{Binding MiddleLeftSimplePositionCommand}" IsEnabled="{Binding IsMiddleLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="1" Grid.Row="1" Icon="filter_center_focus" Command="{Binding MiddleMiddleSimplePositionCommand}" IsEnabled="{Binding IsMiddleMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="2" Grid.Row="1" Icon="filter_center_focus" Command="{Binding MiddleRightSimplePositionCommand}" IsEnabled="{Binding IsMiddleRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="0" Grid.Row="2" Icon="filter_center_focus" Command="{Binding BottomLeftSimplePositionCommand}" IsEnabled="{Binding IsBottomLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="1" Grid.Row="2" Icon="filter_center_focus" Command="{Binding BottomMiddleSimplePositionCommand}" IsEnabled="{Binding IsBottomMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-                <Controls:IconButton Grid.Column="2" Grid.Row="2" Icon="filter_center_focus" Command="{Binding BottomRightSimplePositionCommand}" IsEnabled="{Binding IsBottomRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
+                <Controls:IconButton Grid.Column="0" Grid.Row="0" Icon="filter_center_focus" Command="{Binding TopLeftSimplePositionCommand}" IsEnabled="{Binding IsTopLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionTopLeftButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="1" Grid.Row="0" Icon="filter_center_focus" Command="{Binding TopMiddleSimplePositionCommand}" IsEnabled="{Binding IsTopMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionTopCenterButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="2" Grid.Row="0" Icon="filter_center_focus" Command="{Binding TopRightSimplePositionCommand}" IsEnabled="{Binding IsTopRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionTopRightButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="0" Grid.Row="1" Icon="filter_center_focus" Command="{Binding MiddleLeftSimplePositionCommand}" IsEnabled="{Binding IsMiddleLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionMiddleLeftButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="1" Grid.Row="1" Icon="filter_center_focus" Command="{Binding MiddleMiddleSimplePositionCommand}" IsEnabled="{Binding IsMiddleMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionMiddleCenterButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="2" Grid.Row="1" Icon="filter_center_focus" Command="{Binding MiddleRightSimplePositionCommand}" IsEnabled="{Binding IsMiddleRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionMiddleRightButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="0" Grid.Row="2" Icon="filter_center_focus" Command="{Binding BottomLeftSimplePositionCommand}" IsEnabled="{Binding IsBottomLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionBottomLeftButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="1" Grid.Row="2" Icon="filter_center_focus" Command="{Binding BottomMiddleSimplePositionCommand}" IsEnabled="{Binding IsBottomMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionBottomCenterButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
+                <Controls:IconButton Grid.Column="2" Grid.Row="2" Icon="filter_center_focus" Command="{Binding BottomRightSimplePositionCommand}" IsEnabled="{Binding IsBottomRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayPositionV3.PositionBottomRightButton" AutomationProperties.Name="{x:Static resx:Resources.SimplePosition}" />
             </Grid>
         </Grid>
 
@@ -87,8 +87,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Slider Value="{Binding XPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" VerticalAlignment="Center" />
-                <TextBox Text="{Binding XPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="75" />
+                <Slider Value="{Binding XPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayPositionV3.PositionPercentageFromLeftSlider" AutomationProperties.Name="{x:Static resx:Resources.PositionPercentageFromLeft}" />
+                <TextBox Text="{Binding XPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="75" AutomationProperties.AutomationId="OverlayPositionV3.PercentageXTextBox" AutomationProperties.Name="{x:Static resx:Resources.XPosition}" />
             </Grid>
 
             <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Text="{x:Static resx:Resources.PositionPercentageFromTop}" TextDecorations="Underline" />
@@ -100,8 +100,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Slider Value="{Binding YPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" VerticalAlignment="Center" />
-                <TextBox Text="{Binding YPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="75" />
+                <Slider Value="{Binding YPosition}" Grid.Column="0" Minimum="0" Maximum="100" Width="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayPositionV3.PositionPercentageFromTopSlider" AutomationProperties.Name="{x:Static resx:Resources.PositionPercentageFromTop}" />
+                <TextBox Text="{Binding YPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="75" AutomationProperties.AutomationId="OverlayPositionV3.PercentageYTextBox" AutomationProperties.Name="{x:Static resx:Resources.YPosition}" />
             </Grid>
         </Grid>
 
@@ -118,10 +118,10 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Text="{x:Static resx:Resources.LeftPixelPosition}" TextDecorations="Underline" />
-            <TextBox Text="{Binding XPosition}" Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" />
+            <TextBox Text="{Binding XPosition}" Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" AutomationProperties.AutomationId="OverlayPositionV3.PixelXTextBox" AutomationProperties.Name="{x:Static resx:Resources.XPosition}" />
 
             <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Text="{x:Static resx:Resources.TopPixelPosition}" TextDecorations="Underline" />
-            <TextBox Text="{Binding YPosition}" Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" />
+            <TextBox Text="{Binding YPosition}" Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" AutomationProperties.AutomationId="OverlayPositionV3.PixelYTextBox" AutomationProperties.Name="{x:Static resx:Resources.YPosition}" />
         </Grid>
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsRandomPosition, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -147,8 +147,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Text="{Binding XPosition}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Min}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" />
-                    <TextBox Text="{Binding XMaximumPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Max}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" />
+                    <TextBox Text="{Binding XPosition}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Min}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" AutomationProperties.AutomationId="OverlayPositionV3.RandomXMinTextBox" AutomationProperties.Name="{x:Static resx:Resources.Min}" />
+                    <TextBox Text="{Binding XMaximumPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Max}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" AutomationProperties.AutomationId="OverlayPositionV3.RandomXMaxTextBox" AutomationProperties.Name="{x:Static resx:Resources.Max}" />
                 </Grid>
             </Grid>
 
@@ -168,8 +168,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Text="{Binding YPosition}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Min}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" />
-                    <TextBox Text="{Binding YMaximumPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Max}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" />
+                    <TextBox Text="{Binding YPosition}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Min}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" AutomationProperties.AutomationId="OverlayPositionV3.RandomYMinTextBox" AutomationProperties.Name="{x:Static resx:Resources.Min}" />
+                    <TextBox Text="{Binding YMaximumPosition}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Max}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" AutomationProperties.AutomationId="OverlayPositionV3.RandomYMaxTextBox" AutomationProperties.Name="{x:Static resx:Resources.Max}" />
                 </Grid>
             </Grid>
         </Grid>

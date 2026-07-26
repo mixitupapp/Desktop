@@ -1,6 +1,7 @@
 <local:MainControlBase x:Class="MixItUp.WPF.Controls.MainControls.IconMapControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.MainControls"
@@ -18,7 +19,7 @@
                    Text="PackIcon (mdi) → Material Symbols Sharp migration preview. Proposed replacement is shown next to the arrow; dimmed candidates to the right are alternates." />
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl x:Name="MapItemsControl">
+            <ItemsControl x:Name="MapItemsControl" AutomationProperties.AutomationId="IconMap.IconsList" AutomationProperties.Name="{x:Static resx:Resources.Icons}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Padding="6,8" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
@@ -43,7 +44,7 @@
                                     <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" FontSize="{DynamicResource MIU.FontSize.LabelSmall}" Opacity="0.75" Text="{Binding Primary}" />
                                 </StackPanel>
 
-                                <ItemsControl Grid.Column="4" VerticalAlignment="Center" Opacity="0.55" ItemsSource="{Binding Alternates}">
+                                <ItemsControl Grid.Column="4" VerticalAlignment="Center" Opacity="0.55" ItemsSource="{Binding Alternates}" AutomationProperties.AutomationId="IconMapRow.AlternatesList" AutomationProperties.Name="{x:Static resx:Resources.IconAlternates}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Orientation="Horizontal" />

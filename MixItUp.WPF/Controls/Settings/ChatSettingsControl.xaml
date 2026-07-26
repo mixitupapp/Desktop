@@ -48,7 +48,7 @@
             <Separator Margin="10" />
 
             <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding UseCustomUsernameColors}" />
-            <ItemsControl Margin="60,0,60,0" ItemsSource="{Binding CustomUsernameColorsList}">
+            <ItemsControl Margin="60,0,60,0" ItemsSource="{Binding CustomUsernameColorsList}" AutomationProperties.AutomationId="ChatSettings.TaggedWordsList" AutomationProperties.Name="{x:Static resx:Resources.Chat}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl />

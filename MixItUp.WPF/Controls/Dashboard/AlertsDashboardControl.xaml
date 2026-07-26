@@ -1,6 +1,7 @@
 ﻿<local:DashboardControlBase x:Class="MixItUp.WPF.Controls.Dashboard.AlertsDashboardControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Dashboard"
@@ -9,15 +10,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <local:DashboardControlBase.Resources>
         <ResourceDictionary>
-            <ContextMenu x:Key="AlertListContextMenu">
-                <MenuItem x:Name="UserInformationMenuItem" Header="User Info" Click="UserInformationMenuItem_Click" />
+            <ContextMenu x:Key="AlertListContextMenu" AutomationProperties.AutomationId="AlertsDashboard.AlertContextMenu">
+                <MenuItem x:Name="AlertsDashboardUserInformationMenuItem" Header="User Info" Click="UserInformationMenuItem_Click" AutomationProperties.AutomationId="AlertsDashboard.UserInformationMenuItem" />
             </ContextMenu>
 
         </ResourceDictionary>
     </local:DashboardControlBase.Resources>
 
     <Grid Margin="10">
-        <ListView x:Name="AlertsListView" ItemsSource="{Binding Messages}" ContextMenu="{StaticResource AlertListContextMenu}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" ScrollViewer.ScrollChanged="NotificationsListView_ScrollChanged">
+        <ListView x:Name="AlertsListView" ItemsSource="{Binding Messages}" ContextMenu="{StaticResource AlertListContextMenu}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" ScrollViewer.ScrollChanged="NotificationsListView_ScrollChanged" AutomationProperties.AutomationId="AlertsDashboard.AlertsList" AutomationProperties.Name="{x:Static resx:Resources.Alerts}">
             <ListView.Resources>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollContentPresenter}, Path=ActualWidth}" />

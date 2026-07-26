@@ -34,9 +34,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Command="{Binding SimplePositionCommand}" IsEnabled="{Binding IsSimplePosition, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static resx:Resources.Simple}"/>
-            <Button Grid.Column="1" Command="{Binding PercentagePositionCommand}" IsEnabled="{Binding IsPercentagePosition, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static resx:Resources.Percentage}"/>
-            <Button Grid.Column="2" Command="{Binding PixelPositionCommand}" IsEnabled="{Binding IsPixelPosition, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static resx:Resources.Pixels}"/>
+            <Button Grid.Column="0" Command="{Binding SimplePositionCommand}" IsEnabled="{Binding IsSimplePosition, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static resx:Resources.Simple}" AutomationProperties.AutomationId="OverlayItemPosition.SimpleButton" />
+            <Button Grid.Column="1" Command="{Binding PercentagePositionCommand}" IsEnabled="{Binding IsPercentagePosition, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static resx:Resources.Percentage}" AutomationProperties.AutomationId="OverlayItemPosition.PercentageButton" />
+            <Button Grid.Column="2" Command="{Binding PixelPositionCommand}" IsEnabled="{Binding IsPixelPosition, Converter={StaticResource InverseBooleanConverter}}" Content="{x:Static resx:Resources.Pixels}" AutomationProperties.AutomationId="OverlayItemPosition.PixelsButton" />
 
         </Grid>
 
@@ -52,15 +52,15 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Controls:IconButton Grid.Column="0" Grid.Row="0" Icon="ArrowTopLeft" Command="{Binding TopLeftSimplePositionCommand}" IsEnabled="{Binding IsTopLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="1" Grid.Row="0" Icon="ArrowUp" Command="{Binding TopMiddleSimplePositionCommand}" IsEnabled="{Binding IsTopMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="2" Grid.Row="0" Icon="ArrowTopRight" Command="{Binding TopRightSimplePositionCommand}" IsEnabled="{Binding IsTopRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="0" Grid.Row="1" Icon="ArrowLeft" Command="{Binding MiddleLeftSimplePositionCommand}" IsEnabled="{Binding IsMiddleLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="1" Grid.Row="1" Icon="ImageFilterCenterFocus" Command="{Binding MiddleMiddleSimplePositionCommand}" IsEnabled="{Binding IsMiddleMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="2" Grid.Row="1" Icon="ArrowRight" Command="{Binding MiddleRightSimplePositionCommand}" IsEnabled="{Binding IsMiddleRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="0" Grid.Row="2" Icon="ArrowBottomLeft" Command="{Binding BottomLeftSimplePositionCommand}" IsEnabled="{Binding IsBottomLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="1" Grid.Row="2" Icon="ArrowDown" Command="{Binding BottomMiddleSimplePositionCommand}" IsEnabled="{Binding IsBottomMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
-            <Controls:IconButton Grid.Column="2" Grid.Row="2" Icon="ArrowBottomRight" Command="{Binding BottomRightSimplePositionCommand}" IsEnabled="{Binding IsBottomRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" />
+            <Controls:IconButton Grid.Column="0" Grid.Row="0" Icon="ArrowTopLeft" Command="{Binding TopLeftSimplePositionCommand}" IsEnabled="{Binding IsTopLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.TopLeftSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="1" Grid.Row="0" Icon="ArrowUp" Command="{Binding TopMiddleSimplePositionCommand}" IsEnabled="{Binding IsTopMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.TopMiddleSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="2" Grid.Row="0" Icon="ArrowTopRight" Command="{Binding TopRightSimplePositionCommand}" IsEnabled="{Binding IsTopRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.TopRightSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="0" Grid.Row="1" Icon="ArrowLeft" Command="{Binding MiddleLeftSimplePositionCommand}" IsEnabled="{Binding IsMiddleLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.MiddleLeftSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="1" Grid.Row="1" Icon="ImageFilterCenterFocus" Command="{Binding MiddleMiddleSimplePositionCommand}" IsEnabled="{Binding IsMiddleMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.MiddleMiddleSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="2" Grid.Row="1" Icon="ArrowRight" Command="{Binding MiddleRightSimplePositionCommand}" IsEnabled="{Binding IsMiddleRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.MiddleRightSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="0" Grid.Row="2" Icon="ArrowBottomLeft" Command="{Binding BottomLeftSimplePositionCommand}" IsEnabled="{Binding IsBottomLeftSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.BottomLeftSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="1" Grid.Row="2" Icon="ArrowDown" Command="{Binding BottomMiddleSimplePositionCommand}" IsEnabled="{Binding IsBottomMiddleSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.BottomMiddleSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
+            <Controls:IconButton Grid.Column="2" Grid.Row="2" Icon="ArrowBottomRight" Command="{Binding BottomRightSimplePositionCommand}" IsEnabled="{Binding IsBottomRightSimplePosition, Converter={StaticResource InverseBooleanConverter}}" AutomationProperties.AutomationId="OverlayItemPosition.BottomRightSimplePositionButton" AutomationProperties.Name="{x:Static resx:Resources.ScreenPosition}" />
         </Grid>
 
         <Grid Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0" Visibility="{Binding IsPercentagePosition, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -83,14 +83,14 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Text="{x:Static resx:Resources.PositionPercentageFromLeft}"/>
-                <Slider Value="{Binding Horizontal}" Grid.Column="0" Grid.Row="2" Minimum="0" Maximum="100" Width="150" Style="{StaticResource MaterialDesignDiscreteSlider}" />
+                <Slider Value="{Binding Horizontal}" Grid.Column="0" Grid.Row="2" Minimum="0" Maximum="100" Width="150" Style="{StaticResource MaterialDesignDiscreteSlider}" AutomationProperties.AutomationId="OverlayItemPosition.PositionPercentageFromLeftSlider" AutomationProperties.Name="{x:Static resx:Resources.PositionPercentageFromLeft}" />
 
                 <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Text="{x:Static resx:Resources.PositionPercentageFromTop}"/>
-                <Slider Value="{Binding Vertical}" Grid.Column="2" Grid.Row="2" Minimum="0" Maximum="100" Width="150" Style="{StaticResource MaterialDesignDiscreteSlider}" />
+                <Slider Value="{Binding Vertical}" Grid.Column="2" Grid.Row="2" Minimum="0" Maximum="100" Width="150" Style="{StaticResource MaterialDesignDiscreteSlider}" AutomationProperties.AutomationId="OverlayItemPosition.PositionPercentageFromTopSlider" AutomationProperties.Name="{x:Static resx:Resources.PositionPercentageFromTop}" />
 
             </Grid>
 
-            <TextBox Grid.Row="2" Text="{Binding LayerString}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" />
+            <TextBox Grid.Row="2" Text="{Binding LayerString}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" AutomationProperties.AutomationId="OverlayItemPosition.PercentageLayerTextBox" AutomationProperties.Name="{x:Static resx:Resources.LayerPosition}" />
         </Grid>
 
         <Grid Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0" Visibility="{Binding IsPixelPosition, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -107,12 +107,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="{Binding HorizontalString}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LeftPixelPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" />
+                <TextBox Text="{Binding HorizontalString}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LeftPixelPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" AutomationProperties.AutomationId="OverlayItemPosition.LeftPixelPositionTextBox" AutomationProperties.Name="{x:Static resx:Resources.LeftPixelPosition}" />
 
-                <TextBox Text="{Binding VerticalString}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TopPixelPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" />
+                <TextBox Text="{Binding VerticalString}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TopPixelPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" AutomationProperties.AutomationId="OverlayItemPosition.TopPixelPositionTextBox" AutomationProperties.Name="{x:Static resx:Resources.TopPixelPosition}" />
             </Grid>
 
-            <TextBox Grid.Row="2" Text="{Binding LayerString}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" />
+            <TextBox Grid.Row="2" Text="{Binding LayerString}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" AutomationProperties.AutomationId="OverlayItemPosition.PixelLayerTextBox" AutomationProperties.Name="{x:Static resx:Resources.LayerPosition}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

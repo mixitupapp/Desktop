@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox x:Name="ActionTypeComboBox" Grid.Column="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ActionTypeComboBox_SelectionChanged">
+            <ComboBox x:Name="ScriptActionEditorActionTypeComboBox" Grid.Column="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ActionTypeComboBox_SelectionChanged" AutomationProperties.AutomationId="ScriptActionEditor.ActionTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -48,9 +48,9 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$scriptresult" Style="{StaticResource TextBoxReadOnlySelectable}" />
+                <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$scriptresult" Style="{StaticResource TextBoxReadOnlySelectable}" AutomationProperties.AutomationId="ScriptActionEditor.ResultTextBox" AutomationProperties.Name="{x:Static resx:Resources.Result}" />
                 <TextBlock Grid.Column="4" VerticalAlignment="Center">
-                    <Hyperlink Click="LogsHyperlink_Click">Open Logs Folder</Hyperlink>
+                    <Hyperlink Click="LogsHyperlink_Click" AutomationProperties.AutomationId="ScriptActionEditor.ResultLink">Open Logs Folder</Hyperlink>
                 </TextBlock>
             </Grid>
         </Grid>
@@ -64,7 +64,9 @@
                 MinHeight="300"
                 MinWidth="700"
                 Background="{DynamicResource MaterialDesignPaper}"
-                Foreground="{DynamicResource MaterialDesignBody}" />
+                Foreground="{DynamicResource MaterialDesignBody}"
+                AutomationProperties.AutomationId="ScriptActionEditor.ScriptEditor"
+                AutomationProperties.Name="{x:Static resx:Resources.Script}" />
         </Border>
     </Grid>
 </local:ActionEditorControlBase>

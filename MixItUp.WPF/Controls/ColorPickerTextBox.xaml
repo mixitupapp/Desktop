@@ -1,6 +1,7 @@
 <UserControl x:Class="MixItUp.WPF.Controls.ColorPickerTextBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls"
@@ -22,7 +23,9 @@
                 Padding="0"
                 VerticalAlignment="Center"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                Click="ColorPickerButton_Click">
+                Click="ColorPickerButton_Click"
+                AutomationProperties.AutomationId="ColorPickerTextBox.OpenPickerButton"
+                AutomationProperties.Name="{x:Static resx:Resources.PickColor}">
             <Border x:Name="ColorPreviewBorder" 
                     Width="20" 
                     Height="20" 
@@ -36,7 +39,9 @@
                  Grid.Column="1" 
                  Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ColorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaterialDesign:HintAssist.Hint="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=HintText}"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 AutomationProperties.AutomationId="ColorPickerTextBox.ColorTextBox"
+                 AutomationProperties.Name="{x:Static resx:Resources.Color}" />
 
         <Popup x:Name="ColorPickerPopup" 
                PlacementTarget="{Binding ElementName=ColorPickerButton}" 
@@ -66,7 +71,9 @@
                                               Grid.Row="0"
                                               Width="220" 
                                               Height="220"
-                                              ColorChanged="SquarePicker_ColorChanged" />
+                                              ColorChanged="SquarePicker_ColorChanged"
+                                              AutomationProperties.AutomationId="ColorPickerTextBox.SpectrumPicker"
+                                              AutomationProperties.Name="{x:Static resx:Resources.ColorSpectrum}" />
                     
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -88,14 +95,18 @@
                                  VerticalAlignment="Center"
                                  MaterialDesign:HintAssist.Hint="Hex Color"
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 TextChanged="HexTextBox_TextChanged" />
+                                 TextChanged="HexTextBox_TextChanged"
+                                 AutomationProperties.AutomationId="ColorPickerTextBox.HexTextBox"
+                                 AutomationProperties.Name="{x:Static resx:Resources.ColorHexValue}" />
                     </Grid>
                     
                     <Button Content="OK" 
                             Grid.Row="4"
                             HorizontalAlignment="Right"
                             Style="{StaticResource MaterialDesignFlatButton}"
-                            Click="OkButton_Click" />
+                            Click="OkButton_Click"
+                            AutomationProperties.AutomationId="ColorPickerTextBox.ApplyColorButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Ok}" />
                 </Grid>
             </Border>
         </Popup>

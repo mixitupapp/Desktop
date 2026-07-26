@@ -29,7 +29,7 @@ namespace MixItUp.WPF.Controls.Settings
             this.portNames.Clear();
             this.portNames.AddRange(await ServiceManager.Get<SerialService>().GetCurrentPortNames());
 
-            this.SerialDevicesListView.ItemsSource = this.serialDevices;
+            this.SerialDevicesSettingsSerialDevicesListView.ItemsSource = this.serialDevices;
             this.serialDevices.Clear();
             this.serialDevices.AddRange(ChannelSession.Settings.SerialDevices);
 

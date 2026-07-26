@@ -1,6 +1,7 @@
 ﻿<MainControls:MainControlBase x:Class="MixItUp.WPF.Controls.Settings.MainSettingsContainerControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MixItUp.WPF.Controls.Settings"
@@ -15,7 +16,15 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="SettingsItemsListBox" Grid.Column="0" Margin="0 16 0 16" SelectionChanged="SettingsItemsListBox_SelectionChanged">
+        <ListBox x:Name="SettingsItemsListBox" Grid.Column="0" Margin="0 16 0 16" SelectionChanged="SettingsItemsListBox_SelectionChanged" AutomationProperties.AutomationId="MainSettingsContainer.SettingsSectionsList" AutomationProperties.Name="{x:Static resx:Resources.Settings}">
+            <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
+                    <!--  The settings option has no ToString override, so without this each entry
+                          announces its type name instead of the section it opens  -->
+                    <Setter Property="AutomationProperties.Name" Value="{Binding Name}" />
+                    <Setter Property="AutomationProperties.AutomationId" Value="SettingsSection" />
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="32 0 32 0">

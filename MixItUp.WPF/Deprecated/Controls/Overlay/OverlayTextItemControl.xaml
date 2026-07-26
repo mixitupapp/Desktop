@@ -27,9 +27,9 @@
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Text}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Text}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayTextItem.TextTextBox" AutomationProperties.Name="{x:Static resx:Resources.Text}" />
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding SizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Size}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" />
+            <ComboBox Grid.Column="2" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding SizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Size}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" AutomationProperties.AutomationId="OverlayTextItem.SizeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Size}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -43,7 +43,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding ColorNames}" Text="{Binding Color}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding ColorNames}" Text="{Binding Color}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayTextItem.FontColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -51,9 +51,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox x:Name="TextFontComboBox" Text="{Binding Font}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" />
+            <ComboBox x:Name="OverlayTextItemTextFontComboBox" Text="{Binding Font}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" AutomationProperties.AutomationId="OverlayTextItem.TextFontComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}" />
 
-            <ComboBox Grid.Column="4" ItemsSource="{Binding ColorNames}" Text="{Binding ShadowColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Shadow}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="4" ItemsSource="{Binding ColorNames}" Text="{Binding ShadowColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Shadow}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayTextItem.ShadowComboBox" AutomationProperties.Name="{x:Static resx:Resources.Shadow}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -61,14 +61,14 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ListBox Grid.Column="6" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}">
-                <ListBoxItem x:Name="TextBoldCheckBox" IsSelected="{Binding Bold}">
+            <ListBox Grid.Column="6" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" AutomationProperties.AutomationId="OverlayTextItem.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                <ListBoxItem x:Name="TextBoldCheckBox" IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayTextItem.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                     <MaterialDesign:PackIcon Kind="FormatBold" Style="{StaticResource DarkLightBackgroundPackIcon}" />
                 </ListBoxItem>
-                <ListBoxItem x:Name="TextItalicCheckBox" IsSelected="{Binding Italic}">
+                <ListBoxItem x:Name="TextItalicCheckBox" IsSelected="{Binding Italic}" AutomationProperties.AutomationId="OverlayTextItem.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                     <MaterialDesign:PackIcon Kind="FormatItalic" Style="{StaticResource DarkLightBackgroundPackIcon}" />
                 </ListBoxItem>
-                <ListBoxItem x:Name="TextUnderlineCheckBox" IsSelected="{Binding Underline}">
+                <ListBoxItem x:Name="TextUnderlineCheckBox" IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayTextItem.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                     <MaterialDesign:PackIcon Kind="FormatUnderline" Style="{StaticResource DarkLightBackgroundPackIcon}" />
                 </ListBoxItem>
             </ListBox>

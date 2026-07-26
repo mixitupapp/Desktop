@@ -30,11 +30,11 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" />
+                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" AutomationProperties.AutomationId="WordScrambleGameCommandEditorDetails.GameCommandMinimumParticipantsTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandMinimumParticipants}" />
 
-                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="80" />
+                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="80" AutomationProperties.AutomationId="WordScrambleGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
 
-                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandWordScrambleTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WordScrambleTimeLimit}" Width="130" />
+                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandWordScrambleTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WordScrambleTimeLimit}" Width="130" AutomationProperties.AutomationId="WordScrambleGameCommandEditorDetails.TimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandWordScrambleTimeLimit}" />
             </Grid>
         </GroupBox>
 
@@ -95,9 +95,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandWordScrambleCustomWordsFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CustomWordsFilePath}" Width="300" />
+            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandWordScrambleCustomWordsFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CustomWordsFilePath}" Width="300" AutomationProperties.AutomationId="WordScrambleGameCommandEditorDetails.CustomWordsFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandWordScrambleCustomWordsFilePath}" />
 
-            <Button Grid.Column="2" Command="{Binding BrowseCustomWordsFilePathCommand}" Content="{x:Static resx:Resources.Browse}"/>
+            <Button Grid.Column="2" Command="{Binding BrowseCustomWordsFilePathCommand}" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="WordScrambleGameCommandEditorDetails.BrowseButton" />
         </Grid>
     </Grid>
 </local:GameCommandEditorDetailsControlBase>

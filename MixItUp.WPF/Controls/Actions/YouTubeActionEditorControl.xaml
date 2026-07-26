@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="YouTubeActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -39,13 +39,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding Title}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding Title}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="YouTubeActionEditor.TitleTextBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
 
-            <TextBox Grid.Row="2" Text="{Binding Description}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MultiLineTextBox}" Height="200" />
+            <TextBox Grid.Row="2" Text="{Binding Description}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MultiLineTextBox}" Height="200" AutomationProperties.AutomationId="YouTubeActionEditor.DescriptionTextBox" AutomationProperties.Name="{x:Static resx:Resources.Description}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowAmountGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="YouTubeActionEditor.AmountSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.AmountSeconds}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

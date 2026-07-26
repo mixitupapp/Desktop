@@ -43,9 +43,9 @@
                 <ColumnDefinition Width="180" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.FontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayPersistentTimerV3.FontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -53,9 +53,9 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
 
-            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.FontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.ShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -65,29 +65,29 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                <ListBoxItem IsSelected="{Binding Bold}">
+            <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayPersistentTimerV3.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                     <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Italics}">
+                <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                     <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Underline}">
+                <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                     <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
 
-            <ListBox Grid.Column="2" SelectionMode="Single" Style="{StaticResource MaterialDesignToolToggleFlatListBox}">
-                <ListBoxItem IsSelected="{Binding LeftAlignment}">
+            <ListBox Grid.Column="2" SelectionMode="Single" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.TextAlignmentList" AutomationProperties.Name="{x:Static resx:Resources.TextAlignment}">
+                <ListBoxItem IsSelected="{Binding LeftAlignment}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.LeftAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.LeftAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_left" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding CenterAlignment}">
+                <ListBoxItem IsSelected="{Binding CenterAlignment}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.CenterAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.CenterAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_center" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding RightAlignment}">
+                <ListBoxItem IsSelected="{Binding RightAlignment}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.RightAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.RightAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_right" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding JustifyAlignment}">
+                <ListBoxItem IsSelected="{Binding JustifyAlignment}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.JustifyAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.JustifyAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_justify" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
@@ -108,12 +108,12 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.InitialAmount}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,10,0,0" />
-            <TextBox Text="{Binding InitialAmount}" Grid.Column="2" Width="80" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+            <TextBox Text="{Binding InitialAmount}" Grid.Column="2" Width="80" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayPersistentTimerV3.InitialAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Seconds}" />
 
-            <TextBox Grid.Column="4" Text="{Binding DisplayFormat}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayFormat}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="4" Text="{Binding DisplayFormat}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayFormat}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.DisplayFormatTextBox" AutomationProperties.Name="{x:Static resx:Resources.DisplayFormat}" />
 
             <TextBlock Grid.Column="6" Text="{Binding Source={x:Static resx:Resources.MaxAmount}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,10,0,0" />
-            <TextBox Text="{Binding MaxAmount}" Grid.Column="8" Width="80" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+            <TextBox Text="{Binding MaxAmount}" Grid.Column="8" Width="80" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayPersistentTimerV3.MaxAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Seconds}" />
         </Grid>
 
         <Grid Grid.Row="6">
@@ -129,13 +129,13 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.DisableOnCompletion}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="1" IsChecked="{Binding DisableOnCompletion}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="1" IsChecked="{Binding DisableOnCompletion}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPersistentTimerV3.DisableOnCompletionCheckBox" AutomationProperties.Name="{x:Static resx:Resources.DisableOnCompletion}" />
 
             <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ResetOnEnable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="4" IsChecked="{Binding ResetOnEnable}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="4" IsChecked="{Binding ResetOnEnable}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPersistentTimerV3.ResetOnEnableCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ResetOnEnable}" />
 
             <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AllowAdjustmentWhilePaused}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="7" IsChecked="{Binding AllowAdjustmentWhilePaused}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="7" IsChecked="{Binding AllowAdjustmentWhilePaused}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPersistentTimerV3.AllowAdjustmentWhilePausedCheckBox" AutomationProperties.Name="{x:Static resx:Resources.AllowAdjustmentWhilePaused}" />
         </Grid>
 
         <Grid Grid.Row="8" HorizontalAlignment="Center">
@@ -185,7 +185,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Column="0" Text="{Binding FollowAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="0" Text="{Binding FollowAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.FollowsTimeAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
                 </Grid>
             </GroupBox>
 
@@ -204,9 +204,9 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Column="0" Text="{Binding RaidAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="0" Text="{Binding RaidAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.RaidsTimeAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
 
-                        <TextBox Grid.Column="2" Text="{Binding RaidPerViewAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="2" Text="{Binding RaidPerViewAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.RaidsTimeMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeMultiplier}" />
                     </Grid>
 
                     <TextBlock Grid.Row="2" Text="{Binding RaidEquation}" />
@@ -225,18 +225,18 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
-                    <TextBox Grid.Column="1" Text="{Binding TwitchSubscriptionTier1Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="1" Text="{Binding TwitchSubscriptionTier1Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.TwitchSubscriptionTier1AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
 
                     <TextBlock Grid.Column="2" Text="{Binding Source={x:Static resx:Resources.Tier2}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="10,0,10,5" />
-                    <TextBox Grid.Column="3" Text="{Binding TwitchSubscriptionTier2Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="3" Text="{Binding TwitchSubscriptionTier2Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.TwitchSubscriptionTier2AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.Tier3}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="10,0,10,5" />
-                    <TextBox Grid.Column="5" Text="{Binding TwitchSubscriptionTier3Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="5" Text="{Binding TwitchSubscriptionTier3Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.TwitchSubscriptionTier3AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
                 </Grid>
             </GroupBox>
 
             <GroupBox Header="{x:Static resx:Resources.YouTubeMemberships}" Grid.Row="4" Grid.ColumnSpan="3">
-                <ItemsControl ItemsSource="{Binding YouTubeMemberships}">
+                <ItemsControl ItemsSource="{Binding YouTubeMemberships}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.EventTypesList" AutomationProperties.Name="{x:Static resx:Resources.EventTypes}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -252,7 +252,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,5,0" />
-                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="EventType.TimeAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -267,7 +267,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
-                    <TextBox Grid.Column="1" Text="{Binding KickSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="1" Text="{Binding KickSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.KickSubscriptionsTimeAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
                 </Grid>
             </GroupBox>
 
@@ -279,7 +279,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
-                    <TextBox Grid.Column="1" Text="{Binding VeloraSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="1" Text="{Binding VeloraSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.VeloraSubscriptionsTimeAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
                 </Grid>
             </GroupBox>
 
@@ -294,7 +294,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding TwitchBitsAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding TwitchBitsAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.TwitchBitsTimeMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding TwitchBitsEquation}" />
                 </Grid>
@@ -311,7 +311,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding YouTubeSuperChatAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding YouTubeSuperChatAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.YouTubeSuperChatTimeMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding YouTubeSuperChatEquation}" />
                 </Grid>
@@ -328,7 +328,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding KickKicksAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding KickKicksAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.KickKicksTimeMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding KickKicksEquation}" />
                 </Grid>
@@ -345,7 +345,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding VeloraCheeredAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding VeloraCheeredAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.VeloraCheeredTimeMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding VeloraCheeredEquation}" />
                 </Grid>
@@ -362,7 +362,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding DonationAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding DonationAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.DonationsTimeMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding DonationEquation}" />
                 </Grid>

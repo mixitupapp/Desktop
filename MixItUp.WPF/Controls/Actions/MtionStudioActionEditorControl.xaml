@@ -35,14 +35,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Clubhouses}" SelectedItem="{Binding SelectedClubhouse}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Clubhouse}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Clubhouses}" SelectedItem="{Binding SelectedClubhouse}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Clubhouse}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" AutomationProperties.AutomationId="MtionStudioActionEditor.ClubhouseComboBox" AutomationProperties.Name="{x:Static resx:Resources.Clubhouse}" />
 
-            <Controls:IconButton Grid.Column="2" Command="{Binding RefreshCacheCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" />
+            <Controls:IconButton Grid.Column="2" Command="{Binding RefreshCacheCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" AutomationProperties.AutomationId="MtionStudioActionEditor.RefreshButton" AutomationProperties.Name="{x:Static resx:Resources.Refresh}" />
         </Grid>
 
-        <ComboBox Grid.Row="3" ItemsSource="{Binding Triggers}" SelectedItem="{Binding SelectedTrigger}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.APITrigger}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" />
+        <ComboBox Grid.Row="3" ItemsSource="{Binding Triggers}" SelectedItem="{Binding SelectedTrigger}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.APITrigger}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" AutomationProperties.AutomationId="MtionStudioActionEditor.APITriggerComboBox" AutomationProperties.Name="{x:Static resx:Resources.APITrigger}" />
 
-        <ItemsControl Grid.Row="5" ItemsSource="{Binding Parameters}">
+        <ItemsControl Grid.Row="5" ItemsSource="{Binding Parameters}" AutomationProperties.AutomationId="MtionStudioActionEditor.EnableMtionStudioList" AutomationProperties.Name="{x:Static resx:Resources.EnableMtionStudio}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -54,7 +54,7 @@
 
                         <TextBlock Grid.Column="0" Text="{Binding Display}" VerticalAlignment="Center" Margin="0,13,0,0" HorizontalAlignment="Left" />
 
-                        <TextBox Grid.Column="2" Text="{Binding Value}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="2" Text="{Binding Value}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TriggerParameter.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.Value}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -42,13 +42,13 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Controls:ColorPickerTextBox ColorText="{Binding BackgroundColor}" Grid.Column="0" HintText="{x:Static resx:Resources.BackgroundColor}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding BackgroundColor}" Grid.Column="0" HintText="{x:Static resx:Resources.BackgroundColor}" AutomationProperties.AutomationId="OverlayChatV3.BackgroundColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BackgroundColor}" />
 
-                    <Controls:ColorPickerTextBox ColorText="{Binding BorderColor}" Grid.Column="2" HintText="{x:Static resx:Resources.BorderColor}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding BorderColor}" Grid.Column="2" HintText="{x:Static resx:Resources.BorderColor}" AutomationProperties.AutomationId="OverlayChatV3.BorderColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BorderColor}" />
 
-                    <TextBox Text="{Binding Width}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxWidthPixels}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Text="{Binding Width}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxWidthPixels}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayChatV3.MaxWidthPixelsTextBox" AutomationProperties.Name="{x:Static resx:Resources.MaxWidthPixels}" />
 
-                    <TextBox Text="{Binding Height}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxHeightPixels}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Text="{Binding Height}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxHeightPixels}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayChatV3.MaxHeightPixelsTextBox" AutomationProperties.Name="{x:Static resx:Resources.MaxHeightPixels}" />
                 </Grid>
             </Grid>
         </GroupBox>
@@ -78,9 +78,9 @@
                         <ColumnDefinition Width="180" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayChatV3.FontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-                    <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayChatV3.FontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -88,9 +88,9 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayChatV3.FontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-                    <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayChatV3.ShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -105,24 +105,24 @@
                         <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                        <ListBoxItem IsSelected="{Binding Bold}">
+                    <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayChatV3.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                        <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayChatV3.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                             <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
-                        <ListBoxItem IsSelected="{Binding Italics}">
+                        <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayChatV3.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                             <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
-                        <ListBoxItem IsSelected="{Binding Underline}">
+                        <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayChatV3.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                             <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                     </ListBox>
 
                     <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AddMessagesToTop}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="3" IsChecked="{Binding AddMessagesToTop}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="3" IsChecked="{Binding AddMessagesToTop}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.AddMessagesToTopCheckBox" AutomationProperties.Name="{x:Static resx:Resources.AddMessagesToTop}" />
 
-                    <TextBox Text="{Binding MessageDelayTime}" Grid.Column="5" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DelayTimeSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Text="{Binding MessageDelayTime}" Grid.Column="5" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DelayTimeSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayChatV3.DelayTimeSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.DelayTimeSeconds}" />
 
-                    <TextBox Text="{Binding MessageRemovalTime}" Grid.Column="7" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RemovalTimeSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Text="{Binding MessageRemovalTime}" Grid.Column="7" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RemovalTimeSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayChatV3.RemovalTimeSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.RemovalTimeSeconds}" />
                 </Grid>
 
                 <Grid Grid.Row="4">
@@ -141,16 +141,16 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowPlatformBadge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="1" IsChecked="{Binding ShowPlatformBadge}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding ShowPlatformBadge}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.ShowPlatformBadgeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ShowPlatformBadge}" />
 
                     <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowRoleBadge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="4" IsChecked="{Binding ShowRoleBadge}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="4" IsChecked="{Binding ShowRoleBadge}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.ShowRoleBadgeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ShowRoleBadge}" />
 
                     <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowSubscriberBadge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="7" IsChecked="{Binding ShowSubscriberBadge}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="7" IsChecked="{Binding ShowSubscriberBadge}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.ShowSubscriberBadgeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ShowSubscriberBadge}" />
 
                     <TextBlock Grid.Column="9" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowSpecialtyBadge}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="10" IsChecked="{Binding ShowSpecialtyBadge}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="10" IsChecked="{Binding ShowSpecialtyBadge}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.ShowSpecialtyBadgeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ShowSpecialtyBadge}" />
                 </Grid>
 
                 <Grid Grid.Row="6">
@@ -166,22 +166,22 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.DisplayAlejoPronouns}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="1" IsChecked="{Binding DisplayAlejoPronouns}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding DisplayAlejoPronouns}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.DisplayAlejoPronounsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.DisplayAlejoPronouns}" />
 
                     <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.HideExclamationMessages}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="4" IsChecked="{Binding HideExclamationMessages}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="4" IsChecked="{Binding HideExclamationMessages}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.HideExclamationMessagesCheckBox" AutomationProperties.Name="{x:Static resx:Resources.HideExclamationMessages}" />
 
                     <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.IgnoreSpecialtyExcludedUsers}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="7" IsChecked="{Binding IgnoreSpecialtyExcludedUsers}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="7" IsChecked="{Binding IgnoreSpecialtyExcludedUsers}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayChatV3.IgnoreSpecialtyExcludedUsersCheckBox" AutomationProperties.Name="{x:Static resx:Resources.IgnoreSpecialtyExcludedUsers}" />
                 </Grid>
 
-                <TextBox Text="{Binding UsernamesToIgnore}" Grid.Row="8" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UsernamesToIgnore}" Style="{StaticResource MultiLineTextBox}" MinHeight="100" MaxHeight="100" />
+                <TextBox Text="{Binding UsernamesToIgnore}" Grid.Row="8" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UsernamesToIgnore}" Style="{StaticResource MultiLineTextBox}" MinHeight="100" MaxHeight="100" AutomationProperties.AutomationId="OverlayChatV3.UsernamesToIgnoreTextBox" AutomationProperties.Name="{x:Static resx:Resources.UsernamesToIgnore}" />
             </Grid>
         </GroupBox>
 
         <GroupBox Grid.Row="4" Header="{x:Static resx:Resources.StreamingPlatform}">
             <Grid Margin="10">
-                <ItemsControl ItemsSource="{Binding ApplicableStreamingPlatforms}">
+                <ItemsControl ItemsSource="{Binding ApplicableStreamingPlatforms}" AutomationProperties.AutomationId="OverlayChatV3.ExcludedUsersList" AutomationProperties.Name="{x:Static resx:Resources.Users}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -196,7 +196,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <CheckBox Grid.Column="1" IsChecked="{Binding IsEnabled}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                                <CheckBox Grid.Column="1" IsChecked="{Binding IsEnabled}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="ExcludedUser.SelectCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Select}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

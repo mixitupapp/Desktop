@@ -20,6 +20,6 @@
         </Grid.ColumnDefinitions>
         
         <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UnlockCommand}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{x:Static resx:Resources.UnlockCommandHelpText}" />
-        <ToggleButton Grid.Column="2" IsChecked="{Binding Unlocked}" ToolTip="{x:Static resx:Resources.UnlockCommandHelpText}" />
+        <ToggleButton Grid.Column="2" IsChecked="{Binding Unlocked}" ToolTip="{x:Static resx:Resources.UnlockCommandHelpText}" AutomationProperties.AutomationId="UnlockCommand.UnlockToggle" AutomationProperties.Name="{x:Static resx:Resources.UnlockCommand}" />
     </Grid>
 </UserControl>

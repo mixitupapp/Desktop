@@ -44,7 +44,7 @@ namespace MixItUp.Installer
             }
             else
             {
-                this.AcceptButton.Focus();
+                this.InstallerEulaAcceptButton.Focus();
             }
         }
 

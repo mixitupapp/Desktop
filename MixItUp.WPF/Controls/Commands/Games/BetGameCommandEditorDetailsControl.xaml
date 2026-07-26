@@ -43,7 +43,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" ItemsSource="{Binding StarterRoles}" SelectedItem="{Binding SelectedStarterRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandStarterRole}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding StarterRoles}" SelectedItem="{Binding SelectedStarterRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandStarterRole}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="BetGameCommandEditorDetails.GameCommandStarterRoleComboBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandStarterRole}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -51,9 +51,9 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" AutomationProperties.AutomationId="BetGameCommandEditorDetails.GameCommandMinimumParticipantsTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandMinimumParticipants}" />
 
-                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" />
+                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" AutomationProperties.AutomationId="BetGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
                 </Grid>
             </GroupBox>
 
@@ -99,11 +99,11 @@
 
                     <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Outcomes}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="{DynamicResource MIU.FontSize.TitleMedium}" />
 
-                    <Button Grid.Column="2" Content="{x:Static resx:Resources.AddOutcome}" Command="{Binding AddOutcomeCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" />
+                    <Button Grid.Column="2" Content="{x:Static resx:Resources.AddOutcome}" Command="{Binding AddOutcomeCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" AutomationProperties.AutomationId="BetGameCommandEditorDetails.AddOutcomeButton" />
                 </Grid>
             </GroupBox.Header>
 
-            <ItemsControl ItemsSource="{Binding Outcomes}">
+            <ItemsControl ItemsSource="{Binding Outcomes}" AutomationProperties.AutomationId="BetGameCommandEditorDetails.OptionsList" AutomationProperties.Name="{x:Static resx:Resources.Outcomes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="15">
@@ -117,7 +117,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Name}" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Name}" VerticalAlignment="Center" AutomationProperties.AutomationId="BetOutcome.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
                             <Grid Grid.Column="2">
                                 <Grid.ColumnDefinitions>
@@ -128,16 +128,16 @@
                                     <ColumnDefinition Width="80" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" />
+                                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" AutomationProperties.AutomationId="BetOutcome.UserPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserPayoutPercentage}" />
 
-                                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" />
+                                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" AutomationProperties.AutomationId="BetOutcome.SubPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubPayoutPercentage}" />
 
-                                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" />
+                                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" AutomationProperties.AutomationId="BetOutcome.ModPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModPayoutPercentage}" />
                             </Grid>
 
                             <CommandsControls:CommandListingButtonsControl x:Name="CommandButtons" Grid.Column="4" HorizontalAlignment="Center" EditClicked="OutcomeCommandButtons_CommandButtons" HideDeleteButton="True" HideEnableDisableToggle="True" />
 
-                            <Controls:IconButton x:Name="DeleteOutcomeButton" Grid.Column="6" Click="DeleteOutcomeButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                            <Controls:IconButton x:Name="BetGameCommandEditorDetailsDeleteOutcomeButton" Grid.Column="6" Click="DeleteOutcomeButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" AutomationProperties.AutomationId="BetOutcome.DeleteOutcomeButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

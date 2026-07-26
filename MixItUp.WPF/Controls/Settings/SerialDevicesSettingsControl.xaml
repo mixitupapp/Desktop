@@ -31,7 +31,7 @@
             <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.SerialDevices}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
             <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="2" BorderThickness="1">
-                <ItemsControl x:Name="SerialDevicesListView" HorizontalAlignment="Center">
+                <ItemsControl x:Name="SerialDevicesSettingsSerialDevicesListView" HorizontalAlignment="Center" AutomationProperties.AutomationId="SerialDevicesSettings.SerialDevicesList" AutomationProperties.Name="{x:Static resx:Resources.SerialDevices}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="20">
@@ -55,7 +55,7 @@
 
                                 <TextBlock Grid.Column="6" Text="{Binding RTSEnabled}" />
 
-                                <Controls:IconButton Grid.Column="8" x:Name="DeleteSerialDeviceButton" Click="DeleteSerialDeviceButton_Click" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="8" x:Name="DeleteSerialDeviceButton" Click="DeleteSerialDeviceButton_Click" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="SerialDeviceRow.DeleteSerialDeviceButton" AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -79,17 +79,17 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox x:Name="PortNameComboBox" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" IsEditable="True" />
+                <ComboBox x:Name="PortNameComboBox" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" IsEditable="True" AutomationProperties.AutomationId="SerialDevicesSettings.PortNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.PortName}" />
 
-                <TextBox x:Name="BaudRateTextBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BaudRate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" />
+                <TextBox x:Name="BaudRateTextBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BaudRate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" AutomationProperties.AutomationId="SerialDevicesSettings.BaudRateTextBox" AutomationProperties.Name="{x:Static resx:Resources.BaudRate}" />
 
                 <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.DTR}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Column="6" x:Name="DTREnabledCheckBox" VerticalAlignment="Center" />
+                <CheckBox Grid.Column="6" x:Name="DTREnabledCheckBox" VerticalAlignment="Center" AutomationProperties.AutomationId="SerialDevicesSettings.DTREnabledCheckBox" AutomationProperties.Name="{x:Static resx:Resources.DTR}" />
 
                 <TextBlock Grid.Column="8" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.RTS}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Column="10" x:Name="RTSEnabledCheckBox" VerticalAlignment="Center" />
+                <CheckBox Grid.Column="10" x:Name="RTSEnabledCheckBox" VerticalAlignment="Center" AutomationProperties.AutomationId="SerialDevicesSettings.RTSEnabledCheckBox" AutomationProperties.Name="{x:Static resx:Resources.RTS}" />
 
-                <Button x:Name="AddSerialDeviceButton" Grid.Column="12" Click="AddSerialDeviceButton_Click" Content="{x:Static resx:Resources.Add}"/>
+                <Button x:Name="AddSerialDeviceButton" Grid.Column="12" Click="AddSerialDeviceButton_Click" Content="{x:Static resx:Resources.Add}" AutomationProperties.AutomationId="SerialDevicesSettings.AddSerialDeviceButton" />
             </Grid>
         </Grid>
 

@@ -26,7 +26,7 @@
 
         <TextBlock Grid.Row="0" Text="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource NullableToVisibilityConverter}}" Width="200" TextWrapping="Wrap" Margin="0,0,0,10" />
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOption}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Options}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" HorizontalAlignment="Center"  Width="250">
+        <ComboBox Grid.Row="1" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOption}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Options}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" HorizontalAlignment="Center"  Width="250" AutomationProperties.AutomationId="DropDownSelectorDialog.OptionsComboBox" AutomationProperties.Name="{x:Static resx:Resources.Options}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -42,14 +42,16 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}"
+                    AutomationProperties.AutomationId="DropDownSelectorDialog.OkButton">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
 
             <Button Grid.Column="2" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}"
+                    AutomationProperties.AutomationId="DropDownSelectorDialog.CancelButton">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

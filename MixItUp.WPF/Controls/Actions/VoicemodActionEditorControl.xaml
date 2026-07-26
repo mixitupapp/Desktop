@@ -25,7 +25,7 @@
 
         <TextBlock Grid.Row="0" Visibility="{Binding VoicemodNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" TextWrapping="Wrap" Text="{x:Static resx:Resources.VoicemodNotConnected}"/>
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VoicemodActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -46,7 +46,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <ToggleButton Grid.Column="2" IsChecked="{Binding State}" VerticalAlignment="Center"/>
+                <ToggleButton Grid.Column="2" IsChecked="{Binding State}" VerticalAlignment="Center" AutomationProperties.AutomationId="VoicemodActionEditor.EnableToggle" AutomationProperties.Name="{x:Static resx:Resources.Enable}" />
             </Grid>
         </Grid>
 
@@ -56,7 +56,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <ComboBox Grid.Column="0" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Voice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="friendlyName" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Voice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="friendlyName" AutomationProperties.AutomationId="VoicemodActionEditor.VoiceComboBox" AutomationProperties.Name="{x:Static resx:Resources.Voice}" />
             </Grid>
         </Grid>
 
@@ -65,7 +65,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" ItemsSource="{Binding RandomVoiceTypes}" SelectedItem="{Binding SelectedRandomVoiceType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Options}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="0" ItemsSource="{Binding RandomVoiceTypes}" SelectedItem="{Binding SelectedRandomVoiceType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Options}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VoicemodActionEditor.OptionsComboBox" AutomationProperties.Name="{x:Static resx:Resources.Options}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -80,7 +80,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <ComboBox Grid.Column="0" ItemsSource="{Binding Sounds}" SelectedItem="{Binding SelectedSound}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Sound}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Sounds}" SelectedItem="{Binding SelectedSound}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Sound}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" AutomationProperties.AutomationId="VoicemodActionEditor.SoundComboBox" AutomationProperties.Name="{x:Static resx:Resources.Sound}" />
             </Grid>
         </Grid>
 

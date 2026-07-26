@@ -33,7 +33,7 @@
             <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{x:Static resx:Resources.PixelChatInfo2}"/>
 
             <TextBlock Grid.Row="4" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://pixelchat.tv/dash/profile/tokens" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://pixelchat.tv/dash/profile/tokens" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="PixelChatService.PixelChatInfo2Link">
                     <TextBlock Text="{x:Static resx:Resources.PixelChatDeveloperTokenPage}"/>
                 </Hyperlink>
             </TextBlock>
@@ -41,7 +41,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="PixelChatService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -51,9 +51,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding APIKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PixelChatDeveloperToken}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding APIKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PixelChatDeveloperToken}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="PixelChatService.PixelChatDeveloperTokenTextBox" AutomationProperties.Name="{x:Static resx:Resources.PixelChatDeveloperToken}" />
 
-                <Button Grid.Row="4" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Grid.Row="4" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="PixelChatService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

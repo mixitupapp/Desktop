@@ -41,10 +41,12 @@
                 Text="{Binding Source={x:Static resx:Resources.FilterByName}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
             <TextBox
-                x:Name="NameFilterTextBox"
+                x:Name="KickChannelPointsNameFilterTextBox"
                 Grid.Column="2"
                 Width="150"
-                TextChanged="NameFilterTextBox_TextChanged" />
+                TextChanged="NameFilterTextBox_TextChanged"
+                AutomationProperties.AutomationId="KickChannelPoints.NameFilterTextBox"
+                AutomationProperties.Name="{x:Static resx:Resources.FilterByName}" />
         </Grid>
 
         <ScrollViewer
@@ -57,7 +59,9 @@
                 CellStyle="{StaticResource StandardDataGridCell}"
                 ItemsSource="{Binding DefaultGroup}"
                 PreviewMouseWheel="DataGrid_PreviewMouseWheel"
-                Style="{StaticResource StandardDataGrid}">
+                Style="{StaticResource StandardDataGrid}"
+                AutomationProperties.AutomationId="KickChannelPoints.CommandsDataGrid"
+                AutomationProperties.Name="{x:Static resx:Resources.Commands}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="*"
@@ -83,7 +87,7 @@
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Visible"
             Visibility="{Binding ShowGroups, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding CommandGroups}">
+            <ItemsControl HorizontalContentAlignment="Stretch" ItemsSource="{Binding CommandGroups}" AutomationProperties.AutomationId="KickChannelPoints.CommandGroupsList" AutomationProperties.Name="{x:Static resx:Resources.CommandGroups}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
@@ -91,7 +95,8 @@
                                 HorizontalContentAlignment="Stretch"
                                 VerticalContentAlignment="Top"
                                 Background="{DynamicResource MaterialDesign.Brush.Primary}"
-                                Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                AutomationProperties.AutomationId="CommandGroup.Expander">
                                 <Expander.Header>
                                     <Grid Background="Transparent">
                                         <TextBlock
@@ -104,7 +109,9 @@
                                             IsChecked="{Binding Path=IsEnabled}"
                                             Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
                                             BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}"
-                                            Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            AutomationProperties.AutomationId="CommandGroup.EnableDisableToggle"
+                                            AutomationProperties.Name="{Binding DisplayName, StringFormat={x:Static resx:Resources.EnableDisableFormat}}" />
                                     </Grid>
                                 </Expander.Header>
 
@@ -113,7 +120,9 @@
                                     CellStyle="{StaticResource StandardDataGridCell}"
                                     ItemsSource="{Binding Commands}"
                                     PreviewMouseWheel="DataGrid_PreviewMouseWheel"
-                                    Style="{StaticResource StandardDataGrid}">
+                                    Style="{StaticResource StandardDataGrid}"
+                                    AutomationProperties.AutomationId="CommandGroup.CommandsDataGrid"
+                                    AutomationProperties.Name="{x:Static resx:Resources.Commands}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn
                                             Width="*"
@@ -149,24 +158,27 @@
             </Grid.ColumnDefinitions>
 
             <Button
-                x:Name="AddCommandButton"
+                x:Name="KickChannelPointsAddCommandButton"
                 Grid.Column="0"
                 Width="260"
                 Click="AddCommandButton_Click"
-                Content="{x:Static resx:Resources.AddCommandToExistingReward}" />
+                Content="{x:Static resx:Resources.AddCommandToExistingReward}"
+                AutomationProperties.AutomationId="KickChannelPoints.AddCommandButton" />
 
             <Button
-                x:Name="CreateChannelPointsEditorButton"
+                x:Name="KickChannelPointsCreateChannelPointsEditorButton"
                 Grid.Column="2"
                 Width="260"
                 Command="{Binding CreateChannelPointRewardCommand}"
-                Content="{x:Static resx:Resources.CreateNewChannelPointReward}" />
+                Content="{x:Static resx:Resources.CreateNewChannelPointReward}"
+                AutomationProperties.AutomationId="KickChannelPoints.CreateRewardButton" />
 
             <Button
-                x:Name="ChannelPointsEditorButton"
+                x:Name="KickChannelPointsChannelPointsEditorButton"
                 Grid.Column="4"
                 Width="195"
-                Command="{Binding ChannelPointsEditorCommand}">
+                Command="{Binding ChannelPointsEditorCommand}"
+                AutomationProperties.AutomationId="KickChannelPoints.OpenRewardEditorButton">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Static resx:Resources.ChannelPointsEditor}" />
                     <Controls:MaterialSymbolIcon

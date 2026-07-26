@@ -22,8 +22,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" DisplayMemberPath="PortName" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SerialDevices}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+        <ComboBox Grid.Row="0" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice}" DisplayMemberPath="PortName" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SerialDevices}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="SerialActionEditor.SerialDevicesComboBox" AutomationProperties.Name="{x:Static resx:Resources.SerialDevices}" />
 
-        <TextBox Grid.Row="2" Text="{Binding Message}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Message}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Grid.Row="2" Text="{Binding Message}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Message}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="SerialActionEditor.MessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.Message}" />
     </Grid>
 </local:ActionEditorControlBase>

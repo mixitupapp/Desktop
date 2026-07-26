@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="NewUserWizard.MDDialogHost" />
 
         <Grid
             x:Name="MainGrid"
@@ -94,7 +94,9 @@
                             Width="60"
                             Height="60"
                             Background="Transparent"
-                            Command="{Binding DiscordCommand}">
+                            Command="{Binding DiscordCommand}"
+                            AutomationProperties.AutomationId="NewUserWizard.IntroDiscordButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Discord}">
                             <Image
                                 Width="50"
                                 Height="50"
@@ -115,7 +117,9 @@
                             Width="60"
                             Height="60"
                             Background="Transparent"
-                            Command="{Binding TwitterCommand}">
+                            Command="{Binding TwitterCommand}"
+                            AutomationProperties.AutomationId="NewUserWizard.IntroTwitterButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Twitter}">
                             <Image
                                 Width="45"
                                 Height="45"
@@ -150,7 +154,9 @@
                             Width="60"
                             Height="60"
                             Background="Transparent"
-                            Command="{Binding YouTubeCommand}">
+                            Command="{Binding YouTubeCommand}"
+                            AutomationProperties.AutomationId="NewUserWizard.IntroYouTubeButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.YouTube}">
                             <Image
                                 Width="45"
                                 Height="45"
@@ -173,7 +179,9 @@
                             Width="60"
                             Height="60"
                             Background="Transparent"
-                            Command="{Binding WikiCommand}">
+                            Command="{Binding WikiCommand}"
+                            AutomationProperties.AutomationId="NewUserWizard.IntroWikiButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Wiki}">
                             <Image
                                 Width="50"
                                 Height="50"
@@ -355,7 +363,8 @@
                                     Grid.Row="0"
                                     Command="{Binding SetBackupLocationCommand}"
                                     Content="Set Location"
-                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    AutomationProperties.AutomationId="NewUserWizard.SettingsBackupLocationButton" />
 
                                 <ComboBox
                                     x:Name="SettingsBackupRateComboBox"
@@ -365,7 +374,9 @@
                                     IsEnabled="{Binding IsBackupLocationSet}"
                                     ItemsSource="{Binding SettingsBackupOptions}"
                                     SelectedItem="{Binding SelectedSettingsBackupOption}"
-                                    Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    AutomationProperties.AutomationId="NewUserWizard.SettingsBackupRateComboBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.BackupRate}" />
                             </Grid>
                         </Grid>
 
@@ -386,7 +397,9 @@
                                 Grid.Column="2"
                                 HorizontalAlignment="Center"
                                 Icon="Help"
-                                ToolTip="{x:Static resx:Resources.Help}" />
+                                ToolTip="{x:Static resx:Resources.Help}"
+                                AutomationProperties.AutomationId="NewUserWizard.HelpButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Help}" />
                         </Grid>
 
                         <TextBlock
@@ -411,7 +424,9 @@
                                 Width="60"
                                 Height="60"
                                 Background="Transparent"
-                                Command="{Binding DiscordCommand}">
+                                Command="{Binding DiscordCommand}"
+                                AutomationProperties.AutomationId="NewUserWizard.FinalDiscordButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Discord}">
                                 <Image
                                     Width="50"
                                     Height="50"
@@ -426,7 +441,9 @@
                                 Width="60"
                                 Height="60"
                                 Background="Transparent"
-                                Command="{Binding TwitterCommand}">
+                                Command="{Binding TwitterCommand}"
+                                AutomationProperties.AutomationId="NewUserWizard.FinalTwitterButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Twitter}">
                                 <Image
                                     Width="45"
                                     Height="45"
@@ -441,7 +458,9 @@
                                 Width="60"
                                 Height="60"
                                 Background="Transparent"
-                                Command="{Binding YouTubeCommand}">
+                                Command="{Binding YouTubeCommand}"
+                                AutomationProperties.AutomationId="NewUserWizard.FinalYouTubeButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.YouTube}">
                                 <Image
                                     Width="45"
                                     Height="45"
@@ -456,7 +475,9 @@
                                 Width="60"
                                 Height="60"
                                 Background="Transparent"
-                                Command="{Binding WikiCommand}">
+                                Command="{Binding WikiCommand}"
+                                AutomationProperties.AutomationId="NewUserWizard.FinalWikiButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Wiki}">
                                 <Image
                                     Width="50"
                                     Height="50"
@@ -502,7 +523,8 @@
                     Command="{Binding BackCommand}"
                     Content="{x:Static resx:Resources.WizardBack}"
                     IsEnabled="{Binding CanBack}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="NewUserWizard.WizardBackButton" />
 
                 <Button
                     Grid.Column="4"
@@ -511,7 +533,8 @@
                     Command="{Binding NextCommand}"
                     Content="{x:Static resx:Resources.WizardNext}"
                     IsEnabled="{Binding CanNext}"
-                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    AutomationProperties.AutomationId="NewUserWizard.WizardNextButton" />
             </Grid>
         </Grid>
 

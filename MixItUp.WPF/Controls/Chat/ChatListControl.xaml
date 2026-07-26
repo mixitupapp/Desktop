@@ -13,25 +13,29 @@
     mc:Ignorable="d">
     <Controls:LoadingWindowControlBase.Resources>
         <ResourceDictionary>
-            <ContextMenu x:Key="ChatListContextMenu">
+            <ContextMenu x:Key="ChatListContextMenu" AutomationProperties.AutomationId="Chat.MessageContextMenu">
                 <MenuItem
                     x:Name="MessageCopyMenuItem"
                     Click="MessageCopyMenuItem_Click"
-                    Header="{x:Static resx:Resources.CopyMessage}" />
+                    Header="{x:Static resx:Resources.CopyMessage}"
+                    AutomationProperties.AutomationId="Chat.CopyMessageMenuItem" />
                 <MenuItem
                     x:Name="MessageDeleteMenuItem"
                     Click="MessageDeleteMenuItem_Click"
-                    Header="{x:Static resx:Resources.DeleteMessage}" />
+                    Header="{x:Static resx:Resources.DeleteMessage}"
+                    AutomationProperties.AutomationId="Chat.DeleteMessageMenuItem" />
                 <MenuItem
                     x:Name="GoToLinkMenuItem"
                     Click="GoToLinkMenuItem_Click"
                     Header="{x:Static resx:Resources.GoToLink}"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    AutomationProperties.AutomationId="Chat.GoToLinkMenuItem" />
                 <Separator />
                 <MenuItem
-                    x:Name="UserInformationMenuItem"
+                    x:Name="ChatListUserInformationMenuItem"
                     Click="UserInformationMenuItem_Click"
-                    Header="{x:Static resx:Resources.UserInfo}" />
+                    Header="{x:Static resx:Resources.UserInfo}"
+                    AutomationProperties.AutomationId="Chat.MessageUserInfoMenuItem" />
             </ContextMenu>
 
         </ResourceDictionary>
@@ -54,7 +58,9 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 ScrollViewer.ScrollChanged="ChatList_ScrollChanged"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                SelectionChanged="ChatList_SelectionChanged">
+                SelectionChanged="ChatList_SelectionChanged"
+                AutomationProperties.AutomationId="Chat.MessageList"
+                AutomationProperties.Name="{x:Static resx:Resources.Chat}">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollContentPresenter}, Path=ActualWidth}" />
@@ -91,7 +97,9 @@
                 MouseLeave="ChatLockButton_MouseLeave"
                 Opacity="0.3"
                 Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                ToolTip="{x:Static resx:Resources.LockChatScrolling}">
+                ToolTip="{x:Static resx:Resources.LockChatScrolling}"
+                AutomationProperties.AutomationId="Chat.ScrollLockButton"
+                AutomationProperties.Name="{x:Static resx:Resources.LockChatScrolling}">
                 <Controls:MaterialSymbolIcon
                     x:Name="ChatLockButtonIcon"
                     Margin="-7,-10"
@@ -121,7 +129,9 @@
                     VerticalAlignment="Center"
                     MaterialDesign:HintAssist.Hint="Platform"
                     ItemsSource="{Binding PlatformOptions}"
-                    SelectedItem="{Binding SelectedPlatform, Mode=TwoWay}">
+                    SelectedItem="{Binding SelectedPlatform, Mode=TwoWay}"
+                    AutomationProperties.AutomationId="Chat.PlatformComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Platform}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -173,7 +183,9 @@
                     Margin="0,10,0,0"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SendAs}"
                     ItemsSource="{Binding SendAsOptions, Mode=OneWay}"
-                    SelectedIndex="{Binding SendAsIndex}" />
+                    SelectedIndex="{Binding SendAsIndex}"
+                    AutomationProperties.AutomationId="Chat.SendAsComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.SendAs}" />
 
                 <TextBox
                     x:Name="ChatMessageTextBox"
@@ -183,13 +195,16 @@
                     PreviewKeyDown="ChatMessageTextBox_PreviewKeyDown"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                     Text="{Binding SendMessageText}"
-                    TextChanged="ChatMessageTextBox_TextChanged" />
+                    TextChanged="ChatMessageTextBox_TextChanged"
+                    AutomationProperties.AutomationId="Chat.MessageTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.ChatMessage}" />
 
                 <Button
                     Grid.Column="7"
                     MinWidth="70"
                     Command="{Binding SendMessageCommand}"
-                    Content="{x:Static resx:Resources.Send}" />
+                    Content="{x:Static resx:Resources.Send}"
+                    AutomationProperties.AutomationId="Chat.SendMessageButton" />
             </Grid>
         </Grid>
 
@@ -197,13 +212,17 @@
             <MaterialDesign:PopupBox
                 x:Name="UsernameIntellisense"
                 StaysOpen="False"
-                ToggleContent="">
+                ToggleContent=""
+                AutomationProperties.AutomationId="Chat.UsernameIntellisensePopup"
+                AutomationProperties.Name="{x:Static resx:Resources.UsernameSuggestions}">
                 <Grid x:Name="UsernameIntellisenseContent" Margin="2,0,2,0">
                     <ListBox
                         x:Name="UsernameIntellisenseListBox"
                         ItemContainerStyle="{StaticResource BorderedListBoxItem}"
                         PreviewMouseUp="UsernameIntellisenseListBox_PreviewMouseUp"
-                        SelectionMode="Single">
+                        SelectionMode="Single"
+                        AutomationProperties.AutomationId="Chat.UsernameIntellisenseList"
+                        AutomationProperties.Name="{x:Static resx:Resources.UsernameSuggestions}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <ChatControls:ChatUserControl />
@@ -216,13 +235,17 @@
             <MaterialDesign:PopupBox
                 x:Name="EmoticonIntellisense"
                 StaysOpen="False"
-                ToggleContent="">
+                ToggleContent=""
+                AutomationProperties.AutomationId="Chat.EmoticonIntellisensePopup"
+                AutomationProperties.Name="{x:Static resx:Resources.EmoteSuggestions}">
                 <Grid x:Name="EmoticonIntellisenseContent" Margin="2,0,2,0">
                     <ListBox
                         x:Name="EmoticonIntellisenseListBox"
                         ItemContainerStyle="{StaticResource BorderedListBoxItem}"
                         PreviewMouseUp="EmoticonIntellisenseListBox_PreviewMouseUp"
-                        SelectionMode="Single">
+                        SelectionMode="Single"
+                        AutomationProperties.AutomationId="Chat.EmoticonIntellisenseList"
+                        AutomationProperties.Name="{x:Static resx:Resources.EmoteSuggestions}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

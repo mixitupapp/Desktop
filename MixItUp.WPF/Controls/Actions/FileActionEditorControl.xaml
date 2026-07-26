@@ -27,7 +27,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="FileActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -42,8 +42,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding FilePath}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            <Button Grid.Column="2" x:Name="FileBrowseButton" VerticalAlignment="Bottom" Click="FileBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+            <TextBox Grid.Column="0" Text="{Binding FilePath}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="FileActionEditor.FilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.FilePath}" />
+            <Button Grid.Column="2" x:Name="FileActionEditorFileBrowseButton" VerticalAlignment="Bottom" Click="FileBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="FileActionEditor.FileBrowseButton" />
         </Grid>
 
         <Grid Grid.Row="4" Visibility="{Binding ShowSaveToFileGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -52,9 +52,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding LineIndex}" Visibility="{Binding ShowLineToWrite, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LineNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" Margin="0,0,10,0" />
+            <TextBox Grid.Column="0" Text="{Binding LineIndex}" Visibility="{Binding ShowLineToWrite, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LineNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" Margin="0,0,10,0" AutomationProperties.AutomationId="FileActionEditor.SaveLineNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.LineNumber}" />
 
-            <TextBox Grid.Column="1" Text="{Binding TransferText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextToSave}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="1" Text="{Binding TransferText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextToSave}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="FileActionEditor.TextToSaveTextBox" AutomationProperties.Name="{x:Static resx:Resources.TextToSave}" />
         </Grid>
 
         <Grid Grid.Row="4" Visibility="{Binding ShowReadFromFileGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -63,9 +63,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding LineIndex}" Visibility="{Binding ShowLineToRead, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LineNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" Margin="0,0,10,0" />
+            <TextBox Grid.Column="0" Text="{Binding LineIndex}" Visibility="{Binding ShowLineToRead, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LineNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="100" Margin="0,0,10,0" AutomationProperties.AutomationId="FileActionEditor.ReadLineNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.LineNumber}" />
 
-            <TextBox Grid.Column="1" Text="{Binding TransferText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="1" Text="{Binding TransferText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="FileActionEditor.ReadIntoSpecialIdentifierTextBox" AutomationProperties.Name="{x:Static resx:Resources.SpecialIdentifierHint}" />
         </Grid>
 
         <Grid Grid.Row="4" Visibility="{Binding ShowTextToRemoveGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -77,10 +77,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding TransferText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextToRemove}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding TransferText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextToRemove}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="FileActionEditor.TextToRemoveTextBox" AutomationProperties.Name="{x:Static resx:Resources.TextToRemove}" />
 
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.CaseSensitive}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="4" IsChecked="{Binding CaseSensitive}" />
+            <ToggleButton Grid.Column="4" IsChecked="{Binding CaseSensitive}" AutomationProperties.AutomationId="FileActionEditor.CaseSensitiveToggle" AutomationProperties.Name="{x:Static resx:Resources.CaseSensitive}" />
         </Grid>
 
         <ActionControls:SubActionContainerControl Grid.Row="6" Visibility="{Binding ShowSubActions, Converter={StaticResource BooleanToVisibilityConverter}}" />

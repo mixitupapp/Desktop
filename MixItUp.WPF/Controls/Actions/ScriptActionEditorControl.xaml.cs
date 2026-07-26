@@ -36,7 +36,7 @@ namespace MixItUp.WPF.Controls.Actions
             {
                 actionType = viewModel.SelectedActionType;
             }
-            else if (this.ActionTypeComboBox.SelectedItem is ScriptActionType selectedActionType)
+            else if (this.ScriptActionEditorActionTypeComboBox.SelectedItem is ScriptActionType selectedActionType)
             {
                 actionType = selectedActionType;
             }

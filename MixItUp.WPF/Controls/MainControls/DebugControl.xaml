@@ -18,41 +18,41 @@
              d:DesignHeight="700" d:DesignWidth="600">
     <StackPanel Margin="10">
 
-        <Button x:Name="GenericDonation" Click="TriggerGenericDonation_Click">Generic Donation</Button>
+        <Button x:Name="GenericDonation" Click="TriggerGenericDonation_Click" AutomationProperties.AutomationId="Debug.GenericDonationButton">Generic Donation</Button>
 
-        <Button x:Name="TwitchTier1Sub" Click="TriggerTwitchTier1Sub_Click">Twitch Tier 1 Sub</Button>
+        <Button x:Name="TwitchTier1Sub" Click="TriggerTwitchTier1Sub_Click" AutomationProperties.AutomationId="Debug.TwitchTier1SubButton">Twitch Tier 1 Sub</Button>
 
-        <Button x:Name="Twitch1GiftedTier1Sub" Click="Twitch1GiftedTier1Sub_Click">Twitch 1 Gifted Tier 1 Sub</Button>
+        <Button x:Name="Twitch1GiftedTier1Sub" Click="Twitch1GiftedTier1Sub_Click" AutomationProperties.AutomationId="Debug.Twitch1GiftedTier1SubButton">Twitch 1 Gifted Tier 1 Sub</Button>
 
-        <Button x:Name="Twitch5GiftedTier1Sub" Click="Twitch5GiftedTier1Sub_Click">Twitch 5 Gifted Tier 1 Sub</Button>
+        <Button x:Name="Twitch5GiftedTier1Sub" Click="Twitch5GiftedTier1Sub_Click" AutomationProperties.AutomationId="Debug.Twitch5GiftedTier1SubButton">Twitch 5 Gifted Tier 1 Sub</Button>
 
-        <Button x:Name="TwitchAnon5GiftedTier1Sub" Click="TwitchAnon5GiftedTier1Sub_Click">Twitch Anon 5 Gifted Tier 1 Sub</Button>
+        <Button x:Name="TwitchAnon5GiftedTier1Sub" Click="TwitchAnon5GiftedTier1Sub_Click" AutomationProperties.AutomationId="Debug.TwitchAnonymous5GiftedTier1SubButton">Twitch Anon 5 Gifted Tier 1 Sub</Button>
 
-        <Button x:Name="Twitch100BitsCheer" Click="Twitch100BitsCheer_Click">Twitch 100 Bits Cheer</Button>
+        <Button x:Name="Twitch100BitsCheer" Click="Twitch100BitsCheer_Click" AutomationProperties.AutomationId="Debug.Twitch100BitsCheerButton">Twitch 100 Bits Cheer</Button>
 
-        <Button x:Name="FourthwallDonation" Click="TriggerFourthwallDonation_Click">Fourthwall Donation</Button>
+        <Button x:Name="FourthwallDonation" Click="TriggerFourthwallDonation_Click" AutomationProperties.AutomationId="Debug.FourthwallDonationButton">Fourthwall Donation</Button>
 
-        <Button x:Name="FourthwallOrderPlaced" Click="TriggerFourthwallOrderPlaced_Click">Fourthwall Order Placed</Button>
+        <Button x:Name="FourthwallOrderPlaced" Click="TriggerFourthwallOrderPlaced_Click" AutomationProperties.AutomationId="Debug.FourthwallOrderPlacedButton">Fourthwall Order Placed</Button>
 
-        <Button x:Name="FourthwallGiftPurchase" Click="TriggerFourthwallGiftPurchase_Click">Fourthwall Gift Purchase</Button>
+        <Button x:Name="FourthwallGiftPurchase" Click="TriggerFourthwallGiftPurchase_Click" AutomationProperties.AutomationId="Debug.FourthwallGiftPurchaseButton">Fourthwall Gift Purchase</Button>
 
-        <Button x:Name="ThroneGiftPurchased" Click="TriggerThroneGiftPurchased_Click">Throne Gift Purchased</Button>
+        <Button x:Name="ThroneGiftPurchased" Click="TriggerThroneGiftPurchased_Click" AutomationProperties.AutomationId="Debug.ThroneGiftPurchasedButton">Throne Gift Purchased</Button>
 
-        <Button x:Name="ThroneContribution" Click="TriggerThroneContribution_Click">Throne Contribution</Button>
+        <Button x:Name="ThroneContribution" Click="TriggerThroneContribution_Click" AutomationProperties.AutomationId="Debug.ThroneContributionButton">Throne Contribution</Button>
 
-        <Button x:Name="ThroneGiftCrowdfunded" Click="TriggerThroneGiftCrowdfunded_Click">Throne Gift Crowdfunded</Button>
+        <Button x:Name="ThroneGiftCrowdfunded" Click="TriggerThroneGiftCrowdfunded_Click" AutomationProperties.AutomationId="Debug.ThroneGiftCrowdfundedButton">Throne Gift Crowdfunded</Button>
 
-        <Button x:Name="KoFiTip" Click="TriggerKoFiTip_Click">Ko-fi Tip</Button>
+        <Button x:Name="KoFiTip" Click="TriggerKoFiTip_Click" AutomationProperties.AutomationId="Debug.KoFiTipButton">Ko-fi Tip</Button>
 
-        <Button x:Name="KoFiCommission" Click="TriggerKoFiCommission_Click">Ko-fi Commission</Button>
+        <Button x:Name="KoFiCommission" Click="TriggerKoFiCommission_Click" AutomationProperties.AutomationId="Debug.KoFiCommissionButton">Ko-fi Commission</Button>
 
-        <Button x:Name="KoFiMembership" Click="TriggerKoFiMembership_Click">Ko-fi Membership (Recurring)</Button>
+        <Button x:Name="KoFiMembership" Click="TriggerKoFiMembership_Click" AutomationProperties.AutomationId="Debug.KoFiMembershipButton">Ko-fi Membership (Recurring)</Button>
 
-        <Button x:Name="KoFiFirstMembership" Click="TriggerKoFiFirstMembership_Click">Ko-fi Membership (First Time)</Button>
+        <Button x:Name="KoFiFirstMembership" Click="TriggerKoFiFirstMembership_Click" AutomationProperties.AutomationId="Debug.KoFiFirstMembershipButton">Ko-fi Membership (First Time)</Button>
 
-        <Button x:Name="KoFiShopOrder" Click="TriggerKoFiShopOrder_Click">Ko-fi Shop Order</Button>
+        <Button x:Name="KoFiShopOrder" Click="TriggerKoFiShopOrder_Click" AutomationProperties.AutomationId="Debug.KoFiShopOrderButton">Ko-fi Shop Order</Button>
 
-        <Button x:Name="PallyDonation" Click="TriggerPallyDonation_Click">Pally.gg Donation</Button>
+        <Button x:Name="PallyDonation" Click="TriggerPallyDonation_Click" AutomationProperties.AutomationId="Debug.PallyDonationButton">Pally.gg Donation</Button>
 
     </StackPanel>
 </local:MainControlBase>

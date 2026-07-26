@@ -34,17 +34,19 @@
             </Grid.ColumnDefinitions>
 
             <Button
-                x:Name="AcceptButton"
+                x:Name="LicenseAgreementAcceptButton"
                 Grid.Column="0"
                 Click="AcceptButton_Click"
                 Content="{x:Static resx:Resources.Accept}"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                AutomationProperties.AutomationId="LicenseAgreement.AcceptButton" />
             <Button
-                x:Name="CancelButton"
+                x:Name="LicenseAgreementCancelButton"
                 Grid.Column="2"
                 Click="CancelButton_Click"
                 Content="{x:Static resx:Resources.Cancel}"
-                Style="{StaticResource MaterialDesignOutlinedButton}" />
+                Style="{StaticResource MaterialDesignOutlinedButton}"
+                AutomationProperties.AutomationId="LicenseAgreement.CancelButton" />
         </Grid>
     </Grid>
 </Window>

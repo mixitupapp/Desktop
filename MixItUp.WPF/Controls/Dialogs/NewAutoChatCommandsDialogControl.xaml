@@ -20,7 +20,7 @@
 
         <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.AutoCommandsExplanation}" />
 
-        <ItemsControl x:Name="NewCommandsItemsControl" Grid.Row="2" HorizontalAlignment="Center">
+        <ItemsControl x:Name="NewCommandsItemsControl" Grid.Row="2" HorizontalAlignment="Center" AutomationProperties.AutomationId="NewAutoChatCommandsDialog.NewCommandsList" AutomationProperties.Name="{x:Static resx:Resources.Commands}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -30,7 +30,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <CheckBox Grid.Column="0" IsChecked="{Binding Path=AddCommand, Mode=TwoWay}" />
+                        <CheckBox Grid.Column="0" IsChecked="{Binding Path=AddCommand, Mode=TwoWay}" AutomationProperties.AutomationId="AutoCommand.SelectCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Select}" />
 
                         <TextBlock Grid.Column="2" Text="{Binding Description}" />
                     </Grid>
@@ -46,14 +46,16 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Yes}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Yes}"
+                    AutomationProperties.AutomationId="NewAutoChatCommandsDialog.YesButton">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
 
             <Button Grid.Column="2" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.No}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.No}"
+                    AutomationProperties.AutomationId="NewAutoChatCommandsDialog.NoButton">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

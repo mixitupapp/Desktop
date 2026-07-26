@@ -20,6 +20,8 @@
             Maximum="{Binding Maximum}"
             Minimum="{Binding Minimum}"
             Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}"
-            ToolTip="{Binding Text}" />
+            ToolTip="{Binding Text}"
+            AutomationProperties.AutomationId="SliderWithHeader.Slider"
+            AutomationProperties.Name="{Binding Text}" />
     </Grid>
 </local:NotifyPropertyChangedUserControl>

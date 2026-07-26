@@ -36,7 +36,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ComboBox Grid.Column="0" ItemsSource="{Binding DeviceTypes}" SelectedItem="{Binding SelectedDeviceType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100">
+        <ComboBox Grid.Column="0" ItemsSource="{Binding DeviceTypes}" SelectedItem="{Binding SelectedDeviceType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" AutomationProperties.AutomationId="InputActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -44,14 +44,14 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ComboBox Grid.Column="2" ItemsSource="{Binding KeyboardKeys}" SelectedItem="{Binding SelectedKeyboardKey}" Visibility="{Binding ShowKeyboard, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.KeyboardKey}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Column="2" ItemsSource="{Binding KeyboardKeys}" SelectedItem="{Binding SelectedKeyboardKey}" Visibility="{Binding ShowKeyboard, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.KeyboardKey}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="InputActionEditor.KeyboardKeyComboBox" AutomationProperties.Name="{x:Static resx:Resources.KeyboardKey}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox Grid.Column="2" ItemsSource="{Binding MouseButtons}" SelectedItem="{Binding SelectedMouseButton}" Visibility="{Binding ShowMouse, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MouseButton}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Column="2" ItemsSource="{Binding MouseButtons}" SelectedItem="{Binding SelectedMouseButton}" Visibility="{Binding ShowMouse, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MouseButton}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="InputActionEditor.MouseComboBox" AutomationProperties.Name="{x:Static resx:Resources.MouseButton}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -59,7 +59,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ComboBox Grid.Column="4" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100">
+        <ComboBox Grid.Column="4" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" AutomationProperties.AutomationId="InputActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -68,12 +68,12 @@
         </ComboBox>
 
         <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Shift}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-        <CheckBox Grid.Column="8" IsChecked="{Binding Shift}" />
+        <CheckBox Grid.Column="8" IsChecked="{Binding Shift}" AutomationProperties.AutomationId="InputActionEditor.ShiftCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Shift}" />
 
         <TextBlock Grid.Column="10" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Control}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-        <CheckBox Grid.Column="12" IsChecked="{Binding Control}" />
+        <CheckBox Grid.Column="12" IsChecked="{Binding Control}" AutomationProperties.AutomationId="InputActionEditor.ControlCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Control}" />
 
         <TextBlock Grid.Column="14" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Alt}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-        <CheckBox Grid.Column="16" IsChecked="{Binding Alt}" />
+        <CheckBox Grid.Column="16" IsChecked="{Binding Alt}" AutomationProperties.AutomationId="InputActionEditor.AltCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Alt}" />
     </Grid>
 </local:ActionEditorControlBase>

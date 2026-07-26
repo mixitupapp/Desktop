@@ -28,9 +28,9 @@
 
             <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" Margin="0,5,0,0" Visibility="{Binding IsNotCustomizable, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-            <TextBox Grid.Column="0" Text="{Binding StartTime}" Visibility="{Binding IsCustomizable, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StartTime}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding StartTime}" Visibility="{Binding IsCustomizable, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StartTime}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayAnimationV3.StartTimeTextBox" AutomationProperties.Name="{x:Static resx:Resources.StartTime}" />
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding AnimationLibraries}" SelectedItem="{Binding SelectedAnimationLibrary}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AnimationLibrary}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding AnimationLibraries}" SelectedItem="{Binding SelectedAnimationLibrary}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AnimationLibrary}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayAnimationV3.AnimationLibraryComboBox" AutomationProperties.Name="{x:Static resx:Resources.AnimationLibrary}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -38,7 +38,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="4" ItemsSource="{Binding AnimateCSSAnimations}" SelectedItem="{Binding SelectedAnimatedCSSAnimation}" Visibility="{Binding IsAnimateCSSVisible, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="4" ItemsSource="{Binding AnimateCSSAnimations}" SelectedItem="{Binding SelectedAnimatedCSSAnimation}" Visibility="{Binding IsAnimateCSSVisible, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayAnimationV3.SelectedAnimatedCSSAnimationComboBox" AutomationProperties.Name="{x:Static resx:Resources.Animation}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -46,7 +46,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="4" ItemsSource="{Binding WoahCSSAnimations}" SelectedItem="{Binding SelectedWoahCSSAnimation}" Visibility="{Binding IsWoahCSSVisible, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="4" ItemsSource="{Binding WoahCSSAnimations}" SelectedItem="{Binding SelectedWoahCSSAnimation}" Visibility="{Binding IsWoahCSSVisible, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayAnimationV3.SelectedWoahCSSAnimationComboBox" AutomationProperties.Name="{x:Static resx:Resources.Animation}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -54,7 +54,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Controls:IconButton Grid.Column="6" Icon="Delete" Visibility="{Binding IsCustomizable, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding DeleteCommand}" />
+            <Controls:IconButton Grid.Column="6" Icon="Delete" Visibility="{Binding IsCustomizable, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding DeleteCommand}" AutomationProperties.AutomationId="OverlayAnimationV3.DeleteAnimationButton" AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
         </Grid>
     </Border>
 </Controls:LoadingControlBase>

@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandTypeFilter}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="175">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandTypeFilter}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="175" AutomationProperties.AutomationId="CommandHistory.CommandTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -47,7 +47,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding CommandStates}" SelectedItem="{Binding SelectedCommandStateFilter}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.State}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding CommandStates}" SelectedItem="{Binding SelectedCommandStateFilter}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.State}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" AutomationProperties.AutomationId="CommandHistory.CommandStateComboBox" AutomationProperties.Name="{x:Static resx:Resources.State}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -55,10 +55,10 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Grid.Column="4" x:Name="UsernameFilterTextBox" TextChanged="UsernameFilterTextBox_TextChanged" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" />
+            <TextBox Grid.Column="4" x:Name="CommandHistoryUsernameFilterTextBox" TextChanged="UsernameFilterTextBox_TextChanged" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" AutomationProperties.AutomationId="CommandHistory.UsernameFilterTextBox" AutomationProperties.Name="{x:Static resx:Resources.Username}" />
         </Grid>
 
-        <DataGrid x:Name="CommandHistoryGridView" Grid.Row="2" ItemsSource="{Binding CommandInstances}" EnableRowVirtualization="True" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Center" VerticalScrollBarVisibility="Visible">
+        <DataGrid x:Name="CommandHistoryGridView" Grid.Row="2" ItemsSource="{Binding CommandInstances}" EnableRowVirtualization="True" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Center" VerticalScrollBarVisibility="Visible" AutomationProperties.AutomationId="CommandHistory.HistoryDataGrid" AutomationProperties.Name="{x:Static resx:Resources.CommandHistory}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding CommandName}" IsReadOnly="True" Width="*" />
                 <DataGridTemplateColumn Header="{x:Static resx:Resources.Type}" IsReadOnly="True" Width="80">
@@ -85,11 +85,11 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid Visibility="{Binding ShowActionButtons, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Button Visibility="{Binding ShowCancelButton, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding CancelCommand}" Height="25" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.Cancel}">
+                                <Button Visibility="{Binding ShowCancelButton, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding CancelCommand}" Height="25" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.Cancel}" AutomationProperties.AutomationId="HistoryRow.CancelButton" AutomationProperties.Name="{Binding CommandName, StringFormat={x:Static resx:Resources.CancelFormat}}">
                                     <Controls:MaterialSymbolIcon IconName="cancel" FontSize="{DynamicResource MIU.IconSize.14}" Margin="-7,-10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                 </Button>
 
-                                <Button Visibility="{Binding ShowReplayButton, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding ReplayCommand}" Height="25" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.Replay}">
+                                <Button Visibility="{Binding ShowReplayButton, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding ReplayCommand}" Height="25" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.Replay}" AutomationProperties.AutomationId="HistoryRow.ReplayButton" AutomationProperties.Name="{Binding CommandName, StringFormat={x:Static resx:Resources.ReplayFormat}}">
                                     <Controls:MaterialSymbolIcon IconName="replay" FontSize="{DynamicResource MIU.IconSize.14}" Margin="-7,-10" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                 </Button>
                             </Grid>
@@ -98,11 +98,11 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="60">
                     <DataGridTemplateColumn.Header>
-                        <CheckBox x:Name="SelectAllCheckBox" Checked="SelectAllCheckBox_Checked" Unchecked="SelectAllCheckBox_Unchecked" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        <CheckBox x:Name="SelectAllCheckBox" Checked="SelectAllCheckBox_Checked" Unchecked="SelectAllCheckBox_Unchecked" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="CommandHistory.SelectAllCheckBox" AutomationProperties.Name="{x:Static resx:Resources.SelectAll}" />
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsSelected}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,1,0" />
+                            <CheckBox IsChecked="{Binding IsSelected}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,1,0" AutomationProperties.AutomationId="HistoryRow.SelectCheckBox" AutomationProperties.Name="{Binding CommandName, StringFormat={x:Static resx:Resources.SelectFormat}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -118,12 +118,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Command="{Binding CancelSelectedCommand}" Content="{x:Static resx:Resources.CancelSelected}" />
+            <Button Grid.Column="0" Command="{Binding CancelSelectedCommand}" Content="{x:Static resx:Resources.CancelSelected}" AutomationProperties.AutomationId="CommandHistory.CancelSelectedButton" />
 
-            <Button Grid.Column="2" Command="{Binding ReplaySelectedCommand}" Content="{x:Static resx:Resources.ReplaySelected}" />
+            <Button Grid.Column="2" Command="{Binding ReplaySelectedCommand}" Content="{x:Static resx:Resources.ReplaySelected}" AutomationProperties.AutomationId="CommandHistory.ReplaySelectedButton" />
 
-            <Button Grid.Column="4" Visibility="{Binding ShowPauseAllCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding PauseAllCommandsCommand}" Content="{x:Static resx:Resources.PauseAllCommands}" />
-            <Button Grid.Column="4" Visibility="{Binding ShowUnpauseAllCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding UnpauseAllCommandsCommand}" Content="{x:Static resx:Resources.UnpauseAllCommands}" />
+            <Button Grid.Column="4" Visibility="{Binding ShowPauseAllCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding PauseAllCommandsCommand}" Content="{x:Static resx:Resources.PauseAllCommands}" AutomationProperties.AutomationId="CommandHistory.PauseAllCommandsButton" />
+            <Button Grid.Column="4" Visibility="{Binding ShowUnpauseAllCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding UnpauseAllCommandsCommand}" Content="{x:Static resx:Resources.UnpauseAllCommands}" AutomationProperties.AutomationId="CommandHistory.UnpauseAllCommandsButton" />
         </Grid>
     </Grid>
 </local:MainControlBase>

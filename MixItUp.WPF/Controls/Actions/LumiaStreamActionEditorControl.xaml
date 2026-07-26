@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="LumiaStreamActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="LumiaStreamActionEditor.CommandTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -44,7 +44,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding CommandNames}" Text="{Binding CommandName}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="2" ItemsSource="{Binding CommandNames}" Text="{Binding CommandName}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="LumiaStreamActionEditor.CommandComboBox" AutomationProperties.Name="{x:Static resx:Resources.Command}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowLightSettingsSection, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -62,14 +62,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding ColorHex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColorHex}" Width="125" />
-            <TextBox Grid.Column="2" Text="{Binding ColorBrightness}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Brightness}" Width="125" />
-            <TextBox Grid.Column="4" Text="{Binding ColorTransition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TransitionSeconds}" Width="125" />
+            <TextBox Grid.Column="0" Text="{Binding ColorHex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColorHex}" Width="125" AutomationProperties.AutomationId="LumiaStreamActionEditor.ColorHexTextBox" AutomationProperties.Name="{x:Static resx:Resources.ColorHex}" />
+            <TextBox Grid.Column="2" Text="{Binding ColorBrightness}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Brightness}" Width="125" AutomationProperties.AutomationId="LumiaStreamActionEditor.BrightnessTextBox" AutomationProperties.Name="{x:Static resx:Resources.Brightness}" />
+            <TextBox Grid.Column="4" Text="{Binding ColorTransition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TransitionSeconds}" Width="125" AutomationProperties.AutomationId="LumiaStreamActionEditor.TransitionSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.TransitionSeconds}" />
 
             <TextBlock Grid.Column="6" Text="{Binding Source={x:Static resx:Resources.Hold}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="8" IsChecked="{Binding ColorHold}" VerticalAlignment="Center" />
+            <ToggleButton Grid.Column="8" IsChecked="{Binding ColorHold}" VerticalAlignment="Center" AutomationProperties.AutomationId="LumiaStreamActionEditor.HoldToggle" AutomationProperties.Name="{x:Static resx:Resources.Hold}" />
 
-            <TextBox Grid.Column="10" Text="{Binding ColorDuration}" IsEnabled="{Binding ColorNotHold}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Width="125" />
+            <TextBox Grid.Column="10" Text="{Binding ColorDuration}" IsEnabled="{Binding ColorNotHold}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Width="125" AutomationProperties.AutomationId="LumiaStreamActionEditor.DurationSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.DurationSeconds}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

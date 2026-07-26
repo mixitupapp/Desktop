@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border Style="{StaticResource DefaultBorder}">
-            <TextBox Text="{Binding HTML}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HTMLText}" Style="{StaticResource MultiLineTextBox}" Height="200" Width="700" />
+            <TextBox Text="{Binding HTML}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HTMLText}" Style="{StaticResource MultiLineTextBox}" Height="200" Width="700" AutomationProperties.AutomationId="OverlayHTMLItem.HTMLTextTextBox" AutomationProperties.Name="{x:Static resx:Resources.HTMLText}" />
         </Border>
     </Grid>
 </local:OverlayItemControl>

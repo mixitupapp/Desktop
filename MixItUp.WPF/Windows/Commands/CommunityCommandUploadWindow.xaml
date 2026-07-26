@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="CommunityCommandUpload.MDDialogHost" />
 
         <Grid Grid.Row="0" Margin="16">
             <Grid.RowDefinitions>
@@ -51,7 +51,9 @@
                 x:Name="NameTextBox"
                 Grid.Row="2"
                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                AutomationProperties.AutomationId="CommunityCommandUpload.NameTextBox"
+                AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
             <TextBox
                 x:Name="DescriptionTextBox"
@@ -62,7 +64,9 @@
                 AcceptsTab="True"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 TextAlignment="Left"
-                TextWrapping="Wrap" />
+                TextWrapping="Wrap"
+                AutomationProperties.AutomationId="CommunityCommandUpload.DescriptionTextBox"
+                AutomationProperties.Name="{x:Static resx:Resources.Description}" />
 
             <Grid Grid.Row="6">
                 <Grid.ColumnDefinitions>
@@ -75,12 +79,15 @@
                     x:Name="ImageFilePathTextBox"
                     Grid.Column="0"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommunityCommandsImageFilePath}"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    AutomationProperties.AutomationId="CommunityCommandUpload.ImageFilePathTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.CommunityCommandsImageFilePath}" />
                 <Button
                     x:Name="BrowseImageFilePathButton"
                     Grid.Column="2"
                     Click="BrowseImageFilePathButton_Click"
-                    Content="{x:Static resx:Resources.Browse}" />
+                    Content="{x:Static resx:Resources.Browse}"
+                    AutomationProperties.AutomationId="CommunityCommandUpload.BrowseImageFilePathButton" />
             </Grid>
 
             <Grid Grid.Row="8">
@@ -94,12 +101,15 @@
                     x:Name="ScreenshotFilePathTextBox"
                     Grid.Column="0"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommunityCommandsScreenshotFilePath}"
-                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    AutomationProperties.AutomationId="CommunityCommandUpload.ScreenshotFilePathTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.CommunityCommandsScreenshotFilePath}" />
                 <Button
                     x:Name="BrowseScreenshotFilePathButton"
                     Grid.Column="2"
                     Click="BrowseScreenshotFilePathButton_Click"
-                    Content="{x:Static resx:Resources.Browse}" />
+                    Content="{x:Static resx:Resources.Browse}"
+                    AutomationProperties.AutomationId="CommunityCommandUpload.BrowseScreenshotFilePathButton" />
             </Grid>
 
             <Grid Grid.Row="10" HorizontalAlignment="Center">
@@ -113,13 +123,15 @@
                     x:Name="UploadButton"
                     Grid.Column="0"
                     Click="UploadButton_Click"
-                    Content="{x:Static resx:Resources.Upload}" />
+                    Content="{x:Static resx:Resources.Upload}"
+                    AutomationProperties.AutomationId="CommunityCommandUpload.UploadButton" />
 
                 <Button
-                    x:Name="CancelButton"
+                    x:Name="CommunityCommandUploadCancelButton"
                     Grid.Column="2"
                     Click="CancelButton_Click"
-                    Content="{x:Static resx:Resources.Cancel}" />
+                    Content="{x:Static resx:Resources.Cancel}"
+                    AutomationProperties.AutomationId="CommunityCommandUpload.CancelButton" />
             </Grid>
         </Grid>
 

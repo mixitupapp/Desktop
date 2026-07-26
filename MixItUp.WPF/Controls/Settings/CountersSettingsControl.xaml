@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
 
             <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="0" BorderThickness="1">
-                <ItemsControl x:Name="SerialDevicesListView" HorizontalAlignment="Center" ItemsSource="{Binding Counters}">
+                <ItemsControl x:Name="CountersSettingsSerialDevicesListView" HorizontalAlignment="Center" ItemsSource="{Binding Counters}" AutomationProperties.AutomationId="CountersSettings.SerialDevicesList" AutomationProperties.Name="{x:Static resx:Resources.SerialDevices}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="20">
@@ -45,7 +45,7 @@
 
                                 <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" />
 
-                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="CounterRow.AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
 
                                 <Grid Grid.Column="4" VerticalAlignment="Center">
                                     <Grid.RowDefinitions>
@@ -55,7 +55,7 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Row="0" Text="{Binding Source={x:Static resx:Resources.SaveToFile}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" HorizontalAlignment="Center" />
-                                    <ToggleButton Grid.Row="2" IsChecked="{Binding SaveToFile}" HorizontalAlignment="Center" />
+                                    <ToggleButton Grid.Row="2" IsChecked="{Binding SaveToFile}" HorizontalAlignment="Center" AutomationProperties.AutomationId="CounterRow.SaveToFileToggle" AutomationProperties.Name="{x:Static resx:Resources.SaveToFile}" />
                                 </Grid>
 
                                 <Grid Grid.Column="6" VerticalAlignment="Center">
@@ -66,10 +66,10 @@
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Row="0" Text="{Binding Source={x:Static resx:Resources.ResetOnLoad}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" HorizontalAlignment="Center" />
-                                    <ToggleButton Grid.Row="2" IsChecked="{Binding ResetOnLoad}" HorizontalAlignment="Center" />
+                                    <ToggleButton Grid.Row="2" IsChecked="{Binding ResetOnLoad}" HorizontalAlignment="Center" AutomationProperties.AutomationId="CounterRow.ResetOnLoadToggle" AutomationProperties.Name="{x:Static resx:Resources.ResetOnLoad}" />
                                 </Grid>
 
-                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" AutomationProperties.AutomationId="CounterRow.DeleteButton" AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -83,9 +83,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding NewCounterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="380" VerticalAlignment="Center" />
+                <TextBox Grid.Column="0" Text="{Binding NewCounterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="380" VerticalAlignment="Center" AutomationProperties.AutomationId="CountersSettings.CounterNameWithTipsTextBox" AutomationProperties.Name="{x:Static resx:Resources.CounterNameWithTips}" />
 
-                <Button Grid.Column="2" Command="{Binding AddNewCounterCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" />
+                <Button Grid.Column="2" Command="{Binding AddNewCounterCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" AutomationProperties.AutomationId="CountersSettings.AddButton" />
             </Grid>
         </Grid>
 

@@ -31,7 +31,7 @@
 
         <TextBlock Grid.Row="0" Text="{x:Static resx:Resources.RankRequirement}" HorizontalAlignment="Center" TextDecorations="Underline" FontWeight="Bold" />
 
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Items}" HorizontalAlignment="Center">
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Items}" HorizontalAlignment="Center" AutomationProperties.AutomationId="RankRequirement.RankRequirementList" AutomationProperties.Name="{x:Static resx:Resources.RankRequirement}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,5">
@@ -45,9 +45,9 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <ComboBox Grid.Column="0" ItemsSource="{Binding RankSystems}" SelectedItem="{Binding SelectedRankSystem}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RankSystem}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        <ComboBox Grid.Column="0" ItemsSource="{Binding RankSystems}" SelectedItem="{Binding SelectedRankSystem}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RankSystem}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="RankRow.RankSystemComboBox" AutomationProperties.Name="{x:Static resx:Resources.RankSystem}" />
 
-                        <ComboBox Grid.Column="2" ItemsSource="{Binding MatchTypes}" SelectedItem="{Binding SelectedMatchType}" Width="40" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBox Grid.Column="2" ItemsSource="{Binding MatchTypes}" SelectedItem="{Binding SelectedMatchType}" Width="40" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="RankRow.RankRequirementComboBox" AutomationProperties.Name="{x:Static resx:Resources.RankRequirement}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -55,14 +55,14 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <ComboBox Grid.Column="4" ItemsSource="{Binding Ranks}" SelectedItem="{Binding SelectedRank}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Rank}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        <ComboBox Grid.Column="4" ItemsSource="{Binding Ranks}" SelectedItem="{Binding SelectedRank}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Rank}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="RankRow.RankComboBox" AutomationProperties.Name="{x:Static resx:Resources.Rank}" />
 
-                        <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                        <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="RankRow.DeleteButton" AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Button Grid.Row="4" Command="{Binding AddItemCommand}" Width="80" Content="{x:Static resx:Resources.Add}" Style="{StaticResource MaterialDesignRaisedButton}" HorizontalAlignment="Center" />
+        <Button Grid.Row="4" Command="{Binding AddItemCommand}" Width="80" Content="{x:Static resx:Resources.Add}" Style="{StaticResource MaterialDesignRaisedButton}" HorizontalAlignment="Center" AutomationProperties.AutomationId="RankRequirement.AddButton" />
     </Grid>
 </UserControl>

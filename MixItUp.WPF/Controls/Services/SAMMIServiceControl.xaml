@@ -23,7 +23,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="SAMMIService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -33,9 +33,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding PortNumber}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding PortNumber}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="SAMMIService.PortNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.PortNumber}" />
 
-                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="SAMMIService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

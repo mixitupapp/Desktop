@@ -13,7 +13,7 @@ namespace MixItUp.WPF.Controls.Dialogs
 
             InitializeComponent();
 
-            this.TextEntryTextBox.Text = defaultValue;
+            this.BasicTextEntryDialogTextEntryTextBox.Text = defaultValue;
 
             if (!string.IsNullOrEmpty(description))
             {
@@ -22,6 +22,6 @@ namespace MixItUp.WPF.Controls.Dialogs
             }
         }
 
-        public string TextEntry { get { return this.TextEntryTextBox.Text; } }
+        public string TextEntry { get { return this.BasicTextEntryDialogTextEntryTextBox.Text; } }
     }
 }
