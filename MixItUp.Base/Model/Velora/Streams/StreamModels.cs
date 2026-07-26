@@ -38,6 +38,35 @@ namespace MixItUp.Base.Model.Velora.Streams
 
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
+
+        /// <summary>
+        /// Reads a category list out of a response whose shape is not pinned by the docs: a bare
+        /// array, or an object nesting the array under categories/results/data.
+        /// </summary>
+        public static IEnumerable<CategoryModel> ParseList(JToken token)
+        {
+            List<CategoryModel> categories = new List<CategoryModel>();
+
+            JArray array = token as JArray;
+            if (array == null && token is JObject obj)
+            {
+                array = (obj["categories"] ?? obj["results"] ?? obj["data"]) as JArray;
+            }
+
+            if (array != null)
+            {
+                foreach (JToken item in array)
+                {
+                    CategoryModel category = item?.ToObject<CategoryModel>();
+                    if (!string.IsNullOrWhiteSpace(category?.Slug))
+                    {
+                        categories.Add(category);
+                    }
+                }
+            }
+
+            return categories;
+        }
     }
 
     public class CategoriesResponseModel
@@ -120,7 +149,12 @@ namespace MixItUp.Base.Model.Velora.Streams
 
             JObject root = (JObject)token;
             JObject stream = (root["stream"] as JObject) ?? root;
-            JObject category = (stream["category"] as JObject) ?? (root["category"] as JObject);
+
+            // streams/user returns "category" as a plain name string rather than an object, so the
+            // name has to be read off the token itself when it is not nested.
+            JToken categoryToken = stream["category"] ?? root["category"];
+            JObject category = categoryToken as JObject;
+            string categoryText = categoryToken != null && categoryToken.Type == JTokenType.String ? categoryToken.Value<string>() : null;
 
             string Value(JObject obj, params string[] keys)
             {
@@ -136,7 +170,7 @@ namespace MixItUp.Base.Model.Velora.Streams
             UserStreamModel model = new UserStreamModel()
             {
                 Title = Value(stream, "title") ?? Value(root, "title"),
-                CategoryName = Value(category, "name") ?? Value(stream, "categoryName") ?? Value(root, "categoryName"),
+                CategoryName = Value(category, "name") ?? Value(stream, "categoryName") ?? Value(root, "categoryName") ?? categoryText,
                 CategorySlug = Value(category, "slug") ?? Value(stream, "categorySlug") ?? Value(root, "categorySlug"),
                 CategoryImageUrl = Value(category, "imageUrl", "image") ?? Value(stream, "categoryImageUrl"),
                 ThumbnailUrl = Value(stream, "thumbnailUrl", "thumbnail", "previewUrl") ?? Value(root, "thumbnailUrl", "thumbnail"),

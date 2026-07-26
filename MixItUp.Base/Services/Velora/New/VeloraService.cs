@@ -113,12 +113,31 @@ namespace MixItUp.Base.Services.Velora.New
             });
         }
 
+        // Returns the first 100 categories alphabetically with no way to page past them, so this only
+        // ever sees Velora's own categories plus the leading edge of the TGDB list. Use
+        // SearchStreamCategories to reach anything beyond that.
         public async Task<IEnumerable<CategoryModel>> GetStreamCategories()
         {
             return await AsyncRunner.RunAsync(async () =>
             {
                 CategoriesResponseModel response = await this.HttpClient.GetAsync<CategoriesResponseModel>("integrations/oauth/stream/categories");
                 return response?.Categories ?? new List<CategoryModel>();
+            });
+        }
+
+        /// <summary>Searches the full category set (Velora's own plus the synced TGDB database) by name.</summary>
+        public async Task<IEnumerable<CategoryModel>> SearchStreamCategories(string query, int limit = 25)
+        {
+            // TGDB results need at least two characters, per the endpoint docs.
+            if (string.IsNullOrWhiteSpace(query) || query.Trim().Length < 2)
+            {
+                return new List<CategoryModel>();
+            }
+
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JToken response = await this.HttpClient.GetAsync<JToken>($"categories/search?query={AdvancedHttpClient.URLEncodeString(query.Trim())}&limit={limit}");
+                return CategoryModel.ParseList(response);
             });
         }
 

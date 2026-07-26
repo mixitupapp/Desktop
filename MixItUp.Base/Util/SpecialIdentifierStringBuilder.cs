@@ -1428,17 +1428,25 @@ namespace MixItUp.Base.Util
                     else if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().IsConnected)
                     {
                         VeloraUserPlatformV2Model veloraUser = user.GetPlatformData<VeloraUserPlatformV2Model>(StreamingPlatformTypeEnum.Velora);
+
+                        MixItUp.Base.Model.Velora.Streams.UserStreamModel vStream = null;
                         if (veloraUser != null && !string.IsNullOrWhiteSpace(veloraUser.Username))
                         {
-                            MixItUp.Base.Model.Velora.Streams.UserStreamModel vStream = await ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().StreamerService.GetUserStream(veloraUser.Username);
-                            if (vStream != null)
-                            {
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "title", vStream.Title);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", vStream.CategoryName);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "game", vStream.CategoryName);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage", vStream.CategoryImageUrl);
-                                this.ReplaceSpecialIdentifier(userStreamHeader + "islive", vStream.IsLive.ToString());
-                            }
+                            vStream = await ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().StreamerService.GetUserStream(veloraUser.Username);
+                        }
+
+                        // A user who has never streamed has no stream record at all, so these are
+                        // filled in either way rather than left as literal $... text in the output.
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "title", vStream?.Title);
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", vStream?.CategoryName);
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "game", vStream?.CategoryName);
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "islive", (vStream?.IsLive ?? false).ToString());
+
+                        if (this.ContainsSpecialIdentifier(userStreamHeader + "gameimage"))
+                        {
+                            // streams/user carries no artwork, so the slug is resolved against category search.
+                            this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage", vStream?.CategoryImageUrl
+                                ?? await ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().GetCategoryImageUrl(vStream?.CategorySlug, vStream?.CategoryName));
                         }
                     }
                 }

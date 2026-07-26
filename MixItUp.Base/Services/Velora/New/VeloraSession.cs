@@ -95,6 +95,12 @@ namespace MixItUp.Base.Services.Velora.New
         // messages carry in their badges[] list; fetched once at session init.
         private Dictionary<string, CatalogBadgeModel> badgeCatalog = new Dictionary<string, CatalogBadgeModel>(StringComparer.OrdinalIgnoreCase);
 
+        // GET stream/info returns the category name and slug but no art, so the URL behind
+        // $streamgameimage is looked up separately. The slug it was resolved for is kept so the extra
+        // call only happens when the category actually changes, and so a category that genuinely has
+        // no art stays resolved instead of being retried every refresh.
+        private string categoryImageSlug;
+
         protected override async Task<Result> InitializeStreamerInternal()
         {
             // Re-probe the REST moderation endpoint on every (re)connect: a fresh token may carry chat:moderate.
@@ -419,6 +425,7 @@ namespace MixItUp.Base.Services.Velora.New
             this.StreamTitle = streamInfo.Title;
             this.StreamCategoryID = streamInfo.CategorySlug;
             this.StreamCategoryName = streamInfo.CategoryName;
+            await this.RefreshCategoryImage(streamInfo.CategorySlug, streamInfo.CategoryName);
             this.StreamViewerCount = streamInfo.ViewerCount;
             this.StreamTags = streamInfo.Tags ?? new List<string>();
 
@@ -454,6 +461,34 @@ namespace MixItUp.Base.Services.Velora.New
             return await this.RefreshDetails();
         }
 
+        private static CategoryModel MatchCategory(IEnumerable<CategoryModel> categories, string category)
+        {
+            if (categories == null || categories.Count() == 0)
+            {
+                return null;
+            }
+
+            return categories.FirstOrDefault(c => string.Equals(c.Name, category, StringComparison.OrdinalIgnoreCase))
+                ?? categories.FirstOrDefault(c => string.Equals(c.Slug, category, StringComparison.OrdinalIgnoreCase))
+                ?? categories.FirstOrDefault(c => !string.IsNullOrWhiteSpace(c.Name) && c.Name.StartsWith(category, StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// Resolves a category by name or slug. Search is tried first because it reaches every
+        /// category, while the plain category list stops at the first 100 alphabetically and so
+        /// cannot find most games.
+        /// </summary>
+        public async Task<CategoryModel> FindCategory(string category)
+        {
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                return null;
+            }
+
+            return MatchCategory(await this.StreamerService.SearchStreamCategories(category), category)
+                ?? MatchCategory(await this.StreamerService.GetStreamCategories(), category);
+        }
+
         public override async Task<Result> SetStreamCategory(string category)
         {
             if (string.IsNullOrWhiteSpace(category))
@@ -461,21 +496,7 @@ namespace MixItUp.Base.Services.Velora.New
                 return new Result(success: false);
             }
 
-            CategoryModel selectedCategory = null;
-            IEnumerable<CategoryModel> categories = await this.StreamerService.GetStreamCategories();
-            if (categories != null && categories.Count() > 0)
-            {
-                selectedCategory = categories.FirstOrDefault(c => string.Equals(c.Name, category, StringComparison.OrdinalIgnoreCase));
-                if (selectedCategory == null)
-                {
-                    selectedCategory = categories.FirstOrDefault(c => string.Equals(c.Slug, category, StringComparison.OrdinalIgnoreCase));
-                }
-                if (selectedCategory == null)
-                {
-                    selectedCategory = categories.FirstOrDefault(c => !string.IsNullOrWhiteSpace(c.Name) && c.Name.StartsWith(category, StringComparison.OrdinalIgnoreCase));
-                }
-            }
-
+            CategoryModel selectedCategory = await this.FindCategory(category);
             if (selectedCategory == null)
             {
                 return new Result(success: false);
@@ -877,6 +898,44 @@ namespace MixItUp.Base.Services.Velora.New
             }
         }
 
+        /// <summary>
+        /// Resolves a category's art through category search. Neither stream/info nor streams/user
+        /// returns the artwork, and search is the only lookup that covers every category.
+        /// </summary>
+        public async Task<string> GetCategoryImageUrl(string categorySlug, string categoryName = null)
+        {
+            if (string.IsNullOrWhiteSpace(categorySlug))
+            {
+                return null;
+            }
+
+            try
+            {
+                // Searching by name hits far more reliably than the slug, but the result is matched
+                // back on slug so a near-miss never shows another game's art.
+                IEnumerable<CategoryModel> results = await this.StreamerService.SearchStreamCategories(
+                    !string.IsNullOrWhiteSpace(categoryName) ? categoryName : categorySlug);
+                return results?.FirstOrDefault(c => string.Equals(c.Slug, categorySlug, StringComparison.OrdinalIgnoreCase))?.ImageUrl;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return null;
+            }
+        }
+
+        /// <summary>Refreshes the session's category art, skipped when the category has not changed.</summary>
+        private async Task RefreshCategoryImage(string categorySlug, string categoryName)
+        {
+            if (string.Equals(this.categoryImageSlug, categorySlug, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            this.categoryImageSlug = categorySlug;
+            this.StreamCategoryImageURL = await this.GetCategoryImageUrl(categorySlug, categoryName);
+        }
+
         /// <summary>Resolves a chat badge slug (e.g. "christmas-2025") against the global badge catalog.</summary>
         public string GetCatalogBadgeUrl(string badgeSlug)
         {
@@ -911,7 +970,7 @@ namespace MixItUp.Base.Services.Velora.New
             }
         }
 
-        public void ApplyMetadataUpdate(string title, string categorySlug, string categoryName)
+        public async Task ApplyMetadataUpdate(string title, string categorySlug, string categoryName, string categoryImageUrl = null)
         {
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -924,6 +983,19 @@ namespace MixItUp.Base.Services.Velora.New
             if (!string.IsNullOrWhiteSpace(categoryName))
             {
                 this.StreamCategoryName = categoryName;
+            }
+
+            // The stream.* payloads usually leave the category art out, so it gets looked up instead.
+            // Either way the new slug's art wins, including nothing, so a category change never leaves
+            // the previous category's art behind.
+            if (!string.IsNullOrWhiteSpace(categoryImageUrl))
+            {
+                this.StreamCategoryImageURL = categoryImageUrl;
+                this.categoryImageSlug = categorySlug;
+            }
+            else if (!string.IsNullOrWhiteSpace(categorySlug))
+            {
+                await this.RefreshCategoryImage(categorySlug, categoryName);
             }
         }
 
