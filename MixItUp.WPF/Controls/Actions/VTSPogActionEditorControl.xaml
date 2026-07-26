@@ -26,7 +26,7 @@
 
         <TextBlock Grid.Row="0" Visibility="{Binding VTSPogNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,10" Text="{x:Static resx:Resources.VTSPogNotConnected}"/>
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VTSPogActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -50,7 +50,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding TextToSpeechProviders}" SelectedItem="{Binding SelectedTextToSpeechProvider}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Provider}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox Grid.Column="0" ItemsSource="{Binding TextToSpeechProviders}" SelectedItem="{Binding SelectedTextToSpeechProvider}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Provider}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VTSPogActionEditor.ProviderComboBox" AutomationProperties.Name="{x:Static resx:Resources.Provider}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -59,7 +59,7 @@
                 </ComboBox>
 
                 <TextBlock Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Hyperlink NavigateUri="https://vtspog.com/docs/article/local-api-tts-voice-references/" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="https://vtspog.com/docs/article/local-api-tts-voice-references/" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="VTSPogActionEditor.VTSPogNotConnectedLink">
                         <TextBlock Text="{x:Static resx:Resources.VTSPogVoiceReferenceList}"/>
                     </Hyperlink>
                 </TextBlock>
@@ -72,12 +72,12 @@
                     <ColumnDefinition Width="150" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding TextToSpeechVoice}" IsEnabled="{Binding CanTextToSpeechVoiceBeSpecified}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VoiceKeycode}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding TextToSpeechVoice}" IsEnabled="{Binding CanTextToSpeechVoiceBeSpecified}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VoiceKeycode}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTSPogActionEditor.VoiceKeycodeTextBox" AutomationProperties.Name="{x:Static resx:Resources.VoiceKeycode}" />
 
-                <TextBox Grid.Column="2" Text="{Binding TextToSpeechCharacterLimit}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CharacterLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding TextToSpeechCharacterLimit}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CharacterLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTSPogActionEditor.CharacterLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.CharacterLimit}" />
             </Grid>
 
-            <TextBox Grid.Row="4" Text="{Binding TextToSpeechText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="4" Text="{Binding TextToSpeechText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTSPogActionEditor.SpeechTextTextBox" AutomationProperties.Name="{x:Static resx:Resources.Text}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowAITextToSpeechGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -96,7 +96,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding AITextToSpeechPromptTypes}" SelectedItem="{Binding SelectedAITextToSpeechPromptType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PromptType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox Grid.Column="0" ItemsSource="{Binding AITextToSpeechPromptTypes}" SelectedItem="{Binding SelectedAITextToSpeechPromptType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PromptType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VTSPogActionEditor.PromptTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.PromptType}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -105,10 +105,10 @@
                 </ComboBox>
 
                 <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.StoreInMemory}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Column="4" IsChecked="{Binding AITextToSpeechStoreInMemory}" VerticalAlignment="Center" />
+                <CheckBox Grid.Column="4" IsChecked="{Binding AITextToSpeechStoreInMemory}" VerticalAlignment="Center" AutomationProperties.AutomationId="VTSPogActionEditor.StoreInMemoryCheckBox" AutomationProperties.Name="{x:Static resx:Resources.StoreInMemory}" />
             </Grid>
 
-            <TextBox Grid.Row="2" Text="{Binding TextToSpeechText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="2" Text="{Binding TextToSpeechText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTSPogActionEditor.AiSpeechTextTextBox" AutomationProperties.Name="{x:Static resx:Resources.Text}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowPlayAudioFileGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -125,11 +125,11 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding AudioFilePath}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <Button Grid.Column="2" x:Name="FileBrowseButton" VerticalAlignment="Bottom" Click="FileBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                <TextBox Grid.Column="0" Text="{Binding AudioFilePath}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTSPogActionEditor.FilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.FilePath}" />
+                <Button Grid.Column="2" x:Name="VTSPogActionEditorFileBrowseButton" VerticalAlignment="Bottom" Click="FileBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="VTSPogActionEditor.FileBrowseButton" />
             </Grid>
 
-            <ComboBox Grid.Row="2" ItemsSource="{Binding AudioOutputTypes}" SelectedItem="{Binding SelectedAudioOutputType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Output}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="2" ItemsSource="{Binding AudioOutputTypes}" SelectedItem="{Binding SelectedAudioOutputType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Output}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VTSPogActionEditor.OutputComboBox" AutomationProperties.Name="{x:Static resx:Resources.Output}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>

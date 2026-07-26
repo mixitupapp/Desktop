@@ -60,7 +60,9 @@
                     Padding="0"
                     Click="CloseApiMigrationBanner_Click"
                     Style="{StaticResource MaterialDesignIconButton}"
-                    ToolTip="Close">
+                    ToolTip="Close"
+                    AutomationProperties.AutomationId="Webhooks.CloseDomainNoticeButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Close}">
                     <Controls:MaterialSymbolIcon
                         Foreground="White"
                         IconName="close" FontSize="{DynamicResource MIU.IconSize.18}" />
@@ -69,7 +71,7 @@
         </MaterialDesign:Card>
 
         <Grid Margin="10" Grid.Row="1">
-            <DataGrid ItemsSource="{Binding WebhookCommands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+            <DataGrid ItemsSource="{Binding WebhookCommands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="Webhooks.WebhooksDataGrid" AutomationProperties.Name="{x:Static resx:Resources.Webhooks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
                     <DataGridTemplateColumn Width="150">
@@ -77,7 +79,7 @@
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Center">
                                     <Grid>
-                                        <Button x:Name="CopyURLCommandButton" Click="CopyURLCommandButton_Click" Content="{x:Static resx:Resources.CopyURL}"/>
+                                        <Button x:Name="CopyURLCommandButton" Click="CopyURLCommandButton_Click" Content="{x:Static resx:Resources.CopyURL}" AutomationProperties.AutomationId="WebhookRow.CopyUrlButton" />
                                     </Grid>
                                 </Grid>
                             </DataTemplate>
@@ -89,8 +91,8 @@
                                 <Grid HorizontalAlignment="Center">
                                     <Grid Visibility="{Binding IsNewCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="NewEventCommandButton" Click="NewWebhookCommandButton_Click" Content="{x:Static resx:Resources.AddCommand}"/>
-                                        <Button Margin="5,0,0,0" x:Name="DeleteEventCommandButton" Click="DeleteWebhookCommandButton_Click" Content="{x:Static resx:Resources.Delete}"/>
+                                        <Button x:Name="WebhooksNewEventCommandButton" Click="NewWebhookCommandButton_Click" Content="{x:Static resx:Resources.AddCommand}" AutomationProperties.AutomationId="WebhookRow.AddCommandButton" />
+                                        <Button Margin="5,0,0,0" x:Name="DeleteEventCommandButton" Click="DeleteWebhookCommandButton_Click" Content="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="WebhookRow.DeleteCommandButton" />
                                         </StackPanel>
                                     </Grid>
                                     <Grid Visibility="{Binding IsExistingCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -111,7 +113,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="AddWebhookButton" Grid.Column="0" IsEnabled="{Binding CanCreateMoreWebhooks}" Click="AddWebhookButton_Click" Content="{Binding AddButtonText}" MinWidth="140" />
+            <Button x:Name="AddWebhookButton" Grid.Column="0" IsEnabled="{Binding CanCreateMoreWebhooks}" Click="AddWebhookButton_Click" Content="{Binding AddButtonText}" MinWidth="140" AutomationProperties.AutomationId="Webhooks.AddWebhookButton" />
         </Grid>
     </Grid>
 </local:MainControlBase>

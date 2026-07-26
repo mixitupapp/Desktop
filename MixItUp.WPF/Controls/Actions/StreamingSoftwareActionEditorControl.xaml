@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding StreamingSoftwareTypes}" SelectedItem="{Binding SelectedStreamingSoftwareType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamingSoftware}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding StreamingSoftwareTypes}" SelectedItem="{Binding SelectedStreamingSoftwareType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamingSoftware}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.StreamingSoftwareComboBox" AutomationProperties.Name="{x:Static resx:Resources.StreamingSoftware}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -38,7 +38,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -54,11 +54,11 @@
         <TextBlock Grid.Row="3" Visibility="{Binding ShowNotSupported,Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.NotSupportedStreamingSoftware}"/>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowSceneCollectionGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding SceneCollectionName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneCollectionName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding SceneCollectionName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneCollectionName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SceneCollectionNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SceneCollectionName}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowSceneGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SceneNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SceneName}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowSourceGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -79,12 +79,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding SceneName}" IsEnabled="{Binding CanSpecifySceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneNameOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding SceneName}" IsEnabled="{Binding CanSpecifySceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneNameOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SourceSceneNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SceneNameOptional}" />
 
-                <TextBox Grid.Column="2" Text="{Binding SourceName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SourceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding SourceName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SourceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SourceNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SourceName}" />
 
                 <TextBlock Grid.Column="4" Visibility="{Binding ShowSourceVisibilityToggle, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Visible}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <ToggleButton Grid.Column="6" Visibility="{Binding ShowSourceVisibilityToggle, Converter={StaticResource BooleanToVisibilityConverter}}" IsChecked="{Binding SourceVisible}" VerticalAlignment="Center"/>
+                <ToggleButton Grid.Column="6" Visibility="{Binding ShowSourceVisibilityToggle, Converter={StaticResource BooleanToVisibilityConverter}}" IsChecked="{Binding SourceVisible}" VerticalAlignment="Center" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SourceVisibleToggle" AutomationProperties.Name="{x:Static resx:Resources.Visible}" />
             </Grid>
 
             <Grid Grid.Row="2" Visibility="{Binding ShowTextSourceGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -94,7 +94,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding SourceText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding SourceText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.TextTextBox" AutomationProperties.Name="{x:Static resx:Resources.Text}" />
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -103,9 +103,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" Text="{Binding SourceTextFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}" />
+                    <TextBox Grid.Column="0" Text="{Binding SourceTextFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.FilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.FilePath}" />
 
-                    <Button Grid.Column="2" x:Name="SourceLoadTextFromBrowseButton" Click="SourceLoadTextFromBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                    <Button Grid.Column="2" x:Name="SourceLoadTextFromBrowseButton" Click="SourceLoadTextFromBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.TextSourceFileBrowseButton" AutomationProperties.Name="{x:Static resx:Resources.Browse}" />
                 </Grid>
             </Grid>
 
@@ -116,9 +116,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding SourceImageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFilePath}" />
+                <TextBox Grid.Column="0" Text="{Binding SourceImageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFilePath}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.ImageSourceFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.ImageFilePath}" />
 
-                <Button Grid.Column="2" x:Name="SourceImageBrowseButton" Click="SourceImageBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                <Button Grid.Column="2" x:Name="SourceImageBrowseButton" Click="SourceImageBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SourceImageBrowseButton" />
             </Grid>
 
             <Grid Grid.Row="2" Visibility="{Binding ShowMediaSourceGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -128,9 +128,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding SourceMediaFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VideoFilePath}" />
+                <TextBox Grid.Column="0" Text="{Binding SourceMediaFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VideoFilePath}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.VideoFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.VideoFilePath}" />
 
-                <Button Grid.Column="2" x:Name="SourceVideoBrowseButton" Click="SourceVideoBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                <Button Grid.Column="2" x:Name="SourceVideoBrowseButton" Click="SourceVideoBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SourceVideoBrowseButton" />
             </Grid>
 
             <Grid Grid.Row="2" Visibility="{Binding ShowWebBrowserSourceGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -140,9 +140,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding SourceWebPageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebPageOrLocalFile}" />
+                <TextBox Grid.Column="0" Text="{Binding SourceWebPageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebPageOrLocalFile}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.WebBrowserSourceUrlTextBox" AutomationProperties.Name="{x:Static resx:Resources.WebPageOrLocalFile}" />
 
-                <Button Grid.Column="2" x:Name="SourceWebPageBrowseButton" Click="SourceWebPageBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                <Button Grid.Column="2" x:Name="SourceWebPageBrowseButton" Click="SourceWebPageBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.WebBrowserSourceBrowseButton" AutomationProperties.Name="{x:Static resx:Resources.Browse}" />
             </Grid>
 
             <Grid Grid.Row="2" Visibility="{Binding ShowSaveSourceScreenshotGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -161,9 +161,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" Text="{Binding ImageFormat}" Width="90" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFormat}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox Grid.Column="2" Text="{Binding ImageWidth}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageWidthOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox Grid.Column="4" Text="{Binding ImageHeight}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageHeightOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="0" Text="{Binding ImageFormat}" Width="90" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFormat}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.ImageFormatTextBox" AutomationProperties.Name="{x:Static resx:Resources.ImageFormat}" />
+                    <TextBox Grid.Column="2" Text="{Binding ImageWidth}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageWidthOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SourceWidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.ImageWidthOptional}" />
+                    <TextBox Grid.Column="4" Text="{Binding ImageHeight}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageHeightOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.SourceHeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.ImageHeightOptional}" />
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -173,9 +173,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" Text="{Binding ImageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFilePath}" />
+                    <TextBox Grid.Column="0" Text="{Binding ImageFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ImageFilePath}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.ScreenshotFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.ImageFilePath}" />
 
-                    <Button Grid.Column="2" x:Name="SaveSourceScreenshotBrowseButton" Click="SaveSourceScreenshotBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                    <Button Grid.Column="2" x:Name="SaveSourceScreenshotBrowseButton" Click="SaveSourceScreenshotBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.ScreenshotFileBrowseButton" AutomationProperties.Name="{x:Static resx:Resources.Browse}" />
                 </Grid>
             </Grid>
 
@@ -193,17 +193,17 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding SourceXPosition}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding SourceXPosition}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.XPositionTextBox" AutomationProperties.Name="{x:Static resx:Resources.XPosition}" />
 
-                <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding SourceYPosition}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Grid.Row="0" Text="{Binding SourceYPosition}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YPosition}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.YPositionTextBox" AutomationProperties.Name="{x:Static resx:Resources.YPosition}" />
 
-                <TextBox Grid.Column="4" Grid.Row="0" Text="{Binding SourceRotation}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Rotation}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="4" Grid.Row="0" Text="{Binding SourceRotation}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Rotation}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.RotationTextBox" AutomationProperties.Name="{x:Static resx:Resources.Rotation}" />
 
-                <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding SourceXScale}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XScale}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding SourceXScale}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.XScale}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.XScaleTextBox" AutomationProperties.Name="{x:Static resx:Resources.XScale}" />
 
-                <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding SourceYScale}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YScale}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Grid.Row="2" Text="{Binding SourceYScale}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YScale}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.YScaleTextBox" AutomationProperties.Name="{x:Static resx:Resources.YScale}" />
 
-                <Button Grid.Column="4" Grid.Row="2" Command="{Binding SourceGetCurrentDimensionsCommand}" Content="{x:Static resx:Resources.GetCurrent}"/>
+                <Button Grid.Column="4" Grid.Row="2" Command="{Binding SourceGetCurrentDimensionsCommand}" Content="{x:Static resx:Resources.GetCurrent}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.GetCurrentButton" />
             </Grid>
         </Grid>
 
@@ -219,12 +219,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding SourceName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SourceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding SourceName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SourceName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.FilterSourceNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SourceName}" />
 
-                <TextBox Grid.Column="2" Text="{Binding FilterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilterName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding FilterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilterName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.FilterNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.FilterName}" />
 
                 <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Visible}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <ToggleButton Grid.Column="6" IsChecked="{Binding FilterVisible}" VerticalAlignment="Center"/>
+                <ToggleButton Grid.Column="6" IsChecked="{Binding FilterVisible}" VerticalAlignment="Center" AutomationProperties.AutomationId="StreamingSoftwareActionEditor.FilterVisibleToggle" AutomationProperties.Name="{x:Static resx:Resources.Visible}" />
             </Grid>
         </Grid>
     </Grid>

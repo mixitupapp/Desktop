@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding AnimationTypes}" SelectedItem="{Binding SelectedAnimationType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding AnimationTypes}" SelectedItem="{Binding SelectedAnimationType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.AnimationComboBox" AutomationProperties.Name="{x:Static resx:Resources.Animation}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -43,11 +43,11 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Text="{Binding Duration}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Duration}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.DurationSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.DurationSeconds}" />
 
-            <TextBox Text="{Binding EmoteWidth}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding EmoteWidth}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.WidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.Width}" />
 
-            <TextBox Text="{Binding EmoteHeight}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding EmoteHeight}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.HeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.Height}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -65,16 +65,16 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding PerEmoteShown}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEmoteEffectPerEmoteShown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding PerEmoteShown}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEmoteEffectPerEmoteShown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.OverlayEmoteEffectPerEmoteShownTextBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayEmoteEffectPerEmoteShown}" />
 
-            <TextBox Text="{Binding ComboCount}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayPersistentEmoteEffectComboCount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            <TextBox Text="{Binding ComboTimeframe}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayPersistentEmoteEffectComboTimeframe}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding ComboCount}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayPersistentEmoteEffectComboCount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.OverlayPersistentEmoteEffectComboCountTextBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayPersistentEmoteEffectComboCount}" />
+            <TextBox Text="{Binding ComboTimeframe}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayPersistentEmoteEffectComboTimeframe}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.OverlayPersistentEmoteEffectComboTimeframeTextBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayPersistentEmoteEffectComboTimeframe}" />
 
             <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AllowEmoji}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="7" IsChecked="{Binding AllowEmoji}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="7" IsChecked="{Binding AllowEmoji}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.AllowEmojiCheckBox" AutomationProperties.Name="{x:Static resx:Resources.AllowEmoji}" />
 
             <TextBlock Grid.Column="9" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.IgnoreDuplicates}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="10" IsChecked="{Binding IgnoreDuplicates}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="10" IsChecked="{Binding IgnoreDuplicates}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPersistentEmoteEffectV3.IgnoreDuplicatesCheckBox" AutomationProperties.Name="{x:Static resx:Resources.IgnoreDuplicates}" />
 
         </Grid>
     </Grid>

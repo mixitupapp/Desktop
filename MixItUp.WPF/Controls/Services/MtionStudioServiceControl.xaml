@@ -27,13 +27,13 @@
             </Grid.RowDefinitions>
 
             <Grid HorizontalAlignment="Center">
-                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="MtionStudioService.ConnectButton" />
             </Grid>
         </Grid>
 
         <Grid Grid.Column="2" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid HorizontalAlignment="Center">
-                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="MtionStudioService.DisconnectButton" />
             </Grid>
         </Grid>
     </Grid>

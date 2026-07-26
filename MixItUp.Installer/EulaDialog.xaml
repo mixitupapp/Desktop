@@ -22,7 +22,9 @@
                    Margin="0,0,0,4"/>
 
     <markdown:MarkdownScrollViewer Grid.Row="2"
-                       x:Name="EulaViewer"/>
+                       x:Name="EulaViewer"
+                       AutomationProperties.AutomationId="InstallerEula.EulaViewer"
+                       AutomationProperties.Name="End User License Agreement" />
 
         <Border Grid.Row="2"
                 x:Name="FallbackBorder"
@@ -43,16 +45,19 @@
                     Content="Open in Browser"
                     Margin="0,0,10,0"
                     Click="OpenInBrowserButton_Click"
-                    Visibility="Collapsed"/>
+                    Visibility="Collapsed"
+                    AutomationProperties.AutomationId="InstallerEula.OpenInBrowserButton" />
             <Button x:Name="DeclineButton"
                     Content="Decline"
                     IsCancel="True"
                     Margin="0,0,10,0"
-                    Click="DeclineButton_Click"/>
-            <Button x:Name="AcceptButton"
+                    Click="DeclineButton_Click"
+                    AutomationProperties.AutomationId="InstallerEula.DeclineButton" />
+            <Button x:Name="InstallerEulaAcceptButton"
                     Content="Accept"
                     IsDefault="True"
-                    Click="AcceptButton_Click"/>
+                    Click="AcceptButton_Click"
+                    AutomationProperties.AutomationId="InstallerEula.AcceptButton" />
         </StackPanel>
     </Grid>
 </Window>

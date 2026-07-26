@@ -46,8 +46,9 @@
         <MaterialDesign:DialogHost
             x:Name="FlyoutMenuDialog"
             Identifier="FlyoutMenuDialog"
-            SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
-            <MaterialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}"
+            AutomationProperties.AutomationId="MainMenu.FlyoutDialogHost">
+            <MaterialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}" AutomationProperties.AutomationId="MainMenu.NavigationDrawerHost">
                 <MaterialDesign:DrawerHost.LeftDrawerContent>
                     <DockPanel MinWidth="264">
                         <ToggleButton
@@ -55,7 +56,9 @@
                             HorizontalAlignment="Right"
                             DockPanel.Dock="Top"
                             IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}"
-                            Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                            Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                            AutomationProperties.AutomationId="MainMenu.DrawerCloseToggleButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.CloseNavigationMenu}" />
 
                         <Grid Margin="16,0,16,16" DockPanel.Dock="Bottom">
                             <Grid.ColumnDefinitions>
@@ -68,7 +71,9 @@
                                 Grid.Column="0"
                                 Margin="0,0,8,0"
                                 Checked="EditMenuButton_Checked"
-                                Unchecked="EditMenuButton_Unchecked">
+                                Unchecked="EditMenuButton_Unchecked"
+                                AutomationProperties.AutomationId="MainMenu.EditMenuToggleButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.EditNavigationMenu}">
                                 <ToggleButton.Content>
                                     <Controls:MaterialSymbolIcon
                                         IconName="edit" FontSize="{DynamicResource MIU.IconSize.24}" />
@@ -118,7 +123,9 @@
                             DragDrop:DragDrop.UseDefaultEffectDataTemplate="False"
                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp"
                             SelectionChanged="MenuItemsListBox_SelectionChanged"
-                            Style="{StaticResource MaterialDesignNavigationListBox}">
+                            Style="{StaticResource MaterialDesignNavigationListBox}"
+                            AutomationProperties.AutomationId="MainMenu.MenuItemsListBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.NavigationMenu}">
                             <ListBox.Resources>
                                 <Style BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" TargetType="ScrollBar" />
                             </ListBox.Resources>
@@ -126,6 +133,10 @@
                                 <Style BasedOn="{StaticResource MaterialDesignNavigationListBoxItem}" TargetType="ListBoxItem">
                                     <Setter Property="Margin" Value="4,0" />
                                     <Setter Property="Padding" Value="8,6" />
+                                    <!--  MainMenuItem has no ToString override, so without this each entry announces
+                                          its type name instead of the section it navigates to  -->
+                                    <Setter Property="AutomationProperties.Name" Value="{Binding Name}" />
+                                    <Setter Property="AutomationProperties.AutomationId" Value="MainMenuItem" />
                                 </Style>
                             </ListBox.ItemContainerStyle>
                             <ListBox.ItemTemplate>
@@ -153,7 +164,9 @@
                                             VerticalAlignment="Center"
                                             IsChecked="{Binding Visible, Mode=TwoWay}"
                                             IsEnabled="{Binding CanHide}"
-                                            Visibility="Collapsed" />
+                                            Visibility="Collapsed"
+                                            AutomationProperties.AutomationId="MainMenuItem.VisibilityCheckBox"
+                                            AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.ShowMenuItemFormat}}" />
 
                                         <Grid
                                             Grid.Column="2"
@@ -191,7 +204,7 @@
                 </MaterialDesign:DrawerHost.LeftDrawerContent>
 
                 <Grid>
-                    <MaterialDesign:DrawerHost BorderBrush="{DynamicResource MaterialDesignDivider}">
+                    <MaterialDesign:DrawerHost BorderBrush="{DynamicResource MaterialDesignDivider}" AutomationProperties.AutomationId="MainMenu.SettingsDrawerHost">
                         <MaterialDesign:DrawerHost.RightDrawerContent>
                             <SettingsControls:MainSettingsContainerControl />
                         </MaterialDesign:DrawerHost.RightDrawerContent>
@@ -209,7 +222,9 @@
                                         Checked="MenuToggleButton_Checked"
                                         IsChecked="False"
                                         Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                                        Unchecked="MenuToggleButton_Unchecked" />
+                                        Unchecked="MenuToggleButton_Unchecked"
+                                        AutomationProperties.AutomationId="MainMenu.MenuToggleButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.NavigationMenu}" />
 
                                     <TextBlock
                                         HorizontalAlignment="Center"
@@ -223,7 +238,9 @@
                                             x:Name="DisconnectionAlertButton"
                                             Margin="0,0,5,0"
                                             Icon="cloud_off"
-                                            Visibility="Collapsed" />
+                                            Visibility="Collapsed"
+                                            AutomationProperties.AutomationId="MainMenu.DisconnectionAlertButton"
+                                            AutomationProperties.Name="{x:Static resx:Resources.ConnectionLost}" />
 
                                         <Grid Margin="5,0,0,0">
                                             <Controls:IconButton
@@ -232,7 +249,9 @@
                                                 Click="NotificationButton_Click"
                                                 Icon="notifications"
                                                 Style="{StaticResource MaterialDesignRaisedButton}"
-                                                ToolTip="{x:Static resx:Resources.Notifications}" />
+                                                ToolTip="{x:Static resx:Resources.Notifications}"
+                                                AutomationProperties.AutomationId="MainMenu.NotificationsButton"
+                                                AutomationProperties.Name="{x:Static resx:Resources.Notifications}" />
 
                                             <Ellipse
                                                 x:Name="NotificationDot"
@@ -263,7 +282,9 @@
                                             Icon="help"
                                             Style="{StaticResource MaterialDesignRaisedButton}"
                                             ToolTip="{x:Static resx:Resources.Help}"
-                                            Visibility="{Binding HelpLinkVisibility}" />
+                                            Visibility="{Binding HelpLinkVisibility}"
+                                            AutomationProperties.AutomationId="MainMenu.SectionHelpButton"
+                                            AutomationProperties.Name="{x:Static resx:Resources.Help}" />
 
                                         <Controls:IconButton
                                             x:Name="SettingsButton"
@@ -272,7 +293,9 @@
                                             Click="SettingsButton_Click"
                                             Icon="settings"
                                             Style="{StaticResource MaterialDesignRaisedButton}"
-                                            ToolTip="{x:Static resx:Resources.Settings}" />
+                                            ToolTip="{x:Static resx:Resources.Settings}"
+                                            AutomationProperties.AutomationId="MainMenu.SettingsButton"
+                                            AutomationProperties.Name="{x:Static resx:Resources.Settings}" />
 
                                     </StackPanel>
                                 </Grid>
@@ -312,7 +335,9 @@
                             Click="CloseSettingsButton_Click"
                             Icon="cancel"
                             Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="{x:Static resx:Resources.Close}" />
+                            ToolTip="{x:Static resx:Resources.Close}"
+                            AutomationProperties.AutomationId="MainMenu.CloseSettingsButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Close}" />
                     </Grid>
                 </MaterialDesign:ColorZone>
             </DockPanel>

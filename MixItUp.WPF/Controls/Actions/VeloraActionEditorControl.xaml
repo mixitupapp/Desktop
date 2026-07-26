@@ -15,7 +15,7 @@
     </local:ActionEditorControlBase.Resources>
 
     <StackPanel>
-        <ComboBox ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,0,0,10">
+        <ComboBox ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,0,0,10" AutomationProperties.AutomationId="VeloraActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -23,15 +23,15 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{Binding TextHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowText, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+        <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{Binding TextHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowText, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" AutomationProperties.AutomationId="VeloraActionEditor.TextTextBox" AutomationProperties.Name="{Binding TextHint}" />
 
-        <TextBox Text="{Binding TargetUsername}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowTargetUser, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+        <TextBox Text="{Binding TargetUsername}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowTargetUser, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" AutomationProperties.AutomationId="VeloraActionEditor.UsernameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Username}" />
 
-        <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{Binding AmountHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowAmount, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+        <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{Binding AmountHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowAmount, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" AutomationProperties.AutomationId="VeloraActionEditor.AmountTextBox" AutomationProperties.Name="{Binding AmountHint}" />
 
-        <TextBox Text="{Binding Reason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowReason, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+        <TextBox Text="{Binding Reason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Visibility="{Binding ShowReason, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" AutomationProperties.AutomationId="VeloraActionEditor.ReasonTextBox" AutomationProperties.Name="{x:Static resx:Resources.Reason}" />
 
-        <ComboBox ItemsSource="{Binding AnnounceColors}" SelectedItem="{Binding SelectedAnnounceColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Color}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Visibility="{Binding ShowColor, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" />
+        <ComboBox ItemsSource="{Binding AnnounceColors}" SelectedItem="{Binding SelectedAnnounceColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Color}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Visibility="{Binding ShowColor, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10" AutomationProperties.AutomationId="VeloraActionEditor.ColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.Color}" />
 
         <Grid Visibility="{Binding ShowSendAsStreamer, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
@@ -41,7 +41,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.SendAsStreamer}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="2" IsChecked="{Binding SendAsStreamer}" VerticalAlignment="Center" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding SendAsStreamer}" VerticalAlignment="Center" AutomationProperties.AutomationId="VeloraActionEditor.SendAsStreamerToggle" AutomationProperties.Name="{x:Static resx:Resources.SendAsStreamer}" />
         </Grid>
     </StackPanel>
 </local:ActionEditorControlBase>

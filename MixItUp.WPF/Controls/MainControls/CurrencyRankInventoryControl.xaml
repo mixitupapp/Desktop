@@ -23,7 +23,7 @@
 
         <Grid Grid.Row="0">
             <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="2" BorderThickness="1">
-                <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding Items}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+                <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding Items}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="CurrencyRankInventory.ItemsDataGrid" AutomationProperties.Name="{x:Static resx:Resources.CurrenciesRanksAndInventories}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
                         <DataGridTextColumn Header="{x:Static resx:Resources.Type}" Binding="{Binding Type}" IsReadOnly="True" Width="125" />
@@ -53,9 +53,9 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Controls:IconButton x:Name="EditButton" Grid.Column="0" Click="EditButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
+                                        <Controls:IconButton x:Name="CurrencyRankInventoryEditButton" Grid.Column="0" Click="EditButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" AutomationProperties.AutomationId="CurrencyRow.EditButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.EditCommandFormat}}" />
 
-                                        <Controls:IconButton x:Name="DeleteButton" Grid.Column="2" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                        <Controls:IconButton x:Name="CurrencyRankInventoryDeleteButton" Grid.Column="2" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="CurrencyRow.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -72,9 +72,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="AddNewCurrencyRankButton" Grid.Column="0" Click="AddNewCurrencyRankButton_Click" ToolTip="{x:Static resx:Resources.AddCurrencyRank}" Content="{x:Static resx:Resources.AddCurrencyRank}" />
+            <Button x:Name="AddNewCurrencyRankButton" Grid.Column="0" Click="AddNewCurrencyRankButton_Click" ToolTip="{x:Static resx:Resources.AddCurrencyRank}" Content="{x:Static resx:Resources.AddCurrencyRank}" AutomationProperties.AutomationId="CurrencyRankInventory.AddCurrencyRankButton" />
 
-            <Button x:Name="AddNewInventoryButton" Grid.Column="2" Click="AddNewInventoryButton_Click" ToolTip="{x:Static resx:Resources.AddInventory}" Content="{x:Static resx:Resources.AddInventory}" />
+            <Button x:Name="AddNewInventoryButton" Grid.Column="2" Click="AddNewInventoryButton_Click" ToolTip="{x:Static resx:Resources.AddInventory}" Content="{x:Static resx:Resources.AddInventory}" AutomationProperties.AutomationId="CurrencyRankInventory.AddInventoryButton" />
         </Grid>
     </Grid>
 </local:MainControlBase>

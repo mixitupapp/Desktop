@@ -29,7 +29,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding EventName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebHookEventName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="250" />
+            <TextBox Grid.Column="0" Text="{Binding EventName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebHookEventName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="250" AutomationProperties.AutomationId="IFTTTActionEditor.WebHookEventNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.WebHookEventName}" />
 
             <TextBlock Grid.Column="2" Visibility="{Binding IFTTTNotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Static resx:Resources.EnableIFTTT}"/>
         </Grid>
@@ -43,11 +43,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding Value1}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding Value1}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="IFTTTActionEditor.Value1TextBox" AutomationProperties.Name="{x:Static resx:Resources.Value1}" />
 
-            <TextBox Grid.Column="2" Text="{Binding Value2}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding Value2}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="IFTTTActionEditor.Value2TextBox" AutomationProperties.Name="{x:Static resx:Resources.Value2}" />
 
-            <TextBox Grid.Column="4" Text="{Binding Value3}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value3}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="4" Text="{Binding Value3}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value3}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="IFTTTActionEditor.Value3TextBox" AutomationProperties.Name="{x:Static resx:Resources.Value3}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

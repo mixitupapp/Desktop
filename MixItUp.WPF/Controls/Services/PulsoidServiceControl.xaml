@@ -37,7 +37,7 @@
             <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="{x:Static resx:Resources.PulsoidInfo3}"/>
 
             <TextBlock Grid.Row="6" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://pulsoid.net/s/WAoxz" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://pulsoid.net/s/WAoxz" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="PulsoidService.PulsoidInfo3Link">
                     <TextBlock Text="{x:Static resx:Resources.PulsoidWebsite}"/>
                 </Hyperlink>
             </TextBlock>
@@ -54,16 +54,16 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Grid.Row="0" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="PulsoidService.LogoutButton" />
 
                 <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="{Binding Source={x:Static resx:Resources.CommandTriggerDelay}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                <TextBox Grid.Row="3" Text="{Binding CommandTriggerDelay}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="3" Text="{Binding CommandTriggerDelay}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="PulsoidService.SecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.Seconds}" />
 
-                <TextBox Grid.Row="5" Text="{Binding HeartRateRanges}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HeartRateRanges}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="250" />
+                <TextBox Grid.Row="5" Text="{Binding HeartRateRanges}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HeartRateRanges}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="250" AutomationProperties.AutomationId="PulsoidService.HeartRateRangesTextBox" AutomationProperties.Name="{x:Static resx:Resources.HeartRateRanges}" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="PulsoidService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

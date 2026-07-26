@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" ItemsSource="{Binding StreamPasses}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+        <DataGrid Grid.Row="0" ItemsSource="{Binding StreamPasses}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="StreamPass.StreamPassesDataGrid" AutomationProperties.Name="{x:Static resx:Resources.StreamPass}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
                 <DataGridTextColumn Header="{x:Static resx:Resources.SpecialIdentifiers}" Binding="{Binding SpecialIdentifiersReferenceDisplay}" IsReadOnly="True" Width="180" />
@@ -34,11 +34,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton Grid.Column="0" x:Name="EditButton" Click="EditButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
+                                <Controls:IconButton Grid.Column="0" x:Name="StreamPassEditButton" Click="EditButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" AutomationProperties.AutomationId="StreamPassRow.EditButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.EditCommandFormat}}" />
 
-                                <Controls:IconButton Grid.Column="2" x:Name="CopyButton" Click="CopyButton_Click" HorizontalAlignment="Center" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" />
+                                <Controls:IconButton Grid.Column="2" x:Name="CopyButton" Click="CopyButton_Click" HorizontalAlignment="Center" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" AutomationProperties.AutomationId="StreamPassRow.CopyButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.CopyFormat}}" />
 
-                                <Controls:IconButton Grid.Column="4" x:Name="DeleteButton" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="4" x:Name="StreamPassDeleteButton" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="StreamPassRow.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -47,7 +47,7 @@
         </DataGrid>
 
         <Grid Grid.Row="2">
-            <Button Grid.Column="2" x:Name="AddStreamPassButton" Click="AddStreamPassButton_Click" Content="{x:Static resx:Resources.AddStreamPass}" Width="200" />
+            <Button Grid.Column="2" x:Name="AddStreamPassButton" Click="AddStreamPassButton_Click" Content="{x:Static resx:Resources.AddStreamPass}" Width="200" AutomationProperties.AutomationId="StreamPass.AddStreamPassButton" />
         </Grid>
     </Grid>
 </local:MainControlBase>

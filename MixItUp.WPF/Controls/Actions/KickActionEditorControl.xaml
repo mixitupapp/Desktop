@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="KickActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -33,7 +33,7 @@
         </ComboBox>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="KickActionEditor.MessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowSetCustomTagsGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -68,15 +68,15 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding ChannelPointRewards}" SelectedItem="{Binding ChannelPointReward}" DisplayMemberPath="Title" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding ChannelPointRewards}" SelectedItem="{Binding ChannelPointReward}" DisplayMemberPath="Title" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="KickActionEditor.ChannelPointsComboBox" AutomationProperties.Name="{x:Static resx:Resources.ChannelPoints}" />
 
                 <TextBlock Grid.Column="2" Margin="0,10,0,0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                <ToggleButton Grid.Column="4" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardState}" />
+                <ToggleButton Grid.Column="4" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardState}" AutomationProperties.AutomationId="KickActionEditor.EnableToggle" AutomationProperties.Name="{x:Static resx:Resources.Enable}" />
 
                 <TextBlock Grid.Column="6" Margin="0,10,0,0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Pause}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                <ToggleButton Grid.Column="8" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardPaused}" />
+                <ToggleButton Grid.Column="8" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardPaused}" AutomationProperties.AutomationId="KickActionEditor.PauseToggle" AutomationProperties.Name="{x:Static resx:Resources.Pause}" />
 
-                <TextBox Grid.Column="10" Text="{Binding ChannelPointRewardCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Cost}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" />
+                <TextBox Grid.Column="10" Text="{Binding ChannelPointRewardCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Cost}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" AutomationProperties.AutomationId="KickActionEditor.CostTextBox" AutomationProperties.Name="{x:Static resx:Resources.Cost}" />
             </Grid>
 
             <Grid Grid.Row="4">
@@ -86,12 +86,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding ChannelPointRewardName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding ChannelPointRewardName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="KickActionEditor.RewardNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                <TextBox Grid.Column="2" Text="{Binding ChannelPointRewardBackgroundColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColorHex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding ChannelPointRewardBackgroundColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColorHex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="KickActionEditor.ColorHexTextBox" AutomationProperties.Name="{x:Static resx:Resources.ColorHex}" />
             </Grid>
 
-            <TextBox Grid.Row="6" Text="{Binding ChannelPointRewardDescription}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="6" Text="{Binding ChannelPointRewardDescription}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="KickActionEditor.DescriptionTextBox" AutomationProperties.Name="{x:Static resx:Resources.Description}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

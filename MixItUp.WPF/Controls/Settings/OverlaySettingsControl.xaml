@@ -39,19 +39,19 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding PortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalAlignment="Center" />
+                <TextBox Grid.Column="0" Text="{Binding PortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlaySettings.PortNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.PortNumber}" />
 
-                <Button Grid.Column="2" Command="{Binding UpdatePortNumberCommand}" Content="{x:Static resx:Resources.Update}" Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center" />
+                <Button Grid.Column="2" Command="{Binding UpdatePortNumberCommand}" Content="{x:Static resx:Resources.Update}" Style="{StaticResource MaterialDesignRaisedButton}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlaySettings.UpdateButton" />
             </Grid>
 
             <StackPanel Grid.Row="2" HorizontalAlignment="Center">
-                <CheckBox IsChecked="{Binding DisableIFrameRemoval}" Command="{Binding ToggleDisableIFrameRemovalCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Content="{x:Static resx:Resources.OverlayDisableIFrameRemovalToggleText}" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding DisableIFrameRemoval}" Command="{Binding ToggleDisableIFrameRemovalCommand}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" Content="{x:Static resx:Resources.OverlayDisableIFrameRemovalToggleText}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlaySettings.OverlayDisableIFrameRemovalToggleTextCheckBox" />
             </StackPanel>
 
             <TextBlock Grid.Row="4" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.OverlayEndpoints}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
             <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="6" BorderThickness="1">
-                <ItemsControl ItemsSource="{Binding Endpoints}" HorizontalAlignment="Center">
+                <ItemsControl ItemsSource="{Binding Endpoints}" HorizontalAlignment="Center" AutomationProperties.AutomationId="OverlaySettings.OverlayEndpointsList" AutomationProperties.Name="{x:Static resx:Resources.OverlayEndpoints}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="20">
@@ -67,15 +67,15 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignOutlinedTextBox}"  VerticalAlignment="Center" />
+                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignOutlinedTextBox}"  VerticalAlignment="Center" AutomationProperties.AutomationId="EndpointRow.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                                <Controls:IconButton Grid.Column="2" x:Name="LaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="launch" ToolTip="{x:Static resx:Resources.Link}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="2" x:Name="OverlaySettingsLaunchEndpointURLButton" Click="LaunchEndpointURLButton_Click" Icon="launch" ToolTip="{x:Static resx:Resources.Link}" VerticalAlignment="Center" AutomationProperties.AutomationId="EndpointRow.LaunchEndpointURLButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.LaunchFormat}}" />
 
-                                <Controls:IconButton Grid.Column="4" x:Name="CopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="4" x:Name="OverlaySettingsCopyEndpointURLButton" Click="CopyEndpointURLButton_Click" Icon="content_copy" ToolTip="{x:Static resx:Resources.Copy}" VerticalAlignment="Center" AutomationProperties.AutomationId="EndpointRow.CopyEndpointURLButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.CopyLinkFormat}}" />
 
-                                <Controls:IconButton Grid.Column="6" x:Name="EditEndpointButton" Click="EditEndpointButton_Click" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="6" x:Name="EditEndpointButton" Click="EditEndpointButton_Click" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" VerticalAlignment="Center" AutomationProperties.AutomationId="EndpointRow.EditEndpointButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.EditCommandFormat}}" />
 
-                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanDelete}" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" />
+                                <Controls:IconButton Grid.Column="8" Command="{Binding DeleteCommand}" IsEnabled="{Binding CanDelete}" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" VerticalAlignment="Center" AutomationProperties.AutomationId="EndpointRow.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -89,9 +89,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding NewEndpointName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="300" VerticalAlignment="Center" />
+                <TextBox Grid.Column="0" Text="{Binding NewEndpointName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="300" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlaySettings.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                <Button Grid.Column="2" Command="{Binding AddCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" />
+                <Button Grid.Column="2" Command="{Binding AddCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" AutomationProperties.AutomationId="OverlaySettings.AddButton" />
             </Grid>
         </Grid>
 

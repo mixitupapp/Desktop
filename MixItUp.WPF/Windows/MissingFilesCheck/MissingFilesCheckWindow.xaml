@@ -23,7 +23,7 @@
 
     <Grid>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="MissingFilesCheck.MDDialogHost" />
 
         <Grid Margin="24">
             <Grid.RowDefinitions>
@@ -47,9 +47,11 @@
                     Grid.Column="0"
                     VerticalAlignment="Center"
                     SelectedIndex="{Binding SelectedFilterIndex}"
-                    Style="{StaticResource MaterialDesignChoiceChipSecondaryOutlineListBox}">
+                    Style="{StaticResource MaterialDesignChoiceChipSecondaryOutlineListBox}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.ScanTargetsList"
+                    AutomationProperties.Name="{x:Static resx:Resources.MissingFiles}">
 
-                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowAllPaths}">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowAllPaths}" AutomationProperties.AutomationId="MissingFilesCheck.ShowAllPathsItem" AutomationProperties.Name="{x:Static resx:Resources.ShowAllPaths}">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon
                                 Margin="0,0,6,0"
@@ -64,7 +66,7 @@
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowValidPaths}">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowValidPaths}" AutomationProperties.AutomationId="MissingFilesCheck.ShowValidPathsItem" AutomationProperties.Name="{x:Static resx:Resources.ShowValidPaths}">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon
                                 Margin="0,0,6,0"
@@ -79,7 +81,7 @@
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowWarningPaths}">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowWarningPaths}" AutomationProperties.AutomationId="MissingFilesCheck.ShowWarningPathsItem" AutomationProperties.Name="{x:Static resx:Resources.ShowWarningPaths}">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon
                                 Margin="0,0,6,0"
@@ -94,7 +96,7 @@
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowMissingPaths}">
+                    <ListBoxItem ToolTip="{x:Static resx:Resources.ShowMissingPaths}" AutomationProperties.AutomationId="MissingFilesCheck.ShowMissingPathsItem" AutomationProperties.Name="{x:Static resx:Resources.ShowMissingPaths}">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon
                                 Margin="0,0,6,0"
@@ -115,7 +117,9 @@
                     Height="36"
                     Padding="16,0"
                     Command="{Binding ScanCommand}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.ScanButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.ScanForMissingFiles}">
                     <StackPanel Orientation="Horizontal">
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,8,0"
@@ -146,7 +150,9 @@
                     RowHeight="34"
                     SelectedItem="{Binding SelectedItem}"
                     SelectionMode="Single"
-                    VerticalScrollBarVisibility="Auto">
+                    VerticalScrollBarVisibility="Auto"
+                    AutomationProperties.AutomationId="MissingFilesCheck.ResultsDataGrid"
+                    AutomationProperties.Name="{x:Static resx:Resources.MissingFiles}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn
                             Width="80"
@@ -247,14 +253,18 @@
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SelectAPath}"
                     FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                     IsEnabled="{Binding HasSelectedItem}"
-                    Text="{Binding SelectedItem.FilePath, Mode=TwoWay}" />
+                    Text="{Binding SelectedItem.FilePath, Mode=TwoWay}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.SelectAPathTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.SelectAPath}" />
                 <Button
                     Grid.Column="4"
                     Height="36"
                     Padding="12,0"
                     Command="{Binding BrowseCommand}"
                     IsEnabled="{Binding HasSelectedItem}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.BrowseButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.SelectedPath}">
                     <StackPanel Orientation="Horizontal">
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,6,0"
@@ -276,7 +286,9 @@
                     Height="36"
                     Padding="12,0"
                     Command="{Binding LocateMissingFilesCommand}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.LocateMissingFilesButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.SelectedPath}">
                     <StackPanel Orientation="Horizontal">
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,6,0"
@@ -312,7 +324,9 @@
                     MaterialDesign:HintAssist.Hint="C:\Users\OldName\Sounds"
                     FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.SearchTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Search}" />
 
                 <TextBlock
                     Grid.Column="4"
@@ -326,14 +340,18 @@
                     MaterialDesign:HintAssist.Hint="C:\Users\NewName\Sounds"
                     FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding ReplaceText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding ReplaceText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.ReplaceTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Replace}" />
 
                 <Button
                     Grid.Column="8"
                     Height="36"
                     Padding="16,0"
                     Command="{Binding ReplaceAllCommand}"
-                    Style="{StaticResource MaterialDesignRaisedButton}">
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    AutomationProperties.AutomationId="MissingFilesCheck.ReplaceAllButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Replace}">
                     <StackPanel Orientation="Horizontal">
                         <Controls:MaterialSymbolIcon
                             Margin="0,0,6,0"

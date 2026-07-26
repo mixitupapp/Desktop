@@ -43,9 +43,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Command="{Binding AddClauseCommand}" Content="{x:Static resx:Resources.AddClause}"/>
+            <Button Grid.Column="0" Command="{Binding AddClauseCommand}" Content="{x:Static resx:Resources.AddClause}" AutomationProperties.AutomationId="ConditionalActionEditor.AddClauseButton" />
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding OperatorTypes}" SelectedItem="{Binding SelectedOperatorType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Operator}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="80">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding OperatorTypes}" SelectedItem="{Binding SelectedOperatorType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Operator}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="80" AutomationProperties.AutomationId="ConditionalActionEditor.OperatorComboBox" AutomationProperties.Name="{x:Static resx:Resources.Operator}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -54,19 +54,19 @@
             </ComboBox>
 
             <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.CaseSensitive}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="6" IsChecked="{Binding CaseSensitive}" />
+            <ToggleButton Grid.Column="6" IsChecked="{Binding CaseSensitive}" AutomationProperties.AutomationId="ConditionalActionEditor.CaseSensitiveToggle" AutomationProperties.Name="{x:Static resx:Resources.CaseSensitive}" />
 
             <TextBlock Grid.Column="8" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.RepeatWhileTrue}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="10" IsChecked="{Binding RepeatWhileTrue}" />
+            <ToggleButton Grid.Column="10" IsChecked="{Binding RepeatWhileTrue}" AutomationProperties.AutomationId="ConditionalActionEditor.RepeatWhileTrueToggle" AutomationProperties.Name="{x:Static resx:Resources.RepeatWhileTrue}" />
 
             <TextBlock Grid.Column="12" VerticalAlignment="Center">
-                <Hyperlink NavigateUri="https://wiki.mixitup.bot/special-identifiers" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/special-identifiers" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="ConditionalActionEditor.RepeatWhileTrueLink">
                     <TextBlock Text="{x:Static resx:Resources.SpecialIdentifiers}"/>
                 </Hyperlink>
             </TextBlock>
         </Grid>
 
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Clauses}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Clauses}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="ConditionalActionEditor.ClausesList" AutomationProperties.Name="{x:Static resx:Resources.ConditionalClauses}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,5">
@@ -81,18 +81,18 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0" Visibility="{Binding IsNormalComparision, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <TextBox Text="{Binding Value1}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FirstValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Text="{Binding Value1}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FirstValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Clause.FirstValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.FirstValue}" />
                         </Grid>
 
                         <Grid Grid.Column="0" Visibility="{Binding IsBetweenOperatorSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <TextBox Text="{Binding Value1}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FirstValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Text="{Binding Value1}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FirstValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Clause.BetweenFirstValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.FirstValue}" />
                         </Grid>
 
                         <Grid Grid.Column="0" Visibility="{Binding IsRegexMatch, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <TextBox Text="{Binding Value1}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Text="{Binding Value1}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Clause.RegexValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.Value}" />
                         </Grid>
 
-                        <ComboBox Grid.Column="2" ItemsSource="{Binding ComparisonTypes}" SelectedItem="{Binding ComparisionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Compare}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="80">
+                        <ComboBox Grid.Column="2" ItemsSource="{Binding ComparisonTypes}" SelectedItem="{Binding ComparisionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Compare}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="80" AutomationProperties.AutomationId="Clause.ComparisonComboBox" AutomationProperties.Name="{x:Static resx:Resources.Compare}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -101,7 +101,7 @@
                         </ComboBox>
 
                         <Grid Grid.Column="4" Visibility="{Binding IsNormalComparision, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <TextBox Text="{Binding Value2}" IsEnabled="{Binding IsValue2Definable}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SecondValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Text="{Binding Value2}" IsEnabled="{Binding IsValue2Definable}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SecondValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Clause.SecondValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.SecondValue}" />
                         </Grid>
 
                         <Grid Grid.Column="4" Visibility="{Binding IsBetweenOperatorSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -111,15 +111,15 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" Text="{Binding Value2}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                            <TextBox Grid.Column="2" Text="{Binding Value3}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="0" Text="{Binding Value2}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Clause.MinValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.MinValue}" />
+                            <TextBox Grid.Column="2" Text="{Binding Value3}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Clause.MaxValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.MaxValue}" />
                         </Grid>
 
                         <Grid Grid.Column="4" Visibility="{Binding IsRegexMatch, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <TextBox Text="{Binding Value2}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Pattern}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Text="{Binding Value2}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Pattern}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Clause.RegexPatternTextBox" AutomationProperties.Name="{x:Static resx:Resources.Pattern}" />
                         </Grid>
 
-                        <Controls:IconButton Grid.Column="6" Visibility="{Binding CanBeRemoved, Converter={StaticResource BooleanToVisibilityConverter}}" Icon="Delete" Command="{Binding DeleteCommand}" />
+                        <Controls:IconButton Grid.Column="6" Visibility="{Binding CanBeRemoved, Converter={StaticResource BooleanToVisibilityConverter}}" Icon="Delete" Command="{Binding DeleteCommand}" AutomationProperties.AutomationId="Clause.DeleteButton" AutomationProperties.Name="{Binding Value1, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

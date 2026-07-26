@@ -47,9 +47,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.FontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayGoalV3.FontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -57,18 +57,18 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
 
-            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayGoalV3.FontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayGoalV3.ShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
 
-            <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                <ListBoxItem IsSelected="{Binding Bold}">
+            <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayGoalV3.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayGoalV3.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                     <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Italics}">
+                <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayGoalV3.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                     <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Underline}">
+                <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayGoalV3.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                     <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
@@ -87,15 +87,15 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Height}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Height}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.HeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.Height}" />
 
-            <TextBox Text="{Binding Width}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Width}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.WidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.Width}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding BorderColor}" Grid.Column="4" HintText="{x:Static resx:Resources.BorderColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding BorderColor}" Grid.Column="4" HintText="{x:Static resx:Resources.BorderColor}" AutomationProperties.AutomationId="OverlayGoalV3.BorderColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BorderColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding GoalColor}" Grid.Column="6" HintText="{x:Static resx:Resources.GoalColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding GoalColor}" Grid.Column="6" HintText="{x:Static resx:Resources.GoalColor}" AutomationProperties.AutomationId="OverlayGoalV3.GoalColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.GoalColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding ProgressColor}" Grid.Column="8" HintText="{x:Static resx:Resources.ProgressColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding ProgressColor}" Grid.Column="8" HintText="{x:Static resx:Resources.ProgressColor}" AutomationProperties.AutomationId="OverlayGoalV3.ProgressColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ProgressColor}" />
         </Grid>
 
         <Rectangle VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="4" Fill="{DynamicResource PrimaryHueMidBrush}" Height="4" />
@@ -111,7 +111,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding GoalTypes}" SelectedItem="{Binding SelectedGoalType}" Width="100" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding GoalTypes}" SelectedItem="{Binding SelectedGoalType}" Width="100" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayGoalV3.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -119,11 +119,11 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Grid.Column="2" Visibility="{Binding ShowCustomSelections, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding StartingAmountCustom}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StartingAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="150" />
+            <TextBox Grid.Column="2" Visibility="{Binding ShowCustomSelections, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding StartingAmountCustom}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StartingAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="150" AutomationProperties.AutomationId="OverlayGoalV3.StartingAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.StartingAmount}" />
 
-            <ComboBox Grid.Column="2" Visibility="{Binding ShowCounterSelections, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Counters}" SelectedItem="{Binding SelectedCounter}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Counters}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" />
+            <ComboBox Grid.Column="2" Visibility="{Binding ShowCounterSelections, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Counters}" SelectedItem="{Binding SelectedCounter}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Counters}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" AutomationProperties.AutomationId="OverlayGoalV3.CountersComboBox" AutomationProperties.Name="{x:Static resx:Resources.Counters}" />
 
-            <ComboBox Grid.Column="2" Visibility="{Binding ShowStreamingPlatformSelections, Converter={StaticResource BooleanToVisibilityConverter}}"  ItemsSource="{Binding StreamingPlatforms}" SelectedItem="{Binding SelectedStreamingPlatform}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamingPlatform}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="2" Visibility="{Binding ShowStreamingPlatformSelections, Converter={StaticResource BooleanToVisibilityConverter}}"  ItemsSource="{Binding StreamingPlatforms}" SelectedItem="{Binding SelectedStreamingPlatform}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamingPlatform}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayGoalV3.StreamingPlatformComboBox" AutomationProperties.Name="{x:Static resx:Resources.StreamingPlatform}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -155,7 +155,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" ItemsSource="{Binding SegmentTypes}" SelectedItem="{Binding SelectedSegmentType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SegmentType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150">
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding SegmentTypes}" SelectedItem="{Binding SelectedSegmentType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SegmentType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" AutomationProperties.AutomationId="OverlayGoalV3.SegmentTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.SegmentType}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -163,10 +163,10 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <Button Grid.Column="2" Command="{Binding AddSegmentCommand}" Content="{x:Static resx:Resources.AddSegment}" />
+                    <Button Grid.Column="2" Command="{Binding AddSegmentCommand}" Content="{x:Static resx:Resources.AddSegment}" AutomationProperties.AutomationId="OverlayGoalV3.AddSegmentButton" />
                 </Grid>
 
-                <ItemsControl Grid.Row="2" ItemsSource="{Binding Segments}">
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding Segments}" AutomationProperties.AutomationId="OverlayGoalV3.SegmentsList" AutomationProperties.Name="{x:Static resx:Resources.GoalSegments}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="10">
@@ -184,17 +184,17 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="GoalSegment.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="GoalSegment.AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
 
                                 <CommandControls:CommandListingButtonsControl Grid.Column="4" EditClicked="CommandListingButtonsControl_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
 
-                                <Controls:IconButton Grid.Column="6" Command="{Binding MoveUpCommand}" HorizontalAlignment="Center" Icon="arrow_upward" ToolTip="{x:Static resx:Resources.MoveUp}" />
+                                <Controls:IconButton Grid.Column="6" Command="{Binding MoveUpCommand}" HorizontalAlignment="Center" Icon="arrow_upward" ToolTip="{x:Static resx:Resources.MoveUp}" AutomationProperties.AutomationId="GoalSegment.MoveUpButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.MoveUpFormat}}" />
 
-                                <Controls:IconButton Grid.Column="8" Command="{Binding MoveDownCommand}" HorizontalAlignment="Center" Icon="arrow_downward" ToolTip="{x:Static resx:Resources.MoveDown}" />
+                                <Controls:IconButton Grid.Column="8" Command="{Binding MoveDownCommand}" HorizontalAlignment="Center" Icon="arrow_downward" ToolTip="{x:Static resx:Resources.MoveDown}" AutomationProperties.AutomationId="GoalSegment.MoveDownButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.MoveDownFormat}}" />
 
-                                <Controls:IconButton Grid.Column="10" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="10" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="GoalSegment.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -237,7 +237,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Column="0" Text="{Binding FollowAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="0" Text="{Binding FollowAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.FollowsProgressAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
                 </Grid>
             </GroupBox>
 
@@ -256,9 +256,9 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Column="0" Text="{Binding RaidAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="0" Text="{Binding RaidAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.RaidsProgressAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
 
-                        <TextBox Grid.Column="2" Text="{Binding RaidPerViewAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="2" Text="{Binding RaidPerViewAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.RaidsProgressMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressMultiplier}" />
                     </Grid>
 
                     <TextBlock Grid.Row="2" Text="{Binding RaidEquation}" />
@@ -277,18 +277,18 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
-                    <TextBox Grid.Column="1" Text="{Binding TwitchSubscriptionTier1Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="1" Text="{Binding TwitchSubscriptionTier1Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.TwitchSubscriptionTier1AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
 
                     <TextBlock Grid.Column="2" Text="{Binding Source={x:Static resx:Resources.Tier2}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="10,0,10,5" />
-                    <TextBox Grid.Column="3" Text="{Binding TwitchSubscriptionTier2Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="3" Text="{Binding TwitchSubscriptionTier2Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.TwitchSubscriptionTier2AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.Tier3}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="10,0,10,5" />
-                    <TextBox Grid.Column="5" Text="{Binding TwitchSubscriptionTier3Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="5" Text="{Binding TwitchSubscriptionTier3Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.TwitchSubscriptionTier3AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
                 </Grid>
             </GroupBox>
 
             <GroupBox Header="{x:Static resx:Resources.YouTubeMemberships}" Grid.Row="4" Grid.ColumnSpan="3">
-                <ItemsControl ItemsSource="{Binding YouTubeMemberships}">
+                <ItemsControl ItemsSource="{Binding YouTubeMemberships}" AutomationProperties.AutomationId="OverlayGoalV3.EventTypesList" AutomationProperties.Name="{x:Static resx:Resources.EventTypes}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -304,7 +304,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,5,0" />
-                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox Grid.Column="2" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="EventType.ProgressAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -319,7 +319,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
-                    <TextBox Grid.Column="1" Text="{Binding KickSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="1" Text="{Binding KickSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.KickSubscriptionsProgressAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
                 </Grid>
             </GroupBox>
 
@@ -331,7 +331,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
-                    <TextBox Grid.Column="1" Text="{Binding VeloraSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="1" Text="{Binding VeloraSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.VeloraSubscriptionsProgressAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressAmount}" />
                 </Grid>
             </GroupBox>
 
@@ -346,7 +346,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding TwitchBitsAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding TwitchBitsAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.TwitchBitsProgressMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding TwitchBitsEquation}" />
                 </Grid>
@@ -363,7 +363,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding YouTubeSuperChatAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding YouTubeSuperChatAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.YouTubeSuperChatProgressMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding YouTubeSuperChatEquation}" />
                 </Grid>
@@ -380,7 +380,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding KickKicksAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding KickKicksAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.KickKicksProgressMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding KickKicksEquation}" />
                 </Grid>
@@ -397,7 +397,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding VeloraCheeredAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding VeloraCheeredAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.VeloraCheeredProgressMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding VeloraCheeredEquation}" />
                 </Grid>
@@ -414,7 +414,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Row="0" Text="{Binding DonationAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Row="0" Text="{Binding DonationAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgressMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGoalV3.DonationsProgressMultiplierTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgressMultiplier}" />
 
                     <TextBlock Grid.Row="2" Text="{Binding DonationEquation}" />
                 </Grid>

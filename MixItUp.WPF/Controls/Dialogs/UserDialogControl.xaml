@@ -41,7 +41,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Button HorizontalAlignment="Right" VerticalAlignment="Top" IsDefault="True" IsCancel="True" ToolTip="{x:Static resx:Resources.Close}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+        <Button HorizontalAlignment="Right" VerticalAlignment="Top" IsDefault="True" IsCancel="True" ToolTip="{x:Static resx:Resources.Close}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.CloseButton" AutomationProperties.Name="{x:Static resx:Resources.Close}">
             <Button.CommandParameter>
                 <system:String>Close</system:String>
             </Button.CommandParameter>
@@ -149,7 +149,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="PromoteToModButton" Grid.Column="0" ToolTip="{x:Static resx:Resources.PromoteToMod}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button x:Name="PromoteToModButton" Grid.Column="0" ToolTip="{x:Static resx:Resources.PromoteToMod}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.PromoteToModButton" AutomationProperties.Name="{x:Static resx:Resources.PromoteToMod}">
                 <Button.CommandParameter>
                     <system:String>PromoteToMod</system:String>
                 </Button.CommandParameter>
@@ -157,7 +157,7 @@
                     <Controls:MaterialSymbolIcon IconName="admin_panel_settings" Style="{StaticResource FlatSymbolIcon}" />
                 </StackPanel>
             </Button>
-            <Button x:Name="DemoteFromModButton" Visibility="Collapsed" Grid.Column="0" ToolTip="{x:Static resx:Resources.DemoteFromMod}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button x:Name="DemoteFromModButton" Visibility="Collapsed" Grid.Column="0" ToolTip="{x:Static resx:Resources.DemoteFromMod}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.DemoteFromModButton" AutomationProperties.Name="{x:Static resx:Resources.DemoteFromMod}">
                 <Button.CommandParameter>
                     <system:String>DemoteFromMod</system:String>
                 </Button.CommandParameter>
@@ -166,7 +166,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Grid.Column="2" ToolTip="{x:Static resx:Resources.OpenChannelPage}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button Grid.Column="2" ToolTip="{x:Static resx:Resources.OpenChannelPage}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.OpenChannelPageButton" AutomationProperties.Name="{x:Static resx:Resources.OpenChannelPage}">
                 <Button.CommandParameter>
                     <system:String>ChannelPage</system:String>
                 </Button.CommandParameter>
@@ -175,7 +175,7 @@
                 </StackPanel>
             </Button>
 
-            <Button x:Name="EditUserButton" Grid.Column="4" ToolTip="{x:Static resx:Resources.EditUser}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button x:Name="EditUserButton" Grid.Column="4" ToolTip="{x:Static resx:Resources.EditUser}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.EditUserButton" AutomationProperties.Name="{x:Static resx:Resources.EditUser}">
                 <Button.CommandParameter>
                     <system:String>EditUser</system:String>
                 </Button.CommandParameter>
@@ -186,14 +186,14 @@
 
             <Border Grid.Column="6" Style="{StaticResource DefaultBorder}" />
 
-            <Button Grid.Column="8" ToolTip="{x:Static resx:Resources.Purge}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button Grid.Column="8" ToolTip="{x:Static resx:Resources.Purge}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.PurgeButton" AutomationProperties.Name="{x:Static resx:Resources.Purge}">
                 <Button.CommandParameter>
                     <system:String>Purge</system:String>
                 </Button.CommandParameter>
                 <Controls:MaterialSymbolIcon IconName="mop" Style="{StaticResource FlatSymbolIcon}" />
             </Button>
 
-            <Button Grid.Column="10" ToolTip="{x:Static resx:Resources.TimeoutOneMin}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button Grid.Column="10" ToolTip="{x:Static resx:Resources.TimeoutOneMin}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.TimeoutOneMinButton" AutomationProperties.Name="{x:Static resx:Resources.TimeoutOneMin}">
                 <Button.CommandParameter>
                     <system:String>Timeout1</system:String>
                 </Button.CommandParameter>
@@ -208,7 +208,7 @@
                 </Grid>
             </Button>
 
-            <Button Grid.Column="12" ToolTip="{x:Static resx:Resources.TimeoutFiveMin}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button Grid.Column="12" ToolTip="{x:Static resx:Resources.TimeoutFiveMin}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.TimeoutFiveMinButton" AutomationProperties.Name="{x:Static resx:Resources.TimeoutFiveMin}">
                 <Button.CommandParameter>
                     <system:String>Timeout5</system:String>
                 </Button.CommandParameter>
@@ -223,13 +223,13 @@
                 </Grid>
             </Button>
 
-            <Button x:Name="BanButton" Grid.Column="14" ToolTip="{x:Static resx:Resources.Ban}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button x:Name="BanButton" Grid.Column="14" ToolTip="{x:Static resx:Resources.Ban}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.BanButton" AutomationProperties.Name="{x:Static resx:Resources.Ban}">
                 <Button.CommandParameter>
                     <system:String>Ban</system:String>
                 </Button.CommandParameter>
                 <Controls:MaterialSymbolIcon IconName="block" Style="{StaticResource FlatSymbolIcon}" />
             </Button>
-            <Button x:Name="UnbanButton" Visibility="Collapsed" Grid.Column="14" ToolTip="{x:Static resx:Resources.Unban}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}">
+            <Button x:Name="UnbanButton" Visibility="Collapsed" Grid.Column="14" ToolTip="{x:Static resx:Resources.Unban}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" AutomationProperties.AutomationId="UserDialog.UnbanButton" AutomationProperties.Name="{x:Static resx:Resources.Unban}">
                 <Button.CommandParameter>
                     <system:String>Unban</system:String>
                 </Button.CommandParameter>

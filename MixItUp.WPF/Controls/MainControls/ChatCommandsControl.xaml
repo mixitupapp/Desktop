@@ -37,8 +37,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="PreMadeCommandsButton" Command="{Binding SwitchToPreMadeCommands}" IsEnabled="{Binding CustomCommandsSelected}" Content="{x:Static resx:Resources.PreMadeCommands}"/>
-            <Button Grid.Column="1" x:Name="CustomCommandsButton" Command="{Binding SwitchToCustomCommands}" IsEnabled="{Binding PreMadeCommandSelected}" Content="{x:Static resx:Resources.CustomCommands}"/>
+            <Button Grid.Column="0" x:Name="PreMadeCommandsButton" Command="{Binding SwitchToPreMadeCommands}" IsEnabled="{Binding CustomCommandsSelected}" Content="{x:Static resx:Resources.PreMadeCommands}" AutomationProperties.AutomationId="ChatCommands.ShowPreMadeCommandsButton" />
+            <Button Grid.Column="1" x:Name="CustomCommandsButton" Command="{Binding SwitchToCustomCommands}" IsEnabled="{Binding PreMadeCommandSelected}" Content="{x:Static resx:Resources.CustomCommands}" AutomationProperties.AutomationId="ChatCommands.ShowCustomCommandsButton" />
 
             <Grid Grid.Column="2" HorizontalAlignment="Center" Margin="30,0,0,0">
                 <Grid.ColumnDefinitions>
@@ -49,7 +49,7 @@
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.FilterByName}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
-                <TextBox Grid.Column="2" x:Name="NameFilterTextBox" Width="150" TextChanged="NameFilterTextBox_TextChanged" />
+                <TextBox Grid.Column="2" x:Name="ChatCommandsNameFilterTextBox" Width="150" TextChanged="NameFilterTextBox_TextChanged" AutomationProperties.AutomationId="ChatCommands.NameFilterTextBox" AutomationProperties.Name="{x:Static resx:Resources.FilterByName}" />
             </Grid>
         </Grid>
 
@@ -79,7 +79,7 @@
             </Grid>
 
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
-                <ItemsControl ItemsSource="{Binding PreMadeChatCommands}">
+                <ItemsControl ItemsSource="{Binding PreMadeChatCommands}" AutomationProperties.AutomationId="ChatCommands.PreMadeCommandsList" AutomationProperties.Name="{x:Static resx:Resources.PreMadeCommands}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="5">
@@ -96,7 +96,7 @@
 
                                 <TextBlock Grid.Column="1" Text="{Binding TriggersString}" VerticalAlignment="Center" />
 
-                                <ComboBox Grid.Column="2" ItemsSource="{Binding RoleValues}" SelectedItem="{Binding SelectedRole}" VerticalAlignment="Center">
+                                <ComboBox Grid.Column="2" ItemsSource="{Binding RoleValues}" SelectedItem="{Binding SelectedRole}" VerticalAlignment="Center" AutomationProperties.AutomationId="PreMadeCommandRow.RoleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Role}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -104,11 +104,11 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
 
-                                <TextBox Grid.Column="3" Text="{Binding CooldownString}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Margin="5,0,0,0" />
+                                <TextBox Grid.Column="3" Text="{Binding CooldownString}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Margin="5,0,0,0" AutomationProperties.AutomationId="PreMadeCommandRow.CooldownTextBox" AutomationProperties.Name="{x:Static resx:Resources.Cooldown}" />
 
-                                <Controls:IconButton Grid.Column="4" Command="{Binding TestCommand}" HorizontalAlignment="Center" Icon="play_arrow" ToolTip="{x:Static resx:Resources.TestCommand}" />
+                                <Controls:IconButton Grid.Column="4" Command="{Binding TestCommand}" HorizontalAlignment="Center" Icon="play_arrow" ToolTip="{x:Static resx:Resources.TestCommand}" AutomationProperties.AutomationId="PreMadeCommandRow.TestCommandButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.TestCommandFormat}}" />
 
-                                <ToggleButton Grid.Column="5" IsChecked="{Binding IsEnabled}" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.EnableDisableCommand}" />
+                                <ToggleButton Grid.Column="5" IsChecked="{Binding IsEnabled}" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{x:Static resx:Resources.EnableDisableCommand}" AutomationProperties.AutomationId="PreMadeCommandRow.EnableDisableToggle" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.EnableDisableCommandFormat}}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -125,7 +125,7 @@
             </Grid.RowDefinitions>
 
             <ScrollViewer x:Name="ListCommands" Grid.Row="0" Visibility="{Binding ShowList, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-                <DataGrid ItemsSource="{Binding DefaultGroup}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel">
+                <DataGrid ItemsSource="{Binding DefaultGroup}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel" AutomationProperties.AutomationId="ChatCommands.CommandsDataGrid" AutomationProperties.Name="{x:Static resx:Resources.Commands}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
                         <DataGridTextColumn Header="{x:Static resx:Resources.Commands}" Binding="{Binding TriggersString}" IsReadOnly="True" MinWidth="125" Width="125" />
@@ -149,20 +149,20 @@
             </ScrollViewer>
 
             <ScrollViewer x:Name="GroupedCommands" Grid.Row="0" Visibility="{Binding ShowGroups, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-                <ItemsControl ItemsSource="{Binding CommandGroups}" HorizontalAlignment="Stretch">
+                <ItemsControl ItemsSource="{Binding CommandGroups}" HorizontalAlignment="Stretch" AutomationProperties.AutomationId="ChatCommands.CommandGroupsList" AutomationProperties.Name="{x:Static resx:Resources.CommandGroups}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                                <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                                <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Visibility="{Binding HasCommands, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{DynamicResource MaterialDesign.Brush.Primary}" AutomationProperties.AutomationId="CommandGroup.Expander">
                                     <Expander.Header>
                                         <Grid Background="Transparent">
                                             <TextBlock HorizontalAlignment="Left" Text="{Binding DisplayName}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 
-                                            <ToggleButton Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}" HorizontalAlignment="Right" IsChecked="{Binding Path=IsEnabled}" />
+                                            <ToggleButton Visibility="{Binding IsEnableSwitchToggable, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Light}" HorizontalAlignment="Right" IsChecked="{Binding Path=IsEnabled}" AutomationProperties.AutomationId="CommandGroup.EnableDisableToggle" AutomationProperties.Name="{Binding DisplayName, StringFormat={x:Static resx:Resources.EnableDisableFormat}}" />
                                         </Grid>
                                     </Expander.Header>
 
-                                    <DataGrid ItemsSource="{Binding Commands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel">
+                                    <DataGrid ItemsSource="{Binding Commands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel" AutomationProperties.AutomationId="CommandGroup.CommandsDataGrid" AutomationProperties.Name="{x:Static resx:Resources.Commands}">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
                                             <DataGridTextColumn Header="{x:Static resx:Resources.Commands}" Binding="{Binding TriggersString}" IsReadOnly="True" MinWidth="125" Width="125" />
@@ -190,7 +190,7 @@
                 </ItemsControl>
             </ScrollViewer>
 
-            <Button x:Name="AddCommandButton" Grid.Row="2" Click="AddCommandButton_Click" MinWidth="130" HorizontalAlignment="Center" Content="{x:Static resx:Resources.NewCommand}"/>
+            <Button x:Name="ChatCommandsAddCommandButton" Grid.Row="2" Click="AddCommandButton_Click" MinWidth="130" HorizontalAlignment="Center" Content="{x:Static resx:Resources.NewCommand}" AutomationProperties.AutomationId="ChatCommands.AddCommandButton" />
         </Grid>
     </Grid>
 </local:GroupedCommandsMainControlBase>

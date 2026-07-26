@@ -33,7 +33,7 @@
             <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{x:Static resx:Resources.AmazonPollyInfo2}"/>
 
             <TextBlock Grid.Row="4" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://wiki.mixitup.bot/en/services/amazon-polly" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/en/services/amazon-polly" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="AmazonPollyService.AmazonPollyInfo2Link">
                     <TextBlock Text="{x:Static resx:Resources.AmazonPolly}"/>
                 </Hyperlink>
             </TextBlock>
@@ -41,7 +41,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="AmazonPollyService.DisconnectButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -55,13 +55,13 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding RegionSystemName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RegionName}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding RegionSystemName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RegionName}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="AmazonPollyService.RegionNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.RegionName}" />
 
-                <TextBox Grid.Row="2" Text="{Binding AccessKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AccessKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="2" Text="{Binding AccessKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AccessKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="AmazonPollyService.AccessKeyTextBox" AutomationProperties.Name="{x:Static resx:Resources.AccessKey}" />
 
-                <TextBox Grid.Row="4" Text="{Binding SecretKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SecretKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="4" Text="{Binding SecretKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SecretKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="AmazonPollyService.SecretKeyTextBox" AutomationProperties.Name="{x:Static resx:Resources.SecretKey}" />
 
-                <Button Grid.Row="6" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Grid.Row="6" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="AmazonPollyService.ConnectButton" />
             </Grid>
         </Grid>
     </Grid>

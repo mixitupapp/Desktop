@@ -35,12 +35,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <RadioButton Grid.Column="0" IsChecked="{Binding IsNewCommandSelected}" />
+            <RadioButton Grid.Column="0" IsChecked="{Binding IsNewCommandSelected}" AutomationProperties.AutomationId="CommandImporterDialog.NewCommandRadioButton" AutomationProperties.Name="{x:Static resx:Resources.CreateNewCommand}" />
             <TextBlock Grid.Column="2" x:Name="CreateNewCommandTextBlock" Text="{x:Static resx:Resources.CreateNewCommand}" PreviewMouseDown="CreateNewCommandTextBlock_PreviewMouseDown" VerticalAlignment="Center" />
         </Grid>
 
         <Grid Grid.Row="2" IsEnabled="{Binding IsNewCommandSelected}">
-            <ComboBox Grid.Row="0" ItemsSource="{Binding NewCommandTypes}" SelectedItem="{Binding SelectedNewCommandType}" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="0" ItemsSource="{Binding NewCommandTypes}" SelectedItem="{Binding SelectedNewCommandType}" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandImporterDialog.SelectedNewCommandTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -56,7 +56,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <RadioButton Grid.Column="0" IsChecked="{Binding IsExistingCommandSelected}" />
+            <RadioButton Grid.Column="0" IsChecked="{Binding IsExistingCommandSelected}" AutomationProperties.AutomationId="CommandImporterDialog.ExistingCommandRadioButton" AutomationProperties.Name="{x:Static resx:Resources.Command}" />
             <TextBlock Grid.Column="2" x:Name="AddToExistingCommandTextBlock" Text="{x:Static resx:Resources.AddToExistingCommand}" PreviewMouseDown="AddToExistingCommandTextBlock_PreviewMouseDown" VerticalAlignment="Center" />
         </Grid>
 
@@ -67,7 +67,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" ItemsSource="{Binding ExistingCommandTypes}" SelectedItem="{Binding SelectedExistingCommandType}" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="0" ItemsSource="{Binding ExistingCommandTypes}" SelectedItem="{Binding SelectedExistingCommandType}" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandImporterDialog.SelectedExistingCommandTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -75,7 +75,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Row="2" ItemsSource="{Binding Commands}" SelectedItem="{Binding SelectedExistingCommand}" Width="300" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Row="2" ItemsSource="{Binding Commands}" SelectedItem="{Binding SelectedExistingCommand}" Width="300" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandImporterDialog.CommandComboBox" AutomationProperties.Name="{x:Static resx:Resources.Command}" />
         </Grid>
 
         <Grid Grid.Row="8" HorizontalAlignment="Center">
@@ -85,9 +85,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" x:Name="OkButton" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}" Content="{x:Static resx:Resources.Ok}" Click="OkButton_Click" />
+            <Button Grid.Column="0" x:Name="OkButton" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}" Content="{x:Static resx:Resources.Ok}" Click="OkButton_Click" AutomationProperties.AutomationId="CommandImporterDialog.OkButton" />
 
-            <Button Grid.Column="2" IsDefault="False" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}">
+            <Button Grid.Column="2" IsDefault="False" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}" AutomationProperties.AutomationId="CommandImporterDialog.CancelButton">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

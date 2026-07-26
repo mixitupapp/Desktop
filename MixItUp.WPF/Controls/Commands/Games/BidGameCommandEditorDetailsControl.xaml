@@ -36,7 +36,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" ItemsSource="{Binding StarterRoles}" SelectedItem="{Binding SelectedStarterRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandStarterRole}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding StarterRoles}" SelectedItem="{Binding SelectedStarterRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandStarterRole}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="BidGameCommandEditorDetails.GameCommandStarterRoleComboBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandStarterRole}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -44,7 +44,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="80" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="80" AutomationProperties.AutomationId="BidGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
                 </Grid>
             </GroupBox>
 

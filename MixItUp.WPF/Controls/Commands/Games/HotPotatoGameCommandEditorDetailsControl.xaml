@@ -40,12 +40,12 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLowerTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding LowerTimeLimit}" Width="80" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLowerTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding LowerTimeLimit}" Width="80" AutomationProperties.AutomationId="HotPotatoGameCommandEditorDetails.GameCommandLowerTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandLowerTimeLimit}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandUpperTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UpperTimeLimit}" Width="80" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandUpperTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UpperTimeLimit}" Width="80" AutomationProperties.AutomationId="HotPotatoGameCommandEditorDetails.GameCommandUpperTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandUpperTimeLimit}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.GameCommandHotPotatoResetTimeOnToss}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                    <ToggleButton Grid.Column="6" IsChecked="{Binding ResetTimeOnToss}" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding ResetTimeOnToss}" AutomationProperties.AutomationId="HotPotatoGameCommandEditorDetails.ResetTimeOnTossToggle" AutomationProperties.Name="{x:Static resx:Resources.GameCommandHotPotatoResetTimeOnToss}" />
                 </Grid>
             </GroupBox>
 
@@ -62,10 +62,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Targeted}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                    <ToggleButton Grid.Column="2" IsChecked="{Binding UserSelectionTargeted}" />
+                    <ToggleButton Grid.Column="2" IsChecked="{Binding UserSelectionTargeted}" AutomationProperties.AutomationId="HotPotatoGameCommandEditorDetails.TargetedToggle" AutomationProperties.Name="{x:Static resx:Resources.Targeted}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.Random}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                    <ToggleButton Grid.Column="6" IsChecked="{Binding UserSelectionRandom}" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding UserSelectionRandom}" AutomationProperties.AutomationId="HotPotatoGameCommandEditorDetails.RandomToggle" AutomationProperties.Name="{x:Static resx:Resources.Random}" />
 
                 </Grid>
             </GroupBox>

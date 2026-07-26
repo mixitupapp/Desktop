@@ -18,6 +18,6 @@
                           
              d:DesignHeight="700" d:DesignWidth="600">
     <Grid Margin="10">
-    <markdown:MarkdownScrollViewer x:Name="ChangelogViewer" />
+    <markdown:MarkdownScrollViewer x:Name="ChangelogViewer" AutomationProperties.AutomationId="Changelog.ChangelogViewer" AutomationProperties.Name="{x:Static resx:Resources.Changelog}" />
     </Grid>
 </local:MainControlBase>

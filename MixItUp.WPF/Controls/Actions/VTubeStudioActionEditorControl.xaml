@@ -26,7 +26,7 @@
 
         <TextBlock Grid.Row="0" Visibility="{Binding VTubeStudioNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,10" Text="{x:Static resx:Resources.VTubeStudioNotConnected}"/>
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VTubeStudioActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -41,9 +41,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioModel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="modelName" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioModel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="modelName" AutomationProperties.AutomationId="VTubeStudioActionEditor.LoadModelComboBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioModel}" />
 
-            <Controls:IconButton Grid.Column="2" Command="{Binding RefreshCacheCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" />
+            <Controls:IconButton Grid.Column="2" Command="{Binding RefreshCacheCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" AutomationProperties.AutomationId="VTubeStudioActionEditor.RefreshLoadModelsButton" AutomationProperties.Name="{x:Static resx:Resources.Refresh}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowMoveModelGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -64,12 +64,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding TimeInSeconds}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionTimeInSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding TimeInSeconds}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionTimeInSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTubeStudioActionEditor.MoveModelTimeTextBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioActionTimeInSeconds}" />
 
                 <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.RelativeToModel}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <ToggleButton Grid.Column="4" IsChecked="{Binding RelativeToModel}" VerticalAlignment="Center"/>
+                <ToggleButton Grid.Column="4" IsChecked="{Binding RelativeToModel}" VerticalAlignment="Center" AutomationProperties.AutomationId="VTubeStudioActionEditor.RelativeToModelToggle" AutomationProperties.Name="{x:Static resx:Resources.RelativeToModel}" />
 
-                <Button Grid.Column="6" Content="{x:Static resx:Resources.GetCurrent}" Command="{Binding GetCurrentModelMovementCommand}" />
+                <Button Grid.Column="6" Content="{x:Static resx:Resources.GetCurrent}" Command="{Binding GetCurrentModelMovementCommand}" AutomationProperties.AutomationId="VTubeStudioActionEditor.GetCurrentButton" />
             </Grid>
 
             <Grid Grid.Row="2">
@@ -83,13 +83,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding MovementX}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionXMovement}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding MovementX}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionXMovement}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTubeStudioActionEditor.MoveModelXTextBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioActionXMovement}" />
 
-                <TextBox Grid.Column="2" Text="{Binding MovementY}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionYMovement}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding MovementY}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionYMovement}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTubeStudioActionEditor.MoveModelYTextBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioActionYMovement}" />
 
-                <TextBox Grid.Column="4" Text="{Binding Rotation}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionRotation}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="4" Text="{Binding Rotation}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionRotation}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTubeStudioActionEditor.MoveModelRotationTextBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioActionRotation}" />
 
-                <TextBox Grid.Column="6" Text="{Binding Size}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionModelSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="6" Text="{Binding Size}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioActionModelSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTubeStudioActionEditor.MoveModelSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioActionModelSize}" />
             </Grid>
         </Grid>
 
@@ -107,12 +107,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioModel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="modelName" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioModel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="modelName" AutomationProperties.AutomationId="VTubeStudioActionEditor.HotKeyModelComboBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioModel}" />
 
-                <Controls:IconButton Grid.Column="2" Command="{Binding RefreshCacheCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" />
+                <Controls:IconButton Grid.Column="2" Command="{Binding RefreshCacheCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" AutomationProperties.AutomationId="VTubeStudioActionEditor.RefreshHotKeyModelsButton" AutomationProperties.Name="{x:Static resx:Resources.Refresh}" />
             </Grid>
 
-            <ComboBox Grid.Row="2" ItemsSource="{Binding HotKeys}" SelectedItem="{Binding SelectedHotKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioHotKey}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="DisplayName" />
+            <ComboBox Grid.Row="2" ItemsSource="{Binding HotKeys}" SelectedItem="{Binding SelectedHotKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VTubeStudioHotKey}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="DisplayName" AutomationProperties.AutomationId="VTubeStudioActionEditor.VTubeStudioHotKeyComboBox" AutomationProperties.Name="{x:Static resx:Resources.VTubeStudioHotKey}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

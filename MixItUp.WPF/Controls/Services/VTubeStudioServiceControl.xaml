@@ -30,18 +30,18 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding IPAddress}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IPAddress}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding IPAddress}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IPAddress}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTubeStudioService.IPAddressTextBox" AutomationProperties.Name="{x:Static resx:Resources.IPAddress}" />
 
-            <TextBox Grid.Row="2" Text="{Binding PortNumber}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="2" Text="{Binding PortNumber}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="VTubeStudioService.PortNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.PortNumber}" />
 
             <Grid Grid.Row="4" HorizontalAlignment="Center">
-                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="VTubeStudioService.ConnectButton" />
             </Grid>
         </Grid>
 
         <Grid Grid.Column="2" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid HorizontalAlignment="Center">
-                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="VTubeStudioService.DisconnectButton" />
             </Grid>
         </Grid>
     </Grid>

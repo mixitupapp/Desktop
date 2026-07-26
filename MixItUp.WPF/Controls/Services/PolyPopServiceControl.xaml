@@ -34,7 +34,7 @@
             <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.PolyPopInfo1}"/>
 
             <TextBlock Grid.Row="2" TextWrapping="Wrap" HorizontalAlignment="Center">
-                <Hyperlink NavigateUri="https://www.polypoplive.com/" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://www.polypoplive.com/" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="PolyPopService.PolyPopInfo1Link">
                     https://www.polypoplive.com/
                 </Hyperlink>
             </TextBlock>
@@ -42,7 +42,7 @@
             <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="{x:Static resx:Resources.PolyPopInfo2}"/>
 
             <TextBlock Grid.Row="6" TextWrapping="Wrap" HorizontalAlignment="Center">
-                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/polypop" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/polypop" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="PolyPopService.PolyPopInfo2Link">
                     <TextBlock Text="{x:Static resx:Resources.WikiPage}"/>
                 </Hyperlink>
             </TextBlock>
@@ -50,7 +50,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="PolyPopService.DisconnectButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -68,10 +68,10 @@
                     </Grid.ColumnDefinitions>
 
                     <Controls:MaterialSymbolIcon IconName="sensors" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Grid.Column="0" VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2" Text="{Binding PolyPopPortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="130" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2" Text="{Binding PolyPopPortNumber}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PortNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="130" VerticalAlignment="Center" AutomationProperties.AutomationId="PolyPopService.PortNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.PortNumber}" />
                 </Grid>
 
-                <Button Grid.Row="2" Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Grid.Row="2" Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="PolyPopService.ConnectButton" />
             </Grid>
         </Grid>
     </Grid>

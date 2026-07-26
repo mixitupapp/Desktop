@@ -19,26 +19,26 @@
         <StackPanel Orientation="Vertical" Grid.Column="0">
             <TextBlock TextWrapping="Wrap" Text="{x:Static resx:Resources.MCPServerInfo}"/>
             <TextBlock TextWrapping="Wrap" Margin="0,10,0,0">
-                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/mcp-server" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/mcp-server" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="MCPService.MCPServerInfoLink">
                     <TextBlock Text="{x:Static resx:Resources.MCPServer}"/>
                 </Hyperlink>
             </TextBlock>
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock TextWrapping="Wrap" Text="{x:Static resx:Resources.MCPServerAddress}" VerticalAlignment="Center" />
-                <TextBox Margin="10,0,0,0" Text="{Binding ServerAddress, Mode=OneWay}" IsReadOnly="True" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" />
+                <TextBox Margin="10,0,0,0" Text="{Binding ServerAddress, Mode=OneWay}" IsReadOnly="True" BorderThickness="0" Background="Transparent" VerticalAlignment="Center" AutomationProperties.AutomationId="MCPService.MCPServerAddressTextBox" AutomationProperties.Name="{x:Static resx:Resources.MCPServerAddress}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" Text="{x:Static resx:Resources.MCPServerAdvanced}" VerticalAlignment="Center" />
-                <ToggleButton Margin="10,10,0,0" IsEnabled="{Binding IsNotConnected}" IsChecked="{Binding EnableMCPServerAdvancedMode}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <ToggleButton Margin="10,10,0,0" IsEnabled="{Binding IsNotConnected}" IsChecked="{Binding EnableMCPServerAdvancedMode}" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="MCPService.MCPServerAdvancedToggle" AutomationProperties.Name="{x:Static resx:Resources.MCPServerAdvanced}" />
             </StackPanel>
             <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" Text="{x:Static resx:Resources.MCPServerWarning}"/>
         </StackPanel>
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="MCPService.DisconnectButton" />
             </Grid>
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="110" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="MCPService.ConnectButton" />
             </Grid>
         </Grid>
     </Grid>

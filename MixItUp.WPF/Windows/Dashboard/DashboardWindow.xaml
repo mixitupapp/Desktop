@@ -26,7 +26,7 @@
     </Windows:LoadingWindowBase.Resources>
 
     <Grid>
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Dashboard.MDDialogHost" />
 
         <Grid>
             <Grid.RowDefinitions>
@@ -64,7 +64,9 @@
                             Background="Transparent"
                             ItemsSource="{Binding LayoutTypes}"
                             SelectedItem="{Binding LayoutType}"
-                            Style="{StaticResource MaterialDesignFilledComboBox}">
+                            Style="{StaticResource MaterialDesignFilledComboBox}"
+                            AutomationProperties.AutomationId="Dashboard.LayoutComboBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.Layout}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -79,7 +81,9 @@
                             Background="Transparent"
                             ItemsSource="{Binding ItemTypes}"
                             SelectedItem="{Binding ItemTypeOne}"
-                            Style="{StaticResource MaterialDesignFilledComboBox}">
+                            Style="{StaticResource MaterialDesignFilledComboBox}"
+                            AutomationProperties.AutomationId="Dashboard.Item1ComboBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.Item1}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -94,7 +98,9 @@
                             Background="Transparent"
                             ItemsSource="{Binding ItemTypes}"
                             SelectedItem="{Binding ItemTypeTwo}"
-                            Style="{StaticResource MaterialDesignFilledComboBox}">
+                            Style="{StaticResource MaterialDesignFilledComboBox}"
+                            AutomationProperties.AutomationId="Dashboard.Item2ComboBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.Item2}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -109,7 +115,9 @@
                             Background="Transparent"
                             ItemsSource="{Binding ItemTypes}"
                             SelectedItem="{Binding ItemTypeThree}"
-                            Style="{StaticResource MaterialDesignFilledComboBox}">
+                            Style="{StaticResource MaterialDesignFilledComboBox}"
+                            AutomationProperties.AutomationId="Dashboard.Item3ComboBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.Item3}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -124,7 +132,9 @@
                             Background="Transparent"
                             ItemsSource="{Binding ItemTypes}"
                             SelectedItem="{Binding ItemTypeFour}"
-                            Style="{StaticResource MaterialDesignFilledComboBox}">
+                            Style="{StaticResource MaterialDesignFilledComboBox}"
+                            AutomationProperties.AutomationId="Dashboard.Item4ComboBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.Item4}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -138,7 +148,9 @@
                             Click="TogglePin_Click"
                             Icon="push_pin"
                             ToolTip="{x:Static resx:Resources.Unpin}"
-                            Visibility="{Binding IsPinned, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            Visibility="{Binding IsPinned, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            AutomationProperties.AutomationId="Dashboard.UnpinButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Unpin}" />
 
                         <Controls:IconButton
                             x:Name="PinButton"
@@ -146,7 +158,9 @@
                             Click="TogglePin_Click"
                             Icon="keep_off"
                             ToolTip="{x:Static resx:Resources.Pin}"
-                            Visibility="{Binding IsNotPinned, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            Visibility="{Binding IsNotPinned, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            AutomationProperties.AutomationId="Dashboard.PinButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Pin}" />
                     </Grid>
                 </DockPanel>
             </MaterialDesign:ColorZone>
@@ -177,7 +191,9 @@
                         Width="5"
                         VerticalAlignment="Stretch"
                         ResizeBehavior="PreviousAndNext"
-                        ResizeDirection="Columns" />
+                        ResizeDirection="Columns"
+                        AutomationProperties.AutomationId="Dashboard.LayoutOneSplitter"
+                        AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
                     <ContentControl
                         Grid.Column="2"
                         HorizontalAlignment="Stretch"
@@ -208,7 +224,9 @@
                         Width="5"
                         VerticalAlignment="Stretch"
                         ResizeBehavior="PreviousAndNext"
-                        ResizeDirection="Columns" />
+                        ResizeDirection="Columns"
+                        AutomationProperties.AutomationId="Dashboard.LayoutTwoVerticalSplitter"
+                        AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
 
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -227,7 +245,9 @@
                         <GridSplitter
                             Grid.Row="1"
                             Height="5"
-                            HorizontalAlignment="Stretch" />
+                            HorizontalAlignment="Stretch"
+                            AutomationProperties.AutomationId="Dashboard.LayoutTwoHorizontalSplitter"
+                            AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
                         <ContentControl
                             Grid.Row="2"
                             HorizontalAlignment="Stretch"
@@ -266,7 +286,9 @@
                             Height="5"
                             HorizontalAlignment="Stretch"
                             ResizeBehavior="PreviousAndNext"
-                            ResizeDirection="Rows" />
+                            ResizeDirection="Rows"
+                            AutomationProperties.AutomationId="Dashboard.LayoutThreeVerticalSplitter"
+                            AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
                         <ContentControl
                             Grid.Row="2"
                             HorizontalAlignment="Stretch"
@@ -281,7 +303,9 @@
                         Width="5"
                         VerticalAlignment="Stretch"
                         ResizeBehavior="PreviousAndNext"
-                        ResizeDirection="Columns" />
+                        ResizeDirection="Columns"
+                        AutomationProperties.AutomationId="Dashboard.LayoutThreeHorizontalSplitter"
+                        AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
                     <ContentControl
                         Grid.Column="2"
                         HorizontalAlignment="Stretch"
@@ -319,7 +343,9 @@
                             Height="5"
                             HorizontalAlignment="Stretch"
                             ResizeBehavior="PreviousAndNext"
-                            ResizeDirection="Rows" />
+                            ResizeDirection="Rows"
+                            AutomationProperties.AutomationId="Dashboard.LayoutFourVerticalSplitter"
+                            AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
                         <ContentControl
                             Grid.Row="2"
                             HorizontalAlignment="Stretch"
@@ -334,7 +360,9 @@
                         Width="5"
                         VerticalAlignment="Stretch"
                         ResizeBehavior="PreviousAndNext"
-                        ResizeDirection="Columns" />
+                        ResizeDirection="Columns"
+                        AutomationProperties.AutomationId="Dashboard.LayoutFourHorizontalSplitter"
+                        AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
 
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -355,7 +383,9 @@
                             Height="5"
                             HorizontalAlignment="Stretch"
                             ResizeBehavior="PreviousAndNext"
-                            ResizeDirection="Rows" />
+                            ResizeDirection="Rows"
+                            AutomationProperties.AutomationId="Dashboard.LayoutFourSecondHorizontalSplitter"
+                            AutomationProperties.Name="{x:Static resx:Resources.ResizePanels}" />
                         <ContentControl
                             Grid.Row="2"
                             HorizontalAlignment="Stretch"

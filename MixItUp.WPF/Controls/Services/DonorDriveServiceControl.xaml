@@ -42,7 +42,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.DonorDriveIncludeTeamDonationsAndEvents}" VerticalAlignment="Center" />
-                <ToggleButton Grid.Column="2" IsChecked="{Binding IncludeTeamDonations}" VerticalAlignment="Center" />
+                <ToggleButton Grid.Column="2" IsChecked="{Binding IncludeTeamDonations}" VerticalAlignment="Center" AutomationProperties.AutomationId="DonorDriveService.DonorDriveIncludeTeamDonationsAndEventsToggle" AutomationProperties.Name="{x:Static resx:Resources.DonorDriveIncludeTeamDonationsAndEvents}" />
 
             </Grid>
         </Grid>
@@ -62,7 +62,7 @@
 
                 <TextBlock Grid.Row="1" Text="{Binding EventName}" HorizontalAlignment="Center" />
 
-                <Button Grid.Row="3" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Grid.Row="3" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="DonorDriveService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -74,11 +74,11 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <ComboBox Grid.Row="0" ItemsSource="{Binding Charities}" SelectedItem="{Binding SelectedCharity}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Charities}" Width="300" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="displayName" />
+                <ComboBox Grid.Row="0" ItemsSource="{Binding Charities}" SelectedItem="{Binding SelectedCharity}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Charities}" Width="300" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="displayName" AutomationProperties.AutomationId="DonorDriveService.CharitiesComboBox" AutomationProperties.Name="{x:Static resx:Resources.Charities}" />
 
-                <TextBox Grid.Row="2" Text="{Binding ParticipantID}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ParticipantIDURL}" Width="300" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="2" Text="{Binding ParticipantID}" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ParticipantIDURL}" Width="300" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DonorDriveService.ParticipantIDURLTextBox" AutomationProperties.Name="{x:Static resx:Resources.ParticipantIDURL}" />
 
-                <Button Grid.Row="4" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Grid.Row="4" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="DonorDriveService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

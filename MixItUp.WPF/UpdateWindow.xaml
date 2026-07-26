@@ -22,7 +22,7 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog">
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Update.DialogHost">
             <MaterialDesign:Card
                 Padding="0"
                 MaterialDesign:ElevationAssist.Elevation="Dp16"
@@ -117,7 +117,9 @@
                                             Click="PatreonSocialButton_Click"
                                             Style="{StaticResource MaterialDesignOutlinedButton}"
                                             Padding="8,4"
-                                            Visibility="Collapsed">
+                                            Visibility="Collapsed"
+                                            AutomationProperties.AutomationId="Update.PatreonSocialButton"
+                                            AutomationProperties.Name="{x:Static resx:Resources.Patreon}">
                                             <StackPanel Orientation="Horizontal">
                                                 <Image
                                                     x:Name="PatreonSocialPlatformImage"
@@ -157,7 +159,8 @@
                                 <Button
                                     HorizontalAlignment="Center"
                                     Click="PatreonButton_Click"
-                                    Style="{StaticResource MaterialDesignRaisedButton}">
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    AutomationProperties.AutomationId="Update.SupportOnPatreonButton">
                                     Support on Patreon
                                 </Button>
 
@@ -189,7 +192,9 @@
                                 VerticalAlignment="Top"
                                 Click="CloseButton_Click"
                                 Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="{x:Static resx:Resources.Close}">
+                                ToolTip="{x:Static resx:Resources.Close}"
+                                AutomationProperties.AutomationId="Update.CloseWindowButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Close}">
                                 <Controls:MaterialSymbolIcon
                                     IconName="close" FontSize="{DynamicResource MIU.IconSize.20}" />
                             </Button>
@@ -320,7 +325,7 @@
                                 BorderBrush="{DynamicResource MaterialDesignDivider}"
                                 BorderThickness="1"
                                 CornerRadius="8">
-                                <markdown:MarkdownScrollViewer x:Name="UpdateChangelogViewer" />
+                                <markdown:MarkdownScrollViewer x:Name="UpdateChangelogViewer" AutomationProperties.AutomationId="Update.ChangelogViewer" AutomationProperties.Name="{x:Static resx:Resources.Changelog}" />
                             </Border>
 
                             <StackPanel
@@ -334,7 +339,8 @@
                                     MinWidth="130"
                                     Click="DownloadUpdateButton_Click"
                                     Content="{x:Static resx:Resources.Update}"
-                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    AutomationProperties.AutomationId="Update.DownloadUpdateButton" />
                                 <Button
                                     x:Name="SkipUpdateButton"
                                     Height="40"
@@ -343,7 +349,8 @@
                                     Click="SkipUpdateButton_Click"
                                     Content="{x:Static resx:Resources.Skip}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Visibility="Collapsed" />
+                                    Visibility="Collapsed"
+                                    AutomationProperties.AutomationId="Update.SkipUpdateButton" />
                             </StackPanel>
 
                             <TextBlock

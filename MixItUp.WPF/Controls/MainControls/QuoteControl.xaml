@@ -37,42 +37,42 @@
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
-            <ToggleButton Grid.Column="2" IsChecked="{Binding QuotesEnabled}" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding QuotesEnabled}" AutomationProperties.AutomationId="Quotes.EnableQuotesToggle" AutomationProperties.Name="{x:Static resx:Resources.EnableQuotes}" />
 
-            <TextBox Grid.Column="4" Width="420" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quote}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding AddQuoteText}" />
+            <TextBox Grid.Column="4" Width="420" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quote}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding AddQuoteText}" AutomationProperties.AutomationId="Quotes.AddQuoteTextBox" AutomationProperties.Name="{x:Static resx:Resources.Quote}" />
 
-            <Button Grid.Column="6" Content="{x:Static resx:Resources.AddQuote}" Command="{Binding AddQuoteCommand}" />
+            <Button Grid.Column="6" Content="{x:Static resx:Resources.AddQuote}" Command="{Binding AddQuoteCommand}" AutomationProperties.AutomationId="Quotes.AddQuoteButton" />
 
-            <Button Grid.Column="8" Width="40" Height="40" MinWidth="40" Padding="4" Command="{Binding ToggleLatestQuotesAtTopCommand}" Style="{StaticResource MaterialDesignIconButton}">
+            <Button Grid.Column="8" Width="40" Height="40" MinWidth="40" Padding="4" Command="{Binding ToggleLatestQuotesAtTopCommand}" Style="{StaticResource MaterialDesignIconButton}" AutomationProperties.AutomationId="Quotes.ToggleQuoteOrderButton" AutomationProperties.Name="{x:Static resx:Resources.QuotesLatestAtTop}">
                 <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="{Binding QuotesOrderIcon}" FontSize="{DynamicResource MIU.IconSize.28}" />
             </Button>
 
-            <MaterialDesign:PopupBox Grid.Column="10" PlacementMode="BottomAndAlignCentres" StaysOpen="False" ToolTip="{x:Static resx:Resources.Settings}">
+            <MaterialDesign:PopupBox Grid.Column="10" PlacementMode="BottomAndAlignCentres" StaysOpen="False" ToolTip="{x:Static resx:Resources.Settings}" AutomationProperties.AutomationId="Quotes.SettingsPopup" AutomationProperties.Name="{x:Static resx:Resources.Settings}">
                 <MaterialDesign:PopupBox.ToggleContent>
                     <Controls:MaterialSymbolIcon Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="settings" FontSize="{DynamicResource MIU.IconSize.32}" />
                 </MaterialDesign:PopupBox.ToggleContent>
                 <StackPanel>
-                    <Button x:Name="ImportQuotesButton" HorizontalContentAlignment="Left" Click="ImportQuotesButton_Click" Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button x:Name="ImportQuotesButton" HorizontalContentAlignment="Left" Click="ImportQuotesButton_Click" Style="{StaticResource MaterialDesignFlatButton}" AutomationProperties.AutomationId="Quotes.ImportQuotesButton">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="input" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.ImportQuotes}" />
                         </StackPanel>
                     </Button>
-                    <Button HorizontalContentAlignment="Left" Command="{Binding ExportQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button HorizontalContentAlignment="Left" Command="{Binding ExportQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}" AutomationProperties.AutomationId="Quotes.ExportQuotesButton">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="output" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.ExportQuotes}" />
                         </StackPanel>
                     </Button>
                     <Separator Margin="0,2" />
-                    <Button HorizontalContentAlignment="Left" Command="{Binding RenumberQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button HorizontalContentAlignment="Left" Command="{Binding RenumberQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}" AutomationProperties.AutomationId="Quotes.RenumberQuotesButton">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="format_list_numbered" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.RenumberQuotes}" />
                         </StackPanel>
                     </Button>
                     <Separator Margin="0,2" />
-                    <Button HorizontalContentAlignment="Left" Command="{Binding DeleteAllQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}">
+                    <Button HorizontalContentAlignment="Left" Command="{Binding DeleteAllQuotesCommand}" Style="{StaticResource MaterialDesignFlatButton}" AutomationProperties.AutomationId="Quotes.DeleteAllQuotesButton">
                         <StackPanel Orientation="Horizontal">
                             <Controls:MaterialSymbolIcon Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" IconName="delete_forever" FontSize="{DynamicResource MIU.IconSize.18}" />
                             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{x:Static resx:Resources.DeleteAllQuotes}" />
@@ -82,7 +82,7 @@
             </MaterialDesign:PopupBox>
         </Grid>
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding Quotes}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Quotes}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="Quotes.QuotesDataGrid" AutomationProperties.Name="{x:Static resx:Resources.Quotes}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="#" IsReadOnly="True" Width="75">
                     <DataGridTemplateColumn.CellTemplate>
@@ -94,14 +94,14 @@
                 <DataGridTemplateColumn Header="{x:Static resx:Resources.Quote}" Width="2*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox VerticalAlignment="Center" Text="{Binding Quote, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox VerticalAlignment="Center" Text="{Binding Quote, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.AutomationId="QuoteRow.QuoteTextBox" AutomationProperties.Name="{x:Static resx:Resources.Quote}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="{x:Static resx:Resources.GameName}" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox VerticalAlignment="Center" Text="{Binding GameName, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox VerticalAlignment="Center" Text="{Binding GameName, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.AutomationId="QuoteRow.GameNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Game}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -117,11 +117,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton x:Name="DateButton" Grid.Column="0" Click="DateButton_Click" HorizontalAlignment="Center" Icon="calendar_month" ToolTip="{x:Static resx:Resources.Date}" />
+                                <Controls:IconButton x:Name="QuoteDateButton" Grid.Column="0" Click="DateButton_Click" HorizontalAlignment="Center" Icon="calendar_month" ToolTip="{x:Static resx:Resources.Date}" AutomationProperties.AutomationId="QuoteRow.EditDateButton" AutomationProperties.Name="{Binding Quote, StringFormat={x:Static resx:Resources.EditDateFormat}}" />
 
-                                <Controls:IconButton x:Name="TimeButton" Grid.Column="2" Click="TimeButton_Click" HorizontalAlignment="Center" Icon="schedule" ToolTip="{x:Static resx:Resources.Time}" />
+                                <Controls:IconButton x:Name="TimeButton" Grid.Column="2" Click="TimeButton_Click" HorizontalAlignment="Center" Icon="schedule" ToolTip="{x:Static resx:Resources.Time}" AutomationProperties.AutomationId="QuoteRow.EditTimeButton" AutomationProperties.Name="{Binding Quote, StringFormat={x:Static resx:Resources.EditTimeFormat}}" />
 
-                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                                <Controls:IconButton x:Name="QuoteDeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" AutomationProperties.AutomationId="QuoteRow.DeleteButton" AutomationProperties.Name="{Binding Quote, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -136,7 +136,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.QuoteFormatting}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding QuotesFormatText}" />
+            <TextBox Grid.Column="0" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.QuoteFormatting}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding QuotesFormatText}" AutomationProperties.AutomationId="Quotes.QuoteFormatTextBox" AutomationProperties.Name="{x:Static resx:Resources.QuoteFormatting}" />
 
             <GroupBox Grid.Column="2" Header="{x:Static resx:Resources.QuoteAddedHeader}">
                 <CommandsControls:CommandListingButtonsControl x:Name="QuoteAddedCommand" DataContext="{Binding QuoteAddedCommand}" HorizontalAlignment="Center" EditClicked="QuoteAddedCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />

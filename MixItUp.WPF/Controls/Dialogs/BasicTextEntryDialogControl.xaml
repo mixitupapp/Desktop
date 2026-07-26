@@ -20,7 +20,7 @@
 
         <TextBlock Grid.Row="0" x:Name="DescriptionTextBlock" Width="200" TextWrapping="Wrap" Visibility="Collapsed" Margin="0,0,0,10" />
 
-        <TextBox Grid.Row="1" x:Name="TextEntryTextBox" Width="200" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{Binding}" />
+        <TextBox Grid.Row="1" x:Name="BasicTextEntryDialogTextEntryTextBox" Width="200" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{Binding}" AutomationProperties.AutomationId="BasicTextEntryDialog.TextEntryTextBox" AutomationProperties.Name="{Binding}" />
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -30,14 +30,16 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}"
+                    AutomationProperties.AutomationId="BasicTextEntryDialog.OkButton">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
 
             <Button Grid.Column="2" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}"
+                    AutomationProperties.AutomationId="BasicTextEntryDialog.CancelButton">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

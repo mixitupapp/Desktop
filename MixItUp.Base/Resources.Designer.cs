@@ -31683,5 +31683,959 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("ResetThemeAndFontSettingsConfirmation", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Chat User List.
+        /// </summary>
+        public static string ChatUserList {
+            get {
+                return ResourceManager.GetString("ChatUserList", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Resize Chat User List.
+        /// </summary>
+        public static string ResizeChatUserList {
+            get {
+                return ResourceManager.GetString("ResizeChatUserList", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show/Hide Chat Action Buttons.
+        /// </summary>
+        public static string ShowHideChatActionButtons {
+            get {
+                return ResourceManager.GetString("ShowHideChatActionButtons", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Username Suggestions.
+        /// </summary>
+        public static string UsernameSuggestions {
+            get {
+                return ResourceManager.GetString("UsernameSuggestions", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Emote Suggestions.
+        /// </summary>
+        public static string EmoteSuggestions {
+            get {
+                return ResourceManager.GetString("EmoteSuggestions", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Navigation Menu.
+        /// </summary>
+        public static string NavigationMenu {
+            get {
+                return ResourceManager.GetString("NavigationMenu", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Close Navigation Menu.
+        /// </summary>
+        public static string CloseNavigationMenu {
+            get {
+                return ResourceManager.GetString("CloseNavigationMenu", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Navigation Menu.
+        /// </summary>
+        public static string EditNavigationMenu {
+            get {
+                return ResourceManager.GetString("EditNavigationMenu", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show {0}.
+        /// </summary>
+        public static string ShowMenuItemFormat {
+            get {
+                return ResourceManager.GetString("ShowMenuItemFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Connection Lost.
+        /// </summary>
+        public static string ConnectionLost {
+            get {
+                return ResourceManager.GetString("ConnectionLost", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Source Code.
+        /// </summary>
+        public static string SourceCode {
+            get {
+                return ResourceManager.GetString("SourceCode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Wiki.
+        /// </summary>
+        public static string Wiki {
+            get {
+                return ResourceManager.GetString("Wiki", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enable/Disable {0}.
+        /// </summary>
+        public static string EnableDisableFormat {
+            get {
+                return ResourceManager.GetString("EnableDisableFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Select All.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Open Stream.
+        /// </summary>
+        public static string OpenStream {
+            get {
+                return ResourceManager.GetString("OpenStream", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Require Claim.
+        /// </summary>
+        public static string GiveawayRequireClaim {
+            get {
+                return ResourceManager.GetString("GiveawayRequireClaim", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Past Winners.
+        /// </summary>
+        public static string GiveawayAllowPastWinners {
+            get {
+                return ResourceManager.GetString("GiveawayAllowPastWinners", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Community Banned Words List.
+        /// </summary>
+        public static string UseCommunityBannedWordsList {
+            get {
+                return ResourceManager.GetString("UseCommunityBannedWordsList", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Filtered Words.
+        /// </summary>
+        public static string FilteredWords {
+            get {
+                return ResourceManager.GetString("FilteredWords", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Max Caps Type.
+        /// </summary>
+        public static string MaxCapsType {
+            get {
+                return ResourceManager.GetString("MaxCapsType", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Max Punctuation, Symbols and Emotes.
+        /// </summary>
+        public static string MaxPunctuationSymbolsEmotes {
+            get {
+                return ResourceManager.GetString("MaxPunctuationSymbolsEmotes", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Max Punctuation, Symbols and Emotes Type.
+        /// </summary>
+        public static string MaxPunctuationSymbolsEmotesType {
+            get {
+                return ResourceManager.GetString("MaxPunctuationSymbolsEmotesType", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Block Links.
+        /// </summary>
+        public static string BlockLinks {
+            get {
+                return ResourceManager.GetString("BlockLinks", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Track Position.
+        /// </summary>
+        public static string MusicPlayerTrackPosition {
+            get {
+                return ResourceManager.GetString("MusicPlayerTrackPosition", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Previous Track.
+        /// </summary>
+        public static string MusicPlayerPreviousTrack {
+            get {
+                return ResourceManager.GetString("MusicPlayerPreviousTrack", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Play/Pause.
+        /// </summary>
+        public static string MusicPlayerPlayPause {
+            get {
+                return ResourceManager.GetString("MusicPlayerPlayPause", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Next Track.
+        /// </summary>
+        public static string MusicPlayerNextTrack {
+            get {
+                return ResourceManager.GetString("MusicPlayerNextTrack", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Quotes.
+        /// </summary>
+        public static string EnableQuotes {
+            get {
+                return ResourceManager.GetString("EnableQuotes", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show Latest Quotes First.
+        /// </summary>
+        public static string QuotesLatestAtTop {
+            get {
+                return ResourceManager.GetString("QuotesLatestAtTop", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Redemption Store.
+        /// </summary>
+        public static string EnableRedemptionStore {
+            get {
+                return ResourceManager.GetString("EnableRedemptionStore", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Randomize Timers.
+        /// </summary>
+        public static string TimersRandomize {
+            get {
+                return ResourceManager.GetString("TimersRandomize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Disable All Timers.
+        /// </summary>
+        public static string TimersDisableAll {
+            get {
+                return ResourceManager.GetString("TimersDisableAll", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to See More Commands In This Category.
+        /// </summary>
+        public static string CommunityCommandsSeeMore {
+            get {
+                return ResourceManager.GetString("CommunityCommandsSeeMore", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Search Results.
+        /// </summary>
+        public static string SearchResults {
+            get {
+                return ResourceManager.GetString("SearchResults", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ratings and Reviews.
+        /// </summary>
+        public static string CommunityCommandsRatingsAndReviews {
+            get {
+                return ResourceManager.GetString("CommunityCommandsRatingsAndReviews", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Conditional Clauses.
+        /// </summary>
+        public static string ConditionalClauses {
+            get {
+                return ResourceManager.GetString("ConditionalClauses", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Overlay HTML.
+        /// </summary>
+        public static string OverlayHtml {
+            get {
+                return ResourceManager.GetString("OverlayHtml", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Overlay CSS.
+        /// </summary>
+        public static string OverlayCss {
+            get {
+                return ResourceManager.GetString("OverlayCss", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Overlay Javascript.
+        /// </summary>
+        public static string OverlayJavascript {
+            get {
+                return ResourceManager.GetString("OverlayJavascript", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters.
+        /// </summary>
+        public static string Parameters {
+            get {
+                return ResourceManager.GetString("Parameters", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Variables.
+        /// </summary>
+        public static string Variables {
+            get {
+                return ResourceManager.GetString("Variables", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Request Headers.
+        /// </summary>
+        public static string RequestHeaders {
+            get {
+                return ResourceManager.GetString("RequestHeaders", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to JSON Values.
+        /// </summary>
+        public static string JSONValues {
+            get {
+                return ResourceManager.GetString("JSONValues", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bold.
+        /// </summary>
+        public static string Bold {
+            get {
+                return ResourceManager.GetString("Bold", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Italics.
+        /// </summary>
+        public static string Italics {
+            get {
+                return ResourceManager.GetString("Italics", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Underline.
+        /// </summary>
+        public static string Underline {
+            get {
+                return ResourceManager.GetString("Underline", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Align Left.
+        /// </summary>
+        public static string LeftAlignment {
+            get {
+                return ResourceManager.GetString("LeftAlignment", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Align Center.
+        /// </summary>
+        public static string CenterAlignment {
+            get {
+                return ResourceManager.GetString("CenterAlignment", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Align Right.
+        /// </summary>
+        public static string RightAlignment {
+            get {
+                return ResourceManager.GetString("RightAlignment", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Justify.
+        /// </summary>
+        public static string JustifyAlignment {
+            get {
+                return ResourceManager.GetString("JustifyAlignment", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Font Style.
+        /// </summary>
+        public static string FontStyle {
+            get {
+                return ResourceManager.GetString("FontStyle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Text Alignment.
+        /// </summary>
+        public static string TextAlignment {
+            get {
+                return ResourceManager.GetString("TextAlignment", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Rating.
+        /// </summary>
+        public static string Rating {
+            get {
+                return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Resize Panels.
+        /// </summary>
+        public static string ResizePanels {
+            get {
+                return ResourceManager.GetString("ResizePanels", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        public static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Answers.
+        /// </summary>
+        public static string Answers {
+            get {
+                return ResourceManager.GetString("Answers", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Word Wrap.
+        /// </summary>
+        public static string WordWrap {
+            get {
+                return ResourceManager.GetString("WordWrap", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show Whitespace.
+        /// </summary>
+        public static string ShowWhitespace {
+            get {
+                return ResourceManager.GetString("ShowWhitespace", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Metrics.
+        /// </summary>
+        public static string Metrics {
+            get {
+                return ResourceManager.GetString("Metrics", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Hex Value.
+        /// </summary>
+        public static string ColorHexValue {
+            get {
+                return ResourceManager.GetString("ColorHexValue", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scan For Missing Files.
+        /// </summary>
+        public static string ScanForMissingFiles {
+            get {
+                return ResourceManager.GetString("ScanForMissingFiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Files.
+        /// </summary>
+        public static string MissingFiles {
+            get {
+                return ResourceManager.GetString("MissingFiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ranks.
+        /// </summary>
+        public static string Ranks {
+            get {
+                return ResourceManager.GetString("Ranks", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Inventory Items.
+        /// </summary>
+        public static string InventoryItems {
+            get {
+                return ResourceManager.GetString("InventoryItems", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Prizes.
+        /// </summary>
+        public static string Prizes {
+            get {
+                return ResourceManager.GetString("Prizes", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Content Classification Labels.
+        /// </summary>
+        public static string ContentClassificationLabels {
+            get {
+                return ResourceManager.GetString("ContentClassificationLabels", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Color Spectrum.
+        /// </summary>
+        public static string ColorSpectrum {
+            get {
+                return ResourceManager.GetString("ColorSpectrum", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Pick Color.
+        /// </summary>
+        public static string PickColor {
+            get {
+                return ResourceManager.GetString("PickColor", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Command Triggers.
+        /// </summary>
+        public static string ChatCommandTriggers {
+            get {
+                return ResourceManager.GetString("ChatCommandTriggers", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Goal Segments.
+        /// </summary>
+        public static string GoalSegments {
+            get {
+                return ResourceManager.GetString("GoalSegments", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to End Credits Sections.
+        /// </summary>
+        public static string EndCreditsSections {
+            get {
+                return ResourceManager.GetString("EndCreditsSections", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Event Types.
+        /// </summary>
+        public static string EventTypes {
+            get {
+                return ResourceManager.GetString("EventTypes", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Simple Position.
+        /// </summary>
+        public static string SimplePosition {
+            get {
+                return ResourceManager.GetString("SimplePosition", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Test Parameter Value.
+        /// </summary>
+        public static string TestParameterValue {
+            get {
+                return ResourceManager.GetString("TestParameterValue", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Shift.
+        /// </summary>
+        public static string ModifierShift {
+            get {
+                return ResourceManager.GetString("ModifierShift", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl.
+        /// </summary>
+        public static string ModifierControl {
+            get {
+                return ResourceManager.GetString("ModifierControl", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Alt.
+        /// </summary>
+        public static string ModifierAlt {
+            get {
+                return ResourceManager.GetString("ModifierAlt", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Command Groups.
+        /// </summary>
+        public static string CommandGroups {
+            get {
+                return ResourceManager.GetString("CommandGroups", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        public static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Icons.
+        /// </summary>
+        public static string Icons {
+            get {
+                return ResourceManager.GetString("Icons", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Alternates.
+        /// </summary>
+        public static string IconAlternates {
+            get {
+                return ResourceManager.GetString("IconAlternates", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Currencies, Ranks and Inventories.
+        /// </summary>
+        public static string CurrenciesRanksAndInventories {
+            get {
+                return ResourceManager.GetString("CurrenciesRanksAndInventories", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Test {0}.
+        /// </summary>
+        public static string TestCommandFormat {
+            get {
+                return ResourceManager.GetString("TestCommandFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stop {0}.
+        /// </summary>
+        public static string StopCommandFormat {
+            get {
+                return ResourceManager.GetString("StopCommandFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Edit {0}.
+        /// </summary>
+        public static string EditCommandFormat {
+            get {
+                return ResourceManager.GetString("EditCommandFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete {0}.
+        /// </summary>
+        public static string DeleteCommandFormat {
+            get {
+                return ResourceManager.GetString("DeleteCommandFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enable/Disable {0}.
+        /// </summary>
+        public static string EnableDisableCommandFormat {
+            get {
+                return ResourceManager.GetString("EnableDisableCommandFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Copy {0}.
+        /// </summary>
+        public static string CopyFormat {
+            get {
+                return ResourceManager.GetString("CopyFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Move {0} Up.
+        /// </summary>
+        public static string MoveUpFormat {
+            get {
+                return ResourceManager.GetString("MoveUpFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Move {0} Down.
+        /// </summary>
+        public static string MoveDownFormat {
+            get {
+                return ResourceManager.GetString("MoveDownFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Remove {0}.
+        /// </summary>
+        public static string RemoveFormat {
+            get {
+                return ResourceManager.GetString("RemoveFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Open {0}.
+        /// </summary>
+        public static string OpenFormat {
+            get {
+                return ResourceManager.GetString("OpenFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Raid {0}.
+        /// </summary>
+        public static string RaidFormat {
+            get {
+                return ResourceManager.GetString("RaidFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel {0}.
+        /// </summary>
+        public static string CancelFormat {
+            get {
+                return ResourceManager.GetString("CancelFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Replay {0}.
+        /// </summary>
+        public static string ReplayFormat {
+            get {
+                return ResourceManager.GetString("ReplayFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Select {0}.
+        /// </summary>
+        public static string SelectFormat {
+            get {
+                return ResourceManager.GetString("SelectFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Refund {0}.
+        /// </summary>
+        public static string RefundFormat {
+            get {
+                return ResourceManager.GetString("RefundFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Manually Redeem {0}.
+        /// </summary>
+        public static string ManualRedeemFormat {
+            get {
+                return ResourceManager.GetString("ManualRedeemFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reset {0}.
+        /// </summary>
+        public static string ResetFormat {
+            get {
+                return ResourceManager.GetString("ResetFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Link For {0}.
+        /// </summary>
+        public static string CopyLinkFormat {
+            get {
+                return ResourceManager.GetString("CopyLinkFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to See More {0} Commands.
+        /// </summary>
+        public static string SeeMoreCategoryFormat {
+            get {
+                return ResourceManager.GetString("SeeMoreCategoryFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Launch {0}.
+        /// </summary>
+        public static string LaunchFormat {
+            get {
+                return ResourceManager.GetString("LaunchFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Date For {0}.
+        /// </summary>
+        public static string EditDateFormat {
+            get {
+                return ResourceManager.GetString("EditDateFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Time For {0}.
+        /// </summary>
+        public static string EditTimeFormat {
+            get {
+                return ResourceManager.GetString("EditTimeFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Optional.
+        /// </summary>
+        public static string OptionalArgumentFormat {
+            get {
+                return ResourceManager.GetString("OptionalArgumentFormat", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Any Order For {0}.
+        /// </summary>
+        public static string AnyOrderFormat {
+            get {
+                return ResourceManager.GetString("AnyOrderFormat", resourceCulture);
+            }
+        }
     }
 }

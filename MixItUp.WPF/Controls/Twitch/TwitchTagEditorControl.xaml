@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" Style="{StaticResource DefaultBorder}">
-            <ItemsControl ItemsSource="{Binding CustomTags}" Margin="10">
+            <ItemsControl ItemsSource="{Binding CustomTags}" Margin="10" AutomationProperties.AutomationId="TwitchTagEditor.TagsList" AutomationProperties.Name="{x:Static resx:Resources.Tags}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
@@ -26,14 +26,14 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <MaterialDesign:Chip Content="{Binding Tag}" IsDeletable="True" DeleteCommand="{Binding DeleteTagCommand}" />
+                        <MaterialDesign:Chip Content="{Binding Tag}" IsDeletable="True" DeleteCommand="{Binding DeleteTagCommand}" AutomationProperties.AutomationId="Tag.Chip" AutomationProperties.Name="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Border>
 
-        <TextBox Grid.Column="2" Text="{Binding SelectedTag}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Tag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" Height="40" />
+        <TextBox Grid.Column="2" Text="{Binding SelectedTag}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Tag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" Height="40" AutomationProperties.AutomationId="TwitchTagEditor.TagTextBox" AutomationProperties.Name="{x:Static resx:Resources.Tag}" />
 
-        <Button Grid.Column="4" Command="{Binding AddTagCommand}" IsEnabled="{Binding CanAddMoreTags}" Content="{MaterialDesign:PackIcon Add}" Padding="10,0" Cursor="Hand" />
+        <Button Grid.Column="4" Command="{Binding AddTagCommand}" IsEnabled="{Binding CanAddMoreTags}" Content="{MaterialDesign:PackIcon Add}" Padding="10,0" Cursor="Hand" AutomationProperties.AutomationId="TwitchTagEditor.AddTagButton" />
     </Grid>
 </UserControl>

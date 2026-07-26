@@ -45,7 +45,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resx:Resources.FollowsHeader}"/>
-                <CheckBox IsChecked="{Binding ShowFollows}" Grid.Column="2" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding ShowFollows}" Grid.Column="2" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayEventListItem.FollowsHeaderCheckBox" AutomationProperties.Name="{x:Static resx:Resources.FollowsHeader}" />
             </Grid>
 
             <Grid Grid.Column="2">
@@ -56,7 +56,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resx:Resources.HostsHeader}"/>
-                <CheckBox IsChecked="{Binding ShowHosts}" Grid.Column="2" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding ShowHosts}" Grid.Column="2" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayEventListItem.HostsHeaderCheckBox" AutomationProperties.Name="{x:Static resx:Resources.HostsHeader}" />
             </Grid>
 
             <Grid Grid.Column="4">
@@ -67,7 +67,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resx:Resources.RaidsHeader}"/>
-                <CheckBox IsChecked="{Binding ShowRaids}" Grid.Column="2" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding ShowRaids}" Grid.Column="2" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayEventListItem.RaidsHeaderCheckBox" AutomationProperties.Name="{x:Static resx:Resources.RaidsHeader}" />
             </Grid>
 
         </Grid>
@@ -89,7 +89,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resx:Resources.SubResubsHeader}"/>
-                <CheckBox IsChecked="{Binding ShowSubscribers}" Grid.Column="2" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding ShowSubscribers}" Grid.Column="2" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayEventListItem.SubResubsHeaderCheckBox" AutomationProperties.Name="{x:Static resx:Resources.SubResubsHeader}" />
             </Grid>
 
             <Grid Grid.Column="2">
@@ -100,7 +100,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resx:Resources.DonationsHeader}"/>
-                <CheckBox IsChecked="{Binding ShowDonations}" Grid.Column="2" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding ShowDonations}" Grid.Column="2" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayEventListItem.DonationsHeaderCheckBox" AutomationProperties.Name="{x:Static resx:Resources.DonationsHeader}" />
             </Grid>
 
             <Grid Grid.Column="4">
@@ -111,7 +111,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{x:Static resx:Resources.BitsHeader}"/>
-                <CheckBox IsChecked="{Binding ShowBits}" Grid.Column="2" VerticalAlignment="Center" />
+                <CheckBox IsChecked="{Binding ShowBits}" Grid.Column="2" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayEventListItem.BitsHeaderCheckBox" AutomationProperties.Name="{x:Static resx:Resources.BitsHeader}" />
             </Grid>
 
         </Grid>
@@ -129,14 +129,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding TotalToShowString}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="80" />
+            <TextBox Text="{Binding TotalToShowString}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="80" AutomationProperties.AutomationId="OverlayEventListItem.TotalToShowTextBox" AutomationProperties.Name="{x:Static resx:Resources.TotalToShow}" />
 
-            <TextBox Text="{Binding FadeOutString}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FadeOutSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" />
+            <TextBox Text="{Binding FadeOutString}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FadeOutSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" AutomationProperties.AutomationId="OverlayEventListItem.FadeOutSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.FadeOutSeconds}" />
 
-            <TextBox Text="{Binding WidthString}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="110" />
-            <TextBox Text="{Binding HeightString}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="110" />
+            <TextBox Text="{Binding WidthString}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="110" AutomationProperties.AutomationId="OverlayEventListItem.ItemWidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemWidth}" />
+            <TextBox Text="{Binding HeightString}" Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="110" AutomationProperties.AutomationId="OverlayEventListItem.ItemHeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemHeight}" />
 
-            <ComboBox Grid.Column="8" x:Name="TextFontComboBox" Text="{Binding Font}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" />
+            <ComboBox Grid.Column="8" x:Name="OverlayEventListItemTextFontComboBox" Text="{Binding Font}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" AutomationProperties.AutomationId="OverlayEventListItem.TextFontComboBox" AutomationProperties.Name="{x:Static resx:Resources.TextFont}" />
 
         </Grid>
 
@@ -149,7 +149,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox ItemsSource="{Binding ColorNames}" Text="{Binding BorderColor}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BorderColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="120">
+            <ComboBox ItemsSource="{Binding ColorNames}" Text="{Binding BorderColor}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BorderColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="120" AutomationProperties.AutomationId="OverlayEventListItem.BorderColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.BorderColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -157,7 +157,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox ItemsSource="{Binding ColorNames}" Text="{Binding BackgroundColor}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BackgroundColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130">
+            <ComboBox ItemsSource="{Binding ColorNames}" Text="{Binding BackgroundColor}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BackgroundColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130" AutomationProperties.AutomationId="OverlayEventListItem.BackgroundColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.BackgroundColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -165,7 +165,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox ItemsSource="{Binding ColorNames}" Text="{Binding TextColor}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="120">
+            <ComboBox ItemsSource="{Binding ColorNames}" Text="{Binding TextColor}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="120" AutomationProperties.AutomationId="OverlayEventListItem.TextColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.TextColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -183,7 +183,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox ItemsSource="{Binding Alignments}" SelectedItem="{Binding Alignment}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ListAlignment}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100">
+            <ComboBox ItemsSource="{Binding Alignments}" SelectedItem="{Binding Alignment}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ListAlignment}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" AutomationProperties.AutomationId="OverlayEventListItem.ListAlignmentComboBox" AutomationProperties.Name="{x:Static resx:Resources.ListAlignment}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -191,7 +191,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox ItemsSource="{Binding EntranceAnimations}" SelectedItem="{Binding EntranceAnimation}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AddAnimation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="125">
+            <ComboBox ItemsSource="{Binding EntranceAnimations}" SelectedItem="{Binding EntranceAnimation}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AddAnimation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="125" AutomationProperties.AutomationId="OverlayEventListItem.AddAnimationComboBox" AutomationProperties.Name="{x:Static resx:Resources.AddAnimation}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -199,7 +199,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox ItemsSource="{Binding ExitAnimations}" SelectedItem="{Binding ExitAnimation}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RemoveAnimation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="125">
+            <ComboBox ItemsSource="{Binding ExitAnimations}" SelectedItem="{Binding ExitAnimation}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RemoveAnimation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="125" AutomationProperties.AutomationId="OverlayEventListItem.RemoveAnimationComboBox" AutomationProperties.Name="{x:Static resx:Resources.RemoveAnimation}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -208,6 +208,6 @@
             </ComboBox>
         </Grid>
 
-        <TextBox Text="{Binding HTML}" Grid.Row="10" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="700" Height="150" VerticalAlignment="Top" HorizontalAlignment="Center" />
+        <TextBox Text="{Binding HTML}" Grid.Row="10" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="700" Height="150" VerticalAlignment="Top" HorizontalAlignment="Center" AutomationProperties.AutomationId="OverlayEventListItem.HTMLStyleTextBox" AutomationProperties.Name="{x:Static resx:Resources.HTMLStyle}" />
     </Grid>
 </local:OverlayItemControl>

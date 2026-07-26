@@ -19,6 +19,6 @@
 
         <TextBlock Grid.Row="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <TextBox Grid.Row="1" Text="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" Style="{StaticResource MultiLineTextBox}" />
+        <TextBox Grid.Row="1" Text="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" Style="{StaticResource MultiLineTextBox}" AutomationProperties.AutomationId="GenericMultilineTextSettingsOption.ValueTextBox" AutomationProperties.Name="{Binding Name}" />
     </Grid>
 </UserControl>

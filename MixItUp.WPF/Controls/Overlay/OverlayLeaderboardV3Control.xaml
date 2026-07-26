@@ -42,9 +42,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameFontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameFontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                     <ComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
@@ -52,18 +52,18 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
 
-                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameFontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
 
-                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                    <ListBoxItem IsSelected="{Binding Bold}">
+                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameFontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                    <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameBoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                         <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Italics}">
+                    <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                         <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Underline}">
+                    <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayLeaderboardV3.UsernameUnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                         <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                 </ListBox>
@@ -84,9 +84,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsFontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsFontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                     <ComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
@@ -94,18 +94,18 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
 
-                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsFontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
 
-                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                    <ListBoxItem IsSelected="{Binding Bold}">
+                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsFontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                    <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsBoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                         <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Italics}">
+                    <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                         <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Underline}">
+                    <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayLeaderboardV3.DetailsUnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                         <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                 </ListBox>
@@ -125,15 +125,15 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Controls:ColorPickerTextBox Grid.Column="0" ColorText="{Binding BorderColor}" HintText="{x:Static resx:Resources.BorderColor}" />
+            <Controls:ColorPickerTextBox Grid.Column="0" ColorText="{Binding BorderColor}" HintText="{x:Static resx:Resources.BorderColor}" AutomationProperties.AutomationId="OverlayLeaderboardV3.BorderColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BorderColor}" />
 
-            <Controls:ColorPickerTextBox Grid.Column="2" ColorText="{Binding BackgroundColor}" HintText="{x:Static resx:Resources.BackgroundColor}" />
+            <Controls:ColorPickerTextBox Grid.Column="2" ColorText="{Binding BackgroundColor}" HintText="{x:Static resx:Resources.BackgroundColor}" AutomationProperties.AutomationId="OverlayLeaderboardV3.BackgroundColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BackgroundColor}" />
 
-            <TextBox Grid.Column="4" Text="{Binding Width}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="4" Text="{Binding Width}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.ItemWidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemWidth}" />
 
-            <TextBox Grid.Column="6" Text="{Binding Height}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="6" Text="{Binding Height}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.ItemHeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemHeight}" />
 
-            <TextBox Grid.Column="8" Text="{Binding TotalToShow}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="8" Text="{Binding TotalToShow}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.TotalToShowTextBox" AutomationProperties.Name="{x:Static resx:Resources.TotalToShow}" />
         </Grid>
 
         <Grid Grid.Row="6">
@@ -145,7 +145,7 @@
                 <ColumnDefinition Width="180" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding LeaderboardTypes}" SelectedItem="{Binding SelectedLeaderboardType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding LeaderboardTypes}" SelectedItem="{Binding SelectedLeaderboardType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.SelectedLeaderboardTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -153,9 +153,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" Visibility="{Binding IsSelectedLeaderboardTypeConsumable, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Consumables}" SelectedItem="{Binding SelectedConsumable}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="2" Visibility="{Binding IsSelectedLeaderboardTypeConsumable, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Consumables}" SelectedItem="{Binding SelectedConsumable}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.SelectedConsumableComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}" />
 
-            <ComboBox Grid.Column="2" Visibility="{Binding IsSelectedLeaderboardTypeTwitchBits, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding TwitchBitsDataRanges}" SelectedItem="{Binding SelectedTwitchBitsDataRange}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="2" Visibility="{Binding IsSelectedLeaderboardTypeTwitchBits, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding TwitchBitsDataRanges}" SelectedItem="{Binding SelectedTwitchBitsDataRange}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.SelectedTwitchBitsDataRangeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -163,7 +163,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Grid.Column="4" Text="{Binding RefreshTimeSeconds}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RefreshTimeSecs}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="4" Text="{Binding RefreshTimeSeconds}" Width="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RefreshTimeSecs}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayLeaderboardV3.RefreshTimeSecsTextBox" AutomationProperties.Name="{x:Static resx:Resources.RefreshTimeSecs}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

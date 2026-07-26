@@ -27,10 +27,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.ShowOnChatListContextMenu}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center"/>
-        <ToggleButton Grid.Row="0" Grid.Column="2" IsChecked="{Binding ShowOnChatContextMenu}" />
+        <ToggleButton Grid.Row="0" Grid.Column="2" IsChecked="{Binding ShowOnChatContextMenu}" AutomationProperties.AutomationId="SettingsRequirement.ShowOnChatListContextMenuToggle" AutomationProperties.Name="{x:Static resx:Resources.ShowOnChatListContextMenu}" />
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.DeleteChatMessageWhenRun}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" Visibility="{Binding ShowDeleteChatMessageWhenRun, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.DontDeleteChatMessageWhenRun}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" Visibility="{Binding ShowDontDeleteChatMessageWhenRun, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center"/>
-        <ToggleButton Grid.Row="2" Grid.Column="2" IsChecked="{Binding DeleteChatMessageWhenRun}"  />
+        <ToggleButton Grid.Row="2" Grid.Column="2" IsChecked="{Binding DeleteChatMessageWhenRun}" AutomationProperties.AutomationId="SettingsRequirement.DontDeleteChatMessageWhenRunToggle" AutomationProperties.Name="{x:Static resx:Resources.DontDeleteChatMessageWhenRun}" />
     </Grid>
 </UserControl>

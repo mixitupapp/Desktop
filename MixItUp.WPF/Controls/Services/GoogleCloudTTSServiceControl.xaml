@@ -33,7 +33,7 @@
             <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{x:Static resx:Resources.GoogleCloudTTSInfo2}"/>
 
             <TextBlock Grid.Row="4" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://wiki.mixitup.bot/en/services/google-cloud-tts" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/en/services/google-cloud-tts" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="GoogleCloudTTSService.GoogleCloudTTSInfo2Link">
                     <TextBlock Text="{x:Static resx:Resources.GoogleCloudTTS}"/>
                 </Hyperlink>
             </TextBlock>
@@ -41,7 +41,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="GoogleCloudTTSService.DisconnectButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -51,9 +51,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding APIKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GoogleCloudTTSAPIKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding APIKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GoogleCloudTTSAPIKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="GoogleCloudTTSService.GoogleCloudTTSAPIKeyTextBox" AutomationProperties.Name="{x:Static resx:Resources.GoogleCloudTTSAPIKey}" />
 
-                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="GoogleCloudTTSService.ConnectButton" />
             </Grid>
         </Grid>
     </Grid>

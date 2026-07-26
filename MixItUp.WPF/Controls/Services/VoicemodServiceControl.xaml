@@ -28,7 +28,7 @@
             <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.VoicemodInfo}"/>
 
             <TextBlock Grid.Row="2" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://link.xsolla.com/trj5q0xW" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://link.xsolla.com/trj5q0xW" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="VoicemodService.VoicemodInfoLink">
                     <TextBlock Text="{x:Static resx:Resources.VoicemodWebsite}"/>
                 </Hyperlink>
             </TextBlock>
@@ -36,11 +36,11 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="VoicemodService.DisconnectButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="VoicemodService.ConnectButton" />
             </Grid>
         </Grid>
     </Grid>

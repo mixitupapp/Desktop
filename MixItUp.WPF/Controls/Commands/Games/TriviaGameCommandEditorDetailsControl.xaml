@@ -40,12 +40,12 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWinAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WinAmount}" Width="90" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWinAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WinAmount}" Width="90" AutomationProperties.AutomationId="TriviaGameCommandEditorDetails.WinAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTriviaWinAmount}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" AutomationProperties.AutomationId="TriviaGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.GameCommandTriviaUseRandomOnlineQuestions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                    <ToggleButton Grid.Column="6" IsChecked="{Binding UseRandomOnlineQuestions}" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding UseRandomOnlineQuestions}" AutomationProperties.AutomationId="TriviaGameCommandEditorDetails.UseRandomOnlineQuestionsToggle" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTriviaUseRandomOnlineQuestions}" />
                 </Grid>
             </GroupBox>
 
@@ -91,11 +91,11 @@
 
                     <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.GameCommandTriviaCustomQuestions}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="{DynamicResource MIU.FontSize.TitleMedium}" />
 
-                    <Button Grid.Column="2" Content="{x:Static resx:Resources.GameCommandTriviaAddQuestion}" Command="{Binding AddQuestionCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" />
+                    <Button Grid.Column="2" Content="{x:Static resx:Resources.GameCommandTriviaAddQuestion}" Command="{Binding AddQuestionCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" AutomationProperties.AutomationId="TriviaGameCommandEditorDetails.AddQuestionButton" />
                 </Grid>
             </GroupBox.Header>
 
-            <ItemsControl ItemsSource="{Binding CustomQuestions}">
+            <ItemsControl ItemsSource="{Binding CustomQuestions}" AutomationProperties.AutomationId="TriviaGameCommandEditorDetails.AnswersList" AutomationProperties.Name="{x:Static resx:Resources.Answers}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="15">
@@ -107,7 +107,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaQuestion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Question}" VerticalAlignment="Center" Height="85" TextAlignment="Left" TextWrapping="Wrap" />
+                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaQuestion}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Question}" VerticalAlignment="Center" Height="85" TextAlignment="Left" TextWrapping="Wrap" AutomationProperties.AutomationId="TriviaQuestion.GameCommandTriviaQuestionTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTriviaQuestion}" />
 
                             <Grid Grid.Column="2">
                                 <Grid.ColumnDefinitions>
@@ -121,13 +121,13 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <TextBox Grid.Column="0" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaCorrectAnswer}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CorrectAnswer}" Width="120" />
+                                <TextBox Grid.Column="0" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaCorrectAnswer}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CorrectAnswer}" Width="120" AutomationProperties.AutomationId="TriviaQuestion.GameCommandTriviaCorrectAnswerTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTriviaCorrectAnswer}" />
 
-                                <TextBox Grid.Column="2" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWrongAnswer1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WrongAnswer1}" Width="120" />
+                                <TextBox Grid.Column="2" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWrongAnswer1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WrongAnswer1}" Width="120" AutomationProperties.AutomationId="TriviaQuestion.GameCommandTriviaWrongAnswer1TextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTriviaWrongAnswer1}" />
 
-                                <TextBox Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWrongAnswer2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WrongAnswer2}" Width="120" />
+                                <TextBox Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWrongAnswer2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WrongAnswer2}" Width="120" AutomationProperties.AutomationId="TriviaQuestion.GameCommandTriviaWrongAnswer2TextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTriviaWrongAnswer2}" />
 
-                                <TextBox Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWrongAnswer3}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WrongAnswer3}" Width="120" />
+                                <TextBox Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTriviaWrongAnswer3}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding WrongAnswer3}" Width="120" AutomationProperties.AutomationId="TriviaQuestion.GameCommandTriviaWrongAnswer3TextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTriviaWrongAnswer3}" />
                             </Grid>
 
                             <Grid Grid.Column="4">
@@ -137,9 +137,9 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
-                                <ToggleButton Grid.Row="0" IsChecked="{Binding Enabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" />
+                                <ToggleButton Grid.Row="0" IsChecked="{Binding Enabled}" ToolTip="{x:Static resx:Resources.EnableDisable}" AutomationProperties.AutomationId="TriviaQuestion.EnableDisableToggle" AutomationProperties.Name="{Binding Question, StringFormat={x:Static resx:Resources.EnableDisableCommandFormat}}" />
                                 
-                                <Controls:IconButton x:Name="DeleteQuestionButton" Grid.Row="2" Click="DeleteQuestionButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                                <Controls:IconButton x:Name="DeleteQuestionButton" Grid.Row="2" Click="DeleteQuestionButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" AutomationProperties.AutomationId="TriviaQuestion.DeleteQuestionButton" AutomationProperties.Name="{Binding Question, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </Grid>
                         </Grid>
                     </DataTemplate>

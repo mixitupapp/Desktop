@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="GameCommandEditor.MDDialogHost" />
 
         <ScrollViewer
             Grid.Row="0"
@@ -54,7 +54,9 @@
                     Width="80"
                     HorizontalAlignment="Center"
                     Command="{Binding SaveCommand}"
-                    Icon="save" />
+                    Icon="save"
+                    AutomationProperties.AutomationId="GameCommandEditor.SaveButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Save}" />
             </Grid>
         </ScrollViewer>
 

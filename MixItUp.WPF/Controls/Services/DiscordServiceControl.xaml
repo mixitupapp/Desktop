@@ -39,7 +39,7 @@
                 <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="{x:Static resx:Resources.DiscordInfo2}"/>
 
                 <TextBlock Grid.Row="4" TextWrapping="Wrap">
-                    <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/discord" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/discord" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="DiscordService.DiscordInfo2Link">
                          <TextBlock TextWrapping="Wrap" Text="{x:Static resx:Resources.CreatingCustomDiscordApplication}"/>
                     </Hyperlink>
                 </TextBlock>
@@ -47,7 +47,7 @@
 
             <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                    <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="DiscordService.LogoutButton" />
                 </Grid>
 
                 <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -57,7 +57,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Button Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                    <Button Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="DiscordService.LoginButton" />
 
                     <Grid Grid.Row="2" HorizontalAlignment="Center">
                         <Grid.ColumnDefinitions>
@@ -68,7 +68,7 @@
 
                         <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.CustomApplication}" VerticalAlignment="Center" />
 
-                        <ToggleButton Grid.Column="2" IsChecked="{Binding CustomApplication}" VerticalAlignment="Center" />
+                        <ToggleButton Grid.Column="2" IsChecked="{Binding CustomApplication}" VerticalAlignment="Center" AutomationProperties.AutomationId="DiscordService.CustomApplicationToggle" AutomationProperties.Name="{x:Static resx:Resources.CustomApplication}" />
                     </Grid>
                 </Grid>
             </Grid>
@@ -83,11 +83,11 @@
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding CustomClientID}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ApplicationClientID}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding CustomClientID}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ApplicationClientID}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordService.ApplicationClientIDTextBox" AutomationProperties.Name="{x:Static resx:Resources.ApplicationClientID}" />
 
-            <TextBox Grid.Column="2" Text="{Binding CustomClientSecret}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ApplicationClientSecret}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding CustomClientSecret}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ApplicationClientSecret}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordService.ApplicationClientSecretTextBox" AutomationProperties.Name="{x:Static resx:Resources.ApplicationClientSecret}" />
 
-            <TextBox Grid.Column="4" Text="{Binding CustomBotToken}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ApplicationBotToken}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="4" Text="{Binding CustomBotToken}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ApplicationBotToken}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordService.ApplicationBotTokenTextBox" AutomationProperties.Name="{x:Static resx:Resources.ApplicationBotToken}" />
         </Grid>
     </Grid>
 </local:ServiceControlBase>
