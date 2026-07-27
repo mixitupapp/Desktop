@@ -242,18 +242,30 @@ namespace MixItUp.Base.Model.Commands
                 // Kick
                 case EventTypeEnum.KickChannelSubscribed:
                     specialIdentifiers["usersubmonths"] = "1";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelResubscribed:
                     specialIdentifiers["usersubmonths"] = "5";
                     specialIdentifiers["usersubstreak"] = "5";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelSubscriptionGifted:
                     specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelMassSubscriptionsGifted:
                     specialIdentifiers["subsgiftedamount"] = "5";
                     specialIdentifiers["subsgiftedlifetimeamount"] = "100";
                     specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelPointsRedeemed:
                     specialIdentifiers["rewardname"] = "Hydrate";
@@ -273,21 +285,29 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.VeloraChannelSubscribed:
                     specialIdentifiers["usersubmonths"] = "1";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelResubscribed:
                     specialIdentifiers["usersubmonths"] = "5";
                     specialIdentifiers["usersubstreak"] = "5";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelSubscriptionGifted:
                     specialIdentifiers["isanonymous"] = "false";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelMassSubscriptionsGifted:
                     specialIdentifiers["subsgiftedamount"] = "5";
                     specialIdentifiers["subsgiftedlifetimeamount"] = "100";
                     specialIdentifiers["isanonymous"] = "false";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelRaided:
                     specialIdentifiers["hostviewercount"] = "123";

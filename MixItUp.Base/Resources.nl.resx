@@ -12114,6 +12114,15 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Verbinden met veadotube is mislukt. Zorg ervoor dat het draait met de WebSocket-server ingeschakeld.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up kon geen verbinding maken met veadotube op {0}. Controleer of veadotube draait en of de WebSocket-server is ingeschakeld bij de programma-instellingen. Als je hieronder een adres hebt ingevuld, wis het dan en probeer het opnieuw, zodat Mix It Up veadotube zelf kan vinden.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Het ingevoerde adres is geen geldig adres met poort. Gebruik het adres dat veadotube naast 'serving at' toont, bijvoorbeeld 127.0.0.1:2424, of maak het veld leeg zodat Mix It Up veadotube zelf kan vinden.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Verbonden met {0} op {1}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube is niet verbonden</value>
   </data>

@@ -12144,6 +12144,15 @@ print(run())</value>
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Не вдалося підключитися до veadotube. Переконайтеся, що програму запущено та її сервер WebSocket увімкнено.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up не вдалося підключитися до veadotube за адресою {0}. Переконайтеся, що veadotube запущено, а сервер WebSocket увімкнено в налаштуваннях програми. Якщо ви ввели адресу нижче, очистіть поле та спробуйте знову, щоб Mix It Up міг знайти veadotube самостійно.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Введена адреса не є коректною адресою з портом. Використайте ту, яку veadotube показує поруч із «serving at», наприклад 127.0.0.1:2424, або очистіть поле, щоб Mix It Up міг знайти veadotube самостійно.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Підключено до {0} за адресою {1}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube не підключено</value>
   </data>

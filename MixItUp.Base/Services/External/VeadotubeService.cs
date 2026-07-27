@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -158,15 +159,25 @@ namespace MixItUp.Base.Services.External
         /// Older veadotube builds trail stray null bytes after the JSON. Stripping control characters
         /// costs nothing on current builds and keeps users who have not updated working.
         /// </summary>
+        /// <remarks>
+        /// The byte order mark and the zero width characters go too. Trim on .NET Core does not treat
+        /// them as whitespace, so a single leading one leaves the channel name reading as something
+        /// other than "instance" and the frame gets dropped without a word.
+        /// </remarks>
         private static string Sanitize(string packet)
         {
             StringBuilder builder = new StringBuilder(packet.Length);
             foreach (char c in packet)
             {
-                if (c > 0x1F && (c < 0x7F || c > 0x9F))
+                if (c <= 0x1F || (c >= 0x7F && c <= 0x9F))
                 {
-                    builder.Append(c);
+                    continue;
                 }
+                if (c == '\uFEFF' || (c >= '\u200B' && c <= '\u200F') || c == '\u2028' || c == '\u2029')
+                {
+                    continue;
+                }
+                builder.Append(c);
             }
             return builder.ToString().Trim();
         }
@@ -182,6 +193,17 @@ namespace MixItUp.Base.Services.External
     /// source of truth for current state, and only the state list needs a reply, with at most one
     /// outstanding at a time. Please do not helpfully add the queue back.
     /// </remarks>
+    /// <summary>
+    /// One address worth trying, along with where it came from so the log says which.
+    /// </summary>
+    public class VeadotubeEndpointCandidate
+    {
+        public string Address { get; set; }
+        public string Source { get; set; }
+
+        public override string ToString() { return this.Address + " (" + this.Source + ")"; }
+    }
+
     public class VeadotubeService : IExternalService
     {
         public const string InstancesFolder = @".veadotube\instances";
@@ -204,7 +226,17 @@ namespace MixItUp.Base.Services.External
 
         private const string websocketAddress = "ws://{0}?n=Mix%20It%20Up";
 
+        /// <summary>
+        /// The same address serves plain GET requests, which is the cheapest way to find out whether
+        /// veadotube is actually the thing sitting on that port. See the "using GET requests" section
+        /// of https://veado.tube/docs/tech/api/.
+        /// </summary>
+        private const string preflightAddress = "http://{0}/?cmd0=instance";
+
+        private const string preflightResultHeader = "Veadotube-Command";
+
         private const int ConnectTimeoutSeconds = 10;
+        private const int PreflightTimeoutSeconds = 3;
         private const int ReconnectDelayMilliseconds = 5000;
 
         /// <summary>
@@ -263,6 +295,8 @@ namespace MixItUp.Base.Services.External
 
         public async Task Disconnect()
         {
+            Logger.Log(LogLevel.Debug, "veadotube Service - Disconnect requested");
+
             this.userRequestedDisconnect = true;
             this.StopWatchdog();
 
@@ -275,6 +309,7 @@ namespace MixItUp.Base.Services.External
             await this.DisconnectSocket();
 
             this.IsConnected = false;
+            this.ConnectedAddress = null;
             this.InstanceInfo = null;
             this.CurrentState = null;
             this.PushToTalkActive = null;
@@ -394,65 +429,217 @@ namespace MixItUp.Base.Services.External
         }
 
         /// <summary>
-        /// Finds the newest live instance and returns its server address, or null when veadotube is
-        /// not running with its WebSocket server on.
+        /// The address of the instance we are attached to, or null when not connected. Shown on the
+        /// services page so a user reporting a problem can say what it actually resolved to.
         /// </summary>
-        public string ResolveEndpoint()
+        public string ConnectedAddress { get; private set; }
+
+        /// <summary>
+        /// Every address worth trying, best first. The manual override comes first when it is set,
+        /// then each live instance file, newest first.
+        /// </summary>
+        /// <param name="manualAddressInvalid">
+        /// Set when the user typed something that is not an address, which is worth telling them about
+        /// rather than quietly falling back to discovery and failing somewhere else.
+        /// </param>
+        public List<VeadotubeEndpointCandidate> ResolveEndpoints(out bool manualAddressInvalid)
         {
-            if (ChannelSession.Settings != null && !string.IsNullOrEmpty(ChannelSession.Settings.VeadotubeManualAddress))
+            manualAddressInvalid = false;
+            List<VeadotubeEndpointCandidate> candidates = new List<VeadotubeEndpointCandidate>();
+
+            string manual = ChannelSession.Settings?.VeadotubeManualAddress;
+            if (!string.IsNullOrWhiteSpace(manual))
             {
-                return ChannelSession.Settings.VeadotubeManualAddress.Trim();
+                string normalized = NormalizeAddress(manual);
+                if (normalized == null)
+                {
+                    Logger.Log(LogLevel.Error, "veadotube Service - Manual address \"" + manual.Trim() + "\" is not a usable host and port, ignoring it");
+                    manualAddressInvalid = true;
+                    return candidates;
+                }
+
+                Logger.Log(LogLevel.Debug, "veadotube Service - Manual address in use: \"" + manual.Trim() + "\" resolved to " + normalized + ", instance discovery skipped");
+                candidates.Add(new VeadotubeEndpointCandidate() { Address = normalized, Source = "manual address" });
+                return candidates;
             }
 
             try
             {
                 string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), InstancesFolder);
+                Logger.Log(LogLevel.Debug, "veadotube Service - Scanning for instances in " + folder);
+
                 if (!Directory.Exists(folder))
                 {
-                    return null;
+                    // Worth calling out on its own. veadotube creates this the first time it runs, so a
+                    // missing folder means it has never run for this Windows user, not that it is shut.
+                    Logger.Log(LogLevel.Debug, "veadotube Service - Instance folder does not exist, veadotube has never run for this user");
+                    return candidates;
                 }
-
-                long cutoff = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - InstanceStaleSeconds;
-                VeadotubeInstanceInfo newest = null;
 
                 // The files carry no extension, the filename is the instance id, so a *.json search
                 // finds nothing. Read every file in the folder.
-                foreach (string file in Directory.GetFiles(folder))
+                string[] files = Directory.GetFiles(folder);
+                Logger.Log(LogLevel.Debug, "veadotube Service - Found " + files.Length + " instance file(s)");
+
+                long now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                List<VeadotubeInstanceInfo> live = new List<VeadotubeInstanceInfo>();
+
+                foreach (string file in files)
                 {
+                    string name = Path.GetFileName(file);
                     try
                     {
                         VeadotubeInstanceInfo info = JSONSerializerHelper.DeserializeFromString<VeadotubeInstanceInfo>(File.ReadAllText(file));
-                        if (info != null && info.time >= cutoff && !string.IsNullOrEmpty(info.server) && (newest == null || info.time > newest.time))
+                        if (info == null)
                         {
-                            newest = info;
+                            Logger.Log(LogLevel.Debug, "veadotube Service - Instance " + name + " skipped, file did not parse as an instance object");
+                            continue;
                         }
+
+                        long age = now - info.time;
+                        string description = "version " + (string.IsNullOrEmpty(info.version) ? "unknown" : info.version) +
+                            ", server \"" + (info.server ?? string.Empty) + "\", heartbeat " + age + "s old";
+
+                        if (string.IsNullOrEmpty(info.server))
+                        {
+                            // Documented as "if available". No server means the WebSocket server is off.
+                            Logger.Log(LogLevel.Debug, "veadotube Service - Instance " + name + " skipped, " + description + ", its WebSocket server is turned off");
+                            continue;
+                        }
+
+                        if (age > InstanceStaleSeconds)
+                        {
+                            Logger.Log(LogLevel.Debug, "veadotube Service - Instance " + name + " skipped, " + description + ", stale beyond " + InstanceStaleSeconds + "s so the file is left over from a copy that is no longer running");
+                            continue;
+                        }
+
+                        Logger.Log(LogLevel.Debug, "veadotube Service - Instance " + name + " accepted, " + description);
+                        live.Add(info);
                     }
                     catch (Exception ex)
                     {
                         // veadotube may be part way through writing the file, so a failed parse here
                         // is routine rather than a problem worth shouting about.
-                        Logger.Log(LogLevel.Debug, "Skipped veadotube instance file: " + ex.Message);
+                        Logger.Log(LogLevel.Debug, "veadotube Service - Instance " + name + " skipped: " + ex.Message);
                     }
                 }
 
-                return newest?.server;
+                foreach (VeadotubeInstanceInfo info in live.OrderByDescending(i => i.time))
+                {
+                    string normalized = NormalizeAddress(info.server);
+                    if (normalized == null)
+                    {
+                        Logger.Log(LogLevel.Error, "veadotube Service - Instance " + info.id + " reported server \"" + info.server + "\", which is not a usable host and port");
+                        continue;
+                    }
+
+                    candidates.Add(new VeadotubeEndpointCandidate() { Address = normalized, Source = info.name + " " + info.version });
+                }
+
+                Logger.Log(LogLevel.Debug, "veadotube Service - " + candidates.Count + " candidate address(es): " +
+                    (candidates.Count > 0 ? string.Join(", ", candidates.Select(c => c.ToString())) : "none"));
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
             }
-            return null;
+            return candidates;
+        }
+
+        /// <summary>
+        /// Turns whatever we were handed into a bare host and port, or null when it cannot be one.
+        /// </summary>
+        /// <remarks>
+        /// Both sources need this. veadotube's own settings show a greyed out "localhost" as the hint
+        /// for the server address field, directly above the real "serving at 127.0.0.1:&lt;port&gt;" line,
+        /// so a user copying the wrong row types a host with no port. Left alone that becomes
+        /// ws://localhost, which is port 80, and the connection is refused by whatever is or is not
+        /// there. The hostname itself is worth replacing too: Windows resolves localhost to ::1 first
+        /// and veadotube only ever binds IPv4 loopback.
+        /// </remarks>
+        public static string NormalizeAddress(string address)
+        {
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                return null;
+            }
+
+            string value = address.Trim();
+
+            int scheme = value.IndexOf("://", StringComparison.OrdinalIgnoreCase);
+            if (scheme >= 0)
+            {
+                value = value.Substring(scheme + 3);
+            }
+
+            int trailing = value.IndexOfAny(new char[] { '/', '?', '#' });
+            if (trailing >= 0)
+            {
+                value = value.Substring(0, trailing);
+            }
+
+            int separator = value.LastIndexOf(':');
+            if (separator <= 0 || separator == value.Length - 1)
+            {
+                return null;
+            }
+
+            string host = value.Substring(0, separator).Trim();
+            string port = value.Substring(separator + 1).Trim();
+
+            if (!int.TryParse(port, out int portNumber) || portNumber <= 0 || portNumber > 65535)
+            {
+                return null;
+            }
+
+            if (host.Length == 0)
+            {
+                return null;
+            }
+
+            if (string.Equals(host, "localhost", StringComparison.OrdinalIgnoreCase))
+            {
+                host = "127.0.0.1";
+            }
+
+            return host + ":" + portNumber;
         }
 
         private async Task<Result> ConnectInternal()
         {
+            List<VeadotubeEndpointCandidate> candidates = this.ResolveEndpoints(out bool manualAddressInvalid);
+            if (manualAddressInvalid)
+            {
+                return new Result(Resources.VeadotubeManualAddressInvalid);
+            }
+
+            if (candidates.Count == 0)
+            {
+                Logger.Log(LogLevel.Debug, "veadotube Service - Nothing to connect to");
+                return new Result(Resources.VeadotubeInstanceNotFound);
+            }
+
+            // Every candidate gets a turn. A user running mini alongside veadotube, or one leftover
+            // file that happens to still look live, should not be able to stop the connection.
+            Result result = new Result(Resources.VeadotubeConnectionFailed);
+            foreach (VeadotubeEndpointCandidate candidate in candidates)
+            {
+                result = await this.ConnectToEndpoint(candidate);
+                if (result.Success)
+                {
+                    return result;
+                }
+            }
+            return result;
+        }
+
+        private async Task<Result> ConnectToEndpoint(VeadotubeEndpointCandidate candidate)
+        {
             try
             {
-                string endpoint = this.ResolveEndpoint();
-                if (string.IsNullOrEmpty(endpoint))
-                {
-                    return new Result(Resources.VeadotubeInstanceNotFound);
-                }
+                Logger.Log(LogLevel.Debug, "veadotube Service - Attempting " + candidate.Address + ", from " + candidate.Source);
+
+                await this.Preflight(candidate.Address);
 
                 await this.DisconnectSocket();
 
@@ -463,29 +650,45 @@ namespace MixItUp.Base.Services.External
                 this.websocket.OnInstanceInfoReceived += Websocket_OnInstanceInfoReceived;
                 this.websocket.OnNodeFrameReceived += Websocket_OnNodeFrameReceived;
 
-                if (!await this.websocket.Connect(string.Format(websocketAddress, endpoint)))
+                string url = string.Format(websocketAddress, candidate.Address);
+                Logger.Log(LogLevel.Debug, "veadotube Service - Opening " + url);
+
+                if (!await this.websocket.Connect(url))
                 {
+                    Logger.Log(LogLevel.Error, "veadotube Service - WebSocket handshake failed against " + candidate.Address);
                     await this.DisconnectSocket();
-                    return new Result(Resources.VeadotubeConnectionFailed);
+                    return new Result(string.Format(Resources.VeadotubeConnectionFailedToAddress, candidate.Address));
                 }
 
-                // veadotube sends the instance info unprompted on connect, so it doubles as the ack.
+                Logger.Log(LogLevel.Debug, "veadotube Service - WebSocket open, waiting on instance info");
+
+                // veadotube should send the instance info unprompted on connect, but the docs only say
+                // "should", and a connect that hangs here is indistinguishable from a dead one. Ask for
+                // it as well. A duplicate reply costs nothing, the completion source takes the first.
+                await this.websocket.SendFrame(VeadotubeWebSocket.InstanceChannel, BuildEvent("info"));
+
                 VeadotubeInstanceInfo info = await WaitFor(this.instanceInfoCompletionSource);
                 if (info == null)
                 {
+                    Logger.Log(LogLevel.Error, "veadotube Service - Connected to " + candidate.Address + " but no instance info arrived within " + ConnectTimeoutSeconds + "s, so whatever is on that port is not answering as veadotube");
                     await this.DisconnectSocket();
-                    return new Result(Resources.VeadotubeConnectionFailed);
+                    return new Result(string.Format(Resources.VeadotubeConnectionFailedToAddress, candidate.Address));
                 }
                 this.InstanceInfo = info;
 
-                await this.websocket.SendFrame(VeadotubeWebSocket.NodesChannel, new { @event = "list" });
+                Logger.Log(LogLevel.Debug, "veadotube Service - Instance info: " + info.name + " " + info.version + ", id " + info.id + ", language " + info.language);
+
+                await this.websocket.SendFrame(VeadotubeWebSocket.NodesChannel, BuildEvent("list"));
 
                 IEnumerable<VeadotubeNodeEntry> nodes = await WaitFor(this.nodeListCompletionSource);
                 if (nodes == null)
                 {
+                    Logger.Log(LogLevel.Error, "veadotube Service - No node list arrived within " + ConnectTimeoutSeconds + "s from " + candidate.Address);
                     await this.DisconnectSocket();
-                    return new Result(Resources.VeadotubeConnectionFailed);
+                    return new Result(string.Format(Resources.VeadotubeConnectionFailedToAddress, candidate.Address));
                 }
+
+                Logger.Log(LogLevel.Debug, "veadotube Service - Nodes: " + string.Join(", ", nodes.Select(n => n.type + "/" + n.id + " \"" + n.name + "\"")));
 
                 // Read the node ids off the entries. They are "mini" on veadotube mini but not on live
                 // or the avatar editor, and hardcoding it is the bug every other client had to fix.
@@ -494,26 +697,67 @@ namespace MixItUp.Base.Services.External
 
                 if (string.IsNullOrEmpty(this.stateEventsNodeID))
                 {
+                    Logger.Log(LogLevel.Error, "veadotube Service - No " + StateEventsNodeType + " node exposed by " + info.name + " " + info.version + ", nothing can drive the avatar state");
                     await this.DisconnectSocket();
-                    return new Result(Resources.VeadotubeConnectionFailed);
+                    return new Result(string.Format(Resources.VeadotubeConnectionFailedToAddress, candidate.Address));
+                }
+
+                if (string.IsNullOrEmpty(this.booleanNodeID))
+                {
+                    Logger.Log(LogLevel.Debug, "veadotube Service - No " + BooleanNodeType + " node exposed, push-to-talk will be unavailable. Check that \"use websocket\" is on under push-to-talk in veadotube's microphone settings");
                 }
 
                 await this.Subscribe();
 
                 this.IsConnected = true;
+                this.ConnectedAddress = candidate.Address;
                 this.websocket.OnDisconnectOccurred += Websocket_OnDisconnectOccurred;
                 this.StartWatchdog();
 
                 ServiceManager.Get<ITelemetryService>().TrackService("veadotube");
+
+                Logger.Log(LogLevel.Information, "veadotube Service - Connected to " + info.name + " " + info.version + " at " + candidate.Address);
 
                 return new Result();
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
+                Logger.Log(LogLevel.Error, "veadotube Service - Connection to " + candidate.Address + " failed: " + ex.GetBaseException().Message);
                 await this.DisconnectSocket();
             }
-            return new Result(Resources.VeadotubeConnectionFailed);
+            return new Result(string.Format(Resources.VeadotubeConnectionFailedToAddress, candidate.Address));
+        }
+
+        /// <summary>
+        /// Asks the same address for the instance object over plain HTTP before opening a socket. This
+        /// never blocks the attempt, it is here so the log separates "nothing is listening on that
+        /// port" from "something is listening and it is not veadotube" from "veadotube is right there
+        /// and the WebSocket is the part that broke".
+        /// </summary>
+        private async Task Preflight(string address)
+        {
+            string url = string.Format(preflightAddress, address);
+            try
+            {
+                using (AdvancedHttpClient client = new AdvancedHttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(PreflightTimeoutSeconds);
+
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    string outcome = response.Headers.TryGetValues(preflightResultHeader, out IEnumerable<string> values) ? string.Join(",", values) : "absent";
+                    string body = await response.Content.ReadAsStringAsync();
+
+                    // The body is the part that matters. veadotube answers this particular request with
+                    // the instance object and an Error header, so the header alone proves nothing.
+                    Logger.Log(LogLevel.Debug, "veadotube Service - Pre-flight " + url + " returned " + (int)response.StatusCode + " " + response.StatusCode +
+                        ", " + preflightResultHeader + " header: " + outcome + ", body: " + body?.Trim());
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(LogLevel.Debug, "veadotube Service - Pre-flight " + url + " failed: " + ex.GetBaseException().Message);
+            }
         }
 
         /// <summary>
@@ -535,6 +779,9 @@ namespace MixItUp.Base.Services.External
             {
                 await this.SendNodePayload(BooleanNodeType, this.booleanNodeID, listen);
             }
+
+            Logger.Log(LogLevel.Debug, "veadotube Service - Subscribed to " + StateEventsNodeType + "/" + this.stateEventsNodeID +
+                (string.IsNullOrEmpty(this.booleanNodeID) ? string.Empty : " and " + BooleanNodeType + "/" + this.booleanNodeID));
         }
 
         private async Task Unsubscribe()
@@ -606,6 +853,18 @@ namespace MixItUp.Base.Services.External
             await this.websocket.SendFrame(VeadotubeWebSocket.NodesChannel, frame);
         }
 
+        /// <summary>
+        /// An anonymous type would serialize with a $type property carrying the compiler generated
+        /// class name, because the shared serializer settings emit type metadata. veadotube ignores it
+        /// today, but sending the name of a C# internal to another program is not something to rely on.
+        /// </summary>
+        private static JObject BuildEvent(string name)
+        {
+            JObject payload = new JObject();
+            payload["event"] = name;
+            return payload;
+        }
+
         private void MarkStateWrite(string stateID)
         {
             this.lastWrittenStateID = stateID;
@@ -656,6 +915,9 @@ namespace MixItUp.Base.Services.External
                         this.stateCache = payload.states;
                         this.stateCacheExpiration = DateTimeOffset.Now.AddMinutes(MaxCacheDuration);
                         this.stateListCompletionSource?.TrySetResult(this.stateCache.ToList());
+
+                        Logger.Log(LogLevel.Debug, "veadotube Service - " + this.stateCache.Count + " avatar state(s): " +
+                            string.Join(", ", this.stateCache.Select(s => s.id + " \"" + s.name + "\"")));
                     }
                     else if (string.Equals(payload.@event, "peek", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(payload.state))
                     {
@@ -683,13 +945,22 @@ namespace MixItUp.Base.Services.External
                 (this.lastWrittenStateID == null || string.Equals(this.lastWrittenStateID, incomingStateID));
             bool isSameState = string.Equals(previous?.id, incomingStateID);
 
+            // Subscribing replies with the state veadotube is already showing. That is the baseline, the
+            // same way the push-to-talk node's first value is, and firing the event on it runs the
+            // streamer's command every time Mix It Up connects or the reconnect loop comes back around.
+            bool isBaseline = previous == null;
+
             VeadotubeState state = await this.ResolveState(incomingStateID);
             this.CurrentState = state;
 
-            if (isSameState || isSelfWrite)
+            if (isBaseline || isSameState || isSelfWrite)
             {
+                Logger.Log(LogLevel.Debug, "veadotube Service - Avatar state " + incomingStateID + " not raised as a change: " +
+                    (isBaseline ? "first state seen on this connection" : isSameState ? "same as the current state" : "echo of our own write"));
                 return;
             }
+
+            Logger.Log(LogLevel.Debug, "veadotube Service - Avatar state changed from " + (previous?.id ?? "nothing") + " to " + state.id);
 
             CommandParametersModel parameters = new CommandParametersModel();
             parameters.SpecialIdentifiers["veadotubestateid"] = state.id ?? string.Empty;
@@ -738,8 +1009,11 @@ namespace MixItUp.Base.Services.External
                 this.lastPushToTalkWrite.AddMilliseconds(SelfWriteSuppressionMilliseconds) > DateTimeOffset.Now;
             if (isSelfWrite)
             {
+                Logger.Log(LogLevel.Debug, "veadotube Service - Push-to-talk " + value + " not raised as a change, echo of our own write");
                 return;
             }
+
+            Logger.Log(LogLevel.Debug, "veadotube Service - Push-to-talk changed to " + value);
 
             CommandParametersModel parameters = new CommandParametersModel();
             parameters.SpecialIdentifiers["veadotubepushtotalk"] = value.ToString();
@@ -781,6 +1055,7 @@ namespace MixItUp.Base.Services.External
                         VeadotubeWebSocket socket = this.websocket;
                         if (this.IsConnected && (socket == null || !socket.IsOpen()))
                         {
+                            Logger.Log(LogLevel.Debug, "veadotube Service - Watchdog found the socket closed, most likely veadotube's WebSocket server was turned off or veadotube was closed");
                             await this.HandleConnectionLost();
                             return;
                         }
@@ -821,14 +1096,21 @@ namespace MixItUp.Base.Services.External
                 this.StopWatchdog();
                 this.IsConnected = false;
 
+                Logger.Log(LogLevel.Error, "veadotube Service - Connection to " + (this.ConnectedAddress ?? "veadotube") + " lost, starting reconnect loop");
+                this.ConnectedAddress = null;
+
                 ChannelSession.DisconnectionOccurred(Resources.Veadotube);
 
                 Result result = new Result(false);
+                int attempt = 0;
                 while (!result.Success && !this.userRequestedDisconnect)
                 {
                     await this.DisconnectSocket();
 
                     await Task.Delay(ReconnectDelayMilliseconds);
+
+                    attempt++;
+                    Logger.Log(LogLevel.Debug, "veadotube Service - Reconnect attempt " + attempt);
 
                     // ConnectInternal resolves the endpoint again on every attempt. veadotube binds a
                     // new ephemeral port each launch and on every server toggle, and one of those is

@@ -12113,6 +12113,15 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Nie udało się połączyć z veadotube. Upewnij się, że działa z włączonym serwerem WebSocket.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up nie mógł połączyć się z veadotube pod adresem {0}. Upewnij się, że veadotube jest uruchomione, a serwer WebSocket jest włączony w ustawieniach programu. Jeśli wpisałeś poniżej adres, wyczyść go i spróbuj ponownie, aby Mix It Up mógł sam znaleźć veadotube.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Wprowadzony adres nie jest prawidłowym adresem z portem. Użyj tego, który veadotube pokazuje obok „serving at”, na przykład 127.0.0.1:2424, albo wyczyść pole, aby Mix It Up mógł sam znaleźć veadotube.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Połączono z {0} pod adresem {1}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube nie jest połączone</value>
   </data>

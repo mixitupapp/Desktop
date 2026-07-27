@@ -10823,6 +10823,15 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Verbindung zu veadotube fehlgeschlagen. Stellen Sie sicher, dass es läuft und sein WebSocket-Server aktiviert ist.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up konnte unter {0} keine Verbindung zu veadotube herstellen. Stellen Sie sicher, dass veadotube läuft und der WebSocket-Server in den Programmeinstellungen aktiviert ist. Wenn Sie unten eine Adresse eingetragen haben, löschen Sie diese und versuchen Sie es erneut, damit Mix It Up veadotube selbst finden kann.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Die eingegebene Adresse ist keine gültige Adresse mit Port. Verwenden Sie die Adresse, die veadotube neben „serving at“ anzeigt, zum Beispiel 127.0.0.1:2424, oder leeren Sie das Feld, damit Mix It Up veadotube selbst finden kann.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Verbunden mit {0} unter {1}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube ist nicht verbunden</value>
   </data>

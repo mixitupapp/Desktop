@@ -12601,6 +12601,17 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Failed to connect to veadotube. Make sure it is running with its WebSocket server turned on.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up could not connect to veadotube at {0}. Make sure veadotube is running with the WebSocket server turned on in its program settings. If you typed an address in below, clear it out and try again so Mix It Up can find veadotube itself.</value>
+    <comment>Filled with the host and port that was tried</comment>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>The address you entered is not a valid address and port. Use the one veadotube shows next to "serving at", such as 127.0.0.1:2424, or clear the box so Mix It Up can find veadotube itself.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Connected to {0} at {1}</value>
+    <comment>Filled with the instance name and version, then the host and port</comment>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube is not connected</value>
   </data>

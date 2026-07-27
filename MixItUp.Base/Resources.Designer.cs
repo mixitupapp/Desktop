@@ -32699,7 +32699,34 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("VeadotubeConnectionFailed", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not connect to veadotube at {0}. Make sure veadotube is running with the WebSocket server turned on in its program settings. If you typed an address in below, clear it out and try again so Mix It Up can find veadotube itself..
+        /// </summary>
+        public static string VeadotubeConnectionFailedToAddress {
+            get {
+                return ResourceManager.GetString("VeadotubeConnectionFailedToAddress", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The address you entered is not a valid address and port. Use the one veadotube shows next to &quot;serving at&quot;, such as 127.0.0.1:2424, or clear the box so Mix It Up can find veadotube itself..
+        /// </summary>
+        public static string VeadotubeManualAddressInvalid {
+            get {
+                return ResourceManager.GetString("VeadotubeManualAddressInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Connected to {0} at {1}.
+        /// </summary>
+        public static string VeadotubeConnectedTo {
+            get {
+                return ResourceManager.GetString("VeadotubeConnectedTo", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to veadotube is not connected.
         /// </summary>
