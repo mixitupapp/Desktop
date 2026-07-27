@@ -30,7 +30,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="RedemptionStore.MDDialogHost" />
 
         <ScrollViewer Grid.Row="0">
             <Grid Margin="10">
@@ -65,7 +65,9 @@
                                     HorizontalContentAlignment="Center"
                                     CellStyle="{StaticResource StandardDataGridCell}"
                                     ItemsSource="{Binding Products}"
-                                    Style="{StaticResource StandardDataGrid}">
+                                    Style="{StaticResource StandardDataGrid}"
+                                    AutomationProperties.AutomationId="RedemptionStore.ProductsDataGrid"
+                                    AutomationProperties.Name="{x:Static resx:Resources.Products}">
                                     <DataGrid.Columns>
                                         <DataGridTemplateColumn
                                             Width="*"
@@ -92,7 +94,8 @@
                                                             x:Name="CustomProductNewCommandButton"
                                                             Click="CustomProductNewCommandButton_Click"
                                                             Content="{x:Static resx:Resources.AddCommand}"
-                                                            Visibility="{Binding CustomCommandNotSet, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                            Visibility="{Binding CustomCommandNotSet, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                            AutomationProperties.AutomationId="ProductRow.CustomProductNewCommandButton" />
 
                                                         <Grid Visibility="{Binding CustomCommandSet, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                             <CommandsControls:CommandListingButtonsControl
@@ -119,14 +122,18 @@
                                                             HorizontalAlignment="Center"
                                                             Command="{Binding EditProductCommand}"
                                                             Icon="rate_review"
-                                                            ToolTip="{x:Static resx:Resources.Edit}" />
+                                                            ToolTip="{x:Static resx:Resources.Edit}"
+                                                            AutomationProperties.AutomationId="ProductRow.EditButton"
+                                                            AutomationProperties.Name="{x:Static resx:Resources.Edit}" />
 
                                                         <Controls:IconButton
                                                             Grid.Column="2"
                                                             HorizontalAlignment="Center"
                                                             Command="{Binding DeleteProductCommand}"
                                                             Icon="delete"
-                                                            ToolTip="{x:Static resx:Resources.Delete}" />
+                                                            ToolTip="{x:Static resx:Resources.Delete}"
+                                                            AutomationProperties.AutomationId="ProductRow.DeleteButton"
+                                                            AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -165,14 +172,18 @@
                                         Width="250"
                                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                        Text="{Binding ProductName}" />
+                                        Text="{Binding ProductName}"
+                                        AutomationProperties.AutomationId="RedemptionStore.NameTextBox"
+                                        AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
                                     <TextBox
                                         Grid.Column="2"
                                         Width="60"
                                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Quantity}"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                        Text="{Binding ProductQuantityString}" />
+                                        Text="{Binding ProductQuantityString}"
+                                        AutomationProperties.AutomationId="RedemptionStore.QuantityTextBox"
+                                        AutomationProperties.Name="{x:Static resx:Resources.Quantity}" />
                                 </Grid>
 
                                 <Grid Grid.Row="2" HorizontalAlignment="Center">
@@ -194,7 +205,9 @@
                                     <ToggleButton
                                         Grid.Column="2"
                                         Margin="0,5,0,0"
-                                        IsChecked="{Binding ProductAutoReplenish}" />
+                                        IsChecked="{Binding ProductAutoReplenish}"
+                                        AutomationProperties.AutomationId="RedemptionStore.AutoReplenishToggle"
+                                        AutomationProperties.Name="{x:Static resx:Resources.AutoReplenish}" />
 
                                     <TextBlock
                                         Grid.Column="4"
@@ -204,7 +217,9 @@
                                     <ToggleButton
                                         Grid.Column="6"
                                         Margin="0,5,0,0"
-                                        IsChecked="{Binding ProductAutoRedeem}" />
+                                        IsChecked="{Binding ProductAutoRedeem}"
+                                        AutomationProperties.AutomationId="RedemptionStore.AutoRedeemToggle"
+                                        AutomationProperties.Name="{x:Static resx:Resources.AutoRedeem}" />
                                 </Grid>
                             </Grid>
 
@@ -222,7 +237,8 @@
                             Grid.Row="4"
                             Width="150"
                             Command="{Binding SaveProductCommand}"
-                            Content="{x:Static resx:Resources.SaveProduct}" />
+                            Content="{x:Static resx:Resources.SaveProduct}"
+                            AutomationProperties.AutomationId="RedemptionStore.SaveProductButton" />
                     </Grid>
                 </GroupBox>
 
@@ -249,7 +265,9 @@
                                 VerticalAlignment="Center"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatPurchaseCommand}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding ChatPurchaseCommand}" />
+                                Text="{Binding ChatPurchaseCommand}"
+                                AutomationProperties.AutomationId="RedemptionStore.ChatPurchaseCommandTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.ChatPurchaseCommand}" />
 
                             <TextBox
                                 Grid.Row="2"
@@ -257,7 +275,9 @@
                                 VerticalAlignment="Center"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModRedeemCommand}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding ModRedeemCommand}" />
+                                Text="{Binding ModRedeemCommand}"
+                                AutomationProperties.AutomationId="RedemptionStore.ModRedeemCommandTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.ModRedeemCommand}" />
                         </Grid>
 
                         <GroupBox
@@ -291,12 +311,14 @@
                 </GroupBox>
 
                 <Controls:IconButton
-                    x:Name="SaveButton"
+                    x:Name="RedemptionStoreSaveButton"
                     Grid.Row="4"
                     Width="80"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
-                    Icon="save" />
+                    Icon="save"
+                    AutomationProperties.AutomationId="RedemptionStore.SaveButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Save}" />
             </Grid>
         </ScrollViewer>
 

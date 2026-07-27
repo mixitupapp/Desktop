@@ -29,6 +29,6 @@
 
         <TextBlock Grid.Row="2" HorizontalAlignment="Center" TextWrapping="Wrap" Width="500" Text="{x:Static resx:Resources.MixItUpOnlineAlphaRegistrationInfo}" />
 
-        <Button Grid.Row="4" HorizontalAlignment="Center" Click="Button_Click" Content="{x:Static resx:Resources.Register}" />
+        <Button Grid.Row="4" HorizontalAlignment="Center" Click="Button_Click" Content="{x:Static resx:Resources.Register}" AutomationProperties.AutomationId="MixItUpOnline.RegisterButton" />
     </Grid>
 </local:MainControlBase>

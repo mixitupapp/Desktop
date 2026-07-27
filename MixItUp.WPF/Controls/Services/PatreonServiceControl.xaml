@@ -29,13 +29,13 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <ComboBox Grid.Row="0" ItemsSource="{Binding Tiers}" SelectedItem="{Binding SelectedTier}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubEquivalent}" DisplayMemberPath="Title" Width="200" />
+                <ComboBox Grid.Row="0" ItemsSource="{Binding Tiers}" SelectedItem="{Binding SelectedTier}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubEquivalent}" DisplayMemberPath="Title" Width="200" AutomationProperties.AutomationId="PatreonService.SubEquivalentComboBox" AutomationProperties.Name="{x:Static resx:Resources.SubEquivalent}" />
 
-                <Button Grid.Row="2" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Grid.Row="2" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="PatreonService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="PatreonService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

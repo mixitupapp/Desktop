@@ -28,7 +28,7 @@ namespace MixItUp.WPF.Controls.Overlay
 
         protected override async Task OnLoaded()
         {
-            this.TextFontComboBox.ItemsSource = ServiceManager.Get<IFileService>().GetInstalledFonts();
+            this.OverlayTimerItemTextFontComboBox.ItemsSource = ServiceManager.Get<IFileService>().GetInstalledFonts();
 
             await base.OnLoaded();
         }

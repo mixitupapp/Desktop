@@ -25,7 +25,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Main.DialogHost" />
 
         <MainControls:MainMenuControl x:Name="MainMenu" Grid.Row="0" />
 

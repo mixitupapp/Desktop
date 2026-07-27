@@ -34,9 +34,9 @@
                 <ColumnDefinition Width="180" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayTimerV3.FontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayTimerV3.FontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -44,9 +44,9 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
 
-            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayTimerV3.FontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayTimerV3.ShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -64,37 +64,37 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                <ListBoxItem IsSelected="{Binding Bold}">
+            <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayTimerV3.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayTimerV3.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                     <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Italics}">
+                <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayTimerV3.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                     <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Underline}">
+                <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayTimerV3.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                     <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
 
-            <ListBox Grid.Column="2" SelectionMode="Single" Style="{StaticResource MaterialDesignToolToggleFlatListBox}">
-                <ListBoxItem IsSelected="{Binding LeftAlignment}">
+            <ListBox Grid.Column="2" SelectionMode="Single" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" AutomationProperties.AutomationId="OverlayTimerV3.TextAlignmentList" AutomationProperties.Name="{x:Static resx:Resources.TextAlignment}">
+                <ListBoxItem IsSelected="{Binding LeftAlignment}" AutomationProperties.AutomationId="OverlayTimerV3.LeftAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.LeftAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_left" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding CenterAlignment}">
+                <ListBoxItem IsSelected="{Binding CenterAlignment}" AutomationProperties.AutomationId="OverlayTimerV3.CenterAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.CenterAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_center" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding RightAlignment}">
+                <ListBoxItem IsSelected="{Binding RightAlignment}" AutomationProperties.AutomationId="OverlayTimerV3.RightAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.RightAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_right" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding JustifyAlignment}">
+                <ListBoxItem IsSelected="{Binding JustifyAlignment}" AutomationProperties.AutomationId="OverlayTimerV3.JustifyAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.JustifyAlignment}">
                     <Controls:MaterialSymbolIcon IconName="format_align_justify" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
 
-            <TextBox Grid.Column="6" Text="{Binding DisplayFormat}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayFormat}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="6" Text="{Binding DisplayFormat}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayFormat}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayTimerV3.DisplayFormatTextBox" AutomationProperties.Name="{x:Static resx:Resources.DisplayFormat}" />
 
             <TextBlock Grid.Column="8" Text="{Binding Source={x:Static resx:Resources.CountUp}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="10" IsChecked="{Binding CountUp}" />
+            <ToggleButton Grid.Column="10" IsChecked="{Binding CountUp}" AutomationProperties.AutomationId="OverlayTimerV3.CountUpToggle" AutomationProperties.Name="{x:Static resx:Resources.CountUp}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

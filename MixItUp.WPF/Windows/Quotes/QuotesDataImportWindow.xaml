@@ -31,7 +31,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="QuotesDataImport.MDDialogHost" />
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.RowDefinitions>
@@ -67,7 +67,9 @@
                     Height="50"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding QuotesDataFilePath}" />
+                    Text="{Binding QuotesDataFilePath}"
+                    AutomationProperties.AutomationId="QuotesDataImport.FilePathTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.FilePath}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="2"
@@ -75,7 +77,8 @@
                     VerticalAlignment="Bottom"
                     Command="{Binding QuotesDataFileBrowseCommand}"
                     Content="{x:Static resx:Resources.Browse}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="QuotesDataImport.BrowseButton" />
             </Grid>
 
             <TextBlock
@@ -89,7 +92,7 @@
                 Grid.Row="6"
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Visible">
-                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Columns}">
+                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Columns}" AutomationProperties.AutomationId="QuotesDataImport.QuotesDataImportStep2List" AutomationProperties.Name="{x:Static resx:Resources.Columns}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,12">
@@ -108,7 +111,9 @@
                                     Grid.Column="2"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColumnNumber}"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    Text="{Binding ColumnNumber}" />
+                                    Text="{Binding ColumnNumber}"
+                                    AutomationProperties.AutomationId="ImportColumn.ColumnNumberTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.ColumnNumber}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -122,7 +127,8 @@
                 Command="{Binding ImportButtonCommand}"
                 Content="{Binding ImportButtonText}"
                 IsEnabled="{Binding ImportButtonState}"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                AutomationProperties.AutomationId="QuotesDataImport.ImportButton" />
 
         </Grid>
 

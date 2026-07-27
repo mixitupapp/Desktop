@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1306,6 +1306,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>Maximale Waarde</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP-server</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Open naar lokaal netwerk (moet als beheerder worden uitgevoerd):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Serveradres:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>Met de MCP-server kunnen AI-agents die op uw computer worden uitgevoerd via het Model Context Protocol met Mix It Up communiceren. Verwijs een client zoals Claude Code naar het onderstaande serveradres. Zie de wikipagina van de MCP-server voor meer informatie hierover.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>WAARSCHUWING: Elke agent die met deze server is verbonden, kan uw configuratie lezen en namens u opdrachten uitvoeren, waaronder het verzenden van chatberichten. Schakel dit alleen in terwijl u actief werkt met een agent die u vertrouwt.</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -10296,6 +10316,9 @@ afdrukken(uitvoeren())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Altijd</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Abonnementsreeks</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Er moet een geldig verbruiksartikel worden geselecteerd</value>
   </data>
@@ -10799,6 +10822,11 @@ Alleen inschakelen als je weet wat je doet. Doorgaan?</value>
   </data>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Tokens: YYYY YY (jaar), MMMM MMM MM M (maand), DD D (dag), dddd ddd (weekdag), HH H (24-uurs), hh h (12-uurs), mm m (minuut), ss s (seconde), A a (AM/PM). Zet letterlijke tekst tussen vierkante haken zodat de letters ongewijzigd blijven, bijvoorbeeld: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Elk weergegeven onderdeel staat in een eigen span met de naam van het token, zodat het apart kan worden opgemaakt in het CSS-gedeelte: .time-A voor AM/PM, .date-MMMM voor de maandnaam, enzovoort, met dezelfde hoofdletters als het token, dus .date-MM is de maand en .time-mm de minuut.
+Een hele groep dek je af met [class^="date-"] of [class^="time-"].
+Voorbeeld: .time-A { font-size: 50% }</value>
   </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Laat leeg om de tijdzone te gebruiken van de computer waarop de Overlay draait. Zones staan vermeld onder hun belangrijkste stad, dus Europe/Berlin dekt ook Amsterdam en Rome. Je kunt ook rechtstreeks een IANA-tijdzonenaam typen, zoals Europe/Amsterdam.</value>
@@ -12064,5 +12092,65 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
     <value>Hiermee worden het kleurenschema, de achtergrond, de voorgrond, het volledige thema, het UI-lettertype, de algemene lettergrootte en de lettergrootte van het chatvenster hersteld naar de standaardwaarden. Weet je het zeker?</value>
     <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube is een PNGtuber-app die tijdens het praten wisselt tussen stilstaande afbeeldingen van je personage. Na verbinding kunnen je commando's de avatarstatus wijzigen, en kan een statuswijziging een commando uitvoeren. Mix It Up vindt veadotube vanzelf, dus je hoeft niets in te vullen.</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>Schakel de WebSocket-server in bij de programma-instellingen van veadotube voordat je verbinding maakt. Het adres verandert elke keer dat veadotube start, daarom leest Mix It Up het voor je uit.</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>De push-to-talk-actie vereist dat 'use websocket' is ingeschakeld onder push-to-talk in de microfooninstellingen van veadotube. Verwijder ook eventuele push-to-talk-sneltoetsen, want een sneltoets overschrijft alles wat Mix It Up verstuurt.</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>Deze versie van veadotube is ouder dan 2.1. Het wisselen van avatarstatussen en alle push-to-talk-acties doen niets totdat je bijwerkt.</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up kon geen actieve versie van veadotube vinden. Open veadotube, schakel de WebSocket-server in bij de programma-instellingen en probeer opnieuw verbinding te maken.</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>Verbinden met veadotube is mislukt. Zorg ervoor dat het draait met de WebSocket-server ingeschakeld.</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube is niet verbonden</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>Adres (Optioneel)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>Avatarstatus</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>Push-to-Talk</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>Er moet een avatarstatus worden geselecteerd</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>Avatarstatus gewijzigd</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>Push-to-Talk gewijzigd</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>Avatarstatus instellen</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>Avatarstatus toevoegen</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>Avatarstatus verwijderen</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>Avatarstatus omschakelen</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>Willekeurige avatarstatus instellen</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>Push-to-Talk instellen</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1306,6 +1306,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>最大值</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP 伺服器</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>開啟到本機網路（必須以管理員身分執行）：</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>伺服器位址：</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCP 伺服器可讓在您電腦上執行的 AI 代理程式透過 Model Context Protocol 與 Mix It Up 互動。請將用戶端（例如 Claude Code）指向下方的伺服器位址。如需更多相關資訊，請參閱 MCP 伺服器的 Wiki 頁面。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>警告：任何連線至此伺服器的代理程式都能讀取您的設定並代表您執行命令，包括傳送聊天訊息。請僅在您正與信任的代理程式合作時啟用此功能。</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -10295,6 +10315,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AllTime" xml:space="preserve">
     <value>所有時間</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>連續訂閱時間</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>必須選擇有效的耗材</value>
   </data>
@@ -10798,6 +10821,11 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>代碼：YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (星期)、HH H (24 小時制)、hh h (12 小時制)、mm m (分)、ss s (秒)、A a (AM/PM)。若要原樣顯示文字，請用方括號括住，例如：h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>每個顯示的部分都會包在以其代碼命名的 span 中，因此可以在 CSS 區段中單獨設定樣式：AM/PM 為 .time-A，月份名稱為 .date-MMMM，其餘類推，並與代碼的大小寫相同，因此 .date-MM 是月份，.time-mm 是分鐘。
+整個群組可用 [class^="date-"] 或 [class^="time-"] 涵蓋。
+範例：.time-A { font-size: 50% }</value>
   </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>留空即使用執行覆蓋的電腦時區。時區以主要城市列出，因此 Europe/Berlin 也涵蓋阿姆斯特丹與羅馬。你也可以直接輸入任何 IANA 時區名稱，例如 Europe/Amsterdam。</value>
@@ -12094,5 +12122,65 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
     <value>這會將色彩配置、背景、前景、完整佈景主題、介面字型、整體字型大小和聊天視窗字型大小重設為預設值。確定要繼續嗎?</value>
     <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube 是一款 PNGtuber 應用程式，會在你說話時切換角色的靜態圖片。連接後，你的命令可以變更虛擬形象狀態，狀態變更也可以執行命令。Mix It Up 會自動找到 veadotube，因此不需要輸入任何內容。</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>連接前請在 veadotube 的程式設定中開啟 WebSocket 伺服器。每次啟動 veadotube 時位址都會變更，因此由 Mix It Up 自動讀取。</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>「按住說話」動作需要在 veadotube 麥克風設定的 push-to-talk 項目中開啟「use websocket」。另請移除所有 push-to-talk 鍵盤快速鍵，因為快速鍵會覆蓋 Mix It Up 傳送的內容。</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>此 veadotube 版本早於 2.1。在更新之前，切換虛擬形象狀態與所有「按住說話」動作都不會生效。</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up 找不到執行中的 veadotube。請開啟 veadotube，在程式設定中開啟 WebSocket 伺服器，然後再次嘗試連接。</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>無法連接到 veadotube。請確認它正在執行且已開啟 WebSocket 伺服器。</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube 未連接</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>位址（選填）</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>虛擬形象狀態</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>按住說話</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>必須選擇一個虛擬形象狀態</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>虛擬形象狀態已變更</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>按住說話已變更</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>設定虛擬形象狀態</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>推入虛擬形象狀態</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>彈出虛擬形象狀態</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>切換虛擬形象狀態</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>設定隨機虛擬形象狀態</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>設定按住說話</value>
   </data>
 </root>

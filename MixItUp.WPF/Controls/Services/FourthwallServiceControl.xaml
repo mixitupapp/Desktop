@@ -39,16 +39,16 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding WebhookURL, Mode=OneWay}" IsReadOnly="True" Width="280" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FourthwallWebhookURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding WebhookURL, Mode=OneWay}" IsReadOnly="True" Width="280" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FourthwallWebhookURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="FourthwallService.FourthwallWebhookURLTextBox" AutomationProperties.Name="{x:Static resx:Resources.FourthwallWebhookURL}" />
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="CopyURLButton" Click="CopyURLButton_Click" MinWidth="90" Content="{x:Static resx:Resources.CopyURL}"/>
-                    <Button Margin="10,0,0,0" Command="{Binding DisconnectCommand}" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                    <Button x:Name="FourthwallServiceCopyURLButton" Click="CopyURLButton_Click" MinWidth="90" Content="{x:Static resx:Resources.CopyURL}" AutomationProperties.AutomationId="FourthwallService.CopyURLButton" />
+                    <Button Margin="10,0,0,0" Command="{Binding DisconnectCommand}" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="FourthwallService.DisconnectButton" />
                 </StackPanel>
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="FourthwallService.ConnectButton" />
             </Grid>
         </Grid>
     </Grid>

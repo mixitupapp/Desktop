@@ -36,6 +36,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new KoFiServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LoupeDeckServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new LumiaStreamServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new MCPServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MeldStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new MtionStudioServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new OBSStudioServiceControl()));
@@ -68,6 +69,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new TipeeeStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TITSServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TreatStreamServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new VeadotubeServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VoicemodServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VTSPogServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VTubeStudioServiceControl()));

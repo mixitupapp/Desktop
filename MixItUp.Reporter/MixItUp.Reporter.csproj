@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -12,7 +12,7 @@
     <ApplicationIcon>..\MixItUp.WPF\Logo.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<NoWarn>CA1416</NoWarn>
-	<Configurations>Debug;Test;Public;Preview</Configurations>
+	<Configurations>Debug;Dev;Public;Preview</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

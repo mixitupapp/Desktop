@@ -33,9 +33,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandInitialAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InitialAmount}" Width="80" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandInitialAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InitialAmount}" Width="80" AutomationProperties.AutomationId="LockBoxGameCommandEditorDetails.GameCommandInitialAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandInitialAmount}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxCombinationLength}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CombinationLength}" Width="100" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxCombinationLength}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CombinationLength}" Width="100" AutomationProperties.AutomationId="LockBoxGameCommandEditorDetails.CombinationLengthTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandLockBoxCombinationLength}" />
                 </Grid>
             </GroupBox>
 
@@ -63,7 +63,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="100" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="100" AutomationProperties.AutomationId="LockBoxGameCommandEditorDetails.StatusArgumentTextBox" AutomationProperties.Name="{x:Static resx:Resources.StatusArgument}" />
 
                     <CommandsControls:CommandListingButtonsControl x:Name="StatusCommand" Grid.Column="2" DataContext="{Binding StatusCommand}" HorizontalAlignment="Center" EditClicked="StatusCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
                 </Grid>
@@ -79,9 +79,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxInspectionArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InspectionArgument}" Width="100" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxInspectionArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InspectionArgument}" Width="100" AutomationProperties.AutomationId="LockBoxGameCommandEditorDetails.InspectionArgumentTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandLockBoxInspectionArgument}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxInspectionCost}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InspectionCost}" Width="100" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandLockBoxInspectionCost}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InspectionCost}" Width="100" AutomationProperties.AutomationId="LockBoxGameCommandEditorDetails.InspectionCostTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandLockBoxInspectionCost}" />
 
                     <CommandsControls:CommandListingButtonsControl x:Name="InspectionCommand" Grid.Column="4" DataContext="{Binding InspectionCommand}" HorizontalAlignment="Center" EditClicked="InspectionCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
                 </Grid>

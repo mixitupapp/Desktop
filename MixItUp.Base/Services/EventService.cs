@@ -248,6 +248,9 @@ namespace MixItUp.Base.Services
         KoFiCommission = 1154,
 
         PallyDonation = 1160,
+
+        VeadotubeAvatarStateChanged = 1170,
+        VeadotubePushToTalkChanged = 1171,
     }
 
     public class SubscriptionDetailsModel

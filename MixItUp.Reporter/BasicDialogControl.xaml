@@ -28,7 +28,8 @@
             Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
             Content="{x:Static resx:Resources.Ok}"
             IsDefault="True"
-            Style="{DynamicResource MaterialDesignFlatButton}">
+            Style="{DynamicResource MaterialDesignFlatButton}"
+            AutomationProperties.AutomationId="ReporterDialog.OkButton">
             <Button.CommandParameter>
                 <system:Boolean>True</system:Boolean>
             </Button.CommandParameter>

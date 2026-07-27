@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" Style="{StaticResource DefaultBorder}">
-            <ItemsControl ItemsSource="{Binding Labels}" Margin="10">
+            <ItemsControl ItemsSource="{Binding Labels}" Margin="10" AutomationProperties.AutomationId="TwitchContentClassificationLabelsEditor.LabelsList" AutomationProperties.Name="{x:Static resx:Resources.ContentClassificationLabels}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
@@ -26,14 +26,14 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <MaterialDesign:Chip Content="{Binding Name}" IsDeletable="True" DeleteCommand="{Binding DeleteLabelCommand}" />
+                        <MaterialDesign:Chip Content="{Binding Name}" IsDeletable="True" DeleteCommand="{Binding DeleteLabelCommand}" AutomationProperties.AutomationId="Label.Chip" AutomationProperties.Name="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Border>
 
-        <ComboBox Grid.Column="2" ItemsSource="{Binding AllLabels}" SelectedItem="{Binding SelectedLabel}" DisplayMemberPath="name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Label}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" />
+        <ComboBox Grid.Column="2" ItemsSource="{Binding AllLabels}" SelectedItem="{Binding SelectedLabel}" DisplayMemberPath="name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Label}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" AutomationProperties.AutomationId="TwitchContentClassificationLabelsEditor.LabelComboBox" AutomationProperties.Name="{x:Static resx:Resources.Label}" />
 
-        <Button Grid.Column="4" Command="{Binding AddLabelCommand}" Content="{MaterialDesign:PackIcon Add}" Padding="10,0" Cursor="Hand" />
+        <Button Grid.Column="4" Command="{Binding AddLabelCommand}" Content="{MaterialDesign:PackIcon Add}" Padding="10,0" Cursor="Hand" AutomationProperties.AutomationId="TwitchContentClassificationLabelsEditor.AddLabelButton" />
     </Grid>
 </UserControl>

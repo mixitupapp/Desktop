@@ -38,12 +38,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" />
+                <TextBox Grid.Column="0" Text="{Binding Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" AutomationProperties.AutomationId="ChatCommandEditorDetails.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                <ComboBox Grid.Column="1" Margin="20,0,0,0" ItemsSource="{Binding CommandGroups}" Text="{Binding SelectedCommandGroup}" Visibility="{Binding ShowCommandGroupSelector, Converter={StaticResource BooleanToVisibilityConverter}}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Width="150" />
+                <ComboBox Grid.Column="1" Margin="20,0,0,0" ItemsSource="{Binding CommandGroups}" Text="{Binding SelectedCommandGroup}" Visibility="{Binding ShowCommandGroupSelector, Converter={StaticResource BooleanToVisibilityConverter}}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Width="150" AutomationProperties.AutomationId="ChatCommandEditorDetails.CommandGroupComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandGroup}" />
             </Grid>
 
-            <TextBox Grid.Row="2" Text="{Binding Triggers}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{Binding ChatTriggersHintText}" />
+            <TextBox Grid.Row="2" Text="{Binding Triggers}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{Binding ChatTriggersHintText}" AutomationProperties.AutomationId="ChatCommandEditorDetails.TriggersTextBox" AutomationProperties.Name="{x:Static resx:Resources.ChatCommandTriggers}" />
 
             <!--  DownOnly Viewbox: the row's natural width exceeds the window's default size, and a centered
                   grid wider than its slot clips on both edges; scaling down only when space is tight keeps
@@ -63,10 +63,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AutoIncludeBang}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <ToggleButton Grid.Column="2" IsChecked="{Binding IncludeExclamation}" IsEnabled="{Binding IncludeExclamationEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <ToggleButton Grid.Column="2" IsChecked="{Binding IncludeExclamation}" IsEnabled="{Binding IncludeExclamationEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" AutomationProperties.AutomationId="ChatCommandEditorDetails.AutoIncludeBangToggle" AutomationProperties.Name="{x:Static resx:Resources.AutoIncludeBang}" />
 
                     <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Wildcards}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <ToggleButton Grid.Column="6" IsChecked="{Binding Wildcards}" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding Wildcards}" AutomationProperties.AutomationId="ChatCommandEditorDetails.WildcardsToggle" AutomationProperties.Name="{x:Static resx:Resources.Wildcards}" />
 
                     <local:UnlockCommandControl Grid.Column="8" />
                 </Grid>

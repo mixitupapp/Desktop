@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding ClipTypes}" SelectedItem="{Binding SelectedClipType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding ClipTypes}" SelectedItem="{Binding SelectedClipType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200" AutomationProperties.AutomationId="OverlayTwitchClipV3.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" Width="300"/>
@@ -38,8 +38,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Text="{Binding Username}" Grid.Column="2" Visibility="{Binding ShowUsername, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            <TextBox Text="{Binding ClipID}" Grid.Column="2" Visibility="{Binding ShowClipID, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ClipIDURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Username}" Grid.Column="2" Visibility="{Binding ShowUsername, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayTwitchClipV3.UsernameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Username}" />
+            <TextBox Text="{Binding ClipID}" Grid.Column="2" Visibility="{Binding ShowClipID, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ClipIDURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayTwitchClipV3.ClipIDURLTextBox" AutomationProperties.Name="{x:Static resx:Resources.ClipIDURL}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -53,12 +53,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Width}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Width}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayTwitchClipV3.WidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.Width}" />
 
-            <TextBox Text="{Binding Height}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Height}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayTwitchClipV3.HeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.Height}" />
 
             <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{x:Static resx:Resources.VolumeHeader}"/>
-            <Slider Value="{Binding Volume}" VerticalAlignment="Center" Grid.Column="6" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" />
+            <Slider Value="{Binding Volume}" VerticalAlignment="Center" Grid.Column="6" Width="120" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" ToolTip="{x:Static resx:Resources.Volume}" AutomationProperties.AutomationId="OverlayTwitchClipV3.VolumeSlider" AutomationProperties.Name="{x:Static resx:Resources.Volume}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

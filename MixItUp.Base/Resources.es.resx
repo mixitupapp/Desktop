@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1307,6 +1307,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>Valor máximo</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>Servidor MCP</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Abrir a la red local (debe ejecutarse como administrador):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Dirección del servidor:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>El servidor MCP permite que los agentes de IA que se ejecutan en su ordenador interactúen con Mix It Up a través del Model Context Protocol. Dirija un cliente como Claude Code a la dirección del servidor que aparece a continuación. Para obtener más información sobre esto, consulte la página wiki del servidor MCP.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>ADVERTENCIA: Cualquier agente conectado a este servidor puede leer su configuración y ejecutar comandos en su nombre, incluido el envío de mensajes de chat. Active esto solo mientras esté trabajando activamente con un agente en el que confíe.</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -10297,6 +10317,9 @@ imprimir(ejecutar())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Todo el tiempo</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Racha de suscripción</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Se debe seleccionar un consumible válido.</value>
   </data>
@@ -10800,6 +10823,11 @@ Habilítelo sólo si sabe lo que está haciendo. ¿Continuar?</value>
   </data>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>Comodines: YYYY YY (año), MMMM MMM MM M (mes), DD D (día), dddd ddd (día de la semana), HH H (24 horas), hh h (12 horas), mm m (minuto), ss s (segundo), A a (AM/PM). Escribe el texto literal entre corchetes para que sus letras no se sustituyan, por ejemplo: h:mm A [en Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Cada parte mostrada se envuelve en un span con el nombre de su comodín, para poder darle estilo por separado en la sección CSS: .time-A para AM/PM, .date-MMMM para el nombre del mes, etc., respetando mayúsculas y minúsculas, así .date-MM es el mes y .time-mm es el minuto.
+Un grupo entero se cubre con [class^="date-"] o [class^="time-"].
+Ejemplo: .time-A { font-size: 50% }</value>
   </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>Déjalo en blanco para usar la zona horaria del equipo que ejecuta el Overlay. Las zonas aparecen bajo su ciudad principal, por lo que Europe/Berlin también cubre Ámsterdam y Roma. También puedes escribir directamente cualquier nombre de zona horaria IANA, como Europe/Amsterdam.</value>
@@ -12065,5 +12093,65 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
     <value>Esto restablecerá el esquema de color, el fondo, el primer plano, el tema completo, la fuente de la interfaz, el tamaño de fuente general y el tamaño de fuente de la ventana de chat a sus valores predeterminados. ¿Estás seguro?</value>
     <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube es una aplicación PNGtuber que alterna entre imágenes fijas de tu personaje mientras hablas. Al conectarla, tus comandos pueden cambiar el estado del avatar, y un cambio de estado puede ejecutar un comando. Mix It Up encuentra veadotube por su cuenta, así que no hay nada que escribir.</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>Activa el servidor WebSocket en la configuración del programa de veadotube antes de conectar. Su dirección cambia cada vez que veadotube se inicia, por eso Mix It Up la lee por ti.</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>La acción de pulsar para hablar requiere que «use websocket» esté activado en la sección de pulsar para hablar de la configuración del micrófono de veadotube. Elimina también cualquier atajo de teclado de pulsar para hablar, ya que un atajo anula todo lo que envía Mix It Up.</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>Esta copia de veadotube es anterior a la versión 2.1. Alternar estados del avatar y todas las acciones de pulsar para hablar no harán nada hasta que actualices.</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up no pudo encontrar una copia de veadotube en ejecución. Abre veadotube, activa el servidor WebSocket en la configuración del programa e inténtalo de nuevo.</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>No se pudo conectar a veadotube. Asegúrate de que está en ejecución con su servidor WebSocket activado.</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube no está conectado</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>Dirección (Opcional)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>Estado del avatar</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>Pulsar para hablar</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>Debe seleccionarse un estado del avatar</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>Estado del avatar cambiado</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>Pulsar para hablar cambiado</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>Establecer estado del avatar</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>Apilar estado del avatar</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>Desapilar estado del avatar</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>Alternar estado del avatar</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>Establecer estado del avatar aleatorio</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>Establecer pulsar para hablar</value>
   </data>
 </root>

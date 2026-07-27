@@ -103,6 +103,12 @@ namespace MixItUp.Base.Model.User
 
         public IEnumerable<UserPlatformV2ModelBase> GetAllPlatformData() { return this.PlatformData.Values.ToList(); }
 
+        public DateTimeOffset? GetEarliestSubscribeDate()
+        {
+            List<DateTimeOffset> dates = this.PlatformData.Values.Where(p => p.SubscribeDate.HasValue).Select(p => p.SubscribeDate.Value).ToList();
+            return (dates.Count > 0) ? dates.Min() : (DateTimeOffset?)null;
+        }
+
         public void AddPlatformData(UserPlatformV2ModelBase platformModel) { this.PlatformData[platformModel.Platform] = platformModel; }
 
         public string GetPlatformID(StreamingPlatformTypeEnum platform) { return this.HasPlatformData(platform) ? this.GetPlatformData<UserPlatformV2ModelBase>(platform).ID : null; }

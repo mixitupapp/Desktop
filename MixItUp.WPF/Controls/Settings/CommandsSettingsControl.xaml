@@ -46,7 +46,7 @@
             <Separator Margin="10" />
             
             <TextBlock Margin="20,10" Text="{Binding Source={x:Static resx:Resources.HideActionsFromCommandEditor}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ItemsControl Margin="60,0,60,0" ItemsSource="{Binding HideActionsList}">
+            <ItemsControl Margin="60,0,60,0" ItemsSource="{Binding HideActionsList}" AutomationProperties.AutomationId="CommandsSettings.HideActionsFromCommandList" AutomationProperties.Name="{x:Static resx:Resources.HideActionsFromCommandEditor}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <GenericSettingsControls:GenericToggleSettingsOptionControl />

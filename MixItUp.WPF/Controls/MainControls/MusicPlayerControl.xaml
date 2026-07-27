@@ -87,7 +87,9 @@
                         VerticalAlignment="Center"
                         Maximum="{Binding TrackDuration, Mode=OneWay}"
                         Minimum="0"
-                        Style="{StaticResource MaterialDesign3.MaterialDesignSlider}" />
+                        Style="{StaticResource MaterialDesign3.MaterialDesignSlider}"
+                        AutomationProperties.AutomationId="MusicPlayer.TrackScrubber"
+                        AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerTrackPosition}" />
 
                     <Grid Grid.Row="5" Margin="5,0">
                         <TextBlock
@@ -120,32 +122,44 @@
                         <Controls:IconButton
                             Grid.Column="0"
                             Command="{Binding PreviousCommand}"
-                            Icon="skip_previous" />
+                            Icon="skip_previous"
+                            AutomationProperties.AutomationId="MusicPlayer.PreviousTrackButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerPreviousTrack}" />
                         <Controls:IconButton
                             Grid.Column="2"
                             Command="{Binding PlayPauseCommand}"
-                            Icon="play_pause" />
+                            Icon="play_pause"
+                            AutomationProperties.AutomationId="MusicPlayer.PlayPauseButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerPlayPause}" />
                         <Controls:IconButton
                             Grid.Column="4"
                             Command="{Binding StopCommand}"
-                            Icon="stop" />
+                            Icon="stop"
+                            AutomationProperties.AutomationId="MusicPlayer.StopButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.Stop}" />
                         <Controls:IconButton
                             Grid.Column="6"
                             Command="{Binding NextCommand}"
-                            Icon="skip_next" />
+                            Icon="skip_next"
+                            AutomationProperties.AutomationId="MusicPlayer.NextTrackButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerNextTrack}" />
 
                         <Grid Grid.Column="8">
                             <Controls:IconButton
                                 Command="{Binding ToggleShuffleCommand}"
                                 Icon="shuffle_on"
                                 ToolTip="{x:Static resx:Resources.Shuffle}"
-                                Visibility="{Binding IsShuffleOn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding IsShuffleOn, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                AutomationProperties.AutomationId="MusicPlayer.ShuffleOnButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Shuffle}" />
                             <Controls:IconButton
                                 Command="{Binding ToggleShuffleCommand}"
                                 Icon="shuffle"
                                 Opacity="0.55"
                                 ToolTip="{x:Static resx:Resources.Shuffle}"
-                                Visibility="{Binding IsShuffleOff, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding IsShuffleOff, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                AutomationProperties.AutomationId="MusicPlayer.ShuffleOffButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Shuffle}" />
                         </Grid>
 
                         <Grid Grid.Column="10">
@@ -153,13 +167,17 @@
                                 Command="{Binding ToggleRepeatCommand}"
                                 Icon="repeat_on"
                                 ToolTip="{x:Static resx:Resources.Repeat}"
-                                Visibility="{Binding IsRepeatOn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding IsRepeatOn, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                AutomationProperties.AutomationId="MusicPlayer.RepeatOnButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Repeat}" />
                             <Controls:IconButton
                                 Command="{Binding ToggleRepeatCommand}"
                                 Icon="repeat"
                                 Opacity="0.55"
                                 ToolTip="{x:Static resx:Resources.Repeat}"
-                                Visibility="{Binding IsRepeatOff, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding IsRepeatOff, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                AutomationProperties.AutomationId="MusicPlayer.RepeatOffButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Repeat}" />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -186,7 +204,9 @@
                             MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioOutputDevice}"
                             ItemsSource="{Binding AudioDevices}"
                             SelectedItem="{Binding SelectedAudioDevice}"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            AutomationProperties.AutomationId="MusicPlayer.AudioDeviceComboBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.AudioOutputDevice}" />
 
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
@@ -205,7 +225,9 @@
                                 Maximum="100"
                                 Minimum="0"
                                 Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}"
-                                Value="{Binding Volume}" />
+                                Value="{Binding Volume}"
+                                AutomationProperties.AutomationId="MusicPlayer.VolumeSlider"
+                                AutomationProperties.Name="{x:Static resx:Resources.Volume}" />
                         </Grid>
                     </Grid>
 
@@ -247,7 +269,9 @@
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     VirtualizingPanel.IsVirtualizing="True"
                     VirtualizingPanel.VirtualizationMode="Recycling"
-                    Visibility="{Binding MusicLoaded, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    Visibility="{Binding MusicLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    AutomationProperties.AutomationId="MusicPlayer.QueueListBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Queue}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,1" Background="Transparent">
@@ -308,7 +332,9 @@
                                     Command="{Binding DataContext.RemoveSongCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
                                     CommandParameter="{Binding}"
                                     Style="{StaticResource MaterialDesignIconButton}"
-                                    ToolTip="{x:Static resx:Resources.MusicPlayerRemoveFromQueue}">
+                                    ToolTip="{x:Static resx:Resources.MusicPlayerRemoveFromQueue}"
+                                    AutomationProperties.AutomationId="QueueRow.RemoveFromQueueButton"
+                                    AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerRemoveFromQueue}">
                                     <Controls:MaterialSymbolIcon
                                         IconName="cancel" FontSize="{DynamicResource MIU.IconSize.20}" />
                                 </Button>
@@ -326,29 +352,39 @@
                 <Controls:IconButton
                     Command="{Binding AddFileToQueueCommand}"
                     Icon="music_note_add"
-                    ToolTip="{x:Static resx:Resources.MusicPlayerAddFileToQueue}" />
+                    ToolTip="{x:Static resx:Resources.MusicPlayerAddFileToQueue}"
+                    AutomationProperties.AutomationId="MusicPlayer.AddFileButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerAddFileToQueue}" />
                 <Controls:IconButton
                     Margin="10,0,0,0"
                     Command="{Binding AddFolderToQueueCommand}"
                     Icon="library_music"
-                    ToolTip="{x:Static resx:Resources.MusicPlayerAddFolderToQueue}" />
+                    ToolTip="{x:Static resx:Resources.MusicPlayerAddFolderToQueue}"
+                    AutomationProperties.AutomationId="MusicPlayer.AddFolderButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerAddFolderToQueue}" />
                 <Controls:IconButton
                     Margin="10,0,0,0"
                     Command="{Binding AddPlaylistToQueueCommand}"
                     Icon="queue_music"
-                    ToolTip="{x:Static resx:Resources.MusicPlayerAddPlaylistToQueue}" />
+                    ToolTip="{x:Static resx:Resources.MusicPlayerAddPlaylistToQueue}"
+                    AutomationProperties.AutomationId="MusicPlayer.AddPlaylistButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerAddPlaylistToQueue}" />
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Controls:IconButton
                     Command="{Binding ExportQueueCommand}"
                     Icon="upload_file"
-                    ToolTip="{x:Static resx:Resources.MusicPlayerExportQueueAsPlaylist}" />
+                    ToolTip="{x:Static resx:Resources.MusicPlayerExportQueueAsPlaylist}"
+                    AutomationProperties.AutomationId="MusicPlayer.ExportQueueButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.MusicPlayerExportQueueAsPlaylist}" />
                 <Controls:IconButton
                     Margin="10,0,0,0"
                     Command="{Binding ClearQueueCommand}"
                     Icon="delete_sweep"
-                    ToolTip="{x:Static resx:Resources.ClearQueue}" />
+                    ToolTip="{x:Static resx:Resources.ClearQueue}"
+                    AutomationProperties.AutomationId="MusicPlayer.ClearQueueButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.ClearQueue}" />
             </StackPanel>
         </Grid>
     </Grid>

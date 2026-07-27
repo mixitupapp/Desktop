@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1306,6 +1306,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>最大値</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCPサーバー</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>ローカル ネットワークに開く (管理者として実行する必要があります):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>サーバーアドレス:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCPサーバーを使用すると、お使いのコンピューター上で実行されているAIエージェントが Model Context Protocol を介して Mix It Up と連携できます。Claude Code などのクライアントを以下のサーバーアドレスに接続してください。詳細については、MCPサーバーのWikiページをご覧ください。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>警告: このサーバーに接続されたエージェントは、設定を読み取り、チャットメッセージの送信を含むコマンドをあなたの代わりに実行できます。信頼できるエージェントで作業しているときのみ有効にしてください。</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -10295,6 +10315,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="AllTime" xml:space="preserve">
     <value>オールタイム</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>連続サブスク期間</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>有効な消耗品を選択する必要があります</value>
   </data>
@@ -10798,6 +10821,11 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   </data>
   <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
     <value>トークン: YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (曜日)、HH H (24時間制)、hh h (12時間制)、mm m (分)、ss s (秒)、A a (AM/PM)。文字をそのまま表示するには角かっこで囲みます。例: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>表示される各パーツはトークン名の span で囲まれるため、CSS セクションで個別にスタイルを設定できます。AM/PM は .time-A、月名は .date-MMMM のようになり、大文字と小文字はトークンと同じです。つまり .date-MM は月、.time-mm は分です。
+グループ全体は [class^="date-"] または [class^="time-"] で指定できます。
+例: .time-A { font-size: 50% }</value>
   </data>
   <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
     <value>空欄にすると、オーバーレイを実行しているコンピューターのタイムゾーンを使用します。ゾーンは主要都市の名前で表示されるため、Europe/Berlin はアムステルダムやローマも対象になります。Europe/Amsterdam のように、IANA のタイムゾーン名を直接入力することもできます。</value>
@@ -12063,5 +12091,65 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
     <value>配色、背景、前景、フルテーマ、UI フォント、全体のフォントサイズ、チャットウィンドウのフォントサイズを既定値に戻します。よろしいですか?</value>
     <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube は、話している間にキャラクターの静止画を切り替える PNGtuber アプリです。接続すると、コマンドからアバターの状態を変更でき、状態の変更でコマンドを実行できます。Mix It Up が veadotube を自動的に検出するため、入力する項目はありません。</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>接続する前に、veadotube のプログラム設定で WebSocket サーバーを有効にしてください。アドレスは veadotube を起動するたびに変わるため、Mix It Up が自動的に読み取ります。</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>プッシュトゥトークのアクションには、veadotube のマイク設定のプッシュトゥトーク項目で「use websocket」を有効にする必要があります。また、プッシュトゥトークのキーボードショートカットは削除してください。ショートカットが設定されていると Mix It Up の送信内容より優先されます。</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>この veadotube はバージョン 2.1 より古いものです。更新するまで、アバター状態の切り替えとすべてのプッシュトゥトーク操作は動作しません。</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>実行中の veadotube が見つかりませんでした。veadotube を開き、プログラム設定で WebSocket サーバーを有効にしてから、もう一度接続してください。</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>veadotube に接続できませんでした。WebSocket サーバーを有効にした状態で実行されていることを確認してください。</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube が接続されていません</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>アドレス (オプション)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>アバターの状態</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>プッシュトゥトーク</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>アバターの状態を選択してください</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>アバターの状態が変更されました</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>プッシュトゥトークが変更されました</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>アバターの状態を設定</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>アバターの状態をプッシュ</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>アバターの状態をポップ</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>アバターの状態を切り替え</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>ランダムなアバターの状態を設定</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>プッシュトゥトークを設定</value>
   </data>
 </root>

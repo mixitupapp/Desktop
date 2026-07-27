@@ -31,7 +31,7 @@
 
                 <TextBlock Grid.Row="0" DataContext="{Binding Fundraiser}" Text="{Binding eventName}" HorizontalAlignment="Center" />
 
-                <Button Grid.Row="2" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Grid.Row="2" Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="JustGivingService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -41,9 +41,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding WebPageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebPageURL}" Width="250" />
+                <TextBox Grid.Row="0" Text="{Binding WebPageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebPageURL}" Width="250" AutomationProperties.AutomationId="JustGivingService.WebPageURLTextBox" AutomationProperties.Name="{x:Static resx:Resources.WebPageURL}" />
 
-                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="JustGivingService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

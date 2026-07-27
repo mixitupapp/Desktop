@@ -43,9 +43,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsFontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsFontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                     <ComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
@@ -53,18 +53,18 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
 
-                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsFontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
 
-                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                    <ListBoxItem IsSelected="{Binding Bold}">
+                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsFontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                    <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsBoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                         <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Italics}">
+                    <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                         <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Underline}">
+                    <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayPollV3.TitleSettingsUnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                         <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                 </ListBox>
@@ -85,9 +85,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsFontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+                <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsFontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                     <ComboBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel />
@@ -95,18 +95,18 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
 
-                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsFontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+                <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
 
-                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                    <ListBoxItem IsSelected="{Binding Bold}">
+                <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsFontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                    <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsBoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                         <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Italics}">
+                    <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                         <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
-                    <ListBoxItem IsSelected="{Binding Underline}">
+                    <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayPollV3.OptionSettingsUnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                         <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                     </ListBoxItem>
                 </ListBox>
@@ -131,10 +131,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseWithTwitchPolls}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="1" IsChecked="{Binding UseWithTwitchPolls}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding UseWithTwitchPolls}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPollV3.UseWithTwitchPollsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.UseWithTwitchPolls}" />
 
                     <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseWithTwitchPredictions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="4" IsChecked="{Binding UseWithTwitchPredictions}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="4" IsChecked="{Binding UseWithTwitchPredictions}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPollV3.UseWithTwitchPredictionsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.UseWithTwitchPredictions}" />
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -147,10 +147,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseWithBetGameCommand}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="1" IsChecked="{Binding UseWithBetGameCommand}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="1" IsChecked="{Binding UseWithBetGameCommand}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPollV3.UseWithBetGameCommandCheckBox" AutomationProperties.Name="{x:Static resx:Resources.UseWithBetGameCommand}" />
 
                     <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseWithTriviaGameCommand}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                    <CheckBox Grid.Column="4" IsChecked="{Binding UseWithTriviaGameCommand}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                    <CheckBox Grid.Column="4" IsChecked="{Binding UseWithTriviaGameCommand}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPollV3.UseWithTriviaGameCommandCheckBox" AutomationProperties.Name="{x:Static resx:Resources.UseWithTriviaGameCommand}" />
                 </Grid>
             </Grid>
         </GroupBox>
@@ -167,14 +167,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Width}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Width}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPollV3.WidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.Width}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding BackgroundColor}" Grid.Column="2" HintText="{x:Static resx:Resources.BackgroundColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding BackgroundColor}" Grid.Column="2" HintText="{x:Static resx:Resources.BackgroundColor}" AutomationProperties.AutomationId="OverlayPollV3.BackgroundColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BackgroundColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding BorderColor}" Grid.Column="4" HintText="{x:Static resx:Resources.BorderColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding BorderColor}" Grid.Column="4" HintText="{x:Static resx:Resources.BorderColor}" AutomationProperties.AutomationId="OverlayPollV3.BorderColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BorderColor}" />
 
             <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowTwitchPredictionChannelPoints}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="7" IsChecked="{Binding ShowTwitchPredictionChannelPoints}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="7" IsChecked="{Binding ShowTwitchPredictionChannelPoints}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPollV3.ShowTwitchPredictionChannelPointsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ShowTwitchPredictionChannelPoints}" />
         </Grid>
 
         <Grid Grid.Row="8">
@@ -190,15 +190,15 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding BarHeight}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BarHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding BarHeight}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BarHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPollV3.BarHeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.BarHeight}" />
 
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseRandomColors}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="3" IsChecked="{Binding UseRandomColors}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="3" IsChecked="{Binding UseRandomColors}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPollV3.UseRandomColorsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.UseRandomColors}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding BarColor}" Grid.Column="5" IsEnabled="{Binding CanSpecifyColor}" HintText="{x:Static resx:Resources.BarColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding BarColor}" Grid.Column="5" IsEnabled="{Binding CanSpecifyColor}" HintText="{x:Static resx:Resources.BarColor}" AutomationProperties.AutomationId="OverlayPollV3.BarColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BarColor}" />
 
             <TextBlock Grid.Column="7" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseTwitchPredictionColors}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="8" IsChecked="{Binding UseTwitchPredictionColors}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="8" IsChecked="{Binding UseTwitchPredictionColors}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayPollV3.UseTwitchPredictionColorsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.UseTwitchPredictionColors}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

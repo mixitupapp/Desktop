@@ -305,6 +305,11 @@ namespace MixItUp.Base.ViewModel.MainControls
             pulsoidCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PulsoidHeartRateChanged));
             commandGroups.Add(pulsoidCommands);
 
+            EventCommandGroupViewModel veadotubeCommands = new EventCommandGroupViewModel(Resources.Veadotube, brandId: "veadotube");
+            veadotubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeadotubeAvatarStateChanged));
+            veadotubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeadotubePushToTalkChanged));
+            commandGroups.Add(veadotubeCommands);
+
             EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, brandId: "patreon");
             patreonCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PatreonSubscribed));
             commandGroups.Add(patreonCommands);

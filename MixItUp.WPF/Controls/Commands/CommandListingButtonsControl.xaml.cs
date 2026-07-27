@@ -107,34 +107,34 @@ namespace MixItUp.WPF.Controls.Commands
 
         public void RefreshUI()
         {
-            if (this.EditButton != null && this.HideEditingButton)
+            if (this.CommandListingButtonsEditButton != null && this.HideEditingButton)
             {
-                this.EditButton.Visibility = Visibility.Collapsed;
+                this.CommandListingButtonsEditButton.Visibility = Visibility.Collapsed;
             }
 
-            if (this.DeleteButton != null && this.HideDeleteButton)
+            if (this.CommandListingButtonsDeleteButton != null && this.HideDeleteButton)
             {
-                this.DeleteButton.Visibility = Visibility.Collapsed;
+                this.CommandListingButtonsDeleteButton.Visibility = Visibility.Collapsed;
             }
 
-            if (this.EnableDisableToggleSwitch != null && this.HideEnableDisableToggle)
+            if (this.CommandListingButtonsEnableDisableToggleSwitch != null && this.HideEnableDisableToggle)
             {
-                this.EnableDisableToggleSwitch.Visibility = Visibility.Collapsed;
+                this.CommandListingButtonsEnableDisableToggleSwitch.Visibility = Visibility.Collapsed;
             }
 
             CommandModelBase command = this.GetCommandFromCommandButtons();
             if (command != null)
             {
-                if (this.EnableDisableToggleSwitch != null)
+                if (this.CommandListingButtonsEnableDisableToggleSwitch != null)
                 {
-                    this.EnableDisableToggleSwitch.IsChecked = command.IsEnabled;
+                    this.CommandListingButtonsEnableDisableToggleSwitch.IsChecked = command.IsEnabled;
                 }
             }
             else
             {
-                if (this.EnableDisableToggleSwitch != null)
+                if (this.CommandListingButtonsEnableDisableToggleSwitch != null)
                 {
-                    this.EnableDisableToggleSwitch.IsChecked = true;
+                    this.CommandListingButtonsEnableDisableToggleSwitch.IsChecked = true;
                 }
             }
         }
@@ -185,7 +185,7 @@ namespace MixItUp.WPF.Controls.Commands
             CommandModelBase command = this.GetCommandFromCommandButtons();
             if (command != null)
             {
-                command.IsEnabled = this.EnableDisableToggleSwitch.IsChecked.GetValueOrDefault();
+                command.IsEnabled = this.CommandListingButtonsEnableDisableToggleSwitch.IsChecked.GetValueOrDefault();
                 ChannelSession.Settings.Commands.ManualValueChanged(command.ID);
 
                 if (command is ChatCommandModel)

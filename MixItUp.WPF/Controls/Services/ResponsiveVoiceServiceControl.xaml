@@ -33,7 +33,7 @@
             <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{x:Static resx:Resources.ResponsiveVoiceInfo2}"/>
 
             <TextBlock Grid.Row="4" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://wiki.mixitup.bot/en/services/responsive-voice" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/en/services/responsive-voice" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="ResponsiveVoiceService.ResponsiveVoiceInfo2Link">
                     <TextBlock Text="{x:Static resx:Resources.ResponsiveVoice}"/>
                 </Hyperlink>
             </TextBlock>
@@ -41,7 +41,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="ResponsiveVoiceService.DisconnectButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -51,9 +51,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding APIKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ResponsiveVoiceAPIKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding APIKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ResponsiveVoiceAPIKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="ResponsiveVoiceService.ResponsiveVoiceAPIKeyTextBox" AutomationProperties.Name="{x:Static resx:Resources.ResponsiveVoiceAPIKey}" />
 
-                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="ResponsiveVoiceService.ConnectButton" />
             </Grid>
         </Grid>
     </Grid>

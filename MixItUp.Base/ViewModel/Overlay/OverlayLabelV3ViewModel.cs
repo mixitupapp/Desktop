@@ -25,7 +25,7 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         public bool ShowFormat { get { return !this.IsFileType; } }
 
-        public string FormatToolTip { get { return this.IsDateTimeType ? Resources.OverlayLabelDateTimeFormatTooltip : null; } }
+        public string FormatToolTip { get { return this.IsDateTimeType ? Resources.OverlayLabelDateTimeFormatTooltip + Environment.NewLine + Environment.NewLine + Resources.OverlayLabelDateTimeStylingTooltip : null; } }
 
         public int GridWidth { get { return (this.IsFileType || this.IsDateTimeType) ? 620 : 300; } }
 

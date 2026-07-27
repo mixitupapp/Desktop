@@ -44,7 +44,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Platform}" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
-                    <ComboBox x:Name="PlatformComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Platform}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox x:Name="PlatformComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Platform}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="EditTestCommandParametersDialog.PlatformComboBox" AutomationProperties.Name="{x:Static resx:Resources.Platform}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -61,7 +61,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.User}" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
-                    <TextBox x:Name="UserTextBox" Grid.Column="2" />
+                    <TextBox x:Name="UserTextBox" Grid.Column="2" AutomationProperties.AutomationId="EditTestCommandParametersDialog.UserTextBox" AutomationProperties.Name="{x:Static resx:Resources.User}" />
                 </Grid>
 
                 <Grid Margin="0,5" Grid.Row="2">
@@ -72,10 +72,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Arguments}" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
-                    <TextBox x:Name="ArgumentsTextBox" Grid.Column="2" />
+                    <TextBox x:Name="ArgumentsTextBox" Grid.Column="2" AutomationProperties.AutomationId="EditTestCommandParametersDialog.ArgumentsTextBox" AutomationProperties.Name="{x:Static resx:Resources.Arguments}" />
                 </Grid>
 
-                <ItemsControl x:Name="SpecialIdentifiersList" Grid.Row="3">
+                <ItemsControl x:Name="SpecialIdentifiersList" Grid.Row="3" AutomationProperties.AutomationId="EditTestCommandParametersDialog.SpecialIdentifiersList" AutomationProperties.Name="{x:Static resx:Resources.SpecialIdentifiers}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,5">
@@ -86,7 +86,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Text="{Binding SpecialIdentifier, StringFormat=${0}:}" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
-                                <TextBox Grid.Column="2" Text="{Binding Value}"/>
+                                <TextBox Grid.Column="2" Text="{Binding Value}" AutomationProperties.AutomationId="TestParameter.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.TestParameterValue}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -100,7 +100,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.UseCommandLocks}" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
-                    <ToggleButton x:Name="UseCommandLocks" Grid.Column="2" HorizontalAlignment="Left" />
+                    <ToggleButton x:Name="UseCommandLocks" Grid.Column="2" HorizontalAlignment="Left" AutomationProperties.AutomationId="EditTestCommandParametersDialog.UseCommandLocksToggle" AutomationProperties.Name="{x:Static resx:Resources.UseCommandLocks}" />
                 </Grid>
             </Grid>
         </ScrollViewer>
@@ -113,14 +113,16 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.TestCommand}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.TestCommand}"
+                    AutomationProperties.AutomationId="EditTestCommandParametersDialog.TestCommandButton">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
 
             <Button Grid.Column="2" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}"
+                    AutomationProperties.AutomationId="EditTestCommandParametersDialog.CancelButton">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

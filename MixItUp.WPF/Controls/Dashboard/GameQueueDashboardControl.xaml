@@ -15,7 +15,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <DataGrid ItemsSource="{Binding QueueUsers}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+        <DataGrid ItemsSource="{Binding QueueUsers}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="GameQueueDashboard.QueueDataGrid" AutomationProperties.Name="{x:Static resx:Resources.GameQueue}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{x:Static resx:Resources.PoundSign}" Binding="{Binding QueuePosition}" IsReadOnly="True" Width="70" />
                 <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Username}" IsReadOnly="True" Width="*" />
@@ -31,11 +31,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Controls:IconButton x:Name="MoveUpButton" Grid.Column="0" Click="MoveUpButton_Click" HorizontalAlignment="Center" Icon="arrow_upward" />
+                                <Controls:IconButton x:Name="GameQueueDashboardMoveUpButton" Grid.Column="0" Click="MoveUpButton_Click" HorizontalAlignment="Center" Icon="arrow_upward" AutomationProperties.AutomationId="QueueRow.MoveUpButton" AutomationProperties.Name="{Binding Username, StringFormat={x:Static resx:Resources.MoveUpFormat}}" />
 
-                                <Controls:IconButton x:Name="MoveDownButton" Grid.Column="2" Click="MoveDownButton_Click" HorizontalAlignment="Center" Icon="arrow_downward" />
+                                <Controls:IconButton x:Name="GameQueueDashboardMoveDownButton" Grid.Column="2" Click="MoveDownButton_Click" HorizontalAlignment="Center" Icon="arrow_downward" AutomationProperties.AutomationId="QueueRow.MoveDownButton" AutomationProperties.Name="{Binding Username, StringFormat={x:Static resx:Resources.MoveDownFormat}}" />
 
-                                <Controls:IconButton x:Name="DeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" />
+                                <Controls:IconButton x:Name="GameQueueDashboardDeleteButton" Grid.Column="4" Click="DeleteButton_Click" HorizontalAlignment="Center" Icon="delete" AutomationProperties.AutomationId="QueueRow.RemoveButton" AutomationProperties.Name="{Binding Username, StringFormat={x:Static resx:Resources.RemoveFormat}}" />
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

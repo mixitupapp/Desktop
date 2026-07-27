@@ -36,9 +36,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayCustomV3.FontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayCustomV3.FontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -46,18 +46,18 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
 
-            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayCustomV3.FontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayCustomV3.ShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
 
-            <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                <ListBoxItem IsSelected="{Binding Bold}">
+            <ListBox Grid.Column="8" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayCustomV3.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayCustomV3.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
                     <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Italics}">
+                <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayCustomV3.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
                     <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Underline}">
+                <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayCustomV3.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
                     <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
@@ -92,43 +92,43 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ChatMessages}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ChatMessages}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ChatMessages}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.ChatMessagesCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ChatMessages}" />
 
                 
                 <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Follows}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Follows}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Follows}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.FollowsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Follows}" />
 
                 <TextBlock Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Raids}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="2" Grid.Column="4" IsChecked="{Binding Raids}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="2" Grid.Column="4" IsChecked="{Binding Raids}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.RaidsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Raids}" />
 
                 
                 <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.TwitchSubscriptions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding TwitchSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding TwitchSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.TwitchSubscriptionsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.TwitchSubscriptions}" />
 
                 <TextBlock Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.TwitchBits}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="4" Grid.Column="4" IsChecked="{Binding TwitchBits}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="4" Grid.Column="4" IsChecked="{Binding TwitchBits}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.TwitchBitsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.TwitchBits}" />
 
                 
                 <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.YouTubeMemberships}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding YouTubeMemberships}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding YouTubeMemberships}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.YouTubeMembershipsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.YouTubeMemberships}" />
 
                 <TextBlock Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.YouTubeSuperChats}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="6" Grid.Column="4" IsChecked="{Binding YouTubeSuperChats}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="6" Grid.Column="4" IsChecked="{Binding YouTubeSuperChats}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.YouTubeSuperChatsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.YouTubeSuperChats}" />
 
                 <TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.KickSubscriptions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding KickSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding KickSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.KickSubscriptionsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.KickSubscriptions}" />
 
                 <TextBlock Grid.Row="8" Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.KickKicks}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding KickKicks}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="8" Grid.Column="4" IsChecked="{Binding KickKicks}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.KickKicksCheckBox" AutomationProperties.Name="{x:Static resx:Resources.KickKicks}" />
 
                 <TextBlock Grid.Row="10" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraSubscriptions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding VeloraSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="10" Grid.Column="1" IsChecked="{Binding VeloraSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.VeloraSubscriptionsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.VeloraSubscriptions}" />
 
                 <TextBlock Grid.Row="10" Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraCheered}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="10" Grid.Column="4" IsChecked="{Binding VeloraCheered}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="10" Grid.Column="4" IsChecked="{Binding VeloraCheered}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.VeloraCheeredCheckBox" AutomationProperties.Name="{x:Static resx:Resources.VeloraCheered}" />
 
                 <TextBlock Grid.Row="12" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Donations}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" />
+                <CheckBox Grid.Row="12" Grid.Column="1" IsChecked="{Binding Donations}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayCustomV3.DonationsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.Donations}" />
             </Grid>
         </GroupBox>
 
@@ -140,9 +140,9 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" Command="{Binding AddPropertyCommand}" Content="{x:Static resx:Resources.Add}" HorizontalAlignment="Center" />
+                <Button Grid.Row="0" Command="{Binding AddPropertyCommand}" Content="{x:Static resx:Resources.Add}" HorizontalAlignment="Center" AutomationProperties.AutomationId="OverlayCustomV3.AddButton" />
 
-                <ItemsControl Grid.Row="2" ItemsSource="{Binding Properties}">
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding Properties}" AutomationProperties.AutomationId="OverlayCustomV3.CustomVariablesList" AutomationProperties.Name="{x:Static resx:Resources.Variables}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="10">
@@ -154,11 +154,11 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CustomVariable.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                                <TextBox Grid.Column="2" Text="{Binding Value}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                <TextBox Grid.Column="2" Text="{Binding Value}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CustomVariable.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.Value}" />
 
-                                <Controls:IconButton Grid.Column="4" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="4" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="CustomVariable.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

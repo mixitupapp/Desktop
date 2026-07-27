@@ -33,7 +33,7 @@
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Name}" />
                 <Rectangle Grid.Column="2" Fill="{DynamicResource MaterialDesign.Brush.Primary}" />
                 <Controls:MaterialSymbolIcon Grid.Column="3" IconName="check_circle" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="White" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <Controls:IconButton Grid.Column="5" Style="{StaticResource GroupBoxHeaderIconButton}" Command="{Binding HelpCommand}" Icon="help" ToolTip="{x:Static resx:Resources.Help}" />
+                <Controls:IconButton Grid.Column="5" Style="{StaticResource GroupBoxHeaderIconButton}" Command="{Binding HelpCommand}" Icon="help" ToolTip="{x:Static resx:Resources.Help}" AutomationProperties.AutomationId="ServiceContainer.HelpButton" AutomationProperties.Name="{x:Static resx:Resources.Help}" />
             </Grid>
         </GroupBox.Header>
         <ContentControl x:Name="InnerContentControl" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />

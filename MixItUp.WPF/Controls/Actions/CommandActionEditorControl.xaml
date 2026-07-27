@@ -34,7 +34,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -59,9 +59,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Controls:IconButton Grid.Column="0" x:Name="AddCommandButton" ToolTip="{x:Static resx:Resources.CreateNewCommand}" Icon="add_box" Click="AddCommandButton_Click" />
+                <Controls:IconButton Grid.Column="0" x:Name="CommandActionEditorAddCommandButton" ToolTip="{x:Static resx:Resources.CreateNewCommand}" Icon="add_box" Click="AddCommandButton_Click" AutomationProperties.AutomationId="CommandActionEditor.AddCommandButton" AutomationProperties.Name="{x:Static resx:Resources.CreateNewCommand}" />
 
-                <ComboBox Grid.Column="2" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox Grid.Column="2" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandActionEditor.CommandTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandType}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -69,7 +69,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <ComboBox Grid.Column="4" ItemsSource="{Binding Source={StaticResource GroupedCommands}}" SelectedItem="{Binding SelectedCommand}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox Grid.Column="4" ItemsSource="{Binding Source={StaticResource GroupedCommands}}" SelectedItem="{Binding SelectedCommand}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandActionEditor.CommandComboBox" AutomationProperties.Name="{x:Static resx:Resources.Command}">
                     <ComboBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
@@ -81,7 +81,7 @@
                     </ComboBox.GroupStyle>
                 </ComboBox>
 
-                <Controls:IconButton Grid.Column="6" x:Name="EditCommandButton" Icon="edit" ToolTip="{x:Static resx:Resources.EditCommand}" Click="EditCommandButton_Click" />
+                <Controls:IconButton Grid.Column="6" x:Name="CommandActionEditorEditCommandButton" Icon="edit" ToolTip="{x:Static resx:Resources.EditCommand}" Click="EditCommandButton_Click" AutomationProperties.AutomationId="CommandActionEditor.EditCommandButton" AutomationProperties.Name="{x:Static resx:Resources.EditCommand}" />
             </Grid>
 
             <Grid Grid.Row="1" Visibility="{Binding ShowCommandRunSection, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,20,0,0">
@@ -91,7 +91,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding CommandArguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OptionalCommandArguments}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding CommandArguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OptionalCommandArguments}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CommandActionEditor.CommandArgumentsTextBox" AutomationProperties.Name="{x:Static resx:Resources.OptionalCommandArguments}" />
 
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -105,10 +105,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.WaitUntilComplete}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{x:Static resx:Resources.CommandActionWaitUntilCompleteHintText}" VerticalAlignment="Center" />
-                    <ToggleButton Grid.Column="2" IsChecked="{Binding WaitForCommandToFinish}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandActionWaitUntilCompleteHintText}" VerticalAlignment="Center" />
+                    <ToggleButton Grid.Column="2" IsChecked="{Binding WaitForCommandToFinish}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandActionWaitUntilCompleteHintText}" VerticalAlignment="Center" AutomationProperties.AutomationId="CommandActionEditor.WaitUntilCompleteToggle" AutomationProperties.Name="{x:Static resx:Resources.WaitUntilComplete}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.IgnoreUsageRequirements}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{x:Static resx:Resources.IgnoreUsageRequirements}" VerticalAlignment="Center" />
-                    <ToggleButton Grid.Column="6" IsChecked="{Binding IgnoreUsageRequirements}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IgnoreUsageRequirements}" VerticalAlignment="Center" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding IgnoreUsageRequirements}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IgnoreUsageRequirements}" VerticalAlignment="Center" AutomationProperties.AutomationId="CommandActionEditor.IgnoreUsageRequirementsToggle" AutomationProperties.Name="{x:Static resx:Resources.IgnoreUsageRequirements}" />
                 </Grid>
             </Grid>
 
@@ -117,12 +117,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding CommandArguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding CommandArguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CommandActionEditor.AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
             </Grid>
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowCommandGroupsSection, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <ComboBox ItemsSource="{Binding CommandGroups}" SelectedItem="{Binding SelectedCommandGroup}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox ItemsSource="{Binding CommandGroups}" SelectedItem="{Binding SelectedCommandGroup}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandActionEditor.CommandGroupComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandGroup}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

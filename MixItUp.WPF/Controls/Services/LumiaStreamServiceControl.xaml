@@ -28,16 +28,16 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding APIToken}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.APIToken}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding APIToken}" Width="150" HorizontalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.APIToken}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="LumiaStreamService.APITokenTextBox" AutomationProperties.Name="{x:Static resx:Resources.APIToken}" />
 
             <Grid Grid.Row="2" HorizontalAlignment="Center">
-                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}"/>
+                <Button Command="{Binding ConnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Connect}" AutomationProperties.AutomationId="LumiaStreamService.ConnectButton" />
             </Grid>
         </Grid>
 
         <Grid Grid.Column="2" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid HorizontalAlignment="Center">
-                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}"/>
+                <Button Command="{Binding DisconnectCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Disconnect}" AutomationProperties.AutomationId="LumiaStreamService.DisconnectButton" />
             </Grid>
         </Grid>
     </Grid>

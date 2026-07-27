@@ -29,9 +29,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding CommandOneName}" Command="{Binding CommandOneCommand}" Width="200" />
+            <Button Grid.Column="0" Content="{Binding CommandOneName}" Command="{Binding CommandOneCommand}" Width="200" AutomationProperties.AutomationId="QuickCommandsDashboard.CommandOneButton" />
 
-            <Controls:IconButton x:Name="EditCommandOneButton" Grid.Column="2" Click="EditCommandOneButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
+            <Controls:IconButton x:Name="EditCommandOneButton" Grid.Column="2" Click="EditCommandOneButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" AutomationProperties.AutomationId="QuickCommandsDashboard.EditCommandOneButton" AutomationProperties.Name="{x:Static resx:Resources.Edit}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -41,9 +41,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding CommandTwoName}" Command="{Binding CommandTwoCommand}" Width="200" />
+            <Button Grid.Column="0" Content="{Binding CommandTwoName}" Command="{Binding CommandTwoCommand}" Width="200" AutomationProperties.AutomationId="QuickCommandsDashboard.CommandTwoButton" />
 
-            <Controls:IconButton x:Name="EditCommandTwoButton" Grid.Column="2" Click="EditCommandTwoButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
+            <Controls:IconButton x:Name="EditCommandTwoButton" Grid.Column="2" Click="EditCommandTwoButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" AutomationProperties.AutomationId="QuickCommandsDashboard.EditCommandTwoButton" AutomationProperties.Name="{x:Static resx:Resources.Edit}" />
         </Grid>
 
         <Grid Grid.Row="4">
@@ -53,9 +53,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding CommandThreeName}" Command="{Binding CommandThreeCommand}" Width="200" />
+            <Button Grid.Column="0" Content="{Binding CommandThreeName}" Command="{Binding CommandThreeCommand}" Width="200" AutomationProperties.AutomationId="QuickCommandsDashboard.CommandThreeButton" />
 
-            <Controls:IconButton x:Name="EditCommandThreeButton" Grid.Column="2" Click="EditCommandThreeButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
+            <Controls:IconButton x:Name="EditCommandThreeButton" Grid.Column="2" Click="EditCommandThreeButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" AutomationProperties.AutomationId="QuickCommandsDashboard.EditCommandThreeButton" AutomationProperties.Name="{x:Static resx:Resources.Edit}" />
         </Grid>
 
         <Grid Grid.Row="6">
@@ -65,9 +65,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding CommandFourName}" Command="{Binding CommandFourCommand}" Width="200" />
+            <Button Grid.Column="0" Content="{Binding CommandFourName}" Command="{Binding CommandFourCommand}" Width="200" AutomationProperties.AutomationId="QuickCommandsDashboard.CommandFourButton" />
 
-            <Controls:IconButton x:Name="EditCommandFourButton" Grid.Column="2" Click="EditCommandFourButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
+            <Controls:IconButton x:Name="EditCommandFourButton" Grid.Column="2" Click="EditCommandFourButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" AutomationProperties.AutomationId="QuickCommandsDashboard.EditCommandFourButton" AutomationProperties.Name="{x:Static resx:Resources.Edit}" />
         </Grid>
 
         <Grid Grid.Row="8">
@@ -77,9 +77,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding CommandFiveName}" Command="{Binding CommandFiveCommand}" Width="200" />
+            <Button Grid.Column="0" Content="{Binding CommandFiveName}" Command="{Binding CommandFiveCommand}" Width="200" AutomationProperties.AutomationId="QuickCommandsDashboard.CommandFiveButton" />
 
-            <Controls:IconButton x:Name="EditCommandFiveButton" Grid.Column="2" Click="EditCommandFiveButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" />
+            <Controls:IconButton x:Name="EditCommandFiveButton" Grid.Column="2" Click="EditCommandFiveButton_Click" HorizontalAlignment="Center" Icon="rate_review" ToolTip="{x:Static resx:Resources.Edit}" AutomationProperties.AutomationId="QuickCommandsDashboard.EditCommandFiveButton" AutomationProperties.Name="{x:Static resx:Resources.Edit}" />
         </Grid>
     </Grid>
 </local:DashboardControlBase>

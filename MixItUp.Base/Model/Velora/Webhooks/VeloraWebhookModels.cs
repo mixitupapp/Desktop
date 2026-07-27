@@ -661,6 +661,11 @@ namespace MixItUp.Base.Model.Velora.Webhooks
 
         [JsonIgnore]
         public string ResolvedCategorySlug { get { return Users.UserModel.FirstNonEmpty(this.Stream?.Category?.Slug, this.CategoryLegacy?.Slug, this.CategorySlugLegacy); } }
+
+        // Velora's documented stream.* samples carry only slug + name, so this is frequently empty;
+        // the session falls back to its category catalog when it is.
+        [JsonIgnore]
+        public string ResolvedCategoryImageUrl { get { return Users.UserModel.FirstNonEmpty(this.Stream?.Category?.ImageUrl, this.CategoryLegacy?.ImageUrl); } }
     }
 
     public class WebhookStreamDetailsModel

@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.SwitchSceneNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SceneName}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowHideLayer, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -48,9 +48,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.LayerSceneNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SceneName}" />
 
-            <TextBox Grid.Column="2" Text="{Binding LayerName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding LayerName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.LayerNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.LayerName}" />
 
             <Controls:OnOffToggleDropDownControl Grid.Column="4" DisplayName="{x:Static resx:Resources.Visible}" Value="{Binding State}" />
         </Grid>
@@ -69,9 +69,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding SceneName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.EffectSceneNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SceneName}" />
 
-                <TextBox Grid.Column="2" Text="{Binding LayerName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding LayerName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.LayerName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.EffectLayerNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.LayerName}" />
 
             </Grid>
 
@@ -82,7 +82,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding EffectName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.EffectName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding EffectName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.EffectName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.EffectNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.EffectName}" />
 
                 <Controls:OnOffToggleDropDownControl Grid.Column="2" DisplayName="{x:Static resx:Resources.Visible}" Value="{Binding State}" />
             </Grid>
@@ -95,7 +95,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding AudioTrackName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioTrackName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding AudioTrackName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioTrackName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.MuteAudioTrackNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.AudioTrackName}" />
 
             <Controls:OnOffToggleDropDownControl Grid.Column="2" DisplayName="{x:Static resx:Resources.Mute}" Value="{Binding State}" />
         </Grid>
@@ -107,7 +107,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding AudioTrackName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioTrackName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding AudioTrackName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioTrackName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.MonitorAudioTrackNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.AudioTrackName}" />
 
             <Controls:OnOffToggleDropDownControl Grid.Column="2" DisplayName="{x:Static resx:Resources.Monitor}" Value="{Binding State}" />
         </Grid>
@@ -121,10 +121,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding AudioTrackName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioTrackName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding AudioTrackName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioTrackName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="MeldStudioActionEditor.GainAudioTrackNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.AudioTrackName}" />
 
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Gain}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <Slider Grid.Column="4" Value="{Binding AudioTrackGain}" VerticalAlignment="Center" Width="150" Minimum="-60" Maximum="0" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" />
+            <Slider Grid.Column="4" Value="{Binding AudioTrackGain}" VerticalAlignment="Center" Width="150" Minimum="-60" Maximum="0" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" AutomationProperties.AutomationId="MeldStudioActionEditor.GainSlider" AutomationProperties.Name="{x:Static resx:Resources.Gain}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding StartStopStream, Converter={StaticResource BooleanToVisibilityConverter}}">

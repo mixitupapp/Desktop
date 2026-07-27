@@ -33,7 +33,7 @@
             <TextBlock Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{x:Static resx:Resources.IFTTTInfo2}"/>
 
             <TextBlock Grid.Row="4" TextWrapping="Wrap">
-                <Hyperlink NavigateUri="https://ifttt.com/maker_webhooks" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://ifttt.com/maker_webhooks" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="IFTTTService.IFTTTInfo2Link">
                     <TextBlock Text="{x:Static resx:Resources.WebHooksPage}"/>
                 </Hyperlink>
             </TextBlock>
@@ -41,7 +41,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="IFTTTService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -51,9 +51,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding IFTTTWebHookKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IFTTTWebHookKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding IFTTTWebHookKey}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.IFTTTWebHookKey}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="IFTTTService.IFTTTWebHookKeyTextBox" AutomationProperties.Name="{x:Static resx:Resources.IFTTTWebHookKey}" />
 
-                <Button Grid.Row="4" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Grid.Row="4" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="IFTTTService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

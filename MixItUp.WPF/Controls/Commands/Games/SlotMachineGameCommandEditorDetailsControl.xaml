@@ -25,7 +25,7 @@
             </Grid.ColumnDefinitions>
 
             <GroupBox Grid.Column="0" Header="{x:Static resx:Resources.AvailableSymbols}">
-                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbols}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbols}" Width="250" />
+                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbols}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbols}" Width="250" AutomationProperties.AutomationId="SlotMachineGameCommandEditorDetails.SymbolsTextBox" AutomationProperties.Name="{x:Static resx:Resources.Symbols}" />
             </GroupBox>
 
             <GroupBox Grid.Column="2" Header="{x:Static resx:Resources.Lose}">
@@ -44,11 +44,11 @@
 
                     <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Outcomes}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="{DynamicResource MIU.FontSize.TitleMedium}" />
 
-                    <Button Grid.Column="2" Content="{x:Static resx:Resources.AddOutcome}" Command="{Binding AddOutcomeCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" />
+                    <Button Grid.Column="2" Content="{x:Static resx:Resources.AddOutcome}" Command="{Binding AddOutcomeCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" AutomationProperties.AutomationId="SlotMachineGameCommandEditorDetails.AddOutcomeButton" />
                 </Grid>
             </GroupBox.Header>
 
-            <ItemsControl ItemsSource="{Binding Outcomes}">
+            <ItemsControl ItemsSource="{Binding Outcomes}" AutomationProperties.AutomationId="SlotMachineGameCommandEditorDetails.OutcomesList" AutomationProperties.Name="{x:Static resx:Resources.Outcomes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="15">
@@ -75,14 +75,14 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbol}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbol1}" />
+                                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbol}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbol1}" AutomationProperties.AutomationId="SlotOutcome.Symbol1TextBox" AutomationProperties.Name="{x:Static resx:Resources.Symbol}" />
 
-                                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbol}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbol2}" />
+                                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbol}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbol2}" AutomationProperties.AutomationId="SlotOutcome.Symbol2TextBox" AutomationProperties.Name="{x:Static resx:Resources.Symbol}" />
 
-                                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbol}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbol3}" />
+                                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Symbol}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Symbol3}" AutomationProperties.AutomationId="SlotOutcome.Symbol3TextBox" AutomationProperties.Name="{x:Static resx:Resources.Symbol}" />
 
                                 <TextBlock Grid.Column="6" Text="{Binding Source={x:Static resx:Resources.AnyOrder}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                                <ToggleButton Grid.Column="8" IsChecked="{Binding AnyOrder}" />
+                                <ToggleButton Grid.Column="8" IsChecked="{Binding AnyOrder}" AutomationProperties.AutomationId="SlotOutcome.AnyOrderToggle" AutomationProperties.Name="{Binding Symbol1, StringFormat={x:Static resx:Resources.AnyOrderFormat}}" />
                             </Grid>
 
                             <Grid Grid.Column="2">
@@ -94,16 +94,16 @@
                                     <ColumnDefinition Width="80" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" />
+                                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" AutomationProperties.AutomationId="SlotOutcome.UserPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserPayoutPercentage}" />
 
-                                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" />
+                                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" AutomationProperties.AutomationId="SlotOutcome.SubPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubPayoutPercentage}" />
 
-                                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" />
+                                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" AutomationProperties.AutomationId="SlotOutcome.ModPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModPayoutPercentage}" />
                             </Grid>
 
                             <CommandsControls:CommandListingButtonsControl x:Name="CommandButtons" Grid.Column="4" HorizontalAlignment="Center" EditClicked="OutcomeCommandButtons_CommandButtons" HideDeleteButton="True" HideEnableDisableToggle="True" />
 
-                            <Controls:IconButton x:Name="DeleteOutcomeButton" Grid.Column="6" Click="DeleteOutcomeButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                            <Controls:IconButton x:Name="SlotMachineGameCommandEditorDetailsDeleteOutcomeButton" Grid.Column="6" Click="DeleteOutcomeButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" AutomationProperties.AutomationId="SlotOutcome.DeleteOutcomeButton" AutomationProperties.Name="{Binding Symbol1, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

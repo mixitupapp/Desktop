@@ -37,7 +37,7 @@
 
         <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}">
+        <ComboBox Grid.Column="1" ItemsSource="{Binding Values}" SelectedItem="{Binding Value}" IsEnabled="{Binding Enabled}" Width="{Binding Width}" ToolTip="{Binding Tooltip}" AutomationProperties.AutomationId="GenericComboBoxSettingsOption.ValueComboBox" AutomationProperties.Name="{Binding Name}">
             <ComboBox.Style>
                 <!--  ItemTemplate is set through the style rather than as a direct attribute, otherwise the local value would win over the trigger  -->
                 <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">

@@ -27,7 +27,7 @@
 
         <Separator Grid.Row="4" Margin="10" />
 
-        <ItemsControl Grid.Row="6" ItemsSource="{Binding NotificationSounds}">
+        <ItemsControl Grid.Row="6" ItemsSource="{Binding NotificationSounds}" AutomationProperties.AutomationId="NotificationsSettings.NotificationOptionsList" AutomationProperties.Name="{x:Static resx:Resources.Notifications}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,10">
@@ -42,9 +42,9 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                        <Controls:IconButton Grid.Column="2" Command="{Binding PlayCommand}" HorizontalAlignment="Center" Icon="play_arrow" ToolTip="{x:Static resx:Resources.Play}" />
-                        <ComboBox Grid.Column="4" ItemsSource="{Binding Sounds}" SelectedItem="{Binding Sound}" Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Center" />
-                        <Slider Grid.Column="6" Value="{Binding Volume}" Minimum="0" Maximum="100" Width="100" VerticalAlignment="Center" />
+                        <Controls:IconButton Grid.Column="2" Command="{Binding PlayCommand}" HorizontalAlignment="Center" Icon="play_arrow" ToolTip="{x:Static resx:Resources.Play}" AutomationProperties.AutomationId="NotificationRow.PlayButton" AutomationProperties.Name="{x:Static resx:Resources.Play}" />
+                        <ComboBox Grid.Column="4" ItemsSource="{Binding Sounds}" SelectedItem="{Binding Sound}" Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="NotificationRow.SoundComboBox" AutomationProperties.Name="{x:Static resx:Resources.Sound}" />
+                        <Slider Grid.Column="6" Value="{Binding Volume}" Minimum="0" Maximum="100" Width="100" VerticalAlignment="Center" AutomationProperties.AutomationId="NotificationRow.VolumeSlider" AutomationProperties.Name="{x:Static resx:Resources.Volume}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

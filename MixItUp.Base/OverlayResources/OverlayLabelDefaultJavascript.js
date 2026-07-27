@@ -27,6 +27,35 @@ var dateTimeTokens = /\[[^\]]*\]|YYYY|YY|MMMM|MMM|MM|M|dddd|ddd|DD|D|HH|H|hh|h|m
 // entity such as &nbsp; would have its letters swapped out for date values.
 var dateTimeSegments = /(<[^>]*>)|(&[a-zA-Z#][a-zA-Z0-9]*;)|([^<&]+)|([<&])/g;
 
+// Every token renders inside its own span, named for the group it belongs to and
+// the token itself, so that the pieces of a format can be styled apart from each
+// other, such as making the AM/PM of h:mm A smaller than the digits. The name
+// carries the case of the token, so .date-MM is the month while .time-mm is the
+// minute, and one span never carries more than one class so that an attribute
+// selector reaches a whole group: [class^="date-"] or [class^="time-"].
+var dateTimeTokenGroups = {
+    'YYYY': 'date',
+    'YY': 'date',
+    'MMMM': 'date',
+    'MMM': 'date',
+    'MM': 'date',
+    'M': 'date',
+    'dddd': 'date',
+    'ddd': 'date',
+    'DD': 'date',
+    'D': 'date',
+    'HH': 'time',
+    'H': 'time',
+    'hh': 'time',
+    'h': 'time',
+    'mm': 'time',
+    'm': 'time',
+    'ss': 'time',
+    's': 'time',
+    'A': 'time',
+    'a': 'time'
+};
+
 // The .labelDisplay element carries the positioning transform, translate(-50%, -50%)
 // when the widget is positioned by percentage. animate.css sets its own transform while
 // an animation runs, which would replace that centering for the duration and then snap
@@ -180,6 +209,11 @@ function padDateTimeValue(value, length)
     return String(value).padStart(length, '0');
 }
 
+function wrapDateTimePart(className, value)
+{
+    return '<span class="' + className + '">' + value + '</span>';
+}
+
 function replaceDateTimeToken(token, values)
 {
     if (token.charAt(0) === '[')
@@ -187,6 +221,17 @@ function replaceDateTimeToken(token, values)
         return token.substring(1, token.length - 1);
     }
 
+    let group = dateTimeTokenGroups[token];
+    if (group == null)
+    {
+        return token;
+    }
+
+    return wrapDateTimePart(group + '-' + token, getDateTimeTokenValue(token, values));
+}
+
+function getDateTimeTokenValue(token, values)
+{
     switch (token)
     {
         case 'YYYY': return padDateTimeValue(parseInt(values.year, 10), 4);
@@ -229,7 +274,15 @@ function refreshDateTimeDisplays()
 {
     for (const display of dateTimeDisplays)
     {
-        display.element.innerHTML = formatDateTime(display.format, display.timeZone);
+        // This runs every second, so the DOM is only rewritten when the result actually
+        // changed. A format without a seconds token otherwise rebuilds its spans sixty
+        // times for every visible change.
+        let html = formatDateTime(display.format, display.timeZone);
+        if (html !== display.html)
+        {
+            display.html = html;
+            display.element.innerHTML = html;
+        }
     }
 }
 

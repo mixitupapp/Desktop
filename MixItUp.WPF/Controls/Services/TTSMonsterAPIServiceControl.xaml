@@ -33,7 +33,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="TTSMonsterAPIService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -43,9 +43,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding APIToken}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TTSMonsterAPIToken}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding APIToken}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TTSMonsterAPIToken}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TTSMonsterAPIService.TTSMonsterAPITokenTextBox" AutomationProperties.Name="{x:Static resx:Resources.TTSMonsterAPIToken}" />
 
-                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="TTSMonsterAPIService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

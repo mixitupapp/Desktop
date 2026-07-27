@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Text="{Binding EmoteText}" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEmoteEffectEmoteTextSpaceSeparated}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Text="{Binding EmoteText}" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEmoteEffectEmoteTextSpaceSeparated}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEmoteEffectV3.OverlayEmoteEffectEmoteTextSpaceSeparatedTextBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayEmoteEffectEmoteTextSpaceSeparated}" />
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding AnimationTypes}" SelectedItem="{Binding SelectedAnimationType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding AnimationTypes}" SelectedItem="{Binding SelectedAnimationType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Animation}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayEmoteEffectV3.AnimationComboBox" AutomationProperties.Name="{x:Static resx:Resources.Animation}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -43,9 +43,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Text="{Binding EmoteWidth}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding EmoteWidth}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Width}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEmoteEffectV3.WidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.Width}" />
 
-            <TextBox Text="{Binding EmoteHeight}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding EmoteHeight}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Height}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEmoteEffectV3.HeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.Height}" />
         </Grid>
 
         <Grid Grid.Row="4">
@@ -61,15 +61,15 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding PerEmoteShown}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEmoteEffectPerEmoteShown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding PerEmoteShown}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEmoteEffectPerEmoteShown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEmoteEffectV3.OverlayEmoteEffectPerEmoteShownTextBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayEmoteEffectPerEmoteShown}" />
 
-            <TextBox Text="{Binding MaxAmountShown}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxAmountShown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding MaxAmountShown}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxAmountShown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEmoteEffectV3.MaxAmountShownTextBox" AutomationProperties.Name="{x:Static resx:Resources.MaxAmountShown}" />
 
             <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AllowURLs}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="5" IsChecked="{Binding AllowURLs}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="5" IsChecked="{Binding AllowURLs}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayEmoteEffectV3.AllowURLsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.AllowURLs}" />
 
             <TextBlock Grid.Column="7" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AllowEmoji}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="8" IsChecked="{Binding AllowEmoji}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="8" IsChecked="{Binding AllowEmoji}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayEmoteEffectV3.AllowEmojiCheckBox" AutomationProperties.Name="{x:Static resx:Resources.AllowEmoji}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

@@ -27,7 +27,7 @@ namespace MixItUp.Base.Services
         {
             ActionTypeEnum.Overlay, ActionTypeEnum.PolyPop, ActionTypeEnum.Sound, ActionTypeEnum.StreamingSoftware, ActionTypeEnum.TextToSpeech,
             ActionTypeEnum.MusicPlayer, ActionTypeEnum.TITS, ActionTypeEnum.Voicemod, ActionTypeEnum.VTubeStudio, ActionTypeEnum.VTSPog, ActionTypeEnum.LumiaStream,
-            ActionTypeEnum.MtionStudio,
+            ActionTypeEnum.MtionStudio, ActionTypeEnum.Veadotube,
         };
 
         public static HashSet<ActionTypeEnum> GetActionTypesForActions(IEnumerable<ActionModelBase> actions, HashSet<Guid> commandIDs = null)
