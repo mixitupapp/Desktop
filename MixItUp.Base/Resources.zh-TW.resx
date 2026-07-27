@@ -12144,6 +12144,15 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>無法連接到 veadotube。請確認它正在執行且已開啟 WebSocket 伺服器。</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up 無法連接到位於 {0} 的 veadotube。請確認 veadotube 正在執行，且已在程式設定中開啟 WebSocket 伺服器。如果您在下方輸入了位址，請清除它並再試一次，讓 Mix It Up 自行尋找 veadotube。</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>您輸入的位址不是有效的位址與連接埠。請使用 veadotube 在「serving at」旁顯示的位址，例如 127.0.0.1:2424，或清空欄位讓 Mix It Up 自行尋找 veadotube。</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>已連接到 {1} 的 {0}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube 未連接</value>
   </data>

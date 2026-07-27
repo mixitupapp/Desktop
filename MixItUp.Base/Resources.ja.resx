@@ -12113,6 +12113,15 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>veadotube に接続できませんでした。WebSocket サーバーを有効にした状態で実行されていることを確認してください。</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>{0} の veadotube に接続できませんでした。veadotube が実行中で、プログラム設定で WebSocket サーバーが有効になっていることを確認してください。下にアドレスを入力している場合は、それを消してからもう一度お試しください。Mix It Up が veadotube を自動で見つけられるようになります。</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>入力されたアドレスは、ポートを含む有効なアドレスではありません。veadotube が「serving at」の横に表示しているアドレス (例: 127.0.0.1:2424) を使用するか、欄を空にして Mix It Up が veadotube を自動で見つけられるようにしてください。</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>{1} の {0} に接続しました</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube が接続されていません</value>
   </data>

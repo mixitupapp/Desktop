@@ -60,6 +60,10 @@ namespace MixItUp.Base.ViewModel.Services
 
             this.ConnectCommand = this.CreateCommand(async () =>
             {
+                // Blank it rather than storing whitespace. Anything non-empty here turns discovery off
+                // for good, so a stray space would leave the user pinned to nothing with no way back
+                // that looks like one.
+                this.ManualAddress = string.IsNullOrWhiteSpace(this.ManualAddress) ? null : this.ManualAddress.Trim();
                 ChannelSession.Settings.VeadotubeManualAddress = this.ManualAddress;
 
                 Result result = await ServiceManager.Get<VeadotubeService>().Connect();
@@ -98,10 +102,16 @@ namespace MixItUp.Base.ViewModel.Services
 
         private void RefreshInstanceDetails()
         {
-            VeadotubeInstanceInfo info = ServiceManager.Get<VeadotubeService>().InstanceInfo;
+            VeadotubeService service = ServiceManager.Get<VeadotubeService>();
+            VeadotubeInstanceInfo info = service.InstanceInfo;
             if (info != null)
             {
-                this.DetectedInstance = string.Format("{0} {1}", info.name, info.version);
+                string instance = string.Format("{0} {1}", info.name, info.version);
+
+                // Showing the address is worth the line. It is the first thing support asks for and
+                // the user cannot otherwise see which of their veadotubes Mix It Up landed on.
+                this.DetectedInstance = string.IsNullOrEmpty(service.ConnectedAddress) ? instance :
+                    string.Format(Resources.VeadotubeConnectedTo, instance, service.ConnectedAddress);
                 this.ShowVersionWarning = info.IsPre2Point1;
             }
             else

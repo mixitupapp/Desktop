@@ -12114,6 +12114,15 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Échec de la connexion à veadotube. Assurez-vous qu'il est en cours d'exécution avec son serveur WebSocket activé.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up n'a pas pu se connecter à veadotube sur {0}. Assurez-vous que veadotube est en cours d'exécution et que le serveur WebSocket est activé dans les paramètres du programme. Si vous avez saisi une adresse ci-dessous, effacez-la et réessayez pour que Mix It Up puisse trouver veadotube lui-même.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>L'adresse saisie n'est pas une adresse avec port valide. Utilisez celle que veadotube affiche à côté de « serving at », par exemple 127.0.0.1:2424, ou videz le champ pour que Mix It Up puisse trouver veadotube lui-même.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Connecté à {0} sur {1}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube n'est pas connecté</value>
   </data>

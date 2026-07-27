@@ -12149,6 +12149,15 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Не удалось подключиться к veadotube. Убедитесь, что программа запущена и её сервер WebSocket включён.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up не удалось подключиться к veadotube по адресу {0}. Убедитесь, что veadotube запущен и сервер WebSocket включён в настройках программы. Если вы ввели адрес ниже, очистите поле и попробуйте снова, чтобы Mix It Up мог найти veadotube самостоятельно.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Введённый адрес не является корректным адресом с портом. Используйте тот, который veadotube показывает рядом с «serving at», например 127.0.0.1:2424, либо очистите поле, чтобы Mix It Up мог найти veadotube самостоятельно.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Подключено к {0} по адресу {1}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube не подключён</value>
   </data>

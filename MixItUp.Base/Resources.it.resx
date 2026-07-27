@@ -12113,6 +12113,15 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="VeadotubeConnectionFailed" xml:space="preserve">
     <value>Impossibile collegarsi a veadotube. Assicurati che sia in esecuzione con il server WebSocket attivo.</value>
   </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up non è riuscito a connettersi a veadotube su {0}. Assicurati che veadotube sia in esecuzione e che il server WebSocket sia attivo nelle impostazioni del programma. Se hai inserito un indirizzo qui sotto, cancellalo e riprova, così Mix It Up può trovare veadotube da solo.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>L'indirizzo inserito non è un indirizzo con porta valido. Usa quello che veadotube mostra accanto a «serving at», ad esempio 127.0.0.1:2424, oppure svuota il campo così Mix It Up può trovare veadotube da solo.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Connesso a {0} su {1}</value>
+  </data>
   <data name="VeadotubeNotConnected" xml:space="preserve">
     <value>veadotube non è connesso</value>
   </data>
