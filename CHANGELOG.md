@@ -1,5 +1,42 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.020
+
+### FEATURES
+
+- Add veadotube integration for PNGtuber avatars, detected automatically while veadotube is running with its WebSocket server turned on:
+  - Set Avatar State, Push Avatar State, Pop Avatar State, Toggle Avatar State, and Set Random Avatar State actions
+  - Set Push-To-Talk action with On, Off, and Toggle options
+  - Add Avatar State Changed event ($veadotubestateid, $veadotubestatename, $veadotubepreviousstateid, $veadotubepreviousstatename)
+  - Add Push-To-Talk Changed event ($veadotubepushtotalk)
+  - Optional address field for pointing at a copy of veadotube running on another computer
+- Add MCP Server service with initial toolset mirroring Dev API v2
+- Date and Time labels now wrap each rendered part in its own span, so pieces can be styled on their own from the widget's CSS section (.date-MMMM for the month name, .time-A for the AM/PM, and so on, with [class^="date-"] or [class^="time-"] covering a whole group)
+- Add top subscriber leaderboards ranked by cumulative months subbed: $top10subscribers for the list, $topsubscriberamount for the leader's total, and the $topsubscriberuser set for the leader (for example $topsubscriberusername)
+- Add top sub gifter leaderboards ranked by all-time gifted subs: $top10subgifters, $topsubgifteramount, and the $topsubgifteruser set
+- Add longest current subscription streak leaderboards: $top10substreaks, $topsubstreaklength for a readable duration like 1 Year(s), 2 Month(s), 5 Day(s), $topsubstreakamount for the same streak in whole months, and the $topsubstreakuser set
+  - Swap the 10 in any of these for however many places you want listed
+- Add Cumulative Months Subbed, Subs Gifted, and Subscription Streak types to the Leaderboard overlay widget
+  - The Subscription Streak widget shows whole months as a number. The readable duration is only available through $topsubstreaklength
+- All of these leaderboards cover every connected platform at once. There is no per-platform version and nothing to choose, a viewer's months subbed and gifted subs are combined across Twitch, YouTube, Kick, and Velora
+  - For a viewer subscribed on more than one platform, the subscription streak counts from the earliest of their subscribe dates
+- Subscription tiers are not counted anywhere in these leaderboards. Subscribers rank by how long they have been subscribed and gifters rank by how many subs they have gifted
+- Gifted subs are only credited when the gifter is not anonymous
+- These leaderboards use the viewer data Mix It Up has recorded for your channel, so they begin from when you started using Mix It Up rather than covering your channel's full history
+  - **How completely each platform fills in these numbers varies. Twitch corrects a subscriber's month count on their next resubscription, and because Twitch never reports a subscribe date, a streak counts from the first subscription Mix It Up saw and restarts if the subscription lapses**
+
+### FIXES
+
+- Fix $usersubplan and $usersubplanname coming back empty on Velora and Kick subscription events, and $usersubtier missing on Kick subscriptions, resubscriptions, and gifts
+- Fix $streamgameimage and $userstreamgameimage coming back empty on Velora
+- Fix setting your Velora category failing for anything outside the first 100 categories alphabetically, and report the failure instead of updating the title and quietly dropping the category
+- Fix Velora $userstreamtitle, $userstreamgame, and $userstreamislive printing as raw text for a user who has never streamed
+- Velora stream start now applies the category the stream started with before stream start commands run, instead of whatever the last refresh left behind
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Massive control name/id refactoring so screen readers and accessibility tools announce them properly (and localized)
+
 ## 1.8.010
 
 ### FEATURES
