@@ -21,6 +21,9 @@ namespace MixItUp.Base.Model.Overlay
         ViewingTime,
         Consumable,
         TwitchBits,
+        CumulativeMonthsSubbed,
+        SubsGifted,
+        SubscriptionStreak,
     }
 
     public enum OverlayLeaderboardDateRangeV3Enum
@@ -195,6 +198,18 @@ namespace MixItUp.Base.Model.Overlay
             {
                 AsyncRunner.RunAsyncBackground(this.TwitchBitsBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
             }
+            else if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.CumulativeMonthsSubbed)
+            {
+                AsyncRunner.RunAsyncBackground(this.CumulativeMonthsSubbedBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
+            }
+            else if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.SubsGifted)
+            {
+                AsyncRunner.RunAsyncBackground(this.SubsGiftedBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
+            }
+            else if (this.LeaderboardType == OverlayLeaderboardTypeV3Enum.SubscriptionStreak)
+            {
+                AsyncRunner.RunAsyncBackground(this.SubscriptionStreakBackgroundTask, this.cancellationTokenSource.Token, refreshTimeMilliseconds);
+            }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
             return Task.CompletedTask;
@@ -303,6 +318,76 @@ namespace MixItUp.Base.Model.Overlay
 
                 await this.UpdateLeaderboard(users);
             }
+        }
+
+        private async Task CumulativeMonthsSubbedBackgroundTask(CancellationToken cancellationToken)
+        {
+            await this.UpdateUserDataLeaderboard(u => u.TotalMonthsSubbed);
+        }
+
+        private async Task SubsGiftedBackgroundTask(CancellationToken cancellationToken)
+        {
+            await this.UpdateUserDataLeaderboard(u => u.TotalSubsGifted);
+        }
+
+        private async Task UpdateUserDataLeaderboard(Func<UserV2Model, long> selector)
+        {
+            List<Tuple<UserV2ViewModel, long>> users = new List<Tuple<UserV2ViewModel, long>>();
+
+            IEnumerable<UserV2Model> userDataList = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+            foreach (UserV2Model userData in userDataList.Where(u => u.GetPlatforms().Count > 0).OrderByDescending(selector))
+            {
+                if (userData.IsSpecialtyExcluded)
+                {
+                    continue;
+                }
+
+                if (selector(userData) <= 0)
+                {
+                    break;
+                }
+
+                UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByID(StreamingPlatformTypeEnum.All, userData.ID);
+                if (user != null)
+                {
+                    users.Add(new Tuple<UserV2ViewModel, long>(user, selector(userData)));
+                }
+
+                if (users.Count >= this.TotalToShow)
+                {
+                    break;
+                }
+            }
+
+            await this.UpdateLeaderboard(users);
+        }
+
+        private async Task SubscriptionStreakBackgroundTask(CancellationToken cancellationToken)
+        {
+            List<Tuple<UserV2ViewModel, long>> users = new List<Tuple<UserV2ViewModel, long>>();
+
+            IEnumerable<UserV2Model> userDataList = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+            var streaks = userDataList
+                .Where(u => !u.IsSpecialtyExcluded && u.GetPlatforms().Count > 0)
+                .Select(u => new { User = u, Date = u.GetEarliestSubscribeDate() })
+                .Where(u => u.Date.HasValue)
+                .OrderBy(u => u.Date.Value);
+
+            foreach (var streak in streaks)
+            {
+                UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByID(StreamingPlatformTypeEnum.All, streak.User.ID);
+                if (user != null)
+                {
+                    users.Add(new Tuple<UserV2ViewModel, long>(user, Math.Max(1, streak.Date.Value.TotalMonthsFromNow())));
+                }
+
+                if (users.Count >= this.TotalToShow)
+                {
+                    break;
+                }
+            }
+
+            await this.UpdateLeaderboard(users);
         }
     }
 }

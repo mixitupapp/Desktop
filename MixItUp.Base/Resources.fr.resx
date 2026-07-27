@@ -10316,6 +10316,9 @@ imprimer (exécuter ())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Tout le temps</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Série d'abonnement</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Un consommable valide doit être sélectionné</value>
   </data>

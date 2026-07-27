@@ -10315,6 +10315,9 @@ print(run())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Весь час</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Серія підписки</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Необхідно вибрати дійсний витратний матеріал</value>
   </data>

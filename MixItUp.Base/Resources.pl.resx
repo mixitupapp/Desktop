@@ -10315,6 +10315,9 @@ drukuj(uruchom())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Cały czas</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Seria subskrypcji</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Należy wybrać prawidłowy materiał eksploatacyjny</value>
   </data>

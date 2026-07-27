@@ -10316,6 +10316,9 @@ afdrukken(uitvoeren())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Altijd</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Abonnementsreeks</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Er moet een geldig verbruiksartikel worden geselecteerd</value>
   </data>

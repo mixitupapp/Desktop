@@ -10315,6 +10315,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AllTime" xml:space="preserve">
     <value>所有時間</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>連續訂閱時間</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>必須選擇有效的耗材</value>
   </data>

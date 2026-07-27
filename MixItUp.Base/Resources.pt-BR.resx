@@ -10316,6 +10316,9 @@ print(run())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Todos os tempos</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Sequência de Inscrição</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Um consumível válido deve ser selecionado</value>
   </data>

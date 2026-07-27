@@ -10315,6 +10315,9 @@ stampa(esegui())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Tutto il tempo</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Serie di abbonamento</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>È necessario selezionare un materiale di consumo valido</value>
   </data>

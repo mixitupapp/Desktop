@@ -9035,6 +9035,9 @@ Druck(Lauf())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Allzeit-Zeiten</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Abo-Serie</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Ein gültiges Verbrauchsgut muss ausgewählt werden</value>
   </data>

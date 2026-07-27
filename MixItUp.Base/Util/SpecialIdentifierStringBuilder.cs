@@ -47,6 +47,15 @@ namespace MixItUp.Base.Util
         public const string TopKicksGiftedSpecialIdentifier = TopSpecialIdentifierHeader + "kicksgifted";
         public const string TopKicksGiftedRegexSpecialIdentifier = TopSpecialIdentifierHeader + "\\d+kicksgifted";
 
+        public const string TopSubscribersSpecialIdentifier = TopSpecialIdentifierHeader + "subscriber";
+        public const string TopSubscribersRegexSpecialIdentifier = TopSpecialIdentifierHeader + "\\d+subscribers";
+
+        public const string TopSubGiftersSpecialIdentifier = TopSpecialIdentifierHeader + "subgifter";
+        public const string TopSubGiftersRegexSpecialIdentifier = TopSpecialIdentifierHeader + "\\d+subgifters";
+
+        public const string TopSubStreakSpecialIdentifier = TopSpecialIdentifierHeader + "substreak";
+        public const string TopSubStreakRegexSpecialIdentifier = TopSpecialIdentifierHeader + "\\d+substreaks";
+
         public const string UserSpecialIdentifierHeader = "user";
         public const string ArgSpecialIdentifierHeader = "arg";
         public const string ArgDelimitedSpecialIdentifierHeader = ArgSpecialIdentifierHeader + "delimited";
@@ -404,6 +413,36 @@ namespace MixItUp.Base.Util
                         topUser = new UserV2ViewModel(topUserData);
                     }
                     await this.HandleUserSpecialIdentifiers(topUser, SpecialIdentifierStringBuilder.TopTimeSpecialIdentifier);
+                }
+
+                if (this.ContainsRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubscribersRegexSpecialIdentifier))
+                {
+                    await this.HandleTopSubscribersRegex();
+                }
+
+                if (this.ContainsSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubscribersSpecialIdentifier))
+                {
+                    await this.HandleTopSubscriber(parameters);
+                }
+
+                if (this.ContainsRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubGiftersRegexSpecialIdentifier))
+                {
+                    await this.HandleTopSubGiftersRegex();
+                }
+
+                if (this.ContainsSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubGiftersSpecialIdentifier))
+                {
+                    await this.HandleTopSubGifter(parameters);
+                }
+
+                if (this.ContainsRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubStreakRegexSpecialIdentifier))
+                {
+                    await this.HandleTopSubStreaksRegex();
+                }
+
+                if (this.ContainsSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubStreakSpecialIdentifier))
+                {
+                    await this.HandleTopSubStreak(parameters);
                 }
 
                 foreach (CurrencyModel currency in ChannelSession.Settings.Currency.Values)
@@ -1587,6 +1626,102 @@ namespace MixItUp.Base.Util
                         await this.HandleUserSpecialIdentifiers(user, SpecialIdentifierStringBuilder.TopKicksGiftedSpecialIdentifier + period.ToString().ToLower());
                     }
                 }
+            }
+        }
+
+        private static IEnumerable<UserV2Model> OrderUsersForLeaderboard(IEnumerable<UserV2Model> users, Func<UserV2Model, long> selector)
+        {
+            return users.Where(u => u.GetPlatforms().Count > 0 && selector(u) > 0).OrderByDescending(selector);
+        }
+
+        private static IEnumerable<Tuple<UserV2Model, DateTimeOffset>> OrderUsersBySubscribeStreak(IEnumerable<UserV2Model> users)
+        {
+            return users.Where(u => u.GetPlatforms().Count > 0)
+                .Select(u => new Tuple<UserV2Model, DateTimeOffset?>(u, u.GetEarliestSubscribeDate()))
+                .Where(u => u.Item2.HasValue)
+                .Select(u => new Tuple<UserV2Model, DateTimeOffset>(u.Item1, u.Item2.Value))
+                .OrderBy(u => u.Item2);
+        }
+
+        private string BuildLeaderboardList(IEnumerable<Tuple<UserV2Model, string>> entries, int total)
+        {
+            List<string> results = new List<string>();
+            int position = 1;
+            foreach (var entry in entries.Take(total))
+            {
+                results.Add($"#{position}) {new UserV2ViewModel(entry.Item1).Username} - {entry.Item2}");
+                position++;
+            }
+            return (results.Count > 0) ? string.Join(", ", results) : MixItUp.Base.Resources.NoUsersFound;
+        }
+
+        private UserV2ViewModel GetTopUserViewModel(CommandParametersModel parameters, UserV2Model userData)
+        {
+            UserV2ViewModel user = ServiceManager.Get<UserService>().GetActiveUserByID(parameters.Platform, userData.ID);
+            return user ?? new UserV2ViewModel(userData);
+        }
+
+        private async Task HandleTopSubscribersRegex()
+        {
+            await this.ReplaceNumberBasedRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubscribersRegexSpecialIdentifier, async (total) =>
+            {
+                IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                return this.BuildLeaderboardList(OrderUsersForLeaderboard(applicableUsers, u => u.TotalMonthsSubbed)
+                    .Select(u => new Tuple<UserV2Model, string>(u, ((double)u.TotalMonthsSubbed).ToNumberDisplayString())), total);
+            });
+        }
+
+        private async Task HandleTopSubscriber(CommandParametersModel parameters)
+        {
+            IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+            UserV2Model topUserData = OrderUsersForLeaderboard(applicableUsers, u => u.TotalMonthsSubbed).FirstOrDefault();
+            if (topUserData != null)
+            {
+                this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubscribersSpecialIdentifier + "amount", topUserData.TotalMonthsSubbed.ToString());
+                await this.HandleUserSpecialIdentifiers(this.GetTopUserViewModel(parameters, topUserData), SpecialIdentifierStringBuilder.TopSubscribersSpecialIdentifier);
+            }
+        }
+
+        private async Task HandleTopSubGiftersRegex()
+        {
+            await this.ReplaceNumberBasedRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubGiftersRegexSpecialIdentifier, async (total) =>
+            {
+                IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                return this.BuildLeaderboardList(OrderUsersForLeaderboard(applicableUsers, u => u.TotalSubsGifted)
+                    .Select(u => new Tuple<UserV2Model, string>(u, ((double)u.TotalSubsGifted).ToNumberDisplayString())), total);
+            });
+        }
+
+        private async Task HandleTopSubGifter(CommandParametersModel parameters)
+        {
+            IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+            UserV2Model topUserData = OrderUsersForLeaderboard(applicableUsers, u => u.TotalSubsGifted).FirstOrDefault();
+            if (topUserData != null)
+            {
+                this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubGiftersSpecialIdentifier + "amount", topUserData.TotalSubsGifted.ToString());
+                await this.HandleUserSpecialIdentifiers(this.GetTopUserViewModel(parameters, topUserData), SpecialIdentifierStringBuilder.TopSubGiftersSpecialIdentifier);
+            }
+        }
+
+        private async Task HandleTopSubStreaksRegex()
+        {
+            await this.ReplaceNumberBasedRegexSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubStreakRegexSpecialIdentifier, async (total) =>
+            {
+                IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+                return this.BuildLeaderboardList(OrderUsersBySubscribeStreak(applicableUsers)
+                    .Select(u => new Tuple<UserV2Model, string>(u.Item1, u.Item2.GetAge())), total);
+            });
+        }
+
+        private async Task HandleTopSubStreak(CommandParametersModel parameters)
+        {
+            IEnumerable<UserV2Model> applicableUsers = await SpecialIdentifierStringBuilder.GetAllNonExemptUsers();
+            Tuple<UserV2Model, DateTimeOffset> top = OrderUsersBySubscribeStreak(applicableUsers).FirstOrDefault();
+            if (top != null)
+            {
+                this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubStreakSpecialIdentifier + "length", top.Item2.GetAge());
+                this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.TopSubStreakSpecialIdentifier + "amount", top.Item2.TotalMonthsFromNow().ToString());
+                await this.HandleUserSpecialIdentifiers(this.GetTopUserViewModel(parameters, top.Item1), SpecialIdentifierStringBuilder.TopSubStreakSpecialIdentifier);
             }
         }
 

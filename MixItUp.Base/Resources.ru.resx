@@ -10320,6 +10320,9 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="AllTime" xml:space="preserve">
     <value>Все время</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Серия подписки</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Необходимо выбрать действительный расходный материал</value>
   </data>
