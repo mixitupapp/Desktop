@@ -94,8 +94,8 @@
                         AutomationProperties.AutomationId="Inventory.ExportDataButton" />
                 </Grid>
 
-                <Grid Grid.Row="2" HorizontalAlignment="Center">
-                    <GroupBox Grid.Column="2" Header="{x:Static resx:Resources.ItemList}">
+                <Grid Grid.Row="2">
+                    <GroupBox Header="{x:Static resx:Resources.ItemList}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -105,9 +105,8 @@
 
                             <ScrollViewer
                                 Grid.Column="0"
-                                Width="900"
                                 MaxHeight="400"
-                                HorizontalScrollBarVisibility="Auto"
+                                HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Visible">
                                 <DataGrid
                                     HorizontalContentAlignment="Center"
@@ -120,30 +119,35 @@
                                     AutomationProperties.Name="{x:Static resx:Resources.InventoryItems}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn
-                                            Width="200"
+                                            Width="2*"
+                                            MinWidth="150"
                                             Binding="{Binding Name}"
                                             Header="{x:Static resx:Resources.ItemName}"
                                             IsReadOnly="True" />
                                         <DataGridTextColumn
-                                            Width="100"
+                                            Width="*"
+                                            MinWidth="90"
                                             Binding="{Binding MaxAmountString}"
                                             Header="{x:Static resx:Resources.MaxAmount}"
                                             IsReadOnly="True"
                                             SortMemberPath="MaxAmount" />
                                         <DataGridTextColumn
-                                            Width="100"
+                                            Width="*"
+                                            MinWidth="90"
                                             Binding="{Binding BuyAmountString}"
                                             Header="{x:Static resx:Resources.BuyPrice}"
                                             IsReadOnly="True"
                                             SortMemberPath="BuyAmount" />
                                         <DataGridTextColumn
-                                            Width="100"
+                                            Width="*"
+                                            MinWidth="90"
                                             Binding="{Binding SellAmountString}"
                                             Header="{x:Static resx:Resources.SellPrice}"
                                             IsReadOnly="True"
                                             SortMemberPath="SellAmount" />
                                         <DataGridTextColumn
-                                            Width="200"
+                                            Width="2*"
+                                            MinWidth="150"
                                             Binding="{Binding SpecialIdentifier}"
                                             Header="{x:Static resx:Resources.SpecialIdentifierName}"
                                             IsReadOnly="True" />
