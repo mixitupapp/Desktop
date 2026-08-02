@@ -10904,4 +10904,16 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
     <value>Wiedergabe-Puffer gespeichert</value>
   </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Nutzersuche</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Nutzername oder ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Nutzersuche-Aktion: Fehlender Nutzername oder ID</value>
+    <comment>Manual</comment>
+  </data>
 </root>

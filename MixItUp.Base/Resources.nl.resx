@@ -12196,4 +12196,16 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
     <value>Herhalingsbuffer opgeslagen</value>
   </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Gebruiker opzoeken</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Gebruikersnaam of ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Gebruikerszoekactie: ontbrekende gebruikersnaam of ID</value>
+    <comment>Manual</comment>
+  </data>
 </root>

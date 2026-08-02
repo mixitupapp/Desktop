@@ -69,6 +69,7 @@ namespace MixItUp.Base.Model.Actions
         Velora,
         Veadotube,
         PlatformMessage,
+        UserLookup,
     }
 
     [DataContract]

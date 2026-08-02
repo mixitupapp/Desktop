@@ -259,6 +259,7 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.TextToSpeech: actionPageName = "text-to-speech-action"; break;
                         case ActionTypeEnum.TITS: actionPageName = "tits-action"; break;
                         case ActionTypeEnum.Twitch: actionPageName = "twitch-action"; break;
+                        case ActionTypeEnum.UserLookup: actionPageName = "user-lookup-action"; break;
                         case ActionTypeEnum.Voicemod: actionPageName = "voicemod-action"; break;
                         case ActionTypeEnum.VTSPog: actionPageName = "vts-pog-action"; break;
                         case ActionTypeEnum.VTubeStudio: actionPageName = "vtube-studio-action"; break;

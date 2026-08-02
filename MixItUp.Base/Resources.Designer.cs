@@ -29204,7 +29204,34 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("UserLeftChat", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to User Lookup.
+        /// </summary>
+        public static string UserLookup {
+            get {
+                return ResourceManager.GetString("UserLookup", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to User Lookup Action: Missing username or ID.
+        /// </summary>
+        public static string UserLookupActionMissingUsernameOrID {
+            get {
+                return ResourceManager.GetString("UserLookupActionMissingUsernameOrID", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Username or ID.
+        /// </summary>
+        public static string UserLookupUsernameOrID {
+            get {
+                return ResourceManager.GetString("UserLookupUsernameOrID", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to User Metrics.
         /// </summary>

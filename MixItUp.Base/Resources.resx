@@ -12685,4 +12685,16 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
     <value>Replay Buffer Saved</value>
   </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>User Lookup</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Username or ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>User Lookup Action: Missing username or ID</value>
+    <comment>Manual</comment>
+  </data>
 </root>

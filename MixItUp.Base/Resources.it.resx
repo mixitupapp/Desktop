@@ -12195,4 +12195,16 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
     <value>Buffer di riproduzione salvato</value>
   </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Ricerca utente</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Nome utente o ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Azione ricerca utente: nome utente o ID mancante</value>
+    <comment>Manual</comment>
+  </data>
 </root>

@@ -12196,4 +12196,16 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
     <value>Tampon de relecture enregistré</value>
   </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Recherche d'utilisateur</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Nom d'utilisateur ou ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Action de recherche d'utilisateur : nom d'utilisateur ou ID manquant</value>
+    <comment>Manual</comment>
+  </data>
 </root>
