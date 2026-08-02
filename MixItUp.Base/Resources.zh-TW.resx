@@ -12192,4 +12192,34 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="SetPushToTalk" xml:space="preserve">
     <value>設定按住說話</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>直播已開始</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>直播已停止</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>錄影已開始</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>錄影已停止</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>場景已變更</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>場景轉場已開始</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>場景轉場已結束</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>濾鏡可見性已變更</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>來源可見性已變更</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>重播緩衝區已儲存</value>
+  </data>
 </root>

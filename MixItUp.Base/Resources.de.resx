@@ -12167,4 +12167,34 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Push-to-Talk festlegen</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Stream gestartet</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Stream gestoppt</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Aufnahme gestartet</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Aufnahme gestoppt</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Szene geändert</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Szenenübergang gestartet</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Szenenübergang beendet</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Sichtbarkeit des Filters geändert</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Sichtbarkeit der Quelle geändert</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Wiedergabepuffer gespeichert</value>
+  </data>
 </root>

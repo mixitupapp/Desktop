@@ -12161,4 +12161,34 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="SetPushToTalk" xml:space="preserve">
     <value>プッシュトゥトークを設定</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>配信開始</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>配信停止</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>録画開始</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>録画停止</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>シーンが変更されました</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>シーントランジション開始</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>シーントランジション終了</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>フィルターの可視性が変更されました</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>ソースの可視性が変更されました</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>リプレイバッファ保存</value>
+  </data>
 </root>

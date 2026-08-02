@@ -12161,4 +12161,34 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Ustaw Push-to-Talk</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Rozpoczęto transmisję</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Zatrzymano transmisję</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Rozpoczęto nagrywanie</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Zatrzymano nagrywanie</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Zmieniono scenę</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Rozpoczęto przejście sceny</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Zakończono przejście sceny</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Zmieniono widoczność filtra</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Zmieniono widoczność źródła</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Zapisano bufor powtórek</value>
+  </data>
 </root>

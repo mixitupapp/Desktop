@@ -113,6 +113,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Pally;
                 }
+                else if (eventNumber >= 1200 && eventNumber < 1300)
+                {
+                    return Resources.OBSStudio;
+                }
                 else if (eventNumber >= 200 && eventNumber < 300)
                 {
                     return Resources.Twitch;
@@ -337,6 +341,19 @@ namespace MixItUp.Base.ViewModel.MainControls
             EventCommandGroupViewModel pallyCommands = new EventCommandGroupViewModel(Resources.Pally, brandId: "pally");
             pallyCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PallyDonation));
             commandGroups.Add(pallyCommands);
+
+            EventCommandGroupViewModel obsStudioCommands = new EventCommandGroupViewModel(Resources.OBSStudio, brandId: "obs");
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioStreamStarted));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioStreamStopped));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioRecordingStarted));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioRecordingStopped));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioReplayBufferSaved));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioSceneChanged));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioSceneTransitionStarted));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioSceneTransitionEnded));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioSourceVisibilityChanged));
+            obsStudioCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.OBSStudioFilterVisibilityChanged));
+            commandGroups.Add(obsStudioCommands);
 
             this.EventCommandGroups.AddRange(commandGroups);
 

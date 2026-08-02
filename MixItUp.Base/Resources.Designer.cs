@@ -16901,7 +16901,16 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("OBSStudioFailed", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Visibility Changed.
+        /// </summary>
+        public static string OBSStudioFilterVisibilityChanged {
+            get {
+                return ResourceManager.GetString("OBSStudioFilterVisibilityChanged", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The OBS Studio service allows you to directly interact with your instance of OBS Studio to perform changes to scenes and sources..
         /// </summary>
@@ -16928,7 +16937,88 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("OBSStudioOldProtocol", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Recording Started.
+        /// </summary>
+        public static string OBSStudioRecordingStarted {
+            get {
+                return ResourceManager.GetString("OBSStudioRecordingStarted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Recording Stopped.
+        /// </summary>
+        public static string OBSStudioRecordingStopped {
+            get {
+                return ResourceManager.GetString("OBSStudioRecordingStopped", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Replay Buffer Saved.
+        /// </summary>
+        public static string OBSStudioReplayBufferSaved {
+            get {
+                return ResourceManager.GetString("OBSStudioReplayBufferSaved", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Changed.
+        /// </summary>
+        public static string OBSStudioSceneChanged {
+            get {
+                return ResourceManager.GetString("OBSStudioSceneChanged", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Transition Ended.
+        /// </summary>
+        public static string OBSStudioSceneTransitionEnded {
+            get {
+                return ResourceManager.GetString("OBSStudioSceneTransitionEnded", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Transition Started.
+        /// </summary>
+        public static string OBSStudioSceneTransitionStarted {
+            get {
+                return ResourceManager.GetString("OBSStudioSceneTransitionStarted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Source Visibility Changed.
+        /// </summary>
+        public static string OBSStudioSourceVisibilityChanged {
+            get {
+                return ResourceManager.GetString("OBSStudioSourceVisibilityChanged", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stream Started.
+        /// </summary>
+        public static string OBSStudioStreamStarted {
+            get {
+                return ResourceManager.GetString("OBSStudioStreamStarted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stream Stopped.
+        /// </summary>
+        public static string OBSStudioStreamStopped {
+            get {
+                return ResourceManager.GetString("OBSStudioStreamStopped", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to OBS Studio connection test successful!.
         /// </summary>

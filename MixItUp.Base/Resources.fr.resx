@@ -12162,4 +12162,34 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Définir le Push-to-Talk</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Flux démarré</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Flux arrêté</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Enregistrement démarré</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Enregistrement arrêté</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Scène modifiée</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Transition de scène démarrée</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Transition de scène terminée</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Visibilité du filtre modifiée</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Visibilité de la source modifiée</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Tampon de relecture enregistré</value>
+  </data>
 </root>

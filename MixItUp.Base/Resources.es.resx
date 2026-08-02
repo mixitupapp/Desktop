@@ -12163,4 +12163,34 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Establecer pulsar para hablar</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Transmisión iniciada</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Transmisión detenida</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Grabación iniciada</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Grabación detenida</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Escena cambiada</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Transición de escena iniciada</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Transición de escena finalizada</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Visibilidad del filtro cambiada</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Visibilidad de la fuente cambiada</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Búfer de reproducción guardado</value>
+  </data>
 </root>

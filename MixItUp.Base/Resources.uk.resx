@@ -12192,4 +12192,34 @@ print(run())</value>
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Встановити Push-to-Talk</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Трансляцію розпочато</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Трансляцію зупинено</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Запис розпочато</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Запис зупинено</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Сцену змінено</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Перехід сцени розпочато</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Перехід сцени завершено</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Видимість фільтра змінено</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Видимість джерела змінено</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Буфер відтворення збережено</value>
+  </data>
 </root>

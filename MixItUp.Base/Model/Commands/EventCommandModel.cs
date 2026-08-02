@@ -531,6 +531,32 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.VeadotubePushToTalkChanged:
                     specialIdentifiers["veadotubepushtotalk"] = "True";
                     break;
+
+                // OBS Studio
+                case EventTypeEnum.OBSStudioRecordingStopped:
+                    specialIdentifiers["obsrecordingfilepath"] = "C:\\Videos\\2024-01-01 12-00-00.mkv";
+                    break;
+                case EventTypeEnum.OBSStudioSceneChanged:
+                    specialIdentifiers["obsscenename"] = "Gameplay";
+                    specialIdentifiers["obspreviousscenename"] = "Starting Soon";
+                    break;
+                case EventTypeEnum.OBSStudioSourceVisibilityChanged:
+                    specialIdentifiers["obsscenename"] = "Gameplay";
+                    specialIdentifiers["obssourcename"] = "Webcam";
+                    specialIdentifiers["obssourcevisible"] = "True";
+                    break;
+                case EventTypeEnum.OBSStudioFilterVisibilityChanged:
+                    specialIdentifiers["obssourcename"] = "Webcam";
+                    specialIdentifiers["obsfiltername"] = "Color Correction";
+                    specialIdentifiers["obsfiltervisible"] = "True";
+                    break;
+                case EventTypeEnum.OBSStudioReplayBufferSaved:
+                    specialIdentifiers["obsreplayfilepath"] = "C:\\Videos\\Replay 2024-01-01 12-00-00.mkv";
+                    break;
+                case EventTypeEnum.OBSStudioSceneTransitionStarted:
+                case EventTypeEnum.OBSStudioSceneTransitionEnded:
+                    specialIdentifiers["obstransitionname"] = "Fade";
+                    break;
             }
 
             int eventNumber = (int)eventType;

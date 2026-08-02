@@ -251,6 +251,19 @@ namespace MixItUp.Base.Services
 
         VeadotubeAvatarStateChanged = 1170,
         VeadotubePushToTalkChanged = 1171,
+
+        // Streaming Software = 1200
+
+        OBSStudioStreamStarted = 1200,
+        OBSStudioStreamStopped = 1201,
+        OBSStudioRecordingStarted = 1202,
+        OBSStudioRecordingStopped = 1203,
+        OBSStudioSceneChanged = 1204,
+        OBSStudioFilterVisibilityChanged = 1205,
+        OBSStudioSceneTransitionStarted = 1206,
+        OBSStudioSceneTransitionEnded = 1207,
+        OBSStudioSourceVisibilityChanged = 1208,
+        OBSStudioReplayBufferSaved = 1209,
     }
 
     public class SubscriptionDetailsModel

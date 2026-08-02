@@ -12161,4 +12161,34 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Imposta Push-to-Talk</value>
   </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Flusso avviato</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Flusso interrotto</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Registrazione avviata</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Registrazione interrotta</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Scena modificata</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Transizione di scena avviata</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Transizione di scena terminata</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Visibilità del filtro modificata</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Visibilità della fonte modificata</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Buffer di riproduzione salvato</value>
+  </data>
 </root>
