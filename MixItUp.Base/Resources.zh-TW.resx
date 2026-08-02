@@ -3098,6 +3098,10 @@
     <value>平台</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>平台留言</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>等級</value>
     <comment>Manual</comment>

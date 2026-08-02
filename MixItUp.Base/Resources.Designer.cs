@@ -19013,7 +19013,16 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("Platform", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Platform Message.
+        /// </summary>
+        public static string PlatformMessage {
+            get {
+                return ResourceManager.GetString("PlatformMessage", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Platform Agnostic.
         /// </summary>

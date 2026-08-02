@@ -3109,6 +3109,10 @@
     <value>Platform</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Platform Message</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Tier</value>
     <comment>Manual</comment>

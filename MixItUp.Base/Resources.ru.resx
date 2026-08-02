@@ -3101,6 +3101,10 @@ Fuzzy</comment>
     <value>Платформа</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Сообщение платформы</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Уровень</value>
     <comment>Manual</comment>

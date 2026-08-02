@@ -3098,6 +3098,10 @@
     <value>Plataforma</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Mensagem de plataforma</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Nível</value>
     <comment>Manual</comment>

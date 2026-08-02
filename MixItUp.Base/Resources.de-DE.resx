@@ -2438,6 +2438,9 @@
   <data name="Platform" xml:space="preserve">
     <value>Plattform</value>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Plattformnachricht</value>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Rang</value>
   </data>

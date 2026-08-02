@@ -3099,6 +3099,10 @@ Fuzzy</comment>
     <value>Platform</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Platformbericht</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Laag</value>
     <comment>Manual</comment>
