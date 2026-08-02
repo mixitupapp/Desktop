@@ -73,6 +73,9 @@ namespace MixItUp.Base.Util
 
         public static string ToFriendlyDateTimeString(this DateTimeOffset dt) { return dt.ToString("g"); }
 
+        // Keeps the seconds that the short "g" format drops, so the result can be fed back through DateTime.TryParse
+        public static string ToPreciseDateTimeString(this DateTimeOffset dt) { return dt.ToString("G"); }
+
         public static DateTimeOffset ToCorrectLocalTime(this DateTimeOffset dt) { return dt.ToOffset(DateTimeOffset.Now.Offset); }
 
         public static string GetAge(this DateTimeOffset start, bool includeTime = false)

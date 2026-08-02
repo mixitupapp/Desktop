@@ -456,6 +456,7 @@ namespace MixItUp.Base.ViewModel.User
 
         public DateTimeOffset LastActivity { get { return this.Model.LastActivity; } }
         public string LastActivityDateString { get { return this.LastActivity.ToFriendlyDateString(); } }
+        public string LastActivityPreciseDateTimeString { get { return (this.LastActivity != DateTimeOffset.MinValue) ? this.LastActivity.ToPreciseDateTimeString() : MixItUp.Base.Resources.Unknown; } }
         public string LastActivityAgeString { get { return this.LastActivity.GetAge(); } }
         public int LastActivityDays { get { return this.LastActivity.TotalDaysFromNow(); } }
 

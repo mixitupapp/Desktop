@@ -77,7 +77,19 @@ namespace MixItUp.WPF.Controls.Settings
             if (this.SettingsItemsListBox.SelectedIndex >= 0)
             {
                 SettingsOption settings = (SettingsOption)this.SettingsItemsListBox.SelectedItem;
-                this.SettingsContent.Content = settings.Control;
+
+                this.SettingsContent.Content = null;
+                this.SettingsFillContent.Content = null;
+
+                SettingsControlBase settingsControl = settings.Control as SettingsControlBase;
+                if (settingsControl != null && settingsControl.FillsAvailableHeight)
+                {
+                    this.SettingsFillContent.Content = settings.Control;
+                }
+                else
+                {
+                    this.SettingsContent.Content = settings.Control;
+                }
             }
         }
     }

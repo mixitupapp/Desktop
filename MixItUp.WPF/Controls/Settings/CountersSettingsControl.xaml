@@ -11,23 +11,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilterByName}" MaterialDesign:TextFieldAssist.HasClearButton="True" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="300" HorizontalAlignment="Left" AutomationProperties.AutomationId="CountersSettings.NameFilterTextBox" AutomationProperties.Name="{x:Static resx:Resources.FilterByName}" />
 
-            <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="0" BorderThickness="1">
-                <ItemsControl x:Name="CountersSettingsSerialDevicesListView" HorizontalAlignment="Center" ItemsSource="{Binding Counters}" AutomationProperties.AutomationId="CountersSettings.SerialDevicesList" AutomationProperties.Name="{x:Static resx:Resources.SerialDevices}">
+        <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="2" BorderThickness="1">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="CountersSettingsSerialDevicesListView" ItemsSource="{Binding Counters}" AutomationProperties.AutomationId="CountersSettings.SerialDevicesList" AutomationProperties.Name="{x:Static resx:Resources.SerialDevices}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="20">
@@ -74,19 +70,19 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </Border>
+            </ScrollViewer>
+        </Border>
 
-            <Grid Grid.Row="2" HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+        <Grid Grid.Row="4" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding NewCounterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="380" VerticalAlignment="Center" AutomationProperties.AutomationId="CountersSettings.CounterNameWithTipsTextBox" AutomationProperties.Name="{x:Static resx:Resources.CounterNameWithTips}" />
+            <TextBox Grid.Column="0" Text="{Binding NewCounterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="380" VerticalAlignment="Center" AutomationProperties.AutomationId="CountersSettings.CounterNameWithTipsTextBox" AutomationProperties.Name="{x:Static resx:Resources.CounterNameWithTips}" />
 
-                <Button Grid.Column="2" Command="{Binding AddNewCounterCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" AutomationProperties.AutomationId="CountersSettings.AddButton" />
-            </Grid>
+            <Button Grid.Column="2" Command="{Binding AddNewCounterCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignRaisedButton}" AutomationProperties.AutomationId="CountersSettings.AddButton" />
         </Grid>
 
     </Grid>
