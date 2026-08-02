@@ -1,5 +1,44 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.030
+
+Release Date: 2026-08-02
+
+### FEATURES
+
+- Add OBS Studio events, fired by OBS itself rather than by anything Mix It Up sends it:
+  - Stream Started, Stream Stopped, Recording Started, Recording Stopped ($obsrecordingfilepath), Replay Buffer Saved ($obsreplayfilepath)
+  - Scene Changed ($obsscenename, $obspreviousscenename)
+  - Scene Transition Started and Scene Transition Ended ($obstransitionname)
+  - Source Visibility Changed ($obsscenename, $obssourcename, $obssourcevisible)
+  - Filter Visibility Changed ($obssourcename, $obsfiltername, $obsfiltervisible)
+- Add Platform Message action for sending chat to one specific platform, with its own Send As Streamer option. The Chat Message action still sends everywhere at once
+- Add User Lookup action for finding a viewer on a chosen platform by username or ID, filling $lookupusername, $lookupdisplayname, $lookupid, $lookupavatarurl, and $lookupsuccess for the actions after it
+  - Someone Mix It Up has no record of is looked up on the platform itself, limited to once a minute
+- Add End Credits sections for VIPs, Regulars, First-Time Chatters, Channel Points, YouTube Jewels, Streamloots, Patreon, and Patreon Members List
+  - Channel Points covers Twitch, Kick, and Velora at once, totalling what each viewer spent
+  - Patreon lists memberships started while the credits were tracking. Patreon Members List ignores tracking and lists your active members as they stand when the credits roll
+- End Credits widgets now have the Reset button the other tracking widgets have
+- Add a Platforms page to Settings, starting with YouTube's Shorts Video Length Cap. Uploads at or under it count as Shorts, anything longer as regular videos (default 180 seconds)
+- Add a filter box to the Counters settings page, and the list now scrolls instead of running off the bottom
+- Add $userlastseenprecise for a viewer's last activity down to the second, in a form the date and time actions can read back in. Works on every user prefix ($targetuserlastseenprecise, $arg1userlastseenprecise, and so on)
+
+### FIXES
+
+- $youtubelatestvideo and $youtubelatestshort now read the channel's uploads list rather than YouTube search, so a video posted moments ago is found and the same one comes back every time. Shorts are told apart by length instead of by scraping the Shorts page
+- Fix the Twitch Power-Ups End Credits section staying empty, as nothing was reporting redeemed Power-Ups to it
+- Fix External Program and Script action output garbling accented and non-English characters
+- Fix the External Program action stalling on a program that writes heavily to error output, and dropping the tail of the output on exit
+- Inventory window item list now fits the window instead of a fixed width, so the columns stay put and the horizontal scroll bar is gone
+- Fix $usersubplan, $usersubplanname, and $usersubtier missing from the Kick and Velora subscription, resubscription, and gifted sub test events
+- veadotube connection handling:
+  - Every running copy is now tried in turn rather than only the most recently started one
+  - A hand-typed address missing its port, or using localhost as the host, is corrected instead of failing on port 80. One that cannot be read at all is reported rather than quietly falling back to detection
+  - Clearing the address field now really clears it, so detection turns itself back on
+  - Frames arriving behind a byte order mark or zero width character are no longer dropped without a word
+  - The Avatar State Changed event no longer fires for the state veadotube was already showing when Mix It Up connects or reconnects
+  - The Services page shows the address connected to, and the log records every address tried and why each was passed over
+
 ## 1.8.020
 
 Release Date: 2026-07-26
