@@ -351,6 +351,8 @@ namespace MixItUp.Base.Services.External
 
     public class PatreonService : OAuthExternalServiceBase
     {
+        public const string ActivePatronStatus = "active_patron";
+
         private const string BaseAddress = "https://www.patreon.com/api/oauth2/v2/";
 
         private const string ClientID = "SmP5OMjSF0JA2HAa14-so3it_vrs37MBdkd6AQOB8P8PFswXONRwLpzgDDzriTYZ";
@@ -709,6 +711,8 @@ namespace MixItUp.Base.Services.External
                             parameters.SpecialIdentifiers[SpecialIdentifierStringBuilder.PatreonTierAmountSpecialIdentifier] = tier.Amount.ToString();
                             parameters.SpecialIdentifiers[SpecialIdentifierStringBuilder.PatreonTierImageSpecialIdentifier] = tier.ImageUrl;
                             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.PatreonSubscribed, parameters);
+
+                            EventService.PatreonSubscribedOccurred(parameters.User);
                         }
                     }
                     this.currentMembersAndTiers[member.UserID] = member.TierID;

@@ -717,6 +717,8 @@ namespace MixItUp.Base.Services.Velora.New
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.VeloraChannelPointsRedeemed, parameters);
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertVeloraChannelPointRedeemed, user.FullDisplayName, redemptionEvent.RewardTitle), ChannelSession.Settings.AlertVeloraChannelPointsColor));
 
+            EventService.ChannelPointsRedeemedOccurred(user, redemptionEvent.RewardCost);
+
             VeloraChannelPointsCommandModel command = ServiceManager.Get<CommandService>().VeloraChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID, redemptionEvent.RewardID, StringComparison.OrdinalIgnoreCase));
             if (command == null)
             {

@@ -127,7 +127,10 @@ namespace MixItUp.Base.Services.YouTube.New
 
         private DateTime launchDateTime = DateTime.Now;
 
-        private SearchResult latestNonStreamVideo;
+        // videos.list accepts a maximum of 50 IDs per call.
+        private const int VideoDetailsBatchSize = 50;
+
+        private Video latestNonStreamVideo;
         private Video latestShort;
 
         private HashSet<string> messageIDsToIgnore = new HashSet<string>();
@@ -423,28 +426,11 @@ namespace MixItUp.Base.Services.YouTube.New
             return result;
         }
 
-        public async Task<SearchResult> GetLatestNonStreamVideo()
+        public async Task<Video> GetLatestNonStreamVideo()
         {
             if (this.latestNonStreamVideo == null)
             {
-                IEnumerable<SearchResult> searchResults = await this.StreamerService.GetLatestVideos(this.ChannelID, maxResults: 100);
-
-                HashSet<string> broadcastIDs = new HashSet<string>();
-                foreach (LiveBroadcast broadcast in await this.StreamerService.GetLatestBroadcasts())
-                {
-                    broadcastIDs.Add(broadcast.Id);
-                }
-
-                IEnumerable<string> shortIDs = await this.StreamerService.GetLatestShortIDs(this.ChannelID);
-
-                foreach (SearchResult searchResult in searchResults)
-                {
-                    if (!broadcastIDs.Contains(searchResult.Id.VideoId) && !shortIDs.Contains(searchResult.Id.VideoId))
-                    {
-                        this.latestNonStreamVideo = searchResult;
-                        break;
-                    }
-                }
+                this.latestNonStreamVideo = await this.GetLatestVideoByLength(shorts: false);
             }
             return this.latestNonStreamVideo;
         }
@@ -453,18 +439,124 @@ namespace MixItUp.Base.Services.YouTube.New
         {
             if (this.latestShort == null)
             {
-                IEnumerable<string> shortIDs = await this.StreamerService.GetLatestShortIDs(this.ChannelID);
-                foreach (string shortID in shortIDs)
+                this.latestShort = await this.GetLatestVideoByLength(shorts: true);
+            }
+            return this.latestShort;
+        }
+
+        // Walks the channel's uploads newest-first and returns the first one on the requested side of
+        // the Shorts length cap.
+        private async Task<Video> GetLatestVideoByLength(bool shorts)
+        {
+            TimeSpan cap = TimeSpan.FromSeconds(ChannelSession.Settings.YouTubeShortsVideoLengthCap);
+            foreach (Video video in await this.GetChannelUploads(this.ChannelID))
+            {
+                TimeSpan? length = YouTubeSession.GetVideoLength(video);
+                if (length != null && (length.Value <= cap) == shorts)
                 {
-                    IEnumerable<Video> video = await this.StreamerService.GetVideosByID(new List<string>() { shortID });
-                    if (video != null && video.Count() > 0)
+                    return video;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// The channel's uploads, newest first, with broadcasts and stream VODs removed. Public so the
+        /// debug tooling can run the exact same lookup against a channel other than the connected one.
+        /// </summary>
+        public async Task<IEnumerable<Video>> GetChannelUploads(string channelID, int maxResults = 100)
+        {
+            List<Video> results = new List<Video>();
+
+            // The uploads playlist is the channel's actual list of uploads. search.list was used here
+            // previously and is a relevance index rather than an enumeration, so it silently returned a
+            // different subset run to run and could drop a brand new video entirely.
+            Channel channel = await this.StreamerService.GetChannelByID(channelID);
+            string uploadsPlaylistID = channel?.ContentDetails?.RelatedPlaylists?.Uploads;
+            if (string.IsNullOrEmpty(uploadsPlaylistID))
+            {
+                return results;
+            }
+
+            IEnumerable<PlaylistItem> uploads = await this.StreamerService.GetPlaylistItems(uploadsPlaylistID, maxResults);
+            if (uploads == null)
+            {
+                return results;
+            }
+
+            // liveBroadcasts.list only ever reports our own broadcasts, so it is worth nothing when
+            // pointed at somebody else's channel. The per-video check below is what actually drops VODs.
+            HashSet<string> broadcastIDs = new HashSet<string>();
+            if (string.Equals(channelID, this.ChannelID))
+            {
+                IEnumerable<LiveBroadcast> broadcasts = await this.StreamerService.GetLatestBroadcasts();
+                if (broadcasts != null)
+                {
+                    foreach (LiveBroadcast broadcast in broadcasts)
                     {
-                        this.latestShort = video.First();
-                        break;
+                        broadcastIDs.Add(broadcast.Id);
                     }
                 }
             }
-            return this.latestShort;
+
+            // Playlist item ordering is not documented, so sort on publish date rather than trusting
+            // the order they arrive in.
+            List<string> candidateIDs = uploads
+                .Where(u => !string.IsNullOrEmpty(u.ContentDetails?.VideoId))
+                .OrderByDescending(u => u.ContentDetails.VideoPublishedAtDateTimeOffset ?? DateTimeOffset.MinValue)
+                .Select(u => u.ContentDetails.VideoId)
+                .Where(id => !broadcastIDs.Contains(id))
+                .ToList();
+
+            // videos.list takes at most 50 IDs, and the candidates are already newest-first, so walking
+            // the batches in order keeps the whole result newest-first.
+            for (int i = 0; i < candidateIDs.Count; i += VideoDetailsBatchSize)
+            {
+                List<string> batch = candidateIDs.GetRange(i, Math.Min(VideoDetailsBatchSize, candidateIDs.Count - i));
+                // Only length and live details are needed here, so the owner-only parts are skipped
+                // rather than risking the whole batch failing on one video with no file details.
+                IEnumerable<Video> videos = await this.StreamerService.GetVideosByID(batch, isOwned: false);
+                if (videos == null)
+                {
+                    continue;
+                }
+
+                Dictionary<string, Video> videosByID = new Dictionary<string, Video>();
+                foreach (Video video in videos)
+                {
+                    videosByID[video.Id] = video;
+                }
+
+                foreach (string videoID in batch)
+                {
+                    if (videosByID.TryGetValue(videoID, out Video video) && video.LiveStreamingDetails == null)
+                    {
+                        results.Add(video);
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        // contentDetails.duration is an ISO 8601 duration such as PT1M30S.
+        public static TimeSpan? GetVideoLength(Video video)
+        {
+            string duration = video?.ContentDetails?.Duration;
+            if (string.IsNullOrEmpty(duration))
+            {
+                return null;
+            }
+
+            try
+            {
+                return System.Xml.XmlConvert.ToTimeSpan(duration);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                return null;
+            }
         }
 
         private async Task<Result> SetChatEmotes()
@@ -806,6 +898,8 @@ namespace MixItUp.Base.Services.YouTube.New
 
                         await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertYouTubeJewelsGift,
                             user.FullDisplayName, jewelsGift.GiftName, jewelsGift.JewelsAmount), ChannelSession.Settings.AlertYouTubeJewelsGiftColor));
+
+                        EventService.YouTubeJewelsGiftOccurred(jewelsGift);
                     }
                     else if (MessageDeletedEventMessageType.Equals(liveChatMessage.Snippet.Type))
                     {

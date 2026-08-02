@@ -244,6 +244,7 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.MtionStudio: actionPageName = "mtion-studio-action"; break;
                         case ActionTypeEnum.MusicPlayer: actionPageName = "music-player-action"; break;
                         case ActionTypeEnum.Overlay: actionPageName = "overlay-action"; break;
+                        case ActionTypeEnum.PlatformMessage: actionPageName = "platform-message-action"; break;
                         case ActionTypeEnum.PixelChat: actionPageName = "pixel-chat-action"; break;
                         case ActionTypeEnum.PolyPop: actionPageName = "polypop-action"; break;
                         case ActionTypeEnum.Random: actionPageName = "random-action"; break;
@@ -258,6 +259,7 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.TextToSpeech: actionPageName = "text-to-speech-action"; break;
                         case ActionTypeEnum.TITS: actionPageName = "tits-action"; break;
                         case ActionTypeEnum.Twitch: actionPageName = "twitch-action"; break;
+                        case ActionTypeEnum.UserLookup: actionPageName = "user-lookup-action"; break;
                         case ActionTypeEnum.Voicemod: actionPageName = "voicemod-action"; break;
                         case ActionTypeEnum.VTSPog: actionPageName = "vts-pog-action"; break;
                         case ActionTypeEnum.VTubeStudio: actionPageName = "vtube-studio-action"; break;

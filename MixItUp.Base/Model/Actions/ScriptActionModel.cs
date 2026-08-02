@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Model.Actions
@@ -73,6 +74,10 @@ namespace MixItUp.Base.Model.Actions
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
+                        // Without an explicit encoding, redirected output is decoded with the system ANSI code
+                        // page, which garbles anything non-ASCII that the script printed as UTF-8.
+                        StandardOutputEncoding = Encoding.UTF8,
+                        StandardErrorEncoding = Encoding.UTF8,
                         CreateNoWindow = true,
                     };
 

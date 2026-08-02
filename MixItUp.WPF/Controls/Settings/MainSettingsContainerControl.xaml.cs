@@ -35,6 +35,7 @@ namespace MixItUp.WPF.Controls.Settings
             List<SettingsOption> settings = new List<SettingsOption>();
 
             settings.Add(new SettingsOption(MixItUp.Base.Resources.General, new GeneralSettingsControl()));
+            settings.Add(new SettingsOption(MixItUp.Base.Resources.Platforms, new PlatformsSettingsControl()));
             settings.Add(new SettingsOption(MixItUp.Base.Resources.ThemesAndColors, new ThemeSettingsControl()));
             settings.Add(new SettingsOption(MixItUp.Base.Resources.Chat, new ChatSettingsControl()));
             settings.Add(new SettingsOption(MixItUp.Base.Resources.Commands, new CommandsSettingsControl()));
@@ -76,7 +77,19 @@ namespace MixItUp.WPF.Controls.Settings
             if (this.SettingsItemsListBox.SelectedIndex >= 0)
             {
                 SettingsOption settings = (SettingsOption)this.SettingsItemsListBox.SelectedItem;
-                this.SettingsContent.Content = settings.Control;
+
+                this.SettingsContent.Content = null;
+                this.SettingsFillContent.Content = null;
+
+                SettingsControlBase settingsControl = settings.Control as SettingsControlBase;
+                if (settingsControl != null && settingsControl.FillsAvailableHeight)
+                {
+                    this.SettingsFillContent.Content = settings.Control;
+                }
+                else
+                {
+                    this.SettingsContent.Content = settings.Control;
+                }
             }
         }
     }

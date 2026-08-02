@@ -16901,7 +16901,16 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("OBSStudioFailed", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Filter Visibility Changed.
+        /// </summary>
+        public static string OBSStudioFilterVisibilityChanged {
+            get {
+                return ResourceManager.GetString("OBSStudioFilterVisibilityChanged", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to The OBS Studio service allows you to directly interact with your instance of OBS Studio to perform changes to scenes and sources..
         /// </summary>
@@ -16928,7 +16937,88 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("OBSStudioOldProtocol", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Recording Started.
+        /// </summary>
+        public static string OBSStudioRecordingStarted {
+            get {
+                return ResourceManager.GetString("OBSStudioRecordingStarted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Recording Stopped.
+        /// </summary>
+        public static string OBSStudioRecordingStopped {
+            get {
+                return ResourceManager.GetString("OBSStudioRecordingStopped", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Replay Buffer Saved.
+        /// </summary>
+        public static string OBSStudioReplayBufferSaved {
+            get {
+                return ResourceManager.GetString("OBSStudioReplayBufferSaved", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Changed.
+        /// </summary>
+        public static string OBSStudioSceneChanged {
+            get {
+                return ResourceManager.GetString("OBSStudioSceneChanged", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Transition Ended.
+        /// </summary>
+        public static string OBSStudioSceneTransitionEnded {
+            get {
+                return ResourceManager.GetString("OBSStudioSceneTransitionEnded", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scene Transition Started.
+        /// </summary>
+        public static string OBSStudioSceneTransitionStarted {
+            get {
+                return ResourceManager.GetString("OBSStudioSceneTransitionStarted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Source Visibility Changed.
+        /// </summary>
+        public static string OBSStudioSourceVisibilityChanged {
+            get {
+                return ResourceManager.GetString("OBSStudioSourceVisibilityChanged", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stream Started.
+        /// </summary>
+        public static string OBSStudioStreamStarted {
+            get {
+                return ResourceManager.GetString("OBSStudioStreamStarted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stream Stopped.
+        /// </summary>
+        public static string OBSStudioStreamStopped {
+            get {
+                return ResourceManager.GetString("OBSStudioStreamStopped", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to OBS Studio connection test successful!.
         /// </summary>
@@ -18923,7 +19013,16 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("Platform", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Platform Message.
+        /// </summary>
+        public static string PlatformMessage {
+            get {
+                return ResourceManager.GetString("PlatformMessage", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Platform Agnostic.
         /// </summary>
@@ -22962,7 +23061,25 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("ShopCurrencyRequired", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Shorts Video Length Cap (Seconds).
+        /// </summary>
+        public static string ShortsVideoLengthCap {
+            get {
+                return ResourceManager.GetString("ShortsVideoLengthCap", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Videos at or under this length count as Shorts. Anything longer counts as a regular video..
+        /// </summary>
+        public static string ShortsVideoLengthCapTooltip {
+            get {
+                return ResourceManager.GetString("ShortsVideoLengthCapTooltip", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Show Alejo Pronouns (Requires Restart).
         /// </summary>
@@ -29105,7 +29222,34 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("UserLeftChat", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to User Lookup.
+        /// </summary>
+        public static string UserLookup {
+            get {
+                return ResourceManager.GetString("UserLookup", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to User Lookup Action: Missing username or ID.
+        /// </summary>
+        public static string UserLookupActionMissingUsernameOrID {
+            get {
+                return ResourceManager.GetString("UserLookupActionMissingUsernameOrID", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Username or ID.
+        /// </summary>
+        public static string UserLookupUsernameOrID {
+            get {
+                return ResourceManager.GetString("UserLookupUsernameOrID", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to User Metrics.
         /// </summary>
@@ -32841,6 +32985,51 @@ namespace MixItUp.Base {
         public static string SetPushToTalk {
             get {
                 return ResourceManager.GetString("SetPushToTalk", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to VIPs.
+        /// </summary>
+        public static string VIPs {
+            get {
+                return ResourceManager.GetString("VIPs", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Regulars.
+        /// </summary>
+        public static string Regulars {
+            get {
+                return ResourceManager.GetString("Regulars", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to First-Time Chatters.
+        /// </summary>
+        public static string FirstTimeChatters {
+            get {
+                return ResourceManager.GetString("FirstTimeChatters", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to YouTube Jewels.
+        /// </summary>
+        public static string YouTubeJewels {
+            get {
+                return ResourceManager.GetString("YouTubeJewels", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Patreon Members List.
+        /// </summary>
+        public static string PatreonMembers {
+            get {
+                return ResourceManager.GetString("PatreonMembers", resourceCulture);
             }
         }
     }

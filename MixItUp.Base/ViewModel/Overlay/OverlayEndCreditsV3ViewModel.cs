@@ -50,6 +50,10 @@ namespace MixItUp.Base.ViewModel.Overlay
                     case OverlayEndCreditsSectionV3Type.KickKicks:
                     case OverlayEndCreditsSectionV3Type.VeloraCheered:
                     case OverlayEndCreditsSectionV3Type.Donations:
+                    case OverlayEndCreditsSectionV3Type.ChannelPoints:
+                    case OverlayEndCreditsSectionV3Type.YouTubeJewels:
+                    case OverlayEndCreditsSectionV3Type.Streamloots:
+                    case OverlayEndCreditsSectionV3Type.PatreonMembers:
                         this.ItemTemplate = OverlayEndCreditsSectionV3Model.UsernameAmountItemTemplate;
                         break;
                     case OverlayEndCreditsSectionV3Type.HTML:
@@ -230,7 +234,13 @@ namespace MixItUp.Base.ViewModel.Overlay
                         case OverlayEndCreditsSectionV3Type.KickKicks:
                         case OverlayEndCreditsSectionV3Type.VeloraCheered:
                         case OverlayEndCreditsSectionV3Type.Donations:
+                        case OverlayEndCreditsSectionV3Type.ChannelPoints:
+                        case OverlayEndCreditsSectionV3Type.YouTubeJewels:
+                        case OverlayEndCreditsSectionV3Type.Streamloots:
                             section.Track(user, RandomHelper.GenerateRandomNumber(1, 100));
+                            break;
+                        case OverlayEndCreditsSectionV3Type.PatreonMembers:
+                            // Pulled live from the Patreon roster, so there is nothing to seed here.
                             break;
                         default:
                             section.Track(user);

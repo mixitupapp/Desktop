@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModels;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,6 +76,18 @@ namespace MixItUp.Base.ViewModel.Settings
     {
         public ObservableCollection<CounterViewModel> Counters { get; set; } = new ObservableCollection<CounterViewModel>();
 
+        public string NameFilter
+        {
+            get { return this.nameFilter; }
+            set
+            {
+                this.nameFilter = value;
+                this.NotifyPropertyChanged();
+                this.RefreshList();
+            }
+        }
+        private string nameFilter;
+
         public string NewCounterName
         {
             get { return this.newCounterName; }
@@ -109,6 +122,9 @@ namespace MixItUp.Base.ViewModel.Settings
 
                 this.NewCounterName = string.Empty;
 
+                // Drop the filter so the counter that was just added can't land outside of it
+                this.ClearNameFilter();
+
                 this.RefreshList();
             });
         }
@@ -127,16 +143,31 @@ namespace MixItUp.Base.ViewModel.Settings
 
         protected override Task OnVisibleInternal()
         {
+            this.ClearNameFilter();
+
             this.RefreshList();
             return base.OnVisibleInternal();
+        }
+
+        private void ClearNameFilter()
+        {
+            this.nameFilter = string.Empty;
+            this.NotifyPropertyChanged(nameof(this.NameFilter));
         }
 
         private void RefreshList()
         {
             this.Counters.Clear();
-            foreach (var kvp in ChannelSession.Settings.Counters.ToList().OrderBy(c => c.Value.Name))
+
+            IEnumerable<CounterModel> counters = ChannelSession.Settings.Counters.ToList().Select(c => c.Value);
+            if (!string.IsNullOrEmpty(this.NameFilter))
             {
-                this.Counters.Add(new CounterViewModel(this, kvp.Value));
+                counters = counters.Where(c => c.Name.ToLower().Contains(this.NameFilter.ToLower()));
+            }
+
+            foreach (CounterModel counter in counters.OrderBy(c => c.Name))
+            {
+                this.Counters.Add(new CounterViewModel(this, counter));
             }
         }
     }

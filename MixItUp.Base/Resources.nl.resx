@@ -3099,6 +3099,10 @@ Fuzzy</comment>
     <value>Platform</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Platformbericht</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Laag</value>
     <comment>Manual</comment>
@@ -12161,5 +12165,70 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   </data>
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Push-to-Talk instellen</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Stream gestart</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Stream gestopt</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Opname gestart</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Opname gestopt</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Scène gewijzigd</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Scèneovergang gestart</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Scèneovergang beëindigd</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Filterzichtbaarheid gewijzigd</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Bronzichtbaarheid gewijzigd</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Herhalingsbuffer opgeslagen</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Gebruiker opzoeken</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Gebruikersnaam of ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Gebruikerszoekactie: ontbrekende gebruikersnaam of ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Lengtelimiet voor Shorts (seconden)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Video's van deze lengte of korter tellen als Shorts. Langere tellen als gewone video.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP's</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Vaste kijkers</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Nieuwe chatters</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube Jewels</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon-ledenlijst</value>
   </data>
 </root>

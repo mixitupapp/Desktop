@@ -3101,6 +3101,10 @@ Fuzzy</comment>
     <value>Платформа</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Сообщение платформы</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Уровень</value>
     <comment>Manual</comment>
@@ -12196,5 +12200,70 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Задать Push-to-Talk</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Трансляция запущена</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Трансляция остановлена</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Запись запущена</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Запись остановлена</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Сцена изменена</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Переход сцены запущен</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Переход сцены завершён</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Видимость фильтра изменена</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Видимость источника изменена</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Буфер повтора сохранён</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Поиск пользователя</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Имя пользователя или ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Действие поиска пользователя: отсутствует имя пользователя или ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Ограничение длины Shorts (секунды)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Видео такой длины или короче считаются Shorts. Более длинные считаются обычным видео.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP-зрители</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Постоянные зрители</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Впервые в чате</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>Jewels YouTube</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Список участников Patreon</value>
   </data>
 </root>

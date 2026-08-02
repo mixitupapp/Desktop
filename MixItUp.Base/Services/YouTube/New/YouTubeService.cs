@@ -15,14 +15,12 @@ using MixItUp.Base.Model.YouTube;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
 using MixItUp.Base.Web;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using static Google.Apis.YouTube.v3.LiveBroadcastsResource.ListRequest;
@@ -41,8 +39,6 @@ namespace MixItUp.Base.Services.YouTube.New
         private const string OAuthBaseAddress = "https://www.googleapis.com/oauth2/v4/token";
 
         private const string BaseAddressFormat = "https://www.googleapis.com/youtube/v3/";
-
-        private const string VideoIDShortsDataRegexPattern = "\\\"videoId\\\":\\\"\\w+\\\"";
 
         private static readonly IgnorePropertiesResolver requestPropertiesToIgnore = new IgnorePropertiesResolver(new List<string>() { "Service" });
 
@@ -397,57 +393,27 @@ namespace MixItUp.Base.Services.YouTube.New
             });
         }
 
-        public async Task<IEnumerable<SearchResult>> GetLatestVideos(string channelID, int maxResults = 20)
+        public async Task<IEnumerable<PlaylistItem>> GetPlaylistItems(string playlistID, int maxResults = 50)
         {
             return await AsyncRunner.RunAsync(async () =>
             {
-                List<SearchResult> results = new List<SearchResult>();
+                List<PlaylistItem> results = new List<PlaylistItem>();
                 string pageToken = null;
                 do
                 {
-                    SearchResource.ListRequest request = this.GoogleYouTubeService.Search.List("snippet");
-                    request.ChannelId = channelID;
-                    request.Type = "video";
-                    request.EventType = SearchResource.ListRequest.EventTypeEnum.None;
-                    request.Order = SearchResource.ListRequest.OrderEnum.Date;
+                    PlaylistItemsResource.ListRequest request = this.GoogleYouTubeService.PlaylistItems.List("contentDetails");
+                    request.PlaylistId = playlistID;
                     request.MaxResults = Math.Min(maxResults, 50);
                     request.PageToken = pageToken;
                     LogRequest(request);
 
-                    SearchListResponse response = await request.ExecuteAsync();
+                    PlaylistItemListResponse response = await request.ExecuteAsync();
                     LogResponse(request, response);
                     results.AddRange(response.Items);
                     maxResults -= response.Items.Count;
                     pageToken = response.NextPageToken;
 
                 } while (maxResults > 0 && !string.IsNullOrEmpty(pageToken));
-                return results;
-            });
-        }
-
-        public async Task<IEnumerable<string>> GetLatestShortIDs(string channelID)
-        {
-            return await AsyncRunner.RunAsync(async () =>
-            {
-                List<string> results = new List<string>();
-
-                string response = await this.HttpClient.GetStringAsync($"https://www.youtube.com/channel/{channelID}/shorts");
-                if (!string.IsNullOrEmpty(response))
-                {
-                    MatchCollection matches = Regex.Matches(response, VideoIDShortsDataRegexPattern);
-                    foreach (Match match in matches)
-                    {
-                        JObject jobj = JObject.Parse($"{{{match.Value}}}");
-                        if (jobj.TryGetValue("videoId", out JToken value))
-                        {
-                            string videoID = value.ToString();
-                            if (!results.Contains(videoID))
-                            {
-                                results.Add(videoID);
-                            }
-                        }
-                    }
-                }
                 return results;
             });
         }

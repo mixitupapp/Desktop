@@ -68,6 +68,8 @@ namespace MixItUp.Base.Model.Actions
         Kick,
         Velora,
         Veadotube,
+        PlatformMessage,
+        UserLookup,
     }
 
     [DataContract]

@@ -1095,12 +1095,12 @@ namespace MixItUp.Base.Util
             {
                 if (this.ContainsSpecialIdentifier(SpecialIdentifierStringBuilder.YouTubeSpecialIdentifierHeader + "latestvideo"))
                 {
-                    SearchResult searchResult = await ServiceManager.Get<YouTubeSession>().GetLatestNonStreamVideo();
-                    if (searchResult != null)
+                    Video video = await ServiceManager.Get<YouTubeSession>().GetLatestNonStreamVideo();
+                    if (video != null)
                     {
-                        this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.YouTubeSpecialIdentifierHeader + "latestvideoid", searchResult.Id.VideoId);
-                        this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.YouTubeSpecialIdentifierHeader + "latestvideotitle", searchResult.Snippet.Title);
-                        this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.YouTubeSpecialIdentifierHeader + "latestvideourl", $"https://www.youtube.com/watch?v={searchResult.Id.VideoId}");
+                        this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.YouTubeSpecialIdentifierHeader + "latestvideoid", video.Id);
+                        this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.YouTubeSpecialIdentifierHeader + "latestvideotitle", video.Snippet.Title);
+                        this.ReplaceSpecialIdentifier(SpecialIdentifierStringBuilder.YouTubeSpecialIdentifierHeader + "latestvideourl", $"https://www.youtube.com/watch?v={video.Id}");
                     }
                 }
 
@@ -1350,6 +1350,7 @@ namespace MixItUp.Base.Util
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "lastseendays", user.LastActivityDays.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "lastseenage", user.LastActivityAgeString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "lastseendate", user.LastActivityDateString);
+                this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "lastseenprecise", user.LastActivityPreciseDateTimeString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "subdays", user.SubscribeDays.ToString());
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "subage", user.SubscribeAgeString);
                 this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "subdate", user.SubscribeDateString);

@@ -409,6 +409,8 @@ namespace MixItUp.Base.Services.Kick.New
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelPointsRedeemed, parameters);
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertKickChannelPointRedeemed, user.FullDisplayName, redemptionEvent.Reward.Title), ChannelSession.Settings.AlertKickChannelPointsColor));
 
+            EventService.ChannelPointsRedeemedOccurred(user, redemptionEvent.Reward.Cost);
+
             KickChannelPointsCommandModel command = ServiceManager.Get<CommandService>().KickChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID, redemptionEvent.Reward.ID, StringComparison.OrdinalIgnoreCase));
             if (command == null)
             {

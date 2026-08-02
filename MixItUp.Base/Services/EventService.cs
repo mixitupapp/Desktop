@@ -251,6 +251,19 @@ namespace MixItUp.Base.Services
 
         VeadotubeAvatarStateChanged = 1170,
         VeadotubePushToTalkChanged = 1171,
+
+        // Streaming Software = 1200
+
+        OBSStudioStreamStarted = 1200,
+        OBSStudioStreamStopped = 1201,
+        OBSStudioRecordingStarted = 1202,
+        OBSStudioRecordingStopped = 1203,
+        OBSStudioSceneChanged = 1204,
+        OBSStudioFilterVisibilityChanged = 1205,
+        OBSStudioSceneTransitionStarted = 1206,
+        OBSStudioSceneTransitionEnded = 1207,
+        OBSStudioSourceVisibilityChanged = 1208,
+        OBSStudioReplayBufferSaved = 1209,
     }
 
     public class SubscriptionDetailsModel
@@ -326,6 +339,18 @@ namespace MixItUp.Base.Services
 
         public static event EventHandler<VeloraCheeredEventModel> OnVeloraChannelCheeredOccurred = delegate { };
         public static void VeloraChannelCheeredOccurred(VeloraCheeredEventModel cheered) { OnVeloraChannelCheeredOccurred(null, cheered); }
+
+        public static event EventHandler<YouTubeJewelsGiftViewModel> OnYouTubeJewelsGiftOccurred = delegate { };
+        public static void YouTubeJewelsGiftOccurred(YouTubeJewelsGiftViewModel jewelsGift) { OnYouTubeJewelsGiftOccurred(null, jewelsGift); }
+
+        public static event EventHandler<Tuple<UserV2ViewModel, int>> OnChannelPointsRedeemedOccurred = delegate { };
+        public static void ChannelPointsRedeemedOccurred(UserV2ViewModel user, int cost) { OnChannelPointsRedeemedOccurred(null, new Tuple<UserV2ViewModel, int>(user, cost)); }
+
+        public static event EventHandler<Tuple<UserV2ViewModel, int>> OnStreamlootsOccurred = delegate { };
+        public static void StreamlootsOccurred(UserV2ViewModel user, int quantity) { OnStreamlootsOccurred(null, new Tuple<UserV2ViewModel, int>(user, quantity)); }
+
+        public static event EventHandler<UserV2ViewModel> OnPatreonSubscribedOccurred = delegate { };
+        public static void PatreonSubscribedOccurred(UserV2ViewModel user) { OnPatreonSubscribedOccurred(null, user); }
 
         private static HashSet<EventTypeEnum> singleUseTracking = new HashSet<EventTypeEnum>()
         {

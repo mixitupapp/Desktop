@@ -15,6 +15,8 @@ namespace MixItUp.WPF.Controls.Settings
             InitializeComponent();
         }
 
+        public override bool FillsAvailableHeight { get { return true; } }
+
         protected override async Task InitializeInternal()
         {
             this.DataContext = this.viewModel = new CountersSettingsControlViewModel();

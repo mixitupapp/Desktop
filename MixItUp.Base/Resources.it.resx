@@ -3098,6 +3098,10 @@
     <value>Piattaforma</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Messaggio di piattaforma</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Livello</value>
     <comment>Manual</comment>
@@ -12160,5 +12164,70 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   </data>
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Imposta Push-to-Talk</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Flusso avviato</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Flusso interrotto</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Registrazione avviata</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Registrazione interrotta</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Scena modificata</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Transizione di scena avviata</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Transizione di scena terminata</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Visibilità del filtro modificata</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Visibilità della fonte modificata</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Buffer di riproduzione salvato</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Ricerca utente</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Nome utente o ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Azione ricerca utente: nome utente o ID mancante</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Limite di durata degli Shorts (secondi)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>I video di questa durata o inferiore contano come Shorts. Quelli più lunghi contano come video normale.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Abituali</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Nuovi in chat</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>Jewels YouTube</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Elenco membri Patreon</value>
   </data>
 </root>

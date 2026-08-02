@@ -3098,6 +3098,10 @@
     <value>プラットフォーム</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>プラットフォームメッセージ</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>階層</value>
     <comment>Manual</comment>
@@ -12160,5 +12164,70 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="SetPushToTalk" xml:space="preserve">
     <value>プッシュトゥトークを設定</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>配信開始</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>配信停止</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>録画開始</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>録画停止</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>シーンが変更されました</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>シーントランジション開始</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>シーントランジション終了</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>フィルターの可視性が変更されました</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>ソースの可視性が変更されました</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>リプレイバッファ保存</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>ユーザー検索</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>ユーザー名または ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>ユーザー検索アクション: ユーザー名または ID がありません</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>ショート動画の長さ上限（秒）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>この長さ以下の動画はショート動画として扱われます。それより長い動画は通常の動画として扱われます。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>常連</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>初めてのチャット参加者</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube ジュエル</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon メンバー一覧</value>
   </data>
 </root>

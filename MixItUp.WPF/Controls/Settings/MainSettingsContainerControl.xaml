@@ -36,8 +36,14 @@
 
         <Border Grid.Column="1" BorderThickness="1" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" />
 
-        <ScrollViewer Grid.Column="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <ContentControl x:Name="SettingsContent" Margin="10" />
-        </ScrollViewer>
+        <Grid Grid.Column="2">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ContentControl x:Name="SettingsContent" Margin="10" />
+            </ScrollViewer>
+
+            <!--  Pages that fill the available height sit outside the scroll viewer, which would otherwise
+                  measure them against infinite height and leave them sized to their content  -->
+            <ContentControl x:Name="SettingsFillContent" Margin="10" />
+        </Grid>
     </Grid>
 </MainControls:MainControlBase>

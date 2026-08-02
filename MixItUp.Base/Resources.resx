@@ -3109,6 +3109,10 @@
     <value>Platform</value>
     <comment>Manual</comment>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Platform Message</value>
+    <comment>Manual</comment>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Tier</value>
     <comment>Manual</comment>
@@ -12650,5 +12654,70 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   </data>
   <data name="SetPushToTalk" xml:space="preserve">
     <value>Set Push-To-Talk</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Stream Started</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Stream Stopped</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Recording Started</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Recording Stopped</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Scene Changed</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Scene Transition Started</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Scene Transition Ended</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Filter Visibility Changed</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Source Visibility Changed</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Replay Buffer Saved</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>User Lookup</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Username or ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>User Lookup Action: Missing username or ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Shorts Video Length Cap (Seconds)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Videos at or under this length count as Shorts. Anything longer counts as a regular video.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIPs</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Regulars</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>First-Time Chatters</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube Jewels</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon Members List</value>
   </data>
 </root>
