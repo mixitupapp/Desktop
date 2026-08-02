@@ -23061,7 +23061,25 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("ShopCurrencyRequired", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Shorts Video Length Cap (Seconds).
+        /// </summary>
+        public static string ShortsVideoLengthCap {
+            get {
+                return ResourceManager.GetString("ShortsVideoLengthCap", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Videos at or under this length count as Shorts. Anything longer counts as a regular video..
+        /// </summary>
+        public static string ShortsVideoLengthCapTooltip {
+            get {
+                return ResourceManager.GetString("ShortsVideoLengthCapTooltip", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Show Alejo Pronouns (Requires Restart).
         /// </summary>
@@ -32967,6 +32985,51 @@ namespace MixItUp.Base {
         public static string SetPushToTalk {
             get {
                 return ResourceManager.GetString("SetPushToTalk", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to VIPs.
+        /// </summary>
+        public static string VIPs {
+            get {
+                return ResourceManager.GetString("VIPs", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Regulars.
+        /// </summary>
+        public static string Regulars {
+            get {
+                return ResourceManager.GetString("Regulars", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to First-Time Chatters.
+        /// </summary>
+        public static string FirstTimeChatters {
+            get {
+                return ResourceManager.GetString("FirstTimeChatters", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to YouTube Jewels.
+        /// </summary>
+        public static string YouTubeJewels {
+            get {
+                return ResourceManager.GetString("YouTubeJewels", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Patreon Members List.
+        /// </summary>
+        public static string PatreonMembers {
+            get {
+                return ResourceManager.GetString("PatreonMembers", resourceCulture);
             }
         }
     }

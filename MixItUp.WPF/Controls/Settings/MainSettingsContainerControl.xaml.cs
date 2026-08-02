@@ -35,6 +35,7 @@ namespace MixItUp.WPF.Controls.Settings
             List<SettingsOption> settings = new List<SettingsOption>();
 
             settings.Add(new SettingsOption(MixItUp.Base.Resources.General, new GeneralSettingsControl()));
+            settings.Add(new SettingsOption(MixItUp.Base.Resources.Platforms, new PlatformsSettingsControl()));
             settings.Add(new SettingsOption(MixItUp.Base.Resources.ThemesAndColors, new ThemeSettingsControl()));
             settings.Add(new SettingsOption(MixItUp.Base.Resources.Chat, new ChatSettingsControl()));
             settings.Add(new SettingsOption(MixItUp.Base.Resources.Commands, new CommandsSettingsControl()));

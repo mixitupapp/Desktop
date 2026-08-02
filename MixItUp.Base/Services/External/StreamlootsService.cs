@@ -290,6 +290,7 @@ namespace MixItUp.Base.Services.External
                 }
 
                 StreamlootsService.StreamlootsPurchaseOccurred(user, purchase.Quantity);
+                EventService.StreamlootsOccurred(user, purchase.Quantity);
 
                 if (giftee != null)
                 {
@@ -315,6 +316,7 @@ namespace MixItUp.Base.Services.External
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.StreamlootsPackCommunityGifted, parameters);
 
                 StreamlootsService.StreamlootsPurchaseOccurred(user, purchase.Quantity);
+                EventService.StreamlootsOccurred(user, purchase.Quantity);
 
                 await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.StreamlootsCommunityGiftedPacksAlert, user.FullDisplayName, purchase.Quantity), ChannelSession.Settings.AlertStreamlootsColor));
             }
@@ -351,6 +353,8 @@ namespace MixItUp.Base.Services.External
                 }
 
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.StreamlootsCardRedeemed, new CommandParametersModel(user, arguments, specialIdentifiers));
+
+                EventService.StreamlootsOccurred(user, 1);
 
                 StreamlootsCardCommandModel command = ServiceManager.Get<CommandService>().StreamlootsCardCommands.FirstOrDefault(c => string.Equals(c.Name, card.data.cardName, StringComparison.CurrentCultureIgnoreCase));
                 if (command != null)

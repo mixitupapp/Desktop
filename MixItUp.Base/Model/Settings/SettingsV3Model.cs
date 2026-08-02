@@ -248,6 +248,11 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool UserEntranceCommandsOnlyWhenLive { get; set; } = false;
 
+        // YouTube gives us no way to ask whether an upload is a Short, so length is the dividing line.
+        // Anything at or under this is treated as a Short, anything longer as a regular video.
+        [DataMember]
+        public int YouTubeShortsVideoLengthCap { get; set; } = 180;
+
         [DataMember]
         public RequirementErrorCooldownTypeEnum RequirementErrorsCooldownType { get; set; } = RequirementErrorCooldownTypeEnum.Default;
         [DataMember]

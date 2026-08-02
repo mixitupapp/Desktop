@@ -12207,4 +12207,27 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
     <value>Azione ricerca utente: nome utente o ID mancante</value>
     <comment>Manual</comment>
   </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Limite di durata degli Shorts (secondi)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>I video di questa durata o inferiore contano come Shorts. Quelli più lunghi contano come video normale.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Abituali</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Nuovi in chat</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>Jewels YouTube</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Elenco membri Patreon</value>
+  </data>
 </root>

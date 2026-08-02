@@ -12238,4 +12238,27 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>使用者查詢操作：缺少使用者名稱或 ID</value>
     <comment>Manual</comment>
   </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Shorts 影片長度上限（秒）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>此長度以內的影片視為 Shorts，超過的視為一般影片。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>貴賓</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>常客</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>首次聊天者</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube 寶石</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon 會員清單</value>
+  </data>
 </root>

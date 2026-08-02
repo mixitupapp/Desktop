@@ -12243,4 +12243,27 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
     <value>Действие поиска пользователя: отсутствует имя пользователя или ID</value>
     <comment>Manual</comment>
   </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Ограничение длины Shorts (секунды)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Видео такой длины или короче считаются Shorts. Более длинные считаются обычным видео.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP-зрители</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Постоянные зрители</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Впервые в чате</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>Jewels YouTube</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Список участников Patreon</value>
+  </data>
 </root>

@@ -12207,4 +12207,27 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
     <value>Akcja wyszukiwania użytkownika: brak nazwy użytkownika lub ID</value>
     <comment>Manual</comment>
   </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Limit długości Shorts (sekundy)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Wideo o tej długości lub krótsze liczy się jako Shorts. Dłuższe liczy się jako zwykłe wideo.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP-y</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Stali widzowie</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Nowi na czacie</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube Jewels</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Lista członków Patreon</value>
+  </data>
 </root>

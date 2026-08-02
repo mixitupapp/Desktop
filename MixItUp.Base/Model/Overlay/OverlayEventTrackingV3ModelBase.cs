@@ -41,6 +41,8 @@ namespace MixItUp.Base.Model.Overlay
         public virtual bool YouTubeMemberships { get; set; }
         [DataMember]
         public virtual bool YouTubeSuperChats { get; set; }
+        [DataMember]
+        public virtual bool YouTubeJewels { get; set; }
 
         [DataMember]
         public virtual bool KickSubscriptions { get; set; }
@@ -54,6 +56,13 @@ namespace MixItUp.Base.Model.Overlay
 
         [DataMember]
         public virtual bool Donations { get; set; }
+
+        [DataMember]
+        public virtual bool ChannelPoints { get; set; }
+        [DataMember]
+        public virtual bool Streamloots { get; set; }
+        [DataMember]
+        public virtual bool Patreon { get; set; }
 
         public OverlayEventTrackingV3ModelBase(OverlayItemV3Type type) : base(type) { }
 
@@ -125,6 +134,25 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnVeloraChannelCheeredOccurred += OnVeloraCheered;
             }
 
+            if (this.YouTubeJewels)
+            {
+                EventService.OnYouTubeJewelsGiftOccurred += OnYouTubeJewelsGift;
+            }
+
+            if (this.ChannelPoints)
+            {
+                EventService.OnChannelPointsRedeemedOccurred += OnChannelPointsRedeemed;
+            }
+
+            if (this.Streamloots)
+            {
+                EventService.OnStreamlootsOccurred += OnStreamloots;
+            }
+
+            if (this.Patreon)
+            {
+                EventService.OnPatreonSubscribedOccurred += OnPatreonSubscribed;
+            }
         }
 
         public override async Task Uninitialize()
@@ -164,6 +192,14 @@ namespace MixItUp.Base.Model.Overlay
 
         public virtual void OnVeloraCheered(object sender, VeloraCheeredEventModel cheered) { }
 
+        public virtual void OnYouTubeJewelsGift(object sender, YouTubeJewelsGiftViewModel jewelsGift) { }
+
+        public virtual void OnChannelPointsRedeemed(object sender, Tuple<UserV2ViewModel, int> redemption) { }
+
+        public virtual void OnStreamloots(object sender, Tuple<UserV2ViewModel, int> purchase) { }
+
+        public virtual void OnPatreonSubscribed(object sender, UserV2ViewModel user) { }
+
         private void RemoveEventHandlers()
         {
             ChatService.OnChatUserBanned -= OnChatUserBanned;
@@ -183,6 +219,10 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnYouTubeSuperChatOccurred -= OnYouTubeSuperChat;
             EventService.OnKickKicksGiftedOccurred -= OnKickKicksGifted;
             EventService.OnVeloraChannelCheeredOccurred -= OnVeloraCheered;
+            EventService.OnYouTubeJewelsGiftOccurred -= OnYouTubeJewelsGift;
+            EventService.OnChannelPointsRedeemedOccurred -= OnChannelPointsRedeemed;
+            EventService.OnStreamlootsOccurred -= OnStreamloots;
+            EventService.OnPatreonSubscribedOccurred -= OnPatreonSubscribed;
         }
     }
 }

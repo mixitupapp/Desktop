@@ -12697,4 +12697,27 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>User Lookup Action: Missing username or ID</value>
     <comment>Manual</comment>
   </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Shorts Video Length Cap (Seconds)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Videos at or under this length count as Shorts. Anything longer counts as a regular video.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIPs</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Regulars</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>First-Time Chatters</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube Jewels</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon Members List</value>
+  </data>
 </root>

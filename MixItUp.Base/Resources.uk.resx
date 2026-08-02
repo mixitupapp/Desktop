@@ -12238,4 +12238,27 @@ print(run())</value>
     <value>Дія пошуку користувача: відсутнє ім'я користувача або ID</value>
     <comment>Manual</comment>
   </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Обмеження довжини Shorts (секунди)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Відео такої довжини або коротші вважаються Shorts. Довші вважаються звичайним відео.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP-глядачі</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Постійні глядачі</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Уперше в чаті</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>Jewels YouTube</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Список учасників Patreon</value>
+  </data>
 </root>
