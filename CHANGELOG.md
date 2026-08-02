@@ -1,14 +1,5 @@
 # Mix It Up Desktop Changelog
 
-## 1.8.021
-
-Release Date: 2026-07-26
-
-### FIXES
-
-- Added missing $usersubplan and $usersubplanname from Velora & Kick event test command dialogs
-- Added defensive parsing and default loopback resolution for veadotube instance file websocket addresses
-
 ## 1.8.020
 
 Release Date: 2026-07-26
