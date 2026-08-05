@@ -1,5 +1,87 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.100
+
+Release Date: 2026-08-05
+
+### FEATURES
+
+- Add OBS Studio events, fired by OBS itself rather than by anything Mix It Up sends it:
+  - Stream Started, Stream Stopped, Recording Started, Recording Stopped ($obsrecordingfilepath), Replay Buffer Saved ($obsreplayfilepath)
+  - Scene Changed ($obsscenename, $obspreviousscenename)
+  - Scene Transition Started and Scene Transition Ended ($obstransitionname)
+  - Source Visibility Changed ($obsscenename, $obssourcename, $obssourcevisible)
+  - Filter Visibility Changed ($obssourcename, $obsfiltername, $obsfiltervisible)
+- Add Platform Message action for sending chat to one specific platform, with its own Send As Streamer option. The Chat Message action still sends everywhere at once
+- Add User Lookup action for finding a viewer on a chosen platform by username or ID, filling $lookupusername, $lookupdisplayname, $lookupid, $lookupavatarurl, and $lookupsuccess for the actions after it
+  - Someone Mix It Up has no record of is looked up on the platform itself, limited to once a minute
+- Add End Credits sections for VIPs, Regulars, First-Time Chatters, Channel Points, YouTube Jewels, Streamloots, Patreon, and Patreon Members List
+  - Channel Points covers Twitch, Kick, and Velora at once, totalling what each viewer spent
+  - Patreon lists memberships started while the credits were tracking. Patreon Members List ignores tracking and lists your active members as they stand when the credits roll
+- End Credits widgets now have the Reset button the other tracking widgets have
+- Add a Platforms page to Settings, starting with YouTube's Shorts Video Length Cap. Uploads at or under it count as Shorts, anything longer as regular videos (default 180 seconds)
+- Add a filter box to the Counters settings page, and the list now scrolls instead of running off the bottom
+- Add $userlastseenprecise for a viewer's last activity down to the second, in a form the date and time actions can read back in. Works on every user prefix ($targetuserlastseenprecise, $arg1userlastseenprecise, and so on)
+- Add veadotube integration for PNGtuber avatars, detected automatically while veadotube is running with its WebSocket server turned on:
+  - Set Avatar State, Push Avatar State, Pop Avatar State, Toggle Avatar State, and Set Random Avatar State actions
+  - Set Push-To-Talk action with On, Off, and Toggle options
+  - Add Avatar State Changed event ($veadotubestateid, $veadotubestatename, $veadotubepreviousstateid, $veadotubepreviousstatename)
+  - Add Push-To-Talk Changed event ($veadotubepushtotalk)
+  - Optional address field for pointing at a copy of veadotube running on another computer
+- Add MCP Server service with initial toolset mirroring Dev API v2
+- Date and Time labels now wrap each rendered part in its own span, so pieces can be styled on their own from the widget's CSS section (.date-MMMM for the month name, .time-A for the AM/PM, and so on, with [class^="date-"] or [class^="time-"] covering a whole group)
+- Add top subscriber leaderboards ranked by cumulative months subbed: $top10subscribers for the list, $topsubscriberamount for the leader's total, and the $topsubscriberuser set for the leader (for example $topsubscriberusername)
+- Add top sub gifter leaderboards ranked by all-time gifted subs: $top10subgifters, $topsubgifteramount, and the $topsubgifteruser set
+- Add longest current subscription streak leaderboards: $top10substreaks, $topsubstreaklength for a readable duration like 1 Year(s), 2 Month(s), 5 Day(s), $topsubstreakamount for the same streak in whole months, and the $topsubstreakuser set
+  - Swap the 10 in any of these for however many places you want listed
+- Add Cumulative Months Subbed, Subs Gifted, and Subscription Streak types to the Leaderboard overlay widget
+  - The Subscription Streak widget shows whole months as a number. The readable duration is only available through $topsubstreaklength
+- All of these leaderboards cover every connected platform at once. There is no per-platform version and nothing to choose, a viewer's months subbed and gifted subs are combined across Twitch, YouTube, Kick, and Velora
+  - For a viewer subscribed on more than one platform, the subscription streak counts from the earliest of their subscribe dates
+- Subscription tiers are not counted anywhere in these leaderboards. Subscribers rank by how long they have been subscribed and gifters rank by how many subs they have gifted
+- Gifted subs are only credited when the gifter is not anonymous
+- These leaderboards use the viewer data Mix It Up has recorded for your channel, so they begin from when you started using Mix It Up rather than covering your channel's full history
+  - **How completely each platform fills in these numbers varies. Twitch corrects a subscriber's month count on their next resubscription, and because Twitch never reports a subscribe date, a streak counts from the first subscription Mix It Up saw and restarts if the subscription lapses**
+- Add custom UI font selection, with each font previewed in its own typeface
+- Add overall UI font scaling from 50% to 150%, applied live app-wide
+- Add *Support Mode* toggle under Theme & Colors to apply default theme and fonts (for support screenshots) without changing saved settings
+- Add Reset To Defaults button (with confirmation) for all theme and font settings
+- Relocated chat font size slider to Themes & Colors as Chat Window Font Size
+- Add Date, Time, and Custom Text display types to the Label overlay widget
+  - Date and Time labels update live in the overlay and accept format tokens: YYYY YY (year), MMMM MMM MM M (month), DD D (day), dddd ddd (weekday), HH H (24-hour), hh h (12-hour), mm m (minute), ss s (second), A a (AM/PM)
+  - Wrap literal wording in square brackets to keep its letters out of date formatting, for example: `h:mm A [in Las Vegas]`
+  - Add an optional time zone to Date and Time labels, so a label can show the clock for somewhere other than the streaming PC, with localized daylight saving applied automatically
+- Add Entrance and Exit animations to the Label widget, played when the shown display changes in both Rotating Displays and Newest Only modes
+
+### FIXES
+
+- Fixed YouTube URL resolution that failed for Shorts and Live stream links $youtubelatestvideo and $youtubelatestshort
+- Fix the Twitch Power-Ups End Credits section staying empty, as nothing was reporting redeemed Power-Ups to it
+- Fix External Program and Script action output garbling accented and non-English characters
+- Fix the External Program action stalling on a program that writes heavily to error output, and dropping the tail of the output on exit
+- Inventory window item list now fits the window instead of a fixed width, so the columns stay put and the horizontal scroll bar is gone
+- Fix $usersubplan and $usersubplanname coming back empty on Velora and Kick subscription events, and $usersubtier missing on Kick subscriptions, resubscriptions, and gifts
+- Fix $streamgameimage and $userstreamgameimage coming back empty on Velora
+- Fix setting your Velora category failing for anything outside the first 100 categories alphabetically, and report the failure instead of updating the title and quietly dropping the category
+- Fix Velora $userstreamtitle, $userstreamgame, and $userstreamislive printing as raw text for a user who has never streamed
+- Velora stream start now applies the category the stream started with before stream start commands run, instead of whatever the last refresh left behind
+- Fixed text stretching in multi-line entry boxes when a long word wraps
+- Fixed crash from ungated webhook retrieval when loading the Services page
+- Fixed Velora command syncing bug related to duplicate command names
+- Removed gating that blocked the Twitch Modiversary event from firing
+- Fixed bug under which Velora bot account was not provisioning internal Moderator role
+- Fixed Viewer Count and Chatter Count labels taking over the visible display every minute in Newest Only mode even when the count had not changed
+- Fixed widget flickering caused by animation and translation fight over the same properties
+- Fix platform login (all) failing with a blank error dialog and a button that spins forever during New User Wizard
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Massive control name/id refactoring so screen readers and accessibility tools announce them properly (and localized)
+- Consolidated all text and icon sizing onto one shared, named size scale
+- Added additional Velora debug logging entry points
+- Updated the third-party license notices bundled with the application
+- Removed the unused pseudo-localization resource file from the project
+
 ## 1.8.000
 
 Release Date: 2026-07-15
