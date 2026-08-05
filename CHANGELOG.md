@@ -1,5 +1,7 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.100
+
 ## 1.8.030
 
 Release Date: 2026-08-02
