@@ -1,8 +1,8 @@
 # Mix It Up Desktop Changelog
 
-## 1.8.030
+## 1.8.100
 
-Release Date: 2026-08-02
+Release Date: 2026-08-05
 
 ### FEATURES
 
@@ -22,29 +22,6 @@ Release Date: 2026-08-02
 - Add a Platforms page to Settings, starting with YouTube's Shorts Video Length Cap. Uploads at or under it count as Shorts, anything longer as regular videos (default 180 seconds)
 - Add a filter box to the Counters settings page, and the list now scrolls instead of running off the bottom
 - Add $userlastseenprecise for a viewer's last activity down to the second, in a form the date and time actions can read back in. Works on every user prefix ($targetuserlastseenprecise, $arg1userlastseenprecise, and so on)
-
-### FIXES
-
-- $youtubelatestvideo and $youtubelatestshort now read the channel's uploads list rather than YouTube search, so a video posted moments ago is found and the same one comes back every time. Shorts are told apart by length instead of by scraping the Shorts page
-- Fix the Twitch Power-Ups End Credits section staying empty, as nothing was reporting redeemed Power-Ups to it
-- Fix External Program and Script action output garbling accented and non-English characters
-- Fix the External Program action stalling on a program that writes heavily to error output, and dropping the tail of the output on exit
-- Inventory window item list now fits the window instead of a fixed width, so the columns stay put and the horizontal scroll bar is gone
-- Fix $usersubplan, $usersubplanname, and $usersubtier missing from the Kick and Velora subscription, resubscription, and gifted sub test events
-- veadotube connection handling:
-  - Every running copy is now tried in turn rather than only the most recently started one
-  - A hand-typed address missing its port, or using localhost as the host, is corrected instead of failing on port 80. One that cannot be read at all is reported rather than quietly falling back to detection
-  - Clearing the address field now really clears it, so detection turns itself back on
-  - Frames arriving behind a byte order mark or zero width character are no longer dropped without a word
-  - The Avatar State Changed event no longer fires for the state veadotube was already showing when Mix It Up connects or reconnects
-  - The Services page shows the address connected to, and the log records every address tried and why each was passed over
-
-## 1.8.020
-
-Release Date: 2026-07-26
-
-### FEATURES
-
 - Add veadotube integration for PNGtuber avatars, detected automatically while veadotube is running with its WebSocket server turned on:
   - Set Avatar State, Push Avatar State, Pop Avatar State, Toggle Avatar State, and Set Random Avatar State actions
   - Set Push-To-Talk action with On, Off, and Toggle options
@@ -65,25 +42,6 @@ Release Date: 2026-07-26
 - Gifted subs are only credited when the gifter is not anonymous
 - These leaderboards use the viewer data Mix It Up has recorded for your channel, so they begin from when you started using Mix It Up rather than covering your channel's full history
   - **How completely each platform fills in these numbers varies. Twitch corrects a subscriber's month count on their next resubscription, and because Twitch never reports a subscribe date, a streak counts from the first subscription Mix It Up saw and restarts if the subscription lapses**
-
-### FIXES
-
-- Fix $usersubplan and $usersubplanname coming back empty on Velora and Kick subscription events, and $usersubtier missing on Kick subscriptions, resubscriptions, and gifts
-- Fix $streamgameimage and $userstreamgameimage coming back empty on Velora
-- Fix setting your Velora category failing for anything outside the first 100 categories alphabetically, and report the failure instead of updating the title and quietly dropping the category
-- Fix Velora $userstreamtitle, $userstreamgame, and $userstreamislive printing as raw text for a user who has never streamed
-- Velora stream start now applies the category the stream started with before stream start commands run, instead of whatever the last refresh left behind
-
-### PERFORMANCE & GENERAL IMPROVEMENTS
-
-- Massive control name/id refactoring so screen readers and accessibility tools announce them properly (and localized)
-
-## 1.8.010
-
-Release Date: 2026-07-24
-
-### FEATURES
-
 - Add custom UI font selection, with each font previewed in its own typeface
 - Add overall UI font scaling from 50% to 150%, applied live app-wide
 - Add *Support Mode* toggle under Theme & Colors to apply default theme and fonts (for support screenshots) without changing saved settings
@@ -97,9 +55,17 @@ Release Date: 2026-07-24
 
 ### FIXES
 
+- Fixed YouTube URL resolution that failed for Shorts and Live stream links $youtubelatestvideo and $youtubelatestshort
+- Fix the Twitch Power-Ups End Credits section staying empty, as nothing was reporting redeemed Power-Ups to it
+- Fix External Program and Script action output garbling accented and non-English characters
+- Fix the External Program action stalling on a program that writes heavily to error output, and dropping the tail of the output on exit
+- Inventory window item list now fits the window instead of a fixed width, so the columns stay put and the horizontal scroll bar is gone
+- Fix $usersubplan and $usersubplanname coming back empty on Velora and Kick subscription events, and $usersubtier missing on Kick subscriptions, resubscriptions, and gifts
+- Fix $streamgameimage and $userstreamgameimage coming back empty on Velora
+- Fix setting your Velora category failing for anything outside the first 100 categories alphabetically, and report the failure instead of updating the title and quietly dropping the category
+- Fix Velora $userstreamtitle, $userstreamgame, and $userstreamislive printing as raw text for a user who has never streamed
+- Velora stream start now applies the category the stream started with before stream start commands run, instead of whatever the last refresh left behind
 - Fixed text stretching in multi-line entry boxes when a long word wraps
-- Fixed YouTube URL resolution that failed for Shorts and Live stream links
-- Login window now always uses the default font and size, staying readable
 - Fixed crash from ungated webhook retrieval when loading the Services page
 - Fixed Velora command syncing bug related to duplicate command names
 - Removed gating that blocked the Twitch Modiversary event from firing
@@ -110,6 +76,7 @@ Release Date: 2026-07-24
 
 ### PERFORMANCE & GENERAL IMPROVEMENTS
 
+- Massive control name/id refactoring so screen readers and accessibility tools announce them properly (and localized)
 - Consolidated all text and icon sizing onto one shared, named size scale
 - Added additional Velora debug logging entry points
 - Updated the third-party license notices bundled with the application
