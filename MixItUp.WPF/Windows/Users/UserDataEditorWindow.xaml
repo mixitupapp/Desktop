@@ -14,10 +14,10 @@
     Title="{x:Static resx:Resources.UserEditor}"
     Width="600"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="UserDataEditor.MDDialogHost" />
 
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Visible">
             <Grid Margin="20">
@@ -99,13 +99,17 @@
                                     Width="50"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Hours}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding ViewingHours}" />
+                                    Text="{Binding ViewingHours}"
+                                    AutomationProperties.AutomationId="UserDataEditor.HoursTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.Hours}" />
                                 <TextBox
                                     Grid.Column="4"
                                     Width="50"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Minutes}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding ViewingMinutes}" />
+                                    Text="{Binding ViewingMinutes}"
+                                    AutomationProperties.AutomationId="UserDataEditor.MinutesTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.Minutes}" />
                             </Grid>
 
                             <TextBox
@@ -114,7 +118,9 @@
                                 HorizontalAlignment="Left"
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CustomTitle}"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                Text="{Binding User.CustomTitle}" />
+                                Text="{Binding User.CustomTitle}"
+                                AutomationProperties.AutomationId="UserDataEditor.CustomTitleTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.CustomTitle}" />
                         </Grid>
 
                         <Grid Grid.Column="2">
@@ -140,7 +146,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Platforms}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <ItemsControl Grid.Column="2" ItemsSource="{Binding PlatformImages}">
+                                <ItemsControl Grid.Column="2" ItemsSource="{Binding PlatformImages}" AutomationProperties.AutomationId="UserDataEditor.PlatformsList" AutomationProperties.Name="{x:Static resx:Resources.Platforms}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <WrapPanel Orientation="Horizontal" />
@@ -266,7 +272,9 @@
                                 IsEditable="False"
                                 ItemsSource="{Binding Consumables}"
                                 SelectedItem="{Binding SelectedConsumable}"
-                                Style="{StaticResource MaterialDesignFilledComboBox}">
+                                Style="{StaticResource MaterialDesignFilledComboBox}"
+                                AutomationProperties.AutomationId="UserDataEditor.ConsumablesComboBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.Consumables}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -280,7 +288,9 @@
                                 Background="Transparent"
                                 IsEnabled="{Binding HasConsumableSelected}"
                                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                                Text="{Binding SelectedConsumable.Amount}" />
+                                Text="{Binding SelectedConsumable.Amount}"
+                                AutomationProperties.AutomationId="UserDataEditor.CurrencyRankQuantityTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.Quantity}" />
                         </Grid>
                     </GroupBox>
 
@@ -305,7 +315,9 @@
                                 IsEditable="False"
                                 ItemsSource="{Binding Inventories}"
                                 SelectedItem="{Binding SelectedInventory}"
-                                Style="{StaticResource MaterialDesignFilledComboBox}">
+                                Style="{StaticResource MaterialDesignFilledComboBox}"
+                                AutomationProperties.AutomationId="UserDataEditor.InventoryComboBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.Inventory}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -322,7 +334,9 @@
                                 IsEnabled="{Binding HasInventorySelected}"
                                 ItemsSource="{Binding SelectedInventoryItems}"
                                 SelectedItem="{Binding SelectedItem}"
-                                Style="{StaticResource MaterialDesignFilledComboBox}">
+                                Style="{StaticResource MaterialDesignFilledComboBox}"
+                                AutomationProperties.AutomationId="UserDataEditor.ItemComboBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.Item}">
                                 <ComboBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <VirtualizingStackPanel />
@@ -336,7 +350,9 @@
                                 Background="Transparent"
                                 IsEnabled="{Binding HasItemSelected}"
                                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                                Text="{Binding SelectedItem.Amount}" />
+                                Text="{Binding SelectedItem.Amount}"
+                                AutomationProperties.AutomationId="UserDataEditor.InventoryQuantityTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.Quantity}" />
                         </Grid>
                     </GroupBox>
                 </Grid>
@@ -355,7 +371,9 @@
                             CellStyle="{StaticResource StandardDataGridCell}"
                             ItemsSource="{Binding UserOnlyChatCommands}"
                             Style="{StaticResource StandardDataGrid}"
-                            Visibility="{Binding HasUserOnlyChatCommands, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding HasUserOnlyChatCommands, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            AutomationProperties.AutomationId="UserDataEditor.CurrencyDataGrid"
+                            AutomationProperties.Name="{x:Static resx:Resources.Currency}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn
                                     Width="2*"
@@ -388,7 +406,8 @@
                             HorizontalAlignment="Center"
                             Click="AddUserOnlyCommandButton_Click"
                             Content="{x:Static resx:Resources.AddCommand}"
-                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            AutomationProperties.AutomationId="UserDataEditor.AddUserOnlyCommandButton" />
                     </Grid>
                 </GroupBox>
 
@@ -420,7 +439,8 @@
                                 HorizontalAlignment="Center"
                                 Click="NewEntranceCommandButton_Click"
                                 Content="{x:Static resx:Resources.AddCommand}"
-                                Visibility="{Binding DoesNotHaveEntranceCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                Visibility="{Binding DoesNotHaveEntranceCommand, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                AutomationProperties.AutomationId="UserDataEditor.NewEntranceCommandButton" />
                             <Grid Grid.Column="2" Visibility="{Binding HasEntranceCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <CommandsControls:CommandListingButtonsControl
                                     x:Name="ExistingEntranceCommandButtons"
@@ -446,7 +466,9 @@
                             <ToggleButton
                                 Grid.Column="2"
                                 IsChecked="{Binding User.IsSpecialtyExcluded}"
-                                ToolTip="{x:Static resx:Resources.SpecialtyExcludedTooltip}" />
+                                ToolTip="{x:Static resx:Resources.SpecialtyExcludedTooltip}"
+                                AutomationProperties.AutomationId="UserDataEditor.SpecialtyExcludedToggle"
+                                AutomationProperties.Name="{x:Static resx:Resources.SpecialtyExcluded}" />
 
                         </Grid>
 
@@ -460,7 +482,9 @@
                             IsEnabled="{Binding IsPatreonConnected}"
                             ItemsSource="{Binding PatreonUsers}"
                             SelectedItem="{Binding PatreonUser}"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            AutomationProperties.AutomationId="UserDataEditor.PatreonUserComboBox"
+                            AutomationProperties.Name="{x:Static resx:Resources.PatreonUser}" />
 
                     </Grid>
                 </GroupBox>
@@ -473,7 +497,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <ItemsControl Grid.Column="0" ItemsSource="{Binding Metrics1}">
+                        <ItemsControl Grid.Column="0" ItemsSource="{Binding Metrics1}" AutomationProperties.AutomationId="UserDataEditor.PrimaryMetricsList" AutomationProperties.Name="{x:Static resx:Resources.Metrics}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="5">
@@ -491,7 +515,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <ItemsControl Grid.Column="2" ItemsSource="{Binding Metrics2}">
+                        <ItemsControl Grid.Column="2" ItemsSource="{Binding Metrics2}" AutomationProperties.AutomationId="UserDataEditor.SecondaryMetricsList" AutomationProperties.Name="{x:Static resx:Resources.Metrics}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="5">
@@ -518,8 +542,11 @@
                         AcceptsTab="True"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="{Binding Notes}"
+                        TextAlignment="Left"
                         TextWrapping="Wrap"
-                        VerticalScrollBarVisibility="Auto" />
+                        VerticalScrollBarVisibility="Auto"
+                        AutomationProperties.AutomationId="UserDataEditor.NotesTextBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.Notes}" />
                 </GroupBox>
 
             </Grid>

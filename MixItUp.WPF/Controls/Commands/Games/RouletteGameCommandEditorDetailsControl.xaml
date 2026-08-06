@@ -39,9 +39,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.GameCommandMinimumParticipantsTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandMinimumParticipants}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
                 </Grid>
             </GroupBox>
 
@@ -53,7 +53,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" ItemsSource="{Binding BetTypes}" SelectedItem="{Binding SelectedBetType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetType}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding BetTypes}" SelectedItem="{Binding SelectedBetType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetType}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.BetTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandRouletteBetType}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -69,14 +69,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetLowNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding BetOptionsNumberRangeLow}" Width="70" />
+                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetLowNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding BetOptionsNumberRangeLow}" Width="70" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.BetLowNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandRouletteBetLowNumber}" />
 
-                            <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetHighNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding BetOptionsNumberRangeHigh}" Width="70" />
+                            <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetHighNumber}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding BetOptionsNumberRangeHigh}" Width="70" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.BetHighNumberTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandRouletteBetHighNumber}" />
                         </Grid>
                     </Grid>
 
                     <Grid Grid.Column="2" Visibility="{Binding IsBetTypeCustom, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBox MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetOptions}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding BetOptionsCustom}" Width="200" />
+                        <TextBox MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandRouletteBetOptions}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding BetOptionsCustom}" Width="200" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.BetOptionsTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandRouletteBetOptions}" />
                     </Grid>
                 </Grid>
             </GroupBox>
@@ -103,11 +103,11 @@
                         <ColumnDefinition Width="80" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.UserPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserPayoutPercentage}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.SubPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubPayoutPercentage}" />
 
-                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" />
+                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" AutomationProperties.AutomationId="RouletteGameCommandEditorDetails.ModPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModPayoutPercentage}" />
                 </Grid>
             </GroupBox>
 

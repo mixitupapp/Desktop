@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1306,6 +1306,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>Максимальне значення</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP-сервер</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Відкрити в локальній мережі (треба запускати від імені адміністратора):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Адреса сервера:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCP-сервер дає змогу ШІ-агентам, запущеним на вашому комп'ютері, взаємодіяти з Mix It Up через Model Context Protocol. Спрямуйте клієнт, наприклад Claude Code, на вказану нижче адресу сервера. Докладніше про це див. на вікі-сторінці MCP-сервера.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>ПОПЕРЕДЖЕННЯ: Будь-який агент, підключений до цього сервера, може читати вашу конфігурацію та виконувати команди від вашого імені, зокрема надсилати повідомлення в чат. Увімкніть це лише тоді, коли ви активно працюєте з агентом, якому довіряєте.</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -3076,6 +3096,10 @@
   </data>
   <data name="Platform" xml:space="preserve">
     <value>Платформа</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Повідомлення платформи</value>
     <comment>Manual</comment>
   </data>
   <data name="Tier" xml:space="preserve">
@@ -10295,6 +10319,9 @@ print(run())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Весь час</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Серія підписки</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Необхідно вибрати дійсний витратний матеріал</value>
   </data>
@@ -10790,6 +10817,23 @@ print(run())</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Потрібно вказати шлях до файлу</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Довільний текст</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Часовий пояс</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Токени: YYYY YY (рік), MMMM MMM MM M (місяць), DD D (день), dddd ddd (день тижня), HH H (24 години), hh h (12 годин), mm m (хвилини), ss s (секунди), A a (AM/PM). Беріть буквальний текст у квадратні дужки, щоб його літери залишалися незмінними, наприклад: h:mm A [в Ейндговені]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Кожна відображена частина розміщується у власному span, названому за її токеном, тож її можна оформити окремо в розділі CSS: .time-A для AM/PM, .date-MMMM для назви місяця тощо, з урахуванням регістру токена, тобто .date-MM — це місяць, а .time-mm — хвилини.
+Цілу групу охоплює [class^="date-"] або [class^="time-"].
+Приклад: .time-A { font-size: 50% }</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Залиште порожнім, щоб використовувати часовий пояс комп'ютера, на якому працює Накладка. Пояси наведено за головним містом, тому Europe/Berlin охоплює також Амстердам і Рим. Також можна ввести будь-яку назву часового поясу IANA напряму, наприклад Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Ім'я профілю</value>
   </data>
@@ -11124,6 +11168,24 @@ print(run())</value>
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Якщо не вдається розпочати автентифікацію в сервісі, переконайтеся, що ви не виконуєте активний процес автентифікації в іншому сервісі.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up не вдалося запустити локальний приймач входу, оскільки порт {0} уже використовується іншою програмою. Закрийте всі інші програми, які можуть використовувати цей порт, зокрема другу копію Mix It Up, і повторіть спробу.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up не вдалося запустити локальний приймач входу, оскільки Windows блокує порт {0}. Зазвичай це спричинено діапазоном портів, зарезервованим Hyper-V, WSL або Docker. Зверніться по допомогу до Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up не вдалося відкрити веб-браузер для завершення входу. Скопіюйте адресу нижче, вставте її у браузер і завершіть вхід там. Це вікно продовжить чекати на вас.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Вхід не було завершено вчасно, тому його скасовано. Повторіть спробу.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Не вдалося завершити вхід. Подробиці див. у папці Logs у каталозі встановлення Mix It Up або зверніться по допомогу до Discord Mix It Up.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up отримав дані вашого входу, але не зміг обміняти їх на токен доступу. Повторіть спробу або зверніться по допомогу до Discord Mix It Up.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Виграш</value>
@@ -12028,5 +12090,175 @@ print(run())</value>
   <data name="HasTitle" xml:space="preserve">
     <value>Має заголовок</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>Шрифт інтерфейсу</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Загальний розмір шрифту (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Розмір шрифту вікна чату (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Деякі шрифти не підходять для всіх елементів керування, а за великих розмірів текст може обрізатися.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Режим підтримки</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Тимчасово показує застосунок із темою, шрифтом і розміром тексту за умовчанням, не змінюючи збережені налаштування. Вимкніть, щоб повернутися до власних налаштувань.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Скинути налаштування теми та шрифту</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Скинути до типових</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Колірну схему, тло, передній план, повну тему, шрифт інтерфейсу, загальний розмір шрифту та розмір шрифту вікна чату буде скинуто до типових значень. Ви впевнені?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube — це застосунок PNGtuber, який перемикає статичні зображення вашого персонажа, поки ви говорите. Після підключення ваші команди можуть змінювати стан аватара, а зміна стану може запускати команду. Mix It Up знаходить veadotube самостійно, тому вводити нічого не потрібно.</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>Перед підключенням увімкніть сервер WebSocket у налаштуваннях програми veadotube. Його адреса змінюється щоразу під час запуску veadotube, тому Mix It Up зчитує її за вас.</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>Для дії push-to-talk потрібно увімкнути «use websocket» у розділі push-to-talk налаштувань мікрофона veadotube. Також видаліть будь-яке сполучення клавіш для push-to-talk, оскільки воно має пріоритет над тим, що надсилає Mix It Up.</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>Ця версія veadotube старіша за 2.1. Перемикання станів аватара та всі дії push-to-talk не працюватимуть до оновлення.</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up не знайшов запущену копію veadotube. Відкрийте veadotube, увімкніть сервер WebSocket у налаштуваннях програми та спробуйте підключитися знову.</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>Не вдалося підключитися до veadotube. Переконайтеся, що програму запущено та її сервер WebSocket увімкнено.</value>
+  </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up не вдалося підключитися до veadotube за адресою {0}. Переконайтеся, що veadotube запущено, а сервер WebSocket увімкнено в налаштуваннях програми. Якщо ви ввели адресу нижче, очистіть поле та спробуйте знову, щоб Mix It Up міг знайти veadotube самостійно.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Введена адреса не є коректною адресою з портом. Використайте ту, яку veadotube показує поруч із «serving at», наприклад 127.0.0.1:2424, або очистіть поле, щоб Mix It Up міг знайти veadotube самостійно.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Підключено до {0} за адресою {1}</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube не підключено</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>Адреса (необов'язково)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>Стан аватара</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>Push-to-Talk</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>Потрібно вибрати стан аватара</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>Стан аватара змінено</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>Push-to-Talk змінено</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>Встановити стан аватара</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>Додати стан аватара</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>Прибрати стан аватара</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>Перемкнути стан аватара</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>Встановити випадковий стан аватара</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>Встановити Push-to-Talk</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Трансляцію розпочато</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Трансляцію зупинено</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Запис розпочато</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Запис зупинено</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Сцену змінено</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Перехід сцени розпочато</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Перехід сцени завершено</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Видимість фільтра змінено</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Видимість джерела змінено</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Буфер відтворення збережено</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Пошук користувача</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Ім'я користувача або ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Дія пошуку користувача: відсутнє ім'я користувача або ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Обмеження довжини Shorts (секунди)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Відео такої довжини або коротші вважаються Shorts. Довші вважаються звичайним відео.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP-глядачі</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Постійні глядачі</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Уперше в чаті</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>Jewels YouTube</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Список учасників Patreon</value>
   </data>
 </root>

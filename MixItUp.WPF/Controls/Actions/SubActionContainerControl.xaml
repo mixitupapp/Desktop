@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding ActionEditorList.ActionTypes}" SelectedItem="{Binding ActionEditorList.SelectedActionType}" Width="300" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding ActionEditorList.ActionTypes}" SelectedItem="{Binding ActionEditorList.SelectedActionType}" Width="300" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" AutomationProperties.AutomationId="SubActionContainer.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -48,17 +48,17 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Controls:IconButton Grid.Column="2" ToolTip="{x:Static resx:Resources.Add}" Icon="add" Command="{Binding ActionEditorList.AddCommand}" />
+            <Controls:IconButton Grid.Column="2" ToolTip="{x:Static resx:Resources.Add}" Icon="add" Command="{Binding ActionEditorList.AddCommand}" AutomationProperties.AutomationId="SubActionContainer.AddButton" AutomationProperties.Name="{x:Static resx:Resources.Add}" />
 
-            <Controls:IconButton Grid.Column="6" x:Name="CopyFromExitingCommandButton" ToolTip="{x:Static resx:Resources.ConditionalCommandCopyFromExistingCommand}" Icon="content_copy" Click="CopyFromExitingCommandButton_Click" />
+            <Controls:IconButton Grid.Column="6" x:Name="CopyFromExitingCommandButton" ToolTip="{x:Static resx:Resources.ConditionalCommandCopyFromExistingCommand}" Icon="content_copy" Click="CopyFromExitingCommandButton_Click" AutomationProperties.AutomationId="SubActionContainer.CopyFromExistingCommandButton" AutomationProperties.Name="{x:Static resx:Resources.ConditionalCommandCopyFromExistingCommand}" />
 
-            <Controls:IconButton Grid.Column="8" ToolTip="{x:Static resx:Resources.ExportActions}" Icon="output" Command="{Binding ExportActionsCommand}" />
+            <Controls:IconButton Grid.Column="8" ToolTip="{x:Static resx:Resources.ExportActions}" Icon="output" Command="{Binding ExportActionsCommand}" AutomationProperties.AutomationId="SubActionContainer.ExportActionsButton" AutomationProperties.Name="{x:Static resx:Resources.ExportActions}" />
 
-            <Controls:IconButton Grid.Column="10" ToolTip="{x:Static resx:Resources.ImportActions}" Icon="input" Command="{Binding ImportActionsCommand}" />
+            <Controls:IconButton Grid.Column="10" ToolTip="{x:Static resx:Resources.ImportActions}" Icon="input" Command="{Binding ImportActionsCommand}" AutomationProperties.AutomationId="SubActionContainer.ImportActionsButton" AutomationProperties.Name="{x:Static resx:Resources.ImportActions}" />
         </Grid>
 
         <Grid Grid.Row="2">
-            <ItemsControl ItemsSource="{Binding ActionEditorList.Actions}" Background="Transparent" MinHeight="80" DragDrop:DragDrop.IsDragSource="True" DragDrop:DragDrop.IsDropTarget="True" DragDrop:DragDrop.DropHandler="{Binding Source={x:Static Util:ActionListDropHandler.Instance}}">
+            <ItemsControl ItemsSource="{Binding ActionEditorList.Actions}" Background="Transparent" MinHeight="80" DragDrop:DragDrop.IsDragSource="True" DragDrop:DragDrop.IsDropTarget="True" DragDrop:DragDrop.DropHandler="{Binding Source={x:Static Util:ActionListDropHandler.Instance}}" AutomationProperties.AutomationId="SubActionContainer.SubActionsList" AutomationProperties.Name="{x:Static resx:Resources.Actions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <ActionControls:ActionEditorContainerControl />
@@ -79,7 +79,7 @@
                 </Border.Style>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Controls:MaterialSymbolIcon IconName="playlist_add" FontSize="24" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
+                    <Controls:MaterialSymbolIcon IconName="playlist_add" FontSize="{DynamicResource MIU.IconSize.24}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
                     <TextBlock Text="{x:Static resx:Resources.AddOrDropHere}" VerticalAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" />
                 </StackPanel>
             </Border>

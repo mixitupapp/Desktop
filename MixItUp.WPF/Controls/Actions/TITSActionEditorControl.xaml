@@ -26,7 +26,7 @@
 
         <TextBlock Grid.Row="0" Visibility="{Binding TITSNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,10" Text="{x:Static resx:Resources.TITSNotConnected}"/>
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="1" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TITSActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -48,9 +48,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSItem}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSItem}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" AutomationProperties.AutomationId="TITSActionEditor.TITSItemComboBox" AutomationProperties.Name="{x:Static resx:Resources.TITSItem}" />
 
-                <Controls:IconButton Grid.Column="2" Command="{Binding RefreshItemsCommand}" IsEnabled="{Binding RefreshItemsCommandEnabled}" Icon="Refresh" ToolTip="{x:Static resx:Resources.RefreshMayTakeUpTo1Minute}" />
+                <Controls:IconButton Grid.Column="2" Command="{Binding RefreshItemsCommand}" IsEnabled="{Binding RefreshItemsCommandEnabled}" Icon="Refresh" ToolTip="{x:Static resx:Resources.RefreshMayTakeUpTo1Minute}" AutomationProperties.AutomationId="TITSActionEditor.RefreshItemsButton" AutomationProperties.Name="{x:Static resx:Resources.RefreshMayTakeUpTo1Minute}" />
             </Grid>
 
             <Grid Grid.Row="2">
@@ -60,9 +60,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding ThrowDelayTime}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSThrowDelayTime}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding ThrowDelayTime}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSThrowDelayTime}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TITSActionEditor.ThrowDelayTextBox" AutomationProperties.Name="{x:Static resx:Resources.TITSThrowDelayTime}" />
 
-                <TextBox Grid.Column="2" Text="{Binding ThrowAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSThrowAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding ThrowAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSThrowAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TITSActionEditor.TITSThrowAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.TITSThrowAmount}" />
             </Grid>
         </Grid>
 
@@ -73,9 +73,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Triggers}" SelectedItem="{Binding SelectedTrigger}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSTrigger}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Triggers}" SelectedItem="{Binding SelectedTrigger}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TITSTrigger}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="name" AutomationProperties.AutomationId="TITSActionEditor.TITSTriggerComboBox" AutomationProperties.Name="{x:Static resx:Resources.TITSTrigger}" />
 
-            <Controls:IconButton Grid.Column="2" Command="{Binding RefreshTriggersCommand}" IsEnabled="{Binding RefreshTriggersCommandEnabled}" Icon="Refresh" ToolTip="{x:Static resx:Resources.RefreshMayTakeUpTo1Minute}" />
+            <Controls:IconButton Grid.Column="2" Command="{Binding RefreshTriggersCommand}" IsEnabled="{Binding RefreshTriggersCommandEnabled}" Icon="Refresh" ToolTip="{x:Static resx:Resources.RefreshMayTakeUpTo1Minute}" AutomationProperties.AutomationId="TITSActionEditor.RefreshTriggersButton" AutomationProperties.Name="{x:Static resx:Resources.RefreshMayTakeUpTo1Minute}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

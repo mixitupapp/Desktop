@@ -89,6 +89,8 @@ namespace MixItUp.Base.Services
 
         Task ChangeVolume(int amount);
 
+        Task SetAudioOutputDevice(string deviceName);
+
         Task SetShuffle(bool enabled);
 
         Task SetRepeat(bool enabled);

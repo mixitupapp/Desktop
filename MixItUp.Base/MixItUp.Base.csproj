@@ -3,11 +3,11 @@
   	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<AssemblyTitle>MixItUp.Base</AssemblyTitle>
-    <AssemblyVersion>1.8.000.0</AssemblyVersion>
-    <FileVersion>1.8.000.0</FileVersion>
+    <AssemblyVersion>1.8.100.0</AssemblyVersion>
+    <FileVersion>1.8.100.0</FileVersion>
 		<Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
-		<Configurations>Debug;Test;Public;Preview</Configurations>
+		<Configurations>Debug;Dev;Public;Preview</Configurations>
 	</PropertyGroup>
 
   <ItemGroup>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\.workspace\.secrets\MixItUpSecrets.cs" Link="MixItUpSecrets.cs" />
+    <Compile Include="..\..\..\.secrets\MixItUpSecrets.cs" Link="MixItUpSecrets.cs" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -132,10 +132,6 @@
 		</EmbeddedResource>
 
 		<EmbeddedResource Update="Resources.zh-TW.resx">
-			<DependentUpon>Resources.resx</DependentUpon>
-		</EmbeddedResource>
-
-		<EmbeddedResource Update="Resources.qps-ploc.resx">
 			<DependentUpon>Resources.resx</DependentUpon>
 		</EmbeddedResource>
 

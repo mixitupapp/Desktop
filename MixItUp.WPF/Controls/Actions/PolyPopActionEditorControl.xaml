@@ -25,12 +25,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" Text="{Binding AlertName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AlertName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Left" Width="200" />
+        <TextBox Grid.Row="0" Text="{Binding AlertName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AlertName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Left" Width="200" AutomationProperties.AutomationId="PolyPopActionEditor.AlertNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.AlertName}" />
         <TextBlock Grid.Column="0" Visibility="{Binding PolyPopNotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Foreground="Red" HorizontalAlignment="Right" Text="{x:Static resx:Resources.EnablePolyPop}"/>
 
-        <Button Grid.Row="2" Command="{Binding AddVariableCommand}" Content="{x:Static resx:Resources.AddNewVariable}" HorizontalAlignment="Center" Width="150" />
+        <Button Grid.Row="2" Command="{Binding AddVariableCommand}" Content="{x:Static resx:Resources.AddNewVariable}" HorizontalAlignment="Center" Width="150" AutomationProperties.AutomationId="PolyPopActionEditor.AddNewVariableButton" />
 
-        <ItemsControl Grid.Row="4" ItemsSource="{Binding Variables}">
+        <ItemsControl Grid.Row="4" ItemsSource="{Binding Variables}" AutomationProperties.AutomationId="PolyPopActionEditor.EnablePolyPopList" AutomationProperties.Name="{x:Static resx:Resources.EnablePolyPop}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid HorizontalAlignment="Center">
@@ -42,11 +42,11 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Column="0" Text="{Binding Name}" Width="600" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VariableName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="0" Text="{Binding Name}" Width="600" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VariableName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Variable.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.VariableName}" />
 
-                        <TextBox Grid.Column="2" Text="{Binding Value}" Width="600" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VariableValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="2" Text="{Binding Value}" Width="600" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VariableValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Variable.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.VariableValue}" />
 
-                        <Controls:IconButton Grid.Column="4" Command="{Binding DeleteVariableCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                        <Controls:IconButton Grid.Column="4" Command="{Binding DeleteVariableCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="Variable.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

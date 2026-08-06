@@ -44,7 +44,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.RegularStatusOnlineViewingTime}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <TextBox Grid.Column="2" Text="{Binding RegularMinimumHours}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequiredHours}" Style="{StaticResource MaterialDesignOutlinedTextBox}" MinWidth="100" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <TextBox Grid.Column="2" Text="{Binding RegularMinimumHours}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequiredHours}" Style="{StaticResource MaterialDesignOutlinedTextBox}" MinWidth="100" HorizontalAlignment="Right" VerticalAlignment="Center" AutomationProperties.AutomationId="UsersSettings.RequiredHoursTextBox" AutomationProperties.Name="{x:Static resx:Resources.RequiredHours}" />
         </Grid>
 
         <GenericSettingsControls:GenericToggleSettingsOptionControl Grid.Row="2" DataContext="{Binding ExplicitUserRoleRequirements}" />
@@ -54,7 +54,7 @@
         <TextBlock Grid.Row="6" Text="{x:Static resx:Resources.UserTitles}" HorizontalAlignment="Center" />
 
         <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" Grid.Row="8" BorderThickness="1">
-            <DataGrid ItemsSource="{Binding Titles}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+            <DataGrid ItemsSource="{Binding Titles}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="UsersSettings.UserTitlesDataGrid" AutomationProperties.Name="{x:Static resx:Resources.UserTitles}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
                     <DataGridTextColumn Header="{x:Static resx:Resources.Role}" Binding="{Binding RoleString}" IsReadOnly="True" Width="125" />
@@ -62,7 +62,7 @@
                     <DataGridTemplateColumn Width="75">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" Icon="Delete" Width="50" ToolTip="{x:Static resx:Resources.Delete}" />
+                                <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" Icon="Delete" Width="50" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="ExcludedUserRow.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -81,9 +81,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding TitleName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TitleName}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="150" VerticalAlignment="Center" />
+            <TextBox Grid.Column="0" Text="{Binding TitleName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TitleName}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="150" VerticalAlignment="Center" AutomationProperties.AutomationId="UsersSettings.TitleNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.TitleName}" />
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" Width="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Role}" Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Center">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" Width="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Role}" Style="{StaticResource MaterialDesignOutlinedComboBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="UsersSettings.RoleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Role}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -91,9 +91,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Grid.Column="4" Text="{Binding MinimumMonths}" IsEnabled="{Binding CanSelectMinimumMonths}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Months}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="90" VerticalAlignment="Center" />
+            <TextBox Grid.Column="4" Text="{Binding MinimumMonths}" IsEnabled="{Binding CanSelectMinimumMonths}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Months}" Style="{StaticResource MaterialDesignOutlinedTextBox}" Width="90" VerticalAlignment="Center" AutomationProperties.AutomationId="UsersSettings.MonthsTextBox" AutomationProperties.Name="{x:Static resx:Resources.Months}" />
 
-            <Button Grid.Column="6" Command="{Binding AddCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" />
+            <Button Grid.Column="6" Command="{Binding AddCommand}" Content="{x:Static resx:Resources.Add}" VerticalAlignment="Center" AutomationProperties.AutomationId="UsersSettings.AddButton" />
         </Grid>
 
         <Border Grid.Row="12" Style="{StaticResource DefaultBorder}" />

@@ -1,5 +1,6 @@
 using MixItUp.Base;
 using MixItUp.Base.Model.Actions;
+using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
 using MixItUp.Base.Util;
@@ -22,6 +23,18 @@ namespace MixItUp.WPF.Services
         private const int CommandTimeoutInMilliseconds = 2500;
         private const int ConnectTimeoutInMilliseconds = 5000;
 
+        private const string StreamStateChangedEvent = "StreamStateChanged";
+        private const string RecordStateChangedEvent = "RecordStateChanged";
+        private const string ReplayBufferSavedEvent = "ReplayBufferSaved";
+        private const string CurrentProgramSceneChangedEvent = "CurrentProgramSceneChanged";
+        private const string SceneItemEnableStateChangedEvent = "SceneItemEnableStateChanged";
+        private const string SourceFilterEnableStateChangedEvent = "SourceFilterEnableStateChanged";
+        private const string SceneTransitionStartedEvent = "SceneTransitionStarted";
+        private const string SceneTransitionEndedEvent = "SceneTransitionEnded";
+
+        private const string OutputStartedState = "OBS_WEBSOCKET_OUTPUT_STARTED";
+        private const string OutputStoppedState = "OBS_WEBSOCKET_OUTPUT_STOPPED";
+
         public event EventHandler Connected = delegate { };
         public event EventHandler Disconnected = delegate { };
 
@@ -33,9 +46,12 @@ namespace MixItUp.WPF.Services
         private int disconnectionNotified = 0;
         private int manualDisconnectRequested = 0;
 
+        private string lastKnownSceneName;
+
         public WindowsOBSService()
         {
             this.OBSWebsocketV5.Disconnected += this.OBSWebsocketV5_Disconnected;
+            this.OBSWebsocketV5.EventReceived += this.OBSWebsocketV5_EventReceived;
         }
 
         public string Name { get { return "OBS Studio"; } }
@@ -305,6 +321,8 @@ namespace MixItUp.WPF.Services
                 if (attemptedConnect)
                 {
                     await this.StartReplayBuffer();
+                    // Seed the scene baseline so the first scene change reports what it came from
+                    this.lastKnownSceneName = await this.GetCurrentScene();
                     this.Connected(this, new EventArgs());
                     if (!firstConnect)
                     {
@@ -344,6 +362,114 @@ namespace MixItUp.WPF.Services
             {
                 this.NotifyDisconnected();
             }
+        }
+
+        private async void OBSWebsocketV5_EventReceived(object sender, OBSStudioEventModel e)
+        {
+            try
+            {
+                EventService eventService = ServiceManager.Get<EventService>();
+                if (eventService == null)
+                {
+                    return;
+                }
+
+                CommandParametersModel parameters = new CommandParametersModel();
+
+                // Outputs also report STARTING and STOPPING, which we deliberately ignore
+                string outputState = GetEventString(e.Data, "outputState");
+
+                switch (e.EventType)
+                {
+                    case StreamStateChangedEvent:
+                        if (outputState == OutputStartedState)
+                        {
+                            await eventService.PerformEvent(EventTypeEnum.OBSStudioStreamStarted, parameters);
+                        }
+                        else if (outputState == OutputStoppedState)
+                        {
+                            await eventService.PerformEvent(EventTypeEnum.OBSStudioStreamStopped, parameters);
+                        }
+                        break;
+
+                    case RecordStateChangedEvent:
+                        if (outputState == OutputStartedState)
+                        {
+                            await eventService.PerformEvent(EventTypeEnum.OBSStudioRecordingStarted, parameters);
+                        }
+                        else if (outputState == OutputStoppedState)
+                        {
+                            parameters.SpecialIdentifiers["obsrecordingfilepath"] = GetEventString(e.Data, "outputPath");
+                            await eventService.PerformEvent(EventTypeEnum.OBSStudioRecordingStopped, parameters);
+                        }
+                        break;
+
+                    case ReplayBufferSavedEvent:
+                        parameters.SpecialIdentifiers["obsreplayfilepath"] = GetEventString(e.Data, "savedReplayPath");
+                        await eventService.PerformEvent(EventTypeEnum.OBSStudioReplayBufferSaved, parameters);
+                        break;
+
+                    case CurrentProgramSceneChangedEvent:
+                        string sceneName = GetEventString(e.Data, "sceneName");
+                        parameters.SpecialIdentifiers["obsscenename"] = sceneName;
+                        parameters.SpecialIdentifiers["obspreviousscenename"] = this.lastKnownSceneName ?? string.Empty;
+                        this.lastKnownSceneName = sceneName;
+                        await eventService.PerformEvent(EventTypeEnum.OBSStudioSceneChanged, parameters);
+                        break;
+
+                    case SceneItemEnableStateChangedEvent:
+                        string itemSceneName = GetEventString(e.Data, "sceneName");
+                        int sceneItemId = GetEventInt(e.Data, "sceneItemId");
+                        parameters.SpecialIdentifiers["obsscenename"] = itemSceneName;
+                        // Resolving the item id costs a round trip, so allow more than the usual command timeout
+                        parameters.SpecialIdentifiers["obssourcename"] = await this.ExecuteOBSCommand(async () =>
+                        {
+                            return await this.OBSWebsocketV5.GetSceneItemSourceName(itemSceneName, sceneItemId);
+                        }, timeout: 10000, defaultValue: string.Empty);
+                        parameters.SpecialIdentifiers["obssourcevisible"] = GetEventString(e.Data, "sceneItemEnabled");
+                        await eventService.PerformEvent(EventTypeEnum.OBSStudioSourceVisibilityChanged, parameters);
+                        break;
+
+                    case SourceFilterEnableStateChangedEvent:
+                        parameters.SpecialIdentifiers["obssourcename"] = GetEventString(e.Data, "sourceName");
+                        parameters.SpecialIdentifiers["obsfiltername"] = GetEventString(e.Data, "filterName");
+                        parameters.SpecialIdentifiers["obsfiltervisible"] = GetEventString(e.Data, "filterEnabled");
+                        await eventService.PerformEvent(EventTypeEnum.OBSStudioFilterVisibilityChanged, parameters);
+                        break;
+
+                    case SceneTransitionStartedEvent:
+                        parameters.SpecialIdentifiers["obstransitionname"] = GetEventString(e.Data, "transitionName");
+                        await eventService.PerformEvent(EventTypeEnum.OBSStudioSceneTransitionStarted, parameters);
+                        break;
+
+                    case SceneTransitionEndedEvent:
+                        parameters.SpecialIdentifiers["obstransitionname"] = GetEventString(e.Data, "transitionName");
+                        await eventService.PerformEvent(EventTypeEnum.OBSStudioSceneTransitionEnded, parameters);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+        }
+
+        private static string GetEventString(JObject data, string name)
+        {
+            if (data != null && data.TryGetValue(name, out JToken token) && token.Type != JTokenType.Null)
+            {
+                return token.ToString();
+            }
+            return string.Empty;
+        }
+
+        private static int GetEventInt(JObject data, string name)
+        {
+            if (data != null && data.TryGetValue(name, out JToken token) && token.Type == JTokenType.Integer)
+            {
+                return token.Value<int>();
+            }
+            return -1;
         }
 
         private void OBSWebsocketV5_Disconnected(object sender, EventArgs e)
@@ -464,6 +590,17 @@ namespace MixItUp.WPF.Services
         }
     }
 
+    /// <summary>
+    /// An event pushed up by OBS. The payload shape varies per event type, so it stays untyped and is
+    /// read by whichever handler cares about that type.
+    /// </summary>
+    public class OBSStudioEventModel
+    {
+        public string EventType { get; set; }
+
+        public JObject Data { get; set; }
+    }
+
     public class OBSWebsocketV5 : AdvancedClientWebSocket
     {
         private const string SceneNameChangedEvent = "SceneNameChanged";
@@ -479,6 +616,8 @@ namespace MixItUp.WPF.Services
         private ConcurrentDictionary<string, ConcurrentDictionary<string, SceneItem>> sceneSourceNameToSceneItemDictionary = new ConcurrentDictionary<string, ConcurrentDictionary<string, SceneItem>>(StringComparer.OrdinalIgnoreCase);
 
         public new event EventHandler Disconnected;
+
+        public event EventHandler<OBSStudioEventModel> EventReceived = delegate { };
 
         public bool IsConnected => this.identified;
 
@@ -879,6 +1018,53 @@ namespace MixItUp.WPF.Services
                     }
                     break;
             }
+
+            // Hand consumers off this thread. This is the receive loop, and a handler that issues a
+            // request of its own would be waiting on a response that only this loop can read.
+            OBSStudioEventModel raisedEvent = new OBSStudioEventModel() { EventType = message.Data.EventType, Data = message.Data.Data };
+            Task.Run(() => this.EventReceived(this, raisedEvent));
+        }
+
+        /// <summary>
+        /// Resolves the source behind a scene item id. Visibility events only carry the id, and they
+        /// fire rarely enough that asking OBS each time beats keeping another cache honest.
+        /// </summary>
+        public async Task<string> GetSceneItemSourceName(string sceneName, int sceneItemId)
+        {
+            string packet = await SendAndWait(new OBSMessageGetSceneItemListRequest(sceneName));
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageGetSceneItemListResponse response = JSONSerializerHelper.DeserializeFromString<OBSMessageGetSceneItemListResponse>(packet);
+                if (response?.Data?.Data?.SceneItems != null)
+                {
+                    foreach (SceneItem sceneItem in response.Data.Data.SceneItems)
+                    {
+                        if (sceneItem.SceneItemId == sceneItemId)
+                        {
+                            return sceneItem.SourceName;
+                        }
+                    }
+                }
+            }
+
+            // Items inside a group report the group as their scene, and groups take a different list request
+            packet = await SendAndWait(new OBSMessageGetGroupSceneItemListRequest(sceneName));
+            if (!string.IsNullOrEmpty(packet))
+            {
+                OBSMessageGetGroupSceneItemListResponse groupResponse = JSONSerializerHelper.DeserializeFromString<OBSMessageGetGroupSceneItemListResponse>(packet);
+                if (groupResponse?.Data?.Data?.SceneItems != null)
+                {
+                    foreach (SceneItem sceneItem in groupResponse.Data.Data.SceneItems)
+                    {
+                        if (sceneItem.SceneItemId == sceneItemId)
+                        {
+                            return sceneItem.SourceName;
+                        }
+                    }
+                }
+            }
+
+            return string.Empty;
         }
 
         private async Task Send(OBSMessage message)
@@ -999,7 +1185,7 @@ namespace MixItUp.WPF.Services
                 Data = new IdentifyData
                 {
                     RPCVersion = 1,
-                    EventSubscriptions = (1 << 2) | (1 << 3) | (1 << 7),   // Scene, Input, Scene Items events
+                    EventSubscriptions = (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7),   // Scene, Input, Transition, Filter, Output, Scene Items events
                 };
             }
         }

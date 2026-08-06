@@ -11,7 +11,7 @@
              
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
+             TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
              
              d:DesignHeight="300" d:DesignWidth="300">
@@ -26,7 +26,7 @@
 
         <TextBlock Grid.Row="0" Text="{x:Static resx:Resources.InventoryRequirement}" HorizontalAlignment="Center" TextDecorations="Underline" FontWeight="Bold" />
 
-        <ItemsControl Grid.Row="2" ItemsSource="{Binding Items}" HorizontalAlignment="Center">
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Items}" HorizontalAlignment="Center" AutomationProperties.AutomationId="InventoryRequirement.InventoryRequirementList" AutomationProperties.Name="{x:Static resx:Resources.InventoryRequirement}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,5">
@@ -40,19 +40,19 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <ComboBox Grid.Column="0" ItemsSource="{Binding Inventories}" SelectedItem="{Binding SelectedInventory}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Inventory}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        <ComboBox Grid.Column="0" ItemsSource="{Binding Inventories}" SelectedItem="{Binding SelectedInventory}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Inventory}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="InventoryRow.InventoryComboBox" AutomationProperties.Name="{x:Static resx:Resources.Inventory}" />
 
-                        <ComboBox Grid.Column="2" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemName}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        <ComboBox Grid.Column="2" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemName}" Width="120" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="InventoryRow.ItemNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.ItemName}" />
 
-                        <TextBox Grid.Column="4" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Width="70" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox Grid.Column="4" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Width="70" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="InventoryRow.AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
 
-                        <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                        <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="InventoryRow.DeleteButton" AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Button Grid.Row="4" Command="{Binding AddItemCommand}" Width="80" Content="{x:Static resx:Resources.Add}" Style="{StaticResource MaterialDesignRaisedButton}" HorizontalAlignment="Center" />
+        <Button Grid.Row="4" Command="{Binding AddItemCommand}" Width="80" Content="{x:Static resx:Resources.Add}" Style="{StaticResource MaterialDesignRaisedButton}" HorizontalAlignment="Center" AutomationProperties.AutomationId="InventoryRequirement.AddButton" />
     </Grid>
 </UserControl>
 

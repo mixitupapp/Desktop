@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MixItUp.Base.Model.Actions
@@ -56,6 +57,9 @@ namespace MixItUp.Base.Model.Actions
             if (this.WaitForFinish && this.SaveOutput)
             {
                 process.StartInfo.RedirectStandardOutput = true;
+                // Without an explicit encoding, redirected output is decoded with the system ANSI code page,
+                // which garbles anything non-ASCII that the program wrote as UTF-8.
+                process.StartInfo.StandardOutputEncoding = Encoding.UTF8;
                 process.OutputDataReceived += (s, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
@@ -64,6 +68,7 @@ namespace MixItUp.Base.Model.Actions
                     }
                 };
                 process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.StandardErrorEncoding = Encoding.UTF8;
                 process.ErrorDataReceived += (s, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
@@ -79,6 +84,9 @@ namespace MixItUp.Base.Model.Actions
                 if (this.SaveOutput)
                 {
                     process.BeginOutputReadLine();
+                    // Error output has to be drained too, otherwise a program that writes enough of it fills the
+                    // pipe buffer and blocks waiting for someone to read.
+                    process.BeginErrorReadLine();
                 }
 
                 while (!process.HasExited)
@@ -88,6 +96,9 @@ namespace MixItUp.Base.Model.Actions
 
                 if (this.SaveOutput)
                 {
+                    // Exiting doesn't mean the readers have handed over everything they buffered.
+                    await Task.Run(() => process.WaitForExit());
+
                     parameters.SpecialIdentifiers[ExternalProgramActionModel.OutputSpecialIdentifier] = string.Join(Environment.NewLine, output);
                 }
             }

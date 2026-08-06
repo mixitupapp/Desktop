@@ -11,7 +11,7 @@
              
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
+             TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
              
              d:DesignHeight="300" d:DesignWidth="300">
@@ -29,9 +29,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequiredUsers}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="120" />
+            <TextBox Grid.Column="0" Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequiredUsers}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="120" AutomationProperties.AutomationId="ThresholdRequirement.RequiredUsersTextBox" AutomationProperties.Name="{x:Static resx:Resources.RequiredUsers}" />
 
-            <TextBox Grid.Column="2" Text="{Binding TimeSpan}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeSpanSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="120" />
+            <TextBox Grid.Column="2" Text="{Binding TimeSpan}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeSpanSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="120" AutomationProperties.AutomationId="ThresholdRequirement.TimeSpanSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeSpanSeconds}" />
         </Grid>
 
         <Grid Grid.Row="2" HorizontalAlignment="Center">
@@ -43,7 +43,7 @@
 
             <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.RunForEachUser}" VerticalAlignment="Center" />
 
-            <ToggleButton Grid.Column="2" IsChecked="{Binding RunForEachUser}" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding RunForEachUser}" AutomationProperties.AutomationId="ThresholdRequirement.RunForEachUserToggle" AutomationProperties.Name="{x:Static resx:Resources.RunForEachUser}" />
         </Grid>
     </Grid>
 </UserControl>

@@ -17,12 +17,12 @@
     </local:MainControlBase.Resources>
 
     <ScrollViewer>
-        <ItemsControl HorizontalAlignment="Stretch">
+        <ItemsControl HorizontalAlignment="Stretch" AutomationProperties.AutomationId="Channel.PlatformSectionsList" AutomationProperties.Name="{x:Static resx:Resources.Platforms}">
 
             <!-- Twitch -->
 
             <Border Visibility="{Binding IsTwitchConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                <Expander DataContext="{Binding Twitch}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
+                <Expander DataContext="{Binding Twitch}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True" AutomationProperties.AutomationId="TwitchChannel.Expander">
                     <Expander.Header>
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -61,16 +61,16 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchChannel.TitleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
 
-                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchChannel.CategoryComboBox" AutomationProperties.Name="{x:Static resx:Resources.Category}" />
                                     </Grid>
 
                                     <Grid Grid.Row="2">
                                         <TwitchControls:TwitchTagEditorControl DataContext="{Binding TagEditor}" />
                                     </Grid>
 
-                                    <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
+                                    <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" AutomationProperties.AutomationId="TwitchChannel.UpdateChannelInfoButton" />
                                 </Grid>
                             </GroupBox>
 
@@ -89,7 +89,7 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <ComboBox Grid.Column="0" ItemsSource="{Binding SearchFindChannelToRaidOptions}" SelectedItem="{Binding SelectedSearchFindChannelToRaidOption}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SearchCriteria}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200">
+                                        <ComboBox Grid.Column="0" ItemsSource="{Binding SearchFindChannelToRaidOptions}" SelectedItem="{Binding SelectedSearchFindChannelToRaidOption}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SearchCriteria}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="200" AutomationProperties.AutomationId="TwitchChannel.RaidSearchCriteriaComboBox" AutomationProperties.Name="{x:Static resx:Resources.SearchCriteria}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -97,10 +97,10 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
 
-                                        <Button Grid.Column="2" Command="{Binding SearchChannelToRaidCommand}" Content="{x:Static resx:Resources.Search}" />
+                                        <Button Grid.Column="2" Command="{Binding SearchChannelToRaidCommand}" Content="{x:Static resx:Resources.Search}" AutomationProperties.AutomationId="TwitchChannel.RaidSearchButton" />
                                     </Grid>
 
-                                    <DataGrid Grid.Row="2" ItemsSource="{Binding ChannelsToRaid}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+                                    <DataGrid Grid.Row="2" ItemsSource="{Binding ChannelsToRaid}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="TwitchChannel.RaidResultsDataGrid" AutomationProperties.Name="{x:Static resx:Resources.FindChannelToRaid}">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="{x:Static resx:Resources.Channel}" Binding="{Binding Name}" IsReadOnly="True" Width="200" />
                                             <DataGridTextColumn Header="{x:Static resx:Resources.Viewers}" Binding="{Binding Viewers}" IsReadOnly="True" Width="100" />
@@ -115,9 +115,9 @@
                                                                 <ColumnDefinition Width="Auto" />
                                                             </Grid.ColumnDefinitions>
 
-                                                            <Controls:IconButton Grid.Column="0" Command="{Binding OpenChannelCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.OpenChannel}" />
+                                                            <Controls:IconButton Grid.Column="0" Command="{Binding OpenChannelCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.OpenChannel}" AutomationProperties.AutomationId="RaidResultRow.OpenChannelButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.OpenFormat}}" />
 
-                                                            <Controls:IconButton Grid.Column="2" Command="{Binding RaidChannelCommand}" Icon="broadcast_on_personal" ToolTip="{x:Static resx:Resources.RaidChannel}" />
+                                                            <Controls:IconButton Grid.Column="2" Command="{Binding RaidChannelCommand}" Icon="broadcast_on_personal" ToolTip="{x:Static resx:Resources.RaidChannel}" AutomationProperties.AutomationId="RaidResultRow.RaidChannelButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.RaidFormat}}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -133,7 +133,7 @@
 
             <!-- YouTube -->
             <Border Visibility="{Binding IsYouTubeConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                <Expander DataContext="{Binding YouTube}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
+                <Expander DataContext="{Binding YouTube}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True" AutomationProperties.AutomationId="YouTubeChannel.Expander">
                     <Expander.Header>
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -163,14 +163,14 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <DataGrid Grid.Row="0" ItemsSource="{Binding ActiveBroadcasts}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch">
+                                    <DataGrid Grid.Row="0" ItemsSource="{Binding ActiveBroadcasts}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="YouTubeChannel.ActiveBroadcastsDataGrid" AutomationProperties.Name="{x:Static resx:Resources.ActiveBroadcasts}">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Display}" IsReadOnly="True" Width="*" />
                                             <DataGridTemplateColumn Header="{x:Static resx:Resources.Link}" IsReadOnly="True" Width="75">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Grid>
-                                                            <Controls:IconButton Command="{Binding OpenStreamCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.Link}" />
+                                                            <Controls:IconButton Command="{Binding OpenStreamCommand}" Icon="tv" ToolTip="{x:Static resx:Resources.Link}" AutomationProperties.AutomationId="BroadcastRow.OpenStreamButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.OpenFormat}}" />
                                                         </Grid>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -185,9 +185,9 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <ComboBox Grid.Column="0" DisplayMemberPath="Display" ItemsSource="{Binding UpcomingBroadcasts}" SelectedItem="{Binding SelectedUpcomingBroadcast}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Broadcasts}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                        <ComboBox Grid.Column="0" DisplayMemberPath="Display" ItemsSource="{Binding UpcomingBroadcasts}" SelectedItem="{Binding SelectedUpcomingBroadcast}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Broadcasts}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="YouTubeChannel.UpcomingBroadcastsComboBox" AutomationProperties.Name="{x:Static resx:Resources.Broadcasts}" />
 
-                                        <Button Grid.Column="2" Content="{x:Static resx:Resources.Add}" Command="{Binding AddUpcomingBroadcast}" Width="100" />
+                                        <Button Grid.Column="2" Content="{x:Static resx:Resources.Add}" Command="{Binding AddUpcomingBroadcast}" Width="100" AutomationProperties.AutomationId="YouTubeChannel.AddUpcomingBroadcastButton" />
                                     </Grid>
                                 </Grid>
                             </GroupBox>
@@ -202,11 +202,11 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
 
-                                    <ComboBox Grid.Row="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                    <ComboBox Grid.Row="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="YouTubeChannel.TitleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
 
-                                    <TextBox Grid.Row="2" Text="{Binding Description}" AcceptsReturn="True" Height="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    <TextBox Grid.Row="2" Text="{Binding Description}" AcceptsReturn="True" Height="150" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="YouTubeChannel.DescriptionTextBox" AutomationProperties.Name="{x:Static resx:Resources.Description}" />
 
-                                    <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
+                                    <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" AutomationProperties.AutomationId="YouTubeChannel.UpdateStreamInfoButton" />
                                 </Grid>
                             </GroupBox>
                         </Grid>
@@ -215,7 +215,7 @@
             </Border>
             <!-- Kick -->
             <Border Visibility="{Binding IsKickConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                <Expander DataContext="{Binding Kick}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
+                <Expander DataContext="{Binding Kick}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True" AutomationProperties.AutomationId="TrovoChannel.Expander">
                     <Expander.Header>
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -248,16 +248,16 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TrovoChannel.TitleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
 
-                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TrovoChannel.CategoryComboBox" AutomationProperties.Name="{x:Static resx:Resources.Category}" />
                                     </Grid>
 
                                     <Grid Grid.Row="2">
                                         <KickControls:KickTagEditorControl DataContext="{Binding TagEditor}" />
                                     </Grid>
 
-                                    <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
+                                    <Button Grid.Row="4" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" AutomationProperties.AutomationId="TrovoChannel.UpdateChannelInfoButton" />
                                 </Grid>
                             </GroupBox>
                         </Grid>
@@ -266,7 +266,7 @@
             </Border>
             <!-- Velora -->
             <Border Visibility="{Binding IsVeloraConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                <Expander DataContext="{Binding Velora}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True">
+                <Expander DataContext="{Binding Velora}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True" AutomationProperties.AutomationId="KickChannel.Expander">
                     <Expander.Header>
                         <Grid Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -297,12 +297,12 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="KickChannel.TitleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
 
-                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="KickChannel.CategoryComboBox" AutomationProperties.Name="{x:Static resx:Resources.Category}" />
                                     </Grid>
 
-                                    <Button Grid.Row="2" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" />
+                                    <Button Grid.Row="2" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" AutomationProperties.AutomationId="KickChannel.UpdateChannelInfoButton" />
                                 </Grid>
                             </GroupBox>
                         </Grid>

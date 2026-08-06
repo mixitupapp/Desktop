@@ -21,7 +21,7 @@
 
         <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{x:Static resx:Resources.CommunityCommandsReportCommand}" />
 
-        <TextBox Grid.Row="2" x:Name="ReportTextBox" Width="400" Height="150" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" />
+        <TextBox Grid.Row="2" x:Name="ReportTextBox" Width="400" Height="150" TextAlignment="Left" TextWrapping="Wrap" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" AutomationProperties.AutomationId="CommunityCommandsReportCommandDialog.ReportTextBox" AutomationProperties.Name="{x:Static resx:Resources.Description}" />
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
@@ -31,14 +31,16 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}"
+                    AutomationProperties.AutomationId="CommunityCommandsReportCommandDialog.OkButton">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
 
             <Button Grid.Column="2" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}">
+                    Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}"
+                    AutomationProperties.AutomationId="CommunityCommandsReportCommandDialog.CancelButton">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

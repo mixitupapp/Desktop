@@ -179,6 +179,14 @@ namespace MixItUp.Base.Services.Velora.New
 
         private Task OnEventEnvelope(JObject envelope)
         {
+            // Log every raw envelope at Debug: this is the only capture point for what the Events WS
+            // actually delivers. There is no per-type subscription - a single generic "event" handler
+            // receives them all and DispatchEvent routes by the "event" field - so an event whose name no
+            // case matches (or an unexpected shape) otherwise falls through invisibly. This is the pipe to
+            // watch to confirm whether Velora emits channel-point redemptions here at all, and under what
+            // name. Mirrors the Chat WS newMessage raw-frame log.
+            Logger.Log(LogLevel.Debug, $"Velora event: {envelope.ToString(Newtonsoft.Json.Formatting.None)}");
+
             // Envelope: { event, timestamp, data }.
             string eventType = envelope.GetValueOrDefault<string>("event", null);
             if (string.IsNullOrWhiteSpace(eventType))

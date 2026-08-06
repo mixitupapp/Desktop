@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Speeds}" Text="{Binding Speed}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ScrollSpeed}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Speeds}" Text="{Binding Speed}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ScrollSpeed}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="100" AutomationProperties.AutomationId="OverlayEndCreditsItem.ScrollSpeedComboBox" AutomationProperties.Name="{x:Static resx:Resources.ScrollSpeed}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -44,7 +44,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding ColorNames}" Text="{Binding BackgroundColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BackgroundColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding ColorNames}" Text="{Binding BackgroundColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BackgroundColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130" AutomationProperties.AutomationId="OverlayEndCreditsItem.BackgroundColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.BackgroundColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -62,7 +62,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding ColorNames}" Text="{Binding SectionTextColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionTextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding ColorNames}" Text="{Binding SectionTextColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionTextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130" AutomationProperties.AutomationId="OverlayEndCreditsItem.SectionTextColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.SectionTextColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -70,9 +70,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" x:Name="SectionTextFontComboBox" Text="{Binding SectionTextFont}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionTextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" />
+            <ComboBox Grid.Column="2" x:Name="SectionTextFontComboBox" Text="{Binding SectionTextFont}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionTextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" AutomationProperties.AutomationId="OverlayEndCreditsItem.SectionTextFontComboBox" AutomationProperties.Name="{x:Static resx:Resources.SectionTextFont}" />
 
-            <ComboBox Grid.Column="4" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding SectionTextSizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionTextSize}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="145" />
+            <ComboBox Grid.Column="4" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding SectionTextSizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionTextSize}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="145" AutomationProperties.AutomationId="OverlayEndCreditsItem.SectionTextSizeComboBox" AutomationProperties.Name="{x:Static resx:Resources.SectionTextSize}" />
         </Grid>
 
         <Grid Grid.Row="4" HorizontalAlignment="Center">
@@ -84,7 +84,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding ColorNames}" Text="{Binding ItemTextColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding ColorNames}" Text="{Binding ItemTextColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130" AutomationProperties.AutomationId="OverlayEndCreditsItem.ItemTextColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTextColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -92,12 +92,12 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="2" x:Name="ItemTextFontComboBox" Text="{Binding ItemTextFont}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" />
+            <ComboBox Grid.Column="2" x:Name="ItemTextFontComboBox" Text="{Binding ItemTextFont}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" AutomationProperties.AutomationId="OverlayEndCreditsItem.ItemTextFontComboBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTextFont}" />
 
-            <ComboBox Grid.Column="4" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding ItemTextSizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTextSize}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="145" />
+            <ComboBox Grid.Column="4" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding ItemTextSizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTextSize}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="145" AutomationProperties.AutomationId="OverlayEndCreditsItem.ItemTextSizeComboBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTextSize}" />
         </Grid>
 
-        <TextBox Text="{Binding HTML}" Grid.Row="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TitleHTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="550" Height="75" HorizontalAlignment="Center" />
+        <TextBox Text="{Binding HTML}" Grid.Row="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TitleHTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="550" Height="75" HorizontalAlignment="Center" AutomationProperties.AutomationId="OverlayEndCreditsItem.TitleHTMLStyleTextBox" AutomationProperties.Name="{x:Static resx:Resources.TitleHTMLStyle}" />
 
         <Grid Grid.Row="8" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -106,18 +106,18 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding ItemTypes}" Text="{Binding ItemType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="145">
+            <ComboBox Grid.Column="0" ItemsSource="{Binding ItemTypes}" Text="{Binding ItemType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="145" AutomationProperties.AutomationId="OverlayEndCreditsItem.SectionTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.SectionType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Controls:IconButton Grid.Column="2" Command="{Binding AddItemCommand}" Icon="Plus" />
+            <Controls:IconButton Grid.Column="2" Command="{Binding AddItemCommand}" Icon="Plus" AutomationProperties.AutomationId="OverlayEndCreditsItem.AddSectionButton" AutomationProperties.Name="{x:Static resx:Resources.Add}" />
         </Grid>
 
         <GroupBox Grid.Row="10" Width="700" Header="Sections">
-            <ItemsControl ItemsSource="{Binding SectionItems}" DragDrop:DragDrop.IsDragSource="True" DragDrop:DragDrop.IsDropTarget="True">
+            <ItemsControl ItemsSource="{Binding SectionItems}" DragDrop:DragDrop.IsDragSource="True" DragDrop:DragDrop.IsDropTarget="True" AutomationProperties.AutomationId="OverlayEndCreditsItem.SectionsList" AutomationProperties.Name="{x:Static resx:Resources.EndCreditsSections}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="10">
@@ -133,11 +133,11 @@
 
                             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding SectionTypeName}" />
 
-                            <TextBox Text="{Binding SectionHTML}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionHTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="150" Height="75" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                            <TextBox Text="{Binding SectionHTML}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SectionHTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="150" Height="75" VerticalAlignment="Top" HorizontalAlignment="Center" AutomationProperties.AutomationId="Section.SectionHTMLStyleTextBox" AutomationProperties.Name="{x:Static resx:Resources.SectionHTMLStyle}" />
 
-                            <TextBox Text="{Binding UserHTML}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserHTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="300" Height="75" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                            <TextBox Text="{Binding UserHTML}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserHTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="300" Height="75" VerticalAlignment="Top" HorizontalAlignment="Center" AutomationProperties.AutomationId="Section.UserHTMLStyleTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserHTMLStyle}" />
 
-                            <Controls:IconButton Grid.Column="6" VerticalAlignment="Center" Command="{Binding DeleteItemCommand}" Icon="Delete" />
+                            <Controls:IconButton Grid.Column="6" VerticalAlignment="Center" Command="{Binding DeleteItemCommand}" Icon="Delete" AutomationProperties.AutomationId="Section.DeleteButton" AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

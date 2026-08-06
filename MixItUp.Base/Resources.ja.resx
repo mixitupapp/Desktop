@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1306,6 +1306,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>最大値</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCPサーバー</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>ローカル ネットワークに開く (管理者として実行する必要があります):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>サーバーアドレス:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCPサーバーを使用すると、お使いのコンピューター上で実行されているAIエージェントが Model Context Protocol を介して Mix It Up と連携できます。Claude Code などのクライアントを以下のサーバーアドレスに接続してください。詳細については、MCPサーバーのWikiページをご覧ください。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>警告: このサーバーに接続されたエージェントは、設定を読み取り、チャットメッセージの送信を含むコマンドをあなたの代わりに実行できます。信頼できるエージェントで作業しているときのみ有効にしてください。</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -3076,6 +3096,10 @@
   </data>
   <data name="Platform" xml:space="preserve">
     <value>プラットフォーム</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>プラットフォームメッセージ</value>
     <comment>Manual</comment>
   </data>
   <data name="Tier" xml:space="preserve">
@@ -10295,6 +10319,9 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="AllTime" xml:space="preserve">
     <value>オールタイム</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>連続サブスク期間</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>有効な消耗品を選択する必要があります</value>
   </data>
@@ -10790,6 +10817,23 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>ファイルパスを指定する必要があります</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>カスタムテキスト</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>タイムゾーン</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>トークン: YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (曜日)、HH H (24時間制)、hh h (12時間制)、mm m (分)、ss s (秒)、A a (AM/PM)。文字をそのまま表示するには角かっこで囲みます。例: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>表示される各パーツはトークン名の span で囲まれるため、CSS セクションで個別にスタイルを設定できます。AM/PM は .time-A、月名は .date-MMMM のようになり、大文字と小文字はトークンと同じです。つまり .date-MM は月、.time-mm は分です。
+グループ全体は [class^="date-"] または [class^="time-"] で指定できます。
+例: .time-A { font-size: 50% }</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>空欄にすると、オーバーレイを実行しているコンピューターのタイムゾーンを使用します。ゾーンは主要都市の名前で表示されるため、Europe/Berlin はアムステルダムやローマも対象になります。Europe/Amsterdam のように、IANA のタイムゾーン名を直接入力することもできます。</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>プロファイル名</value>
   </data>
@@ -10997,7 +11041,7 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
     <value>チェックボックス</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>洗礼盤</value>
+    <value>フォント</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>エラー:AWSアカウント接続なしでプレミアムボイスを選択しているため、Amazon Polly TTSが実行できません</value>
@@ -11124,6 +11168,24 @@ sendParentMessage({ タイプ: "ScriptComplete"、ID: "{ID}"、結果: 結果 })
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>サービス認証を開始しられない場合、他のサービスで既に有効な認証プロセスが進行中でないかご確認ください。</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>ポート {0} が他のプログラムによって既に使用されているため、Mix It Up はローカルのログイン受信を開始できませんでした。このポートを使用している可能性のある他のプログラム（Mix It Up の 2 つ目のインスタンスを含む）を終了してから、もう一度お試しください。</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Windows がポート {0} をブロックしているため、Mix It Up はローカルのログイン受信を開始できませんでした。これは通常、Hyper-V、WSL、Docker による予約済みポート範囲が原因です。サポートについては Mix It Up の Discord をご覧ください。</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up はログインを完了するためのウェブブラウザーを開けませんでした。以下のアドレスをコピーしてブラウザーに貼り付け、そちらでサインインを完了してください。このウィンドウは引き続きお待ちします。</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>ログインが時間内に完了しなかったため、キャンセルされました。もう一度お試しください。</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>ログインを完了できませんでした。詳細については Mix It Up のインストール先フォルダー内の Logs フォルダーをご確認いただくか、Mix It Up の Discord でサポートをご依頼ください。</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up はログイン情報を受け取りましたが、アクセストークンと交換できませんでした。もう一度お試しいただくか、Mix It Up の Discord でサポートをご依頼ください。</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>ゲイン</value>
@@ -11997,5 +12059,175 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="HasTitle" xml:space="preserve">
     <value>タイトルあり</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI フォント</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>全体のフォントサイズ (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>チャットウィンドウのフォントサイズ (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* 一部のフォントはすべてのコントロールに収まらず、大きいサイズでは表示が切れることがあります。</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>サポートモード</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>保存された設定を変更せずに、既定のテーマ・フォント・文字サイズでアプリを一時的に表示します。オフにすると自分の設定に戻ります。</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>テーマとフォントの設定をリセット</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>既定値にリセット</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>配色、背景、前景、フルテーマ、UI フォント、全体のフォントサイズ、チャットウィンドウのフォントサイズを既定値に戻します。よろしいですか?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube は、話している間にキャラクターの静止画を切り替える PNGtuber アプリです。接続すると、コマンドからアバターの状態を変更でき、状態の変更でコマンドを実行できます。Mix It Up が veadotube を自動的に検出するため、入力する項目はありません。</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>接続する前に、veadotube のプログラム設定で WebSocket サーバーを有効にしてください。アドレスは veadotube を起動するたびに変わるため、Mix It Up が自動的に読み取ります。</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>プッシュトゥトークのアクションには、veadotube のマイク設定のプッシュトゥトーク項目で「use websocket」を有効にする必要があります。また、プッシュトゥトークのキーボードショートカットは削除してください。ショートカットが設定されていると Mix It Up の送信内容より優先されます。</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>この veadotube はバージョン 2.1 より古いものです。更新するまで、アバター状態の切り替えとすべてのプッシュトゥトーク操作は動作しません。</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>実行中の veadotube が見つかりませんでした。veadotube を開き、プログラム設定で WebSocket サーバーを有効にしてから、もう一度接続してください。</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>veadotube に接続できませんでした。WebSocket サーバーを有効にした状態で実行されていることを確認してください。</value>
+  </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>{0} の veadotube に接続できませんでした。veadotube が実行中で、プログラム設定で WebSocket サーバーが有効になっていることを確認してください。下にアドレスを入力している場合は、それを消してからもう一度お試しください。Mix It Up が veadotube を自動で見つけられるようになります。</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>入力されたアドレスは、ポートを含む有効なアドレスではありません。veadotube が「serving at」の横に表示しているアドレス (例: 127.0.0.1:2424) を使用するか、欄を空にして Mix It Up が veadotube を自動で見つけられるようにしてください。</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>{1} の {0} に接続しました</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube が接続されていません</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>アドレス (オプション)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>アバターの状態</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>プッシュトゥトーク</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>アバターの状態を選択してください</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>アバターの状態が変更されました</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>プッシュトゥトークが変更されました</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>アバターの状態を設定</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>アバターの状態をプッシュ</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>アバターの状態をポップ</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>アバターの状態を切り替え</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>ランダムなアバターの状態を設定</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>プッシュトゥトークを設定</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>配信開始</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>配信停止</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>録画開始</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>録画停止</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>シーンが変更されました</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>シーントランジション開始</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>シーントランジション終了</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>フィルターの可視性が変更されました</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>ソースの可視性が変更されました</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>リプレイバッファ保存</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>ユーザー検索</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>ユーザー名または ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>ユーザー検索アクション: ユーザー名または ID がありません</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>ショート動画の長さ上限（秒）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>この長さ以下の動画はショート動画として扱われます。それより長い動画は通常の動画として扱われます。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>常連</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>初めてのチャット参加者</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube ジュエル</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon メンバー一覧</value>
   </data>
 </root>

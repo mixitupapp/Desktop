@@ -456,6 +456,7 @@ namespace MixItUp.Base.ViewModel.User
 
         public DateTimeOffset LastActivity { get { return this.Model.LastActivity; } }
         public string LastActivityDateString { get { return this.LastActivity.ToFriendlyDateString(); } }
+        public string LastActivityPreciseDateTimeString { get { return (this.LastActivity != DateTimeOffset.MinValue) ? this.LastActivity.ToPreciseDateTimeString() : MixItUp.Base.Resources.Unknown; } }
         public string LastActivityAgeString { get { return this.LastActivity.GetAge(); } }
         public int LastActivityDays { get { return this.LastActivity.TotalDaysFromNow(); } }
 
@@ -711,6 +712,13 @@ namespace MixItUp.Base.ViewModel.User
                 this.CurrencyAmounts[kvp.Key] += kvp.Value;
             }
         }
+
+        /// <summary>
+        /// Recomputes the cached role and display properties (PrimaryRole, DisplayRoles, colors) after an
+        /// out-of-band change to <see cref="Roles"/>. Otherwise those only refresh on construction or when
+        /// a throttled <see cref="Refresh(bool)"/> actually runs.
+        /// </summary>
+        public void RefreshCachedProperties() { this.ClearCachedProperties(); }
 
         private void ClearCachedProperties()
         {

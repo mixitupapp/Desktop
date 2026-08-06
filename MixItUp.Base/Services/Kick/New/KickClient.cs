@@ -43,6 +43,13 @@ namespace MixItUp.Base.Services.Kick.New
 
         private readonly HashSet<string> channelPointRedemptionCache = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+        // Kick has a single subscription product with no tiers and no streamer-set plan names, which is
+        // why every Kick subscription is recorded as tier 1. $usersubtier, $usersubplan and
+        // $usersubplanname carry that tier so commands written against Twitch/YouTube keep working
+        // when pointed at Kick.
+        private const string SubTier = "1";
+        private static string SubPlanName { get { return $"{MixItUp.Base.Resources.Tier} {SubTier}"; } }
+
         public override Task<Result> Connect()
         {
             this.isConnected = true;
@@ -210,6 +217,9 @@ namespace MixItUp.Base.Services.Kick.New
 
             CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Kick);
             parameters.SpecialIdentifiers["usersubmonths"] = Math.Max(subEvent.Duration, 1).ToString();
+            parameters.SpecialIdentifiers["usersubtier"] = SubTier;
+            parameters.SpecialIdentifiers["usersubplan"] = SubPlanName;
+            parameters.SpecialIdentifiers["usersubplanname"] = SubPlanName;
             if (await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscribed, parameters))
             {
                 EventService.SubscribeOccurred(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Kick, user, months: Math.Max(subEvent.Duration, 1), tier: 1));
@@ -248,6 +258,9 @@ namespace MixItUp.Base.Services.Kick.New
             CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Kick);
             parameters.SpecialIdentifiers["usersubmonths"] = Math.Max(subEvent.Duration, 1).ToString();
             parameters.SpecialIdentifiers["usersubstreak"] = Math.Max(subEvent.Duration, 1).ToString();
+            parameters.SpecialIdentifiers["usersubtier"] = SubTier;
+            parameters.SpecialIdentifiers["usersubplan"] = SubPlanName;
+            parameters.SpecialIdentifiers["usersubplanname"] = SubPlanName;
             if (await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelResubscribed, parameters))
             {
                 EventService.ResubscribeOccurred(new SubscriptionDetailsModel(StreamingPlatformTypeEnum.Kick, user, months: Math.Max(subEvent.Duration, 1), tier: 1));
@@ -313,6 +326,9 @@ namespace MixItUp.Base.Services.Kick.New
                 {
                     CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Kick);
                     giftParameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                    giftParameters.SpecialIdentifiers["usersubtier"] = SubTier;
+                    giftParameters.SpecialIdentifiers["usersubplan"] = SubPlanName;
+                    giftParameters.SpecialIdentifiers["usersubplanname"] = SubPlanName;
                     giftParameters.TargetUser = giftee;
                     giftParameters.Arguments.Add(giftee.Username);
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelSubscriptionGifted, giftParameters);
@@ -334,6 +350,9 @@ namespace MixItUp.Base.Services.Kick.New
                     parameters.SpecialIdentifiers["subsgiftedamount"] = subscriptions.Count.ToString();
                     parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
                     parameters.SpecialIdentifiers["isanonymous"] = (giftsEvent.Gifter?.IsAnonymous ?? false).ToString();
+                    parameters.SpecialIdentifiers["usersubtier"] = SubTier;
+                    parameters.SpecialIdentifiers["usersubplan"] = SubPlanName;
+                    parameters.SpecialIdentifiers["usersubplanname"] = SubPlanName;
                     foreach (SubscriptionDetailsModel sub in subscriptions)
                     {
                         parameters.Arguments.Add(sub.User.Username);
@@ -389,6 +408,8 @@ namespace MixItUp.Base.Services.Kick.New
 
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.KickChannelPointsRedeemed, parameters);
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertKickChannelPointRedeemed, user.FullDisplayName, redemptionEvent.Reward.Title), ChannelSession.Settings.AlertKickChannelPointsColor));
+
+            EventService.ChannelPointsRedeemedOccurred(user, redemptionEvent.Reward.Cost);
 
             KickChannelPointsCommandModel command = ServiceManager.Get<CommandService>().KickChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID, redemptionEvent.Reward.ID, StringComparison.OrdinalIgnoreCase));
             if (command == null)

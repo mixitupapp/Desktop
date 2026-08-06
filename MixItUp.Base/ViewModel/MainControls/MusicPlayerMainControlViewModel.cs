@@ -107,7 +107,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             get { return ChannelSession.Settings.MusicPlayerAudioOutput; }
             set
             {
-                ChannelSession.Settings.MusicPlayerAudioOutput = value;
+                _ = ServiceManager.Get<IMusicPlayerService>().SetAudioOutputDevice(value);
                 this.NotifyPropertyChanged();
             }
         }
@@ -133,9 +133,13 @@ namespace MixItUp.Base.ViewModel.MainControls
 
             this.OnSongChangedCommand = ChannelSession.Settings.GetCommand(ChannelSession.Settings.MusicPlayerOnSongChangedCommandID);
 
-            this.AudioDevices.AddRange(ServiceManager.Get<IAudioService>().GetSelectableAudioDevices());
+            this.AudioDevices.AddRange(ServiceManager.Get<IAudioService>().GetSelectableAudioDevices(retainedDevice: ChannelSession.Settings.MusicPlayerAudioOutput));
             this.AudioDevices.Remove(ServiceManager.Get<IAudioService>().MixItUpOverlay);
-            this.SelectedAudioDevice = (ChannelSession.Settings.MusicPlayerAudioOutput != null) ? ChannelSession.Settings.MusicPlayerAudioOutput : ServiceManager.Get<IAudioService>().DefaultAudioDevice;
+            if (ChannelSession.Settings.MusicPlayerAudioOutput == null)
+            {
+                ChannelSession.Settings.MusicPlayerAudioOutput = ServiceManager.Get<IAudioService>().DefaultAudioDevice;
+            }
+            this.NotifyPropertyChanged(nameof(this.SelectedAudioDevice));
 
             this.PreviousCommand = this.CreateCommand(async () =>
             {

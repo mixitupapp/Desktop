@@ -16,12 +16,12 @@
     Height="600"
     AllowDrop="True"
     Drop="CommandEditorWindow_Drop"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     PreviewDragEnter="CommandEditorWindow_PreviewDragEnter"
     PreviewDragLeave="CommandEditorWindow_PreviewDragLeave"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -34,7 +34,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="CommandEditor.MDDialogHost" />
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.RowDefinitions>
@@ -69,7 +69,7 @@
                         <TextBlock
                             Grid.Row="2"
                             HorizontalAlignment="Center"
-                            FontSize="40"
+                            FontSize="{DynamicResource MIU.FontSize.DisplaySmall}"
                             Text="{x:Static resx:Resources.ImportActions}" />
                     </Grid>
 
@@ -102,7 +102,9 @@
                     ItemsSource="{Binding ActionTypes}"
                     MaxDropDownHeight="400"
                     SelectedItem="{Binding SelectedActionType}"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    AutomationProperties.AutomationId="CommandEditor.ActionComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Action}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -114,35 +116,47 @@
                     Grid.Column="2"
                     Command="{Binding AddCommand}"
                     Icon="add"
-                    ToolTip="{x:Static resx:Resources.Add}" />
+                    ToolTip="{x:Static resx:Resources.Add}"
+                    AutomationProperties.AutomationId="CommandEditor.AddButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Add}" />
 
                 <Controls:IconButton
                     Grid.Column="4"
                     Command="{Binding SaveCommand}"
                     Icon="save"
-                    ToolTip="{x:Static resx:Resources.Save}" />
+                    ToolTip="{x:Static resx:Resources.Save}"
+                    AutomationProperties.AutomationId="CommandEditor.SaveButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Save}" />
 
                 <Controls:IconButton
                     Grid.Column="6"
                     Command="{Binding TestCommand}"
                     Icon="play_arrow"
-                    ToolTip="{x:Static resx:Resources.TestCommand}" />
+                    ToolTip="{x:Static resx:Resources.TestCommand}"
+                    AutomationProperties.AutomationId="CommandEditor.TestCommandButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.TestCommand}" />
                 <Controls:IconButton
                     Grid.Column="6"
                     Icon="stop"
                     ToolTip="{x:Static resx:Resources.StopCommand}"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed"
+                    AutomationProperties.AutomationId="CommandEditor.StopCommandButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.StopCommand}" />
 
                 <Controls:IconButton
                     Grid.Column="8"
                     Command="{Binding ExportCommand}"
                     Icon="output"
-                    ToolTip="{x:Static resx:Resources.ExportActions}" />
+                    ToolTip="{x:Static resx:Resources.ExportActions}"
+                    AutomationProperties.AutomationId="CommandEditor.ExportActionsButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.ExportActions}" />
                 <Controls:IconButton
                     Grid.Column="10"
                     Command="{Binding ImportCommand}"
                     Icon="input"
-                    ToolTip="{x:Static resx:Resources.ImportActions}" />
+                    ToolTip="{x:Static resx:Resources.ImportActions}"
+                    AutomationProperties.AutomationId="CommandEditor.ImportActionsButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.ImportActions}" />
 
                 <Button
                     x:Name="UploadCommunityCommandButton"
@@ -151,7 +165,8 @@
                     Click="UploadCommunityCommandButton_Click"
                     Content="{x:Static resx:Resources.CommunityCommandsUploadToCommunity}"
                     ToolTip="{x:Static resx:Resources.CommunityCommandsUploadToCommunityTooltip}"
-                    Visibility="{Binding IsExistingCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding IsExistingCommand, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    AutomationProperties.AutomationId="CommandEditor.UploadCommunityCommandButton" />
 
             </Grid>
         </Grid>

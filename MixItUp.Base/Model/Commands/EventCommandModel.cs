@@ -242,18 +242,30 @@ namespace MixItUp.Base.Model.Commands
                 // Kick
                 case EventTypeEnum.KickChannelSubscribed:
                     specialIdentifiers["usersubmonths"] = "1";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelResubscribed:
                     specialIdentifiers["usersubmonths"] = "5";
                     specialIdentifiers["usersubstreak"] = "5";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelSubscriptionGifted:
                     specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelMassSubscriptionsGifted:
                     specialIdentifiers["subsgiftedamount"] = "5";
                     specialIdentifiers["subsgiftedlifetimeamount"] = "100";
                     specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.KickChannelPointsRedeemed:
                     specialIdentifiers["rewardname"] = "Hydrate";
@@ -273,21 +285,29 @@ namespace MixItUp.Base.Model.Commands
                 case EventTypeEnum.VeloraChannelSubscribed:
                     specialIdentifiers["usersubmonths"] = "1";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelResubscribed:
                     specialIdentifiers["usersubmonths"] = "5";
                     specialIdentifiers["usersubstreak"] = "5";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelSubscriptionGifted:
                     specialIdentifiers["isanonymous"] = "false";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelMassSubscriptionsGifted:
                     specialIdentifiers["subsgiftedamount"] = "5";
                     specialIdentifiers["subsgiftedlifetimeamount"] = "100";
                     specialIdentifiers["isanonymous"] = "false";
                     specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
                     break;
                 case EventTypeEnum.VeloraChannelRaided:
                     specialIdentifiers["hostviewercount"] = "123";
@@ -501,6 +521,41 @@ namespace MixItUp.Base.Model.Commands
                     break;
                 case EventTypeEnum.PulsoidHeartRateChanged:
                     specialIdentifiers["pulsoidheartrate"] = "80";
+                    break;
+                case EventTypeEnum.VeadotubeAvatarStateChanged:
+                    specialIdentifiers["veadotubestateid"] = "surprised";
+                    specialIdentifiers["veadotubestatename"] = "surprised";
+                    specialIdentifiers["veadotubepreviousstateid"] = "idle";
+                    specialIdentifiers["veadotubepreviousstatename"] = "idle";
+                    break;
+                case EventTypeEnum.VeadotubePushToTalkChanged:
+                    specialIdentifiers["veadotubepushtotalk"] = "True";
+                    break;
+
+                // OBS Studio
+                case EventTypeEnum.OBSStudioRecordingStopped:
+                    specialIdentifiers["obsrecordingfilepath"] = "C:\\Videos\\2024-01-01 12-00-00.mkv";
+                    break;
+                case EventTypeEnum.OBSStudioSceneChanged:
+                    specialIdentifiers["obsscenename"] = "Gameplay";
+                    specialIdentifiers["obspreviousscenename"] = "Starting Soon";
+                    break;
+                case EventTypeEnum.OBSStudioSourceVisibilityChanged:
+                    specialIdentifiers["obsscenename"] = "Gameplay";
+                    specialIdentifiers["obssourcename"] = "Webcam";
+                    specialIdentifiers["obssourcevisible"] = "True";
+                    break;
+                case EventTypeEnum.OBSStudioFilterVisibilityChanged:
+                    specialIdentifiers["obssourcename"] = "Webcam";
+                    specialIdentifiers["obsfiltername"] = "Color Correction";
+                    specialIdentifiers["obsfiltervisible"] = "True";
+                    break;
+                case EventTypeEnum.OBSStudioReplayBufferSaved:
+                    specialIdentifiers["obsreplayfilepath"] = "C:\\Videos\\Replay 2024-01-01 12-00-00.mkv";
+                    break;
+                case EventTypeEnum.OBSStudioSceneTransitionStarted:
+                case EventTypeEnum.OBSStudioSceneTransitionEnded:
+                    specialIdentifiers["obstransitionname"] = "Fade";
                     break;
             }
 

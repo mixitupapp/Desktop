@@ -14,7 +14,7 @@
     <local:CommandEditorDetailsControlBase.Resources>
         <Util:LocalizationConverter x:Key="LocalizationConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <Controls:MaterialSymbolIcon IconName="data_object" FontSize="24" x:Key="JSONPopupIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.JSONToSpecialIdentifiers}" />
+        <Controls:MaterialSymbolIcon IconName="data_object" FontSize="{DynamicResource MIU.IconSize.24}" x:Key="JSONPopupIcon" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" x:Shared="False" ToolTip="{x:Static resx:Resources.JSONToSpecialIdentifiers}" />
     </local:CommandEditorDetailsControlBase.Resources>
 
     <Grid>
@@ -32,9 +32,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Column="0" Text="{Binding Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" />
+        <TextBox Grid.Column="0" Text="{Binding Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" AutomationProperties.AutomationId="WebhookCommandEditorDetails.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-        <MaterialDesign:PopupBox Grid.Column="2" x:Name="JSONPopup" ToggleContent="{StaticResource JSONPopupIcon}" Margin="6" StaysOpen="True">
+        <MaterialDesign:PopupBox Grid.Column="2" x:Name="JSONPopup" ToggleContent="{StaticResource JSONPopupIcon}" Margin="6" StaysOpen="True" AutomationProperties.AutomationId="WebhookCommandEditorDetails.JsonExamplePopup" AutomationProperties.Name="{x:Static resx:Resources.Help}">
             <Grid MinWidth="600" MinHeight="100" Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -47,7 +47,7 @@
                 <TextBlock Grid.Row="0" Text="{x:Static resx:Resources.WebhookJSONMapPairs}" HorizontalAlignment="Center" TextDecorations="Underline" FontWeight="Bold" />
 
                 <ScrollViewer Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="400">
-                    <ItemsControl ItemsSource="{Binding JSONParameters}" Margin="0,0,5,0">
+                    <ItemsControl ItemsSource="{Binding JSONParameters}" Margin="0,0,5,0" AutomationProperties.AutomationId="WebhookCommandEditorDetails.WebhookJSONMapPairsList" AutomationProperties.Name="{x:Static resx:Resources.WebhookJSONMapPairs}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="0,5">
@@ -59,18 +59,18 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox Grid.Column="0" Text="{Binding JSONParameterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.JSONValueName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    <TextBox Grid.Column="0" Text="{Binding JSONParameterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.JSONValueName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="JsonValue.JSONValueNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.JSONValueName}" />
 
-                                    <TextBox Grid.Column="2" Text="{Binding SpecialIdentifierName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    <TextBox Grid.Column="2" Text="{Binding SpecialIdentifierName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="JsonValue.SpecialIdentifierNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.SpecialIdentifierName}" />
 
-                                    <Controls:IconButton Grid.Column="4" Command="{Binding DeleteJSONParameterCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" Style="{StaticResource MaterialDesignRaisedButton}" />
+                                    <Controls:IconButton Grid.Column="4" Command="{Binding DeleteJSONParameterCommand}" HorizontalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" Style="{StaticResource MaterialDesignRaisedButton}" AutomationProperties.AutomationId="JsonValue.DeleteButton" AutomationProperties.Name="{Binding JSONParameterName, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
                 
-                <Button Grid.Row="4" Command="{Binding AddJSONParameterCommand}" MinWidth="150" Style="{StaticResource MaterialDesignRaisedButton}" Content="{x:Static resx:Resources.AddNewPair}" HorizontalAlignment="Center" />
+                <Button Grid.Row="4" Command="{Binding AddJSONParameterCommand}" MinWidth="150" Style="{StaticResource MaterialDesignRaisedButton}" Content="{x:Static resx:Resources.AddNewPair}" HorizontalAlignment="Center" AutomationProperties.AutomationId="WebhookCommandEditorDetails.AddNewPairButton" />
             </Grid>
         </MaterialDesign:PopupBox>
 

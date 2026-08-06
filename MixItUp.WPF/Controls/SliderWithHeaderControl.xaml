@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="300"
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
@@ -20,6 +20,8 @@
             Maximum="{Binding Maximum}"
             Minimum="{Binding Minimum}"
             Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}"
-            ToolTip="{Binding Text}" />
+            ToolTip="{Binding Text}"
+            AutomationProperties.AutomationId="SliderWithHeader.Slider"
+            AutomationProperties.Name="{Binding Text}" />
     </Grid>
 </local:NotifyPropertyChangedUserControl>

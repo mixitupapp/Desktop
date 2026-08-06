@@ -176,7 +176,13 @@ namespace MixItUp.Base.Services
                 Result<string> authorizationCode = await this.GetAuthorizationCode(scopes, state, cancellationToken, forceApprovalPrompt: true);
                 if (!authorizationCode.Success || string.IsNullOrWhiteSpace(authorizationCode.Value))
                 {
-                    return new Result(authorizationCode.Message);
+                    // A cancelled attempt intentionally carries no message; anything else must explain itself
+                    // rather than surfacing as an empty dialog.
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return new Result(authorizationCode.Message);
+                    }
+                    return new Result(!string.IsNullOrWhiteSpace(authorizationCode.Message) ? authorizationCode.Message : Resources.AuthenticationFailedGeneric);
                 }
 
                 OAuthTokenModel token = await this.RequestOAuthToken(authorizationCode.Value, scopes, state);
@@ -191,7 +197,7 @@ namespace MixItUp.Base.Services
                 Logger.Log(ex);
                 return new Result(ex);
             }
-            return new Result(success: false);
+            return new Result(Resources.AuthenticationTokenExchangeFailed);
         }
 
         protected async Task<Result<string>> GetAuthorizationCode(IEnumerable<string> scopes, string state, CancellationToken cancellationToken, bool forceApprovalPrompt = false)

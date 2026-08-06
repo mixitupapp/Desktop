@@ -14,10 +14,10 @@
     Title="{x:Static resx:Resources.CustomizeCurrencyRank}"
     Width="800"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -31,7 +31,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Currency.MDDialogHost" />
 
         <ScrollViewer Grid.Row="0">
             <Grid Margin="10">
@@ -55,7 +55,9 @@
                     VerticalAlignment="Top"
                     Command="{Binding HelpCommand}"
                     Icon="help"
-                    ToolTip="{x:Static resx:Resources.Help}" />
+                    ToolTip="{x:Static resx:Resources.Help}"
+                    AutomationProperties.AutomationId="Currency.HelpButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Help}" />
 
                 <Grid Grid.Row="0" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
@@ -77,7 +79,9 @@
                         Width="210"
                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CurrencyRankName}"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding Name}" />
+                        Text="{Binding Name}"
+                        AutomationProperties.AutomationId="Currency.CurrencyRankNameTextBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.CurrencyRankName}" />
 
                     <TextBlock
                         Grid.Column="2"
@@ -87,7 +91,9 @@
                     <ToggleButton
                         Grid.Column="4"
                         Margin="0,4,0,0"
-                        IsChecked="{Binding IsPrimary}" />
+                        IsChecked="{Binding IsPrimary}"
+                        AutomationProperties.AutomationId="Currency.IsPrimaryToggle"
+                        AutomationProperties.Name="{x:Static resx:Resources.IsPrimary}" />
 
                     <TextBlock
                         Grid.Column="6"
@@ -97,14 +103,18 @@
                     <ToggleButton
                         Grid.Column="8"
                         Margin="0,4,0,0"
-                        IsChecked="{Binding IsRank}" />
+                        IsChecked="{Binding IsRank}"
+                        AutomationProperties.AutomationId="Currency.IsRankSystemToggle"
+                        AutomationProperties.Name="{x:Static resx:Resources.IsRankSystem}" />
 
                     <TextBox
                         Grid.Column="10"
                         Width="100"
                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxAmount}"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding MaxAmount}" />
+                        Text="{Binding MaxAmount}"
+                        AutomationProperties.AutomationId="Currency.MaxAmountTextBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.MaxAmount}" />
                 </Grid>
 
                 <Grid Grid.Row="2" HorizontalAlignment="Center">
@@ -130,7 +140,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AcquireRate}"
                                 ItemsSource="{Binding OnlineRates}"
                                 SelectedItem="{Binding OnlineRate}"
-                                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                AutomationProperties.AutomationId="Currency.AcquireRateComboBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.AcquireRate}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -144,7 +156,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}"
                                 IsEnabled="{Binding IsCustomOnlineRate}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding OnlineRateAmount}" />
+                                Text="{Binding OnlineRateAmount}"
+                                AutomationProperties.AutomationId="Currency.AmountTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
 
                             <TextBlock
                                 Grid.Column="4"
@@ -159,7 +173,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Minutes}"
                                 IsEnabled="{Binding IsCustomOnlineRate}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding OnlineRateInterval}" />
+                                Text="{Binding OnlineRateInterval}"
+                                AutomationProperties.AutomationId="Currency.MinutesTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.Minutes}" />
 
                         </Grid>
                     </GroupBox>
@@ -192,7 +208,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RegularBonus}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding RegularBonus}" />
+                                Text="{Binding RegularBonus}"
+                                AutomationProperties.AutomationId="Currency.RegularBonusTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.RegularBonus}" />
                             
                             <TextBox
                                 Grid.Column="2"
@@ -200,7 +218,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FollowerBonus}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding FollowerBonus}" />
+                                Text="{Binding FollowerBonus}"
+                                AutomationProperties.AutomationId="Currency.FollowerBonusTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.FollowerBonus}" />
                             
                             <TextBox
                                 Grid.Column="4"
@@ -208,7 +228,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubBonus}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding SubscriberBonus}" />
+                                Text="{Binding SubscriberBonus}"
+                                AutomationProperties.AutomationId="Currency.SubBonusTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.SubBonus}" />
 
                             <TextBox
                                 Grid.Column="6"
@@ -216,7 +238,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModBonus}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding ModeratorBonus}" />
+                                Text="{Binding ModeratorBonus}"
+                                AutomationProperties.AutomationId="Currency.ModBonusTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.ModBonus}" />
 
                         </Grid>
                     </GroupBox> 
@@ -236,7 +260,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OnFollow}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding OnFollowBonus}" />
+                                Text="{Binding OnFollowBonus}"
+                                AutomationProperties.AutomationId="Currency.OnFollowTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.OnFollow}" />
 
                             <TextBox
                                 Grid.Column="2"
@@ -244,7 +270,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OnHost}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding OnHostBonus}" />
+                                Text="{Binding OnHostBonus}"
+                                AutomationProperties.AutomationId="Currency.OnHostTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.OnHost}" />
 
                             <TextBox
                                 Grid.Column="4"
@@ -252,7 +280,9 @@
                                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OnSubscribe}"
                                 IsEnabled="{Binding IsOnlineRateTimeBased}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                Text="{Binding OnSubscribeBonus}" />
+                                Text="{Binding OnSubscribeBonus}"
+                                AutomationProperties.AutomationId="Currency.OnSubscribeTextBox"
+                                AutomationProperties.Name="{x:Static resx:Resources.OnSubscribe}" />
                         </Grid>
                     </GroupBox> 
                 </Grid>
@@ -283,7 +313,9 @@
                                     HorizontalContentAlignment="Center"
                                     CellStyle="{StaticResource StandardDataGridCell}"
                                     ItemsSource="{Binding Ranks}"
-                                    Style="{StaticResource StandardDataGrid}">
+                                    Style="{StaticResource StandardDataGrid}"
+                                    AutomationProperties.AutomationId="Currency.RanksDataGrid"
+                                    AutomationProperties.Name="{x:Static resx:Resources.Ranks}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn
                                             Width="180"
@@ -302,7 +334,9 @@
                                                         x:Name="DeleteRankButton"
                                                         HorizontalAlignment="Center"
                                                         Click="DeleteRankButton_Click"
-                                                        Icon="delete" />
+                                                        Icon="delete"
+                                                        AutomationProperties.AutomationId="RankRow.DeleteButton"
+                                                        AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -333,21 +367,26 @@
                                         Width="150"
                                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RankName}"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                        Text="{Binding NewRankName}" />
+                                        Text="{Binding NewRankName}"
+                                        AutomationProperties.AutomationId="Currency.RankNameTextBox"
+                                        AutomationProperties.Name="{x:Static resx:Resources.RankName}" />
 
                                     <TextBox
                                         Grid.Column="2"
                                         Width="75"
                                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinPoints}"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                        Text="{Binding NewRankAmount}" />
+                                        Text="{Binding NewRankAmount}"
+                                        AutomationProperties.AutomationId="Currency.MinPointsTextBox"
+                                        AutomationProperties.Name="{x:Static resx:Resources.MinPoints}" />
                                 </Grid>
 
                                 <Button
                                     Grid.Row="2"
                                     Width="130"
                                     Command="{Binding AddRankCommand}"
-                                    Content="{x:Static resx:Resources.AddNewRank}" />
+                                    Content="{x:Static resx:Resources.AddNewRank}"
+                                    AutomationProperties.AutomationId="Currency.AddNewRankButton" />
 
                                 <Grid Grid.Row="4" HorizontalAlignment="Center">
                                     <GroupBox Width="230" Header="{x:Static resx:Resources.OnUserRankChanged}">
@@ -357,7 +396,8 @@
                                                 HorizontalAlignment="Center"
                                                 Click="RankUpNewCommandButton_Click"
                                                 Content="{x:Static resx:Resources.AddCommand}"
-                                                Visibility="{Binding DoesNotHaveRankChangedCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                Visibility="{Binding DoesNotHaveRankChangedCommand, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                AutomationProperties.AutomationId="Currency.RankUpNewCommandButton" />
 
                                             <Grid Visibility="{Binding HasRankChangedCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <CommandsControls:CommandListingButtonsControl
@@ -379,7 +419,8 @@
                                                 HorizontalAlignment="Center"
                                                 Click="RankDownNewCommandButton_Click"
                                                 Content="{x:Static resx:Resources.AddCommand}"
-                                                Visibility="{Binding DoesNotHaveRankDownCommand, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                Visibility="{Binding DoesNotHaveRankDownCommand, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                AutomationProperties.AutomationId="Currency.RankDownNewCommandButton" />
 
                                             <Grid Visibility="{Binding HasRankDownCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <CommandsControls:CommandListingButtonsControl
@@ -422,7 +463,9 @@
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinimumChannelActivityMins}"
                                     IsEnabled="{Binding IsOnlineRateTimeBased}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding MinimumActiveRate}" />
+                                    Text="{Binding MinimumActiveRate}"
+                                    AutomationProperties.AutomationId="Currency.MinimumChannelActivityMinsTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.MinimumChannelActivityMins}" />
 
                                 <ComboBox
                                     Grid.Column="2"
@@ -430,7 +473,9 @@
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AutomaticReset}"
                                     ItemsSource="{Binding AutomaticResetRates}"
                                     SelectedItem="{Binding AutomaticResetRate}"
-                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    AutomationProperties.AutomationId="Currency.AutomaticResetComboBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.AutomaticReset}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -439,19 +484,22 @@
                                 </ComboBox>
 
                                 <Controls:IconButton
-                                    x:Name="DateButton"
+                                    x:Name="CurrencyDateButton"
                                     Grid.Column="4"
                                     HorizontalAlignment="Center"
                                     Click="DateButton_Click"
                                     Icon="calendar_month"
                                     IsEnabled="{Binding AutomaticResetStartTimeSelectable}"
-                                    ToolTip="{x:Static resx:Resources.ResetDate}" />
+                                    ToolTip="{x:Static resx:Resources.ResetDate}"
+                                    AutomationProperties.AutomationId="Currency.DateButton"
+                                    AutomationProperties.Name="{x:Static resx:Resources.ResetDate}" />
 
                                 <Button
                                     Grid.Column="6"
                                     Command="{Binding ManualResetCommand}"
                                     Content="{x:Static resx:Resources.ManualReset}"
-                                    IsEnabled="{Binding IsExisting}" />
+                                    IsEnabled="{Binding IsExisting}"
+                                    AutomationProperties.AutomationId="Currency.ManualResetButton" />
 
                             </Grid>
 
@@ -468,31 +516,36 @@
                                     Grid.Column="0"
                                     Command="{Binding RetroactivelyGivePointsCommand}"
                                     Content="{x:Static resx:Resources.RetroactivelyGivePoints}"
-                                    IsEnabled="{Binding IsExisting}" />
+                                    IsEnabled="{Binding IsExisting}"
+                                    AutomationProperties.AutomationId="Currency.RetroactivelyGivePointsButton" />
 
                                 <Button
                                     Grid.Column="2"
                                     Command="{Binding ImportFromFileCommand}"
                                     Content="{x:Static resx:Resources.ImportData}"
-                                    IsEnabled="{Binding IsExisting}" />
+                                    IsEnabled="{Binding IsExisting}"
+                                    AutomationProperties.AutomationId="Currency.ImportDataButton" />
 
                                 <Button
                                     Grid.Column="4"
                                     Command="{Binding ExportToFileCommand}"
                                     Content="{x:Static resx:Resources.ExportData}"
-                                    IsEnabled="{Binding IsExisting}" />
+                                    IsEnabled="{Binding IsExisting}"
+                                    AutomationProperties.AutomationId="Currency.ExportDataButton" />
                             </Grid>
                         </Grid>
                     </GroupBox>
                 </Grid>
 
                 <Controls:IconButton
-                    x:Name="SaveButton"
+                    x:Name="CurrencySaveButton"
                     Grid.Row="10"
                     Width="75"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
-                    Icon="save" />
+                    Icon="save"
+                    AutomationProperties.AutomationId="Currency.SaveButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Save}" />
             </Grid>
         </ScrollViewer>
 

@@ -33,7 +33,7 @@
 
         <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}"/>
+                <Button Command="{Binding LogOutCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Logout}" AutomationProperties.AutomationId="StreamlootsService.LogoutButton" />
             </Grid>
 
             <Grid Visibility="{Binding IsNotConnected, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -43,9 +43,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Text="{Binding StreamlootsURL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamlootsAlertsOverlayURL}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Row="0" Text="{Binding StreamlootsURL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamlootsAlertsOverlayURL}" Width="250" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="StreamlootsService.StreamlootsAlertsOverlayURLTextBox" AutomationProperties.Name="{x:Static resx:Resources.StreamlootsAlertsOverlayURL}" />
 
-                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}"/>
+                <Button Grid.Row="2" Command="{Binding LogInCommand}" HorizontalAlignment="Center" MinWidth="90" Content="{x:Static resx:Resources.Login}" AutomationProperties.AutomationId="StreamlootsService.LoginButton" />
             </Grid>
         </Grid>
     </Grid>

@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding CommandTypes}" SelectedItem="{Binding SelectedCommandType}" Width="300" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandSelectorDialog.CommandTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandType}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -32,7 +32,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ComboBox Grid.Row="2" ItemsSource="{Binding Commands}" SelectedItem="{Binding SelectedCommand}" Width="300" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+        <ComboBox Grid.Row="2" ItemsSource="{Binding Commands}" SelectedItem="{Binding SelectedCommand}" Width="300" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Command}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CommandSelectorDialog.CommandComboBox" AutomationProperties.Name="{x:Static resx:Resources.Command}" />
 
         <Grid Grid.Row="4" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -41,13 +41,13 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}">
+            <Button Grid.Column="0" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Ok}" AutomationProperties.AutomationId="CommandSelectorDialog.OkButton">
                 <Button.CommandParameter>
                     <system:Boolean>True</system:Boolean>
                 </Button.CommandParameter>
             </Button>
 
-            <Button Grid.Column="2" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}">
+            <Button Grid.Column="2" IsDefault="True" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static MaterialDesignWPF:DialogHost.CloseDialogCommand}" Content="{x:Static resx:Resources.Cancel}" AutomationProperties.AutomationId="CommandSelectorDialog.CancelButton">
                 <Button.CommandParameter>
                     <system:Boolean>False</system:Boolean>
                 </Button.CommandParameter>

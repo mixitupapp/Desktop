@@ -56,12 +56,13 @@ namespace MixItUp.WPF.Controls.MainControls
 
                     StackPanel inner = new StackPanel { Orientation = Orientation.Horizontal };
 
-                    inner.Children.Add(new TextBlock
+                    TextBlock nameBlock = new TextBlock
                     {
                         Text = member.DisplayName,
-                        FontSize = 12,
                         VerticalAlignment = VerticalAlignment.Center,
-                    });
+                    };
+                    nameBlock.SetResourceReference(TextBlock.FontSizeProperty, "MIU.FontSize.BodySmall");
+                    inner.Children.Add(nameBlock);
 
                     if (!string.IsNullOrWhiteSpace(member.Platform) && !string.IsNullOrWhiteSpace(member.PlatformUsername))
                     {
@@ -95,12 +96,13 @@ namespace MixItUp.WPF.Controls.MainControls
                                 VerticalAlignment = VerticalAlignment.Center,
                             });
 
-                            bracketInner.Children.Add(new TextBlock
+                            TextBlock usernameBlock = new TextBlock
                             {
                                 Text = member.PlatformUsername,
-                                FontSize = 11,
                                 VerticalAlignment = VerticalAlignment.Center,
-                            });
+                            };
+                            usernameBlock.SetResourceReference(TextBlock.FontSizeProperty, "MIU.FontSize.LabelSmall");
+                            bracketInner.Children.Add(usernameBlock);
 
                             bracket.Child = bracketInner;
                             inner.Children.Add(bracket);

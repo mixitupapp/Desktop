@@ -39,12 +39,12 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandHangmanMaxFailures}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MaxFailures}" Width="90" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandHangmanMaxFailures}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MaxFailures}" Width="90" AutomationProperties.AutomationId="HangmanGameCommandEditorDetails.MaxFailuresTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandHangmanMaxFailures}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandInitialAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InitialAmount}" Width="90" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandInitialAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding InitialAmount}" Width="90" AutomationProperties.AutomationId="HangmanGameCommandEditorDetails.GameCommandInitialAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandInitialAmount}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.GameCommandHangmanAllowWordGuess}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                    <ToggleButton Grid.Column="6" IsChecked="{Binding AllowWordGuess}" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding AllowWordGuess}" AutomationProperties.AutomationId="HangmanGameCommandEditorDetails.AllowWordGuessToggle" AutomationProperties.Name="{x:Static resx:Resources.GameCommandHangmanAllowWordGuess}" />
                 </Grid>
             </GroupBox>
 
@@ -82,7 +82,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="100" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="100" AutomationProperties.AutomationId="HangmanGameCommandEditorDetails.StatusArgumentTextBox" AutomationProperties.Name="{x:Static resx:Resources.StatusArgument}" />
 
                     <CommandsControls:CommandListingButtonsControl x:Name="StatusCommand" Grid.Column="2" DataContext="{Binding StatusCommand}" HorizontalAlignment="Center" EditClicked="StatusCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
                 </Grid>
@@ -96,9 +96,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandWordScrambleCustomWordsFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CustomWordsFilePath}" Width="300" />
+            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandWordScrambleCustomWordsFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CustomWordsFilePath}" Width="300" AutomationProperties.AutomationId="HangmanGameCommandEditorDetails.GameCommandWordScrambleCustomWordsFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandWordScrambleCustomWordsFilePath}" />
 
-            <Button Grid.Column="2" Command="{Binding BrowseCustomWordsFilePathCommand}" Content="{x:Static resx:Resources.Browse}"/>
+            <Button Grid.Column="2" Command="{Binding BrowseCustomWordsFilePathCommand}" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="HangmanGameCommandEditorDetails.BrowseButton" />
         </Grid>
     </Grid>
 </local:GameCommandEditorDetailsControlBase>

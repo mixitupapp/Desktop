@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Amount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="RepeatActionEditor.AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
         </Grid>
 
         <ActionControls:SubActionContainerControl Grid.Row="2" Margin="0,20,0,0" />

@@ -89,6 +89,8 @@ namespace MixItUp.Base
         public static string OverlayLabelDefaultHTML => Load("OverlayLabelDefaultHTML.html");
         public static string OverlayLabelDefaultJavascript => Load("OverlayLabelDefaultJavascript.js");
         public static string OverlayLabelDefaultJavascriptOld => Load("OverlayLabelDefaultJavascriptOld.js");
+        public static string OverlayLabelDefaultJavascriptOld2 => Load("OverlayLabelDefaultJavascriptOld2.js");
+        public static string OverlayLabelDefaultJavascriptOld3 => Load("OverlayLabelDefaultJavascriptOld3.js");
         public static string OverlayLeaderboardDefaultCSS => Load("OverlayLeaderboardDefaultCSS.css");
         public static string OverlayLeaderboardDefaultHTML => Load("OverlayLeaderboardDefaultHTML.html");
         public static string OverlayLeaderboardDefaultJavascript => Load("OverlayLeaderboardDefaultJavascript.js");

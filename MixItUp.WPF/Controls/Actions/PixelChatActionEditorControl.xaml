@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="PixelChatActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -31,7 +31,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ComboBox Grid.Row="2" Visibility="{Binding ShowScenes, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Scenes}" SelectedItem="{Binding SelectedScene}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Scene}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+        <ComboBox Grid.Row="2" Visibility="{Binding ShowScenes, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Scenes}" SelectedItem="{Binding SelectedScene}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Scene}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="PixelChatActionEditor.SceneComboBox" AutomationProperties.Name="{x:Static resx:Resources.Scene}" />
 
         <Grid Grid.Row="4" Visibility="{Binding ShowScenes, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
@@ -42,20 +42,20 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" Visibility="{Binding ShowScenes, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding SceneComponents}" SelectedItem="{Binding SelectedSceneComponent}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneComponent}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" Visibility="{Binding ShowScenes, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding SceneComponents}" SelectedItem="{Binding SelectedSceneComponent}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SceneComponent}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="PixelChatActionEditor.SceneComponentComboBox" AutomationProperties.Name="{x:Static resx:Resources.SceneComponent}" />
             
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Visible}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="4" IsChecked="{Binding SceneComponentVisible}" VerticalAlignment="Center"/>
+            <ToggleButton Grid.Column="4" IsChecked="{Binding SceneComponentVisible}" VerticalAlignment="Center" AutomationProperties.AutomationId="PixelChatActionEditor.VisibleToggle" AutomationProperties.Name="{x:Static resx:Resources.Visible}" />
         </Grid>
 
-        <ComboBox Grid.Row="2" Visibility="{Binding ShowOverlays, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Overlays}" SelectedItem="{Binding SelectedOverlay}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Overlay}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+        <ComboBox Grid.Row="2" Visibility="{Binding ShowOverlays, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Overlays}" SelectedItem="{Binding SelectedOverlay}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Overlay}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="PixelChatActionEditor.OverlayComboBox" AutomationProperties.Name="{x:Static resx:Resources.Overlay}" />
 
         <Grid Grid.Row="4" Visibility="{Binding ShowTargetUsernameGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding TargetUsername}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding TargetUsername}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="PixelChatActionEditor.UsernameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Username}" />
         </Grid>
 
         <Grid Grid.Row="4" Visibility="{Binding ShowTimeAmountGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding TimeAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding TimeAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="PixelChatActionEditor.SecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.Seconds}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

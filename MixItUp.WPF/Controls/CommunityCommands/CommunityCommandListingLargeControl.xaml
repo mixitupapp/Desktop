@@ -46,10 +46,10 @@
                 <Image Grid.Column="2" Source="{Binding UserAvatarURL, TargetNullValue={x:Null}}" Width="20" Height="20" VerticalAlignment="Center" />
                 <TextBlock Grid.Column="4" Text="{Binding Username}" VerticalAlignment="Center" />
 
-                <Controls:MaterialSymbolIcon Grid.Column="6" IconName="star" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,1" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                <Controls:MaterialSymbolIcon Grid.Column="6" IconName="star" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Margin="0,0,0,1" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 <TextBlock Grid.Column="8" Text="{Binding AverageRating}" VerticalAlignment="Center" />
 
-                <Controls:MaterialSymbolIcon Grid.Column="10" IconName="download" FontSize="16" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                <Controls:MaterialSymbolIcon Grid.Column="10" IconName="download" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 <TextBlock Grid.Column="12" Text="{Binding DownloadsString}" VerticalAlignment="Center" />
             </Grid>
 

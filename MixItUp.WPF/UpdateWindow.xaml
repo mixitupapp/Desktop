@@ -15,14 +15,14 @@
     Height="700"
     AllowsTransparency="True"
     Background="Transparent"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     ResizeMode="NoResize"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog">
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Update.DialogHost">
             <MaterialDesign:Card
                 Padding="0"
                 MaterialDesign:ElevationAssist.Elevation="Dp16"
@@ -63,7 +63,7 @@
                                         VerticalAlignment="Center"
                                         Source="/Assets/Images/patreon-color_sm.png" />
                                     <TextBlock
-                                        FontSize="17"
+                                        FontSize="{DynamicResource MIU.FontSize.TitleMedium}"
                                         FontWeight="SemiBold"
                                         Text="Patreon"
                                         VerticalAlignment="Center" />
@@ -81,7 +81,7 @@
                                     <StackPanel>
                                         <TextBlock
                                             x:Name="PatreonLeadInTextBlock"
-                                            FontSize="11"
+                                            FontSize="{DynamicResource MIU.FontSize.LabelSmall}"
                                             Margin="0,0,0,10"
                                             Opacity="0.7"
                                             TextAlignment="Center"
@@ -106,7 +106,7 @@
                                         </Border>
                                         <TextBlock
                                             x:Name="PatreonMemberNameTextBlock"
-                                            FontSize="13"
+                                            FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                             FontWeight="SemiBold"
                                             TextAlignment="Center"
                                             TextWrapping="Wrap" />
@@ -117,7 +117,9 @@
                                             Click="PatreonSocialButton_Click"
                                             Style="{StaticResource MaterialDesignOutlinedButton}"
                                             Padding="8,4"
-                                            Visibility="Collapsed">
+                                            Visibility="Collapsed"
+                                            AutomationProperties.AutomationId="Update.PatreonSocialButton"
+                                            AutomationProperties.Name="{x:Static resx:Resources.Patreon}">
                                             <StackPanel Orientation="Horizontal">
                                                 <Image
                                                     x:Name="PatreonSocialPlatformImage"
@@ -127,7 +129,7 @@
                                                     VerticalAlignment="Center" />
                                                 <TextBlock
                                                     x:Name="PatreonSocialUsernameTextBlock"
-                                                    FontSize="11"
+                                                    FontSize="{DynamicResource MIU.FontSize.LabelSmall}"
                                                     VerticalAlignment="Center" />
                                             </StackPanel>
                                         </Button>
@@ -139,7 +141,7 @@
                                 <!--  CTA body  -->
                                 <TextBlock
                                     x:Name="PatreonCommunityTextBlock"
-                                    FontSize="12"
+                                    FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                     LineHeight="18"
                                     Margin="0,0,0,12"
                                     Opacity="0.85"
@@ -147,7 +149,7 @@
                                     TextWrapping="Wrap" />
                                 <TextBlock
                                     x:Name="PatreonCTATextBlock"
-                                    FontSize="12"
+                                    FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                     LineHeight="18"
                                     Margin="0,0,0,20"
                                     Opacity="0.85"
@@ -157,7 +159,8 @@
                                 <Button
                                     HorizontalAlignment="Center"
                                     Click="PatreonButton_Click"
-                                    Style="{StaticResource MaterialDesignRaisedButton}">
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    AutomationProperties.AutomationId="Update.SupportOnPatreonButton">
                                     Support on Patreon
                                 </Button>
 
@@ -189,9 +192,11 @@
                                 VerticalAlignment="Top"
                                 Click="CloseButton_Click"
                                 Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="{x:Static resx:Resources.Close}">
+                                ToolTip="{x:Static resx:Resources.Close}"
+                                AutomationProperties.AutomationId="Update.CloseWindowButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Close}">
                                 <Controls:MaterialSymbolIcon
-                                    IconName="close" FontSize="20" />
+                                    IconName="close" FontSize="{DynamicResource MIU.IconSize.20}" />
                             </Button>
 
                             <Grid
@@ -210,7 +215,7 @@
                                     Margin="0,0,8,0"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                    IconName="error" FontSize="20" />
+                                    IconName="error" FontSize="{DynamicResource MIU.IconSize.20}" />
                                 <TextBlock
                                     Grid.Column="1"
                                     VerticalAlignment="Center"
@@ -227,7 +232,7 @@
                                 HorizontalAlignment="Center">
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    FontSize="22"
+                                    FontSize="{DynamicResource MIU.FontSize.TitleLarge}"
                                     FontWeight="SemiBold"
                                     Text="{x:Static resx:Resources.ANewUpdateIsAvailableForMixItUp}"
                                     TextAlignment="Center"
@@ -260,7 +265,7 @@
                                     Margin="12,0"
                                     VerticalAlignment="Center"
                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                    IconName="arrow_forward" FontSize="24" />
+                                    IconName="arrow_forward" FontSize="{DynamicResource MIU.IconSize.24}" />
                                 <Border
                                     Padding="12,6"
                                     Background="{DynamicResource MaterialDesign.Brush.Primary}"
@@ -300,7 +305,7 @@
                                             Margin="0,0,8,0"
                                             VerticalAlignment="Top"
                                             Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                            IconName="warning" FontSize="20" />
+                                            IconName="warning" FontSize="{DynamicResource MIU.IconSize.20}" />
                                         <TextBlock
                                             Grid.Column="1"
                                             Text="{x:Static resx:Resources.PreviewUpdateWarning1}"
@@ -320,7 +325,7 @@
                                 BorderBrush="{DynamicResource MaterialDesignDivider}"
                                 BorderThickness="1"
                                 CornerRadius="8">
-                                <markdown:MarkdownScrollViewer x:Name="UpdateChangelogViewer" />
+                                <markdown:MarkdownScrollViewer x:Name="UpdateChangelogViewer" AutomationProperties.AutomationId="Update.ChangelogViewer" AutomationProperties.Name="{x:Static resx:Resources.Changelog}" />
                             </Border>
 
                             <StackPanel
@@ -334,7 +339,8 @@
                                     MinWidth="130"
                                     Click="DownloadUpdateButton_Click"
                                     Content="{x:Static resx:Resources.Update}"
-                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    AutomationProperties.AutomationId="Update.DownloadUpdateButton" />
                                 <Button
                                     x:Name="SkipUpdateButton"
                                     Height="40"
@@ -343,13 +349,14 @@
                                     Click="SkipUpdateButton_Click"
                                     Content="{x:Static resx:Resources.Skip}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Visibility="Collapsed" />
+                                    Visibility="Collapsed"
+                                    AutomationProperties.AutomationId="Update.SkipUpdateButton" />
                             </StackPanel>
 
                             <TextBlock
                                 Grid.Row="8"
                                 Margin="0,15,0,15"
-                                FontSize="12"
+                                FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                 Opacity="0.6"
                                 Text="{x:Static resx:Resources.IfUpdateDoesNotCompleteRestartComputer}"
                                 TextAlignment="Center"

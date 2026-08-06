@@ -28,13 +28,13 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinimumAmountForPayout}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumAmountForPayout}" MinWidth="100" />
+                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinimumAmountForPayout}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumAmountForPayout}" MinWidth="100" AutomationProperties.AutomationId="CoinPusherGameCommandEditorDetails.MinimumAmountForPayoutTextBox" AutomationProperties.Name="{x:Static resx:Resources.MinimumAmountForPayout}" />
 
-                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProbabilityPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ProbabilityPercentage}" Width="80" />
+                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProbabilityPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ProbabilityPercentage}" Width="80" AutomationProperties.AutomationId="CoinPusherGameCommandEditorDetails.ProbabilityPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProbabilityPercentage}" />
 
-                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMinimumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMinimumPercentage}" Width="80" />
+                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMinimumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMinimumPercentage}" Width="80" AutomationProperties.AutomationId="CoinPusherGameCommandEditorDetails.PayoutMinimumPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.PayoutMinimumPercentage}" />
 
-                <TextBox Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMaximumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMaximumPercentage}" Width="80" />
+                <TextBox Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMaximumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMaximumPercentage}" Width="80" AutomationProperties.AutomationId="CoinPusherGameCommandEditorDetails.PayoutMaximumPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.PayoutMaximumPercentage}" />
             </Grid>
         </GroupBox>
 
@@ -63,7 +63,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="150" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="150" AutomationProperties.AutomationId="CoinPusherGameCommandEditorDetails.StatusArgumentTextBox" AutomationProperties.Name="{x:Static resx:Resources.StatusArgument}" />
                     
                     <CommandsControls:CommandListingButtonsControl x:Name="StatusCommand" Grid.Column="2" DataContext="{Binding StatusCommand}" HorizontalAlignment="Center" EditClicked="StatusCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
                 </Grid>

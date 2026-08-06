@@ -21,9 +21,13 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         public bool IsFileType { get { return this.Type == OverlayLabelDisplayV3TypeEnum.File; } }
 
+        public bool IsDateTimeType { get { return OverlayLabelV3Model.IsDateTimeDisplay(this.Type); } }
+
         public bool ShowFormat { get { return !this.IsFileType; } }
 
-        public int GridWidth { get { return this.IsFileType ? 620 : 300; } }
+        public string FormatToolTip { get { return this.IsDateTimeType ? Resources.OverlayLabelDateTimeFormatTooltip + Environment.NewLine + Environment.NewLine + Resources.OverlayLabelDateTimeStylingTooltip : null; } }
+
+        public int GridWidth { get { return (this.IsFileType || this.IsDateTimeType) ? 620 : 300; } }
 
         public bool IsEnabled
         {
@@ -72,6 +76,19 @@ namespace MixItUp.Base.ViewModel.Overlay
         private string filePath;
         public ICommand BrowseFilePathCommand { get; private set; }
 
+        public ObservableCollection<string> TimeZones { get; set; } = new ObservableCollection<string>();
+
+        public string TimeZoneID
+        {
+            get { return this.timeZoneID; }
+            set
+            {
+                this.timeZoneID = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private string timeZoneID;
+
         public OverlayLabelDisplayV3Model Model { get; private set; }
 
         public OverlayLabelDisplayV3ViewModel(OverlayLabelDisplayV3TypeEnum type)
@@ -101,6 +118,14 @@ namespace MixItUp.Base.ViewModel.Overlay
                 case OverlayLabelDisplayV3TypeEnum.LatestVeloraCheered:
                     this.Format = OverlayLabelV3ViewModel.UsernameAmountItemTemplate;
                     break;
+
+                case OverlayLabelDisplayV3TypeEnum.Date:
+                    this.Format = OverlayLabelV3ViewModel.DateItemTemplate;
+                    break;
+
+                case OverlayLabelDisplayV3TypeEnum.Time:
+                    this.Format = OverlayLabelV3ViewModel.TimeItemTemplate;
+                    break;
             }
 
             this.Initialize();
@@ -114,6 +139,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.IsEnabled = model.IsEnabled;
             this.Format = model.Format;
             this.FilePath = model.FilePath;
+            this.TimeZoneID = model.TimeZoneID;
 
             this.Initialize();
             if (this.Type == OverlayLabelDisplayV3TypeEnum.Counter && !string.IsNullOrEmpty(this.Model.CounterName))
@@ -121,6 +147,39 @@ namespace MixItUp.Base.ViewModel.Overlay
                 this.SelectedCounter = this.Counters.FirstOrDefault(c => string.Equals(c.Name, this.Model.CounterName, StringComparison.OrdinalIgnoreCase));
             }
         }
+
+        // The overlay renders date and time in the browser, which expects IANA IDs
+        // such as "Europe/Berlin" rather than the Windows IDs .NET reports. Windows
+        // only maps to the primary city of each zone, so the combo box stays editable
+        // for anyone who wants a specific IANA name the conversion does not produce.
+        private static IEnumerable<string> GetTimeZoneIDs()
+        {
+            if (OverlayLabelDisplayV3ViewModel.timeZoneIDs == null)
+            {
+                SortedSet<string> results = new SortedSet<string>(StringComparer.OrdinalIgnoreCase);
+                try
+                {
+                    foreach (TimeZoneInfo timeZone in TimeZoneInfo.GetSystemTimeZones())
+                    {
+                        if (TimeZoneInfo.TryConvertWindowsIdToIanaId(timeZone.Id, out string ianaID))
+                        {
+                            results.Add(ianaID);
+                        }
+                        else if (timeZone.Id.Contains("/"))
+                        {
+                            results.Add(timeZone.Id);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex);
+                }
+                OverlayLabelDisplayV3ViewModel.timeZoneIDs = results;
+            }
+            return OverlayLabelDisplayV3ViewModel.timeZoneIDs;
+        }
+        private static IEnumerable<string> timeZoneIDs;
 
         public Result Validate()
         {
@@ -157,6 +216,14 @@ namespace MixItUp.Base.ViewModel.Overlay
                 }
             }
 
+            if (this.IsDateTimeType)
+            {
+                foreach (string timeZone in OverlayLabelDisplayV3ViewModel.GetTimeZoneIDs())
+                {
+                    this.TimeZones.Add(timeZone);
+                }
+            }
+
             this.BrowseFilePathCommand = this.CreateCommand(async () =>
             {
                 string filepath = ServiceManager.Get<IFileService>().ShowOpenFileDialog(ServiceManager.Get<IFileService>().TextFileFilter());
@@ -177,6 +244,8 @@ namespace MixItUp.Base.ViewModel.Overlay
         public static readonly string UsernameItemTemplate = $"{{{OverlayLabelV3Model.UsernamePropertyName}}}";
         public static readonly string AmountItemTemplate = $"{{{OverlayLabelV3Model.AmountPropertyName}}}";
         public static readonly string UsernameAmountItemTemplate = $"{{{OverlayLabelV3Model.UsernamePropertyName}}} - {{{OverlayLabelV3Model.AmountPropertyName}}}";
+        public static readonly string DateItemTemplate = "dddd, MMMM D";
+        public static readonly string TimeItemTemplate = "h:mm A";
 
         public override string DefaultHTML { get { return OverlayLabelV3Model.DefaultHTML; } }
         public override string DefaultCSS { get { return OverlayLabelV3Model.DefaultCSS; } }
@@ -211,9 +280,15 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         public ObservableCollection<OverlayLabelDisplayV3ViewModel> Displays { get; set; } = new ObservableCollection<OverlayLabelDisplayV3ViewModel>();
 
+        public OverlayAnimationV3ViewModel DisplayEntranceAnimation;
+        public OverlayAnimationV3ViewModel DisplayExitAnimation;
+
         public OverlayLabelV3ViewModel()
             : base(OverlayItemV3Type.Label)
         {
+            this.DisplayEntranceAnimation = new OverlayAnimationV3ViewModel(Resources.Entrance, new OverlayAnimationV3Model());
+            this.DisplayExitAnimation = new OverlayAnimationV3ViewModel(Resources.Exit, new OverlayAnimationV3Model());
+
             this.Initialize();
 
             this.Displays.First(d => d.Type == OverlayLabelDisplayV3TypeEnum.LatestSubscriber).IsEnabled = true;
@@ -230,6 +305,10 @@ namespace MixItUp.Base.ViewModel.Overlay
             {
                 this.Displays.Add(new OverlayLabelDisplayV3ViewModel(display.Value));
             }
+
+            this.DisplayEntranceAnimation = new OverlayAnimationV3ViewModel(Resources.Entrance, item.DisplayEntranceAnimation);
+            this.DisplayExitAnimation = new OverlayAnimationV3ViewModel(Resources.Exit, item.DisplayExitAnimation);
+
             this.Initialize();
         }
 
@@ -266,6 +345,9 @@ namespace MixItUp.Base.ViewModel.Overlay
             result.DisplaySetting = this.SelectedDisplaySetting;
             result.DisplayRotationSeconds = this.DisplayRotationSeconds;
 
+            result.DisplayEntranceAnimation = this.DisplayEntranceAnimation.GetAnimation();
+            result.DisplayExitAnimation = this.DisplayExitAnimation.GetAnimation();
+
             foreach (OverlayLabelDisplayV3ViewModel display in this.Displays)
             {
                 result.Displays[display.Type] = new OverlayLabelDisplayV3Model()
@@ -280,6 +362,8 @@ namespace MixItUp.Base.ViewModel.Overlay
                     CounterName = display.SelectedCounter?.Name ?? null,
 
                     FilePath = display.FilePath,
+
+                    TimeZoneID = display.TimeZoneID,
                 };
             }
 
@@ -288,6 +372,9 @@ namespace MixItUp.Base.ViewModel.Overlay
 
         private void Initialize()
         {
+            this.Animations.Add(this.DisplayEntranceAnimation);
+            this.Animations.Add(this.DisplayExitAnimation);
+
             foreach (OverlayLabelDisplayV3TypeEnum labelType in EnumHelper.GetEnumList<OverlayLabelDisplayV3TypeEnum>())
             {
                 if (!this.Displays.Any(d => d.Type == labelType))

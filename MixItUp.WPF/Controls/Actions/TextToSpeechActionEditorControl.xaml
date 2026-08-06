@@ -33,7 +33,7 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
-			<ComboBox Grid.Column="0" ItemsSource="{Binding ProviderTypes}" SelectedItem="{Binding SelectedProviderType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+			<ComboBox Grid.Column="0" ItemsSource="{Binding ProviderTypes}" SelectedItem="{Binding SelectedProviderType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TextToSpeechActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -44,7 +44,7 @@
 			<Grid Grid.Column="1" Visibility="{Binding UsesOverlay, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
 				<TextBlock Visibility="{Binding OverlayNotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10" Foreground="Red" Text="{x:Static resx:Resources.EnableOverlay}"/>
 
-				<ComboBox Visibility="{Binding OverlayEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEndpoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" />
+				<ComboBox Visibility="{Binding OverlayEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEndpoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" AutomationProperties.AutomationId="TextToSpeechActionEditor.OverlayEndpointsComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayEndpoints}" />
 			</Grid>
 
 			<Grid Grid.Column="1" Visibility="{Binding UsesAudioDevices, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
@@ -52,7 +52,7 @@
 
 				<TextBlock Visibility="{Binding TTSMonsterAPINotEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,10" Foreground="Red" Text="{x:Static resx:Resources.EnableTTSMonsterAPI}"/>
 
-				<ComboBox Visibility="{Binding AudioDeviceServiceConnected, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding AudioDevices}" SelectedItem="{Binding SelectedAudioDevice}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioOutputDevice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" />
+				<ComboBox Visibility="{Binding AudioDeviceServiceConnected, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding AudioDevices}" SelectedItem="{Binding SelectedAudioDevice}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AudioOutputDevice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="300" HorizontalAlignment="Right" AutomationProperties.AutomationId="TextToSpeechActionEditor.AudioOutputDeviceComboBox" AutomationProperties.Name="{x:Static resx:Resources.AudioOutputDevice}" />
 			</Grid>
 		</Grid>
 
@@ -67,7 +67,7 @@
 				<ColumnDefinition Width="115" />
 			</Grid.ColumnDefinitions>
 
-			<ComboBox Grid.Column="0" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Voice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+			<ComboBox Grid.Column="0" ItemsSource="{Binding Voices}" SelectedItem="{Binding SelectedVoice}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Voice}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="TextToSpeechActionEditor.VoiceComboBox" AutomationProperties.Name="{x:Static resx:Resources.Voice}">
 				<ComboBox.ItemsPanel>
 					<ItemsPanelTemplate>
 						<VirtualizingStackPanel />
@@ -75,14 +75,14 @@
 				</ComboBox.ItemsPanel>
 			</ComboBox>
 
-			<TextBox Grid.Column="2" Text="{Binding Volume}" IsEnabled="{Binding VolumeChangable}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Volume0to100}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+			<TextBox Grid.Column="2" Text="{Binding Volume}" IsEnabled="{Binding VolumeChangable}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Volume0to100}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TextToSpeechActionEditor.Volume0to100TextBox" AutomationProperties.Name="{x:Static resx:Resources.Volume0to100}" />
 
-			<TextBox Grid.Column="4" Text="{Binding Pitch}" IsEnabled="{Binding PitchChangable}" MaterialDesign:HintAssist.Hint="{Binding PitchHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+			<TextBox Grid.Column="4" Text="{Binding Pitch}" IsEnabled="{Binding PitchChangable}" MaterialDesign:HintAssist.Hint="{Binding PitchHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TextToSpeechActionEditor.PitchTextBox" AutomationProperties.Name="{Binding PitchHintText}" />
 
-			<TextBox Grid.Column="6" Text="{Binding Rate}" IsEnabled="{Binding RateChangable}" MaterialDesign:HintAssist.Hint="{Binding RateHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+			<TextBox Grid.Column="6" Text="{Binding Rate}" IsEnabled="{Binding RateChangable}" MaterialDesign:HintAssist.Hint="{Binding RateHintText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TextToSpeechActionEditor.RateTextBox" AutomationProperties.Name="{Binding RateHintText}" />
 		</Grid>
 
-		<TextBox Grid.Row="4" Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpeechMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+		<TextBox Grid.Row="4" Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpeechMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TextToSpeechActionEditor.SpeechMessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SpeechMessage}" />
 
 		<Grid Grid.Row="6">
 			<Grid.ColumnDefinitions>
@@ -96,10 +96,10 @@
 			</Grid.ColumnDefinitions>
 
 			<TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.SSML}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-			<ToggleButton Grid.Column="2" IsChecked="{Binding SSML}" IsEnabled="{Binding SupportsSSML}" VerticalAlignment="Center" />
+			<ToggleButton Grid.Column="2" IsChecked="{Binding SSML}" IsEnabled="{Binding SupportsSSML}" VerticalAlignment="Center" AutomationProperties.AutomationId="TextToSpeechActionEditor.SSMLToggle" AutomationProperties.Name="{x:Static resx:Resources.SSML}" />
 
 			<TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.WaitForFinish}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-			<ToggleButton Grid.Column="6" IsChecked="{Binding WaitForFinish}" VerticalAlignment="Center" />
+			<ToggleButton Grid.Column="6" IsChecked="{Binding WaitForFinish}" VerticalAlignment="Center" AutomationProperties.AutomationId="TextToSpeechActionEditor.WaitForFinishToggle" AutomationProperties.Name="{x:Static resx:Resources.WaitForFinish}" />
 		</Grid>
 
 		<Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding NoCustomAmazonPollyAccount, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Right">
@@ -116,7 +116,7 @@
 
         <Grid Grid.Row="7" Margin="0,20,0,0" Visibility="{Binding ShowRateLimitLink, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
 			<TextBlock TextWrapping="Wrap">
-				<Hyperlink Command="{Binding OpenRateLimitLinkCommand}">
+				<Hyperlink Command="{Binding OpenRateLimitLinkCommand}" AutomationProperties.AutomationId="TextToSpeechActionEditor.OpenRateLimitLink">
 					<Run Text="{x:Static resx:Resources.ViewRateLimits}" />
 				</Hyperlink>
 			</TextBlock>

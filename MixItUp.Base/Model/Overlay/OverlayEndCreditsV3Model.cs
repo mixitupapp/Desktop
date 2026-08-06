@@ -4,6 +4,7 @@ using MixItUp.Base.Model.Velora;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
+using MixItUp.Base.Services.External;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
@@ -25,6 +26,8 @@ namespace MixItUp.Base.Model.Overlay
         Followers,
         Subscribers,
         Moderators,
+        VIPs,
+        Regulars,
 
         Raids = 10,
 
@@ -34,16 +37,26 @@ namespace MixItUp.Base.Model.Overlay
         GiftedSubscriptions,
         AllSubscriptions,
 
+        FirstTimeChatters = 30,
+
+        ChannelPoints = 35,
+
         TwitchBits = 40,
         TwitchPowerUps = 41,
 
         YouTubeSuperChats = 50,
+        YouTubeJewels = 51,
 
         KickKicks = 60,
 
         VeloraCheered = 70,
 
         Donations = 200,
+
+        Streamloots = 210,
+
+        Patreon = 220,
+        PatreonMembers = 221,
 
         HTML = 900,
         CustomSection = 999,
@@ -167,6 +180,10 @@ namespace MixItUp.Base.Model.Overlay
                 items.Add(await SpecialIdentifierStringBuilder.ProcessSpecialIdentifiers(this.ItemTemplate, new CommandParametersModel()));
                 return items;
             }
+            else if (this.Type == OverlayEndCreditsSectionV3Type.PatreonMembers)
+            {
+                return await this.GetPatreonMemberItems();
+            }
             else if (this.Type == OverlayEndCreditsSectionV3Type.CustomSection)
             {
                 foreach (var item in this.customTracking.ToList())
@@ -195,6 +212,9 @@ namespace MixItUp.Base.Model.Overlay
                     case OverlayEndCreditsSectionV3Type.KickKicks:
                     case OverlayEndCreditsSectionV3Type.VeloraCheered:
                     case OverlayEndCreditsSectionV3Type.Donations:
+                    case OverlayEndCreditsSectionV3Type.ChannelPoints:
+                    case OverlayEndCreditsSectionV3Type.YouTubeJewels:
+                    case OverlayEndCreditsSectionV3Type.Streamloots:
                         text = OverlayV3Service.ReplaceProperty(text, AmountPropertyName, item.Value.ToNumberDisplayString());
                         break;
                 }
@@ -206,6 +226,49 @@ namespace MixItUp.Base.Model.Overlay
 
                 items.Add(text);
             }
+            return items.OrderBy(i => i);
+        }
+
+        // Patreon keeps its campaign roster refreshed in the background, so this section reads the
+        // current membership at roll time rather than tracking pledges that happened during the stream.
+        private async Task<IEnumerable<string>> GetPatreonMemberItems()
+        {
+            List<string> items = new List<string>();
+
+            PatreonService patreon = ServiceManager.Get<PatreonService>();
+            if (patreon == null || !patreon.IsConnected)
+            {
+                return items;
+            }
+
+            foreach (PatreonCampaignMember member in patreon.CampaignMembers.ToList())
+            {
+                if (!string.Equals(member.PatronStatus, PatreonService.ActivePatronStatus, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                string name = member.User?.PlatformUsername;
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = member.FullName;
+                }
+                if (string.IsNullOrEmpty(name))
+                {
+                    continue;
+                }
+
+                string text = OverlayV3Service.ReplaceProperty(this.ItemTemplate, UsernamePropertyName, name);
+                text = OverlayV3Service.ReplaceProperty(text, AmountPropertyName, CurrencyHelper.ToCurrencyString(member.Amount));
+
+                if (SpecialIdentifierStringBuilder.ContainsSpecialIdentifiers(text))
+                {
+                    text = await SpecialIdentifierStringBuilder.ProcessSpecialIdentifiers(text, new CommandParametersModel());
+                }
+
+                items.Add(text);
+            }
+
             return items.OrderBy(i => i);
         }
 
@@ -226,7 +289,18 @@ namespace MixItUp.Base.Model.Overlay
             OverlayEndCreditsSectionV3Type.Chatters,
             OverlayEndCreditsSectionV3Type.Followers,
             OverlayEndCreditsSectionV3Type.Subscribers,
-            OverlayEndCreditsSectionV3Type.Moderators
+            OverlayEndCreditsSectionV3Type.Moderators,
+            OverlayEndCreditsSectionV3Type.VIPs,
+            OverlayEndCreditsSectionV3Type.Regulars,
+            OverlayEndCreditsSectionV3Type.FirstTimeChatters
+        };
+
+        private static readonly HashSet<UserRoleEnum> VIPRoles = new HashSet<UserRoleEnum>()
+        {
+            UserRoleEnum.TwitchVIP,
+            UserRoleEnum.KickVIP,
+            UserRoleEnum.KickOG,
+            UserRoleEnum.VeloraVIP
         };
 
         private static readonly HashSet<OverlayEndCreditsSectionV3Type> AllSubscriberSectionTypes = new HashSet<OverlayEndCreditsSectionV3Type>()
@@ -285,6 +359,8 @@ namespace MixItUp.Base.Model.Overlay
         public override bool YouTubeMemberships { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
         [DataMember]
         public override bool YouTubeSuperChats { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.YouTubeSuperChats); } set { } }
+        [DataMember]
+        public override bool YouTubeJewels { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.YouTubeJewels); } set { } }
 
         [DataMember]
         public override bool KickSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
@@ -299,8 +375,18 @@ namespace MixItUp.Base.Model.Overlay
         [DataMember]
         public override bool Donations { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.Donations); } set { } }
 
+        [DataMember]
+        public override bool ChannelPoints { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.ChannelPoints); } set { } }
+        [DataMember]
+        public override bool Streamloots { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.Streamloots); } set { } }
+        [DataMember]
+        public override bool Patreon { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.Patreon); } set { } }
+
         [JsonIgnore]
         public string AnimationIterations { get { return this.RunEndlessly ? "Infinity" : "1"; } }
+
+        [JsonIgnore]
+        public override bool IsResettable { get { return true; } }
 
         [JsonIgnore]
         public override bool JQuery { get { return true; } }
@@ -375,6 +461,30 @@ namespace MixItUp.Base.Model.Overlay
                 if (section.Type == OverlayEndCreditsSectionV3Type.Moderators)
                 {
                     if (message.User.HasRole(UserRoleEnum.Moderator))
+                    {
+                        section.Track(message.User);
+                    }
+                }
+
+                if (section.Type == OverlayEndCreditsSectionV3Type.VIPs)
+                {
+                    if (OverlayEndCreditsV3Model.VIPRoles.Any(r => message.User.HasRole(r)))
+                    {
+                        section.Track(message.User);
+                    }
+                }
+
+                if (section.Type == OverlayEndCreditsSectionV3Type.Regulars)
+                {
+                    if (message.User.HasRole(UserRoleEnum.Regular))
+                    {
+                        section.Track(message.User);
+                    }
+                }
+
+                if (section.Type == OverlayEndCreditsSectionV3Type.FirstTimeChatters)
+                {
+                    if (message.User.TotalChatMessageSent == 1)
                     {
                         section.Track(message.User);
                     }
@@ -543,6 +653,58 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     case OverlayEndCreditsSectionV3Type.VeloraCheered:
                         section.Track(cheered.User, cheered.Amount);
+                        break;
+                }
+            }
+        }
+
+        public override void OnYouTubeJewelsGift(object sender, YouTubeJewelsGiftViewModel jewelsGift)
+        {
+            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
+            {
+                switch (section.Type)
+                {
+                    case OverlayEndCreditsSectionV3Type.YouTubeJewels:
+                        section.Track(jewelsGift.User, jewelsGift.JewelsAmount);
+                        break;
+                }
+            }
+        }
+
+        public override void OnChannelPointsRedeemed(object sender, Tuple<UserV2ViewModel, int> redemption)
+        {
+            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
+            {
+                switch (section.Type)
+                {
+                    case OverlayEndCreditsSectionV3Type.ChannelPoints:
+                        section.Track(redemption.Item1, redemption.Item2);
+                        break;
+                }
+            }
+        }
+
+        public override void OnStreamloots(object sender, Tuple<UserV2ViewModel, int> purchase)
+        {
+            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
+            {
+                switch (section.Type)
+                {
+                    case OverlayEndCreditsSectionV3Type.Streamloots:
+                        section.Track(purchase.Item1, purchase.Item2);
+                        break;
+                }
+            }
+        }
+
+        public override void OnPatreonSubscribed(object sender, UserV2ViewModel user)
+        {
+            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
+            {
+                switch (section.Type)
+                {
+                    case OverlayEndCreditsSectionV3Type.Patreon:
+                        section.Track(user);
                         break;
                 }
             }

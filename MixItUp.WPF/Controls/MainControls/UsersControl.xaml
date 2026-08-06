@@ -12,8 +12,8 @@
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     d:DesignHeight="700"
     d:DesignWidth="600"
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <local:MainControlBase.Resources>
@@ -54,7 +54,9 @@
                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Platform}"
                 ItemsSource="{Binding Platforms}"
                 SelectedItem="{Binding SelectedPlatform}"
-                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                AutomationProperties.AutomationId="Users.PlatformComboBox"
+                AutomationProperties.Name="{x:Static resx:Resources.Platform}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -63,12 +65,14 @@
             </ComboBox>
 
             <TextBox
-                x:Name="UsernameFilterTextBox"
+                x:Name="UsersUsernameFilterTextBox"
                 Grid.Column="2"
                 Width="150"
                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                TextChanged="UsernameFilterTextBox_TextChanged" />
+                TextChanged="UsernameFilterTextBox_TextChanged"
+                AutomationProperties.AutomationId="Users.UsernameFilterTextBox"
+                AutomationProperties.Name="{x:Static resx:Resources.Username}" />
 
             <Border Grid.Column="4" Style="{StaticResource DefaultBorder}" />
 
@@ -79,7 +83,9 @@
                 MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilterType}"
                 ItemsSource="{Binding SearchFilterTypes}"
                 SelectedItem="{Binding SelectedSearchFilterType}"
-                Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                AutomationProperties.AutomationId="Users.FilterTypeComboBox"
+                AutomationProperties.Name="{x:Static resx:Resources.FilterType}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -94,7 +100,9 @@
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserRole}"
                     ItemsSource="{Binding UserRoleSearchFilters}"
                     SelectedItem="{Binding SelectedUserRoleSearchFilter}"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    AutomationProperties.AutomationId="Users.UserRoleFilterComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.UserRole}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -114,14 +122,18 @@
                     Grid.Column="0"
                     Margin="0,15,0,0"
                     ItemsSource="{Binding WatchTimeComparisonSearchFilters}"
-                    SelectedItem="{Binding SelectedWatchTimeComparisonSearchFilter}" />
+                    SelectedItem="{Binding SelectedWatchTimeComparisonSearchFilter}"
+                    AutomationProperties.AutomationId="Users.WatchTimeComparisonComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.WatchTime}" />
 
                 <TextBox
                     Grid.Column="2"
                     Width="100"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Minutes}"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding WatchTimeAmountSearchFilter}" />
+                    Text="{Binding WatchTimeAmountSearchFilter}"
+                    AutomationProperties.AutomationId="Users.WatchTimeAmountTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Minutes}" />
             </Grid>
 
             <Grid Grid.Column="8" Visibility="{Binding IsConsumablesSearchFilterType, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -142,7 +154,9 @@
                     DisplayMemberPath="Name"
                     ItemsSource="{Binding ConsumablesSearchFilters}"
                     SelectedItem="{Binding SelectedConsumablesSearchFilter}"
-                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                    AutomationProperties.AutomationId="Users.ConsumableComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Consumables}" />
                 <ComboBox
                     Grid.Column="1"
                     Width="100"
@@ -152,20 +166,26 @@
                     ItemsSource="{Binding ConsumablesItemsSearchFilters}"
                     SelectedItem="{Binding SelectedConsumablesItemsSearchFilter}"
                     Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                    Visibility="{Binding IsConsumablesSearchFilterInventory, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding IsConsumablesSearchFilterInventory, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    AutomationProperties.AutomationId="Users.ConsumableItemComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Item}" />
 
                 <ComboBox
                     Grid.Column="3"
                     Margin="0,15,0,0"
                     ItemsSource="{Binding ConsumablesComparisonSearchFilters}"
-                    SelectedItem="{Binding SelectedConsumablesComparisonSearchFilter}" />
+                    SelectedItem="{Binding SelectedConsumablesComparisonSearchFilter}"
+                    AutomationProperties.AutomationId="Users.ConsumableComparisonComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
 
                 <TextBox
                     Grid.Column="5"
                     Width="70"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding ConsumablesAmountSearchFilter}" />
+                    Text="{Binding ConsumablesAmountSearchFilter}"
+                    AutomationProperties.AutomationId="Users.ConsumableAmountTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
             </Grid>
 
             <Grid Grid.Column="8" Visibility="{Binding IsLastSeenSearchFilterType, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -179,14 +199,18 @@
                     Grid.Column="0"
                     Margin="0,15,0,0"
                     ItemsSource="{Binding LastSeenComparisonSearchFilters}"
-                    SelectedItem="{Binding SelectedLastSeenComparisonSearchFilter}" />
+                    SelectedItem="{Binding SelectedLastSeenComparisonSearchFilter}"
+                    AutomationProperties.AutomationId="Users.LastSeenComparisonComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.LastSeen}" />
 
                 <TextBox
                     Grid.Column="2"
                     Width="100"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeDays}"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                    Text="{Binding LastSeenAmountSearchFilter}" />
+                    Text="{Binding LastSeenAmountSearchFilter}"
+                    AutomationProperties.AutomationId="Users.LastSeenAmountTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.TimeDays}" />
             </Grid>
 
             <Controls:IconButton
@@ -196,7 +220,9 @@
                 VerticalAlignment="Center"
                 Click="FilterUsersButton_Click"
                 Icon="search"
-                ToolTip="{x:Static resx:Resources.Filter}" />
+                ToolTip="{x:Static resx:Resources.Filter}"
+                AutomationProperties.AutomationId="Users.FilterUsersButton"
+                AutomationProperties.Name="{x:Static resx:Resources.Filter}" />
         </Grid>
 
         <Grid Grid.Row="2" Margin="10,0">
@@ -209,7 +235,9 @@
                     EnableRowVirtualization="True"
                     ItemsSource="{Binding Users}"
                     Sorted="UserDataGridView_Sorted"
-                    Style="{StaticResource StandardDataGrid}">
+                    Style="{StaticResource StandardDataGrid}"
+                    AutomationProperties.AutomationId="Users.UsersDataGrid"
+                    AutomationProperties.Name="{x:Static resx:Resources.Users}">
                     <Controls:SortedDataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"
@@ -233,7 +261,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="key" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="key" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -244,7 +272,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="schedule" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="schedule" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -255,7 +283,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="payments" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="payments" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -266,7 +294,7 @@
                             <DataGridTextColumn.Header>
                                 <Grid Margin="0,0,0,0" HorizontalAlignment="Center">
                                     <Controls:MaterialSymbolIcon
-                                        IconName="local_police" FontSize="24" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                                        IconName="local_police" FontSize="{DynamicResource MIU.IconSize.24}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                                 </Grid>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
@@ -286,7 +314,9 @@
                                             HorizontalAlignment="Center"
                                             Click="UserEditButton_Click"
                                             Icon="rate_review"
-                                            ToolTip="{x:Static resx:Resources.Edit}" />
+                                            ToolTip="{x:Static resx:Resources.Edit}"
+                                            AutomationProperties.AutomationId="UserRow.EditButton"
+                                            AutomationProperties.Name="{Binding Username, StringFormat={x:Static resx:Resources.EditCommandFormat}}" />
 
                                         <Controls:IconButton
                                             x:Name="UserDeleteButton"
@@ -294,7 +324,9 @@
                                             HorizontalAlignment="Center"
                                             Click="UserDeleteButton_Click"
                                             Icon="delete"
-                                            ToolTip="{x:Static resx:Resources.Delete}" />
+                                            ToolTip="{x:Static resx:Resources.Delete}"
+                                            AutomationProperties.AutomationId="UserRow.DeleteButton"
+                                            AutomationProperties.Name="{Binding Username, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -340,20 +372,23 @@
                 Grid.Column="0"
                 MinWidth="120"
                 Click="ImportUserDataButton_Click"
-                Content="{x:Static resx:Resources.ImportData}" />
+                Content="{x:Static resx:Resources.ImportData}"
+                AutomationProperties.AutomationId="Users.ImportUserDataButton" />
 
             <Button
                 Grid.Column="2"
                 MinWidth="120"
                 Command="{Binding ExportDataCommand}"
-                Content="{x:Static resx:Resources.ExportData}" />
+                Content="{x:Static resx:Resources.ExportData}"
+                AutomationProperties.AutomationId="Users.ExportUserDataButton" />
 
             <Button
                 x:Name="AddUserDataButton"
                 Grid.Column="4"
                 MinWidth="120"
                 Click="AddUserDataButton_Click"
-                Content="{x:Static resx:Resources.AddUser}" />
+                Content="{x:Static resx:Resources.AddUser}"
+                AutomationProperties.AutomationId="Users.AddUserButton" />
         </Grid>
     </Grid>
 </local:MainControlBase>

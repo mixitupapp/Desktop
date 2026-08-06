@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1306,6 +1306,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>Max. Wert</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP-Server</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Für lokales Netzwerk öffnen (muss als Administrator ausgeführt werden):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Serveradresse:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>Der MCP-Server ermöglicht es KI-Agenten, die auf Ihrem Computer ausgeführt werden, über das Model Context Protocol mit Mix It Up zu interagieren. Richten Sie einen Client wie Claude Code auf die unten angegebene Serveradresse. Weitere Informationen hierzu finden Sie auf der MCP-Server-Wiki-Seite.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>WARNUNG: Jeder mit diesem Server verbundene Agent kann Ihre Konfiguration lesen und in Ihrem Namen Befehle ausführen, einschließlich des Sendens von Chatnachrichten. Aktivieren Sie dies nur, solange Sie aktiv mit einem Agenten arbeiten, dem Sie vertrauen.</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -3076,6 +3096,10 @@
   </data>
   <data name="Platform" xml:space="preserve">
     <value>Plattform</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Plattform-Nachricht</value>
     <comment>Manual</comment>
   </data>
   <data name="Tier" xml:space="preserve">
@@ -10301,6 +10325,9 @@ print(run())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Alle Zeit</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Abo-Serie</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Es muss ein gültiges Verbrauchsmaterial ausgewählt werden</value>
   </data>
@@ -10796,6 +10823,23 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Es muss ein Dateipfad angegeben werden</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Benutzerdefinierter Text</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Zeitzone</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Platzhalter: YYYY YY (Jahr), MMMM MMM MM M (Monat), DD D (Tag), dddd ddd (Wochentag), HH H (24-Stunden), hh h (12-Stunden), mm m (Minute), ss s (Sekunde), A a (AM/PM). Setze wörtlichen Text in eckige Klammern, damit dessen Buchstaben unverändert bleiben, zum Beispiel: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Jeder dargestellte Teil steht in einem eigenen span, der nach seinem Platzhalter benannt ist, damit er im CSS-Bereich einzeln gestaltet werden kann: .time-A für AM/PM, .date-MMMM für den Monatsnamen und so weiter, mit der Groß- und Kleinschreibung des Platzhalters, also ist .date-MM der Monat und .time-mm die Minute.
+Eine ganze Gruppe erfasst [class^="date-"] oder [class^="time-"].
+Beispiel: .time-A { font-size: 50% }</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Leer lassen, um die Zeitzone des Computers zu verwenden, auf dem das Overlay läuft. Zonen sind unter ihrer Hauptstadt aufgeführt, daher deckt Europe/Berlin auch Amsterdam und Rom ab. Du kannst auch direkt einen beliebigen IANA-Zeitzonennamen eingeben, zum Beispiel Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Profilname</value>
   </data>
@@ -11003,7 +11047,7 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
     <value>Checkkästchen</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Taufbecken</value>
+    <value>Schriftart</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>FEHLER: Amazon Polly TTS kann nicht durchgeführt werden, da eine Premium-Stimme ohne verbundenes AWS-Konto ausgewählt ist</value>
@@ -11130,6 +11174,24 @@ Wir haben festgestellt, dass Sie mehr als einen Overlay-Endpunkt erstellt haben,
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Wenn die Authentifizierung für den Dienst nicht gestartet werden kann, stellen Sie bitte sicher, dass bei einem anderen Dienst kein aktiver Authentifizierungsprozess läuft.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Port {0} bereits von einem anderen Programm verwendet wird. Bitte schließen Sie alle anderen Programme, die diesen Port verwenden könnten, einschließlich einer zweiten Instanz von Mix It Up, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Windows den Port {0} blockiert. Dies wird normalerweise durch einen von Hyper-V, WSL oder Docker reservierten Portbereich verursacht. Bitte besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up konnte Ihren Webbrowser nicht öffnen, um die Anmeldung abzuschließen. Kopieren Sie die untenstehende Adresse, fügen Sie sie in Ihren Browser ein und schließen Sie die Anmeldung dort ab. Dieses Fenster wartet weiterhin auf Sie.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Die Anmeldung wurde nicht rechtzeitig abgeschlossen und wurde abgebrochen. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Die Anmeldung konnte nicht abgeschlossen werden. Einzelheiten finden Sie im Ordner Logs in Ihrem Mix It Up-Installationsverzeichnis, oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up hat Ihre Anmeldung erhalten, konnte sie aber nicht gegen ein Zugriffstoken eintauschen. Bitte versuchen Sie es erneut oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Gewinn</value>
@@ -12003,5 +12065,175 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="HasTitle" xml:space="preserve">
     <value>Hat Titel</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI-Schriftart</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Gesamtschriftgröße (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Schriftgröße des Chatfensters (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Manche Schriftarten passen nicht in alle Steuerelemente, und größere Werte können abgeschnitten werden.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Support-Modus</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Zeigt die App vorübergehend mit Standarddesign, -schriftart und -textgröße an, ohne Ihre gespeicherten Einstellungen zu ändern. Zum Zurückkehren einfach ausschalten.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Design- und Schrifteinstellungen zurücksetzen</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Auf Standard zurücksetzen</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Dadurch werden Farbschema, Hintergrund, Vordergrund, vollständiges Design, UI-Schriftart, Gesamtschriftgröße und Chatfenster-Schriftgröße auf die Standardwerte zurückgesetzt. Sind Sie sicher?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube ist eine PNGtuber-App, die während des Sprechens zwischen Standbildern Ihres Charakters wechselt. Nach dem Verbinden können Ihre Befehle den Avatar-Zustand ändern, und ein Zustandswechsel kann einen Befehl auslösen. Mix It Up findet veadotube von selbst, es muss also nichts eingegeben werden.</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>Aktivieren Sie den WebSocket-Server in den Programmeinstellungen von veadotube, bevor Sie sich verbinden. Die Adresse ändert sich bei jedem Start von veadotube, weshalb Mix It Up sie für Sie ausliest.</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>Die Push-to-Talk-Aktion erfordert, dass „use websocket“ unter Push-to-Talk in den Mikrofoneinstellungen von veadotube aktiviert ist. Entfernen Sie außerdem alle Push-to-Talk-Tastenkürzel, da ein Tastenkürzel alles überschreibt, was Mix It Up sendet.</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>Diese Version von veadotube ist älter als 2.1. Das Umschalten von Avatar-Zuständen und alle Push-to-Talk-Aktionen bleiben ohne Wirkung, bis Sie aktualisieren.</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up konnte keine laufende Instanz von veadotube finden. Öffnen Sie veadotube, aktivieren Sie den WebSocket-Server in den Programmeinstellungen und versuchen Sie es erneut.</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>Verbindung zu veadotube fehlgeschlagen. Stellen Sie sicher, dass es läuft und sein WebSocket-Server aktiviert ist.</value>
+  </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up konnte unter {0} keine Verbindung zu veadotube herstellen. Stellen Sie sicher, dass veadotube läuft und der WebSocket-Server in den Programmeinstellungen aktiviert ist. Wenn Sie unten eine Adresse eingetragen haben, löschen Sie diese und versuchen Sie es erneut, damit Mix It Up veadotube selbst finden kann.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Die eingegebene Adresse ist keine gültige Adresse mit Port. Verwenden Sie die Adresse, die veadotube neben „serving at“ anzeigt, zum Beispiel 127.0.0.1:2424, oder leeren Sie das Feld, damit Mix It Up veadotube selbst finden kann.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Verbunden mit {0} unter {1}</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube ist nicht verbunden</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>Adresse (Optional)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>Push-to-Talk</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>Es muss ein Avatar-Zustand ausgewählt werden</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>Avatar-Zustand geändert</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>Push-to-Talk geändert</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand festlegen</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand hinzufügen</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand entfernen</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand umschalten</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>Zufälligen Avatar-Zustand festlegen</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>Push-to-Talk festlegen</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Stream gestartet</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Stream gestoppt</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Aufnahme gestartet</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Aufnahme gestoppt</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Szene geändert</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Szenenübergang gestartet</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Szenenübergang beendet</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Sichtbarkeit des Filters geändert</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Sichtbarkeit der Quelle geändert</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Wiedergabepuffer gespeichert</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Benutzer-Suche</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Benutzername oder ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Benutzer-Suche-Aktion: Fehlender Benutzername oder ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Shorts-Längenbegrenzung (Sekunden)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Videos mit dieser Länge oder kürzer zählen als Shorts. Längere zählen als normales Video.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIPs</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Stammzuschauer</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Erstchatter</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube Jewels</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon-Mitgliederliste</value>
   </data>
 </root>

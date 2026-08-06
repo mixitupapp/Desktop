@@ -33,9 +33,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding MinimumSecondsToShowString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinSecondsToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" />
+            <TextBox Grid.Column="0" Text="{Binding MinimumSecondsToShowString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinSecondsToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" AutomationProperties.AutomationId="OverlayTimerTrainItem.MinSecondsToShowTextBox" AutomationProperties.Name="{x:Static resx:Resources.MinSecondsToShow}" />
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding ColorNames}" Text="{Binding Color}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding ColorNames}" Text="{Binding Color}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextColor}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="130" AutomationProperties.AutomationId="OverlayTimerTrainItem.TextColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.TextColor}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -43,9 +43,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Column="4" x:Name="TextFontComboBox" Text="{Binding Font}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" />
+            <ComboBox Grid.Column="4" x:Name="OverlayTimerTrainItemTextFontComboBox" Text="{Binding Font}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextFont}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" Width="150" AutomationProperties.AutomationId="OverlayTimerTrainItem.TextFontComboBox" AutomationProperties.Name="{x:Static resx:Resources.TextFont}" />
 
-            <ComboBox Grid.Column="6" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding SizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextSize}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" />
+            <ComboBox Grid.Column="6" ItemsSource="{Binding SampleFontSizesStrings}" Text="{Binding SizeString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TextSize}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" IsEditable="True" AutomationProperties.AutomationId="OverlayTimerTrainItem.TextSizeComboBox" AutomationProperties.Name="{x:Static resx:Resources.TextSize}" />
         </Grid>
 
         <Grid Grid.Row="2" HorizontalAlignment="Center">
@@ -63,19 +63,19 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding FollowBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FollowBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" />
+            <TextBox Grid.Column="0" Text="{Binding FollowBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FollowBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" AutomationProperties.AutomationId="OverlayTimerTrainItem.FollowBonusTextBox" AutomationProperties.Name="{x:Static resx:Resources.FollowBonus}" />
 
-            <TextBox Grid.Column="2" Text="{Binding HostBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HostBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" />
+            <TextBox Grid.Column="2" Text="{Binding HostBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HostBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" AutomationProperties.AutomationId="OverlayTimerTrainItem.HostBonusTextBox" AutomationProperties.Name="{x:Static resx:Resources.HostBonus}" />
 
-            <TextBox Grid.Column="4" Text="{Binding RaidBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HostBonusPerUser}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="105" />
+            <TextBox Grid.Column="4" Text="{Binding RaidBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HostBonusPerUser}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="105" AutomationProperties.AutomationId="OverlayTimerTrainItem.HostBonusPerUserTextBox" AutomationProperties.Name="{x:Static resx:Resources.HostBonusPerUser}" />
 
-            <TextBox Grid.Column="6" Text="{Binding SubBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" />
+            <TextBox Grid.Column="6" Text="{Binding SubBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" AutomationProperties.AutomationId="OverlayTimerTrainItem.SubBonusTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubBonus}" />
 
-            <TextBox Grid.Column="8" Text="{Binding DonationBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DonationBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" />
+            <TextBox Grid.Column="8" Text="{Binding DonationBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DonationBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" AutomationProperties.AutomationId="OverlayTimerTrainItem.DonationBonusTextBox" AutomationProperties.Name="{x:Static resx:Resources.DonationBonus}" />
 
-            <TextBox Grid.Column="10" Text="{Binding BitsBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BitsBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" />
+            <TextBox Grid.Column="10" Text="{Binding BitsBonusString}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BitsBonus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" AutomationProperties.AutomationId="OverlayTimerTrainItem.BitsBonusTextBox" AutomationProperties.Name="{x:Static resx:Resources.BitsBonus}" />
         </Grid>
 
-        <TextBox Grid.Row="4" Text="{Binding HTML}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="700" Height="150" VerticalAlignment="Top" />
+        <TextBox Grid.Row="4" Text="{Binding HTML}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HTMLStyle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" Width="700" Height="150" VerticalAlignment="Top" AutomationProperties.AutomationId="OverlayTimerTrainItem.HTMLStyleTextBox" AutomationProperties.Name="{x:Static resx:Resources.HTMLStyle}" />
     </Grid>
 </local:OverlayItemControl>

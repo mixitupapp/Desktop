@@ -35,9 +35,9 @@
                 <ColumnDefinition Width="180" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding FontSize}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGameQueueV3.FontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+            <ComboBox Text="{Binding FontName}" Grid.Column="2" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayGameQueueV3.FontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -45,9 +45,9 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
 
-            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="4" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayGameQueueV3.FontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
 
-            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" />
+            <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="6" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayGameQueueV3.ShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -65,27 +65,27 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                <ListBoxItem IsSelected="{Binding Bold}">
-                    <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+            <ListBox Grid.Column="0" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayGameQueueV3.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayGameQueueV3.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
+                    <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Italics}">
-                    <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayGameQueueV3.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
+                    <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
-                <ListBoxItem IsSelected="{Binding Underline}">
-                    <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayGameQueueV3.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
+                    <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                 </ListBoxItem>
             </ListBox>
 
-            <Controls:ColorPickerTextBox Grid.Column="2" ColorText="{Binding BorderColor}" HintText="{x:Static resx:Resources.BorderColor}" />
+            <Controls:ColorPickerTextBox Grid.Column="2" ColorText="{Binding BorderColor}" HintText="{x:Static resx:Resources.BorderColor}" AutomationProperties.AutomationId="OverlayGameQueueV3.BorderColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BorderColor}" />
 
-            <Controls:ColorPickerTextBox Grid.Column="4" ColorText="{Binding BackgroundColor}" HintText="{x:Static resx:Resources.BackgroundColor}" />
+            <Controls:ColorPickerTextBox Grid.Column="4" ColorText="{Binding BackgroundColor}" HintText="{x:Static resx:Resources.BackgroundColor}" AutomationProperties.AutomationId="OverlayGameQueueV3.BackgroundColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.BackgroundColor}" />
 
-            <TextBox Grid.Column="6" Text="{Binding TotalToShow}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="6" Text="{Binding TotalToShow}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TotalToShow}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGameQueueV3.TotalToShowTextBox" AutomationProperties.Name="{x:Static resx:Resources.TotalToShow}" />
 
-            <TextBox Grid.Column="8" Text="{Binding Width}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="8" Text="{Binding Width}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGameQueueV3.ItemWidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemWidth}" />
 
-            <TextBox Grid.Column="10" Text="{Binding Height}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="10" Text="{Binding Height}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayGameQueueV3.ItemHeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemHeight}" />
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>

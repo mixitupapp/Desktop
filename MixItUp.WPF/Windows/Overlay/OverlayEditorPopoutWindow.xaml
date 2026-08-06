@@ -9,9 +9,9 @@
     Title="{x:Static resx:Resources.CodeEditor}"
     Width="1000"
     Height="700"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium">
     <Window.Resources>
         <Style x:Key="PopoutSearchPanelButtonStyle" TargetType="{x:Type Button}" BasedOn="{x:Null}">
@@ -63,9 +63,9 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
             <TextBlock Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" Text="Word Wrap" />
-            <ToggleButton x:Name="WordWrapToggleButton" Margin="0,0,16,0" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Wrap long lines visually" Checked="WordWrapToggleButton_Checked" Unchecked="WordWrapToggleButton_Unchecked" />
+            <ToggleButton x:Name="WordWrapToggleButton" Margin="0,0,16,0" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Wrap long lines visually" Checked="WordWrapToggleButton_Checked" Unchecked="WordWrapToggleButton_Unchecked" AutomationProperties.AutomationId="OverlayEditorPopout.WordWrapToggle" AutomationProperties.Name="{x:Static resx:Resources.WordWrap}" />
             <TextBlock Margin="0,0,8,0" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" Text="Show Whitespace" />
-            <ToggleButton x:Name="WhitespaceToggleButton" Margin="0,0,16,0" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Show spaces, tabs, and line endings" Checked="WhitespaceToggleButton_Checked" Unchecked="WhitespaceToggleButton_Unchecked" />
+            <ToggleButton x:Name="WhitespaceToggleButton" Margin="0,0,16,0" Style="{StaticResource MaterialDesignSwitchToggleButton}" ToolTip="Show spaces, tabs, and line endings" Checked="WhitespaceToggleButton_Checked" Unchecked="WhitespaceToggleButton_Unchecked" AutomationProperties.AutomationId="OverlayEditorPopout.ShowWhitespaceToggle" AutomationProperties.Name="{x:Static resx:Resources.ShowWhitespace}" />
             <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" Text="Search: CTRL+F" />
         </StackPanel>
 
@@ -73,9 +73,10 @@
             Grid.Row="2"
             SnapsToDevicePixels="True"
             Style="{StaticResource MaterialDesignFilledTabControl}"
-            TabStripPlacement="Top">
+            TabStripPlacement="Top"
+            AutomationProperties.AutomationId="OverlayEditorPopout.EditorTabs">
 
-            <TabItem Header="{Binding HTMLHeader}">
+            <TabItem Header="{Binding HTMLHeader}" AutomationProperties.AutomationId="OverlayEditorPopout.HtmlTab">
                 <Border Style="{StaticResource DefaultBorder}">
                     <avalonEdit:TextEditor
                         x:Name="HtmlEditor"
@@ -84,11 +85,13 @@
                         ShowLineNumbers="True"
                         FontFamily="Consolas"
                         Background="{DynamicResource MaterialDesignPaper}"
-                        Foreground="{DynamicResource MaterialDesignBody}" />
+                        Foreground="{DynamicResource MaterialDesignBody}"
+                        AutomationProperties.AutomationId="OverlayEditorPopout.HtmlEditor"
+                        AutomationProperties.Name="{x:Static resx:Resources.OverlayHtml}" />
                 </Border>
             </TabItem>
 
-            <TabItem Header="{Binding CSSHeader}">
+            <TabItem Header="{Binding CSSHeader}" AutomationProperties.AutomationId="OverlayEditorPopout.CssTab">
                 <Border Style="{StaticResource DefaultBorder}">
                     <avalonEdit:TextEditor
                         x:Name="CssEditor"
@@ -97,11 +100,13 @@
                         ShowLineNumbers="True"
                         FontFamily="Consolas"
                         Background="{DynamicResource MaterialDesignPaper}"
-                        Foreground="{DynamicResource MaterialDesignBody}" />
+                        Foreground="{DynamicResource MaterialDesignBody}"
+                        AutomationProperties.AutomationId="OverlayEditorPopout.CssEditor"
+                        AutomationProperties.Name="{x:Static resx:Resources.OverlayCss}" />
                 </Border>
             </TabItem>
 
-            <TabItem Header="{Binding JavascriptHeader}">
+            <TabItem Header="{Binding JavascriptHeader}" AutomationProperties.AutomationId="OverlayEditorPopout.JavascriptTab">
                 <Border Style="{StaticResource DefaultBorder}">
                     <avalonEdit:TextEditor
                         x:Name="JavascriptEditor"
@@ -110,7 +115,9 @@
                         ShowLineNumbers="True"
                         FontFamily="Consolas"
                         Background="{DynamicResource MaterialDesignPaper}"
-                        Foreground="{DynamicResource MaterialDesignBody}" />
+                        Foreground="{DynamicResource MaterialDesignBody}"
+                        AutomationProperties.AutomationId="OverlayEditorPopout.JavascriptEditor"
+                        AutomationProperties.Name="{x:Static resx:Resources.OverlayJavascript}" />
                 </Border>
             </TabItem>
 

@@ -18,11 +18,11 @@
 
     <Grid Margin="10">
         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-            <ItemsControl ItemsSource="{Binding EventCommandGroups}" HorizontalAlignment="Stretch">
+            <ItemsControl ItemsSource="{Binding EventCommandGroups}" HorizontalAlignment="Stretch" AutomationProperties.AutomationId="Events.EventGroupsList" AutomationProperties.Name="{x:Static resx:Resources.Events}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
-                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}">
+                            <Expander VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" AutomationProperties.AutomationId="EventGroup.Expander">
                                 <Expander.Header>
                                     <Grid Background="Transparent">
                                         <Grid.ColumnDefinitions>
@@ -31,13 +31,13 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <Image Grid.Column="0" Source="{Binding BrandId, Converter={StaticResource BrandImageConverter}, ConverterParameter=Mono|OnPrimary, TargetNullValue={x:Null}}" Visibility="{Binding ShowBrandImage, Converter={StaticResource BooleanToVisibilityConverter}}" Height="24" Width="24" VerticalAlignment="Center" />
-                                        <Controls:MaterialSymbolIcon Grid.Column="0" IconName="{Binding IconName}" Visibility="{Binding ShowIcon, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="24" Height="24" Width="24" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+                                        <Controls:MaterialSymbolIcon Grid.Column="0" IconName="{Binding IconName}" Visibility="{Binding ShowIcon, Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="{DynamicResource MIU.IconSize.24}" Height="24" Width="24" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
 
                                         <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                                     </Grid>
                                 </Expander.Header>
 
-                                <DataGrid ItemsSource="{Binding Commands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel">
+                                <DataGrid ItemsSource="{Binding Commands}" Style="{StaticResource StandardDataGrid}" CellStyle="{StaticResource StandardDataGridCell}" PreviewMouseWheel="DataGrid_PreviewMouseWheel" AutomationProperties.AutomationId="EventGroup.CommandsDataGrid" AutomationProperties.Name="{x:Static resx:Resources.Commands}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="{x:Static resx:Resources.Service}" Binding="{Binding Service}" IsReadOnly="True" Width="200" />
                                         <DataGridTextColumn Header="{x:Static resx:Resources.Name}" Binding="{Binding Name}" IsReadOnly="True" Width="*" />
@@ -46,7 +46,7 @@
                                                 <DataTemplate>
                                                     <Grid HorizontalAlignment="Center">
                                                         <Grid Visibility="{Binding IsNewCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                            <Button x:Name="NewEventCommandButton" Click="NewEventCommandButton_Click" Content="{x:Static resx:Resources.AddCommand}"/>
+                                                            <Button x:Name="EventsNewEventCommandButton" Click="NewEventCommandButton_Click" Content="{x:Static resx:Resources.AddCommand}" AutomationProperties.AutomationId="EventCommandRow.AddCommandButton" />
                                                         </Grid>
                                                         <Grid Visibility="{Binding IsExistingCommand, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                             <CommandsControls:CommandListingButtonsControl x:Name="CommandButtons" EditClicked="CommandButtons_EditClicked" DeleteClicked="CommandButtons_DeleteClicked" />

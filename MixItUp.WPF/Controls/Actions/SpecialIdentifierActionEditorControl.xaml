@@ -29,9 +29,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding SpecialIdentifierName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding SpecialIdentifierName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="SpecialIdentifierActionEditor.SpecialIdentifierHintTextBox" AutomationProperties.Name="{x:Static resx:Resources.SpecialIdentifierHint}" />
 
-            <TextBox Grid.Column="2" Text="{Binding ReplacementText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding ReplacementText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="SpecialIdentifierActionEditor.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.Value}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -51,13 +51,13 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.MakeGloballyUsable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="3" IsChecked="{Binding MakeGloballyUsable}" />
+            <ToggleButton Grid.Column="3" IsChecked="{Binding MakeGloballyUsable}" AutomationProperties.AutomationId="SpecialIdentifierActionEditor.MakeGloballyUsableToggle" AutomationProperties.Name="{x:Static resx:Resources.MakeGloballyUsable}" />
 
             <TextBlock Grid.Column="5" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.IsMathExpression}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="7" IsChecked="{Binding ShouldProcessMath}" />
+            <ToggleButton Grid.Column="7" IsChecked="{Binding ShouldProcessMath}" AutomationProperties.AutomationId="SpecialIdentifierActionEditor.IsMathExpressionToggle" AutomationProperties.Name="{x:Static resx:Resources.IsMathExpression}" />
 
             <TextBlock Grid.Column="9" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ReplaceSpecialIdentifiersInFunctions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="11" IsChecked="{Binding ReplaceSpecialIdentifiersInFunctions}" />
+            <ToggleButton Grid.Column="11" IsChecked="{Binding ReplaceSpecialIdentifiersInFunctions}" AutomationProperties.AutomationId="SpecialIdentifierActionEditor.ReplaceInFunctionsToggle" AutomationProperties.Name="{x:Static resx:Resources.ReplaceSpecialIdentifiersInFunctions}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

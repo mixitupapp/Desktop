@@ -31,11 +31,11 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding FilePath}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgramFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            <Button Grid.Column="2" x:Name="ProgramFileBrowseButton" Click="ProgramFileBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+            <TextBox Grid.Column="0" Text="{Binding FilePath}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgramFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="ExternalProgramActionEditor.ProgramFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgramFilePath}" />
+            <Button Grid.Column="2" x:Name="ProgramFileBrowseButton" Click="ProgramFileBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="ExternalProgramActionEditor.ProgramFileBrowseButton" />
         </Grid>
 
-        <TextBox Grid.Row="2" Text="{Binding Arguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgramArguments}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        <TextBox Grid.Row="2" Text="{Binding Arguments}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProgramArguments}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="ExternalProgramActionEditor.ProgramArgumentsTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProgramArguments}" />
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
@@ -55,17 +55,17 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowWindow}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="1" IsChecked="{Binding ShowWindow}" VerticalAlignment="Center" />
+            <CheckBox Grid.Column="1" IsChecked="{Binding ShowWindow}" VerticalAlignment="Center" AutomationProperties.AutomationId="ExternalProgramActionEditor.ShowWindowCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ShowWindow}" />
 
             <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShellExecute}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="4" IsChecked="{Binding ShellExecute}" VerticalAlignment="Center" />
+            <CheckBox Grid.Column="4" IsChecked="{Binding ShellExecute}" VerticalAlignment="Center" AutomationProperties.AutomationId="ExternalProgramActionEditor.ShellExecuteCheckBox" AutomationProperties.Name="{x:Static resx:Resources.ShellExecute}" />
 
             <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.WaitUntilComplete}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="7" IsChecked="{Binding WaitForFinish}" VerticalAlignment="Center" />
+            <CheckBox Grid.Column="7" IsChecked="{Binding WaitForFinish}" VerticalAlignment="Center" AutomationProperties.AutomationId="ExternalProgramActionEditor.WaitUntilCompleteCheckBox" AutomationProperties.Name="{x:Static resx:Resources.WaitUntilComplete}" />
 
             <TextBlock Grid.Column="9" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.SaveOutput}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="10" IsChecked="{Binding SaveOutput}" IsEnabled="{Binding WaitForFinish}" VerticalAlignment="Center" />
-            <TextBox Grid.Column="12" VerticalAlignment="Center" Text="$externalprogramresult" Style="{StaticResource TextBoxReadOnlySelectable}" />
+            <CheckBox Grid.Column="10" IsChecked="{Binding SaveOutput}" IsEnabled="{Binding WaitForFinish}" VerticalAlignment="Center" AutomationProperties.AutomationId="ExternalProgramActionEditor.SaveOutputCheckBox" AutomationProperties.Name="{x:Static resx:Resources.SaveOutput}" />
+            <TextBox Grid.Column="12" VerticalAlignment="Center" Text="$externalprogramresult" Style="{StaticResource TextBoxReadOnlySelectable}" AutomationProperties.AutomationId="ExternalProgramActionEditor.SaveOutputTextBox" AutomationProperties.Name="{x:Static resx:Resources.SaveOutput}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

@@ -36,10 +36,10 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Targeted}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                    <ToggleButton Grid.Column="2" IsChecked="{Binding UserSelectionTargeted}" />
+                    <ToggleButton Grid.Column="2" IsChecked="{Binding UserSelectionTargeted}" AutomationProperties.AutomationId="StealGameCommandEditorDetails.TargetedToggle" AutomationProperties.Name="{x:Static resx:Resources.Targeted}" />
 
                     <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.Random}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" Margin="0,0,0,3" />
-                    <ToggleButton Grid.Column="6" IsChecked="{Binding UserSelectionRandom}" />
+                    <ToggleButton Grid.Column="6" IsChecked="{Binding UserSelectionRandom}" AutomationProperties.AutomationId="StealGameCommandEditorDetails.RandomToggle" AutomationProperties.Name="{x:Static resx:Resources.Random}" />
 
                 </Grid>
             </GroupBox>
@@ -54,11 +54,11 @@
                         <ColumnDefinition Width="80" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserChance}" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserChance}" AutomationProperties.AutomationId="StealGameCommandEditorDetails.UserChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserChancePercentage}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubChance}" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubChance}" AutomationProperties.AutomationId="StealGameCommandEditorDetails.SubChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubChancePercentage}" />
 
-                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModChance}" />
+                    <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModChance}" AutomationProperties.AutomationId="StealGameCommandEditorDetails.ModChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModChancePercentage}" />
                 </Grid>
             </GroupBox>
         </Grid>

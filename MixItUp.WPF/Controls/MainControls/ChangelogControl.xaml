@@ -13,11 +13,11 @@
                           
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
+             TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
                           
              d:DesignHeight="700" d:DesignWidth="600">
     <Grid Margin="10">
-    <markdown:MarkdownScrollViewer x:Name="ChangelogViewer" />
+    <markdown:MarkdownScrollViewer x:Name="ChangelogViewer" AutomationProperties.AutomationId="Changelog.ChangelogViewer" AutomationProperties.Name="{x:Static resx:Resources.Changelog}" />
     </Grid>
 </local:MainControlBase>

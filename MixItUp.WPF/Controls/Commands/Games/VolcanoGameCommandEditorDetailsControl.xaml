@@ -31,7 +31,7 @@
 
             <GroupBox Grid.Column="0" Header="{x:Static resx:Resources.StatusInformation}">
                 <Grid Margin="5">
-                    <TextBox MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="150" VerticalAlignment="Center" />
+                    <TextBox MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StatusArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding StatusArgument}" Width="150" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.StatusArgumentTextBox" AutomationProperties.Name="{x:Static resx:Resources.StatusArgument}" />
                 </Grid>
             </GroupBox>
 
@@ -64,7 +64,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandVolcanoMinimumAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Stage2MinimumAmount}" Width="150" VerticalAlignment="Center" />
+                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandVolcanoMinimumAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Stage2MinimumAmount}" Width="150" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.Stage2MinimumAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandVolcanoMinimumAmount}" />
 
                 <GroupBox Grid.Column="2" Header="{x:Static resx:Resources.GameCommandVolcanoDeposit}">
                     <CommandsControls:CommandListingButtonsControl x:Name="Stage2DepositCommand" DataContext="{Binding Stage2DepositCommand}" HorizontalAlignment="Center" EditClicked="Stage2DepositCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
@@ -86,7 +86,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandVolcanoMinimumAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Stage3MinimumAmount}" Width="150" VerticalAlignment="Center" />
+                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandVolcanoMinimumAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Stage3MinimumAmount}" Width="150" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.Stage3MinimumAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandVolcanoMinimumAmount}" />
 
                 <GroupBox Grid.Column="2" Header="{x:Static resx:Resources.GameCommandVolcanoDeposit}">
                     <CommandsControls:CommandListingButtonsControl x:Name="Stage3DepositCommand" DataContext="{Binding Stage3DepositCommand}" HorizontalAlignment="Center" EditClicked="Stage3DepositCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
@@ -110,11 +110,11 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProbabilityPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutProbability}" Width="80" VerticalAlignment="Center" />
+                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ProbabilityPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutProbability}" Width="80" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.ProbabilityPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ProbabilityPercentage}" />
 
-                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMinimumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMinimumPercentage}" Width="80" VerticalAlignment="Center" />
+                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMinimumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMinimumPercentage}" Width="80" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.PayoutMinimumPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.PayoutMinimumPercentage}" />
 
-                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMaximumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMaximumPercentage}" Width="80" VerticalAlignment="Center" />
+                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMaximumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding PayoutMaximumPercentage}" Width="80" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.PayoutMaximumPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.PayoutMaximumPercentage}" />
 
                 <GroupBox Grid.Column="6" Header="{x:Static resx:Resources.GameCommandPayout}">
                     <CommandsControls:CommandListingButtonsControl x:Name="PayoutCommand" DataContext="{Binding PayoutCommand}" HorizontalAlignment="Center" EditClicked="PayoutCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />
@@ -136,13 +136,13 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandVolcanoCollectArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectArgument}" Width="80" VerticalAlignment="Center" />
+                <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandVolcanoCollectArgument}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectArgument}" Width="80" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.CollectArgumentTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandVolcanoCollectArgument}" />
 
-                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectTimeLimit}" Width="80" VerticalAlignment="Center" />
+                <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectTimeLimit}" Width="80" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
 
-                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMinimumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectMinimumPercentage}" Width="80" VerticalAlignment="Center" />
+                <TextBox Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMinimumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectMinimumPercentage}" Width="80" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.CollectPayoutMinimumPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.PayoutMinimumPercentage}" />
 
-                <TextBox Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMaximumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectMaximumPercentage}" Width="80" VerticalAlignment="Center" />
+                <TextBox Grid.Column="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PayoutMaximumPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CollectMaximumPercentage}" Width="80" VerticalAlignment="Center" AutomationProperties.AutomationId="VolcanoGameCommandEditorDetails.CollectPayoutMaximumPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.PayoutMaximumPercentage}" />
 
                 <GroupBox Grid.Column="8" Header="{x:Static resx:Resources.GameCommandVolcanoCollect}">
                     <CommandsControls:CommandListingButtonsControl x:Name="CollectCommand" DataContext="{Binding CollectCommand}" HorizontalAlignment="Center" EditClicked="CollectCommand_EditClicked" HideDeleteButton="True" HideEnableDisableToggle="True" />

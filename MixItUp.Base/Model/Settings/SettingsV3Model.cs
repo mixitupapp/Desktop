@@ -168,8 +168,14 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public bool SaveChatEventLogs { get; set; }
 
+        /// <summary>
+        /// Chat message font size, in device-independent pixels. Named so the theme reset resolves
+        /// to the same value this property is initialised with.
+        /// </summary>
+        public const int DefaultChatFontSize = 13;
+
         [DataMember]
-        public int ChatFontSize { get; set; } = 13;
+        public int ChatFontSize { get; set; } = DefaultChatFontSize;
         [DataMember]
         public bool AddSeparatorsBetweenMessages { get; set; }
         [DataMember]
@@ -241,6 +247,11 @@ namespace MixItUp.Base.Model.Settings
         public int MassGiftedSubsFilterAmount { get; set; } = 1;
         [DataMember]
         public bool UserEntranceCommandsOnlyWhenLive { get; set; } = false;
+
+        // YouTube gives us no way to ask whether an upload is a Short, so length is the dividing line.
+        // Anything at or under this is treated as a Short, anything longer as a regular video.
+        [DataMember]
+        public int YouTubeShortsVideoLengthCap { get; set; } = 180;
 
         [DataMember]
         public RequirementErrorCooldownTypeEnum RequirementErrorsCooldownType { get; set; } = RequirementErrorCooldownTypeEnum.Default;
@@ -575,6 +586,11 @@ namespace MixItUp.Base.Model.Settings
         public bool EnableDeveloperAPIAdvancedMode { get; set; }
 
         [DataMember]
+        public bool EnableMCPServer { get; set; }
+        [DataMember]
+        public bool EnableMCPServerAdvancedMode { get; set; }
+
+        [DataMember]
         public string TiltifyCampaignV5 { get; set; }
         [DataMember]
         public bool TiltifyCampaignV5IsTeam { get; set; }
@@ -609,6 +625,14 @@ namespace MixItUp.Base.Model.Settings
 
         [DataMember]
         public string VTubeStudioIPAddress { get; set; } = VTubeStudioService.DefaultIPAddress;
+
+        [DataMember]
+        public bool VeadotubeEnabled { get; set; }
+
+        // Empty in the normal case. veadotube's address is read from its instance file, so there is
+        // nothing to type unless the user is pointing at another machine, where no local file exists.
+        [DataMember]
+        public string VeadotubeManualAddress { get; set; }
 
         [DataMember]
         public int TITSPortNumber { get; set; } = TITSService.DefaultPortNumber;

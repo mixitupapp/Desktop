@@ -7,13 +7,17 @@ using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.External;
 using MixItUp.Base.Services.Twitch.New;
+using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using YouTubeChannel = Google.Apis.YouTube.v3.Data.Channel;
+using YouTubeVideo = Google.Apis.YouTube.v3.Data.Video;
 
 namespace MixItUp.WPF.Controls.MainControls
 {
@@ -683,6 +687,164 @@ namespace MixItUp.WPF.Controls.MainControls
             };
 
             await ServiceManager.Get<PallyService>().ProcessCampaignTip(payload);
+        }
+
+        private async void YouTubeLatestVideoLookup_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            this.YouTubeLookupResults.Text = "Looking up...";
+            try
+            {
+                YouTubeSession session = ServiceManager.Get<YouTubeSession>();
+                if (session == null || !session.IsConnected)
+                {
+                    this.YouTubeLookupResults.Text = "YouTube is not connected. The lookup runs against the connected account's API credentials.";
+                    return;
+                }
+
+                string input = this.YouTubeChannelInput.Text?.Trim();
+                if (string.IsNullOrEmpty(input))
+                {
+                    this.YouTubeLookupResults.Text = "Enter a channel URL, @handle or channel ID.";
+                    return;
+                }
+
+                YouTubeChannel channel = await this.ResolveYouTubeChannel(session, input);
+                if (channel == null)
+                {
+                    this.YouTubeLookupResults.Text = $"Could not resolve a channel from \"{input}\".";
+                    return;
+                }
+
+                int cap = ChannelSession.Settings.YouTubeShortsVideoLengthCap;
+                TimeSpan capLength = TimeSpan.FromSeconds(cap);
+                List<YouTubeVideo> uploads = new List<YouTubeVideo>(await session.GetChannelUploads(channel.Id));
+
+                YouTubeVideo latestVideo = uploads.FirstOrDefault(v => IsLongerThan(v, capLength, longer: true));
+                YouTubeVideo latestShort = uploads.FirstOrDefault(v => IsLongerThan(v, capLength, longer: false));
+
+                StringBuilder results = new StringBuilder();
+                results.AppendLine($"Channel:  {channel.Snippet?.Title}");
+                results.AppendLine($"ID:       {channel.Id}");
+                results.AppendLine($"Cap:      {cap} seconds");
+                results.AppendLine($"Uploads:  {uploads.Count} after broadcasts and stream VODs were dropped");
+                results.AppendLine();
+
+                results.AppendLine("$youtubelatestvideourl");
+                AppendLookupResult(results, latestVideo, "https://www.youtube.com/watch?v=");
+                results.AppendLine();
+                results.AppendLine("$youtubelatestshorturl");
+                AppendLookupResult(results, latestShort, "https://www.youtube.com/shorts/");
+                results.AppendLine();
+
+                results.AppendLine("Most recent uploads, newest first:");
+                foreach (YouTubeVideo video in uploads.Take(25))
+                {
+                    TimeSpan? length = YouTubeSession.GetVideoLength(video);
+                    string kind = length == null ? "?????" : (length.Value <= capLength ? "SHORT" : "VIDEO");
+                    results.AppendLine($"  {kind}  {FormatLength(length),8}  {video.Id}  {video.Snippet?.Title}");
+                }
+
+                this.YouTubeLookupResults.Text = results.ToString();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+                this.YouTubeLookupResults.Text = ex.ToString();
+            }
+        }
+
+        private static bool IsLongerThan(YouTubeVideo video, TimeSpan cap, bool longer)
+        {
+            TimeSpan? length = YouTubeSession.GetVideoLength(video);
+            return length != null && (length.Value > cap) == longer;
+        }
+
+        private static void AppendLookupResult(StringBuilder results, YouTubeVideo video, string urlPrefix)
+        {
+            if (video == null)
+            {
+                results.AppendLine("  no match, the identifier would be left unresolved");
+                return;
+            }
+
+            results.AppendLine($"  {video.Snippet?.Title}");
+            results.AppendLine($"  {urlPrefix}{video.Id}");
+            results.AppendLine($"  length {FormatLength(YouTubeSession.GetVideoLength(video))}");
+        }
+
+        private static string FormatLength(TimeSpan? length)
+        {
+            if (length == null)
+            {
+                return "unknown";
+            }
+            return $"{(int)length.Value.TotalMinutes}:{length.Value.Seconds:D2}";
+        }
+
+        private async Task<YouTubeChannel> ResolveYouTubeChannel(YouTubeSession session, string input)
+        {
+            string value = input;
+
+            // Share links carry a ?si= tracking parameter, so strip the query before parsing.
+            int queryIndex = value.IndexOf('?');
+            if (queryIndex >= 0)
+            {
+                value = value.Substring(0, queryIndex);
+            }
+            value = value.TrimEnd('/');
+
+            string channelID = ExtractSegmentAfter(value, "/channel/");
+            if (!string.IsNullOrEmpty(channelID))
+            {
+                return await session.StreamerService.GetChannelByID(channelID);
+            }
+
+            string username = ExtractSegmentAfter(value, "/user/");
+            if (!string.IsNullOrEmpty(username))
+            {
+                return await session.StreamerService.GetChannelByUsername(username);
+            }
+
+            // Legacy /c/ vanity URLs are sometimes a handle and sometimes an old username.
+            string custom = ExtractSegmentAfter(value, "/c/");
+            if (!string.IsNullOrEmpty(custom))
+            {
+                YouTubeChannel channel = await session.StreamerService.GetChannelByHandle(custom);
+                return channel ?? await session.StreamerService.GetChannelByUsername(custom);
+            }
+
+            string handle = ExtractSegmentAfter(value, "/@");
+            if (string.IsNullOrEmpty(handle) && value.StartsWith("@"))
+            {
+                handle = value.Substring(1);
+            }
+            if (!string.IsNullOrEmpty(handle))
+            {
+                return await session.StreamerService.GetChannelByHandle(handle);
+            }
+
+            if (value.StartsWith("UC", StringComparison.Ordinal))
+            {
+                YouTubeChannel channel = await session.StreamerService.GetChannelByID(value);
+                if (channel != null)
+                {
+                    return channel;
+                }
+            }
+            return await session.StreamerService.GetChannelByHandle(value);
+        }
+
+        private static string ExtractSegmentAfter(string value, string marker)
+        {
+            int index = value.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
+            if (index < 0)
+            {
+                return null;
+            }
+
+            string remainder = value.Substring(index + marker.Length);
+            int slashIndex = remainder.IndexOf('/');
+            return slashIndex >= 0 ? remainder.Substring(0, slashIndex) : remainder;
         }
     }
 }

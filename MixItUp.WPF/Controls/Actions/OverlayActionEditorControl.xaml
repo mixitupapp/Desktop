@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" x:Name="ActionTypeComboBox" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ActionTypeComboBox_SelectionChanged">
+            <ComboBox Grid.Column="0" x:Name="OverlayActionEditorActionTypeComboBox" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ActionTypeComboBox_SelectionChanged" AutomationProperties.AutomationId="OverlayActionEditor.ActionTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -50,9 +50,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEndpoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayEndpoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.OverlayEndpointsComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayEndpoints}" />
 
-                <TextBox Grid.Column="2" Text="{Binding Duration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding Duration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayActionEditor.DurationSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.DurationSeconds}" />
             </Grid>
         </Grid>
 
@@ -60,17 +60,18 @@
             <Border Style="{StaticResource DefaultBorder}">
                     <TabControl SnapsToDevicePixels="True"
                         Style="{StaticResource MaterialDesignFilledTabControl}"
-                        TabStripPlacement="Top">
+                        TabStripPlacement="Top"
+                        AutomationProperties.AutomationId="OverlayActionEditor.EnableOverlayTabs">
 
-                        <TabItem Header="{x:Static resx:Resources.Details}" HorizontalAlignment="Stretch">
+                        <TabItem Header="{x:Static resx:Resources.Details}" HorizontalAlignment="Stretch" AutomationProperties.AutomationId="OverlayActionEditor.DetailsTab">
                             <ContentControl x:Name="InnerContent" Margin="10" />
                         </TabItem>
 
-                        <TabItem Header="{x:Static resx:Resources.Position}" HorizontalContentAlignment="Stretch" IsEnabled="{Binding SupportsStandardActionPositioning}">
+                        <TabItem Header="{x:Static resx:Resources.Position}" HorizontalContentAlignment="Stretch" IsEnabled="{Binding SupportsStandardActionPositioning}" AutomationProperties.AutomationId="OverlayActionEditor.PositionTab">
                             <OverlayControls:OverlayPositionV3Control x:Name="Position" DataContext="{Binding Position}" Margin="10" />
                         </TabItem>
 
-                        <TabItem Header="{x:Static resx:Resources.Animation}" IsEnabled="{Binding SupportsStandardActionAnimations}">
+                        <TabItem Header="{x:Static resx:Resources.Animation}" IsEnabled="{Binding SupportsStandardActionAnimations}" AutomationProperties.AutomationId="OverlayActionEditor.AnimationTab">
                             <Grid Margin="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -83,15 +84,15 @@
                                     <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning1}"/>
                                     <TextBlock Foreground="Red" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWarning2}"/>
                                     <TextBlock HorizontalAlignment="Center">
-                    <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
+                    <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="OverlayActionEditor.OverlayWarning2Link">
                                             <TextBlock Text="{x:Static resx:Resources.OverlayWarning3}"/>
                     </Hyperlink>
                 </TextBlock>
                                 </StackPanel>
 
-                                <Button Grid.Row="1" Content="{x:Static resx:Resources.AddAnimation}" Command="{Binding AddCustomAnimationCommand}" HorizontalAlignment="Center" />
+                                <Button Grid.Row="1" Content="{x:Static resx:Resources.AddAnimation}" Command="{Binding AddCustomAnimationCommand}" HorizontalAlignment="Center" AutomationProperties.AutomationId="OverlayActionEditor.AddAnimationButton" />
 
-                                <ItemsControl Grid.Row="3" ItemsSource="{Binding Animations}">
+                                <ItemsControl Grid.Row="3" ItemsSource="{Binding Animations}" AutomationProperties.AutomationId="OverlayActionEditor.CustomAnimationsList" AutomationProperties.Name="{x:Static resx:Resources.Animation}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <OverlayControls:OverlayAnimationV3Control />
@@ -101,53 +102,59 @@
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{Binding HTMLHeader}">
+                        <TabItem Header="{Binding HTMLHeader}" AutomationProperties.AutomationId="OverlayActionEditor.HtmlTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding HTML}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding HTML}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayActionEditor.HtmlEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayHtml}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}"
+                                        AutomationProperties.AutomationId="OverlayActionEditor.HtmlPopoutButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.PopoutEditor}">
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{Binding CSSHeader}">
+                        <TabItem Header="{Binding CSSHeader}" AutomationProperties.AutomationId="OverlayActionEditor.CssTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding CSS}" Util:AvalonEditCustomHighlighting.Language="CSS" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding CSS}" Util:AvalonEditCustomHighlighting.Language="CSS" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayActionEditor.CssEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayCss}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}"
+                                        AutomationProperties.AutomationId="OverlayActionEditor.CssPopoutButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.PopoutEditor}">
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{Binding JavascriptHeader}">
+                        <TabItem Header="{Binding JavascriptHeader}" AutomationProperties.AutomationId="OverlayActionEditor.JavascriptTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding Javascript}" Util:AvalonEditCustomHighlighting.Language="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Util:AvalonEditBehaviour.Text="{Binding Javascript}" Util:AvalonEditCustomHighlighting.Language="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Height="250" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayActionEditor.JavascriptEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayJavascript}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}"
+                                        AutomationProperties.AutomationId="OverlayActionEditor.JavascriptPopoutButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.PopoutEditor}">
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -164,10 +171,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Widgets}" SelectedItem="{Binding SelectedWidget}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Widgets}" SelectedItem="{Binding SelectedWidget}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.WidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="4" IsChecked="{Binding EnableDisableWidgetValue}" />
+            <ToggleButton Grid.Column="4" IsChecked="{Binding EnableDisableWidgetValue}" AutomationProperties.AutomationId="OverlayActionEditor.EnableToggle" AutomationProperties.Name="{x:Static resx:Resources.Enable}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowDamageStreamBoss, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -181,12 +188,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding StreamBosses}" SelectedItem="{Binding SelectedStreamBoss}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding StreamBosses}" SelectedItem="{Binding SelectedStreamBoss}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.DamageStreamBossWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
-            <TextBox Grid.Column="2" Text="{Binding StreamBossDamageAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DamageAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding StreamBossDamageAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DamageAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayActionEditor.DamageAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.DamageAmount}" />
 
             <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ForceDamage}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="6" IsChecked="{Binding StreamBossForceDamage}" />
+            <ToggleButton Grid.Column="6" IsChecked="{Binding StreamBossForceDamage}" AutomationProperties.AutomationId="OverlayActionEditor.ForceDamageToggle" AutomationProperties.Name="{x:Static resx:Resources.ForceDamage}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowAddGoal, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -196,9 +203,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Goals}" SelectedItem="{Binding SelectedGoal}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Goals}" SelectedItem="{Binding SelectedGoal}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.AddToGoalWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
-            <TextBox Grid.Column="2" Text="{Binding GoalAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding GoalAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayActionEditor.AddToGoalAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowAddPersistTimer, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -208,9 +215,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding PersistentTimers}" SelectedItem="{Binding SelectedPersistentTimer}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding PersistentTimers}" SelectedItem="{Binding SelectedPersistentTimer}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.AddToPersistentTimerWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
-            <TextBox Grid.Column="2" Text="{Binding TimeAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding TimeAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayActionEditor.AddToPersistentTimerAmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowPauseUnpausePersistentTimer, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -222,10 +229,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding PersistentTimers}" SelectedItem="{Binding SelectedPersistentTimer}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding PersistentTimers}" SelectedItem="{Binding SelectedPersistentTimer}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.PausePersistentTimerWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Pause}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <ToggleButton Grid.Column="4" IsChecked="{Binding PauseUnpausePersistentTimer}" />
+            <ToggleButton Grid.Column="4" IsChecked="{Binding PauseUnpausePersistentTimer}" AutomationProperties.AutomationId="OverlayActionEditor.PauseToggle" AutomationProperties.Name="{x:Static resx:Resources.Pause}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowAddToEndCredits, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -237,11 +244,11 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" ItemsSource="{Binding EndCredits}" SelectedItem="{Binding SelectedEndCredits}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Row="0" ItemsSource="{Binding EndCredits}" SelectedItem="{Binding SelectedEndCredits}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.AddToEndCreditsWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
-            <ComboBox Grid.Row="2" ItemsSource="{Binding EndCreditsSections}" SelectedItem="{Binding SelectedEndCreditsSection}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Sections}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Row="2" ItemsSource="{Binding EndCreditsSections}" SelectedItem="{Binding SelectedEndCreditsSection}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Sections}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.SectionsComboBox" AutomationProperties.Name="{x:Static resx:Resources.Sections}" />
 
-            <TextBox Grid.Row="4" Text="{Binding EndCreditsItemText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="4" Text="{Binding EndCreditsItemText}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Text}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayActionEditor.TextTextBox" AutomationProperties.Name="{x:Static resx:Resources.Text}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowPlayEndCredits, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -249,7 +256,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" ItemsSource="{Binding EndCredits}" SelectedItem="{Binding SelectedEndCredits}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Row="0" ItemsSource="{Binding EndCredits}" SelectedItem="{Binding SelectedEndCredits}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.PlayEndCreditsWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowAddToEventList, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -259,9 +266,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding EventLists}" SelectedItem="{Binding SelectedEventList}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding EventLists}" SelectedItem="{Binding SelectedEventList}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.AddToEventListWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
-            <TextBox Grid.Column="2" Text="{Binding EventListDetails}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Details}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding EventListDetails}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Details}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayActionEditor.DetailsTextBox" AutomationProperties.Name="{x:Static resx:Resources.Details}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowSpinWheel, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -269,7 +276,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" ItemsSource="{Binding Wheels}" SelectedItem="{Binding SelectedWheel}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Row="0" ItemsSource="{Binding Wheels}" SelectedItem="{Binding SelectedWheel}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.SpinWheelWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding ShowRunWidgetFunction, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -288,14 +295,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding Widgets}" SelectedItem="{Binding SelectedWidget}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Widgets}" SelectedItem="{Binding SelectedWidget}" DisplayMemberPath="Name" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.OverlayWidgets}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayActionEditor.RunFunctionWidgetComboBox" AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}" />
 
-                <TextBox Grid.Column="2" Text="{Binding RunWidgetFunctionName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FunctionName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding RunWidgetFunctionName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FunctionName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayActionEditor.FunctionNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.FunctionName}" />
             </Grid>
 
-            <Button Grid.Row="2" Content="{x:Static resx:Resources.AddParameter}" Command="{Binding AddRunWidgetFunctionParameterCommand}" />
+            <Button Grid.Row="2" Content="{x:Static resx:Resources.AddParameter}" Command="{Binding AddRunWidgetFunctionParameterCommand}" AutomationProperties.AutomationId="OverlayActionEditor.AddParameterButton" />
 
-            <ItemsControl Grid.Row="4" ItemsSource="{Binding RunWidgetFunctionParameters}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch">
+            <ItemsControl Grid.Row="4" ItemsSource="{Binding RunWidgetFunctionParameters}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" AutomationProperties.AutomationId="OverlayActionEditor.RunFunctionParametersList" AutomationProperties.Name="{x:Static resx:Resources.Parameters}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,5">
@@ -307,11 +314,11 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Text="{Binding Name}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Text="{Binding Name}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="FunctionParameter.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                            <TextBox Text="{Binding Value}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Text="{Binding Value}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="FunctionParameter.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.Value}" />
 
-                            <Controls:IconButton Grid.Column="4" Icon="delete" Command="{Binding DeleteCommand}" />
+                            <Controls:IconButton Grid.Column="4" Icon="delete" Command="{Binding DeleteCommand}" AutomationProperties.AutomationId="FunctionParameter.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

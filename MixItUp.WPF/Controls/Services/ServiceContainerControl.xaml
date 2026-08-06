@@ -28,12 +28,12 @@
                 <!--  Kept at/below the header text's line height so the icon never drives the minimized header's height  -->
                 <Grid x:Name="BrandIconContainer" Grid.Column="0" Width="16" Height="16" Margin="0,0,8,0" VerticalAlignment="Center" Visibility="Collapsed">
                     <Image x:Name="BrandImage" Visibility="Collapsed" />
-                    <Controls:MaterialSymbolIcon x:Name="FeatureIcon" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Visibility="Collapsed" />
+                    <Controls:MaterialSymbolIcon x:Name="FeatureIcon" FontSize="{DynamicResource MIU.IconSize.16}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Visibility="Collapsed" />
                 </Grid>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Name}" />
                 <Rectangle Grid.Column="2" Fill="{DynamicResource MaterialDesign.Brush.Primary}" />
-                <Controls:MaterialSymbolIcon Grid.Column="3" IconName="check_circle" FontSize="16" VerticalAlignment="Center" Foreground="White" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <Controls:IconButton Grid.Column="5" Style="{StaticResource GroupBoxHeaderIconButton}" Command="{Binding HelpCommand}" Icon="help" ToolTip="{x:Static resx:Resources.Help}" />
+                <Controls:MaterialSymbolIcon Grid.Column="3" IconName="check_circle" FontSize="{DynamicResource MIU.IconSize.16}" VerticalAlignment="Center" Foreground="White" Visibility="{Binding IsConnected, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Controls:IconButton Grid.Column="5" Style="{StaticResource GroupBoxHeaderIconButton}" Command="{Binding HelpCommand}" Icon="help" ToolTip="{x:Static resx:Resources.Help}" AutomationProperties.AutomationId="ServiceContainer.HelpButton" AutomationProperties.Name="{x:Static resx:Resources.Help}" />
             </Grid>
         </GroupBox.Header>
         <ContentControl x:Name="InnerContentControl" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />

@@ -1,6 +1,90 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.100
+
+Release Date: 2026-08-05
+
+### FEATURES
+
+- Add OBS Studio events, fired by OBS itself rather than by anything Mix It Up sends it:
+  - Stream Started, Stream Stopped, Recording Started, Recording Stopped ($obsrecordingfilepath), Replay Buffer Saved ($obsreplayfilepath)
+  - Scene Changed ($obsscenename, $obspreviousscenename)
+  - Scene Transition Started and Scene Transition Ended ($obstransitionname)
+  - Source Visibility Changed ($obsscenename, $obssourcename, $obssourcevisible)
+  - Filter Visibility Changed ($obssourcename, $obsfiltername, $obsfiltervisible)
+- Add Platform Message action for sending chat to one specific platform, with its own Send As Streamer option. The Chat Message action still sends everywhere at once
+- Add User Lookup action for finding a viewer on a chosen platform by username or ID, filling $lookupusername, $lookupdisplayname, $lookupid, $lookupavatarurl, and $lookupsuccess for the actions after it
+  - Someone Mix It Up has no record of is looked up on the platform itself, limited to once a minute
+- Add End Credits sections for VIPs, Regulars, First-Time Chatters, Channel Points, YouTube Jewels, Streamloots, Patreon, and Patreon Members List
+  - Channel Points covers Twitch, Kick, and Velora at once, totalling what each viewer spent
+  - Patreon lists memberships started while the credits were tracking. Patreon Members List ignores tracking and lists your active members as they stand when the credits roll
+- End Credits widgets now have the Reset button the other tracking widgets have
+- Add a Platforms page to Settings, starting with YouTube's Shorts Video Length Cap. Uploads at or under it count as Shorts, anything longer as regular videos (default 180 seconds)
+- Add a filter box to the Counters settings page, and the list now scrolls instead of running off the bottom
+- Add $userlastseenprecise for a viewer's last activity down to the second, in a form the date and time actions can read back in. Works on every user prefix ($targetuserlastseenprecise, $arg1userlastseenprecise, and so on)
+- Add veadotube integration for PNGtuber avatars, detected automatically while veadotube is running with its WebSocket server turned on:
+  - Set Avatar State, Push Avatar State, Pop Avatar State, Toggle Avatar State, and Set Random Avatar State actions
+  - Set Push-To-Talk action with On, Off, and Toggle options
+  - Add Avatar State Changed event ($veadotubestateid, $veadotubestatename, $veadotubepreviousstateid, $veadotubepreviousstatename)
+  - Add Push-To-Talk Changed event ($veadotubepushtotalk)
+  - Optional address field for pointing at a copy of veadotube running on another computer
+- Add MCP Server service with initial toolset mirroring Dev API v2
+- Date and Time labels now wrap each rendered part in its own span, so pieces can be styled on their own from the widget's CSS section (.date-MMMM for the month name, .time-A for the AM/PM, and so on, with [class^="date-"] or [class^="time-"] covering a whole group)
+- Add top subscriber leaderboards ranked by cumulative months subbed: $top10subscribers for the list, $topsubscriberamount for the leader's total, and the $topsubscriberuser set for the leader (for example $topsubscriberusername)
+- Add top sub gifter leaderboards ranked by all-time gifted subs: $top10subgifters, $topsubgifteramount, and the $topsubgifteruser set
+- Add longest current subscription streak leaderboards: $top10substreaks, $topsubstreaklength for a readable duration like 1 Year(s), 2 Month(s), 5 Day(s), $topsubstreakamount for the same streak in whole months, and the $topsubstreakuser set
+  - Swap the 10 in any of these for however many places you want listed
+- Add Cumulative Months Subbed, Subs Gifted, and Subscription Streak types to the Leaderboard overlay widget
+  - The Subscription Streak widget shows whole months as a number. The readable duration is only available through $topsubstreaklength
+- All of these leaderboards cover every connected platform at once. There is no per-platform version and nothing to choose, a viewer's months subbed and gifted subs are combined across Twitch, YouTube, Kick, and Velora
+  - For a viewer subscribed on more than one platform, the subscription streak counts from the earliest of their subscribe dates
+- Subscription tiers are not counted anywhere in these leaderboards. Subscribers rank by how long they have been subscribed and gifters rank by how many subs they have gifted
+- Gifted subs are only credited when the gifter is not anonymous
+- These leaderboards use the viewer data Mix It Up has recorded for your channel, so they begin from when you started using Mix It Up rather than covering your channel's full history
+  - **How completely each platform fills in these numbers varies. Twitch corrects a subscriber's month count on their next resubscription, and because Twitch never reports a subscribe date, a streak counts from the first subscription Mix It Up saw and restarts if the subscription lapses**
+- Add custom UI font selection, with each font previewed in its own typeface
+- Add overall UI font scaling from 50% to 150%, applied live app-wide
+- Add *Support Mode* toggle under Theme & Colors to apply default theme and fonts (for support screenshots) without changing saved settings
+- Add Reset To Defaults button (with confirmation) for all theme and font settings
+- Relocated chat font size slider to Themes & Colors as Chat Window Font Size
+- Add Date, Time, and Custom Text display types to the Label overlay widget
+  - Date and Time labels update live in the overlay and accept format tokens: YYYY YY (year), MMMM MMM MM M (month), DD D (day), dddd ddd (weekday), HH H (24-hour), hh h (12-hour), mm m (minute), ss s (second), A a (AM/PM)
+  - Wrap literal wording in square brackets to keep its letters out of date formatting, for example: `h:mm A [in Las Vegas]`
+  - Add an optional time zone to Date and Time labels, so a label can show the clock for somewhere other than the streaming PC, with localized daylight saving applied automatically
+- Add Entrance and Exit animations to the Label widget, played when the shown display changes in both Rotating Displays and Newest Only modes
+
+### FIXES
+
+- Fixed YouTube URL resolution that failed for Shorts and Live stream links $youtubelatestvideo and $youtubelatestshort
+- Fix the Twitch Power-Ups End Credits section staying empty, as nothing was reporting redeemed Power-Ups to it
+- Fix External Program and Script action output garbling accented and non-English characters
+- Fix the External Program action stalling on a program that writes heavily to error output, and dropping the tail of the output on exit
+- Inventory window item list now fits the window instead of a fixed width, so the columns stay put and the horizontal scroll bar is gone
+- Fix $usersubplan and $usersubplanname coming back empty on Velora and Kick subscription events, and $usersubtier missing on Kick subscriptions, resubscriptions, and gifts
+- Fix $streamgameimage and $userstreamgameimage coming back empty on Velora
+- Fix setting your Velora category failing for anything outside the first 100 categories alphabetically, and report the failure instead of updating the title and quietly dropping the category
+- Fix Velora $userstreamtitle, $userstreamgame, and $userstreamislive printing as raw text for a user who has never streamed
+- Velora stream start now applies the category the stream started with before stream start commands run, instead of whatever the last refresh left behind
+- Fixed text stretching in multi-line entry boxes when a long word wraps
+- Fixed crash from ungated webhook retrieval when loading the Services page
+- Fixed Velora command syncing bug related to duplicate command names
+- Removed gating that blocked the Twitch Modiversary event from firing
+- Fixed bug under which Velora bot account was not provisioning internal Moderator role
+- Fixed Viewer Count and Chatter Count labels taking over the visible display every minute in Newest Only mode even when the count had not changed
+- Fixed widget flickering caused by animation and translation fight over the same properties
+- Fix platform login (all) failing with a blank error dialog and a button that spins forever during New User Wizard
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Massive control name/id refactoring so screen readers and accessibility tools announce them properly (and localized)
+- Consolidated all text and icon sizing onto one shared, named size scale
+- Added additional Velora debug logging entry points
+- Updated the third-party license notices bundled with the application
+- Removed the unused pseudo-localization resource file from the project
+
 ## 1.8.000
+
+Release Date: 2026-07-15
 
 ### FEATURES
 
@@ -102,6 +186,8 @@
 
 ## 1.7.140
 
+Release Date: 2026-07-11
+
 ### FEATURES
 
 - Velora Announce action sends as bot by default, includes Send As Streamer option as well
@@ -115,6 +201,8 @@
 - Rejected (revoked/expired) authorizations on previously connected services (Discord, IFTTT, Streamlabs, Patreon, etc.) now prompt at startup to log in again or log out
 
 ## 1.7.130
+
+Release Date: 2026-07-10
 
 ### FEATURES
 
@@ -135,6 +223,8 @@
 - Fix settings database creation failing silently; errors are now logged
 
 ## 1.7.120
+
+Release Date: 2026-07-09
 
 ### FEATURES
 
@@ -192,6 +282,8 @@
 
 ## 1.7.110
 
+Release Date: 2026-07-06
+
 ### FEATURES
 
 - Add Throne integration with Gift Purchased, Contribution, and Gift Crowdfunded events
@@ -226,17 +318,23 @@
 
 ## 1.7.102 (HOTFIX)
 
+Release Date: 2026-06-14
+
 ### FIXES
 
 - Redirect all routes to new Mix It Up domain due to ongoing DNSSEC error
 
 ## 1.7.101 (HOTFIX)
 
+Release Date: 2026-06-05
+
 ### FIXES
 
 - Fixed websocket reconnect timeout error
 
 ## 1.7.100
+
+Release Date: 2026-06-05
 
 ### FEATURES
 
@@ -274,6 +372,8 @@
 
 ## 1.7.001 (HOTFIX)
 
+Release Date: 2026-05-26
+
 ### FIXES
 
 - $messagenoemotes and $messageemotecount not working in some command types
@@ -284,6 +384,8 @@
 - Run enabled commands when matching Twitch channel point and custom power-up redeems to avoid disabled duplicates blocking enabled ones
 
 ## 1.7.000
+
+Release Date: 2026-05-20
 
 ### ***BREAKING CHANGES***
 
@@ -330,9 +432,13 @@
 
 ## 1.6.600
 
+Release Date: 2026-05-13
+
 - [FEAT] Add support for Twitch Custom Power-ups
 
 ## 1.6.520
+
+Release Date: 2026-05-08
 
 - [FEAT] Add Kick integration for chat, events, channel points, and Kicks
 - [FEAT] Add Kick action
@@ -349,6 +455,8 @@
 
 ## 1.6.510
 
+Release Date: 2026-04-24
+
 - [FEAT] Add YouTube Channel Jewel Gift Event
 - [FEAT] Add support for ten prediction outcomes in Twitch Action
 - [FEAT] Add fifth poll choice in Twitch Action
@@ -362,6 +470,8 @@
 - [FIX] Typo causing YouTube super sticker event to trigger from super chat events
 
 ## 1.6.500
+
+Release Date: 2026-04-17
 
 - [FEAT] Add Twitch Watch Streak Alert in Settings -> Alerts
 - [FEAT] Add $message special identifier to Watch Streak event
@@ -380,6 +490,8 @@
 - [FIX] Adjustments for VTube Studio model moves and hotkeys
 
 ## 1.6.400
+
+Release Date: 2026-04-06
 
 - [MAINT] Update OBS Studio WebSocket V5 connections and stabilize reconnection logic *
 - [MAINT] Update Stream Elements service to new WebSocket server and remove deprecated Stream Elements Merch event **
@@ -420,6 +532,8 @@
 
 ## 1.6.30
 
+Release Date: 2026-02-18
+
 - [MAINT] Update branding and logos across the application
 - [MAINT] Enable Community Commands page
 - [MAINT] Rollback UI library version due to memory leaks, UI glitches, and random crashes
@@ -446,6 +560,8 @@
 
 ## 1.6.20
 
+Release Date: 2026-01-22
+
 - [MAINT] Downgrade to .NET8 framework due to compatibility issues
 - [FEAT] Add customizable foreground/text color in settings -> Themes to improve visual accessibility
 - [FEAT] Add new TikTok TTS voices
@@ -458,6 +574,8 @@
 
 ## 1.6.10
 
+Release Date: 2026-01-15
+
 - [MAINT] Disable Community Commands temporarily as we switch our backend infrastructure
 - [MAINT] Switch telemetry service to new host
 - [FIX] Improve Twitch Clips search and filtering featured clips
@@ -468,6 +586,8 @@
 - [FEAT] Add new rank special identifier to return the number of users who have the specific rank
 
 ## 1.6.0
+
+Release Date: 2026-01-01
 
 - [Ops] Migration From .NET Framework To .NET 10, Windows 10/11, x64
 - [Maint] UI Refresh To Material Design 3
@@ -498,6 +618,8 @@
 
 ## 1.5.0
 
+Release Date: 2025-10-25
+
 - [Feat] Voicemod v3 Support
 - [Fix] DonorDrive Connectivity
 - [Fix] Trovo Connectivity
@@ -512,12 +634,16 @@
 
 ## 1.4.0
 
+Release Date: 2025-10-24
+
 - Shift Desktop update checks and installer downloads to the new files.mixitupapp.com service with retry/backoff handling and channel awareness.
 - Expand the update manifest model and UI surfaces to expose schema/channel metadata, changelog markdown, and EULA handoff from the file service.
 - Harden the installer via sanitized directory arguments, richer diagnostics, and explicit EULA acceptance enforcement before proceeding.
 - Align project references and release automation scripts with the new distribution pipeline.
 
 ## v1.3.0.5
+
+Release Date: 2025-02-19
 
 - Adding $userbitslifetimeamount Special Identifier for pulling the total amount of bits cheered by a user from Twitch
 - Fixing bug with YouTube-only connections preventing features such as Community Commands and Webhooks from working properly
@@ -527,6 +653,8 @@
 
 ## v1.3.0.4
 
+Release Date: 2025-02-13
+
 - Adding Record Clip option to Meld Studio action
 - Improvements to connectivity speed for Twitch EventSub client connection on login
 - Fixing bug with YouTube Live title & description updating not working properly
@@ -535,6 +663,8 @@
 - Various quality of life & bug fixes
 
 ## v1.3.0.0-1.3.0.3
+
+Release Date: 2025-02-01
 
 - **BREAKING CHANGES:**
 
@@ -571,11 +701,15 @@
 
 ## v1.2.0.11-12
 
+Release Date: 2024-10-27
+
 - Adding support for Team Incentives and Team Milestones for DonorDrive. These are usable only while the "Include Team Donations / Events" option is toggled under Services -> DonorDrive
 - Fixing bug with Twitch Mass Gifted Sub event command not triggering if the Mass Gifted Subs Filter Amount setting is disabled
 - Various quality of life & bug fixes
 
 ## v1.2.0.0-1.2.0.10
+
+Release Date: 2024-09-28
 
 - Overlay v3 functionality updates:
 
@@ -762,6 +896,8 @@
 
 ## v1.1.0.17
 
+Release Date: 2024-04-21
+
 - Adding mtion studio service connectivity:
 
 - mtion studio can be connected by visiting the Services page
@@ -770,11 +906,15 @@
 
 ## v1.1.0.16
 
+Release Date: 2024-03-13
+
 - Adding caching of data for VTube Studio and Twitch Integrated Throwing System to reduce the amount of requests made and improve performance & reliability. Cached data will refresh every 30 minutes or can be manually refreshed by hitting the Refresh button from within the VTube Studio or Twitch Integrated Throwing System actions.
 - Migrating Tiltify to new v5 API support
 - Consumable Actions will now round DOWN to the nearest whole number for the amount used (EX: 0.9999 => 0, while 1.000001 => 1)
 
 ## v1.1.0.15
+
+Release Date: 2024-02-27
 
 - Adding Pulsoid service connectivity
 
@@ -790,6 +930,8 @@
 
 ## v1.1.0.14
 
+Release Date: 2024-01-27
+
 - Adding YouTube section to Channel page
 - Fixing Unmod User and Unban User functionality for Moderation Action for YouTube
 - Adding count() function to Special Identifier action
@@ -798,6 +940,8 @@
 
 ## v1.1.0.13
 
+Release Date: 2023-12-13
+
 - Adding Twitch Channel Ad Upcoming, Twitch Channel Ad Started, and Twitch Channel Ad Ended event commnads.
 - Adding Snooze Next Ad option to Twitch Action.
 - Adding $twitchadsnoozecount, $twitchadnextduration, $twitchadnextminutes, and $twitchadnexttime Global Special Identifiers.
@@ -805,9 +949,13 @@
 
 ## v1.1.0.12
 
+Release Date: 2023-12-02
+
 - Fixing bug with Tiltify donations not being properly processed
 
 ## v1.1.0.11
+
+Release Date: 2023-11-25
 
 - Adding ability to specify the platform and user to test a command against
 - Adding "Ignore Usage Requirements" option to Command Action when running another command
@@ -815,9 +963,13 @@
 
 ## v1.1.0.10
 
+Release Date: 2023-11-21
+
 - Various quality of life & bug fixes
 
 ## v1.1.0.9
+
+Release Date: 2023-11-18
 
 - Improvements to memory consumption issues and crashes related to out of memory exceptions. Thank you everyone who submitted logs and information to help us further track this issue down.
 - Adding logic to handle detecting and merging duplicated user data
@@ -825,6 +977,8 @@
 - Various quality of life & bug fixes
 
 ## v1.1.0.7-8
+
+Release Date: 2023-11-10
 
 ### **IMPORTANT NOTE:** Due to performance and memory issues we have been seeing related to animated emotes within the Chat page, we have temporarily disabled all animated emotes and they will instead be replaced with their static counter-parts. This change only affects animated emotes that are rendered on the Chat page; this does not affect anything with animated images or videos through the Overlay. We have been hard at work attempting to improve the performance of emote rendering in the app to ensure it remains responsive and we have made large improvements to the rendering of static emote images. However the libraries available to use for rendering animated emotes are not to the level of performance and memory efficiency to ensure a quality experience for our users. We will be continuing to investigate alternatives to bring back animated emotes and will keep users aware of any progress we are able to make
 
@@ -835,10 +989,14 @@
 
 ## v1.1.0.6
 
+Release Date: 2023-10-31
+
 - Adding new Special Identifiers for Tiltify service campaign data
 - Various quality of life & bug fixes
 
 ## v1.1.0.5
+
+Release Date: 2023-10-24
 
 - Adding information on Mix It Up Online Alpha pre-registration
 - Adding Twitch Channel Updated event command
@@ -848,22 +1006,32 @@
 
 ## v1.1.0.4
 
+Release Date: 2023-09-29
+
 - Fixing crashing bug when using !uptime command and $streamuptime Special Identifiers
 
 ## v1.1.0.3
 
+Release Date: 2023-09-28
+
 - Various quality of life & bug fixes
 
 ## v1.1.0.2
+
+Release Date: 2023-09-12
 
 - Adding the Random Action to allow for the random selection of one or more actions
 - Various quality of life & bug fixes
 
 ## v1.1.0.1
 
+Release Date: 2023-09-05
+
 - Various quality of life & bug fixes
 
 ## v1.1.0.0
+
+Release Date: 2023-09-03
 
 - Adding support for YouTube Live streaming connectivity
 - The following functionality has been added for YouTube
@@ -938,28 +1106,40 @@
 
 ## v1.0.0.39
 
+Release Date: 2023-08-01
+
 - Updating Twitch event service version for follow events
 - Various quality of life & bug fixes
 
 ## v1.0.0.37-38
 
+Release Date: 2023-07-05
+
 - Various quality of life & bug fixes
 
 ## v1.0.0.36
+
+Release Date: 2023-06-23
 
 - Removing Twitter integration due to restrictions imposed by Twitter APIs. Information about the removal and alternative solutions can be found on our wiki: <https://wiki.mixitup.bot/en/services/twitter>
 - Various quality of life & bug fixes
 
 ## v1.0.0.35
 
+Release Date: 2023-06-08
+
 - Fixing issue with Discord service authentication not working due to Discord API change
 - Various quality of life & bug fixes
 
 ## v1.0.0.34
 
+Release Date: 2023-06-03
+
 - Fixing bug with certain pieces of localization text not being shown properly in UI
 
 ## v1.0.0.32-33
+
+Release Date: 2023-06-01
 
 - Adding support for Twitch's new custom stream tags. Tags are now free-form text of any kind that are 25 characters or less and contain only letters and numbers.
 - Adding "Remove Specific Text From File" option to File Action
@@ -969,21 +1149,31 @@
 
 ## v1.0.0.31
 
+Release Date: 2023-05-21
+
 - Various quality of life & bug fixes
 
 ## v1.0.0.30
+
+Release Date: 2023-05-09
 
 - Various quality of life & bug fixes
 
 ## v1.0.0.29
 
+Release Date: 2023-04-25
+
 - Various quality of life & bug fixes
 
 ## v1.0.0.28
 
+Release Date: 2023-04-19
+
 - Adding validation check for name for Twitch Bits commands and fixing bug with crash on launch if a command is missing a name
 
 ## v1.0.0.27
+
+Release Date: 2023-04-13
 
 - Adding support for LoupeDeck service integration
 - Adding dedicated Twitch Bits commands
@@ -991,41 +1181,59 @@
 
 ## v1.0.0.26
 
+Release Date: 2023-03-10
+
 - Fixed critical issue with Twitch Event Sub service
 - Various quality of life & bug fixes
 
 ## v1.0.0.25
 
+Release Date: 2023-02-24
+
 - Various quality of life & bug fixes
 
 ## v1.0.0.24
+
+Release Date: 2023-01-24
 
 - Adding Send Shoutout option to Twitch Action
 - Various quality of life & bug fixes
 
 ## v1.0.0.23
 
+Release Date: 2023-01-04
+
 - Fixing bug related to Currency/Rank automatic resetting not properly using last reset date
 - Various quality of life & bug fixes
 
 ## v1.0.0.22
+
+Release Date: 2023-01-01
 
 - Fixing bug with Twitch whispers not being sent out correctly
 - Various quality of life & bug fixes
 
 ## v1.0.0.21
 
+Release Date: 2022-12-19
+
 - Various quality of life & bug fixes
 
 ## v1.0.0.20
+
+Release Date: 2022-12-13
 
 - Various quality of life & bug fixes
 
 ## v1.0.0.19
 
+Release Date: 2022-12-12
+
 - Fixing hang bug related to daily currency reset setting
 
 ## v1.0.0.16-18
+
+Release Date: 2022-12-05
 
 - Changing Twitch event connectivity to use new EventSub service for more real-time events
 - Adding Twitch Channel Hype Train Level Up event command
@@ -1039,34 +1247,48 @@
 
 ## v1.0.0.15
 
+Release Date: 2022-10-12
+
 - Various quality of life & bug fixes
 
 ## v1.0.0.14
 
+Release Date: 2022-09-28
+
 - Various quality of life & bug fixes
 
 ## v1.0.0.12-13
+
+Release Date: 2022-09-18
 
 - Fixing crash / hang issue with OBS Studio connectivity for scenes containing lots of sources & adding performance improvements for issues requests
 - Various quality of life & bug fixes
 
 ## v1.0.0.11
 
+Release Date: 2022-09-11
+
 - Fixing issue with the Source Visibility option on the Streaming Software action not working properly for sources in groups in OBS Studio 28
 - Various quality of life & bug fixes
 
 ## v1.0.0.10
+
+Release Date: 2022-09-01
 
 - Adding support for new websocket connectivity in OBS Studio 28. Users will need to disconnect their current connectivity on the Services page and re-connect it after updating OBS Studio and ensuring the websocket settings in OBS Studio are properly configured.
 - Various quality of life & bug fixes
 
 ## v1.0.0.8 - v1.0.0.9
 
+Release Date: 2022-06-18
+
 - Fixing bug with scenario where a user re-name on Twitch can cause duplicated user data
 - Adjusting logic for processing Twitch mass mystery gifted subs
 - Various quality of life & bug fixes
 
 ## v1.0.0.7
+
+Release Date: 2022-05-29
 
 - Fixing bug with Game Queue actions not properly handling user changes
 - Localization text updates for all languages
@@ -1076,6 +1298,8 @@
 - Various quality of life & bug fixes
 
 ## v1.0.0.6
+
+Release Date: 2022-05-16
 
 - Restoring Channel Page functionality for Twitch and Trovo
 - Adding support for Glimesh Channel Subscribed event command
@@ -1087,6 +1311,8 @@
 
 ## v1.0.0.5
 
+Release Date: 2022-05-05
+
 - Adjusting image size used for emotes to counteract and reduce memory & crash problems due to animated emotes. If you still experience issues with memory / crash problems due several animated emotes being sent to your chat, you can optionally disable animated emote rendering by heading to Settings -> Chat.
 - Adding the ability to trigger context-menu commands off of the User list on the Chat page
 - Fixing bug with $<CURRENCY>alltotal and $<CURRENCY>alltotaldisplay Special Identifiers not processing correctly
@@ -1095,22 +1321,30 @@
 
 ## v1.0.0.4
 
+Release Date: 2022-04-18
+
 - Adding $<CURRENCY>alltotal and $<CURRENCY>alltotaldisplay Special Identifiers
 - Adding optional parameter to !command pre-made command to specify the name of the group to filter commands down to
 - Various quality of life & bug fixes
 
 ## v1.0.0.3
 
+Release Date: 2022-04-10
+
 - Fixing bug with backup generation failing due to an issue in the latest database library being used. Library has been rolled back to the last known good and backup generation has been verified to be working again. Any backups generated since version 1.0.0.0 should be re-made to ensure they properly contain all your settings data.
 - Various quality of life & bug fixes
 
 ## v1.0.0.2
+
+Release Date: 2022-04-09
 
 - Fixing bug with !commands pre-made command not showing command list properly
 - Fixing bug with new generic event commands not triggering if you don't have a platform-specific event command made
 - Various quality of life & bug fixes
 
 ## v1.0.0.0
+
+Release Date: 2022-04-08
 
 - Trovo:
 
@@ -1160,14 +1394,20 @@
 
 ## v0.5.11.12
 
+Release Date: 2022-02-01
+
 - Fixing bug with selected Custom Overlay Endpoints being reset to the Default Overlay Endpoint when launching the app.
 
 ## v0.5.11.10-11
+
+Release Date: 2022-01-31
 
 - Replacing legacy API for Twitch with new API support due to upcoming removal at the end of February. As a result of this change, certain pieces of small functionality will no longer be supported until Twitch adds support for them in their new API. The biggest removal of support is the tracking of Subscriber Dates, which will factor in to things like $usersubage and $usersubmonths: <https://blog.twitch.tv/en/2021/07/15/legacy-twitch-api-v5-shutdown-details-and-timeline/>
 - Various quality of life & bug fixes
 
 ## v0.5.11.9
+
+Release Date: 2021-10-09
 
 - Adding custom Webhook Commands feature: <https://github.com/SaviorXTanren/mixer-mixitup/wiki/Webhooks>
 - Adding Ukrainian language localization support
@@ -1175,11 +1415,15 @@
 
 ## v0.5.11.8
 
+Release Date: 2021-09-24
+
 - Adding Voicemod service connectivity. This can be enabled by visiting the Services page of the app and using the Voicemod action within commands.
 - Adding editor window when testing commands with unique Special Identifiers to allow the editing of the values that are used.
 - Various quality of life & bug fixes
 
 ## v0.5.11.7
+
+Release Date: 2021-09-20
 
 - Adding VTube Studio service connectivity. This can be enabled by visiting the Services page of the app and using the VTube Studio action within commands.
 - Adding "Regex Match" option to Conditional Action for validating Regular Expression matching against text.
@@ -1188,16 +1432,22 @@
 
 ## v0.5.11.6
 
+Release Date: 2021-08-09
+
 - Adding fall-back logic for displaying older Pixel Chat scene components in Pixel Chat action
 - Adding uriescape() function to Special Identifier action
 - Various quality of life & bug fixes
 
 ## v0.5.11.5
 
+Release Date: 2021-08-07
+
 - Adding Pixel Chat service connectivity and Pixel Chat action
 - Various quality of life & bug fixes
 
 ## v0.5.11.4
+
+Release Date: 2021-08-01
 
 - Adding $bitslifetimeamount Special Identifier for Twitch Channel Bits Cheered event command
 - Having Specialty Excluded option for Users also exclude from random-based Special Identifiers
@@ -1207,12 +1457,16 @@
 
 ## v0.5.11.3
 
+Release Date: 2021-07-25
+
 - Screenshots can now be optionally uploaded with Community Commands to help showcase what the command does
 - Re-enabling User Data Import functionality on the Users page
 - Fixing bug with chat message deletion detection failing sometimes when deleted from outside of Mix It Up
 - Various quality of life & bug fixes
 
 ## v0.5.11.2
+
+Release Date: 2021-07-16
 
 - Adding Alerts option for Hype Train events
 - Fixing bug with back-up logic for donation user processing not properly creating a fake user with the supplied donation username
@@ -1221,10 +1475,14 @@
 
 ## v0.5.11.1
 
+Release Date: 2021-07-12
+
 - Allowing for rating-only reviews for Community Commands
 - Various quality of life & bug fixes
 
 ## v0.5.11.0
+
+Release Date: 2021-07-11
 
 - Community Commands:
 
@@ -1294,13 +1552,19 @@
 
 ## v0.5.10.4
 
+Release Date: 2021-05-24
+
 - Adding additional timeouts to Streamlabs & StreamElements service connections to combat rapid disconnection issues to their servers
 
 ## v0.5.10.3
 
+Release Date: 2021-05-23
+
 - Various quality of life & bug fixes
 
 ## v0.5.10.2
+
+Release Date: 2021-05-22
 
 - Adding extra connection protection & retry logic for unstable Streamlabs and StreamElements service connections
 - Adding $randomregularuser\_\_\_\_ Special Identifier
@@ -1309,11 +1573,15 @@
 
 ## v0.5.10.1
 
+Release Date: 2021-05-10
+
 - Adding Export Actions option to Conditional Action
 - Fixing bug with Command Action not performing Usage Requirements & Validation of the selected sub-command when using the Run Command option
 - Various quality of life & bug fixes
 
 ## v0.5.10.0
+
+Release Date: 2021-05-08
 
 - Command System Improvements:
 
@@ -1341,17 +1609,23 @@
 
 ## v0.5.9.7
 
+Release Date: 2021-04-18
+
 - Fixing crashing bug related to processing certain FrankerFaceZ emote images
 - Allowing text entry & Special Identifier processing for item name in Currency/Rank/Inventory action
 - Various quality of life & bug fixes
 
 ## v0.5.9.6
 
+Release Date: 2021-04-10
+
 - If you are already editing a command and attempt to open a 2nd window of the same command, it will now not open the 2nd window and instead focus the 1st window to prevent users from accidently saving an old or inaccurate version of the same command
 - Fixing bug with Coin Pusher & Volcano game types not properly saving out their total amounts between sessions
 - Various quality of life & bug fixes
 
 ## v0.5.9.5
+
+Release Date: 2021-04-05
 
 - Fixing crashing bug related to missing localization text for some languages
 - Adding Follower Event Moderation setting that allow for setting a maximum amount that can queue up before they are ignored
@@ -1361,10 +1635,14 @@
 
 ## v0.5.9.4
 
+Release Date: 2021-04-04
+
 - Updated localizations for Russian, Portuguese, Japanese, Spanish, German, French, & Dutch
 - Various quality of life & bug fixes
 
 ## v0.5.9.3
+
+Release Date: 2021-03-30
 
 - Adding initial support for Russian language
 - Adding the ability to import old command format files temporarily. Please ensure if you are the creator of a command that is using the old format that you export your command in the newer format sometime soon, as this functionality will be removed.
@@ -1377,10 +1655,14 @@
 
 ## v0.5.9.2
 
+Release Date: 2021-03-22
+
 - Re-adding Save Chat Event Logs settings option to Settings -> Chat UI
 - Various quality of life & bug fixes
 
 ## v0.5.9.1
+
+Release Date: 2021-03-18
 
 - Updating Command Action to enable command locks if Wait Until Complete option is NOT selected
 - Fixing bug with certain Game Special Identifiers not processing correctly
@@ -1388,6 +1670,8 @@
 - Fixing bug with Translation action still appearing in list of selectable actions to add to a command
 
 ## v0.5.9.0
+
+Release Date: 2021-03-16
 
 - Command Updates:
 
@@ -1469,6 +1753,8 @@
 
 ## v0.5.8.5
 
+Release Date: 2020-10-10
+
 - Fixing bug with Permission value for Stream Pass not being respected properly when adding points to a user
 - Adjusting Tiltify service connectivity to use regular web browser window for authentication to work around changes to Tiltify page
 - Fixing bug with Notification volume settings not saving properly
@@ -1476,6 +1762,8 @@
 - Various quality of life & bug fixes
 
 ## v0.5.8.4
+
+Release Date: 2020-09-02
 
 - Adding loop option to Overlay Video action and Overlay Video widget
 - Adding urlencode() processor function to Special Identifier action
@@ -1485,11 +1773,15 @@
 
 ## v0.5.8.2
 
+Release Date: 2020-08-13
+
 - Adjusting gifted sub logic to make sure other gifted sub-related work is run (Latest Special Identifiers, currency, etc), but only the event command & alert if it's not bundled under a mass gifted sub event
 - Adjusting follower detection logic to buffer scenario where we fail to get the most recent followers on initial load
 - Various quality of life & bug fixes
 
 ## v0.5.8.1
+
+Release Date: 2020-08-12
 
 - Adding $usercolor and $usertwitchcolor Special Identifiers
 - Moderation error message for chat participation now state the user's name who's message was deleted
@@ -1498,6 +1790,8 @@
 - Various quality of life & bug fixes
 
 ## v0.5.8.0
+
+Release Date: 2020-08-07
 
 - Large-scale re-working of Settings menu, adding new areas and moving various options to better locations
 - Adding filtering option to Commands settings for Twitch Subscription Gifted & Mass Subscriptions Gifted event commands to provide a better experience:
@@ -1548,6 +1842,8 @@
 
 ## v0.5.7.3
 
+Release Date: 2020-07-29
+
 - Force reseting Preview Program option for all users, please manually re-enable this option if you wish to stay in the Preview Program
 - Officially deprecating Moderator login and adding reference to Twitch Moderator View
 - Fixing bug with Latest Special Identifiers not loading correctly when app is re-launched due to serialization
@@ -1558,10 +1854,14 @@
 
 ## v0.5.7.2
 
+Release Date: 2020-07-19
+
 - Adding $usersubtier Special Identifier
 - Various quality of life & bug fixes
 
 ## v0.5.7.1
+
+Release Date: 2020-07-12
 
 - Updating various event command names to include reference to 1 minute delay
 - Allowing Reset On Load option for Counter actions to be toggable without having the Save To File option toggled
@@ -1569,6 +1869,8 @@
 - Various quality of life & bug fixes
 
 ## v0.5.7.0
+
+Release Date: 2020-07-11
 
 - Adding support for Twitch & the removal of support for Mixer
 - Large-scale updates to our Wiki to reflect all changes made as part of the migration: <https://github.com/SaviorXTanren/mixer-mixitup/wiki>
@@ -1624,6 +1926,8 @@
 
 ## v0.5.6.0
 
+Release Date: 2020-06-23
+
 - Adding new Stream Pass feature
 - Adding new Redemption Store feature
 - Adding initial rollout of Usage Requirement v2 to Redemption Store:
@@ -1643,12 +1947,16 @@
 
 ## v0.5.5.8
 
+Release Date: 2020-06-16
+
 - Adding "Not Replaced" operator to Conditional action
 - Adding Quotes endpoints to Developer API
 - Fixing bug related to chat command trigger caching not updating correctly in certain scenarios
 - Various quality of life & bug fixes
 
 ## v0.5.5.7
+
+Release Date: 2020-06-05
 
 - Adding initial language localization support for Dutch, French, Spanish, Japanese, Portuguese, and German
 - Adding $usergiveawayentries and $usergiveawaytotalentries Special Identifiers to Giveaway User Joined command
@@ -1658,9 +1966,13 @@
 
 ## v0.5.5.6
 
+Release Date: 2020-05-28
+
 - Various quality of life & bug fixes
 
 ## v0.5.5.5
+
+Release Date: 2020-05-26
 
 - Fixing bug with New User Wizard re-running on start up when activated via Settings -> Advanced
 - Adding additional diagnostic logging to help diagnose various issues
@@ -1668,15 +1980,21 @@
 
 ## v0.5.5.4
 
+Release Date: 2020-05-23
+
 - Various quality of life & bug fixes
 
 ## v0.5.5.3
+
+Release Date: 2020-05-18
 
 - Fixing bug with importing of data during New User Wizard
 - Fixing permissions bug with running ads through the Streaming Platform action
 - Various quality of life & bug fixes
 
 ## v0.5.5.2
+
+Release Date: 2020-05-15
 
 - Chat message & command processing performance tweaks
 - Updating Streamlabs donation checking to use real-time web socket connection
@@ -1686,6 +2004,8 @@
 
 ## v0.5.5.1
 
+Release Date: 2020-05-12
+
 - Actions can now be dragged & dropped within a command to re-order them
 - Adding the ability to run /timeout & /ban commands from Chat window
 - Fixing bug where chat alert messages did not contain the correct user for right-click menus
@@ -1694,6 +2014,8 @@
 - Various quality of life & bug fixes
 
 ## v0.5.5.0
+
+Release Date: 2020-05-09
 
 - **BREAKING CHANGE:** Removing Song Requests feature <https://mixitupapp.com/songrequests>
 - **BREAKING CHANGE:** Removing Twitter Retweet event command due to rate limiting issues with Twitter
@@ -1731,42 +2053,60 @@
 
 ## v0.5.4.8
 
+Release Date: 2020-05-07
+
 - Fixing broken Overlay animation by updating animation library URL
 - Fixing broken Text to Speech functionality due to service changes
 - Various quality of life & bug fixes
 
 ## v0.5.4.7
 
+Release Date: 2020-01-08
+
 - Various quality of life & bug fixes
 
 ## v0.5.4.6
+
+Release Date: 2019-12-30
 
 - Increase timeout for the Mixer Constellation service to avoid login failures
 
 ## v0.5.4.5
 
+Release Date: 2019-12-06
+
 - Various quality of life & bug fixes
 
 ## v0.5.4.4
+
+Release Date: 2019-11-26
 
 - Various bug fixes for the End Credits Overlay Widget
 - Various quality of life & bug fixes
 
 ## v0.5.4.3
 
+Release Date: 2019-11-22
+
 - Possible fix for some users that are experiencing hours & currency/rank not saving between sessions for users
 - Various quality of life & bug fixes
 
 ## v0.5.4.2
+
+Release Date: 2019-11-19
 
 - Various bug fixes for the End Credits Overlay Widget
 - Various quality of life & bug fixes
 
 ## v0.5.4.1
 
+Release Date: 2019-11-17
+
 - Various quality of life & bug fixes
 
 ## v0.5.4.0
+
+Release Date: 2019-11-13
 
 - Adding End Credits Overlay Widget
 - Adding the ability to select Single Action for Conditional Actions
@@ -1782,10 +2122,14 @@
 
 ## v0.5.3.2
 
+Release Date: 2019-10-22
+
 - Re-publishing to fix issue with GitHub update hosting
 - Various quality of life & bug fixes
 
 ## v0.5.3.1
+
+Release Date: 2019-10-22
 
 - Fixing bug with chat commands being case-sensitive
 - Fixing bug with message deletion not showing who deleted the message
@@ -1793,6 +2137,8 @@
 - Various quality of life & bug fixes
 
 ## v0.5.3.0
+
+Release Date: 2019-10-22
 
 - Large-scale overhaul of the internal Chat logic for better performance
 - Adding new Dashboard window with the following items: Chat, Alerts, Quick Commands, Statistics, Game Queue, & Song Requests
@@ -1810,6 +2156,8 @@
 
 ## v0.5.2.11
 
+Release Date: 2019-09-22
+
 - Fixing bug with Song Requests buttons not working
 - Fixing bug with MixPlay timeout not correctly identifying the right participant
 - Fixing various bugs to XSplit connectivity
@@ -1817,10 +2165,14 @@
 
 ## v0.5.2.10
 
+Release Date: 2019-08-23
+
 - Adding Streamloots Pack Purchased & Pack Gifted event commands
 - Various quality of life & bug fixes
 
 ## v0.5.2.9
+
+Release Date: 2019-08-16
 
 - Adding support for longMessage field on Streamloots card if message field doesn't exist
 - Adding Streaming Action Start/Stop Stream support for XSplit
@@ -1828,6 +2180,8 @@
 - Various quality of life & bug fixes
 
 ## v0.5.2.8
+
+Release Date: 2019-08-13
 
 - Adding $userisfollower & $userissubscriber Special Identifiers
 - Tweaking Clips creation logic to work around broken Mixer API
@@ -1837,21 +2191,29 @@
 
 ## v0.5.2.7
 
+Release Date: 2019-08-10
+
 - Adding $streamlootscardvideo & $streamlootscardhasvideo Special Identifiers
 - Updating Sound Action to support web-based sound files
 - Adding blocking, error message if the MixPlay project contained controls with the same ID when trying to connect
 
 ## v0.5.2.6
 
+Release Date: 2019-08-09
+
 - Fixing bug with Streamloots Card Redemption where TTS-enabled cards would fail to trigger correctly
 
 ## v0.5.2.5
+
+Release Date: 2019-08-09
 
 - Fixing possible bug with Streamloots Card Redemption where full card data isn't acquired correctly
 - Adding $streamlootscardsound Special Identifier
 - Various quality of life & bug fixes
 
 ## v0.5.2.4
+
+Release Date: 2019-08-08
 
 - Adding Streamloots integration & Streamloots Card Redeemed event command
 - Adding support for Streaming Software action's Save Replay Buffer option for Streamlabs OBS
@@ -1860,11 +2222,15 @@
 
 ## v0.5.2.3
 
+Release Date: 2019-08-07
+
 - Adding tolower(), toupper(), and removespaces() functions into Special Identifier action for text-based replacements
 - Fixing bug with Channel Milestone Reached event command trigger when it shouldn't
 - Various quality of life & bug fixes
 
 ## v0.5.2.2
+
+Release Date: 2019-08-06
 
 - Updates to support new Spark Patronage changes. All Special Identifiers have remained the same, but anything that showed money amounts now show percentage boosts
 - Adding "New Leader" command to Overlay Leaderboard Widget
@@ -1873,12 +2239,16 @@
 
 ## v0.5.2.1
 
+Release Date: 2019-08-05
+
 - Adding list vertical alignment option to list-based Overlay Widgets
 - Updating Fortnite drop map to Season 10
 - Various bug fixes to Overlay Widgets
 - Various quality of life & bug fixes
 
 ## v0.5.2.0
+
+Release Date: 2019-08-02
 
 - BREAKING CHANGE: Chat User Purged event command now specifies the moderator who performed the purging as $username, while the user that was purged is not $targetusername
 - BREAKING CHANGE: All random user Special Identifiers will always give a new user every time they are used instead of saving them for the entire command. If you need to use the same user multiple times, use it inside of a Special Identifier action.
@@ -1908,15 +2278,21 @@
 
 ## v0.5.1.6-7
 
+Release Date: 2019-07-18
+
 - Fixing updating of channel title, game, & description due to Mixer issue
 - Various quality of life & bug fixes
 
 ## v0.5.1.5
 
+Release Date: 2019-06-14
+
 - Fixing bug with some Spotify playlists not being properly handled for Song Requests
 - Various quality of life & bug fixes
 
 ## v0.5.1.4
+
+Release Date: 2019-05-23
 
 - Fixing bug with Emotes & Skills Only moderation not correctly detecting skills
 - Fixing bug where giveaway inventory requirement would not subtract the proper amount for multiple entries
@@ -1924,14 +2300,20 @@
 
 ## v0.5.1.3
 
+Release Date: 2019-05-20
+
 - Fixing bug with users not being removed from chat list when they leave
 - Various quality of life & bug fixes
 
 ## v0.5.1.2
 
+Release Date: 2019-05-20
+
 - Various quality of life & bug fixes
 
 ## v0.5.1.0
+
+Release Date: 2019-05-19
 
 - Adding service integration with OvrStream & OvrStream action
 - Adding Fan Progression interval for Currency/Ranks
@@ -1958,10 +2340,14 @@
 
 ## v0.5.0.5
 
+Release Date: 2019-05-09
+
 - BREAKING CHANGE: Bot Accounts & Moderators will need to re-authenticate their accounts due to a change with Mixer's authentication system
 - Various quality of life & bug fixes
 
 ## v0.5.0.4
+
+Release Date: 2019-05-01
 
 - Fixing bug with Channel Fan Progress Level-Up event not triggering, requires deleting & re-adding the command to work properly
 - Adding display of fan progress level on Chat User pop-up
@@ -1969,9 +2355,13 @@
 
 ## v0.5.0.3
 
+Release Date: 2019-04-29
+
 - Various quality of life & bug fixes
 
 ## v0.5.0.2
+
+Release Date: 2019-04-22
 
 - Adding Channel Fan Progress Level-Up event command
 - Adding $userfanprogression Special Identifiers
@@ -1980,9 +2370,13 @@
 
 ## v0.5.0.1
 
+Release Date: 2019-04-21
+
 - Fixing bug with auto hoster not stopping after first host
 
 ## v0.5.0.0
+
+Release Date: 2019-04-20
 
 - Official launch of Mix It Up Remote application for iOS & Android
 - Adding stand-alone Auto-Hoster application for the automatic hosting of channels when you are offline
@@ -2008,35 +2402,51 @@
 
 ## v0.4.21.9
 
+Release Date: 2019-03-30
+
 - Updating XSplit extension framework to work with newest version of XSplit
 
 ## v0.4.21.8
+
+Release Date: 2019-03-14
 
 - Fixing crash related to missing color scheme for Global Mods
 
 ## v0.4.21.7
 
+Release Date: 2019-03-12
+
 - Various quality of life & bug fixes
 
 ## v0.4.21.6
+
+Release Date: 2019-03-01
 
 - Adding tweak to fix Mixer change with emote-triggered chat command
 - Various quality of life & bug fixes
 
 ## v0.4.21.5
 
+Release Date: 2019-02-22
+
 - Various quality of life & bug fixes
 
 ## v0.4.21.4
+
+Release Date: 2019-02-20
 
 - Various quality of life & bug fixes
 
 ## v0.4.21.3
 
+Release Date: 2019-02-10
+
 - Adding Vikendi map to PUBG Drop Map MixPlay game
 - Various quality of life & bug fixes
 
 ## v0.4.21.2
+
+Release Date: 2019-02-08
 
 - Adding Apex Legends Drop Map MixPlay Game
 - Adding additional options to User details pop-up
@@ -2045,11 +2455,15 @@
 
 ## v0.4.21.1
 
+Release Date: 2019-02-06
+
 - Re-enabling Twitter support; users will need to log out & log back in with their Twitter account
 - Adding !setusertitle Pre-Made Chat command
 - Various quality of life & bug fixes
 
 ## v0.4.21.0
+
+Release Date: 2019-02-01
 
 - Adding support for Elgato Stream Deck integration
 - Adding support for hot key binding for commands
@@ -2060,20 +2474,28 @@
 
 ## v0.4.20.16
 
+Release Date: 2019-01-31
+
 - Re-enabling Twitter service to send tweets, disabling the use of "@"mentions & limiting to 1 tweet every 5 minutes
 - Fixing bug with renamed Action Groups not appearing correctly in Action Group Action
 - Various quality of life & bug fixes
 
 ## v0.4.20.15
 
+Release Date: 2019-01-30
+
 - Fixing bug with currency resetting
 
 ## v0.4.20.14
+
+Release Date: 2019-01-29
 
 - Adding toggle option to Special Identifier actions to specify whether it will work globally or only within that command chain
 - Various quality of life & bug fixes
 
 ## v0.4.20.13
+
+Release Date: 2019-01-26
 
 - Adding $userchannelfeatured Special Identifier
 - Adding automatic hiding of Overlay YouTube videos after they have ended
@@ -2081,13 +2503,19 @@
 
 ## v0.4.20.12
 
+Release Date: 2019-01-25
+
 - Various quality of life & bug fixes
 
 ## v0.4.20.11
 
+Release Date: 2019-01-24
+
 - Various quality of life & bug fixes
 
 ## v0.4.20.10
+
+Release Date: 2019-01-22
 
 - Updating Twitter connection, users may need to disconnect & reconnect their Twitter accounts
 - Adding prevention of tweets that contain more than 1 @Mention per Twitter guidelines
@@ -2095,14 +2523,20 @@
 
 ## v0.4.20.9
 
+Release Date: 2019-01-21
+
 - Adding "User Join Front of Queue" option to Game Queue action
 - Various quality of life & bug fixes
 
 ## v0.4.20.8
 
+Release Date: 2019-01-20
+
 - Various quality of life & bug fixes
 
 ## v0.4.20.7
+
+Release Date: 2019-01-19
 
 - Adding Patreon Benefit in Settings Usage Requirements to MixPlay commands
 - Fixing UI bug with Conditional Actions
@@ -2110,17 +2544,23 @@
 
 ## v0.4.20.6
 
+Release Date: 2019-01-18
+
 - Adding "Between" option to Conditional Action
 - Adding $argcount Special Identifier
 - Various quality of life & bug fixes
 
 ## v0.4.20.5
 
+Release Date: 2019-01-16
+
 - Adding Sparks & Embers direct options to Leaderboard Overlay Widget to use Mixer's leaderboard numbers
 - Adding quick options to Currency/Ranks to create them based on Sparks & Embers
 - Various quality of life & bug fixes
 
 ## v0.4.20.4
+
+Release Date: 2019-01-15
 
 - BREAKING CHANGE: Removing $embermessage special identifier and adding $skillmessage special identifier
 - Allowing Action Groups & Custom Commands to be able to download commands from the Mix It Up store
@@ -2131,6 +2571,8 @@
 
 ## v0.4.20.3
 
+Release Date: 2019-01-14
+
 - Adding ember usage tracking to Event List, Progress Bar, Stream Boss, & Timer Train Overlay Widgets
 - Adding $embermessage & $topXembersused\_\_\_\_ Special Identifier
 - Adding $skillissparks & $skillisembers Special Identifiers
@@ -2139,6 +2581,8 @@
 
 ## v0.4.20.2
 
+Release Date: 2019-01-14
+
 - Adding Channel Embers Used & Chat Message Received events
 - Fixing bug with user title ordering determination
 - Adding additional methods to Developer API
@@ -2146,9 +2590,13 @@
 
 ## v0.4.20.1
 
+Release Date: 2019-01-13
+
 - Various quality of life & bug fixes
 
 ## v0.4.20.0
+
+Release Date: 2019-01-12
 
 - Adding new Inventory system to allow users to gain/use/lose items that you define
 - Adding new shop system for inventories to buy & sell items
@@ -2166,11 +2614,15 @@
 
 ## v0.4.19.12
 
+Release Date: 2019-01-11
+
 - Adding $streambossuser\_\_\_\_ Special Identifier
 - Fixing bug where Apply Strikes toggles on Moderation page are not saving settings when they are toggled
 - Various quality of life & bug fixes
 
 ## v0.4.19.11
+
+Release Date: 2019-01-09
 
 - Tweaking Stream Boss overlay widget to heal the Stream Boss if the person contributing is the current boss
 - Tweaking logic for getting total months between two dates
@@ -2178,16 +2630,22 @@
 
 ## v0.4.19.10
 
+Release Date: 2019-01-07
+
 - Adding the ability to test Overlay Widgets that rely on events to update
 - Adding "Remove Last Song Requested" option to Song Request action
 - Various quality of life & bug fixes
 
 ## v0.4.19.9
 
+Release Date: 2019-01-06
+
 - Fixing bug where Stream Boss Overlay Widget would reset health if the starting stream boss never changed
 - Various quality of life & bug fixes
 
 ## v0.4.19.8
+
+Release Date: 2019-01-05
 
 - Tweaking cooldown logic for textbox controls to allow them to be cooled down in Mix It Up since they can not currently be cooled down on Mixer
 - Adding support for arrays in web request JSON to Special Identifier parsing
@@ -2195,20 +2653,28 @@
 
 ## v0.4.19.7
 
+Release Date: 2019-01-04
+
 - Updating developer API to support running commands with arguments
 - Various quality of life & bug fixes
 
 ## v0.4.19.6
+
+Release Date: 2019-01-02
 
 - Fixing bug where Overlay Actions & Widgets without animations might not refresh properly
 - Various quality of life & bug fixes
 
 ## v0.4.19.5
 
+Release Date: 2019-01-01
+
 - Slightly increasing the delay for checking for updated song request status after a song change has occurred
 - Various quality of life & bug fixes
 
 ## v0.4.19.4
+
+Release Date: 2018-12-31
 
 - Fixing bug where Event List, Stream Boss, & Timer Train Overlay Widgets would count re-follows, re-hosts, & duplicated subs
 - Fixing bug where Game Stats Overlay Widget was not properly saving upon closing
@@ -2217,14 +2683,20 @@
 
 ## v0.4.19.3
 
+Release Date: 2018-12-30
+
 - Song Requests Overlay Widget now shows the currently playing song as the 1st entry in the list, regardless of if its from the queue or from the backup playlist
 - Various quality of life & bug fixes
 
 ## v0.4.19.2
 
+Release Date: 2018-12-28
+
 - Fixing bug with Stream Boss Overlay Widget not showing the user image correctly
 
 ## v0.4.19.1
+
+Release Date: 2018-12-28
 
 - Adding Song Requests Overlay Widget
 - Adding "Move All Users To Group" & "Move All Users To Scene" options to MixPlay Action
@@ -2235,6 +2707,8 @@
 
 ## v0.4.19.0
 
+Release Date: 2018-12-27
+
 - Adding new Overlay Widgets feature: <https://github.com/SaviorXTanren/mixer-mixitup/wiki/Overlay-Widgets>
 - Adding the ability to create multiple different Overlay endpoints
 - Adding the ability to have multiple connections to the same overlay endpoint
@@ -2244,6 +2718,8 @@
 
 ## v0.4.18.21
 
+Release Date: 2018-12-26
+
 - Adding $tweet\_\_\_datetime, $tweet\_\_\_date, & $tweet\_\_\_time Special Identifiers
 - Adding switch to disable all timer commands
 - Fixing bug where lurking user could not use MixPlay that required certain permissions (EX: Moderators)
@@ -2251,18 +2727,26 @@
 
 ## v0.4.18.20
 
+Release Date: 2018-12-24
+
 - Fixing bug where certain MixPlay functionality such as cooldowns were broken due to change to fix control positioning
 
 ## v0.4.18.19
+
+Release Date: 2018-12-23
 
 - Adding check to Mix It Up Store to prevent downloading commands created in a newer version of Mix It Up
 
 ## v0.4.18.18
 
+Release Date: 2018-12-23
+
 - Tweaking logic for anonymous & lurking usage of MixPlay
 - Tweaking logic for updating controls for MixPlay to prevent controls being moved around
 
 ## v0.4.18.17
+
+Release Date: 2018-12-18
 
 - Adding $userchannelid, $userchannellive, & $usergameimage Special Identifiers
 - Allowing for Timer Minimum Messages & Time Interval to each be 0, but not at the same time
@@ -2270,9 +2754,13 @@
 
 ## v0.4.18.16
 
+Release Date: 2018-12-17
+
 - Updating Fortnite Drop Map MixPlay to Season 7 map
 
 ## v0.4.18.15
+
+Release Date: 2018-12-15
 
 - Tweaking logic with lurking & unknown MixPlay users
 - Adding the ability to include an image with Twitter Action
@@ -2280,11 +2768,15 @@
 
 ## v0.4.18.14
 
+Release Date: 2018-12-05
+
 - Updating Skills Catalog Data & and changing loading mechanism to get data from online hosted file to allow for updating data without releasing an update for Mix It Up
 - Adding $mixplaycontrolid & $mixplaycontrolcost Special Identifiers
 - Various quality of life & bug fixes
 
 ## v0.4.18.13
+
+Release Date: 2018-12-04
 
 - Special Identifier actions can now process math equations in the Replacement Text box
 - Adding $currentsongalbumimage & $nextsongalbumimage Special Identifiers
@@ -2292,11 +2784,15 @@
 
 ## v0.4.18.12
 
+Release Date: 2018-12-02
+
 - Adding background refresh of Chat list to catch missing users & remove gone users
 - Fixing bug with GIF skills not displaying correctly on the Chat page when hovering over them
 - Fixing bug in Conditional Action when using the Greater Than or Equal To ">=" option
 
 ## v0.4.18.11
+
+Release Date: 2018-11-30
 
 - Adding additional user refreshing for moderation checks
 - Fixing calculation of $donationamountnumberdigits Special Identifier
@@ -2304,11 +2800,15 @@
 
 ## v0.4.18.10
 
+Release Date: 2018-11-29
+
 - Adding performance improvements to scrolling for User list
 - Fixing bug with pre-made commands for follow, sub, & Mixer age
 - Various quality of life & bug fixes
 
 ## v0.4.18.9
+
+Release Date: 2018-11-29
 
 - Further removal of user data queries to increase performance
 - Fixing GIFs displayed in Chat due to Mixer change
@@ -2317,10 +2817,14 @@
 
 ## v0.4.18.8
 
+Release Date: 2018-11-27
+
 - Removing background process for chat users that would sometimes display incorrect chatter numbers & have users gain things while not actually in chat
 - Ensuring only chat skills run in that channel are counted as sparks & not chat skills from other channels when in a co-stream
 
 ## v0.4.18.7
+
+Release Date: 2018-11-27
 
 - Experimental performance improvements to help improve how large hosts are handled
 - Adding the ability to set spark costs for all 4 MixPlay drop maps
@@ -2329,9 +2833,13 @@
 
 ## v0.4.18.6
 
+Release Date: 2018-11-26
+
 - Adding extra logic to correctly detect when the Beach Ball skill is used
 
 ## v0.4.18.5
+
+Release Date: 2018-11-24
 
 - Adding Channel Sparks Used Event Command
 - Adding $timedigits Special Identifier
@@ -2339,9 +2847,13 @@
 
 ## v0.4.18.4
 
+Release Date: 2018-11-20
+
 - Fixing crash related to stickers
 
 ## v0.4.18.3
+
+Release Date: 2018-11-20
 
 - Adding $skilltype & $skillimage Special Identifiers
 - Adding $milestoneremainingamount, $milestonenextremainingamount, & $milestonefinalremainingamount Special Identifiers
@@ -2350,17 +2862,23 @@
 
 ## v0.4.18.2
 
+Release Date: 2018-11-18
+
 - Window location & sizing is now saved and will be reused when launched again
 - Including single settings backup on launching Mix It Up in the event of a file corruption
 - Various quality of life & bug fixes
 
 ## v0.4.18.1
 
+Release Date: 2018-11-15
+
 - Fixing logic for Prevent Unknown MixPlay Users setting to also include new anonymous access to MixPlay controls
 - Updating Skills data to include new skills
 - Various quality of life & bug fixes
 
 ## v0.4.18.0
+
+Release Date: 2018-11-12
 
 - Adding chat messages for when a sticker or skill is used
 - Adding GIF skill support by showing GIF image on hover of image icon
@@ -2377,27 +2895,39 @@
 
 ## v0.4.17.5
 
+Release Date: 2018-11-08
+
 - Improving random number generation logic for games & other features
 - Various quality of life & bug fixes
 
 ## v0.4.17.4
+
+Release Date: 2018-11-05
 
 - Fixing bug with UI issue when bot account disconnected
 - Fixing error with YouTube song request query
 
 ## v0.4.17.3
 
+Release Date: 2018-11-05
+
 - Fixing crashing bug when using emoticon intellisense on Chat page
 
 ## v0.4.17.2
+
+Release Date: 2018-11-04
 
 - Fixing crashing bug when using user intellisense on Chat page
 
 ## v0.4.17.1
 
+Release Date: 2018-11-04
+
 - Fixing bug with username's not being colored correctly in user list
 
 ## v0.4.17.0
+
+Release Date: 2018-11-04
 
 - Large-scale performance improvements for streams with a large number of users in them
 - Adding user & emoticon intellisene pop-ups when typing messages on Chat page
@@ -2408,22 +2938,32 @@
 
 ## v0.4.16.6
 
+Release Date: 2018-10-30
+
 - Fixing bug where interactive connection could get caught in a crashing loop
 
 ## v0.4.16.5
+
+Release Date: 2018-10-30
 
 - Fixing race condition bug where a user leaving to quickly after sending a message can fail to get the user for a message
 - Adding exemptions for special accounts for moderation
 
 ## v0.4.16.4
 
+Release Date: 2018-10-29
+
 - Adding additional diagnostic logging for deleted messages
 
 ## v0.4.16.2-3
 
+Release Date: 2018-10-28
+
 - Adding settings option for the Update Preview Program
 
 ## v0.4.16.1
+
+Release Date: 2018-10-27
 
 - Fixing issue with searching for games by name
 - Preventing accidently settings overwrite if a user selects "NEW STREAMER" from the login menu, but doesn't log in with a different account when the Mixer authentication window opens
@@ -2431,6 +2971,8 @@
 - Various quality of life & bug fixes
 
 ## v0.4.16.0 - 1 Year Anniversary Update
+
+Release Date: 2018-10-25
 
 - Adding new customized themes designed by some of our biggest supports: MyBoomShtick, InsertCoinTheater, Azhtral, DustyThighs, Ahhreggi, & VerbatimT
 - Adding Extra Life service connectivity
@@ -2442,21 +2984,31 @@
 
 ## v0.4.15.9
 
+Release Date: 2018-10-22
+
 - Fixing bug where symbol & punctuation moderation was looking at the caps for whether to use percentage or minimum checks
 
 ## v0.4.15.8
+
+Release Date: 2018-10-22
 
 - Fixing detection of incorrect user log in for channel
 
 ## v0.4.15.7
 
+Release Date: 2018-10-21
+
 - Fixing bug that would freeze/hang UI when chat messages were deleted due to settings or moderation
 
 ## v0.4.15.6
 
+Release Date: 2018-10-21
+
 - Adding additional diagnostic logging to help diagnose a few issues
 
 ## v0.4.15.5
+
+Release Date: 2018-10-20
 
 - Adding moderation strikes to user pop-up dialog
 - Adding option to reset moderation strikes upon launch
@@ -2467,9 +3019,13 @@
 
 ## v0.4.15.4
 
+Release Date: 2018-10-18
+
 - Fixing bug with subscriber role determination
 
 ## v0.4.15.3
+
+Release Date: 2018-10-18
 
 - Fixing bug where you could not specify a username for adding & removing moderation strikes in the Moderation Action
 - Making username optional for Moderation Actions that use it, where it will default to the user that ran the command otherwise
@@ -2477,13 +3033,19 @@
 
 ## v0.4.15.2
 
+Release Date: 2018-10-17
+
 - Tweaking Overlay hosting to fix issues where some video files would lock up the overlay
 
 ## v0.4.15.1
 
+Release Date: 2018-10-15
+
 - Fixing crash where removed, pre-made moderation commands that were being referenced could not be found
 
 ## v0.4.15.0
+
+Release Date: 2018-10-15
 
 - Adding Moderation action to perform chat & interactive timeouts, purges, bans, & much more
 - Replaced pre-determined timeouts with new strike system to allow for customizable moderation
@@ -2501,22 +3063,32 @@
 
 ## v0.4.14.8
 
+Release Date: 2018-10-12
+
 - Fixing bug where imported ScorpBot commands did not have any actions inside of them
 
 ## v0.4.14.7
 
+Release Date: 2018-10-10
+
 - Fixing bug where game commands were removing too much currency
 
 ## v0.4.14.6
+
+Release Date: 2018-10-09
 
 - Tweaking when permissions-based checks are done to prevent spamming of commands
 - Fixing bug where custom user commands were not saving edits
 
 ## v0.4.14.5
 
+Release Date: 2018-10-07
+
 - Fixing bug where YouTube song requests were not being detected as completed
 
 ## v0.4.14.4
+
+Release Date: 2018-10-03
 
 - Adding support for multi-scene interactive cooldowns
 - Preventing cooldown of interactive controls if all usage requirements are not meant (EX: If currency requirement is not met, button/group will not cooldown)
@@ -2525,18 +3097,26 @@
 
 ## v0.4.14.3
 
+Release Date: 2018-10-01
+
 - Fixing bug where users would be unable to log in if automatic backups where enabled, but no folder location was set
 - Adding prevention of automatic backups from being enabled until a folder location has been set
 
 ## v0.4.14.2
 
+Release Date: 2018-10-01
+
 - Fixing bug where some command would get called due to chat triggers that contained other ones inside of them (EX: running "!giveaway" would trigger "!give" instead)
 
 ## v0.4.14.1
 
+Release Date: 2018-09-30
+
 - Fixing bug where some Event commands had gotten out of order
 
 ## v0.4.14.0
+
+Release Date: 2018-09-29
 
 - Adding import process for Streamlabs Chat Bot data
 - Adding support for multi-work chat triggers by using the semi-colon ";" character to separate them
@@ -2555,14 +3135,20 @@
 
 ## v0.4.13.9
 
+Release Date: 2018-09-06
+
 - Fix issue where subscriber only currencies/ranks wouldn't be awarded
 - Various quality of life & bug fixes
 
 ## v0.4.13.8
 
+Release Date: 2018-08-30
+
 - Fixing bug where moderators could not log in
 
 ## v0.4.13.7
+
+Release Date: 2018-08-28
 
 - Sound action file paths now support Special Identifiers
 - !setgame now displays the name of the game it has been set to
@@ -2572,10 +3158,14 @@
 
 ## v0.4.13.4-6
 
+Release Date: 2018-08-16
+
 - Fixing bug where Interactive scene transitions would not work consistently
 - Fixing bug where Overlay images & videos would not display properly
 
 ## v0.4.13.3
+
+Release Date: 2018-08-16
 
 - Adding option in Currency/Rank editor to reset & retroactively give currency/rank points to all users based on the Online Rate & their total viewing time
 - The list of Interactive games is refreshed when an Interactive Shared Project is added in the Settings menu
@@ -2585,15 +3175,21 @@
 
 ## v0.4.13.2
 
+Release Date: 2018-08-16
+
 - Fixing bugs with currency checks for Currency Actions & some Game Commands
 - Fixing bug where a default Interactive game would not show it's commands in the UI
 
 ## v0.4.13.1
 
+Release Date: 2018-08-16
+
 - Fixing bug in currency action where currency was not being added to the specified users but added all to the command runner
 - Fixing bug where Input Actions were severely delayed
 
 ## v0.4.13.0
+
+Release Date: 2018-08-15
 
 - Adding pre-built MixPlay Interactive projects: Fortnite Drop Map, PUBG Drop Map, Realm Royale Drop Map, & Mixer Paint
 - Currency/Rank exemptions now make the user have 0 for each currency/rank, but give them "infinite" amounts for currency/rank checks & deductions
@@ -2609,11 +3205,15 @@
 
 ## v0.4.12.11
 
+Release Date: 2018-08-03
+
 - Fixing bug where custom filtered words would overwrite custom banned words
 - Fixing bug where resetting currency for users would not save out correctly unless the user's data had been activately updated during the stream
 - Various quality of life & bug fixes
 
 ## v0.4.12.10
+
+Release Date: 2018-07-31
 
 - Fixing bug with duel where currency is not being refunded on failed game start
 - Fixing bug where Hitman Game allowed users who did not enter to be able to win the game
@@ -2623,6 +3223,8 @@
 
 ## v0.4.12.9
 
+Release Date: 2018-07-28
+
 - Changing Command Action option for Enable/Disable command into two separate options
 - Fixing bug where some Pro users were not showing as Purple in chat list
 - Fixing bug where Command Action would not show the referened command properly if it was disabled
@@ -2631,14 +3233,20 @@
 
 ## v0.4.12.8
 
+Release Date: 2018-07-25
+
 - Minor bug fix due to a bad code merge
 
 ## v0.4.12.7
+
+Release Date: 2018-07-25
 
 - Adding Mixer Clips creating OAuth scope to future proof for clip creation
 - Various quality of life & bug fixes
 
 ## v0.4.12.6
+
+Release Date: 2018-07-21
 
 - Adding $donationamountnumber special identifier
 - Fixing crashes when using backup YouTube/SoundCloud playlists for Song Requests
@@ -2646,29 +3254,41 @@
 
 ## v0.4.12.5
 
+Release Date: 2018-07-21
+
 - Adding the ability for Counter Actions to use Special Identifiers for their amount
 - Counter Actions now work with decimal values (EX: 3.4)
 
 ## v0.4.12.4
+
+Release Date: 2018-07-21
 
 - Adding new special identifier $gamebettype for Roulette game type
 - Fixing bug where Command Actions that use a Pre-Made Chat Command were not loading correctly when the bot is re-launched
 
 ## v0.4.12.3
 
+Release Date: 2018-07-20
+
 - Making Spotify backup playlists play a random song when they are started
 - Fixing bug where Song Requests would not display the default playlist in the UI when it transitioned back to it
 
 ## v0.4.12.2
 
+Release Date: 2018-07-20
+
 - Fixing bug where playing backup YouTube or SoundCloud playlist would cause a crash
 
 ## v0.4.12.1
+
+Release Date: 2018-07-20
 
 - Reliability improvements to Song Requests processing & handling
 - Setting Mixer Clips Show Info to be enabled by default. Users who updated to 0.4.12.0 before this update will need to manually set this value in their Mixer Clips action.
 
 ## v0.4.12.0
+
+Release Date: 2018-07-20
 
 - Adding Song Request action option to perform a "Pick First Result" option when performing a text search for Song Requests
 - Adding the ability to perform text search Song Requests for YouTube
@@ -2685,13 +3305,19 @@
 
 ## v0.4.11.4
 
+Release Date: 2018-07-16
+
 - Fixing bug where subscribe events were being shown in resubscribe event and resubscribe event was not visible, but still existed in settings
 
 ## v0.4.11.3
 
+Release Date: 2018-07-15
+
 - Fixing bug with certain Overlay animations not working
 
 ## v0.4.11.2
+
+Release Date: 2018-07-15
 
 - Adding "Remove First User Type in Queue" option to Game Queue to grab first user that meets a certain User Role
 - Adding $streamfollowcount Speical Identifier
@@ -2704,9 +3330,13 @@
 
 ## v0.4.11.1
 
+Release Date: 2018-07-14
+
 - Fixing bug with Game Usage Requirements not saving
 
 ## v0.4.11.0
+
+Release Date: 2018-07-13
 
 - ### This update will remove all existing Games. If you want to save/export any information from your current Games, please decline this update, save/export your data, and relaunch Mix It Up to get the update
 
@@ -2726,22 +3356,32 @@
 
 ## v0.4.10.4
 
+Release Date: 2018-07-02
+
 - Renaming "Individual" Cooldown type to "Per Person" for better identification
 - Fixing bug with Basic Interactive Chat & Sound commands not saving cooldowns correctly when updating
 
 ## v0.4.10.3
 
+Release Date: 2018-06-29
+
 - Fixing bug where imported ScorpBot chat commands don't have the "!" toggle set for them. If you recently imported from ScorpBot and have this issue, you can reset your settings by closing Mix It Up, going to the folder "%localappdata%/MixItUp/Settings", and deleting all files in there
 
 ## v0.4.10.2
+
+Release Date: 2018-06-29
 
 - Fixed crash related to previously removed User Timeout event command
 
 ## v0.4.10.1
 
+Release Date: 2018-06-29
+
 - Possible bug fix for some users that are experiencing crashes when starting stream
 
 ## v0.4.10.0
+
+Release Date: 2018-06-28
 
 - Adding new Mixer Clips action to allow Partner streamers to create & download clips through Mix It Up
 - Adding Streamlabs action to interact with Streamlabs overlay functionality
@@ -2759,20 +3399,28 @@
 
 ## v0.4.9.3
 
+Release Date: 2018-06-23
+
 - Fixing bug with Bot authentication & adding additional help text for new users
 - Fixing bug disabled timers still running
 - Adding duplicate User Host checking to prevent spam
 
 ## v0.4.9.2
 
+Release Date: 2018-06-22
+
 - Fixing bug preventing store command uploads
 - Fixing bug with donation amounts having excess amount of zeroes
 
 ## v0.4.9.1
 
+Release Date: 2018-06-21
+
 - Fixing crashing bug on XSplit disconnection
 
 ## v0.4.9.0
+
+Release Date: 2018-06-20
 
 - Official launch of the Mix It Up Store for download
 - Tweaking Currency Action UI & removing chat message functionality from it to simplify action
@@ -2785,6 +3433,8 @@
 
 ## v0.4.8.1
 
+Release Date: 2018-06-18
+
 - Improvements to reconnection logic
 - Bug fix for currency/rank not being acquired
 - Fixing issue with decimal values for donations/tips
@@ -2792,6 +3442,8 @@
 - Various quality of life & bug fixes
 
 ## v0.4.8.0
+
+Release Date: 2018-06-13
 
 - Adding Top 10 special identifiers for hours, currency, and rank
 - Adding support for seperate offline rate for currency & rank
@@ -2805,17 +3457,25 @@
 
 ## v0.4.7.4
 
+Release Date: 2018-06-03
+
 - Bug fix for !xboxgame not responding correctly to entered game text
 
 ## v0.4.7.2
+
+Release Date: 2018-06-03
 
 - Bug fix for new Whisper Number Tracking incorrectly whispering regular chat messages
 
 ## v0.4.7.1
 
+Release Date: 2018-06-03
+
 - Fixing bug where certain actions were not correctly being added when selected
 
 ## v0.4.7.0
+
+Release Date: 2018-06-03
 
 - Adding integration with Tiltify
 - Adding support for donation-based giveaways
@@ -2834,6 +3494,8 @@
 
 ## v0.4.6.0
 
+Release Date: 2018-05-30
+
 - Re-working Song Request feature & adding support for YouTube & SoundCloud
 - Merging OBS Studio, XSplit, & Streamlabs actions into Streaming Software action
 - Adding support for stream start & end option for Streaming Software action
@@ -2850,6 +3512,8 @@
 
 ## v0.4.5.7
 
+Release Date: 2018-05-28
+
 - Fixing bug with Input Actions not saving correctly
 - Fixing bug with where bot crashes if GameWisp API is down or unavailable
 - Fixing bug with where bot crashes if user in chat has no roles
@@ -2858,9 +3522,13 @@
 
 ## v0.4.5.6
 
+Release Date: 2018-05-26
+
 - Fixing bug with Streamlabs donations triggering correctly
 
 ## v0.4.5.5
+
+Release Date: 2018-05-25
 
 - User entrance commands now only run after the user says something in chat
 - Fixing bug with crashes due to Interactive user failed calls
@@ -2869,9 +3537,13 @@
 
 ## v0.4.5.4
 
+Release Date: 2018-05-24
+
 - Fixing issues with Event Command buttons not working in UI
 
 ## v0.4.5.0
+
+Release Date: 2018-05-23
 
 - Adding new event commands & separating out donation event commands
 - Adding new $randomfollower\_\_\_ & $randomsub\_\_\_ Special Identifiers
@@ -2882,12 +3554,16 @@
 
 ## v0.4.4.1
 
+Release Date: 2018-05-19
+
 - Reliability improvements for getting Interactive users
 - Adding URL encoding for all Special Identifiers used in a Web Request action
 - Fixing bug with currency, rank, and spark exemptions now saving for users
 - Various quality of life & bug fixes
 
 ## v0.4.4.0
+
+Release Date: 2018-05-18
 
 - Adding support for Interactive Joysticks & Text Boxes
 - Adding Mixer Status Alerts to Login window
@@ -2898,14 +3574,20 @@
 
 ## v0.4.3.2
 
+Release Date: 2018-05-13
+
 - Fixing bug with Follower user role not being detected correctly
 
 ## v0.4.3.1
+
+Release Date: 2018-05-13
 
 - Fixing bug with user roles not being set correctly
 - Various quality of life & bug fixes
 
 ## v0.4.3.0
+
+Release Date: 2018-05-11
 
 - Adding GameWisp support for user role requirement & subscribe events
 - Interactive commands now have access to all Usage Requirement settings
@@ -2917,26 +3599,36 @@
 
 ## v0.4.2.3
 
+Release Date: 2018-05-08
+
 - Adding new Special Identifiers for stream start time and uptime
 - Adding !setaudience Pre-Made Chat Command
 - Fixing bug in File Action Line Reads
 
 ## v0.4.2.2
 
+Release Date: 2018-05-07
+
 - Possible fix to CPU Maxing issue some users are experiencing on long streams
 
 ## v0.4.2.1
+
+Release Date: 2018-05-05
 
 - Fixing bug with Streamlabs donations not being detected
 - Fixing bug with Games not responding to their chat commands
 
 ## v0.4.2.0
 
+Release Date: 2018-05-05
+
 - Streamlabs OBS integration completed
 - Fixed crashing bug when no Bot account is linked, but ignore Bot commands is enabled
 - Various quality of life & bug fixes
 
 ## v0.4.1.0
+
+Release Date: 2018-05-04
 
 - Adding new Users section to allow editing of User data, including Custom Commands & User-specific settings
 - Adding $streamer\_\_\_\_\_\_ Special Identifiers
@@ -2945,6 +3637,8 @@
 - Various quality of life & bug fixes
 
 ## v0.4.0.0 - Sigma Release
+
+Release Date: 2018-04-29
 
 - New Settings menu to store all application-wide settings
 - New installer executable & default installation location migration
@@ -2957,6 +3651,8 @@
 
 ## v0.3.19.0
 
+Release Date: 2018-04-21
+
 - Adding GawkBox service support
 - Adding additional options for File Action
 - Adding new $random\_\_\_\_ Special Identifiers
@@ -2965,12 +3661,16 @@
 
 ## v0.3.18.0
 
+Release Date: 2018-04-20
+
 - Adding Translation action
 - Adding Twitter action
 - Fixing bug with getting access code for Remote connection
 - Various quality of life & bug fixes
 
 ## v0.3.17.3
+
+Release Date: 2018-04-18
 
 - Large feature update to Text to Speech action
 - Adding new Mixer Service alerts to notify about disconnections
@@ -2979,6 +3679,8 @@
 
 ## v0.3.17.2
 
+Release Date: 2018-04-05
+
 - Fixing authentication token issue with Discord service
 - Improvement to Dark Theme colors for Chat & Users
 - Adding Spotify support to Developer API
@@ -2986,11 +3688,15 @@
 
 ## v0.3.17.1
 
+Release Date: 2018-04-04
+
 - Bug fix for Currency/Rank saving
 - Bug fix for Currency/Rank importing
 - Bug fixes for Spotify & Song Request services
 
 ## v0.3.17.0
+
+Release Date: 2018-04-03
 
 - Adding Discord integration
 - Adding improvements to service reconnection (EX: Chat, Interactive, etc)
@@ -2998,10 +3704,14 @@
 
 ## v0.3.16.5
 
+Release Date: 2018-04-01
+
 - Fixing bug with giveaway command not working
 - Various quality of life & bug fixes
 
 ## v0.3.16.4
+
+Release Date: 2018-03-30
 
 - Adding the option to unlock commands to allow them to run without blocking other commands
 - Allowing currency amount to be a special identifier
@@ -3011,6 +3721,8 @@
 
 ## v0.3.16.3
 
+Release Date: 2018-03-28
+
 - Large usability & reliability improvements to Overlay & XSplit services
 - Fixing song selection & play/pause functionality for Song Request feature
 - Fixing issues with Remote commands & groups
@@ -3018,17 +3730,23 @@
 
 ## v0.3.16.2
 
+Release Date: 2018-03-27
+
 - Adding Play/Pause & Next buttons to Song Requests area
 - Fixing bug with Remote service connections
 - Various quality of life & bug fixes
 
 ## v0.3.16.1
 
+Release Date: 2018-03-27
+
 - Adding the ability to create Chat commands without an "!"
 - Whispering a command to the bot account will now run that command
 - Fixing bug with Application settings not persisting with updates (EX: Dark Theme)
 
 ## v0.3.16.0
+
+Release Date: 2018-03-26
 
 - Adding Song Request feature with Spotify support
 - Adding Spotify integration for controlling your Spotify player
@@ -3040,10 +3758,14 @@
 
 ## v0.3.15.5
 
+Release Date: 2018-03-21
+
 - Adding additional logging to help diagnose some harder to discover issues
 - Various quality of life & bug fixes
 
 ## v0.3.15.2
+
+Release Date: 2018-03-19
 
 - Fixing issue with random crashes due to Chat connectivity
 - Fixing issue with Interactive games not loading correctly if a button does not have a spark cost
@@ -3052,10 +3774,14 @@
 
 ## v0.3.15.1
 
+Release Date: 2018-03-17
+
 - Adding Favorite Users/Teams feature in Channels area
 - Fixing bug with Interactive connectivity for some users
 
 ## v0.3.15
+
+Release Date: 2018-03-16
 
 - Adding integration for Streamlabs donation tracking
 - Adding integration for Twitter tweet lookups
@@ -3066,6 +3792,8 @@
 
 ## v0.3.14
 
+Release Date: 2018-03-10
+
 - Updating ordering of requirement checks and currency subtraction for commands with permissions
 - Adding Chat scroll Lock/Unlock functionality
 - Making chat alerts easier to see in Dark theme
@@ -3075,11 +3803,15 @@
 
 ## v0.3.13.1
 
+Release Date: 2018-02-21
+
 - Fixing crash when attempting to use existing games. This fix unfortunately might default the Currency Requirement in your Game to 1, so you will need to check & possibly update your game after this update.
 - Fixing crash when attempting to delete quotes
 - Various quality of life & bug fixes
 
 ## v0.3.13
+
+Release Date: 2018-02-19
 
 - Adding the ability to set cooldowns on a global or individual user basis
 - Adding alert message in Mix It Up chat window for chat user join/leave, events, and interactive
@@ -3092,6 +3824,8 @@
 
 ## v0.3.12
 
+Release Date: 2018-02-17
+
 - Adding new Interactive Action options to cooldown a specific button, cooldown group, or entier scene
 - Adding the option to save & read a Counter Action's value to a text file in Counters folder
 - Adding support for Youtube Video display on Mix It Up Overlay
@@ -3103,10 +3837,14 @@
 
 ## v0.3.11.1
 
+Release Date: 2018-02-14
+
 - Fixing bug with Creating Basic Chat & Sound commands
 - Fixing bug Chat pop-up crashing bug
 
 ## v0.3.11
+
+Release Date: 2018-02-13
 
 - Adding new Usage Requirements UI for Chat Commands, Games, Giveaways, & Game Queue
 - Fixing bug with Emote moderation detection
@@ -3116,12 +3854,16 @@
 
 ## v0.3.10
 
+Release Date: 2018-02-10
+
 - Large feature changes and improvements to the Moderation service
 - Adding support for importing moderation settings from ScorpBot
 - Adding statistics tracking for unfollows, subscribes, and resubscribes
 - Various quality of life & bug fixes
 
 ## v0.3.9
+
+Release Date: 2018-02-08
 
 - Users can now look at the other scenes of the interactive game they are connected to (This will not change what scene is displayed to users)
 - Fixing Chat window scrolling issues (Finally!)
@@ -3131,6 +3873,8 @@
 
 ## v0.3.8
 
+Release Date: 2018-02-07
+
 - Adding retry connection logic to both Constellation (Events) and Interactive connections
 - Fixing issue with Interactive not being able to connect
 - Removing duplicate users from settings
@@ -3139,10 +3883,14 @@
 
 ## v0.3.7
 
+Release Date: 2018-02-06
+
 - Changing login authentication port to 8919 to prevent login issues people were having when FireBot was running at the same time
 - Fixing crashing bug with new Statistics feature
 
 ## v0.3.6
+
+Release Date: 2018-02-06
 
 - Adding experimental Statistics feature. This feature is not currently complete and should not be relied upon for accuracy currently. Future updates will stablize and improve this feature
 - Adding retry logic around initial login connection as a stop-gap until Mixer API reliability is improved
@@ -3157,6 +3905,8 @@
 
 ## v0.3.5
 
+Release Date: 2018-02-05
+
 - Adding the ability to resize the User list in Chat
 - Adding new UI options to view and edit a user's Currency & Rank
 - Adding new update UI to fix issues some people were experiencing where they could not perform an update (this will be visible on the NEXT update)
@@ -3169,10 +3919,14 @@
 
 ## v0.3.4
 
+Release Date: 2018-01-29
+
 - Fixing bug with latest version of OBS Studio when trying to use OBS Web Browser action
 - Removing boomtvmod from Currency & Rank accumulation
 
 ## v0.3.3
+
+Release Date: 2018-01-25
 
 - Overlay actions are now run together in sets
 - Adding better error handling for Overlay & XSplit connectivity
@@ -3182,6 +3936,8 @@
 - Various quality of life & bug fixes
 
 ## v0.3.2
+
+Release Date: 2018-01-23
 
 - Adding confirmation prompts to deleting commands and closing the app
 - Adding additional info to About section
@@ -3194,6 +3950,8 @@
 
 ## v0.3.1
 
+Release Date: 2018-01-22
+
 - Adding additional options to Interactive Actions
 - Adding special identifier for game that user was playing
 - Adding currency maximum amount
@@ -3201,6 +3959,8 @@
 - Various quality of life & bug fixes
 
 ## v0.3.0
+
+Release Date: 2018-01-20
 
 - Large performance updates through the entire application
 - New "Basic" command system allows for easy chat or sound commands for Chat, Interactive, Events & Timers
@@ -3211,6 +3971,8 @@
 - Various quality of life & bug fixes
 
 ## v0.2.7
+
+Release Date: 2017-12-19
 
 - First auto-updatable release
 - New User Wizard that allows for importing of ScorpBot & Soundwave Interactive settings
@@ -3227,8 +3989,12 @@
 
 ## v0.1.1
 
+Release Date: 2017-12-16
+
 - Various bug fixes for Pre-Release Alpha
 
 ## v0.1.0
+
+Release Date: 2017-12-16
 
 - Initial Pre-Release Alpha

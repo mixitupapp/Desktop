@@ -41,7 +41,9 @@
             <ToggleButton
                 Grid.Column="2"
                 VerticalAlignment="Center"
-                IsChecked="{Binding SendAsStreamer}" />
+                IsChecked="{Binding SendAsStreamer}"
+                AutomationProperties.AutomationId="ChatActionEditor.SendAsStreamerToggle"
+                AutomationProperties.Name="{x:Static resx:Resources.SendAsStreamer}" />
 
             <TextBlock
                 Grid.Column="4"
@@ -52,7 +54,9 @@
                 Grid.Column="6"
                 VerticalAlignment="Center"
                 IsChecked="{Binding IsWhisper}"
-                ToolTip="{x:Static resx:Resources.WhisperTooltip}" />
+                ToolTip="{x:Static resx:Resources.WhisperTooltip}"
+                AutomationProperties.AutomationId="ChatActionEditor.WhisperToggle"
+                AutomationProperties.Name="{x:Static resx:Resources.Whisper}" />
 
             <TextBox
                 Grid.Column="8"
@@ -61,13 +65,15 @@
                 IsEnabled="{Binding IsWhisper}"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Text="{Binding WhisperUserName}"
-                ToolTip="{x:Static resx:Resources.WhisperTooltip}" />
+                ToolTip="{x:Static resx:Resources.WhisperTooltip}"
+                AutomationProperties.AutomationId="ChatActionEditor.WhisperUserTextBox"
+                AutomationProperties.Name="{x:Static resx:Resources.WhisperUserOptional}" />
 
             <TextBlock
                 Grid.Column="10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center">
-                <Hyperlink NavigateUri="https://wiki.mixitup.bot/special-identifiers" RequestNavigate="Hyperlink_RequestNavigate">
+                <Hyperlink NavigateUri="https://wiki.mixitup.bot/special-identifiers" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="ChatActionEditor.WhisperInfoLink">
                     <TextBlock Text="{x:Static resx:Resources.SpecialIdentifiers}" />
                 </Hyperlink>
             </TextBlock>
@@ -79,7 +85,10 @@
             MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}"
             Style="{StaticResource MaterialDesignOutlinedTextBox}"
             Text="{Binding ChatText}"
-            TextWrapping="Wrap" />
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            AutomationProperties.AutomationId="ChatActionEditor.ChatMessageTextBox"
+            AutomationProperties.Name="{x:Static resx:Resources.ChatMessage}" />
 
     </Grid>
 </local:ActionEditorControlBase>

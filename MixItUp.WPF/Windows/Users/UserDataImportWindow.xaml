@@ -13,10 +13,10 @@
     Title="{x:Static resx:Resources.UserDataImport}"
     Width="600"
     Height="700"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -31,7 +31,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="UserDataImport.MDDialogHost" />
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.RowDefinitions>
@@ -69,7 +69,9 @@
                     Height="50"
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FilePath}"
                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                    Text="{Binding UserDataFilePath}" />
+                    Text="{Binding UserDataFilePath}"
+                    AutomationProperties.AutomationId="UserDataImport.FilePathTextBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.FilePath}" />
                 <Button
                     Grid.Row="0"
                     Grid.Column="2"
@@ -77,7 +79,8 @@
                     VerticalAlignment="Bottom"
                     Command="{Binding UserDataFileBrowseCommand}"
                     Content="{x:Static resx:Resources.Browse}"
-                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    AutomationProperties.AutomationId="UserDataImport.BrowseButton" />
             </Grid>
 
             <TextBlock
@@ -106,7 +109,9 @@
                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamingPlatform}"
                     ItemsSource="{Binding Platforms}"
                     SelectedItem="{Binding SelectedPlatform}"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    AutomationProperties.AutomationId="UserDataImport.StreamingPlatformComboBox"
+                    AutomationProperties.Name="{x:Static resx:Resources.StreamingPlatform}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -119,7 +124,7 @@
                 Grid.Row="8"
                 HorizontalScrollBarVisibility="Disabled"
                 VerticalScrollBarVisibility="Visible">
-                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Columns}">
+                <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Columns}" AutomationProperties.AutomationId="UserDataImport.UserDataStep2List" AutomationProperties.Name="{x:Static resx:Resources.Columns}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,0,0,12">
@@ -137,7 +142,9 @@
                                     VerticalAlignment="Center"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColumnNumber}"
                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                    Text="{Binding ColumnNumber}" />
+                                    Text="{Binding ColumnNumber}"
+                                    AutomationProperties.AutomationId="ImportColumn.ColumnNumberTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.ColumnNumber}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -156,7 +163,8 @@
                 Command="{Binding ImportButtonCommand}"
                 Content="{Binding ImportButtonText}"
                 IsEnabled="{Binding ImportButtonState}"
-                Style="{StaticResource MaterialDesignRaisedButton}" />
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                AutomationProperties.AutomationId="UserDataImport.ImportButton" />
 
         </Grid>
 

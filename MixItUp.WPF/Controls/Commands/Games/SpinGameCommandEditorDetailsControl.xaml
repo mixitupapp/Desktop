@@ -24,13 +24,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Outcomes}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="16" />
+                    <TextBlock Grid.Column="0" Text="{x:Static resx:Resources.Outcomes}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="{DynamicResource MIU.FontSize.TitleMedium}" />
 
-                    <Button Grid.Column="2" Content="{x:Static resx:Resources.AddOutcome}" Command="{Binding AddOutcomeCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" />
+                    <Button Grid.Column="2" Content="{x:Static resx:Resources.AddOutcome}" Command="{Binding AddOutcomeCommand}" Style="{StaticResource MaterialDesignRaisedLightButton}" MinWidth="130" HorizontalAlignment="Center" AutomationProperties.AutomationId="SpinGameCommandEditorDetails.AddOutcomeButton" />
                 </Grid>
             </GroupBox.Header>
 
-            <ItemsControl ItemsSource="{Binding Outcomes}">
+            <ItemsControl ItemsSource="{Binding Outcomes}" AutomationProperties.AutomationId="SpinGameCommandEditorDetails.OutcomesList" AutomationProperties.Name="{x:Static resx:Resources.Outcomes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="15">
@@ -44,7 +44,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Name}" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Name}" VerticalAlignment="Center" AutomationProperties.AutomationId="SpinOutcome.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
                             <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
@@ -60,22 +60,22 @@
                                     <ColumnDefinition Width="100" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserChance}" />
+                                <TextBox Grid.Column="0" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserChance}" AutomationProperties.AutomationId="SpinOutcome.UserChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserChancePercentage}" />
 
-                                <TextBox Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" />
+                                <TextBox Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" AutomationProperties.AutomationId="SpinOutcome.UserPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserPayoutPercentage}" />
                                 
-                                <TextBox Grid.Column="2" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubChance}" />
+                                <TextBox Grid.Column="2" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubChance}" AutomationProperties.AutomationId="SpinOutcome.SubChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubChancePercentage}" />
 
-                                <TextBox Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" />
+                                <TextBox Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" AutomationProperties.AutomationId="SpinOutcome.SubPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubPayoutPercentage}" />
                                 
-                                <TextBox Grid.Column="4" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModChance}" />
+                                <TextBox Grid.Column="4" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModChance}" AutomationProperties.AutomationId="SpinOutcome.ModChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModChancePercentage}" />
 
-                                <TextBox Grid.Column="4" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" />
+                                <TextBox Grid.Column="4" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" AutomationProperties.AutomationId="SpinOutcome.ModPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModPayoutPercentage}" />
                             </Grid>
 
                             <CommandsControls:CommandListingButtonsControl x:Name="CommandButtons" Grid.Column="4" HorizontalAlignment="Center" EditClicked="OutcomeCommandButtons_CommandButtons" HideDeleteButton="True" HideEnableDisableToggle="True" />
 
-                            <Controls:IconButton x:Name="DeleteOutcomeButton" Grid.Column="6" Click="DeleteOutcomeButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                            <Controls:IconButton x:Name="SpinGameCommandEditorDetailsDeleteOutcomeButton" Grid.Column="6" Click="DeleteOutcomeButton_Click" HorizontalAlignment="Center" Icon="Delete" ToolTip="{x:Static resx:Resources.DeleteCommand}" AutomationProperties.AutomationId="SpinOutcome.DeleteOutcomeButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

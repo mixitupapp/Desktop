@@ -11,6 +11,11 @@ namespace MixItUp.WPF.Services
     {
         public void LaunchLink(string url)
         {
+            this.TryLaunchLink(url);
+        }
+
+        public bool TryLaunchLink(string url)
+        {
             try
             {
                 if (!string.IsNullOrEmpty(url))
@@ -20,9 +25,11 @@ namespace MixItUp.WPF.Services
                         UseShellExecute = true
                     };
                     Process.Start(processInfo);
+                    return true;
                 }
             }
             catch (Exception ex) { Logger.Log(ex); }
+            return false;
         }
 
         public void LaunchFolder(string folderPath)

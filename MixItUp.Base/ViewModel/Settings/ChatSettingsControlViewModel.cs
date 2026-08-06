@@ -13,7 +13,6 @@ namespace MixItUp.Base.ViewModel.Settings
     public class ChatSettingsControlViewModel : UIViewModelBase
     {
         public GenericToggleSettingsOptionControlViewModel SaveChatEventLogs { get; set; }
-        public GenericSliderSettingsOptionControlViewModel FontSize { get; set; }
         public GenericToggleSettingsOptionControlViewModel AddSeparatorsBetweenMessages { get; set; }
         public GenericToggleSettingsOptionControlViewModel UseAlternatingBackgroundColors { get; set; }
         public GenericComboBoxSettingsOptionControlViewModel<ChatEmoteAnimationEnum> EmoteAnimation { get; set; }
@@ -45,12 +44,6 @@ namespace MixItUp.Base.ViewModel.Settings
         {
             this.SaveChatEventLogs = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.SaveChatEventLogs, ChannelSession.Settings.SaveChatEventLogs,
                 (value) => { ChannelSession.Settings.SaveChatEventLogs = value; });
-            this.FontSize = new GenericSliderSettingsOptionControlViewModel(MixItUp.Base.Resources.FontSize, ChannelSession.Settings.ChatFontSize, 6, 100,
-                (value) =>
-                {
-                    ChannelSession.Settings.ChatFontSize = value;
-                    ChatService.ChatVisualSettingsChanged();
-                });
             this.AddSeparatorsBetweenMessages = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.AddSeparatorsBetweenMessages, ChannelSession.Settings.AddSeparatorsBetweenMessages,
                 (value) =>
                 {

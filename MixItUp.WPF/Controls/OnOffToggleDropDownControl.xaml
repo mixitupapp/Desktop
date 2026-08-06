@@ -10,6 +10,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
         <TextBlock x:Name="Display" VerticalAlignment="Center" Text="{Binding DisplayName, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" Margin="0,13,5,0" />
-        <ComboBox x:Name="DropDown" Width="100" ItemsSource="{Binding Options}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.State}" />
+        <ComboBox x:Name="DropDown" Width="100" ItemsSource="{Binding Options}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.State}" AutomationProperties.AutomationId="OnOffToggleDropDown.StateComboBox" AutomationProperties.Name="{Binding DisplayName}" />
     </StackPanel>
 </UserControl>

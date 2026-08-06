@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="SAMMIActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -45,12 +45,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
-                <TextBox Grid.Column="0" Text="{Binding ButtonID}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ButtonID}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding ButtonID}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ButtonID}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="SAMMIActionEditor.ButtonIDTextBox" AutomationProperties.Name="{x:Static resx:Resources.ButtonID}" />
 
-                <Button Grid.Column="2" Command="{Binding AddVariableCommand}" Content="{x:Static resx:Resources.AddVariable}" HorizontalAlignment="Center" MinWidth="150" />
+                <Button Grid.Column="2" Command="{Binding AddVariableCommand}" Content="{x:Static resx:Resources.AddVariable}" HorizontalAlignment="Center" MinWidth="150" AutomationProperties.AutomationId="SAMMIActionEditor.AddVariableButton" />
             </Grid>
             
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding ButtonVariables}">
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding ButtonVariables}" AutomationProperties.AutomationId="SAMMIActionEditor.VariablesList" AutomationProperties.Name="{x:Static resx:Resources.Variables}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,5">
@@ -62,11 +62,11 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Variable.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                            <TextBox Grid.Column="2" Text="{Binding Value}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="2" Text="{Binding Value}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="Variable.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.Value}" />
 
-                            <Controls:IconButton Grid.Column="4" Command="{Binding DeleteVariableCommand}" Icon="Delete"  ToolTip="{x:Static resx:Resources.Delete}" />
+                            <Controls:IconButton Grid.Column="4" Command="{Binding DeleteVariableCommand}" Icon="Delete"  ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="Variable.DeleteButton" AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -80,9 +80,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding GlobalVariableName}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding GlobalVariableName}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="SAMMIActionEditor.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-            <TextBox Grid.Row="2" Text="{Binding GlobalVariableValue}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="2" Text="{Binding GlobalVariableValue}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Value}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="SAMMIActionEditor.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.Value}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

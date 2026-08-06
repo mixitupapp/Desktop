@@ -15,9 +15,9 @@
     Title="{x:Static resx:Resources.OverlayWidgetEditor}"
     Width="800"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -32,7 +32,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="OverlayWidgetV3Editor.MDDialogHost" />
 
         <ScrollViewer Grid.Row="0">
             <Grid Margin="10">
@@ -56,14 +56,18 @@
                         Grid.Column="0"
                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding Name}" />
+                        Text="{Binding Name}"
+                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.NameTextBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
                     <ComboBox
                         Grid.Column="2"
                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayOption}"
                         ItemsSource="{Binding DisplayOptions}"
                         SelectedItem="{Binding SelectedDisplayOption}"
-                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.DisplayOptionComboBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.DisplayOption}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}" />
@@ -78,7 +82,9 @@
                         ItemsSource="{Binding OverlayEndpoints}"
                         SelectedItem="{Binding SelectedOverlayEndpoint}"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                        Visibility="{Binding IsDisplayOptionOverlayEndpoint, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding IsDisplayOptionOverlayEndpoint, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.OverlayEndpointsComboBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.OverlayEndpoints}" />
 
                     <Controls:IconButton
                         x:Name="OldHTMLButton"
@@ -87,15 +93,18 @@
                         Click="OldHTMLButton_Click"
                         Icon="history"
                         ToolTip="{x:Static resx:Resources.OldHTML}"
-                        Visibility="{Binding ShowOldCustomHTML, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding ShowOldCustomHTML, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.OldHTMLButton"
+                        AutomationProperties.Name="{x:Static resx:Resources.OldHTML}" />
                 </Grid>
 
                 <Border Grid.Row="2" Style="{StaticResource DefaultBorder}">
                     <TabControl
                         SnapsToDevicePixels="True"
                         Style="{StaticResource MaterialDesignFilledTabControl}"
-                        TabStripPlacement="Top">
-                        <TabItem HorizontalAlignment="Stretch" Header="{x:Static resx:Resources.Details}">
+                        TabStripPlacement="Top"
+                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.WidgetTabs">
+                        <TabItem HorizontalAlignment="Stretch" Header="{x:Static resx:Resources.Details}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.DetailsTab">
                             <Grid Margin="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -121,19 +130,21 @@
                                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RefreshTimeSecs}"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                         Text="{Binding RefreshTime}"
-                                        Visibility="{Binding IsBasicWidget, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        Visibility="{Binding IsBasicWidget, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.RefreshTimeSecsTextBox"
+                                        AutomationProperties.Name="{x:Static resx:Resources.RefreshTimeSecs}" />
                                 </Grid>
                             </Grid>
                         </TabItem>
 
-                        <TabItem HorizontalContentAlignment="Stretch" Header="{x:Static resx:Resources.Position}">
+                        <TabItem HorizontalContentAlignment="Stretch" Header="{x:Static resx:Resources.Position}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.PositionTab">
                             <OverlayControls:OverlayPositionV3Control
                                 x:Name="Position"
                                 Margin="10"
                                 DataContext="{Binding Position}" />
                         </TabItem>
 
-                        <TabItem Header="{x:Static resx:Resources.Animation}">
+                        <TabItem Header="{x:Static resx:Resources.Animation}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.AnimationTab">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -153,13 +164,13 @@
                                         Foreground="Red"
                                         Text="{x:Static resx:Resources.OverlayWarning2}" />
                                     <TextBlock HorizontalAlignment="Center">
-                                        <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate">
+                                        <Hyperlink NavigateUri="https://wiki.mixitup.bot/services/overlay#windows-settings-overlay-animation-issue" RequestNavigate="Hyperlink_RequestNavigate" AutomationProperties.AutomationId="OverlayWidgetV3Editor.OverlayWarning2Link">
                                             <TextBlock Text="{x:Static resx:Resources.OverlayWarning3}" />
                                         </Hyperlink>
                                     </TextBlock>
                                 </StackPanel>
 
-                                <ItemsControl Grid.Row="3" ItemsSource="{Binding Animations}">
+                                <ItemsControl Grid.Row="3" ItemsSource="{Binding Animations}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.CustomVariablesList" AutomationProperties.Name="{x:Static resx:Resources.Variables}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <OverlayControls:OverlayAnimationV3Control />
@@ -169,53 +180,59 @@
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{Binding HTMLHeader}">
+                        <TabItem Header="{Binding HTMLHeader}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.HtmlTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.HtmlEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayHtml}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}"
+                                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.HtmlPopoutButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.PopoutEditor}">
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{Binding CSSHeader}">
+                        <TabItem Header="{Binding CSSHeader}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.CssTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" Util:AvalonEditCustomHighlighting.Language="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" Util:AvalonEditCustomHighlighting.Language="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.CssEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayCss}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}"
+                                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.CssPopoutButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.PopoutEditor}">
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{Binding JavascriptHeader}">
+                        <TabItem Header="{Binding JavascriptHeader}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.JavascriptTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" Util:AvalonEditCustomHighlighting.Language="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" Util:AvalonEditCustomHighlighting.Language="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayWidgetV3Editor.JavascriptEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayJavascript}" />
                                 </Border>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                         Click="PopoutButton_Click"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-                                        ToolTip="{x:Static resx:Resources.PopoutEditor}">
-                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="16" />
+                                        ToolTip="{x:Static resx:Resources.PopoutEditor}"
+                                        AutomationProperties.AutomationId="OverlayWidgetV3Editor.JavascriptPopoutButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.PopoutEditor}">
+                                    <Controls:MaterialSymbolIcon IconName="open_in_new" FontSize="{DynamicResource MIU.IconSize.16}" />
                                 </Button>
                             </Grid>
                         </TabItem>
@@ -244,20 +261,26 @@
                     Grid.Column="0"
                     Command="{Binding SaveCommand}"
                     Icon="save"
-                    ToolTip="{x:Static resx:Resources.Save}" />
+                    ToolTip="{x:Static resx:Resources.Save}"
+                    AutomationProperties.AutomationId="OverlayWidgetV3Editor.SaveButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Save}" />
 
                 <Controls:IconButton
                     Grid.Column="2"
                     Command="{Binding TestCommand}"
                     Icon="play_arrow"
                     IsEnabled="{Binding IsTestable}"
-                    ToolTip="{x:Static resx:Resources.TestCommand}" />
+                    ToolTip="{x:Static resx:Resources.TestCommand}"
+                    AutomationProperties.AutomationId="OverlayWidgetV3Editor.TestCommandButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.TestCommand}" />
 
                 <Controls:IconButton
                     Grid.Column="4"
                     Command="{Binding ExportCommand}"
                     Icon="output"
-                    ToolTip="{x:Static resx:Resources.ExportData}" />
+                    ToolTip="{x:Static resx:Resources.ExportData}"
+                    AutomationProperties.AutomationId="OverlayWidgetV3Editor.ExportDataButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.ExportData}" />
             </Grid>
 
             <Controls:LoadingStatusBar x:Name="StatusBar" Grid.Row="2" />

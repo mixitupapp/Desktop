@@ -28,7 +28,7 @@ namespace MixItUp.Uninstaller
         private async void UninstallButton_Click(object sender, RoutedEventArgs e)
         {
             UninstallButton.IsEnabled = false;
-            CancelButton.IsEnabled = false;
+            UninstallerCancelButton.IsEnabled = false;
 
             bool success = await this.viewModel.RunUninstallAsync();
 

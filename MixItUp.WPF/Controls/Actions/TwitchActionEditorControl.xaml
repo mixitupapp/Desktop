@@ -26,7 +26,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -41,9 +41,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.TargetUsernameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Username}" />
 
-            <ComboBox Grid.Row="2" Visibility="{Binding ShowSetSuspiciousUserStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding SuspiciousUserStatuses}" SelectedItem="{Binding SelectedSuspiciousUserStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="2" Visibility="{Binding ShowSetSuspiciousUserStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding SuspiciousUserStatuses}" SelectedItem="{Binding SelectedSuspiciousUserStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.SuspiciousUserStatusComboBox" AutomationProperties.Name="{x:Static resx:Resources.Status}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -51,7 +51,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <ComboBox Grid.Row="2" Visibility="{Binding ShowBlockUserGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding BlockUserReasons}" SelectedItem="{Binding SelectedBlockUserReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="2" Visibility="{Binding ShowBlockUserGrid, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding BlockUserReasons}" SelectedItem="{Binding SelectedBlockUserReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Reason}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.ReasonComboBox" AutomationProperties.Name="{x:Static resx:Resources.Reason}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -61,7 +61,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowTextGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Text="{Binding Text}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.MessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowSetCustomTagsGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -69,7 +69,7 @@
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowAdGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <ComboBox ItemsSource="{Binding AdLengths}" SelectedItem="{Binding SelectedAdLength}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountSeconds}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox ItemsSource="{Binding AdLengths}" SelectedItem="{Binding SelectedAdLength}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountSeconds}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.AmountSecondsComboBox" AutomationProperties.Name="{x:Static resx:Resources.AmountSeconds}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowClipsGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
@@ -86,8 +86,8 @@
                     <ColumnDefinition Width="150" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding ClipTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <TextBox Grid.Column="2" Text="{Binding ClipDuration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding ClipTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.ClipTitleTextBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
+                <TextBox Grid.Column="2" Text="{Binding ClipDuration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.DurationSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.DurationSeconds}" />
             </Grid>
 
             <Grid Grid.Row="2" HorizontalAlignment="Center">
@@ -102,15 +102,15 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ShowInfoInChat}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                <ToggleButton Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding ShowInfoInChat}" />
+                <ToggleButton Grid.Column="2" VerticalAlignment="Center" IsChecked="{Binding ShowInfoInChat}" AutomationProperties.AutomationId="TwitchActionEditor.ShowInfoInChatToggle" AutomationProperties.Name="{x:Static resx:Resources.ShowInfoInChat}" />
 
                 <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <TextBox Grid.Column="6" VerticalAlignment="Center" Text="$clipurl" Style="{StaticResource TextBoxReadOnlySelectable}" />
+                <TextBox Grid.Column="6" VerticalAlignment="Center" Text="$clipurl" Style="{StaticResource TextBoxReadOnlySelectable}" AutomationProperties.AutomationId="TwitchActionEditor.ResultTextBox" AutomationProperties.Name="{x:Static resx:Resources.Result}" />
             </Grid>
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowStreamMarkerGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding StreamMarkerDescription}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DescriptionOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Text="{Binding StreamMarkerDescription}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DescriptionOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.StreamMarkerDescriptionTextBox" AutomationProperties.Name="{x:Static resx:Resources.DescriptionOptional}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowUpdateChannelPointRewardGrid, Converter={StaticResource BooleanToVisibilityConverter}}" HorizontalAlignment="Center">
@@ -143,15 +143,15 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding ChannelPointRewards}" SelectedItem="{Binding ChannelPointReward}" DisplayMemberPath="title" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                <ComboBox Grid.Column="0" ItemsSource="{Binding ChannelPointRewards}" SelectedItem="{Binding ChannelPointReward}" DisplayMemberPath="title" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPoints}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.ChannelPointsComboBox" AutomationProperties.Name="{x:Static resx:Resources.ChannelPoints}" />
 
                 <TextBlock Grid.Column="2" Margin="0,10,0,0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                <ToggleButton Grid.Column="4" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardState}" />
+                <ToggleButton Grid.Column="4" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardState}" AutomationProperties.AutomationId="TwitchActionEditor.EnableToggle" AutomationProperties.Name="{x:Static resx:Resources.Enable}" />
 
                 <TextBlock Grid.Column="6" Margin="0,10,0,0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Pause}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                <ToggleButton Grid.Column="8" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardPaused}" />
+                <ToggleButton Grid.Column="8" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardPaused}" AutomationProperties.AutomationId="TwitchActionEditor.PauseToggle" AutomationProperties.Name="{x:Static resx:Resources.Pause}" />
 
-                <TextBox Grid.Column="10" Text="{Binding ChannelPointRewardCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Cost}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" />
+                <TextBox Grid.Column="10" Text="{Binding ChannelPointRewardCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Cost}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" AutomationProperties.AutomationId="TwitchActionEditor.CostTextBox" AutomationProperties.Name="{x:Static resx:Resources.Cost}" />
             </Grid>
 
             <Grid Grid.Row="4">
@@ -161,12 +161,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding ChannelPointRewardName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding ChannelPointRewardName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.RewardNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
-                <TextBox Grid.Column="2" Text="{Binding ChannelPointRewardBackgroundColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColorHex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding ChannelPointRewardBackgroundColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ColorHex}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.ColorHexTextBox" AutomationProperties.Name="{x:Static resx:Resources.ColorHex}" />
             </Grid>
 
-            <TextBox Grid.Row="6" Text="{Binding ChannelPointRewardDescription}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="6" Text="{Binding ChannelPointRewardDescription}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Description}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.DescriptionTextBox" AutomationProperties.Name="{x:Static resx:Resources.Description}" />
 
             <Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
@@ -182,13 +182,13 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Margin="0,10,0,0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ChannelPointRewardUpdateCooldownAndLimits}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}"/>
-                <ToggleButton Grid.Column="2" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" />
+                <ToggleButton Grid.Column="2" Margin="0,10,0,0" VerticalAlignment="Center" IsChecked="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" AutomationProperties.AutomationId="TwitchActionEditor.RewardUpdateLimitsToggle" AutomationProperties.Name="{x:Static resx:Resources.ChannelPointRewardUpdateCooldownAndLimits}" />
 
-                <TextBox Grid.Column="4" Text="{Binding ChannelPointRewardMaxPerStream}" IsEnabled="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsRewardMaxPerStream}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" />
+                <TextBox Grid.Column="4" Text="{Binding ChannelPointRewardMaxPerStream}" IsEnabled="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsRewardMaxPerStream}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" AutomationProperties.AutomationId="TwitchActionEditor.RewardMaxPerStreamTextBox" AutomationProperties.Name="{x:Static resx:Resources.ChannelPointsRewardMaxPerStream}" />
 
-                <TextBox Grid.Column="6" Text="{Binding ChannelPointRewardMaxPerUser}" IsEnabled="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsRewardMaxPerUser}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" />
+                <TextBox Grid.Column="6" Text="{Binding ChannelPointRewardMaxPerUser}" IsEnabled="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsRewardMaxPerUser}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="120" AutomationProperties.AutomationId="TwitchActionEditor.RewardMaxPerUserTextBox" AutomationProperties.Name="{x:Static resx:Resources.ChannelPointsRewardMaxPerUser}" />
 
-                <TextBox Grid.Column="8" Text="{Binding ChannelPointRewardGlobalCooldown}" IsEnabled="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsRewardGlobalCooldown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="160" />
+                <TextBox Grid.Column="8" Text="{Binding ChannelPointRewardGlobalCooldown}" IsEnabled="{Binding ChannelPointRewardUpdateCooldownsAndLimits}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsRewardGlobalCooldown}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="160" AutomationProperties.AutomationId="TwitchActionEditor.RewardGlobalCooldownTextBox" AutomationProperties.Name="{x:Static resx:Resources.ChannelPointsRewardGlobalCooldown}" />
             </Grid>
         </Grid>
 
@@ -205,7 +205,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding PollTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding PollTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.PollTitleTextBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
@@ -216,11 +216,11 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding PollDurationSeconds}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSec}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding PollDurationSeconds}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSec}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.PollDurationTextBox" AutomationProperties.Name="{x:Static resx:Resources.DurationSec}" />
 
-                <TextBox Grid.Column="2" Text="{Binding PollChannelPointsCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsCostOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding PollChannelPointsCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChannelPointsCostOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.PollChannelPointsCostTextBox" AutomationProperties.Name="{x:Static resx:Resources.ChannelPointsCostOptional}" />
 
-                <TextBox Grid.Column="4" Text="{Binding PollBitsCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BitsCostOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="4" Text="{Binding PollBitsCost}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BitsCostOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.BitsCostOptionalTextBox" AutomationProperties.Name="{x:Static resx:Resources.BitsCostOptional}" />
             </Grid>
 
             <Grid Grid.Row="4">
@@ -230,9 +230,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding PollChoice1}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding PollChoice1}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.Choice1TextBox" AutomationProperties.Name="{x:Static resx:Resources.Choice1}" />
 
-                <TextBox Grid.Column="2" Text="{Binding PollChoice2}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding PollChoice2}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.Choice2TextBox" AutomationProperties.Name="{x:Static resx:Resources.Choice2}" />
             </Grid>
 
             <Grid Grid.Row="6">
@@ -242,12 +242,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding PollChoice3}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice3}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding PollChoice3}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice3}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.Choice3TextBox" AutomationProperties.Name="{x:Static resx:Resources.Choice3}" />
 
-                <TextBox Grid.Column="2" Text="{Binding PollChoice4}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice4}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding PollChoice4}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice4}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.Choice4TextBox" AutomationProperties.Name="{x:Static resx:Resources.Choice4}" />
             </Grid>
 
-            <TextBox Grid.Row="8" Text="{Binding PollChoice5}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice5}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="8" Text="{Binding PollChoice5}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Choice5}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.Choice5TextBox" AutomationProperties.Name="{x:Static resx:Resources.Choice5}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowPredictionGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -268,9 +268,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding PredictionTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding PredictionTitle}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.PredictionTitleTextBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
 
-                <TextBox Grid.Column="2" Text="{Binding PredictionDurationSeconds}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSec}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" />
+                <TextBox Grid.Column="2" Text="{Binding PredictionDurationSeconds}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DurationSec}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" AutomationProperties.AutomationId="TwitchActionEditor.PredictionDurationTextBox" AutomationProperties.Name="{x:Static resx:Resources.DurationSec}" />
             </Grid>
 
             <Grid Grid.Row="2">
@@ -280,14 +280,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding PredictionOutcome1}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding PredictionOutcome1}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome1}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.Outcome1TextBox" AutomationProperties.Name="{x:Static resx:Resources.Outcome1}" />
 
-                <TextBox Grid.Column="2" Text="{Binding PredictionOutcome2}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding PredictionOutcome2}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome2}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.Outcome2TextBox" AutomationProperties.Name="{x:Static resx:Resources.Outcome2}" />
             </Grid>
 
-            <Button Grid.Row="6" Command="{Binding AddPredictionOutcomeCommand}" Content="{x:Static resx:Resources.AddOutcome}" HorizontalAlignment="Center" MinWidth="150" IsEnabled="{Binding CanAddPredictionOutcome}" />
+            <Button Grid.Row="6" Command="{Binding AddPredictionOutcomeCommand}" Content="{x:Static resx:Resources.AddOutcome}" HorizontalAlignment="Center" MinWidth="150" IsEnabled="{Binding CanAddPredictionOutcome}" AutomationProperties.AutomationId="TwitchActionEditor.AddOutcomeButton" />
 
-            <ItemsControl Grid.Row="4" ItemsSource="{Binding PredictionAdditionalOutcomes}">
+            <ItemsControl Grid.Row="4" ItemsSource="{Binding PredictionAdditionalOutcomes}" AutomationProperties.AutomationId="TwitchActionEditor.PredictionOutcomesList" AutomationProperties.Name="{x:Static resx:Resources.Outcomes}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="2" />
@@ -302,9 +302,9 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" Text="{Binding Outcome}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="0" Text="{Binding Outcome}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Outcome}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="PredictionOutcome.TitleTextBox" AutomationProperties.Name="{x:Static resx:Resources.Outcome}" />
 
-                            <Controls:IconButton Grid.Column="2" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                            <Controls:IconButton Grid.Column="2" Command="{Binding DeleteCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="PredictionOutcome.DeleteButton" AutomationProperties.Name="{Binding Outcome, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -320,9 +320,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding Message}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Message}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding Message}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Message}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.AnnouncementMessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.Message}" />
             
-            <ComboBox Grid.Row="2" ItemsSource="{Binding AnnouncementColors}" SelectedItem="{Binding SelectedAnnouncementColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Color}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="2" ItemsSource="{Binding AnnouncementColors}" SelectedItem="{Binding SelectedAnnouncementColor}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Color}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.ColorComboBox" AutomationProperties.Name="{x:Static resx:Resources.Color}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -338,7 +338,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.SendAsStreamer}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-                <ToggleButton Grid.Column="2" IsChecked="{Binding SendAnnouncementAsStreamer}" VerticalAlignment="Center" />
+                <ToggleButton Grid.Column="2" IsChecked="{Binding SendAnnouncementAsStreamer}" VerticalAlignment="Center" AutomationProperties.AutomationId="TwitchActionEditor.SendAsStreamerToggle" AutomationProperties.Name="{x:Static resx:Resources.SendAsStreamer}" />
             </Grid>
         </Grid>
 
@@ -367,13 +367,13 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.EmoteMode}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsEmoteMode}" />
+                <CheckBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsEmoteMode}" AutomationProperties.AutomationId="TwitchActionEditor.EmoteModeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.EmoteMode}" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UniqueChatMode}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsUniqueChatMode}" />
+                <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsUniqueChatMode}" AutomationProperties.AutomationId="TwitchActionEditor.UniqueChatModeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.UniqueChatMode}" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.SubscriberMode}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsSubscriberMode}" />
+                <CheckBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsSubscriberMode}" AutomationProperties.AutomationId="TwitchActionEditor.SubscriberModeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.SubscriberMode}" />
             </Grid>
 
             <Grid Grid.Column="1" HorizontalAlignment="Left">
@@ -393,16 +393,16 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.SlowMode}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsSlowMode}" />
-                <TextBox Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" Text="{Binding ChatSettingsSlowModeDuration}" IsEnabled="{Binding ChatSettingsSlowModeEnabled}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <CheckBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsSlowMode}" AutomationProperties.AutomationId="TwitchActionEditor.SlowModeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.SlowMode}" />
+                <TextBox Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" Text="{Binding ChatSettingsSlowModeDuration}" IsEnabled="{Binding ChatSettingsSlowModeEnabled}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.SecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.Seconds}" />
 
                 <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.FollowerMode}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsFollowerMode}" />
-                <TextBox Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" Text="{Binding ChatSettingsFollowerModeDuration}" IsEnabled="{Binding ChatSettingsFollowerModeEnabled}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Minutes}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <CheckBox Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsFollowerMode}" AutomationProperties.AutomationId="TwitchActionEditor.FollowerModeCheckBox" AutomationProperties.Name="{x:Static resx:Resources.FollowerMode}" />
+                <TextBox Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" Text="{Binding ChatSettingsFollowerModeDuration}" IsEnabled="{Binding ChatSettingsFollowerModeEnabled}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Minutes}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.MinutesTextBox" AutomationProperties.Name="{x:Static resx:Resources.Minutes}" />
 
                 <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.NonModeratorChatDelay}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                <CheckBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsNonModeratorChat}" />
-                <ComboBox Grid.Row="4" Grid.Column="4" ItemsSource="{Binding ChatSettingsNonModeratorChatDurations}" SelectedItem="{Binding SelectedChatSettingsNonModeratorChatDuration}" IsEnabled="{Binding ChatSettingsNonModeratorChatEnabled}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                <CheckBox Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" IsThreeState="True" IsChecked="{Binding ChatSettingsNonModeratorChat}" AutomationProperties.AutomationId="TwitchActionEditor.NonModeratorChatDelayCheckBox" AutomationProperties.Name="{x:Static resx:Resources.NonModeratorChatDelay}" />
+                <ComboBox Grid.Row="4" Grid.Column="4" ItemsSource="{Binding ChatSettingsNonModeratorChatDurations}" SelectedItem="{Binding SelectedChatSettingsNonModeratorChatDuration}" IsEnabled="{Binding ChatSettingsNonModeratorChatEnabled}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Seconds}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.SecondsComboBox" AutomationProperties.Name="{x:Static resx:Resources.Seconds}" />
             </Grid>
         </Grid>
 
@@ -417,13 +417,13 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Row="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Row="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.VipUsernameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Username}" />
 
             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.AutomaticRemoval}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
-            <TextBox Grid.Column="4" Width="80" Text="{Binding VIPUserAutomaticRemovalAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="4" Width="80" Text="{Binding VIPUserAutomaticRemovalAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Amount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.AmountTextBox" AutomationProperties.Name="{x:Static resx:Resources.Amount}" />
 
-            <ComboBox Grid.Column="6" Width="100" ItemsSource="{Binding VIPUserAutomaticRemovalDurations}" SelectedItem="{Binding SelectedVIPUserAutomaticRemovalDuration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Duration}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="6" Width="100" ItemsSource="{Binding VIPUserAutomaticRemovalDurations}" SelectedItem="{Binding SelectedVIPUserAutomaticRemovalDuration}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Duration}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.DurationComboBox" AutomationProperties.Name="{x:Static resx:Resources.Duration}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -439,13 +439,13 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Grid.Column="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="0" Text="{Binding Username}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Username}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.WarnUsernameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Username}" />
 
-            <TextBox Grid.Column="2" Text="{Binding WarnReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModerationReasonOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding WarnReason}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModerationReasonOptional}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="TwitchActionEditor.WarnReasonTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModerationReasonOptional}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowPinMessageGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBox Text="{Binding PinMessageText}" Height="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextWrapping="Wrap" />
+            <TextBox Text="{Binding PinMessageText}" Height="120" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignOutlinedTextBox}" TextAlignment="Left" TextWrapping="Wrap" AutomationProperties.AutomationId="TwitchActionEditor.ChatMessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ChatMessage}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowUpdateRedemptionStatusGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -461,7 +461,7 @@
 
             <TextBlock Grid.Row="2" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Static resx:Resources.TwitchActionUpdateRedemptionStatusOnlyForChannelPointCommands}" TextAlignment="Center" TextWrapping="Wrap" />
 
-            <ComboBox Grid.Row="4" ItemsSource="{Binding RedemptionStatusTypes}" SelectedItem="{Binding SelectedRedemptionStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Row="4" ItemsSource="{Binding RedemptionStatusTypes}" SelectedItem="{Binding SelectedRedemptionStatus}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Status}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="TwitchActionEditor.RedemptionStatusComboBox" AutomationProperties.Name="{x:Static resx:Resources.Status}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>

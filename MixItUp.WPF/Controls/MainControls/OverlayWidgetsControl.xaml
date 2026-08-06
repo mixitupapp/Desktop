@@ -10,8 +10,8 @@
     xmlns:resx="clr-namespace:MixItUp.Base;assembly=MixItUp.Base"
     d:DesignHeight="300"
     d:DesignWidth="300"
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <local:MainControlBase.Resources>
@@ -42,7 +42,9 @@
                 HorizontalContentAlignment="Stretch"
                 CellStyle="{StaticResource StandardDataGridCell}"
                 ItemsSource="{Binding OverlayWidgets}"
-                Style="{StaticResource StandardDataGrid}">
+                Style="{StaticResource StandardDataGrid}"
+                AutomationProperties.AutomationId="OverlayWidgets.WidgetsDataGrid"
+                AutomationProperties.Name="{x:Static resx:Resources.OverlayWidgets}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="*"
@@ -64,7 +66,9 @@
                                         Click="LinkButton_Click"
                                         Icon="link"
                                         ToolTip="{x:Static resx:Resources.Link}"
-                                        Visibility="{Binding IsSingleWidgetURL, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" />
+                                        Visibility="{Binding IsSingleWidgetURL, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}"
+                                        AutomationProperties.AutomationId="WidgetRow.CopyLinkButton"
+                                        AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.CopyLinkFormat}}" />
 
                                     <Controls:IconButton
                                         x:Name="ResetButton"
@@ -73,26 +77,32 @@
                                         Click="ResetButton_Click"
                                         Icon="sync"
                                         ToolTip="{x:Static resx:Resources.Reset}"
-                                        Visibility="{Binding IsResettable, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}" />
+                                        Visibility="{Binding IsResettable, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Hidden}"
+                                        AutomationProperties.AutomationId="WidgetRow.ResetButton"
+                                        AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.ResetFormat}}" />
 
                                     <Controls:IconButton
-                                        x:Name="EditButton"
+                                        x:Name="OverlayWidgetsEditButton"
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Center"
                                         Click="EditButton_Click"
                                         Icon="rate_review"
-                                        ToolTip="{x:Static resx:Resources.EditCommand}" />
+                                        ToolTip="{x:Static resx:Resources.EditCommand}"
+                                        AutomationProperties.AutomationId="WidgetRow.EditButton"
+                                        AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.EditCommandFormat}}" />
 
                                     <Controls:IconButton
-                                        x:Name="DeleteButton"
+                                        x:Name="OverlayWidgetsDeleteButton"
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Center"
                                         Click="DeleteButton_Click"
                                         Icon="delete"
-                                        ToolTip="{x:Static resx:Resources.DeleteCommand}" />
+                                        ToolTip="{x:Static resx:Resources.DeleteCommand}"
+                                        AutomationProperties.AutomationId="WidgetRow.DeleteButton"
+                                        AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
 
                                     <ToggleButton
-                                        x:Name="EnableDisableToggleSwitch"
+                                        x:Name="OverlayWidgetsEnableDisableToggleSwitch"
                                         Margin="10,0,0,0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -100,7 +110,9 @@
                                         IsChecked="{Binding IsEnabled}"
                                         Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                         ToolTip="{x:Static resx:Resources.EnableDisableCommand}"
-                                        Unchecked="EnableDisableToggleSwitch_Unchecked" />
+                                        Unchecked="EnableDisableToggleSwitch_Unchecked"
+                                        AutomationProperties.AutomationId="WidgetRow.EnableDisableToggle"
+                                        AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.EnableDisableCommandFormat}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -121,7 +133,8 @@
                     MinWidth="180"
                     HorizontalAlignment="Center"
                     Click="AddOverlayWidgetButton_Click"
-                    Content="{x:Static resx:Resources.AddOverlayWidget}" />
+                    Content="{x:Static resx:Resources.AddOverlayWidget}"
+                    AutomationProperties.AutomationId="OverlayWidgets.AddWidgetButton" />
 
                 <Button
                     x:Name="ImportOverlayWidgetButton"
@@ -129,7 +142,8 @@
                     MinWidth="200"
                     HorizontalAlignment="Center"
                     Click="ImportOverlayWidgetButton_Click"
-                    Content="{x:Static resx:Resources.ImportOverlayWidget}" />
+                    Content="{x:Static resx:Resources.ImportOverlayWidget}"
+                    AutomationProperties.AutomationId="OverlayWidgets.ImportWidgetButton" />
             </Grid>
 
         </Grid>

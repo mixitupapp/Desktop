@@ -277,6 +277,17 @@ namespace MixItUp.Base.Services.Velora.New
                 return;
             }
 
+            // System-generated posts (e.g. the "Velora Community Bot" channel-point celebration cards) are
+            // not real users. Their sender is a synthetic account that does not exist in Velora's user
+            // directory, so resolving it hits GET /users/{name}, which 404s and logs a full exception stack
+            // on every post, then persists a phantom user. The underlying events these cards echo (channel
+            // point redemptions, etc.) are handled through their own Events WS handlers, so drop the
+            // redundant system chat echo here rather than track a user for it.
+            if (messageEvent.IsSystem ?? false)
+            {
+                return;
+            }
+
             UserV2ViewModel user = await this.GetOrCreateUser(messageEvent.ResolvedSender);
             if (user == null)
             {
@@ -314,6 +325,13 @@ namespace MixItUp.Base.Services.Velora.New
             }
         }
 
+        // Velora subs are numbered tiers with no streamer-set plan names, so $usersubplan and
+        // $usersubplanname both carry the tier label that Twitch/YouTube commands already expect.
+        private static string GetSubPlanName(int tier)
+        {
+            return $"{MixItUp.Base.Resources.Tier} {tier}";
+        }
+
         private async Task HandleSubscribe(JObject payload)
         {
             WebhookSubscribeEventModel subEvent = payload.ToObject<WebhookSubscribeEventModel>();
@@ -340,6 +358,8 @@ namespace MixItUp.Base.Services.Velora.New
             CommandParametersModel parameters = new CommandParametersModel(user, StreamingPlatformTypeEnum.Velora);
             parameters.SpecialIdentifiers["usersubmonths"] = months.ToString();
             parameters.SpecialIdentifiers["usersubtier"] = tier.ToString();
+            parameters.SpecialIdentifiers["usersubplan"] = GetSubPlanName(tier);
+            parameters.SpecialIdentifiers["usersubplanname"] = GetSubPlanName(tier);
             if (!string.IsNullOrWhiteSpace(subEvent.Message))
             {
                 parameters.SpecialIdentifiers["message"] = subEvent.Message;
@@ -411,6 +431,8 @@ namespace MixItUp.Base.Services.Velora.New
                     CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Velora);
                     giftParameters.SpecialIdentifiers["isanonymous"] = isAnonymous.ToString();
                     giftParameters.SpecialIdentifiers["usersubtier"] = tier.ToString();
+                    giftParameters.SpecialIdentifiers["usersubplan"] = GetSubPlanName(tier);
+                    giftParameters.SpecialIdentifiers["usersubplanname"] = GetSubPlanName(tier);
                     giftParameters.TargetUser = recipient;
                     giftParameters.Arguments.Add(recipient.Username);
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.VeloraChannelSubscriptionGifted, giftParameters);
@@ -428,6 +450,8 @@ namespace MixItUp.Base.Services.Velora.New
                     CommandParametersModel giftParameters = new CommandParametersModel(gifter, StreamingPlatformTypeEnum.Velora);
                     giftParameters.SpecialIdentifiers["isanonymous"] = isAnonymous.ToString();
                     giftParameters.SpecialIdentifiers["usersubtier"] = tier.ToString();
+                    giftParameters.SpecialIdentifiers["usersubplan"] = GetSubPlanName(tier);
+                    giftParameters.SpecialIdentifiers["usersubplanname"] = GetSubPlanName(tier);
                     await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.VeloraChannelSubscriptionGifted, giftParameters);
                 }
             }
@@ -444,6 +468,8 @@ namespace MixItUp.Base.Services.Velora.New
                 parameters.SpecialIdentifiers["subsgiftedlifetimeamount"] = gifter.TotalSubsGifted.ToString();
                 parameters.SpecialIdentifiers["isanonymous"] = isAnonymous.ToString();
                 parameters.SpecialIdentifiers["usersubtier"] = tier.ToString();
+                parameters.SpecialIdentifiers["usersubplan"] = GetSubPlanName(tier);
+                parameters.SpecialIdentifiers["usersubplanname"] = GetSubPlanName(tier);
                 foreach (SubscriptionDetailsModel sub in subscriptions)
                 {
                     parameters.Arguments.Add(sub.User.Username);
@@ -691,6 +717,8 @@ namespace MixItUp.Base.Services.Velora.New
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.VeloraChannelPointsRedeemed, parameters);
             await ServiceManager.Get<AlertsService>().AddAlert(new AlertChatMessageViewModel(user, string.Format(MixItUp.Base.Resources.AlertVeloraChannelPointRedeemed, user.FullDisplayName, redemptionEvent.RewardTitle), ChannelSession.Settings.AlertVeloraChannelPointsColor));
 
+            EventService.ChannelPointsRedeemedOccurred(user, redemptionEvent.RewardCost);
+
             VeloraChannelPointsCommandModel command = ServiceManager.Get<CommandService>().VeloraChannelPointsCommands.FirstOrDefault(c => string.Equals(c.ChannelPointRewardID, redemptionEvent.RewardID, StringComparison.OrdinalIgnoreCase));
             if (command == null)
             {
@@ -709,6 +737,11 @@ namespace MixItUp.Base.Services.Velora.New
             WebhookStreamEventModel streamEvent = payload.ToObject<WebhookStreamEventModel>();
 
             ServiceManager.Get<VeloraSession>().ApplyStreamStatusUpdate(true, streamEvent?.Title, streamEvent?.StartedAt);
+
+            // Going live carries the category the stream started with. Apply it before the event fires
+            // so stream-start commands see the current category instead of whatever the last background
+            // refresh left behind.
+            await ServiceManager.Get<VeloraSession>().ApplyMetadataUpdate(streamEvent?.Title, streamEvent?.ResolvedCategorySlug, streamEvent?.ResolvedCategoryName, streamEvent?.ResolvedCategoryImageUrl);
 
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.VeloraChannelStreamStart, new CommandParametersModel(StreamingPlatformTypeEnum.Velora));
         }
@@ -730,13 +763,14 @@ namespace MixItUp.Base.Services.Velora.New
                 return;
             }
 
-            ServiceManager.Get<VeloraSession>().ApplyMetadataUpdate(streamEvent.Title, streamEvent.ResolvedCategorySlug, streamEvent.ResolvedCategoryName);
+            await ServiceManager.Get<VeloraSession>().ApplyMetadataUpdate(streamEvent.Title, streamEvent.ResolvedCategorySlug, streamEvent.ResolvedCategoryName, streamEvent.ResolvedCategoryImageUrl);
 
             CommandParametersModel parameters = new CommandParametersModel(ChannelSession.User, StreamingPlatformTypeEnum.Velora);
             parameters.SpecialIdentifiers["streamtitle"] = streamEvent.Title ?? string.Empty;
             parameters.SpecialIdentifiers["streamgameid"] = streamEvent.ResolvedCategorySlug ?? string.Empty;
             parameters.SpecialIdentifiers["streamgame"] = streamEvent.ResolvedCategoryName ?? string.Empty;
             parameters.SpecialIdentifiers["streamgamename"] = streamEvent.ResolvedCategoryName ?? string.Empty;
+            parameters.SpecialIdentifiers["streamgameimage"] = ServiceManager.Get<VeloraSession>().StreamCategoryImageURL ?? string.Empty;
             await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.VeloraChannelUpdated, parameters);
         }
 

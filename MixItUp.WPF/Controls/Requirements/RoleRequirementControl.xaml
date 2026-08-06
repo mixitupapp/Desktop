@@ -12,7 +12,7 @@
              
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
+             TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
              
              d:DesignHeight="300" d:DesignWidth="300">
@@ -45,11 +45,11 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Simple}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="2" IsChecked="{Binding IsAdvancedRolesSelected}" VerticalAlignment="Center" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding IsAdvancedRolesSelected}" VerticalAlignment="Center" AutomationProperties.AutomationId="RoleRequirement.SimpleToggle" AutomationProperties.Name="{x:Static resx:Resources.Simple}" />
             <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.Advanced}}" VerticalAlignment="Center" />
         </Grid>
 
-        <ComboBox Grid.Row="2" ItemsSource="{Binding Platforms}" SelectedItem="{Binding SelectedPlatform}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamingPlatform}" Width="140" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="2" ItemsSource="{Binding Platforms}" SelectedItem="{Binding SelectedPlatform}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.StreamingPlatform}" Width="140" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="RoleRequirement.StreamingPlatformComboBox" AutomationProperties.Name="{x:Static resx:Resources.StreamingPlatform}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -57,7 +57,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ComboBox Grid.Row="4" Visibility="{Binding ShowSimpleRoles, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Role}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="4" Visibility="{Binding ShowSimpleRoles, Converter={StaticResource BooleanToVisibilityConverter}}" ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Role}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="RoleRequirement.SimpleRoleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Role}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -79,7 +79,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Column="0" ItemsSource="{Binding AdvancedRoles}" SelectedItem="{Binding SelectedAdvancedRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Role}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox Grid.Column="0" ItemsSource="{Binding AdvancedRoles}" SelectedItem="{Binding SelectedAdvancedRole}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Role}" Width="120" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="RoleRequirement.AdvancedRoleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Role}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -87,11 +87,11 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <Controls:IconButton Grid.Column="2" Command="{Binding AddAdvancedRoleCommand}" Icon="Add" Style="{StaticResource MaterialDesignRaisedButton}" Padding="10,0" />
+                <Controls:IconButton Grid.Column="2" Command="{Binding AddAdvancedRoleCommand}" Icon="Add" Style="{StaticResource MaterialDesignRaisedButton}" Padding="10,0" AutomationProperties.AutomationId="RoleRequirement.AddAdvancedRoleButton" AutomationProperties.Name="{x:Static resx:Resources.Add}" />
             </Grid>
 
             <Border Grid.Row="2" Style="{StaticResource DefaultBorder}">
-                <ItemsControl ItemsSource="{Binding SelectedAdvancedRoles}" Margin="10" Width="200">
+                <ItemsControl ItemsSource="{Binding SelectedAdvancedRoles}" Margin="10" Width="200" AutomationProperties.AutomationId="RoleRequirement.AdvancedRolesList" AutomationProperties.Name="{x:Static resx:Resources.Roles}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel />
@@ -99,14 +99,14 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <MaterialDesign:Chip Content="{Binding Name}" IsDeletable="True" DeleteCommand="{Binding DeleteAdvancedRoleCommand}" />
+                            <MaterialDesign:Chip Content="{Binding Name}" IsDeletable="True" DeleteCommand="{Binding DeleteAdvancedRoleCommand}" AutomationProperties.AutomationId="AdvancedRole.Chip" AutomationProperties.Name="{Binding}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Border>
         </Grid>
 
-        <ComboBox Grid.Row="5" ItemsSource="{Binding SubscriberTiers}" SelectedItem="{Binding SubscriberTier}" Visibility="{Binding IsSubscriberRole, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Tier}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0" Width="120">
+        <ComboBox Grid.Row="5" ItemsSource="{Binding SubscriberTiers}" SelectedItem="{Binding SubscriberTier}" Visibility="{Binding IsSubscriberRole, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Tier}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0" Width="120" AutomationProperties.AutomationId="RoleRequirement.TierComboBox" AutomationProperties.Name="{x:Static resx:Resources.Tier}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -114,8 +114,8 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <ComboBox Grid.Row="6" ItemsSource="{Binding YouTubeMembershipLevels}" SelectedItem="{Binding YouTubeMembershipLevel}" DisplayMemberPath="Snippet.LevelDetails.DisplayName" Visibility="{Binding IsYouTubeConnected, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YouTubeMemberLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0" Width="180" />
+        <ComboBox Grid.Row="6" ItemsSource="{Binding YouTubeMembershipLevels}" SelectedItem="{Binding YouTubeMembershipLevel}" DisplayMemberPath="Snippet.LevelDetails.DisplayName" Visibility="{Binding IsYouTubeConnected, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.YouTubeMemberLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0" Width="180" AutomationProperties.AutomationId="RoleRequirement.YouTubeMemberLevelComboBox" AutomationProperties.Name="{x:Static resx:Resources.YouTubeMemberLevel}" />
 
-        <ComboBox Grid.Row="8" ItemsSource="{Binding PatreonBenefits}" SelectedItem="{Binding SelectedPatreonBenefit}" DisplayMemberPath="Title" Visibility="{Binding IsPatreonConnected, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PatreonBenefit}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0" Width="120" />
+        <ComboBox Grid.Row="8" ItemsSource="{Binding PatreonBenefits}" SelectedItem="{Binding SelectedPatreonBenefit}" DisplayMemberPath="Title" Visibility="{Binding IsPatreonConnected, Converter={StaticResource BooleanToVisibilityConverter}}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.PatreonBenefit}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0,15,0,0" Width="120" AutomationProperties.AutomationId="RoleRequirement.PatreonBenefitComboBox" AutomationProperties.Name="{x:Static resx:Resources.PatreonBenefit}" />
     </Grid>
 </UserControl>

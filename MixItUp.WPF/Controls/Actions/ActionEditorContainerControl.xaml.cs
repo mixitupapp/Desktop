@@ -123,12 +123,15 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.Script: return new ScriptActionEditorControl();
                 case ActionTypeEnum.Serial: return new SerialActionEditorControl();
                 case ActionTypeEnum.Sound: return new SoundActionEditorControl();
+                case ActionTypeEnum.PlatformMessage: return new PlatformMessageActionEditorControl();
                 case ActionTypeEnum.SpecialIdentifier: return new SpecialIdentifierActionEditorControl();
                 case ActionTypeEnum.StreamingSoftware: return new StreamingSoftwareActionEditorControl();
                 case ActionTypeEnum.Streamlabs: return new StreamlabsActionEditorControl();
                 case ActionTypeEnum.TextToSpeech: return new TextToSpeechActionEditorControl();
                 case ActionTypeEnum.TITS: return new TITSActionEditorControl();
                 case ActionTypeEnum.Twitch: return new TwitchActionEditorControl();
+                case ActionTypeEnum.UserLookup: return new UserLookupActionEditorControl();
+                case ActionTypeEnum.Veadotube: return new VeadotubeActionEditorControl();
                 case ActionTypeEnum.Velora: return new VeloraActionEditorControl();
                 case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControl();
                 case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControl();

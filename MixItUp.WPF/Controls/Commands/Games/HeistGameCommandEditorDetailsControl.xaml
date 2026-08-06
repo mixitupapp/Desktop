@@ -37,9 +37,9 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" />
+                    <TextBox Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandMinimumParticipants}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MinimumParticipants}" Width="110" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.GameCommandMinimumParticipantsTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandMinimumParticipants}" />
 
-                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" />
+                    <TextBox Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.GameCommandTimeLimit}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TimeLimit}" Width="55" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.GameCommandTimeLimitTextBox" AutomationProperties.Name="{x:Static resx:Resources.GameCommandTimeLimit}" />
                 </Grid>
             </GroupBox>
 
@@ -82,17 +82,17 @@
                         <ColumnDefinition Width="80" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserChance}" />
+                    <TextBox Grid.Column="0" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserChance}" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.UserChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserChancePercentage}" />
 
-                    <TextBox Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" />
+                    <TextBox Grid.Column="0" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding UserPayout}" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.UserPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserPayoutPercentage}" />
 
-                    <TextBox Grid.Column="2" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubChance}" />
+                    <TextBox Grid.Column="2" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubChance}" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.SubChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubChancePercentage}" />
 
-                    <TextBox Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" />
+                    <TextBox Grid.Column="2" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SubPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SubPayout}" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.SubPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.SubPayoutPercentage}" />
 
-                    <TextBox Grid.Column="4" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModChance}" />
+                    <TextBox Grid.Column="4" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModChancePercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModChance}" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.ModChancePercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModChancePercentage}" />
 
-                    <TextBox Grid.Column="4" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" />
+                    <TextBox Grid.Column="4" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ModPayoutPercentage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ModPayout}" AutomationProperties.AutomationId="HeistGameCommandEditorDetails.ModPayoutPercentageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ModPayoutPercentage}" />
                 </Grid>
             </GroupBox>
 

@@ -35,13 +35,13 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.SaveToFile}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="2" IsChecked="{Binding SaveToFile}" ToolTip="{x:Static resx:Resources.SaveToFile}" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding SaveToFile}" ToolTip="{x:Static resx:Resources.SaveToFile}" AutomationProperties.AutomationId="CounterActionEditor.SaveToFileToggle" AutomationProperties.Name="{x:Static resx:Resources.SaveToFile}" />
 
             <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.ResetOnLoad}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="6" IsChecked="{Binding ResetOnLoad}" ToolTip="{x:Static resx:Resources.ResetOnLoad}" />
+            <ToggleButton Grid.Column="6" IsChecked="{Binding ResetOnLoad}" ToolTip="{x:Static resx:Resources.ResetOnLoad}" AutomationProperties.AutomationId="CounterActionEditor.ResetOnLoadToggle" AutomationProperties.Name="{x:Static resx:Resources.ResetOnLoad}" />
 
             <TextBlock Grid.Column="8" HorizontalAlignment="Right" VerticalAlignment="Center">
-                <Hyperlink x:Name="CounterFolderHyperlink" Click="CounterFolderHyperlink_Click">
+                <Hyperlink x:Name="CounterFolderHyperlink" Click="CounterFolderHyperlink_Click" AutomationProperties.AutomationId="CounterActionEditor.CounterFolderLink">
                     <TextBlock Text="{x:Static resx:Resources.CountersFolder}"/>
                 </Hyperlink>
             </TextBlock>
@@ -57,9 +57,9 @@
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Counters}" Text="{Binding CounterName}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Counters}" Text="{Binding CounterName}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CounterNameWithTips}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CounterActionEditor.CounterNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.CounterNameWithTips}" />
 
-            <ComboBox Grid.Column="2" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+            <ComboBox Grid.Column="2" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="CounterActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -67,7 +67,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBox Grid.Column="4" Text="{Binding Amount}" IsEnabled="{Binding CanSetAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountPlusMinus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="4" Text="{Binding Amount}" IsEnabled="{Binding CanSetAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.AmountPlusMinus}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CounterActionEditor.AmountPlusMinusTextBox" AutomationProperties.Name="{x:Static resx:Resources.AmountPlusMinus}" />
         </Grid>
     </Grid>
 </local:ActionEditorControlBase>

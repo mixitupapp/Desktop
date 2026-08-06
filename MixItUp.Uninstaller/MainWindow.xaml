@@ -49,7 +49,9 @@
                 Click="CancelButton_Click"
                 Style="{StaticResource MaterialDesignIconButton}"
                 ToolTip="Close"
-                Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}">
+                Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                AutomationProperties.AutomationId="Uninstaller.CloseWindowButton"
+                AutomationProperties.Name="Close">
                 <MaterialDesign:PackIcon
                     Width="20"
                     Height="20"
@@ -116,7 +118,8 @@
                                 Margin="30,0,0,0"
                                 Content="Keep my settings"
                                 FontWeight="Medium"
-                                IsChecked="{Binding KeepSettings, Mode=TwoWay}" />
+                                IsChecked="{Binding KeepSettings, Mode=TwoWay}"
+                                AutomationProperties.AutomationId="Uninstaller.KeepSettingsCheckBox" />
                         </StackPanel>
                     </MaterialDesign:Card>
                 </StackPanel>
@@ -216,14 +219,15 @@
                 Orientation="Horizontal">
 
                 <Button
-                    x:Name="CancelButton"
+                    x:Name="UninstallerCancelButton"
                     Width="100"
                     Height="40"
                     Margin="0,0,12,0"
                     Click="CancelButton_Click"
                     Content="Cancel"
                     Style="{StaticResource MaterialDesignOutlinedButton}"
-                    Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    AutomationProperties.AutomationId="Uninstaller.CancelButton" />
 
                 <Button
                     x:Name="UninstallButton"
@@ -232,7 +236,8 @@
                     Click="UninstallButton_Click"
                     Content="Uninstall"
                     Style="{StaticResource MaterialDesignRaisedButton}"
-                    Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding ShowConfirmation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    AutomationProperties.AutomationId="Uninstaller.UninstallButton" />
 
                 <Button
                     x:Name="CloseButton"
@@ -241,7 +246,8 @@
                     Click="CloseButton_Click"
                     Content="Close"
                     Style="{StaticResource MaterialDesignRaisedButton}"
-                    Visibility="{Binding ShowCloseButton, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding ShowCloseButton, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    AutomationProperties.AutomationId="Uninstaller.CloseButton" />
             </StackPanel>
             <TextBlock
                 Grid.Row="3"

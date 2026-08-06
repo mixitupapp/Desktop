@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -382,7 +382,7 @@
     <value>Lösche alle Benutzerdaten (Stunden, Währung, Rang usw.)</value>
   </data>
   <data name="ClearChat" xml:space="preserve">
-    <value>Clear Chat</value>
+    <value>Chat leeren</value>
   </data>
   <data name="ClearChatConfirmation" xml:space="preserve">
     <value>Dadurch werden alle Chat-Nachrichten für den Stream gelöscht. Bist du sicher?</value>
@@ -523,7 +523,7 @@
     <value>Datum/Uhrzeit</value>
   </data>
   <data name="Deafen" xml:space="preserve">
-    <value>Deafen</value>
+    <value>Betäuben</value>
   </data>
   <data name="DeafenSelf" xml:space="preserve">
     <value>Taubes/Untaubes Selbst</value>
@@ -535,10 +535,10 @@
     <value>Tieforange</value>
   </data>
   <data name="DeepPurple" xml:space="preserve">
-    <value>Deep Purple</value>
+    <value>Dunkellila</value>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Standard</value>
   </data>
   <data name="DefaultAudioOutput" xml:space="preserve">
     <value>Standard-Audioausgabe</value>
@@ -613,13 +613,13 @@
     <value>Befehl bearbeiten</value>
   </data>
   <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
+    <value>Aktivieren</value>
   </data>
   <data name="EnableChat" xml:space="preserve">
     <value>Aktiviere den Chat</value>
   </data>
   <data name="EnableCommand" xml:space="preserve">
-    <value>Enable Command</value>
+    <value>Befehl aktivieren</value>
   </data>
   <data name="EnableCommandGroup" xml:space="preserve">
     <value>Kommandogruppe aktivieren</value>
@@ -733,7 +733,7 @@
     <value>Erster Wert</value>
   </data>
   <data name="FollowAge" xml:space="preserve">
-    <value>Follow Age</value>
+    <value>Follow-Alter</value>
   </data>
   <data name="Follower" xml:space="preserve">
     <value>Follower</value>
@@ -784,7 +784,7 @@
     <value>Verlosengegenstand</value>
   </data>
   <data name="GlobalMod" xml:space="preserve">
-    <value>Global Mod</value>
+    <value>Globale Mod</value>
   </data>
   <data name="GreaterThan" xml:space="preserve">
     <value>&gt;</value>
@@ -979,7 +979,7 @@
     <value>Link-Blockierung</value>
   </data>
   <data name="Live" xml:space="preserve">
-    <value>Live</value>
+    <value>Leben</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>LAGE</value>
@@ -1015,7 +1015,7 @@
     <value>Maximaler Betrag</value>
   </data>
   <data name="MaxCaps" xml:space="preserve">
-    <value>Max Caps</value>
+    <value>max. Großbuchstaben</value>
   </data>
   <data name="MaxEntries" xml:space="preserve">
     <value>Maximal Teilnehmerzahl</value>
@@ -1025,6 +1025,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>Maximaler Wert</value>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP-Server</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>Offen für lokales Netzwerk (Muss als Administrator ausgeführt werden):</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>Serveradresse:</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>Der MCP-Server ermöglicht es KI-Agenten, die auf Ihrem Computer ausgeführt werden, über das Model Context Protocol mit Mix It Up zu interagieren. Richten Sie einen Client wie Claude Code auf die unten angegebene Serveradresse. Weitere Informationen hierzu finden Sie auf der MCP-Server-Wiki-Seite.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>WARNUNG: Jeder mit diesem Server verbundene Agent kann Ihre Konfiguration lesen und in Ihrem Namen Befehle ausführen, einschließlich des Sendens von Chatnachrichten. Aktivieren Sie dies nur, solange Sie aktiv mit einem Agenten arbeiten, dem Sie vertrauen.</value>
+    <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
     <value>Lernen Sie das Team kennen</value>
@@ -1261,10 +1281,10 @@
     <value>Pro Person Gruppe</value>
   </data>
   <data name="Pink" xml:space="preserve">
-    <value>Pink</value>
+    <value>Rose</value>
   </data>
   <data name="Pitch" xml:space="preserve">
-    <value>Pitch</value>
+    <value>Stellplatz (0% - 200%)</value>
   </data>
   <data name="Play" xml:space="preserve">
     <value>Spiel</value>
@@ -1291,7 +1311,7 @@
     <value>Hauptrang</value>
   </data>
   <data name="Pro" xml:space="preserve">
-    <value>Pro</value>
+    <value>Profi</value>
   </data>
   <data name="Profiles" xml:space="preserve">
     <value>Profile</value>
@@ -1306,7 +1326,7 @@
     <value>Ziel-/Fortschrittsleiste</value>
   </data>
   <data name="Pseudo" xml:space="preserve">
-    <value>Pseudo</value>
+    <value>Möchtegern</value>
   </data>
   <data name="Purple" xml:space="preserve">
     <value>Lila</value>
@@ -1522,7 +1542,7 @@
     <value>Nachricht senden</value>
   </data>
   <data name="Serial" xml:space="preserve">
-    <value>Serial</value>
+    <value>Angeschlossene Geräte</value>
   </data>
   <data name="SerialDevice" xml:space="preserve">
     <value>Serielles Gerät</value>
@@ -1534,7 +1554,7 @@
     <value>Dienst</value>
   </data>
   <data name="ServiceConnectSound" xml:space="preserve">
-    <value>Service Connect Sound</value>
+    <value>Dienst-Verbindungston (Verbunden)</value>
   </data>
   <data name="ServiceDisconnectSound" xml:space="preserve">
     <value>Service-Trennungsgeräusch</value>
@@ -1543,10 +1563,10 @@
     <value>Dienstleistungen</value>
   </data>
   <data name="Set" xml:space="preserve">
-    <value>Set</value>
+    <value>Garnitur</value>
   </data>
   <data name="SetGame" xml:space="preserve">
-    <value>Set Game</value>
+    <value>Spielname einstellen</value>
   </data>
   <data name="SetLocation" xml:space="preserve">
     <value>Set-Location</value>
@@ -1600,7 +1620,7 @@
     <value>Ton</value>
   </data>
   <data name="SoundFilePath" xml:space="preserve">
-    <value>Sound File Path</value>
+    <value>Pfad der Sounddatei</value>
   </data>
   <data name="Source" xml:space="preserve">
     <value>Quelle</value>
@@ -1639,7 +1659,7 @@
     <value>Personal</value>
   </data>
   <data name="StartGiveaway" xml:space="preserve">
-    <value>Start Giveaway</value>
+    <value>Giveaway starten</value>
   </data>
   <data name="StartReminder" xml:space="preserve">
     <value>Start/Erinnerung</value>
@@ -1651,7 +1671,7 @@
     <value>Steam-Spiel</value>
   </data>
   <data name="StreamBoss" xml:space="preserve">
-    <value>Stream Boss</value>
+    <value>Boss streamen</value>
   </data>
   <data name="StreamClip" xml:space="preserve">
     <value>Wiedergabe des Clips streamen</value>
@@ -1726,7 +1746,7 @@
     <value>Zielbenutzer (Optional)</value>
   </data>
   <data name="Teal" xml:space="preserve">
-    <value>Teal</value>
+    <value>Blaugrün</value>
   </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
@@ -1753,13 +1773,13 @@
     <value>Drei übrig</value>
   </data>
   <data name="ThreeOrMoreStrikesCommand" xml:space="preserve">
-    <value>3+ Strikes Command</value>
+    <value>3+ Verwarnungsbefehle</value>
   </data>
   <data name="ThreeRight" xml:space="preserve">
     <value>Drei rechts</value>
   </data>
   <data name="TickerTape" xml:space="preserve">
-    <value>Ticker Tape</value>
+    <value>Laufband</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>Zeit</value>
@@ -1897,10 +1917,10 @@
     <value>User-only Chat-Befehle</value>
   </data>
   <data name="UserRankChanged" xml:space="preserve">
-    <value>User Rank Up</value>
+    <value>Benutzerrang geändert</value>
   </data>
   <data name="UserRankDown" xml:space="preserve">
-    <value>User Rank Down</value>
+    <value>Benutzerrang nach unten</value>
   </data>
   <data name="UserRanks" xml:space="preserve">
     <value>Benutzerränge</value>
@@ -2002,7 +2022,7 @@
     <value>Wöchentlich</value>
   </data>
   <data name="Whisper" xml:space="preserve">
-    <value>Whisper</value>
+    <value>Flüstern</value>
   </data>
   <data name="WhisperUserOptional" xml:space="preserve">
     <value>Whisper User (optional)</value>
@@ -2026,7 +2046,7 @@
     <value>Xbox-Spiel</value>
   </data>
   <data name="XLarge" xml:space="preserve">
-    <value>X-Large</value>
+    <value>Größer</value>
   </data>
   <data name="XPosition" xml:space="preserve">
     <value>X-Position</value>
@@ -2035,7 +2055,7 @@
     <value>X-Skala (Dezimal)</value>
   </data>
   <data name="XXLarge" xml:space="preserve">
-    <value>XX-Large</value>
+    <value>Am Größten</value>
   </data>
   <data name="Yearly" xml:space="preserve">
     <value>Jährlich</value>
@@ -2116,7 +2136,7 @@
     <value>TreatStream-Spende</value>
   </data>
   <data name="RunAd" xml:space="preserve">
-    <value>Run Ad</value>
+    <value>Anzeige ausführen</value>
   </data>
   <data name="Ban" xml:space="preserve">
     <value>Verbot</value>
@@ -2158,7 +2178,7 @@
     <value>Abonnementbonus</value>
   </data>
   <data name="AddCustomLevelUp" xml:space="preserve">
-    <value>Add Custom Level Up</value>
+    <value>Fügen Sie einen benutzerdefinierten Levelaufstieg hinzu</value>
   </data>
   <data name="AddStreamPass" xml:space="preserve">
     <value>Stream Pass hinzufügen</value>
@@ -2173,16 +2193,16 @@
     <value>Standard-Level Up-Befehl</value>
   </data>
   <data name="Details" xml:space="preserve">
-    <value>Details</value>
+    <value>Einzelheiten</value>
   </data>
   <data name="End" xml:space="preserve">
     <value>Ende</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value>Level</value>
+    <value>Ebene</value>
   </data>
   <data name="LevelNumber" xml:space="preserve">
-    <value>Level #</value>
+    <value>Ebene #</value>
   </data>
   <data name="LevelUpCommands" xml:space="preserve">
     <value>Level-Up-Befehle</value>
@@ -2194,7 +2214,7 @@
     <value>Start</value>
   </data>
   <data name="StreamPass" xml:space="preserve">
-    <value>Stream Pass</value>
+    <value>Stream-Pass</value>
   </data>
   <data name="Dutch" xml:space="preserve">
     <value>Holländisch</value>
@@ -2215,7 +2235,7 @@
     <value>Bist du sicher, dass du diesen Stream Pass löschen willst?</value>
   </data>
   <data name="LevelUp" xml:space="preserve">
-    <value>Level Up</value>
+    <value>Level aufsteigen</value>
   </data>
   <data name="ConfirmDeleteCommand" xml:space="preserve">
     <value>Bist du sicher, dass du diesen Befehl löschen willst?</value>
@@ -2308,7 +2328,7 @@
     <value>Ein gültiger Mod-Einlösungsbefehl muss angegeben werden</value>
   </data>
   <data name="CustomRedemption" xml:space="preserve">
-    <value>Custom Redemption</value>
+    <value>Individuelle Einlösung</value>
   </data>
   <data name="ConfirmRedemptionStoreProductDeletion" xml:space="preserve">
     <value>Bist du sicher, dass du dieses Produkt löschen möchtest?</value>
@@ -2418,6 +2438,9 @@
   <data name="Platform" xml:space="preserve">
     <value>Plattform</value>
   </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>Plattformnachricht</value>
+  </data>
   <data name="Tier" xml:space="preserve">
     <value>Rang</value>
   </data>
@@ -2446,10 +2469,10 @@
     <value>Gefolgte Kanäle</value>
   </data>
   <data name="OpenChannel" xml:space="preserve">
-    <value>Open Channel</value>
+    <value>Offener Kanal</value>
   </data>
   <data name="RaidChannel" xml:space="preserve">
-    <value>Raid Channel</value>
+    <value>Raid-Kanal</value>
   </data>
   <data name="SameLanguage" xml:space="preserve">
     <value>Gleiche Sprache</value>
@@ -2485,10 +2508,10 @@
     <value>3</value>
   </data>
   <data name="Tier1" xml:space="preserve">
-    <value>Tier 1</value>
+    <value>Stufe 1</value>
   </data>
   <data name="Tier2" xml:space="preserve">
-    <value>Tier 2</value>
+    <value>Stufe 2</value>
   </data>
   <data name="Tier3" xml:space="preserve">
     <value>Stufe 3</value>
@@ -2527,7 +2550,7 @@
     <value>Show Bits jubelten</value>
   </data>
   <data name="ShowChannelPoints" xml:space="preserve">
-    <value>Show Channel Points</value>
+    <value>Kanalpunkte anzeigen</value>
   </data>
   <data name="ShowFollows" xml:space="preserve">
     <value>Show folgt</value>
@@ -2539,13 +2562,13 @@
     <value>Moderatoren der Sendung</value>
   </data>
   <data name="ShowMassGiftedSubs" xml:space="preserve">
-    <value>Show Mass Gifted Subs</value>
+    <value>Massenbeschenkte Subs anzeigen</value>
   </data>
   <data name="ShowModeration" xml:space="preserve">
     <value>Moderation der Sendung</value>
   </data>
   <data name="ShowRaids" xml:space="preserve">
-    <value>Show Raids</value>
+    <value>Raids anzeigen</value>
   </data>
   <data name="ShowSubs" xml:space="preserve">
     <value>Show-Untertitel</value>
@@ -2750,7 +2773,7 @@ Wenn zum Beispiel diese Option aktiviert ist und der Betrag auf 5 gesetzt ist, w
     <value>Mod-Nutzer</value>
   </data>
   <data name="PurgeUser" xml:space="preserve">
-    <value>Purge User</value>
+    <value>Benutzer löschen</value>
   </data>
   <data name="RemoveModerationStrike" xml:space="preserve">
     <value>Moderationsstreik entfernen</value>
@@ -3068,7 +3091,7 @@ Wenn zum Beispiel diese Option aktiviert ist und der Betrag auf 5 gesetzt ist, w
     <value>Das Hangman-Spiel erlaubt es den Nutzern, die Buchstabenkombination eines zufälligen Wortes zu erraten, um einen angesammelten Geldpots zu gewinnen. Jeder fehlgeschlagene Tipp legt den erforderlichen Währungsbetrag in den Topf und fügt einen Fehler hinzu, während ein richtiger Tipp den Buchstaben hinzufügt. Die Person, die den letzten fehlenden Buchstaben errät, bekommt den ganzen Topf. Die Nutzer haben die Möglichkeit, den Spielstatus zu sehen, um zu sehen, wie hoch der Pot ist und was bereits erraten wurde.</value>
   </data>
   <data name="Heist" xml:space="preserve">
-    <value>Heist</value>
+    <value>Raubüberfall</value>
   </data>
   <data name="GameCommandHeistDescription" xml:space="preserve">
     <value>Das Heist-Spiel ermöglicht es einem Nutzer, eine Gruppenaktivität zu starten, bei der die Nutzer einzeln wetten können, wenn sie teilnehmen. Jeder Nutzer hat seine eigene individuelle Chance, erfolgreich zu sein und mehr zurückzugewinnen oder zu scheitern und seine Wette zu verlieren</value>
@@ -3139,7 +3162,7 @@ Wenn zum Beispiel diese Option aktiviert ist und der Betrag auf 5 gesetzt ist, w
 Nach Ablauf der Zeit wird ein Nutzer unter den Teilnehmern zum König ausgewählt. Alle anderen Nutzer werden dann entweder als Ritter oder Diebe ausgewählt. Es ist die Aufgabe des Königs, einen Teilnehmer auszuwählen in der Hoffnung, dass dieser ein Ritter ist, um den gefundenen Schatz zu verteidigen. Wenn der König einen Ritter auswählt, teilen sich der König und die Ritter den Gewinn. Wenn der König einen Dieb auswählt, teilen sich die Diebe den Gewinn.</value>
   </data>
   <data name="Trivia" xml:space="preserve">
-    <value>Trivia</value>
+    <value>Wissenswertes</value>
   </data>
   <data name="GameCommandTriviaDescription" xml:space="preserve">
     <value>Das Trivia-Spiel wählt eine zufällige Frage aus einer vorgegebenen Liste und fordert alle Nutzer auf, die richtige Antwort aus einer Liste möglicher Fragen auszuwählen. Alle Nutzer, die die richtige Antwort gewählt haben, erhalten eine Auszahlung.</value>
@@ -3174,10 +3197,10 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Sub-Auszahlung %</value>
   </data>
   <data name="UserChancePercentage" xml:space="preserve">
-    <value>User Chance %</value>
+    <value>Benutzerchance %</value>
   </data>
   <data name="UserPayoutPercentage" xml:space="preserve">
-    <value>User Payout %</value>
+    <value>Benutzerauszahlung %</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Verwendung</value>
@@ -3477,7 +3500,7 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Der Staub legt sich nach einem zermürbenden Duell und... Es ist $gamewinners! Gesamtbetrag pro Gewinner: $gamepayout {0}!</value>
   </data>
   <data name="GameCommandRussianRouletteMaxWinners" xml:space="preserve">
-    <value>Max Winners</value>
+    <value>Maximale Gewinner</value>
   </data>
   <data name="GameCommandRussianRouletteMaxWinnersMustBeGreaterThan0" xml:space="preserve">
     <value>Die maximalen Gewinner müssen größer als 0 sein</value>
@@ -3489,7 +3512,7 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Nutzer verliert</value>
   </data>
   <data name="GameCommandUserWin" xml:space="preserve">
-    <value>User Win</value>
+    <value>Benutzergewinn</value>
   </data>
   <data name="GameCommandWordScrambleCustomWordsFilePath" xml:space="preserve">
     <value>Dateipfad für benutzerdefinierte Wörter</value>
@@ -3591,7 +3614,7 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Königszeitbegrenzung</value>
   </data>
   <data name="GameCommandTreasureDefenseKingUser" xml:space="preserve">
-    <value>King User</value>
+    <value>King-Benutzer</value>
   </data>
   <data name="GameCommandTreasureDefenseKingUserExample" xml:space="preserve">
     <value>König @$username hat den Schatz entdeckt, braucht aber jemanden, der ihn verteidigt! Die Diebe müssen versuchen, den König davon zu überzeugen, sie auszuwählen, alle anderen müssen das verhindern. Der König muss &lt;PLAYER&gt;im Chat "!treasure" eingeben, um zu bestimmen, wer den Schatz verteidigt!&lt;/PLAYER&gt;</value>
@@ -3759,10 +3782,10 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Abprallen</value>
   </data>
   <data name="BounceIn" xml:space="preserve">
-    <value>Bounce In</value>
+    <value>Hüpf rein</value>
   </data>
   <data name="BounceInDown" xml:space="preserve">
-    <value>Bounce In Down</value>
+    <value>Hineinspringen</value>
   </data>
   <data name="BounceInLeft" xml:space="preserve">
     <value>Links springen</value>
@@ -3771,28 +3794,28 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Nach rechts springen</value>
   </data>
   <data name="BounceInUp" xml:space="preserve">
-    <value>Bounce In Up</value>
+    <value>Hüpfen Sie nach oben</value>
   </data>
   <data name="BounceOut" xml:space="preserve">
-    <value>Bounce Out</value>
+    <value>Abprallen</value>
   </data>
   <data name="BounceOutDown" xml:space="preserve">
-    <value>Bounce Out Down</value>
+    <value>Springe nach unten</value>
   </data>
   <data name="BounceOutLeft" xml:space="preserve">
-    <value>Bounce Out Left</value>
+    <value>Nach links abprallen</value>
   </data>
   <data name="BounceOutRight" xml:space="preserve">
-    <value>Bounce Out Right</value>
+    <value>Richtig abprallen</value>
   </data>
   <data name="BounceOutUp" xml:space="preserve">
-    <value>Bounce Out Up</value>
+    <value>Hüpfen Sie nach oben</value>
   </data>
   <data name="FadeIn" xml:space="preserve">
-    <value>Fade In</value>
+    <value>Einblenden</value>
   </data>
   <data name="FadeInDown" xml:space="preserve">
-    <value>Fade In Down</value>
+    <value>Nach unten einblenden</value>
   </data>
   <data name="FadeInLeft" xml:space="preserve">
     <value>Links einblenden</value>
@@ -3801,13 +3824,13 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Einblenden rechts</value>
   </data>
   <data name="FadeInUp" xml:space="preserve">
-    <value>Fade In Up</value>
+    <value>Einblenden</value>
   </data>
   <data name="FadeOut" xml:space="preserve">
-    <value>Fade Out</value>
+    <value>Ausblenden</value>
   </data>
   <data name="FadeOutDown" xml:space="preserve">
-    <value>Fade Out Down</value>
+    <value>Nach unten ausblenden</value>
   </data>
   <data name="FadeOutLeft" xml:space="preserve">
     <value>Links ausblenden</value>
@@ -3822,19 +3845,19 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Blitz</value>
   </data>
   <data name="Flip" xml:space="preserve">
-    <value>Flip</value>
+    <value>Umdrehen</value>
   </data>
   <data name="FlipInX" xml:space="preserve">
-    <value>Flip In X</value>
+    <value>X eindrehen</value>
   </data>
   <data name="FlipInY" xml:space="preserve">
-    <value>Flip In Y</value>
+    <value>Y umdrehen</value>
   </data>
   <data name="FlipOutX" xml:space="preserve">
-    <value>Flip Out X</value>
+    <value>X ausklappen</value>
   </data>
   <data name="FlipOutY" xml:space="preserve">
-    <value>Flip Out Y</value>
+    <value>Y ausklappen</value>
   </data>
   <data name="Hinge" xml:space="preserve">
     <value>Scharnier</value>
@@ -3855,10 +3878,10 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Puls</value>
   </data>
   <data name="RollIn" xml:space="preserve">
-    <value>Roll In</value>
+    <value>Einrollen</value>
   </data>
   <data name="RollOut" xml:space="preserve">
-    <value>Roll Out</value>
+    <value>Ausrollen</value>
   </data>
   <data name="RotateIn" xml:space="preserve">
     <value>Drehen Sie sich ein</value>
@@ -3918,13 +3941,13 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Rechts hineinzoomen</value>
   </data>
   <data name="ZoomInUp" xml:space="preserve">
-    <value>Zoom In Up</value>
+    <value>Vergrößern</value>
   </data>
   <data name="ZoomOut" xml:space="preserve">
-    <value>Zoom Out</value>
+    <value>Herauszoomen</value>
   </data>
   <data name="ZoomOutDown" xml:space="preserve">
-    <value>Zoom Out Down</value>
+    <value>Verkleinern Sie die Ansicht</value>
   </data>
   <data name="ZoomOutLeft" xml:space="preserve">
     <value>Zoom nach links raus</value>
@@ -3933,7 +3956,7 @@ Sobald der Vulkan Stufe 3 erreicht, hat jede nachfolgende Ablagerung die Chance,
     <value>Zoom nach rechts raus</value>
   </data>
   <data name="ZoomOutUp" xml:space="preserve">
-    <value>Zoom Out Up</value>
+    <value>Verkleinern Sie die Ansicht</value>
   </data>
   <data name="ChatCommandTriggerAlreadyExists" xml:space="preserve">
     <value>Der folgende Chat-Trigger wird bereits in einem anderen Befehl verwendet: {0}</value>
@@ -4116,7 +4139,7 @@ Diese Einstellung ändert alle Rollenanforderungen explizit und verlangt, dass d
     <value>Zentrum</value>
   </data>
   <data name="Chatters" xml:space="preserve">
-    <value>Chatters</value>
+    <value>Chatter</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>Tag</value>
@@ -4211,7 +4234,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Russisch</value>
   </data>
   <data name="ChannelPointsEditor" xml:space="preserve">
-    <value>Channel Points Editor</value>
+    <value>Kanalpunkte-Editor</value>
   </data>
   <data name="ChatUserTimeout" xml:space="preserve">
     <value>Chat-Benutzer-Timeout</value>
@@ -4319,7 +4342,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Extra Maus-Down</value>
   </data>
   <data name="XUp" xml:space="preserve">
-    <value>Extra Mouse Up</value>
+    <value>Zusätzliche Maus hoch</value>
   </data>
   <data name="Wheel" xml:space="preserve">
     <value>Rad</value>
@@ -4361,7 +4384,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>JSON zu Spezialkennungen</value>
   </data>
   <data name="Pin" xml:space="preserve">
-    <value>Pin</value>
+    <value>Stift</value>
   </data>
   <data name="RunNewUserWizardWarning" xml:space="preserve">
     <value>Mix It Up startet neu und der New User Wizard wird beim Einloggen erneut ausgeführt. So kannst du deine Daten erneut importieren, was deine Befehle und Benutzerdaten duplizieren und überschreiben könnte. Bist du sicher, dass du das machen möchtest?</value>
@@ -4370,7 +4393,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Standard</value>
   </data>
   <data name="Unpin" xml:space="preserve">
-    <value>Unpin</value>
+    <value>Lösen</value>
   </data>
   <data name="ApplicationBotToken" xml:space="preserve">
     <value>Anwendungs-Bot-Token</value>
@@ -4472,7 +4495,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Bitte geben Sie einen gültigen IFTTT Web Hook Key ein.</value>
   </data>
   <data name="IFTTTWebHookKey" xml:space="preserve">
-    <value>IFTTT Web Hook Key</value>
+    <value>IFTTT-Web-Hook-Schlüssel</value>
   </data>
   <data name="ImageFilePath" xml:space="preserve">
     <value>Bilddateipfad / URL</value>
@@ -4523,7 +4546,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>OBS Studio Verbindungstest erfolgreich!</value>
   </data>
   <data name="OBSWebSocketInstaller" xml:space="preserve">
-    <value>OBS WebSocket Installer</value>
+    <value>OBS WebSocket-Installationsprogramm</value>
   </data>
   <data name="OverlayInfo1" xml:space="preserve">
     <value>Fügen Sie in Ihrer Streaming-Software einen Webbrowser-Quellcode mit folgender URL hinzu:</value>
@@ -4637,7 +4660,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Quellname der Streaming-Software</value>
   </data>
   <data name="Rainmaker" xml:space="preserve">
-    <value>Rainmaker</value>
+    <value>Regenmacher</value>
   </data>
   <data name="RainmakerInfo1" xml:space="preserve">
     <value>Die Konnektivität des Rainmaker-Dienstes ermöglicht es Ihnen, Maßnahmen auszuführen, wenn eine Spende eingeht. Wenn Sie sich anmelden, öffnet sich eine Authentifizierungsseite, die Sie auffordert, sich bei Rainmaker anzumelden und Mix It Up zu genehmigen, um auf Ihre Daten zuzugreifen.</value>
@@ -4682,7 +4705,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Texthöhe (Pixel)</value>
   </data>
   <data name="Tiltify" xml:space="preserve">
-    <value>Tiltify</value>
+    <value>Neigen</value>
   </data>
   <data name="TiltifyInfo1" xml:space="preserve">
     <value>Tiltify Service Connectivity ermöglicht es Ihnen, Maßnahmen auszuführen, wenn eine Spende eingeht. Wenn Sie sich anmelden, öffnet sich eine Authentifizierungsseite, die Sie auffordert, sich bei Tiltify anzumelden und Mix It Up zu genehmigen, um auf Ihre Daten zuzugreifen. Sobald Sie Tiltify verbunden haben, müssen Sie die Kampagne auswählen, die Sie bei der Erkennung von Spenden nutzen möchten.</value>
@@ -4700,7 +4723,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Top-Pixelposition</value>
   </data>
   <data name="TotalToShow" xml:space="preserve">
-    <value>Total To Show</value>
+    <value>Insgesamt anzuzeigen</value>
   </data>
   <data name="TreatStream" xml:space="preserve">
     <value>TreatStream</value>
@@ -4887,7 +4910,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Folgendes:</value>
   </data>
   <data name="FontColor" xml:space="preserve">
-    <value>Font Color</value>
+    <value>Schriftfarbe</value>
   </data>
   <data name="FontName" xml:space="preserve">
     <value>Schriftname</value>
@@ -5061,7 +5084,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Raid-Bonus (pro Nutzer)</value>
   </data>
   <data name="RaidsHeader" xml:space="preserve">
-    <value>Raids:</value>
+    <value>Überfälle:</value>
   </data>
   <data name="RankRequired" xml:space="preserve">
     <value>Ein Rangname muss angegeben werden.</value>
@@ -5136,7 +5159,7 @@ Aktiviert. Man kann es sich ähnlich vorstellen wie das Umschalten des "Entsperr
     <value>Anfangsbetrag</value>
   </data>
   <data name="StartingHealth" xml:space="preserve">
-    <value>Starting Health</value>
+    <value>Gesundheit starten</value>
   </data>
   <data name="StartTime" xml:space="preserve">
     <value>Startzeit (Sekunden)</value>
@@ -5453,7 +5476,7 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
     <value>Folgen Sie der Event-Moderation</value>
   </data>
   <data name="FollowEventModerationMaxQueue" xml:space="preserve">
-    <value>Max Queue</value>
+    <value>Maximale Warteschlange</value>
   </data>
   <data name="RequirementCurrentAmount" xml:space="preserve">
     <value>(Aktuell: {0})</value>
@@ -5706,7 +5729,7 @@ spezielle Nutzer, denen du mehr Kontrolle geben möchtest, wie zum Beispiel eine
     <value>Bewertungen &amp; Rezensionen</value>
   </data>
   <data name="Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Herunterladen</value>
   </data>
   <data name="Review" xml:space="preserve">
     <value>Rezension</value>
@@ -5787,7 +5810,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Streamathon-Zeit hinzufügen</value>
   </data>
   <data name="PixelChat" xml:space="preserve">
-    <value>Pixel Chat</value>
+    <value>Pixel-Chat</value>
   </data>
   <data name="PixelChatActionMissingTimeAmount" xml:space="preserve">
     <value>Pixel Chat-Aktion: Fehlende Zeitmenge</value>
@@ -5811,7 +5834,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Bitte geben Sie einen gültigen Pixel Chat API-Schlüssel ein.</value>
   </data>
   <data name="StartStreamathon" xml:space="preserve">
-    <value>Start Streamathon</value>
+    <value>Streamathon starten</value>
   </data>
   <data name="TriggerCountdown" xml:space="preserve">
     <value>Trigger-Countdown</value>
@@ -5920,7 +5943,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Screenshot-Dateipfad (optional) (auf maximal 1280x720 Pixel verkleinert)</value>
   </data>
   <data name="ShowHypeTrain" xml:space="preserve">
-    <value>Show Hype Train</value>
+    <value>Hype Train anzeigen</value>
   </data>
   <data name="HypeTrainEndedReachedLevel" xml:space="preserve">
     <value>Hype-Zug beendet – Level {0} erreicht</value>
@@ -5995,7 +6018,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Voicemod-Verbindung fehlgeschlagen, bitte stelle sicher, dass Voicemod läuft.</value>
   </data>
   <data name="Voicemod" xml:space="preserve">
-    <value>Voicemod</value>
+    <value>Sprachmod</value>
   </data>
   <data name="VoicemodInfo" xml:space="preserve">
     <value>Voicemod-Konnektivität ermöglicht es dir, Funktionen in der Voicemod-Software zu steuern, wie zum Beispiel das Aktivieren oder Deaktivieren der Sprachänderung und das Ändern der verwendeten Stimme. Einige Funktionen oder Funktionen in Voicemod erfordern ein kostenpflichtiges Abo. Für weitere Informationen besuchen Sie bitte die Voicemod-Website:</value>
@@ -6016,7 +6039,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Piepton an/aus</value>
   </data>
   <data name="PlaySound" xml:space="preserve">
-    <value>Play Sound</value>
+    <value>Ton abspielen</value>
   </data>
   <data name="RandomVoice" xml:space="preserve">
     <value>Zufällige Stimme</value>
@@ -6109,7 +6132,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Sehprotokolle</value>
   </data>
   <data name="UserWon" xml:space="preserve">
-    <value>User Won</value>
+    <value>Benutzer hat gewonnen</value>
   </data>
   <data name="InitializeSessionUserInitializationFailed" xml:space="preserve">
     <value>Benutzerinformationen wurden nicht initialisiert</value>
@@ -6118,7 +6141,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Du musst auf {0} sein, um das zu tun.</value>
   </data>
   <data name="RunAdBreak" xml:space="preserve">
-    <value>Run Ad Break</value>
+    <value>Führen Sie eine Werbeunterbrechung aus</value>
   </data>
   <data name="YouTubeActionUnableToRunAdBreak" xml:space="preserve">
     <value>FEHLER: Wir konnten keine Werbepause durchführen, bitte versuchen Sie es später erneut</value>
@@ -6166,7 +6189,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Kanal neu abonniert</value>
   </data>
   <data name="ChannelStreamStart" xml:space="preserve">
-    <value>Channel Stream Start</value>
+    <value>Kanal-Stream-Start</value>
   </data>
   <data name="ChannelStreamStop" xml:space="preserve">
     <value>Channel Stream Halt</value>
@@ -6211,7 +6234,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Kick Kicks anzeigen</value>
   </data>
   <data name="ShowTwitchHypeTrain" xml:space="preserve">
-    <value>Show Twitch Hype Train</value>
+    <value>Twitch Hype Train anzeigen</value>
   </data>
   <data name="TrovoElixir" xml:space="preserve">
     <value>Trovo-Elixier</value>
@@ -6226,7 +6249,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Chat-Eingangsbefehl</value>
   </data>
   <data name="TrovoAdmin" xml:space="preserve">
-    <value>Trovo Admin</value>
+    <value>Trovo-Administrator</value>
   </data>
   <data name="TrovoEditor" xml:space="preserve">
     <value>Trovo-Redakteur</value>
@@ -6235,7 +6258,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Trovo Super Mod</value>
   </data>
   <data name="TrovoWarden" xml:space="preserve">
-    <value>Trovo Warden</value>
+    <value>Trovo-Aufseher</value>
   </data>
   <data name="TwitchAffiliate" xml:space="preserve">
     <value>Twitch-Partner</value>
@@ -6256,7 +6279,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Twitch Turbo</value>
   </data>
   <data name="TwitchVIP" xml:space="preserve">
-    <value>Twitch VIP</value>
+    <value>Twitch-VIP</value>
   </data>
   <data name="YouTubeMember" xml:space="preserve">
     <value>YouTube-Mitglied</value>
@@ -6412,7 +6435,7 @@ Das Versäumnis, eines der folgenden zu tun, könnte beeinflussen, wie Nutzer de
     <value>Glimesh-Benutzername</value>
   </data>
   <data name="TrovoID" xml:space="preserve">
-    <value>Trovo ID</value>
+    <value>Trovo-ID</value>
   </data>
   <data name="TrovoUsername" xml:space="preserve">
     <value>Trovo-Benutzername</value>
@@ -6451,13 +6474,13 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Akzent</value>
   </data>
   <data name="Apostrophe" xml:space="preserve">
-    <value>Apostrophe</value>
+    <value>Apostroph</value>
   </data>
   <data name="Backslash" xml:space="preserve">
     <value>Backslash</value>
   </data>
   <data name="Backspace" xml:space="preserve">
-    <value>Backspace</value>
+    <value>Rücktaste</value>
   </data>
   <data name="CapsLock" xml:space="preserve">
     <value>Feststelltaste</value>
@@ -6496,7 +6519,7 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>9</value>
   </data>
   <data name="DownArrow" xml:space="preserve">
-    <value>Down Arrow</value>
+    <value>Pfeil nach unten</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Herein</value>
@@ -6586,7 +6609,7 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Zuhause</value>
   </data>
   <data name="Insert" xml:space="preserve">
-    <value>Insert</value>
+    <value>Einfügen</value>
   </data>
   <data name="LeftAlt" xml:space="preserve">
     <value>Linkes Alt</value>
@@ -6601,7 +6624,7 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Linke Kontrolle</value>
   </data>
   <data name="LeftShift" xml:space="preserve">
-    <value>Left Shift</value>
+    <value>Linksverschiebung</value>
   </data>
   <data name="LeftWindows" xml:space="preserve">
     <value>Linke Fenster</value>
@@ -6610,34 +6633,34 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Minus</value>
   </data>
   <data name="NumPad0" xml:space="preserve">
-    <value>Num Pad 0</value>
+    <value>Numpad 0</value>
   </data>
   <data name="NumPad1" xml:space="preserve">
-    <value>Num Pad 1</value>
+    <value>Nummernblock 1</value>
   </data>
   <data name="NumPad2" xml:space="preserve">
-    <value>Num Pad 2</value>
+    <value>Nummernblock 2</value>
   </data>
   <data name="NumPad3" xml:space="preserve">
-    <value>Num Pad 3</value>
+    <value>Nummernblock 3</value>
   </data>
   <data name="NumPad4" xml:space="preserve">
-    <value>Num Pad 4</value>
+    <value>Nummernblock 4</value>
   </data>
   <data name="NumPad5" xml:space="preserve">
-    <value>Num Pad 5</value>
+    <value>Nummernblock 5</value>
   </data>
   <data name="NumPad6" xml:space="preserve">
-    <value>Num Pad 6</value>
+    <value>Nummernblock 6</value>
   </data>
   <data name="NumPad7" xml:space="preserve">
-    <value>Num Pad 7</value>
+    <value>Nummernblock 7</value>
   </data>
   <data name="NumPad8" xml:space="preserve">
-    <value>Num Pad 8</value>
+    <value>Nummernblock 8</value>
   </data>
   <data name="NumPad9" xml:space="preserve">
-    <value>Num Pad 9</value>
+    <value>Nummernblock 9</value>
   </data>
   <data name="NumPadAdd" xml:space="preserve">
     <value>Num-Pad hinzufügen</value>
@@ -6646,13 +6669,13 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Num Pad Dezimal</value>
   </data>
   <data name="NumPadDivide" xml:space="preserve">
-    <value>Num Pad Divide</value>
+    <value>Ziffernblock teilen</value>
   </data>
   <data name="NumPadEnter" xml:space="preserve">
-    <value>Num Pad Enter</value>
+    <value>Ziffernblock eingeben</value>
   </data>
   <data name="NumPadMultiply" xml:space="preserve">
-    <value>Num Pad Multiply</value>
+    <value>Num-Pad-Multiplizieren</value>
   </data>
   <data name="NumPadSubtract" xml:space="preserve">
     <value>Num-Pad-Subtrahieren</value>
@@ -6667,7 +6690,7 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Punkt</value>
   </data>
   <data name="RightAlt" xml:space="preserve">
-    <value>Right Alt</value>
+    <value>Rechts Alt</value>
   </data>
   <data name="RightArrow" xml:space="preserve">
     <value>Rechts Pfeil</value>
@@ -6700,7 +6723,7 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Aufwärts Pfeil</value>
   </data>
   <data name="MediaNext" xml:space="preserve">
-    <value>Media Next</value>
+    <value>Medien weiter</value>
   </data>
   <data name="MediaPlayPause" xml:space="preserve">
     <value>Medienwiedergabe/Pause</value>
@@ -6709,7 +6732,7 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Medien Vorher</value>
   </data>
   <data name="MediaStop" xml:space="preserve">
-    <value>Media Stop</value>
+    <value>Medienstopp</value>
   </data>
   <data name="PrintScreen" xml:space="preserve">
     <value>Druckraster</value>
@@ -6742,7 +6765,7 @@ Fehlgeschlagene Importe könnten auf ungültige Daten oder das Fehlen des Finden
     <value>Importzitate</value>
   </data>
   <data name="QuotesDataImport" xml:space="preserve">
-    <value>Quotes Data Import</value>
+    <value>Import von Angebotsdaten</value>
   </data>
   <data name="QuotesDataImportStep1" xml:space="preserve">
     <value>So können Sie Ihre Zitatdaten entweder aus einer Klartext- oder einer Tabellenkalkulation importieren. Um eine Tabellendatei zu importieren, musst du irgendeine Form von Microsoft Excel installiert haben. Beachten Sie, dass wenn es bereits ein Zitat mit derselben ID in Mix It Up gibt, die Zitat-ID auf die höchste Zahl aktualisiert wird. Gib zuerst die Datei an, aus der du die Benutzerdaten importieren möchtest:</value>
@@ -7126,16 +7149,16 @@ Importierte Quotes mit IDs, die mit bestehenden Quoten übereinstimmen, werden a
     <value>Sie dürfen nur {0} Zeit(en) eingeben, die Sie aktuell {1} Zeit(en) eingegeben haben</value>
   </data>
   <data name="GlimeshBotChat" xml:space="preserve">
-    <value>Glimesh Bot Chat</value>
+    <value>Glimesh-Bot-Chat</value>
   </data>
   <data name="GlimeshChat" xml:space="preserve">
-    <value>Glimesh Chat</value>
+    <value>Glimesh-Chat</value>
   </data>
   <data name="GlimeshConnection" xml:space="preserve">
     <value>Glimesh-Verbindung</value>
   </data>
   <data name="GlimeshUserChat" xml:space="preserve">
-    <value>Glimesh User Chat</value>
+    <value>Glimesh-Benutzerchat</value>
   </data>
   <data name="ModerationAccountsOlderThanOneDay" xml:space="preserve">
     <value>Konten älter als 1 Tag</value>
@@ -7212,7 +7235,7 @@ Importierte Quotes mit IDs, die mit bestehenden Quoten übereinstimmen, werden a
 HINWEIS: Es kann erforderlich sein, dass Sie sich über den Reiter "Vorschau" in den Einstellungen im Tab "Allgemein" anmelden, falls dies in einer Vorschau-Version vorgenommen wurde.</value>
   </data>
   <data name="StreamlabsDesktop" xml:space="preserve">
-    <value>Streamlabs Desktop</value>
+    <value>Streamlabs-Desktop</value>
   </data>
   <data name="TimeDays" xml:space="preserve">
     <value>Tag(e)</value>
@@ -7236,7 +7259,7 @@ HINWEIS: Es kann erforderlich sein, dass Sie sich über den Reiter "Vorschau" in
     <value>Trovo Bot Chat</value>
   </data>
   <data name="TrovoChat" xml:space="preserve">
-    <value>Trovo Chat</value>
+    <value>Trovo-Chat</value>
   </data>
   <data name="TrovoConnection" xml:space="preserve">
     <value>Trovo-Verbindung</value>
@@ -7245,13 +7268,13 @@ HINWEIS: Es kann erforderlich sein, dass Sie sich über den Reiter "Vorschau" in
     <value>Ich konnte das Trovo-Bot-Konto nicht verbinden, bitte manuell wieder verbinden</value>
   </data>
   <data name="TrovoUserChat" xml:space="preserve">
-    <value>Trovo User Chat</value>
+    <value>Trovo-Benutzerchat</value>
   </data>
   <data name="TwitchBotChat" xml:space="preserve">
-    <value>Twitch Bot Chat</value>
+    <value>Twitch-Bot-Chat</value>
   </data>
   <data name="TwitchChat" xml:space="preserve">
-    <value>Twitch Chat</value>
+    <value>Twitch-Chat</value>
   </data>
   <data name="TwitchConnection" xml:space="preserve">
     <value>Twitch-Verbindung</value>
@@ -7402,7 +7425,7 @@ Wir werden versuchen, sobald möglich, wieder Kontakt zum Dienst aufzunehmen. We
     <value>Hafennummer</value>
   </data>
   <data name="TrovoCustomRole" xml:space="preserve">
-    <value>Trovo Custom Role</value>
+    <value>Benutzerdefinierte Trovo-Rolle</value>
   </data>
   <data name="TextToSpeechFunctionalityProvidedBy" xml:space="preserve">
     <value>Text-zu-Sprache-Funktionalität bereitgestellt durch</value>
@@ -7613,7 +7636,7 @@ Vorbeugende Maßnahmen, falls der Nutzer nicht auf deiner Freundesliste auf Twit
     <value>Transparent</value>
   </data>
   <data name="MixItUpServices" xml:space="preserve">
-    <value>Mix It Up Services</value>
+    <value>Mix-It-Up-Dienste</value>
   </data>
   <data name="DisableAnimatedEmotes" xml:space="preserve">
     <value>Deaktiviere animierte Emotes</value>
@@ -7799,7 +7822,7 @@ Vorbeugende Maßnahmen, falls der Nutzer nicht auf deiner Freundesliste auf Twit
     <value>Javascript</value>
   </data>
   <data name="BackInDown" xml:space="preserve">
-    <value>Back In Down</value>
+    <value>Zurück nach unten</value>
   </data>
   <data name="BackInLeft" xml:space="preserve">
     <value>Zurück links</value>
@@ -7808,7 +7831,7 @@ Vorbeugende Maßnahmen, falls der Nutzer nicht auf deiner Freundesliste auf Twit
     <value>Zurück nach rechts</value>
   </data>
   <data name="BackInUp" xml:space="preserve">
-    <value>Back In Up</value>
+    <value>Zurück nach oben</value>
   </data>
   <data name="BackOutDown" xml:space="preserve">
     <value>Zurück raus unten</value>
@@ -7835,7 +7858,7 @@ Vorbeugende Maßnahmen, falls der Nutzer nicht auf deiner Freundesliste auf Twit
     <value>Fade In Links Großes</value>
   </data>
   <data name="FadeInRightBig" xml:space="preserve">
-    <value>Fade In Right Big</value>
+    <value>Ganz groß einblenden</value>
   </data>
   <data name="FadeInTopLeft" xml:space="preserve">
     <value>Einblenden oben links</value>
@@ -7853,13 +7876,13 @@ Vorbeugende Maßnahmen, falls der Nutzer nicht auf deiner Freundesliste auf Twit
     <value>Fade Out unten rechts</value>
   </data>
   <data name="FadeOutDownBig" xml:space="preserve">
-    <value>Fade Out Down Big</value>
+    <value>Groß ausblenden</value>
   </data>
   <data name="FadeOutLeftBig" xml:space="preserve">
     <value>Fade Out Links Großes</value>
   </data>
   <data name="FadeOutRightBig" xml:space="preserve">
-    <value>Fade Out Right Big</value>
+    <value>Ganz groß ausblenden</value>
   </data>
   <data name="FadeOutTopLeft" xml:space="preserve">
     <value>Ausblenden oben links</value>
@@ -7913,10 +7936,10 @@ Vorbeugende Maßnahmen, falls der Nutzer nicht auf deiner Freundesliste auf Twit
     <value>Dreh nach oben nach oben</value>
   </data>
   <data name="ShakeX" xml:space="preserve">
-    <value>Shake X</value>
+    <value>Schütteln Sie X</value>
   </data>
   <data name="ShakeY" xml:space="preserve">
-    <value>Shake Y</value>
+    <value>Schüttle Y</value>
   </data>
   <data name="AnimateCSS" xml:space="preserve">
     <value>Animate.css</value>
@@ -8062,7 +8085,7 @@ Druck(Lauf())</value>
     <value>Spende</value>
   </data>
   <data name="TwitchChannelHypeTrainLevelUp" xml:space="preserve">
-    <value>Twitch Channel Hype Train Level Up</value>
+    <value>Auf dem Twitch-Channel-Hype-Train-Level aufsteigen</value>
   </data>
   <data name="AlertTwitchCharityDonation" xml:space="preserve">
     <value>{0} spendete {1} an The Twitch Charity</value>
@@ -8098,7 +8121,7 @@ Druck(Lauf())</value>
     <value>Um zu starten, stelle sicher, dass die LoupeDeck-Software auf die neueste Version aktualisiert ist und der Developer API-Dienst in Mix It Up aktiviert ist. Um das Mix It Up-Plugin zu installieren, klicke oben rechts in deiner LoupeDeck-Software auf das Marktplatz-Symbol und suche dann nach "Mix It Up".</value>
   </data>
   <data name="ShellExecute" xml:space="preserve">
-    <value>Shell Execute</value>
+    <value>Shell-Ausführung</value>
   </data>
   <data name="RemoveLineWithSpecificTextFromFile" xml:space="preserve">
     <value>Zeile mit spezifischem Text aus der Datei entfernen</value>
@@ -8173,10 +8196,10 @@ Druck(Lauf())</value>
     <value>Max To Show muss ein gültiger Wert sein</value>
   </data>
   <data name="MaxToShow" xml:space="preserve">
-    <value>Max To Show</value>
+    <value>Max zu zeigen</value>
   </data>
   <data name="Elixir" xml:space="preserve">
-    <value>Elixir</value>
+    <value>Elixier</value>
   </data>
   <data name="OverlayWidthMustBeValidValue" xml:space="preserve">
     <value>Die Breite muss ein gültiger Wert sein</value>
@@ -8200,7 +8223,7 @@ Druck(Lauf())</value>
     <value>Führe Benutzereingabebefehle nur live aus</value>
   </data>
   <data name="CrowdControl" xml:space="preserve">
-    <value>Crowd Control</value>
+    <value>Massenkontrolle</value>
   </data>
   <data name="CrowdControlFailedToConnectToService" xml:space="preserve">
     <value>Keine Verbindung zum Crowd Control-Service geschafft, bitte versuchen Sie es erneut. Falls dies weiterhin besteht, besuche bitte den Mix It Up Support-Discord für weitere Unterstützung.</value>
@@ -8299,7 +8322,7 @@ Druck(Lauf())</value>
     <value>Effekt der Massenkontrolle</value>
   </data>
   <data name="TwitchChannelHypeChat" xml:space="preserve">
-    <value>Twitch Channel Hype Chat</value>
+    <value>Hype-Chat des Twitch-Kanals</value>
   </data>
   <data name="Label" xml:space="preserve">
     <value>Etikett</value>
@@ -8434,7 +8457,7 @@ Druck(Lauf())</value>
     <value>Länge</value>
   </data>
   <data name="MusicPlayerOnSongChanged" xml:space="preserve">
-    <value>On Song Changed</value>
+    <value>Auf Song Changed</value>
   </data>
   <data name="LumiaStream" xml:space="preserve">
     <value>Lumia-Bach</value>
@@ -8452,7 +8475,7 @@ Druck(Lauf())</value>
     <value>Twitch-Erweiterung</value>
   </data>
   <data name="TwitchPoint" xml:space="preserve">
-    <value>Twitch Point</value>
+    <value>Twitch-Punkt</value>
   </data>
   <data name="Brightness" xml:space="preserve">
     <value>Helligkeit</value>
@@ -8488,7 +8511,7 @@ Druck(Lauf())</value>
     <value>Halt</value>
   </data>
   <data name="SetLightsColor" xml:space="preserve">
-    <value>Set Lights Color</value>
+    <value>Legen Sie die Lichtfarbe fest</value>
   </data>
   <data name="MusicPlayerSelectFolderOrPlayMusicToLoadInSongs" xml:space="preserve">
     <value>Wählen Sie einen neuen Ordner aus, um Musik aus einem Ordner zu laden, oder drücken Sie die Play-Taste, um Musik aus dem zuletzt verwendeten Ordner zu laden.</value>
@@ -8560,7 +8583,7 @@ Druck(Lauf())</value>
     <value>Zufälliger Clip</value>
   </data>
   <data name="TopClip" xml:space="preserve">
-    <value>Top Clip</value>
+    <value>Oberer Clip</value>
   </data>
   <data name="ClipIDURL" xml:space="preserve">
     <value>Clip-ID / URL</value>
@@ -8593,7 +8616,7 @@ Druck(Lauf())</value>
     <value>Mix It Up Online ist eine neue, cloudgehostete Version von Mix It Up, die derzeit in Entwicklung ist. Mix It Up Desktop-Nutzer können sich jetzt vorregistrieren, um die Möglichkeit auf Alpha-Testzugriff zu erhalten, indem sie unten auf die Schaltfläche Registrieren klicken.</value>
   </data>
   <data name="MixItUpOnline" xml:space="preserve">
-    <value>Mix It Up Online</value>
+    <value>MixItUpOnline</value>
   </data>
   <data name="UserOnlyChat" xml:space="preserve">
     <value>Nur Benutzer-Chat</value>
@@ -8932,7 +8955,7 @@ Druck(Lauf())</value>
     <value>Beschenkte Abonnements</value>
   </data>
   <data name="Header" xml:space="preserve">
-    <value>Header</value>
+    <value>Kopfzeile</value>
   </data>
   <data name="YouTubeSuperChats" xml:space="preserve">
     <value>YouTube Super Chats</value>
@@ -9015,6 +9038,9 @@ Druck(Lauf())</value>
   <data name="AllTime" xml:space="preserve">
     <value>Allzeit-Zeiten</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>Abo-Serie</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>Ein gültiges Verbrauchsgut muss ausgewählt werden</value>
   </data>
@@ -9061,10 +9087,10 @@ Druck(Lauf())</value>
     <value>Text-zu-Sprache-Warteschlange umschalten</value>
   </data>
   <data name="Animalese" xml:space="preserve">
-    <value>Animalese</value>
+    <value>Tierisch</value>
   </data>
   <data name="Elevenlabs" xml:space="preserve">
-    <value>Elevenlabs</value>
+    <value>Elflabs</value>
   </data>
   <data name="SAMSoftwareAutomaticMouth" xml:space="preserve">
     <value>SAM-Software Automatischer Mund</value>
@@ -9112,7 +9138,7 @@ Druck(Lauf())</value>
     <value>KI-Haustier</value>
   </data>
   <data name="TTSPet" xml:space="preserve">
-    <value>TTS Pet</value>
+    <value>TTS Haustier</value>
   </data>
   <data name="CustomSection" xml:space="preserve">
     <value>Benutzerdefinierter Bereich</value>
@@ -9210,7 +9236,7 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
     <value>Explosion</value>
   </data>
   <data name="Fade" xml:space="preserve">
-    <value>Fade</value>
+    <value>Verblassen</value>
   </data>
   <data name="FallingLeaves" xml:space="preserve">
     <value>Fallende Blätter</value>
@@ -9270,7 +9296,7 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
     <value>Duplikate ignorieren</value>
   </data>
   <data name="OverlayPersistentEmoteEffectComboCount" xml:space="preserve">
-    <value>Combo Count</value>
+    <value>Combo-Anzahl</value>
   </data>
   <data name="OverlayPersistentEmoteEffectComboTimeframe" xml:space="preserve">
     <value>Kombo-Zeitrahmen (Secs)</value>
@@ -9509,6 +9535,23 @@ Nur aktivieren, wenn Sie wissen, was Sie tun. Weiter?</value>
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>Ein Dateipfad muss angegeben werden</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>Benutzerdefinierter Text</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Zeitzone</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>Platzhalter: YYYY YY (Jahr), MMMM MMM MM M (Monat), DD D (Tag), dddd ddd (Wochentag), HH H (24-Stunden), hh h (12-Stunden), mm m (Minute), ss s (Sekunde), A a (AM/PM). Setze wörtlichen Text in eckige Klammern, damit dessen Buchstaben unverändert bleiben, zum Beispiel: h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>Jeder dargestellte Teil steht in einem eigenen span, der nach seinem Platzhalter benannt ist, damit er im CSS-Bereich einzeln gestaltet werden kann: .time-A für AM/PM, .date-MMMM für den Monatsnamen und so weiter, mit der Groß- und Kleinschreibung des Platzhalters, also ist .date-MM der Monat und .time-mm die Minute.
+Eine ganze Gruppe erfasst [class^="date-"] oder [class^="time-"].
+Beispiel: .time-A { font-size: 50% }</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>Leer lassen, um die Zeitzone des Computers zu verwenden, auf dem das Overlay läuft. Zonen sind unter ihrer Hauptstadt aufgeführt, daher deckt Europe/Berlin auch Amsterdam und Rom ab. Du kannst auch direkt einen beliebigen IANA-Zeitzonennamen eingeben, zum Beispiel Europe/Amsterdam.</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>Profilname</value>
   </data>
@@ -9716,7 +9759,7 @@ Wir haben festgestellt, dass mehr als ein Overlay-Endpunkt erstellt wurde, was b
     <value>Checkkästchen</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>Taufbecken</value>
+    <value>Schriftart</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>FEHLER: Amazon Polly TTS kann nicht durchgeführt werden, da eine Premium-Stimme ohne verbundenes AWS-Konto ausgewählt ist</value>
@@ -9843,6 +9886,24 @@ Wir haben festgestellt, dass mehr als ein Overlay-Endpunkt erstellt wurde, was b
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>Wenn die Authentifizierung für den Dienst nicht gestartet werden kann, stellen Sie bitte sicher, dass bei einem anderen Dienst kein aktiver Authentifizierungsprozess läuft.</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Port {0} bereits von einem anderen Programm verwendet wird. Bitte schließen Sie alle anderen Programme, die diesen Port verwenden könnten, einschließlich einer zweiten Instanz von Mix It Up, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up konnte den lokalen Anmelde-Listener nicht starten, da Windows den Port {0} blockiert. Dies wird normalerweise durch einen von Hyper-V, WSL oder Docker reservierten Portbereich verursacht. Bitte besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up konnte Ihren Webbrowser nicht öffnen, um die Anmeldung abzuschließen. Kopieren Sie die untenstehende Adresse, fügen Sie sie in Ihren Browser ein und schließen Sie die Anmeldung dort ab. Dieses Fenster wartet weiterhin auf Sie.</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>Die Anmeldung wurde nicht rechtzeitig abgeschlossen und wurde abgebrochen. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>Die Anmeldung konnte nicht abgeschlossen werden. Einzelheiten finden Sie im Ordner Logs in Ihrem Mix It Up-Installationsverzeichnis, oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up hat Ihre Anmeldung erhalten, konnte sie aber nicht gegen ein Zugriffstoken eintauschen. Bitte versuchen Sie es erneut oder besuchen Sie den Mix It Up Discord, um Hilfe zu erhalten.</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>Gewinn</value>
@@ -10707,5 +10768,175 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="HasTitle" xml:space="preserve">
     <value>Hat Titel</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>UI-Schriftart</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>Gesamtschriftgröße (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>Schriftgröße des Chatfensters (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* Manche Schriftarten passen nicht in alle Steuerelemente, und größere Werte können abgeschnitten werden.</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>Support-Modus</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>Zeigt die App vorübergehend mit Standarddesign, -schriftart und -textgröße an, ohne Ihre gespeicherten Einstellungen zu ändern. Zum Zurückkehren einfach ausschalten.</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>Design- und Schrifteinstellungen zurücksetzen</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>Auf Standard zurücksetzen</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>Dadurch werden Farbschema, Hintergrund, Vordergrund, vollständiges Design, UI-Schriftart, Gesamtschriftgröße und Chatfenster-Schriftgröße auf die Standardwerte zurückgesetzt. Sind Sie sicher?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube ist eine PNGtuber-App, die während des Sprechens zwischen Standbildern Ihres Charakters wechselt. Nach dem Verbinden können Ihre Befehle den Avatar-Zustand ändern, und ein Zustandswechsel kann einen Befehl auslösen. Mix It Up findet veadotube von selbst, es muss also nichts eingegeben werden.</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>Aktivieren Sie den WebSocket-Server in den Programmeinstellungen von veadotube, bevor Sie sich verbinden. Die Adresse ändert sich bei jedem Start von veadotube, weshalb Mix It Up sie für Sie ausliest.</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>Die Push-to-Talk-Aktion erfordert, dass „use websocket“ unter Push-to-Talk in den Mikrofoneinstellungen von veadotube aktiviert ist. Entfernen Sie außerdem alle Push-to-Talk-Tastenkürzel, da ein Tastenkürzel alles überschreibt, was Mix It Up sendet.</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>Diese Version von veadotube ist älter als 2.1. Das Umschalten von Avatar-Zuständen und alle Push-to-Talk-Aktionen bleiben ohne Wirkung, bis Sie aktualisieren.</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up konnte keine laufende Instanz von veadotube finden. Öffnen Sie veadotube, aktivieren Sie den WebSocket-Server in den Programmeinstellungen und versuchen Sie es erneut.</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>Verbindung zu veadotube fehlgeschlagen. Stellen Sie sicher, dass es läuft und sein WebSocket-Server aktiviert ist.</value>
+  </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up konnte unter {0} keine Verbindung zu veadotube herstellen. Stellen Sie sicher, dass veadotube läuft und der WebSocket-Server in den Programmeinstellungen aktiviert ist. Wenn Sie unten eine Adresse eingetragen haben, löschen Sie diese und versuchen Sie es erneut, damit Mix It Up veadotube selbst finden kann.</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>Die eingegebene Adresse ist keine gültige Adresse mit Port. Verwenden Sie die Adresse, die veadotube neben „serving at“ anzeigt, zum Beispiel 127.0.0.1:2424, oder leeren Sie das Feld, damit Mix It Up veadotube selbst finden kann.</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>Verbunden mit {0} unter {1}</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube ist nicht verbunden</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>Adresse (Optional)</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>Push-to-Talk</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>Es muss ein Avatar-Zustand ausgewählt werden</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>Avatar-Zustand geändert</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>Push-to-Talk geändert</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand festlegen</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand hinzufügen</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand entfernen</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>Avatar-Zustand umschalten</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>Zufälligen Avatar-Zustand festlegen</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>Push-to-Talk festlegen</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>Stream gestartet</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>Stream gestoppt</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>Aufnahme gestartet</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>Aufnahme gestoppt</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>Szene geändert</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>Szenenübergang gestartet</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>Szenenübergang beendet</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>Filtersichtbarkeit geändert</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>Quellsichtbarkeit geändert</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>Wiedergabe-Puffer gespeichert</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>Nutzersuche</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>Nutzername oder ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>Nutzersuche-Aktion: Fehlender Nutzername oder ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Shorts-Längenbegrenzung (Sekunden)</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>Videos mit dieser Länge oder kürzer zählen als Shorts. Längere zählen als normales Video.</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>VIPs</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>Stammzuschauer</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>Erstchatter</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube Jewels</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon-Mitgliederliste</value>
   </data>
 </root>

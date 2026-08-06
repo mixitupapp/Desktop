@@ -36,9 +36,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" ItemsSource="{Binding HttpMethods}" SelectedItem="{Binding SelectedHttpMethod}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Method}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+            <ComboBox Grid.Column="0" ItemsSource="{Binding HttpMethods}" SelectedItem="{Binding SelectedHttpMethod}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Method}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="WebRequestActionEditor.MethodComboBox" AutomationProperties.Name="{x:Static resx:Resources.Method}" />
 
-            <TextBox Grid.Column="2" Text="{Binding RequestURL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebRequestURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            <TextBox Grid.Column="2" Text="{Binding RequestURL}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.WebRequestURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="WebRequestActionEditor.WebRequestURLTextBox" AutomationProperties.Name="{x:Static resx:Resources.WebRequestURL}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -48,9 +48,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Command="{Binding AddCustomHeaderCommand}" Content="{x:Static resx:Resources.AddCustomHeader}" HorizontalAlignment="Center" MinWidth="150" />
+            <Button Grid.Row="0" Command="{Binding AddCustomHeaderCommand}" Content="{x:Static resx:Resources.AddCustomHeader}" HorizontalAlignment="Center" MinWidth="150" AutomationProperties.AutomationId="WebRequestActionEditor.AddCustomHeaderButton" />
 
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding CustomHeaders}">
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding CustomHeaders}" AutomationProperties.AutomationId="WebRequestActionEditor.RequestHeadersList" AutomationProperties.Name="{x:Static resx:Resources.RequestHeaders}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,5">
@@ -62,20 +62,20 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" Text="{Binding HeaderName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HeaderName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="0" Text="{Binding HeaderName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HeaderName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="RequestHeader.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.HeaderName}" />
 
-                            <TextBox Grid.Column="2" Text="{Binding HeaderValue}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HeaderValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="2" Text="{Binding HeaderValue}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.HeaderValue}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="RequestHeader.ValueTextBox" AutomationProperties.Name="{x:Static resx:Resources.HeaderValue}" />
 
-                            <Controls:IconButton Grid.Column="4" Command="{Binding DeleteHeaderCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                            <Controls:IconButton Grid.Column="4" Command="{Binding DeleteHeaderCommand}" Icon="Delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="RequestHeader.DeleteButton" AutomationProperties.Name="{Binding HeaderName, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
 
-        <TextBox Grid.Row="4" Text="{Binding RequestBody}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequestBody}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" MinLines="3" MaxLines="8" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Visibility="{Binding ShowRequestBody, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBox Grid.Row="4" Text="{Binding RequestBody}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RequestBody}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AcceptsReturn="True" MinLines="3" MaxLines="8" TextAlignment="Left" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Visibility="{Binding ShowRequestBody, Converter={StaticResource BooleanToVisibilityConverter}}" AutomationProperties.AutomationId="WebRequestActionEditor.RequestBodyTextBox" AutomationProperties.Name="{x:Static resx:Resources.RequestBody}" />
 
-        <ComboBox Grid.Row="6" ItemsSource="{Binding ResponseParseTypes}" SelectedItem="{Binding SelectedResponseParseType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ResponseProcessingType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="6" ItemsSource="{Binding ResponseParseTypes}" SelectedItem="{Binding SelectedResponseParseType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ResponseProcessingType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="WebRequestActionEditor.ResponseProcessingTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.ResponseProcessingType}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -91,7 +91,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Result}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$webrequestresult" Style="{StaticResource TextBoxReadOnlySelectable}" />
+            <TextBox Grid.Column="2" VerticalAlignment="Center" Text="$webrequestresult" Style="{StaticResource TextBoxReadOnlySelectable}" AutomationProperties.AutomationId="WebRequestActionEditor.ResultTextBox" AutomationProperties.Name="{x:Static resx:Resources.Result}" />
         </Grid>
 
         <Grid Grid.Row="8" Visibility="{Binding ShowJSONGrid, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,10,0,0">
@@ -101,9 +101,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Command="{Binding AddJSONParameterCommand}" Content="{x:Static resx:Resources.AddNewPair}" HorizontalAlignment="Center" MinWidth="150" />
+            <Button Grid.Row="0" Command="{Binding AddJSONParameterCommand}" Content="{x:Static resx:Resources.AddNewPair}" HorizontalAlignment="Center" MinWidth="150" AutomationProperties.AutomationId="WebRequestActionEditor.AddNewPairButton" />
 
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding JSONParameters}">
+            <ItemsControl Grid.Row="2" ItemsSource="{Binding JSONParameters}" AutomationProperties.AutomationId="WebRequestActionEditor.JsonValuesList" AutomationProperties.Name="{x:Static resx:Resources.JSONValues}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,5">
@@ -115,11 +115,11 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" Text="{Binding JSONParameterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.JSONValueName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="0" Text="{Binding JSONParameterName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.JSONValueName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="JsonValue.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.JSONValueName}" />
 
-                            <TextBox Grid.Column="2" Text="{Binding SpecialIdentifierName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <TextBox Grid.Column="2" Text="{Binding SpecialIdentifierName}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SpecialIdentifierName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="JsonValue.SpecialIdentifierTextBox" AutomationProperties.Name="{x:Static resx:Resources.SpecialIdentifierName}" />
 
-                            <Controls:IconButton Grid.Column="4" Command="{Binding DeleteJSONParameterCommand}" Icon="Delete"  ToolTip="{x:Static resx:Resources.Delete}" />
+                            <Controls:IconButton Grid.Column="4" Command="{Binding DeleteJSONParameterCommand}" Icon="Delete"  ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="JsonValue.DeleteButton" AutomationProperties.Name="{Binding JSONParameterName, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

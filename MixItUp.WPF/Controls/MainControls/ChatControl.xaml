@@ -11,8 +11,8 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"  
                           
              d:DesignHeight="600" d:DesignWidth="800">
@@ -20,8 +20,8 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <Util:ColorBrushConverter x:Key="ColorBrushConverter" />
 
-        <ContextMenu x:Key="UserListContextMenu">
-            <MenuItem x:Name="UserInformationMenuItem" Header="User Info" Click="UserInformationMenuItem_Click" />
+        <ContextMenu x:Key="UserListContextMenu" AutomationProperties.AutomationId="Chat.UserListContextMenu">
+            <MenuItem x:Name="ChatUserInformationMenuItem" Header="User Info" Click="UserInformationMenuItem_Click" AutomationProperties.AutomationId="Chat.UserListUserInfoMenuItem" />
         </ContextMenu>
     </local:MainControlBase.Resources>
 
@@ -38,13 +38,13 @@
                                HorizontalAlignment="Center"
                                Margin="5,0"
                                Visibility="{Binding ShowTopActionButtons, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Button x:Name="DashboardButton" MinWidth="100" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="DashboardButton_Click" Content="{x:Static resx:Resources.Dashboard}" />
+                        <Button x:Name="DashboardButton" MinWidth="100" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" Click="DashboardButton_Click" Content="{x:Static resx:Resources.Dashboard}" AutomationProperties.AutomationId="Chat.DashboardButton" />
 
-                        <Button Command="{Binding ClearChatCommand}" MinWidth="100" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" Content="{x:Static resx:Resources.ClearChat}" />
+                        <Button Command="{Binding ClearChatCommand}" MinWidth="100" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" Content="{x:Static resx:Resources.ClearChat}" AutomationProperties.AutomationId="Chat.ClearChatButton" />
 
-                        <Button Command="{Binding EnableDisableChatCommand}" Content="{Binding EnableDisableChatButtonText}" MinWidth="115" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" />
+                        <Button Command="{Binding EnableDisableChatCommand}" Content="{Binding EnableDisableChatButtonText}" MinWidth="115" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" AutomationProperties.AutomationId="Chat.EnableDisableChatButton" />
 
-                        <Button Command="{Binding PauseUnpauseCommandsCommand}" Content="{Binding PauseUnpauseCommandsButtonText}" MinWidth="165" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" />
+                        <Button Command="{Binding PauseUnpauseCommandsCommand}" Content="{Binding PauseUnpauseCommandsButtonText}" MinWidth="165" Margin="5,2" Style="{StaticResource MaterialDesignRaisedLightButton}" AutomationProperties.AutomationId="Chat.PauseUnpauseCommandsButton" />
                     </WrapPanel>
 
                     <Grid Grid.Column="1" HorizontalAlignment="Center" Height="20">
@@ -80,9 +80,9 @@
 
                     <ChatControls:ChatListControl x:Name="ChatList" Grid.Column="0" />
 
-                    <GridSplitter x:Name="ChatSplitter" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5" />
+                    <GridSplitter x:Name="ChatSplitter" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5" AutomationProperties.AutomationId="Chat.UserListSplitter" AutomationProperties.Name="{x:Static resx:Resources.ResizeChatUserList}" />
 
-                    <ListView x:Name="UserList" ItemsSource="{Binding DisplayUsers}" ContextMenu="{StaticResource UserListContextMenu}" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="2" VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" MinWidth="200">
+                    <ListView x:Name="UserList" ItemsSource="{Binding DisplayUsers}" ContextMenu="{StaticResource UserListContextMenu}" Visibility="{Binding ShowChatUserList, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Column="2" VirtualizingPanel.VirtualizationMode="Recycling" ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" MinWidth="200" AutomationProperties.AutomationId="Chat.UserList" AutomationProperties.Name="{x:Static resx:Resources.ChatUserList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ChatControls:ChatUserControl DataContext="{Binding}" Grid.Column="0" />
@@ -103,7 +103,9 @@
                             Background="Transparent"
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
                             BorderThickness="1"
-                            Command="{Binding ToggleTopActionButtonsCommand}">
+                            Command="{Binding ToggleTopActionButtonsCommand}"
+                            AutomationProperties.AutomationId="Chat.ToggleTopActionButtonsButton"
+                            AutomationProperties.Name="{x:Static resx:Resources.ShowHideChatActionButtons}">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFlatButton}">
                                 <Setter Property="Opacity" Value="0.65" />
@@ -114,7 +116,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
-                        <Controls:MaterialSymbolIcon FontSize="10" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
+                        <Controls:MaterialSymbolIcon FontSize="{DynamicResource MIU.IconSize.10}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}">
                             <Controls:MaterialSymbolIcon.Style>
                                 <Style TargetType="{x:Type Controls:MaterialSymbolIcon}">
                                     <Setter Property="IconName" Value="expand_less" />

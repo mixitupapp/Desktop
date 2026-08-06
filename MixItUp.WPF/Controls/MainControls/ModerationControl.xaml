@@ -12,8 +12,8 @@
              xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
                           
-    FontFamily="{StaticResource NotoSans}"
-    TextElement.FontSize="14"
+    FontFamily="{DynamicResource NotoSans}"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
                           
              d:DesignHeight="700" d:DesignWidth="600">
@@ -47,7 +47,7 @@
                             <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.FilteredBannedWords}" VerticalAlignment="Center" />
 
                             <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-                            <ToggleButton x:Name="FilteredWordsApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" />
+                            <ToggleButton x:Name="FilteredWordsApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" AutomationProperties.AutomationId="Moderation.FilteredWordsApplyStrikesToggle" AutomationProperties.Name="{x:Static resx:Resources.ApplyStrikes}" />
 
                         </Grid>
                     </GroupBox.Header>
@@ -70,9 +70,9 @@
 
                             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.UseCommunityList}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
 
-                            <ToggleButton x:Name="CommunityBannedWordsToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" />
+                            <ToggleButton x:Name="CommunityBannedWordsToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" AutomationProperties.AutomationId="Moderation.CommunityBannedWordsToggle" AutomationProperties.Name="{x:Static resx:Resources.UseCommunityBannedWordsList}" />
 
-                            <ComboBox x:Name="FilteredWordsExemptComboBox" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRuleAndStrikes}" MinWidth="150" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox x:Name="FilteredWordsExemptComboBox" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRuleAndStrikes}" MinWidth="150" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="Moderation.FilteredWordsExemptComboBox" AutomationProperties.Name="{x:Static resx:Resources.ExemptFromRuleAndStrikes}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -95,12 +95,12 @@
 
                             <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.FilteredWordsHeader}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
                             <Border Grid.Column="0" Grid.Row="2" Style="{StaticResource DefaultBorder}">
-                                <TextBox x:Name="FilteredWordsTextBox" Margin="5" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{StaticResource MaterialDesignFloatingHintTextBox}" LostFocus="TextBoxes_LostFocus" />
+                                <TextBox x:Name="FilteredWordsTextBox" Margin="5" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{StaticResource MaterialDesignFloatingHintTextBox}" LostFocus="TextBoxes_LostFocus" AutomationProperties.AutomationId="Moderation.FilteredWordsTextBox" AutomationProperties.Name="{x:Static resx:Resources.FilteredWords}" />
                             </Border>
 
                             <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.BannedWords}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
                             <Border Grid.Column="2" Grid.Row="2" Style="{StaticResource DefaultBorder}">
-                                <TextBox x:Name="BannedWordsTextBox" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{StaticResource MaterialDesignFloatingHintTextBox}" LostFocus="TextBoxes_LostFocus" />
+                                <TextBox x:Name="BannedWordsTextBox" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{StaticResource MaterialDesignFloatingHintTextBox}" LostFocus="TextBoxes_LostFocus" AutomationProperties.AutomationId="Moderation.BannedWordsTextBox" AutomationProperties.Name="{x:Static resx:Resources.BannedWords}" />
                             </Border>
                         </Grid>
 
@@ -121,7 +121,7 @@
                             <TextBlock Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.ChatTextModeration}" VerticalAlignment="Center" />
 
                             <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-                            <ToggleButton x:Name="ChatTextApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" />
+                            <ToggleButton x:Name="ChatTextApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" AutomationProperties.AutomationId="Moderation.ChatTextApplyStrikesToggle" AutomationProperties.Name="{x:Static resx:Resources.ApplyStrikes}" />
                         </Grid>
                     </GroupBox.Header>
 
@@ -149,9 +149,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Slider x:Name="MaxCapsSlider" Grid.Column="0" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" Margin="0,15,0,0" LostFocus="Slider_LostFocus" />
+                                <Slider x:Name="MaxCapsSlider" Grid.Column="0" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" Margin="0,15,0,0" LostFocus="Slider_LostFocus" AutomationProperties.AutomationId="Moderation.MaxCapsSlider" AutomationProperties.Name="{x:Static resx:Resources.MaxCaps}" />
 
-                                <ComboBox x:Name="MaxCapsTypeComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="50" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox x:Name="MaxCapsTypeComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="50" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="Moderation.MaxCapsTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.MaxCapsType}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -176,9 +176,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Slider x:Name="MaxPunctuationSymbolsEmotesSlider" Grid.Column="0" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" Margin="0,15,0,0" LostFocus="Slider_LostFocus" />
+                                <Slider x:Name="MaxPunctuationSymbolsEmotesSlider" Grid.Column="0" Minimum="0" Maximum="100" Style="{StaticResource MaterialDesign3.MaterialDesignDiscreteSlider}" Margin="0,15,0,0" LostFocus="Slider_LostFocus" AutomationProperties.AutomationId="Moderation.MaxPunctuationSlider" AutomationProperties.Name="{x:Static resx:Resources.MaxPunctuationSymbolsEmotes}" />
 
-                                <ComboBox x:Name="MaxPunctuationSymbolsEmotesTypeComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="50" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox x:Name="MaxPunctuationSymbolsEmotesTypeComboBox" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Width="50" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="Moderation.MaxPunctuationTypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.MaxPunctuationSymbolsEmotesType}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -189,7 +189,7 @@
                         </Grid>
 
                         <Grid Grid.Column="4">
-                            <ComboBox x:Name="ChatTextModerationExemptComboBox" VerticalAlignment="Center" Grid.Row="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRuleAndStrikes}" MinWidth="150" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox x:Name="ChatTextModerationExemptComboBox" VerticalAlignment="Center" Grid.Row="6" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRuleAndStrikes}" MinWidth="150" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="Moderation.ChatTextExemptComboBox" AutomationProperties.Name="{x:Static resx:Resources.ExemptFromRuleAndStrikes}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -224,7 +224,7 @@
                                 <TextBlock Grid.Column="0" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{x:Static resx:Resources.LinkBlocking}" VerticalAlignment="Center" />
 
                                 <TextBlock Grid.Column="2" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" Text="{Binding Source={x:Static resx:Resources.ApplyStrikes}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-                                <ToggleButton x:Name="BlockLinksApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" />
+                                <ToggleButton x:Name="BlockLinksApplyStrikesToggleButton" Grid.Column="4" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" VerticalAlignment="Center" AutomationProperties.AutomationId="Moderation.BlockLinksApplyStrikesToggle" AutomationProperties.Name="{x:Static resx:Resources.ApplyStrikes}" />
                             </Grid>
                         </GroupBox.Header>
 
@@ -243,10 +243,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <ToggleButton x:Name="BlockLinksToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" />
+                                <ToggleButton x:Name="BlockLinksToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" AutomationProperties.AutomationId="Moderation.BlockLinksToggle" AutomationProperties.Name="{x:Static resx:Resources.BlockLinks}" />
                             </Grid>
 
-                            <ComboBox x:Name="BlockLinksExemptComboBox" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRuleAndStrikes}" Width="200" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox x:Name="BlockLinksExemptComboBox" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRuleAndStrikes}" Width="200" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="Moderation.BlockLinksExemptComboBox" AutomationProperties.Name="{x:Static resx:Resources.ExemptFromRuleAndStrikes}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -268,7 +268,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <ComboBox x:Name="ChatInteractiveParticipationComboBox" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinimumRequirement}" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox x:Name="ChatInteractiveParticipationComboBox" Grid.Row="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MinimumRequirement}" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="Moderation.ChatParticipationComboBox" AutomationProperties.Name="{x:Static resx:Resources.MinimumRequirement}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -276,7 +276,7 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <ComboBox x:Name="ChatParticipationExemptComboBox" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRule}"  SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBox x:Name="ChatParticipationExemptComboBox" Grid.Row="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ExemptFromRule}"  SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="Moderation.ChatParticipationExemptComboBox" AutomationProperties.Name="{x:Static resx:Resources.ExemptFromRule}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -306,10 +306,10 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <ToggleButton x:Name="FollowEventModerationToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" />
+                                <ToggleButton x:Name="FollowEventModerationToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" AutomationProperties.AutomationId="Moderation.FollowEventModerationToggle" AutomationProperties.Name="{x:Static resx:Resources.FollowEventModeration}" />
                             </Grid>
 
-                            <TextBox x:Name="FollowEventModerationMaxQueueTextBox" Grid.Row="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FollowEventModerationMaxQueue}" LostFocus="TextBoxes_LostFocus" />
+                            <TextBox x:Name="FollowEventModerationMaxQueueTextBox" Grid.Row="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FollowEventModerationMaxQueue}" LostFocus="TextBoxes_LostFocus" AutomationProperties.AutomationId="Moderation.FollowEventMaxQueueTextBox" AutomationProperties.Name="{x:Static resx:Resources.FollowEventModerationMaxQueue}" />
                         </Grid>
                     </GroupBox>
                 </Grid>
@@ -334,7 +334,7 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.ResetStrikesOnLaunch}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                            <ToggleButton x:Name="ResetStrikesOnLaunchToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" />
+                            <ToggleButton x:Name="ResetStrikesOnLaunchToggleButton" Grid.Column="2" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Checked" AutomationProperties.AutomationId="Moderation.ResetStrikesOnLaunchToggle" AutomationProperties.Name="{x:Static resx:Resources.ResetStrikesOnLaunch}" />
 
                         </Grid>
 

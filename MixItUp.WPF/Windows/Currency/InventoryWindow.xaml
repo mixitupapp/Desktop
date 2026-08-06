@@ -14,10 +14,10 @@
     Title="{x:Static resx:Resources.CustomizeInventory}"
     Width="1000"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -28,7 +28,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Inventory.MDDialogHost" />
 
         <ScrollViewer Grid.Row="0">
             <Grid Margin="10">
@@ -47,7 +47,9 @@
                     VerticalAlignment="Top"
                     Command="{Binding HelpCommand}"
                     Icon="help"
-                    ToolTip="{x:Static resx:Resources.Help}" />
+                    ToolTip="{x:Static resx:Resources.Help}"
+                    AutomationProperties.AutomationId="Inventory.HelpButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Help}" />
 
                 <Grid Grid.Row="0" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
@@ -65,29 +67,35 @@
                         Width="250"
                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.InventoryName}"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding Name}" />
+                        Text="{Binding Name}"
+                        AutomationProperties.AutomationId="Inventory.InventoryNameTextBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.InventoryName}" />
 
                     <TextBox
                         Grid.Column="2"
                         Width="140"
                         MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DefaultMaxAmount}"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding DefaultItemMaxAmount}" />
+                        Text="{Binding DefaultItemMaxAmount}"
+                        AutomationProperties.AutomationId="Inventory.DefaultMaxAmountTextBox"
+                        AutomationProperties.Name="{x:Static resx:Resources.DefaultMaxAmount}" />
 
                     <Button
                         Grid.Column="4"
                         Command="{Binding ManualResetCommand}"
-                        Content="{x:Static resx:Resources.ManualReset}" />
+                        Content="{x:Static resx:Resources.ManualReset}"
+                        AutomationProperties.AutomationId="Inventory.ManualResetButton" />
 
                     <Button
                         Grid.Column="6"
                         Command="{Binding ExportToFileCommand}"
                         Content="{x:Static resx:Resources.ExportData}"
-                        IsEnabled="{Binding IsExisting}" />
+                        IsEnabled="{Binding IsExisting}"
+                        AutomationProperties.AutomationId="Inventory.ExportDataButton" />
                 </Grid>
 
-                <Grid Grid.Row="2" HorizontalAlignment="Center">
-                    <GroupBox Grid.Column="2" Header="{x:Static resx:Resources.ItemList}">
+                <Grid Grid.Row="2">
+                    <GroupBox Header="{x:Static resx:Resources.ItemList}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
@@ -97,9 +105,8 @@
 
                             <ScrollViewer
                                 Grid.Column="0"
-                                Width="900"
                                 MaxHeight="400"
-                                HorizontalScrollBarVisibility="Auto"
+                                HorizontalScrollBarVisibility="Disabled"
                                 VerticalScrollBarVisibility="Visible">
                                 <DataGrid
                                     HorizontalContentAlignment="Center"
@@ -107,33 +114,40 @@
                                     CanUserResizeColumns="True"
                                     CellStyle="{StaticResource StandardDataGridCell}"
                                     ItemsSource="{Binding Items}"
-                                    Style="{StaticResource StandardDataGrid}">
+                                    Style="{StaticResource StandardDataGrid}"
+                                    AutomationProperties.AutomationId="Inventory.ItemsDataGrid"
+                                    AutomationProperties.Name="{x:Static resx:Resources.InventoryItems}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn
-                                            Width="200"
+                                            Width="2*"
+                                            MinWidth="150"
                                             Binding="{Binding Name}"
                                             Header="{x:Static resx:Resources.ItemName}"
                                             IsReadOnly="True" />
                                         <DataGridTextColumn
-                                            Width="100"
+                                            Width="*"
+                                            MinWidth="90"
                                             Binding="{Binding MaxAmountString}"
                                             Header="{x:Static resx:Resources.MaxAmount}"
                                             IsReadOnly="True"
                                             SortMemberPath="MaxAmount" />
                                         <DataGridTextColumn
-                                            Width="100"
+                                            Width="*"
+                                            MinWidth="90"
                                             Binding="{Binding BuyAmountString}"
                                             Header="{x:Static resx:Resources.BuyPrice}"
                                             IsReadOnly="True"
                                             SortMemberPath="BuyAmount" />
                                         <DataGridTextColumn
-                                            Width="100"
+                                            Width="*"
+                                            MinWidth="90"
                                             Binding="{Binding SellAmountString}"
                                             Header="{x:Static resx:Resources.SellPrice}"
                                             IsReadOnly="True"
                                             SortMemberPath="SellAmount" />
                                         <DataGridTextColumn
-                                            Width="200"
+                                            Width="2*"
+                                            MinWidth="150"
                                             Binding="{Binding SpecialIdentifier}"
                                             Header="{x:Static resx:Resources.SpecialIdentifierName}"
                                             IsReadOnly="True" />
@@ -153,7 +167,9 @@
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Click="EditItemButton_Click"
-                                                            Icon="rate_review" />
+                                                            Icon="rate_review"
+                                                            AutomationProperties.AutomationId="ItemRow.EditButton"
+                                                            AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.EditCommandFormat}}" />
 
                                                         <Controls:IconButton
                                                             x:Name="DeleteItemButton"
@@ -161,7 +177,9 @@
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Click="DeleteItemButton_Click"
-                                                            Icon="delete" />
+                                                            Icon="delete"
+                                                            AutomationProperties.AutomationId="ItemRow.DeleteButton"
+                                                            AutomationProperties.Name="{Binding Name, StringFormat={x:Static resx:Resources.DeleteCommandFormat}}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
@@ -188,35 +206,44 @@
                                     Width="200"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemName}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding ItemName}" />
+                                    Text="{Binding ItemName}"
+                                    AutomationProperties.AutomationId="Inventory.ItemNameTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.ItemName}" />
 
                                 <TextBox
                                     Grid.Column="2"
                                     Width="100"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.MaxAmount}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding ItemMaxAmount}" />
+                                    Text="{Binding ItemMaxAmount}"
+                                    AutomationProperties.AutomationId="Inventory.MaxAmountTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.MaxAmount}" />
 
                                 <TextBox
                                     Grid.Column="4"
                                     Width="100"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.BuyPrice}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding ItemBuyAmount}" />
+                                    Text="{Binding ItemBuyAmount}"
+                                    AutomationProperties.AutomationId="Inventory.BuyPriceTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.BuyPrice}" />
 
                                 <TextBox
                                     Grid.Column="6"
                                     Width="100"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.SellPrice}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding ItemSellAmount}" />
+                                    Text="{Binding ItemSellAmount}"
+                                    AutomationProperties.AutomationId="Inventory.SellPriceTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.SellPrice}" />
 
                                 <Button
                                     Grid.Column="8"
                                     Width="110"
                                     Command="{Binding SaveItemCommand}"
                                     Content="{Binding SaveItemButtonText}"
-                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    AutomationProperties.AutomationId="Inventory.SaveItemButton" />
                             </Grid>
                         </Grid>
                     </GroupBox>
@@ -252,7 +279,7 @@
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <ToggleButton Grid.Column="2" IsChecked="{Binding ShopEnabled}" />
+                                <ToggleButton Grid.Column="2" IsChecked="{Binding ShopEnabled}" AutomationProperties.AutomationId="Inventory.ShopEnableToggle" AutomationProperties.Name="{x:Static resx:Resources.Enable}" />
 
                                 <TextBox
                                     Grid.Column="4"
@@ -260,7 +287,9 @@
                                     VerticalAlignment="Center"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ShopCommand}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding ShopCommandText}" />
+                                    Text="{Binding ShopCommandText}"
+                                    AutomationProperties.AutomationId="Inventory.ShopCommandTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.ShopCommand}" />
 
                                 <ComboBox
                                     Grid.Column="6"
@@ -269,7 +298,9 @@
                                     DisplayMemberPath="Name"
                                     ItemsSource="{Binding Currencies}"
                                     SelectedItem="{Binding SelectedShopCurrency}"
-                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    AutomationProperties.AutomationId="Inventory.ShopCurrencyComboBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.ShopCurrency}" />
                             </Grid>
 
                             <Grid Grid.Row="2" HorizontalAlignment="Center">
@@ -323,7 +354,7 @@
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
                                     Text="{Binding Source={x:Static resx:Resources.Enable}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-                                <ToggleButton Grid.Column="2" IsChecked="{Binding TradeEnabled}" />
+                                <ToggleButton Grid.Column="2" IsChecked="{Binding TradeEnabled}" AutomationProperties.AutomationId="Inventory.TradeEnableToggle" AutomationProperties.Name="{x:Static resx:Resources.Enable}" />
 
                                 <TextBox
                                     Grid.Column="4"
@@ -331,7 +362,9 @@
                                     VerticalAlignment="Center"
                                     MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TradeCommand}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Text="{Binding TradeCommandText}" />
+                                    Text="{Binding TradeCommandText}"
+                                    AutomationProperties.AutomationId="Inventory.TradeCommandTextBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.TradeCommand}" />
 
                             </Grid>
 
@@ -352,12 +385,14 @@
                 </Grid>
 
                 <Controls:IconButton
-                    x:Name="SaveButton"
+                    x:Name="InventorySaveButton"
                     Grid.Row="6"
                     Width="80"
                     HorizontalAlignment="Center"
                     Click="SaveButton_Click"
-                    Icon="save" />
+                    Icon="save"
+                    AutomationProperties.AutomationId="Inventory.SaveButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Save}" />
             </Grid>
         </ScrollViewer>
 

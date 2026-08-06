@@ -13,9 +13,9 @@
     Title="{x:Static resx:Resources.OverlayWidgetEditor}"
     Width="800"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
     <Windows:LoadingWindowBase.Resources>
@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="OverlayEndpointV3Editor.MDDialogHost" />
 
         <ScrollViewer Grid.Row="0">
             <Grid Margin="10">
@@ -44,51 +44,52 @@
                     <TabControl
                         SnapsToDevicePixels="True"
                         Style="{StaticResource MaterialDesignFilledTabControl}"
-                        TabStripPlacement="Top">
-                        <TabItem Header="{x:Static resx:Resources.Head}">
+                        TabStripPlacement="Top"
+                        AutomationProperties.AutomationId="OverlayEndpointV3Editor.EditorTabs">
+                        <TabItem Header="{x:Static resx:Resources.Head}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.HeadTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Head}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Head}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.HeadEditor" AutomationProperties.Name="{x:Static resx:Resources.Head}" />
                                 </Border>
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{x:Static resx:Resources.HTML}">
+                        <TabItem Header="{x:Static resx:Resources.HTML}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.HTMLTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding HTML}" Util:AvalonEditCustomHighlighting.Language="HTML" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.HtmlEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayHtml}" />
                                 </Border>
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{x:Static resx:Resources.CSS}">
+                        <TabItem Header="{x:Static resx:Resources.CSS}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.CSSTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" Util:AvalonEditCustomHighlighting.Language="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding CSS}" Util:AvalonEditCustomHighlighting.Language="CSS" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.CssEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayCss}" />
                                 </Border>
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{x:Static resx:Resources.Javascript}">
+                        <TabItem Header="{x:Static resx:Resources.Javascript}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.JavascriptTab">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Border Style="{StaticResource DefaultBorder}">
-                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" Util:AvalonEditCustomHighlighting.Language="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
+                                    <avalonEdit:TextEditor Height="400" Util:AvalonEditBehaviour.Text="{Binding Javascript}" Util:AvalonEditCustomHighlighting.Language="JavaScript" ShowLineNumbers="True" FontFamily="Consolas" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" AutomationProperties.AutomationId="OverlayEndpointV3Editor.JavascriptEditor" AutomationProperties.Name="{x:Static resx:Resources.OverlayJavascript}" />
                                 </Border>
                             </Grid>
                         </TabItem>
@@ -109,7 +110,9 @@
                     Grid.Column="0"
                     Command="{Binding SaveCommand}"
                     Icon="save"
-                    ToolTip="{x:Static resx:Resources.Delete}" />
+                    ToolTip="{x:Static resx:Resources.Delete}"
+                    AutomationProperties.AutomationId="OverlayEndpointV3Editor.DeleteButton"
+                    AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
             </Grid>
 
             <Controls:LoadingStatusBar x:Name="StatusBar" Grid.Row="2" />

@@ -24,9 +24,9 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ComboBox Grid.Column="0" ItemsSource="{Binding ChannelPointRewards}" SelectedItem="{Binding ChannelPointReward}" DisplayMemberPath="title" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RewardName}" />
+        <ComboBox Grid.Column="0" ItemsSource="{Binding ChannelPointRewards}" SelectedItem="{Binding ChannelPointReward}" DisplayMemberPath="title" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RewardName}" AutomationProperties.AutomationId="TwitchChannelPointsCommandEditorDetails.RewardNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.RewardName}" />
 
-        <ComboBox Grid.Column="2" ItemsSource="{Binding CommandGroups}" Text="{Binding SelectedCommandGroup}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Width="150" />
+        <ComboBox Grid.Column="2" ItemsSource="{Binding CommandGroups}" Text="{Binding SelectedCommandGroup}" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.CommandGroup}" Width="150" AutomationProperties.AutomationId="TwitchChannelPointsCommandEditorDetails.CommandGroupComboBox" AutomationProperties.Name="{x:Static resx:Resources.CommandGroup}" />
 
         <local:UnlockCommandControl Grid.Column="4" />
     </Grid>

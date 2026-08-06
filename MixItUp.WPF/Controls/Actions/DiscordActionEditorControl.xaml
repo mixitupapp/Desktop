@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Grid.Row="0" ItemsSource="{Binding ActionTypes}" SelectedItem="{Binding SelectedActionType}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Action}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="DiscordActionEditor.ActionComboBox" AutomationProperties.Name="{x:Static resx:Resources.Action}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -47,11 +47,11 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Controls:IconButton Grid.Column="0" Command="{Binding RefreshChannelsCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" VerticalAlignment="Bottom" />
+                <Controls:IconButton Grid.Column="0" Command="{Binding RefreshChannelsCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" VerticalAlignment="Bottom" AutomationProperties.AutomationId="DiscordActionEditor.MessageRefreshChannelsButton" AutomationProperties.Name="{x:Static resx:Resources.Refresh}" />
 
-                <ComboBox Grid.Column="2" ItemsSource="{Binding Channels}" SelectedItem="{Binding SelectedChannel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Channel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" Width="200" />
+                <ComboBox Grid.Column="2" ItemsSource="{Binding Channels}" SelectedItem="{Binding SelectedChannel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Channel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" Width="200" AutomationProperties.AutomationId="DiscordActionEditor.MessageChannelComboBox" AutomationProperties.Name="{x:Static resx:Resources.Channel}" />
 
-                <TextBox Grid.Column="4" Text="{Binding ChatMessage}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="4" Text="{Binding ChatMessage}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ChatMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.ChatMessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ChatMessage}" />
             </Grid>
 
             <Grid Grid.Row="2">
@@ -61,9 +61,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding UploadFilePath}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UploadFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding UploadFilePath}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UploadFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.MessageUploadFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.UploadFilePath}" />
 
-                <Button x:Name="FilePathBrowseButton" Grid.Column="2" Click="FilePathBrowseButton_Click" Content="{x:Static resx:Resources.Browse}"/>
+                <Button x:Name="FilePathBrowseButton" Grid.Column="2" Click="FilePathBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" AutomationProperties.AutomationId="DiscordActionEditor.MessageFilePathBrowseButton" AutomationProperties.Name="{x:Static resx:Resources.Browse}" />
             </Grid>
         </Grid>
 
@@ -75,7 +75,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.MuteSelf}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="2" IsChecked="{Binding MuteSelf}" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding MuteSelf}" AutomationProperties.AutomationId="DiscordActionEditor.MuteSelfToggle" AutomationProperties.Name="{x:Static resx:Resources.MuteSelf}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowDeafenGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -86,7 +86,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.DeafenSelf}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-            <ToggleButton Grid.Column="2" IsChecked="{Binding DeafenSelf}" />
+            <ToggleButton Grid.Column="2" IsChecked="{Binding DeafenSelf}" AutomationProperties.AutomationId="DiscordActionEditor.DeafenSelfToggle" AutomationProperties.Name="{x:Static resx:Resources.DeafenSelf}" />
         </Grid>
 
         <Grid Grid.Row="2" Visibility="{Binding ShowSendEmbedGrid, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -115,11 +115,11 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Controls:IconButton Grid.Column="0" Command="{Binding RefreshChannelsCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" VerticalAlignment="Bottom" />
+                <Controls:IconButton Grid.Column="0" Command="{Binding RefreshChannelsCommand}" Icon="Refresh" ToolTip="{x:Static resx:Resources.Refresh}" VerticalAlignment="Bottom" AutomationProperties.AutomationId="DiscordActionEditor.EmbedRefreshChannelsButton" AutomationProperties.Name="{x:Static resx:Resources.Refresh}" />
 
-                <ComboBox Grid.Column="2" ItemsSource="{Binding Channels}" SelectedItem="{Binding SelectedChannel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Channel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" Width="200" />
+                <ComboBox Grid.Column="2" ItemsSource="{Binding Channels}" SelectedItem="{Binding SelectedChannel}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Channel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" DisplayMemberPath="Name" Width="200" AutomationProperties.AutomationId="DiscordActionEditor.EmbedChannelComboBox" AutomationProperties.Name="{x:Static resx:Resources.Channel}" />
 
-                <TextBox Grid.Column="4" Text="{Binding ChatMessage}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedOptionalMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="4" Text="{Binding ChatMessage}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedOptionalMessage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedMessageTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedOptionalMessage}" />
             </Grid>
 
             <Grid Grid.Row="2">
@@ -132,11 +132,11 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Controls:ColorPickerTextBox Grid.Column="0" ColorText="{Binding EmbedColor, Mode=TwoWay}" HintText="{x:Static resx:Resources.DiscordEmbedColor}" Width="180" HorizontalAlignment="Left" />
+                <Controls:ColorPickerTextBox Grid.Column="0" ColorText="{Binding EmbedColor, Mode=TwoWay}" HintText="{x:Static resx:Resources.DiscordEmbedColor}" Width="180" HorizontalAlignment="Left" AutomationProperties.AutomationId="DiscordActionEditor.EmbedColorPicker" AutomationProperties.Name="{x:Static resx:Resources.Color}" />
 
-                <TextBox Grid.Column="3" Text="{Binding UploadFilePath}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UploadFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="3" Text="{Binding UploadFilePath}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UploadFilePath}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedUploadFilePathTextBox" AutomationProperties.Name="{x:Static resx:Resources.UploadFilePath}" />
 
-                <Button x:Name="EmbedFilePathBrowseButton" Grid.Column="5" Click="FilePathBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Bottom" />
+                <Button x:Name="EmbedFilePathBrowseButton" Grid.Column="5" Click="FilePathBrowseButton_Click" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Bottom" AutomationProperties.AutomationId="DiscordActionEditor.EmbedFilePathBrowseButton" AutomationProperties.Name="{x:Static resx:Resources.Browse}" />
             </Grid>
 
             <Grid Grid.Row="4">
@@ -146,12 +146,12 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding EmbedTitle}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedTitle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding EmbedTitle}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedTitle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedTitleTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedTitle}" />
 
-                <TextBox Grid.Column="2" Text="{Binding EmbedURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedTitleURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding EmbedURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedTitleURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedTitleUrlTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedTitleURL}" />
             </Grid>
 
-            <TextBox Grid.Row="6" Text="{Binding EmbedDescription}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedDescription}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" />
+            <TextBox Grid.Row="6" Text="{Binding EmbedDescription}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedDescription}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextAlignment="Left" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" AutomationProperties.AutomationId="DiscordActionEditor.EmbedDescriptionTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedDescription}" />
 
             <Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
@@ -162,11 +162,11 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding EmbedAuthorName}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding EmbedAuthorName}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedAuthorNameTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedAuthorName}" />
 
-                <TextBox Grid.Column="2" Text="{Binding EmbedAuthorURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding EmbedAuthorURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedAuthorUrlTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedAuthorURL}" />
 
-                <TextBox Grid.Column="4" Text="{Binding EmbedAuthorIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="4" Text="{Binding EmbedAuthorIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedAuthorIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedAuthorIconUrlTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedAuthorIconURL}" />
             </Grid>
 
             <Grid Grid.Row="10">
@@ -176,9 +176,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding EmbedThumbnailURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedThumbnailURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding EmbedThumbnailURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedThumbnailURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedThumbnailUrlTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedThumbnailURL}" />
 
-                <TextBox Grid.Column="2" Text="{Binding EmbedImageURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedImageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding EmbedImageURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedImageURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedImageUrlTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedImageURL}" />
             </Grid>
 
             <Grid Grid.Row="12">
@@ -192,12 +192,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Column="0" Text="{Binding EmbedFooterText}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedFooterText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="0" Text="{Binding EmbedFooterText}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedFooterText}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedFooterTextTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedFooterText}" />
 
-                <TextBox Grid.Column="2" Text="{Binding EmbedFooterIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedFooterIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <TextBox Grid.Column="2" Text="{Binding EmbedFooterIconURL}" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordEmbedFooterIconURL}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedFooterIconUrlTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedFooterIconURL}" />
 
                 <TextBlock Grid.Column="4" Text="{Binding Source={x:Static resx:Resources.DiscordEmbedIncludeTimestamp}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Center" />
-                <ToggleButton Grid.Column="6" IsChecked="{Binding EmbedIncludeTimestamp}" />
+                <ToggleButton Grid.Column="6" IsChecked="{Binding EmbedIncludeTimestamp}" AutomationProperties.AutomationId="DiscordActionEditor.EmbedIncludeTimestampToggle" AutomationProperties.Name="{x:Static resx:Resources.DiscordEmbedIncludeTimestamp}" />
             </Grid>
         </Grid>
     </Grid>

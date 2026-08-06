@@ -1,15 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AssemblyTitle>MixItUp.API</AssemblyTitle>
-    <AssemblyVersion>1.8.000.0</AssemblyVersion>
-    <FileVersion>1.8.000.0</FileVersion>
+    <AssemblyVersion>1.8.100.0</AssemblyVersion>
+    <FileVersion>1.8.100.0</FileVersion>
 		<Company>Blazing Cacti LLC</Company>
 		<Copyright>Copyright © 2026 Blazing Cacti LLC, All Rights Reserved. </Copyright>
-		<Configurations>Debug;Preview;Test;Public</Configurations>
+		<Configurations>Debug;Preview;Dev;Public</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,7 +24,7 @@
 		<NoWarn>1701;1702;CS8603;CS8618;CS8625</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|AnyCPU'">
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dev|AnyCPU'">
 		<NoWarn>1701;1702;CS8603;CS8618;CS8625</NoWarn>
 	</PropertyGroup>
 

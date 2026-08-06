@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ComboBox Grid.Column="0" SelectedItem="{Binding SelectedVoiceChannel}" ItemsSource="{Binding VoiceChannels}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VoiceChannel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+            <ComboBox Grid.Column="0" SelectedItem="{Binding SelectedVoiceChannel}" ItemsSource="{Binding VoiceChannels}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.VoiceChannel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.VoiceChannelComboBox" AutomationProperties.Name="{x:Static resx:Resources.VoiceChannel}">
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel />
@@ -47,9 +47,9 @@
                 </ComboBox.ItemsPanel>
             </ComboBox>
 
-            <TextBox Grid.Column="2" Text="{Binding UserWidth}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
-            <TextBox Grid.Column="4" Text="{Binding UserHeight}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
-            <TextBox Grid.Column="6" Text="{Binding UserSpacing}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserSpacing}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" />
+            <TextBox Grid.Column="2" Text="{Binding UserWidth}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.UserWidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserWidth}" />
+            <TextBox Grid.Column="4" Text="{Binding UserHeight}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.UserHeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserHeight}" />
+            <TextBox Grid.Column="6" Text="{Binding UserSpacing}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserSpacing}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.UserSpacingTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserSpacing}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -65,13 +65,13 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.IncludeSelf}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="1" IsChecked="{Binding IncludeSelf}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="1" IsChecked="{Binding IncludeSelf}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.IncludeSelfCheckBox" AutomationProperties.Name="{x:Static resx:Resources.IncludeSelf}" />
 
             <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.OnlyShowAddedUsers}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="4" IsChecked="{Binding OnlyShowAddedUsers}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="4" IsChecked="{Binding OnlyShowAddedUsers}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.OnlyShowAddedUsersCheckBox" AutomationProperties.Name="{x:Static resx:Resources.OnlyShowAddedUsers}" />
 
             <TextBlock Grid.Column="6" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.DimInactiveUsers}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
-            <CheckBox Grid.Column="7" IsChecked="{Binding DimInactiveUsers}" VerticalAlignment="Center" Margin="5,0,0,0" />
+            <CheckBox Grid.Column="7" IsChecked="{Binding DimInactiveUsers}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.DimInactiveUsersCheckBox" AutomationProperties.Name="{x:Static resx:Resources.DimInactiveUsers}" />
         </Grid>
 
         <GroupBox Header="{x:Static resx:Resources.NameDisplay}" Grid.Row="4">
@@ -93,7 +93,7 @@
                         <ColumnDefinition Width="180" />
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox Grid.Column="0" ItemsSource="{Binding NameDisplays}" SelectedItem="{Binding SelectedNameDisplay}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayFormat}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox Grid.Column="0" ItemsSource="{Binding NameDisplays}" SelectedItem="{Binding SelectedNameDisplay}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DisplayFormat}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.DisplayFormatComboBox" AutomationProperties.Name="{x:Static resx:Resources.DisplayFormat}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource LocalizationConverter}}"/>
@@ -101,9 +101,9 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <TextBox Text="{Binding FontSize}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Text="{Binding FontSize}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontSize}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.FontSizeTextBox" AutomationProperties.Name="{x:Static resx:Resources.FontSize}" />
 
-                    <ComboBox Text="{Binding FontName}" Grid.Column="4" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling">
+                    <ComboBox Text="{Binding FontName}" Grid.Column="4" ItemsSource="{Binding Fonts}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.FontName}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.FontNameComboBox" AutomationProperties.Name="{x:Static resx:Resources.FontName}">
                         <ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -111,7 +111,7 @@
                         </ComboBox.ItemsPanel>
                     </ComboBox>
 
-                    <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="6" HintText="{x:Static resx:Resources.FontColor}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding FontColor}" Grid.Column="6" HintText="{x:Static resx:Resources.FontColor}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.FontColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.FontColor}" />
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -123,32 +123,32 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="0" HintText="{x:Static resx:Resources.ShadowColor}" />
+                    <Controls:ColorPickerTextBox ColorText="{Binding ShadowColor}" Grid.Column="0" HintText="{x:Static resx:Resources.ShadowColor}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.ShadowColorColorPicker" AutomationProperties.Name="{x:Static resx:Resources.ShadowColor}" />
 
-                    <ListBox Grid.Column="2" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True">
-                        <ListBoxItem IsSelected="{Binding Bold}">
-                            <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                    <ListBox Grid.Column="2" SelectionMode="Extended" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" MaterialDesign:ListBoxAssist.CanUserToggleSelectedItem="True" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.FontStyleList" AutomationProperties.Name="{x:Static resx:Resources.FontStyle}">
+                        <ListBoxItem IsSelected="{Binding Bold}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.BoldItem" AutomationProperties.Name="{x:Static resx:Resources.Bold}">
+                            <Controls:MaterialSymbolIcon IconName="format_bold" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
-                        <ListBoxItem IsSelected="{Binding Italics}">
-                            <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                        <ListBoxItem IsSelected="{Binding Italics}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.ItalicsItem" AutomationProperties.Name="{x:Static resx:Resources.Italics}">
+                            <Controls:MaterialSymbolIcon IconName="format_italic" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
-                        <ListBoxItem IsSelected="{Binding Underline}">
-                            <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                        <ListBoxItem IsSelected="{Binding Underline}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.UnderlineItem" AutomationProperties.Name="{x:Static resx:Resources.Underline}">
+                            <Controls:MaterialSymbolIcon IconName="format_underlined" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                     </ListBox>
 
-                    <ListBox Grid.Column="4" SelectionMode="Single" Style="{StaticResource MaterialDesignToolToggleFlatListBox}">
-                        <ListBoxItem IsSelected="{Binding LeftAlignment}">
-                            <Controls:MaterialSymbolIcon IconName="format_align_left" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                    <ListBox Grid.Column="4" SelectionMode="Single" Style="{StaticResource MaterialDesignToolToggleFlatListBox}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.TextAlignmentList" AutomationProperties.Name="{x:Static resx:Resources.TextAlignment}">
+                        <ListBoxItem IsSelected="{Binding LeftAlignment}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.LeftAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.LeftAlignment}">
+                            <Controls:MaterialSymbolIcon IconName="format_align_left" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
-                        <ListBoxItem IsSelected="{Binding CenterAlignment}">
-                            <Controls:MaterialSymbolIcon IconName="format_align_center" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                        <ListBoxItem IsSelected="{Binding CenterAlignment}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.CenterAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.CenterAlignment}">
+                            <Controls:MaterialSymbolIcon IconName="format_align_center" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
-                        <ListBoxItem IsSelected="{Binding RightAlignment}">
-                            <Controls:MaterialSymbolIcon IconName="format_align_right" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                        <ListBoxItem IsSelected="{Binding RightAlignment}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.RightAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.RightAlignment}">
+                            <Controls:MaterialSymbolIcon IconName="format_align_right" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
-                        <ListBoxItem IsSelected="{Binding JustifyAlignment}">
-                            <Controls:MaterialSymbolIcon IconName="format_align_justify" FontSize="16" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                        <ListBoxItem IsSelected="{Binding JustifyAlignment}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.JustifyAlignmentItem" AutomationProperties.Name="{x:Static resx:Resources.JustifyAlignment}">
+                            <Controls:MaterialSymbolIcon IconName="format_align_justify" FontSize="{DynamicResource MIU.IconSize.16}" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" />
                         </ListBoxItem>
                     </ListBox>
                 </Grid>
@@ -170,11 +170,11 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Text="{Binding AddDiscordUsername}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordUsername}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <Button Grid.Column="2" Command="{Binding AddUserCommand}" Content="{x:Static resx:Resources.Add}" Width="100" />
+                    <TextBox Text="{Binding AddDiscordUsername}" Grid.Column="0" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.DiscordUsername}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.DiscordUsernameTextBox" AutomationProperties.Name="{x:Static resx:Resources.DiscordUsername}" />
+                    <Button Grid.Column="2" Command="{Binding AddUserCommand}" Content="{x:Static resx:Resources.Add}" Width="100" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.AddButton" />
                 </Grid>
 
-                <ItemsControl Grid.Row="2" ItemsSource="{Binding Users}">
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding Users}" AutomationProperties.AutomationId="OverlayDiscordReactiveVoiceV3.CustomUserDisplaysList" AutomationProperties.Name="{x:Static resx:Resources.Users}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="10">
@@ -199,10 +199,10 @@
 
                                     <TextBlock Text="{Binding FullDisplayName}" Grid.Column="0" VerticalAlignment="Center" Margin="0,10,0,0" />
 
-                                    <TextBox Text="{Binding CustomWidth}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                                    <TextBox Text="{Binding CustomHeight}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                    <TextBox Text="{Binding CustomWidth}" Grid.Column="2" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserWidth}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CustomUserDisplay.UserWidthTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserWidth}" />
+                                    <TextBox Text="{Binding CustomHeight}" Grid.Column="4" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.UserHeight}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CustomUserDisplay.UserHeightTextBox" AutomationProperties.Name="{x:Static resx:Resources.UserHeight}" />
 
-                                    <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" VerticalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" />
+                                    <Controls:IconButton Grid.Column="6" Command="{Binding DeleteCommand}" VerticalAlignment="Center" Icon="delete" ToolTip="{x:Static resx:Resources.Delete}" AutomationProperties.AutomationId="CustomUserDisplay.DeleteButton" AutomationProperties.Name="{x:Static resx:Resources.Delete}" />
                                 </Grid>
 
                                 <Grid Grid.Row="2">
@@ -214,11 +214,11 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox Text="{Binding CustomActiveImageFilePath}" Grid.Column="0" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ActiveImage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                                    <Button Grid.Column="1" Command="{Binding BrowseCustomActiveImageFilePathCommand}" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding CustomActiveImageFilePath}" Grid.Column="0" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ActiveImage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CustomUserDisplay.ActiveImageTextBox" AutomationProperties.Name="{x:Static resx:Resources.ActiveImage}" />
+                                    <Button Grid.Column="1" Command="{Binding BrowseCustomActiveImageFilePathCommand}" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Center" AutomationProperties.AutomationId="CustomUserDisplay.ActiveImageBrowseButton" AutomationProperties.Name="{x:Static resx:Resources.Browse}" />
 
-                                    <TextBox Text="{Binding CustomInactiveImageFilePath}" Grid.Column="3" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.InactiveImage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                                    <Button Grid.Column="4" Command="{Binding BrowseCustomInactiveImageFilePathCommand}" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Center"/>
+                                    <TextBox Text="{Binding CustomInactiveImageFilePath}" Grid.Column="3" VerticalAlignment="Center" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.InactiveImage}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="CustomUserDisplay.InactiveImageTextBox" AutomationProperties.Name="{x:Static resx:Resources.InactiveImage}" />
+                                    <Button Grid.Column="4" Command="{Binding BrowseCustomInactiveImageFilePathCommand}" Content="{x:Static resx:Resources.Browse}" VerticalAlignment="Center" AutomationProperties.AutomationId="CustomUserDisplay.InactiveImageBrowseButton" AutomationProperties.Name="{x:Static resx:Resources.Browse}" />
                                 </Grid>
 
                                 <!--<Grid Grid.Row="4">

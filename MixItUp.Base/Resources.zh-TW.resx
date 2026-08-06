@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1306,6 +1306,26 @@
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>最大值</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServer" xml:space="preserve">
+    <value>MCP 伺服器</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAdvanced" xml:space="preserve">
+    <value>開啟到本機網路（必須以管理員身分執行）：</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerAddress" xml:space="preserve">
+    <value>伺服器位址：</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerInfo" xml:space="preserve">
+    <value>MCP 伺服器可讓在您電腦上執行的 AI 代理程式透過 Model Context Protocol 與 Mix It Up 互動。請將用戶端（例如 Claude Code）指向下方的伺服器位址。如需更多相關資訊，請參閱 MCP 伺服器的 Wiki 頁面。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="MCPServerWarning" xml:space="preserve">
+    <value>警告：任何連線至此伺服器的代理程式都能讀取您的設定並代表您執行命令，包括傳送聊天訊息。請僅在您正與信任的代理程式合作時啟用此功能。</value>
     <comment>Manual</comment>
   </data>
   <data name="MeetTheTeam" xml:space="preserve">
@@ -3076,6 +3096,10 @@
   </data>
   <data name="Platform" xml:space="preserve">
     <value>平台</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="PlatformMessage" xml:space="preserve">
+    <value>平台留言</value>
     <comment>Manual</comment>
   </data>
   <data name="Tier" xml:space="preserve">
@@ -10295,6 +10319,9 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="AllTime" xml:space="preserve">
     <value>所有時間</value>
   </data>
+  <data name="SubscriptionStreak" xml:space="preserve">
+    <value>連續訂閱時間</value>
+  </data>
   <data name="OverlayLeaderboardValidConsumableMustBeSelected" xml:space="preserve">
     <value>必須選擇有效的耗材</value>
   </data>
@@ -10790,6 +10817,23 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="OverlayLabelFilePathMustBeSpecified" xml:space="preserve">
     <value>必須指定檔案路徑</value>
   </data>
+  <data name="CustomText" xml:space="preserve">
+    <value>自訂文字</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>時區</value>
+  </data>
+  <data name="OverlayLabelDateTimeFormatTooltip" xml:space="preserve">
+    <value>代碼：YYYY YY (年)、MMMM MMM MM M (月)、DD D (日)、dddd ddd (星期)、HH H (24 小時制)、hh h (12 小時制)、mm m (分)、ss s (秒)、A a (AM/PM)。若要原樣顯示文字，請用方括號括住，例如：h:mm A [in Eindhoven]</value>
+  </data>
+  <data name="OverlayLabelDateTimeStylingTooltip" xml:space="preserve">
+    <value>每個顯示的部分都會包在以其代碼命名的 span 中，因此可以在 CSS 區段中單獨設定樣式：AM/PM 為 .time-A，月份名稱為 .date-MMMM，其餘類推，並與代碼的大小寫相同，因此 .date-MM 是月份，.time-mm 是分鐘。
+整個群組可用 [class^="date-"] 或 [class^="time-"] 涵蓋。
+範例：.time-A { font-size: 50% }</value>
+  </data>
+  <data name="OverlayLabelTimeZoneTooltip" xml:space="preserve">
+    <value>留空即使用執行覆蓋的電腦時區。時區以主要城市列出，因此 Europe/Berlin 也涵蓋阿姆斯特丹與羅馬。你也可以直接輸入任何 IANA 時區名稱，例如 Europe/Amsterdam。</value>
+  </data>
   <data name="ProfileName" xml:space="preserve">
     <value>個人資料名稱</value>
   </data>
@@ -10997,7 +11041,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>复选框</value>
   </data>
   <data name="Font" xml:space="preserve">
-    <value>字体</value>
+    <value>字體</value>
   </data>
   <data name="AmazonPollyPremiumVoiceSelectedWithoutCustomKey" xml:space="preserve">
     <value>错误：由于选择的高级语音未连接 AWS 帐户，因此无法执行 Amazon Polly TTS</value>
@@ -11124,6 +11168,24 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="UnableToStartAuthenticationSession" xml:space="preserve">
     <value>无法启动对服务的身份验证，请确保没有正在进行的其他服务身份验证过程。</value>
+  </data>
+  <data name="AuthenticationPortInUse" xml:space="preserve">
+    <value>Mix It Up 無法啟動本機登入接聽程式，因為連接埠 {0} 已被其他程式使用。請關閉任何可能正在使用此連接埠的程式（包括第二個 Mix It Up 執行個體），然後再試一次。</value>
+  </data>
+  <data name="AuthenticationPortBlocked" xml:space="preserve">
+    <value>Mix It Up 無法啟動本機登入接聽程式，因為 Windows 封鎖了連接埠 {0}。這通常是由 Hyper-V、WSL 或 Docker 保留的連接埠範圍所造成。請前往 Mix It Up 的 Discord 尋求協助。</value>
+  </data>
+  <data name="AuthenticationBrowserLaunchFailed" xml:space="preserve">
+    <value>Mix It Up 無法開啟您的網頁瀏覽器來完成登入。請複製下方的網址，貼到瀏覽器中並在那裡完成登入。此視窗會繼續等候您。</value>
+  </data>
+  <data name="AuthenticationTimedOut" xml:space="preserve">
+    <value>登入未在時限內完成，已取消。請再試一次。</value>
+  </data>
+  <data name="AuthenticationFailedGeneric" xml:space="preserve">
+    <value>無法完成登入。請查看 Mix It Up 安裝目錄中的 Logs 資料夾以了解詳細資訊，或前往 Mix It Up 的 Discord 尋求協助。</value>
+  </data>
+  <data name="AuthenticationTokenExchangeFailed" xml:space="preserve">
+    <value>Mix It Up 已收到您的登入資訊，但無法將其兌換為存取權杖。請再試一次，或前往 Mix It Up 的 Discord 尋求協助。</value>
   </data>
   <data name="Gain" xml:space="preserve">
     <value>收益</value>
@@ -12028,5 +12090,175 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="HasTitle" xml:space="preserve">
     <value>有標題</value>
     <comment>User search filter type on the Users page</comment>
+  </data>
+  <data name="UIFont" xml:space="preserve">
+    <value>介面字體</value>
+    <comment>Font selector on the Theme settings page</comment>
+  </data>
+  <data name="OverallFontSize" xml:space="preserve">
+    <value>整體字型大小 (%)</value>
+    <comment>UI font scale slider on the Theme settings page. The (%) marks the unit and should be kept when translating.</comment>
+  </data>
+  <data name="ChatWindowFontSize" xml:space="preserve">
+    <value>聊天視窗字型大小 (px)</value>
+    <comment>Chat font size slider on the Theme settings page. WPF font sizes are device-independent pixels, not points. Keep the (px) when translating.</comment>
+  </data>
+  <data name="OverallFontSizeNote" xml:space="preserve">
+    <value>* 部分字型不適用於所有控制項，字型過大時可能會被裁切。</value>
+    <comment>Note shown under the overall font size slider on the Theme settings page. Keep the leading asterisk.</comment>
+  </data>
+  <data name="SupportMode" xml:space="preserve">
+    <value>支援模式</value>
+    <comment>Toggle at the top of the Theme settings page</comment>
+  </data>
+  <data name="SupportModeTooltip" xml:space="preserve">
+    <value>暫時以預設佈景主題、字型和文字大小顯示應用程式，不會變更您已儲存的設定。關閉後即可回到您自己的設定。</value>
+    <comment>Tooltip for the Support Mode toggle on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettings" xml:space="preserve">
+    <value>重設佈景主題與字型設定</value>
+    <comment>Label for the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetToDefaults" xml:space="preserve">
+    <value>重設為預設值</value>
+    <comment>Text on the reset button on the Theme settings page</comment>
+  </data>
+  <data name="ResetThemeAndFontSettingsConfirmation" xml:space="preserve">
+    <value>這會將色彩配置、背景、前景、完整佈景主題、介面字型、整體字型大小和聊天視窗字型大小重設為預設值。確定要繼續嗎?</value>
+    <comment>Confirmation prompt shown before resetting the Theme settings page</comment>
+  </data>
+  <data name="Veadotube" xml:space="preserve">
+    <value>veadotube</value>
+  </data>
+  <data name="VeadotubeInfo" xml:space="preserve">
+    <value>veadotube 是一款 PNGtuber 應用程式，會在你說話時切換角色的靜態圖片。連接後，你的命令可以變更虛擬形象狀態，狀態變更也可以執行命令。Mix It Up 會自動找到 veadotube，因此不需要輸入任何內容。</value>
+  </data>
+  <data name="VeadotubeWebSocketServerRequired" xml:space="preserve">
+    <value>連接前請在 veadotube 的程式設定中開啟 WebSocket 伺服器。每次啟動 veadotube 時位址都會變更，因此由 Mix It Up 自動讀取。</value>
+  </data>
+  <data name="VeadotubePushToTalkRequiresWebSocket" xml:space="preserve">
+    <value>「按住說話」動作需要在 veadotube 麥克風設定的 push-to-talk 項目中開啟「use websocket」。另請移除所有 push-to-talk 鍵盤快速鍵，因為快速鍵會覆蓋 Mix It Up 傳送的內容。</value>
+  </data>
+  <data name="VeadotubeVersionTooOldWarning" xml:space="preserve">
+    <value>此 veadotube 版本早於 2.1。在更新之前，切換虛擬形象狀態與所有「按住說話」動作都不會生效。</value>
+  </data>
+  <data name="VeadotubeInstanceNotFound" xml:space="preserve">
+    <value>Mix It Up 找不到執行中的 veadotube。請開啟 veadotube，在程式設定中開啟 WebSocket 伺服器，然後再次嘗試連接。</value>
+  </data>
+  <data name="VeadotubeConnectionFailed" xml:space="preserve">
+    <value>無法連接到 veadotube。請確認它正在執行且已開啟 WebSocket 伺服器。</value>
+  </data>
+  <data name="VeadotubeConnectionFailedToAddress" xml:space="preserve">
+    <value>Mix It Up 無法連接到位於 {0} 的 veadotube。請確認 veadotube 正在執行，且已在程式設定中開啟 WebSocket 伺服器。如果您在下方輸入了位址，請清除它並再試一次，讓 Mix It Up 自行尋找 veadotube。</value>
+  </data>
+  <data name="VeadotubeManualAddressInvalid" xml:space="preserve">
+    <value>您輸入的位址不是有效的位址與連接埠。請使用 veadotube 在「serving at」旁顯示的位址，例如 127.0.0.1:2424，或清空欄位讓 Mix It Up 自行尋找 veadotube。</value>
+  </data>
+  <data name="VeadotubeConnectedTo" xml:space="preserve">
+    <value>已連接到 {1} 的 {0}</value>
+  </data>
+  <data name="VeadotubeNotConnected" xml:space="preserve">
+    <value>veadotube 未連接</value>
+  </data>
+  <data name="VeadotubeManualAddress" xml:space="preserve">
+    <value>位址（選填）</value>
+  </data>
+  <data name="VeadotubeAvatarState" xml:space="preserve">
+    <value>虛擬形象狀態</value>
+  </data>
+  <data name="VeadotubePushToTalk" xml:space="preserve">
+    <value>按住說話</value>
+  </data>
+  <data name="VeadotubeActionMissingState" xml:space="preserve">
+    <value>必須選擇一個虛擬形象狀態</value>
+  </data>
+  <data name="VeadotubeAvatarStateChanged" xml:space="preserve">
+    <value>虛擬形象狀態已變更</value>
+  </data>
+  <data name="VeadotubePushToTalkChanged" xml:space="preserve">
+    <value>按住說話已變更</value>
+  </data>
+  <data name="SetAvatarState" xml:space="preserve">
+    <value>設定虛擬形象狀態</value>
+  </data>
+  <data name="PushAvatarState" xml:space="preserve">
+    <value>推入虛擬形象狀態</value>
+  </data>
+  <data name="PopAvatarState" xml:space="preserve">
+    <value>彈出虛擬形象狀態</value>
+  </data>
+  <data name="ToggleAvatarState" xml:space="preserve">
+    <value>切換虛擬形象狀態</value>
+  </data>
+  <data name="SetRandomAvatarState" xml:space="preserve">
+    <value>設定隨機虛擬形象狀態</value>
+  </data>
+  <data name="SetPushToTalk" xml:space="preserve">
+    <value>設定按住說話</value>
+  </data>
+  <data name="OBSStudioStreamStarted" xml:space="preserve">
+    <value>直播已開始</value>
+  </data>
+  <data name="OBSStudioStreamStopped" xml:space="preserve">
+    <value>直播已停止</value>
+  </data>
+  <data name="OBSStudioRecordingStarted" xml:space="preserve">
+    <value>錄影已開始</value>
+  </data>
+  <data name="OBSStudioRecordingStopped" xml:space="preserve">
+    <value>錄影已停止</value>
+  </data>
+  <data name="OBSStudioSceneChanged" xml:space="preserve">
+    <value>場景已變更</value>
+  </data>
+  <data name="OBSStudioSceneTransitionStarted" xml:space="preserve">
+    <value>場景轉場已開始</value>
+  </data>
+  <data name="OBSStudioSceneTransitionEnded" xml:space="preserve">
+    <value>場景轉場已結束</value>
+  </data>
+  <data name="OBSStudioFilterVisibilityChanged" xml:space="preserve">
+    <value>濾鏡可見性已變更</value>
+  </data>
+  <data name="OBSStudioSourceVisibilityChanged" xml:space="preserve">
+    <value>來源可見性已變更</value>
+  </data>
+  <data name="OBSStudioReplayBufferSaved" xml:space="preserve">
+    <value>重播緩衝區已儲存</value>
+  </data>
+  <data name="UserLookup" xml:space="preserve">
+    <value>使用者查詢</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupUsernameOrID" xml:space="preserve">
+    <value>使用者名稱或 ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="UserLookupActionMissingUsernameOrID" xml:space="preserve">
+    <value>使用者查詢操作：缺少使用者名稱或 ID</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCap" xml:space="preserve">
+    <value>Shorts 影片長度上限（秒）</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="ShortsVideoLengthCapTooltip" xml:space="preserve">
+    <value>此長度以內的影片視為 Shorts，超過的視為一般影片。</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="VIPs" xml:space="preserve">
+    <value>貴賓</value>
+  </data>
+  <data name="Regulars" xml:space="preserve">
+    <value>常客</value>
+  </data>
+  <data name="FirstTimeChatters" xml:space="preserve">
+    <value>首次聊天者</value>
+  </data>
+  <data name="YouTubeJewels" xml:space="preserve">
+    <value>YouTube 寶石</value>
+  </data>
+  <data name="PatreonMembers" xml:space="preserve">
+    <value>Patreon 會員清單</value>
   </data>
 </root>

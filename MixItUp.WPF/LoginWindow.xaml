@@ -13,17 +13,17 @@
     Height="500"
     AllowsTransparency="True"
     Background="Transparent"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./Logo.ico"
     ResizeMode="NoResize"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
 
     <Grid>
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog">
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="Login.DialogHost">
             <Border
                 BorderBrush="White"
                 BorderThickness="2"
@@ -55,10 +55,12 @@
                         VerticalAlignment="Top"
                         Click="CloseButton_Click"
                         Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="Close">
+                        ToolTip="Close"
+                        AutomationProperties.AutomationId="Login.CloseWindowButton"
+                        AutomationProperties.Name="{x:Static resx:Resources.Close}">
                             <Controls:MaterialSymbolIcon
                                 Foreground="{StaticResource MIU.Brush.Dark.Primary}"
-                            IconName="close" FontSize="20" />
+                            IconName="close" FontSize="{DynamicResource MIU.IconSize.20}" />
                         </Button>
 
                         <Grid Grid.Row="1" Margin="0,8,0,0">
@@ -97,7 +99,9 @@
                                     DisplayMemberPath="Name"
                                     Style="{StaticResource MaterialDesignOutlinedComboBox}"
                                     Foreground="White"
-                                    BorderBrush="White" >
+                                    BorderBrush="White"
+                                    AutomationProperties.AutomationId="Login.ExistingProfileComboBox"
+                                    AutomationProperties.Name="{x:Static resx:Resources.ExistingProfile}">
                                 </ComboBox>
 
                                 <Button
@@ -109,9 +113,10 @@
                                 MaterialDesign:ButtonAssist.CornerRadius="20"
                                 Click="StreamerLoginButton_Click"
                               
-                                FontSize="14"
+                                FontSize="{DynamicResource MIU.FontSize.LabelLarge}"
                                 IsEnabled="False"
-                                Style="{StaticResource MaterialDesignRaisedButton}" >
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                AutomationProperties.AutomationId="Login.ExistingProfileLoginButton">
                                     <TextBlock 
                                         Style="{StaticResource LabelLarge}" 
                                         Text="{x:Static resx:Resources.Login}"
@@ -135,7 +140,8 @@
                                 Foreground="{StaticResource MIU.Brush.Dark.OnSecondary}"
                                 Background="{StaticResource MIU.Brush.Dark.Secondary}"
                                 Click="NewStreamerLoginButton_Click"
-                                Style="{StaticResource MaterialDesignRaisedButton}" >
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                AutomationProperties.AutomationId="Login.NewProfileLoginButton">
                                     <TextBlock 
                                         Style="{StaticResource LabelLarge}" 
                                         Text="{x:Static resx:Resources.NewProfile}" />
@@ -148,7 +154,8 @@
                                 Foreground="{StaticResource MIU.Brush.Dark.Secondary}" 
                                 BorderBrush="{StaticResource MIU.Brush.Dark.Secondary}"
                                 Click="RestoreBackupButton_Click"  
-                                Style="{StaticResource MaterialDesignOutlinedButton}" >
+                                Style="{StaticResource MaterialDesignOutlinedButton}"
+                                AutomationProperties.AutomationId="Login.RestoreBackupButton">
                                     <TextBlock 
                                         Style="{StaticResource LabelLarge}" 
                                         Text="{x:Static resx:Resources.RestoreSettings}" />
@@ -185,10 +192,10 @@
                             </Border>
                             <StackPanel VerticalAlignment="Center">
                                 <TextBlock Margin="4,0,0,0" Style="{StaticResource LabelMedium}">
-   <Hyperlink x:Name="PatreonCTAHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitup.bot/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
+   <Hyperlink x:Name="PatreonCTAHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitup.bot/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}" AutomationProperties.AutomationId="Login.PatreonCallToActionLink"></Hyperlink>
                                 </TextBlock>
                                 <TextBlock Margin="4,0,0,0" Style="{StaticResource LabelMedium}">
-                                <Hyperlink x:Name="PatreonShoutOutHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitup.bot/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}"></Hyperlink>
+                                <Hyperlink x:Name="PatreonShoutOutHyperlink" Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" NavigateUri="https://mixitup.bot/patreon" RequestNavigate="Hyperlink_RequestNavigate" TextDecorations="{x:Null}" AutomationProperties.AutomationId="Login.PatreonShoutOutLink"></Hyperlink>
                                 </TextBlock>
                             </StackPanel>
                         </StackPanel>
@@ -228,7 +235,8 @@
                                     <Hyperlink
                                         Foreground="{StaticResource MIU.Brush.Dark.OnBackground}"
                                         NavigateUri="https://mixitup.bot/TermsOfService"
-                                        RequestNavigate="Hyperlink_RequestNavigate">
+                                        RequestNavigate="Hyperlink_RequestNavigate"
+                                        AutomationProperties.AutomationId="Login.TermsOfServiceLink">
                                         <Run Text="{x:Static resx:Resources.TermsOfService}" />
                                     </Hyperlink>
                                     </TextBlock>
@@ -241,7 +249,8 @@
                                         <Hyperlink
                                             Foreground="{StaticResource MIU.Brush.Dark.OnBackground}" 
                                             NavigateUri="https://mixitup.bot/Privacy" 
-                                            RequestNavigate="Hyperlink_RequestNavigate">
+                                            RequestNavigate="Hyperlink_RequestNavigate"
+                                            AutomationProperties.AutomationId="Login.PrivacyPolicyLink">
                                         <Run Text="{x:Static resx:Resources.PrivacyPolicy}" />
                                     </Hyperlink>
                                     </TextBlock>
@@ -255,23 +264,27 @@
                                 VerticalAlignment="Center"
                                 PlacementMode="TopAndAlignRightEdges"
                                 StaysOpen="False"
-                                ToolTip="{x:Static resx:Resources.Help}">
+                                ToolTip="{x:Static resx:Resources.Help}"
+                                AutomationProperties.AutomationId="Login.HelpPopup"
+                                AutomationProperties.Name="{x:Static resx:Resources.Help}">
                                     <MaterialDesign:PopupBox.ToggleContent>
                                         <Controls:MaterialSymbolIcon
                                         Foreground="{StaticResource MIU.Brush.Dark.Primary}"
-                                        IconName="help" FontSize="20" />
+                                        IconName="help" FontSize="{DynamicResource MIU.IconSize.20}" />
                                     </MaterialDesign:PopupBox.ToggleContent>
                                     <StackPanel>
                                         <Button
                                         HorizontalContentAlignment="Left"
                                         Click="OpenInstallFolder_Click"
-                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        AutomationProperties.AutomationId="Login.OpenInstallFolderButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.InstallationFolder}">
                                             <StackPanel Orientation="Horizontal">
                                                 <Controls:MaterialSymbolIcon
                                                 Margin="0,0,8,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                IconName="folder" FontSize="18" />
+                                                IconName="folder" FontSize="{DynamicResource MIU.IconSize.18}" />
                                                 <TextBlock
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -282,13 +295,15 @@
                                         <Button
                                         HorizontalContentAlignment="Left"
                                         Click="ResetWindowPosition_Click"
-                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        AutomationProperties.AutomationId="Login.ResetWindowPositionButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.ResetWindowPosition}">
                                             <StackPanel Orientation="Horizontal">
                                                 <Controls:MaterialSymbolIcon
                                                 Margin="0,0,8,0"
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
-                                                IconName="select_window" FontSize="18" />
+                                                IconName="select_window" FontSize="{DynamicResource MIU.IconSize.18}" />
                                                 <TextBlock
                                                 VerticalAlignment="Center"
                                                 Foreground="{DynamicResource MaterialDesign.Brush.Foreground}"
@@ -299,7 +314,9 @@
                                         <Button
                                         HorizontalContentAlignment="Left"
                                         Click="OpenDiscord_Click"
-                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        AutomationProperties.AutomationId="Login.OpenDiscordButton"
+                                        AutomationProperties.Name="{x:Static resx:Resources.Discord}">
                                             <StackPanel Orientation="Horizontal">
                                                 <Image
                                                 Width="18"
@@ -348,13 +365,13 @@
                                 Margin="0,0,12,0"
                                 VerticalAlignment="Center"
                                 Foreground="White"
-                                IconName="info" FontSize="24" />
+                                IconName="info" FontSize="{DynamicResource MIU.IconSize.24}" />
 
                                 <TextBlock
                                 x:Name="OutageMessage"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
-                                FontSize="13"
+                                FontSize="{DynamicResource MIU.FontSize.BodySmall}"
                                 Foreground="White"
                                 TextWrapping="Wrap" />
 
@@ -367,10 +384,12 @@
                                 Padding="0"
                                 Click="CloseOutageBannerButton_Click"
                                 Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="Close">
+                                ToolTip="Close"
+                                AutomationProperties.AutomationId="Login.CloseOutageBannerButton"
+                                AutomationProperties.Name="{x:Static resx:Resources.Close}">
                                     <Controls:MaterialSymbolIcon
                                     Foreground="White"
-                                    IconName="close" FontSize="18" />
+                                    IconName="close" FontSize="{DynamicResource MIU.IconSize.18}" />
                                 </Button>
                             </Grid>
                         </MaterialDesign:Card>

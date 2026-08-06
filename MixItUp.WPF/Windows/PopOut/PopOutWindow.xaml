@@ -12,10 +12,10 @@
     Title="{x:Static resx:Resources.MixItUpPopOut}"
     Width="800"
     Height="600"
-    FontFamily="{StaticResource NotoSans}"
+    FontFamily="{DynamicResource NotoSans}"
     Icon="./../../Logo.ico"
     Style="{StaticResource MaterialDesignWindow}"
-    TextElement.FontSize="14"
+    TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
     TextElement.FontWeight="Medium"
     mc:Ignorable="d">
 
@@ -26,7 +26,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="PopOut.MDDialogHost" />
 
         <MaterialDesign:ColorZone
             Height="53"
@@ -39,7 +39,7 @@
                     x:Name="HeaderTextBlock"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="22" />
+                    FontSize="{DynamicResource MIU.FontSize.TitleLarge}" />
             </DockPanel>
         </MaterialDesign:ColorZone>
 

@@ -413,19 +413,13 @@ namespace MixItUp.Base.ViewModel.MainControls
             string categorySlug = null;
             if (!string.IsNullOrWhiteSpace(this.Category))
             {
-                IEnumerable<CategoryModel> categories = await ServiceManager.Get<VeloraSession>().StreamerService.GetStreamCategories();
-                if (categories != null && categories.Count() > 0)
+                CategoryModel selectedCategory = await ServiceManager.Get<VeloraSession>().FindCategory(this.Category);
+                if (selectedCategory == null)
                 {
-                    CategoryModel selectedCategory = categories.FirstOrDefault(c => string.Equals(c.Name, this.Category, StringComparison.OrdinalIgnoreCase));
-                    if (selectedCategory == null)
-                    {
-                        selectedCategory = categories.FirstOrDefault(c => !string.IsNullOrWhiteSpace(c.Name) && c.Name.StartsWith(this.Category, StringComparison.OrdinalIgnoreCase));
-                    }
-                    if (selectedCategory != null)
-                    {
-                        categorySlug = selectedCategory.Slug;
-                    }
+                    // Report the miss instead of updating the title and quietly dropping the category.
+                    return new Result(MixItUp.Base.Resources.ErrorFailedToUpdateCategory);
                 }
+                categorySlug = selectedCategory.Slug;
             }
 
             return await ServiceManager.Get<VeloraSession>().StreamerService.UpdateStreamInfo(title: this.Title, categorySlug: categorySlug);

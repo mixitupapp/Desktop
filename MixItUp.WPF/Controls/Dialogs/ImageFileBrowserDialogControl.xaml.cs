@@ -28,7 +28,7 @@ namespace MixItUp.WPF.Controls.Dialogs
             this.DescriptionTextBlock.Text = description;
             if (!string.IsNullOrEmpty(cancelText))
             {
-                this.CancelButton.Content = cancelText;
+                this.ImageFileBrowserDialogCancelButton.Content = cancelText;
             }
         }
 
@@ -44,7 +44,7 @@ namespace MixItUp.WPF.Controls.Dialogs
             }
 
             this.SelectedFilePath = null;
-            this.SaveButton.IsEnabled = false;
+            this.ImageFileBrowserDialogSaveButton.IsEnabled = false;
             this.FilePathTextBox.Text = filePath;
 
             if (!this.validExtensions.Contains(Path.GetExtension(filePath)))
@@ -70,7 +70,7 @@ namespace MixItUp.WPF.Controls.Dialogs
 
             this.ErrorTextBlock.Visibility = System.Windows.Visibility.Collapsed;
             this.SelectedFilePath = filePath;
-            this.SaveButton.IsEnabled = true;
+            this.ImageFileBrowserDialogSaveButton.IsEnabled = true;
         }
 
         private void ShowError(string message)

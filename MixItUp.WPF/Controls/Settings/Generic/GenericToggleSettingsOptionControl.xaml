@@ -16,6 +16,6 @@
 
         <TextBlock Grid.Column="0" Text="{Binding Name, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" ToolTip="{Binding Tooltip}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <ToggleButton Grid.Column="1" IsChecked="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" />
+        <ToggleButton Grid.Column="1" IsChecked="{Binding Value}" IsEnabled="{Binding Enabled}" ToolTip="{Binding Tooltip}" AutomationProperties.AutomationId="GenericToggleSettingsOption.ValueToggle" AutomationProperties.Name="{Binding Name}" />
     </Grid>
 </UserControl>

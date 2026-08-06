@@ -15,7 +15,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
-        TextElement.FontSize="14"
+        TextElement.FontSize="{DynamicResource MIU.FontSize.BodyMedium}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
                   
         Icon="./../../Logo.ico"
@@ -39,7 +39,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" />
+        <MaterialDesign:DialogHost x:Name="MDDialogHost" Identifier="RootDialog" AutomationProperties.AutomationId="OverlayWidgetEditor.MDDialogHost" />
 
         <Grid Margin="10" Visibility="{Binding OverlayTypeIsNotSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="0">
             <Grid HorizontalAlignment="Center" Margin="0,40">
@@ -53,7 +53,7 @@
 
                 <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="{x:Static resx:Resources.OverlayWidgetEditorInstructions}"/>
 
-                <ComboBox Grid.Row="2" ItemsSource="{Binding OverlayTypeListings}" SelectedItem="{Binding SelectedOverlayType}" HorizontalAlignment="Center" Width="200" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                <ComboBox Grid.Row="2" ItemsSource="{Binding OverlayTypeListings}" SelectedItem="{Binding SelectedOverlayType}" HorizontalAlignment="Center" Width="200" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Type}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayWidgetEditor.TypeComboBox" AutomationProperties.Name="{x:Static resx:Resources.Type}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Type, Converter={StaticResource LocalizationConverter}}"/>
@@ -64,7 +64,7 @@
                 <TextBlock Grid.Row="4" Text="{Binding SelectedOverlayType.Description}" HorizontalAlignment="Center" Width="500" TextWrapping="Wrap" />
             </Grid>
 
-            <Button Command="{Binding OverlayTypeSelectedCommand}" MinWidth="80" Margin="0,0,40,20" IsEnabled="{Binding OverlayTypeSelected}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{x:Static resx:Resources.Next}"/>
+            <Button Command="{Binding OverlayTypeSelectedCommand}" MinWidth="80" Margin="0,0,40,20" IsEnabled="{Binding OverlayTypeSelected}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Content="{x:Static resx:Resources.Next}" AutomationProperties.AutomationId="OverlayWidgetEditor.NextButton" />
         </Grid>
 
         <Grid Visibility="{Binding OverlayTypeIsSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="0">
@@ -90,7 +90,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Grid.Column="0" Text="{Binding Name}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Name}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayWidgetEditor.NameTextBox" AutomationProperties.Name="{x:Static resx:Resources.Name}" />
 
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -99,9 +99,9 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <ComboBox ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" Grid.Column="0" Width="200" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Overlay}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" />
+                        <ComboBox ItemsSource="{Binding OverlayEndpoints}" SelectedItem="{Binding SelectedOverlayEndpoint}" Grid.Column="0" Width="200" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Overlay}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="OverlayWidgetEditor.OverlayComboBox" AutomationProperties.Name="{x:Static resx:Resources.Overlay}" />
 
-                        <TextBox x:Name="RefreshTimeTextBox" Grid.Column="2" Text="{Binding RefreshTimeString}" IsEnabled="{Binding SupportsRefreshUpdating}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RefreshTimeSecs}" Width="130" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBox x:Name="RefreshTimeTextBox" Grid.Column="2" Text="{Binding RefreshTimeString}" IsEnabled="{Binding SupportsRefreshUpdating}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.RefreshTimeSecs}" Width="130" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayWidgetEditor.RefreshTimeTextBox" AutomationProperties.Name="{x:Static resx:Resources.RefreshTimeSecs}" />
                     </Grid>
                 </Grid>
 
@@ -114,7 +114,7 @@
                 <ContentControl Margin="10" x:Name="MainContentControl" HorizontalAlignment="Center" />
             </ScrollViewer>
 
-            <Controls:IconButton x:Name="SaveButton" Grid.Row="4" Margin="0,0,0,10" Click="SaveButton_Click" Width="80" Icon="ContentSave" />
+            <Controls:IconButton x:Name="OverlayWidgetEditorSaveButton" Grid.Row="4" Margin="0,0,0,10" Click="SaveButton_Click" Width="80" Icon="ContentSave" AutomationProperties.AutomationId="OverlayWidgetEditor.SaveButton" AutomationProperties.Name="{x:Static resx:Resources.Save}" />
         </Grid>
 
         <Controls:LoadingStatusBar x:Name="StatusBar" Grid.Row="1" />

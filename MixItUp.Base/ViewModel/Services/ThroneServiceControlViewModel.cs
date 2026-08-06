@@ -58,11 +58,18 @@ namespace MixItUp.Base.ViewModel.Services
         {
             await base.OnOpenInternal();
 
-            GetWebhooksResponseModel response = await ServiceManager.Get<MixItUpService>().GetWebhooks();
-            Webhook webhook = response?.Webhooks?.FirstOrDefault(w => string.Equals(w.Service, WebhookServices.Throne, StringComparison.OrdinalIgnoreCase));
-            if (webhook != null)
+            try
             {
-                this.SetConnectedWebhook(webhook);
+                GetWebhooksResponseModel response = await ServiceManager.Get<MixItUpService>().GetWebhooks();
+                Webhook webhook = response?.Webhooks?.FirstOrDefault(w => string.Equals(w.Service, WebhookServices.Throne, StringComparison.OrdinalIgnoreCase));
+                if (webhook != null)
+                {
+                    this.SetConnectedWebhook(webhook);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
             }
         }
 

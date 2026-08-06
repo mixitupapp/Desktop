@@ -888,6 +888,8 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelPointsRedeemed, new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, arguments, eventCommandSpecialIdentifiers));
 
+                EventService.ChannelPointsRedeemedOccurred(user, redemption.reward.cost);
+
                 TwitchChannelPointsCommandModel command = ServiceManager.Get<CommandService>().TwitchChannelPointsCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.ChannelPointRewardID.ToString(), redemption.reward.id, StringComparison.CurrentCultureIgnoreCase));
                 if (command == null)
                 {
@@ -945,6 +947,8 @@ namespace MixItUp.Base.Services.Twitch.New
             if (string.IsNullOrEmpty(await ServiceManager.Get<ModerationService>().ShouldTextBeModerated(user, redemption.user_input)))
             {
                 await ServiceManager.Get<EventService>().PerformEvent(EventTypeEnum.TwitchChannelCustomPowerUpRedeemed, new CommandParametersModel(user, StreamingPlatformTypeEnum.Twitch, arguments, eventCommandSpecialIdentifiers));
+
+                EventService.TwitchPowerUpOccurred(user);
 
                 TwitchCustomPowerUpCommandModel command = ServiceManager.Get<CommandService>().TwitchCustomPowerUpCommands.FirstOrDefault(c => c.IsEnabled && string.Equals(c.CustomPowerUpID, redemption.custom_power_up.id, StringComparison.CurrentCultureIgnoreCase));
                 if (command == null)
@@ -1137,7 +1141,7 @@ namespace MixItUp.Base.Services.Twitch.New
             {
                 await this.HandleWatchStreak(user, notification);
             }
-            else if (notification.NoticeType == ChatNotificationType.modiversary && MixItUpService.Options.TwitchModiversaryEnabled)
+            else if (notification.NoticeType == ChatNotificationType.modiversary)// && MixItUpService.Options.TwitchModiversaryEnabled)
             {
                 await this.HandleModiversary(user, notification);
             }
