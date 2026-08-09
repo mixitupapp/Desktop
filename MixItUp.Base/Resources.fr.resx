@@ -12216,6 +12216,14 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
     <value>Les vidéos de cette durée ou moins comptent comme des Shorts. Les plus longues comptent comme une vidéo normale.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Uniquement les vidéos publiques</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Seules les vidéos publiques sont signalées. Les vidéos privées, non répertoriées et programmées sont ignorées.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP</value>
   </data>

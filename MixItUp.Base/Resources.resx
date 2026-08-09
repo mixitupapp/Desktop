@@ -12705,6 +12705,14 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
     <value>Videos at or under this length count as Shorts. Anything longer counts as a regular video.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Only Public Videos</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Only report videos that are public. Private, unlisted, and scheduled videos are skipped.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIPs</value>
   </data>

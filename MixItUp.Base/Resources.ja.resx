@@ -12215,6 +12215,14 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
     <value>この長さ以下の動画はショート動画として扱われます。それより長い動画は通常の動画として扱われます。</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>公開動画のみ</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>公開されている動画のみが対象になります。非公開、限定公開、公開予約の動画はスキップされます。</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP</value>
   </data>

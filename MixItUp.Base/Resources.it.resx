@@ -12215,6 +12215,14 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
     <value>I video di questa durata o inferiore contano come Shorts. Quelli più lunghi contano come video normale.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Solo video pubblici</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Vengono segnalati solo i video pubblici. I video privati, non in elenco e programmati vengono ignorati.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP</value>
   </data>

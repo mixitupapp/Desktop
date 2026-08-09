@@ -23081,6 +23081,24 @@ namespace MixItUp.Base {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Only Public Videos.
+        /// </summary>
+        public static string OnlyPublicVideos {
+            get {
+                return ResourceManager.GetString("OnlyPublicVideos", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Only report videos that are public. Private, unlisted, and scheduled videos are skipped..
+        /// </summary>
+        public static string OnlyPublicVideosTooltip {
+            get {
+                return ResourceManager.GetString("OnlyPublicVideosTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Show Alejo Pronouns (Requires Restart).
         /// </summary>
         public static string ShowAlejoPronouns {

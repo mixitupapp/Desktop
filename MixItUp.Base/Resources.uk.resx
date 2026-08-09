@@ -12246,6 +12246,14 @@ print(run())</value>
     <value>Відео такої довжини або коротші вважаються Shorts. Довші вважаються звичайним відео.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Лише публічні відео</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Враховуються лише публічні відео. Приватні, за посиланням і заплановані відео пропускаються.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP-глядачі</value>
   </data>

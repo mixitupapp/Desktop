@@ -10,6 +10,8 @@ namespace MixItUp.Base.ViewModel.Settings
 
         public GenericNumberSettingsOptionControlViewModel YouTubeShortsVideoLengthCap { get; set; }
 
+        public GenericToggleSettingsOptionControlViewModel YouTubeOnlyPublicVideos { get; set; }
+
         public PlatformsSettingsControlViewModel()
         {
             this.YouTubeShortsVideoLengthCap = new GenericNumberSettingsOptionControlViewModel(MixItUp.Base.Resources.ShortsVideoLengthCap,
@@ -17,6 +19,11 @@ namespace MixItUp.Base.ViewModel.Settings
                 (value) => { ChannelSession.Settings.YouTubeShortsVideoLengthCap = value; },
                 MixItUp.Base.Resources.ShortsVideoLengthCapTooltip);
             this.YouTubeShortsVideoLengthCap.ValueWidth = 100;
+
+            this.YouTubeOnlyPublicVideos = new GenericToggleSettingsOptionControlViewModel(MixItUp.Base.Resources.OnlyPublicVideos,
+                ChannelSession.Settings.YouTubeOnlyPublicVideos,
+                (value) => { ChannelSession.Settings.YouTubeOnlyPublicVideos = value; },
+                MixItUp.Base.Resources.OnlyPublicVideosTooltip);
         }
     }
 }

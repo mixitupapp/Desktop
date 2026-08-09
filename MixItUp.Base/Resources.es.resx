@@ -12217,6 +12217,14 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
     <value>Los vídeos de esta duración o menos cuentan como Shorts. Los más largos cuentan como vídeo normal.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Solo vídeos públicos</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Solo se informan los vídeos públicos. Los vídeos privados, ocultos y programados se omiten.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIPs</value>
   </data>
