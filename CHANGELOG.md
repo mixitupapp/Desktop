@@ -1,5 +1,14 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.101 (HOTFIX)
+
+Release Date: 2026-08-08
+
+### FIXES
+
+- Fixed JustGiving failing to connect for fundraising pages on the newer justgiving.com/page/ addresses, and for justgiving.com/fundraising/ addresses pasted in full
+- Fixed JustGiving donation events never firing, so donations went unannounced even while the service showed as connected
+
 ## 1.8.100
 
 Release Date: 2026-08-05
