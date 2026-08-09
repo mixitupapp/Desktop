@@ -13,6 +13,8 @@ namespace MixItUp.Base.Model.Actions
     [DataContract]
     public class SpecialIdentifierActionModel : ActionModelBase
     {
+        private static readonly TimeSpan CountFunctionTimeout = TimeSpan.FromSeconds(1);
+
         [DataMember]
         public string SpecialIdentifierName { get; set; }
 
@@ -63,6 +65,12 @@ namespace MixItUp.Base.Model.Actions
                 {
                     if (arguments.Count() == 3)
                     {
+                        // A viewer can supply the text being searched for, and there is nothing to
+                        // replace when it comes through empty
+                        if (string.IsNullOrEmpty(arguments.ElementAt(1)))
+                        {
+                            return Task.FromResult(arguments.ElementAt(0));
+                        }
                         return Task.FromResult(arguments.ElementAt(0).Replace(arguments.ElementAt(1), arguments.ElementAt(2)));
                     }
                     return Task.FromResult<string>(null);
@@ -71,7 +79,19 @@ namespace MixItUp.Base.Model.Actions
                 {
                     if (arguments.Count() == 2)
                     {
-                        return Task.FromResult(Regex.Matches(arguments.ElementAt(0), arguments.ElementAt(1)).Count.ToString());
+                        try
+                        {
+                            return Task.FromResult(Regex.Matches(arguments.ElementAt(0), arguments.ElementAt(1), RegexOptions.None, CountFunctionTimeout).Count.ToString());
+                        }
+                        catch (ArgumentException)
+                        {
+                            // A viewer can put ( or [ into the pattern, which is not a valid regex
+                            return Task.FromResult<string>(null);
+                        }
+                        catch (RegexMatchTimeoutException)
+                        {
+                            return Task.FromResult<string>(null);
+                        }
                     }
                     return Task.FromResult<string>(null);
                 });
@@ -159,56 +179,59 @@ namespace MixItUp.Base.Model.Actions
 
         private async Task<string> ProcessStringFunction(CommandParametersModel parameters, string text, string functionName, int expectedArgumentNumber, Func<IEnumerable<string>, Task<string>> processor)
         {
-            int index = 0;
-            while (index >= 0)
+            string functionStart = functionName + "(";
+
+            // A processor can put the function name back into its own result, so bound the number of
+            // expansions by the length of the text we started with
+            int remainingPasses = text.Length;
+
+            int index = text.IndexOf(functionStart);
+            while (index >= 0 && remainingPasses-- > 0)
             {
-                index = text.IndexOf(functionName + "(");
-                if (index >= 0)
+                int rightIndex = this.FindFunctionEndIndex(text, index + functionName.Length);
+                if (rightIndex < 0)
                 {
-                    int functionStartIndex = index + functionName.Length;
-                    int rightIndex = functionStartIndex;
+                    // Nothing closes the call, leave the text exactly as it was found
+                    break;
+                }
 
-                    while (rightIndex >= 0 && rightIndex < text.Length)
+                string result = await this.PerformStringFunction(parameters, text, functionName, expectedArgumentNumber, processor, index, rightIndex);
+                if (string.Equals(result, text, StringComparison.Ordinal))
+                {
+                    // The call could not be processed, leave the text exactly as it was found
+                    break;
+                }
+
+                // Successful match, reset and check again
+                text = result;
+                index = text.IndexOf(functionStart);
+            }
+            return text;
+        }
+
+        private int FindFunctionEndIndex(string text, int openIndex)
+        {
+            int depth = 0;
+            for (int i = openIndex; i < text.Length; i++)
+            {
+                if (text[i] == '(')
+                {
+                    depth++;
+                }
+                else if (text[i] == ')')
+                {
+                    depth--;
+                    if (depth == 0)
                     {
-                        int searchRightIndex = text.IndexOf(")", rightIndex);
-                        if (rightIndex >= 0)
-                        {
-                            rightIndex = searchRightIndex;
-
-                            int leftCount = text.Substring(functionStartIndex, rightIndex - functionStartIndex).Count(c => c == '(');
-                            int rightCount = text.Substring(functionStartIndex, rightIndex - functionStartIndex).Count(c => c == ')');
-
-                            if (leftCount == (rightCount + 1))
-                            {
-                                // Successful match, reset and check again
-                                text = await this.PerformStringFunction(parameters, text, functionName, expectedArgumentNumber, processor, index, rightIndex);
-
-                                rightIndex = -1;
-                            }
-                            else
-                            {
-                                // Too many left (, expand outward
-                                rightIndex++;
-                            }
-                        }
-                        else
-                        {
-                            // No matching right ), fail out
-                            rightIndex = -1;
-                            index = -1;
-                        }
-                    }
-
-                    if (rightIndex >= 0)
-                    {
-                        // We've reached the end of the text, find the last ) that exists
-                        rightIndex = text.LastIndexOf(")", rightIndex);
-
-                        text = await this.PerformStringFunction(parameters, text, functionName, expectedArgumentNumber, processor, index, rightIndex);
+                        return i;
                     }
                 }
             }
-            return text;
+
+            // Viewers put unbalanced ( into chat, which never balances, so fall back to the last )
+            // in the text as the end of the call
+            int lastIndex = text.LastIndexOf(')');
+            return lastIndex > openIndex ? lastIndex : -1;
         }
 
         private string FormatDateDifference(DateTime startDate, DateTime endDate)
@@ -268,10 +291,10 @@ namespace MixItUp.Base.Model.Actions
                 arguments.Add(textToProcess);
             }
 
-            // Arguments failed to process, abort
+            // Arguments failed to process, abort and leave the text as it was found
             if (arguments.Count == 0)
             {
-                return textToProcess;
+                return text;
             }
 
             if (this.ReplaceSpecialIdentifiersInFunctions)
@@ -282,12 +305,14 @@ namespace MixItUp.Base.Model.Actions
                 }
             }
 
-            text = text.Replace(functionText, await processor(arguments));
-            if (text == null)
+            string result = await processor(arguments);
+            if (result == null)
             {
-                text = textToProcess;
+                // The processor rejected the arguments, leave the text as it was found
+                return text;
             }
-            return text;
+
+            return text.Replace(functionText, result);
         }
 
 
