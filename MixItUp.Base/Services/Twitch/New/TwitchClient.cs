@@ -117,11 +117,21 @@ namespace MixItUp.Base.Services.Twitch.New
             { "channel.goal.end", null },
         };
 
+        private const int EventSubSubscriptionListAttempts = 3;
+        private const int EventSubSubscriptionListRetryDelay = 1500;
+        private const int EventSubRegistrationTimeout = 120000;
+
         public override bool IsConnected { get { return this.webSocket != null && this.webSocket.IsOpen() && this.eventSubSubscriptionsConnected; } }
 
         private AdvancedClientWebSocket webSocket;
 
         private bool eventSubSubscriptionsConnected = false;
+
+        // Bumped on every session welcome so a slow registration pass cannot report back against a
+        // session that has since been replaced
+        private int eventSubSessionGeneration = 0;
+
+        private Task<bool> eventSubRegistrationTask;
 
         private HashSet<string> followCache = new HashSet<string>();
         private HashSet<string> channelPointRewardRedeemsCache = new HashSet<string>();
@@ -142,19 +152,28 @@ namespace MixItUp.Base.Services.Twitch.New
 
         public override async Task<Result> Connect()
         {
+            this.eventSubRegistrationTask = null;
+
             if (await this.webSocket.Connect(TwitchEventSubConnectionURL + "?keepalive_timeout_seconds=120", CancellationToken.None))
             {
                 await Task.Delay(2500);
 
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 15 && this.eventSubRegistrationTask == null; i++)
                 {
-                    if (this.eventSubSubscriptionsConnected)
+                    await Task.Delay(1000);
+                }
+
+                Task<bool> registration = this.eventSubRegistrationTask;
+                if (registration != null)
+                {
+                    // Registering the full desired set is dozens of sequential calls, so wait on the work
+                    // itself finishing rather than on a fixed budget it can overrun on a slow connection
+                    if (await Task.WhenAny(registration, Task.Delay(EventSubRegistrationTimeout)) == registration && this.eventSubSubscriptionsConnected)
                     {
                         ChannelSession.ReconnectionOccurred(Resources.TwitchClient);
 
                         return new Result();
                     }
-                    await Task.Delay(1000);
                 }
             }
 
@@ -173,92 +192,157 @@ namespace MixItUp.Base.Services.Twitch.New
 
         private Task ProcessSessionWelcome(WelcomeMessage message)
         {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
+            int generation = Interlocked.Increment(ref this.eventSubSessionGeneration);
+
+            // Twitch closes the session if the welcome is not answered promptly, so the registration work
+            // stays off the packet handler. Connect() waits on the task rather than polling for a flag
+            this.eventSubRegistrationTask = AsyncRunner.RunAsyncBackground(async (cancellationToken) =>
             {
-                IEnumerable<EventSubSubscriptionModel> allSubs = await ServiceManager.Get<TwitchSession>().StreamerService.GetEventSubSubscriptions();
+                bool registered = await this.RegisterAllEventSubSubscriptions(message);
 
-                List<Task> subscriptionDeletionTasks = new List<Task>();
-
-                HashSet<string> missingSubs = new HashSet<string>(DesiredSubscriptionsAndVersions.Keys, StringComparer.OrdinalIgnoreCase);
-                foreach (EventSubSubscriptionModel sub in allSubs)
+                if (Volatile.Read(ref this.eventSubSessionGeneration) == generation)
                 {
-                    if (DesiredSubscriptionsAndVersions.ContainsKey(sub.type) && string.Equals(sub.status, "connected", StringComparison.OrdinalIgnoreCase))
-                    {
-                        // Sub exists and is connected, remove from missing
-                        missingSubs.Remove(sub.type);
-                    }
-                    else
-                    {
-                        // Got a sub we don't want, delete
-                        subscriptionDeletionTasks.Add(ServiceManager.Get<TwitchSession>().StreamerService.DeleteEventSubSubscription(sub.id));
-                    }
+                    this.eventSubSubscriptionsConnected = registered;
                 }
-                await Task.WhenAll(subscriptionDeletionTasks);
 
-                foreach (string missingSub in missingSubs)
-                {
-                    if (missingSub.Equals("channel.raid", StringComparison.OrdinalIgnoreCase))
-                    {
-                        await this.RegisterEventSubSubscription(missingSub, message, DesiredSubscriptionsAndVersions[missingSub],
-                            new Dictionary<string, string> { { "from_broadcaster_user_id", ServiceManager.Get<TwitchSession>().StreamerID } });
-                        await this.RegisterEventSubSubscription(missingSub, message, DesiredSubscriptionsAndVersions[missingSub],
-                            new Dictionary<string, string> { { "to_broadcaster_user_id", ServiceManager.Get<TwitchSession>().StreamerID } });
-                    }
-                    else
-                    {
-                        Dictionary<string, string> conditions = new Dictionary<string, string>
-                        {
-                            { "broadcaster_user_id", ServiceManager.Get<TwitchSession>().StreamerID }
-                        };
-
-                        switch (missingSub)
-                        {
-                            case "channel.follow":
-                            case "channel.moderate":
-                            case "channel.unban_request.create":
-                            case "channel.unban_request.resolve":
-                            case "channel.shoutout.receive":
-                            case "channel.suspicious_user.message":
-                            case "channel.suspicious_user.update":
-                            case "channel.shield_mode.begin":
-                            case "channel.shield_mode.end":
-                                conditions["moderator_user_id"] = ServiceManager.Get<TwitchSession>().StreamerID;
-                                break;
-
-                            case "channel.chat.message":
-                            case "channel.chat.message_delete":
-                            case "channel.chat.notification":
-                            case "channel.chat.user_message_hold":
-                            case "channel.chat.user_message_update":
-                            case "channel.chat.clear":
-                            case "channel.chat.clear_user_messages":
-                            case "user.whisper.message":
-                                conditions["user_id"] = ServiceManager.Get<TwitchSession>().StreamerID;
-                                break;
-                        }
-
-                        await this.RegisterEventSubSubscription(missingSub, message, DesiredSubscriptionsAndVersions[missingSub], conditions);
-                    }
-                }
-                IEnumerable<ChannelFollowerModel> followers = await ServiceManager.Get<TwitchSession>().StreamerService.GetNewAPIFollowers(ServiceManager.Get<TwitchSession>().StreamerModel, maxResults: 100);
-                if (followers != null)
-                {
-                    this.followCache.Clear();
-                    foreach (ChannelFollowerModel follow in followers)
-                    {
-                        this.followCache.Add(follow.user_id);
-                    }
-                }
+                return registered;
             }, CancellationToken.None);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-
-            this.eventSubSubscriptionsConnected = true;
 
             return Task.CompletedTask;
         }
 
-        private async Task RegisterEventSubSubscription(string type, WelcomeMessage message, string version = null, Dictionary<string, string> conditions = null)
+        private async Task<bool> RegisterAllEventSubSubscriptions(WelcomeMessage message)
+        {
+            IEnumerable<EventSubSubscriptionModel> allSubs = await this.GetExistingEventSubSubscriptions();
+            if (allSubs == null)
+            {
+                // Registering blind against an unknown set of existing subscriptions would double them up,
+                // so report a failed connection and let the reconnect loop come back around
+                Logger.Log(LogLevel.Error, "Could not read the existing Twitch EventSub subscriptions, treating EventSub as not connected");
+                return false;
+            }
+
+            List<Task> subscriptionDeletionTasks = new List<Task>();
+
+            HashSet<string> missingSubs = new HashSet<string>(DesiredSubscriptionsAndVersions.Keys, StringComparer.OrdinalIgnoreCase);
+            foreach (EventSubSubscriptionModel sub in allSubs)
+            {
+                if (DesiredSubscriptionsAndVersions.ContainsKey(sub.type) && string.Equals(sub.status, "connected", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Sub exists and is connected, remove from missing
+                    missingSubs.Remove(sub.type);
+                }
+                else
+                {
+                    // Got a sub we don't want, delete
+                    subscriptionDeletionTasks.Add(ServiceManager.Get<TwitchSession>().StreamerService.DeleteEventSubSubscription(sub.id));
+                }
+            }
+            await Task.WhenAll(subscriptionDeletionTasks);
+
+            int registrationsAttempted = 0;
+            int registrationsFailed = 0;
+            foreach (string missingSub in missingSubs)
+            {
+                if (missingSub.Equals("channel.raid", StringComparison.OrdinalIgnoreCase))
+                {
+                    registrationsAttempted += 2;
+                    if (!await this.RegisterEventSubSubscription(missingSub, message, DesiredSubscriptionsAndVersions[missingSub],
+                        new Dictionary<string, string> { { "from_broadcaster_user_id", ServiceManager.Get<TwitchSession>().StreamerID } }))
+                    {
+                        registrationsFailed++;
+                    }
+                    if (!await this.RegisterEventSubSubscription(missingSub, message, DesiredSubscriptionsAndVersions[missingSub],
+                        new Dictionary<string, string> { { "to_broadcaster_user_id", ServiceManager.Get<TwitchSession>().StreamerID } }))
+                    {
+                        registrationsFailed++;
+                    }
+                }
+                else
+                {
+                    Dictionary<string, string> conditions = new Dictionary<string, string>
+                    {
+                        { "broadcaster_user_id", ServiceManager.Get<TwitchSession>().StreamerID }
+                    };
+
+                    switch (missingSub)
+                    {
+                        case "channel.follow":
+                        case "channel.moderate":
+                        case "channel.unban_request.create":
+                        case "channel.unban_request.resolve":
+                        case "channel.shoutout.receive":
+                        case "channel.suspicious_user.message":
+                        case "channel.suspicious_user.update":
+                        case "channel.shield_mode.begin":
+                        case "channel.shield_mode.end":
+                            conditions["moderator_user_id"] = ServiceManager.Get<TwitchSession>().StreamerID;
+                            break;
+
+                        case "channel.chat.message":
+                        case "channel.chat.message_delete":
+                        case "channel.chat.notification":
+                        case "channel.chat.user_message_hold":
+                        case "channel.chat.user_message_update":
+                        case "channel.chat.clear":
+                        case "channel.chat.clear_user_messages":
+                        case "user.whisper.message":
+                            conditions["user_id"] = ServiceManager.Get<TwitchSession>().StreamerID;
+                            break;
+                    }
+
+                    registrationsAttempted++;
+                    if (!await this.RegisterEventSubSubscription(missingSub, message, DesiredSubscriptionsAndVersions[missingSub], conditions))
+                    {
+                        registrationsFailed++;
+                    }
+                }
+            }
+
+            // Individual failures stay tolerated and logged, the same as before, but registering nothing
+            // at all means no events can arrive and must not be reported as a healthy connection
+            if (registrationsAttempted > 0 && registrationsFailed == registrationsAttempted)
+            {
+                Logger.Log(LogLevel.Error, $"All {registrationsAttempted} Twitch EventSub subscription registrations failed, treating EventSub as not connected");
+                return false;
+            }
+
+            IEnumerable<ChannelFollowerModel> followers = await ServiceManager.Get<TwitchSession>().StreamerService.GetNewAPIFollowers(ServiceManager.Get<TwitchSession>().StreamerModel, maxResults: 100);
+            if (followers != null)
+            {
+                this.followCache.Clear();
+                foreach (ChannelFollowerModel follow in followers)
+                {
+                    this.followCache.Add(follow.user_id);
+                }
+            }
+
+            return true;
+        }
+
+        private async Task<IEnumerable<EventSubSubscriptionModel>> GetExistingEventSubSubscriptions()
+        {
+            // A stale access token comes back as a 401, which refreshes the token but does not re-send the
+            // call, so the first attempt after a resume from sleep comes back empty handed
+            for (int attempt = 1; attempt <= EventSubSubscriptionListAttempts; attempt++)
+            {
+                IEnumerable<EventSubSubscriptionModel> subs = await ServiceManager.Get<TwitchSession>().StreamerService.GetEventSubSubscriptions();
+                if (subs != null)
+                {
+                    return subs;
+                }
+
+                Logger.Log(LogLevel.Warning, $"Failed to list Twitch EventSub subscriptions, attempt {attempt} of {EventSubSubscriptionListAttempts}");
+
+                if (attempt < EventSubSubscriptionListAttempts)
+                {
+                    await Task.Delay(EventSubSubscriptionListRetryDelay);
+                }
+            }
+            return null;
+        }
+
+        private async Task<bool> RegisterEventSubSubscription(string type, WelcomeMessage message, string version = null, Dictionary<string, string> conditions = null)
         {
             try
             {
@@ -266,7 +350,16 @@ namespace MixItUp.Base.Services.Twitch.New
                 {
                     conditions = new Dictionary<string, string> { { "broadcaster_user_id", ServiceManager.Get<TwitchSession>().StreamerID } };
                 }
-                await ServiceManager.Get<TwitchSession>().StreamerService.CreateEventSubSubscription(type, "websocket", conditions, message.Payload.Session.Id, version: version);
+
+                // The create call logs and swallows its own failures, handing back null, so the result has
+                // to be checked rather than waiting for an exception that will not come
+                EventSubSubscriptionModel subscription = await ServiceManager.Get<TwitchSession>().StreamerService.CreateEventSubSubscription(type, "websocket", conditions, message.Payload.Session.Id, version: version);
+                if (subscription == null)
+                {
+                    Logger.Log(LogLevel.Error, $"Failed to connect EventSub for {type}");
+                    return false;
+                }
+                return true;
             }
             catch (Exception ex)
             {
@@ -274,6 +367,7 @@ namespace MixItUp.Base.Services.Twitch.New
                 Logger.Log(LogLevel.Error, $"Failed to connect EventSub for {type}");
 
                 // Note: Do not re-throw, but log and move on, better to miss some events than to cause a retry loop
+                return false;
             }
         }
 
