@@ -26160,7 +26160,16 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("Timeout", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Timeout (Secs).
+        /// </summary>
+        public static string TimeoutSeconds {
+            get {
+                return ResourceManager.GetString("TimeoutSeconds", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Timeout 5 Min.
         /// </summary>

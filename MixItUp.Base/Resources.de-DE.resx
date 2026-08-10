@@ -10947,4 +10947,7 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon-Mitgliederliste</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Zeitlimit (Sekunden)</value>
+  </data>
 </root>

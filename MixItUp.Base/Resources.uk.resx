@@ -12269,4 +12269,7 @@ print(run())</value>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Список учасників Patreon</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Час очікування (сек.)</value>
+  </data>
 </root>

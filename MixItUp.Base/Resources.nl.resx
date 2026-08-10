@@ -12239,4 +12239,7 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon-ledenlijst</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Time-out (sec.)</value>
+  </data>
 </root>

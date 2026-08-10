@@ -12239,4 +12239,7 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="PatreonMembers" xml:space="preserve">
     <value>Liste des membres Patreon</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Délai d'attente (secondes)</value>
+  </data>
 </root>

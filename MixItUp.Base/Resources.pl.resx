@@ -12238,4 +12238,7 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="PatreonMembers" xml:space="preserve">
     <value>Lista członków Patreon</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Limit czasu (s)</value>
+  </data>
 </root>

@@ -12269,4 +12269,7 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon 會員清單</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>逾時（秒）</value>
+  </data>
 </root>

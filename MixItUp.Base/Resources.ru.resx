@@ -12274,4 +12274,7 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="PatreonMembers" xml:space="preserve">
     <value>Список участников Patreon</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Тайм-аут (сек)</value>
+  </data>
 </root>

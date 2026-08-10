@@ -12238,4 +12238,7 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon メンバー一覧</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>タイムアウト (秒)</value>
+  </data>
 </root>

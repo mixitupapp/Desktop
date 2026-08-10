@@ -12728,4 +12728,7 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon Members List</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Timeout (Secs)</value>
+  </data>
 </root>

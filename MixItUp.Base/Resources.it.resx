@@ -12238,4 +12238,7 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="PatreonMembers" xml:space="preserve">
     <value>Elenco membri Patreon</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Timeout (secondi)</value>
+  </data>
 </root>

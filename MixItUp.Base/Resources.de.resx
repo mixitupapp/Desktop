@@ -12244,4 +12244,7 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon-Mitgliederliste</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Zeitlimit (Sek.)</value>
+  </data>
 </root>

@@ -12240,4 +12240,7 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="PatreonMembers" xml:space="preserve">
     <value>Lista de membros do Patreon</value>
   </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Tempo limite (segundos)</value>
+  </data>
 </root>
