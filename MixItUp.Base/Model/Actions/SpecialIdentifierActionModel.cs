@@ -157,14 +157,16 @@ namespace MixItUp.Base.Model.Actions
 
             }
 
-            if (this.ShouldProcessMath)
-            {
-                replacementText = MathHelper.ProcessMathEquation(replacementText).ToString();
-            }
-
             if (this.ReplaceSpecialIdentifiersInFunctions)
             {
                 replacementText = await ReplaceStringWithSpecialModifiers(replacementText, parameters);
+            }
+
+            // Math runs last so the equation is always made of resolved values, whichever way the
+            // special identifier replacement is set
+            if (this.ShouldProcessMath)
+            {
+                replacementText = MathHelper.ProcessMathEquation(replacementText).ToString();
             }
 
             if (this.MakeGloballyUsable)
