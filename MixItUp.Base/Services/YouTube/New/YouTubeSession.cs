@@ -130,8 +130,14 @@ namespace MixItUp.Base.Services.YouTube.New
         // videos.list accepts a maximum of 50 IDs per call.
         private const int VideoDetailsBatchSize = 50;
 
+        // Held only briefly so a video going public, or a scheduled one publishing, is picked up without
+        // restarting. The window stops a spammable chat command becoming an API call per message.
+        private static readonly TimeSpan LatestVideoCacheDuration = TimeSpan.FromMinutes(10);
+
         private Video latestNonStreamVideo;
+        private DateTimeOffset latestNonStreamVideoRetrieved = DateTimeOffset.MinValue;
         private Video latestShort;
+        private DateTimeOffset latestShortRetrieved = DateTimeOffset.MinValue;
 
         private HashSet<string> messageIDsToIgnore = new HashSet<string>();
 
@@ -428,18 +434,20 @@ namespace MixItUp.Base.Services.YouTube.New
 
         public async Task<Video> GetLatestNonStreamVideo()
         {
-            if (this.latestNonStreamVideo == null)
+            if (DateTimeOffset.Now - this.latestNonStreamVideoRetrieved >= YouTubeSession.LatestVideoCacheDuration)
             {
                 this.latestNonStreamVideo = await this.GetLatestVideoByLength(shorts: false);
+                this.latestNonStreamVideoRetrieved = DateTimeOffset.Now;
             }
             return this.latestNonStreamVideo;
         }
 
         public async Task<Video> GetLatestShort()
         {
-            if (this.latestShort == null)
+            if (DateTimeOffset.Now - this.latestShortRetrieved >= YouTubeSession.LatestVideoCacheDuration)
             {
                 this.latestShort = await this.GetLatestVideoByLength(shorts: true);
+                this.latestShortRetrieved = DateTimeOffset.Now;
             }
             return this.latestShort;
         }
@@ -531,12 +539,33 @@ namespace MixItUp.Base.Services.YouTube.New
                 {
                     if (videosByID.TryGetValue(videoID, out Video video) && video.LiveStreamingDetails == null)
                     {
+                        if (ChannelSession.Settings.YouTubeOnlyPublicVideos && !YouTubeSession.IsPubliclyVisible(video))
+                        {
+                            continue;
+                        }
                         results.Add(video);
                     }
                 }
             }
 
             return results;
+        }
+
+        /// <summary>
+        /// Whether a video is actually watchable by an audience right now. The owner's uploads playlist
+        /// includes private and unlisted uploads, and a scheduled upload sits at the top of it as private
+        /// with a future publishAt, so without this it wins as the newest video while nobody can watch it.
+        /// </summary>
+        public static bool IsPubliclyVisible(Video video)
+        {
+            if (video?.Status == null || !string.Equals(video.Status.PrivacyStatus, "public", StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            // A scheduled premiere can report itself public ahead of its publish time
+            DateTimeOffset? publishAt = video.Status.PublishAtDateTimeOffset;
+            return publishAt == null || publishAt.Value <= DateTimeOffset.Now;
         }
 
         // contentDetails.duration is an ISO 8601 duration such as PT1M30S.

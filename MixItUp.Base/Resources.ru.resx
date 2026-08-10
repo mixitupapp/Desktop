@@ -12251,6 +12251,14 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
     <value>Видео такой длины или короче считаются Shorts. Более длинные считаются обычным видео.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Только публичные видео</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Учитываются только публичные видео. Приватные, доступные по ссылке и запланированные видео пропускаются.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP-зрители</value>
   </data>
@@ -12265,5 +12273,8 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Список участников Patreon</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Тайм-аут (сек)</value>
   </data>
 </root>

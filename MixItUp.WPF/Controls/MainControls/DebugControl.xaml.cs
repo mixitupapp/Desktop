@@ -726,7 +726,10 @@ namespace MixItUp.WPF.Controls.MainControls
                 results.AppendLine($"Channel:  {channel.Snippet?.Title}");
                 results.AppendLine($"ID:       {channel.Id}");
                 results.AppendLine($"Cap:      {cap} seconds");
-                results.AppendLine($"Uploads:  {uploads.Count} after broadcasts and stream VODs were dropped");
+                string dropped = ChannelSession.Settings.YouTubeOnlyPublicVideos
+                    ? "after broadcasts, stream VODs and non-public videos were dropped"
+                    : "after broadcasts and stream VODs were dropped";
+                results.AppendLine($"Uploads:  {uploads.Count} {dropped}");
                 results.AppendLine();
 
                 results.AppendLine("$youtubelatestvideourl");

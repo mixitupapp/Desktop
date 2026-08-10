@@ -1158,11 +1158,17 @@ namespace MixItUp.Base.Util
             {
                 replacement = HttpUtility.UrlEncode(replacement);
             }
-            if (replacement.StartsWith("$"))
+
+            // Both sides are literal text, not a pattern. Counter names reach this unsanitized, so the
+            // streamer can put ( or [ into the identifier, and the replacement is routinely whatever a
+            // viewer typed, where $& and $$ used to be read as substitution syntax.
+            string search = (includeSpecialIdentifierHeader ? SpecialIdentifierHeader : string.Empty) + identifier;
+            if (string.IsNullOrEmpty(search))
             {
-                replacement = "$" + replacement;
+                return;
             }
-            this.text = Regex.Replace(this.text, "\\" + (includeSpecialIdentifierHeader ? SpecialIdentifierHeader : string.Empty) + identifier, replacement, RegexOptions.IgnoreCase);
+
+            this.text = this.text.Replace(search, replacement, StringComparison.OrdinalIgnoreCase);
         }
 
         public bool ContainsSpecialIdentifier(string identifier)

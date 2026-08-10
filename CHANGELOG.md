@@ -1,13 +1,39 @@
 # Mix It Up Desktop Changelog
 
-## 1.8.101 (HOTFIX)
+## 1.8.110
 
-Release Date: 2026-08-08
+Release Date: 2026-08-09
+
+### FEATURES
+
+- Add a Timeout (seconds) field to the External Program action, used when Wait For Finish is on. The wait gives up once the timeout is reached and the rest of the command carries on
+  - The program itself is left running rather than being killed, so a TTS engine or voice control app is not cut off mid-sentence
+  - Whatever the program printed before the wait gave up is still saved to $externalprogramresult
+  - Actions saved before this existed use 30 seconds, which is also the default for new ones
+  - Stopping the command, or an Exit Command action running elsewhere, now ends the wait instead of leaving it running out the timeout
+- Add an Only Public Videos setting to the Platforms page in Settings, on by default. Private, unlisted, and scheduled uploads are skipped when looking up your latest video, so an upload nobody can watch yet no longer wins as the newest one
+  - Applies to $youtubelatestvideoid, $youtubelatestvideotitle, $youtubelatestvideourl, $youtubelatestshortid, $youtubelatestshorttitle, and $youtubelatestshorturl
+  - Turn it off to go back to reporting whatever sits at the top of your uploads, public or not
 
 ### FIXES
 
+- Fixed Twitch failing to reconnect after the PC resumes from sleep, where the first subscription lookup came back on an expired token and the reconnect carried on as though it had worked
+- Twitch now reports as connected only once its event subscriptions are registered, rather than the moment the socket opens. A connection that registers nothing is treated as failed and retried instead of sitting there connected and silent
+  - Connecting can take a little longer as a result, since it now waits for the whole set of subscriptions to register rather than returning the moment the session opens
+- Fixed the Special Identifier action working out its math before special identifiers were replaced, so an equation built from identifiers came out as raw text instead of a number
+- Fixed special identifier replacement reading $ sequences in the replacement as substitution syntax, so a viewer's message containing $& or $$ came out mangled, and fixed counter names containing ( or [ never replacing at all
+- Fixed the Special Identifier action's string functions mis-reading nested and unbalanced parentheses, which could cut the text down to just the contents of the call, quietly delete the call, or leave the command running with nothing to show for it
+- Fixed count() stopping the rest of the command from running when handed a pattern that is not valid, such as a lone ( or [ typed by a viewer, and capped how long a pattern is allowed to run
+- Fixed replace() stopping the rest of the command from running when the text being searched for came through empty, which a viewer's argument routinely does
+- Fixed Tiltify rewards failing to load on a campaign with an unlimited reward, leaving $tiltifyrewardname, $tiltifyrewardid, $tiltifyrewarddescription, and $tiltifyrewardamount empty on donations tied to a reward. One unreadable reward no longer throws away the rest of them either
+- The latest video and latest Short lookups now refresh every 10 minutes instead of being held until the app is restarted, so a newly published video shows up on its own
 - Fixed JustGiving failing to connect for fundraising pages on the newer justgiving.com/page/ addresses, and for justgiving.com/fundraising/ addresses pasted in full
 - Fixed JustGiving donation events never firing, so donations went unannounced even while the service showed as connected
+
+### PERFORMANCE & GENERAL IMPROVEMENTS
+
+- Alejo pronoun lookups no longer log an error for every viewer who has not set pronouns
+- YouTube membership levels no longer log an error on channels that do not have Channel Memberships turned on
 
 ## 1.8.100
 

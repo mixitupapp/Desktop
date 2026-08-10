@@ -22,6 +22,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -67,5 +69,7 @@
             <CheckBox Grid.Column="10" IsChecked="{Binding SaveOutput}" IsEnabled="{Binding WaitForFinish}" VerticalAlignment="Center" AutomationProperties.AutomationId="ExternalProgramActionEditor.SaveOutputCheckBox" AutomationProperties.Name="{x:Static resx:Resources.SaveOutput}" />
             <TextBox Grid.Column="12" VerticalAlignment="Center" Text="$externalprogramresult" Style="{StaticResource TextBoxReadOnlySelectable}" AutomationProperties.AutomationId="ExternalProgramActionEditor.SaveOutputTextBox" AutomationProperties.Name="{x:Static resx:Resources.SaveOutput}" />
         </Grid>
+
+        <TextBox Grid.Row="6" HorizontalAlignment="Left" Width="140" Text="{Binding TimeoutSeconds}" IsEnabled="{Binding WaitForFinish}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeoutSeconds}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="ExternalProgramActionEditor.TimeoutSecondsTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeoutSeconds}" />
     </Grid>
 </local:ActionEditorControlBase>

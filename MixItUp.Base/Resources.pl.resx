@@ -12215,6 +12215,14 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
     <value>Wideo o tej długości lub krótsze liczy się jako Shorts. Dłuższe liczy się jako zwykłe wideo.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Tylko publiczne filmy</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Zgłaszane są tylko publiczne filmy. Prywatne, niepubliczne i zaplanowane filmy są pomijane.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP-y</value>
   </data>
@@ -12229,5 +12237,8 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Lista członków Patreon</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Limit czasu (s)</value>
   </data>
 </root>

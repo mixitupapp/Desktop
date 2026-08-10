@@ -12246,6 +12246,14 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
     <value>此長度以內的影片視為 Shorts，超過的視為一般影片。</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>僅公開影片</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>只會回報公開影片。私人、不公開和排程影片會略過。</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>貴賓</value>
   </data>
@@ -12260,5 +12268,8 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon 會員清單</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>逾時（秒）</value>
   </data>
 </root>

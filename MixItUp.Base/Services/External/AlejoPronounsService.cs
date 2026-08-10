@@ -55,7 +55,9 @@ namespace MixItUp.Base.Services.External
             {
                 using (AdvancedHttpClient client = new AdvancedHttpClient(AlejoPronounsService.BaseAddress))
                 {
-                    return await client.GetAsync<AlejoUserPronoun>($"users/{twitchLogin}");
+                    // A 404 just means the viewer has not set pronouns, so let it come back null
+                    // rather than throwing and logging a stack trace for every one of them.
+                    return await client.GetAsync<AlejoUserPronoun>($"users/{twitchLogin}", throwExceptionOnFailure: false);
                 }
             }
             catch (Exception ex)

@@ -17,6 +17,7 @@
                 <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" FontWeight="Bold" Text="{x:Static resx:Resources.YouTube}" />
             </StackPanel>
             <GenericSettingsControls:GenericNumberSettingsOptionControl DataContext="{Binding YouTubeShortsVideoLengthCap}" />
+            <GenericSettingsControls:GenericToggleSettingsOptionControl DataContext="{Binding YouTubeOnlyPublicVideos}" />
         </StackPanel>
     </Grid>
 </local:SettingsControlBase>

@@ -12221,6 +12221,14 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
     <value>Videos mit dieser Länge oder kürzer zählen als Shorts. Längere zählen als normales Video.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Nur öffentliche Videos</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Es werden nur öffentliche Videos gemeldet. Private, nicht gelistete und geplante Videos werden übersprungen.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIPs</value>
   </data>
@@ -12235,5 +12243,8 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon-Mitgliederliste</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Zeitlimit (Sek.)</value>
   </data>
 </root>

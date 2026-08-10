@@ -79,6 +79,17 @@ namespace MixItUp.Base.ViewModel.Actions
         }
         private bool saveOutput;
 
+        public int TimeoutSeconds
+        {
+            get { return this.timeoutSeconds; }
+            set
+            {
+                this.timeoutSeconds = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private int timeoutSeconds = ExternalProgramActionModel.DefaultTimeoutSeconds;
+
         public ExternalProgramActionEditorControlViewModel(ExternalProgramActionModel action)
             : base(action)
         {
@@ -88,6 +99,8 @@ namespace MixItUp.Base.ViewModel.Actions
             this.ShellExecute = action.ShellExecute;
             this.WaitForFinish = action.WaitForFinish;
             this.SaveOutput = action.SaveOutput;
+            // Shows what an action saved before the timeout existed will actually use, rather than a 0
+            this.TimeoutSeconds = action.EffectiveTimeoutSeconds;
         }
 
         public ExternalProgramActionEditorControlViewModel() : base() { }
@@ -101,6 +114,6 @@ namespace MixItUp.Base.ViewModel.Actions
             return Task.FromResult(new Result());
         }
 
-        protected override Task<ActionModelBase> GetActionInternal() { return Task.FromResult<ActionModelBase>(new ExternalProgramActionModel(this.FilePath, this.Arguments, this.ShowWindow, this.ShellExecute, this.WaitForFinish, this.SaveOutput)); }
+        protected override Task<ActionModelBase> GetActionInternal() { return Task.FromResult<ActionModelBase>(new ExternalProgramActionModel(this.FilePath, this.Arguments, this.ShowWindow, this.ShellExecute, this.WaitForFinish, this.SaveOutput, this.TimeoutSeconds)); }
     }
 }

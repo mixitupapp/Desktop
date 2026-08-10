@@ -12216,6 +12216,14 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
     <value>Vídeos com esta duração ou menos contam como Shorts. Os mais longos contam como vídeo normal.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Apenas vídeos públicos</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Apenas os vídeos públicos são considerados. Vídeos privados, não listados e agendados são ignorados.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIPs</value>
   </data>
@@ -12230,5 +12238,8 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Lista de membros do Patreon</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Tempo limite (segundos)</value>
   </data>
 </root>

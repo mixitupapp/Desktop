@@ -253,6 +253,11 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public int YouTubeShortsVideoLengthCap { get; set; } = 180;
 
+        // The channel owner's uploads include private, unlisted, and scheduled videos, none of which an
+        // audience can watch. Off, the latest video identifiers report those too.
+        [DataMember]
+        public bool YouTubeOnlyPublicVideos { get; set; } = true;
+
         [DataMember]
         public RequirementErrorCooldownTypeEnum RequirementErrorsCooldownType { get; set; } = RequirementErrorCooldownTypeEnum.Default;
         [DataMember]
