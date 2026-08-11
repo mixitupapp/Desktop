@@ -33059,5 +33059,365 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("PatreonMembers", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VConnect.
+        /// </summary>
+        public static string VConnect {
+            get {
+                return ResourceManager.GetString("VConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VConnect is a streaming overlay and automation tool built around a visual node editor. Connecting it lets your commands fire VConnect triggers and send custom messages into a graph, and lets anything happening in VConnect run a command here..
+        /// </summary>
+        public static string VConnectInfo {
+            get {
+                return ResourceManager.GetString("VConnectInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on the WebSocket server in VConnect's WebSocket settings before connecting, then enter the port it is serving on below..
+        /// </summary>
+        public static string VConnectWebSocketServerRequired {
+            get {
+                return ResourceManager.GetString("VConnectWebSocketServerRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected to {0}.
+        /// </summary>
+        public static string VConnectConnectedTo {
+            get {
+                return ResourceManager.GetString("VConnectConnectedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to connect to VConnect. Make sure it is running with its WebSocket server turned on..
+        /// </summary>
+        public static string VConnectConnectionFailed {
+            get {
+                return ResourceManager.GetString("VConnectConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not connect to VConnect on port {0}. Make sure VConnect is running, that its WebSocket server is turned on, and that this port matches the one VConnect is serving on..
+        /// </summary>
+        public static string VConnectConnectionFailedToPort {
+            get {
+                return ResourceManager.GetString("VConnectConnectionFailedToPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the port number VConnect is serving on, between 1 and 65535..
+        /// </summary>
+        public static string VConnectPortNumberInvalid {
+            get {
+                return ResourceManager.GetString("VConnectPortNumberInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VConnect did not answer in time..
+        /// </summary>
+        public static string VConnectRequestTimedOut {
+            get {
+                return ResourceManager.GetString("VConnectRequestTimedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VConnect is not connected.
+        /// </summary>
+        public static string VConnectNotConnected {
+            get {
+                return ResourceManager.GetString("VConnectNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger.
+        /// </summary>
+        public static string VConnectTrigger {
+            get {
+                return ResourceManager.GetString("VConnectTrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset.
+        /// </summary>
+        public static string VConnectAsset {
+            get {
+                return ResourceManager.GetString("VConnectAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel.
+        /// </summary>
+        public static string VConnectMessageChannel {
+            get {
+                return ResourceManager.GetString("VConnectMessageChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arguments.
+        /// </summary>
+        public static string VConnectMessageArguments {
+            get {
+                return ResourceManager.GetString("VConnectMessageArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One argument per line, sent to the On WebSocket Receive nodes listening on this channel. A line that is valid JSON on its own is sent as that value, so 42 arrives as a number and true as a flag. Everything else is sent as text..
+        /// </summary>
+        public static string VConnectMessageArgumentsInfo {
+            get {
+                return ResourceManager.GetString("VConnectMessageArgumentsInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screenshot File Path (Optional).
+        /// </summary>
+        public static string VConnectScreenshotFilePath {
+            get {
+                return ResourceManager.GetString("VConnectScreenshotFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave this empty to look the asset up without its preview image. With a path set, the preview is saved there as a PNG. VConnect only renders previews for 3D, VRM and PNG assets..
+        /// </summary>
+        public static string VConnectScreenshotFilePathInfo {
+            get {
+                return ResourceManager.GetString("VConnectScreenshotFilePathInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A trigger must be selected.
+        /// </summary>
+        public static string VConnectActionMissingTrigger {
+            get {
+                return ResourceManager.GetString("VConnectActionMissingTrigger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A channel must be entered.
+        /// </summary>
+        public static string VConnectActionMissingChannel {
+            get {
+                return ResourceManager.GetString("VConnectActionMissingChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An asset must be selected.
+        /// </summary>
+        public static string VConnectActionMissingAsset {
+            get {
+                return ResourceManager.GetString("VConnectActionMissingAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Custom Message.
+        /// </summary>
+        public static string SendCustomMessage {
+            get {
+                return ResourceManager.GetString("SendCustomMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Look Up Asset.
+        /// </summary>
+        public static string LookupAsset {
+            get {
+                return ResourceManager.GetString("LookupAsset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger Activated.
+        /// </summary>
+        public static string VConnectTriggerActivated {
+            get {
+                return ResourceManager.GetString("VConnectTriggerActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger Ended.
+        /// </summary>
+        public static string VConnectTriggerEnded {
+            get {
+                return ResourceManager.GetString("VConnectTriggerEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset Spawned.
+        /// </summary>
+        public static string VConnectAssetSpawned {
+            get {
+                return ResourceManager.GetString("VConnectAssetSpawned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset Hit.
+        /// </summary>
+        public static string VConnectAssetHit {
+            get {
+                return ResourceManager.GetString("VConnectAssetHit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asset Despawned.
+        /// </summary>
+        public static string VConnectAssetDespawned {
+            get {
+                return ResourceManager.GetString("VConnectAssetDespawned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Message Received.
+        /// </summary>
+        public static string VConnectMessageReceived {
+            get {
+                return ResourceManager.GetString("VConnectMessageReceived", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber.
+        /// </summary>
+        public static string RahiTuber {
+            get {
+                return ResourceManager.GetString("RahiTuber", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber is a PNGTuber app that animates a layered avatar from your microphone. Connecting it lets your commands trigger the states you have set up in RahiTuber, the same as pressing their hotkeys..
+        /// </summary>
+        public static string RahiTuberInfo {
+            get {
+                return ResourceManager.GetString("RahiTuberInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on Control States via HTTP in RahiTuber&apos;s Preferences, on the Integration tab, then enter the port it is listening on below..
+        /// </summary>
+        public static string RahiTuberHTTPControlRequired {
+            get {
+                return ResourceManager.GetString("RahiTuberHTTPControlRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Connected to {0}.
+        /// </summary>
+        public static string RahiTuberConnectedTo {
+            get {
+                return ResourceManager.GetString("RahiTuberConnectedTo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not connect to RahiTuber on port {0}. Make sure RahiTuber is running, that Control States via HTTP is turned on, and that this port matches the one RahiTuber is listening on..
+        /// </summary>
+        public static string RahiTuberConnectionFailedToPort {
+            get {
+                return ResourceManager.GetString("RahiTuberConnectionFailedToPort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the port number RahiTuber is listening on, between 1 and 65535..
+        /// </summary>
+        public static string RahiTuberPortNumberInvalid {
+            get {
+                return ResourceManager.GetString("RahiTuberPortNumberInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber is not connected.
+        /// </summary>
+        public static string RahiTuberNotConnected {
+            get {
+                return ResourceManager.GetString("RahiTuberNotConnected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber did not accept the state change..
+        /// </summary>
+        public static string RahiTuberStateRequestFailed {
+            get {
+                return ResourceManager.GetString("RahiTuberStateRequestFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to State Name or Index.
+        /// </summary>
+        public static string RahiTuberState {
+            get {
+                return ResourceManager.GetString("RahiTuberState", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the state&apos;s name exactly as it appears in RahiTuber, or its position in the states list counting from 0. Triggering is all a Toggle or Permanent state needs. A state set to While Held stays on until a Stop State action for it runs..
+        /// </summary>
+        public static string RahiTuberStateInfo {
+            get {
+                return ResourceManager.GetString("RahiTuberStateInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A state name or index must be entered.
+        /// </summary>
+        public static string RahiTuberActionMissingState {
+            get {
+                return ResourceManager.GetString("RahiTuberActionMissingState", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger State.
+        /// </summary>
+        public static string TriggerState {
+            get {
+                return ResourceManager.GetString("TriggerState", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stop State.
+        /// </summary>
+        public static string StopState {
+            get {
+                return ResourceManager.GetString("StopState", resourceCulture);
+            }
+        }
     }
 }

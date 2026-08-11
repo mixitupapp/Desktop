@@ -424,8 +424,35 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("recipient")]
         public WebhookUserModel Recipient { get; set; }
 
+        // The live payload carries both parties as prefixed flat fields rather than nested objects.
+        [JsonProperty("gifterUserId")]
+        public string GifterUserID { get; set; }
+
+        [JsonProperty("gifterUsername")]
+        public string GifterUsername { get; set; }
+
+        [JsonProperty("gifterDisplayName")]
+        public string GifterDisplayName { get; set; }
+
+        [JsonProperty("recipientUserId")]
+        public string RecipientUserID { get; set; }
+
+        [JsonProperty("recipientUsername")]
+        public string RecipientUsername { get; set; }
+
+        [JsonProperty("recipientDisplayName")]
+        public string RecipientDisplayName { get; set; }
+
         [JsonIgnore]
-        public WebhookUserModel ResolvedGifter { get { return WebhookUserModel.FirstValid(this.Gifter, this.User, this.FlatUser); } }
+        public WebhookUserModel FlatGifter { get { return WebhookUserModel.FromFlatFields(this.GifterUserID, this.GifterUsername, this.GifterDisplayName); } }
+
+        [JsonIgnore]
+        public WebhookUserModel FlatRecipient { get { return WebhookUserModel.FromFlatFields(this.RecipientUserID, this.RecipientUsername, this.RecipientDisplayName); } }
+
+        // FlatUser is deliberately absent from this chain. On gift payloads the top-level "userId" is
+        // the RECIPIENT, so falling back to it credits the gift to the wrong person.
+        [JsonIgnore]
+        public WebhookUserModel ResolvedGifter { get { return WebhookUserModel.FirstValid(this.Gifter, this.FlatGifter, this.User); } }
 
         [JsonIgnore]
         public List<WebhookUserModel> ResolvedRecipients
@@ -441,8 +468,23 @@ namespace MixItUp.Base.Model.Velora.Webhooks
                 {
                     recipients.Add(this.Recipient);
                 }
+
+                WebhookUserModel flatRecipient = this.FlatRecipient;
+                if (flatRecipient != null && !recipients.Any(r => SameUser(r, flatRecipient)))
+                {
+                    recipients.Add(flatRecipient);
+                }
                 return recipients;
             }
+        }
+
+        private static bool SameUser(WebhookUserModel left, WebhookUserModel right)
+        {
+            if (!string.IsNullOrWhiteSpace(left.UserID) && !string.IsNullOrWhiteSpace(right.UserID))
+            {
+                return string.Equals(left.UserID, right.UserID, System.StringComparison.OrdinalIgnoreCase);
+            }
+            return !string.IsNullOrWhiteSpace(left.Username) && string.Equals(left.Username, right.Username, System.StringComparison.OrdinalIgnoreCase);
         }
 
         [JsonIgnore]
@@ -509,8 +551,21 @@ namespace MixItUp.Base.Model.Velora.Webhooks
         [JsonProperty("amount")]
         public int? Amount { get; set; }
 
+        // The live payload carries the raider as prefixed flat fields rather than a nested object.
+        [JsonProperty("fromUserId")]
+        public string FromUserID { get; set; }
+
+        [JsonProperty("fromUsername")]
+        public string FromUsername { get; set; }
+
+        [JsonProperty("fromDisplayName")]
+        public string FromDisplayName { get; set; }
+
         [JsonIgnore]
-        public WebhookUserModel ResolvedUser { get { return WebhookUserModel.FirstValid(this.Raider, this.From, this.User, this.FlatUser); } }
+        public WebhookUserModel FlatRaider { get { return WebhookUserModel.FromFlatFields(this.FromUserID, this.FromUsername, this.FromDisplayName); } }
+
+        [JsonIgnore]
+        public WebhookUserModel ResolvedUser { get { return WebhookUserModel.FirstValid(this.Raider, this.From, this.FlatRaider, this.User, this.FlatUser); } }
 
         [JsonIgnore]
         public int ResolvedViewers { get { return System.Math.Max(this.Viewers ?? this.ViewerCount ?? this.Amount ?? 0, 0); } }

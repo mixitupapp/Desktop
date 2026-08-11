@@ -12277,4 +12277,126 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="TimeoutSeconds" xml:space="preserve">
     <value>Тайм-аут (сек)</value>
   </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect является инструментом оверлеев и автоматизации для стримов, построенным вокруг визуального редактора узлов. После подключения ваши команды могут запускать триггеры VConnect и отправлять собственные сообщения в граф, а происходящее в VConnect может запускать команды здесь.</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>Перед подключением включите сервер WebSocket в настройках WebSocket программы VConnect и укажите ниже порт, на котором он работает.</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>Подключено к {0}</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>Не удалось подключиться к VConnect. Убедитесь, что программа запущена и её сервер WebSocket включён.</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up не удалось подключиться к VConnect через порт {0}. Убедитесь, что VConnect запущен, его сервер WebSocket включён, а этот порт совпадает с указанным в VConnect.</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>Укажите порт, на котором работает VConnect, в диапазоне от 1 до 65535.</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect не ответил вовремя.</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect не подключён</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>Триггер</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>Ресурс</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>Канал</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>Аргументы</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>По одному аргументу в строке, отправляются узлам On WebSocket Receive, слушающим этот канал. Строка, которая сама по себе является корректным JSON, отправляется как это значение, поэтому 42 приходит числом, а true логическим значением. Всё остальное отправляется как текст.</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>Путь к файлу снимка (необязательно)</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>Оставьте пустым, чтобы получить ресурс без изображения предпросмотра. Если путь указан, предпросмотр сохраняется по нему в формате PNG. VConnect создаёт предпросмотр только для ресурсов 3D, VRM и PNG.</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>Необходимо выбрать триггер</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>Необходимо указать канал</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>Необходимо выбрать ресурс</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>Отправить своё сообщение</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>Получить ресурс</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>Триггер запущен</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>Триггер завершён</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>Ресурс появился</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>Попадание по ресурсу</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>Ресурс исчез</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>Получено своё сообщение</value>
+  </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber является приложением PNGTuber, которое анимирует многослойный аватар по звуку с вашего микрофона. После подключения ваши команды могут запускать состояния, настроенные в RahiTuber, так же как нажатие их горячих клавиш.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Перед подключением включите параметр Control States via HTTP в окне Preferences программы RahiTuber на вкладке Integration и укажите ниже порт, который там задан.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Подключено к {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up не удалось подключиться к RahiTuber через порт {0}. Убедитесь, что RahiTuber запущен, параметр Control States via HTTP включён, а этот порт совпадает с указанным в RahiTuber.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Укажите порт, который прослушивает RahiTuber, в диапазоне от 1 до 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber не подключён</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber не принял смену состояния.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>Имя или индекс состояния</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Укажите имя состояния в точности так, как оно отображается в RahiTuber, либо его позицию в списке состояний начиная с 0. Состоянию типа Toggle или Permanent достаточно запуска. Состояние типа While Held остаётся активным, пока для него не будет выполнено действие «Остановить состояние».</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>Необходимо указать имя или индекс состояния</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>Запустить состояние</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>Остановить состояние</value>
+  </data>
 </root>

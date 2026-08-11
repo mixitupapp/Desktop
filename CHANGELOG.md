@@ -1,5 +1,32 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.120
+
+Release Date: 2026-08-11
+
+### FEATURES
+
+- Add VConnect integration, connected from the Services page with a port field (default 39542):
+  - Activate Trigger action, picked from a list read out of VConnect
+  - Send Custom Message action for sending a channel and arguments to the On WebSocket Receive nodes listening on it, one argument per line
+  - Look Up Asset action, filling $vconnectassetuid, $vconnectassetname, $vconnectassettype, $vconnectassetscreenshotfilepath, and $vconnectassetsuccess
+  - Optional screenshot file path on the lookup saves the asset's preview there as a PNG, for 3D, VRM, and PNG assets
+  - Add Trigger Activated event ($vconnecttriggeruid, $vconnecttriggername)
+  - Add Trigger Ended event ($vconnecttriggeruid, $vconnecttriggername, $vconnecttriggersuccess, $vconnecttriggererror)
+  - Add Asset Spawned and Asset Despawned events ($vconnectassetuid, $vconnectassetname, $vconnecttriggeruid, $vconnecttriggernodeuid)
+  - Add Asset Hit event, with those same identifiers plus $vconnecthitpointx, $vconnecthitpointy, $vconnecthitpointz, $vconnecthitnormalx, $vconnecthitnormaly, $vconnecthitnormalz, $vconnecthitvelocityx, $vconnecthitvelocityy, $vconnecthitvelocityz, and $vconnecthitforce
+  - Add Custom Message Received event ($vconnectmessagechannel, $vconnectmessagedata, $vconnectmessageargumentcount, and $vconnectmessageargument1 onward)
+- Add RahiTuber integration, connected from the Services page with a port field (default 8000), with Control States via HTTP turned on in RahiTuber's Preferences on the Integration tab:
+  - Trigger State and Stop State actions, taking the state's name as it appears in RahiTuber or its position in the states list counting from 0
+  - Toggle and Permanent states only need triggering. A While Held state stays on until a Stop State action for it runs
+  - No RahiTuber events. Its integration only takes state changes and reports nothing back
+
+### FIXES
+
+- Fixed Velora gifted subscriptions crediting the recipient as the gifter, so the recipient's lifetime gifted sub count went up instead of the gifter's
+- Fixed Velora gifted subscription commands running with no target user, leaving $targetusername empty and the mass gifted event listing nobody
+- Fixed Velora raids never firing
+
 ## 1.8.110
 
 Release Date: 2026-08-09

@@ -12242,4 +12242,126 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   <data name="TimeoutSeconds" xml:space="preserve">
     <value>Tempo limite (segundos)</value>
   </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>O VConnect é uma ferramenta de overlay e automação para lives construída em torno de um editor visual de nós. Ao conectá-lo, seus comandos podem acionar gatilhos do VConnect e enviar mensagens personalizadas para um grafo, e o que acontece no VConnect pode executar um comando aqui.</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>Ative o servidor WebSocket nas configurações de WebSocket do VConnect antes de conectar e informe abaixo a porta em que ele está atendendo.</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>Conectado a {0}</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>Falha ao conectar ao VConnect. Verifique se ele está em execução com o servidor WebSocket ativado.</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>O Mix It Up não conseguiu conectar ao VConnect na porta {0}. Verifique se o VConnect está em execução, se o servidor WebSocket está ativado e se esta porta corresponde à mostrada pelo VConnect.</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>Informe a porta em que o VConnect está atendendo, entre 1 e 65535.</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>O VConnect não respondeu a tempo.</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect não está conectado</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>Gatilho</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>Recurso</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>Canal</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>Argumentos</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>Um argumento por linha, enviado aos nós On WebSocket Receive que escutam este canal. Uma linha que seja um JSON válido por si só é enviada como esse valor, então 42 chega como número e true como booleano. Todo o resto é enviado como texto.</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>Caminho do arquivo de captura (opcional)</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>Deixe em branco para consultar o recurso sem a imagem de pré-visualização. Com um caminho definido, a pré-visualização é salva ali como PNG. O VConnect só gera pré-visualizações para recursos 3D, VRM e PNG.</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>É necessário selecionar um gatilho</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>É necessário informar um canal</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>É necessário selecionar um recurso</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>Enviar mensagem personalizada</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>Consultar recurso</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>Gatilho ativado</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>Gatilho finalizado</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>Recurso gerado</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>Recurso atingido</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>Recurso removido</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>Mensagem personalizada recebida</value>
+  </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>O RahiTuber é um aplicativo PNGTuber que anima um avatar em camadas a partir do seu microfone. Ao conectá-lo, seus comandos podem acionar os estados que você configurou no RahiTuber, do mesmo jeito que pressionar os atalhos deles.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Ative Control States via HTTP nas Preferences do RahiTuber, na aba Integration, e informe abaixo a porta em que ele está escutando.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Conectado a {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>O Mix It Up não conseguiu conectar ao RahiTuber na porta {0}. Verifique se o RahiTuber está em execução, se Control States via HTTP está ativado e se esta porta corresponde à que o RahiTuber está escutando.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Informe a porta em que o RahiTuber está escutando, entre 1 e 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber não está conectado</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>O RahiTuber não aceitou a mudança de estado.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>Nome ou índice do estado</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Informe o nome do estado exatamente como aparece no RahiTuber, ou a posição dele na lista de estados contando a partir de 0. Para um estado do tipo Toggle ou Permanent, basta acionar. Um estado do tipo While Held permanece ativo até que uma ação Parar estado correspondente seja executada.</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>É necessário informar um nome ou índice de estado</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>Acionar estado</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>Parar estado</value>
+  </data>
 </root>

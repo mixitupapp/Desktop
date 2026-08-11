@@ -211,6 +211,7 @@ namespace MixItUp.WPF.Branding
         public static readonly Brand SAMMI = new Brand("sammi", "SAMMI", "https://sammi.solutions", "#FF4081", "#C2185B", "#311B92");
         public static readonly Brand PolyPop = new Brand("polypop", "PolyPop", "https://polypop.live", "#A030F2", "#7C2BC4", "#1A0E2E");
         public static readonly Brand PixelChat = new Brand("pixel-chat", "PixelChat", "https://pixelchat.tv", "#FF5252", "#D32F2F", "#1A1A1A");
+        public static readonly Brand VConnect = new Brand("vconnect", "VConnect", "https://github.com/Remasuri/VConnect_API", "#D25FD3", "#F79AF8", "#1A1A1A");
         public static readonly Brand LumiaStream = new Brand("lumia-stream", "Lumia Stream", "https://lumiastream.com", "#7C4DFF", "#5E35B1", "#1A1A1A");
         public static readonly Brand Voicemod = new Brand("voicemod", "Voicemod", "https://www.voicemod.net", "#FF3D71", "#C9184A", "#1A1A1A");
         public static readonly Brand Pulsoid = new Brand("pulsoid", "Pulsoid", "https://pulsoid.net", "#FF1744", "#D50000", "#1A1A1A");
@@ -224,6 +225,7 @@ namespace MixItUp.WPF.Branding
         public static readonly Brand MtionStudio = new Brand("mtion", "mtion studio", "https://mtionstudio.com", "#7C4DFF", "#5E35B1", "#1A1A1A");
         public static readonly Brand StreamAvatars = new Brand("stream-avatars", "Stream Avatars", "https://www.streamavatars.com", "#FF9800", "#F57C00", "#1A1A1A");
         public static readonly Brand Veadotube = new Brand("veadotube", "veadotube", "https://veado.tube", "#3F0000", "#FFFFFF", "#FFFFFF");
+        public static readonly Brand RahiTuber = new Brand("rahituber", "RahiTuber", "https://rahisaurus.itch.io/rahituber", "#DB3AF3", "#A800BB", "#430047");
 
         // Text-to-speech
         public static readonly Brand AWS = new Brand("aws", "AWS", "https://aws.amazon.com/polly/", "#FF9900", "#EC7211", "#232F3E");
