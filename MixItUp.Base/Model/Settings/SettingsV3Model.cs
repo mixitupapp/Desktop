@@ -640,6 +640,12 @@ namespace MixItUp.Base.Model.Settings
         public string VeadotubeManualAddress { get; set; }
 
         [DataMember]
+        public bool VConnectEnabled { get; set; }
+
+        [DataMember]
+        public int VConnectPortNumber { get; set; } = VConnectService.DefaultPortNumber;
+
+        [DataMember]
         public int TITSPortNumber { get; set; } = TITSService.DefaultPortNumber;
 
         [DataMember]

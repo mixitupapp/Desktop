@@ -113,6 +113,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Pally;
                 }
+                else if (eventNumber >= 1180 && eventNumber < 1190)
+                {
+                    return Resources.VConnect;
+                }
                 else if (eventNumber >= 1200 && eventNumber < 1300)
                 {
                     return Resources.OBSStudio;
@@ -313,6 +317,16 @@ namespace MixItUp.Base.ViewModel.MainControls
             veadotubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeadotubeAvatarStateChanged));
             veadotubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeadotubePushToTalkChanged));
             commandGroups.Add(veadotubeCommands);
+
+            // No brand mark has been staged for VConnect yet, so this group falls back to an icon.
+            EventCommandGroupViewModel vconnectCommands = new EventCommandGroupViewModel(Resources.VConnect, iconName: "hub");
+            vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectTriggerActivated));
+            vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectTriggerEnded));
+            vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectAssetSpawned));
+            vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectAssetHit));
+            vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectAssetDespawned));
+            vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectMessageReceived));
+            commandGroups.Add(vconnectCommands);
 
             EventCommandGroupViewModel patreonCommands = new EventCommandGroupViewModel(Resources.Patreon, brandId: "patreon");
             patreonCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.PatreonSubscribed));

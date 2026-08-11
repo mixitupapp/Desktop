@@ -12241,4 +12241,85 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="TimeoutSeconds" xml:space="preserve">
     <value>タイムアウト (秒)</value>
   </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect は、ビジュアルなノードエディターを中心に構築された配信用オーバーレイおよび自動化ツールです。接続すると、コマンドから VConnect のトリガーを実行したりカスタムメッセージをグラフに送信したりでき、VConnect 側の出来事で Mix It Up のコマンドを実行できます。</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>接続する前に、VConnect の WebSocket 設定で WebSocket サーバーを有効にし、そこに表示されているポート番号を下に入力してください。</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>{0} に接続しました</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>VConnect に接続できませんでした。WebSocket サーバーを有効にした状態で実行されていることを確認してください。</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up はポート {0} で VConnect に接続できませんでした。VConnect が実行中で WebSocket サーバーが有効になっていること、このポートが VConnect 側と一致していることを確認してください。</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>VConnect が使用しているポート番号を 1 から 65535 の範囲で入力してください。</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect から時間内に応答がありませんでした。</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect が接続されていません</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>トリガー</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>アセット</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>チャンネル</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>引数</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>1 行につき 1 つの引数を、このチャンネルを待ち受けている On WebSocket Receive ノードへ送信します。その行だけで有効な JSON になる場合はその値として送信されるため、42 は数値、true は真偽値として届きます。それ以外はテキストとして送信されます。</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>スクリーンショットの保存先（任意）</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>空欄のままにすると、プレビュー画像なしでアセットを取得します。パスを指定すると、プレビューが PNG としてそこに保存されます。VConnect がプレビューを生成できるのは 3D、VRM、PNG のアセットのみです。</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>トリガーを選択してください</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>チャンネルを入力してください</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>アセットを選択してください</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>カスタムメッセージを送信</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>アセットを取得</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>トリガー開始</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>トリガー終了</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>アセット出現</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>アセット命中</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>アセット消滅</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>カスタムメッセージ受信</value>
+  </data>
 </root>

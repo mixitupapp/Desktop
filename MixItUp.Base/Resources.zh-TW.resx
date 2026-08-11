@@ -12272,4 +12272,85 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="TimeoutSeconds" xml:space="preserve">
     <value>逾時（秒）</value>
   </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect 是一套以視覺化節點編輯器為核心的直播疊層與自動化工具。連接後，你的指令可以觸發 VConnect 的觸發器並將自訂訊息送入節點圖，VConnect 中發生的事件也能在這裡執行指令。</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>連接前請在 VConnect 的 WebSocket 設定中開啟 WebSocket 伺服器，並在下方填入它所使用的連接埠。</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>已連接到 {0}</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>無法連接到 VConnect。請確認它正在執行且已開啟 WebSocket 伺服器。</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up 無法透過連接埠 {0} 連接到 VConnect。請確認 VConnect 正在執行、WebSocket 伺服器已開啟，且此連接埠與 VConnect 顯示的一致。</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>請輸入 VConnect 所使用的連接埠，範圍為 1 到 65535。</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect 未在時限內回應。</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect 未連接</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>觸發器</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>素材</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>頻道</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>引數</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>每行一個引數，送往在此頻道上等待的 On WebSocket Receive 節點。若某一行本身就是有效的 JSON，就會以該值送出，因此 42 會以數字送達，true 會以布林值送達。其餘內容一律以文字送出。</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>螢幕擷取檔案路徑（選填）</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>留空即可在不取得預覽圖的情況下查詢素材。填入路徑後，預覽圖會以 PNG 儲存於該處。VConnect 僅能為 3D、VRM 與 PNG 素材產生預覽圖。</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>必須選擇一個觸發器</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>必須輸入頻道</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>必須選擇一個素材</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>傳送自訂訊息</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>查詢素材</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>觸發器已啟動</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>觸發器已結束</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>素材已出現</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>素材被擊中</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>素材已消失</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>已收到自訂訊息</value>
+  </data>
 </root>

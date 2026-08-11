@@ -10950,4 +10950,85 @@ Dies kann gemacht werden, indem Sie auf der Seite Channel Points in Mix It Up au
   <data name="TimeoutSeconds" xml:space="preserve">
     <value>Zeitlimit (Sekunden)</value>
   </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect ist ein Overlay- und Automatisierungswerkzeug für Streams, das auf einem visuellen Node-Editor aufbaut. Durch die Verbindung können Ihre Befehle VConnect-Trigger auslösen und eigene Nachrichten an einen Graphen senden, und Vorgänge in VConnect können hier einen Befehl ausführen.</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>Aktivieren Sie den WebSocket-Server in den WebSocket-Einstellungen von VConnect, bevor Sie sich verbinden, und tragen Sie unten den dort angezeigten Port ein.</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>Verbunden mit {0}</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>Verbindung zu VConnect fehlgeschlagen. Stellen Sie sicher, dass es läuft und sein WebSocket-Server aktiviert ist.</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up konnte sich nicht über Port {0} mit VConnect verbinden. Stellen Sie sicher, dass VConnect läuft, sein WebSocket-Server aktiviert ist und dieser Port mit dem dort angezeigten übereinstimmt.</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>Geben Sie den Port an, auf dem VConnect bereitsteht, zwischen 1 und 65535.</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect hat nicht rechtzeitig geantwortet.</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect ist nicht verbunden</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>Trigger</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>Kanal</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>Argumente</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>Ein Argument pro Zeile, gesendet an die On WebSocket Receive-Knoten, die diesen Kanal abhören. Eine Zeile, die für sich genommen gültiges JSON ist, wird als dieser Wert gesendet, sodass 42 als Zahl und true als Schalter ankommt. Alles andere wird als Text gesendet.</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>Pfad für Screenshot-Datei (optional)</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>Lassen Sie dies leer, um das Asset ohne Vorschaubild abzurufen. Ist ein Pfad angegeben, wird die Vorschau dort als PNG gespeichert. VConnect erzeugt Vorschauen nur für 3D-, VRM- und PNG-Assets.</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>Es muss ein Trigger ausgewählt werden</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>Es muss ein Kanal angegeben werden</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>Es muss ein Asset ausgewählt werden</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>Eigene Nachricht senden</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>Asset abrufen</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>Trigger aktiviert</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>Trigger beendet</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>Asset erzeugt</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>Asset getroffen</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>Asset entfernt</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>Eigene Nachricht empfangen</value>
+  </data>
 </root>

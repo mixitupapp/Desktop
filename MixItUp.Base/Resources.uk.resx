@@ -12272,4 +12272,85 @@ print(run())</value>
   <data name="TimeoutSeconds" xml:space="preserve">
     <value>Час очікування (сек.)</value>
   </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect є інструментом оверлеїв та автоматизації для трансляцій, побудованим навколо візуального редактора вузлів. Після підключення ваші команди можуть запускати тригери VConnect і надсилати власні повідомлення до графа, а те, що відбувається у VConnect, може запускати команди тут.</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>Перед підключенням увімкніть сервер WebSocket у налаштуваннях WebSocket програми VConnect та вкажіть нижче порт, на якому він працює.</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>Підключено до {0}</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>Не вдалося підключитися до VConnect. Переконайтеся, що програму запущено та її сервер WebSocket увімкнено.</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up не вдалося підключитися до VConnect через порт {0}. Переконайтеся, що VConnect запущено, його сервер WebSocket увімкнено, а цей порт збігається із зазначеним у VConnect.</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>Укажіть порт, на якому працює VConnect, у діапазоні від 1 до 65535.</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect не відповів вчасно.</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect не підключено</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>Тригер</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>Ресурс</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>Канал</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>Аргументи</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>По одному аргументу в рядку, надсилаються вузлам On WebSocket Receive, що слухають цей канал. Рядок, який сам по собі є коректним JSON, надсилається як це значення, тож 42 надходить числом, а true логічним значенням. Усе інше надсилається як текст.</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>Шлях до файлу знімка (необов'язково)</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>Залиште порожнім, щоб отримати ресурс без зображення попереднього перегляду. Якщо шлях указано, попередній перегляд зберігається за ним у форматі PNG. VConnect створює попередній перегляд лише для ресурсів 3D, VRM і PNG.</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>Потрібно вибрати тригер</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>Потрібно вказати канал</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>Потрібно вибрати ресурс</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>Надіслати власне повідомлення</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>Отримати ресурс</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>Тригер запущено</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>Тригер завершено</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>Ресурс з'явився</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>Влучання в ресурс</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>Ресурс зник</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>Отримано власне повідомлення</value>
+  </data>
 </root>

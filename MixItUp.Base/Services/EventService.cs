@@ -252,6 +252,13 @@ namespace MixItUp.Base.Services
         VeadotubeAvatarStateChanged = 1170,
         VeadotubePushToTalkChanged = 1171,
 
+        VConnectTriggerActivated = 1180,
+        VConnectTriggerEnded = 1181,
+        VConnectAssetSpawned = 1182,
+        VConnectAssetHit = 1183,
+        VConnectAssetDespawned = 1184,
+        VConnectMessageReceived = 1185,
+
         // Streaming Software = 1200
 
         OBSStudioStreamStarted = 1200,

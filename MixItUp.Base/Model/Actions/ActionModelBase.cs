@@ -70,6 +70,7 @@ namespace MixItUp.Base.Model.Actions
         Veadotube,
         PlatformMessage,
         UserLookup,
+        VConnect,
     }
 
     [DataContract]

@@ -532,6 +532,49 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["veadotubepushtotalk"] = "True";
                     break;
 
+                // VConnect
+                case EventTypeEnum.VConnectTriggerActivated:
+                    specialIdentifiers["vconnecttriggeruid"] = "a0ce3831-3c3e-4474-b4e4-19ab98dc73dd";
+                    specialIdentifiers["vconnecttriggername"] = "New Follow";
+                    break;
+                case EventTypeEnum.VConnectTriggerEnded:
+                    specialIdentifiers["vconnecttriggeruid"] = "a0ce3831-3c3e-4474-b4e4-19ab98dc73dd";
+                    specialIdentifiers["vconnecttriggername"] = "New Follow";
+                    specialIdentifiers["vconnecttriggersuccess"] = "True";
+                    specialIdentifiers["vconnecttriggererror"] = string.Empty;
+                    break;
+                case EventTypeEnum.VConnectAssetSpawned:
+                case EventTypeEnum.VConnectAssetDespawned:
+                    specialIdentifiers["vconnectassetuid"] = "d1a7f8d2-1e2f-4b3c-9a4d-5e6f7a8b9c0d";
+                    specialIdentifiers["vconnectassetname"] = "banana";
+                    specialIdentifiers["vconnecttriggeruid"] = "ebb7170b-40e6-4832-8b05-bc6c809d79f1";
+                    specialIdentifiers["vconnecttriggernodeuid"] = "3fa2c1d4-5b6e-4f70-8192-a3b4c5d6e7f8";
+                    break;
+                case EventTypeEnum.VConnectAssetHit:
+                    specialIdentifiers["vconnectassetuid"] = "d1a7f8d2-1e2f-4b3c-9a4d-5e6f7a8b9c0d";
+                    specialIdentifiers["vconnectassetname"] = "banana";
+                    specialIdentifiers["vconnecttriggeruid"] = "ebb7170b-40e6-4832-8b05-bc6c809d79f1";
+                    specialIdentifiers["vconnecttriggernodeuid"] = "3fa2c1d4-5b6e-4f70-8192-a3b4c5d6e7f8";
+                    specialIdentifiers["vconnecthitpointx"] = "0.1";
+                    specialIdentifiers["vconnecthitpointy"] = "0.4";
+                    specialIdentifiers["vconnecthitpointz"] = "0";
+                    specialIdentifiers["vconnecthitnormalx"] = "0";
+                    specialIdentifiers["vconnecthitnormaly"] = "1";
+                    specialIdentifiers["vconnecthitnormalz"] = "0";
+                    specialIdentifiers["vconnecthitvelocityx"] = "0.33";
+                    specialIdentifiers["vconnecthitvelocityy"] = "0.93";
+                    specialIdentifiers["vconnecthitvelocityz"] = "0.19";
+                    specialIdentifiers["vconnecthitforce"] = "24.5";
+                    break;
+                case EventTypeEnum.VConnectMessageReceived:
+                    specialIdentifiers["vconnectmessagechannel"] = "my-event";
+                    specialIdentifiers["vconnectmessagedata"] = "[\"arg1\",42,true]";
+                    specialIdentifiers["vconnectmessageargumentcount"] = "3";
+                    specialIdentifiers["vconnectmessageargument1"] = "arg1";
+                    specialIdentifiers["vconnectmessageargument2"] = "42";
+                    specialIdentifiers["vconnectmessageargument3"] = "True";
+                    break;
+
                 // OBS Studio
                 case EventTypeEnum.OBSStudioRecordingStopped:
                     specialIdentifiers["obsrecordingfilepath"] = "C:\\Videos\\2024-01-01 12-00-00.mkv";

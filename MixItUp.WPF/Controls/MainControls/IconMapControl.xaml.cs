@@ -236,7 +236,7 @@ namespace MixItUp.WPF.Controls.MainControls
             { "PlaylistPlus", "Sub Action Container" },
             { "PlayPause", "Music Player" },
             { "Plus", "Command Editor, Sub Action Container" },
-            { "Refresh", "Discord Action Editor, Missing Files Check, Mtion Studio Action Editor, TITSAction Editor, VTube Studio Action Editor" },
+            { "Refresh", "Discord Action Editor, Missing Files Check, Mtion Studio Action Editor, TITSAction Editor, VConnect Action Editor, VTube Studio Action Editor" },
             { "ReorderHorizontal", "Music Player" },
             { "RepeatOff", "Music Player" },
             { "RepeatVariant", "Music Player" },
