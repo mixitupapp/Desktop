@@ -9,10 +9,7 @@ namespace MixItUp.WPF.Controls.Services
     /// </summary>
     public partial class VConnectServiceControl : ServiceControlBase
     {
-        // No brand mark has been staged for VConnect yet, so the header falls back to an icon.
-        private static readonly Feature VConnectFeature = new Feature("vconnect", "hub");
-
-        public override Feature Feature { get { return VConnectFeature; } }
+        public override Brand Brand { get { return Brands.VConnect; } }
 
         private VConnectServiceControlViewModel viewModel;
 
