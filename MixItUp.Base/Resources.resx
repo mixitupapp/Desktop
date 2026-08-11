@@ -12814,4 +12814,45 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="VConnectMessageReceived" xml:space="preserve">
     <value>Custom Message Received</value>
   </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber is a PNGTuber app that animates a layered avatar from your microphone. Connecting it lets your commands trigger the states you have set up in RahiTuber, the same as pressing their hotkeys.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Turn on Control States via HTTP in RahiTuber's Preferences, on the Integration tab, then enter the port it is listening on below.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Connected to {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up could not connect to RahiTuber on port {0}. Make sure RahiTuber is running, that Control States via HTTP is turned on, and that this port matches the one RahiTuber is listening on.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Enter the port number RahiTuber is listening on, between 1 and 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber is not connected</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber did not accept the state change.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>State Name or Index</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Enter the state's name exactly as it appears in RahiTuber, or its position in the states list counting from 0. Triggering is all a Toggle or Permanent state needs. A state set to While Held stays on until a Stop State action for it runs.</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>A state name or index must be entered</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>Trigger State</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>Stop State</value>
+  </data>
 </root>

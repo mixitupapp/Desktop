@@ -133,6 +133,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new VTubeStudioService());
             ServiceManager.Add(new VeadotubeService());
             ServiceManager.Add(new VConnectService());
+            ServiceManager.Add(new RahiTuberService());
             ServiceManager.Add(new CrowdControlService());
             ServiceManager.Add(new SAMMIService());
             ServiceManager.Add(new TITSService());
@@ -390,6 +391,7 @@ namespace MixItUp.Base
                 if (ChannelSession.Settings.MtionStudioEnabled) { externalServiceToConnect[ServiceManager.Get<MtionStudioService>()] = null; }
                 if (ChannelSession.Settings.VeadotubeEnabled) { externalServiceToConnect[ServiceManager.Get<VeadotubeService>()] = null; }
                 if (ChannelSession.Settings.VConnectEnabled) { externalServiceToConnect[ServiceManager.Get<VConnectService>()] = null; }
+                if (ChannelSession.Settings.RahiTuberEnabled) { externalServiceToConnect[ServiceManager.Get<RahiTuberService>()] = null; }
                 if (ChannelSession.Settings.EnableDeveloperAPI) { externalServiceToConnect[ServiceManager.Get<IDeveloperAPIService>()] = null; }
                 if (ChannelSession.Settings.EnableMCPServer) { externalServiceToConnect[ServiceManager.Get<IMCPService>()] = null; }
 

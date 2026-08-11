@@ -12323,4 +12323,45 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="VConnectMessageReceived" xml:space="preserve">
     <value>Eigen bericht ontvangen</value>
   </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber is een PNGTuber-app die een avatar in lagen laat bewegen op basis van je microfoon. Door verbinding te maken kunnen je opdrachten de states uitvoeren die je in RahiTuber hebt ingesteld, net alsof je hun sneltoets indrukt.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Schakel Control States via HTTP in bij de Preferences van RahiTuber, op het tabblad Integration, en vul hieronder de poort in waarop het luistert.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Verbonden met {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up kon geen verbinding maken met RahiTuber op poort {0}. Zorg ervoor dat RahiTuber draait, dat Control States via HTTP is ingeschakeld en dat deze poort overeenkomt met die waarop RahiTuber luistert.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Vul de poort in waarop RahiTuber luistert, tussen 1 en 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber is niet verbonden</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber heeft de statewijziging niet geaccepteerd.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>Statenaam of index</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Vul de naam van de state exact in zoals die in RahiTuber staat, of de positie in de statelijst geteld vanaf 0. Voor een state van het type Toggle of Permanent is uitvoeren voldoende. Een state van het type While Held blijft actief totdat er een actie State stoppen voor wordt uitgevoerd.</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>Er moet een statenaam of index worden ingevuld</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>State uitvoeren</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>State stoppen</value>
+  </data>
 </root>

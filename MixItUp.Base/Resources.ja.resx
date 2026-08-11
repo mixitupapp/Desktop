@@ -12322,4 +12322,45 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="VConnectMessageReceived" xml:space="preserve">
     <value>カスタムメッセージ受信</value>
   </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber は、マイクの音声にあわせてレイヤー構成のアバターを動かす PNGTuber アプリです。接続すると、RahiTuber で設定したステートをコマンドから実行でき、ホットキーを押したときと同じ動作になります。</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>接続する前に、RahiTuber の Preferences にある Integration タブで Control States via HTTP を有効にし、そこで指定したポート番号を下に入力してください。</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>{0} に接続しました</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up はポート {0} で RahiTuber に接続できませんでした。RahiTuber が実行中で Control States via HTTP が有効になっていること、このポートが RahiTuber 側と一致していることを確認してください。</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>RahiTuber が使用しているポート番号を 1 から 65535 の範囲で入力してください。</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber が接続されていません</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber がステートの変更を受け付けませんでした。</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>ステート名またはインデックス</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>RahiTuber に表示されているとおりのステート名か、ステート一覧での位置を 0 から数えた番号を入力してください。Toggle と Permanent のステートは実行するだけで動作します。While Held のステートは、対応する「ステートを停止」アクションが実行されるまで有効なままになります。</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>ステート名またはインデックスを入力してください</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>ステートを実行</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>ステートを停止</value>
+  </data>
 </root>

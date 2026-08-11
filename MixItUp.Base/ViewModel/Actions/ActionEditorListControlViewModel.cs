@@ -70,6 +70,7 @@ namespace MixItUp.Base.ViewModel.Actions
                         case ActionTypeEnum.PlatformMessage: editorViewModel = new PlatformMessageActionEditorControlViewModel(); break;
                         case ActionTypeEnum.PixelChat: editorViewModel = new PixelChatActionEditorControlViewModel(); break;
                         case ActionTypeEnum.PolyPop: editorViewModel = new PolyPopActionEditorControlViewModel(); break;
+                        case ActionTypeEnum.RahiTuber: editorViewModel = new RahiTuberActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Random: editorViewModel = new RandomActionEditorControlViewModel(); break;
                         case ActionTypeEnum.Repeat: editorViewModel = new RepeatActionEditorControlViewModel(); break;
                         case ActionTypeEnum.SAMMI: editorViewModel = new SAMMIActionEditorControlViewModel(); break;
@@ -256,6 +257,7 @@ namespace MixItUp.Base.ViewModel.Actions
                 case ActionTypeEnum.PlatformMessage: return new PlatformMessageActionEditorControlViewModel((PlatformMessageActionModel)action);
                 case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControlViewModel((PixelChatActionModel)action);
                 case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControlViewModel((PolyPopActionModel)action);
+                case ActionTypeEnum.RahiTuber: return new RahiTuberActionEditorControlViewModel((RahiTuberActionModel)action);
                 case ActionTypeEnum.Random: return new RandomActionEditorControlViewModel((RandomActionModel)action);
                 case ActionTypeEnum.Repeat: return new RepeatActionEditorControlViewModel((RepeatActionModel)action);
                 case ActionTypeEnum.SAMMI: return new SAMMIActionEditorControlViewModel((SAMMIActionModel)action);

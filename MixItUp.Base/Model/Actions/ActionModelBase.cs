@@ -71,6 +71,7 @@ namespace MixItUp.Base.Model.Actions
         PlatformMessage,
         UserLookup,
         VConnect,
+        RahiTuber,
     }
 
     [DataContract]

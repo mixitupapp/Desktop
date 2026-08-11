@@ -117,6 +117,7 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.Overlay: return new OverlayActionEditorControl();
                 case ActionTypeEnum.PixelChat: return new PixelChatActionEditorControl();
                 case ActionTypeEnum.PolyPop: return new PolyPopActionEditorControl();
+                case ActionTypeEnum.RahiTuber: return new RahiTuberActionEditorControl();
                 case ActionTypeEnum.Random: return new RandomActionEditorControl();
                 case ActionTypeEnum.Repeat: return new RepeatActionEditorControl();
                 case ActionTypeEnum.SAMMI: return new SAMMIActionEditorControl();

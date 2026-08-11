@@ -33302,5 +33302,122 @@ namespace MixItUp.Base {
                 return ResourceManager.GetString("VConnectMessageReceived", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber.
+        /// </summary>
+        public static string RahiTuber {
+            get {
+                return ResourceManager.GetString("RahiTuber", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber is a PNGTuber app that animates a layered avatar from your microphone. Connecting it lets your commands trigger the states you have set up in RahiTuber, the same as pressing their hotkeys..
+        /// </summary>
+        public static string RahiTuberInfo {
+            get {
+                return ResourceManager.GetString("RahiTuberInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on Control States via HTTP in RahiTuber&apos;s Preferences, on the Integration tab, then enter the port it is listening on below..
+        /// </summary>
+        public static string RahiTuberHTTPControlRequired {
+            get {
+                return ResourceManager.GetString("RahiTuberHTTPControlRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Connected to {0}.
+        /// </summary>
+        public static string RahiTuberConnectedTo {
+            get {
+                return ResourceManager.GetString("RahiTuberConnectedTo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mix It Up could not connect to RahiTuber on port {0}. Make sure RahiTuber is running, that Control States via HTTP is turned on, and that this port matches the one RahiTuber is listening on..
+        /// </summary>
+        public static string RahiTuberConnectionFailedToPort {
+            get {
+                return ResourceManager.GetString("RahiTuberConnectionFailedToPort", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the port number RahiTuber is listening on, between 1 and 65535..
+        /// </summary>
+        public static string RahiTuberPortNumberInvalid {
+            get {
+                return ResourceManager.GetString("RahiTuberPortNumberInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber is not connected.
+        /// </summary>
+        public static string RahiTuberNotConnected {
+            get {
+                return ResourceManager.GetString("RahiTuberNotConnected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RahiTuber did not accept the state change..
+        /// </summary>
+        public static string RahiTuberStateRequestFailed {
+            get {
+                return ResourceManager.GetString("RahiTuberStateRequestFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to State Name or Index.
+        /// </summary>
+        public static string RahiTuberState {
+            get {
+                return ResourceManager.GetString("RahiTuberState", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the state&apos;s name exactly as it appears in RahiTuber, or its position in the states list counting from 0. Triggering is all a Toggle or Permanent state needs. A state set to While Held stays on until a Stop State action for it runs..
+        /// </summary>
+        public static string RahiTuberStateInfo {
+            get {
+                return ResourceManager.GetString("RahiTuberStateInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to A state name or index must be entered.
+        /// </summary>
+        public static string RahiTuberActionMissingState {
+            get {
+                return ResourceManager.GetString("RahiTuberActionMissingState", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger State.
+        /// </summary>
+        public static string TriggerState {
+            get {
+                return ResourceManager.GetString("TriggerState", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Stop State.
+        /// </summary>
+        public static string StopState {
+            get {
+                return ResourceManager.GetString("StopState", resourceCulture);
+            }
+        }
     }
 }

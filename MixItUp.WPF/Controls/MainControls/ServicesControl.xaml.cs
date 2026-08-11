@@ -46,6 +46,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new PixelChatServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PolyPopServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PulsoidServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new RahiTuberServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new RainmakerServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new SAMMIServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new StreamAvatarsServiceControl()));

@@ -12358,4 +12358,45 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="VConnectMessageReceived" xml:space="preserve">
     <value>Получено своё сообщение</value>
   </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber является приложением PNGTuber, которое анимирует многослойный аватар по звуку с вашего микрофона. После подключения ваши команды могут запускать состояния, настроенные в RahiTuber, так же как нажатие их горячих клавиш.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Перед подключением включите параметр Control States via HTTP в окне Preferences программы RahiTuber на вкладке Integration и укажите ниже порт, который там задан.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Подключено к {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up не удалось подключиться к RahiTuber через порт {0}. Убедитесь, что RahiTuber запущен, параметр Control States via HTTP включён, а этот порт совпадает с указанным в RahiTuber.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Укажите порт, который прослушивает RahiTuber, в диапазоне от 1 до 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber не подключён</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber не принял смену состояния.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>Имя или индекс состояния</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Укажите имя состояния в точности так, как оно отображается в RahiTuber, либо его позицию в списке состояний начиная с 0. Состоянию типа Toggle или Permanent достаточно запуска. Состояние типа While Held остаётся активным, пока для него не будет выполнено действие «Остановить состояние».</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>Необходимо указать имя или индекс состояния</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>Запустить состояние</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>Остановить состояние</value>
+  </data>
 </root>

@@ -12353,4 +12353,45 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="VConnectMessageReceived" xml:space="preserve">
     <value>已收到自訂訊息</value>
   </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber 是一套 PNGTuber 應用程式，會依據你的麥克風聲音讓分層的虛擬形象動起來。連接後，你的指令可以觸發你在 RahiTuber 中設定的狀態，效果與按下對應的快速鍵相同。</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>連接前請在 RahiTuber 的 Preferences 中開啟 Integration 分頁的 Control States via HTTP，並在下方填入它所使用的連接埠。</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>已連接到 {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up 無法透過連接埠 {0} 連接到 RahiTuber。請確認 RahiTuber 正在執行、Control States via HTTP 已開啟，且此連接埠與 RahiTuber 監聽的一致。</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>請輸入 RahiTuber 監聽的連接埠，範圍為 1 到 65535。</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber 未連接</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber 未接受這次的狀態變更。</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>狀態名稱或索引</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>請輸入狀態在 RahiTuber 中顯示的名稱，或它在狀態清單中的位置（從 0 開始計算）。Toggle 與 Permanent 類型的狀態只要觸發即可。While Held 類型的狀態會持續啟用，直到執行對應的「停止狀態」動作為止。</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>必須輸入狀態名稱或索引</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>觸發狀態</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>停止狀態</value>
+  </data>
 </root>

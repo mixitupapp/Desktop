@@ -12324,4 +12324,45 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="VConnectMessageReceived" xml:space="preserve">
     <value>Mensaje personalizado recibido</value>
   </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber es una aplicación PNGTuber que anima un avatar por capas a partir de tu micrófono. Al conectarlo, tus comandos pueden activar los estados que hayas configurado en RahiTuber, igual que si pulsaras sus atajos de teclado.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Activa Control States via HTTP en las Preferences de RahiTuber, en la pestaña Integration, e introduce abajo el puerto en el que está escuchando.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Conectado a {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up no pudo conectar con RahiTuber en el puerto {0}. Asegúrate de que RahiTuber está en ejecución, de que Control States via HTTP está activado y de que este puerto coincide con el que RahiTuber está escuchando.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Introduce el puerto en el que está escuchando RahiTuber, entre 1 y 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber no está conectado</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber no aceptó el cambio de estado.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>Nombre o índice del estado</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Introduce el nombre del estado tal y como aparece en RahiTuber, o su posición en la lista de estados empezando por 0. Para un estado de tipo Toggle o Permanent basta con activarlo. Un estado de tipo While Held permanece activo hasta que se ejecute una acción Detener estado para él.</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>Debe introducirse un nombre o índice de estado</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>Activar estado</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>Detener estado</value>
+  </data>
 </root>

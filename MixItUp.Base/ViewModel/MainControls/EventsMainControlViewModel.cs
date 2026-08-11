@@ -318,8 +318,7 @@ namespace MixItUp.Base.ViewModel.MainControls
             veadotubeCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeadotubePushToTalkChanged));
             commandGroups.Add(veadotubeCommands);
 
-            // No brand mark has been staged for VConnect yet, so this group falls back to an icon.
-            EventCommandGroupViewModel vconnectCommands = new EventCommandGroupViewModel(Resources.VConnect, iconName: "hub");
+            EventCommandGroupViewModel vconnectCommands = new EventCommandGroupViewModel(Resources.VConnect, brandId: "vconnect");
             vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectTriggerActivated));
             vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectTriggerEnded));
             vconnectCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VConnectAssetSpawned));
