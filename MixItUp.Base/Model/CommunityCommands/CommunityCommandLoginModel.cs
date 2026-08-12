@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Web;
+﻿using MixItUp.Base.Model.Web;
 using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
@@ -22,7 +22,8 @@ namespace MixItUp.Base.Model.Store
         public string KickAccessToken { get; set; }
         [DataMember]
         public string VeloraAccessToken { get; set; }
-
+        [DataMember]
+        public string VPZoneAccessToken { get; set; }
     }
 
     [DataContract]

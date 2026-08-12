@@ -137,6 +137,10 @@ namespace MixItUp.Base.ViewModel.MainControls
                 {
                     return Resources.Velora;
                 }
+                else if (eventNumber >= 800 && eventNumber < 900)
+                {
+                    return Resources.VPZone;
+                }
                 else
                 {
                     return Resources.Generic;
@@ -269,6 +273,22 @@ namespace MixItUp.Base.ViewModel.MainControls
             veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelPointsRedeemed));
             veloraCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VeloraChannelCheered));
             commandGroups.Add(veloraCommands);
+
+            EventCommandGroupViewModel vpzoneCommands = new EventCommandGroupViewModel(Resources.VPZone, brandId: "vpzone");
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelStreamStart));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelStreamStop));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelUpdated));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelFollowed));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelRaided));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelSubscribed));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelResubscribed));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelSubscriptionGifted));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelMassSubscriptionsGifted));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelPointsRedeemed));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelCheered));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelClipCreated));
+            vpzoneCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.VPZoneChannelShoutout));
+            commandGroups.Add(vpzoneCommands);
 
             EventCommandGroupViewModel chatCommands = new EventCommandGroupViewModel(Resources.Chat, iconName: "forum");
             chatCommands.Commands.Add(new EventCommandItemViewModel(EventTypeEnum.ChatUserEntranceCommand));

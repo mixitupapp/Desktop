@@ -1,4 +1,4 @@
-using MixItUp.Base;
+﻿using MixItUp.Base;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Services;
@@ -143,6 +143,7 @@ namespace MixItUp.WPF
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.KickChannelPoints, new KickChannelPointsControl(), "https://wiki.mixitup.bot/commands/kick-channel-point-commands", brand: Brands.Kick);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.KickKicks, new KickKicksControl(), "https://wiki.mixitup.bot/commands/kick-kicks-commands", brand: Brands.Kick);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.VeloraChannelPoints, new VeloraChannelPointsControl(), "https://wiki.mixitup.bot/en/platforms/velora/channel-points", brand: Brands.Velora);
+            await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.VPZoneChannelPoints, new VPZoneChannelPointsControl(), "https://wiki.mixitup.bot/en/platforms/vpzone/channel-points", brand: Brands.VPZone);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.StreamlootsCards, new StreamlootsCardsControl(), "https://wiki.mixitup.bot/commands/streamloots-card-commands", brand: Brands.Streamloots);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.CrowdControl, new CrowdControlControl(), "https://wiki.mixitup.bot/commands/crowd-control-commands", brand: Brands.CrowdControl);
             await this.MainMenu.AddMenuItem(MixItUp.Base.Resources.StreamPass, new StreamPassControl(), "https://wiki.mixitup.bot/consumables/stream-pass", feature: Features.StreamPass);

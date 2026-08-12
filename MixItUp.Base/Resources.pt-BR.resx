@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12363,5 +12363,160 @@ Isto pode ser feito clicando em Criar recompensa de pontos de canal na página P
   </data>
   <data name="StopState" xml:space="preserve">
     <value>Parar estado</value>
+  </data>
+  <data name="VPZone" xml:space="preserve">
+    <value>VPZone</value>
+  </data>
+  <data name="LogInWithVPZone" xml:space="preserve">
+    <value>Iniciar sessão com o VPZone</value>
+  </data>
+  <data name="LogOutOfVPZone" xml:space="preserve">
+    <value>Sair do VPZone</value>
+  </data>
+  <data name="VPZoneChannelStreamStart" xml:space="preserve">
+    <value>VPZone Channel Stream Start</value>
+  </data>
+  <data name="VPZoneChannelStreamStop" xml:space="preserve">
+    <value>VPZone Channel Stream Stop</value>
+  </data>
+  <data name="VPZoneChannelUpdated" xml:space="preserve">
+    <value>Canal VPZone Atualizado</value>
+  </data>
+  <data name="VPZoneChannelFollowed" xml:space="preserve">
+    <value>VPZone Channel Seguido</value>
+  </data>
+  <data name="VPZoneChannelSubscribed" xml:space="preserve">
+    <value>Canal VPZone Inscrito</value>
+  </data>
+  <data name="VPZoneChannelResubscribed" xml:space="preserve">
+    <value>Canal VPZone Inscrito novamente</value>
+  </data>
+  <data name="VPZoneChannelSubscriptionGifted" xml:space="preserve">
+    <value>Oferta de uma subscrição do VPZone Channel</value>
+  </data>
+  <data name="VPZoneChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Oferta de subscrição em massa do VPZone Channel</value>
+  </data>
+  <data name="VPZoneChannelRaided" xml:space="preserve">
+    <value>Canal VPZone Invadido</value>
+  </data>
+  <data name="VPZoneChannelClipCreated" xml:space="preserve">
+    <value>Clipe do canal VPZone criado</value>
+  </data>
+  <data name="VPZoneChannelShoutout" xml:space="preserve">
+    <value>Menção do canal VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointsRedeemed" xml:space="preserve">
+    <value>Pontos do canal VPZone resgatados</value>
+  </data>
+  <data name="VPZoneChannelCheered" xml:space="preserve">
+    <value>Canal VPZone aplaudido</value>
+  </data>
+  <data name="VPZoneChannelPoints" xml:space="preserve">
+    <value>Pontos do canal VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointsCommand" xml:space="preserve">
+    <value>Comando de pontos do canal VPZone</value>
+  </data>
+  <data name="ShowVPZoneChannelPoints" xml:space="preserve">
+    <value>Mostrar pontos de canal do VPZone</value>
+  </data>
+  <data name="ShowVPZoneCheered" xml:space="preserve">
+    <value>Mostrar VPZone Cheered</value>
+  </data>
+  <data name="VPZoneCheered" xml:space="preserve">
+    <value>VPZone Cheered</value>
+  </data>
+  <data name="VPZoneSubscriptions" xml:space="preserve">
+    <value>Assinaturas VPZone</value>
+  </data>
+  <data name="VPZonePixels" xml:space="preserve">
+    <value>Pixels do VPZone</value>
+  </data>
+  <data name="VPZonePlus" xml:space="preserve">
+    <value>Membro VPZ+</value>
+  </data>
+  <data name="VPZoneFounder" xml:space="preserve">
+    <value>Fundador do VPZone</value>
+  </data>
+  <data name="VPZoneAmbassador" xml:space="preserve">
+    <value>Embaixador do VPZone</value>
+  </data>
+  <data name="AlertVPZoneCheered" xml:space="preserve">
+    <value>{0} aplaudiu com {1} Pixels</value>
+    <comment>{0} is the name of the user, {1} is the amount of pixels</comment>
+  </data>
+  <data name="AlertVPZoneChannelPointRedeemed" xml:space="preserve">
+    <value>{0} resgatou {1}</value>
+    <comment>{0} is the name of the user, {1} is the name of the reward</comment>
+  </data>
+  <data name="VPZoneModerationActionFailed" xml:space="preserve">
+    <value>A ação {0} do VPZone falhou. Consulte o registro para mais detalhes.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="VPZoneModUserUnsupported" xml:space="preserve">
+    <value>O VPZone não permite alterar moderadores por um aplicativo. Use o site do VPZone.</value>
+  </data>
+  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
+    <value>O VPZone não permite fixar mensagens de chat por um aplicativo. Use o site do VPZone.</value>
+  </data>
+  <data name="VPZoneAnnouncementFailed" xml:space="preserve">
+    <value>O VPZone recusou o anúncio de chat. Consulte o registro para mais detalhes.</value>
+  </data>
+  <data name="VPZoneChatSocketNoChannel" xml:space="preserve">
+    <value>Nenhum canal VPZone está disponível para a conexão de chat</value>
+  </data>
+  <data name="VPZoneChatSocketConnectFailed" xml:space="preserve">
+    <value>Falha ao conectar ao gateway de chat do VPZone</value>
+  </data>
+  <data name="VPZoneMessageRejected" xml:space="preserve">
+    <value>O VPZone rejeitou a mensagem: {0}</value>
+    <comment>{0} is the reason the message was rejected</comment>
+  </data>
+  <data name="VPZoneSendErrorAuthRequired" xml:space="preserve">
+    <value>a conexão não está autenticada</value>
+  </data>
+  <data name="VPZoneSendErrorBanned" xml:space="preserve">
+    <value>esta conta está banida do canal</value>
+  </data>
+  <data name="VPZoneSendErrorRateLimited" xml:space="preserve">
+    <value>as mensagens estão sendo enviadas rápido demais</value>
+  </data>
+  <data name="VPZoneSendErrorSubsOnly" xml:space="preserve">
+    <value>o canal está no modo apenas para inscritos</value>
+  </data>
+  <data name="VPZoneSendErrorFollowersOnly" xml:space="preserve">
+    <value>o canal está no modo apenas para seguidores</value>
+  </data>
+  <data name="VPZoneSendErrorSlowMode" xml:space="preserve">
+    <value>o modo lento está ativo, tente novamente em {0} segundos</value>
+    <comment>{0} is the number of seconds to wait</comment>
+  </data>
+  <data name="VPZoneSendErrorEmoteOnly" xml:space="preserve">
+    <value>o canal está no modo apenas emotes</value>
+  </data>
+  <data name="VPZoneSendErrorBannedWord" xml:space="preserve">
+    <value>a mensagem continha uma palavra bloqueada</value>
+  </data>
+  <data name="VPZoneSendErrorCozyFiltered" xml:space="preserve">
+    <value>a mensagem foi retida pelo filtro de conteúdo do canal</value>
+  </data>
+  <data name="VPZoneWebhookCallbackUnavailable" xml:space="preserve">
+    <value>O endereço de retorno de eventos do VPZone está indisponível</value>
+  </data>
+  <data name="VPZoneWebhookRegistrationFailed" xml:space="preserve">
+    <value>Falha ao registrar o retorno de eventos do VPZone</value>
+  </data>
+  <data name="VPZoneWebhookDeleteFailed" xml:space="preserve">
+    <value>Falha ao remover o retorno de eventos do VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointRewardDeleteFailed" xml:space="preserve">
+    <value>Falha ao excluir a recompensa de pontos do canal VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantNoUser" xml:space="preserve">
+    <value>Esse usuário não tem uma conta VPZone registrada</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantFailed" xml:space="preserve">
+    <value>Falha ao conceder pontos do canal VPZone. É necessária uma chave de API vinculada ao canal com o escopo de concessão.</value>
   </data>
 </root>

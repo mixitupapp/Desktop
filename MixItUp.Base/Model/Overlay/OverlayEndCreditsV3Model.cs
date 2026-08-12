@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Velora;
+using MixItUp.Base.Model.VPZone;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
@@ -50,6 +51,7 @@ namespace MixItUp.Base.Model.Overlay
         KickKicks = 60,
 
         VeloraCheered = 70,
+        VPZoneCheered = 71,
 
         Donations = 200,
 
@@ -372,6 +374,10 @@ namespace MixItUp.Base.Model.Overlay
         [DataMember]
         public override bool VeloraCheered { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.VeloraCheered); } set { } }
 
+        public override bool VPZoneSubscriptions { get { return this.Sections.Any(s => OverlayEndCreditsV3Model.AllSubscriberSectionTypes.Contains(s.Type)); } set { } }
+
+        public override bool VPZoneCheered { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.VPZoneCheered); } set { } }
+
         [DataMember]
         public override bool Donations { get { return this.Sections.Any(s => s.Type == OverlayEndCreditsSectionV3Type.Donations); } set { } }
 
@@ -652,6 +658,19 @@ namespace MixItUp.Base.Model.Overlay
                 switch (section.Type)
                 {
                     case OverlayEndCreditsSectionV3Type.VeloraCheered:
+                        section.Track(cheered.User, cheered.Amount);
+                        break;
+                }
+            }
+        }
+
+        public override void OnVPZoneCheered(object sender, VPZoneCheeredEventModel cheered)
+        {
+            foreach (OverlayEndCreditsSectionV3Model section in this.Sections)
+            {
+                switch (section.Type)
+                {
+                    case OverlayEndCreditsSectionV3Type.VPZoneCheered:
                         section.Track(cheered.User, cheered.Amount);
                         break;
                 }

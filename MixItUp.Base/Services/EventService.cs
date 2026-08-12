@@ -4,6 +4,7 @@ using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Velora;
+using MixItUp.Base.Model.VPZone;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
@@ -196,6 +197,26 @@ namespace MixItUp.Base.Services
         VeloraChannelPointsRedeemed = 770,
         VeloraChannelCheered = 771,
 
+        // 800 = VPZone
+        VPZoneChannelStreamStart = 800,
+        VPZoneChannelStreamStop = 801,
+        VPZoneChannelUpdated = 802,
+
+        VPZoneChannelFollowed = 810,
+
+        VPZoneChannelSubscribed = 820,
+        VPZoneChannelResubscribed = 821,
+        VPZoneChannelSubscriptionGifted = 822,
+        VPZoneChannelMassSubscriptionsGifted = 823,
+
+        VPZoneChannelRaided = 830,
+
+        VPZoneChannelClipCreated = 840,
+        VPZoneChannelShoutout = 841,
+
+        VPZoneChannelPointsRedeemed = 870,
+        VPZoneChannelCheered = 871,
+
         // Donation Services = 1000
 
         GenericDonation = 1999,
@@ -347,6 +368,9 @@ namespace MixItUp.Base.Services
         public static event EventHandler<VeloraCheeredEventModel> OnVeloraChannelCheeredOccurred = delegate { };
         public static void VeloraChannelCheeredOccurred(VeloraCheeredEventModel cheered) { OnVeloraChannelCheeredOccurred(null, cheered); }
 
+        public static event EventHandler<VPZoneCheeredEventModel> OnVPZoneChannelCheeredOccurred = delegate { };
+        public static void VPZoneChannelCheeredOccurred(VPZoneCheeredEventModel cheered) { OnVPZoneChannelCheeredOccurred(null, cheered); }
+
         public static event EventHandler<YouTubeJewelsGiftViewModel> OnYouTubeJewelsGiftOccurred = delegate { };
         public static void YouTubeJewelsGiftOccurred(YouTubeJewelsGiftViewModel jewelsGift) { OnYouTubeJewelsGiftOccurred(null, jewelsGift); }
 
@@ -372,6 +396,8 @@ namespace MixItUp.Base.Services
             EventTypeEnum.KickChannelStreamStart, EventTypeEnum.KickChannelStreamStop, EventTypeEnum.KickChannelFollowed, EventTypeEnum.KickChannelSubscribed, EventTypeEnum.KickChannelResubscribed,
 
             EventTypeEnum.VeloraChannelStreamStart, EventTypeEnum.VeloraChannelStreamStop, EventTypeEnum.VeloraChannelFollowed, EventTypeEnum.VeloraChannelRaided, EventTypeEnum.VeloraChannelSubscribed, EventTypeEnum.VeloraChannelResubscribed,
+
+            EventTypeEnum.VPZoneChannelStreamStart, EventTypeEnum.VPZoneChannelStreamStop, EventTypeEnum.VPZoneChannelFollowed, EventTypeEnum.VPZoneChannelRaided, EventTypeEnum.VPZoneChannelSubscribed, EventTypeEnum.VPZoneChannelResubscribed,
         };
 
         private LockedDictionary<EventTypeEnum, HashSet<Guid>> userEventTracking = new LockedDictionary<EventTypeEnum, HashSet<Guid>>();
@@ -451,21 +477,25 @@ namespace MixItUp.Base.Services
                     case EventTypeEnum.TwitchChannelFollowed:
                     case EventTypeEnum.KickChannelFollowed:
                     case EventTypeEnum.VeloraChannelFollowed:
+                    case EventTypeEnum.VPZoneChannelFollowed:
                         ChannelSession.Settings.LastFollowerUserID = parameters.User.ID;
                         break;
                     case EventTypeEnum.TwitchChannelSubscribed:
                     case EventTypeEnum.KickChannelSubscribed:
                     case EventTypeEnum.VeloraChannelSubscribed:
+                    case EventTypeEnum.VPZoneChannelSubscribed:
                     case EventTypeEnum.YouTubeChannelNewMember:
                     case EventTypeEnum.TwitchChannelResubscribed:
                     case EventTypeEnum.KickChannelResubscribed:
                     case EventTypeEnum.VeloraChannelResubscribed:
+                    case EventTypeEnum.VPZoneChannelResubscribed:
                     case EventTypeEnum.YouTubeChannelMemberMilestone:
                         ChannelSession.Settings.LastSubscriberUserID = parameters.User.ID;
                         break;
                     case EventTypeEnum.TwitchChannelSubscriptionGifted:
                     case EventTypeEnum.KickChannelSubscriptionGifted:
                     case EventTypeEnum.VeloraChannelSubscriptionGifted:
+                    case EventTypeEnum.VPZoneChannelSubscriptionGifted:
                     case EventTypeEnum.YouTubeChannelMembershipGifted:
                         if (parameters.TargetUser != null)
                         {
@@ -510,44 +540,52 @@ namespace MixItUp.Base.Services
                         case EventTypeEnum.YouTubeChannelStreamStart:
                         case EventTypeEnum.KickChannelStreamStart:
                         case EventTypeEnum.VeloraChannelStreamStart:
+                        case EventTypeEnum.VPZoneChannelStreamStart:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelStreamStart);
                             break;
                         case EventTypeEnum.TwitchChannelStreamStop:
                         case EventTypeEnum.YouTubeChannelStreamStop:
                         case EventTypeEnum.KickChannelStreamStop:
                         case EventTypeEnum.VeloraChannelStreamStop:
+                        case EventTypeEnum.VPZoneChannelStreamStop:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelStreamStop);
                             break;
                         case EventTypeEnum.TwitchChannelRaided:
                         case EventTypeEnum.VeloraChannelRaided:
+                        case EventTypeEnum.VPZoneChannelRaided:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelRaided);
                             break;
                         case EventTypeEnum.TwitchChannelFollowed:
                         case EventTypeEnum.KickChannelFollowed:
                         case EventTypeEnum.VeloraChannelFollowed:
+                        case EventTypeEnum.VPZoneChannelFollowed:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelFollowed);
                             break;
                         case EventTypeEnum.TwitchChannelSubscribed:
                         case EventTypeEnum.KickChannelSubscribed:
                         case EventTypeEnum.VeloraChannelSubscribed:
+                        case EventTypeEnum.VPZoneChannelSubscribed:
                         case EventTypeEnum.YouTubeChannelNewMember:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelSubscribed);
                             break;
                         case EventTypeEnum.TwitchChannelResubscribed:
                         case EventTypeEnum.KickChannelResubscribed:
                         case EventTypeEnum.VeloraChannelResubscribed:
+                        case EventTypeEnum.VPZoneChannelResubscribed:
                         case EventTypeEnum.YouTubeChannelMemberMilestone:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelResubscribed);
                             break;
                         case EventTypeEnum.TwitchChannelSubscriptionGifted:
                         case EventTypeEnum.KickChannelSubscriptionGifted:
                         case EventTypeEnum.VeloraChannelSubscriptionGifted:
+                        case EventTypeEnum.VPZoneChannelSubscriptionGifted:
                         case EventTypeEnum.YouTubeChannelMembershipGifted:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelSubscriptionGifted);
                             break;
                         case EventTypeEnum.TwitchChannelMassSubscriptionsGifted:
                         case EventTypeEnum.KickChannelMassSubscriptionsGifted:
                         case EventTypeEnum.VeloraChannelMassSubscriptionsGifted:
+                        case EventTypeEnum.VPZoneChannelMassSubscriptionsGifted:
                         case EventTypeEnum.YouTubeChannelMassMembershipGifted:
                             genericCommand = this.GetEventCommand(EventTypeEnum.ChannelMassSubscriptionsGifted);
                             break;

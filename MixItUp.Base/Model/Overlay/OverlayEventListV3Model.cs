@@ -2,6 +2,7 @@
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Velora;
+using MixItUp.Base.Model.VPZone;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Twitch.Clients.PubSub.Messages;
 using MixItUp.Base.Model.User;
@@ -92,15 +93,25 @@ namespace MixItUp.Base.Model.Overlay
 
         [DataMember]
         public string VeloraCheeredDetailsTemplate { get; set; }
+        [DataMember]
+        public string VPZoneCheeredDetailsTemplate { get; set; }
 
         [DataMember]
         public string VeloraSubscriptionsDetailsTemplate { get; set; }
         [DataMember]
+        public string VPZoneSubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
         public string VeloraResubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
+        public string VPZoneResubscriptionsDetailsTemplate { get; set; }
         [DataMember]
         public string VeloraGiftedSubscriptionsDetailsTemplate { get; set; }
         [DataMember]
+        public string VPZoneGiftedSubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
         public string VeloraMassGiftedSubscriptionsDetailsTemplate { get; set; }
+        [DataMember]
+        public string VPZoneMassGiftedSubscriptionsDetailsTemplate { get; set; }
 
         [DataMember]
         public string DonationsDetailsTemplate { get; set; }
@@ -142,6 +153,10 @@ namespace MixItUp.Base.Model.Overlay
                 {
                     await this.AddEvent(subscription.Gifter, nameof(this.VeloraSubscriptions), this.VeloraGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
                 }
+                else if (subscription.Platform == StreamingPlatformTypeEnum.VPZone)
+                {
+                    await this.AddEvent(subscription.Gifter, nameof(this.VPZoneSubscriptions), this.VPZoneGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
+                }
             }
             else if (subscription.Months > 1)
             {
@@ -177,6 +192,14 @@ namespace MixItUp.Base.Model.Overlay
                         { DetailsAmountPropertyName, subscription.Months.ToString() }
                     });
                 }
+                else if (subscription.Platform == StreamingPlatformTypeEnum.VPZone)
+                {
+                    await this.AddEvent(subscription.User, nameof(this.VPZoneSubscriptions), this.VPZoneResubscriptionsDetailsTemplate, new Dictionary<string, string>()
+                    {
+                        { DetailsTierPropertyName, subscription.Tier.ToString() },
+                        { DetailsAmountPropertyName, subscription.Months.ToString() }
+                    });
+                }
             }
             else
             {
@@ -195,6 +218,10 @@ namespace MixItUp.Base.Model.Overlay
                 else if (subscription.Platform == StreamingPlatformTypeEnum.Velora)
                 {
                     await this.AddEvent(subscription.User, nameof(this.VeloraSubscriptions), this.VeloraSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
+                }
+                else if (subscription.Platform == StreamingPlatformTypeEnum.VPZone)
+                {
+                    await this.AddEvent(subscription.User, nameof(this.VPZoneSubscriptions), this.VPZoneSubscriptionsDetailsTemplate, new Dictionary<string, string>() { { DetailsTierPropertyName, subscription.Tier.ToString() } });
                 }
             }
         }
@@ -246,6 +273,14 @@ namespace MixItUp.Base.Model.Overlay
                     { DetailsAmountPropertyName, amount.ToString() }
                 });
             }
+            else if (platform == StreamingPlatformTypeEnum.VPZone)
+            {
+                await this.AddEvent(gifter, nameof(this.VPZoneSubscriptions), this.VPZoneMassGiftedSubscriptionsDetailsTemplate, new Dictionary<string, string>()
+                {
+                    { DetailsTierPropertyName, tier.ToString() },
+                    { DetailsAmountPropertyName, amount.ToString() }
+                });
+            }
         }
 
         public override async void OnDonation(object sender, UserDonationModel donation)
@@ -271,6 +306,11 @@ namespace MixItUp.Base.Model.Overlay
         public override async void OnVeloraCheered(object sender, VeloraCheeredEventModel cheered)
         {
             await this.AddEvent(cheered.User, nameof(this.VeloraCheered), this.VeloraCheeredDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, cheered.Amount.ToString() } });
+        }
+
+        public override async void OnVPZoneCheered(object sender, VPZoneCheeredEventModel cheered)
+        {
+            await this.AddEvent(cheered.User, nameof(this.VPZoneCheered), this.VPZoneCheeredDetailsTemplate, new Dictionary<string, string>() { { DetailsAmountPropertyName, cheered.Amount.ToString() } });
         }
 
         public override Dictionary<string, object> GetGenerationProperties()
@@ -403,6 +443,12 @@ namespace MixItUp.Base.Model.Overlay
                 if (this.VeloraCheered)
                 {
                     this.OnVeloraCheered(this, new VeloraCheeredEventModel(ChannelSession.User, 100, "Great stream!"));
+                    await Task.Delay(3000);
+                }
+
+                if (this.VPZoneCheered)
+                {
+                    this.OnVPZoneCheered(this, new VPZoneCheeredEventModel(ChannelSession.User, 100, "Great stream!"));
                     await Task.Delay(3000);
                 }
 

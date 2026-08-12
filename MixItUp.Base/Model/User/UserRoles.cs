@@ -9,7 +9,7 @@ namespace MixItUp.Base.Model.User
         [Obsolete]
         Banned = 0,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole, VPZoneUserRole]
         User = 100,
 
         [TwitchUserRole]
@@ -18,12 +18,12 @@ namespace MixItUp.Base.Model.User
         [TwitchUserRole]
         TwitchPartner = 250,
 
-        [GenericUserRole, TwitchUserRole, KickUserRole, VeloraUserRole]
+        [GenericUserRole, TwitchUserRole, KickUserRole, VeloraUserRole, VPZoneUserRole]
         Follower = 300,
         [YouTubeUserRole]
         YouTubeSubscriber = 301,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole, VPZoneUserRole]
         Regular = 400,
 
         [TwitchUserRole]
@@ -34,8 +34,14 @@ namespace MixItUp.Base.Model.User
         KickOG = 502,
         [VeloraUserRole]
         VeloraVIP = 503,
+        [VPZoneUserRole]
+        VPZonePlus = 504,
+        [VPZoneUserRole]
+        VPZoneFounder = 505,
+        [VPZoneUserRole]
+        VPZoneAmbassador = 506,
 
-        [GenericUserRole, TwitchUserRole, KickUserRole, VeloraUserRole]
+        [GenericUserRole, TwitchUserRole, KickUserRole, VeloraUserRole, VPZoneUserRole]
         Subscriber = 600,
         [YouTubeUserRole]
         YouTubeMember = 601,
@@ -46,13 +52,13 @@ namespace MixItUp.Base.Model.User
         [TwitchUserRole]
         TwitchStaff = 751,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole, VPZoneUserRole]
         Moderator = 800,
 
         [TwitchUserRole]
         TwitchChannelEditor = 850,
 
-        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole]
+        [GenericUserRole, TwitchUserRole, YouTubeUserRole, KickUserRole, VeloraUserRole, VPZoneUserRole]
         Streamer = 900,
     }
 
@@ -75,6 +81,9 @@ namespace MixItUp.Base.Model.User
 
         public static IEnumerable<UserRoleEnum> Velora { get { return velora; } }
         private readonly static IEnumerable<UserRoleEnum> velora = GetSelectableRoles<VeloraUserRoleAttribute>();
+
+        public static IEnumerable<UserRoleEnum> VPZone { get { return vpzone; } }
+        private readonly static IEnumerable<UserRoleEnum> vpzone = GetSelectableRoles<VPZoneUserRoleAttribute>();
 
         private static IEnumerable<UserRoleEnum> GetSelectableRoles<T>() where T : UserRoleAttributeBase
         {
@@ -191,5 +200,25 @@ namespace MixItUp.Base.Model.User
         }
 
         public override bool IsDefaultAttribute() { return this.Equals(VeloraUserRoleAttribute.Default); }
+    }
+
+    [AttributeUsage(AttributeTargets.All)]
+    public class VPZoneUserRoleAttribute : UserRoleAttributeBase
+    {
+        public static readonly VPZoneUserRoleAttribute Default;
+
+        public VPZoneUserRoleAttribute() { }
+
+        public override bool Equals(object obj) { return (obj is VPZoneUserRoleAttribute); }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -86145682;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<object>.Default.GetHashCode(TypeId);
+            return hashCode;
+        }
+
+        public override bool IsDefaultAttribute() { return this.Equals(VPZoneUserRoleAttribute.Default); }
     }
 }

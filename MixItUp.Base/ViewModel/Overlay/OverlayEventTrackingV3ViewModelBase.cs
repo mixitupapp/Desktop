@@ -146,6 +146,17 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private double veloraSubscriptionAmount;
 
+        public double VPZoneSubscriptionAmount
+        {
+            get { return this.vpzoneSubscriptionAmount; }
+            set
+            {
+                this.vpzoneSubscriptionAmount = value;
+                this.NotifyPropertyChanged();
+            }
+        }
+        private double vpzoneSubscriptionAmount;
+
         public ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel> YouTubeMemberships { get; set; } = new ObservableCollection<OverlayEventTrackingYouTubeMembershipViewModel>();
 
         public double TwitchBitsAmount
@@ -223,12 +234,33 @@ namespace MixItUp.Base.ViewModel.Overlay
         }
         private double veloraCheeredAmount;
 
+        public double VPZoneCheeredAmount
+        {
+            get { return this.vpzoneCheeredAmount; }
+            set
+            {
+                this.vpzoneCheeredAmount = value;
+                this.NotifyPropertyChanged();
+                this.NotifyPropertyChanged(nameof(this.VPZoneCheeredEquation));
+            }
+        }
+        private double vpzoneCheeredAmount;
+
         public string VeloraCheeredEquation
         {
             get
             {
                 double total = this.VeloraCheeredAmount * SampleIntegerAmount;
                 return $"{this.VeloraCheeredAmount} * {SampleIntegerAmount} {Resources.VeloraCheered} = {total} {this.EquationUnits}";
+            }
+        }
+
+        public string VPZoneCheeredEquation
+        {
+            get
+            {
+                double total = this.VPZoneCheeredAmount * SampleIntegerAmount;
+                return $"{this.VPZoneCheeredAmount} * {SampleIntegerAmount} {Resources.VPZoneCheered} = {total} {this.EquationUnits}";
             }
         }
 
@@ -286,6 +318,9 @@ namespace MixItUp.Base.ViewModel.Overlay
             item.VeloraSubscriptionsAmount.TryGetValue(1, out double veloraTier1);
             this.VeloraSubscriptionAmount = veloraTier1;
 
+            item.VPZoneSubscriptionsAmount.TryGetValue(1, out double vpzoneTier1);
+            this.VPZoneSubscriptionAmount = vpzoneTier1;
+
             if (ServiceManager.Get<YouTubeSession>().IsConnected)
             {
                 foreach (MembershipsLevel membershipsLevel in ServiceManager.Get<YouTubeSession>().MembershipLevels)
@@ -305,6 +340,7 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.KickKicksAmount = item.KickKicksAmount;
 
             this.VeloraCheeredAmount = item.VeloraCheeredAmount;
+            this.VPZoneCheeredAmount = item.VPZoneCheeredAmount;
 
             this.DonationAmount = item.DonationAmount;
 
@@ -334,6 +370,8 @@ namespace MixItUp.Base.ViewModel.Overlay
 
             result.VeloraSubscriptionsAmount[1] = this.VeloraSubscriptionAmount;
 
+            result.VPZoneSubscriptionsAmount[1] = this.VPZoneSubscriptionAmount;
+
             result.YouTubeMembershipsAmount.Clear();
             foreach (OverlayEventTrackingYouTubeMembershipViewModel membership in this.YouTubeMemberships)
             {
@@ -344,6 +382,8 @@ namespace MixItUp.Base.ViewModel.Overlay
             result.KickKicksAmount = this.KickKicksAmount;
 
             result.VeloraCheeredAmount = this.VeloraCheeredAmount;
+
+            result.VPZoneCheeredAmount = this.VPZoneCheeredAmount;
 
             result.DonationAmount = this.DonationAmount;
         }

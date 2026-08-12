@@ -1,6 +1,7 @@
-using MixItUp.Base.Model.Commands;
+﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Velora;
+using MixItUp.Base.Model.VPZone;
 using MixItUp.Base.Model.Settings;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
@@ -37,6 +38,7 @@ namespace MixItUp.Base.Model.Overlay
         LatestKicksGifted,
         LatestSubscriptionGifter,
         LatestVeloraCheered,
+        LatestVPZoneCheered,
 
         Counter = 100,
 
@@ -285,6 +287,10 @@ namespace MixItUp.Base.Model.Overlay
                     {
                         amount = ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().SubscriberCount;
                     }
+                    else if (ChannelSession.Settings.DefaultStreamingPlatform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<MixItUp.Base.Services.VPZone.New.VPZoneSession>().IsConnected)
+                    {
+                        amount = ServiceManager.Get<MixItUp.Base.Services.VPZone.New.VPZoneSession>().SubscriberCount;
+                    }
                     this.Displays[OverlayLabelDisplayV3TypeEnum.TotalSubscribers].Amount = amount;
                 }
             }
@@ -312,6 +318,11 @@ namespace MixItUp.Base.Model.Overlay
             if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestVeloraCheered))
             {
                 EventService.OnVeloraChannelCheeredOccurred += EventService_OnVeloraChannelCheeredOccurred;
+            }
+
+            if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.LatestVPZoneCheered))
+            {
+                EventService.OnVPZoneChannelCheeredOccurred += EventService_OnVPZoneChannelCheeredOccurred;
             }
 
             if (this.IsDisplayEnabled(OverlayLabelDisplayV3TypeEnum.Counter))
@@ -564,6 +575,13 @@ namespace MixItUp.Base.Model.Overlay
             await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestVeloraCheered);
         }
 
+        private async void EventService_OnVPZoneChannelCheeredOccurred(object sender, VPZoneCheeredEventModel cheered)
+        {
+            this.Displays[OverlayLabelDisplayV3TypeEnum.LatestVPZoneCheered].UserID = cheered.User.ID;
+            this.Displays[OverlayLabelDisplayV3TypeEnum.LatestVPZoneCheered].Amount = cheered.Amount;
+            await this.SendUpdate(OverlayLabelDisplayV3TypeEnum.LatestVPZoneCheered);
+        }
+
         private async void CounterModel_OnCounterUpdated(object sender, CounterModel counter)
         {
             if (string.Equals(counter.Name, this.Displays[OverlayLabelDisplayV3TypeEnum.Counter].CounterName, StringComparison.OrdinalIgnoreCase))
@@ -698,6 +716,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnYouTubeSuperChatOccurred -= EventService_OnYouTubeSuperChatOccurred;
             EventService.OnKickKicksGiftedOccurred -= EventService_OnKickKicksGiftedOccurred;
             EventService.OnVeloraChannelCheeredOccurred -= EventService_OnVeloraChannelCheeredOccurred;
+            EventService.OnVPZoneChannelCheeredOccurred -= EventService_OnVPZoneChannelCheeredOccurred;
             CounterModel.OnCounterUpdated -= CounterModel_OnCounterUpdated;
         }
     }

@@ -309,6 +309,51 @@
                     </Grid>
                 </Expander>
             </Border>
+            <!-- VPZone -->
+            <Border Visibility="{Binding IsVPZoneConnected, Converter={StaticResource BooleanToVisibilityConverter}}" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary.Dark}" BorderThickness="1">
+                <Expander DataContext="{Binding VPZone}" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch" Background="{DynamicResource MaterialDesign.Brush.Primary}" IsExpanded="True" AutomationProperties.AutomationId="VPZoneChannel.Expander">
+                    <Expander.Header>
+                        <Grid Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="/Assets/Images/vpzone-color_sm.png" Height="24" Width="24" VerticalAlignment="Center" />
+
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Static resx:Resources.VPZone}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+                        </Grid>
+                    </Expander.Header>
+
+                    <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
+                        <Grid Margin="10">
+                            <GroupBox Header="{x:Static resx:Resources.ChannelInfo}">
+                                <Grid Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ComboBox Grid.Column="0" Text="{Binding Title}" ItemsSource="{Binding PastTitles}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Title}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VPZoneChannel.TitleComboBox" AutomationProperties.Name="{x:Static resx:Resources.Title}" />
+
+                                        <ComboBox Grid.Column="2" Text="{Binding Category}" ItemsSource="{Binding PastCategories}" IsEditable="True" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.Category}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" AutomationProperties.AutomationId="VPZoneChannel.CategoryComboBox" AutomationProperties.Name="{x:Static resx:Resources.Category}" />
+                                    </Grid>
+
+                                    <Button Grid.Row="2" Content="{x:Static resx:Resources.Update}" Command="{Binding UpdateChannelInformationCommand}" Width="150" AutomationProperties.AutomationId="VPZoneChannel.UpdateChannelInfoButton" />
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </Grid>
+                </Expander>
+            </Border>
         </ItemsControl>
     </ScrollViewer>
 </local:MainControlBase>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -18,6 +18,8 @@ namespace MixItUp.API.V1.Models
         public string KickID { get; set; }
         [DataMember]
         public string VeloraID { get; set; }
+        [DataMember]
+        public string VPZoneID { get; set; }
 
         [DataMember]
         public string Username { get; set; }

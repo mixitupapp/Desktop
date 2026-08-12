@@ -1,4 +1,4 @@
-using Google.Apis.YouTube.v3.Data;
+﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Kick.Categories;
 using MixItUp.Base.Model.Kick.Common;
@@ -7,10 +7,12 @@ using MixItUp.Base.Model.Twitch.Streams;
 using MixItUp.Base.Model.Twitch.Teams;
 using MixItUp.Base.Model.Twitch.User;
 using MixItUp.Base.Model.Velora.Streams;
+using MixItUp.Base.Model.VPZone.Streams;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Kick;
@@ -428,6 +430,22 @@ namespace MixItUp.Base.ViewModel.MainControls
         protected override Task SearchChannelsToRaid() { return Task.CompletedTask; }
     }
 
+    public class VPZoneChannelControlViewModel : PlatformChannelControlViewModelBase
+    {
+        public VPZoneChannelControlViewModel() { this.Platform = StreamingPlatformTypeEnum.VPZone; }
+
+        protected override async Task<Result> UpdateChannelInformation()
+        {
+            // VPZone matches the category text against its game catalog itself and keeps the raw text
+            // when nothing matches, so an unrecognized name is still worth sending rather than
+            // refusing the whole update.
+            return await ServiceManager.Get<VPZoneSession>().StreamerService.UpdateChannel(
+                ServiceManager.Get<VPZoneSession>().ChannelSlug, title: this.Title, category: this.Category);
+        }
+
+        protected override Task SearchChannelsToRaid() { return Task.CompletedTask; }
+    }
+
     public abstract class PlatformChannelControlViewModelBase : UIViewModelBase
     {
         public class ChannelToRaidItemViewModel : UIViewModelBase
@@ -617,6 +635,8 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public VeloraChannelControlViewModel Velora { get; set; } = new VeloraChannelControlViewModel();
 
+        public VPZoneChannelControlViewModel VPZone { get; set; } = new VPZoneChannelControlViewModel();
+
         public bool IsTwitchConnected { get { return ServiceManager.Get<TwitchSession>().IsConnected; } }
 
         public bool IsYouTubeConnected { get { return ServiceManager.Get<YouTubeSession>().IsConnected; } }
@@ -624,6 +644,8 @@ namespace MixItUp.Base.ViewModel.MainControls
         public bool IsKickConnected { get { return ServiceManager.Get<KickSession>().IsConnected; } }
 
         public bool IsVeloraConnected { get { return ServiceManager.Get<VeloraSession>().IsConnected; } }
+
+        public bool IsVPZoneConnected { get { return ServiceManager.Get<VPZoneSession>().IsConnected; } }
 
         public ChannelMainControlViewModel(MainWindowViewModel windowViewModel) : base(windowViewModel) { }
 
@@ -649,6 +671,11 @@ namespace MixItUp.Base.ViewModel.MainControls
                 await this.Velora.OnOpen();
             }
 
+            if (this.IsVPZoneConnected)
+            {
+                await this.VPZone.OnOpen();
+            }
+
             await base.OnOpenInternal();
         }
 
@@ -672,6 +699,11 @@ namespace MixItUp.Base.ViewModel.MainControls
             if (this.IsVeloraConnected)
             {
                 await this.Velora.OnVisible();
+            }
+
+            if (this.IsVPZoneConnected)
+            {
+                await this.VPZone.OnVisible();
             }
 
             await base.OnVisibleInternal();

@@ -1,10 +1,11 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Model.User.Platform;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
@@ -190,6 +191,14 @@ namespace MixItUp.Base.Services
                             platformModel = new VeloraUserPlatformV2Model(veloraUser);
                         }
                     }
+                    else if (platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected && !string.IsNullOrEmpty(platformUsername))
+                    {
+                        var vpzoneUser = await ServiceManager.Get<VPZoneSession>().StreamerService.GetUserByUsername(platformUsername);
+                        if (vpzoneUser != null && string.Equals(vpzoneUser.UserID, platformID, StringComparison.OrdinalIgnoreCase))
+                        {
+                            platformModel = new VPZoneUserPlatformV2Model(vpzoneUser);
+                        }
+                    }
                 }
 
                 if (platformModel == null && !string.IsNullOrEmpty(platformUsername))
@@ -230,6 +239,14 @@ namespace MixItUp.Base.Services
                         if (veloraUser != null)
                         {
                             platformModel = new VeloraUserPlatformV2Model(veloraUser);
+                        }
+                    }
+                    else if (platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+                    {
+                        var vpzoneUser = await ServiceManager.Get<VPZoneSession>().StreamerService.GetUserByUsername(platformUsername);
+                        if (vpzoneUser != null)
+                        {
+                            platformModel = new VPZoneUserPlatformV2Model(vpzoneUser);
                         }
                     }
                 }

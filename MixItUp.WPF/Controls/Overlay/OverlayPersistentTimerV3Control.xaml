@@ -172,6 +172,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="20" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <GroupBox Header="{x:Static resx:Resources.Follows}" Grid.Row="0" Grid.Column="0">
@@ -367,6 +371,36 @@
                     <TextBlock Grid.Row="2" Text="{Binding DonationEquation}" />
                 </Grid>
             </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.VPZoneSubscriptions}" Grid.Row="16" Grid.ColumnSpan="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="{Binding Source={x:Static resx:Resources.Tier1}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" VerticalAlignment="Bottom" Margin="0,0,10,5" />
+                    <TextBox Grid.Column="1" Text="{Binding VPZoneSubscriptionAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeAmount}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.VPZoneSubscriptionsTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeAmount}" />
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="{x:Static resx:Resources.VPZoneCheered}" Grid.Row="18" Grid.Column="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding VPZoneCheeredAmount}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.TimeMultiplier}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayPersistentTimerV3.VPZoneCheeredTextBox" AutomationProperties.Name="{x:Static resx:Resources.TimeMultiplier}" />
+
+                    <TextBlock Grid.Row="2" Text="{Binding VPZoneCheeredEquation}" />
+                </Grid>
+            </GroupBox>
+
         </Grid>
     </Grid>
 </Controls:LoadingControlBase>
