@@ -12456,9 +12456,6 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZoneはアプリからのモデレーター変更に対応していません。VPZoneのウェブサイトをご利用ください。</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZoneはアプリからのチャット メッセージのピン留めに対応していません。VPZoneのウェブサイトをご利用ください。</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZoneがチャット通知を拒否しました。詳細はログを確認してください。</value>
   </data>

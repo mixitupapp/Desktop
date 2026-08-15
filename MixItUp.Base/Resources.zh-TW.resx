@@ -12487,9 +12487,6 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone 不支援從應用程式變更版主。請改用 VPZone 網站。</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone 不支援從應用程式釘選聊天訊息。請改用 VPZone 網站。</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone 拒絕了聊天公告。詳情請查看記錄檔。</value>
   </data>

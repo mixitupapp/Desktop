@@ -12457,9 +12457,6 @@ Cela peut être fait en cliquant sur Créer une récompense de points de chaîne
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone ne permet pas de modifier les modérateurs depuis une application. Utilisez le site web VPZone.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone ne permet pas d'épingler des messages de chat depuis une application. Utilisez le site web VPZone.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone a refusé l'annonce de chat. Consultez le journal pour plus de détails.</value>
   </data>

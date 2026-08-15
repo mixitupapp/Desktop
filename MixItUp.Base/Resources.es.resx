@@ -12458,9 +12458,6 @@ Esto se puede hacer haciendo clic en Crear recompensa de puntos de canal en la p
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone no permite cambiar moderadores desde una aplicación. Usa el sitio web de VPZone.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone no permite fijar mensajes de chat desde una aplicación. Usa el sitio web de VPZone.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone rechazó el anuncio de chat. Consulta el registro para más detalles.</value>
   </data>

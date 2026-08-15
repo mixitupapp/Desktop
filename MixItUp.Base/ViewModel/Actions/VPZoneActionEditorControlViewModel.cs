@@ -11,30 +11,15 @@ namespace MixItUp.Base.ViewModel.Actions
         public override ActionTypeEnum Type { get { return ActionTypeEnum.VPZone; } }
 
         /// <summary>
-        /// Action types offered in the editor. Four are held back rather than removed, so commands that
-        /// already reference them keep loading. Each execution path stays complete and starts working
-        /// the moment its filter comes off.
-        ///
-        /// Granting channel points: VPZone accepts only a channel-bound API key on points/grant and
-        /// answers an OAuth token with 403 unsupported_auth, and there is nowhere in Mix It Up for a
-        /// streamer to supply such a key yet. Drop the filter once a grant key has somewhere to live.
-        ///
-        /// Pinning and unpinning: the only pin routes VPZone has authenticate off the website's own
-        /// session cookie and answer an OAuth token with a flat 401, so neither can succeed from an
-        /// app. Drop the filter once pinning reaches the v1 API.
-        ///
-        /// Announcing: the one announcement route on the platform answers every call with a 500, on a
-        /// check constraint its own insert violates. Nothing can post an announcement today, VPZone's
-        /// website included. Drop the filter once that endpoint returns a 201.
+        /// Action types offered in the editor. Granting channel points is held back rather than
+        /// removed: VPZone accepts only a channel-bound API key on points/grant and answers an OAuth
+        /// token with 403 unsupported_auth, and there is nowhere in Mix It Up for a streamer to supply
+        /// such a key yet. Offering it would put an action in the picker that can never succeed.
+        /// Drop the filter once a grant key has somewhere to live.
         /// </summary>
         public IEnumerable<VPZoneActionType> ActionTypes
         {
-            get
-            {
-                return EnumHelper.GetEnumList<VPZoneActionType>().Where(t => t != VPZoneActionType.GrantChannelPoints &&
-                    t != VPZoneActionType.PinMessage && t != VPZoneActionType.UnpinMessage &&
-                    t != VPZoneActionType.Announce);
-            }
+            get { return EnumHelper.GetEnumList<VPZoneActionType>().Where(t => t != VPZoneActionType.GrantChannelPoints); }
         }
 
         public VPZoneActionType SelectedActionType

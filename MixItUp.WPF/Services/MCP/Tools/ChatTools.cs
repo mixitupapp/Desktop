@@ -74,7 +74,7 @@ namespace MixItUp.WPF.Services.MCP.Tools
         }
 
         [McpServerTool(Name = "clear_chat", ReadOnly = false, Destructive = true, Idempotent = true, OpenWorld = true, UseStructuredContent = true)]
-        [Description("Clear the chat history for one or all connected platforms. WARNING: on Twitch, Velora and VPZone this is a real moderation action that clears chat for every viewer and cannot be undone. VPZone has no bulk clear an app can call, so there it deletes the messages Mix It Up has buffered one at a time, which takes a few seconds and leaves anything sent before Mix It Up connected in place. On YouTube and Kick only the local Mix It Up chat display is cleared, because those platforms provide no clear-chat API, and viewers there keep seeing the full history.")]
+        [Description("Clear the chat history for one or all connected platforms. WARNING: on Twitch, Velora and VPZone this is a real moderation action that clears chat for every viewer and cannot be undone. On YouTube and Kick only the local Mix It Up chat display is cleared, because those platforms provide no clear-chat API, and viewers there keep seeing the full history.")]
         public static Task<ActionResult> ClearChat(
             [Description("Platform to clear, for example Twitch. Defaults to all connected platforms.")] string platform = null)
         {

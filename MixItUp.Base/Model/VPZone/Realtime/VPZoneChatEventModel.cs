@@ -35,6 +35,11 @@ namespace MixItUp.Base.Model.VPZone.Realtime
     {
         public const string StreamStarted = "stream_started";
         public const string StreamEnded = "stream_ended";
+
+        // An announcement is broadcast as a "system" frame rather than a type of its own, so this kind
+        // is the only thing that distinguishes it. Match on it, never on the frame's type.
+        public const string Announcement = "announcement";
+
         public const string PixelsCheer = "pixels_cheer";
         public const string LevelUp = "level_up";
         public const string ChannelPointsRedeem = "channel_points_redeem";

@@ -12456,9 +12456,6 @@ Questo può essere fatto facendo clic su Crea ricompensa punti canale nella pagi
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone non consente di modificare i moderatori da un'applicazione. Usa il sito web di VPZone.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone non consente di fissare i messaggi in chat da un'applicazione. Usa il sito web di VPZone.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone ha rifiutato l'annuncio in chat. Consulta il registro per i dettagli.</value>
   </data>

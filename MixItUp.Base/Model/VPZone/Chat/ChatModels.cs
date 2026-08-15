@@ -12,7 +12,12 @@ namespace MixItUp.Base.Model.VPZone.Chat
         [JsonProperty("id")]
         public string ID { get; set; }
 
-        /// <summary>"msg" | "announcement" | "sub" | "raid".</summary>
+        /// <summary>
+        /// "msg" | "system" | "follow" | "subscription" | "raid" | "gift" | "clip". Anything the chat
+        /// server does not recognize is coerced to "system" before it goes out, which is why an
+        /// announcement arrives as "system" with metadata.kind "announcement" rather than a type of
+        /// its own. New values can appear at any time, so treat an unknown one as "system".
+        /// </summary>
         [JsonProperty("type")]
         public string Type { get; set; }
 

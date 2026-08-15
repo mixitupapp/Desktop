@@ -12492,9 +12492,6 @@ sendParentMessage({ Тип: "ScriptComplete", ID: "{ID}", Результат: р
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone не поддерживает изменение модераторов из приложения. Воспользуйтесь сайтом VPZone.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone не поддерживает закрепление сообщений чата из приложения. Воспользуйтесь сайтом VPZone.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone отклонил объявление в чате. Подробности в журнале.</value>
   </data>

@@ -12462,9 +12462,6 @@ Dies kann durch Klicken auf „Channel Point Reward erstellen“ auf der Channel
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone unterstützt das Ändern von Moderatoren aus einer App nicht. Nutzen Sie stattdessen die VPZone-Website.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone unterstützt das Anheften von Chat-Nachrichten aus einer App nicht. Nutzen Sie stattdessen die VPZone-Website.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone hat die Chat-Ankündigung abgelehnt. Details finden Sie im Protokoll.</value>
   </data>

@@ -12487,9 +12487,6 @@ print(run())</value>
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone не підтримує зміну модераторів із застосунку. Скористайтеся сайтом VPZone.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone не підтримує закріплення повідомлень чату із застосунку. Скористайтеся сайтом VPZone.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone відхилив оголошення в чаті. Подробиці в журналі.</value>
   </data>

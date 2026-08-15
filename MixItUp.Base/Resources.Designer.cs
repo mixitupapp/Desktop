@@ -33709,15 +33709,6 @@ namespace MixItUp.Base {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VPZone does not support pinning chat messages from an app. Use the VPZone website instead..
-        /// </summary>
-        public static string VPZonePinMessageUnsupported {
-            get {
-                return ResourceManager.GetString("VPZonePinMessageUnsupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VPZone rejected the chat announcement. Check the log for details..
         /// </summary>
         public static string VPZoneAnnouncementFailed {

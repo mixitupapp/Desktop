@@ -12457,9 +12457,6 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone ondersteunt het wijzigen van moderators vanuit een app niet. Gebruik in plaats daarvan de VPZone-website.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone ondersteunt het vastmaken van chatberichten vanuit een app niet. Gebruik in plaats daarvan de VPZone-website.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone heeft de chataankondiging geweigerd. Bekijk het logboek voor details.</value>
   </data>

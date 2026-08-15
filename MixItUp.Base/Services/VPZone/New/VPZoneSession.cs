@@ -522,9 +522,10 @@ namespace MixItUp.Base.Services.VPZone.New
         }
 
         /// <summary>
-        /// Pinning exists on VPZone but only behind the website's own session, so there is nothing an
-        /// app holding an OAuth token can call. The message is still posted, because dropping it would
-        /// lose the streamer's text outright, and the pin itself is reported as unavailable.
+        /// Sends a message and pins it. VPZone pins a message that already exists rather than setting
+        /// a flag on the way out like Twitch does, so the id has to come back first. Over the gateway
+        /// that means waiting for the echo carrying our nonce, which is registered before the send so
+        /// a fast echo cannot arrive before anyone is listening for it.
         /// </summary>
         public async Task PinMessage(string message)
         {
@@ -533,8 +534,40 @@ namespace MixItUp.Base.Services.VPZone.New
                 return;
             }
 
-            await this.SendMessage(message, sendAsStreamer: true);
-            await this.ReportUnsupportedModerationAction(Resources.VPZonePinMessageUnsupported);
+            string messageID = null;
+            VPZoneChatSocketClient socket = this.StreamerChatClient;
+            if (socket != null && socket.IsConnected)
+            {
+                try
+                {
+                    string nonce = Guid.NewGuid().ToString("N");
+                    this.Client.TrackSentNonce(nonce);
+                    Task<string> awaitingID = this.Client.AwaitSentMessageID(nonce, TimeSpan.FromSeconds(10));
+
+                    await socket.SendMessage(message, replyToMessageID: null, nonce: nonce);
+                    messageID = await awaitingID;
+                }
+                catch (Exception ex) { Logger.Log(ex); }
+            }
+
+            if (string.IsNullOrWhiteSpace(messageID))
+            {
+                VPZoneChatMessageModel sent = await this.StreamerService.SendChatMessage(this.ChannelSlug, message);
+                messageID = sent?.ID;
+            }
+
+            if (string.IsNullOrWhiteSpace(messageID))
+            {
+                Logger.Log(LogLevel.Error, "VPZone message was sent but its id never came back, so it could not be pinned.");
+                await this.ReportModerationFailure("pin", "the sent message never came back with an id");
+                return;
+            }
+
+            VPZoneModerationResult result = await this.StreamerService.PinChatMessage(this.ChannelSlug, messageID);
+            if (result == null || !result.Success)
+            {
+                await this.ReportModerationFailure("pin", result?.Message);
+            }
         }
 
         /// <summary>
@@ -580,10 +613,14 @@ namespace MixItUp.Base.Services.VPZone.New
             }
         }
 
-        /// <summary>Clearing a pin is behind the same website-only session as setting one.</summary>
+        /// <summary>Clears whatever is pinned, whether Mix It Up pinned it or the streamer did.</summary>
         public async Task UnpinMessage()
         {
-            await this.ReportUnsupportedModerationAction(Resources.VPZonePinMessageUnsupported);
+            VPZoneModerationResult result = await this.StreamerService.UnpinChatMessage(this.ChannelSlug);
+            if (result == null || !result.Success)
+            {
+                await this.ReportModerationFailure("unpin", result?.Message);
+            }
         }
 
         /// <summary>
@@ -671,37 +708,16 @@ namespace MixItUp.Base.Services.VPZone.New
         }
 
         /// <summary>
-        /// VPZone offers no bulk chat clear to a token-authenticated caller, so clearing deletes the
-        /// buffered messages one at a time. Each deletion broadcasts its own frame, so viewers see the
-        /// messages disappear the same way they would from a bulk clear, and the local view is dropped
-        /// by the caller once this returns.
+        /// Clears the room for everyone connected and drops the gateway's replay buffer, so a viewer
+        /// joining a moment later does not see what was just cleared. The local window is emptied by
+        /// the caller once this returns.
         /// </summary>
         public override async Task ClearMessages()
         {
-            // Snapshotted before the loop starts for the same reason a purge is: VPZone echoes each
-            // deletion back over the gateway while the loop is still running, and that echo marks the
-            // message deleted locally, so filtering on IsDeleted mid-loop would skip everything after
-            // the first one.
-            List<ChatMessageViewModel> messagesToDelete = ServiceManager.Get<ChatService>().Messages.ToList().Where(message =>
-                message.Platform == StreamingPlatformTypeEnum.VPZone && !message.IsDeleted && !string.IsNullOrEmpty(message.ID)).ToList();
-
-            int failures = 0;
-            string lastFailure = null;
-            foreach (ChatMessageViewModel message in messagesToDelete)
+            VPZoneModerationResult result = await this.StreamerService.ClearChat(this.ChannelSlug);
+            if (result == null || !result.Success)
             {
-                VPZoneModerationResult result = await this.StreamerService.DeleteChatMessage(this.ChannelSlug, message.ID);
-                if (result == null || !result.Success)
-                {
-                    failures++;
-                    lastFailure = result?.Message;
-                }
-            }
-
-            Logger.Log(LogLevel.Debug, $"VPZone clear: {messagesToDelete.Count - failures} of {messagesToDelete.Count} message(s) deleted on the platform");
-
-            if (failures > 0)
-            {
-                await this.ReportModerationFailure("clear", lastFailure);
+                await this.ReportModerationFailure("clear", result?.Message);
             }
         }
 

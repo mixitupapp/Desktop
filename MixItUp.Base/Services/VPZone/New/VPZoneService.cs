@@ -55,8 +55,8 @@ namespace MixItUp.Base.Services.VPZone.New
 
         // The chat service hangs a couple of read-only capabilities off its own path rather than the
         // v1 API. Its moderation routes live here too, but they authenticate off the website's own
-        // session cookie and ignore the Authorization header entirely, so an OAuth token gets a flat
-        // 401 from them. Only the routes that work for a token-authenticated caller are used below.
+        // session cookie and ignore the Authorization header, so only the read-only ones are used
+        // below. Everything moderation-shaped goes through the v1 equivalents.
         private const string ChatServiceBaseAddress = "https://vpzone.tv/api/chat/";
 
         public const string ChannelLinkFormat = "https://vpzone.tv/{0}";
@@ -269,6 +269,62 @@ namespace MixItUp.Base.Services.VPZone.New
                 }
 
                 return usernames.Select(u => u?.ToString()).Where(u => !string.IsNullOrWhiteSpace(u)).ToList();
+            });
+        }
+
+        /// <summary>
+        /// POST /channels/{slug}/chat/moderation/clear - wipes the room for everyone connected and
+        /// drops the server's replay buffer, so someone joining a moment later does not see what was
+        /// just cleared. Broadcasts a clear_chat frame. Stored history is left alone, which matches
+        /// what a clear means on the other platforms: it governs what viewers see, not the record.
+        /// </summary>
+        public async Task<VPZoneModerationResult> ClearChat(string slug)
+        {
+            if (string.IsNullOrWhiteSpace(slug))
+            {
+                return new VPZoneModerationResult("a channel is required to clear chat");
+            }
+
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                HttpResponseMessage response = await this.HttpClient.PostAsync($"channels/{AdvancedHttpClient.URLEncodeString(slug)}/chat/moderation/clear", content: null);
+                return await BuildModerationResult(response, "clear");
+            });
+        }
+
+        /// <summary>
+        /// POST /channels/{slug}/chat/moderation/pin - pins an existing message as the channel's
+        /// banner. Unlike Twitch the pin is applied to a message that has already been sent rather
+        /// than set as it goes out, so the caller needs the message id first. Note the camel-cased
+        /// messageId: this route takes it that way while the rest of v1 is snake_case.
+        /// </summary>
+        public async Task<VPZoneModerationResult> PinChatMessage(string slug, string messageID)
+        {
+            if (string.IsNullOrWhiteSpace(messageID))
+            {
+                return new VPZoneModerationResult("a message id is required to pin a message");
+            }
+
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                JObject jobj = new JObject();
+                jobj["messageId"] = messageID;
+
+                HttpResponseMessage response = await this.HttpClient.PostAsync($"channels/{AdvancedHttpClient.URLEncodeString(slug)}/chat/moderation/pin", AdvancedHttpClient.CreateContentFromObject(jobj));
+                return await BuildModerationResult(response, "pin");
+            });
+        }
+
+        /// <summary>
+        /// DELETE /channels/{slug}/chat/moderation/pin - clears whatever is currently pinned, whoever
+        /// pinned it. Broadcasts pin_update with a null payload, which is how clients drop the banner.
+        /// </summary>
+        public async Task<VPZoneModerationResult> UnpinChatMessage(string slug)
+        {
+            return await AsyncRunner.RunAsync(async () =>
+            {
+                HttpResponseMessage response = await this.HttpClient.DeleteAsyncWithResponse($"channels/{AdvancedHttpClient.URLEncodeString(slug)}/chat/moderation/pin");
+                return await BuildModerationResult(response, "unpin");
             });
         }
 

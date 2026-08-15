@@ -18,11 +18,7 @@ namespace MixItUp.Base.Model.Actions
         SetTitle,
         SetGame,
         SetTags,
-
-        // Held back from the editor's action list until VPZone's announcement endpoint stops answering
-        // every call with a 500. See VPZoneActionEditorControlViewModel.ActionTypes.
         Announce,
-
         ClearChat,
         BanUser,
         UnbanUser,
@@ -34,7 +30,6 @@ namespace MixItUp.Base.Model.Actions
         // complete and works the moment the filter comes off.
         GrantChannelPoints,
 
-        // Held back for the same reason: VPZone has no pin route an app can reach.
         PinMessage,
         UnpinMessage,
     }
@@ -138,8 +133,8 @@ namespace MixItUp.Base.Model.Actions
                 case VPZoneActionType.ClearChat:
                     // Routed through ChatService rather than straight at the session so the local chat
                     // list is emptied too, the same as the Clear Chat button and the Moderation action.
-                    // VPZone never echoes a REST deletion back over the gateway, so nothing else would
-                    // clear the view and the action would look like it had done nothing.
+                    // The clear_chat frame that comes back only raises an alert, matching how Twitch
+                    // handles its own echo, so nothing else would empty the window.
                     await ServiceManager.Get<ChatService>().ClearMessages(StreamingPlatformTypeEnum.VPZone);
                     break;
                 case VPZoneActionType.PinMessage:

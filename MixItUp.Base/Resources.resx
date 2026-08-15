@@ -12948,9 +12948,6 @@ This can be done by clicking on Create Channel Point Reward on the Kick Channel 
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone does not support changing moderators from an app. Use the VPZone website instead.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone does not support pinning chat messages from an app. Use the VPZone website instead.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>VPZone rejected the chat announcement. Check the log for details.</value>
   </data>

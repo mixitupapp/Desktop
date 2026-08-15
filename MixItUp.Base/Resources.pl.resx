@@ -12456,9 +12456,6 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   <data name="VPZoneModUserUnsupported" xml:space="preserve">
     <value>VPZone nie obsługuje zmiany moderatorów z poziomu aplikacji. Skorzystaj ze strony VPZone.</value>
   </data>
-  <data name="VPZonePinMessageUnsupported" xml:space="preserve">
-    <value>VPZone nie obsługuje przypinania wiadomości czatu z poziomu aplikacji. Skorzystaj ze strony VPZone.</value>
-  </data>
   <data name="VPZoneAnnouncementFailed" xml:space="preserve">
     <value>Platforma VPZone odrzuciła ogłoszenie na czacie. Szczegóły znajdziesz w dzienniku.</value>
   </data>

@@ -374,6 +374,7 @@ namespace MixItUp.Base.Services.VPZone.New
                 case VPZoneSystemKinds.ModerationCut:
                     await this.HandleModerationNotice(frame);
                     break;
+                case VPZoneSystemKinds.Announcement:
                 case VPZoneSystemKinds.LevelUp:
                 case VPZoneSystemKinds.ModMessage:
                 case VPZoneSystemKinds.CaseOpened:
