@@ -1,5 +1,38 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.130
+
+Release Date: 2026-08-14
+
+### FEATURES
+
+- Add VPZone platform integration, connected from the Accounts page with Streamer and Bot accounts:
+  - Chat with emotes and badges, covering broadcaster, moderator, subscriber tier, VPZ+, Founder, and Ambassador
+  - Viewer list, moderation, and channel management for your title and category from the Channel page
+  - VPZ+ Member, VPZone Founder, and VPZone Ambassador roles for command permissions
+- Add VPZone actions for Set Title, Set Game, Set Tags, Clear Chat, Ban User, Unban User, Timeout User, and Untimeout User
+  - A ban or timeout also deletes that viewer's messages, and a timeout with no duration lasts 300 seconds
+- Add VPZone Channel Points page for running a command when one of your existing rewards is redeemed
+- Add VPZone chat slash commands: /ban, /unban, /timeout, /untimeout, /purge, /clear, /title, and /game
+- Add VPZone events with their special identifiers:
+  - Stream Start / Stop
+  - Followed
+  - Subscribed ($usersubmonths, $usersubtier, $usersubplan, $usersubplanname, $message)
+  - Resubscribed (those same ones, plus $usersubstreak)
+  - Subscription Gifted ($isanonymous, $usersubtier, $usersubplan, $usersubplanname)
+  - Mass Subscription Gifted ($subsgiftedamount, $subsgiftedlifetimeamount, $isanonymous, $usersubtier)
+  - Raided ($raidviewercount, $hostviewercount)
+  - Channel Points Redeemed ($rewardname, $rewardcost, $message, $messagenoemotes, $messageemotecount)
+  - Cheered ($cheeramount, $pixelsamount, $message, $messagenoemotes)
+  - Clip Created ($cliptitle, $clipurl, $clipid)
+  - Shoutout ($shoutouttarget)
+- Add $uservpzoneid and $uservpzonecolor for a viewer's VPZone account ID and username color
+- Add $streamvpzonetags for a comma-separated list of your VPZone stream tags
+- Existing special identifiers compatible with VPZone: $streamsubscribercount, $streamdescription, and $userstreamtitle / $userstreamgame / $userstreamgameimage / $userstreamislive
+- Add VPZone Subscriptions and VPZone Cheered to the Event List, Goal, Persistent Timer, Stream Boss, Custom, and End Credits overlay widgets
+- Add Latest VPZone Cheered to the Label overlay widget
+- Add VPZone Channel Points and VPZone Cheered alert colors to the Alerts settings page
+
 ## 1.8.120
 
 Release Date: 2026-08-11
