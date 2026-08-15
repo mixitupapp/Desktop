@@ -1,5 +1,20 @@
 # Mix It Up Desktop Changelog
 
+## 1.8.131
+
+Release Date: 2026-08-15
+
+### FEATURES
+
+- Add VPZone Announce action for posting a channel announcement
+- Add VPZone Pin Message action, which sends a message and pins it as the channel banner, and Unpin Message for clearing whatever is pinned
+- Add /announce to the VPZone chat slash commands
+
+### FIXES
+
+- Fixed VPZone announcements not showing in the chat window
+- Fixed VPZone Clear Chat deleting only the messages Mix It Up had buffered, one at a time
+
 ## 1.8.130
 
 Release Date: 2026-08-14
@@ -31,7 +46,7 @@ Release Date: 2026-08-14
 - Existing special identifiers compatible with VPZone: $streamsubscribercount, $streamdescription, and $userstreamtitle / $userstreamgame / $userstreamgameimage / $userstreamislive
 - Add VPZone Subscriptions and VPZone Cheered to the Event List, Goal, Persistent Timer, Stream Boss, Custom, and End Credits overlay widgets
 - Add Latest VPZone Cheered to the Label overlay widget
-- Add VPZone Channel Points and VPZone Cheered alert colors to the Alerts settings page
+- Add VPZone Channel Points and VPZone Cheered alert colors to the Alerts settings pageF
 
 ## 1.8.120
 
