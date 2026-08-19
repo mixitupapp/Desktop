@@ -203,12 +203,14 @@ namespace MixItUp.Base.ViewModel.Overlay
             this.KickSubscriptionAmount = 100;
 
             this.VeloraSubscriptionAmount = 100;
+            this.VPZoneSubscriptionAmount = 100;
 
             this.YouTubeSuperChatAmount = 10;
 
             this.KickKicksAmount = 0.5;
 
             this.VeloraCheeredAmount = 0.5;
+            this.VPZoneCheeredAmount = 0.5;
 
             this.DonationAmount = 10;
 

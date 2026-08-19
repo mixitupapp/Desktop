@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Velora;
+using MixItUp.Base.Model.VPZone;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
@@ -180,6 +181,16 @@ namespace MixItUp.Base.Model.Overlay
         public override async void OnVeloraCheered(object sender, VeloraCheeredEventModel cheered)
         {
             await this.CallFunction("VeloraCheered", new Dictionary<string, object>()
+            {
+                { "User", cheered.User },
+                { "Amount", cheered.Amount },
+                { "Message", cheered.Message }
+            });
+        }
+
+        public override async void OnVPZoneCheered(object sender, VPZoneCheeredEventModel cheered)
+        {
+            await this.CallFunction("VPZoneCheered", new Dictionary<string, object>()
             {
                 { "User", cheered.User },
                 { "Amount", cheered.Amount },

@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Commands;
+﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using System;
@@ -67,6 +67,7 @@ namespace MixItUp.Base.Model.Actions
         MeldStudio,
         Kick,
         Velora,
+        VPZone,
         Veadotube,
         PlatformMessage,
         UserLookup,

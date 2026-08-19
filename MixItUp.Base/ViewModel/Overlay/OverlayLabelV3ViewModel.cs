@@ -116,6 +116,7 @@ namespace MixItUp.Base.ViewModel.Overlay
                 case OverlayLabelDisplayV3TypeEnum.LatestKicksGifted:
                 case OverlayLabelDisplayV3TypeEnum.LatestSubscriptionGifter:
                 case OverlayLabelDisplayV3TypeEnum.LatestVeloraCheered:
+                case OverlayLabelDisplayV3TypeEnum.LatestVPZoneCheered:
                     this.Format = OverlayLabelV3ViewModel.UsernameAmountItemTemplate;
                     break;
 

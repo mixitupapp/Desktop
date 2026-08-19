@@ -1,4 +1,4 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.ViewModel.Accounts;
 
 namespace MixItUp.Base.ViewModel.MainControls
@@ -13,6 +13,8 @@ namespace MixItUp.Base.ViewModel.MainControls
 
         public StreamingPlatformAccountControlViewModel Velora { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.Velora);
 
+        public StreamingPlatformAccountControlViewModel VPZone { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.VPZone);
+
         public AccountsMainControlViewModel(MainWindowViewModel windowViewModel)
             : base(windowViewModel)
         {
@@ -24,6 +26,9 @@ namespace MixItUp.Base.ViewModel.MainControls
             this.Kick.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
             this.Velora.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
             this.Velora.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
+
+            this.VPZone.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
+            this.VPZone.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
         }
     }
 }

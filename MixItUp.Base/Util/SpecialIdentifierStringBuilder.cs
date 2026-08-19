@@ -1,4 +1,4 @@
-using Google.Apis.YouTube.v3.Data;
+﻿using Google.Apis.YouTube.v3.Data;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
@@ -848,6 +848,16 @@ namespace MixItUp.Base.Util
                         this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "veloratags", string.Join(", ", veloraSession.StreamTags));
                     }
                 }
+                else if (platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<MixItUp.Base.Services.VPZone.New.VPZoneSession>().IsConnected)
+                {
+                    var vpzoneSession = ServiceManager.Get<MixItUp.Base.Services.VPZone.New.VPZoneSession>();
+                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "subscribercount", vpzoneSession.SubscriberCount.ToString());
+                    this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "description", vpzoneSession.StreamDescription ?? string.Empty);
+                    if (vpzoneSession.StreamTags != null && vpzoneSession.StreamTags.Count > 0)
+                    {
+                        this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "vpzonetags", string.Join(", ", vpzoneSession.StreamTags));
+                    }
+                }
                 this.ReplaceSpecialIdentifier(StreamSpecialIdentifierHeader + "chattercount", ServiceManager.Get<UserService>().ActiveUserCount.ToString());
             }
 
@@ -1414,6 +1424,13 @@ namespace MixItUp.Base.Util
                     this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "veloracolor", pUser?.Color);
                 }
 
+                if (user.HasPlatformData(StreamingPlatformTypeEnum.VPZone))
+                {
+                    VPZoneUserPlatformV2Model pUser = user.GetPlatformData<VPZoneUserPlatformV2Model>(StreamingPlatformTypeEnum.VPZone);
+                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "vpzoneid", pUser?.ID);
+                    this.ReplaceSpecialIdentifier(identifierHeader + UserSpecialIdentifierHeader + "vpzonecolor", pUser?.Color);
+                }
+
                 string userStreamHeader = identifierHeader + UserSpecialIdentifierHeader + "stream";
                 if (this.ContainsSpecialIdentifier(userStreamHeader))
                 {
@@ -1493,6 +1510,32 @@ namespace MixItUp.Base.Util
                             // streams/user carries no artwork, so the slug is resolved against category search.
                             this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage", vStream?.CategoryImageUrl
                                 ?? await ServiceManager.Get<MixItUp.Base.Services.Velora.New.VeloraSession>().GetCategoryImageUrl(vStream?.CategorySlug, vStream?.CategoryName));
+                        }
+                    }
+                    else if (user.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<MixItUp.Base.Services.VPZone.New.VPZoneSession>().IsConnected)
+                    {
+                        VPZoneUserPlatformV2Model vpzoneUser = user.GetPlatformData<VPZoneUserPlatformV2Model>(StreamingPlatformTypeEnum.VPZone);
+
+                        // VPZone has no per-user stream lookup, so the member's own channel record is
+                        // what carries their title, category and live state.
+                        MixItUp.Base.Model.VPZone.Streams.VPZoneChannelModel vChannel = null;
+                        if (vpzoneUser != null && !string.IsNullOrWhiteSpace(vpzoneUser.Username))
+                        {
+                            vChannel = await ServiceManager.Get<MixItUp.Base.Services.VPZone.New.VPZoneSession>().StreamerService.GetChannel(vpzoneUser.Username);
+                        }
+
+                        // A user who has never streamed has no channel record at all, so these are
+                        // filled in either way rather than left as literal $... text in the output.
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "title", vChannel?.Title);
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "gamename", vChannel?.Category);
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "game", vChannel?.Category);
+                        this.ReplaceSpecialIdentifier(userStreamHeader + "islive", (vChannel?.IsLive ?? false).ToString());
+
+                        if (this.ContainsSpecialIdentifier(userStreamHeader + "gameimage"))
+                        {
+                            // The channel record carries no category art, so it comes from the catalog.
+                            this.ReplaceSpecialIdentifier(userStreamHeader + "gameimage",
+                                (await ServiceManager.Get<MixItUp.Base.Services.VPZone.New.VPZoneSession>().FindCategory(vChannel?.Category))?.CoverUrl);
                         }
                     }
                 }

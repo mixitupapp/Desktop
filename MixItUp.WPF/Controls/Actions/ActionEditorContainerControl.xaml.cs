@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Actions;
+﻿using MixItUp.Base.Model.Actions;
 using MixItUp.Base.ViewModel.Actions;
 using MixItUp.WPF.Util;
 using System.Threading.Tasks;
@@ -135,6 +135,7 @@ namespace MixItUp.WPF.Controls.Actions
                 case ActionTypeEnum.VConnect: return new VConnectActionEditorControl();
                 case ActionTypeEnum.Veadotube: return new VeadotubeActionEditorControl();
                 case ActionTypeEnum.Velora: return new VeloraActionEditorControl();
+                case ActionTypeEnum.VPZone: return new VPZoneActionEditorControl();
                 case ActionTypeEnum.Voicemod: return new VoicemodActionEditorControl();
                 case ActionTypeEnum.VTSPog: return new VTSPogActionEditorControl();
                 case ActionTypeEnum.VTubeStudio: return new VTubeStudioActionEditorControl();

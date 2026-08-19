@@ -1,4 +1,4 @@
-<local:SettingsControlBase x:Class="MixItUp.WPF.Controls.Settings.AlertsSettingsControl"
+﻿<local:SettingsControlBase x:Class="MixItUp.WPF.Controls.Settings.AlertsSettingsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -50,6 +50,9 @@
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding KickKicks}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding VeloraChannelPoints}" />
             <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding VeloraCheered}" />
+
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding VPZoneChannelPoints}" />
+            <GenericSettingsControls:GenericColorComboBoxSettingsOptionControl DataContext="{Binding VPZoneCheered}" />
         </StackPanel>
     </Grid>
 </local:SettingsControlBase>

@@ -1,4 +1,4 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Settings;
@@ -9,6 +9,7 @@ using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
@@ -96,6 +97,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new YouTubeSession());
             ServiceManager.Add(new KickSession());
             ServiceManager.Add(new VeloraSession());
+            ServiceManager.Add(new VPZoneSession());
             ServiceManager.Add(new MockSession());
 
             ServiceManager.Add(new CommandService());

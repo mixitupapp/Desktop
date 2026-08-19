@@ -9,6 +9,7 @@ using MixItUp.Base.ViewModel.Chat.Twitch;
 using MixItUp.Base.ViewModel.Chat.YouTube;
 using MixItUp.Base.ViewModel.Chat.Kick;
 using MixItUp.Base.ViewModel.Chat.Velora;
+using MixItUp.Base.ViewModel.Chat.VPZone;
 using MixItUp.Base.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 
 namespace MixItUp.Base.ViewModel.Overlay
 {
@@ -332,6 +334,17 @@ namespace MixItUp.Base.ViewModel.Overlay
                     }
 
                     VeloraChatMessageViewModel message = new VeloraChatMessageViewModel(user, "Hello World! This is a test message from Velora so you can see how chat looks");
+                    await chat.AddMessage(message);
+                }
+                else if (platform == StreamingPlatformTypeEnum.VPZone)
+                {
+                    UserV2ViewModel user = await ServiceManager.Get<UserService>().GetUserByPlatform(StreamingPlatformTypeEnum.VPZone, platformID: ServiceManager.Get<VPZoneSession>().StreamerID);
+                    if (user == null)
+                    {
+                        user = ChannelSession.User;
+                    }
+
+                    VPZoneChatMessageViewModel message = new VPZoneChatMessageViewModel(user, "Hello World! This is a test message from VPZone so you can see how chat looks");
                     await chat.AddMessage(message);
                 }
                 else

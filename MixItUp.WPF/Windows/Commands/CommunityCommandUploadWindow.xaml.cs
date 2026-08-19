@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Actions;
+﻿using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Store;
 using MixItUp.Base.Services;
@@ -89,6 +89,7 @@ namespace MixItUp.WPF.Windows.Commands
                         case CommandTypeEnum.KickChannelPoints: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.KickChannelPoints); break;
                         case CommandTypeEnum.KickKicks: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.KickKicks); break;
                         case CommandTypeEnum.VeloraChannelPoints: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.VeloraChannelPoints); break;
+                        case CommandTypeEnum.VPZoneChannelPoints: this.uploadCommand.Tags.Add(CommunityCommandTagEnum.VPZoneChannelPoints); break;
                     }
                 }
                 else

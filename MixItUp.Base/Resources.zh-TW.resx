@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12393,5 +12393,157 @@ sendParentMessage({ 型別: "ScriptComplete", ID: "{ID}", 結果: 結果 });</va
   </data>
   <data name="StopState" xml:space="preserve">
     <value>停止狀態</value>
+  </data>
+  <data name="VPZone" xml:space="preserve">
+    <value>VPZone</value>
+  </data>
+  <data name="LogInWithVPZone" xml:space="preserve">
+    <value>用 VPZone 登录</value>
+  </data>
+  <data name="LogOutOfVPZone" xml:space="preserve">
+    <value>退出 VPZone</value>
+  </data>
+  <data name="VPZoneChannelStreamStart" xml:space="preserve">
+    <value>VPZone 頻道直播開始</value>
+  </data>
+  <data name="VPZoneChannelStreamStop" xml:space="preserve">
+    <value>VPZone 頻道直播結束</value>
+  </data>
+  <data name="VPZoneChannelUpdated" xml:space="preserve">
+    <value>VPZone 頻道已更新</value>
+  </data>
+  <data name="VPZoneChannelFollowed" xml:space="preserve">
+    <value>VPZone 頻道已追蹤</value>
+  </data>
+  <data name="VPZoneChannelSubscribed" xml:space="preserve">
+    <value>VPZone 頻道已訂閱</value>
+  </data>
+  <data name="VPZoneChannelResubscribed" xml:space="preserve">
+    <value>VPZone 頻道已重新訂閱</value>
+  </data>
+  <data name="VPZoneChannelSubscriptionGifted" xml:space="preserve">
+    <value>VPZone 頻道訂閱贈禮</value>
+  </data>
+  <data name="VPZoneChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>VPZone 頻道大量訂閱贈禮</value>
+  </data>
+  <data name="VPZoneChannelRaided" xml:space="preserve">
+    <value>VPZone 頻道突襲</value>
+  </data>
+  <data name="VPZoneChannelClipCreated" xml:space="preserve">
+    <value>VPZone 頻道剪輯已建立</value>
+  </data>
+  <data name="VPZoneChannelShoutout" xml:space="preserve">
+    <value>VPZone 頻道推薦</value>
+  </data>
+  <data name="VPZoneChannelPointsRedeemed" xml:space="preserve">
+    <value>VPZone 頻道點數已兌換</value>
+  </data>
+  <data name="VPZoneChannelCheered" xml:space="preserve">
+    <value>VPZone 頻道歡呼</value>
+  </data>
+  <data name="VPZoneChannelPoints" xml:space="preserve">
+    <value>VPZone 頻道點數</value>
+  </data>
+  <data name="VPZoneChannelPointsCommand" xml:space="preserve">
+    <value>VPZone 頻道點數命令</value>
+  </data>
+  <data name="ShowVPZoneChannelPoints" xml:space="preserve">
+    <value>顯示 VPZone 頻道點數</value>
+  </data>
+  <data name="ShowVPZoneCheered" xml:space="preserve">
+    <value>顯示 VPZone 歡呼</value>
+  </data>
+  <data name="VPZoneCheered" xml:space="preserve">
+    <value>VPZone 歡呼</value>
+  </data>
+  <data name="VPZoneSubscriptions" xml:space="preserve">
+    <value>VPZone訂閱</value>
+  </data>
+  <data name="VPZonePixels" xml:space="preserve">
+    <value>VPZone Pixels</value>
+  </data>
+  <data name="VPZonePlus" xml:space="preserve">
+    <value>VPZ+ 會員</value>
+  </data>
+  <data name="VPZoneFounder" xml:space="preserve">
+    <value>VPZone 創始者</value>
+  </data>
+  <data name="VPZoneAmbassador" xml:space="preserve">
+    <value>VPZone 大使</value>
+  </data>
+  <data name="AlertVPZoneCheered" xml:space="preserve">
+    <value>{0} 歡呼了 {1} Pixels</value>
+    <comment>{0} is the name of the user, {1} is the amount of pixels</comment>
+  </data>
+  <data name="AlertVPZoneChannelPointRedeemed" xml:space="preserve">
+    <value>{0} 已兌換 {1}</value>
+    <comment>{0} is the name of the user, {1} is the name of the reward</comment>
+  </data>
+  <data name="VPZoneModerationActionFailed" xml:space="preserve">
+    <value>VPZone 的 {0} 動作失敗。詳情請查看記錄檔。</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="VPZoneModUserUnsupported" xml:space="preserve">
+    <value>VPZone 不支援從應用程式變更版主。請改用 VPZone 網站。</value>
+  </data>
+  <data name="VPZoneAnnouncementFailed" xml:space="preserve">
+    <value>VPZone 拒絕了聊天公告。詳情請查看記錄檔。</value>
+  </data>
+  <data name="VPZoneChatSocketNoChannel" xml:space="preserve">
+    <value>沒有可用於聊天連線的 VPZone 頻道</value>
+  </data>
+  <data name="VPZoneChatSocketConnectFailed" xml:space="preserve">
+    <value>無法連線至 VPZone 聊天閘道</value>
+  </data>
+  <data name="VPZoneMessageRejected" xml:space="preserve">
+    <value>VPZone 拒絕了訊息：{0}</value>
+    <comment>{0} is the reason the message was rejected</comment>
+  </data>
+  <data name="VPZoneSendErrorAuthRequired" xml:space="preserve">
+    <value>連線尚未登入</value>
+  </data>
+  <data name="VPZoneSendErrorBanned" xml:space="preserve">
+    <value>此帳號已被該頻道封鎖</value>
+  </data>
+  <data name="VPZoneSendErrorRateLimited" xml:space="preserve">
+    <value>訊息傳送速度過快</value>
+  </data>
+  <data name="VPZoneSendErrorSubsOnly" xml:space="preserve">
+    <value>頻道目前為僅限訂閱者模式</value>
+  </data>
+  <data name="VPZoneSendErrorFollowersOnly" xml:space="preserve">
+    <value>頻道目前為僅限追蹤者模式</value>
+  </data>
+  <data name="VPZoneSendErrorSlowMode" xml:space="preserve">
+    <value>慢速模式已開啟，請在 {0} 秒後再試</value>
+    <comment>{0} is the number of seconds to wait</comment>
+  </data>
+  <data name="VPZoneSendErrorEmoteOnly" xml:space="preserve">
+    <value>頻道目前為僅限表情符號模式</value>
+  </data>
+  <data name="VPZoneSendErrorBannedWord" xml:space="preserve">
+    <value>訊息包含被封鎖的字詞</value>
+  </data>
+  <data name="VPZoneSendErrorCozyFiltered" xml:space="preserve">
+    <value>訊息已被頻道的內容篩選器攔下</value>
+  </data>
+  <data name="VPZoneWebhookCallbackUnavailable" xml:space="preserve">
+    <value>VPZone 事件回呼位址無法使用</value>
+  </data>
+  <data name="VPZoneWebhookRegistrationFailed" xml:space="preserve">
+    <value>無法註冊 VPZone 事件回呼</value>
+  </data>
+  <data name="VPZoneWebhookDeleteFailed" xml:space="preserve">
+    <value>無法移除 VPZone 事件回呼</value>
+  </data>
+  <data name="VPZoneChannelPointRewardDeleteFailed" xml:space="preserve">
+    <value>無法刪除 VPZone 頻道點數獎勵</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantNoUser" xml:space="preserve">
+    <value>該使用者沒有已登錄的 VPZone 帳號</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantFailed" xml:space="preserve">
+    <value>無法授予 VPZone 頻道點數。需要具備授予範圍且綁定頻道的 API 金鑰。</value>
   </data>
 </root>

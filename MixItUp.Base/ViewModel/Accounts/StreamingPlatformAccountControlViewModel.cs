@@ -1,6 +1,7 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModels;
 using System;
@@ -36,6 +37,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FF0033"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "#00E701"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "#FDCB16"; }
+                if (this.Platform == StreamingPlatformTypeEnum.VPZone) { return "#7C3AED"; }
                 return "#3f51b5";
             }
         }
@@ -47,6 +49,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "/Assets/Images/youtube-dark_lg.png"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "/Assets/Images/kick-light_lg.png"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "/Assets/Images/velora-light_lg.png"; }
+                if (this.Platform == StreamingPlatformTypeEnum.VPZone) { return "/Assets/Images/vpzone-light_lg.png"; }
                 return StreamingPlatforms.GetPlatformImage(this.Platform);
             }
         }
@@ -58,6 +61,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return "#FFFFFF"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Kick) { return "#000000"; }
                 if (this.Platform == StreamingPlatformTypeEnum.Velora) { return "#000000"; }
+                if (this.Platform == StreamingPlatformTypeEnum.VPZone) { return "#FFFFFF"; }
                 return "#000000";
             }
         }
@@ -70,6 +74,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return MixItUp.Base.Resources.LogInWithYouTube; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick) { return MixItUp.Base.Resources.LogInWithKick; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return MixItUp.Base.Resources.LogInWithVelora; }
+                else if (this.Platform == StreamingPlatformTypeEnum.VPZone) { return MixItUp.Base.Resources.LogInWithVPZone; }
                 return string.Empty;
             }
         }
@@ -82,6 +87,7 @@ namespace MixItUp.Base.ViewModel.Accounts
                 else if (this.Platform == StreamingPlatformTypeEnum.YouTube) { return MixItUp.Base.Resources.LogOutOfYouTube; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Kick) { return MixItUp.Base.Resources.LogOutOfKick; }
                 else if (this.Platform == StreamingPlatformTypeEnum.Velora) { return MixItUp.Base.Resources.LogOutOfVelora; }
+                else if (this.Platform == StreamingPlatformTypeEnum.VPZone) { return MixItUp.Base.Resources.LogOutOfVPZone; }
                 return string.Empty;
             }
         }

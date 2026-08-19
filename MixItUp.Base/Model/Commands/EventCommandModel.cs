@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.User;
+﻿using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
 using System;
@@ -324,6 +324,57 @@ namespace MixItUp.Base.Model.Commands
                     specialIdentifiers["message"] = "Test Message";
                     break;
 
+                // VPZone
+                case EventTypeEnum.VPZoneChannelSubscribed:
+                    specialIdentifiers["usersubmonths"] = "1";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
+                    break;
+                case EventTypeEnum.VPZoneChannelResubscribed:
+                    specialIdentifiers["usersubmonths"] = "5";
+                    specialIdentifiers["usersubstreak"] = "5";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
+                    break;
+                case EventTypeEnum.VPZoneChannelSubscriptionGifted:
+                    specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
+                    break;
+                case EventTypeEnum.VPZoneChannelMassSubscriptionsGifted:
+                    specialIdentifiers["subsgiftedamount"] = "5";
+                    specialIdentifiers["subsgiftedlifetimeamount"] = "100";
+                    specialIdentifiers["isanonymous"] = "false";
+                    specialIdentifiers["usersubtier"] = "1";
+                    specialIdentifiers["usersubplan"] = "Tier 1";
+                    specialIdentifiers["usersubplanname"] = "Tier 1";
+                    break;
+                case EventTypeEnum.VPZoneChannelRaided:
+                    specialIdentifiers["hostviewercount"] = "123";
+                    specialIdentifiers["raidviewercount"] = "123";
+                    break;
+                case EventTypeEnum.VPZoneChannelPointsRedeemed:
+                    specialIdentifiers["rewardname"] = "Hydrate";
+                    specialIdentifiers["rewardcost"] = "5";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.VPZoneChannelCheered:
+                    specialIdentifiers["cheeramount"] = "100";
+                    specialIdentifiers["pixelsamount"] = "100";
+                    specialIdentifiers["message"] = "Test Message";
+                    break;
+                case EventTypeEnum.VPZoneChannelClipCreated:
+                    specialIdentifiers["cliptitle"] = "Test Clip";
+                    specialIdentifiers["clipurl"] = "https://vpzone.tv/clips/test";
+                    specialIdentifiers["clipid"] = "00000000-0000-0000-0000-000000000000";
+                    break;
+                case EventTypeEnum.VPZoneChannelShoutout:
+                    specialIdentifiers["shoutouttarget"] = "TestChannel";
+                    break;
+
                 // Chat
                 case EventTypeEnum.ChatUserTimeout:
                     specialIdentifiers["timeoutlength"] = "300";
@@ -619,6 +670,10 @@ namespace MixItUp.Base.Model.Commands
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.Velora.ToString();
             }
+            else if (eventNumber >= 800 && eventNumber < 900)
+            {
+                specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = StreamingPlatformTypeEnum.VPZone.ToString();
+            }
             else
             {
                 specialIdentifiers[SpecialIdentifierStringBuilder.StreamingPlatformSpecialIdentifier] = ChannelSession.Settings.DefaultStreamingPlatform.ToString();
@@ -684,6 +739,10 @@ namespace MixItUp.Base.Model.Commands
                     return true;
                 }
                 else if (this.EventType == EventTypeEnum.VeloraChannelFollowed)
+                {
+                    return true;
+                }
+                else if (this.EventType == EventTypeEnum.VPZoneChannelFollowed)
                 {
                     return true;
                 }

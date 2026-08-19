@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Commands;
+﻿using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Util;
 using System;
 using System.Collections.Generic;
@@ -61,6 +61,7 @@ namespace MixItUp.Base.Model.Store
         Script,
         Kick,
         Velora,
+        VPZone,
 
         // Command Tags
         ChatCommand = 1000,
@@ -79,6 +80,7 @@ namespace MixItUp.Base.Model.Store
         KickKicks,
         TwitchCustomPowerUpCommand,
         VeloraChannelPoints,
+        VPZoneChannelPoints,
 
         // Extra Tags
         [Obsolete]

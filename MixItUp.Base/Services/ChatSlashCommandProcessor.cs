@@ -1,6 +1,7 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
 using MixItUp.Base.ViewModel.User;
@@ -164,6 +165,9 @@ namespace MixItUp.Base.Services
             string color = name.Substring(AnnouncePrefix.Length);
             if (platform == StreamingPlatformTypeEnum.Twitch) { return TwitchAnnounceColors.Contains(color); }
             if (platform == StreamingPlatformTypeEnum.Velora) { return VeloraAnnounceColors.Contains(color); }
+            // VPZone posts announcements through a dedicated endpoint that takes no accent color, so
+            // only the plain "/announce" runs there.
+            if (platform == StreamingPlatformTypeEnum.VPZone) { return string.IsNullOrEmpty(color); }
             return false;
         }
 
@@ -284,9 +288,20 @@ namespace MixItUp.Base.Services
 
                         // Both platforms honour the chat box's "send as" selection; Velora falls back to the
                         // streamer socket when no bot is connected.
-                        return await ForEachPlatformAction(targets, (p) => p == StreamingPlatformTypeEnum.Velora
-                            ? ServiceManager.Get<VeloraSession>().SendAnnouncement(announcement, color, sendAsStreamer)
-                            : ServiceManager.Get<TwitchSession>().SendAnnouncement(announcement, color, sendAsStreamer));
+                        return await ForEachPlatformAction(targets, (p) =>
+                        {
+                            if (p == StreamingPlatformTypeEnum.Velora)
+                            {
+                                return ServiceManager.Get<VeloraSession>().SendAnnouncement(announcement, color, sendAsStreamer);
+                            }
+                            if (p == StreamingPlatformTypeEnum.VPZone)
+                            {
+                                // VPZone announcements always post as the channel owner, so there is no
+                                // send-as selection to honor and no accent color to pass along.
+                                return ServiceManager.Get<VPZoneSession>().SendAnnouncement(announcement);
+                            }
+                            return ServiceManager.Get<TwitchSession>().SendAnnouncement(announcement, color, sendAsStreamer);
+                        });
                     }
                     return SlashCommandResultEnum.NotRecognized;
             }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12362,5 +12362,157 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="StopState" xml:space="preserve">
     <value>ステートを停止</value>
+  </data>
+  <data name="VPZone" xml:space="preserve">
+    <value>VPZone</value>
+  </data>
+  <data name="LogInWithVPZone" xml:space="preserve">
+    <value>VPZoneでログイン</value>
+  </data>
+  <data name="LogOutOfVPZone" xml:space="preserve">
+    <value>VPZoneからログアウトする</value>
+  </data>
+  <data name="VPZoneChannelStreamStart" xml:space="preserve">
+    <value>VPZone・チャンネル・ストリーム・スタート</value>
+  </data>
+  <data name="VPZoneChannelStreamStop" xml:space="preserve">
+    <value>VPZone・チャンネル・ストリーム・ストップ</value>
+  </data>
+  <data name="VPZoneChannelUpdated" xml:space="preserve">
+    <value>VPZone・チャンネル更新</value>
+  </data>
+  <data name="VPZoneChannelFollowed" xml:space="preserve">
+    <value>VPZone チャンネルをフォローした</value>
+  </data>
+  <data name="VPZoneChannelSubscribed" xml:space="preserve">
+    <value>VPZone・チャンネル登録</value>
+  </data>
+  <data name="VPZoneChannelResubscribed" xml:space="preserve">
+    <value>VPZone・チャンネル再登録</value>
+  </data>
+  <data name="VPZoneChannelSubscriptionGifted" xml:space="preserve">
+    <value>VPZone・チャンネル購読プレゼント</value>
+  </data>
+  <data name="VPZoneChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>VPZone・チャンネル大量購読プレゼント</value>
+  </data>
+  <data name="VPZoneChannelRaided" xml:space="preserve">
+    <value>VPZoneチャンネルが襲撃されました</value>
+  </data>
+  <data name="VPZoneChannelClipCreated" xml:space="preserve">
+    <value>VPZone チャンネルのクリップ作成</value>
+  </data>
+  <data name="VPZoneChannelShoutout" xml:space="preserve">
+    <value>VPZone チャンネルの紹介</value>
+  </data>
+  <data name="VPZoneChannelPointsRedeemed" xml:space="preserve">
+    <value>VPZone チャンネルポイント引き換え</value>
+  </data>
+  <data name="VPZoneChannelCheered" xml:space="preserve">
+    <value>VPZone チャンネルの応援</value>
+  </data>
+  <data name="VPZoneChannelPoints" xml:space="preserve">
+    <value>VPZone チャンネルポイント</value>
+  </data>
+  <data name="VPZoneChannelPointsCommand" xml:space="preserve">
+    <value>VPZone チャンネルポイントコマンド</value>
+  </data>
+  <data name="ShowVPZoneChannelPoints" xml:space="preserve">
+    <value>VPZone チャンネルポイントを表示</value>
+  </data>
+  <data name="ShowVPZoneCheered" xml:space="preserve">
+    <value>VPZone の応援を表示</value>
+  </data>
+  <data name="VPZoneCheered" xml:space="preserve">
+    <value>VPZone 応援</value>
+  </data>
+  <data name="VPZoneSubscriptions" xml:space="preserve">
+    <value>VPZone のサブスクリプション</value>
+  </data>
+  <data name="VPZonePixels" xml:space="preserve">
+    <value>VPZone Pixels</value>
+  </data>
+  <data name="VPZonePlus" xml:space="preserve">
+    <value>VPZ+ メンバー</value>
+  </data>
+  <data name="VPZoneFounder" xml:space="preserve">
+    <value>VPZone 創設者</value>
+  </data>
+  <data name="VPZoneAmbassador" xml:space="preserve">
+    <value>VPZone アンバサダー</value>
+  </data>
+  <data name="AlertVPZoneCheered" xml:space="preserve">
+    <value>{0} が {1} Pixels を応援しました</value>
+    <comment>{0} is the name of the user, {1} is the amount of pixels</comment>
+  </data>
+  <data name="AlertVPZoneChannelPointRedeemed" xml:space="preserve">
+    <value>{0} が {1} を交換しました</value>
+    <comment>{0} is the name of the user, {1} is the name of the reward</comment>
+  </data>
+  <data name="VPZoneModerationActionFailed" xml:space="preserve">
+    <value>VPZoneの{0}アクションに失敗しました。詳細はログを確認してください。</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="VPZoneModUserUnsupported" xml:space="preserve">
+    <value>VPZoneはアプリからのモデレーター変更に対応していません。VPZoneのウェブサイトをご利用ください。</value>
+  </data>
+  <data name="VPZoneAnnouncementFailed" xml:space="preserve">
+    <value>VPZoneがチャット通知を拒否しました。詳細はログを確認してください。</value>
+  </data>
+  <data name="VPZoneChatSocketNoChannel" xml:space="preserve">
+    <value>チャット接続に使用できるVPZoneチャンネルがありません</value>
+  </data>
+  <data name="VPZoneChatSocketConnectFailed" xml:space="preserve">
+    <value>VPZoneチャットゲートウェイへの接続に失敗しました</value>
+  </data>
+  <data name="VPZoneMessageRejected" xml:space="preserve">
+    <value>VPZoneがメッセージを拒否しました: {0}</value>
+    <comment>{0} is the reason the message was rejected</comment>
+  </data>
+  <data name="VPZoneSendErrorAuthRequired" xml:space="preserve">
+    <value>接続がサインインしていません</value>
+  </data>
+  <data name="VPZoneSendErrorBanned" xml:space="preserve">
+    <value>このアカウントはチャンネルからBANされています</value>
+  </data>
+  <data name="VPZoneSendErrorRateLimited" xml:space="preserve">
+    <value>メッセージの送信が速すぎます</value>
+  </data>
+  <data name="VPZoneSendErrorSubsOnly" xml:space="preserve">
+    <value>チャンネルは購読者限定モードです</value>
+  </data>
+  <data name="VPZoneSendErrorFollowersOnly" xml:space="preserve">
+    <value>チャンネルはフォロワー限定モードです</value>
+  </data>
+  <data name="VPZoneSendErrorSlowMode" xml:space="preserve">
+    <value>スローモードが有効です。{0}秒後に再試行してください</value>
+    <comment>{0} is the number of seconds to wait</comment>
+  </data>
+  <data name="VPZoneSendErrorEmoteOnly" xml:space="preserve">
+    <value>チャンネルはエモート限定モードです</value>
+  </data>
+  <data name="VPZoneSendErrorBannedWord" xml:space="preserve">
+    <value>メッセージにブロックされた単語が含まれていました</value>
+  </data>
+  <data name="VPZoneSendErrorCozyFiltered" xml:space="preserve">
+    <value>メッセージはチャンネルのコンテンツフィルターに保留されました</value>
+  </data>
+  <data name="VPZoneWebhookCallbackUnavailable" xml:space="preserve">
+    <value>VPZoneイベントのコールバックアドレスを利用できません</value>
+  </data>
+  <data name="VPZoneWebhookRegistrationFailed" xml:space="preserve">
+    <value>VPZoneイベントのコールバック登録に失敗しました</value>
+  </data>
+  <data name="VPZoneWebhookDeleteFailed" xml:space="preserve">
+    <value>VPZoneイベントのコールバック削除に失敗しました</value>
+  </data>
+  <data name="VPZoneChannelPointRewardDeleteFailed" xml:space="preserve">
+    <value>VPZone チャンネルポイント報酬の削除に失敗しました</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantNoUser" xml:space="preserve">
+    <value>そのユーザーのVPZoneアカウントは登録されていません</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantFailed" xml:space="preserve">
+    <value>VPZone チャンネルポイントの付与に失敗しました。付与スコープを持つチャンネル専用のAPIキーが必要です。</value>
   </data>
 </root>

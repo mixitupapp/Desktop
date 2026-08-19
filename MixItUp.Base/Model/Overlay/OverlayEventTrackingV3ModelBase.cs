@@ -1,6 +1,7 @@
 ﻿using MixItUp.Base.Model.Kick.Kicks;
 using MixItUp.Base.Model.Twitch.Bits;
 using MixItUp.Base.Model.Velora;
+using MixItUp.Base.Model.VPZone;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
 using MixItUp.Base.Services.Twitch;
@@ -52,7 +53,11 @@ namespace MixItUp.Base.Model.Overlay
         [DataMember]
         public virtual bool VeloraSubscriptions { get; set; }
         [DataMember]
+        public virtual bool VPZoneSubscriptions { get; set; }
+        [DataMember]
         public virtual bool VeloraCheered { get; set; }
+        [DataMember]
+        public virtual bool VPZoneCheered { get; set; }
 
         [DataMember]
         public virtual bool Donations { get; set; }
@@ -134,6 +139,11 @@ namespace MixItUp.Base.Model.Overlay
                 EventService.OnVeloraChannelCheeredOccurred += OnVeloraCheered;
             }
 
+            if (this.VPZoneCheered)
+            {
+                EventService.OnVPZoneChannelCheeredOccurred += OnVPZoneCheered;
+            }
+
             if (this.YouTubeJewels)
             {
                 EventService.OnYouTubeJewelsGiftOccurred += OnYouTubeJewelsGift;
@@ -192,6 +202,8 @@ namespace MixItUp.Base.Model.Overlay
 
         public virtual void OnVeloraCheered(object sender, VeloraCheeredEventModel cheered) { }
 
+        public virtual void OnVPZoneCheered(object sender, VPZoneCheeredEventModel cheered) { }
+
         public virtual void OnYouTubeJewelsGift(object sender, YouTubeJewelsGiftViewModel jewelsGift) { }
 
         public virtual void OnChannelPointsRedeemed(object sender, Tuple<UserV2ViewModel, int> redemption) { }
@@ -219,6 +231,7 @@ namespace MixItUp.Base.Model.Overlay
             EventService.OnYouTubeSuperChatOccurred -= OnYouTubeSuperChat;
             EventService.OnKickKicksGiftedOccurred -= OnKickKicksGifted;
             EventService.OnVeloraChannelCheeredOccurred -= OnVeloraCheered;
+            EventService.OnVPZoneChannelCheeredOccurred -= OnVPZoneCheered;
             EventService.OnYouTubeJewelsGiftOccurred -= OnYouTubeJewelsGift;
             EventService.OnChannelPointsRedeemedOccurred -= OnChannelPointsRedeemed;
             EventService.OnStreamlootsOccurred -= OnStreamloots;

@@ -57,6 +57,8 @@ namespace MixItUp.Base.ViewModel.Wizard
 
         public StreamingPlatformAccountControlViewModel Velora { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.Velora);
 
+        public StreamingPlatformAccountControlViewModel VPZone { get; set; } = new StreamingPlatformAccountControlViewModel(StreamingPlatformTypeEnum.VPZone);
+
         #endregion Accounts Page
 
         #region Command & Actions Page
@@ -167,6 +169,9 @@ namespace MixItUp.Base.ViewModel.Wizard
             this.Velora.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
             this.Velora.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
 
+            this.VPZone.StartLoadingOperationOccurred += (sender, eventArgs) => { this.StartLoadingOperation(); };
+            this.VPZone.EndLoadingOperationOccurred += (sender, eventArgs) => { this.EndLoadingOperation(); };
+
             this.SetBackupLocationCommand = this.CreateCommand(() =>
             {
                 string folderPath = ServiceManager.Get<IFileService>().ShowOpenFolderDialog();
@@ -195,7 +200,7 @@ namespace MixItUp.Base.ViewModel.Wizard
                 }
                 else if (this.StreamerAccountsPageVisible)
                 {
-                    if (!this.Twitch.IsStreamerAccountConnected && !this.YouTube.IsStreamerAccountConnected && !this.Kick.IsStreamerAccountConnected && !this.Velora.IsStreamerAccountConnected)
+                    if (!this.Twitch.IsStreamerAccountConnected && !this.YouTube.IsStreamerAccountConnected && !this.Kick.IsStreamerAccountConnected && !this.Velora.IsStreamerAccountConnected && !this.VPZone.IsStreamerAccountConnected)
                     {
                         this.StatusMessage = MixItUp.Base.Resources.NewUserWizardAtLeastOneAccountMustBeSignedIn;
                         return;
