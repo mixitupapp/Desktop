@@ -1,26 +1,14 @@
 # Mix It Up Desktop Changelog
 
-## 1.8.131
+## 1.8.200
 
-Release Date: 2026-08-15
+Release Date: 2026-08-19
 
 ### FEATURES
 
 - Add VPZone Announce action for posting a channel announcement
 - Add VPZone Pin Message action, which sends a message and pins it as the channel banner, and Unpin Message for clearing whatever is pinned
 - Add /announce to the VPZone chat slash commands
-
-### FIXES
-
-- Fixed VPZone announcements not showing in the chat window
-- Fixed VPZone Clear Chat deleting only the messages Mix It Up had buffered, one at a time
-
-## 1.8.130
-
-Release Date: 2026-08-14
-
-### FEATURES
-
 - Add VPZone platform integration, connected from the Accounts page with Streamer and Bot accounts:
   - Chat with emotes and badges, covering broadcaster, moderator, subscriber tier, VPZ+, Founder, and Ambassador
   - Viewer list, moderation, and channel management for your title and category from the Channel page
@@ -46,14 +34,7 @@ Release Date: 2026-08-14
 - Existing special identifiers compatible with VPZone: $streamsubscribercount, $streamdescription, and $userstreamtitle / $userstreamgame / $userstreamgameimage / $userstreamislive
 - Add VPZone Subscriptions and VPZone Cheered to the Event List, Goal, Persistent Timer, Stream Boss, Custom, and End Credits overlay widgets
 - Add Latest VPZone Cheered to the Label overlay widget
-- Add VPZone Channel Points and VPZone Cheered alert colors to the Alerts settings pageF
-
-## 1.8.120
-
-Release Date: 2026-08-11
-
-### FEATURES
-
+- Add VPZone Channel Points and VPZone Cheered alert colors to the Alerts settings page
 - Add VConnect integration, connected from the Services page with a port field (default 39542):
   - Activate Trigger action, picked from a list read out of VConnect
   - Send Custom Message action for sending a channel and arguments to the On WebSocket Receive nodes listening on it, one argument per line
@@ -68,19 +49,6 @@ Release Date: 2026-08-11
   - Trigger State and Stop State actions, taking the state's name as it appears in RahiTuber or its position in the states list counting from 0
   - Toggle and Permanent states only need triggering. A While Held state stays on until a Stop State action for it runs
   - No RahiTuber events. Its integration only takes state changes and reports nothing back
-
-### FIXES
-
-- Fixed Velora gifted subscriptions crediting the recipient as the gifter, so the recipient's lifetime gifted sub count went up instead of the gifter's
-- Fixed Velora gifted subscription commands running with no target user, leaving $targetusername empty and the mass gifted event listing nobody
-- Fixed Velora raids never firing
-
-## 1.8.110
-
-Release Date: 2026-08-09
-
-### FEATURES
-
 - Add a Timeout (seconds) field to the External Program action, used when Wait For Finish is on. The wait gives up once the timeout is reached and the rest of the command carries on
   - The program itself is left running rather than being killed, so a TTS engine or voice control app is not cut off mid-sentence
   - Whatever the program printed before the wait gave up is still saved to $externalprogramresult
@@ -92,6 +60,11 @@ Release Date: 2026-08-09
 
 ### FIXES
 
+- Fixed VPZone announcements not showing in the chat window
+- Fixed VPZone Clear Chat deleting only the messages Mix It Up had buffered, one at a time
+- Fixed Velora gifted subscriptions crediting the recipient as the gifter, so the recipient's lifetime gifted sub count went up instead of the gifter's
+- Fixed Velora gifted subscription commands running with no target user, leaving $targetusername empty and the mass gifted event listing nobody
+- Fixed Velora raids never firing
 - Fixed Twitch failing to reconnect after the PC resumes from sleep, where the first subscription lookup came back on an expired token and the reconnect carried on as though it had worked
 - Twitch now reports as connected only once its event subscriptions are registered, rather than the moment the socket opens. A connection that registers nothing is treated as failed and retried instead of sitting there connected and silent
   - Connecting can take a little longer as a result, since it now waits for the whole set of subscriptions to register rather than returning the moment the session opens
