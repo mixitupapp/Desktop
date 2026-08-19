@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Actions;
+﻿using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Commands.Games;
 using MixItUp.Base.Model.Currency;
@@ -253,6 +253,11 @@ namespace MixItUp.Base.Model.Settings
         [DataMember]
         public int YouTubeShortsVideoLengthCap { get; set; } = 180;
 
+        // The channel owner's uploads include private, unlisted, and scheduled videos, none of which an
+        // audience can watch. Off, the latest video identifiers report those too.
+        [DataMember]
+        public bool YouTubeOnlyPublicVideos { get; set; } = true;
+
         [DataMember]
         public RequirementErrorCooldownTypeEnum RequirementErrorsCooldownType { get; set; } = RequirementErrorCooldownTypeEnum.Default;
         [DataMember]
@@ -344,6 +349,10 @@ namespace MixItUp.Base.Model.Settings
         public string AlertVeloraChannelPointsColor { get; set; }
         [DataMember]
         public string AlertVeloraCheeredColor { get; set; }
+        [DataMember]
+        public string AlertVPZoneChannelPointsColor { get; set; }
+        [DataMember]
+        public string AlertVPZoneCheeredColor { get; set; }
         [DataMember]
         public string AlertTwitchUserWarnedColor { get; set; }
         [DataMember]
@@ -633,6 +642,18 @@ namespace MixItUp.Base.Model.Settings
         // nothing to type unless the user is pointing at another machine, where no local file exists.
         [DataMember]
         public string VeadotubeManualAddress { get; set; }
+
+        [DataMember]
+        public bool VConnectEnabled { get; set; }
+
+        [DataMember]
+        public int VConnectPortNumber { get; set; } = VConnectService.DefaultPortNumber;
+
+        [DataMember]
+        public bool RahiTuberEnabled { get; set; }
+
+        [DataMember]
+        public int RahiTuberPortNumber { get; set; } = RahiTuberService.DefaultPortNumber;
 
         [DataMember]
         public int TITSPortNumber { get; set; } = TITSService.DefaultPortNumber;
@@ -936,6 +957,10 @@ namespace MixItUp.Base.Model.Settings
                     {
                         command = JSONSerializerHelper.DeserializeFromString<VeloraChannelPointsCommandModel>(commandData);
                     }
+                    else if (type == CommandTypeEnum.VPZoneChannelPoints)
+                    {
+                        command = JSONSerializerHelper.DeserializeFromString<VPZoneChannelPointsCommandModel>(commandData);
+                    }
 
                     if (command != null)
                     {
@@ -1139,8 +1164,8 @@ namespace MixItUp.Base.Model.Settings
 
             IEnumerable<UserV2Model> changedUsers = this.Users.GetAddedChangedValues();
             await ServiceManager.Get<IDatabaseService>().BulkWrite(this.DatabaseFilePath,
-                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername, VeloraID, VeloraUsername) " +
-                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername, $VeloraID, $VeloraUsername)",
+                "REPLACE INTO Users(ID, TwitchID, TwitchUsername, YouTubeID, YouTubeUsername, FacebookID, FacebookUsername, TrovoID, TrovoUsername, Data, KickID, KickUsername, VeloraID, VeloraUsername, VPZoneID, VPZoneUsername) " +
+                "VALUES($ID, $TwitchID, $TwitchUsername, $YouTubeID, $YouTubeUsername, $FacebookID, $FacebookUsername, $TrovoID, $TrovoUsername, $Data, $KickID, $KickUsername, $VeloraID, $VeloraUsername, $VPZoneID, $VPZoneUsername)",
                 changedUsers.Select(u => new Dictionary<string, object>()
                 {
                     { "$ID", u.ID.ToString() },
@@ -1152,7 +1177,8 @@ namespace MixItUp.Base.Model.Settings
 #pragma warning restore CS0612 // Type or member is obsolete                    
                     { "$Data", JSONSerializerHelper.SerializeToString(u) },
                     { "$KickID", u.GetPlatformID(StreamingPlatformTypeEnum.Kick) }, { "$KickUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Kick) },
-                    { "$VeloraID", u.GetPlatformID(StreamingPlatformTypeEnum.Velora) }, { "$VeloraUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Velora) }
+                    { "$VeloraID", u.GetPlatformID(StreamingPlatformTypeEnum.Velora) }, { "$VeloraUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.Velora) },
+                    { "$VPZoneID", u.GetPlatformID(StreamingPlatformTypeEnum.VPZone) }, { "$VPZoneUsername", u.GetPlatformUsername(StreamingPlatformTypeEnum.VPZone) }
                 }));
 
             List<Guid> removedCommands = new List<Guid>();
@@ -1375,6 +1401,35 @@ namespace MixItUp.Base.Model.Settings
             }
         }
 
+        public async Task AddMissingUsersTableVPZoneColumns()
+        {
+            bool hasVPZoneID = false;
+            bool hasVPZoneUsername = false;
+
+            await ServiceManager.Get<IDatabaseService>().Read(this.DatabaseFilePath, "PRAGMA table_info(Users)", (row) =>
+            {
+                string columnName = row["name"]?.ToString();
+                if (string.Equals(columnName, "VPZoneID", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasVPZoneID = true;
+                }
+                else if (string.Equals(columnName, "VPZoneUsername", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasVPZoneUsername = true;
+                }
+            });
+
+            if (!hasVPZoneID)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN VPZoneID TEXT");
+            }
+
+            if (!hasVPZoneUsername)
+            {
+                await ServiceManager.Get<IDatabaseService>().Write(this.DatabaseFilePath, "ALTER TABLE Users ADD COLUMN VPZoneUsername TEXT");
+            }
+        }
+
         public async Task<IEnumerable<StatisticModel>> LoadSpecificStatisticType(StatisticItemTypeEnum type)
         {
             List<StatisticModel> statistics = new List<StatisticModel>();
@@ -1471,6 +1526,7 @@ namespace MixItUp.Base.Model.Settings
             await this.CreateUserImportTable();
             await this.AddMissingUsersTableKickColumns();
             await this.AddMissingUsersTableVeloraColumns();
+            await this.AddMissingUsersTableVPZoneColumns();
             //await this.CreateStatisticsTable();
 
             StreamingPlatforms.ForEachPlatform(p =>

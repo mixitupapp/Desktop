@@ -1,4 +1,4 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Requirements;
@@ -7,6 +7,7 @@ using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.Chat;
@@ -123,6 +124,11 @@ namespace MixItUp.Base.Services
             {
                 viewerCount += ServiceManager.Get<VeloraSession>().StreamViewerCount;
             }
+
+            if (ServiceManager.Get<VPZoneSession>().IsConnected && ServiceManager.Get<VPZoneSession>().IsLive)
+            {
+                viewerCount += ServiceManager.Get<VPZoneSession>().StreamViewerCount;
+            }
             return viewerCount;
         }
 
@@ -174,6 +180,10 @@ namespace MixItUp.Base.Services
                     else if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
                     {
                         await ServiceManager.Get<VeloraSession>().SendMessage(message, sendAsStreamer);
+                    }
+                    else if (platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+                    {
+                        await ServiceManager.Get<VPZoneSession>().SendMessage(message, sendAsStreamer);
                     }
                     else if (platform == StreamingPlatformTypeEnum.Mock)
                     {
@@ -246,6 +256,10 @@ namespace MixItUp.Base.Services
                 {
                     await ServiceManager.Get<VeloraSession>().DeleteMessage(message);
                 }
+                else if (message.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+                {
+                    await ServiceManager.Get<VPZoneSession>().DeleteMessage(message);
+                }
                 else if (message.Platform == StreamingPlatformTypeEnum.Mock)
                 {
                     await ServiceManager.Get<MockSession>().DeleteMessage(message);
@@ -290,28 +304,42 @@ namespace MixItUp.Base.Services
 
         public async Task ClearMessages(StreamingPlatformTypeEnum platform)
         {
+            // Every platform gets its turn before the local window is emptied. VPZone has no bulk clear
+            // and works out what to delete by reading this.Messages, so clearing the window per platform
+            // left it with nothing to do whenever it was not the first platform in the loop.
             if (platform == StreamingPlatformTypeEnum.All)
             {
                 await StreamingPlatforms.ForEachPlatform(async (p) =>
                 {
-                    await this.ClearMessages(p);
+                    await this.ClearPlatformMessages(p);
                 });
             }
             else
             {
-                if (platform == StreamingPlatformTypeEnum.Twitch && ServiceManager.Get<TwitchSession>().IsConnected)
-                {
-                    await ServiceManager.Get<TwitchSession>().ClearMessages();
-                }
-                if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
-                {
-                    await ServiceManager.Get<VeloraSession>().ClearMessages();
-                }
-                this.messagesLookup.Clear();
-                this.Messages.Clear();
+                await this.ClearPlatformMessages(platform);
             }
 
+            this.messagesLookup.Clear();
+            this.Messages.Clear();
+
             ChatService.ChatCleared();
+        }
+
+        private async Task ClearPlatformMessages(StreamingPlatformTypeEnum platform)
+        {
+            if (platform == StreamingPlatformTypeEnum.Twitch && ServiceManager.Get<TwitchSession>().IsConnected)
+            {
+                await ServiceManager.Get<TwitchSession>().ClearMessages();
+            }
+            if (platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
+            {
+                await ServiceManager.Get<VeloraSession>().ClearMessages();
+            }
+
+            if (platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                await ServiceManager.Get<VPZoneSession>().ClearMessages();
+            }
         }
 
         public async Task PurgeUser(UserV2ViewModel user)
@@ -321,6 +349,12 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
             {
                 await ServiceManager.Get<VeloraSession>().PurgeUser(user);
+                return;
+            }
+
+            if (user.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                await ServiceManager.Get<VPZoneSession>().PurgeUser(user);
                 return;
             }
 
@@ -349,6 +383,11 @@ namespace MixItUp.Base.Services
                 await ServiceManager.Get<VeloraSession>().TimeoutUser(user, durationInSeconds, reason);
             }
 
+            if (user.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                await ServiceManager.Get<VPZoneSession>().TimeoutUser(user, durationInSeconds, reason);
+            }
+
             ChatService.ChatUserTimedOut(user);
         }
 
@@ -370,6 +409,11 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
             {
                 await ServiceManager.Get<VeloraSession>().ModUser(user);
+            }
+
+            if (user.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                await ServiceManager.Get<VPZoneSession>().ModUser(user);
             }
 
         }
@@ -394,6 +438,11 @@ namespace MixItUp.Base.Services
                 await ServiceManager.Get<VeloraSession>().UnmodUser(user);
             }
 
+            if (user.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                await ServiceManager.Get<VPZoneSession>().UnmodUser(user);
+            }
+
         }
 
         public async Task BanUser(UserV2ViewModel user, string reason = null)
@@ -414,6 +463,11 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
             {
                 await ServiceManager.Get<VeloraSession>().BanUser(user, reason);
+            }
+
+            if (user.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                await ServiceManager.Get<VPZoneSession>().BanUser(user, reason);
             }
 
             ChatService.ChatUserBanned(user);
@@ -437,6 +491,11 @@ namespace MixItUp.Base.Services
             if (user.Platform == StreamingPlatformTypeEnum.Velora && ServiceManager.Get<VeloraSession>().IsConnected)
             {
                 await ServiceManager.Get<VeloraSession>().UnbanUser(user);
+            }
+
+            if (user.Platform == StreamingPlatformTypeEnum.VPZone && ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                await ServiceManager.Get<VPZoneSession>().UnbanUser(user);
             }
 
         }

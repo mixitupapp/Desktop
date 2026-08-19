@@ -498,15 +498,30 @@ namespace MixItUp.Base.Services.YouTube.New
 
         public async Task<IEnumerable<MembershipsLevel>> GetMembershipLevels()
         {
-            return await AsyncRunner.RunAsync(async () =>
+            return await AsyncRunner.RunAsync<IEnumerable<MembershipsLevel>>(async () =>
             {
-                MembershipsLevelsResource.ListRequest request = this.GoogleYouTubeService.MembershipsLevels.List("id,snippet");
-                LogRequest(request);
+                try
+                {
+                    MembershipsLevelsResource.ListRequest request = this.GoogleYouTubeService.MembershipsLevels.List("id,snippet");
+                    LogRequest(request);
 
-                MembershipsLevelListResponse response = await request.ExecuteAsync();
-                LogResponse(request, response);
-                return response.Items;
+                    MembershipsLevelListResponse response = await request.ExecuteAsync();
+                    LogResponse(request, response);
+                    return response.Items;
+                }
+                catch (GoogleApiException gex) when (IsChannelMembershipsNotEnabled(gex))
+                {
+                    // Most channels do not have Channel Memberships turned on, which is an ordinary
+                    // setup rather than a fault, so it does not belong in the log as an error
+                    Logger.Log(LogLevel.Debug, "Channel does not have YouTube Channel Memberships enabled, no membership levels to load");
+                    return new List<MembershipsLevel>();
+                }
             });
+        }
+
+        private static bool IsChannelMembershipsNotEnabled(GoogleApiException gex)
+        {
+            return gex.Error?.Errors?.Any(e => string.Equals(e.Reason, "channelMembershipsNotEnabled", StringComparison.OrdinalIgnoreCase)) ?? false;
         }
 
         public async Task<IEnumerable<Member>> GetChannelMemberships(int maxResults = 1)

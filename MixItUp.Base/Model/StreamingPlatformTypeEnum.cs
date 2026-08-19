@@ -1,8 +1,9 @@
-using MixItUp.Base.Services;
+﻿using MixItUp.Base.Services;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Services.YouTube.New;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace MixItUp.Base.Model
         Facebook = 6,
         Kick = 7,
         Velora = 8,
+        VPZone = 9,
 
         All = 99999,
 
@@ -39,11 +41,13 @@ namespace MixItUp.Base.Model
         public const string YouTubeLogoImageAssetFilePath = "/Assets/Images/youtube-color_lg.png";
         public const string KickLogoImageAssetFilePath = "/Assets/Images/kick-color_lg.png";
         public const string VeloraLogoImageAssetFilePath = "/Assets/Images/velora-color_lg.png";
+        public const string VPZoneLogoImageAssetFilePath = "/Assets/Images/vpzone-color_lg.png";
 
         public const string TwitchSmallLogoImageAssetFilePath = "/Assets/Images/twitch-color_sm.png";
         public const string YouTubeSmallLogoImageAssetFilePath = "/Assets/Images/youtube-color_sm.png";
         public const string KickSmallLogoImageAssetFilePath = "/Assets/Images/kick-color_sm.png";
         public const string VeloraSmallLogoImageAssetFilePath = "/Assets/Images/velora-color_sm.png";
+        public const string VPZoneSmallLogoImageAssetFilePath = "/Assets/Images/vpzone-color_sm.png";
 
         public static ISet<StreamingPlatformTypeEnum> SupportedPlatforms { get; private set; } = new HashSet<StreamingPlatformTypeEnum>()
         {
@@ -51,6 +55,7 @@ namespace MixItUp.Base.Model
             StreamingPlatformTypeEnum.YouTube,
             StreamingPlatformTypeEnum.Kick,
             StreamingPlatformTypeEnum.Velora,
+            StreamingPlatformTypeEnum.VPZone,
         };
 
         public static ISet<StreamingPlatformTypeEnum> SelectablePlatforms { get; private set; } = new HashSet<StreamingPlatformTypeEnum>()
@@ -60,6 +65,7 @@ namespace MixItUp.Base.Model
             StreamingPlatformTypeEnum.YouTube,
             StreamingPlatformTypeEnum.Kick,
             StreamingPlatformTypeEnum.Velora,
+            StreamingPlatformTypeEnum.VPZone,
         };
 
         public static bool IsValidPlatform(StreamingPlatformTypeEnum platform) { return StreamingPlatforms.SupportedPlatforms.Contains(platform); }
@@ -74,6 +80,7 @@ namespace MixItUp.Base.Model
                 ServiceManager.Get<YouTubeSession>(),
                 ServiceManager.Get<KickSession>(),
                 ServiceManager.Get<VeloraSession>(),
+                ServiceManager.Get<VPZoneSession>(),
                 //ServiceManager.Get<MockSession>()
             };
         }
@@ -98,6 +105,7 @@ namespace MixItUp.Base.Model
             else if (platform == StreamingPlatformTypeEnum.YouTube) { return ServiceManager.Get<YouTubeSession>(); }
             else if (platform == StreamingPlatformTypeEnum.Kick) { return ServiceManager.Get<KickSession>(); }
             else if (platform == StreamingPlatformTypeEnum.Velora) { return ServiceManager.Get<VeloraSession>(); }
+            else if (platform == StreamingPlatformTypeEnum.VPZone) { return ServiceManager.Get<VPZoneSession>(); }
             else if (platform == StreamingPlatformTypeEnum.Mock) { return ServiceManager.Get<MockSession>(); }
             else if (platform == StreamingPlatformTypeEnum.All && ChannelSession.Settings != null)
             {
@@ -112,6 +120,7 @@ namespace MixItUp.Base.Model
             else if (platform == StreamingPlatformTypeEnum.YouTube) { return YouTubeLogoImageAssetFilePath; }
             else if (platform == StreamingPlatformTypeEnum.Kick) { return KickLogoImageAssetFilePath; }
             else if (platform == StreamingPlatformTypeEnum.Velora) { return VeloraLogoImageAssetFilePath; }
+            else if (platform == StreamingPlatformTypeEnum.VPZone) { return VPZoneLogoImageAssetFilePath; }
             return string.Empty;
         }
 
@@ -121,6 +130,7 @@ namespace MixItUp.Base.Model
             else if (platform == StreamingPlatformTypeEnum.YouTube) { return YouTubeSmallLogoImageAssetFilePath; }
             else if (platform == StreamingPlatformTypeEnum.Kick) { return KickSmallLogoImageAssetFilePath; }
             else if (platform == StreamingPlatformTypeEnum.Velora) { return VeloraSmallLogoImageAssetFilePath; }
+            else if (platform == StreamingPlatformTypeEnum.VPZone) { return VPZoneSmallLogoImageAssetFilePath; }
             return string.Empty;
         }
 

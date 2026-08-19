@@ -1,4 +1,4 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Services;
 using ModelContextProtocol;
 using ModelContextProtocol.Server;
@@ -74,7 +74,7 @@ namespace MixItUp.WPF.Services.MCP.Tools
         }
 
         [McpServerTool(Name = "clear_chat", ReadOnly = false, Destructive = true, Idempotent = true, OpenWorld = true, UseStructuredContent = true)]
-        [Description("Clear the chat history for one or all connected platforms. WARNING: on Twitch and Velora this is a real moderation action that clears chat for every viewer and cannot be undone. On YouTube and Kick only the local Mix It Up chat display is cleared, because those platforms provide no clear-chat API; viewers there keep seeing the full history.")]
+        [Description("Clear the chat history for one or all connected platforms. WARNING: on Twitch, Velora and VPZone this is a real moderation action that clears chat for every viewer and cannot be undone. On YouTube and Kick only the local Mix It Up chat display is cleared, because those platforms provide no clear-chat API, and viewers there keep seeing the full history.")]
         public static Task<ActionResult> ClearChat(
             [Description("Platform to clear, for example Twitch. Defaults to all connected platforms.")] string platform = null)
         {
@@ -84,12 +84,12 @@ namespace MixItUp.WPF.Services.MCP.Tools
 
                 StreamingPlatformTypeEnum platformType = ToolHelpers.ParsePlatform(platform);
 
-                // ChatService.ClearMessages reaches a platform API only for Twitch and Velora, and
-                // only while that session is connected; every other case clears the local display
-                // alone. Work out which of those actually applied before clearing, so the result
-                // never tells a caller that viewers saw a clear which never left the app.
+                // ChatService.ClearMessages reaches a platform API only for Twitch, Velora and
+                // VPZone, and only while that session is connected; every other case clears the local
+                // display alone. Work out which of those actually applied before clearing, so the
+                // result never tells a caller that viewers saw a clear which never left the app.
                 List<string> clearedForViewers = new List<string>();
-                foreach (StreamingPlatformTypeEnum viewerFacing in new[] { StreamingPlatformTypeEnum.Twitch, StreamingPlatformTypeEnum.Velora })
+                foreach (StreamingPlatformTypeEnum viewerFacing in new[] { StreamingPlatformTypeEnum.Twitch, StreamingPlatformTypeEnum.Velora, StreamingPlatformTypeEnum.VPZone })
                 {
                     if ((platformType == StreamingPlatformTypeEnum.All || platformType == viewerFacing)
                         && StreamingPlatforms.IsPlatformConnected(viewerFacing))

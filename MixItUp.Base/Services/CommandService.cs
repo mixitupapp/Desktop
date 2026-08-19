@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Actions;
+﻿using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Commands.Games;
 using MixItUp.Base.Model.Overlay;
@@ -27,7 +27,7 @@ namespace MixItUp.Base.Services
         {
             ActionTypeEnum.Overlay, ActionTypeEnum.PolyPop, ActionTypeEnum.Sound, ActionTypeEnum.StreamingSoftware, ActionTypeEnum.TextToSpeech,
             ActionTypeEnum.MusicPlayer, ActionTypeEnum.TITS, ActionTypeEnum.Voicemod, ActionTypeEnum.VTubeStudio, ActionTypeEnum.VTSPog, ActionTypeEnum.LumiaStream,
-            ActionTypeEnum.MtionStudio, ActionTypeEnum.Veadotube,
+            ActionTypeEnum.MtionStudio, ActionTypeEnum.Veadotube, ActionTypeEnum.VConnect, ActionTypeEnum.RahiTuber,
         };
 
         public static HashSet<ActionTypeEnum> GetActionTypesForActions(IEnumerable<ActionModelBase> actions, HashSet<Guid> commandIDs = null)
@@ -111,6 +111,8 @@ namespace MixItUp.Base.Services
         public List<KickKicksCommandModel> KickKicksCommands { get; set; } = new List<KickKicksCommandModel>();
         public List<VeloraChannelPointsCommandModel> VeloraChannelPointsCommands { get; set; } = new List<VeloraChannelPointsCommandModel>();
 
+        public List<VPZoneChannelPointsCommandModel> VPZoneChannelPointsCommands { get; set; } = new List<VPZoneChannelPointsCommandModel>();
+
         public IEnumerable<CommandModelBase> AllEnabledChatAccessibleCommands
         {
             get
@@ -143,6 +145,7 @@ namespace MixItUp.Base.Services
                 commands.AddRange(this.KickChannelPointsCommands);
                 commands.AddRange(this.KickKicksCommands);
                 commands.AddRange(this.VeloraChannelPointsCommands);
+                commands.AddRange(this.VPZoneChannelPointsCommands);
                 return commands;
             }
         }
@@ -195,6 +198,7 @@ namespace MixItUp.Base.Services
             this.KickChannelPointsCommands.Clear();
             this.KickKicksCommands.Clear();
             this.VeloraChannelPointsCommands.Clear();
+            this.VPZoneChannelPointsCommands.Clear();
 
             foreach (CommandModelBase command in ChannelSession.Settings.Commands.Values.ToList())
             {
@@ -216,6 +220,7 @@ namespace MixItUp.Base.Services
                 else if (command is KickChannelPointsCommandModel) { this.KickChannelPointsCommands.Add((KickChannelPointsCommandModel)command); }
                 else if (command is KickKicksCommandModel) { this.KickKicksCommands.Add((KickKicksCommandModel)command); }
                 else if (command is VeloraChannelPointsCommandModel) { this.VeloraChannelPointsCommands.Add((VeloraChannelPointsCommandModel)command); }
+                else if (command is VPZoneChannelPointsCommandModel) { this.VPZoneChannelPointsCommands.Add((VPZoneChannelPointsCommandModel)command); }
             }
 
             foreach (PreMadeChatCommandSettingsModel commandSetting in ChannelSession.Settings.PreMadeChatCommandSettings)

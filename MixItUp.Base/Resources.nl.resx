@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12216,6 +12216,14 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
     <value>Video's van deze lengte of korter tellen als Shorts. Langere tellen als gewone video.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Alleen openbare video's</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Alleen openbare video's worden gemeld. Privé, verborgen en geplande video's worden overgeslagen.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP's</value>
   </data>
@@ -12230,5 +12238,282 @@ Dit kun je doen door op Kanaalpuntbeloning maken te klikken op de Kanaalpuntenpa
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon-ledenlijst</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Time-out (sec.)</value>
+  </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect is een overlay- en automatiseringstool voor streams die is opgebouwd rond een visuele node-editor. Door verbinding te maken kunnen je opdrachten VConnect-triggers uitvoeren en eigen berichten naar een graph sturen, en kan wat er in VConnect gebeurt hier een opdracht starten.</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>Schakel de WebSocket-server in bij de WebSocket-instellingen van VConnect voordat je verbinding maakt en vul hieronder de poort in waarop VConnect luistert.</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>Verbonden met {0}</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>Verbinden met VConnect is mislukt. Zorg ervoor dat het draait met de WebSocket-server ingeschakeld.</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up kon geen verbinding maken met VConnect op poort {0}. Zorg ervoor dat VConnect draait, dat de WebSocket-server is ingeschakeld en dat deze poort overeenkomt met die van VConnect.</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>Vul de poort in waarop VConnect luistert, tussen 1 en 65535.</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect heeft niet op tijd geantwoord.</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect is niet verbonden</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>Trigger</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>Kanaal</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>Argumenten</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>Eén argument per regel, verzonden naar de On WebSocket Receive-nodes die op dit kanaal luisteren. Een regel die op zichzelf geldige JSON is, wordt als die waarde verzonden, dus 42 komt aan als getal en true als boolean. Al het andere wordt als tekst verzonden.</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>Bestandspad voor schermafbeelding (optioneel)</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>Laat dit leeg om de asset op te vragen zonder voorbeeldafbeelding. Met een pad wordt het voorbeeld daar als PNG opgeslagen. VConnect maakt alleen voorbeelden voor 3D-, VRM- en PNG-assets.</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>Er moet een trigger worden geselecteerd</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>Er moet een kanaal worden ingevuld</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>Er moet een asset worden geselecteerd</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>Eigen bericht verzenden</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>Asset opvragen</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>Trigger gestart</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>Trigger beëindigd</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>Asset verschenen</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>Asset geraakt</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>Asset verdwenen</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>Eigen bericht ontvangen</value>
+  </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber is een PNGTuber-app die een avatar in lagen laat bewegen op basis van je microfoon. Door verbinding te maken kunnen je opdrachten de states uitvoeren die je in RahiTuber hebt ingesteld, net alsof je hun sneltoets indrukt.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Schakel Control States via HTTP in bij de Preferences van RahiTuber, op het tabblad Integration, en vul hieronder de poort in waarop het luistert.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Verbonden met {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up kon geen verbinding maken met RahiTuber op poort {0}. Zorg ervoor dat RahiTuber draait, dat Control States via HTTP is ingeschakeld en dat deze poort overeenkomt met die waarop RahiTuber luistert.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Vul de poort in waarop RahiTuber luistert, tussen 1 en 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber is niet verbonden</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber heeft de statewijziging niet geaccepteerd.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>Statenaam of index</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Vul de naam van de state exact in zoals die in RahiTuber staat, of de positie in de statelijst geteld vanaf 0. Voor een state van het type Toggle of Permanent is uitvoeren voldoende. Een state van het type While Held blijft actief totdat er een actie State stoppen voor wordt uitgevoerd.</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>Er moet een statenaam of index worden ingevuld</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>State uitvoeren</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>State stoppen</value>
+  </data>
+  <data name="VPZone" xml:space="preserve">
+    <value>VPZone</value>
+  </data>
+  <data name="LogInWithVPZone" xml:space="preserve">
+    <value>Log in met VPZone</value>
+  </data>
+  <data name="LogOutOfVPZone" xml:space="preserve">
+    <value>Afmelden bij VPZone</value>
+  </data>
+  <data name="VPZoneChannelStreamStart" xml:space="preserve">
+    <value>VPZone Kanaal Stream Start</value>
+  </data>
+  <data name="VPZoneChannelStreamStop" xml:space="preserve">
+    <value>VPZone Kanaal Stroom Stop</value>
+  </data>
+  <data name="VPZoneChannelUpdated" xml:space="preserve">
+    <value>VPZone-kanaal bijgewerkt</value>
+  </data>
+  <data name="VPZoneChannelFollowed" xml:space="preserve">
+    <value>VPZone Kanaal Gevolgd</value>
+  </data>
+  <data name="VPZoneChannelSubscribed" xml:space="preserve">
+    <value>VPZone-kanaal geabonneerd</value>
+  </data>
+  <data name="VPZoneChannelResubscribed" xml:space="preserve">
+    <value>VPZone-kanaal opnieuw ingeschreven</value>
+  </data>
+  <data name="VPZoneChannelSubscriptionGifted" xml:space="preserve">
+    <value>VPZone Channel Abonnement Geschonken</value>
+  </data>
+  <data name="VPZoneChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>VPZone Channel Massabonnement Geschonken</value>
+  </data>
+  <data name="VPZoneChannelRaided" xml:space="preserve">
+    <value>VPZone-kanaal overvallen</value>
+  </data>
+  <data name="VPZoneChannelClipCreated" xml:space="preserve">
+    <value>VPZone-kanaalclip gemaakt</value>
+  </data>
+  <data name="VPZoneChannelShoutout" xml:space="preserve">
+    <value>VPZone-kanaal shoutout</value>
+  </data>
+  <data name="VPZoneChannelPointsRedeemed" xml:space="preserve">
+    <value>VPZone Kanaal Punten Ingewisseld</value>
+  </data>
+  <data name="VPZoneChannelCheered" xml:space="preserve">
+    <value>VPZone-kanaal gejuicht</value>
+  </data>
+  <data name="VPZoneChannelPoints" xml:space="preserve">
+    <value>VPZone Channel-punten</value>
+  </data>
+  <data name="VPZoneChannelPointsCommand" xml:space="preserve">
+    <value>VPZone Channel-punten commando</value>
+  </data>
+  <data name="ShowVPZoneChannelPoints" xml:space="preserve">
+    <value>VPZone kanaalpunten tonen</value>
+  </data>
+  <data name="ShowVPZoneCheered" xml:space="preserve">
+    <value>VPZone Juichen tonen</value>
+  </data>
+  <data name="VPZoneCheered" xml:space="preserve">
+    <value>VPZone Juichen</value>
+  </data>
+  <data name="VPZoneSubscriptions" xml:space="preserve">
+    <value>VPZone-abonnementen</value>
+  </data>
+  <data name="VPZonePixels" xml:space="preserve">
+    <value>VPZone Pixels</value>
+  </data>
+  <data name="VPZonePlus" xml:space="preserve">
+    <value>VPZ+ lid</value>
+  </data>
+  <data name="VPZoneFounder" xml:space="preserve">
+    <value>VPZone-oprichter</value>
+  </data>
+  <data name="VPZoneAmbassador" xml:space="preserve">
+    <value>VPZone-ambassadeur</value>
+  </data>
+  <data name="AlertVPZoneCheered" xml:space="preserve">
+    <value>{0} Juichte {1} Pixels toe</value>
+    <comment>{0} is the name of the user, {1} is the amount of pixels</comment>
+  </data>
+  <data name="AlertVPZoneChannelPointRedeemed" xml:space="preserve">
+    <value>{0} heeft {1} ingewisseld</value>
+    <comment>{0} is the name of the user, {1} is the name of the reward</comment>
+  </data>
+  <data name="VPZoneModerationActionFailed" xml:space="preserve">
+    <value>De VPZone-actie {0} is mislukt. Bekijk het logboek voor details.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="VPZoneModUserUnsupported" xml:space="preserve">
+    <value>VPZone ondersteunt het wijzigen van moderators vanuit een app niet. Gebruik in plaats daarvan de VPZone-website.</value>
+  </data>
+  <data name="VPZoneAnnouncementFailed" xml:space="preserve">
+    <value>VPZone heeft de chataankondiging geweigerd. Bekijk het logboek voor details.</value>
+  </data>
+  <data name="VPZoneChatSocketNoChannel" xml:space="preserve">
+    <value>Er is geen VPZone-kanaal beschikbaar voor de chatverbinding</value>
+  </data>
+  <data name="VPZoneChatSocketConnectFailed" xml:space="preserve">
+    <value>Verbinding met de VPZone-chatgateway is mislukt</value>
+  </data>
+  <data name="VPZoneMessageRejected" xml:space="preserve">
+    <value>VPZone heeft het bericht geweigerd: {0}</value>
+    <comment>{0} is the reason the message was rejected</comment>
+  </data>
+  <data name="VPZoneSendErrorAuthRequired" xml:space="preserve">
+    <value>de verbinding is niet aangemeld</value>
+  </data>
+  <data name="VPZoneSendErrorBanned" xml:space="preserve">
+    <value>dit account is verbannen uit het kanaal</value>
+  </data>
+  <data name="VPZoneSendErrorRateLimited" xml:space="preserve">
+    <value>berichten worden te snel verzonden</value>
+  </data>
+  <data name="VPZoneSendErrorSubsOnly" xml:space="preserve">
+    <value>het kanaal staat in de modus alleen abonnees</value>
+  </data>
+  <data name="VPZoneSendErrorFollowersOnly" xml:space="preserve">
+    <value>het kanaal staat in de modus alleen volgers</value>
+  </data>
+  <data name="VPZoneSendErrorSlowMode" xml:space="preserve">
+    <value>de langzame modus staat aan, probeer het over {0} seconden opnieuw</value>
+    <comment>{0} is the number of seconds to wait</comment>
+  </data>
+  <data name="VPZoneSendErrorEmoteOnly" xml:space="preserve">
+    <value>het kanaal staat in de modus alleen emotes</value>
+  </data>
+  <data name="VPZoneSendErrorBannedWord" xml:space="preserve">
+    <value>het bericht bevatte een geblokkeerd woord</value>
+  </data>
+  <data name="VPZoneSendErrorCozyFiltered" xml:space="preserve">
+    <value>het bericht is tegengehouden door het inhoudsfilter van het kanaal</value>
+  </data>
+  <data name="VPZoneWebhookCallbackUnavailable" xml:space="preserve">
+    <value>Het callback-adres voor VPZone-gebeurtenissen is niet beschikbaar</value>
+  </data>
+  <data name="VPZoneWebhookRegistrationFailed" xml:space="preserve">
+    <value>Registreren van de VPZone-gebeurteniscallback is mislukt</value>
+  </data>
+  <data name="VPZoneWebhookDeleteFailed" xml:space="preserve">
+    <value>Verwijderen van de VPZone-gebeurteniscallback is mislukt</value>
+  </data>
+  <data name="VPZoneChannelPointRewardDeleteFailed" xml:space="preserve">
+    <value>Verwijderen van de VPZone-kanaalpuntenbeloning is mislukt</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantNoUser" xml:space="preserve">
+    <value>Die gebruiker heeft geen geregistreerd VPZone-account</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantFailed" xml:space="preserve">
+    <value>Toekennen van VPZone-kanaalpunten is mislukt. Er is een kanaalgebonden API-sleutel met de grant-scope vereist.</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Actions;
+﻿using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Requirements;
 using MixItUp.Base.Services;
 using MixItUp.Base.Util;
@@ -32,6 +32,7 @@ namespace MixItUp.Base.Model.Commands
         KickKicks = 15,
         TwitchCustomPowerUp = 16,
         VeloraChannelPoints = 17,
+        VPZoneChannelPoints = 18,
 
         // Specialty Command Types
         UserOnlyChat = 1000,

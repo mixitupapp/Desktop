@@ -1,4 +1,4 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Currency;
 using MixItUp.Base.Model.Settings;
@@ -9,6 +9,7 @@ using MixItUp.Base.Services.Mock.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Twitch.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.ViewModel.User;
@@ -96,6 +97,7 @@ namespace MixItUp.Base
             ServiceManager.Add(new YouTubeSession());
             ServiceManager.Add(new KickSession());
             ServiceManager.Add(new VeloraSession());
+            ServiceManager.Add(new VPZoneSession());
             ServiceManager.Add(new MockSession());
 
             ServiceManager.Add(new CommandService());
@@ -132,6 +134,8 @@ namespace MixItUp.Base
             ServiceManager.Add(new PixelChatService());
             ServiceManager.Add(new VTubeStudioService());
             ServiceManager.Add(new VeadotubeService());
+            ServiceManager.Add(new VConnectService());
+            ServiceManager.Add(new RahiTuberService());
             ServiceManager.Add(new CrowdControlService());
             ServiceManager.Add(new SAMMIService());
             ServiceManager.Add(new TITSService());
@@ -388,6 +392,8 @@ namespace MixItUp.Base
                 if (ChannelSession.Settings.EnableOverlay) { externalServiceToConnect[ServiceManager.Get<OverlayV3Service>()] = null; }
                 if (ChannelSession.Settings.MtionStudioEnabled) { externalServiceToConnect[ServiceManager.Get<MtionStudioService>()] = null; }
                 if (ChannelSession.Settings.VeadotubeEnabled) { externalServiceToConnect[ServiceManager.Get<VeadotubeService>()] = null; }
+                if (ChannelSession.Settings.VConnectEnabled) { externalServiceToConnect[ServiceManager.Get<VConnectService>()] = null; }
+                if (ChannelSession.Settings.RahiTuberEnabled) { externalServiceToConnect[ServiceManager.Get<RahiTuberService>()] = null; }
                 if (ChannelSession.Settings.EnableDeveloperAPI) { externalServiceToConnect[ServiceManager.Get<IDeveloperAPIService>()] = null; }
                 if (ChannelSession.Settings.EnableMCPServer) { externalServiceToConnect[ServiceManager.Get<IMCPService>()] = null; }
 

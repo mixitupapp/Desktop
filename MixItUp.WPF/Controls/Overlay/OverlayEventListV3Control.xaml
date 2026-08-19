@@ -172,6 +172,10 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.Follows}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
@@ -269,6 +273,26 @@
                 <TextBlock Grid.Row="20" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VeloraCheered}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
                 <CheckBox Grid.Row="20" Grid.Column="1" IsChecked="{Binding VeloraCheered}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayEventListV3.VeloraCheeredCheckBox" AutomationProperties.Name="{x:Static resx:Resources.VeloraCheered}" />
                 <TextBox Grid.Row="20" Grid.Column="3" Text="{Binding VeloraCheeredDetailsTemplate}" IsEnabled="{Binding VeloraCheered}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEventListV3.VeloraCheeredDetailsTemplateTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTemplate}" />
+
+                <TextBlock Grid.Row="22" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VPZoneSubscriptions}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="22" Grid.Column="1" IsChecked="{Binding VPZoneSubscriptions}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayEventListV3.VPZoneSubscriptionsCheckBox" AutomationProperties.Name="{x:Static resx:Resources.VPZoneSubscriptions}" />
+                <Grid Grid.Row="22" Grid.Column="3" IsEnabled="{Binding VPZoneSubscriptions}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBox Grid.Row="0" Text="{Binding VPZoneSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEventListV3.VPZoneSubscriptionsDetailsTemplateTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTemplate}" />
+                    <TextBox Grid.Row="1" Text="{Binding VPZoneResubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEventListV3.VPZoneResubscriptionsDetailsTemplateTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTemplate}" />
+                    <TextBox Grid.Row="2" Text="{Binding VPZoneGiftedSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEventListV3.VPZoneGiftedSubscriptionsDetailsTemplateTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTemplate}" />
+                    <TextBox Grid.Row="3" Text="{Binding VPZoneMassGiftedSubscriptionsDetailsTemplate}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEventListV3.VPZoneMassGiftedSubscriptionsDetailsTemplateTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTemplate}" />
+                </Grid>
+
+                <TextBlock Grid.Row="24" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Source={x:Static resx:Resources.VPZoneCheered}, StringFormat={x:Static resx:Resources.ColumnHeaderFormat}}" />
+                <CheckBox Grid.Row="24" Grid.Column="1" IsChecked="{Binding VPZoneCheered}" VerticalAlignment="Center" Margin="5,0,0,0" AutomationProperties.AutomationId="OverlayEventListV3.VPZoneCheeredCheckBox" AutomationProperties.Name="{x:Static resx:Resources.VPZoneCheered}" />
+                <TextBox Grid.Row="24" Grid.Column="3" Text="{Binding VPZoneCheeredDetailsTemplate}" IsEnabled="{Binding VPZoneCheered}" MaterialDesign:HintAssist.Hint="{x:Static resx:Resources.ItemTemplate}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" AutomationProperties.AutomationId="OverlayEventListV3.VPZoneCheeredDetailsTemplateTextBox" AutomationProperties.Name="{x:Static resx:Resources.ItemTemplate}" />
             </Grid>
         </GroupBox>
     </Grid>

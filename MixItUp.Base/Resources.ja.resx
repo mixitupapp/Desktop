@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12215,6 +12215,14 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
     <value>この長さ以下の動画はショート動画として扱われます。それより長い動画は通常の動画として扱われます。</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>公開動画のみ</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>公開されている動画のみが対象になります。非公開、限定公開、公開予約の動画はスキップされます。</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP</value>
   </data>
@@ -12229,5 +12237,282 @@ Mix It Upを使用するには、少なくとも1つのストリーミング・�
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Patreon メンバー一覧</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>タイムアウト (秒)</value>
+  </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect は、ビジュアルなノードエディターを中心に構築された配信用オーバーレイおよび自動化ツールです。接続すると、コマンドから VConnect のトリガーを実行したりカスタムメッセージをグラフに送信したりでき、VConnect 側の出来事で Mix It Up のコマンドを実行できます。</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>接続する前に、VConnect の WebSocket 設定で WebSocket サーバーを有効にし、そこに表示されているポート番号を下に入力してください。</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>{0} に接続しました</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>VConnect に接続できませんでした。WebSocket サーバーを有効にした状態で実行されていることを確認してください。</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up はポート {0} で VConnect に接続できませんでした。VConnect が実行中で WebSocket サーバーが有効になっていること、このポートが VConnect 側と一致していることを確認してください。</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>VConnect が使用しているポート番号を 1 から 65535 の範囲で入力してください。</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect から時間内に応答がありませんでした。</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect が接続されていません</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>トリガー</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>アセット</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>チャンネル</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>引数</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>1 行につき 1 つの引数を、このチャンネルを待ち受けている On WebSocket Receive ノードへ送信します。その行だけで有効な JSON になる場合はその値として送信されるため、42 は数値、true は真偽値として届きます。それ以外はテキストとして送信されます。</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>スクリーンショットの保存先（任意）</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>空欄のままにすると、プレビュー画像なしでアセットを取得します。パスを指定すると、プレビューが PNG としてそこに保存されます。VConnect がプレビューを生成できるのは 3D、VRM、PNG のアセットのみです。</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>トリガーを選択してください</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>チャンネルを入力してください</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>アセットを選択してください</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>カスタムメッセージを送信</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>アセットを取得</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>トリガー開始</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>トリガー終了</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>アセット出現</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>アセット命中</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>アセット消滅</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>カスタムメッセージ受信</value>
+  </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber は、マイクの音声にあわせてレイヤー構成のアバターを動かす PNGTuber アプリです。接続すると、RahiTuber で設定したステートをコマンドから実行でき、ホットキーを押したときと同じ動作になります。</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>接続する前に、RahiTuber の Preferences にある Integration タブで Control States via HTTP を有効にし、そこで指定したポート番号を下に入力してください。</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>{0} に接続しました</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up はポート {0} で RahiTuber に接続できませんでした。RahiTuber が実行中で Control States via HTTP が有効になっていること、このポートが RahiTuber 側と一致していることを確認してください。</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>RahiTuber が使用しているポート番号を 1 から 65535 の範囲で入力してください。</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber が接続されていません</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber がステートの変更を受け付けませんでした。</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>ステート名またはインデックス</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>RahiTuber に表示されているとおりのステート名か、ステート一覧での位置を 0 から数えた番号を入力してください。Toggle と Permanent のステートは実行するだけで動作します。While Held のステートは、対応する「ステートを停止」アクションが実行されるまで有効なままになります。</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>ステート名またはインデックスを入力してください</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>ステートを実行</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>ステートを停止</value>
+  </data>
+  <data name="VPZone" xml:space="preserve">
+    <value>VPZone</value>
+  </data>
+  <data name="LogInWithVPZone" xml:space="preserve">
+    <value>VPZoneでログイン</value>
+  </data>
+  <data name="LogOutOfVPZone" xml:space="preserve">
+    <value>VPZoneからログアウトする</value>
+  </data>
+  <data name="VPZoneChannelStreamStart" xml:space="preserve">
+    <value>VPZone・チャンネル・ストリーム・スタート</value>
+  </data>
+  <data name="VPZoneChannelStreamStop" xml:space="preserve">
+    <value>VPZone・チャンネル・ストリーム・ストップ</value>
+  </data>
+  <data name="VPZoneChannelUpdated" xml:space="preserve">
+    <value>VPZone・チャンネル更新</value>
+  </data>
+  <data name="VPZoneChannelFollowed" xml:space="preserve">
+    <value>VPZone チャンネルをフォローした</value>
+  </data>
+  <data name="VPZoneChannelSubscribed" xml:space="preserve">
+    <value>VPZone・チャンネル登録</value>
+  </data>
+  <data name="VPZoneChannelResubscribed" xml:space="preserve">
+    <value>VPZone・チャンネル再登録</value>
+  </data>
+  <data name="VPZoneChannelSubscriptionGifted" xml:space="preserve">
+    <value>VPZone・チャンネル購読プレゼント</value>
+  </data>
+  <data name="VPZoneChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>VPZone・チャンネル大量購読プレゼント</value>
+  </data>
+  <data name="VPZoneChannelRaided" xml:space="preserve">
+    <value>VPZoneチャンネルが襲撃されました</value>
+  </data>
+  <data name="VPZoneChannelClipCreated" xml:space="preserve">
+    <value>VPZone チャンネルのクリップ作成</value>
+  </data>
+  <data name="VPZoneChannelShoutout" xml:space="preserve">
+    <value>VPZone チャンネルの紹介</value>
+  </data>
+  <data name="VPZoneChannelPointsRedeemed" xml:space="preserve">
+    <value>VPZone チャンネルポイント引き換え</value>
+  </data>
+  <data name="VPZoneChannelCheered" xml:space="preserve">
+    <value>VPZone チャンネルの応援</value>
+  </data>
+  <data name="VPZoneChannelPoints" xml:space="preserve">
+    <value>VPZone チャンネルポイント</value>
+  </data>
+  <data name="VPZoneChannelPointsCommand" xml:space="preserve">
+    <value>VPZone チャンネルポイントコマンド</value>
+  </data>
+  <data name="ShowVPZoneChannelPoints" xml:space="preserve">
+    <value>VPZone チャンネルポイントを表示</value>
+  </data>
+  <data name="ShowVPZoneCheered" xml:space="preserve">
+    <value>VPZone の応援を表示</value>
+  </data>
+  <data name="VPZoneCheered" xml:space="preserve">
+    <value>VPZone 応援</value>
+  </data>
+  <data name="VPZoneSubscriptions" xml:space="preserve">
+    <value>VPZone のサブスクリプション</value>
+  </data>
+  <data name="VPZonePixels" xml:space="preserve">
+    <value>VPZone Pixels</value>
+  </data>
+  <data name="VPZonePlus" xml:space="preserve">
+    <value>VPZ+ メンバー</value>
+  </data>
+  <data name="VPZoneFounder" xml:space="preserve">
+    <value>VPZone 創設者</value>
+  </data>
+  <data name="VPZoneAmbassador" xml:space="preserve">
+    <value>VPZone アンバサダー</value>
+  </data>
+  <data name="AlertVPZoneCheered" xml:space="preserve">
+    <value>{0} が {1} Pixels を応援しました</value>
+    <comment>{0} is the name of the user, {1} is the amount of pixels</comment>
+  </data>
+  <data name="AlertVPZoneChannelPointRedeemed" xml:space="preserve">
+    <value>{0} が {1} を交換しました</value>
+    <comment>{0} is the name of the user, {1} is the name of the reward</comment>
+  </data>
+  <data name="VPZoneModerationActionFailed" xml:space="preserve">
+    <value>VPZoneの{0}アクションに失敗しました。詳細はログを確認してください。</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="VPZoneModUserUnsupported" xml:space="preserve">
+    <value>VPZoneはアプリからのモデレーター変更に対応していません。VPZoneのウェブサイトをご利用ください。</value>
+  </data>
+  <data name="VPZoneAnnouncementFailed" xml:space="preserve">
+    <value>VPZoneがチャット通知を拒否しました。詳細はログを確認してください。</value>
+  </data>
+  <data name="VPZoneChatSocketNoChannel" xml:space="preserve">
+    <value>チャット接続に使用できるVPZoneチャンネルがありません</value>
+  </data>
+  <data name="VPZoneChatSocketConnectFailed" xml:space="preserve">
+    <value>VPZoneチャットゲートウェイへの接続に失敗しました</value>
+  </data>
+  <data name="VPZoneMessageRejected" xml:space="preserve">
+    <value>VPZoneがメッセージを拒否しました: {0}</value>
+    <comment>{0} is the reason the message was rejected</comment>
+  </data>
+  <data name="VPZoneSendErrorAuthRequired" xml:space="preserve">
+    <value>接続がサインインしていません</value>
+  </data>
+  <data name="VPZoneSendErrorBanned" xml:space="preserve">
+    <value>このアカウントはチャンネルからBANされています</value>
+  </data>
+  <data name="VPZoneSendErrorRateLimited" xml:space="preserve">
+    <value>メッセージの送信が速すぎます</value>
+  </data>
+  <data name="VPZoneSendErrorSubsOnly" xml:space="preserve">
+    <value>チャンネルは購読者限定モードです</value>
+  </data>
+  <data name="VPZoneSendErrorFollowersOnly" xml:space="preserve">
+    <value>チャンネルはフォロワー限定モードです</value>
+  </data>
+  <data name="VPZoneSendErrorSlowMode" xml:space="preserve">
+    <value>スローモードが有効です。{0}秒後に再試行してください</value>
+    <comment>{0} is the number of seconds to wait</comment>
+  </data>
+  <data name="VPZoneSendErrorEmoteOnly" xml:space="preserve">
+    <value>チャンネルはエモート限定モードです</value>
+  </data>
+  <data name="VPZoneSendErrorBannedWord" xml:space="preserve">
+    <value>メッセージにブロックされた単語が含まれていました</value>
+  </data>
+  <data name="VPZoneSendErrorCozyFiltered" xml:space="preserve">
+    <value>メッセージはチャンネルのコンテンツフィルターに保留されました</value>
+  </data>
+  <data name="VPZoneWebhookCallbackUnavailable" xml:space="preserve">
+    <value>VPZoneイベントのコールバックアドレスを利用できません</value>
+  </data>
+  <data name="VPZoneWebhookRegistrationFailed" xml:space="preserve">
+    <value>VPZoneイベントのコールバック登録に失敗しました</value>
+  </data>
+  <data name="VPZoneWebhookDeleteFailed" xml:space="preserve">
+    <value>VPZoneイベントのコールバック削除に失敗しました</value>
+  </data>
+  <data name="VPZoneChannelPointRewardDeleteFailed" xml:space="preserve">
+    <value>VPZone チャンネルポイント報酬の削除に失敗しました</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantNoUser" xml:space="preserve">
+    <value>そのユーザーのVPZoneアカウントは登録されていません</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantFailed" xml:space="preserve">
+    <value>VPZone チャンネルポイントの付与に失敗しました。付与スコープを持つチャンネル専用のAPIキーが必要です。</value>
   </data>
 </root>

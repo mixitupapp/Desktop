@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12215,6 +12215,14 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
     <value>Wideo o tej długości lub krótsze liczy się jako Shorts. Dłuższe liczy się jako zwykłe wideo.</value>
     <comment>Manual</comment>
   </data>
+  <data name="OnlyPublicVideos" xml:space="preserve">
+    <value>Tylko publiczne filmy</value>
+    <comment>Manual</comment>
+  </data>
+  <data name="OnlyPublicVideosTooltip" xml:space="preserve">
+    <value>Zgłaszane są tylko publiczne filmy. Prywatne, niepubliczne i zaplanowane filmy są pomijane.</value>
+    <comment>Manual</comment>
+  </data>
   <data name="VIPs" xml:space="preserve">
     <value>VIP-y</value>
   </data>
@@ -12229,5 +12237,282 @@ Można to zrobić, klikając opcję Utwórz nagrodę za punkty kanału na stroni
   </data>
   <data name="PatreonMembers" xml:space="preserve">
     <value>Lista członków Patreon</value>
+  </data>
+  <data name="TimeoutSeconds" xml:space="preserve">
+    <value>Limit czasu (s)</value>
+  </data>
+  <data name="VConnect" xml:space="preserve">
+    <value>VConnect</value>
+  </data>
+  <data name="VConnectInfo" xml:space="preserve">
+    <value>VConnect to narzędzie do nakładek i automatyzacji transmisji zbudowane wokół wizualnego edytora węzłów. Po połączeniu Twoje polecenia mogą uruchamiać wyzwalacze VConnect i wysyłać własne wiadomości do grafu, a to, co dzieje się w VConnect, może uruchomić polecenie tutaj.</value>
+  </data>
+  <data name="VConnectWebSocketServerRequired" xml:space="preserve">
+    <value>Przed połączeniem włącz serwer WebSocket w ustawieniach WebSocket programu VConnect, a poniżej podaj port, na którym nasłuchuje.</value>
+  </data>
+  <data name="VConnectConnectedTo" xml:space="preserve">
+    <value>Połączono z {0}</value>
+  </data>
+  <data name="VConnectConnectionFailed" xml:space="preserve">
+    <value>Nie udało się połączyć z VConnect. Upewnij się, że działa z włączonym serwerem WebSocket.</value>
+  </data>
+  <data name="VConnectConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up nie mógł połączyć się z VConnect na porcie {0}. Upewnij się, że VConnect działa, że jego serwer WebSocket jest włączony i że ten port zgadza się z portem wskazanym przez VConnect.</value>
+  </data>
+  <data name="VConnectPortNumberInvalid" xml:space="preserve">
+    <value>Podaj port, na którym nasłuchuje VConnect, z zakresu od 1 do 65535.</value>
+  </data>
+  <data name="VConnectRequestTimedOut" xml:space="preserve">
+    <value>VConnect nie odpowiedział na czas.</value>
+  </data>
+  <data name="VConnectNotConnected" xml:space="preserve">
+    <value>VConnect nie jest połączony</value>
+  </data>
+  <data name="VConnectTrigger" xml:space="preserve">
+    <value>Wyzwalacz</value>
+  </data>
+  <data name="VConnectAsset" xml:space="preserve">
+    <value>Zasób</value>
+  </data>
+  <data name="VConnectMessageChannel" xml:space="preserve">
+    <value>Kanał</value>
+  </data>
+  <data name="VConnectMessageArguments" xml:space="preserve">
+    <value>Argumenty</value>
+  </data>
+  <data name="VConnectMessageArgumentsInfo" xml:space="preserve">
+    <value>Jeden argument w wierszu, wysyłany do węzłów On WebSocket Receive nasłuchujących na tym kanale. Wiersz, który sam w sobie jest poprawnym JSON-em, jest wysyłany jako ta wartość, więc 42 dociera jako liczba, a true jako wartość logiczna. Wszystko inne jest wysyłane jako tekst.</value>
+  </data>
+  <data name="VConnectScreenshotFilePath" xml:space="preserve">
+    <value>Ścieżka pliku zrzutu ekranu (opcjonalnie)</value>
+  </data>
+  <data name="VConnectScreenshotFilePathInfo" xml:space="preserve">
+    <value>Pozostaw puste, aby pobrać zasób bez obrazu podglądu. Po podaniu ścieżki podgląd zostanie tam zapisany jako PNG. VConnect tworzy podglądy tylko dla zasobów 3D, VRM i PNG.</value>
+  </data>
+  <data name="VConnectActionMissingTrigger" xml:space="preserve">
+    <value>Należy wybrać wyzwalacz</value>
+  </data>
+  <data name="VConnectActionMissingChannel" xml:space="preserve">
+    <value>Należy podać kanał</value>
+  </data>
+  <data name="VConnectActionMissingAsset" xml:space="preserve">
+    <value>Należy wybrać zasób</value>
+  </data>
+  <data name="SendCustomMessage" xml:space="preserve">
+    <value>Wyślij własną wiadomość</value>
+  </data>
+  <data name="LookupAsset" xml:space="preserve">
+    <value>Pobierz zasób</value>
+  </data>
+  <data name="VConnectTriggerActivated" xml:space="preserve">
+    <value>Wyzwalacz uruchomiony</value>
+  </data>
+  <data name="VConnectTriggerEnded" xml:space="preserve">
+    <value>Wyzwalacz zakończony</value>
+  </data>
+  <data name="VConnectAssetSpawned" xml:space="preserve">
+    <value>Zasób pojawił się</value>
+  </data>
+  <data name="VConnectAssetHit" xml:space="preserve">
+    <value>Trafienie w zasób</value>
+  </data>
+  <data name="VConnectAssetDespawned" xml:space="preserve">
+    <value>Zasób zniknął</value>
+  </data>
+  <data name="VConnectMessageReceived" xml:space="preserve">
+    <value>Odebrano własną wiadomość</value>
+  </data>
+  <data name="RahiTuber" xml:space="preserve">
+    <value>RahiTuber</value>
+  </data>
+  <data name="RahiTuberInfo" xml:space="preserve">
+    <value>RahiTuber to aplikacja PNGTuber, która animuje warstwowego awatara na podstawie dźwięku z mikrofonu. Po połączeniu Twoje polecenia mogą uruchamiać stany skonfigurowane w RahiTuber, tak samo jak naciśnięcie ich skrótów klawiszowych.</value>
+  </data>
+  <data name="RahiTuberHTTPControlRequired" xml:space="preserve">
+    <value>Przed połączeniem włącz opcję Control States via HTTP w oknie Preferences programu RahiTuber, na karcie Integration, a poniżej podaj port, na którym nasłuchuje.</value>
+  </data>
+  <data name="RahiTuberConnectedTo" xml:space="preserve">
+    <value>Połączono z {0}</value>
+    <comment>Filled with the address Mix It Up connected on</comment>
+  </data>
+  <data name="RahiTuberConnectionFailedToPort" xml:space="preserve">
+    <value>Mix It Up nie mógł połączyć się z RahiTuber na porcie {0}. Upewnij się, że RahiTuber działa, że opcja Control States via HTTP jest włączona i że ten port zgadza się z portem, na którym nasłuchuje RahiTuber.</value>
+    <comment>Filled with the port number that was tried</comment>
+  </data>
+  <data name="RahiTuberPortNumberInvalid" xml:space="preserve">
+    <value>Podaj port, na którym nasłuchuje RahiTuber, z zakresu od 1 do 65535.</value>
+  </data>
+  <data name="RahiTuberNotConnected" xml:space="preserve">
+    <value>RahiTuber nie jest połączony</value>
+  </data>
+  <data name="RahiTuberStateRequestFailed" xml:space="preserve">
+    <value>RahiTuber nie przyjął zmiany stanu.</value>
+  </data>
+  <data name="RahiTuberState" xml:space="preserve">
+    <value>Nazwa lub indeks stanu</value>
+  </data>
+  <data name="RahiTuberStateInfo" xml:space="preserve">
+    <value>Podaj nazwę stanu dokładnie tak, jak widnieje w RahiTuber, albo jego pozycję na liście stanów, licząc od 0. W przypadku stanu typu Toggle lub Permanent wystarczy samo uruchomienie. Stan typu While Held pozostaje aktywny, dopóki nie zostanie wykonana odpowiadająca mu akcja Zatrzymaj stan.</value>
+  </data>
+  <data name="RahiTuberActionMissingState" xml:space="preserve">
+    <value>Należy podać nazwę lub indeks stanu</value>
+  </data>
+  <data name="TriggerState" xml:space="preserve">
+    <value>Uruchom stan</value>
+  </data>
+  <data name="StopState" xml:space="preserve">
+    <value>Zatrzymaj stan</value>
+  </data>
+  <data name="VPZone" xml:space="preserve">
+    <value>VPZone</value>
+  </data>
+  <data name="LogInWithVPZone" xml:space="preserve">
+    <value>Zaloguj się za pomocą VPZone</value>
+  </data>
+  <data name="LogOutOfVPZone" xml:space="preserve">
+    <value>Wylogowanie z VPZone</value>
+  </data>
+  <data name="VPZoneChannelStreamStart" xml:space="preserve">
+    <value>VPZone Channel Stream Start</value>
+  </data>
+  <data name="VPZoneChannelStreamStop" xml:space="preserve">
+    <value>VPZone Channel Stream Stop</value>
+  </data>
+  <data name="VPZoneChannelUpdated" xml:space="preserve">
+    <value>Aktualizacja kanału VPZone</value>
+  </data>
+  <data name="VPZoneChannelFollowed" xml:space="preserve">
+    <value>VPZone Channel Obserwowany</value>
+  </data>
+  <data name="VPZoneChannelSubscribed" xml:space="preserve">
+    <value>Subskrybowany kanał VPZone</value>
+  </data>
+  <data name="VPZoneChannelResubscribed" xml:space="preserve">
+    <value>Ponowna subskrypcja kanału VPZone</value>
+  </data>
+  <data name="VPZoneChannelSubscriptionGifted" xml:space="preserve">
+    <value>Subskrypcja VPZone Channel w prezencie</value>
+  </data>
+  <data name="VPZoneChannelMassSubscriptionsGifted" xml:space="preserve">
+    <value>Subskrypcja VPZone Channel Mass w prezencie</value>
+  </data>
+  <data name="VPZoneChannelRaided" xml:space="preserve">
+    <value>Napad na kanał VPZone</value>
+  </data>
+  <data name="VPZoneChannelClipCreated" xml:space="preserve">
+    <value>Utworzono klip kanału VPZone</value>
+  </data>
+  <data name="VPZoneChannelShoutout" xml:space="preserve">
+    <value>Wyróżnienie na kanale VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointsRedeemed" xml:space="preserve">
+    <value>Wykorzystane punkty VPZone Channel</value>
+  </data>
+  <data name="VPZoneChannelCheered" xml:space="preserve">
+    <value>Wiwatowany kanał VPZone</value>
+  </data>
+  <data name="VPZoneChannelPoints" xml:space="preserve">
+    <value>Punkty kanału VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointsCommand" xml:space="preserve">
+    <value>Polecenie punktów kanału VPZone</value>
+  </data>
+  <data name="ShowVPZoneChannelPoints" xml:space="preserve">
+    <value>Pokaż punkty kanału VPZone</value>
+  </data>
+  <data name="ShowVPZoneCheered" xml:space="preserve">
+    <value>Pokaż Wiwaty na VPZone</value>
+  </data>
+  <data name="VPZoneCheered" xml:space="preserve">
+    <value>VPZone Wiwaty</value>
+  </data>
+  <data name="VPZoneSubscriptions" xml:space="preserve">
+    <value>Subskrypcje VPZone</value>
+  </data>
+  <data name="VPZonePixels" xml:space="preserve">
+    <value>Pixels VPZone</value>
+  </data>
+  <data name="VPZonePlus" xml:space="preserve">
+    <value>Członek VPZ+</value>
+  </data>
+  <data name="VPZoneFounder" xml:space="preserve">
+    <value>Założyciel VPZone</value>
+  </data>
+  <data name="VPZoneAmbassador" xml:space="preserve">
+    <value>Ambasador VPZone</value>
+  </data>
+  <data name="AlertVPZoneCheered" xml:space="preserve">
+    <value>{0} wiwatował(a) {1} Pixels</value>
+    <comment>{0} is the name of the user, {1} is the amount of pixels</comment>
+  </data>
+  <data name="AlertVPZoneChannelPointRedeemed" xml:space="preserve">
+    <value>{0} wykorzystał(a) {1}</value>
+    <comment>{0} is the name of the user, {1} is the name of the reward</comment>
+  </data>
+  <data name="VPZoneModerationActionFailed" xml:space="preserve">
+    <value>Akcja {0} platformy VPZone nie powiodła się. Szczegóły znajdziesz w dzienniku.</value>
+    <comment>{0} is the name of the moderation action</comment>
+  </data>
+  <data name="VPZoneModUserUnsupported" xml:space="preserve">
+    <value>VPZone nie obsługuje zmiany moderatorów z poziomu aplikacji. Skorzystaj ze strony VPZone.</value>
+  </data>
+  <data name="VPZoneAnnouncementFailed" xml:space="preserve">
+    <value>Platforma VPZone odrzuciła ogłoszenie na czacie. Szczegóły znajdziesz w dzienniku.</value>
+  </data>
+  <data name="VPZoneChatSocketNoChannel" xml:space="preserve">
+    <value>Brak kanału VPZone dostępnego dla połączenia z czatem</value>
+  </data>
+  <data name="VPZoneChatSocketConnectFailed" xml:space="preserve">
+    <value>Nie udało się połączyć z bramą czatu VPZone</value>
+  </data>
+  <data name="VPZoneMessageRejected" xml:space="preserve">
+    <value>VPZone odrzucił wiadomość: {0}</value>
+    <comment>{0} is the reason the message was rejected</comment>
+  </data>
+  <data name="VPZoneSendErrorAuthRequired" xml:space="preserve">
+    <value>połączenie nie jest zalogowane</value>
+  </data>
+  <data name="VPZoneSendErrorBanned" xml:space="preserve">
+    <value>to konto jest zbanowane na kanale</value>
+  </data>
+  <data name="VPZoneSendErrorRateLimited" xml:space="preserve">
+    <value>wiadomości są wysyłane zbyt szybko</value>
+  </data>
+  <data name="VPZoneSendErrorSubsOnly" xml:space="preserve">
+    <value>kanał działa w trybie tylko dla subskrybentów</value>
+  </data>
+  <data name="VPZoneSendErrorFollowersOnly" xml:space="preserve">
+    <value>kanał działa w trybie tylko dla obserwujących</value>
+  </data>
+  <data name="VPZoneSendErrorSlowMode" xml:space="preserve">
+    <value>tryb wolny jest włączony, spróbuj ponownie za {0} sekund</value>
+    <comment>{0} is the number of seconds to wait</comment>
+  </data>
+  <data name="VPZoneSendErrorEmoteOnly" xml:space="preserve">
+    <value>kanał działa w trybie tylko emotek</value>
+  </data>
+  <data name="VPZoneSendErrorBannedWord" xml:space="preserve">
+    <value>wiadomość zawierała zablokowane słowo</value>
+  </data>
+  <data name="VPZoneSendErrorCozyFiltered" xml:space="preserve">
+    <value>wiadomość została zatrzymana przez filtr treści kanału</value>
+  </data>
+  <data name="VPZoneWebhookCallbackUnavailable" xml:space="preserve">
+    <value>Adres zwrotny zdarzeń VPZone jest niedostępny</value>
+  </data>
+  <data name="VPZoneWebhookRegistrationFailed" xml:space="preserve">
+    <value>Nie udało się zarejestrować wywołania zwrotnego zdarzeń VPZone</value>
+  </data>
+  <data name="VPZoneWebhookDeleteFailed" xml:space="preserve">
+    <value>Nie udało się usunąć wywołania zwrotnego zdarzeń VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointRewardDeleteFailed" xml:space="preserve">
+    <value>Nie udało się usunąć nagrody za punkty kanału VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantNoUser" xml:space="preserve">
+    <value>Ten użytkownik nie ma zapisanego konta VPZone</value>
+  </data>
+  <data name="VPZoneChannelPointsGrantFailed" xml:space="preserve">
+    <value>Nie udało się przyznać punktów kanału VPZone. Wymagany jest powiązany z kanałem klucz API z zakresem przyznawania.</value>
   </data>
 </root>

@@ -1,4 +1,4 @@
-using MixItUp.Base.Services;
+﻿using MixItUp.Base.Services;
 using MixItUp.Base.ViewModel.Settings.Generic;
 using MixItUp.Base.ViewModels;
 
@@ -33,6 +33,9 @@ namespace MixItUp.Base.ViewModel.Settings
         public GenericColorComboBoxSettingsOptionControlViewModel KickKicks { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel VeloraChannelPoints { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel VeloraCheered { get; set; }
+
+        public GenericColorComboBoxSettingsOptionControlViewModel VPZoneChannelPoints { get; set; }
+        public GenericColorComboBoxSettingsOptionControlViewModel VPZoneCheered { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchUserWarned { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchShoutoutReceived { get; set; }
         public GenericColorComboBoxSettingsOptionControlViewModel TwitchSuspiciousUserMessage { get; set; }
@@ -70,6 +73,9 @@ namespace MixItUp.Base.ViewModel.Settings
             this.KickKicks = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowKickKicks, ChannelSession.Settings.AlertKickKicksColor, (value) => { ChannelSession.Settings.AlertKickKicksColor = value; });
             this.VeloraChannelPoints = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowVeloraChannelPoints, ChannelSession.Settings.AlertVeloraChannelPointsColor, (value) => { ChannelSession.Settings.AlertVeloraChannelPointsColor = value; });
             this.VeloraCheered = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowVeloraCheered, ChannelSession.Settings.AlertVeloraCheeredColor, (value) => { ChannelSession.Settings.AlertVeloraCheeredColor = value; });
+
+            this.VPZoneChannelPoints = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowVPZoneChannelPoints, ChannelSession.Settings.AlertVPZoneChannelPointsColor, (value) => { ChannelSession.Settings.AlertVPZoneChannelPointsColor = value; });
+            this.VPZoneCheered = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowVPZoneCheered, ChannelSession.Settings.AlertVPZoneCheeredColor, (value) => { ChannelSession.Settings.AlertVPZoneCheeredColor = value; });
             this.TwitchUserWarned = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchUserWarned, ChannelSession.Settings.AlertTwitchUserWarnedColor, (value) => { ChannelSession.Settings.AlertTwitchUserWarnedColor = value; });
             this.TwitchShoutoutReceived = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchShoutoutReceived, ChannelSession.Settings.AlertTwitchShoutoutReceivedColor, (value) => { ChannelSession.Settings.AlertTwitchShoutoutReceivedColor = value; });
             this.TwitchSuspiciousUserMessage = new GenericToggleColorComboBoxSettingsControlViewModel(MixItUp.Base.Resources.ShowTwitchSuspiciousUserMessage, ChannelSession.Settings.AlertTwitchSuspiciousUserMessageColor, (value) => { ChannelSession.Settings.AlertTwitchSuspiciousUserMessageColor = value; });

@@ -92,10 +92,11 @@ namespace MixItUp.Base.Services.External
         public string name { get; set; }
         [DataMember]
         public string description { get; set; }
+        // Tiltify sends null for both of these on a reward with no quantity limit
         [DataMember]
-        public int quantity { get; set; }
+        public int? quantity { get; set; }
         [DataMember]
-        public int quantity_remaining { get; set; }
+        public int? quantity_remaining { get; set; }
         [DataMember]
         public bool active { get; set; }
         [DataMember]
@@ -489,7 +490,16 @@ namespace MixItUp.Base.Services.External
                         {
                             foreach (JToken token in (JArray)result["data"])
                             {
-                                results.Add(token.ToObject<T>());
+                                try
+                                {
+                                    results.Add(token.ToObject<T>());
+                                }
+                                catch (Exception ex)
+                                {
+                                    // One record we cannot read must not throw away the ones we can,
+                                    // nor stop the remaining pages from being fetched
+                                    Logger.Log(ex);
+                                }
                             }
                         }
 

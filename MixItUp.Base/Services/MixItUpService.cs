@@ -1,4 +1,4 @@
-using MixItUp.Base.Model;
+﻿using MixItUp.Base.Model;
 using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.API;
 using MixItUp.Base.Model.API.Files.V2;
@@ -13,6 +13,7 @@ using MixItUp.Base.Services.YouTube;
 using MixItUp.Base.Services.YouTube.New;
 using MixItUp.Base.Services.Kick.New;
 using MixItUp.Base.Services.Velora.New;
+using MixItUp.Base.Services.VPZone.New;
 using MixItUp.Base.Util;
 using MixItUp.Base.Web;
 using Newtonsoft.Json.Linq;
@@ -621,6 +622,25 @@ namespace MixItUp.Base.Services
                         // Velora inbound events are handled client-direct over the Chat + Events WebSockets
                         // (VeloraChatSocketClient / VeloraEventSocketClient), so there is no "VeloraWebhookEvent"
                         // relay listener here. The DesktopAPI relay route still exists but is no longer consumed.
+
+                        // VPZone's chat gateway carries the whole event catalog client-direct, so this
+                        // listener stays dormant. The only event the relay would add is a subscription
+                        // cancellation, which Mix It Up does not surface. The DesktopAPI relay route and
+                        // the registration client on VPZoneSession are both still in place for whenever
+                        // VPZone's event catalog grows past what the gateway carries.
+                        //this.webhookHubConnection.Listen<string, JObject, JObject>("VPZoneWebhookEvent", (eventType, payload, metadataObject) =>
+                        //{
+                        //    try
+                        //    {
+                        //        Logger.Log(LogLevel.Debug, $"VPZone Webhook Event Received - EventType: {eventType} - Payload: {payload?.ToString(Newtonsoft.Json.Formatting.None)}");
+                        //
+                        //        var _ = ServiceManager.Get<VPZoneSession>().Client.HandleWebhookEvent(eventType, payload);
+                        //    }
+                        //    catch (Exception ex)
+                        //    {
+                        //        Logger.Log(ex);
+                        //    }
+                        //});
                     }
 
                     this.webhookHubConnection.Connected -= WebhookHubConnection_Connected;
@@ -900,6 +920,10 @@ namespace MixItUp.Base.Services
             {
                 login.VeloraAccessToken = ServiceManager.Get<VeloraSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
             }
+            if (ServiceManager.Get<VPZoneSession>().IsConnected)
+            {
+                login.VPZoneAccessToken = ServiceManager.Get<VPZoneSession>()?.StreamerService?.GetOAuthTokenCopy()?.accessToken;
+            }
             return login;
         }
 
@@ -1169,6 +1193,50 @@ namespace MixItUp.Base.Services
             return new List<PatreonMemberV2Model>();
         }
 
+        /// <summary>
+        /// The Desktop API address VPZone posts its webhook deliveries to. The relay verifies the
+        /// signature and forwards the delivery down the webhook hub, so nothing has to be exposed on
+        /// the streamer's own machine.
+        /// </summary>
+        public string GetVPZoneWebhookCallbackURL(string channelSlug)
+        {
+            if (string.IsNullOrWhiteSpace(channelSlug))
+            {
+                return null;
+            }
+            return $"{MixItUpAPIEndpoint}vpzone/webhooks/callback/{AdvancedHttpClient.URLEncodeString(channelSlug)}";
+        }
+
+        /// <summary>
+        /// Hands the relay the signing secret VPZone issued for this registration. VPZone generates
+        /// the secret itself and returns it only once, at creation, so the relay cannot obtain it any
+        /// other way and cannot verify a delivery without it.
+        /// </summary>
+        public async Task<bool> RegisterVPZoneWebhookSecret(string channelSlug, string secret)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(channelSlug) || string.IsNullOrWhiteSpace(secret))
+                {
+                    return false;
+                }
+
+                await EnsureLogin();
+
+                JObject body = new JObject();
+                body["channelSlug"] = channelSlug;
+                body["secret"] = secret;
+
+                HttpResponseMessage response = await this.PostAsync("v2/vpzone/webhooks/secret", AdvancedHttpClient.CreateContentFromObject(body));
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            return false;
+        }
+
         public async Task RecordClientSession()
         {
             try
@@ -1181,6 +1249,7 @@ namespace MixItUp.Base.Services
                 body["hasYouTube"] = ServiceManager.Get<YouTubeSession>().IsConnected;
                 body["hasKick"] = ServiceManager.Get<KickSession>().IsConnected;
                 body["hasVelora"] = ServiceManager.Get<VeloraSession>().IsConnected;
+                body["hasVPZone"] = ServiceManager.Get<VPZoneSession>().IsConnected;
                 body["version"] = VersionHelper.GetFullVersionString();
                 body["release"] = BuildChannelHelper.GetReleaseChannel();
 

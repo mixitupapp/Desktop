@@ -1,4 +1,4 @@
-using MixItUp.Base.Model.Actions;
+﻿using MixItUp.Base.Model.Actions;
 using MixItUp.Base.Model.Commands;
 using MixItUp.Base.Model.Webhooks;
 using MixItUp.Base.Services;
@@ -107,6 +107,10 @@ namespace MixItUp.WPF.Windows.Commands
                     this.editorDetailsControl = new VeloraChannelPointsCommandEditorDetailsControl();
                     this.viewModel = new VeloraChannelPointsCommandEditorWindowViewModel((VeloraChannelPointsCommandModel)existingCommand);
                     break;
+                case CommandTypeEnum.VPZoneChannelPoints:
+                    this.editorDetailsControl = new VPZoneChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new VPZoneChannelPointsCommandEditorWindowViewModel((VPZoneChannelPointsCommandModel)existingCommand);
+                    break;
             }
 
             this.importedActions = actions;
@@ -165,6 +169,10 @@ namespace MixItUp.WPF.Windows.Commands
                 case CommandTypeEnum.VeloraChannelPoints:
                     this.editorDetailsControl = new VeloraChannelPointsCommandEditorDetailsControl();
                     this.viewModel = new VeloraChannelPointsCommandEditorWindowViewModel();
+                    break;
+                case CommandTypeEnum.VPZoneChannelPoints:
+                    this.editorDetailsControl = new VPZoneChannelPointsCommandEditorDetailsControl();
+                    this.viewModel = new VPZoneChannelPointsCommandEditorWindowViewModel();
                     break;
                 case CommandTypeEnum.Custom:
                     this.editorDetailsControl = new CustomCommandEditorDetailsControl();

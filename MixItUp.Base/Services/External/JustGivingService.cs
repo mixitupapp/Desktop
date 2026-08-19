@@ -93,13 +93,27 @@ namespace MixItUp.Base.Services.External
         {
             get
             {
+                // Dates arrive as /Date(<unix ms>[+-]<hhmm>)/. The offset is optional and is already baked
+                // into the epoch value, so only the milliseconds are worth reading.
                 if (!string.IsNullOrEmpty(this.donationDate))
                 {
-                    string date = this.donationDate.Replace("/Date(", string.Empty);
-                    date = date.Replace(")/", string.Empty);
-                    if (long.TryParse(date, out long dateLong))
+                    int start = this.donationDate.IndexOf('(');
+                    int end = this.donationDate.LastIndexOf(')');
+                    if (start >= 0 && end > start)
                     {
-                        return DateTimeOffset.FromUnixTimeMilliseconds(dateLong);
+                        string date = this.donationDate.Substring(start + 1, end - start - 1);
+
+                        // Start past the first character so a negative epoch is not read as the offset
+                        int offsetIndex = date.IndexOfAny(new char[] { '+', '-' }, 1);
+                        if (offsetIndex > 0)
+                        {
+                            date = date.Substring(0, offsetIndex);
+                        }
+
+                        if (long.TryParse(date, NumberStyles.Integer, CultureInfo.InvariantCulture, out long dateLong))
+                        {
+                            return DateTimeOffset.FromUnixTimeMilliseconds(dateLong);
+                        }
                     }
                 }
                 return DateTimeOffset.MinValue;
@@ -132,6 +146,13 @@ namespace MixItUp.Base.Services.External
 
         private const string ClientID = "1e30b383";
 
+        // The API addresses a page as {prefix}/{pageShortName}, where the prefix is the segment out of the
+        // page URL: "fundraising" for classic pages, "page" for the ones the 2024 redesign introduced.
+        // Only the prefixed form resolves a redesigned page, so everything goes through it.
+        public const string DefaultPagePrefix = "fundraising";
+
+        private static readonly string[] PagePathPrefixes = new string[] { "fundraising", "page" };
+
         public string Name { get { return MixItUp.Base.Resources.JustGiving; } }
         public bool IsConnected { get; private set; }
 
@@ -140,11 +161,99 @@ namespace MixItUp.Base.Services.External
 
         private Dictionary<uint, JustGivingDonation> donationsReceived = new Dictionary<uint, JustGivingDonation>();
 
+        private string pageReference;
+
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         private DateTimeOffset startTime;
 
         public JustGivingService() { }
+
+        /// <summary>
+        /// Reduces a fundraising page URL down to the "{prefix}/{pageShortName}" reference the API expects.
+        /// Accepts a bare short name or a full URL in any of the supported formats, with or without scheme,
+        /// www, query, or fragment. Returns null when nothing usable can be pulled out of the input.
+        /// </summary>
+        public static string ParsePageReference(string webPageURL)
+        {
+            if (string.IsNullOrWhiteSpace(webPageURL))
+            {
+                return null;
+            }
+
+            string path = webPageURL.Trim();
+
+            int fragmentIndex = path.IndexOf('#');
+            if (fragmentIndex >= 0)
+            {
+                path = path.Substring(0, fragmentIndex);
+            }
+
+            int queryIndex = path.IndexOf('?');
+            if (queryIndex >= 0)
+            {
+                path = path.Substring(0, queryIndex);
+            }
+
+            int schemeIndex = path.IndexOf("://", StringComparison.OrdinalIgnoreCase);
+            if (schemeIndex >= 0)
+            {
+                path = path.Substring(schemeIndex + 3);
+            }
+
+            // Only drop the first segment when it actually looks like the host, so a typed short name survives
+            int hostIndex = path.IndexOf('/');
+            if (hostIndex >= 0 && path.Substring(0, hostIndex).IndexOf("justgiving.com", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                path = path.Substring(hostIndex + 1);
+            }
+
+            string[] segments = path.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (segments.Length == 0)
+            {
+                return null;
+            }
+
+            // A bare short name came from a classic vanity URL, so it keeps the classic prefix
+            string prefix = JustGivingService.DefaultPagePrefix;
+            string shortName = segments[0];
+
+            foreach (string knownPrefix in JustGivingService.PagePathPrefixes)
+            {
+                if (string.Equals(segments[0], knownPrefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    if (segments.Length < 2)
+                    {
+                        return null;
+                    }
+                    prefix = knownPrefix;
+                    shortName = segments[1];
+                    break;
+                }
+            }
+
+            return !string.IsNullOrWhiteSpace(shortName) ? $"{prefix}/{shortName}" : null;
+        }
+
+        /// <summary>
+        /// Brings a stored reference up to the prefixed form. Settings written before prefix support hold a
+        /// bare short name, which could only ever have been a classic page.
+        /// </summary>
+        public static string NormalizePageReference(string pageReference)
+        {
+            if (string.IsNullOrWhiteSpace(pageReference))
+            {
+                return null;
+            }
+            return pageReference.Contains("/") ? pageReference : $"{JustGivingService.DefaultPagePrefix}/{pageReference}";
+        }
+
+        private static string BuildPagePath(string pageReference)
+        {
+            string reference = JustGivingService.NormalizePageReference(pageReference);
+            int separatorIndex = reference.IndexOf('/');
+            return $"{Uri.EscapeDataString(reference.Substring(0, separatorIndex))}/{Uri.EscapeDataString(reference.Substring(separatorIndex + 1))}";
+        }
 
         public async Task<Result> Connect()
         {
@@ -152,7 +261,8 @@ namespace MixItUp.Base.Services.External
             {
                 if (!string.IsNullOrEmpty(ChannelSession.Settings.JustGivingPageShortName))
                 {
-                    this.Fundraiser = await this.GetFundraiser(ChannelSession.Settings.JustGivingPageShortName);
+                    this.pageReference = JustGivingService.NormalizePageReference(ChannelSession.Settings.JustGivingPageShortName);
+                    this.Fundraiser = await this.GetFundraiser(this.pageReference);
                     if (this.Fundraiser != null)
                     {
                         this.cancellationTokenSource = new CancellationTokenSource();
@@ -180,6 +290,7 @@ namespace MixItUp.Base.Services.External
         public Task Disconnect()
         {
             this.Fundraiser = null;
+            this.pageReference = null;
             if (this.cancellationTokenSource != null)
             {
                 this.cancellationTokenSource.Cancel();
@@ -189,13 +300,13 @@ namespace MixItUp.Base.Services.External
             return Task.CompletedTask;
         }
 
-        public async Task<JustGivingFundraiser> GetFundraiser(string pageShortName)
+        public async Task<JustGivingFundraiser> GetFundraiser(string pageReference)
         {
             try
             {
                 using (AdvancedHttpClient client = this.GetHttpClient())
                 {
-                    return await client.GetAsync<JustGivingFundraiser>($"fundraising/pages/{pageShortName}");
+                    return await client.GetAsync<JustGivingFundraiser>($"fundraising/pages/{JustGivingService.BuildPagePath(pageReference)}");
                 }
             }
             catch (Exception ex)
@@ -205,13 +316,13 @@ namespace MixItUp.Base.Services.External
             return null;
         }
 
-        public async Task<IEnumerable<JustGivingDonation>> GetRecentDonations(JustGivingFundraiser fundraiser)
+        public async Task<IEnumerable<JustGivingDonation>> GetRecentDonations(string pageReference)
         {
             try
             {
                 using (AdvancedHttpClient client = this.GetHttpClient())
                 {
-                    JustGivingDonationGroup group = await client.GetAsync<JustGivingDonationGroup>($"fundraising/pages/{fundraiser.pageShortName}/donations");
+                    JustGivingDonationGroup group = await client.GetAsync<JustGivingDonationGroup>($"fundraising/pages/{JustGivingService.BuildPagePath(pageReference)}/donations");
                     if (group != null && group.donations != null)
                     {
                         return group.donations;
@@ -227,9 +338,16 @@ namespace MixItUp.Base.Services.External
 
         private AdvancedHttpClient GetHttpClient()
         {
+            string applicationKey = ServiceManager.Get<SecretsService>().GetSecret("JustGivingSecret");
+            if (string.IsNullOrEmpty(applicationKey))
+            {
+                // Without this the API answers every call with appIdUnauthorized, which surfaces as a generic connect failure
+                Logger.Log(LogLevel.Error, "JustGiving application key is not available, all requests will be rejected");
+            }
+
             AdvancedHttpClient client = new AdvancedHttpClient(JustGivingService.BaseAddress);
             client.DefaultRequestHeaders.Add("x-app-id", JustGivingService.ClientID);
-            client.DefaultRequestHeaders.Add("x-application-key", ServiceManager.Get<SecretsService>().GetSecret("JustGivingSecret"));
+            client.DefaultRequestHeaders.Add("x-application-key", applicationKey);
             return client;
         }
 
@@ -239,7 +357,7 @@ namespace MixItUp.Base.Services.External
             {
                 if (this.Fundraiser != null)
                 {
-                    foreach (JustGivingDonation jgDonation in await this.GetRecentDonations(this.Fundraiser))
+                    foreach (JustGivingDonation jgDonation in await this.GetRecentDonations(this.pageReference))
                     {
                         if (!donationsReceived.ContainsKey(jgDonation.id))
                         {

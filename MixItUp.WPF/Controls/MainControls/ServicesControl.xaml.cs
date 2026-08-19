@@ -46,6 +46,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new PixelChatServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PolyPopServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new PulsoidServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new RahiTuberServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new RainmakerServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new SAMMIServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new StreamAvatarsServiceControl()));
@@ -69,6 +70,7 @@ namespace MixItUp.WPF.Controls.MainControls
             services.Add(new ServiceContainerControl(this.Window, new TipeeeStreamServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TITSServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new TreatStreamServiceControl()));
+            services.Add(new ServiceContainerControl(this.Window, new VConnectServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VeadotubeServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VoicemodServiceControl()));
             services.Add(new ServiceContainerControl(this.Window, new VTSPogServiceControl()));

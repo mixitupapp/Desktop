@@ -1,4 +1,4 @@
-using MixItUp.Base;
+﻿using MixItUp.Base;
 using MixItUp.Base.Model;
 using MixItUp.Base.Model.User;
 using MixItUp.Base.Services;
@@ -21,7 +21,7 @@ namespace MixItUp.WPF.Services.MCP.Tools
         [McpServerTool(Name = "get_user", ReadOnly = true, OpenWorld = true, UseStructuredContent = true)]
         [Description("Look up a viewer by their username or platform ID on a specific platform. Returns their stored watch time, currency balances, inventory holdings and per-platform identities. If the viewer is not already known locally, the platform is searched for them.")]
         public static Task<UserResult> GetUser(
-            [Description("The platform to search on, for example Twitch, YouTube, Kick, or Velora.")] string platform,
+            [Description("The platform to search on, for example Twitch, YouTube, Kick, Velora, or VPZone.")] string platform,
             [Description("The username or platform ID of the viewer.")] string usernameOrId)
         {
             return ToolHelpers.RunWithTimeout("get_user", async () =>

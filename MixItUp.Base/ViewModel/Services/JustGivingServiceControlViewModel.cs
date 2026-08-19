@@ -41,18 +41,9 @@ namespace MixItUp.Base.ViewModel.Services
         {
             this.LogInCommand = this.CreateCommand(async () =>
             {
-                ChannelSession.Settings.JustGivingPageShortName = null;
-                if (!string.IsNullOrEmpty(this.WebPageURL))
+                ChannelSession.Settings.JustGivingPageShortName = JustGivingService.ParsePageReference(this.WebPageURL);
+                if (!string.IsNullOrEmpty(ChannelSession.Settings.JustGivingPageShortName))
                 {
-                    ChannelSession.Settings.JustGivingPageShortName = this.WebPageURL;
-                    ChannelSession.Settings.JustGivingPageShortName = ChannelSession.Settings.JustGivingPageShortName.Replace("https://www.justgiving.com/", string.Empty);
-                    ChannelSession.Settings.JustGivingPageShortName = ChannelSession.Settings.JustGivingPageShortName.Replace("https://www.justgiving.com/fundraising/", string.Empty);
-                    int urlParametersIndex = ChannelSession.Settings.JustGivingPageShortName.IndexOf("?");
-                    if (urlParametersIndex > 0)
-                    {
-                        ChannelSession.Settings.JustGivingPageShortName = ChannelSession.Settings.JustGivingPageShortName.Substring(0, urlParametersIndex);
-                    }
-
                     Result result = await ServiceManager.Get<JustGivingService>().Connect();
                     if (result.Success)
                     {
